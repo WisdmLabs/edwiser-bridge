@@ -30,7 +30,7 @@ class EbAdminMenus
         // Add menus
         add_action('admin_menu', array( $this, 'adminMenu' ), 9);
         add_action('admin_menu', array( $this, 'settingsMenu' ), 10);
-        add_action('admin_menu', array( $this, 'settingsMenu' ), 10);
+        add_action('admin_menu', array( $this, 'extensionsMenu' ), 10);
         add_action('admin_menu', array( $this, 'helpMenu' ), 10);
         add_action('parent_file', array( $this, 'addMenuPageTaxonomyFix' ), 10);
 
@@ -140,7 +140,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function settingsMenu()
+    public function extensionsMenu()
     {
         $extensionsPage = add_submenu_page(
             'edwiserbridge_lms',
