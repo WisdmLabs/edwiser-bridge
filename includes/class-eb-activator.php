@@ -12,14 +12,15 @@
  * @subpackage Edwiser Bridge/includes
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-class EB_Activator {
-
+class EB_Activator
+{
     /**
      * activation function
      *
      * @since    1.0.0
      */
-    public static function activate() {
+    public static function activate()
+    {
 
         // create database tables
         self::create_moodle_db_tables();
@@ -31,7 +32,7 @@ class EB_Activator {
         self::create_pages();
 
         // redirect to welcome screen
-        set_transient( '_eb_activation_redirect', 1, 30 );
+        set_transient('_eb_activation_redirect', 1, 30);
     }
 
     /**
@@ -39,7 +40,8 @@ class EB_Activator {
      *
      * @since    1.0.0
      */
-    public static function create_moodle_db_tables() {
+    public static function create_moodle_db_tables()
+    {
         global $wpdb;
 
         $charset_collate       = $wpdb->get_charset_collate();
@@ -55,7 +57,7 @@ class EB_Activator {
         ) $charset_collate;";
 
         require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta( $enrollment_table );
+        dbDelta($enrollment_table);
     }
 
     /**
@@ -63,7 +65,8 @@ class EB_Activator {
      *
      * @since  1.0.0
      */
-    private static function create_files() {
+    private static function create_files()
+    {
         // Install files and folders for uploading files and prevent hotlinking
         $upload_dir =  wp_upload_dir();
 
@@ -75,11 +78,11 @@ class EB_Activator {
             )
         );
 
-        foreach ( $files as $file ) {
-            if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
-                if ( $file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' ) ) {
-                    fwrite( $file_handle, $file['content'] );
-                    fclose( $file_handle );
+        foreach ($files as $file) {
+            if (wp_mkdir_p($file['base']) && ! file_exists(trailingslashit($file['base']) . $file['file'])) {
+                if ($file_handle = @fopen(trailingslashit($file['base']) . $file['file'], 'w')) {
+                    fwrite($file_handle, $file['content']);
+                    fclose($file_handle);
                 }
             }
         }
@@ -92,30 +95,29 @@ class EB_Activator {
      *
      *  @since  1.0.0
      */
-    public static function create_pages() {
-
+    public static function create_pages()
+    {
         include_once 'eb-core-functions.php';
 
-        $pages = apply_filters( 'eb_create_default_pages', array(
+        $pages = apply_filters('eb_create_default_pages', array(
 
                 'thankyou' => array(
-                    'name'    => _x( 'thank-you-for-purchase', 'Page slug', 'eb-textdomain' ),
-                    'title'   => _x( 'Thank You for Purchase', 'Page title', 'eb-textdomain' ),
+                    'name'    => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
+                    'title'   => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
                     'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
                     'option_key' => ''
                 ),
 
                 'useraccount' => array(
-                    'name'    => _x( 'user-account', 'Page slug', 'eb-textdomain' ),
-                    'title'   => _x( 'User Account', 'Page title', 'eb-textdomain' ),
-                    'content' => '[' . apply_filters( 'eb_user_account_shortcode_tag', 'eb_user_account' ) . ']',
+                    'name'    => _x('user-account', 'Page slug', 'eb-textdomain'),
+                    'title'   => _x('User Account', 'Page title', 'eb-textdomain'),
+                    'content' => '[' . apply_filters('eb_user_account_shortcode_tag', 'eb_user_account') . ']',
                     'option_key' => 'eb_useraccount_page_id'
                 )
-            )
-        );
+            ));
 
-        foreach ( $pages as $key => $page ) {
-            wdm_create_page( esc_sql( $page['name'] ), $page['option_key'], $page['title'], $page['content'] );
+        foreach ($pages as $key => $page) {
+            wdm_create_page(esc_sql($page['name']), $page['option_key'], $page['title'], $page['content']);
         }
     }
 }

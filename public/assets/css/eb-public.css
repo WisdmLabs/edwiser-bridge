@@ -4,22 +4,22 @@
  */
 
 .wdm-flash-error{
-	margin: 5px 0px 15px;
-	background: none repeat scroll 0% 0% #FFF;
-	border-left: 6px solid #FF7979;
-	padding: 10px;
-	font-size: 16px;
+    margin: 5px 0px 15px;
+    background: none repeat scroll 0% 0% #FFF;
+    border-left: 6px solid #FF7979;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .wdm-flash-info{
-	margin: 5px 0px 15px;
-	background: none repeat scroll 0% 0% #FFF;
-	border-left: 6px solid #7AD03A;
-	padding: 10px;
-	font-size: 16px;
+    margin: 5px 0px 15px;
+    background: none repeat scroll 0% 0% #FFF;
+    border-left: 6px solid #7AD03A;
+    padding: 10px;
+    font-size: 16px;
 }
 
-/** 
+/**
  * course archive template style
  */
 

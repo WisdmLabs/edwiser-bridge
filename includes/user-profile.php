@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="eb-edit-profile" >
-			<a href="<?php echo get_edit_user_link( $user->ID ); ?>" class="wdm-btn">Edit Profile</a>
+			<a href="<?php echo get_edit_user_link($user->ID); ?>" class="wdm-btn">Edit Profile</a>
 		</div>
 
 	</section>
@@ -20,18 +20,18 @@
 		<div class="course-heading" ><span>S.No.</span> <span>Enrolled Courses</span></div>
 		<div class="eb-course-data">
 			<?php
-				if( !empty($enrolled_courses) ) {
-					foreach( $enrolled_courses as $key => $course ){
-						echo '<div class="eb-course-section course_'.$course->ID.'">';
-							echo '<div>'.($key+1).'. </div>';
-							echo '<div><a href="'.get_the_permalink($course->ID).'">'.$course->post_title.'</a></div>';
-							echo EB_Payment_Manager::access_course_button( $course->ID );
-						echo '</div>';
-					}
-				} else {
-					echo '<p class="eb-no-course">Looks like you are not enrolled in any course, get your first course <a href="'.site_url("/courses").'">Here</a></p>';
-				}
-			?>
+            if (!empty($enrolled_courses)) {
+                foreach ($enrolled_courses as $key => $course) {
+                    echo '<div class="eb-course-section course_'.$course->ID.'">';
+                    echo '<div>'.($key+1).'. </div>';
+                    echo '<div><a href="'.get_the_permalink($course->ID).'">'.$course->post_title.'</a></div>';
+                    echo EB_Payment_Manager::access_course_button($course->ID);
+                    echo '</div>';
+                }
+            } else {
+                echo '<p class="eb-no-course">Looks like you are not enrolled in any course, get your first course <a href="'.site_url("/courses").'">Here</a></p>';
+            }
+            ?>
 		</div>
 	</section>
 

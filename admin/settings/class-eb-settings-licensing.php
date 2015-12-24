@@ -10,30 +10,29 @@
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-if ( !defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-if ( !class_exists( 'EB_Settings_Licensing' ) ) :
-
+if (!class_exists('EbSettingsLicensing')) :
     /**
-     * EB_Settings_Licensing
+     * EbSettingsLicensing
      */
-    class EB_Settings_Licensing extends EB_Settings_Page {
-
+    class EbSettingsLicensing extends EB_Settings_Page
+    {
         public $addon_licensing;
 
         /**
          * Constructor.
          */
-        public function __construct() {
+        public function __construct()
+        {
             $this->addon_licensing = array( 'test' );
             $this->id              = 'licensing';
-            $this->label           = __( 'Licenses' , 'eb-textdomain' );
+            $this->label           = __('Licenses', 'eb-textdomain');
 
-            add_filter( 'eb_settings_tabs_array' , array( $this , 'add_settings_page' ) , 20 );
-            add_action( 'eb_settings_' . $this->id , array( $this , 'output' ) );
-//		add_action( 'eb_settings_save_' . $this->id, array( $this, 'save' ) );
+            add_filter('eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20);
+            add_action('eb_settings_' . $this->id, array( $this, 'output' ));
         }
 
         /**
@@ -41,14 +40,12 @@ if ( !class_exists( 'EB_Settings_Licensing' ) ) :
          *
          * @since  1.0.0
          */
-        public function output() {
+        public function output()
+        {
             global $current_section;
 
             // Hide the save button
             $GLOBALS[ 'hide_save_button' ] = true;
-//            $this->addon_licensing         = 'This is test message.';
-//            echo '<pre>' . print_r( $this->addon_licensing , 1 ) . '<pre>';
-//            $this->addon_licensing         = apply_filter( 'eb_settings_licensing_management' , $this->addon_licensing );
             include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-licensing.php';
         }
 
@@ -58,25 +55,24 @@ if ( !class_exists( 'EB_Settings_Licensing' ) ) :
          * @since  1.0.0
          * @return array
          */
-        public function get_settings( $current_section = '' ) {
-
-            $settings = apply_filters( 'eb_licensing' , array(
+        public function getSettings($current_section = '')
+        {
+            $settings = apply_filters('eb_licensing', array(
                 array(
-                    'title' => __( 'Licenses' , 'eb-textdomain' ) ,
-                    'type'  => 'title' ,
+                    'title' => __('Licenses', 'eb-textdomain'),
+                    'type'  => 'title',
                     'id'    => 'licensing_management'
-                ) ,
+                ),
                 array(
-                    'type' => 'sectionend' ,
+                    'type' => 'sectionend',
                     'id'   => 'licensing_management'
-                ) ,
-            ) );
+                ),
+            ));
 
-            return apply_filters( 'eb_get_settings_' . $this->id , $settings , $current_section );
+            return apply_filters('eb_get_settings_' . $this->id, $settings, $current_section);
         }
-
     }
 
-    endif;
+endif;
 
-return new EB_Settings_Licensing();
+return new EbSettingsLicensing();

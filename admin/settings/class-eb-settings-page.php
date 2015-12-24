@@ -11,112 +11,118 @@
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+if (! defined('ABSPATH')) {
+    exit; // Exit if accessed directly
 }
 
-if ( ! class_exists( 'EB_Settings_Page' ) ) :
+if (! class_exists('EB_Settings_Page')) :
+    /**
+     * EB_Settings_Page
+     */
+    abstract class EB_Settings_Page
+    {
+        protected $id    = '';
+        protected $label = '';
 
-	/**
-	 * EB_Settings_Page
-	 */
-	abstract class EB_Settings_Page {
+    /**
+     * Constructor
+     */
+        public function __construct()
+        {
+            add_filter('eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20);
+            add_action('eb_sections_' . $this->id, array( $this, 'output_sections' ));
+            add_action('eb_settings_' . $this->id, array( $this, 'output' ));
+            add_action('eb_settings_save_' . $this->id, array( $this, 'save' ));
+        }
 
-	protected $id    = '';
-	protected $label = '';
+    /**
+     * Add this page to settings
+     *
+     * @since  1.0.0
+     */
+        public function add_settings_page($pages)
+        {
+            $pages[ $this->id ] = $this->label;
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-		add_action( 'eb_sections_' . $this->id, array( $this, 'output_sections' ) );
-		add_action( 'eb_settings_' . $this->id, array( $this, 'output' ) );
-		add_action( 'eb_settings_save_' . $this->id, array( $this, 'save' ) );
-	}
+            return $pages;
+        }
 
-	/**
-	 * Add this page to settings
-	 *
-	 * @since  1.0.0
-	 */
-	public function add_settings_page( $pages ) {
-		$pages[ $this->id ] = $this->label;
+    /**
+     * Get settings array
+     *
+     * @since  1.0.0
+     * @return array
+     */
+        public function get_settings()
+        {
+            return apply_filters('eb_get_settings_' . $this->id, array());
+        }
 
-		return $pages;
-	}
+    /**
+     * Get sections
+     *
+     * @since  1.0.0
+     * @return array
+     */
+        public function get_sections()
+        {
+            return apply_filters('eb_get_sections_' . $this->id, array());
+        }
 
-	/**
-	 * Get settings array
-	 *
-	 * @since  1.0.0
-	 * @return array
-	 */
-	public function get_settings() {
-		return apply_filters( 'eb_get_settings_' . $this->id, array() );
-	}
+    /**
+     * Output sections
+     *
+     * @since  1.0.0
+     */
+        public function output_sections()
+        {
+            global $current_section;
 
-	/**
-	 * Get sections
-	 *
-	 * @since  1.0.0
-	 * @return array
-	 */
-	public function get_sections() {
-		return apply_filters( 'eb_get_sections_' . $this->id, array() );
-	}
+            $sections = $this->get_sections();
 
-	/**
-	 * Output sections
-	 *
-	 * @since  1.0.0
-	 */
-	public function output_sections() {
-		global $current_section;
+            if (empty($sections)) {
+                return;
+            }
 
-		$sections = $this->get_sections();
+            echo '<ul class="subsubsub">';
 
-		if ( empty( $sections ) ) {
-			return;
-		}
+            $array_keys = array_keys($sections);
 
-		echo '<ul class="subsubsub">';
+            foreach ($sections as $id => $label) {
+                echo '<li><a href="' . admin_url('admin.php?page=eb-settings&tab=' . $this->id . '&section=' . sanitize_title($id)) . '" class="' . ($current_section == $id ? 'current' : '') . '">' . $label . '</a> ' . (end($array_keys) == $id ? '' : '|') . ' </li>';
+            }
 
-		$array_keys = array_keys( $sections );
+            echo '</ul><br class="clear" />';
+        }
 
-		foreach ( $sections as $id => $label ) {
-			echo '<li><a href="' . admin_url( 'admin.php?page=eb-settings&tab=' . $this->id . '&section=' . sanitize_title( $id ) ) . '" class="' . ( $current_section == $id ? 'current' : '' ) . '">' . $label . '</a> ' . ( end( $array_keys ) == $id ? '' : '|' ) . ' </li>';
-		}
+    /**
+     * Output the settings
+     *
+     * @since  1.0.0
+     */
+        public function output()
+        {
+            $settings = $this->get_settings();
 
-		echo '</ul><br class="clear" />';
-	}
+            EbAdminSettings::outputFields($settings);
+        }
 
-	/**
-	 * Output the settings
-	 *
-	 * @since  1.0.0
-	 */
-	public function output() {
-		$settings = $this->get_settings();
+    /**
+     * Save settings
+     *
+     * @since  1.0.0
+     */
+        public function save()
+        {
+            global $current_section;
 
-		EB_Admin_Settings::output_fields( $settings );
-	}
+            $settings = $this->get_settings();
+            EbAdminSettings::saveFields($settings);
 
-	/**
-	 * Save settings
-	 *
-	 * @since  1.0.0
-	 */
-	public function save() {
-		global $current_section;
-
-		$settings = $this->get_settings();
-		EB_Admin_Settings::save_fields( $settings );
-
-		if ( $current_section ) {
-			do_action( 'eb_update_options_' . $this->id . '_' . $current_section );
-		}
-	}
-}
+            if ($current_section) {
+                do_action('eb_update_options_' . $this->id . '_' . $current_section);
+            }
+        }
+    }
 
 endif;

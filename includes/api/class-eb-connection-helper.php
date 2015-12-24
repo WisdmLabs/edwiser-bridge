@@ -10,7 +10,8 @@
  * @subpackage Edwiser Bridge/includes
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-class EB_Connection_Helper {
+class EB_Connection_Helper
+{
     /**
      * The ID of this plugin.
      *
@@ -47,9 +48,10 @@ class EB_Connection_Helper {
      * @see EB_Connection_Helper()
      * @return EB_Connection_Helper - Main instance
      */
-    public static function instance( $plugin_name, $version ) {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self( $plugin_name, $version );
+    public static function instance($plugin_name, $version)
+    {
+        if (is_null(self::$_instance)) {
+            self::$_instance = new self($plugin_name, $version);
         }
         return self::$_instance;
     }
@@ -59,8 +61,9 @@ class EB_Connection_Helper {
      *
      * @since   1.0.0
      */
-    public function __clone() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+    public function __clone()
+    {
+        _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'eb-textdomain'), '1.0.0');
     }
 
     /**
@@ -68,8 +71,9 @@ class EB_Connection_Helper {
      *
      * @since   1.0.0
      */
-    public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+    public function __wakeup()
+    {
+        _doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'eb-textdomain'), '1.0.0');
     }
 
     /**
@@ -80,7 +84,8 @@ class EB_Connection_Helper {
      * @param string  $version     The version of this plugin.
      *
      */
-    public function __construct( $plugin_name, $version ) {
+    public function __construct($plugin_name, $version)
+    {
         $this->plugin_name = $plugin_name;
         $this->version     = $version;
     }
@@ -91,9 +96,10 @@ class EB_Connection_Helper {
      *
      * @since  1.0.2
      * @param  int     $time seconds before timeout
-     * @return int       
+     * @return int
      */
-    public function connection_timeout_extender( $time ) {
+    public function connection_timeout_extender($time)
+    {
         return 50;
     }
 
@@ -107,7 +113,8 @@ class EB_Connection_Helper {
      *
      * @return array returns array containing the success & response message
      */
-    public function connection_test_helper( $url, $token ) {
+    public function connection_test_helper($url, $token)
+    {
         $success          = 1;
         $response_message = 'success';
 
@@ -117,14 +124,14 @@ class EB_Connection_Helper {
         $request_url = $url . '/webservice/rest/server.php?wstoken=' . $token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
         // $response = wp_remote_post( $request_url, $request_args );
-        $response = wp_remote_post( $request_url );
+        $response = wp_remote_post($request_url);
 
-        if ( is_wp_error( $response ) ) {
+        if (is_wp_error($response)) {
             $success          = 0;
             $response_message = $response->get_error_message();
-        } elseif ( wp_remote_retrieve_response_code( $response ) == 200 || wp_remote_retrieve_response_code( $response ) == 303 ) {
-            $body = json_decode( wp_remote_retrieve_body( $response ) );
-            if ( !empty( $body->exception ) ) {
+        } elseif (wp_remote_retrieve_response_code($response) == 200 || wp_remote_retrieve_response_code($response) == 303) {
+            $body = json_decode(wp_remote_retrieve_body($response));
+            if (!empty($body->exception)) {
                 $success          = 0;
                 $response_message = $body->message;
             }
@@ -148,7 +155,8 @@ class EB_Connection_Helper {
      * @param  string  $webservice_function accepts webservice function as an argument
      * @return array                        returns response to caller function
      */
-    public function connect_moodle_helper( $webservice_function = null ) {
+    public function connect_moodle_helper($webservice_function = null)
+    {
         $success          = 1;
         $response_message = 'success';
         $response_data    = array();
@@ -156,14 +164,14 @@ class EB_Connection_Helper {
         $request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=' . EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
         // $response = wp_remote_post( $request_url, $request_args );
-        $response = wp_remote_post( $request_url );
+        $response = wp_remote_post($request_url);
 
-        if ( is_wp_error( $response ) ) {
+        if (is_wp_error($response)) {
             $success          = 0;
             $response_message = $response->get_error_message();
-        } elseif ( wp_remote_retrieve_response_code( $response ) == 200 || wp_remote_retrieve_response_code( $response ) == 303 ) {
-            $body = json_decode( wp_remote_retrieve_body( $response ) );
-            if ( !empty( $body->exception ) ) {
+        } elseif (wp_remote_retrieve_response_code($response) == 200 || wp_remote_retrieve_response_code($response) == 303) {
+            $body = json_decode(wp_remote_retrieve_body($response));
+            if (!empty($body->exception)) {
                 $success          = 0;
                 //.' - '.isset( $body->debuginfo )?$body->debuginfo:''
                 $response_message = $body->message;
@@ -179,7 +187,8 @@ class EB_Connection_Helper {
         return array( 'success' => $success, 'response_message' => $response_message, 'response_data' => $response_data );
     }
 
-    public function connect_moodle_with_args_helper( $webservice_function, $request_data ) {
+    public function connect_moodle_with_args_helper($webservice_function, $request_data)
+    {
         $success          = 1;
         $response_message = 'success';
         $response_data    = array();
@@ -190,15 +199,15 @@ class EB_Connection_Helper {
             'body' => $request_data
         );
 
-        $response = wp_remote_post( $request_url, $request_args );
-        if ( is_wp_error( $response ) ) {
+        $response = wp_remote_post($request_url, $request_args);
+        if (is_wp_error($response)) {
             $success          = 0;
             $response_message = $response->get_error_message();
-        } elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
-            $body = json_decode( wp_remote_retrieve_body( $response ) );
-            if ( !empty( $body->exception ) ) {
+        } elseif (wp_remote_retrieve_response_code($response) == 200) {
+            $body = json_decode(wp_remote_retrieve_body($response));
+            if (!empty($body->exception)) {
                 $success          = 0;
-                if ( isset( $body->debuginfo ) ) {
+                if (isset($body->debuginfo)) {
                     $response_message = $body->message.' - '.$body->debuginfo;
                 } else {
                     $response_message = $body->message;

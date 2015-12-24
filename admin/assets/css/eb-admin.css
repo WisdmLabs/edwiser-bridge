@@ -55,7 +55,7 @@
     color: #FFF;
     text-decoration: none;
     border: medium none;
-    background: #0091CD none repeat scroll 0% 0%;
+    background: 10091CD none repeat scroll 0% 0%;
     font-weight: 600;
     text-transform: uppercase;
     padding: 15px;
@@ -122,7 +122,7 @@ a.browse-all:hover{
     padding-bottom: 10px;
 }
 .iris-picker {
-	margin: 15px 0 0 -7px;
+    margin: 15px 0 0 -7px;
     z-index: 100;
     position: absolute!important;
     display: none;
@@ -152,51 +152,51 @@ table.form-table th img.help_tip {
 /* loader image for action buttons */
 span.load-response { display:none; }
 span.load-response img{
-	margin: 4px 0 0px 11px;
+    margin: 4px 0 0px 11px;
 }
 
 /* Settings module css for post options */
 span.description-label{
-	position:relative;
-	top:8px;
+    position:relative;
+    top:8px;
 }
 p.description-message span.description-label{
-	position:relative;
-	top:5px;
+    position:relative;
+    top:5px;
 }
 
 li.description-message-error{
-	color:red;
+    color:red;
 }
 
 li.description-message-success{
-	color:green;
+    color:green;
 }
 
 span.description-label img.help-tip{
-	width: 24px;
+    width: 24px;
 }
 
 /* Post type options box css */
 
 div.post-options{
-	overflow:auto;
+    overflow:auto;
 }
 
 .post-options div.field-input-box{
-	clear: both;
-	width: 100%;
-	padding: 5px;
-	min-height:55px;
-	box-sizing:border-box;
+    clear: both;
+    width: 100%;
+    padding: 5px;
+    min-height:55px;
+    box-sizing:border-box;
 }
 
 span.eb-option-label {
-	float: left;
-	/*margin: 0px 0px 10px 5px;*/
-	min-width: 200px;
-	max-width: 300px;
-	width:28%;
+    float: left;
+    /*margin: 0px 0px 10px 5px;*/
+    min-width: 200px;
+    max-width: 300px;
+    width:28%;
 }
 
 span.eb-option-label .field-label {
@@ -207,10 +207,10 @@ span.eb-option-label .field-label {
 }
 
 span.eb-option-input {
-	float: left;
-	width: 68%;
-	margin: 0px;
-	padding: 0 10px 0 10px;
+    float: left;
+    width: 68%;
+    margin: 0px;
+    padding: 0 10px 0 10px;
 }
 
 /*span.eb-option-input .eb-option-div input{
@@ -219,9 +219,9 @@ span.eb-option-input {
 	padding-right:15px;
 }*/
 span.eb-option-input .eb-option-div select{
-	width:25%;
-	height:35px;
-	padding-right:15px;
+    width:25%;
+    height:35px;
+    padding-right:15px;
 }
 
 
@@ -232,34 +232,34 @@ span.eb-option-input .eb-option-div select{
 
 /* Properties for Table Structure*/
 
-.eb_table {   	
-    display: block;   	
-    width: 100%; 
+.eb_table {
+    display: block;
+    width: 100%;
     margin-top: 2em;
-} 
-.eb_table_body, 
-.eb_table_row{   	
+}
+.eb_table_body,
+.eb_table_row{
     clear: both;
     height:auto;
     width:auto;
-} 
+}
 
 .eb_table_cell,
 .eb_table_cell_1,
 .eb_table_cell_2,
 .eb_table_cell_3,
-.eb_table_cell_4{   	
-    /*border: 1px solid #999999;*/   	
-    float: left;   	
-    height: auto;   	
-    overflow: hidden;   	
+.eb_table_cell_4{
+    /*border: 1px solid #999999;*/
+    float: left;
+    height: auto;
+    overflow: hidden;
     width: auto;
     margin: 0.5em;
     vertical-align: central;
 }
 
 .eb_table_cell_1{
-    width:15%; 
+    width:15%;
     font-weight: bold;
     font-size: 1.1em;
 }
@@ -276,13 +276,13 @@ span.eb-option-input .eb-option-div select{
     width: 35%;
 }
 
-.eb_table:after {   	
-    visibility: hidden;   	
-    display: block;   	
-    font-size: 0;   	
-    content: " ";   	
-    clear: both;   	
-    height: auto; 
+.eb_table:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: auto;
 }
 
 /* Properties for Table Structure End*/
