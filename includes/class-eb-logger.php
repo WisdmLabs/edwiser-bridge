@@ -6,27 +6,23 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  *
- * @package    Edwiser Bridge
- * @subpackage Edwiser Bridge/includes
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+namespace app\wisdmlabs\edwiserBridge;
 
-class EB_Logger
+class EBLogger
 {
     /**
-     *
-     *
      * @var array Stores open file _handles.
-     * @access private
      */
-    private $_handles;
+    //private $handles;
 
     /**
      * The ID of this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
+     *
+     * @var string The ID of this plugin.
      */
     private $plugin_name;
 
@@ -34,35 +30,37 @@ class EB_Logger
      * The version of this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
+     *
+     * @var string The current version of this plugin.
      */
     private $version;
 
     /**
-     *
-     *
      * @var EB_Course_Manager The single instance of the class
+     *
      * @since 1.0.0
      */
-    protected static $_instance = null;
+    protected static $instance = null;
 
     /**
-     * Main EB_Logger Instance
+     * Main EBLogger Instance.
      *
-     * Ensures only one instance of EB_Logger is loaded or can be loaded.
+     * Ensures only one instance of EBLogger is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
-     * @see EB_Logger()
-     * @return EB_Logger - Main instance
+     *
+     * @see EBLogger()
+     *
+     * @return EBLogger - Main instance
      */
     public static function instance($plugin_name, $version)
     {
-        if (is_null(self::$_instance)) {
-            self::$_instance = new self($plugin_name, $version);
+        if (is_null(self::$instance)) {
+            self::$instance = new self($plugin_name, $version);
         }
-        return self::$_instance;
+
+        return self::$instance;
     }
 
     /**
@@ -87,24 +85,17 @@ class EB_Logger
 
     /**
      * Constructor for the logger.
-     *
-     * @access public
-     * @return void
      */
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version     = $version;
+        $this->version = $version;
 
         $this->_handles = array();
     }
 
-
     /**
      * Destructor.
-     *
-     * @access public
-     * @return void
      */
     public function __destruct()
     {
@@ -113,12 +104,11 @@ class EB_Logger
         }
     }
 
-
     /**
      * Open log file for writing.
      *
-     * @access private
-     * @param mixed   $handle
+     * @param mixed $handle
+     *
      * @return bool success
      */
     private function open($handle)
@@ -127,37 +117,31 @@ class EB_Logger
             return true;
         }
 
-        if ($this->_handles[ $handle ] = @fopen(wdm_log_file_path($handle), 'a')) {
+        if ($this->_handles[ $handle ] = @fopen(wdmLogFilePath($handle), 'a')) {
             return true;
         }
 
         return false;
     }
 
-
     /**
      * Add a log entry to chosen file.
      *
-     * @access public
-     * @param string  $handle
-     * @param string  $message
-     * @return void
+     * @param string $handle
+     * @param string $message
      */
     public function add($handle, $message)
     {
         if ($this->open($handle) && is_resource($this->_handles[ $handle ])) {
             $time = date_i18n('m-d-Y @ H:i:s -'); // Grab Time
-            @fwrite($this->_handles[ $handle ], $time . " " . $message . "\n");
+            @fwrite($this->_handles[ $handle ], $time.' '.$message."\n");
         }
     }
-
 
     /**
      * Clear entries from chosen file.
      *
-     * @access public
-     * @param mixed   $handle
-     * @return void
+     * @param mixed $handle
      */
     public function clear($handle)
     {

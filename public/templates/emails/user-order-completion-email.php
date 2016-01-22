@@ -1,12 +1,8 @@
 <?php
 /**
- * Order Completion Email Template
- *
- * @package    Edwiser Bridge
- * @subpackage Edwiser Bridge/public/templates/emails
+ * Order Completion Email Template.
  */
-
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
@@ -14,16 +10,16 @@ if (! defined('ABSPATH')) {
 
 <?php do_action('eb_email_header', $args['header']); ?>
 
-<p><?php printf(__("Hi %s", 'eb-textdomain'), $args['first_name']); ?></p>
+<p><?php printf(__('Hi %s', 'eb-textdomain'), $args['first_name']); ?></p>
 
 <p>
 <?php
 printf(
     __(
-        "Thanks for purchasing %s course.",
+        'Thanks for purchasing %s course.',
         'eb-textdomain'
     ),
-    '<strong>'. get_the_title($args['course_id']).'</strong>'
+    '<strong>'.get_the_title($args['course_id']).'</strong>'
 );
 ?>
 </p>
@@ -37,9 +33,9 @@ printf(
         'You can access your account here: <a href="%s">User Account</a>.',
         'eb-textdomain'
     ),
-    wdm_user_account_url()
+    wdmUserAccountUrl()
 );
 ?>
 </p>
 
-<?php do_action('eb_email_footer'); ?>
+<?php do_action('eb_email_footer');

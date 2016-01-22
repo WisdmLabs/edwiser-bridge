@@ -28,7 +28,7 @@
      * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
      * be doing this, we should try to minimize doing that in our own work.
      */
-    
+
     $(window).load(function () {
 
         // Color picker
@@ -66,7 +66,7 @@
                 if (changed) {
                     window.onbeforeunload = function () {
                         return eb_admin_js_object.unsaved_warning;
-                    }
+                    };
                 } else {
                     window.onbeforeunload = '';
                 }
@@ -90,7 +90,7 @@
         jQuery(".parent-tips").each(function () {
             jQuery(this).closest('a, th').attr('data-tip', jQuery(this).data('tip')).tipTip(tiptip_args).css('cursor', 'help');
         });
-    
+
         /**
          * == OhSnap!.js ==
          * A simple notification jQuery/Zepto library designed to be used in mobile apps
@@ -105,7 +105,7 @@
         {
           // text : message to show (HTML tag allowed)
           // Available colors : red, green, blue, orange, yellow --- add your own!
-          
+
           // Set some variables
             var time = '10000';
             var container = jQuery('.response-box');
@@ -115,7 +115,7 @@
 
           // Append the label to the container
             container.append(html);
-          
+
           // after 'time' seconds, the animation fades out
           // setTimeout(function () {
           //   ohSnapX(container.children('.alert'));
@@ -126,7 +126,7 @@
         {
           // Called without argument, the function removes all alerts
           // element must be a jQuery object
-          
+
             if (typeof element !== "undefined" ) {
                 element.fadeOut();
             } else {
@@ -151,7 +151,7 @@
             var token   = $('#eb_access_token').val();
 
             var $this = $(this);
-            
+
             //display loading animation
             $('.load-response').show();
 
@@ -160,7 +160,7 @@
                 url: eb_admin_js_object.ajaxurl,
                 dataType    : "json",
                 data: {
-                    'action'        :'handle_connection_test',
+                    'action'        :'handleConnectionTest',
                     'url'           : url,
                     'token'             : token,
                     '_wpnonce_field': eb_admin_js_object.nonce,
@@ -174,7 +174,7 @@
                 }
             });
         });
-        
+
         /**
          * creates ajax request to initiate course synchronization
          * display a response to user on process completion
@@ -192,7 +192,7 @@
                 var cb_value = (this.checked ? $(this).val() : 0);
                 sync_options[cb_key] = cb_value;
             });
-            
+
             //display loading animation
             $('.load-response').show();
 
@@ -201,7 +201,7 @@
                 url: eb_admin_js_object.ajaxurl,
                 dataType: "json",
                 data: {
-                    'action':'handle_course_synchronization',
+                    'action':'handleCourseSynchronization',
                     //'sync_category' : sync_category,
                     //'make_courses_draft': make_courses_draft,
                     //'update_courses':update_courses,
@@ -209,7 +209,7 @@
                     '_wpnonce_field': eb_admin_js_object.nonce,
                 },
                 success:function ( response ) {
-                    
+
                     $('.load-response').hide();
 
                     //prepare response for user
@@ -262,7 +262,7 @@
                 url: eb_admin_js_object.ajaxurl,
                 dataType: "json",
                 data: {
-                    'action':'handle_user_course_synchronization',
+                    'action':'handleUserCourseSynchronization',
                     'sync_options'      : JSON.stringify(sync_options),
                     '_wpnonce_field': eb_admin_js_object.nonce
                 },
@@ -276,7 +276,7 @@
                                 user_id_error += this;
                             });
                         }
-                        
+
                         if (response.user_with_error !== undefined ) {
                             ohSnap('<p>Error occured for following users: </p>'+user_id_error, 'red');
                         } else {

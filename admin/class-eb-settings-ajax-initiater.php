@@ -10,7 +10,10 @@
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-class EB_Settings_Ajax_Initiater
+
+namespace app\wisdmlabs\edwiserBridge;
+
+class EBSettingsAjaxInitiater
 {
     /**
      * The ID of this plugin.
@@ -19,7 +22,7 @@ class EB_Settings_Ajax_Initiater
      * @access   private
      * @var      string    $plugin_name    The ID of this plugin.
      */
-    private $__plugin_name;
+    private $plugin_name;
 
     /**
      * The version of this plugin.
@@ -28,7 +31,7 @@ class EB_Settings_Ajax_Initiater
      * @access   private
      * @var      string    $version    The current version of this plugin.
      */
-    private $__version;
+    private $version;
 
     public function __construct($plugin_name, $version)
     {
@@ -44,7 +47,7 @@ class EB_Settings_Ajax_Initiater
      *
      * @return
      */
-    public function course_synchronization_initiater()
+    public function courseSynchronizationInitiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -59,7 +62,7 @@ class EB_Settings_Ajax_Initiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         // start working on request
-        $response       = EB()->course_manager()->course_synchronization_handler($sync_options);
+        $response       = edwiserBridgeInstance()->courseManager()->courseSynchronizationHandler($sync_options);
         echo json_encode($response);
         die();
     }
@@ -72,7 +75,7 @@ class EB_Settings_Ajax_Initiater
      *
      * @return
      */
-    public function user_data_synchronization_initiater()
+    public function userDataSynchronizationInitiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -86,8 +89,8 @@ class EB_Settings_Ajax_Initiater
         // get sync options
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
-        //$response = EB()->user_manager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = EB()->user_manager()->user_course_synchronization_handler($sync_options);
+        //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
+        $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options);
 
         echo json_encode($response);
         die();
@@ -96,14 +99,14 @@ class EB_Settings_Ajax_Initiater
     /**
      * Test connection between wordpress and moodle
      *
-     * Calls connection_test_helper() from EB_Connection_Helper class
+     * Calls connection_test_helper() from EBConnectionHelper class
      *
      * @since    1.0.0
      * @access   public
      *
      * @return boolean true on success else false
      */
-    public function connection_test_initiater()
+    public function connectionTestInitiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -118,8 +121,8 @@ class EB_Settings_Ajax_Initiater
         $url   = $_POST['url'];
         $token = $_POST['token'];
 
-        $connection_helper = new EB_Connection_Helper($this->plugin_name, $this->version);
-        $response          = $connection_helper->connection_test_helper($url, $token);
+        $connection_helper = new EBConnectionHelper($this->plugin_name, $this->version);
+        $response          = $connection_helper->connectionTestHelper($url, $token);
 
         echo json_encode($response);
         die();

@@ -4,7 +4,7 @@
  */
 
 .wdm-flash-error{
-    margin: 5px 0px 15px;
+    margin: 5px 0 15px;
     background: none repeat scroll 0% 0% #FFF;
     border-left: 6px solid #FF7979;
     padding: 10px;
@@ -12,7 +12,7 @@
 }
 
 .wdm-flash-info{
-    margin: 5px 0px 15px;
+    margin: 5px 0 15px;
     background: none repeat scroll 0% 0% #FFF;
     border-left: 6px solid #7AD03A;
     padding: 10px;
@@ -25,14 +25,14 @@
 
 .hentry.wdm-col-3-2-1 {
     float: left;
-    margin: 15px 0 30px 0;
+    margin: 15px 0 30 0;
     padding: 0 15px;
     width: 25%;
 }
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
     clear: left;
 }
-@media ( max-width: 991px ) {
+@media (max-width: 991px ) {
     .hentry.wdm-col-3-2-1 {
         width: 50%;
     }
@@ -43,7 +43,7 @@
         clear: left;
     }
 }
-@media ( max-width: 767px ) {
+@media (max-width: 767px ) {
     .hentry.wdm-col-3-2-1 {
         clear: both;
         float: none;
@@ -71,7 +71,7 @@
     padding: 3px 10px;
     position: absolute;
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-    top: 10px;
+    top: 10;
     z-index: 2;
 }
 .wdm-course-grid .wdm-price::before {
@@ -102,7 +102,7 @@
 }
 
 p.read-more{
-    margin-top:10px;
+    margin-top:10;
     text-transform: uppercase;
     text-align: center;
 }
@@ -117,14 +117,12 @@ p.read-more{
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  text-decoration: none;
   font-weight: 600;
   background-color: #333!important;
   color: #fff;
   cursor: pointer;
   font-family: "Noto Sans", sans-serif;
   font-size: 1.1rem;
-  font-weight: 600;
   padding: 0.4017em 0.503em;
   text-transform: uppercase;
   text-decoration: none!important;

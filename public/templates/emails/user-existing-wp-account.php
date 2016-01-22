@@ -16,8 +16,15 @@ if (! defined('ABSPATH')) {
 
 <p><?php printf(__("Hi %s", 'eb-textdomain'), $args['first_name']); ?></p>
 
-<p><?php printf(__("A learning account is linked to your profile.
-Use creadentials given below while accessing your courses.", 'eb-textdomain')); ?></p>
+<p>
+<?php printf(
+    __(
+        "A learning account is linked to your profile.
+        Use creadentials given below while accessing your courses.",
+        'eb-textdomain'
+    )
+); ?>
+</p>
 
 <p><?php printf(__("Username: <strong>%s</strong>", 'eb-textdomain'), $args['username']); ?></p>
 
@@ -33,4 +40,4 @@ Use creadentials given below while accessing your courses.", 'eb-textdomain')); 
 ); ?>
 </p>
 
-<?php do_action('eb_email_footer'); ?>
+<?php do_action('eb_email_footer');

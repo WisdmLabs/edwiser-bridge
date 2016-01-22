@@ -3,10 +3,13 @@
 /*
 Code included from the Enhanced Paypal Shortcodes plugin.
 http://thewpwarrior.com/wordpress-plugin-enhanced-paypal-shortcodes/
-Use shortcodes to easily embed a fully functional paypal button on your wordpress website. 
-Can be used for Buy Now and Subscription buttons. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXBKBP7Q5FSGC" target="_blank">Make a Donation</a>. 
+Use shortcodes to easily embed a fully functional paypal button on your wordpress website.
+Can be used for Buy Now and Subscription buttons.
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXBKBP7Q5FSGC"
+target="_blank">Make a Donation</a>.
 
-Designed with using iDevAffiliate or JROX Jam affiliate management programs which require additional code added to the button.
+Designed with using iDevAffiliate or JROX Jam affiliate management programs which require additional
+code added to the button.
 This plugin was inspired by Paypal Shortcodes by Pixline.
 
 By Charly Leetham, version: 0.5a
@@ -41,7 +44,8 @@ For Hosted Buttons:
 buttonid = the button id number from your paypal code
 
 For All Button Types:
-imageurl = The location of the image for the button. Use full web address for the image - e.g http://domainname.com/mybuynowbutton.jpg.
+imageurl = The location of the image for the button.
+Use full web address for the image - e.g http://domainname.com/mybuynowbutton.jpg.
 Default is https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif
 
 imagewidth = the width of the paypal image
@@ -56,7 +60,7 @@ name = Description of product / service
 
 noshipping = Prompt for Shipping address
       0 is prompt, but don't require
-      1 is don't prompt 
+      1 is don't prompt
       2 is prompt and require the shipping address
       defaults to 0
 
@@ -86,36 +90,50 @@ currencycode = The currency for the transaction
       U.S. Dollar USD
       Default is USD
 
-rm = The return method. This will only work if returnurl is also set. This variable is often required by membership type software
+rm = The return method. This will only work if returnurl is also set.
+This variable is often required by membership type software
 0 – all shopping cart transactions use the GET method
-1 – the payer’s browser is redirected to the return URL by the GET method, and no transaction variables are sent
-2 – the payer’s browser is redirected to the return URL by the POST method, and all transaction variables are also posted 
+1 – the payer’s browser is redirected to the return URL by the GET method,
+and no transaction variables are sent
+2 – the payer’s browser is redirected to the return URL by the POST method,
+and all transaction variables are also posted
 The default is 0.
 
 notifyurl = The URL to send payment advice too. Often required for IPN or other notifications
 If this parameter is not used, no notifyurl value is added to the button
 
-returnurl = The URL to which the payer’s browser is redirected after completing the payment; for example, a URL on your site that displays a “Thank you for your payment” page.
+returnurl = The URL to which the payer’s browser is redirected after completing the payment;
+for example, a URL on your site that displays a “Thank you for your payment” page.
 Default – The browser is redirected to a PayPal web page.
 
-cancelurl = The URL to which the payer’s browser is redirected if the purchaser cancels the payment transaction before completing the process
+cancelurl = The URL to which the payer’s browser is redirected
+if the purchaser cancels the payment transaction before completing the process
 
-scriptcode = the link to any script code that you may need to include.  e.g For Jrox JAM, some script code is added to the paypal buttons. Usage /foldername/scriptcode.php
+scriptcode = the link to any script code that you may need to include.
+e.g For Jrox JAM, some script code is added to the paypal buttons. Usage /foldername/scriptcode.php
 If this parameter is not used, no notifyurl value is added to the button
 
 pagestyle = The custom payment page style for checkout pages. Allowable values:
 paypal – use the PayPal page style
 primary – use the page style that you marked as primary in your account profile
 page_style_name – use the custom payment page style from your account profile that has the specified name
-The default is primary if you added a custom payment page style to your account profile. Otherwise, the default is paypal.
+The default is primary if you added a custom payment page style to your account profile.
+Otherwise, the default is paypal.
 
-cbt = Sets the text for the Return to Merchant button on the PayPal Payment Complete page. For Business accounts, the return button displays your business name in place of the word “Merchant” by default. For Donate buttons, the text reads “Return to donations coordinator” by default. 
+cbt = Sets the text for the Return to Merchant button on the PayPal Payment Complete page.
+For Business accounts, the return button displays your business name in place of
+the word “Merchant” by default. For Donate buttons,
+the text reads “Return to donations coordinator” by default.
 NOTE: The returnurl variable must also be set.
 
-cn = Label that appears above the note field on the Check Out page. This value is not saved and will not appear in any of your notifications. If omitted, the default label above the note field is "Add special instructions to merchant." The cn variable is not valid with Subscribe buttons or if you include nonote="1".
+cn = Label that appears above the note field on the Check Out page.
+This value is not saved and will not appear in any of your notifications.
+If omitted, the default label above the note field is "Add special instructions to merchant."
+The cn variable is not valid with Subscribe buttons or if you include nonote="1".
 
-lc = Sets the payer’s language for the billing information/log-in page only. 
-The default is US. For allowable values visit: https://cms.paypal.com/au/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_countrycodes
+lc = Sets the payer’s language for the billing information/log-in page only.
+The default is US. For allowable values visit:
+https://cms.paypal.com/au/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_countrycodes
 
 
 Paynow & Add To Cart Button only parameters
@@ -124,14 +142,14 @@ amount = the amount to charge (for Paynow & Add To Cart buttons only)
 
 shipping = the amount of shipping to charge per item
 
-shipping2 = the amount of shipping to charge for each extra item purchased. 
+shipping2 = the amount of shipping to charge for each extra item purchased.
 
 Subscribe Button only parameters
 
 Trial Period 1:
-a1 = The value to charge for the first trial period 
-p1 = The duration of the first trial. 
-t1 = The units of duration. 
+a1 = The value to charge for the first trial period
+p1 = The duration of the first trial.
+t1 = The units of duration.
 
 D for Days, allowable entries for p1: 1 to 90
 W for Weeks, allowable entries for p1: 1 to 52
@@ -139,9 +157,9 @@ M for Months, allowable entries for p1: 1 to 24
 Y for Years, allowable entries for p1: 1 to 5
 
 Trial Period 2:
-a2 = The value to charge for the second trial period 
-p2 = The duration of the second trial. 
-t2 = The units of duration. 
+a2 = The value to charge for the second trial period
+p2 = The duration of the second trial.
+t2 = The units of duration.
 
 D for Days, allowable entries for p2: 1 to 90
 W for Weeks, allowable entries for p2: 1 to 52
@@ -149,25 +167,29 @@ M for Months, allowable entries for p2: 1 to 24
 Y for Years, allowable entries for p2: 1 to 5
 
 The full subscription Payment:
-a3 = The value to charge 
-p3 = The duration between charging 
-t3 = The units of duration. 
+a3 = The value to charge
+p3 = The duration between charging
+t3 = The units of duration.
 
 D for Days, allowable entries for p3: 1 to 90
 W for Weeks, allowable entries for p3: 1 to 52
 M for Months, allowable entries for p3: 1 to 24
 Y for Years, allowable entries for p3: 1 to 5
 
-src = Recurring payments. Subscription payments recur unless subscribers cancel their subscriptions before the end of the current billing cycle or you limit the number of times that payments recur with the value that you specify for srt.
+src = Recurring payments. Subscription payments recur unless subscribers cancel their subscriptions
+before the end of the current billing cycle or you limit the number of times that payments
+recur with the value that you specify for srt.
 Allowable values:
 0 – subscription payments do not recur
 1 – subscription payments recur
 The default is 0.
 
-srt = Recurring times. Number of times that subscription payments recur. Specify an integer above 1. Valid only if you specify src="1".
+srt = Recurring times. Number of times that subscription payments recur.
+Specify an integer above 1. Valid only if you specify src="1".
 Allowable values:an integer above 1.
 
-sra = Reattempt on failure. If a recurring payment fails, PayPal attempts to collect the payment two more times before canceling the subscription.
+sra = Reattempt on failure. If a recurring payment fails,
+PayPal attempts to collect the payment two more times before canceling the subscription.
 Allowable values:
 0 – do not reattempt failed recurring payments
 1 – reattempt failed recurring payments before canceling
@@ -181,7 +203,9 @@ The default value is 0
 
 Add To Cart
 
-display = Display the contents of the PayPal Shopping Cart to the buyer. If set, the shopping cart will be displayed after an item is added.  If not set, the item will be added to the cart only.
+display = Display the contents of the PayPal Shopping Cart to the buyer.
+If set, the shopping cart will be displayed after an item is added.
+If not set, the item will be added to the cart only.
 
 Formatting
 The plugin will wrap the paypal button in a <div> tag.  The formatting options available are:
@@ -200,7 +224,8 @@ left - the div 'floats' on the left
 right - the div 'floats' on the right
 Default - if this value is missing, the div is centered on the page
 
-marginleft = the amount of space between the div and the text to the left of the div (particularly good to use when using float=right)
+marginleft = the amount of space between the div and the text to the left of the div
+(particularly good to use when using float=right)
 Default - if this value is missing, the page format is used
 
 marginright = the amount of space between the div and the text to the right of the div
@@ -216,34 +241,53 @@ Default = 10px;
 Button Formatting:
 
 Image Classes:
-The shortcode will add a 'placeholder' Paypal image that is 1px wide by 1px tall into the button. The code adds a class of "ppalholder" to this image.  This will allow site owners to add the class to their theme styles and remove any borders that cause the image to be 'visible'.
+The shortcode will add a 'placeholder' Paypal image that is 1px wide by 1px tall into the button.
+The code adds a class of "ppalholder" to this image.
+This will allow site owners to add the class to their theme styles and
+remove any borders that cause the image to be 'visible'.
 
 Class added to Buy Now, Add To Cart, Hosted or Subscribe button
-The code will add the class "ppalbtn" to the actual image embedded on the page to allow for more formatting choices.
+The code will add the class "ppalbtn" to the actual image embedded
+on the page to allow for more formatting choices.
 
 Sample Usage:
 
 Buy Now Button:
-[paypal type="paynow" amount="12.99" email="payments@arvoreentreasures.com" itemno="12345657" name="Description" noshipping="1" nonote="1" qty="1" shipping="4.00" shipping2="1.00" currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" rm="2" notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px" pagestyle="paypal" lc="AU" cbt="Complete Your Purchase"]
+[paypal type="paynow" amount="12.99" email="payments@arvoreentreasures.com"
+itemno="12345657" name="Description" noshipping="1" nonote="1" qty="1" shipping="4.00" shipping2="1.00"
+currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" rm="2"
+notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px"
+pagestyle="paypal" lc="AU" cbt="Complete Your Purchase"]
 
 Subscribe Button with 2 trial periods and recurring Monthly payments.
-[paypal type="subscribe" email="payments@arvoreentreasures.com" itemno="12345657" name="Description" noshipping="1" currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" a1="1" p1="7" t1="D" a2="3" p2="1" t3="M" a3="47" p3="1" t3="M" rm="2" notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px" pagestyle="paypal" lc="AU" cbt="Complete Your Purchase"]
+[paypal type="subscribe" email="payments@arvoreentreasures.com" itemno="12345657"
+name="Description" noshipping="1" currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"
+a1="1" p1="7" t1="D" a2="3" p2="1" t3="M" a3="47" p3="1" t3="M" rm="2" notifyurl="http://notifyurl.com"
+returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px" pagestyle="paypal"
+lc="AU" cbt="Complete Your Purchase"]
 
 Hosted Button
 [paypal type="hosted" buttonid="1234456" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"]
 
 Add To Cart Button
-[paypal type="addtocart" amount="1.99" email="payments@arvoreentreasures.com" itemno="12345657" name="Description" noshipping="1" nonote="1" currencycode="USD" imageurl="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif" rm="2" notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" cbt="Return to Me" cancelreturn="http://shoppingcartcancelurl.com" lc="AU" qty="4" shipping="3.00" shipping2="1.50" pagestyle="paypal"]
+[paypal type="addtocart" amount="1.99" email="payments@arvoreentreasures.com" itemno="12345657"
+name="Description" noshipping="1" nonote="1" currencycode="USD"
+imageurl="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif" rm="2" notifyurl="http://notifyurl.com"
+returnurl="http://returnurl.com" scriptcode="scriptcode" cbt="Return to Me"
+cancelreturn="http://shoppingcartcancelurl.com" lc="AU" qty="4" shipping="3.00" shipping2="1.50"
+pagestyle="paypal"]
 
 Adding formatting to Hosted Button
-To use your own custom image hosted on your site, that is 200px wide, center the button in the line and leave 20px space above and 10px space below:
-[paypal type="hosted" buttonid="1234456" imageurl="http://yourdomainname.com/images/buynow.jpg" imagewidth="200px" divwidth="200px" margintop="20px" marginbottom="10px"]
+To use your own custom image hosted on your site, that is 200px wide,
+center the button in the line and leave 20px space above and 10px space below:
+[paypal type="hosted" buttonid="1234456" imageurl="http://yourdomainname.com/images/buynow.jpg"
+imagewidth="200px" divwidth="200px" margintop="20px" marginbottom="10px"]
 
 All formatting options work on three button types.
 */
 
-if (!function_exists('enhanced_paypal_shortcode')) {
-    function enhanced_paypal_shortcode($atts)
+if (!function_exists('enhancedPaypalShortcode')) {
+    function enhancedPaypalShortcode($atts)
     {
         $atts = shortcode_atts(
             array(
@@ -296,39 +340,47 @@ if (!function_exists('enhanced_paypal_shortcode')) {
             ),
             $atts
         );
-    
-        $user_id = get_current_user_id();
-/*	$eb_plus_paypal_settings = get_option( 'eb_plus_paypal_settings' );
-    $paypal_email =  isset($eb_plus_paypal_settings['paypal_email'])? $eb_plus_paypal_settings['paypal_email']:"";
-    $paypal_currency =  isset($eb_plus_paypal_settings['paypal_currency'])? $eb_plus_paypal_settings['paypal_currency']:"USD";
-    $paypal_country =  isset($eb_plus_paypal_settings['paypal_country'])? $eb_plus_paypal_settings['paypal_country']:"US";
-    $paypal_cancel_url =  isset($eb_plus_paypal_settings['paypal_cancel_url'])? $eb_plus_paypal_settings['paypal_cancel_url']:get_bloginfo('wpurl');
-    $paypal_return_url =  isset($eb_plus_paypal_settings['paypal_return_url'])? $eb_plus_paypal_settings['paypal_return_url']:get_bloginfo('wpurl');
-    $paypal_notify_url =  isset($eb_plus_paypal_settings['paypal_notify_url'])? $eb_plus_paypal_settings['paypal_notify_url']:get_bloginfo('wpurl')."/?ldp-paypal-ipn=1";
-    $paypal_sandbox =  isset($eb_plus_paypal_settings['paypal_sandbox'])? $eb_plus_paypal_settings['paypal_sandbox']:"";
-    
-    if(empty($atts['email']))
-        $atts['email'] = $paypal_email;
-    if(empty($atts['notifyurl']))
-        $atts['notifyurl'] = $paypal_notify_url;
-    if(empty($atts['returnurl']))
-        $atts['returnurl'] = $paypal_return_url;		
-    if(empty($atts['cancelurl']))
-        $atts['cancelurl'] = $paypal_cancel_url;		
-    if($atts['sandbox'] == '')
-        $atts['sandbox'] = $paypal_sandbox;		
-    if($atts['currencycode'] == '')
-        $atts['currencycode'] = $paypal_currency;		
-    if($atts['lc'] == '')
-        $atts['lc'] = $paypal_country;	
-*/
-        switch ($atts['type']) :
+
+        //$user_id = get_current_user_id();
+        /*$eb_plus_paypal_settings = get_option( 'eb_plus_paypal_settings' );
+        $paypal_email =  isset($eb_plus_paypal_settings['paypal_email'])? $eb_plus_paypal_settings['paypal_email']:"";
+        $paypal_currency =  isset($eb_plus_paypal_settings['paypal_currency'])?
+            $eb_plus_paypal_settings['paypal_currency']:"USD";
+        $paypal_country =  isset($eb_plus_paypal_settings['paypal_country'])?
+            $eb_plus_paypal_settings['paypal_country']:"US";
+        $paypal_cancel_url =  isset($eb_plus_paypal_settings['paypal_cancel_url'])?
+            $eb_plus_paypal_settings['paypal_cancel_url']:get_bloginfo('wpurl');
+        $paypal_return_url =  isset($eb_plus_paypal_settings['paypal_return_url'])?
+            $eb_plus_paypal_settings['paypal_return_url']:get_bloginfo('wpurl');
+        $paypal_notify_url =  isset($eb_plus_paypal_settings['paypal_notify_url'])?
+            $eb_plus_paypal_settings['paypal_notify_url']:get_bloginfo('wpurl')."/?ldp-paypal-ipn=1";
+        $paypal_sandbox =  isset($eb_plus_paypal_settings['paypal_sandbox'])?
+            $eb_plus_paypal_settings['paypal_sandbox']:"";
+
+        if(empty($atts['email']))
+            $atts['email'] = $paypal_email;
+        if(empty($atts['notifyurl']))
+            $atts['notifyurl'] = $paypal_notify_url;
+        if(empty($atts['returnurl']))
+            $atts['returnurl'] = $paypal_return_url;
+        if(empty($atts['cancelurl']))
+            $atts['cancelurl'] = $paypal_cancel_url;
+        if($atts['sandbox'] == '')
+            $atts['sandbox'] = $paypal_sandbox;
+        if($atts['currencycode'] == '')
+            $atts['currencycode'] = $paypal_currency;
+        if($atts['lc'] == '')
+            $atts['lc'] = $paypal_country;
+        */
+        switch ($atts['type']) {
             case "paynow":
-                $code = '
-        <div style="';
-                if ($atts['textalign']) {
-                    $code.='text-align: '.$atts['textalign'].';';
-                }
+                    $code = '
+            <div style="';
+                // if ($atts['textalign']) {
+                //     $code.='text-align: '.$atts['textalign'].';';
+                // }
+                checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
+
                 if ($atts['divwidth'] > 0) {
                     $code.='width: '.$atts['divwidth'].';';
                 }
@@ -355,141 +407,197 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 } else {
                     $code.='margin-bottom: 10px;';
                 }
-                $paypalUrl = "https://www.paypal.com/cgi-bin/webscr";
-                $pixelUrl = "https://www.paypal.com/en_US/i/scr/pixel.gif";
-                $buttonUrl = "https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif";
+                    $paypalUrl = "https://www.paypal.com/cgi-bin/webscr";
+                    $pixelUrl = "https://www.paypal.com/en_US/i/scr/pixel.gif";
+                    $buttonUrl = "https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif";
                 if ($atts['sandbox'] == 1) {
                     $paypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
                     $pixelUrl = "https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif";
                     $buttonUrl = "https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif";
                 }
-                //<input type="image" src="' . $pixelUrl . '" border="0" alt="" width="1" height="1" class="ppalholder">
+                    //<input type="image" src="' . $pixelUrl . '" border="0"
+                    //alt="" width="1" height="1" class="ppalholder">
 
-                $code.='"><form name="buynow" id="buynowform" action="' . $paypalUrl . '" method="post">
-        <input type="hidden" name="cmd" value="_xclick" />
-		
-		<input type="hidden" name="bn" value="PP-BuyNowBF" />
-		<input type="hidden" name="business" value="'.$atts['email'].'">
-		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
-		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
-		<input type="hidden" name="item_name" value="'.$atts['name'].'">
-		<input type="hidden" name="amount" value="'.$atts['amount'].'">';
+                    $code.='"><form name="buynow" id="buynowform" action="' . $paypalUrl . '" method="post">
+            <input type="hidden" name="cmd" value="_xclick" />
 
-                // Add Quantity
+    		<input type="hidden" name="bn" value="PP-BuyNowBF" />
+    		<input type="hidden" name="business" value="'.$atts['email'].'">
+    		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
+    		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
+    		<input type="hidden" name="item_name" value="'.$atts['name'].'">
+    		<input type="hidden" name="amount" value="'.$atts['amount'].'">';
+
+                    // Add Quantity
                 if ($atts['qty']=="ask") {
                     $code .='<input type="hidden" name="undefined_quantity" value="1">';
                 } else {
                     $code.='<input type="hidden" name="quantity" value="'.$atts['qty'].'">';
                 }
 
-                // Add Shipping
-                if ($atts['shipping']) {
-                    $code.='<input type="hidden" name="shipping" value="'.$atts['shipping'].'">';
-                }
+                    // Add Shipping
+                // if ($atts['shipping']) {
+                //     $code.='<input type="hidden" name="shipping" value="'.$atts['shipping'].'">';
+                // }
+                checkArrayValue(
+                    $atts['shipping'],
+                    $code,
+                    '<input type="hidden" name="shipping" value="'.$atts['shipping'].'">'
+                );
 
-                // Add Shipping2 - additional items shipping
-                if ($atts['shipping2']) {
-                    $code.='<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">';
-                }
+                    // Add Shipping2 - additional items shipping
+                // if ($atts['shipping2']) {
+                //     $code.='<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">';
+                // }
+                checkArrayValue(
+                    $atts['shipping2'],
+                    $code,
+                    '<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">'
+                );
 
-
-                // Define Image to Use
+                    // Define Image to Use
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit" alt="'.ALT_ADD.'"';
+                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0"
+                    name="submit" alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
                         $code.=' width="'.$atts['imagewidth'].'"';
                     }
                     $code.=' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="' . $buttonUrl . '" border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
+                    $code.='<input type="hidden" src="' . $buttonUrl . '" border="0" name="submit"
+                    alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn" id="eb_course_payment_button">';
-        
+                    $code .= '<input type="submit" value="'.__("Take this Course", "edw").'"
+                class="wdm-btn" id="eb_course_payment_button">';
+
                 if ($atts['noshipping'] > -1) {
                     $code.='
-			<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
+    			<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
                 }
 
                 if ($atts['nonote'] > -1) {
                     $code.='
-            <input type="hidden" name="no_note" value="'.$atts['nonote'].'" />';
+                <input type="hidden" name="no_note" value="'.$atts['nonote'].'" />';
                 }
 
                 if ($atts['rm'] > -1) {
                     $code.='
-			<input type="hidden" name="rm" value="'.$atts['rm'].'">';
+    			<input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
 
-                // Add language code
-                if ($atts['lc']) {
-                    $code.='<input type="hidden" name="lc" value="'.$atts['lc'].'">';
-                }
+                    // Add language code
+                // if ($atts['lc']) {
+                //     $code.='<input type="hidden" name="lc" value="'.$atts['lc'].'">';
+                // }
+                checkArrayValue($atts['lc'], $code, '<input type="hidden" name="lc" value="'.$atts['lc'].'">');
 
-                /* Checkout Page Variables */
-        
-                // Add return to merchant text
-                if ($atts['cbt']) {
-                    $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
-                }
-        
-                // Add Cancel Return URL
-                if ($atts['cancelreturn']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
-                }
+                    /* Checkout Page Variables */
 
-                // Add Special Instructions
-                if ($atts['cn']) {
-                    $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
-                }
-        
-                // Add Page Style
-                if ($atts['pagestyle']) {
-                    $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
-                }
-        
-                if ($atts['notifyurl']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
-                }
+                    // Add return to merchant text
+                // if ($atts['cbt']) {
+                //     $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
+                // }
+                checkArrayValue($atts['cbt'], $code, '<input type="hidden" name="cbt" value="'.$atts['cbt'].'">');
 
-                if ($atts['notifyurl2']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
-                }
+                    // Add Cancel Return URL
+                // if ($atts['cancelreturn']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelreturn'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">'
+                );
 
-                if ($atts['returnurl']) {
-                    $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
-                }
+                    // Add Special Instructions
+                // if ($atts['cn']) {
+                //     $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cn'],
+                    $code,
+                    '<input type="hidden" name="cn" value="'.$atts['cn'].'">'
+                );
 
-                if ($atts['cancelurl']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
-                }
-                if ($atts['custom']) {
-                    $code.='<input type="hidden" name="custom" value="'.$atts['custom'].'">';
-                }
-         
-                // if ($atts['buyer_user_id']) {
-                // 	$code.='<input type="hidden" name="buyer_user_id" value="'.$atts['buyer_user_id'].'">';
-          //       }
-           //      if ($atts['buyer_order_id']) {
-                    // $code.='<input type="hidden" name="buyer_order_id" value="'.$atts['buyer_order_id'].'">';
-           //      } else{
-           //      	$code.='<input type="hidden" name="buyer_order_id" value="">';
-           //      }
+                    // Add Page Style
+                // if ($atts['pagestyle']) {
+                //     $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
+                // }
+                checkArrayValue(
+                    $atts['pagestyle'],
+                    $code,
+                    '<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">'
+                );
+
+                // if ($atts['notifyurl']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">'
+                );
+
+                // if ($atts['notifyurl2']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl2'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">'
+                );
+
+                // if ($atts['returnurl']) {
+                //     $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['returnurl'],
+                    $code,
+                    '<input type="hidden" name="return" value="'.$atts['returnurl'].'">'
+                );
+
+                // if ($atts['cancelurl']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelurl'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">'
+                );
+
+                // if ($atts['custom']) {
+                //     $code.='<input type="hidden" name="custom" value="'.$atts['custom'].'">';
+                // }
+                checkArrayValue(
+                    $atts['custom'],
+                    $code,
+                    '<input type="hidden" name="custom" value="'.$atts['custom'].'">'
+                );
+
+                    // if ($atts['buyer_user_id']) {
+                    // 	    $code.='<input type="hidden" name="buyer_user_id" value="'.$atts['buyer_user_id'].'">';
+                    // }
+                    // if ($atts['buyer_order_id']) {
+                    //      $code.='<input type="hidden" name="buyer_order_id" value="'.$atts['buyer_order_id'].'">';
+                    // } else{
+                    // 	    $code.='<input type="hidden" name="buyer_order_id" value="">';
+                    // }
 
                 if ($atts['scriptcode']) {
                     $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
                 }
-                $code.='</form>';
-       
-                $code.='</div>';
-                break;
+                    $code.='</form>';
 
+                    $code.='</div>';
+                break;
             case "subscribe":
                 $code = '
-        <div style="';
-                if ($atts['textalign']) {
-                    $code.='text-align: '.$atts['textalign'].';';
-                }
-        
+            <div style="';
+                // if ($atts['textalign']) {
+                //     $code.='text-align: '.$atts['textalign'].';';
+                // }
+                checkArrayValue($atts['textalignte'], $code, 'text-align: '.$atts['textalign'].';');
+
                 if ($atts['divwidth'] > 0) {
                     $code.='width: '.$atts['divwidth'].';';
                 }
@@ -499,23 +607,23 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 } else {
                     $code.='margin:0 auto;';
                 }
-        
+
                 if ($atts['marginleft'] > -1) {
                     $code.='margin-left: '.$atts['marginleft'].';';
                 }
-        
+
                 if ($atts['marginright'] > -1) {
                     $code.='margin-right: '.$atts['marginright'].';';
                 } else {
                     $code.='margin-top: 10px;';
                 }
-        
+
                 if ($atts['margintop'] > -1) {
                     $code.='margin-top: '.$atts['margintop'].';';
                 } else {
                     $code.='margin-top: 10px;';
                 }
-        
+
                 if ($atts['marginbottom'] > -1) {
                     $code.='margin-bottom: '.$atts['marginbottom'].';';
                 } else {
@@ -526,40 +634,70 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                     $paypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
                 }
                 $code.='"><form name="subscribewithpaypal" action="'.$paypalUrl.'" method="post">
-        <input type="hidden" name="cmd" value="_xclick-subscriptions" />
+            <input type="hidden" name="cmd" value="_xclick-subscriptions" />
 
-		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt="" width="1" height="1" class="ppalholder">';
+    		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0"
+            alt="" width="1" height="1" class="ppalholder">';
 
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit" alt="'.ALT_ADD.'"';
+                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0"
+                    name="submit" alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
                         $code.=' width="'.$atts['imagewidth'].'"';
                     }
                     $code.=' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="' . __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
+                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
+                    border="0" name="submit" alt="' .
+                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn" id="eb_course_payment_button ">';
-        
-                if ($atts['email']) {
-                    $code.='<input type="hidden" name="business" value="'.$atts['email'].'">';
-                }
+                $code .= '<input type="submit" value="'.__("Take this Course", "edw").
+                '" class="wdm-btn" id="eb_course_payment_button ">';
 
-                if ($atts['currencycode']) {
-                    $code.='<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">';
-                }
-        
-                if ($atts['itemno']) {
-                    $code.='<input type="hidden" name="item_number" value="'.$atts['itemno'].'">';
-                }
-        
-                if ($atts['name']) {
-                    $code.='<input type="hidden" name="item_name" value="'.$atts['name'].'">';
-                }
-        
-                if ($atts['amount']) {
-                    $code.='<input type="hidden" name="amount" value="'.$atts['amount'].'">';
-                }
+                // if ($atts['email']) {
+                //     $code.='<input type="hidden" name="business" value="'.$atts['email'].'">';
+                // }
+                checkArrayValue(
+                    $atts['email'],
+                    $code,
+                    '<input type="hidden" name="business" value="'.$atts['email'].'">'
+                );
+
+                // if ($atts['currencycode']) {
+                //     $code.='<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">';
+                // }
+                checkArrayValue(
+                    $atts['currencycode'],
+                    $code,
+                    '<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">'
+                );
+
+                // if ($atts['itemno']) {
+                //     $code.='<input type="hidden" name="item_number" value="'.$atts['itemno'].'">';
+                // }
+                checkArrayValue(
+                    $atts['itemno'],
+                    $code,
+                    '<input type="hidden" name="item_number" value="'.$atts['itemno'].'">'
+                );
+
+                // if ($atts['name']) {
+                //     $code.='<input type="hidden" name="item_name" value="'.$atts['name'].'">';
+                // }
+                checkArrayValue(
+                    $atts['name'],
+                    $code,
+                    '<input type="hidden" name="item_name" value="'.$atts['name'].'">'
+                );
+
+                // if ($atts['amount']) {
+                //     $code.='<input type="hidden" name="amount" value="'.$atts['amount'].'">';
+                // }
+                checkArrayValue(
+                    $atts['amount'],
+                    $code,
+                    '<input type="hidden" name="amount" value="'.$atts['amount'].'">'
+                );
 
                 if ($atts['noshipping'] >-1) {
                     $code.='<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'" />';
@@ -576,9 +714,10 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                     $code.='<input type="hidden" name="p1" value="'.$atts['p1'].'">';
                 }
 
-                if ($atts['t1']) {
-                    $code.='<input type="hidden" name="t1" value="'.$atts['t1'].'">';
-                }
+                // if ($atts['t1']) {
+                //     $code.='<input type="hidden" name="t1" value="'.$atts['t1'].'">';
+                // }
+                checkArrayValue($atts['t1'], $code, '<input type="hidden" name="t1" value="'.$atts['t1'].'">');
 
                 /*Trial 2 settings */
                 if ($atts['a2'] > -1) {
@@ -589,9 +728,10 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                     $code.='<input type="hidden" name="p2" value="'.$atts['p2'].'">';
                 }
 
-                if ($atts['t2']) {
-                    $code.='<input type="hidden" name="t2" value="'.$atts['t2'].'">';
-                }
+                // if ($atts['t2']) {
+                //     $code.='<input type="hidden" name="t2" value="'.$atts['t2'].'">';
+                // }
+                checkArrayValue($atts['t2'], $code, '<input type="hidden" name="t2" value="'.$atts['t2'].'">');
 
                 /*Ongoing subscription*/
                 if ($atts['a3'] > 0) {
@@ -602,9 +742,10 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                     $code.='<input type="hidden" name="p3" value="'.$atts['p3'].'">';
                 }
 
-                if ($atts['t3']) {
-                    $code.='<input type="hidden" name="t3" value="'.$atts['t3'].'">';
-                }
+                // if ($atts['t3']) {
+                //     $code.='<input type="hidden" name="t3" value="'.$atts['t3'].'">';
+                // }
+                checkArrayValue($atts['t3'], $code, '<input type="hidden" name="t3" value="'.$atts['t3'].'">');
 
                 /* SRC - are payments recurring? 0 = No, 1 = Yes */
                 if ($atts['src']==0) {
@@ -630,62 +771,110 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 }
 
                 // Add language code
-                if ($atts['lc']) {
-                    $code.='<input type="hidden" name="lc" value="'.$atts['lc'].'">';
-                }
+                // if ($atts['lc']) {
+                //     $code.='<input type="hidden" name="lc" value="'.$atts['lc'].'">';
+                // }
+                checkArrayValue($atts['lc'], $code, '<input type="hidden" name="lc" value="'.$atts['lc'].'">');
 
                 // Add return to merchant text
-                if ($atts['cbt']) {
-                    $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
-                }
-        
+                // if ($atts['cbt']) {
+                //     $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
+                // }
+                checkArrayValue($atts['cbt'], $code, '<input type="hidden" name="cbt" value="'.$atts['cbt'].'">');
+
                 // Modify Subscriptions
-                if ($atts['modify']) {
-                    $code.='<input type="hidden" name="modify" value="'.$atts['modify'].'">';
-                }
-        
+                // if ($atts['modify']) {
+                //     $code.='<input type="hidden" name="modify" value="'.$atts['modify'].'">';
+                // }
+                checkArrayValue(
+                    $atts['modify'],
+                    $code,
+                    '<input type="hidden" name="modify" value="'.$atts['modify'].'">'
+                );
+
                 // Add Cancel Return URL
-                if ($atts['cancelreturn']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
-                }
+                // if ($atts['cancelreturn']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelreturn'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">'
+                );
 
                 // Add Special Instructions
-                if ($atts['cn']) {
-                    $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
-                }
-        
+                // if ($atts['cn']) {
+                //     $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cn'],
+                    $code,
+                    '<input type="hidden" name="cn" value="'.$atts['cn'].'">'
+                );
+
                 // Add Page Style
-                if ($atts['pagestyle']) {
-                    $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
-                }
-                if ($atts['notifyurl']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
-                }
+                // if ($atts['pagestyle']) {
+                //     $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
+                // }
+                checkArrayValue(
+                    $atts['pagestyle'],
+                    $code,
+                    '<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">'
+                );
 
-                if ($atts['notifyurl2']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
-                }
+                // if ($atts['notifyurl']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">'
+                );
 
-                if ($atts['returnurl']) {
-                    $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
-                }
-        
-                if ($atts['cancelurl']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
-                }
+                // if ($atts['notifyurl2']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl2'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">'
+                );
 
-                if ($atts['scriptcode']) {
-                    $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
-                }
+                // if ($atts['returnurl']) {
+                //     $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['returnurl'],
+                    $code,
+                    '<input type="hidden" name="return" value="'.$atts['returnurl'].'">'
+                );
+
+                // if ($atts['cancelurl']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelurl'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">'
+                );
+
+                // if ($atts['scriptcode']) {
+                //     $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
+                // }
+                checkArrayValue(
+                    $atts['scriptcode'],
+                    $code,
+                    '<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>'
+                );
 
                 $code.='</form></div>';
                 break;
-
             case "hosted":
                 $code = '<div style="';
-                if ($atts['textalign']) {
-                    $code.='text-align: '.$atts['textalign'].';';
-                }
+                // if ($atts['textalign']) {
+                //     $code.='text-align: '.$atts['textalign'].';';
+                // }
+                checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
                     $code.='width: '.$atts['divwidth'].';';
@@ -720,30 +909,36 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 }
 
                 $code.='"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-        <input type="hidden" name="cmd" value="_s-xclick">
-		<input type="hidden" name="hosted_button_id" value="'.$atts['buttonid'].'">
-		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt="" width="1" height="1">';
+            <input type="hidden" name="cmd" value="_s-xclick">
+    		<input type="hidden" name="hosted_button_id" value="'.$atts['buttonid'].'">
+    		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt=""
+            width="1" height="1">';
 
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit" alt="'.ALT_ADD.'"';
+                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
+                    alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
                         $code.=' width="'.$atts['imagewidth'].'"';
                     }
                     $code.=' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="' . __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
+                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
+                    border="0" name="submit" alt="' .
+                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn" id="eb_course_payment_button">';
+                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn"
+                id="eb_course_payment_button">';
 
-                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1" class="ppalholder">
-       </form></div>';
+                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
+                height="1" class="ppalholder">
+           </form></div>';
                 break;
-
             case "addtocart":
                 $code = '<div style="';
-                if ($atts['textalign']) {
-                    $code.='text-align: '.$atts['textalign'].';';
-                }
+                // if ($atts['textalign']) {
+                //     $code.='text-align: '.$atts['textalign'].';';
+                // }
+                checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
                     $code.='width: '.$atts['divwidth'].';';
@@ -777,17 +972,17 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                     $code.='margin-bottom: 10px;';
                 }
                 $code.='"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-		<input type="hidden" name="cmd" value="_cart">
-		<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">		
-		<input type="hidden" name="add" value="1">';
+    		<input type="hidden" name="cmd" value="_cart">
+    		<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
+    		<input type="hidden" name="add" value="1">';
                 if ($atts['display']==1) {
                     $code.='<input type="hidden" name="display" value="1">';
                 }
-                $code.='<input type="hidden" name="business" value="'.$atts[email].'">
-		<input type="hidden" name="lc" value="'.$atts['lc'].'">
-		<input type="hidden" name="currency_code" value="'.$atts[currencycode].'">
-		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
-		<input type="hidden" name="item_name" value="'.$atts['name'].'">';
+                $code.='<input type="hidden" name="business" value="'.$atts['email'].'">
+    		<input type="hidden" name="lc" value="'.$atts['lc'].'">
+    		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
+    		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
+    		<input type="hidden" name="item_name" value="'.$atts['name'].'">';
                 if ($atts['amount']) {
                     $code.='<input type="hidden" name="amount" value="'.$atts['amount'].'">';
                 }
@@ -805,7 +1000,7 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 if ($atts['rm'] > -1) {
                     $code.='<input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
-        
+
                 // Add Quantity
                 if ($atts['qty']=="ask") {
                     $code .='<input type="hidden" name="undefined_quantity" value="1">';
@@ -814,72 +1009,138 @@ if (!function_exists('enhanced_paypal_shortcode')) {
                 }
 
                 // Add Shipping
-                if ($atts['shipping']) {
-                    $code.='<input type="hidden" name="shipping" value="'.$atts['shipping'].'">';
-                }
+                // if ($atts['shipping']) {
+                //     $code.='<input type="hidden" name="shipping" value="'.$atts['shipping'].'">';
+                // }
+                checkArrayValue(
+                    $atts['shipping'],
+                    $code,
+                    '<input type="hidden" name="shipping" value="'.$atts['shipping'].'">'
+                );
 
                 // Add Shipping2 - additional items shipping
-                if ($atts['shipping2']) {
-                    $code.='<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">';
-                }
+                // if ($atts['shipping2']) {
+                //     $code.='<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">';
+                // }
+                checkArrayValue(
+                    $atts['shipping2'],
+                    $code,
+                    '<input type="hidden" name="shipping2" value="'.$atts['shipping2'].'">'
+                );
 
                 // Add return to merchant text
-                if ($atts['cbt']) {
-                    $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
-                }
+                // if ($atts['cbt']) {
+                //     $code.='<input type="hidden" name="cbt" value="'.$atts['cbt'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cbt'],
+                    $code,
+                    '<input type="hidden" name="cbt" value="'.$atts['cbt'].'">'
+                );
 
                 // Add Cancel Return URL
-                if ($atts['cancelreturn']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
-                }
+                // if ($atts['cancelreturn']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelreturn'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelreturn'].'">'
+                );
 
                 // Add Special Instructions
-                if ($atts['cn']) {
-                    $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
-                }
-        
+                // if ($atts['cn']) {
+                //     $code.='<input type="hidden" name="cn" value="'.$atts['cn'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cn'],
+                    $code,
+                    '<input type="hidden" name="cn" value="'.$atts['cn'].'">'
+                );
+
                 // Add Page Style
-                if ($atts['pagestyle']) {
-                    $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
-                }
-                if ($atts['notifyurl']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
-                }
+                // if ($atts['pagestyle']) {
+                //     $code.='<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">';
+                // }
+                checkArrayValue(
+                    $atts['pagestyle'],
+                    $code,
+                    '<input type="hidden" name="page_style" value="'.$atts['pagestyle'].'">'
+                );
 
-                if ($atts['notifyurl2']) {
-                    $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
-                }
+                // if ($atts['notifyurl']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl'].'">'
+                );
 
-                if ($atts['returnurl']) {
-                    $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
-                }
-        
-                if ($atts['cancelurl']) {
-                    $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
-                }
+                // if ($atts['notifyurl2']) {
+                //     $code.='<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">';
+                // }
+                checkArrayValue(
+                    $atts['notifyurl2'],
+                    $code,
+                    '<input type="hidden" name="notify_url" value="'.$atts['notifyurl2'].'">'
+                );
 
-                if ($atts['scriptcode']) {
-                    $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
-                }
-        
+                // if ($atts['returnurl']) {
+                //     $code.='<input type="hidden" name="return" value="'.$atts['returnurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['returnurl'],
+                    $code,
+                    '<input type="hidden" name="return" value="'.$atts['returnurl'].'">'
+                );
+
+                // if ($atts['cancelurl']) {
+                //     $code.='<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">';
+                // }
+                checkArrayValue(
+                    $atts['cancelurl'],
+                    $code,
+                    '<input type="hidden" name="cancel_return" value="'.$atts['cancelurl'].'">'
+                );
+
+                // if ($atts['scriptcode']) {
+                //     $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
+                // }
+                checkArrayValue(
+                    $atts['scriptcode'],
+                    $code,
+                    '<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>'
+                );
+
                 // Define Image to Use
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit" alt="'.ALT_ADD.'"';
+                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
+                    alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
                         $code.=' width="'.$atts['imagewidth'].'"';
                     }
                     $code.=' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
+                    $code.='<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
+                    border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn" id="eb_course_payment_button">';
+                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn"
+                id="eb_course_payment_button">';
 
-                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1" class="ppalholder">
-       </form></div>';
-
-        endswitch;
-        return apply_filters('eb_paypal_payment_button', $code, array('code' => $code, 'atts' => $atts)) ;
+                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
+                    height="1" class="ppalholder">
+           </form></div>';
+        }
+        return apply_filters('eb_paypal_payment_button', $code, array('code' => $code, 'atts' => $atts));
     }
 }
 
-add_shortcode('paypal', 'enhanced_paypal_shortcode');
+add_shortcode('paypal', 'enhancedPaypalShortcode');
+
+function checkArrayValue($prop, &$code, $value)
+{
+    if ($prop) {
+        $code .= $value;
+    }
+}

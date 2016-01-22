@@ -28,7 +28,7 @@
      * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
      * be doing this, we should try to minimize doing that in our own work.
      */
-    
+
         $(window).load(function () {
 
         /* Change required fields error messages for login / register page */
@@ -65,7 +65,7 @@
          * jquery blockui js to block UI on clicking take course button for paid courses.
          */
 
-        
+
         /**
          * called by 'take this course' button for paid courses.
          * calls create_new_order_ajax_wrapper() function to create a new order
@@ -79,14 +79,14 @@
                 var order_id    = '';
                 var buyer_id    = $("input[name='custom']").val();
                 var custom_data = {};
-            
+
                 $.ajax({
                     method      : "post",
                     async       : false,
                     url: eb_public_js_object.ajaxurl,
                     dataType    : "json",
                     data: {
-                        'action'        :'create_new_order_ajax_wrapper',
+                        'action'        :'createNewOrderAjaxWrapper',
                         'buyer_id'      : buyer_id,
                         'course_id'     : course_id,
                         '_wpnonce_field': eb_public_js_object.nonce,
@@ -98,7 +98,7 @@
                             //create custom data encoded in json
                             custom_data['buyer_id'] = parseInt(buyer_id);
                             custom_data['order_id'] = parseInt(response.order_id);
-                        
+
                             $("input[name='custom']").val(JSON.stringify(custom_data));
                         } else {
                             e.preventDefault();

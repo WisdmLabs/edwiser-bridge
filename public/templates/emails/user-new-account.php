@@ -1,12 +1,8 @@
 <?php
 /**
- * New User Account Email Template
- *
- * @package    Edwiser Bridge
- * @subpackage Edwiser Bridge/public/templates/emails
+ * New User Account Email Template.
  */
-
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
@@ -14,13 +10,13 @@ if (! defined('ABSPATH')) {
 
 <?php do_action('eb_email_header', $args['header']); ?>
 
-<p><?php printf(__("Hi %s", 'eb-textdomain'), $args['first_name']); ?></p>
+<p><?php printf(__('Hi %s', 'eb-textdomain'), $args['first_name']); ?></p>
 
 <p>
 <?php
 printf(
     __(
-        "Thanks for creating an account on %s. Your username is <strong>%s</strong>.",
+        'Thanks for creating an account on %s. Your username is <strong>%s</strong>.',
         'eb-textdomain'
     ),
     get_bloginfo('name'),
@@ -33,7 +29,7 @@ printf(
 <?php
 printf(
     __(
-        "Your password has been automatically generated: <strong>%s</strong>",
+        'Your password has been automatically generated: <strong>%s</strong>',
         'eb-textdomain'
     ),
     $args['password']
@@ -48,9 +44,9 @@ printf(
         'You can access your account here: <a href="%s">User Account</a>.',
         'eb-textdomain'
     ),
-    wdm_user_account_url()
+    wdmUserAccountUrl()
 );
 ?>
 </p>
 
-<?php do_action('eb_email_footer'); ?>
+<?php do_action('eb_email_footer');

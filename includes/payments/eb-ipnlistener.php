@@ -13,7 +13,10 @@
  *  @version    2.0.5
  *  @license    http://opensource.org/licenses/gpl-3.0.html
  */
-class EB_IpnListener
+
+namespace app\wisdmlabs\edwiserBridge;
+
+class EBIpnListener
 {
     /**
      *  If true, the recommended cURL PHP library is used to send the post back
@@ -22,7 +25,7 @@ class EB_IpnListener
      *  @var boolean
      */
     public $use_curl = true;
-    
+
     /**
      *  If true, explicitly sets cURL to use SSL version 3. Use this if cURL
      *  is compiled with GnuTLS SSL.
@@ -30,7 +33,7 @@ class EB_IpnListener
      *  @var boolean
      */
     public $force_ssl_v3 = false;
-   
+
     /**
      *  If true, cURL will use the CURLOPT_FOLLOWLOCATION to follow any
      *  "Location: ..." headers in the response.
@@ -38,7 +41,7 @@ class EB_IpnListener
      *  @var boolean
      */
     public $follow_location = false;
-    
+
     /**
      *  If true, an SSL secure connection (port 443) is used for the post back
      *  as recommended by PayPal. If false, a standard HTTP (port 80) connection
@@ -47,7 +50,7 @@ class EB_IpnListener
      *  @var boolean
      */
     public $use_ssl = true;
-    
+
     /**
      *  If true, the paypal sandbox URI www.sandbox.paypal.com is used for the
      *  post back. If false, the live URI www.paypal.com is used. Default false.
@@ -55,7 +58,7 @@ class EB_IpnListener
      *  @var boolean
      */
     public $use_sandbox = false;
-    
+
     /**
      *  The amount of time, in seconds, to wait for the PayPal server to respond
      *  before timing out. Default 30 seconds.
@@ -63,7 +66,7 @@ class EB_IpnListener
      *  @var int
      */
     public $timeout = 30;
-    
+
     private $post_data = array();
     private $post_uri = '';
     private $response_status = '';
@@ -71,7 +74,7 @@ class EB_IpnListener
 
     const PAYPAL_HOST = 'www.paypal.com';
     const SANDBOX_HOST = 'www.sandbox.paypal.com';
-    
+
     /**
      *  Post Back Using cURL
      *
@@ -91,34 +94,34 @@ class EB_IpnListener
             $uri = 'http://'.$this->getPaypalHost().'/cgi-bin/webscr';
             $this->post_uri = $uri;
         }
-        
-        $ch = curl_init();
-        
-        curl_setopt($ch, CURLOPT_URL, $uri);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $encoded_data);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $this->follow_location);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close', 'User-Agent: eb'));
-        
+
+        $_ch = curl_init();
+
+        curl_setopt($_ch, CURLOPT_URL, $uri);
+        curl_setopt($_ch, CURLOPT_POST, true);
+        curl_setopt($_ch, CURLOPT_POSTFIELDS, $encoded_data);
+        curl_setopt($_ch, CURLOPT_FOLLOWLOCATION, $this->follow_location);
+        curl_setopt($_ch, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($_ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($_ch, CURLOPT_HEADER, true);
+        curl_setopt($_ch, CURLOPT_HTTPHEADER, array('Connection: Close', 'User-Agent: eb'));
+
         if ($this->force_ssl_v3) {
-            curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+            curl_setopt($_ch, CURLOPT_SSLVERSION, 3);
         } elseif (defined("WP_MOODLE_FORCE_SSL_VERSION")) {
-            curl_setopt($ch, CURLOPT_SSLVERSION, WP_MOODLE_FORCE_SSL_VERSION);
+            curl_setopt($_ch, CURLOPT_SSLVERSION, WP_MOODLE_FORCE_SSL_VERSION);
         }
-        
-        $this->response = curl_exec($ch);
-        $this->response_status = strval(curl_getinfo($ch, CURLINFO_HTTP_CODE));
-        
+
+        $this->response = curl_exec($_ch);
+        $this->response_status = strval(curl_getinfo($_ch, CURLINFO_HTTP_CODE));
+
         if ($this->response === false || $this->response_status == '0') {
-            $errno = curl_errno($ch);
-            $errstr = curl_error($ch);
+            $errno = curl_errno($_ch);
+            $errstr = curl_error($_ch);
             throw new Exception("cURL error: [$errno] $errstr");
         }
     }
-    
+
     /**
      *  Post Back Using fsockopen()
      *
@@ -141,9 +144,9 @@ class EB_IpnListener
             $this->post_uri = 'http://'.$uri.'/cgi-bin/webscr';
         }
 
-        $fp = fsockopen($uri, $port, $errno, $errstr, $this->timeout);
-        
-        if (!$fp) {
+        $_fp = fsockopen($uri, $port, $errno, $errstr, $this->timeout);
+
+        if (!$_fp) {
             //fsockopen error
             throw new Exception("fsockopen error: [$errno] $errstr");
         }
@@ -152,31 +155,31 @@ class EB_IpnListener
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: ".strlen($encoded_data)."\r\n";
         $header .= "Connection: Close\r\n\r\n";
-        
-        fputs($fp, $header.$encoded_data."\r\n\r\n");
-        
-        while (!feof($fp)) {
+
+        fputs($_fp, $header.$encoded_data."\r\n\r\n");
+
+        while (!feof($_fp)) {
             if (empty($this->response)) {
                 //extract HTTP status from first line
-                $this->response .= $status = fgets($fp, 1024);
+                $this->response .= $status = fgets($_fp, 1024);
                 $this->response_status = trim(substr($status, 9, 4));
             } else {
-                $this->response .= fgets($fp, 1024);
+                $this->response .= fgets($_fp, 1024);
             }
         }
-        
-        fclose($fp);
+
+        fclose($_fp);
     }
-    
+
     private function getPaypalHost()
     {
         if ($this->use_sandbox) {
-            return EB_IpnListener::SANDBOX_HOST;
+            return EBIpnListener::SANDBOX_HOST;
         } else {
-            return EB_IpnListener::PAYPAL_HOST;
+            return EBIpnListener::PAYPAL_HOST;
         }
     }
-    
+
     /**
      *  Get POST URI
      *
@@ -190,7 +193,7 @@ class EB_IpnListener
     {
         return $this->post_uri;
     }
-    
+
     /**
      *  Get Response
      *
@@ -203,7 +206,7 @@ class EB_IpnListener
     {
         return $this->response;
     }
-    
+
     /**
      *  Get Response Status
      *
@@ -216,7 +219,7 @@ class EB_IpnListener
     {
         return $this->response_status;
     }
-    
+
     /**
      *  Get Text Report
      *
@@ -228,47 +231,47 @@ class EB_IpnListener
      */
     public function getTextReport()
     {
-        $r = '';
-        
+        $textReport = '';
+
         //date and POST url
         for ($i=0; $i<80; $i++) {
-            $r .= '-';
+            $textReport .= '-';
         }
-        $r .= "\n[".date('m/d/Y g:i A').'] - '.$this->getPostUri();
+        $textReport .= "\n[".date('m/d/Y g:i A').'] - '.$this->getPostUri();
         if ($this->use_curl) {
-            $r .= " (curl)\n";
+            $textReport .= " (curl)\n";
         } else {
-            $r .= " (fsockopen)\n";
+            $textReport .= " (fsockopen)\n";
         }
-        
+
         // //HTTP Response
-        // for ($i=0; $i<80; $i++) { $r .= '-'; }
-        // $r .= "\n{$this->getResponse()}\n";
+        // for ($i=0; $i<80; $i++) { $textReport .= '-'; }
+        // $textReport .= "\n{$this->getResponse()}\n";
         //
 
         //POST vars
         for ($i=0; $i<80; $i++) {
-            $r .= '-';
+            $textReport .= '-';
         }
-        $r .= "\n";
+        $textReport .= "\n";
 
-        $r .= "PAYMENT VERIFICATION EMAIL \n";
-        
+        $textReport .= "PAYMENT VERIFICATION EMAIL \n";
+
         //POST vars
         for ($i=0; $i<80; $i++) {
-            $r .= '-';
+            $textReport .= '-';
         }
-        $r .= "\n";
-        
+        $textReport .= "\n";
+
         foreach ($this->post_data as $key => $value) {
             $value = maybe_serialize($value);
-            $r .= str_pad($key, 25)."$value\n";
+            $textReport .= str_pad($key, 25)."$value\n";
         }
-        $r .= "\n\n";
-        
-        return $r;
+        $textReport .= "\n\n";
+
+        return $textReport;
     }
-    
+
     /**
      *  Process IPN
      *
@@ -284,7 +287,7 @@ class EB_IpnListener
     public function processIpn($post_data = null)
     {
         $encoded_data = 'cmd=_notify-validate';
-        
+
         if ($post_data === null) {
             //use raw POST data
             if (!empty($_POST)) {
@@ -296,7 +299,7 @@ class EB_IpnListener
         } else {
             //use provided data array
             $this->post_data = $post_data;
-            
+
             foreach ($this->post_data as $key => $value) {
                 $encoded_data .= "&$key=".urlencode($value);
             }
@@ -307,11 +310,11 @@ class EB_IpnListener
         } else {
             $this->fsockPost($encoded_data);
         }
-        
+
         if (strpos($this->response_status, '200') === false) {
             throw new Exception("Invalid response status: ".$this->response_status);
         }
-        
+
         if (strpos($this->response, "VERIFIED") !== false) {
             return true;
         } elseif (strpos($this->response, "INVALID") !== false) {
@@ -320,7 +323,7 @@ class EB_IpnListener
             throw new Exception("Unexpected response from PayPal.");
         }
     }
-    
+
     /**
      *  Require Post Method
      *

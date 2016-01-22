@@ -9,18 +9,18 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  *
- * @package    Edwiser Bridge
- * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+namespace app\wisdmlabs\edwiserBridge;
+
 class EbAdmin
 {
     /**
      * The ID of this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
+     *
+     * @var string The ID of this plugin.
      */
     private $plugin_name;
 
@@ -28,8 +28,8 @@ class EbAdmin
      * The version of this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
+     *
+     * @var string The current version of this plugin.
      */
     private $version;
 
@@ -37,8 +37,9 @@ class EbAdmin
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
-     * @param string  $plugin_name The name of this plugin.
-     * @param string  $version     The version of this plugin.
+     *
+     * @param string $plugin_name The name of this plugin.
+     * @param string $version     The version of this plugin.
      */
     public function __construct($plugin_name, $version)
     {
@@ -54,7 +55,7 @@ class EbAdmin
     public function adminEnqueueStyles()
     {
 
-        /**
+        /*
          * An instance of this class should be passed to the run() function
          * defined in EB_Loader as all of the hooks are defined
          * in that particular class.
@@ -66,14 +67,14 @@ class EbAdmin
 
         wp_enqueue_style(
             $this->plugin_name,
-            EB_PLUGIN_URL . 'admin/assets/css/eb-admin.css',
+            EB_PLUGIN_URL.'admin/assets/css/eb-admin.css',
             array(),
             $this->version,
             'all'
         );
         wp_enqueue_style(
             'jquery-tiptip-css',
-            EB_PLUGIN_URL . 'admin/assets/css/tipTip.css',
+            EB_PLUGIN_URL.'admin/assets/css/tipTip.css',
             array(),
             $this->version,
             'all'
@@ -88,9 +89,9 @@ class EbAdmin
     public function adminEnqueueScripts()
     {
 
-        /**
+        /*
          * An instance of this class should be passed to the run() function
-         * defined in EB_Loader as all of the hooks are defined
+         * defined in EBLoader as all of the hooks are defined
          * in that particular class.
          *
          * The Plugin_Name_Loader will then create the relationship
@@ -98,10 +99,13 @@ class EbAdmin
          * class.
          */
         $nonce = wp_create_nonce('check_sync_action');
+
+        wp_enqueue_script('iris');
+
         wp_enqueue_script(
             $this->plugin_name,
-            EB_PLUGIN_URL . 'admin/assets/js/eb-admin.js',
-            array( 'jquery' ),
+            EB_PLUGIN_URL.'admin/assets/js/eb-admin.js',
+            array('jquery'),
             $this->version,
             false
         );
@@ -113,18 +117,16 @@ class EbAdmin
                 'unsaved_warning' => __('Please save the changes.', 'eb-textdomain'),
                 'plugin_url' => EB_PLUGIN_URL,
                 'ajaxurl' => admin_url('admin-ajax.php'),
-                'nonce' => $nonce
+                'nonce' => $nonce,
             )
         );
 
         wp_enqueue_script(
             'jquery-tiptip-js',
-            EB_PLUGIN_URL . 'admin/assets/js/jquery.tipTip.minified.js',
-            array( 'jquery' ),
+            EB_PLUGIN_URL.'admin/assets/js/jquery.tipTip.minified.js',
+            array('jquery'),
             $this->version,
             false
         );
-
-        wp_enqueue_script('iris');
     }
 }

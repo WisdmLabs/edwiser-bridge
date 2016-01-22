@@ -1,5 +1,7 @@
 <?php
 
+namespace app\wisdmlabs\edwiserBridge;
+
 /**
  * Edwiser Bridge extensions page
  *
@@ -17,10 +19,11 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+
 /**
- * EB_Admin_Extensions Class
+ * EBAdminExtensions Class
  */
-class EB_Admin_Extensions
+class EBAdminExtensions
 {
     /**
      * handle extensions page output
@@ -28,7 +31,12 @@ class EB_Admin_Extensions
     public static function output()
     {
         if (false === ($extensions = get_transient('edwiser_bridge_extensions_data'))) {
-            $extensions_json = wp_remote_get('https://edwiser.org/edwiserbridge-extensions.json', array( 'user-agent' => 'Edwiser Bridge Extensions Page' ));
+            $extensions_json = wp_remote_get(
+                'https://edwiser.org/edwiserbridge-extensions.json',
+                array(
+                    'user-agent' => 'Edwiser Bridge Extensions Page'
+                )
+            );
 
             if (! is_wp_error($extensions_json)) {
                 $extensions = json_decode(wp_remote_retrieve_body($extensions_json));

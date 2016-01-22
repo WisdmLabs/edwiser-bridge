@@ -10,6 +10,9 @@
  * @subpackage Edwiser Bridge/public
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
+namespace app\wisdmlabs\edwiserBridge;
+
 class EbShortcodes
 {
     /**

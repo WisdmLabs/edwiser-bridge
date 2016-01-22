@@ -1,5 +1,7 @@
 <?php
 
+namespace app\wisdmlabs\edwiserBridge;
+
 /**
  * Setup plugin menus in WP admin.
  *
@@ -12,7 +14,7 @@
  */
 
 if (! defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+    exit(); // Exit if accessed directly
 }
 
 /**
@@ -125,7 +127,7 @@ class EbAdminMenus
      */
     public function settingsMenu()
     {
-        $settingsPage = add_submenu_page(
+        add_submenu_page(
             'edwiserbridge_lms',
             __('Settings', 'eb-textdomain'),
             __('Settings', 'eb-textdomain'),
@@ -142,7 +144,7 @@ class EbAdminMenus
      */
     public function extensionsMenu()
     {
-        $extensionsPage = add_submenu_page(
+        add_submenu_page(
             'edwiserbridge_lms',
             __('Extensions', 'eb-textdomain'),
             __('Extensions', 'eb-textdomain'),
@@ -201,7 +203,7 @@ class EbAdminMenus
      */
     public function extensionsPage()
     {
-        EB_Admin_Extensions::output();
+        EBAdminExtensions::output();
     }
 }
 

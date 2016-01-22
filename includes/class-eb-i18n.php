@@ -9,18 +9,18 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  *
- * @package    Edwiser Bridge
- * @subpackage Edwiser Bridge/includes
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-class EB_i18n
+namespace app\wisdmlabs\edwiserBridge;
+
+class EBI18n
 {
     /**
      * The domain specified for this plugin.
      *
      * @since    1.0.0
-     * @access   private
-     * @var      string    $domain    The domain identifier for this plugin.
+     *
+     * @var string The domain identifier for this plugin.
      */
     private $domain;
 
@@ -29,12 +29,12 @@ class EB_i18n
      *
      * @since    1.0.0
      */
-    public function load_plugin_textdomain()
+    public function loadPluginTextdomain()
     {
         load_plugin_textdomain(
             $this->domain,
             false,
-            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+            dirname(dirname(plugin_basename(__FILE__))).'/languages/'
         );
     }
 
@@ -42,9 +42,10 @@ class EB_i18n
      * Set the domain equal to that of the specified domain.
      *
      * @since    1.0.0
-     * @param string  $domain The domain that represents the locale of this plugin.
+     *
+     * @param string $domain The domain that represents the locale of this plugin.
      */
-    public function set_domain($domain)
+    public function setDomain($domain)
     {
         $this->domain = $domain;
     }

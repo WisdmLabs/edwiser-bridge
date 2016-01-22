@@ -10,8 +10,8 @@
 
 .eb_extensions_wrap .extensions li {
     float: left;
-    margin: 0px 1em 1em 0px !important;
-    padding: 0px;
+    margin: 0 1em 1em 0 !important;
+    padding: 0;
     vertical-align: top;
     width: 260px;
 }
@@ -24,18 +24,18 @@
     min-height: 250px;
     overflow: hidden;
     background: #F5F5F5 none repeat scroll 0% 0%;
-    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px -1px 0px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
 }
 
 .eb_extensions_wrap .extensions li a h3 {
-    margin: 0px !important;
+    margin: 0 !important;
     padding: 20px !important;
     background: #FFF none repeat scroll 0% 0%;
 }
 
 .eb_extensions_wrap .extensions li a p {
     padding: 20px !important;
-    margin: 0px !important;
+    margin: 0 !important;
     border-top: 1px solid #F1F1F1;
 }
 
@@ -44,7 +44,7 @@
     max-height: 24px;
     padding: 17px 20px;
     display: block;
-    margin: 0px;
+    margin: 0;
     background: #FFF none repeat scroll 0% 0%;
     border-right: 260px solid #FFF;
 }
@@ -55,8 +55,8 @@
     color: #FFF;
     text-decoration: none;
     border: medium none;
-    background: 10091CD none repeat scroll 0% 0%;
-    font-weight: 600;
+    background: #0091CD none repeat scroll 0% 0%;
+    font-weight: 600px;
     text-transform: uppercase;
     padding: 15px;
     border-radius: 4px;
@@ -78,10 +78,10 @@ a.browse-all:hover{
     position:absolute;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 640) {
     .response-box {
         display:block;
-        margin-left: 0px;
+        margin-left: 0;
         margin-top:15px;
     }
 }
@@ -108,8 +108,8 @@ a.browse-all:hover{
 .alert-success::before {
 
     display: block;
-    width: 20px;
-    height: 10px;
+    width: 20;
+    height: 10;
     content:url('../../../images/success.png');
 }*/
 
@@ -127,9 +127,9 @@ a.browse-all:hover{
     position: absolute!important;
     display: none;
     border: 1px solid #ccc;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
     -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
     -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
     border-radius: 3px;
 }
 .iris-picker .ui-slider {
@@ -152,7 +152,7 @@ table.form-table th img.help_tip {
 /* loader image for action buttons */
 span.load-response { display:none; }
 span.load-response img{
-    margin: 4px 0 0px 11px;
+    margin: 4px 0 0 11px;
 }
 
 /* Settings module css for post options */
@@ -193,7 +193,7 @@ div.post-options{
 
 span.eb-option-label {
     float: left;
-    /*margin: 0px 0px 10px 5px;*/
+    /*margin: 0 0 10 5px;*/
     min-width: 200px;
     max-width: 300px;
     width:28%;
@@ -209,7 +209,7 @@ span.eb-option-label .field-label {
 span.eb-option-input {
     float: left;
     width: 68%;
-    margin: 0px;
+    margin: 0;
     padding: 0 10px 0 10px;
 }
 

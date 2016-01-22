@@ -1,8 +1,7 @@
 <?php
 /**
- * The template for displaying all single moodle courses
+ * The template for displaying all single moodle courses.
  */
-
 get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="content" role="main" class="site-main" style="overflow:auto;">
@@ -11,7 +10,10 @@ get_header(); ?>
 			<?php while (have_posts()) :
                 the_post();
 
-                $plugin_template_loader     = new EbTemplateLoader(EB()->get_plugin_name(), EB()->get_version());
+                $plugin_template_loader = new EbTemplateLoader(
+                    edwiserBridgeInstance()->getPluginName(),
+                    edwiserBridgeInstance()->getVersion()
+                );
                 $plugin_template_loader->wpGetTemplatePart('content-single', get_post_type());
 
                 comments_template();
@@ -22,4 +24,4 @@ endwhile; ?>
 	</div><!-- #primary -->
 
 <?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php get_footer();

@@ -1,6 +1,8 @@
 <?php
 
-/**
+namespace app\wisdmlabs\edwiserBridge;
+
+/*
  * EDW Licensing Management
  *
  * @link       https://edwiser.org
@@ -16,9 +18,9 @@ if (!defined('ABSPATH')) {
 
 if (!class_exists('EbSettingsLicensing')) :
     /**
-     * EbSettingsLicensing
+     * EbSettingsLicensing.
      */
-    class EbSettingsLicensing extends EB_Settings_Page
+    class EbSettingsLicensing extends EBSettingsPage
     {
         public $addon_licensing;
 
@@ -27,49 +29,53 @@ if (!class_exists('EbSettingsLicensing')) :
          */
         public function __construct()
         {
-            $this->addon_licensing = array( 'test' );
-            $this->id              = 'licensing';
-            $this->label           = __('Licenses', 'eb-textdomain');
+            $this->addon_licensing = array('test');
+            $this->_id = 'licensing';
+            $this->label = __('Licenses', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20);
-            add_action('eb_settings_' . $this->id, array( $this, 'output' ));
+            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_action('eb_settings_'.$this->_id, array($this, 'output'));
         }
 
         /**
-         * Output the settings
+         * Output the settings.
          *
          * @since  1.0.0
          */
         public function output()
         {
-            global $current_section;
+            //global $current_section;
 
             // Hide the save button
             $GLOBALS[ 'hide_save_button' ] = true;
-            include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-licensing.php';
+            include_once EB_PLUGIN_DIR.'admin/partials/html-admin-licensing.php';
         }
 
         /**
-         * Get settings array
+         * Get settings array.
          *
          * @since  1.0.0
+         *
          * @return array
          */
         public function getSettings($current_section = '')
         {
-            $settings = apply_filters('eb_licensing', array(
+            $settings = apply_filters(
+                'eb_licensing',
                 array(
-                    'title' => __('Licenses', 'eb-textdomain'),
-                    'type'  => 'title',
-                    'id'    => 'licensing_management'
-                ),
-                array(
-                    'type' => 'sectionend',
-                    'id'   => 'licensing_management'
-                ),
-            ));
+                    array(
+                        'title' => __('Licenses', 'eb-textdomain'),
+                        'type' => 'title',
+                        'id' => 'licensing_management',
+                    ),
+                    array(
+                        'type' => 'sectionend',
+                        'id' => 'licensing_management',
+                    ),
+                )
+            );
 
-            return apply_filters('eb_get_settings_' . $this->id, $settings, $current_section);
+            return apply_filters('eb_get_settings_'.$this->_id, $settings, $current_section);
         }
     }
 

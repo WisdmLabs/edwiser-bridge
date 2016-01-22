@@ -6,9 +6,11 @@
  * @param string  $var
  * @return string
  */
-function wp_sanitize_tooltip($var)
+function wpSanitizeTooltip($var)
 {
-    return wp_kses(html_entity_decode($var), array(
+    return wp_kses(
+        html_entity_decode($var),
+        array(
             'br'     => array(),
             'em'     => array(),
             'strong' => array(),
@@ -17,7 +19,8 @@ function wp_sanitize_tooltip($var)
             'li'     => array(),
             'ol'     => array(),
             'p'      => array(),
-        ));
+        )
+    );
 }
 
 /**
@@ -26,7 +29,7 @@ function wp_sanitize_tooltip($var)
  * @param string  $var
  * @return string
  */
-function wp_clean($var)
+function wpClean($var)
 {
     return sanitize_text_field($var);
 }

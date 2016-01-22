@@ -67,7 +67,7 @@ $header_content_h1 = "
 <div style="<?php echo $wrapper; ?>">
     <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
     <tr><td align="center" valign="top">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" 
+    <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container"
         style="<?php echo $template_container; ?>">
         <tr><td align="center" valign="top">
         <!-- Header -->
@@ -75,7 +75,8 @@ $header_content_h1 = "
         style="<?php echo $template_header; ?>">
             <tr>
                 <td>
-                    <h1 style="<?php echo $header_content_h1; ?>"><?php echo $header; ?></h1>
+                    <h1 style="<?php echo $header_content_h1; ?>">
+                    <?php echo $header; ?></h1>
                 </td>
             </tr>
         </table>

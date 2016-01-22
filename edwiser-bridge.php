@@ -1,6 +1,8 @@
 <?php
 
-/**
+namespace app\wisdmlabs\edwiserBridge;
+
+/*
  * The plugin bootstrap file
  *
  *
@@ -28,52 +30,53 @@ if (!defined('WPINC')) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-eb-activator.php
+ * This action is documented in includes/class-eb-activator.php.
  */
-function activate_edwiserbridge()
+function activateEdwiserBridge()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-eb-activator.php';
-    EB_Activator::activate();
+    require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
+    EBActivator::activate();
 }
-register_activation_hook(__FILE__, 'activate_edwiserbridge');
+register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserBridge');
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-eb-deactivator.php
+ * This action is documented in includes/class-eb-deactivator.php.
  */
-function deactivate_edwiserbridge()
+function deactivateEdwiserBridge()
 {
-    require_once plugin_dir_path(__FILE__) . 'includes/class-eb-deactivator.php';
-    EB_Deactivator::deactivate();
+    require_once plugin_dir_path(__FILE__).'includes/class-eb-deactivator.php';
+    EBDeactivator::deactivate();
 }
-register_deactivation_hook(__FILE__, 'deactivate_edwiserbridge');
+register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivateEdwiserBridge');
 
-/**
+/*
  * Applied to the list of links to display on the plugins page (beside the activate/deactivate links).
  *
  * A nes link is added that takes user to plugin settings.
  */
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wdm_add_settings_action_link');
-function wdm_add_settings_action_link($links)
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'app\wisdmlabs\edwiserBridge\wdmAddSettingsActionLink');
+function wdmAddSettingsActionLink($links)
 {
     $pluginlinks = array(
-        '<a href="' . admin_url('/admin.php?page=eb-settings') . '">Settings</a>'
+        '<a href="'.admin_url('/admin.php?page=eb-settings').'">Settings</a>',
         //'<a href="https://edwiser.org/bridge/documentation/" target="_blank">Documentation</a>',
     );
+
     return array_merge($links, $pluginlinks);
 }
 
-/**
+/*
  * Show row meta on the plugin screen, custom docs link added.
  */
-add_filter('plugin_row_meta', 'wdm_plugin_row_meta', 10, 2);
-function wdm_plugin_row_meta($links, $file)
+add_filter('plugin_row_meta', 'app\wisdmlabs\edwiserBridge\wdmPluginRowMeta', 10, 2);
+function wdmPluginRowMeta($links, $file)
 {
     if ($file == plugin_basename(__FILE__)) {
         $row_meta = array(
-            'docs'    => '<a href="https://edwiser.org/bridge/documentation/" target="_blank"
+            'docs' => '<a href="https://edwiser.org/bridge/documentation/" target="_blank"
                         title="'.esc_attr(__('Edwiser Bridge Documentation', 'eb-textdomain')).'">'.
-                        __('Documentation', 'eb-textdomain') .
+                        __('Documentation', 'eb-textdomain').
                         '</a>',
         );
 
@@ -87,7 +90,7 @@ function wdm_plugin_row_meta($links, $file)
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-eb.php';
+require plugin_dir_path(__FILE__).'includes/class-eb.php';
 
 /**
  * Begins execution of the plugin.
@@ -98,9 +101,8 @@ require plugin_dir_path(__FILE__) . 'includes/class-eb.php';
  *
  * @since    1.0.0
  */
-
-function run_edwiserbridge()
+function runEdwiserBridge()
 {
-    EB()->run();
+    edwiserBridgeInstance()->run();
 }
-run_edwiserbridge(); // start plugin execution
+runEdwiserBridge(); // start plugin execution
