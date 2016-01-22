@@ -1,25 +1,28 @@
 <?php
 
 /**
- * Get a log file path
+ * Get a log file path.
  *
  * @since 1.0.0
- * @param string  $handle name
+ *
+ * @param string $handle name
+ *
  * @return string the log file path
  */
 function wdmLogFilePath($handle)
 {
-    return trailingslashit(EB_LOG_DIR) . $handle . '-' . sanitize_file_name(wp_hash($handle)) . '.log';
+    return trailingslashit(EB_LOG_DIR).$handle.'-'.sanitize_file_name(wp_hash($handle)).'.log';
 }
 
 /**
  * Create a page and store the ID in an option.
  *
- * @param mixed   $slug         Slug for the new page
- * @param string  $option_key   Option name to store the page's ID
- * @param string  $page_title   (default: '') Title for the new page
- * @param string  $page_content (default: '') Content for the new page
- * @param int     $post_parent  (default: 0) Parent for the new page
+ * @param mixed  $slug         Slug for the new page
+ * @param string $option_key   Option name to store the page's ID
+ * @param string $page_title   (default: '') Title for the new page
+ * @param string $page_content (default: '') Content for the new page
+ * @param int    $post_parent  (default: 0) Parent for the new page
+ *
  * @return int page ID
  */
 function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content = '')
@@ -49,7 +52,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
         // Search for an existing page with the specified page content (typically a shortcode)
         $page_found_id = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT ID FROM " . $wpdb->posts . "
+                'SELECT ID FROM '.$wpdb->posts."
                 WHERE post_type='page' AND post_content LIKE %s LIMIT 1;",
                 "%{$page_content}%"
             )
@@ -58,7 +61,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
         // Search for an existing page with the specified page slug
         $page_found_id = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT ID FROM " . $wpdb->posts . "
+                'SELECT ID FROM '.$wpdb->posts."
                 WHERE post_type='page' AND post_name = %s LIMIT 1;",
                 $slug
             )
@@ -72,17 +75,18 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
         //     update_option('eb_general', $eb_general_settings);
         // }
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
+
         return $page_found_id;
     }
 
     $page_data = array(
-        'post_status'     => 'publish',
-        'post_type'       => 'page',
-        'post_author'     => 1,
-        'post_name'       => $slug,
-        'post_title'      => $page_title,
-        'post_content'    => $page_content,
-        'comment_status'  => 'closed'
+        'post_status' => 'publish',
+        'post_type' => 'page',
+        'post_author' => 1,
+        'post_name' => $slug,
+        'post_title' => $page_title,
+        'post_content' => $page_content,
+        'comment_status' => 'closed',
     );
     $page_id = wp_insert_post($page_data);
 
@@ -116,8 +120,8 @@ function wdmShowNotices()
     //display form messages
     if (defined('USER_FORM_MESSAGE')) {
         echo "<div class='wdm-flash-error'>";
-        echo "<span>".USER_FORM_MESSAGE."</span><br />";
-        echo "</div>";
+        echo '<span>'.USER_FORM_MESSAGE.'</span><br />';
+        echo '</div>';
     }
 }
 
@@ -129,14 +133,14 @@ function wdmUserAccountUrl($arg = '')
 
     $eb_general_settings = get_option('eb_general');
     $user_account_page_id = '';
-    if(isset($eb_general_settings['eb_useraccount_page_id'])) {
+    if (isset($eb_general_settings['eb_useraccount_page_id'])) {
         $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
     }
 
     if (!is_numeric($user_account_page_id)) {
-        $link = site_url('/user-account') . $arg;
+        $link = site_url('/user-account').$arg;
     } else {
-        $link = get_permalink($user_account_page_id) . $arg;
+        $link = get_permalink($user_account_page_id).$arg;
     }
 
     return $link;
