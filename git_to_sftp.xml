@@ -1,0 +1,184 @@
+<project name="Deploy to Server" default="help" basedir=".">
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+  <!-- Pass username, host and dir parameters -->
+  <tstamp>
+    <format property="TODAY_IN" pattern="dd-MM-yyyy-hh-mm-ss" locale="en,IN"/>
+  </tstamp>
+  
+  <target name="live-sftp-password" depends="deploy-to, sftp-backup, deploy-sftp-with-password" description="Deploys to Live Server using SFTP" />
+  <target name="staging-sftp-password" depends="deploy-to, deploy-sftp-with-password" description="Deploys to Staging Server using SFTP" />
+  <target name="live-ftp-password" depends="deploy-to, ftp-backup, deploy-ftp-with-password" description="Deploys to Live Server using FTP" />
+  <target name="staging-ftp-password" depends="deploy-to, deploy-ftp-with-password" description="Deploys to Staging Server using SFTP" />
+  
+  <target name="deploy-to" description="show where we are deploying to" >
+    <echo>${username}@${host}:${dir}</echo>
+  </target>
+  
+  <target name="is-exclude-set">
+    <set-property name="exclude.set" if-property-isset="exclude" />
+    <property name="exclude.set" value="false" />
+    <set-property name="exclude-glob.set" if-property-isset="exclude-glob" />
+    <property name="exclude-glob.set" value="false" />
+  </target>
+  
+  <target name="is-include-set">
+    <set-property name="include.set" if-property-isset="include" />
+    <property name="include.set" value="false" />
+    <set-property name="include-glob.set" if-property-isset="include-glob" />
+    <property name="include-glob.set" value="false" />
+  </target>
+  
+  <macrodef name="set-property">
+    <attribute name="name" />
+    <attribute name="if-property-isset" />
+    <sequential>
+      <condition property="@{name}" value="true">
+        <and>
+          <isset property="@{if-property-isset}" />
+          <not>
+            <equals arg1="${@{if-property-isset}}" arg2="" />
+          </not>
+        </and>
+      </condition>
+    </sequential>
+  </macrodef>
+  
+  <target name="sftp-exclude">
+    <var name="complete-exclude" value=""/>
+    <if>
+      <equals arg1="${exclude.set}" arg2="true" />
+      <then>
+        <for list="${exclude}" param="single-exclude">
+          <sequential>
+            <var name="complete-exclude" value="${complete-exclude} --exclude @{single-exclude}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${exclude-glob.set}" arg2="true" />
+      <then>
+        <for list="${exclude-glob}" param="single-exclude-glob">
+          <sequential>
+            <var name="complete-exclude" value="${complete-exclude} --exclude @{single-exclude-glob}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+  </target>
+  
+  
+  <target name="sftp-include">
+    <var name="complete-include" value=""/>
+    <if>
+      <equals arg1="${include.set}" arg2="true" />
+      <then>
+        <for list="${include}" param="single-include">
+          <sequential>
+            <var name="complete-include" value="${complete-include} --include @{single-include}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${include-glob.set}" arg2="true" />
+      <then>
+        <for list="${include-glob}" param="single-include-glob">
+          <sequential>
+            <var name="complete-include" value="${complete-include} --include @{single-include-glob}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+  </target>
+  
+  <target name="ftp-exclude">
+    <var name="complete-exclude" value=""/>
+    <var name="complete-exclude-glob" value=""/>
+    <if>
+      <equals arg1="${exclude.set}" arg2="true" />
+      <then>
+        <for list="${exclude}" param="single-exclude">
+          <sequential>
+            <var name="complete-exclude" value="${complete-exclude} --exclude @{single-exclude}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${exclude-glob.set}" arg2="true" />
+      <then>
+        <for list="${exclude-glob}" param="single-exclude-glob">
+          <sequential>
+            <var name="complete-exclude-glob" value="${complete-exclude-glob} --exclude-glob @{single-exclude-glob}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+  </target>
+  
+  <target name="ftp-include">
+    <var name="complete-include" value=""/>
+    <var name="complete-include-glob" value=""/>
+    <if>
+      <equals arg1="${include.set}" arg2="true" />
+      <then>
+        <for list="${include}" param="single-include">
+          <sequential>
+            <var name="complete-include" value="${complete-include} --include @{single-include}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${include-glob.set}" arg2="true" />
+      <then>
+        <for list="${include-glob}" param="single-include-glob">
+          <sequential>
+            <var name="complete-include-glob" value="${complete-include-glob} --include-glob @{single-include-glob}"/>
+          </sequential>
+        </for>
+      </then>
+    </if>
+  </target>
+  
+  <target name="sftp-backup" description="backup data before deploy" unless="sftp-backup.done" depends="is-exclude-set, sftp-exclude, is-include-set, 
+sftp-include">
+    <mkdir dir="${basedir}/backups/${TODAY_IN}" />
+    <exec executable="rsync" failonerror="true">
+       <arg line="-rlvztC --del ${complete-include} ${complete-exclude} --rsh='sshpass -p ${password} ssh ${host} -l ${username} -p ${port} -o 
+StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' :${dir}/ ${basedir}/backups/${TODAY_IN}/"/>
+    </exec>
+    <property name="sftp-backup.done" value="true" />
+  </target>
+  
+  <target name="deploy-sftp-with-password" description="deploy using rsync and password" depends="is-exclude-set, sftp-exclude, is-include-set, sftp-include">
+    <echo>rsync -rlvztC --del ${complete-include} ${complete-exclude} --rsh='sshpass -p ${password} ssh ${host} -l ${username} -p ${port} -o 
+StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${basedir}/ :${dir}/</echo>
+    <exec executable="rsync" failonerror="true">
+      <arg line="-rlvztC --del ${complete-include} ${complete-exclude} --rsh='sshpass -p ${password} ssh ${host} -l ${username} -p ${port} -o 
+StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${basedir}/ :${dir}/"/>
+    </exec>
+  </target>
+  
+  <target name="ftp-backup" description="backup data before deploy" unless="ftp-backup.done" depends="is-exclude-set, ftp-exclude, is-include-set, ftp-include">
+    <!--<echo>lftp -c 'open -u ${username},${password} ${host}:${port}; mirror -v ${complete-include} ${complete-include-glob} ${complete-exclude} 
+${complete-exclude-glob} ${dir} ${basedir}/backups/${TODAY_IN}'</echo>-->
+    <mkdir dir="${basedir}/backups/${TODAY_IN}" />
+    <exec executable="lftp" failonerror="true">
+      <arg line="-c 'open -u ${username},${password} ${host}:${port}; mirror -v ${complete-include} ${complete-include-glob} ${complete-exclude} 
+${complete-exclude-glob} ${dir} ${basedir}/backups/${TODAY_IN}'"/>
+    </exec>
+    <property name="ftp-backup.done" value="true" />
+  </target>
+  
+  <target name="deploy-ftp-with-password" description="deploy using lftp" depends="is-exclude-set, ftp-exclude, is-include-set, ftp-include">
+    <!--<echo>lftp -c 'open -u ${username},${password} ${host}:${port}; mirror -R -v ${complete-include} ${complete-include-glob} ${complete-exclude} 
+${complete-exclude-glob} -e ${basedir} ${dir}'</echo>-->
+    <exec executable="lftp" failonerror="true">
+      <arg line="-c 'open -u ${username},${password} ${host}:${port}; mirror -R -v ${complete-include} ${complete-include-glob} ${complete-exclude} 
+${complete-exclude-glob} -e ${basedir} ${dir}'"/>
+    </exec>
+  </target>
+  
+</project>
