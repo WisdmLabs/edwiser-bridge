@@ -188,7 +188,7 @@ if (!class_exists('EBSettingsSynchronization')) {
                 ));
             }
 
-            return apply_filters('eb_get_settings_'.$this->id, $settings, $current_section);
+            return apply_filters('eb_get_settings_'.$this->_id, $settings, $current_section);
         }
     }
 }

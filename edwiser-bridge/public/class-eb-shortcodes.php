@@ -69,7 +69,7 @@ class EbShortcodes
      */
     public static function userAccount($atts)
     {
-        return self::shortcodeWrapper(array( 'EbShortcodeUserAccount', 'output' ), $atts);
+        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'output' ), $atts);
     }
 
     /**
@@ -81,6 +81,6 @@ class EbShortcodes
      */
     public static function userProfile($atts)
     {
-        return self::shortcodeWrapper(array( 'EbShortcodeUserProfile', 'output' ), $atts);
+        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'output' ), $atts);
     }
 }
