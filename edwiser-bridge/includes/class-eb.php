@@ -46,13 +46,7 @@ class EdwiserBridge
 
     /**
      * The current version of the plugin.
-     *3. Shortcodes not working:
-
-[eb_user_account]
-[eb_user_profile]
-Class EbShortcodes & EbFrontendFormHandler not found error on all pages and posts on site.
-
-Can not test course purchase until above error is fixed.
+     *
      * @since    1.0.0
      *
      * @var string The current version of the plugin.
