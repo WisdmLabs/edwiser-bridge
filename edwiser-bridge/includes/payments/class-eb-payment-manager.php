@@ -131,10 +131,10 @@ class EBPaymentManager
     /**
      * function to check the value.
      */
-    protected static function checkArrayValueSet($var, $value, $default = '')
+    protected static function checkArrayValueSet($array, $var, $value, $default = '')
     {
-        if (isset($var)) {
-            return $value;
+        if (isset($array[$var])) {
+            return $array[$var];
         }
 
         return $default;
@@ -165,24 +165,27 @@ class EBPaymentManager
         $course_meta = get_post_meta($course_id, 'eb_course_options', true);
 
         $course_price_type = self::checkArrayValueSet(
-            $course_meta['course_price_type'],
-            $course_meta['course_price_type'],
+            $course_meta,
+            'course_price_type',
+            'course_price_type',
             'free'
         );
         // if(isset($course_meta['course_price_type'])) {
         //     $course_price_type = $course_meta['course_price_type'];
         // }
         $course_price = self::checkArrayValueSet(
-            $course_meta['course_price'],
-            $course_meta['course_price'],
+            $course_meta,
+            'course_price',
+            'course_price',
             0
         );
         // if(isset($course_meta['course_price'])) {
         //     $course_price = $course_meta['course_price'];
         // }
             $closed_button_url = self::checkArrayValueSet(
-                $course_meta['course_closed_url'],
-                $course_meta['course_closed_url'],
+                $course_meta,
+                'course_closed_url',
+                'course_closed_url',
                 '#'
             );
         // if(isset($course_meta['course_closed_url'])) {
@@ -193,24 +196,27 @@ class EBPaymentManager
             $payment_options = get_option('eb_paypal');
 
             $paypal_email = self::checkArrayValueSet(
-                $payment_options['eb_paypal_email'],
-                $payment_options['eb_paypal_email'],
+                $payment_options,
+                'eb_paypal_email',
+                'eb_paypal_email',
                 ''
             );
         // if(isset($payment_options['eb_paypal_email'])) {
         //     $paypal_email = $payment_options['eb_paypal_email'];
         // }
             $paypal_currency = self::checkArrayValueSet(
-                $payment_options['eb_paypal_currency'],
-                $payment_options['eb_paypal_currency'],
+                $payment_options,
+                'eb_paypal_currency',
+                'eb_paypal_currency',
                 'USD'
             );
         // if(isset($payment_options['eb_paypal_currency'])) {
         //     $paypal_currency = $payment_options['eb_paypal_currency'];
         // }
             $paypal_country = self::checkArrayValueSet(
-                $payment_options['eb_paypal_country'],
-                $payment_options['eb_paypal_country'],
+                $payment_options,
+                'eb_paypal_country',
+                'eb_paypal_country',
                 'US'
             );
         // if(isset($payment_options['eb_paypal_country'])) {
@@ -219,24 +225,27 @@ class EBPaymentManager
         //$paypal_cancelurl = isset($payment_options['eb_paypal_cancel_url'])?
         //    $payment_options['eb_paypal_cancel_url']:site_url();
             $paypal_returnurl = self::checkArrayValueSet(
-                $payment_options['eb_paypal_return_url'],
-                $payment_options['eb_paypal_return_url'],
+                $payment_options,
+                'eb_paypal_return_url',
+                'eb_paypal_return_url',
                 site_url()
             );
         // if(isset($payment_options['eb_paypal_return_url'])) {
         //     $paypal_returnurl = $payment_options['eb_paypal_return_url'];
         // }
             $paypal_notifyurl = self::checkArrayValueSet(
-                $payment_options['eb_paypal_notify_url'],
-                $payment_options['eb_paypal_notify_url'],
+                $payment_options,
+                'eb_paypal_notify_url',
+                'eb_paypal_notify_url',
                 ''
             );
         // if(isset($payment_options['eb_paypal_notify_url'])) {
         //     $paypal_notifyurl = $payment_options['eb_paypal_notify_url'];
         // }
             $paypal_sandbox = self::checkArrayValueSet(
-                $payment_options['eb_paypal_sandbox'],
-                $payment_options['eb_paypal_sandbox'],
+                $payment_options,
+                'eb_paypal_sandbox',
+                'eb_paypal_sandbox',
                 'yes'
             );
         // if(isset($payment_options['eb_paypal_sandbox'])) {
