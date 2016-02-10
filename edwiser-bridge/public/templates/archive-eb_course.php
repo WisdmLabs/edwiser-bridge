@@ -9,7 +9,12 @@ get_header(); ?>
 
 		<?php
             // our template loader
-            $plugin_template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+
+
+            $plugin_template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
+                app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getPluginName(),
+                app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getVersion()
+            );
         ?>
 
 		<?php do_action('eb_before_course_archive'); ?>

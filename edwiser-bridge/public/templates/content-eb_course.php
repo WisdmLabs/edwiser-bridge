@@ -42,7 +42,7 @@ if (is_numeric($course_price)) {
 $course_class = null;
 $user_id = get_current_user_id();
 $logged_in = !empty($user_id);
-$has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $post->ID);
+$has_access = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $post->ID);
 
 /*
  * To add class according to user access

@@ -132,12 +132,18 @@ class EBEnrollmentManager
 
         // get moodle course id of each course
         // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
-        $moodle_courses = array_map(array(edwiserBridgeInstance()->courseManager(), 'get_moodle_course_id'), $args['courses']);
+        $moodle_courses = array_map(
+            array(edwiserBridgeInstance()->courseManager(), 'getMoodleCourseId'),
+            $args['courses']
+        );
 
         // logging
-        edwiserBridgeInstance()->logger()->add('user', 'Course IDs: '.serialize($args['courses'])); // add user log
-        edwiserBridgeInstance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses)); // add user log
-        edwiserBridgeInstance()->logger()->add('user', "\n"); // add user log
+        // add user log
+        edwiserBridgeInstance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
+        // add user log
+        edwiserBridgeInstance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
+        // add user log
+        edwiserBridgeInstance()->logger()->add('user', "\n");
 
         $enrolments = array();
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
