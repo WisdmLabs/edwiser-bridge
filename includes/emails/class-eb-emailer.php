@@ -32,7 +32,8 @@ class EBEmailer
      */
     private $version;
 
-    private $plugin_template_loader; //template loader object
+    //template loader object
+    private $plugin_template_loader;
 
     public function __construct($plugin_name, $version)
     {

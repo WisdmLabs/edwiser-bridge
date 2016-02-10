@@ -2,6 +2,9 @@
 /**
  * The template for displaying all single moodle courses.
  */
+
+namespace app\wisdmlabs\edwiserBridge;
+
 get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="content" role="main" class="site-main" style="overflow:auto;">

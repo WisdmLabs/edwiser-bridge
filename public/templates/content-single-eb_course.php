@@ -3,6 +3,7 @@
 /**
  * The template for displaying single course content.
  */
+namespace app\wisdmlabs\edwiserBridge;
 
 //Variables
 global $post;

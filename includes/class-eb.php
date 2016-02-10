@@ -655,13 +655,13 @@ class EdwiserBridge
         $this->loader->addFilter('template_include', $template_loader, 'templateLoader');
 
         // Initiate our shortcodes class on init hook
-        $this->loader->addAction('init', 'EbShortcodes', 'init');
+        $this->loader->addAction('init', 'app\wisdmlabs\edwiserBridge\EbShortcodes', 'init');
 
         // Frontend form handler hooks to handle user login & registration
-        $this->loader->addAction('wp_loaded', 'EbFrontendFormHandler', 'processLogin', 20);
-        $this->loader->addAction('wp_loaded', 'EbFrontendFormHandler', 'processRegistration', 20);
+        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processLogin', 20);
+        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processRegistration', 20);
         // process course join request for free courses
-        $this->loader->addAction('wp_loaded', 'EbFrontendFormHandler', 'processFreeCourseJoinRequest');
+        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
     }
 
     /**
