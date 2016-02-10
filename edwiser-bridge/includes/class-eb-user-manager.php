@@ -187,21 +187,23 @@ class EBUserManager
                     /*
                      * In this block we are unenrolling user course if a user is unenrolled from those course on moodle
                      */
-                    $enrolled_courses = $wpdb->get_results(
+                    $old_enrolled_courses = $wpdb->get_results(
                         "SELECT course_id
                         FROM {$wpdb->prefix}moodle_enrollment
                         WHERE user_id = ".$value['user_id'],
                         ARRAY_A
-                    ); // get user's existing enrollment record from wordpress DB
+                    );
+
+                    // get user's existing enrollment record from wordpress DB
                     $notenrolled_courses = array();
 
-                    foreach ($enrolled_courses as $existing_course) {
+                    foreach ($old_enrolled_courses as $existing_course) {
                         if (!in_array($existing_course['course_id'], $enrolled_courses)) {
                             $notenrolled_courses[] = $existing_course['course_id'];
                         }
                     }
 
-                    if (is_array($notenrolled_courses) && !empty($notenrolled_courses)) {
+                    if (is_array($notenrolled_courses)  &&  !empty($notenrolled_courses)) {
                         // define args
                         $args = array(
                             'user_id' => $value['user_id'],
@@ -737,7 +739,7 @@ class EBUserManager
                         $deleted = (delete_user_meta($user, 'moodle_user_id'));
                         delete_user_meta($user, 'eb_user_password');
                         if ($deleted) {
-                            ++$unlinked;
+                            $unlinked++;
                         }
                     }
 
@@ -992,7 +994,8 @@ class EBUserManager
                     'courses' => array($enroll_course),
                 );
 
-                edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args); // enroll user to course
+                // enroll user to course
+                edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
             }
 
             if (is_numeric($unenroll_course)) {
@@ -1003,7 +1006,8 @@ class EBUserManager
                     'unenroll' => 1,
                 );
 
-                edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args); // enroll user to course
+                // enroll user to course
+                edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
             }
         }
 
