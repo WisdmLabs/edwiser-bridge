@@ -32,7 +32,7 @@ class EbFrontendFormHandler
                 );
 
                 if ($validation_error->get_error_code()) {
-                    throw new Exception(
+                    throw new \Exception(
                         '<strong>'.
                         __('Error', 'eb-textdomain').
                         ':</strong> '.
@@ -41,7 +41,7 @@ class EbFrontendFormHandler
                 }
 
                 if (empty($_POST['username'])) {
-                    throw new Exception(
+                    throw new \Exception(
                         '<strong>'.
                         __('Error', 'eb-textdomain').
                         ':</strong> '.
@@ -50,7 +50,7 @@ class EbFrontendFormHandler
                 }
 
                 if (empty($_POST['password'])) {
-                    throw new Exception(
+                    throw new \Exception(
                         '<strong>'.
                         __('Error', 'eb-textdomain').
                         ':</strong> '.
@@ -66,7 +66,7 @@ class EbFrontendFormHandler
                 $user = wp_signon(apply_filters('eb_login_credentials', $creds), $secure_cookie);
 
                 if (is_wp_error($user)) {
-                    throw new Exception($user->get_error_message());
+                    throw new \Exception($user->get_error_message());
                 } else {
                     if (!empty($_GET['redirect_to'])) {
                         $redirect = $_GET['redirect_to'];
@@ -109,18 +109,18 @@ class EbFrontendFormHandler
                 );
 
                 if ($validation_error->get_error_code()) {
-                    throw new Exception($validation_error->get_error_message());
+                    throw new \Exception($validation_error->get_error_message());
                 }
 
                 /*Anti-spam trap*/
                 if (!empty($_POST['email_2'])) {
-                    throw new Exception(__('Anti-spam field was filled in.', 'eb-textdomain'));
+                    throw new \Exception(__('Anti-spam field was filled in.', 'eb-textdomain'));
                 }
 
                 $new_user = $user_manager->createWordpressUser(sanitize_email($email), $firstname, $lastname);
 
                 if (is_wp_error($new_user)) {
-                    throw new Exception($new_user->get_error_message());
+                    throw new \Exception($new_user->get_error_message());
                 }
 
                 $user_manager->setUserAuthCookie($new_user);

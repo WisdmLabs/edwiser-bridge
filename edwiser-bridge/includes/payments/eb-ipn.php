@@ -3,6 +3,8 @@
  *  PHP-PayPal-IPN Handler.
  */
 
+namespace app\wisdmlabs\edwiserBridge;
+
 /*NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
     You cannot rely on setting up some details here and then using them in your success page.
     */
@@ -18,7 +20,7 @@ edwiserBridgeInstance()->logger()->add('payment', print_r($_REQUEST, true));
 edwiserBridgeInstance()->logger()->add('payment', 'IPN Listener Loading...');
 
 include 'eb-ipnlistener.php';
-$listener = new EB_IpnListener();
+$listener = new EBIpnListener();
 
 edwiserBridgeInstance()->logger()->add('payment', 'IPN Listener Loaded');
 
@@ -223,7 +225,7 @@ if ($verified) {
         $order_options['amount_paid'] = $course_price;
         update_post_meta($order_id, 'eb_order_options', $order_options);
 
-        $order_completed = edwiserBridgeInstance()->order_manager()->update_order_status($order_id, 'completed');
+        $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
 
         if ($order_completed) {
             edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: '.$order_id);
