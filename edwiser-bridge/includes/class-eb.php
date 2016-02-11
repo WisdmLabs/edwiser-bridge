@@ -583,7 +583,7 @@ class EdwiserBridge
             10
         );
         $this->loader->addAction(
-            'wp_ajax_create_new_order_ajax_wrapper',
+            'wp_ajax_createNewOrderAjaxWrapper',
             $this->orderManager(),
             'createNewOrderAjaxWrapper',
             10
