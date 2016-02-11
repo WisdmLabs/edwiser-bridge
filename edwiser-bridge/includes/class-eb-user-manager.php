@@ -252,11 +252,11 @@ class EBUserManager
 
         // Check the e-mail address
         if (empty($email) || !is_email($email)) {
-            return new WP_Error('registration-error', __('Please provide a valid email address.', 'eb-textdomain'));
+            return new \WP_Error('registration-error', __('Please provide a valid email address.', 'eb-textdomain'));
         }
 
         if (email_exists($email)) {
-            return new WP_Error(
+            return new \WP_Error(
                 'registration-error',
                 __('An account is already registered with your email address. Please login.', 'eb-textdomain')
             );
@@ -280,7 +280,7 @@ class EBUserManager
         //$password_generated = true;
 
         // WP Validation
-        $validation_errors = new WP_Error();
+        $validation_errors = new \WP_Error();
 
         do_action('eb_register_post', $username, $email, $validation_errors);
 
@@ -303,7 +303,7 @@ class EBUserManager
         $user_id = wp_insert_user($wp_user_data);
 
         if (is_wp_error($user_id)) {
-            return new WP_Error(
+            return new \WP_Error(
                 'registration-error',
                 '<strong>'.__('ERROR', 'eb-textdomain').'</strong>: '.
                 __(

@@ -23,7 +23,7 @@ class EbFrontendFormHandler
             try {
                 $creds = array();
 
-                $validation_error = new WP_Error();
+                $validation_error = new \WP_Error();
                 $validation_error = apply_filters(
                     'eb_process_login_errors',
                     $validation_error,
@@ -99,7 +99,7 @@ class EbFrontendFormHandler
             $user_manager = new EBUserManager(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
 
             try {
-                $validation_error = new WP_Error();
+                $validation_error = new \WP_Error();
                 $validation_error = apply_filters(
                     'eb_process_registration_errors',
                     $validation_error,
