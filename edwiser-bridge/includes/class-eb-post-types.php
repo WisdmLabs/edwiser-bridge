@@ -564,10 +564,7 @@ class EBPostTypes
                     }
                 }
 
-                if (is_array($update_post_options) && isset($update_post_options['moodle_course_id'])) {
-                    // saving moodle course id as a individual key for faster access
-                    update_post_meta($post_id, 'moodle_course_id', $update_post_options['moodle_course_id']);
-
+                if (is_array($update_post_options)) {
                     /*
                      * merge previous values in array with new values retrieved
                      * replace old values with new values and save as option
