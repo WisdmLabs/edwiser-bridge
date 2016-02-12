@@ -335,7 +335,8 @@ class EBIpnListener
         //require POST requests
         if ($_SERVER['REQUEST_METHOD'] && $_SERVER['REQUEST_METHOD'] != 'POST') {
             header('Allow: POST', true, 405);
-            throw new \Exception("Invalid HTTP request method.");
+            exit();
+            //throw new \Exception("Invalid HTTP request method.");
         }
     }
 }
