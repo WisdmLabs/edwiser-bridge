@@ -76,7 +76,7 @@ class EbTemplateLoader
 
         if ($file) {
             $template       = locate_template(array_unique($find));
-            if (! $template || WC_TEMPLATE_DEBUG_MODE) {
+            if (! $template) {
                 $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
             }
         }
