@@ -357,11 +357,10 @@ class EBPostTypes
         $option = self::getPostOptions($post_id, $field_id, $post_type);
 
         $data = '';
-        if (isset($field['default'])) {
-            $data = $field['default'];
-            if ($option) {
+        if ($option) {
                 $data = $option;
-            }
+        } elseif (isset($field['default'])) {
+            $data = $field['default'];
         }
         $field['placeholder'] = '';
         if (isset($field['placeholder'])) {
