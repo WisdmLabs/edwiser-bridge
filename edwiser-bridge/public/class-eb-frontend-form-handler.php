@@ -77,7 +77,7 @@ class EbFrontendFormHandler
                     wp_safe_redirect(apply_filters('eb_login_redirect', $redirect, $user));
                     exit;
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 wdmAddNotices($e->getMessage());
             }
         }
@@ -133,7 +133,7 @@ class EbFrontendFormHandler
 
                 wp_safe_redirect(apply_filters('eb_registration_redirect', $redirect, $new_user));
                 exit;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 wdmAddNotices($e->getMessage());
             }
         }
