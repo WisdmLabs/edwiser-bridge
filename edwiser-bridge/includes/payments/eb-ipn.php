@@ -55,7 +55,7 @@ try {
     $listener->requirePostMethod();
     $verified = $listener->processIpn();
     edwiserBridgeInstance()->logger()->add('payment', 'Post method check completed.');
-} catch (Exception $e) {
+} catch (\Exception $e) {
     edwiserBridgeInstance()->logger()->add('payment', 'Found Exception: '.$e->getMessage().' Exiting....');
     exit(0);
 }
