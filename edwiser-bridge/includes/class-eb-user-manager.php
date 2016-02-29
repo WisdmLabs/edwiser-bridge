@@ -724,7 +724,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('linked' => $linked), wp_get_referer());
+                    $sendback = add_query_arg(array('linked' => $linked), $_SERVER['HTTP_REFFER']);
                 }
 
                 break;
@@ -744,7 +744,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('unlinked' => $unlinked), wp_get_referer());
+                    $sendback = add_query_arg(array('unlinked' => $unlinked), $_SERVER['HTTP_REFFER']);
                 }
 
                 break;
