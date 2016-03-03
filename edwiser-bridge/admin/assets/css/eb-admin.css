@@ -1,0 +1,288 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+/* extensions page css */
+.eb_extensions_wrap .extensions {
+    overflow: hidden;
+}
+
+.eb_extensions_wrap .extensions li {
+    float: left;
+    margin: 0 1em 1em 0 !important;
+    padding: 0;
+    vertical-align: top;
+    width: 260px;
+}
+
+.eb_extensions_wrap .extensions li a {
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #DDD;
+    display: block;
+    min-height: 250px;
+    overflow: hidden;
+    background: #F5F5F5 none repeat scroll 0% 0%;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+}
+
+.eb_extensions_wrap .extensions li a h3 {
+    margin: 0 !important;
+    padding: 20px !important;
+    background: #FFF none repeat scroll 0% 0%;
+}
+
+.eb_extensions_wrap .extensions li a p {
+    padding: 20px !important;
+    margin: 0 !important;
+    border-top: 1px solid #F1F1F1;
+}
+
+.eb_extensions_wrap .extensions li a img {
+    max-width: 258px;
+    max-height: 24px;
+    padding: 17px 20px;
+    display: block;
+    margin: 0;
+    background: #FFF none repeat scroll 0% 0%;
+    border-right: 260px solid #FFF;
+}
+
+.browse-all{
+    position: relative;
+    font-size: 13px;
+    color: #FFF;
+    text-decoration: none;
+    border: medium none;
+    background: #0091CD none repeat scroll 0% 0%;
+    font-weight: 600px;
+    text-transform: uppercase;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    width: 200px;
+    margin-right: 75px;
+}
+
+a.browse-all:hover{
+    color:#FFF!important;
+}
+
+/* extensions page css end */
+
+.response-box {
+    text-shadow: none;
+    display:inline-block;
+    margin-left: 20px;
+    position:absolute;
+}
+
+@media screen and (max-width: 640) {
+    .response-box {
+        display:block;
+        margin-left: 0;
+        margin-top:15px;
+    }
+}
+
+.alert {
+    line-height:28px;
+    margin-bottom:10px;
+    padding-left:25px;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: left center;
+}
+
+.alert-error {
+    color:red;
+    background-image:url('../../../images/error.png');
+}
+
+.alert-success {
+    color:green;
+    background-image:url('../../../images/success.png');
+}
+/*
+.alert-success::before {
+
+    display: block;
+    width: 20;
+    height: 10;
+    content:url('../../../images/success.png');
+}*/
+
+
+/* iris color picker css*/
+
+.color_box_clear {
+    display: block;
+    clear: both;
+    padding-bottom: 10px;
+}
+.iris-picker {
+    margin: 15px 0 0 -7px;
+    z-index: 100;
+    position: absolute!important;
+    display: none;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+    border-radius: 3px;
+}
+.iris-picker .ui-slider {
+    border: 0!important;
+    background: none!important;
+    margin: 0!important;
+    width: auto!important;
+    height: auto!important;
+}
+.iris-picker .ui-slider .ui-slider-handle {
+    margin-bottom: 0!important;
+}
+
+/* help tip css */
+table.form-table th img.help_tip {
+  margin: 0 -10px 0 0;
+  float: right;
+}
+
+/* loader image for action buttons */
+span.load-response { display:none; }
+span.load-response img{
+    margin: 4px 0 0 11px;
+}
+
+/* Settings module css for post options */
+span.description-label{
+    position:relative;
+    top:8px;
+}
+p.description-message span.description-label{
+    position:relative;
+    top:5px;
+}
+
+li.description-message-error{
+    color:red;
+}
+
+li.description-message-success{
+    color:green;
+}
+
+span.description-label img.help-tip{
+    width: 24px;
+}
+
+/* Post type options box css */
+
+div.post-options{
+    overflow:auto;
+}
+
+.post-options div.field-input-box{
+    clear: both;
+    width: 100%;
+    padding: 5px;
+    min-height:55px;
+    box-sizing:border-box;
+}
+
+span.eb-option-label {
+    float: left;
+    /*margin: 0 0 10 5px;*/
+    min-width: 200px;
+    max-width: 300px;
+    width:28%;
+}
+
+span.eb-option-label .field-label {
+    color: #5F5F5F;
+    font-weight: bold;
+    float: left;
+    margin-top:5px;
+}
+
+span.eb-option-input {
+    float: left;
+    width: 68%;
+    margin: 0;
+    padding: 0 10px 0 10px;
+}
+
+/*span.eb-option-input .eb-option-div input{
+	width:50%;
+	height:35px;
+	padding-right:15px;
+}*/
+span.eb-option-input .eb-option-div select{
+    width:25%;
+    height:35px;
+    padding-right:15px;
+}
+
+
+/* order status & course price type column in admin section */
+.column-course_type, .column-order_status{
+    width:15%;
+}
+
+/* Properties for Table Structure*/
+
+.eb_table {
+    display: block;
+    width: 100%;
+    margin-top: 2em;
+}
+.eb_table_body,
+.eb_table_row{
+    clear: both;
+    height:auto;
+    width:auto;
+}
+
+.eb_table_cell,
+.eb_table_cell_1,
+.eb_table_cell_2,
+.eb_table_cell_3,
+.eb_table_cell_4{
+    /*border: 1px solid #999999;*/
+    float: left;
+    height: auto;
+    overflow: hidden;
+    width: auto;
+    margin: 0.5em;
+    vertical-align: central;
+}
+
+.eb_table_cell_1{
+    width:15%;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.eb_table_cell_2{
+    width: 35%;
+}
+
+.eb_table_cell_3{
+    width: 10%;
+}
+
+.eb_table_cell_4{
+    width: 35%;
+}
+
+.eb_table:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: auto;
+}
+
+/* Properties for Table Structure End*/

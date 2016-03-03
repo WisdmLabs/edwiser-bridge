@@ -1,0 +1,299 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+.wdm-flash-error{
+    margin: 5px 0 15px;
+    background: none repeat scroll 0% 0% #FFF;
+    border-left: 6px solid #FF7979;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.wdm-flash-info{
+    margin: 5px 0 15px;
+    background: none repeat scroll 0% 0% #FFF;
+    border-left: 6px solid #7AD03A;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/**
+ * course archive template style
+ */
+
+.hentry.wdm-col-3-2-1 {
+    float: left;
+    margin: 15px 0 30 0;
+    padding: 0 15px;
+    width: 25%;
+}
+.hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
+    clear: left;
+}
+@media (max-width: 991px ) {
+    .hentry.wdm-col-3-2-1 {
+        width: 50%;
+    }
+    .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
+        clear: none;
+    }
+    .hentry.wdm-col-3-2-1:nth-of-type(2n+1) {
+        clear: left;
+    }
+}
+@media (max-width: 767px ) {
+    .hentry.wdm-col-3-2-1 {
+        clear: both;
+        float: none;
+        width: 100%;
+    }
+}
+.hentry.wdm-course-grid-wrap {
+    background: none;
+    border: 0 none;
+    box-shadow: none;
+}
+.wdm-course-grid {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+}
+.wdm-course-grid .wdm-price {
+    background: none repeat scroll 0 0 #5cb85c;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    left: -8px;
+    padding: 3px 10px;
+    position: absolute;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+    top: 10;
+    z-index: 2;
+}
+.wdm-course-grid .wdm-price::before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #348c34 #348c34 transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 4px;
+    bottom: -8px;
+    content: "";
+    left: 0;
+    position: absolute;
+}
+.wdm-course-thumbnail {
+    display: block;
+}
+.wdm-course-thumbnail > img {
+    width: 100%;
+}
+.wdm-caption {
+    padding: 10px;
+}
+.wdm-caption .entry-content {
+    padding: 0;
+}
+
+p.read-more{
+    margin-top:10;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.wdm-btn {
+  border-color: #357ebd;
+  border-radius: 3px;
+  display: inline-block;
+  line-height: 1.82857;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-weight: 600;
+  background-color: #333!important;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 1.1rem;
+  padding: 0.4017em 0.503em;
+  text-transform: uppercase;
+  text-decoration: none!important;
+}
+
+.eb_join_button input[type="submit"]{
+    border-radius: 3px;
+    background:#333!important;
+    border:0!important;
+    padding: 0.4017em 0.503em!important;
+}
+
+.wdm-btn:hover {
+    background: #555!important;
+    border-color: #285e8e;
+    color:whitesmoke!important;
+    text-decoration: none;
+}
+
+
+/* for single course take course button css*/
+div.eb_join_button{
+    margin:10px 0 0 0;
+}
+
+/* for course archive take course button */
+div.wdm-caption .eb_join_button{
+    margin:10px 0 0 0;
+    text-align: center;
+}
+
+
+.wdm-btn:visited {
+    color:white;
+}
+
+nav.navigation{
+    clear:both;
+}
+
+/** single course template customization */
+article.single-course{
+    padding:15px;
+}
+
+/* for course not available */
+div.course-not-available{
+    font-size:15px;
+    color:rgb(148, 30, 30);
+}
+
+@media screen and (min-width: 77.5em) {
+    div.eb_join_button .wdm-btn {
+      font-size: 1.1rem;
+    }
+}
+
+/* user login and registration page styling */
+div#user_login label{
+  display: inline-block;
+  width: 125px;
+}
+
+/* user profile shortcode style */
+.eb-user-profile{
+  border: 1px solid rgba(68, 68, 68, 0.21);
+  padding: 10px;
+  border-radius: 3px;
+  font-family: "Noto Sans", sans-serif!important;
+}
+
+.eb-user-info{
+    overflow: auto;
+    clear: both;
+    position: relative;
+    padding: 5px;
+    border: 1px solid rgba(68, 68, 68, 0.21);
+    border-radius: 3px;
+}
+
+.eb-user-picture{
+  float:left;
+  width:175px;
+  min-height:125px;
+  border-radius: 3px;
+  margin-right:25px;
+}
+
+.eb-user-data{
+  float:left;
+  padding:10px;
+}
+
+.eb-user-data div:last-child{
+  font-size:16px;
+}
+
+.eb-edit-profile{
+    position: absolute;
+    right: 0;
+    top:-2px;
+}
+
+.eb-edit-profile a{
+  text-decoration: none!important;
+  background: #272727;
+  color: white!important;
+  font-size: 12px;
+  border-bottom:0!important;
+  border-radius: 0 0 0 5px;
+  font-weight:400;
+  text-transform: capitalize;
+}
+
+.eb-user-picture .avatar{
+  border-radius:0!important;
+}
+
+.eb-user-courses{
+  margin-top:30px;
+  height: auto;
+  clear: both;
+  position: relative;
+  border: 1px solid rgba(68, 68, 68, 0.21);
+  border-radius: 3px;
+}
+
+.course-heading{
+  clear: both;
+  height: 30px;
+  line-height: 30px;
+  border-bottom:1px solid rgba(68, 68, 68, 0.21);
+  font-size:13px;
+  padding: 0 10px;
+  background: #eee;
+}
+
+.course-heading span:first-child{
+  float:left;
+  width:40px;
+}/*
+
+.course-heading span:last-child{
+  float:right;
+}*/
+
+.eb-course-data{
+  padding: 0 10px;
+}
+
+.eb-course-section{
+    height: 50px;
+    margin-bottom: 10px;
+    font-size:16px;
+}
+
+.eb-course-section div{
+  display:inline-block!important;
+  height: 45px;
+  margin-top:10px!important;
+}
+
+.eb-course-section div:first-child{
+  width:40px;
+}
+
+.eb-course-section .eb_join_button{
+  float:right;
+}
+
+.eb-no-course{
+  text-align: center;
+  font-size: 13px;
+}
