@@ -21,6 +21,10 @@ class EBActivator
      */
     public static function activate()
     {
+        /**
+         * deactivates legacy extensions
+         */
+        self::deactivateLegacyExtensions();
 
         // create database tables
         self::createMoodleDbTables();
@@ -33,6 +37,35 @@ class EBActivator
 
         // redirect to welcome screen
         set_transient('_eb_activation_redirect', 1, 30);
+    }
+
+    /**
+     * deactivates legacy extensions
+     *
+     * @since 1.1
+     */
+    public static function deactivateLegacyExtensions()
+    {
+        // prepare extensions array
+        $extensions = array(
+                'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
+                'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
+                'single_signon'  => array('edwiser-bridge-sso/sso.php', '1.0.0')
+        );
+
+        // deactive legacy extensions
+        foreach ($extensions as $extension) {
+            if (is_plugin_active($extension[0])) {
+                $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $extension[0]);
+
+                if(isset($plugin_data['Version']))
+                {
+                    if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
+                        deactivate_plugins($extension[0]);
+                    }
+                }
+            }
+        }
     }
 
     /**

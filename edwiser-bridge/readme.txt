@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: WordPress, Moodle, Courses, Users, Synchronization, Sell Courses, Learning Management System, LMS, LMS Integration, Moodle WordPress, WordPress Moodle, WP Moodle,
 Requires at least: 4.0
-Tested up to: 4.3.1
+Tested up to: 4.4.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -126,21 +126,26 @@ No, this is not possible using Edwiser Bridge.
 Take a look at the link below to see the full list of questions which will help you around the Edwiser Bridge plugin. 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
-## Upgrade Notice ##
-
-### 1.0.2 ###
-Implemented minor tweaks to improve performance & remove errors in synchronization process between WordPress and Moodle.
-
  ==  Changelog  == 
 
+=  1.1  = 
+* Fix - Issue in overriding templates in themes.
+* Tweak - Unified licensing section for all Edwiser Bridge extensions.
+* Tweak - Refactored & optimized whole plugin codebase using tools like PHPCS & PHPMD.
+
  =  1.0.2  = 
-* Added a new shortcode [eb_user_profile] which creates a user profile page that lists users data & enrolled courses.
-* Fixed timeout problem in course enrollment.
-* Fixed a bug that was preventing plugin translation.
-* Minor modifications to improve enrollment & synchronization process.
+* Feature - Added a new shortcode [eb_user_profile] which creates a user profile page that lists users data & enrolled courses.
+* Fix - Timeout problem in course enrollment.
+* Fix - A bug that was preventing plugin translation.
+* Tweak - Minor modifications to improve enrollment & synchronization process.
 
  =  1.0.1  = 
-* Fixed a bug that could cause problems on password reset & user enrollment process
+* Fix - A bug that could cause problems on password reset & user enrollment process
 
  =  1.0  = 
 * Plugin Launched
+
+== Upgrade Notice ==
+
+= 1.1 =
+1.1 is a major update so it is important that you make backups, and ensure all extensions are version 1.1 compatible for proper functionality across Edwiser Bridge & its extensions.
