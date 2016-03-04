@@ -87,6 +87,40 @@ function wdmPluginRowMeta($links, $file)
 }
 
 /**
+ * Always show warning if legacy extensions are active
+ *
+ * @since 1.1
+ */
+add_action('admin_init', 'app\wisdmlabs\edwiserBridge\wdmShowLegacyExtensions');
+function wdmShowLegacyExtensions()
+{
+    // prepare extensions array
+    $extensions = array(
+            'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
+            'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
+            'single_signon'  => array('edwiser-bridge-sso/sso.php', '1.0.0')
+    );
+
+    // legacy extensions
+    foreach ($extensions as $extension) {
+        if (is_plugin_active($extension[0])) {
+            $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $extension[0]);
+
+            if (isset($plugin_data['Version'])) {
+                if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
+                    add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\wdmShowLegacyExtensionsNotices');
+                }
+            }
+        }
+    }
+}
+
+function wdmShowLegacyExtensionsNotices()
+{
+    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'edw_woo')."</p></div>";
+}
+
+/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
