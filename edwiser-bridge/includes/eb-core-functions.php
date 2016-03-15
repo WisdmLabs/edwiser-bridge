@@ -31,7 +31,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     // get all settings of settings general tab
     $eb_general_settings = array();
-    $eb_general_settings = get_option('eb_general', []);
+    $eb_general_settings = get_option('eb_general', array());
 
     $option_value = 0;
     if (trim($option_key) != '') {
