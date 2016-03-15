@@ -82,6 +82,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
  ==  Installation  == 
 
  = Minimum Requirements = 
+* PHP version 5.3 or greater
 * WordPress 4.0 or higher
 * Moodle 2.9 or higher
 
@@ -128,6 +129,9 @@ Take a look at the link below to see the full list of questions which will help 
 
  ==  Changelog  == 
 
+=  1.1.1  = 
+* Fix - Minor issue in page creation functionality.
+
 =  1.1  = 
 * Fix - Issue in overriding templates in themes.
 * Tweak - Unified licensing section for all Edwiser Bridge extensions.
@@ -145,7 +149,7 @@ Take a look at the link below to see the full list of questions which will help 
  =  1.0  = 
 * Plugin Launched
 
-== Upgrade Notice ==
+## Upgrade Notice ##
 
-= 1.1 =
+### 1.1.1 ###
 1.1 is a major update so it is important that you make backups, and ensure all extensions are version 1.1 compatible for proper functionality across Edwiser Bridge & its extensions.
