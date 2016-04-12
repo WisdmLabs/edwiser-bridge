@@ -126,14 +126,14 @@ class EBUserManager
             if (is_numeric($user_id_to_sync)) {
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
-                    FROM {$wpdb->prefix}usermeta
+                    FROM {$wpdb->base_prefix}usermeta
                     WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
                     ARRAY_A
                 );
             } else {
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
-                    FROM {$wpdb->prefix}usermeta
+                    FROM {$wpdb->base_prefix}usermeta
                     WHERE meta_key = 'moodle_user_id'
                     AND meta_value IS NOT NULL",
                     ARRAY_A
