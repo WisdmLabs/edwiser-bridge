@@ -17,7 +17,7 @@ class EbFrontendFormHandler
      */
     public static function processLogin()
     {
-        if (!empty($_POST['login']) &&
+        if (!empty($_POST['wdm_login']) &&
             !empty($_POST['_wpnonce']) &&
             wp_verify_nonce($_POST['_wpnonce'], 'eb-login')) {
             try {
@@ -27,8 +27,8 @@ class EbFrontendFormHandler
                 $validation_error = apply_filters(
                     'eb_process_login_errors',
                     $validation_error,
-                    $_POST['username'],
-                    $_POST['password']
+                    $_POST['wdm_username'],
+                    $_POST['wdm_password']
                 );
 
                 if ($validation_error->get_error_code()) {
@@ -40,7 +40,7 @@ class EbFrontendFormHandler
                     );
                 }
 
-                if (empty($_POST['username'])) {
+                if (empty($_POST['wdm_username'])) {
                     throw new \Exception(
                         '<strong>'.
                         __('Error', 'eb-textdomain').
@@ -49,7 +49,7 @@ class EbFrontendFormHandler
                     );
                 }
 
-                if (empty($_POST['password'])) {
+                if (empty($_POST['wdm_password'])) {
                     throw new \Exception(
                         '<strong>'.
                         __('Error', 'eb-textdomain').
@@ -58,9 +58,9 @@ class EbFrontendFormHandler
                     );
                 }
 
-                $creds['user_login'] = $_POST['username'];
+                $creds['user_login'] = $_POST['wdm_username'];
 
-                $creds['user_password'] = $_POST['password'];
+                $creds['user_password'] = $_POST['wdm_password'];
                 $creds['remember'] = isset($_POST['rememberme']);
                 $secure_cookie = is_ssl() ? true : false;
                 $user = wp_signon(apply_filters('eb_login_credentials', $creds), $secure_cookie);

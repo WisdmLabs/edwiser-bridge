@@ -179,7 +179,7 @@ class EBEnrollmentManager
             $webservice_function,
             $request_data
         );
-
+        
         // update enrollment details on wordpress enrollment table
         if ($response['success']) {
             // define args

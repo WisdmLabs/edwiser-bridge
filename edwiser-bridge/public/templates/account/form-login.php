@@ -33,19 +33,19 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
     ?>
 
 			<p class="form-row form-row-wide">
-				<label for="username"><?php _e('Username', 'eb-textdomain');
+				<label for="wdm_username"><?php _e('Username', 'eb-textdomain');
     ?>
     <span class="required">*</span></label>
-    <input type="text" class="input-text" name="username" id="username" value="<?php
+    <input type="text" class="input-text" name="wdm_username" id="wdm_username" value="<?php
     if (!empty($_POST['username'])) {
         echo esc_attr($_POST['username']);
     }
     ?>" />
 			</p>
 			<p class="form-row form-row-wide">
-				<label for="password"><?php _e('Password', 'eb-textdomain');
+				<label for="wdm_password"><?php _e('Password', 'eb-textdomain');
     ?> <span class="required">*</span></label>
-				<input class="input-text" type="password" name="password" id="password" />
+				<input class="input-text" type="password" name="wdm_password" id="wdm_password" />
 			</p>
 			<?php do_action('eb_login_form');
     ?>
@@ -61,7 +61,7 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
 			<p class="form-row">
 				<?php wp_nonce_field('eb-login');
     ?>
-				<input type="submit" class="button" name="login" value="<?php _e('Login', 'eb-textdomain');
+				<input type="submit" class="button" name="wdm_login" value="<?php _e('Login', 'eb-textdomain');
     ?>" />
 			</p>
 			<p class="lost_password">
