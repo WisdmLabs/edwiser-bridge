@@ -110,6 +110,10 @@ if (!class_exists('EbSettingsPayPal')) :
                                         'MXN' => __('Mexican Peso (MXN)', 'Wp-moodle'),
                                         'CHF' => __('Swiss Franc (CHF)', 'Wp-moodle'),
                                         'GBP' => __('Pound Sterling (GBP)', 'Wp-moodle'),
+                                        'AUD' => __('Australian Dollar (AUD)', 'Wp-moodle'),
+                                        'PLN' => __('Polish Zloty (PLN)', 'Wp-moodle'),
+                                        'DKK' => __('Danish Krone (DKK)', 'Wp-moodle'),
+                                        'SGD' => __('Singapore Dollar (SGD)', 'Wp-moodle'),
                                     ),
                     ),
 
