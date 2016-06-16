@@ -258,12 +258,19 @@ class EBUserManager
         if (email_exists($email)) {
             return new \WP_Error(
                 'registration-error',
-                __('An account is already registered with your email address. Please login.', 'eb-textdomain')
+                __('An account is already registered with your email address. Please login.', 'eb-textdomain'),
+                'eb_email_exists'
             );
         }
 
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
+        if (empty($firstname)) {
+            $firstname = $_POST['firstname'];
+        }
+
+        if (empty($lastname)) {
+            $lastname = $_POST['lastname'];
+        }
+   
         $username = sanitize_user(current(explode('@', $email)), true);
 
         // Ensure username is unique
