@@ -275,6 +275,10 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'includes/eb-core-functions.php';
         require_once EB_PLUGIN_DIR.'includes/eb-formatting-functions.php';
 
+         // To handle addition of new blog (for multisite installations)
+
+         require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
+
         $this->loader = new EBLoader();
     }
 
@@ -631,6 +635,17 @@ class EdwiserBridge
             'addCoursePriceTypeColumnContent',
             10,
             2
+        );
+
+
+        // handles addtion of new blog
+
+        $this->loader->addAction(
+            'wpmu_new_blog',
+            'app\wisdmlabs\edwiserBridge\EBActivator',
+            'handleNewBlog',
+            10,
+            1
         );
 
         // wp_remote_post() has default timeout set as 5 seconds, increase it to remove timeout problem

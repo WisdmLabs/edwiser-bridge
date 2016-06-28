@@ -15,25 +15,34 @@ namespace app\wisdmlabs\edwiserBridge;
 class EBActivator
 {
     /**
+     * networkWide tells if the plugin was activated for the entire network or just for single site.
+     *
+     * @since    1.1.1
+     */
+
+    private static $networkWide = false;
+
+    /**
      * activation function.
      *
      * @since    1.0.0
      */
-    public static function activate()
+
+    public static function activate($networkWide)
     {
         /**
          * deactivates legacy extensions
          */
+        
+        self::$networkWide =  $networkWide;
+    
         self::deactivateLegacyExtensions();
 
-        // create database tables
-        self::createMoodleDbTables();
+        // create database tables & Pages
+        self::checkSingleOrMultiSite();
 
         // create required files & directories
         self::createFiles();
-
-        // create required pages
-        self::createPages();
 
         // redirect to welcome screen
         set_transient('_eb_activation_redirect', 1, 30);
@@ -68,11 +77,47 @@ class EBActivator
     }
 
     /**
-     * create required DB tables.
+     *checks if the plugin is activated on a SIngle site or Network wide
      *
-     * @since    1.0.0
+     * @since    1.1.1
      */
-    public static function createMoodleDbTables()
+    public static function checkSingleOrMultiSite()
+    {
+        global $wpdb;
+ 
+        if (is_multisite()) {
+             // print_r(is_plugin_active_for_network('edwiser-bridge/edwiser-bridge.php')); die();
+
+            if (self::$networkWide) {
+                $allSites = wp_get_sites();
+
+
+                foreach ($allSites as $blog) {
+                    switch_to_blog($blog['blog_id']);
+            
+                    self::createMoodleDBTables();
+                    self::createPages();
+  
+                    restore_current_blog();
+                }
+            } else {
+                switch_to_blog($wpdb->blogid);
+                self::createMoodleDBTables();
+                self::createPages();
+                restore_current_blog();
+            }
+        } else {
+            self::createMoodleDBTables();
+            self::createPages();
+        }
+    }
+
+    /**
+     * Create DB tables
+     *
+     * @since  1.0.0
+     */
+    public static function createMoodleDBTables()
     {
         global $wpdb;
 
@@ -80,16 +125,29 @@ class EBActivator
         $enrollment_tbl_name = $wpdb->prefix.'moodle_enrollment';
 
         $enrollment_table = "CREATE TABLE IF NOT EXISTS $enrollment_tbl_name (
-            id            mediumint(9) NOT NULL AUTO_INCREMENT,
-            user_id       int(11) NOT NULL,
-            course_id     int(11) NOT NULL,
-            role_id       int(11) NOT NULL,
-            time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-            PRIMARY KEY id (id)
-        ) $charset_collate;";
-
+                id            mediumint(9) NOT NULL AUTO_INCREMENT,
+                user_id       int(11) NOT NULL,
+                course_id     int(11) NOT NULL,
+                role_id       int(11) NOT NULL,
+                time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                PRIMARY KEY id (id)
+            ) $charset_collate;";
+            
         require_once ABSPATH.'wp-admin/includes/upgrade.php';
         dbDelta($enrollment_table);
+    }
+
+      /**
+     *handles addtion of new blog
+     *
+     * @since  1.1.1
+     */
+    public static function handleNewBlog($blog_id)
+    {
+        switch_to_blog($blog_id);
+        self::createMoodleDBTables();
+        self::createPages();
+        restore_current_blog();
     }
 
     /**

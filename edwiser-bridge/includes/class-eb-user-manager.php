@@ -126,14 +126,14 @@ class EBUserManager
             if (is_numeric($user_id_to_sync)) {
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
-                    FROM {$wpdb->prefix}usermeta
+                    FROM {$wpdb->base_prefix}usermeta
                     WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
                     ARRAY_A
                 );
             } else {
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
-                    FROM {$wpdb->prefix}usermeta
+                    FROM {$wpdb->base_prefix}usermeta
                     WHERE meta_key = 'moodle_user_id'
                     AND meta_value IS NOT NULL",
                     ARRAY_A
@@ -258,12 +258,19 @@ class EBUserManager
         if (email_exists($email)) {
             return new \WP_Error(
                 'registration-error',
-                __('An account is already registered with your email address. Please login.', 'eb-textdomain')
+                __('An account is already registered with your email address. Please login.', 'eb-textdomain'),
+                'eb_email_exists'
             );
         }
 
-        $firstname = $_POST['firstname'];
-        $lastname = $_POST['lastname'];
+        if (empty($firstname)) {
+            $firstname = $_POST['firstname'];
+        }
+
+        if (empty($lastname)) {
+            $lastname = $_POST['lastname'];
+        }
+   
         $username = sanitize_user(current(explode('@', $email)), true);
 
         // Ensure username is unique

@@ -631,7 +631,7 @@ if (is_array($option_value)) {
                 // Format value
                 switch (sanitize_title($value['type'])) {
                     case 'checkbox':
-                        $option_value = '';
+                        //$option_value = '';
                         if (is_null($option_value)) {
                             $option_value = 'no';
                         } else {

@@ -133,6 +133,16 @@ class EBPaymentManager
      */
     protected static function checkArrayValueSet($array, $var, $value, $default = '')
     {
+        if ($var == 'eb_paypal_sandbox') {
+            if (isset($array[$var])) {
+                if ($array[$var] == 'no') {
+                    return '0';
+                } else {
+                    return '1';
+                }
+            }
+        }
+        
         if (isset($array[$var])) {
             return $array[$var];
         }
@@ -252,10 +262,10 @@ class EBPaymentManager
         //     $paypal_sandbox = $payment_options['eb_paypal_sandbox'];
         // }
 
-            $paypal_sandbox = 1;
-            if ($paypal_sandbox == 'no') {
-                $paypal_sandbox = 0;
-            }
+   
+            // if ($paypal_sandbox == 'no') {
+            //     $paypal_sandbox = 0;
+            // }
 
         //redirect to register / login page if user is not logged in
             if (!is_user_logged_in() && $course_price_type == 'closed') {
