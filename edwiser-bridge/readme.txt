@@ -128,7 +128,8 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
-
+=  1.1.2  =
+* Added new currency in PayPal for the Australian Dollar,Polish Zloty,Danish Krone and Singapore Dollar.
 =  1.1.1  = 
 * Fix - Minor issue in page creation functionality.
 
