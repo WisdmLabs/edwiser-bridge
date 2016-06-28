@@ -130,6 +130,8 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 =  1.1.2  =
 * Added new currency in PayPal for the Australian Dollar,Polish Zloty,Danish Krone and Singapore Dollar.
+* Fix - Resolved Paypal Sandbox mode issue.
+
 =  1.1.1  = 
 * Fix - Minor issue in page creation functionality.
 
