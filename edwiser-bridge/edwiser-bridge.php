@@ -39,8 +39,6 @@ function activateEdwiserBridge($netWide)
 }
 register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserBridge');
 
-
-
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-eb-deactivator.php.
@@ -88,7 +86,7 @@ function wdmPluginRowMeta($links, $file)
     return (array) $links;
 }
 
-/**
+/*
  * Always show warning if legacy extensions are active
  *
  * @since 1.1
@@ -100,13 +98,13 @@ function wdmShowLegacyExtensions()
     $extensions = array(
             'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
             'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
-            'single_signon'  => array('edwiser-bridge-sso/sso.php', '1.0.0')
+            'single_signon' => array('edwiser-bridge-sso/sso.php', '1.0.0'),
     );
 
     // legacy extensions
     foreach ($extensions as $extension) {
         if (is_plugin_active($extension[0])) {
-            $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $extension[0]);
+            $plugin_data = get_plugin_data(WP_PLUGIN_DIR.'/'.$extension[0]);
 
             if (isset($plugin_data['Version'])) {
                 if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
@@ -119,7 +117,7 @@ function wdmShowLegacyExtensions()
 
 function wdmShowLegacyExtensionsNotices()
 {
-    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'edw_woo')."</p></div>";
+    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'edw_woo').'</p></div>';
 }
 
 /**

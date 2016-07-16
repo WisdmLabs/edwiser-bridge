@@ -113,6 +113,25 @@ class EBEnrollmentManager
 
         // get moodle user id of user
         $moodle_user_id = get_user_meta($args['user_id'], 'moodle_user_id', true);
+        if (!empty($moodle_user_id)) {
+            $siteToken = get_option('eb_connection');
+            if ($siteToken != false) {
+                $siteToken = $siteToken['eb_access_token'];
+            }
+            if (!is_array($moodle_user_id)) {
+                $moodleUserIdArray = unserialize($moodle_user_id);
+            } else {
+                $moodleUserIdArray = $moodle_user_id;
+            }
+            if ($moodleUserIdArray == false) {
+                $moodleUserIdArray = array();
+            }
+            if (array_key_exists($siteToken, $moodleUserIdArray)) {
+                $moodle_user_id = $moodleUserIdArray[$siteToken];
+            } else {
+                $moodle_user_id = "";
+            }
+        }
         $msg = '';
         if ($moodle_user_id) {
             $msg = 'Yes, Moodle user ID is: '.$moodle_user_id;

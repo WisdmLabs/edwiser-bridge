@@ -168,7 +168,7 @@
                 success:function (response) {
                     $('.load-response').hide();
                     //prepare response for user
-                    if ( response.success == 1 ) {
+                    if (response.success == 1 ) {
                         ohSnap('Connection successful, Please save your connection details.', 'success', 1); } else {
                         ohSnap(response.response_message, 'error', 0); }
                 }
@@ -213,13 +213,13 @@
                     $('.load-response').hide();
 
                     //prepare response for user
-                    if ( response.connection_response == 1 ) {
-                        if ( response.course_success == 1 ) {
+                    if (response.connection_response == 1 ) {
+                        if (response.course_success == 1 ) {
                             ohSnap('Courses synchronized successfully.', 'success', 1); } else {
                             ohSnap(response.course_response_message, 'error', 0); }
 
-                            if ( sync_options['eb_synchronize_categories'] == 1 && response.category_success == 1 ) {
-                                ohSnap('Categories synchronized successfully.', 'success', 1); } else if ( sync_options['eb_synchronize_categories'] == 1 && response.category_success == 0 ) {
+                            if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 1 ) {
+                                ohSnap('Categories synchronized successfully.', 'success', 1); } else if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 0 ) {
                                 ohSnap(response.category_response_message, 'error', 0); }
                     } else {
                         ohSnap('There is a problem while connecting to moodle server.', 'error', 0);
@@ -270,7 +270,7 @@
                     $('.load-response').hide();
 
                     //prepare response for user
-                    if ( response.connection_response == 1 ) {
+                    if (response.connection_response == 1 ) {
                         if (response.user_with_error !== undefined ) {
                             $.each(response.user_with_error, function (index, value) {
                                 user_id_error += this;
@@ -294,16 +294,16 @@
          */
         $('#course_price_type').change(function () {
             var type = $('#course_price_type').val();
-            if ( type == 'free' ) {
+            if (type == 'free' ) {
                 $('#eb_course_course_price').hide();
                 $('#eb_course_course_closed_url').hide();
                 $('#course_price').val('');
                 $('#course_closed_url').val('');
-            } else if ( type == 'paid' ) {
+            } else if (type == 'paid' ) {
                 $('#eb_course_course_price').show();
                 $('#eb_course_course_closed_url').hide();
                 $('#course_closed_url').val('');
-            } else if ( type == 'closed' ) {
+            } else if (type == 'closed' ) {
                 $('#eb_course_course_price').hide();
                 $('#eb_course_course_closed_url').show();
                 $('#course_price').val('');

@@ -172,7 +172,7 @@ if (!class_exists('EbAdminSettings')) :
             self::showMessages();
 
             // Get tabs for the settings page
-            $tabs = apply_filters('eb_settings_tabs_array', array());
+            apply_filters('eb_settings_tabs_array', array());
 
             //include 'partials/html-admin-settings.php';
             include_once EB_PLUGIN_DIR.'admin/partials/html-admin-settings.php';
@@ -266,7 +266,6 @@ if (!class_exists('EbAdminSettings')) :
 
                 // Switch based on type
                 switch ($value['type']) {
-
                     // Section Titles
                     case 'title':
                         if (!empty($value['title'])) {
@@ -420,7 +419,6 @@ if (is_array($option_value)) {
 }
     ?>>
                                             <?php echo $val ?></option> <?php
-
 } ?>
                                 </select> <?php echo $description; ?>
                             </td>
@@ -462,7 +460,6 @@ if (is_array($option_value)) {
                                                         /> <?php echo $val ?></label>
                                             </li>
                                         <?php
-
 } ?>
                                     </ul>
                                 </fieldset>
@@ -499,20 +496,17 @@ if (is_array($option_value)) {
                                 <td class="forminp forminp-checkbox">
                                     <fieldset>
                                     <?php
-
                         } else {
                             ?>
                                         <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class));
                             ?>">
                                         <?php
-
                         } if (!empty($value['title'])) {
                             ?>
                                             <legend class="screen-reader-text">
                                                 <span><?php echo esc_html($value['title']) ?></span>
                                             </legend>
                                         <?php
-
                         } ?>
                                         <label for="<?php echo $value['id'] ?>">
                                             <input
@@ -530,12 +524,10 @@ if (is_array($option_value)) {
                                 </td>
                             </tr>
                         <?php
-
 } else {
     ?>
                             </fieldset>
                             <?php
-
 }
                         break;
 

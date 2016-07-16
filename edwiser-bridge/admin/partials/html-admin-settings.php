@@ -13,7 +13,6 @@ if ($tab != 'licensing') {
     ?>
     <form method="post" id="mainform" action="" enctype="multipart/form-data">
     <?php
-
 }
     ?>
     <div class="icon32 icon32-eb-settings" id="icon-edw"><br /></div>
@@ -50,7 +49,6 @@ if ($tab != 'licensing') {
     ?>
         </form>
     <?php
-
 }
     ?>
 </div>

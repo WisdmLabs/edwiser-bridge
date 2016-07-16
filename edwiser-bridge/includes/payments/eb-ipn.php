@@ -2,7 +2,6 @@
 /**
  *  PHP-PayPal-IPN Handler.
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
 /*NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal

@@ -1,6 +1,6 @@
 <?php
 /**
- * Email Header
+ * Email Header.
  *
  * @author  Wisdmlbas
  */
@@ -9,22 +9,22 @@ if (!defined('ABSPATH')) {
 } // Exit if accessed directly
 
 $header = $args['header']; //get email header
-$bg   = 'whitesmoke';
+$bg = 'whitesmoke';
 
-$wrapper = "
+$wrapper = '
     background-color:rgb(239, 239, 239);
     width:100%;
     -webkit-text-size-adjust:none !important;
     margin:0;
     padding: 70px 0 70px 0;
-";
-$template_container = "
+';
+$template_container = '
     box-shadow:0 0 0 3px rgba(0,0,0,0.025) !important;
     border-radius:6px !important;
     background-color: rgb(223, 223, 223);
     border-radius:6px !important;
-";
-$template_header = "
+';
+$template_header = '
     background-color:rgb(70, 92, 148);
     border-top-left-radius:6px !important;
     border-top-right-radius:6px !important;
@@ -33,18 +33,18 @@ $template_header = "
     font-weight:bold;
     line-height:100%;
     vertical-align:middle;
-";
-$body_content = "
+';
+$body_content = '
     background-color: rgb(223, 223, 223);
     border-radius:6px !important;
-";
-$body_content_inner = "
+';
+$body_content_inner = '
     font-family:Arial;
     font-size:14px;
     line-height:150%;
     text-align:left;
-";
-$header_content_h1 = "
+';
+$header_content_h1 = '
     color: white;
     margin:0;
     padding: 28px 24px;
@@ -55,7 +55,7 @@ $header_content_h1 = "
     font-weight:bold;
     text-align:left;
     line-height: 150%;
-";
+';
 ?>
 <!DOCTYPE html>
 <html>
