@@ -389,7 +389,6 @@ class EBUserManager
             // create a new action hook with user details as argument.
             do_action('eb_linked_to_existing_wordpress_user', $args);
         }
-
         return $user_id;
     }
 
@@ -691,7 +690,6 @@ class EBUserManager
               });
             </script>
         <?php
-
         }
     }
 
@@ -954,13 +952,11 @@ class EBUserManager
                 </td>
                 </tr>
             <?php
-
             }
             ?>
             </table>
 
         <?php
-
         }
 
         return true;

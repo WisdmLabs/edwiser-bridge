@@ -80,7 +80,7 @@
 
         // plugin method for blocking element content
         $.fn.block = function (opts) {
-            if ( this[0] === window ) {
+            if (this[0] === window ) {
                 $.blockUI(opts);
                 return this;
             }
@@ -104,7 +104,7 @@
 
         // plugin method for unblocking element content
         $.fn.unblock = function (opts) {
-            if ( this[0] === window ) {
+            if (this[0] === window ) {
                 $.unblockUI(opts);
                 return this;
             }
@@ -308,14 +308,14 @@
 
                     if (opts.theme && full) {
                         s = '<div class="blockUI ' + opts.blockMsgClass + ' blockPage ui-dialog ui-widget ui-corner-all" style="z-index:'+(z+10)+';display:none;position:fixed">';
-                        if ( opts.title ) {
+                        if (opts.title ) {
                             s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(opts.title || '&nbsp;')+'</div>';
                         }
                         s += '<div class="ui-widget-content ui-dialog-content"></div>';
                         s += '</div>';
                     } else if (opts.theme) {
                         s = '<div class="blockUI ' + opts.blockMsgClass + ' blockElement ui-dialog ui-widget ui-corner-all" style="z-index:'+(z+10)+';display:none;position:absolute">';
-                        if ( opts.title ) {
+                        if (opts.title ) {
                             s += '<div class="ui-widget-header ui-dialog-titlebar ui-corner-all blockTitle">'+(opts.title || '&nbsp;')+'</div>';
                         }
                         s += '<div class="ui-widget-content ui-dialog-content"></div>';
@@ -475,10 +475,10 @@
                 els = $el.find('>.blockUI'); }
 
             // fix cursor issue
-                if ( opts.cursorReset ) {
-                    if ( els.length > 1 ) {
+                if (opts.cursorReset ) {
+                    if (els.length > 1 ) {
                         els[1].style.cursor = opts.cursorReset; }
-                    if ( els.length > 2 ) {
+                    if (els.length > 2 ) {
                         els[2].style.cursor = opts.cursorReset; }
                 }
 
@@ -488,7 +488,7 @@
                 if (opts.fadeOut) {
                     count = els.length;
                     els.stop().fadeOut(opts.fadeOut, function () {
-                        if ( --count === 0) {
+                        if (--count === 0) {
                             reset(els,data,opts,el); }
                     });
                 } else {
@@ -499,7 +499,7 @@
         function reset(els,data,opts,el)
         {
             var $el = $(el);
-            if ( $el.data('blockUI.isBlocked') ) {
+            if ($el.data('blockUI.isBlocked') ) {
                 return; }
 
             els.each(function (i,o) {

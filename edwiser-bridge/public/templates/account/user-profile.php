@@ -3,21 +3,21 @@
 	<section class="eb-user-info">
 		<aside class="eb-user-picture">
 			<?php echo $user_avatar; ?>
-		</aside>
-		<div class="eb-user-data">
-			<?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>'; ?>
-			<?php echo '<div>'.$user->user_email.'</div>'; ?>
-		</div>
+        </aside>
+        <div class="eb-user-data">
+            <?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>'; ?>
+            <?php echo '<div>'.$user->user_email.'</div>'; ?>
+        </div>
 
-		<div class="eb-edit-profile" >
-			<a href="<?php echo get_edit_user_link($user->ID); ?>" class="wdm-btn">Edit Profile</a>
-		</div>
+        <div class="eb-edit-profile" >
+            <a href="<?php echo get_edit_user_link($user->ID); ?>" class="wdm-btn">Edit Profile</a>
+        </div>
 
-	</section>
+    </section>
 
-	<section class="eb-user-courses">
-		<div class="course-heading" ><span>S.No.</span> <span>Enrolled Courses</span></div>
-		<div class="eb-course-data">
+    <section class="eb-user-courses">
+        <div class="course-heading" ><span>S.No.</span> <span>Enrolled Courses</span></div>
+        <div class="eb-course-data">
 <?php
 if (!empty($enrolled_courses)) {
     foreach ($enrolled_courses as $key => $course) {
@@ -34,7 +34,7 @@ if (!empty($enrolled_courses)) {
         </p>';
 }
 ?>
-		</div>
-	</section>
+        </div>
+    </section>
 
 </div>

@@ -154,7 +154,6 @@ class EBEnrollmentManager
         } elseif ($args['unenroll'] == 1) {
             $webservice_function = 'enrol_manual_unenrol_users';
         }
-
         // prepare course array
         foreach ($moodle_courses as $key => $moodle_course) {
             // first we check if a moodle course id exists
@@ -172,14 +171,13 @@ class EBEnrollmentManager
                 }
             }
         }
-
         // prepare request data
         $request_data = array('enrolments' => $enrolments);
+                
         $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
             $webservice_function,
             $request_data
         );
-        
         // update enrollment details on wordpress enrollment table
         if ($response['success']) {
             // define args

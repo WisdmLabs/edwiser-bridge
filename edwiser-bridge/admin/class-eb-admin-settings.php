@@ -39,12 +39,14 @@ if (!class_exists('EbAdminSettings')) :
                 // include the settings page class
                 include_once 'settings/class-eb-settings-page.php';
 
+                $settings[] = include 'settings/class-eb-settings-general-dash.php';
                 $settings[] = include 'settings/class-eb-settings-general.php';
                 $settings[] = include 'settings/class-eb-settings-connection.php';
                 $settings[] = include 'settings/class-eb-settings-synchronization.php';
                 $settings[] = include 'settings/class-eb-settings-paypal.php';
                 self::$settings = apply_filters('eb_get_settings_pages', $settings);
-                $settings[] = include 'settings/class-eb-settings-licensing.php';
+//                $settings[] = include 'settings/class-eb-settings-licensing.php';
+                $settings[] = include 'settings/class-eb-settings-extensions.php';
             }
 
             return self::$settings;
@@ -146,7 +148,7 @@ if (!class_exists('EbAdminSettings')) :
             // Get current tab/section
             $current_tab = '';
             if (empty($_GET['tab'])) {
-                $current_tab = 'general';
+                $current_tab = 'nm-genral-info';
             } else {
                 $current_tab = sanitize_title($_GET['tab']);
             }
@@ -266,7 +268,6 @@ if (!class_exists('EbAdminSettings')) :
 
                 // Switch based on type
                 switch ($value['type']) {
-
                     // Section Titles
                     case 'title':
                         if (!empty($value['title'])) {
@@ -420,7 +421,6 @@ if (is_array($option_value)) {
 }
     ?>>
                                             <?php echo $val ?></option> <?php
-
 } ?>
                                 </select> <?php echo $description; ?>
                             </td>
@@ -462,7 +462,6 @@ if (is_array($option_value)) {
                                                         /> <?php echo $val ?></label>
                                             </li>
                                         <?php
-
 } ?>
                                     </ul>
                                 </fieldset>
@@ -499,20 +498,17 @@ if (is_array($option_value)) {
                                 <td class="forminp forminp-checkbox">
                                     <fieldset>
                                     <?php
-
                         } else {
                             ?>
                                         <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class));
                             ?>">
                                         <?php
-
                         } if (!empty($value['title'])) {
                             ?>
                                             <legend class="screen-reader-text">
                                                 <span><?php echo esc_html($value['title']) ?></span>
                                             </legend>
                                         <?php
-
                         } ?>
                                         <label for="<?php echo $value['id'] ?>">
                                             <input
@@ -530,12 +526,10 @@ if (is_array($option_value)) {
                                 </td>
                             </tr>
                         <?php
-
 } else {
     ?>
                             </fieldset>
                             <?php
-
 }
                         break;
 

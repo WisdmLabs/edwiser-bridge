@@ -39,9 +39,9 @@
                     if (!e.target.validity.valid) {
                         if (e.target.name == "firstname") {
                             e.target.setCustomValidity("The field 'First Name' cannot be left blank");
-                        } else if ( e.target.name == "lastname" ) {
+                        } else if (e.target.name == "lastname" ) {
                             e.target.setCustomValidity("The field 'Last Name' cannot be left blank");
-                        } else if ( e.target.name == "email" ) {
+                        } else if (e.target.name == "email" ) {
                             e.target.setCustomValidity("The field 'Email' cannot be left blank");
                         }
                     }
@@ -94,7 +94,7 @@
                     success:function (response) {
 
                         //prepare response for user
-                        if ( response.success == 1 ) {
+                        if (response.success == 1 ) {
                             //create custom data encoded in json
                             custom_data['buyer_id'] = parseInt(buyer_id);
                             custom_data['order_id'] = parseInt(response.order_id);

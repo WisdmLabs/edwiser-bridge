@@ -2,6 +2,8 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+use wisdmalbs\newtowrk\marketing;
+
 /**
  * Setup plugin menus in WP admin.
  *
@@ -12,8 +14,7 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit(); // Exit if accessed directly
 }
 
@@ -22,6 +23,7 @@ if (! defined('ABSPATH')) {
  */
 class EbAdminMenus
 {
+
     /**
      * Hook in tabs.
      *
@@ -30,13 +32,35 @@ class EbAdminMenus
     public function __construct()
     {
         // Add menus
-        add_action('admin_menu', array( $this, 'adminMenu' ), 9);
-        add_action('admin_menu', array( $this, 'settingsMenu' ), 10);
-        add_action('admin_menu', array( $this, 'extensionsMenu' ), 10);
-        add_action('admin_menu', array( $this, 'helpMenu' ), 10);
-        add_action('parent_file', array( $this, 'addMenuPageTaxonomyFix' ), 10);
+        add_action('admin_menu', array($this, 'adminMenu'), 9);
+//        add_action('admin_menu', array($this, 'settingsMenu'), 10);
+//        add_action('admin_menu', array($this, 'extensionsMenu'), 10);
+        add_action('admin_menu', array($this, 'helpMenu'), 10);
+        add_action('parent_file', array($this, 'addMenuPageTaxonomyFix'), 10);
+        // open help menu in new tab
+        add_action('admin_footer', array($this, 'openHelpMenuNewTab'));
+        add_action("admin_menu", array($this, "netMarkMenu"), 10);
+        
+    }
 
-        add_action('admin_footer', array( $this, 'openHelpMenuNewTab' )); // open help menu in new tab
+    public function netMarkMenu()
+    {
+        if (!class_exists("wisdmalbs\newtowrk\marketing\NetworkMarketing")) {
+            include_once(dirname(__DIR__) . '/NetMarketing/NetworkMarketing.php');
+        }
+//        marketing\NetworkMarketing::$nmTextDomain="eb-textdomain";
+        $menu = array(
+            'plugin_name' => 'Edwiser Bridge',
+            'menu_slug' => 'eb-settings',
+            'call_back' => array($this, 'settingsPage'),
+        );
+        apply_filters("network_marketing_submenu", $menu);
+        marketing\NetworkMarketing::dashBoardInstance()->addInstalledPluginData(
+            'Edwiser Bridge',
+            'Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy option to import Moodle courses to WordPress and sell them using PayPal. The plugin also allows automatic registration of WordPress users on the Moodle website along with single login credentials for both the systems.',
+            'eb-settings'
+        );
+        
     }
 
     /**
@@ -50,7 +74,7 @@ class EbAdminMenus
 
         // add menu separator
         if (current_user_can('manage_options')) {
-            $menu[53.5] = array( '', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms' );
+            $menu[53.5] = array('', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms');
         }
 
         add_menu_page(
@@ -67,29 +91,29 @@ class EbAdminMenus
         $location = 55;
         $add_submenu = array(
             array(
-                "name"  =>  __("Courses", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit.php?post_type=eb_course"
+                "name" => __("Courses", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit.php?post_type=eb_course"
             ),
             array(
-                "name"  =>  __("Course Categories", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit-tags.php?taxonomy=eb_course_cat&post_type=eb_course"
+                "name" => __("Course Categories", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit-tags.php?taxonomy=eb_course_cat&post_type=eb_course"
             ),
             array(
-                "name"  =>  __("Orders", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit.php?post_type=eb_order"
+                "name" => __("Orders", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit.php?post_type=eb_order"
             )
         );
 
         foreach ($add_submenu as $add_submenu_item) {
             if (current_user_can($add_submenu_item["cap"])) {
                 $submenu['edwiserbridge_lms'][$location++] = array(
-                                                                $add_submenu_item['name'],
-                                                                $add_submenu_item['cap'],
-                                                                $add_submenu_item['link']
-                                                            );
+                    $add_submenu_item['name'],
+                    $add_submenu_item['cap'],
+                    $add_submenu_item['link']
+                );
             }
         }
 
@@ -109,11 +133,11 @@ class EbAdminMenus
         // Set the submenu as active/current while anywhere in Custom Post Type ( courses, orders )
         if ($current_screen->post_type == 'eb_course' || $current_screen->post_type == 'eb_order') {
             if ($pagenow == 'post.php') {
-                $submenu_file = 'edit.php?post_type='.$current_screen->post_type;
+                $submenu_file = 'edit.php?post_type=' . $current_screen->post_type;
             }
 
             if ($pagenow == 'edit-tags.php') {
-                $submenu_file = 'edit-tags.php?taxonomy=eb_course_cat&post_type='.$current_screen->post_type;
+                $submenu_file = 'edit-tags.php?taxonomy=eb_course_cat&post_type=' . $current_screen->post_type;
             }
             $parent_file = 'edwiserbridge_lms';
         }
@@ -133,7 +157,7 @@ class EbAdminMenus
             __('Settings', 'eb-textdomain'),
             'manage_options',
             'eb-settings',
-            array( $this, 'settingsPage' )
+            array($this, 'settingsPage')
         );
     }
 
@@ -150,7 +174,7 @@ class EbAdminMenus
             __('Extensions', 'eb-textdomain'),
             'manage_options',
             'eb-extensions',
-            array( $this, 'extensionsPage' )
+            array($this, 'extensionsPage')
         );
     }
 
@@ -164,12 +188,11 @@ class EbAdminMenus
         global $submenu;
 
         $submenu['edwiserbridge_lms'][] = array(
-                                            '<div id="helpmenu">Help</div>',
-                                            'manage_options',
-                                            'https://edwiser.org/bridge/documentation/'
-                                        );
+            '<div id="helpmenu">Help</div>',
+            'manage_options',
+            'https://edwiser.org/bridge/documentation/'
+        );
     }
-
 
     /**
      * open plugin help link in new tab
@@ -179,12 +202,12 @@ class EbAdminMenus
     public function openHelpMenuNewTab()
     {
         ?>
-		    <script type="text/javascript">
-		        jQuery(document).ready( function() {
-		            jQuery('#helpmenu').parent().attr('target','_blank');
-		        });
-		    </script>
-	    <?php
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#helpmenu').parent().attr('target', '_blank');
+            });
+        </script>
+        <?php
 
     }
 

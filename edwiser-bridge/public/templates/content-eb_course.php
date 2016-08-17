@@ -60,7 +60,7 @@ $course_id = $post_id;
 
 <article id="post-<?php the_ID(); ?>"
 <?php post_class('wdm-col-3-2-1 wdm-course-grid-wrap '.$course_class); ?>>
-	<div class="wdm-course-grid">
+    <div class="wdm-course-grid">
 <?php
 if ($post->post_type == 'eb_course') {
     if ($course_price_type == 'paid' || $course_price_type == 'free') {
@@ -71,37 +71,34 @@ if ($post->post_type == 'eb_course') {
 }
     ?>
 
-    	<?php if (has_post_thumbnail()) {
+        <?php if (has_post_thumbnail()) {
     ?>
-    	<a href="<?php the_permalink();
+        <a href="<?php the_permalink();
     ?>" rel="bookmark" class="wdm-course-thumbnail">
-    		<?php the_post_thumbnail('full');
+            <?php the_post_thumbnail('full');
     ?>
-    	</a>
-    	<?php
-
+        </a>
+        <?php
 } else {
     ?>
-    	<a href="<?php the_permalink();
+        <a href="<?php the_permalink();
     ?>" rel="bookmark" class="wdm-course-thumbnail">
-    		<img src="<?php echo EB_PLUGIN_URL;
+            <img src="<?php echo EB_PLUGIN_URL;
     ?>images/no-image.jpg"/>
-    	</a>
-    	<?php
-
+        </a>
+        <?php
 }
     ?>
-    	<div class="wdm-caption">
-    		<h4 class=""><?php the_title(); ?></h4>
-    		<?php if (!empty($short_description)) {
+        <div class="wdm-caption">
+            <h4 class=""><?php the_title(); ?></h4>
+            <?php if (!empty($short_description)) {
     ?>
-    		<p class="entry-content"><?php echo $short_description;
+            <p class="entry-content"><?php echo $short_description;
     ?></p>
-    		<?php
-
+            <?php
 } ?>
-    		<p class="read-more"><a class="wdm-btn eb_join_button" role="button" href="<?php the_permalink(); ?>"
+            <p class="read-more"><a class="wdm-btn eb_join_button" role="button" href="<?php the_permalink(); ?>"
             rel="bookmark"><?php _e('Read More', 'eb-textdomain'); ?></a></p>
-    	</div><!-- .wdm-caption -->
-	</div><!-- .wdm-course-grid -->
+        </div><!-- .wdm-caption -->
+    </div><!-- .wdm-course-grid -->
 </article><!-- #post -->

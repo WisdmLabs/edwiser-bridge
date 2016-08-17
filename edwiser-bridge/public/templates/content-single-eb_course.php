@@ -50,7 +50,7 @@ $course_id = $post_id;
 ?>
 
 <article id="course-<?php the_ID(); ?>" class="type-post hentry single-course" >
-	<header class="entry-header">
+    <header class="entry-header">
 
 <?php
 if (is_single()) {
@@ -58,7 +58,6 @@ if (is_single()) {
         <h1 class="entry-title"><?php the_title();
     ?></h1>
         <?php
-
 } else {
     ?>
         <h1 class="entry-title">
@@ -69,7 +68,6 @@ if (is_single()) {
     </a>
         </h1>
         <?php
-
 } // is_single()
 ?>
 
@@ -81,7 +79,6 @@ if (has_post_thumbnail()) {
     ?>
         </div>
         <?php
-
 } else {
     ?>
     <div class="wdm-course-thumbnail">
@@ -89,10 +86,9 @@ if (has_post_thumbnail()) {
     ?>images/no-image.jpg"/>
     </div>
         <?php
-
 }
 ?>
-	</header><!-- .entry-header -->
+    </header><!-- .entry-header -->
 
 <?php
 if (is_search()) { // Only display Excerpts for Search ?>
@@ -101,7 +97,6 @@ if (is_search()) { // Only display Excerpts for Search ?>
     ?>
     </div><!-- .entry-summary -->
     <?php
-
 } else {
     ?>
     <div class="entry-content">
@@ -130,7 +125,6 @@ if (is_search()) { // Only display Excerpts for Search ?>
     ?>
     </div><!-- .entry-content -->
     <?php
-
 }
 ?>
 

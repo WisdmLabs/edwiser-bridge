@@ -29,7 +29,7 @@ if (!class_exists('EBSettingsGeneral')) :
         public function __construct()
         {
             $this->_id = 'general';
-            $this->label = __('General', 'eb-textdomain');
+            $this->label = __('General Settings', 'eb-textdomain');
 
             add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
