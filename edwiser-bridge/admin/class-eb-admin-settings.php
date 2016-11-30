@@ -172,7 +172,7 @@ if (!class_exists('EbAdminSettings')) :
             self::showMessages();
 
             // Get tabs for the settings page
-            apply_filters('eb_settings_tabs_array', array());
+            $tabs = apply_filters('eb_settings_tabs_array', array());
 
             //include 'partials/html-admin-settings.php';
             include_once EB_PLUGIN_DIR.'admin/partials/html-admin-settings.php';
