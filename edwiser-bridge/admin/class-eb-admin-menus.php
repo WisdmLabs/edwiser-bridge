@@ -179,13 +179,12 @@ class EbAdminMenus
     public function openHelpMenuNewTab()
     {
         ?>
-		    <script type="text/javascript">
-		        jQuery(document).ready( function() {
-		            jQuery('#helpmenu').parent().attr('target','_blank');
-		        });
-		    </script>
-	    <?php
-
+            <script type="text/javascript">
+                jQuery(document).ready( function() {
+                    jQuery('#helpmenu').parent().attr('target','_blank');
+                });
+            </script>
+        <?php
     }
 
     /**

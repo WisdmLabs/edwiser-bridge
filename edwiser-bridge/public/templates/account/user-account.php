@@ -1,8 +1,8 @@
 <div class="wdm-transaction-header">
 	<h2 style=""><?php _e('Course Purchase History', 'eb-textdomain'); ?></h2>
 
-	<p>
-	<?php
+    <p>
+    <?php
     _e(
         "Hey <strong>{$current_user->user_login}</strong> (not {$current_user->user_login}?
     <a href='".wp_logout_url(get_permalink())."'>Sign out</a>),
@@ -10,20 +10,20 @@
         'eb-textdomain'
     );
 ?>
-	</p>
+    </p>
 
 </div>
 <table id="wdm_user_order_history" class="display">
-	<thead>
-		<tr>
-			<th><?php _e('Order ID', 'eb-textdomain'); ?></th>
-			<th><?php _e('Ordered Course', 'eb-textdomain'); ?></th>
-			<th><?php _e('Billing Email', 'eb-textdomain'); ?></th>
-			<th><?php _e('Amount Paid', 'eb-textdomain'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-	<?php
+    <thead>
+        <tr>
+            <th><?php _e('Order ID', 'eb-textdomain'); ?></th>
+            <th><?php _e('Ordered Course', 'eb-textdomain'); ?></th>
+            <th><?php _e('Billing Email', 'eb-textdomain'); ?></th>
+            <th><?php _e('Amount Paid', 'eb-textdomain'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
 
     foreach ($user_orders as $order) {
         echo '<tr>';
@@ -49,5 +49,5 @@
     do_action('eb_after_order_history');
 
 ?>
-		</tbody>
-	</table>
+        </tbody>
+    </table>

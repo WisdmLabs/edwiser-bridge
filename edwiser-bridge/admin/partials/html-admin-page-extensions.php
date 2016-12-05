@@ -1,22 +1,22 @@
 <?php
 /**
- * Partial: Page - Extensions
+ * Partial: Page - Extensions.
  *
- * @var object $extensions
+ * @var object
  */
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 ?>
 
 <div class="wrap edwiser eb_extensions_wrap">
-	<h2>
-		<?php _e('Our Extensions', 'eb-textdomain'); ?>
-		<a href="https://edwiser.org/bridge/extensions/" target="_blank" class="add-new-h2">
+    <h2>
+        <?php _e('Our Extensions', 'eb-textdomain'); ?>
+        <a href="https://edwiser.org/bridge/extensions/" target="_blank" class="add-new-h2">
             <?php _e('Browse all extensions', 'eb-textdomain'); ?>
         </a>
-	</h2>
-	<br />
+    </h2>
+    <br />
 <?php
 if ($extensions) {
     ?>
@@ -30,28 +30,29 @@ if ($extensions) {
         }
 
         echo '<li class="product">';
-        echo '<a href="' . $extension->link . '" target="_blank">';
-        if (! empty($extension->image)) {
-            echo '<img src="' . $extension->image . '"/>';
+        echo '<a href="'.$extension->link.'" target="_blank">';
+        if (!empty($extension->image)) {
+            echo '<img src="'.$extension->image.'"/>';
         } else {
-            echo '<h3>' . $extension->title . '</h3>';
+            echo '<h3>'.$extension->title.'</h3>';
         }
         //echo '<span class="price">' . $extension->price . '</span>';
-        echo '<p>' . $extension->excerpt . '</p>';
+        echo '<p>'.$extension->excerpt.'</p>';
         echo '</a>';
         echo '</li>';
-        $i++;
+        ++$i;
     }
     ?>
-	</ul>
-	<br />
-	<a href="https://edwiser.org/bridge/extensions/" target="_blank" class="browse-all">
-        <?php _e('Browse all our extensions', 'eb-textdomain'); ?>
+    </ul>
+    <br />
+    <a href="https://edwiser.org/bridge/extensions/" target="_blank" class="browse-all">
+        <?php _e('Browse all our extensions', 'eb-textdomain');
+    ?>
     </a>
-	<?php
+    <?php
 } else {
     ?>
-	<p>
+    <p>
     <?php
     printf(
         __(
@@ -63,7 +64,6 @@ if ($extensions) {
     );
     ?>
     </p>
-	<?php
-
+    <?php
 } ?>
 </div>

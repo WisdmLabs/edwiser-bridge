@@ -39,9 +39,9 @@
                     if (!e.target.validity.valid) {
                         if (e.target.name == "firstname") {
                             e.target.setCustomValidity("The field 'First Name' cannot be left blank");
-                        } else if ( e.target.name == "lastname" ) {
+                        } else if (e.target.name == "lastname" ) {
                             e.target.setCustomValidity("The field 'Last Name' cannot be left blank");
-                        } else if ( e.target.name == "email" ) {
+                        } else if (e.target.name == "email" ) {
                             e.target.setCustomValidity("The field 'Email' cannot be left blank");
                         }
                     }
@@ -94,7 +94,7 @@
                     success:function (response) {
 
                         //prepare response for user
-                        if ( response.success == 1 ) {
+                        if (response.success == 1 ) {
                             //create custom data encoded in json
                             custom_data['buyer_id'] = parseInt(buyer_id);
                             custom_data['order_id'] = parseInt(response.order_id);
@@ -108,5 +108,42 @@
                 });
             });
         });
+});
 
-})( jQuery );
+    $(document).ready(function () {
+        function getUrlParameter(sParam)
+        {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        }
+        ;
+        if (getUrlParameter("auto_enroll") === "true") {
+            $.blockUI({
+                message:"Processing..."
+            });
+            var btn= document.getElementById('eb_course_payment_button');
+            if (btn==null) {
+                btn=document.getElementById('wdm-btn');
+                if (btn.text!="Access Course") {
+                    btn.click();
+                } else {
+                    $.unblockUI();
+                }
+            } else {
+                btn.click();
+            }
+        }
+    });
+
+
+    })(jQuery);

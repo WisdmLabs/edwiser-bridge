@@ -8,18 +8,20 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbFrontendFormHandler
 {
+
     /**
      * Process the login form.
      */
     public static function processLogin()
     {
         if (!empty($_POST['wdm_login']) &&
-            !empty($_POST['_wpnonce']) &&
-            wp_verify_nonce($_POST['_wpnonce'], 'eb-login')) {
+                !empty($_POST['_wpnonce']) &&
+                wp_verify_nonce($_POST['_wpnonce'], 'eb-login') ) {
             try {
                 $creds = array();
 
@@ -33,27 +35,27 @@ class EbFrontendFormHandler
 
                 if ($validation_error->get_error_code()) {
                     throw new \Exception(
-                        '<strong>'.
-                        __('Error', 'eb-textdomain').
-                        ':</strong> '.
+                        '<strong>' .
+                        __('Error', 'eb-textdomain') .
+                        ':</strong> ' .
                         $validation_error->get_error_message()
                     );
                 }
 
                 if (empty($_POST['wdm_username'])) {
                     throw new \Exception(
-                        '<strong>'.
-                        __('Error', 'eb-textdomain').
-                        ':</strong> '.
+                        '<strong>' .
+                        __('Error', 'eb-textdomain') .
+                        ':</strong> ' .
                         __('Username is required.', 'eb-textdomain')
                     );
                 }
 
                 if (empty($_POST['wdm_password'])) {
                     throw new \Exception(
-                        '<strong>'.
-                        __('Error', 'eb-textdomain').
-                        ':</strong> '.
+                        '<strong>' .
+                        __('Error', 'eb-textdomain') .
+                        ':</strong> ' .
                         __('Password is required.', 'eb-textdomain')
                     );
                 }
@@ -68,12 +70,16 @@ class EbFrontendFormHandler
                 if (is_wp_error($user)) {
                     throw new \Exception($user->get_error_message());
                 } else {
-                    if (!empty($_GET['redirect_to'])) {
-                        $redirect = $_GET['redirect_to'];
-                    } else {
-                        $redirect = wdmUserAccountUrl();
-                    }
+                    // if (!empty($_GET['redirect_to'])) {
+                    //     $redirect = $_GET['redirect_to'];
+                    // } else {
+                    //     $redirect = wdmUserAccountUrl();
+                    // }
 
+                    // if (self::autoEnroll()) {
+                    //     $redirect = add_query_arg("auto_enroll", "true", $redirect);
+                    // }
+                    $redirect=self::calcRewdirect();
                     wp_safe_redirect(apply_filters('eb_login_redirect', $redirect, $user));
                     exit;
                 }
@@ -83,19 +89,34 @@ class EbFrontendFormHandler
         }
     }
 
+    private static function calcRewdirect()
+    {
+        $redirect="";
+        if (!empty($_GET['redirect_to'])) {
+                        $redirect = $_GET['redirect_to'];
+        } else {
+            $redirect = wdmUserAccountUrl();
+        }
+
+        if (self::autoEnroll()) {
+            $redirect = add_query_arg("auto_enroll", "true", $redirect);
+        }
+        return $redirect;
+    }
+
     /**
      * Process the registration form.
      */
     public static function processRegistration()
     {
         if (!empty($_POST['register']) &&
-            isset($_POST['_wpnonce']) &&
-            wp_verify_nonce($_POST['_wpnonce'], 'eb-register')) {
+                isset($_POST['_wpnonce']) &&
+                wp_verify_nonce($_POST['_wpnonce'], 'eb-register') ) {
             $email = $_POST['email'];
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
 
-            /*get object of user manager class*/
+            /* get object of user manager class */
             $user_manager = new EBUserManager(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
 
             try {
@@ -112,7 +133,7 @@ class EbFrontendFormHandler
                     throw new \Exception($validation_error->get_error_message());
                 }
 
-                /*Anti-spam trap*/
+                /* Anti-spam trap */
                 if (!empty($_POST['email_2'])) {
                     throw new \Exception(__('Anti-spam field was filled in.', 'eb-textdomain'));
                 }
@@ -130,7 +151,9 @@ class EbFrontendFormHandler
                 } else {
                     $redirect = wdmUserAccountUrl();
                 }
-
+                if (self::autoEnroll()) {
+                    $redirect = add_query_arg("auto_enroll", "true", $redirect);
+                }
                 wp_safe_redirect(apply_filters('eb_registration_redirect', $redirect, $new_user));
                 exit;
             } catch (\Exception $e) {
@@ -160,38 +183,47 @@ class EbFrontendFormHandler
             return;
         }
 
-        /*return if post type is not eb_course*/
+        /* return if post type is not eb_course */
         if ($course->post_type != 'eb_course') {
             return;
         }
 
         $user_id = get_current_user_id();
         if (empty($user_id)) {
-            $login_url = site_url('/user-account?redirect_to='.get_permalink($course_id));
+            $login_url = site_url('/user-account?redirect_to=' . get_permalink($course_id));
             wp_redirect($login_url);
             exit;
         }
 
         $course_meta = get_post_meta($course_id, 'eb_course_options', true); // get options of current course
 
-        /*get current user object*/
+        /* get current user object */
         $user = get_userdata($user_id);
 
-        /*link existing moodle account or create a new one*/
+        /* link existing moodle account or create a new one */
         edwiserBridgeInstance()->userManager()->linkMoodleUser($user);
 
         if (!isset($course_meta['course_price_type']) ||
-            $course_meta['course_price_type'] == 'free' ||
-            $course_meta['course_price_type'] == 'paid' &&
-            empty($course_meta['course_price'])) {
-            /*define args*/
+                $course_meta['course_price_type'] == 'free' ||
+                $course_meta['course_price_type'] == 'paid' &&
+                empty($course_meta['course_price']) ) {
+            /* define args */
             $args = array(
                 'user_id' => $user_id,
-                'courses' => array($course_id),
+                'courses' => array( $course_id ),
             );
-            /*enroll user to course*/
+            /* enroll user to course */
             //$course_enrolled =
             edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
+        }
+    }
+
+    private static function autoEnroll()
+    {
+        if (isset($_GET['is_enroll']) && $_GET['is_enroll'] == "true") {
+            return true;
+        } else {
+            return false;
         }
     }
 }

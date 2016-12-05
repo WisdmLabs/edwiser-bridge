@@ -691,7 +691,6 @@ class EBUserManager
               });
             </script>
         <?php
-
         }
     }
 
@@ -954,13 +953,11 @@ class EBUserManager
                 </td>
                 </tr>
             <?php
-
             }
             ?>
             </table>
 
         <?php
-
         }
 
         return true;

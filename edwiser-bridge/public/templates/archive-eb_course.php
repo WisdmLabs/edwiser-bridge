@@ -4,10 +4,10 @@
  */
 get_header(); ?>
 
-	<section id="primary" class="content-area" style="overflow:auto; padding:15px;">
-		<main id="main" class="site-main" role="main">
+    <section id="primary" class="content-area" style="overflow:auto; padding:15px;">
+        <main id="main" class="site-main" role="main">
 
-		<?php
+        <?php
             // our template loader
 
 
@@ -17,7 +17,7 @@ get_header(); ?>
             );
         ?>
 
-		<?php do_action('eb_before_course_archive'); ?>
+        <?php do_action('eb_before_course_archive'); ?>
 
 <?php
 
@@ -55,9 +55,9 @@ if (have_posts()) {
 }
 ?>
 
-		<?php do_action('eb_after_course_archive'); ?>
+        <?php do_action('eb_after_course_archive'); ?>
 
-		</main><!-- .site-main -->
-	</section><!-- .content-area -->
+        </main><!-- .site-main -->
+    </section><!-- .content-area -->
 
 <?php get_footer();

@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 define('TWPW_NAME', 'Enhanced Paypal Shortcodes');    // Name of the Plugin
 define('TWPW_VERSION', '0.5a');            // Current version of the Plugin
-define("ALT_ADD", "Add to cart (Paypal)");    // alternate text for "Add to cart" image
-define("ALT_VIEW", "View Paypal cart");        // alternate text for "View cart" image
-define("ALT_SUBS", "Subscribe Now (Paypal)");   // alternate text for "Subscribe" image
+define('ALT_ADD', 'Add to cart (Paypal)');    // alternate text for "Add to cart" image
+define('ALT_VIEW', 'View Paypal cart');        // alternate text for "View cart" image
+define('ALT_SUBS', 'Subscribe Now (Paypal)');   // alternate text for "Subscribe" image
 
 
 /* Parameters for Shortcode for all Paypal buttons
@@ -291,52 +291,52 @@ if (!function_exists('enhancedPaypalShortcode')) {
     {
         $atts = shortcode_atts(
             array(
-            'type'            => '',
-            'textalign'        => '',
-            'divwidth'        => '',
-            'float'            => '',
-            'marginleft'    => '',
-            'marginright'    => '',
-            'margintop'    => '',
-            'marginbottom'    => '',
-            'sandbox'        => '',
-            'qty'            => '1',
-            'shipping'        => '',
-            'shipping2'    => '',
-            'imageurl'        => '',
-            'imagewidth'    => '100px',
-            'noshipping'    => '1',
-            'nonote'        => '1',
-            'rm'            => '2',
-            'lc'            => '',
-            'cbt'            => __('Complete Your Purchase', 'eb-textdomain'),
-            'cn'            => '',
-            'pagestyle'    => 'paypal',
-            'notifyurl'    => '',
-            'notifyurl2'    => '',
-            'returnurl'    => '',
-            'cancelurl'    => '',
-            'scriptcode'    => 'scriptcode',
-            'email'            => '',
-            'currencycode'    => '',
-            'itemno'        => '',
-            'name'            => '',
-            'amount'        => '',
-            'cancelreturn'    => '',
-            'a1'            => '',
-            'p1'            => '',
-            't1'            => '',
-            'a2'            => '',
-            'p2'            => '',
-            't2'            => '',
-            'a3'            => '',
-            'p3'            => '',
-            't3'            => '',
-            'src'            => 1,
-            'srt'            => 0,
-            'sra'            => 1,
-            'modify'        => '',
-            'custom'        => ''
+            'type' => '',
+            'textalign' => '',
+            'divwidth' => '',
+            'float' => '',
+            'marginleft' => '',
+            'marginright' => '',
+            'margintop' => '',
+            'marginbottom' => '',
+            'sandbox' => '',
+            'qty' => '1',
+            'shipping' => '',
+            'shipping2' => '',
+            'imageurl' => '',
+            'imagewidth' => '100px',
+            'noshipping' => '1',
+            'nonote' => '1',
+            'rm' => '2',
+            'lc' => '',
+            'cbt' => __('Complete Your Purchase', 'eb-textdomain'),
+            'cn' => '',
+            'pagestyle' => 'paypal',
+            'notifyurl' => '',
+            'notifyurl2' => '',
+            'returnurl' => '',
+            'cancelurl' => '',
+            'scriptcode' => 'scriptcode',
+            'email' => '',
+            'currencycode' => '',
+            'itemno' => '',
+            'name' => '',
+            'amount' => '',
+            'cancelreturn' => '',
+            'a1' => '',
+            'p1' => '',
+            't1' => '',
+            'a2' => '',
+            'p2' => '',
+            't2' => '',
+            'a3' => '',
+            'p3' => '',
+            't3' => '',
+            'src' => 1,
+            'srt' => 0,
+            'sra' => 1,
+            'modify' => '',
+            'custom' => '',
             ),
             $atts
         );
@@ -373,7 +373,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
             $atts['lc'] = $paypal_country;
         */
         switch ($atts['type']) {
-            case "paynow":
+            case 'paynow':
                     $code = '
             <div style="';
                 // if ($atts['textalign']) {
@@ -382,43 +382,43 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
-                    $code.='width: '.$atts['divwidth'].';';
+                    $code .= 'width: '.$atts['divwidth'].';';
                 }
                 if ($atts['float']) {
-                    $code.='float: '.$atts['float'].';';
+                    $code .= 'float: '.$atts['float'].';';
                 } else {
-                    $code.='margin:0 auto;';
+                    $code .= 'margin:0 auto;';
                 }
                 if ($atts['marginleft'] > -1) {
-                    $code.='margin-left: '.$atts['marginleft'].';';
+                    $code .= 'margin-left: '.$atts['marginleft'].';';
                 }
                 if ($atts['marginright'] > -1) {
-                    $code.='margin-right: '.$atts['marginright'].';';
+                    $code .= 'margin-right: '.$atts['marginright'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
                 if ($atts['margintop'] > -1) {
-                    $code.='margin-top: '.$atts['margintop'].';';
+                    $code .= 'margin-top: '.$atts['margintop'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
                 if ($atts['marginbottom'] > -1) {
-                    $code.='margin-bottom: '.$atts['marginbottom'].';';
+                    $code .= 'margin-bottom: '.$atts['marginbottom'].';';
                 } else {
-                    $code.='margin-bottom: 10px;';
+                    $code .= 'margin-bottom: 10px;';
                 }
-                    $paypalUrl = "https://www.paypal.com/cgi-bin/webscr";
-                    $pixelUrl = "https://www.paypal.com/en_US/i/scr/pixel.gif";
-                    $buttonUrl = "https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif";
+                    $paypalUrl = 'https://www.paypal.com/cgi-bin/webscr';
+                    $pixelUrl = 'https://www.paypal.com/en_US/i/scr/pixel.gif';
+                    $buttonUrl = 'https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
                 if ($atts['sandbox'] == 1) {
-                    $paypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-                    $pixelUrl = "https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif";
-                    $buttonUrl = "https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif";
+                    $paypalUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+                    $pixelUrl = 'https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif';
+                    $buttonUrl = 'https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
                 }
                     //<input type="image" src="' . $pixelUrl . '" border="0"
                     //alt="" width="1" height="1" class="ppalholder">
 
-                    $code.='"><form name="buynow" id="buynowform" action="' . $paypalUrl . '" method="post">
+                    $code .= '"><form name="buynow" id="buynowform" action="'.$paypalUrl.'" method="post">
             <input type="hidden" name="cmd" value="_xclick" />
 
     		<input type="hidden" name="bn" value="PP-BuyNowBF" />
@@ -429,10 +429,10 @@ if (!function_exists('enhancedPaypalShortcode')) {
     		<input type="hidden" name="amount" value="'.$atts['amount'].'">';
 
                     // Add Quantity
-                if ($atts['qty']=="ask") {
-                    $code .='<input type="hidden" name="undefined_quantity" value="1">';
+                if ($atts['qty'] == 'ask') {
+                    $code .= '<input type="hidden" name="undefined_quantity" value="1">';
                 } else {
-                    $code.='<input type="hidden" name="quantity" value="'.$atts['qty'].'">';
+                    $code .= '<input type="hidden" name="quantity" value="'.$atts['qty'].'">';
                 }
 
                     // Add Shipping
@@ -457,31 +457,31 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                     // Define Image to Use
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0"
+                    $code .= '<input type="hidden" src="'.$atts['imageurl'].'" border="0"
                     name="submit" alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
-                        $code.=' width="'.$atts['imagewidth'].'"';
+                        $code .= ' width="'.$atts['imagewidth'].'"';
                     }
-                    $code.=' class="ppalbtn">';
+                    $code .= ' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="' . $buttonUrl . '" border="0" name="submit"
+                    $code .= '<input type="hidden" src="'.$buttonUrl.'" border="0" name="submit"
                     alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                    $code .= '<input type="submit" value="'.__("Take this Course", "edw").'"
+                    $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'"
                 class="wdm-btn" id="eb_course_payment_button">';
 
                 if ($atts['noshipping'] > -1) {
-                    $code.='
+                    $code .= '
     			<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
                 }
 
                 if ($atts['nonote'] > -1) {
-                    $code.='
+                    $code .= '
                 <input type="hidden" name="no_note" value="'.$atts['nonote'].'" />';
                 }
 
                 if ($atts['rm'] > -1) {
-                    $code.='
+                    $code .= '
     			<input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
 
@@ -584,13 +584,13 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     // }
 
                 if ($atts['scriptcode']) {
-                    $code.='<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
+                    $code .= '<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>';
                 }
-                    $code.='</form>';
+                    $code .= '</form>';
 
-                    $code.='</div>';
+                    $code .= '</div>';
                 break;
-            case "subscribe":
+            case 'subscribe':
                 $code = '
             <div style="';
                 // if ($atts['textalign']) {
@@ -599,59 +599,59 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 checkArrayValue($atts['textalignte'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
-                    $code.='width: '.$atts['divwidth'].';';
+                    $code .= 'width: '.$atts['divwidth'].';';
                 }
 
                 if ($atts['float']) {
-                    $code.='float: '.$atts['float'].';';
+                    $code .= 'float: '.$atts['float'].';';
                 } else {
-                    $code.='margin:0 auto;';
+                    $code .= 'margin:0 auto;';
                 }
 
                 if ($atts['marginleft'] > -1) {
-                    $code.='margin-left: '.$atts['marginleft'].';';
+                    $code .= 'margin-left: '.$atts['marginleft'].';';
                 }
 
                 if ($atts['marginright'] > -1) {
-                    $code.='margin-right: '.$atts['marginright'].';';
+                    $code .= 'margin-right: '.$atts['marginright'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['margintop'] > -1) {
-                    $code.='margin-top: '.$atts['margintop'].';';
+                    $code .= 'margin-top: '.$atts['margintop'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['marginbottom'] > -1) {
-                    $code.='margin-bottom: '.$atts['marginbottom'].';';
+                    $code .= 'margin-bottom: '.$atts['marginbottom'].';';
                 } else {
-                    $code.='margin-bottom: 10px;';
+                    $code .= 'margin-bottom: 10px;';
                 }
-                $paypalUrl = "https://www.paypal.com/cgi-bin/webscr";
+                $paypalUrl = 'https://www.paypal.com/cgi-bin/webscr';
                 if ($atts['sandbox'] == 1) {
-                    $paypalUrl = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+                    $paypalUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
                 }
-                $code.='"><form name="subscribewithpaypal" action="'.$paypalUrl.'" method="post">
+                $code .= '"><form name="subscribewithpaypal" action="'.$paypalUrl.'" method="post">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
 
     		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0"
             alt="" width="1" height="1" class="ppalholder">';
 
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0"
+                    $code .= '<input type="hidden" src="'.$atts['imageurl'].'" border="0"
                     name="submit" alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
-                        $code.=' width="'.$atts['imagewidth'].'"';
+                        $code .= ' width="'.$atts['imagewidth'].'"';
                     }
-                    $code.=' class="ppalbtn">';
+                    $code .= ' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
-                    border="0" name="submit" alt="' .
-                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
+                    $code .= '<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
+                    border="0" name="submit" alt="'.
+                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain').'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").
+                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').
                 '" class="wdm-btn" id="eb_course_payment_button ">';
 
                 // if ($atts['email']) {
@@ -699,19 +699,19 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     '<input type="hidden" name="amount" value="'.$atts['amount'].'">'
                 );
 
-                if ($atts['noshipping'] >-1) {
-                    $code.='<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'" />';
+                if ($atts['noshipping'] > -1) {
+                    $code .= '<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'" />';
                 }
 
-                $code.='<input type="hidden" name="no_note" value="1" />';
+                $code .= '<input type="hidden" name="no_note" value="1" />';
 
                 /*Trial 1 settings */
                 if ($atts['a1'] > -1) {
-                    $code.='<input type="hidden" name="a1" value="'.$atts['a1'].'">';
+                    $code .= '<input type="hidden" name="a1" value="'.$atts['a1'].'">';
                 }
 
                 if ($atts['p1'] > 0) {
-                    $code.='<input type="hidden" name="p1" value="'.$atts['p1'].'">';
+                    $code .= '<input type="hidden" name="p1" value="'.$atts['p1'].'">';
                 }
 
                 // if ($atts['t1']) {
@@ -721,11 +721,11 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 /*Trial 2 settings */
                 if ($atts['a2'] > -1) {
-                    $code.='<input type="hidden" name="a2" value="'.$atts['a2'].'">';
+                    $code .= '<input type="hidden" name="a2" value="'.$atts['a2'].'">';
                 }
 
                 if ($atts['p2'] > 0) {
-                    $code.='<input type="hidden" name="p2" value="'.$atts['p2'].'">';
+                    $code .= '<input type="hidden" name="p2" value="'.$atts['p2'].'">';
                 }
 
                 // if ($atts['t2']) {
@@ -735,11 +735,11 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 /*Ongoing subscription*/
                 if ($atts['a3'] > 0) {
-                    $code.='<input type="hidden" name="a3" value="'.$atts['a3'].'">';
+                    $code .= '<input type="hidden" name="a3" value="'.$atts['a3'].'">';
                 }
 
                 if ($atts['p3'] > 0) {
-                    $code.='<input type="hidden" name="p3" value="'.$atts['p3'].'">';
+                    $code .= '<input type="hidden" name="p3" value="'.$atts['p3'].'">';
                 }
 
                 // if ($atts['t3']) {
@@ -748,26 +748,26 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 checkArrayValue($atts['t3'], $code, '<input type="hidden" name="t3" value="'.$atts['t3'].'">');
 
                 /* SRC - are payments recurring? 0 = No, 1 = Yes */
-                if ($atts['src']==0) {
-                    $code.='<input type="hidden" name="src" value="0">';
+                if ($atts['src'] == 0) {
+                    $code .= '<input type="hidden" name="src" value="0">';
                 } else {
-                    $code.='<input type="hidden" name="src" value="1">';
+                    $code .= '<input type="hidden" name="src" value="1">';
                 }
 
                 /* SRT - no of time payments recur?  */
-                if ($atts['srt']>1) {
-                    $code.='<input type="hidden" name="srt" value="'.$atts['srt'].'">';
+                if ($atts['srt'] > 1) {
+                    $code .= '<input type="hidden" name="srt" value="'.$atts['srt'].'">';
                 }
 
                 /* SRA - re-attempt if fail?  0 = No, 1 = Yes */
-                if ($atts['sra']==0) {
-                    $code.='<input type="hidden" name="sra" value="0">';
+                if ($atts['sra'] == 0) {
+                    $code .= '<input type="hidden" name="sra" value="0">';
                 } else {
-                    $code.='<input type="hidden" name="sra" value="1">';
+                    $code .= '<input type="hidden" name="sra" value="1">';
                 }
 
                 if ($atts['rm'] > -1) {
-                    $code.='<input type="hidden" name="rm" value="'.$atts['rm'].'">';
+                    $code .= '<input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
 
                 // Add language code
@@ -867,9 +867,9 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     '<script src="'.$atts['scriptcode'].'" type="text/javascript"></script>'
                 );
 
-                $code.='</form></div>';
+                $code .= '</form></div>';
                 break;
-            case "hosted":
+            case 'hosted':
                 $code = '<div style="';
                 // if ($atts['textalign']) {
                 //     $code.='text-align: '.$atts['textalign'].';';
@@ -877,63 +877,63 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
-                    $code.='width: '.$atts['divwidth'].';';
+                    $code .= 'width: '.$atts['divwidth'].';';
                 }
 
                 if ($atts['float']) {
-                    $code.='float: '.$atts['float'].';';
+                    $code .= 'float: '.$atts['float'].';';
                 } else {
-                    $code.='margin:0 auto;';
+                    $code .= 'margin:0 auto;';
                 }
 
                 if ($atts['marginleft'] > -1) {
-                    $code.='margin-left: '.$atts['marginleft'].';';
+                    $code .= 'margin-left: '.$atts['marginleft'].';';
                 }
 
                 if ($atts['marginright'] > -1) {
-                    $code.='margin-right: '.$atts['marginright'].';';
+                    $code .= 'margin-right: '.$atts['marginright'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['margintop'] > -1) {
-                    $code.='margin-top: '.$atts['margintop'].';';
+                    $code .= 'margin-top: '.$atts['margintop'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['marginbottom'] > -1) {
-                    $code.='margin-bottom: '.$atts['marginbottom'].';';
+                    $code .= 'margin-bottom: '.$atts['marginbottom'].';';
                 } else {
-                    $code.='margin-bottom: 10px;';
+                    $code .= 'margin-bottom: 10px;';
                 }
 
-                $code.='"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                $code .= '"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick">
     		<input type="hidden" name="hosted_button_id" value="'.$atts['buttonid'].'">
     		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt=""
             width="1" height="1">';
 
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
+                    $code .= '<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
                     alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
-                        $code.=' width="'.$atts['imagewidth'].'"';
+                        $code .= ' width="'.$atts['imagewidth'].'"';
                     }
-                    $code.=' class="ppalbtn">';
+                    $code .= ' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
-                    border="0" name="submit" alt="' .
-                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain') . '" class="ppalbtn">';
+                    $code .= '<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
+                    border="0" name="submit" alt="'.
+                    __('PayPal - The safer, easier way to pay online.', 'eb-textdomain').'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn"
+                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn"
                 id="eb_course_payment_button">';
 
-                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
+                $code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
                 height="1" class="ppalholder">
            </form></div>';
                 break;
-            case "addtocart":
+            case 'addtocart':
                 $code = '<div style="';
                 // if ($atts['textalign']) {
                 //     $code.='text-align: '.$atts['textalign'].';';
@@ -941,71 +941,71 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 checkArrayValue($atts['textalign'], $code, 'text-align: '.$atts['textalign'].';');
 
                 if ($atts['divwidth'] > 0) {
-                    $code.='width: '.$atts['divwidth'].';';
+                    $code .= 'width: '.$atts['divwidth'].';';
                 }
 
                 if ($atts['float']) {
-                    $code.='float: '.$atts['float'].';';
+                    $code .= 'float: '.$atts['float'].';';
                 } else {
-                    $code.='margin:0 auto;';
+                    $code .= 'margin:0 auto;';
                 }
 
                 if ($atts['marginleft'] > -1) {
-                    $code.='margin-left: '.$atts['marginleft'].';';
+                    $code .= 'margin-left: '.$atts['marginleft'].';';
                 }
 
                 if ($atts['marginright'] > -1) {
-                    $code.='margin-right: '.$atts['marginright'].';';
+                    $code .= 'margin-right: '.$atts['marginright'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['margintop'] > -1) {
-                    $code.='margin-top: '.$atts['margintop'].';';
+                    $code .= 'margin-top: '.$atts['margintop'].';';
                 } else {
-                    $code.='margin-top: 10px;';
+                    $code .= 'margin-top: 10px;';
                 }
 
                 if ($atts['marginbottom'] > -1) {
-                    $code.='margin-bottom: '.$atts['marginbottom'].';';
+                    $code .= 'margin-bottom: '.$atts['marginbottom'].';';
                 } else {
-                    $code.='margin-bottom: 10px;';
+                    $code .= 'margin-bottom: 10px;';
                 }
-                $code.='"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                $code .= '"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
     		<input type="hidden" name="cmd" value="_cart">
     		<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
     		<input type="hidden" name="add" value="1">';
-                if ($atts['display']==1) {
-                    $code.='<input type="hidden" name="display" value="1">';
+                if ($atts['display'] == 1) {
+                    $code .= '<input type="hidden" name="display" value="1">';
                 }
-                $code.='<input type="hidden" name="business" value="'.$atts['email'].'">
+                $code .= '<input type="hidden" name="business" value="'.$atts['email'].'">
     		<input type="hidden" name="lc" value="'.$atts['lc'].'">
     		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
     		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
     		<input type="hidden" name="item_name" value="'.$atts['name'].'">';
                 if ($atts['amount']) {
-                    $code.='<input type="hidden" name="amount" value="'.$atts['amount'].'">';
+                    $code .= '<input type="hidden" name="amount" value="'.$atts['amount'].'">';
                 }
-                $code.='<input type="hidden" name="button_subtype" value="products">';
+                $code .= '<input type="hidden" name="button_subtype" value="products">';
 
                 if ($atts['noshipping'] > -1) {
-                    $code.='<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
+                    $code .= '<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
                 }
 
                 if ($atts['nonote'] > -1) {
-                    $code.='
+                    $code .= '
             <input type="hidden" name="no_note" value="'.$atts['nonote'].'" />';
                 }
 
                 if ($atts['rm'] > -1) {
-                    $code.='<input type="hidden" name="rm" value="'.$atts['rm'].'">';
+                    $code .= '<input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
 
                 // Add Quantity
-                if ($atts['qty']=="ask") {
-                    $code .='<input type="hidden" name="undefined_quantity" value="1">';
+                if ($atts['qty'] == 'ask') {
+                    $code .= '<input type="hidden" name="undefined_quantity" value="1">';
                 } else {
-                    $code.='<input type="hidden" name="quantity" value="'.$atts['qty'].'">';
+                    $code .= '<input type="hidden" name="quantity" value="'.$atts['qty'].'">';
                 }
 
                 // Add Shipping
@@ -1115,23 +1115,24 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 // Define Image to Use
                 if ($atts['imageurl']) {
-                    $code.='<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
+                    $code .= '<input type="hidden" src="'.$atts['imageurl'].'" border="0" name="submit"
                     alt="'.ALT_ADD.'"';
                     if ($atts['imagewidth']) {
-                        $code.=' width="'.$atts['imagewidth'].'"';
+                        $code .= ' width="'.$atts['imagewidth'].'"';
                     }
-                    $code.=' class="ppalbtn">';
+                    $code .= ' class="ppalbtn">';
                 } else {
-                    $code.='<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
+                    $code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
                     border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__("Take this Course", "edw").'" class="wdm-btn"
+                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn"
                 id="eb_course_payment_button">';
 
-                $code.='<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
+                $code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
                     height="1" class="ppalholder">
            </form></div>';
         }
+
         return apply_filters('eb_paypal_payment_button', $code, array('code' => $code, 'atts' => $atts));
     }
 }
