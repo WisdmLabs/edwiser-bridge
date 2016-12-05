@@ -730,7 +730,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('linked' => $linked), $_SERVER['HTTP_REFFER']);
+                    $sendback = add_query_arg(array('linked' => $linked), $_SERVER['HTTP_REFERER']);
                 }
 
                 break;
@@ -750,7 +750,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('unlinked' => $unlinked), $_SERVER['HTTP_REFFER']);
+                    $sendback = add_query_arg(array('unlinked' => $unlinked), $_SERVER['HTTP_REFERER']);
                 }
 
                 break;

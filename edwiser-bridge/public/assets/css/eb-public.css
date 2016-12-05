@@ -340,3 +340,8 @@ div#user_login label{
     text-align: center;
     font-size: 13px;
 }
+
+/* Shortcode eb_courses wrapper */
+.sc-eb_courses-wrapper article{
+  margin-bottom: 20px;
+}
