@@ -87,7 +87,7 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
                     ?>
                     <p class="register-link">
 
-                        <a href='<?php echo esc_url(wdmUserAccountUrl('?action=eb_register'.$redirect_to));
+                        <a href='<?php echo esc_url(wdmUserAccountUrl('?action=eb_register'.$argList));
                     ?>'>
                                 <?php _e('Don\'t have an Account?', 'eb-textdomain');
                     ?></a>
