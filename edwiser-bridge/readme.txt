@@ -132,6 +132,7 @@ Take a look at the link below to see the full list of questions which will help 
 =  1.1.3  =
 * Feature - Shortcode `eb_courses` to list courses. You can filter categoriwise using argument `categories`.
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
+* Tweak - Single course page layout improvement.
 * Fix - Undefined index: HTTP_REFFER
 
 =  1.1.2  =

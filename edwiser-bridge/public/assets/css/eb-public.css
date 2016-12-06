@@ -345,3 +345,43 @@ div#user_login label{
 .sc-eb_courses-wrapper article{
   margin-bottom: 20px;
 }
+
+.eb-course-img-wrapper{
+    float:left;
+    width:48%;
+    margin-bottom: 2em;
+}
+
+.eb-course-summary{
+    float:right;
+    width:48%;
+    margin-bottom: 2em;
+    /*position: relative;*/
+}
+
+.eb-course-img-wrapper img{
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    max-width: 100%;
+}
+
+.eb-course-desc-wrapper{
+    clear: both;
+    border-top: 2px solid #1a1a1a;
+}
+
+.eb-cat-wrapper{
+    margin-top: 20px;
+    /*position: absolute; 
+    bottom: 0;*/
+}
+
+@media (max-width:480px){
+/* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .eb-course-img-wrapper, .eb-course-summary{
+        float: none;
+        width: 100%;
+    }
+}

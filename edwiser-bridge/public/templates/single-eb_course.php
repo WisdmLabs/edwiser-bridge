@@ -21,7 +21,7 @@ get_header(); ?>
                 comments_template();
 endwhile; ?>
             <?php do_action('eb_after_single_course'); ?>
-        </div><!-- #content -->
+        </main><!-- #content -->
     </div><!-- #primary -->
 
 <?php get_sidebar(); ?>
