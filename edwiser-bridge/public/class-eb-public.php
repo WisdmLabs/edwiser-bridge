@@ -137,4 +137,17 @@ class EbPublic
             false
         );
     }
+
+
+    /**
+     * Theme specific setup.
+     *
+     * @since    1.1.3
+     */
+    public function afterSetupTheme()
+    {
+        add_theme_support('post-thumbnails');
+        //Custom sized thumbnails - single course page.
+        add_image_size('course_single', 600, 450, true);
+    }
 }

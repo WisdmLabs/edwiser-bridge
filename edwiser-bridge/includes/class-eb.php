@@ -679,6 +679,8 @@ class EdwiserBridge
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processRegistration', 20);
         // process course join request for free courses
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
+
+        $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
     }
 
     /**

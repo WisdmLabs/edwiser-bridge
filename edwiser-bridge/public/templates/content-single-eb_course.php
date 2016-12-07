@@ -85,7 +85,7 @@ if (is_array($terms)) {
         <div class="eb-course-img-wrapper">
             <?php
             if (has_post_thumbnail()) {
-                the_post_thumbnail();
+                the_post_thumbnail('course_single');
             } else {
                 echo '<img src="' . EB_PLUGIN_URL . 'images/no-image.jpg" />';
             }

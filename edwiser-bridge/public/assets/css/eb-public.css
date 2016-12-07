@@ -356,14 +356,15 @@ div#user_login label{
 
 .eb-course-img-wrapper{
     float:left;
-    width:48%;
+    width:55%;
     margin-bottom: 2em;
 }
 
 .eb-course-summary{
     float:right;
-    width:48%;
+    width:40%;
     margin-bottom: 2em;
+    padding: 1em 0 0 0;
     /*position: relative;*/
 }
 
