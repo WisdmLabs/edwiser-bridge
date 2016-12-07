@@ -133,7 +133,10 @@ Take a look at the link below to see the full list of questions which will help 
 * Feature - Shortcode `eb_courses` to list courses. You can filter categoriwise using argument `categories`.
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
 * Tweak - Single course page layout improvement.
-* Fix - Undefined index: HTTP_REFFER
+* Fix - Undefined index: HTTP_REFFER.
+* Fix - Permalink issue.
+* Fix - Call to undefined class EBPaymentManager.
+
 
 =  1.1.2  =
 * Added new currency in PayPal for the Australian Dollar,Polish Zloty,Danish Krone and Singapore Dollar.

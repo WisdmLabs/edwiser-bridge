@@ -25,7 +25,8 @@ class EbShortcodes
             'eb_user_account'   => __CLASS__ . '::userAccount',
             'eb_user_profile'   => __CLASS__ . '::userProfile',
             'eb_courses'        => __CLASS__ . '::courses',
-            'eb_course'         => __CLASS__ . '::course'
+            'eb_course'         => __CLASS__ . '::course',
+            'eb_my_courses'     => __CLASS__ . '::myCourses'
         );
 
         foreach ($shortcodes as $shortcode => $function) {
@@ -108,5 +109,17 @@ class EbShortcodes
     public static function course($atts)
     {
         return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeCourse', 'output' ), $atts);
+    }
+
+    /**
+     * eb_my_courses shortcode, shows courses belonging to a user.
+     *
+     * @since  1.1.3
+     * @param mixed $atts
+     * @return courses
+     */
+    public static function myCourses($atts)
+    {
+        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeMyCourses', 'output' ), $atts);
     }
 }

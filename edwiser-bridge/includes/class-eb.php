@@ -333,6 +333,7 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-user-profile.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-courses.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-course.php';
+        require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-my-courses.php';
 
         /**
          * The class responsible for handling frontend forms, specifically login & registration forms.
