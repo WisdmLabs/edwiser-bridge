@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying single course content.
  *

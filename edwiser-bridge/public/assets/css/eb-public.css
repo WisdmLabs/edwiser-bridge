@@ -29,7 +29,7 @@
     padding: 0 15px;
     width: 25%;
 }
-/*.hentry.wdm-col-3-2-1:nth-of-type(3n+1) {
+/*.hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
     clear: left;
 }*/
 
@@ -142,6 +142,14 @@
 }
 .wdm-caption .entry-content {
     padding: 0;
+    float: none !important;
+    width: auto !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-align: justify;
 }
 
 p.read-more{
