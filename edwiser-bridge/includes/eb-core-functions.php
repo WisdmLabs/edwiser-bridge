@@ -125,12 +125,10 @@ function wdmShowNotices()
     }
 }
 
-// get user account url
+/*
+//Old wdmUserAccountUrl() removed because of permalink issue.
 function wdmUserAccountUrl($arg = '')
 {
-
-    // $user_account_page_id = EbAdminSettings::getOption( 'eb_useraccount_page_id', 'general' );
-
     $eb_general_settings = get_option('eb_general');
     $user_account_page_id = '';
     if (isset($eb_general_settings['eb_useraccount_page_id'])) {
@@ -144,6 +142,34 @@ function wdmUserAccountUrl($arg = '')
     }
 
     return $link;
+}
+*/
+
+/**
+ * Remodified wdmUserAccountUrl() to return user account url.
+ * @since 1.1.3
+ */
+function wdmUserAccountUrl($query_str = '')
+{
+    $usr_ac_page_id = null;
+    $eb_settings = get_option('eb_general');
+
+    if (isset($eb_settings['eb_useraccount_page_id'])) {
+        $usr_ac_page_id = $eb_settings['eb_useraccount_page_id'];
+    }
+
+    $usr_ac_page_url = get_permalink($usr_ac_page_id);
+
+    if (!$usr_ac_page_url) {
+        $usr_ac_page_url = site_url('/user-account');
+    }
+
+    //Extract query string into local $_GET array.
+    $get = array();
+    parse_str(parse_url($query_str, PHP_URL_QUERY), $get);
+    $usr_ac_page_url = add_query_arg($get, $usr_ac_page_url);
+
+    return $usr_ac_page_url;
 }
 
 // used as a callback for usort() to sort a numeric array
