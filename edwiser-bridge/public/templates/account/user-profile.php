@@ -24,7 +24,7 @@ if (!empty($enrolled_courses)) {
         echo '<div class="eb-course-section course_'.$course->ID.'">';
         echo '<div>'.($key + 1).'. </div>';
         echo '<div><a href="'.get_the_permalink($course->ID).'">'.$course->post_title.'</a></div>';
-        echo EBPaymentManager::accessCourseButton($course->ID);
+        echo app\wisdmlabs\edwiserBridge\EBPaymentManager::accessCourseButton($course->ID);
         echo '</div>';
     }
 } else {
