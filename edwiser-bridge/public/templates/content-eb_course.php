@@ -54,17 +54,26 @@ if ($has_access) {
 }
 
 $course_id = $post_id;
+
+//Shortcode eb_my_courses.
+if (isset($is_eb_my_courses) && $is_eb_my_courses) {
+    $mdl_course_id = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id);
+    $course_url = EB_ACCESS_URL . '/course/view.php?id=' . $mdl_course_id;
+} else {
+    $is_eb_my_courses = false;
+    $course_url = get_permalink();
+}
 ?>
 
 <article id="post-<?php the_ID(); ?>"
             <?php post_class('wdm-col-3-2-1 wdm-course-grid-wrap '.$course_class); ?>>
     <div class="wdm-course-grid">
 
-        <a href="<?php the_permalink(); ?>" rel="bookmark" class="wdm-course-thumbnail">
+        <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
             <div class="wdm-course-image">
                 <?php
                 if (has_post_thumbnail()) {
-                    the_post_thumbnail('full');
+                    the_post_thumbnail('course_archive');
                 } else {
                     ?>
                     <img src="<?php echo EB_PLUGIN_URL;
@@ -83,7 +92,7 @@ $course_id = $post_id;
 }
                     ?>
                     <?php
-                    if ($post->post_type == 'eb_course') {
+                    if ($post->post_type == 'eb_course' && !$is_eb_my_courses) {
                         if ($course_price_type == 'paid' || $course_price_type == 'free') {
                             echo '<div class="wdm-price '.$course_price_type.'">';
                             echo $course_price_formatted;

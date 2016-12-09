@@ -36,8 +36,9 @@ class EbShortcodeMyCourses
     public static function output($atts)
     {
         extract($atts = shortcode_atts(apply_filters('eb_output_my_courses_defaults', array(
-            'user_id'  => get_current_user_id(),
-            'show_recommended_courses' => 1
+            'user_id'                       => get_current_user_id(),
+            'show_recommended_courses'      => 1,
+            'number_of_recommended_courses' => 4,
         )), $atts));
 
         $courses = get_posts(
@@ -57,6 +58,7 @@ class EbShortcodeMyCourses
         }
 
         error_log('@ var my courses:');
+        error_log(print_r($_SERVER, true));
         error_log(print_r($my_courses, true));
 
         //My Courses.
@@ -74,12 +76,13 @@ class EbShortcodeMyCourses
             edwiserBridgeInstance()->getVersion()
         );
 
-        echo '<div class="sc-eb_my_courses-wrapper" style="margin-bottom: 2px solid black">';
+        echo '<div class="sc-eb_my_courses-wrapper">';
         do_action('eb_before_my_courses');
         if ($courses->have_posts()) {
             while ($courses->have_posts()) :
                 $courses->the_post();
-                $template_loader->wpGetTemplatePart('content', 'eb_course');
+                //$template_loader->wpGetTemplatePart('content', 'eb_course');
+                $template_loader->wpGetTemplate('content-eb_course.php', array('is_eb_my_courses' => true));
             endwhile;
         } else {
             $template_loader->wpGetTemplatePart('content', 'none');
@@ -106,7 +109,7 @@ class EbShortcodeMyCourses
         $args = array(
             'post_type'   => 'eb_course',
             'post_status' => 'publish',
-            'posts_per_page' => 4,
+            'posts_per_page' => $atts['number_of_recommended_courses'],
             'tax_query' => array(
                 array(
                     'taxonomy' => 'eb_course_cat',

@@ -29,9 +29,10 @@
     padding: 0 15px;
     width: 25%;
 }
-/*.hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
+
+.hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
     clear: left;
-}*/
+}
 
 .wdm-course-grid:hover{
     z-index: 500;

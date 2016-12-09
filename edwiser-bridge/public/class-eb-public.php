@@ -147,7 +147,11 @@ class EbPublic
     public function afterSetupTheme()
     {
         add_theme_support('post-thumbnails');
+        
         //Custom sized thumbnails - single course page.
         add_image_size('course_single', 600, 450, true);
+
+        //Custom sized thumbnails - archive course page.
+        add_image_size('course_archive', 200, 150, true);
     }
 }
