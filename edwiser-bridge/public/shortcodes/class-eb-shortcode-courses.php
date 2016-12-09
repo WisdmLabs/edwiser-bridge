@@ -1,10 +1,10 @@
 <?php
 
 /**
- * The file that defines the user profile shortcode.
+ * Shortcode eb_courses.
  *
  * @link       https://edwiser.org
- * @since      1.0.2
+ * @since      1.1.3
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
@@ -15,7 +15,7 @@ class EbShortcodeCourses
     /**
      * Get the shortcode content.
      *
-     * @since  1.0.2
+     * @since  1.1.3
      *
      * @param array $atts
      *
@@ -29,37 +29,43 @@ class EbShortcodeCourses
     /**
      * Output the shortcode.
      *
-     * @since  1.0.2
+     * @since  1.1.3
      *
      * @param array $atts
      */
     public static function output($atts)
     {
-        extract($atts = shortcode_atts(apply_filters('eb_output_courses_defaults', array(
-            'posts_per_page'  => -1,
-            'order'           => 'DESC',
-            'post_status'     => 'publish',
-            'categories'      => ''
+        extract($atts = shortcode_atts(apply_filters('eb_shortcode_courses_defaults', array(
+            'categories'        => '',
+            'category_operator' => 'AND',
+            'order'             => 'DESC',
+            'number_of_courses' => -1
         )), $atts));
-        
-        $atts['post_type'] = 'eb_course';
+
+        $args = array(
+            'post_type' => 'eb_course',
+            'posts_per_page' => $atts['number_of_courses'],
+            'post_status' => 'publish'
+        );
 
         if (!empty($atts['categories'])) {
-            $atts['tax_query'] = array(
+            $args['tax_query'] = array(
                 array(
                     'taxonomy' => 'eb_course_cat',
                     'field'    => 'slug',
                     'terms'    => explode(',', $atts['categories']),
-                    'operator' => 'AND'
+                    'operator' => $atts['category_operator']
                 )
             );
         }
-        
-        unset($atts['categories']);
 
-        $courses = new \WP_Query($atts);
+        $courses = new \WP_Query($args);
 
-        $template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+        $template_loader = new EbTemplateLoader(
+            edwiserBridgeInstance()->getPluginName(),
+            edwiserBridgeInstance()->getVersion()
+        );
+
         echo '<div class="sc-eb_courses-wrapper">';
         do_action('eb_before_course_archive');
         if ($courses->have_posts()) {

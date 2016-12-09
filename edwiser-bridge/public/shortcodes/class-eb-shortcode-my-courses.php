@@ -35,53 +35,78 @@ class EbShortcodeMyCourses
      */
     public static function output($atts)
     {
-        extract($atts = shortcode_atts(apply_filters('eb_output_my_courses_defaults', array(
-            'user_id'                       => get_current_user_id(),
-            'show_recommended_courses'      => 1,
-            'number_of_recommended_courses' => 4,
+        extract($atts = shortcode_atts(apply_filters('eb_shortcode_my_courses_defaults', array(
+            'user_id'                           => get_current_user_id(),
+            'my_courses_wrapper_title'          => '',
+            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+            'number_of_recommended_courses'     => 7,
         )), $atts));
+
+        $my_courses = self::getUserCourses();
+        
+        if (count($my_courses)) {
+            self::showMyCourses($my_courses, $atts);
+            if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
+                $rec_cats = self::getRecommendedCategories($my_courses);
+                if (count($rec_cats)) {
+                    self::showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
+                }
+            }
+        }
+    }
+
+    public static function getUserCourses($user_id = null)
+    {
+        $user_id = is_null($user_id) ? get_current_user_id() : (int) $user_id;
 
         $courses = get_posts(
             array(
                 'post_type'      => 'eb_course',
                 'post_status'    => 'publish',
-                'posts_per_page' => -1,
+                'posts_per_page' => -1
             )
         );
         
-        $my_courses = array();
+        $user_courses = array();
         
         foreach ($courses as $course) {
-            if (edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($atts['user_id'], $course->ID)) {
-                $my_courses[] = $course->ID;
+            if (edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID)) {
+                $user_courses[] = $course->ID;
             }
         }
 
-        error_log('@ var my courses:');
-        error_log(print_r($_SERVER, true));
-        error_log(print_r($my_courses, true));
+        return $user_courses;
+    }
+
+    public static function showMyCourses($my_courses, $atts)
+    {
+        if (!count($my_courses)) {
+            return;
+        }
 
         //My Courses.
         $args = array(
             'post_type'   => 'eb_course',
             'post_status' => 'publish',
             'post__in'    => $my_courses,
-            //'ignore_sticky_posts' => 1
+            'ignore_sticky_posts' => true
         );
 
         $courses = new \WP_Query($args);
-        
+
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
             edwiserBridgeInstance()->getVersion()
         );
 
-        echo '<div class="sc-eb_my_courses-wrapper">';
+        echo '<div class="eb-my-courses-wrapper">';
+        if (!empty($atts['my_courses_wrapper_title'])) {
+            ?><h2><?php echo $atts['my_courses_wrapper_title']; ?></h2><?php
+        }
         do_action('eb_before_my_courses');
         if ($courses->have_posts()) {
             while ($courses->have_posts()) :
                 $courses->the_post();
-                //$template_loader->wpGetTemplatePart('content', 'eb_course');
                 $template_loader->wpGetTemplate('content-eb_course.php', array('is_eb_my_courses' => true));
             endwhile;
         } else {
@@ -89,27 +114,29 @@ class EbShortcodeMyCourses
         }
         do_action('eb_after_my_courses');
         echo '</div>';
+    }
 
-
+    public static function getRecommendedCategories($user_courses)
+    {
         //Recommended Courses.
         $rec_cats = array();
 
-        if ($atts['show_recommended_courses']) {
-            foreach ($my_courses as $my_course_id) {
-                $terms = wp_get_post_terms($my_course_id, 'eb_course_cat');
-                foreach ($terms as $term) {
-                    $rec_cats[$term->slug] = $term->name;
-                }
+        foreach ($user_courses as $user_course_id) {
+            $terms = wp_get_post_terms($user_course_id, 'eb_course_cat');
+            foreach ($terms as $term) {
+                $rec_cats[$term->slug] = $term->name;
             }
         }
 
-        error_log('@ var recommended_categories:');
-        error_log(print_r($rec_cats, true));
+        return $rec_cats;
+    }
 
+    public static function showRecommendedCourses($rec_cats, $exclude_courses, $count, $atts)
+    {
         $args = array(
             'post_type'   => 'eb_course',
             'post_status' => 'publish',
-            'posts_per_page' => $atts['number_of_recommended_courses'],
+            'posts_per_page' => $count,
             'tax_query' => array(
                 array(
                     'taxonomy' => 'eb_course_cat',
@@ -117,16 +144,21 @@ class EbShortcodeMyCourses
                     'terms'    => array_keys($rec_cats),
                 ),
             ),
-            'post__not_in' => $my_courses
+            'post__not_in' => $exclude_courses
         );
 
         $courses = new \WP_Query($args);
 
-        echo '<div class="eb_rec-courses-wrapper" style="margin: 30px 0">';
-        ?>
-        <h2><?php _e('Recommended Courses', 'eb-textdomain'); ?></h2>
-        <?php
-        do_action('eb_before_my_courses');
+        $template_loader = new EbTemplateLoader(
+            edwiserBridgeInstance()->getPluginName(),
+            edwiserBridgeInstance()->getVersion()
+        );
+
+        echo '<div class="eb-rec-courses-wrapper">';
+        if (!empty($atts['recommended_courses_wrapper_title'])) {
+            ?><h2><?php echo $atts['recommended_courses_wrapper_title']; ?></h2><?php
+        }
+        do_action('eb_before_recommended_courses');
         if ($courses->have_posts()) {
             while ($courses->have_posts()) :
                 $courses->the_post();
@@ -135,10 +167,12 @@ class EbShortcodeMyCourses
         } else {
             $template_loader->wpGetTemplatePart('content', 'none');
         }
-        do_action('eb_after_my_courses');
+        do_action('eb_after_recommended_courses');
         echo '</div>';
+        $eb_course = get_post_type_object('eb_course');
+        $view_more_url = site_url($eb_course->rewrite['slug']);
         ?>
-        <a href="#" class="wdm-btn" style="float: right"><?php _e('View More &rarr;', 'eb-textdomain'); ?></a>
+        <a href="<?php echo $view_more_url; ?>" class="wdm-btn eb-rec-courses-view-more"><?php _e('View More &rarr;', 'eb-textdomain'); ?></a>
         <?php
     }
 }

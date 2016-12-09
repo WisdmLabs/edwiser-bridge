@@ -1,10 +1,10 @@
 <?php
 
 /**
- * The file that defines the user profile shortcode.
+ * Shortcode eb_course
  *
  * @link       https://edwiser.org
- * @since      1.0.2
+ * @since      1.1.3
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
@@ -15,7 +15,7 @@ class EbShortcodeCourse
     /**
      * Get the shortcode content.
      *
-     * @since  1.0.2
+     * @since  1.1.3
      *
      * @param array $atts
      *
@@ -29,7 +29,7 @@ class EbShortcodeCourse
     /**
      * Output the shortcode.
      *
-     * @since  1.0.2
+     * @since  1.1.3
      *
      * @param array $atts
      */

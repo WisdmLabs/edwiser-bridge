@@ -189,6 +189,19 @@ class EBActivator
     {
         include_once 'eb-core-functions.php';
 
+        $eb_my_courses_args = array(
+            'user_id'                           => '',
+            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
+            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+            'number_of_recommended_courses'     => 4,
+        );
+
+        $eb_my_courses_page_content = '[eb_my_courses ';
+        foreach ($eb_my_courses_args as $attr => $value) {
+            $eb_my_courses_page_content .= $attr . '="' . $value . '" ';
+        }
+        $eb_my_courses_page_content .= ']';
+
         $pages = apply_filters(
             'eb_create_default_pages',
             array(
@@ -205,6 +218,13 @@ class EBActivator
                     'title' => _x('User Account', 'Page title', 'eb-textdomain'),
                     'content' => '['.apply_filters('eb_user_account_shortcode_tag', 'eb_user_account').']',
                     'option_key' => 'eb_useraccount_page_id',
+                ),
+
+                'mycourses' => array(
+                    'name' => _x('my-courses', 'Page slug', 'eb-textdomain'),
+                    'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
+                    'content' => $eb_my_courses_page_content,
+                    'option_key' => '',
                 ),
             )
         );

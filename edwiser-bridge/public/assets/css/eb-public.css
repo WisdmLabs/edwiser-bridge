@@ -395,3 +395,19 @@ div#user_login label{
         width: 100%;
     }
 }
+
+.eb-rec-courses-wrapper{
+    /*clear: both;*/
+    margin: 10px 0;
+}
+
+.eb-rec-courses-wrapper h2, .eb-my-courses-wrapper h2{
+    border-bottom: 2px solid #1a1a1a;
+    padding: 10px;
+}
+
+.eb-rec-courses-view-more{
+    display: block;
+    clear: both;
+    float: right;
+}
