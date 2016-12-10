@@ -11,7 +11,7 @@ PHPCS_CODING_STANDARD=""
 PHPCPD_IGNORE_FILES="includes/payments/enhanced-paypal-shortcodes.php"
 
 #Provide Relative Paths of files and folders to be ignored for PHPMD. Accepts Comma Separated List
-PHPMD_IGNORE_FILES="admin/class-eb-admin-settings.php,admin/class-eb-email-template.php,includes/class-eb-post-types.php,includes/class-eb-user-manager.php,includes/payments/class-eb-payment-manager.php,includes/payments/enhanced-paypal-shortcodes.php"
+PHPMD_IGNORE_FILES="admin/class-eb-admin-settings.php,admin/class-eb-email-template.php,admin/class-eb-email-template.php,includes/class-eb-post-types.php,includes/class-eb-user-manager.php,includes/payments/class-eb-payment-manager.php,includes/payments/enhanced-paypal-shortcodes.php"
 
 #Provide Relative Paths of files and folders to be ignored for PHPCS, Aceepts Comma separated list
-PHPCS_IGNORE_FILES="admin/class-eb-email-template.php"
+PHPCS_IGNORE_FILES="admin/class-eb-email-template.php,admin/class-eb-email-template.php"
