@@ -286,3 +286,150 @@ span.eb-option-input .eb-option-div select{
 }
 
 /* Properties for Table Structure End*/
+
+/* Email template page style start*/
+
+.eb-email-template-edit {
+    width:100%
+}
+
+.eb-template-edit-form {
+    width:70%
+}
+
+.eb-template-list-wrap {
+    width:30%
+}
+
+.eb-template-edit-form table {
+    width:100%;
+    padding-right:5px
+}
+
+.eb-template-edit-form table tr {
+    padding:5px,0px
+}
+
+.eb-email-template-wrap {
+    padding:10px 20px;
+    display:flex;
+    position:relative
+}
+
+#eb-email-template-name {
+    font-weight:400
+}
+
+.eb-template-edit-cell {
+    column-span:2;
+    width:100%
+}
+
+.eb-edit-email-template-aside {
+    position:absolute;
+    right:5px;
+    width:30%;
+    padding-left:10px;
+    height:100%
+}
+
+.eb-email-temp-test-mail-wrap {
+    display:inline-block;
+    width:100%
+}
+
+.eb-email-input {
+    width:100%;
+    height:2.3em
+}
+
+.eb-email-temp-test-mail-wrap input[type="email"] {
+    height:2.3em;
+    width:70%
+}
+
+.eb-email-lable {
+    font-weight:700
+}
+
+.eb-email-testmail-wrap h3 {
+    font-weight:400;
+    border-bottom: 1px solid #777;
+    padding-bottom: 5px;
+}
+
+.eb-emailtemp-head {
+    border-bottom:1px solid #ddd;
+    width:100%
+}
+
+.eb-email-testmail-wrap {
+    /*border-top:1px solid #777;*/
+    margin-top:20px
+}
+
+.eb-email-templates-list h3,
+.eb-email-templates-const-wrap h3 {
+    font-weight:400;
+    background:gray;
+    padding:10px 5px;
+    margin:unset;
+    color:#fff
+}
+
+.eb-email-templates-list,
+.eb-email-templates-const-wrap {
+    background:#fff;
+    border:1px solid #ddd;
+    margin:10px 0;
+    height:35%;
+    border-radius:3px
+}
+
+.eb-emiltemp-const-wrap {
+    overflow-x:hidden;
+    max-height:80%;
+    overflow-y:scroll;
+    padding:5px 0 5px 5px;
+    overflow: auto;
+}
+
+#eb_email_templates_list {
+    overflow-x:hidden;
+    max-height:85%;
+    overflow-y:scroll;
+    padding:5px 0 5px 5px;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow: auto;
+
+}
+
+#eb_email_templates_list > li {
+    display:block;
+    color:#000;
+    padding:8px 16px;
+    text-decoration:none
+}
+
+#eb_email_templates_list > li .active,
+#eb_email_templates_list > li:hover:not(.active){
+    background-color:#004cff;
+    color:#fff
+}
+
+.eb-emailtemp-active-item {
+    background-color:#004cff;
+    color:#fff!important
+}
+
+.eb-mail-templat-const span{
+    font-weight: bold;
+    padding-right: 2px;
+    display: block;
+}
+.eb-mail-templat-const{
+    padding: 5px 0px;
+}
+/* Email template page style end*/

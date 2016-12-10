@@ -301,6 +301,7 @@ class EdwiserBridge
          */
         require_once EB_PLUGIN_DIR.'admin/class-eb-admin-menus.php';
         require_once EB_PLUGIN_DIR.'admin/class-eb-admin-settings.php';
+        require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
 
         /**
          * The core class to handle custom events events on settings page.

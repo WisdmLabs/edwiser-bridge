@@ -97,18 +97,20 @@ class EBActivator
             
                     self::createMoodleDBTables();
                     self::createPages();
-  
+                    self::createDefaultEmailTempaltes();
                     restore_current_blog();
                 }
             } else {
                 switch_to_blog($wpdb->blogid);
                 self::createMoodleDBTables();
                 self::createPages();
+                self::createDefaultEmailTempaltes();
                 restore_current_blog();
             }
         } else {
             self::createMoodleDBTables();
             self::createPages();
+            self::createDefaultEmailTempaltes();
         }
     }
 
@@ -189,7 +191,18 @@ class EBActivator
     {
         include_once 'eb-core-functions.php';
 
-        $page_content = getShortcodePageContent();
+        $eb_my_courses_args = array(
+            'user_id'                           => '',
+            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
+            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+            'number_of_recommended_courses'     => 4,
+        );
+
+        $eb_my_courses_page_content = '[eb_my_courses ';
+        foreach ($eb_my_courses_args as $attr => $value) {
+            $eb_my_courses_page_content .= $attr . '="' . $value . '" ';
+        }
+        $eb_my_courses_page_content .= ']';
 
         $pages = apply_filters(
             'eb_create_default_pages',
@@ -210,23 +223,9 @@ class EBActivator
                 ),
 
                 'mycourses' => array(
-                    'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
+                    'name' => _x('my-courses', 'Page slug', 'eb-textdomain'),
                     'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
-                    'content' => $page_content['eb_my_courses'],
-                    'option_key' => '',
-                ),
-
-                'courses' => array(
-                    'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('Courses', 'Page title', 'eb-textdomain'),
-                    'content' => $page_content['eb_courses'],
-                    'option_key' => '',
-                ),
-
-                'course' => array(
-                    'name' => _x('eb-course', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('Course', 'Page title', 'eb-textdomain'),
-                    'content' => $page_content['eb_course'],
+                    'content' => $eb_my_courses_page_content,
                     'option_key' => '',
                 ),
             )
@@ -236,5 +235,13 @@ class EBActivator
             $key;
             wdmCreatePage(esc_sql($page['name']), $page['option_key'], $page['title'], $page['content']);
         }
+    }
+    
+    public static function createDefaultEmailTempaltes()
+    {
+        $templates=array();
+        $templates["eb_emailtmpl_create_user"];
+        $templates["eb_emailtmpl_linked_existing_wp_user"];
+        $templates["eb_emailtmpl_order_completed"];
     }
 }

@@ -56,9 +56,9 @@
             "iDisplayLength": 10,
             "order": [[1, "desc"]],
             "columnDefs": [{
-                    "targets": 'no-sort',
-                    "orderable": true,
-                }]
+                "targets": 'no-sort',
+                "orderable": true,
+            }]
         });
 
         /**

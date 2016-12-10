@@ -6,12 +6,12 @@
  * This template can be overridden by copying it to yourtheme/edwiser-bridge/
  *
  * @author      WisdmLabs
+ *
  * @version     1.1.3
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
@@ -64,7 +64,7 @@ $terms = wp_get_post_terms($course_id, 'eb_course_cat', array('orderby' => 'name
 if (is_array($terms)) {
     foreach ($terms as $term) {
         $lnk = get_term_link($term->term_id, 'eb_course_cat');
-        $categories[] = '<a href="' . esc_url($lnk) . '" target="_blank">' . $term->name . '</a>';
+        $categories[] = '<a href="'.esc_url($lnk).'" target="_blank">'.$term->name.'</a>';
     }
 }
 ?>
@@ -76,7 +76,9 @@ if (is_array($terms)) {
         the_title();
     } else {
         ?>
-        <a href="<?php the_permalink();?>" rel="bookmark"><?php the_title();?></a>
+        <a href="<?php the_permalink();
+        ?>" rel="bookmark"><?php the_title();
+        ?></a>
         <?php
     }
     ?>          
@@ -87,7 +89,7 @@ if (is_array($terms)) {
             if (has_post_thumbnail()) {
                 the_post_thumbnail('course_single');
             } else {
-                echo '<img src="' . EB_PLUGIN_URL . 'images/no-image.jpg" />';
+                echo '<img src="'.EB_PLUGIN_URL.'images/no-image.jpg" />';
             }
             ?>
         </div>
@@ -99,8 +101,11 @@ if (is_array($terms)) {
                     if ($course_price_type == 'paid' || $course_price_type == 'free') {
                         ob_start();
                         ?>
-                        <div class="<?php echo 'wdm-price'.$course_price_type; ?>">
-                            <strong><?php _e('Price: ', 'eb-textdomain'); ?></strong><?php echo $course_price_formatted; ?>
+                        <div class="<?php echo 'wdm-price'.$course_price_type;
+                        ?>">
+                            <strong><?php _e('Price: ', 'eb-textdomain');
+                        ?></strong><?php echo $course_price_formatted;
+                        ?>
                         </div>
                         <?php
                         echo ob_get_clean();
@@ -113,7 +118,9 @@ if (is_array($terms)) {
                 if (count($categories)) {
                     ?>
                     <div  class="eb-cat-wrapper">
-                        <span><strong><?php _e('Categories: ', 'eb-textdomain'); ?></strong><?php echo implode(', ', $categories); ?></span>
+                        <span><strong><?php _e('Categories: ', 'eb-textdomain');
+                    ?></strong><?php echo implode(', ', $categories);
+                    ?></span>
                     </div>
                     <?php
                 }
@@ -125,7 +132,8 @@ if (is_array($terms)) {
     <?php
     if (is_search()) {
         ?>
-        <div class="entry-summary"><?php the_excerpt(); ?></div>
+        <div class="entry-summary"><?php the_excerpt();
+        ?></div>
         <?php
     } else {
         ?>

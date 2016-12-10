@@ -32,6 +32,7 @@ class EbAdminMenus
         // Add menus
         add_action('admin_menu', array( $this, 'adminMenu' ), 9);
         add_action('admin_menu', array( $this, 'settingsMenu' ), 10);
+        add_action('admin_menu', array( $this, 'emailTemplate' ), 10);
         add_action('admin_menu', array( $this, 'extensionsMenu' ), 10);
         add_action('admin_menu', array( $this, 'helpMenu' ), 10);
         add_action('parent_file', array( $this, 'addMenuPageTaxonomyFix' ), 10);
@@ -138,7 +139,7 @@ class EbAdminMenus
     }
 
     /**
-     * Add extensions submenu item
+     * Add email template submenu item
      *
      * @since 1.0.0
      */
@@ -168,6 +169,23 @@ class EbAdminMenus
                                             'manage_options',
                                             'https://edwiser.org/bridge/documentation/'
                                         );
+    }
+    
+    /**
+     * Add extensions submenu item
+     *
+     * @since 1.0.0
+     */
+    public function emailTemplate()
+    {
+        add_submenu_page(
+            'edwiserbridge_lms',
+            __('Manage Email Template', 'eb-textdomain'),
+            __('Manage Email Template', 'eb-textdomain'),
+            'manage_options',
+            'eb-email-template',
+            array( $this, 'emailTemplatePage' )
+        );
     }
 
 
@@ -203,6 +221,12 @@ class EbAdminMenus
     public function extensionsPage()
     {
         EBAdminExtensions::output();
+    }
+    
+    public function emailTemplatePage()
+    {
+        $emailTmpl=new EBAdminEmailTemplate();
+        $emailTmpl->outPut();
     }
 }
 

@@ -147,6 +147,7 @@ function wdmUserAccountUrl($arg = '')
 
 /**
  * Remodified wdmUserAccountUrl() to return user account url.
+ *
  * @since 1.1.3
  */
 function wdmUserAccountUrl($query_str = '')
@@ -188,27 +189,27 @@ function getShortcodePageContent($the_tag = '')
     //Shortcodes and their attributes.
     $shortcodes = array(
         'eb_my_courses' => array(
-            'user_id'                           => '',
-            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
+            'user_id' => '',
+            'my_courses_wrapper_title' => __('My Courses', 'eb-textdomain'),
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
-            'number_of_recommended_courses'     => 4,
+            'number_of_recommended_courses' => 4,
         ),
         'eb_course' => array(
-            'id'  => ''
+            'id' => '',
         ),
         'eb_courses' => array(
-            'categories'        => '',
+            'categories' => '',
             'category_operator' => 'AND',
-            'order'             => 'DESC',
-            'number_of_courses' => -1
+            'order' => 'DESC',
+            'number_of_courses' => -1,
         ),
     );
 
     $page_content = array();
     foreach ($shortcodes as $tag => $args) {
-        $buffer = '[' . $tag . ' ';
+        $buffer = '['.$tag.' ';
         foreach ($args as $attr => $value) {
-            $buffer .= $attr . '="' . $value . '" ';
+            $buffer .= $attr.'="'.$value.'" ';
         }
         $buffer .= ']';
         $page_content[$tag] = $buffer;

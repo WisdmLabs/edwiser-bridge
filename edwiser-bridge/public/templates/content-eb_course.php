@@ -58,7 +58,7 @@ $course_id = $post_id;
 //Shortcode eb_my_courses.
 if (isset($is_eb_my_courses) && $is_eb_my_courses) {
     $mdl_course_id = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id);
-    $course_url = EB_ACCESS_URL . '/course/view.php?id=' . $mdl_course_id;
+    $course_url = EB_ACCESS_URL.'/course/view.php?id='.$mdl_course_id;
 } else {
     $is_eb_my_courses = false;
     $course_url = get_permalink();
