@@ -177,3 +177,46 @@ function usortNumericCallback($element1, $element2)
 {
     return $element1->id - $element2->id;
 }
+
+/**
+ * Function returns shortcode pages content.
+ *
+ * @since 1.1.3
+ */
+function getShortcodePageContent($the_tag = '')
+{
+    //Shortcodes and their attributes.
+    $shortcodes = array(
+        'eb_my_courses' => array(
+            'user_id'                           => '',
+            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
+            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+            'number_of_recommended_courses'     => 4,
+        ),
+        'eb_course' => array(
+            'id'  => ''
+        ),
+        'eb_courses' => array(
+            'categories'        => '',
+            'category_operator' => 'AND',
+            'order'             => 'DESC',
+            'number_of_courses' => -1
+        ),
+    );
+
+    $page_content = array();
+    foreach ($shortcodes as $tag => $args) {
+        $buffer = '[' . $tag . ' ';
+        foreach ($args as $attr => $value) {
+            $buffer .= $attr . '="' . $value . '" ';
+        }
+        $buffer .= ']';
+        $page_content[$tag] = $buffer;
+    }
+
+    if (empty($the_tag)) {
+        return $page_content;
+    } elseif (isset($page_content[$the_tag])) {
+        return $page_content[$the_tag];
+    }
+}

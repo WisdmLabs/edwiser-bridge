@@ -45,6 +45,7 @@ class EbShortcodeCourses
         $args = array(
             'post_type' => 'eb_course',
             'posts_per_page' => $atts['number_of_courses'],
+            'order' => $atts['order'],
             'post_status' => 'publish'
         );
 

@@ -41,8 +41,8 @@ class EbShortcodeMyCourses
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
             'number_of_recommended_courses'     => 7,
         )), $atts));
-
-        $my_courses = self::getUserCourses();
+        error_log(print_r($atts, true));
+        $my_courses = self::getUserCourses($atts['user_id']);
         
         if (count($my_courses)) {
             self::showMyCourses($my_courses, $atts);
@@ -57,7 +57,7 @@ class EbShortcodeMyCourses
 
     public static function getUserCourses($user_id = null)
     {
-        $user_id = is_null($user_id) ? get_current_user_id() : (int) $user_id;
+        $user_id = !is_numeric($user_id) ? get_current_user_id() : (int) $user_id;
 
         $courses = get_posts(
             array(
