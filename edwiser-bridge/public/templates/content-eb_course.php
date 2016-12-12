@@ -66,7 +66,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
 ?>
 
 <article id="post-<?php the_ID(); ?>"
-            <?php post_class('wdm-col-3-2-1 wdm-course-grid-wrap '.$course_class); ?>>
+            <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?>>
     <div class="wdm-course-grid">
 
         <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">

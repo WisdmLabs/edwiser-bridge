@@ -15,9 +15,8 @@ namespace app\wisdmlabs\edwiserBridge;
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
-if(!defined( 'ABSPATH' ))
-{
-exit; // Exit if accessed directly
+if (!defined( 'ABSPATH' )) {
+	exit; // Exit if accessed directly
 }
 
 if ( !class_exists( 'EbAdminSettings' ))
@@ -565,6 +564,69 @@ if ( !class_exists( 'EbAdminSettings' ))
 								);
 								echo $description;
 								?>
+							</td>
+						</tr><?php
+						break;
+
+					// Single sidebar select
+					case 'single_select_sidebar':
+						$args = array(
+							'name' => $value['id'],
+							'id' => $value['id'],
+							'sort_column' => 'menu_order',
+							'sort_order' => 'ASC',
+							'show_option_none' => ' ',
+							'class' => $value['class'],
+							'echo' => false,
+							'selected' => self::getOption($value['id'], $current_tab),
+						);
+
+						if ( isset( $value['args'] ) ) {
+							$args = wp_parse_args( $value['args'], $args );
+						}
+						?><tr valign="top" class="single_select_page">
+							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?>
+								<?php echo $tooltip_html; ?>
+							</th>
+							<td class="forminp">
+								<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+								<option selected><?php _e('- Select a sidebar -', 'eb-textdomain'); ?></option>
+								<?php foreach ( $GLOBALS['wp_registered_sidebars'] as $sidebar ) { ?>
+								     <option value="<?php echo $sidebar['id']; ?>" <?php selected($args['selected'], $sidebar['id']); ?>>
+								              <?php echo ucwords( $sidebar['name'] ); ?>
+								     </option>
+								<?php } ?>
+								</select>
+							</td>
+						</tr><?php
+						break;
+
+					// Single sidebar select
+					case 'courses_per_row':
+						$args = array(
+							'name' => $value['id'],
+							'id' => $value['id'],
+							'sort_column' => 'menu_order',
+							'sort_order' => 'ASC',
+							'show_option_none' => ' ',
+							'class' => $value['class'],
+							'echo' => false,
+							'selected' => self::getOption($value['id'], $current_tab),
+						);
+
+						if ( isset( $value['args'] ) ) {
+							$args = wp_parse_args( $value['args'], $args );
+						}
+						?><tr valign="top" class="single_select_page">
+							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?>
+								<?php echo $tooltip_html; ?>
+							</th>
+							<td class="forminp">
+								<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+								<option selected><?php _e('4', 'eb-textdomain'); ?></option>
+								<option <?php selected($args['selected'], '3'); ?>><?php _e('3', 'eb-textdomain'); ?></option>
+								<option <?php selected($args['selected'], '2'); ?>><?php _e('2', 'eb-textdomain'); ?></option>
+								</select>
 							</td>
 						</tr><?php
 						break;

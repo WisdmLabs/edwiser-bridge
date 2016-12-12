@@ -1,6 +1,5 @@
 (function ( $ ) {
     'use strict';
-
     /**
      * All of the code for your admin-specific JavaScript source
      * should reside in this file.
@@ -323,5 +322,16 @@
         });
         $('#course_price_type').change();
 
+
+        // Right sidebar
+        $('input#enable_right_sidebar').change(function() {
+          if ( $( this ).is( ':checked' ) ) {
+            $( '#right_sidebar' ).closest( 'tr' ).show();
+          } else {
+            $( '#right_sidebar' ).closest( 'tr' ).hide();
+          }
+        }).change();
+
     });
+
 })( jQuery );

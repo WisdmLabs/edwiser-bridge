@@ -1,3 +1,65 @@
+<style type="text/css">
+    .eb-page-header{
+        border-top: 4px solid #1a1a1a;
+        margin: 0 7.6923% 3.5em;
+        padding-top: 1.75em;
+        display: block;
+        box-sizing: inherit;
+
+        margin-right: 0;
+        margin-left: 0;
+
+        padding-left: 1em;
+    }
+
+    .eb_courses_sidebar{
+        float: left;
+        margin-right: -100%;
+        width: 70%;
+    }
+
+    .eb-sidebar{
+        float: left;
+        margin-left: 75%;
+        padding: 0;
+        width: 25%;
+    }
+
+    @media (max-width:480px){
+        .eb-content-area, .eb-sidebar{
+            margin: 0 auto;
+            float: none;
+            width: 90%;
+        }
+    }
+</style>
+<?php
+
+/*
+eb_only_courses, eb_courses_sidebar, eb_sidebar_courses, eb_sidebar_courses_sidebar.
+
+*/
+$eb_template = get_option('eb_template');
+if (isset($eb_template['enable_right_sidebar']) && $eb_template['enable_right_sidebar'] === 'yes') {
+    $eb_courses_sidebar = true;
+} else {
+    $eb_courses_sidebar = false;
+}
+$sidebar_id = isset($eb_template['right_sidebar']) ? $eb_template['right_sidebar'] : '';
+
+//
+$count = isset($eb_template['courses_per_row']) && is_numeric($eb_template['courses_per_row']) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
+
+$grid_css = '<style type="text/css">' . '.eb-course-col{width:' . (100/$count) .'%;}' . '.eb-course-col:nth-of-type(4' . $count . '+1){clear:left;}' . '</style>';
+echo $grid_css;
+
+$plugin_template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
+    app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getPluginName(),
+    app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getVersion()
+);
+?>
+
+
 <?php
 /**
  * The template for displaying moodle course archive page.
@@ -5,24 +67,13 @@
 get_header();
 ?>
 
-<section id="primary" class="content-area" style="overflow:auto; padding:15px;">
-    <main id="main" class="site-main" role="main">
-
-        <?php
-        // our template loader
-        $plugin_template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
-            app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getPluginName(),
-            app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->getVersion()
-        );
-        ?>
-
-        <?php do_action('eb_before_course_archive'); ?>
-
+<div id="eb-primary" class="eb-content-area <?php echo $eb_courses_sidebar ? 'eb_courses_sidebar' : ''; ?>">
+    <main id="eb-main" class="eb-site-main" role="eb-main">
         <?php
         if (have_posts()) {
             ?>
 
-            <header class="page-header">
+            <header class="eb-page-header">
                 <?php
                 echo '<h1 class="page-title">Courses</h1>';
             ?>
@@ -51,11 +102,23 @@ get_header();
             $plugin_template_loader->wpGetTemplatePart('content', 'none');
         }
         ?>
-
-        <?php do_action('eb_after_course_archive'); ?>
-
     </main><!-- .site-main -->
-</section><!-- .content-area -->
+</div><!-- .content-area -->
 
+<?php
+if ($eb_courses_sidebar) {
+?>
+<div class="eb-siderbar-right">
+    <?php if (is_active_sidebar($sidebar_id)) : ?>
+    <aside id="secondary" class="eb-sidebar widget-area" role="complementary">
+        <?php dynamic_sidebar($sidebar_id); ?>
+    </aside><!-- .sidebar .widget-area -->
+    <?php endif; ?>
+</div>
+<?php
+}
+?>
+
+<br style="clear: both;" />
 <?php
 get_footer();

@@ -50,7 +50,7 @@ if (!class_exists('EBSettingsTemplate')) :
                 array(
                     array(
                         'title' => __(
-                            'Course Page Template Options',
+                            'Courses Archive Page Template Options',
                             'eb-textdomain'
                         ),
                         'type' => 'title',
@@ -59,12 +59,34 @@ if (!class_exists('EBSettingsTemplate')) :
                     ),
 
                     array(
+                        'title' => __('Courses Per Row', 'eb-textdomain'),
+                        'desc' => '',
+                        'id' => 'courses_per_row',
+                        'type' => 'courses_per_row',
+                        'default' => '',
+                        'css' => '',
+                    ),
+
+                    array(
                         'title' => __('Enable Sidebar', 'eb-textdomain'),
-                        'desc' => __('Right siderbar', 'eb-textdomain'),
+                        'desc' => __('Right sidebar', 'eb-textdomain'),
                         'id' => 'enable_right_sidebar',
                         'default' => 'no',
                         'type' => 'checkbox',
                         'autoload' => false,
+                    ),
+
+                    array(
+                        'title' => '',
+                        'desc' => '',
+                        'id' => 'right_sidebar',
+                        'type' => 'single_select_sidebar',
+                        'default' => '',
+                        'css' => '',
+                        'args' => array(
+                            'show_option_none' => 'Select a sidebar',
+                            'option_none_value' => '',
+                        ),
                     ),
 
                     array('type' => 'sectionend', 'id' => 'template_options'),
