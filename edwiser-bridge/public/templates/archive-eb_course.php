@@ -1,43 +1,10 @@
-<style type="text/css">
-    .eb-page-header{
-        border-top: 4px solid #1a1a1a;
-        margin: 0 7.6923% 3.5em;
-        padding-top: 1.75em;
-        display: block;
-        box-sizing: inherit;
-
-        margin-right: 0;
-        margin-left: 0;
-
-        padding-left: 1em;
-    }
-
-    .eb_courses_sidebar{
-        float: left;
-        margin-right: -100%;
-        width: 70%;
-    }
-
-    .eb-sidebar{
-        float: left;
-        margin-left: 75%;
-        padding: 0;
-        width: 25%;
-    }
-
-    @media (max-width:480px){
-        .eb-content-area, .eb-sidebar{
-            margin: 0 auto;
-            float: none;
-            width: 90%;
-        }
-    }
-</style>
 <?php
-
+/**
+ * The template for displaying moodle course archive page.
+ */
+ 
 /*
 eb_only_courses, eb_courses_sidebar, eb_sidebar_courses, eb_sidebar_courses_sidebar.
-
 */
 $eb_template = get_option('eb_template');
 if (isset($eb_template['enable_right_sidebar']) && $eb_template['enable_right_sidebar'] === 'yes') {
@@ -59,11 +26,7 @@ $plugin_template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 );
 ?>
 
-
 <?php
-/**
- * The template for displaying moodle course archive page.
- */
 get_header();
 ?>
 

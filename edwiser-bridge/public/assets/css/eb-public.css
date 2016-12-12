@@ -422,3 +422,37 @@ div#user_login label{
     clear: both;
     float: right;
 }
+
+.eb-page-header{
+    border-top: 4px solid #1a1a1a;
+    margin: 0 7.6923% 3.5em;
+    padding-top: 1.75em;
+    display: block;
+    box-sizing: inherit;
+
+    margin-right: 0;
+    margin-left: 0;
+
+    padding-left: 1em;
+}
+
+.eb_courses_sidebar{
+    float: left;
+    margin-right: -100%;
+    width: 70%;
+}
+
+.eb-sidebar{
+    float: left;
+    margin-left: 75%;
+    padding: 0;
+    width: 25%;
+}
+
+@media (max-width:480px){
+    .eb-content-area, .eb-sidebar{
+        margin: 0 auto;
+        float: none;
+        width: 90%;
+    }
+}
