@@ -239,9 +239,10 @@ class EBActivator
     
     public static function createDefaultEmailTempaltes()
     {
-        $templates=array();
-        $templates["eb_emailtmpl_create_user"];
-        $templates["eb_emailtmpl_linked_existing_wp_user"];
-        $templates["eb_emailtmpl_order_completed"];
+        include_once 'class-eb-default-email-templates.php';
+        $defaultTmpl = new EBDefaultEmailTemplate();
+        add_option("eb_emailtmpl_create_user", $defaultTmpl->newUserAcoount("eb_emailtmpl_create_user"));
+        add_option("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));
+        add_option("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
     }
 }

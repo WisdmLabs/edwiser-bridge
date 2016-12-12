@@ -463,12 +463,42 @@ class EdwiserBridge
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
 
-            /*
-             * Handling custom button events on settings page
-             * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
-             * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
-             */
-            $admin_settings_init = new EBSettingsAjaxInitiater($this->getPluginName(), $this->getVersion());
+        /*
+		 * Handling custom button events on settings page
+		 * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
+		 * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
+		 */
+        $admin_settings_init = new EBSettingsAjaxInitiater($this->getPluginName(), $this->getVersion());
+        
+        /**
+         * Email template editor ajax start
+         */
+        $emailTmplEditor=new EBAdminEmailTemplate();
+
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_get_email_template',
+            $emailTmplEditor,
+            'getTemplateDataAjaxCallBack'
+        );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_get_email_template',
+            $emailTmplEditor,
+            'getTemplateDataAjaxCallBack'
+        );
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_send_test_email',
+            $emailTmplEditor,
+            'sendTestEmail'
+        );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_send_test_email',
+            $emailTmplEditor,
+            'sendTestEmail'
+        );
+        /**
+         * Email template editor end
+         */
+        
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
