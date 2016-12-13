@@ -4,25 +4,47 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
-get_header(); ?>
-    <div id="primary" class="content-area">
-        <main id="content" role="main" class="site-main" style="overflow:auto;">
+$eb_template = get_option('eb_template');
+if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_enable_right_sidebar'] === 'yes') {
+    $single_enable_right_sidebar = true;
+} else {
+    $single_enable_right_sidebar = false;
+}
+$sidebar_id = isset($eb_template['single_right_sidebar']) ? $eb_template['single_right_sidebar'] : '';
 
-            <?php do_action('eb_before_single_course'); ?>
-            <?php while (have_posts()) :
-                the_post();
+$template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
 
-                $plugin_template_loader = new EbTemplateLoader(
-                    edwiserBridgeInstance()->getPluginName(),
-                    edwiserBridgeInstance()->getVersion()
-                );
-                $plugin_template_loader->wpGetTemplatePart('content-single', get_post_type());
+?>
 
-                comments_template();
-endwhile; ?>
-            <?php do_action('eb_after_single_course'); ?>
-        </main><!-- #content -->
-    </div><!-- #primary -->
+<?php get_header(); ?>
 
-<?php get_sidebar(); ?>
+<?php $template_loader->wpGetTemplate('global/wrapper-start.php'); ?>
+
+        <?php do_action('eb_before_single_course'); ?>
+        <?php
+        while (have_posts()) :
+            the_post();
+            $template_loader->wpGetTemplatePart('content-single', get_post_type());
+            comments_template();
+        endwhile;
+        ?>
+        <?php do_action('eb_after_single_course'); ?>
+
+<?php $template_loader->wpGetTemplate('global/wrapper-end.php'); ?>
+
+<?php
+
+if ($single_enable_right_sidebar) {
+?>
+<div class="eb-siderbar-right">
+    <?php if (is_active_sidebar($sidebar_id)) : ?>
+    <aside id="secondary" class="sidebar widget-area" role="complementary">
+        <?php dynamic_sidebar($sidebar_id); ?>
+    </aside><!-- .sidebar .widget-area -->
+    <?php endif; ?>
+</div>
+<?php
+}
+?>
+
 <?php get_footer();

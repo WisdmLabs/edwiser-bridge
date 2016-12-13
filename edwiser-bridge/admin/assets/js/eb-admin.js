@@ -381,4 +381,27 @@
         }
     }
 
+    //Single course and archive page settings.
+    $(document).ready(function(){
+
+        // archive courses right sidebar
+        $('input#archive_enable_right_sidebar').change(function() {
+          if ( $( this ).is( ':checked' ) ) {
+            $( '#archive_right_sidebar' ).closest( 'tr' ).show();
+          } else {
+            $( '#archive_right_sidebar' ).closest( 'tr' ).hide();
+          }
+        }).change();
+
+        // single course right sidebar
+        $('input#single_enable_right_sidebar').change(function() {
+          if ( $( this ).is( ':checked' ) ) {
+            $( '#single_right_sidebar' ).closest( 'tr' ).show();
+          } else {
+            $( '#single_right_sidebar' ).closest( 'tr' ).hide();
+          }
+        }).change();
+
+    });
+
 })(jQuery);

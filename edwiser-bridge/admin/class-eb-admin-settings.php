@@ -569,7 +569,7 @@ if ( !class_exists( 'EbAdminSettings' ))
 						break;
 
 					// Single sidebar select
-					case 'single_select_sidebar':
+					case 'select_sidebar':
 						$args = array(
 							'name' => $value['id'],
 							'id' => $value['id'],

@@ -49,13 +49,10 @@ if (!class_exists('EBSettingsTemplate')) :
                 'eb_template_settings',
                 array(
                     array(
-                        'title' => __(
-                            'Courses Archive Page Template Options',
-                            'eb-textdomain'
-                        ),
+                        'title' => __('Courses Archive Page Template Options', 'eb-textdomain'),
                         'type' => 'title',
                         'desc' => '',
-                        'id' => 'template_options',
+                        'id' => 'courses_archive_template_options',
                     ),
 
                     array(
@@ -70,7 +67,7 @@ if (!class_exists('EBSettingsTemplate')) :
                     array(
                         'title' => __('Enable Sidebar', 'eb-textdomain'),
                         'desc' => __('Right sidebar', 'eb-textdomain'),
-                        'id' => 'enable_right_sidebar',
+                        'id' => 'archive_enable_right_sidebar',
                         'default' => 'no',
                         'type' => 'checkbox',
                         'autoload' => false,
@@ -79,8 +76,8 @@ if (!class_exists('EBSettingsTemplate')) :
                     array(
                         'title' => '',
                         'desc' => '',
-                        'id' => 'right_sidebar',
-                        'type' => 'single_select_sidebar',
+                        'id' => 'archive_right_sidebar',
+                        'type' => 'select_sidebar',
                         'default' => '',
                         'css' => '',
                         'args' => array(
@@ -89,8 +86,38 @@ if (!class_exists('EBSettingsTemplate')) :
                         ),
                     ),
 
-                    array('type' => 'sectionend', 'id' => 'template_options'),
+                    array('type' => 'sectionend', 'id' => 'courses_archive_template_options'),
 
+                    array(
+                        'title' => __('Single Course Page Template Options', 'eb-textdomain'),
+                        'type' => 'title',
+                        'desc' => '',
+                        'id' => 'single_course_template_options',
+                    ),
+
+                    array(
+                        'title' => __('Enable Sidebar', 'eb-textdomain'),
+                        'desc' => __('Right sidebar', 'eb-textdomain'),
+                        'id' => 'single_enable_right_sidebar',
+                        'default' => 'no',
+                        'type' => 'checkbox',
+                        'autoload' => false,
+                    ),
+
+                    array(
+                        'title' => '',
+                        'desc' => '',
+                        'id' => 'single_right_sidebar',
+                        'type' => 'select_sidebar',
+                        'default' => '',
+                        'css' => '',
+                        'args' => array(
+                            'show_option_none' => 'Select a sidebar',
+                            'option_none_value' => '',
+                        ),
+                    ),
+
+                    array('type' => 'sectionend', 'id' => 'single_course_template_options'),
                 )
             );
 
