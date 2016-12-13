@@ -278,6 +278,11 @@ class EdwiserBridge
          // To handle addition of new blog (for multisite installations)
 
          require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
+         
+         //To handel the email template modification
+         require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
+         require_once EB_PLUGIN_DIR.'includes/class-eb-email-template-parser.php';
+
 
         $this->loader = new EBLoader();
     }
@@ -301,7 +306,6 @@ class EdwiserBridge
          */
         require_once EB_PLUGIN_DIR.'admin/class-eb-admin-menus.php';
         require_once EB_PLUGIN_DIR.'admin/class-eb-admin-settings.php';
-        require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
 
         /**
          * The core class to handle custom events events on settings page.

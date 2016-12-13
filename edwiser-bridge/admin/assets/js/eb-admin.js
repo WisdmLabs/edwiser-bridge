@@ -333,6 +333,7 @@
                 url: ajaxurl,
                 data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, message: message, security: security},
                 error: function (error) {
+                    $('.load-response').hide();
                     ohSnap('<p>Mail delivery failed.</p>', 'error');
                 },
                 success: function (response) {

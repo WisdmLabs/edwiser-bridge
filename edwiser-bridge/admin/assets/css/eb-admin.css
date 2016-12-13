@@ -414,18 +414,12 @@ span.eb-option-input .eb-option-div select{
     cursor: pointer;
     margin: unset;
     margin-bottom: 1px;
-        
 }
-
+.eb-emailtemp-active-item,
 .eb-emailtmpl-active,
 .eb-emailtmpl-list-item:hover:not(.active){
     background-color:#004cff;
     color:#fff
-}
-
-.eb-emailtemp-active-item {
-    background-color:#004cff;
-    color:#fff!important
 }
 
 .eb-mail-templat-const span{
@@ -434,6 +428,18 @@ span.eb-option-input .eb-option-div select{
     display: block;
 }
 .eb-mail-templat-const{
-    padding: 5px 0px;
+    padding: 5px 5px;
+        border-bottom: 1px solid #ddd;
+}
+.eb-emailtmpl-const-sec > h3{
+    background: lightgray;
+    border-bottom: 1px solid black;
+    padding: 3px;
+    color: black;
+    margin-top: 5px;
+}
+
+.eb-emailtmpl-const-sec:before{
+    border: 1px solid red;
 }
 /* Email template page style end*/

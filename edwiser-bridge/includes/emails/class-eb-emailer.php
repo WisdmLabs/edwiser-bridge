@@ -79,6 +79,17 @@ class EBEmailer
      */
     public function sendNewUserEmail($args)
     {
+        /**
+         * Using Email template Editor
+         */
+        $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        if ($emailTmpl) {
+            $emailTmpl=new EBAdminEmailTemplate();
+            return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
+        }
+        /**
+         * Using Default
+         */
         $this->template_name = 'emails/user-new-account.php';
 
         // prepare arguments array for email
@@ -107,6 +118,18 @@ class EBEmailer
      */
     public function sendExistingUserMoodleAccountEmail($args)
     {
+        /**
+         * Using Email template Editor
+         */
+        $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
+        
+        if ($emailTmpl) {
+            $emailTmpl=new EBAdminEmailTemplate();
+            return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
+        }
+        /**
+         * Using Default
+         */
         $this->template_name = 'emails/user-existing-wp-account.php';
         $this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
 
@@ -171,6 +194,19 @@ class EBEmailer
             $this->template_name
         );
 
+        /**
+         * Using Email template Editor
+         */
+        // $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
+        
+        // if ($emailTmpl) {
+        //     $emailTmpl=new EBAdminEmailTemplate();
+        //     return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
+        // }
+        
+        /**
+         * Using Default
+         */
         $email_subject = apply_filters(
             'eb_order_completion_email_subject',
             __('Your order completed successfully.', 'eb-textdomain')

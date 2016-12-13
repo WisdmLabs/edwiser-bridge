@@ -50,70 +50,26 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         {
             ob_start();
             ?>
-            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 0 70px 0;">
-                <table id="template_container" style="box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td align="center" valign="top"><!-- Header -->
-                                <table id="template_header" style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Header --></td>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
+                            </td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Body -->
-                                <table id="template_body" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td style="background-color: #dfdfdf; border-radius: 6px !important;" valign="top"><!-- Content -->
-                                                <table border="0" width="100%" cellspacing="0" cellpadding="20">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-                                                                    <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-
-                                                                        Hi {FIRST_NAME}
-
-                                                                    </div>
-                                                                </div>
-                                                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-
-                                                                    A learning account is linked to your profile.
-                                                                    Use credentials given below while accessing your courses.
-
-                                                                    Username: {USER_NAME}
-
-                                                                    Password: {USER_PASSWORD}
-
-                                                                    You can purchase &amp; access courses here: {COURSE_NAME_LINK}.
-
-                                                                </div></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <!-- End Content --></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Body --></td>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Thanks for creating an account on {SITE_NAME}. Your username is <strong>{USER_NAME}</strong>.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Your password has been automatically generated: <strong>{USER_PASSWORD}</strong>.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can access your account here: <span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>.</div></td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Footer -->
-                                <table id="template_footer" style="border-top: 0; -webkit-border-radius: 6px;" border="0" width="600" cellspacing="0" cellpadding="10">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: center;" valign="top"><span style="font-family: Arial;"><span style="font-size: 12px;">{SITE_NAME}</span></span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Footer --></td>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -126,65 +82,28 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         {
             ob_start();
             ?>
-            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 0 70px 0;">
-                <table id="template_container" style="box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td align="center" valign="top"><!-- Header -->
-                                <table id="template_header" style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Header --></td>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
+                            </td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Body -->
-                                <table id="template_body" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td style="background-color: #dfdfdf; border-radius: 6px !important;" valign="top"><!-- Content -->
-                                                <table border="0" width="100%" cellspacing="0" cellpadding="20">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-
-                                                                    Hi {FIRST_NAME}
-
-                                                                    A learning account is linked to your profile.
-                                                                    Use credentials given below while accessing your courses.
-
-                                                                    Username: <strong>{USER_NAME}</strong>
-
-                                                                    Password: <strong>{USER_PASSWORD}</strong>
-
-                                                                    You can purchase &amp; access courses here: {COURSE_NAME_LINK}.
-
-                                                                </div></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <!-- End Content --></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Body --></td>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">A learning account is linked to your profile.Use credentials given below while accessing your courses.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Username: <strong>{USER_NAME}</strong></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Password: <strong>{USER_PASSWORD} </strong></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can purchase &amp; access courses here: <span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>.</div></td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Footer -->
-                                <table id="template_footer" style="border-top: 0; -webkit-border-radius: 6px;" border="0" width="600" cellspacing="0" cellpadding="10">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: center;" valign="top"><span style="font-family: Arial;"><span style="font-size: 12px;">{SITE_NAME}</span></span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Footer --></td>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -197,63 +116,26 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         {
             ob_start();
             ?>
-            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 0 70px 0;">
-                <table id="template_container" style="box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td align="center" valign="top"><!-- Header -->
-                                <table id="template_header" style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your order completed successfully.</h1>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Header --></td>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your order completed successfully.</h1>
+                            </td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Body -->
-                                <table id="template_body" border="0" width="600" cellspacing="0" cellpadding="0">
-                                    <tbody>
-                                        <tr>
-                                            <td style="background-color: #dfdfdf; border-radius: 6px !important;" valign="top"><!-- Content -->
-                                                <table border="0" width="100%" cellspacing="0" cellpadding="20">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td valign="top">
-                                                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-
-                                                                    Hi {FIRST_NAME}
-
-                                                                    Thanks for purchasing <b>{COURSE_NAME}</b> course.
-
-                                                                    Your order with {ORDER_ID} completed successfully.
-
-                                                                    You can access your account here: {WP_LOGIN_PAGE_LINK}.
-
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <!-- End Content --></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Body --></td>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Thanks for purchasing <strong>{COURSE_NAME}</strong> course.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Your order with ID <strong>{ORDER_ID}</strong> completed successfully.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can access your account here: <span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>.</div></td>
                         </tr>
                         <tr>
-                            <td align="center" valign="top"><!-- Footer -->
-                                <table id="template_footer" style="border-top: 0; -webkit-border-radius: 6px;" border="0" width="600" cellspacing="0" cellpadding="10">
-                                    <tbody>
-                                        <tr>
-                                            <td style="text-align: center;" valign="top"><span style="font-family: Arial;"><span style="font-size: 12px;">{SITE_NAME}</span></span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- End Footer --></td>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
                         </tr>
                     </tbody>
                 </table>

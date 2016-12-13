@@ -5,8 +5,6 @@ namespace app\wisdmlabs\edwiserBridge;
 /**
  * Edwiser Bridge Email template page
  *
- * referred code from woocommerce
- *
  * @link       https://edwiser.org
  * @since      1.0.0
  *
@@ -53,8 +51,8 @@ class EBAdminEmailTemplate
 		$tmplContent = apply_filters( "eb_email_template_data", $tmplData );
 		$tmplList = array();
 		$tmplList = apply_filters( 'eb_email_templates_list', $tmplList );
-		$constants = array();
-		$tmplConst = apply_filters( 'eb_email_template_constant', $constants );
+		$section = array();
+		$constSec = apply_filters( 'eb_email_template_constant', $section );
 		$tmplKey = key( $tmplList );
 		$tmplName = current( $tmplList );
 		?>
@@ -136,8 +134,13 @@ class EBAdminEmailTemplate
 						<h3>Template Constants</h3>
 						<div class="eb-emiltemp-const-wrap">
 							<?php
-							foreach ( $tmplConst as $const => $desc ) {
-								echo '<div class="eb-mail-templat-const"><span>{' . $const . '}</span>' . $desc . '</div>';
+							foreach ( $constSec as $secName => $tmplConst ) {
+								echo "<div class='eb-emailtmpl-const-sec'>";
+								echo "<h3>$secName</h3>";
+								foreach ( $tmplConst as $const => $desc ) {
+									echo '<div class="eb-mail-templat-const"><span>' . $const . '</span>' . $desc . '</div>';
+								}
+								echo "</div>";
 							}
 							?>
 						</div>
@@ -196,18 +199,32 @@ class EBAdminEmailTemplate
 	}
 
 	public function emailTemplateContsnt( $constants ) {
-		$constants["USER_NAME"] = "The display name of the user.";
-		$constants["FIRST_NAME"] = "The first name of the user.";
-		$constants["LAST_NAME"] = "The last name of the user.";
-		$constants["SITE_NAME"] = "The name of the website.";
-		$constants["SITE_URL"] = "The URL of the website.";
-		$constants["COURSE_TITLE"] = "The title of the course for the unit that's just been completed.";
-		$constants["MOODLE_URL"] = "The moodle site url entered in the connection.";
-		$constants["COURSES_PAGE_LINK"] = "The link to the courses archive page.";
-		$constants["USER_PASSWORD"] = "The user accounts password this is valid only for the New User Account Details and Link WP user account to moodle tempaltes.";
-		$constants["ORDER_ID"] = "The order id of the purchased order completed this is valid only for the Course order complet template.";
-		$constants["WP_LOGIN_PAGE_LINK"] = "The wordpress login page link.";
-		$constants["MOODLE_URL"] = "The moodle page url entered in the connection settings.";
+		/**
+		 * Genral constants.
+		 */
+		$genral["{USER_NAME}"] = "The display name of the user.";
+		$genral["{FIRST_NAME}"] = "The first name of the user.";
+		$genral["{LAST_NAME}"] = "The last name of the user.";
+		$genral["{SITE_NAME}"] = "The name of the website.";
+		$genral["{SITE_URL}"] = "The URL of the website.";
+		$genral["{COURSES_PAGE_LINK}"] = "The link to the courses archive page.";
+		$genral["{USER_ACCOUNT_PAGE_LINK}"] = "The wordpress user account page link.";
+		$genral["{WP_LOGIN_PAGE_LINK}"] = "The wordpress login page link.";
+		$genral["{MOODLE_URL}"] = "The moodle site url entered in the connection.";
+		/**
+		 * New account and link account constants
+		 */
+		$account["{USER_PASSWORD}"] = "The user accounts password.";
+		/**
+		 * Course order template constants
+		 */
+//		$constants["Course order complet template constants"]="<hr>";
+		$order["{COURSE_NAME}"] = "The title of the course.";
+		$order["{ORDER_ID}"] = "The order id of the purchased order completed.";
+
+		$constants["General constants"] = $genral;
+		$constants["New/ Link user account"] = $account;
+		$constants["Order Completion "] = $order;
 		return $constants;
 	}
 
@@ -260,6 +277,14 @@ class EBAdminEmailTemplate
 		}
 	}
 
+	public static function getEmailTmplContent( $tmplName ) {
+		$tmplContent = get_option( $tmplName );
+		if ( $tmplContent ) {
+			return stripslashes( $tmplContent );
+		}
+		return "";
+	}
+
 	/**
 	 * Setter methods end
 	 */
@@ -267,30 +292,46 @@ class EBAdminEmailTemplate
 
 		if ( isset( $_POST["security"] ) && wp_verify_nonce( $_POST["security"], "eb_send_testmail_sec" ) ) {
 			$mailTo = $this->checkIsEmpty( $_POST, "mail_to" );
-			$subject = $this->checkIsEmpty( $_POST, "subject" );
-			$message = stripslashes($this->checkIsEmpty( $_POST, "message" ));
-			$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-
-			function wpse27856_set_content_type() {
-				return "text/html";
-			}
-
-			add_filter( 'wp_mail_content_type',  function() {
-				return "text/html";
-			});
-			$mail= wp_mail( $mailTo, $subject, $message, $headers );
-			remove_filter( 'wp_mail_content_type',  function() {
-				return "text/html";
-			});
-			if($mail){
-				echo json_encode(array("success"=>"1"));
-			}else{
-				echo json_encode(array("success"=>"0","resp_msg"=>"failed"));
+			$args = array( "course_id" => "1", "password" => "eb-pa88@#d", "order_id" => "#12235" );
+			$mail= $this->sendEmail($mailTo, $args, $_POST);
+			if ( $mail ) {
+				echo json_encode( array( "success" => "1" ) );
+			} else {
+				echo json_encode( array( "success" => "0", "resp_msg" => "failed" ) );
 			}
 			exit;
-		}else{
-			echo json_encode(array("success"=>"0","resp_msg"=>"Invalid request"));
+		} else {
+			echo json_encode( array( "success" => "0", "resp_msg" => "Invalid request" ) );
 		}
+	}
+
+	public function sendEmail( $mailTo,$args,$data ) {
+		$subject = $this->checkIsEmpty( $data, "subject" );
+		$tmplContent = stripslashes( $this->checkIsEmpty( $data, "message" ) );
+		
+		/**
+		 * Call the email template parser
+		 */
+		$emailTmplParser = new EBEmailTmplParser();
+		$tmplContent = $emailTmplParser->outPut( $args, $tmplContent );
+		
+		/**
+		 * Email send start
+		 */
+		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+		add_filter( 'wp_mail_content_type', function() {
+			return "text/html";
+		} );
+
+		$mail = wp_mail( $mailTo, $subject, $tmplContent, $headers );
+		remove_filter( 'wp_mail_content_type', function() {
+			return "text/html";
+		} );
+		/**
+		 * Email send end
+		 */
+		
+		return $mail;
 	}
 
 }
