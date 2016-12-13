@@ -41,7 +41,7 @@ class EbShortcodeMyCourses
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
             'number_of_recommended_courses'     => 7,
         )), $atts));
-        error_log(print_r($atts, true));
+        
         $my_courses = self::getUserCourses($atts['user_id']);
         
         if (count($my_courses)) {

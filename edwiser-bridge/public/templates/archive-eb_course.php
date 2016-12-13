@@ -7,6 +7,8 @@
 eb_only_courses, eb_courses_sidebar, eb_sidebar_courses, eb_sidebar_courses_sidebar.
 */
 
+$wrapper_args = array();
+
 $eb_template = get_option('eb_template');
 if (isset($eb_template['archive_enable_right_sidebar']) && $eb_template['archive_enable_right_sidebar'] === 'yes') {
     $eb_courses_sidebar = true;
@@ -18,10 +20,10 @@ $sidebar_id = isset($eb_template['archive_right_sidebar']) ? $eb_template['archi
 //
 $count = isset($eb_template['courses_per_row']) && is_numeric($eb_template['courses_per_row']) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
 
-$eb_width = !$eb_courses_sidebar ? '.eb-primary{width: 100% !important;}' : '';
+$wrapper_args['parentcss'] = !$eb_courses_sidebar ? 'width:100%;' : '';
 
 //CSS to handle course grid.
-$grid_css = '<style type="text/css">' . '.eb-course-col{width:' . (100/$count) .'%;}' . '.eb-course-col:nth-of-type(4' . $count . '+1){clear:left;}' . $eb_width . '</style>';
+$grid_css = '<style type="text/css">' . '.eb-course-col{width:' . (100/$count) .'%;}' . '.eb-course-col:nth-of-type(4' . $count . '+1){clear:left;}</style>';
 echo $grid_css;
 
 $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
@@ -32,7 +34,7 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 
 <?php get_header(); ?>
 
-<?php $template_loader->wpGetTemplate('global/wrapper-start.php'); ?>
+<?php $template_loader->wpGetTemplate('global/wrapper-start.php', $wrapper_args); ?>
 
 <?php if (apply_filters('eb_show_page_title', true)) : ?>
 

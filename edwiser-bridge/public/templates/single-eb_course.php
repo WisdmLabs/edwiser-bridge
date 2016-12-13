@@ -4,11 +4,14 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
+$wrapper_args = array();
+
 $eb_template = get_option('eb_template');
 if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_enable_right_sidebar'] === 'yes') {
     $single_enable_right_sidebar = true;
 } else {
     $single_enable_right_sidebar = false;
+    $wrapper_args['parentcss'] = 'width:100%;';
 }
 $sidebar_id = isset($eb_template['single_right_sidebar']) ? $eb_template['single_right_sidebar'] : '';
 
@@ -18,7 +21,7 @@ $template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName()
 
 <?php get_header(); ?>
 
-<?php $template_loader->wpGetTemplate('global/wrapper-start.php'); ?>
+<?php $template_loader->wpGetTemplate('global/wrapper-start.php', $wrapper_args); ?>
 
         <?php do_action('eb_before_single_course'); ?>
         <?php
