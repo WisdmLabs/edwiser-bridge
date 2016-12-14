@@ -130,8 +130,9 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 
 =  1.1.3  =
-* Feature - Shortcode `eb_courses` to list courses. You can filter categoriwise using argument `categories`.
+* Feature - Shortcode `eb_courses` to list courses.
 * Feature - Shortcode `eb_my_courses` to list specific user's courses.
+* Feature - Right sidebar compatibility on archive and single course page.
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
 * Tweak - Single course page layout improvement.
 * Fix - Undefined index: HTTP_REFFER.

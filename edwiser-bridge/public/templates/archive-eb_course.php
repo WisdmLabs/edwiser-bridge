@@ -2,25 +2,21 @@
 /**
  * The template for displaying moodle course archive page.
  */
- 
-/*
-eb_only_courses, eb_courses_sidebar, eb_sidebar_courses, eb_sidebar_courses_sidebar.
-*/
-
 $wrapper_args = array();
 
 $eb_template = get_option('eb_template');
 if (isset($eb_template['archive_enable_right_sidebar']) && $eb_template['archive_enable_right_sidebar'] === 'yes') {
-    $eb_courses_sidebar = true;
+    $wrapper_args['enable_right_sidebar'] = true;
+    $wrapper_args['parentcss'] = '';
 } else {
-    $eb_courses_sidebar = false;
+    $wrapper_args['enable_right_sidebar'] = false;
+    $wrapper_args['parentcss'] = 'width:100%;';
 }
-$sidebar_id = isset($eb_template['archive_right_sidebar']) ? $eb_template['archive_right_sidebar'] : '';
+
+$wrapper_args['sidebar_id'] = isset($eb_template['archive_right_sidebar']) ? $eb_template['archive_right_sidebar'] : '';
 
 //
 $count = isset($eb_template['courses_per_row']) && is_numeric($eb_template['courses_per_row']) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
-
-$wrapper_args['parentcss'] = !$eb_courses_sidebar ? 'width:100%;' : '';
 
 //CSS to handle course grid.
 $grid_css = '<style type="text/css">' . '.eb-course-col{width:' . (100/$count) .'%;}' . '.eb-course-col:nth-of-type(4' . $count . '+1){clear:left;}</style>';
@@ -46,7 +42,6 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
         if (have_posts()) {
             ?>
             <?php
-            //do_action('woocommerce_before_shop_loop');
             // Start the Loop.
             while (have_posts()) :
                 the_post();
@@ -68,21 +63,7 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
         }
         ?>
 
-<?php $template_loader->wpGetTemplate('global/wrapper-end.php'); ?>
-
-<?php
-if ($eb_courses_sidebar) {
-?>
-<div class="eb-siderbar-right">
-    <?php if (is_active_sidebar($sidebar_id)) : ?>
-    <aside id="secondary" class="sidebar widget-area" role="complementary">
-        <?php dynamic_sidebar($sidebar_id); ?>
-    </aside><!-- .sidebar .widget-area -->
-    <?php endif; ?>
-</div>
-<?php
-}
-?>
+<?php $template_loader->wpGetTemplate('global/wrapper-end.php', $wrapper_args); ?>
 
 <?php
 get_footer();
