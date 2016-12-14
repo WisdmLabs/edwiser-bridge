@@ -29,7 +29,7 @@ if (!class_exists('EBSettingsTemplate')) :
         public function __construct()
         {
             $this->_id = 'template';
-            $this->label = __('Template', 'eb-textdomain');
+            $this->label = __('Course Pages Settings', 'eb-textdomain');
 
             add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
