@@ -191,18 +191,7 @@ class EBActivator
     {
         include_once 'eb-core-functions.php';
 
-        $eb_my_courses_args = array(
-            'user_id'                           => '',
-            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
-            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
-            'number_of_recommended_courses'     => 4,
-        );
-
-        $eb_my_courses_page_content = '[eb_my_courses ';
-        foreach ($eb_my_courses_args as $attr => $value) {
-            $eb_my_courses_page_content .= $attr . '="' . $value . '" ';
-        }
-        $eb_my_courses_page_content .= ']';
+        $page_content = getShortcodePageContent();
 
         $pages = apply_filters(
             'eb_create_default_pages',
@@ -223,11 +212,23 @@ class EBActivator
                 ),
 
                 'mycourses' => array(
-                    'name' => _x('my-courses', 'Page slug', 'eb-textdomain'),
+                    'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
                     'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
-                    'content' => $eb_my_courses_page_content,
+                    'content' => $page_content['eb_my_courses'],
                     'option_key' => '',
                 ),
+                'courses' => array(
+                    'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
+                    'title' => _x('Courses', 'Page title', 'eb-textdomain'),
+                    'content' => $page_content['eb_courses'],
+                    'option_key' => '',
+                ),
+                // 'course' => array(
+                //     'name' => _x('eb-course', 'Page slug', 'eb-textdomain'),
+                //     'title' => _x('Course', 'Page title', 'eb-textdomain'),
+                //     'content' => $page_content['eb_course'],
+                //     'option_key' => '',
+                // ),
             )
         );
 

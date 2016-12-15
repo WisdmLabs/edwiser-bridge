@@ -39,14 +39,15 @@ class EbShortcodeCourses
             'categories'        => '',
             'category_operator' => 'AND',
             'order'             => 'DESC',
-            'number_of_courses' => -1
+            'per_page'          => 12
         )), $atts));
 
         $args = array(
             'post_type' => 'eb_course',
-            'posts_per_page' => $atts['number_of_courses'],
+            'posts_per_page' => $atts['per_page'],
             'order' => $atts['order'],
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'paged' => get_query_var('paged') ? get_query_var('paged') : 1
         );
 
         if (!empty($atts['categories'])) {
@@ -60,7 +61,12 @@ class EbShortcodeCourses
             );
         }
 
-        $courses = new \WP_Query($args);
+        $custom_query = new \WP_Query($args);
+
+        // Pagination fix
+        $temp_query = isset($wp_query) ? $wp_query : null;
+        $wp_query   = null;
+        $wp_query   = $custom_query;
 
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
@@ -69,14 +75,28 @@ class EbShortcodeCourses
 
         echo '<div class="sc-eb_courses-wrapper">';
         do_action('eb_before_course_archive');
-        if ($courses->have_posts()) {
-            while ($courses->have_posts()) :
-                $courses->the_post();
+        if ($custom_query->have_posts()) {
+            while ($custom_query->have_posts()) :
+                $custom_query->the_post();
                 $template_loader->wpGetTemplatePart('content', 'eb_course');
             endwhile;
         } else {
             $template_loader->wpGetTemplatePart('content', 'none');
         }
+        wp_reset_postdata();
+        ?>
+        <div style="clear:both"></div>
+        <?php
+        $template_loader->wpGetTemplate(
+            'course-pagination.php',
+            array(
+                'current_page' => $args['paged'],
+                'max_num_pages' => $custom_query->max_num_pages
+            )
+        );
+        // Reset main query object
+        $wp_query = null;
+        $wp_query = $temp_query;
         do_action('eb_after_course_archive');
         echo '</div>';
     }

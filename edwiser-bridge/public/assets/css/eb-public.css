@@ -361,6 +361,59 @@ div#user_login label{
     font-size: 13px;
 }
 
+/* eb-pagination styling start */
+nav.eb-pagination{
+    text-align: center;
+}
+
+nav.eb-pagination ul {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0;
+    clear: both;
+    border-left: 1px solid #eee;
+    margin: 1px;
+}
+nav.eb-pagination ul li {
+    border-right: 1px solid #eee;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 0;
+    margin: 0;
+    float: left;
+    display: inline;
+    overflow: hidden;
+}
+
+nav.eb-pagination ul li a,
+nav.eb-pagination ul li span,
+nav.eb-pagination ul li a,
+nav.eb-pagination ul li span {
+    margin: 0;
+    text-decoration: none;
+    line-height: 1em;
+    font-size: 1em;
+    font-weight: 400;
+    padding: .5em;
+    min-width: 1em;
+    display: block;
+    border: 0;
+}
+
+
+nav.eb-pagination ul li a:focus,
+nav.eb-pagination ul li a:hover,
+nav.eb-pagination ul li span.current,
+nav.eb-pagination ul li a:focus,
+nav.eb-pagination ul li a:hover,
+nav.eb-pagination ul li span.current {
+    background: #eee;
+    color: #888;
+}
+
+/* eb-pagination styling end */
+
+
 /* Shortcode eb_courses wrapper */
 .sc-eb_courses-wrapper article{
   margin-bottom: 20px;
