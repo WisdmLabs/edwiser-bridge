@@ -9,6 +9,7 @@ $wrapper_args = array();
 $eb_template = get_option('eb_template');
 if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_enable_right_sidebar'] === 'yes') {
     $wrapper_args['enable_right_sidebar'] = true;
+    $wrapper_args['parentcss'] = '';
 } else {
     $wrapper_args['enable_right_sidebar'] = false;
     $wrapper_args['parentcss'] = 'width:100%;';

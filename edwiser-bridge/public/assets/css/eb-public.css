@@ -488,3 +488,12 @@ nav.eb-pagination ul li span.current {
     padding: 0;
     width: 25%;
 }
+
+.page-title{
+    padding-left: 5%;
+}
+
+.wdm-col-3-2-1.hentry {
+    margin-top: 10px !important;
+    padding-top: 0 !important;
+}
