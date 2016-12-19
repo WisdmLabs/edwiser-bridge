@@ -165,9 +165,7 @@ class EBEmailer
         $order_detail = get_post_meta($order_id, 'eb_order_options', true); //get order details
 
         // return if there is a problem in order details
-        if (!isset($order_detail['order_status'])
-            ) {
-            return;
+        if (!$this->checkOrderDetails($order_detail)) {
         }
 
         $buyer_detail = get_userdata($order_detail['buyer_id']); //get buyer details
@@ -220,6 +218,15 @@ class EBEmailer
         return $sent;
     }
 
+    private function checkOrderDetails($order_detail)
+    {
+        if (!isset($order_detail['order_status'])
+            || !isset($order_detail['buyer_id'])
+            || !isset($order_detail['course_id'])) {
+            return false;
+        }
+        return true;
+    }
     // custom mailer
     public function mailer($_to, $email_subject, $email_content, $email_headers = '')
     {
