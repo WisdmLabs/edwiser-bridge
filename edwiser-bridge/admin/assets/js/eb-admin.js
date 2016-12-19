@@ -331,7 +331,7 @@
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, message: message, security: security},
+                data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, content: message, security: security},
                 error: function (error) {
                     $('.load-response').hide();
                     ohSnap('<p>Mail delivery failed.</p>', 'error');
@@ -339,7 +339,7 @@
                 success: function (response) {
                     response=$.parseJSON(response);
                     console.log(response["success"]);
-                    $('.load-response').hide();                    
+                    $('.load-response').hide();
                     if (response["success"] == "1") {
                         console.log(response["response_message"]);
                         ohSnap('<p>Test mail sent to ' + mailTo+"</p>", 'success');
@@ -353,7 +353,8 @@
 
     });
 
-    function ohSnap(text, type) {
+    function ohSnap(text, type)
+    {
         var container = $('.response-box');
         var html = '<div class="alert alert-' + type + '">' + text + '</div>';
         container.empty();
@@ -361,13 +362,14 @@
     }
 
     /**
-     * Provides the functionality to set the email template page content on 
-     * the ajax sucerssfull responce. 
-     * 
+     * Provides the functionality to set the email template page content on
+     * the ajax sucerssfull responce.
+     *
      * @param {type} response responce sent by the ajax.
      * @param {type} name name of the template.
      */
-    function setTemplateData(response, name, tmplId) {
+    function setTemplateData(response, name, tmplId)
+    {
         try {
             response = $.parseJSON(response);
             $("#eb-email-template-name").text(name);
@@ -383,24 +385,24 @@
     }
 
     //Single course and archive page settings.
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         // archive courses right sidebar
-        $('input#archive_enable_right_sidebar').change(function() {
-          if ( $( this ).is( ':checked' ) ) {
-            $( '#archive_right_sidebar' ).closest( 'tr' ).show();
-          } else {
-            $( '#archive_right_sidebar' ).closest( 'tr' ).hide();
-          }
+        $('input#archive_enable_right_sidebar').change(function () {
+            if ( $(this).is(':checked') ) {
+                $('#archive_right_sidebar').closest('tr').show();
+            } else {
+                $('#archive_right_sidebar').closest('tr').hide();
+            }
         }).change();
 
         // single course right sidebar
-        $('input#single_enable_right_sidebar').change(function() {
-          if ( $( this ).is( ':checked' ) ) {
-            $( '#single_right_sidebar' ).closest( 'tr' ).show();
-          } else {
-            $( '#single_right_sidebar' ).closest( 'tr' ).hide();
-          }
+        $('input#single_enable_right_sidebar').change(function () {
+            if ( $(this).is(':checked') ) {
+                $('#single_right_sidebar').closest('tr').show();
+            } else {
+                $('#single_right_sidebar').closest('tr').hide();
+            }
         }).change();
 
     });

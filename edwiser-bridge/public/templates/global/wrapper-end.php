@@ -13,9 +13,10 @@ switch ($template) {
         echo '</div></section>';
         if ($enable_right_sidebar) {
             if (is_active_sidebar($sidebar_id)) {
-            ?>
+                ?>
                 <div id="secondary" class="widget-area" role="complementary">
-                    <?php dynamic_sidebar($sidebar_id); ?>
+                    <?php dynamic_sidebar($sidebar_id);
+                ?>
                 </div>
             <?php
             }
@@ -38,9 +39,10 @@ switch ($template) {
         echo '</main></div>';
         if ($enable_right_sidebar) {
             if (is_active_sidebar($sidebar_id)) {
-            ?>
+                ?>
                 <aside id="secondary" class="sidebar widget-area" role="complementary">
-                    <?php dynamic_sidebar($sidebar_id); ?>
+                    <?php dynamic_sidebar($sidebar_id);
+                ?>
                 </aside>
             <?php
             }
@@ -50,9 +52,10 @@ switch ($template) {
         echo '</main></div>';
         if ($enable_right_sidebar) {
             if (is_active_sidebar($sidebar_id)) {
-            ?>
+                ?>
                 <aside id="secondary" class="widget-area" role="complementary">
-                    <?php dynamic_sidebar($sidebar_id); ?>
+                    <?php dynamic_sidebar($sidebar_id);
+                ?>
                 </aside>
             <?php
             }
@@ -63,9 +66,10 @@ switch ($template) {
         echo '</div></div>';
         if ($enable_right_sidebar) {
             if (is_active_sidebar($sidebar_id)) {
-            ?>
+                ?>
                 <aside id="secondary" class="sidebar widget-area" role="complementary">
-                    <?php dynamic_sidebar($sidebar_id); ?>
+                    <?php dynamic_sidebar($sidebar_id);
+                ?>
                 </aside>
             <?php
             }

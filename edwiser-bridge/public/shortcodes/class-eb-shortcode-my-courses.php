@@ -171,7 +171,9 @@ class EbShortcodeMyCourses
         $eb_course = get_post_type_object('eb_course');
         $view_more_url = site_url($eb_course->rewrite['slug']);
         ?>
-        <a href="<?php echo $view_more_url; ?>" class="wdm-btn eb-rec-courses-view-more"><?php _e('View More &rarr;', 'eb-textdomain'); ?></a>
+        <a href="<?php echo $view_more_url; ?>" class="wdm-btn eb-rec-courses-view-more">
+        <?php _e('View More &rarr;', 'eb-textdomain'); ?>
+        </a>
         <?php
     }
 }

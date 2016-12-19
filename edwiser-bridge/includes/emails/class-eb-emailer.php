@@ -82,10 +82,10 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
-        if ($emailTmpl) {
-            $emailTmpl=new EBAdminEmailTemplate();
-            return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
+        $emailTmplData= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        if ($emailTmplData) {
+            $emailTmplObj=new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -121,11 +121,11 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
+        $emailTmplData= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
         
-        if ($emailTmpl) {
-            $emailTmpl=new EBAdminEmailTemplate();
-            return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
+        if ($emailTmplData) {
+            $emailTmplObj=new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -166,8 +166,7 @@ class EBEmailer
 
         // return if there is a problem in order details
         if (!isset($order_detail['order_status'])
-            || !isset($order_detail['buyer_id'])
-            || !isset($order_detail['course_id'])) {
+            ) {
             return;
         }
 
@@ -197,13 +196,13 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        // $emailTmpl= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
-        
-        // if ($emailTmpl) {
-        //     $emailTmpl=new EBAdminEmailTemplate();
-        //     return $emailTmpl->sendEmail($args['user_email'], $args, $emailTmpl);
-        // }
-        
+         $emailTmplData= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
+
+        if ($emailTmplData) {
+            $emailTmplObj=new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+
         /**
          * Using Default
          */

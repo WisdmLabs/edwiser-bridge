@@ -36,7 +36,10 @@ class EbShortcodeUserProfile
     public static function output($atts)
     {
         if (!is_user_logged_in()) {
-            $template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+            $template_loader = new EbTemplateLoader(
+                edwiserBridgeInstance()->getPluginName(),
+                edwiserBridgeInstance()->getVersion()
+            );
             $template_loader->wpGetTemplate('account/form-login.php');
         } else {
             self::userProfile($atts);
@@ -96,7 +99,10 @@ class EbShortcodeUserProfile
         }
 
         // load profile template
-        $template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+        $template_loader = new EbTemplateLoader(
+            edwiserBridgeInstance()->getPluginName(),
+            edwiserBridgeInstance()->getVersion()
+        );
         $template_loader->wpGetTemplate(
             'account/user-profile.php',
             array(

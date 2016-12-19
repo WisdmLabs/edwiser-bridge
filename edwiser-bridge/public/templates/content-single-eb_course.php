@@ -59,7 +59,14 @@ $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess(
 $course_id = $post_id;
 
 $categories = array();
-$terms = wp_get_post_terms($course_id, 'eb_course_cat', array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all'));
+$terms = wp_get_post_terms(
+    $course_id,
+    'eb_course_cat',
+    array(
+        'orderby' => 'name',
+         'order' => 'ASC',
+          'fields' => 'all')
+);
 
 if (is_array($terms)) {
     foreach ($terms as $term) {

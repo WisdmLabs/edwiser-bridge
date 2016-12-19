@@ -192,16 +192,16 @@ function getShortcodePageContent($the_tag = '')
             'user_id' => '',
             'my_courses_wrapper_title' => __('My Courses', 'eb-textdomain'),
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
-            'number_of_recommended_courses' => 4
+            'number_of_recommended_courses' => 4,
         ),
         'eb_course' => array(
-            'id' => ''
+            'id' => '',
         ),
         'eb_courses' => array(
             'categories' => '',
             'category_operator' => 'AND',
             'order' => 'DESC',
-            'per_page' => 12
+            'per_page' => 12,
         ),
     );
 

@@ -16,10 +16,13 @@ if (isset($eb_template['archive_enable_right_sidebar']) && $eb_template['archive
 $wrapper_args['sidebar_id'] = isset($eb_template['archive_right_sidebar']) ? $eb_template['archive_right_sidebar'] : '';
 
 //
-$count = isset($eb_template['courses_per_row']) && is_numeric($eb_template['courses_per_row']) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
+$count = isset($eb_template['courses_per_row'])
+&& is_numeric($eb_template['courses_per_row'])
+&& $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
 
 //CSS to handle course grid.
-$grid_css = '<style type="text/css">'.'.eb-course-col{width:'. (100/$count).'%;}'.'.eb-course-col:nth-of-type('.$count.'n+1){clear:left;}</style>';
+$grid_css = '<style type="text/css">'.'.eb-course-col{width:'.(100 / $count).'%;}'
+.'.eb-course-col:nth-of-type('.$count.'n+1){clear:left;}</style>';
 echo $grid_css;
 
 $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(

@@ -117,7 +117,10 @@ class EbFrontendFormHandler
             $lastname = $_POST['lastname'];
 
             /* get object of user manager class */
-            $user_manager = new EBUserManager(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+            $user_manager = new EBUserManager(
+                edwiserBridgeInstance()->getPluginName(),
+                edwiserBridgeInstance()->getVersion()
+            );
 
             try {
                 $validation_error = new \WP_Error();

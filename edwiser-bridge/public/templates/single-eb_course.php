@@ -16,7 +16,10 @@ if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_e
 }
 $wrapper_args['sidebar_id'] = isset($eb_template['single_right_sidebar']) ? $eb_template['single_right_sidebar'] : '';
 
-$template_loader = new EbTemplateLoader(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+$template_loader = new EbTemplateLoader(
+    edwiserBridgeInstance()->getPluginName(),
+    edwiserBridgeInstance()->getVersion()
+);
 
 ?>
 
