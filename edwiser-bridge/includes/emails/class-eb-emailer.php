@@ -166,6 +166,7 @@ class EBEmailer
 
         // return if there is a problem in order details
         if (!$this->checkOrderDetails($order_detail)) {
+            return;
         }
 
         $buyer_detail = get_userdata($order_detail['buyer_id']); //get buyer details

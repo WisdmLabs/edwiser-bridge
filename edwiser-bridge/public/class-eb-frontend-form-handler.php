@@ -70,15 +70,6 @@ class EbFrontendFormHandler
                 if (is_wp_error($user)) {
                     throw new \Exception($user->get_error_message());
                 } else {
-                    // if (!empty($_GET['redirect_to'])) {
-                    //     $redirect = $_GET['redirect_to'];
-                    // } else {
-                    //     $redirect = wdmUserAccountUrl();
-                    // }
-
-                    // if (self::autoEnroll()) {
-                    //     $redirect = add_query_arg("auto_enroll", "true", $redirect);
-                    // }
                     $redirect=self::calcRewdirect();
                     wp_safe_redirect(apply_filters('eb_login_redirect', $redirect, $user));
                     exit;
@@ -95,7 +86,7 @@ class EbFrontendFormHandler
         if (!empty($_GET['redirect_to'])) {
                         $redirect = $_GET['redirect_to'];
         } else {
-            $redirect = wdmUserAccountUrl();
+            $redirect = wdmEBUserRedirectUrl();
         }
 
         if (self::autoEnroll()) {
@@ -152,7 +143,7 @@ class EbFrontendFormHandler
                 if (!empty($_GET['redirect_to'])) {
                     $redirect = $_GET['redirect_to'];
                 } else {
-                    $redirect = wdmUserAccountUrl();
+                    $redirect = wdmEBUserRedirectUrl();
                 }
                 if (self::autoEnroll()) {
                     $redirect = add_query_arg("auto_enroll", "true", $redirect);

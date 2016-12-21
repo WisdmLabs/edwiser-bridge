@@ -119,7 +119,7 @@ class EBAdminEmailTemplate
                             <div class="response-box">
                             </div>
                         </div>
-                        <span class="eb-email-note"><strong><?php _e("Note", "eb-textdomain"); ?>:-</strong> <?php _e("Some constants in the template's will get replaced by the demo content", "eb-textdomain"); ?>.</span>
+                        <span class="eb-email-note"><strong><?php _e("Note", "eb-textdomain"); ?>:-</strong> <?php _e("Some of the constants in the template's will be get replaced by the demo content", "eb-textdomain"); ?>.</span>
 
                     </div>
                 </div>

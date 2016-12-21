@@ -173,6 +173,50 @@ function wdmUserAccountUrl($query_str = '')
     return $usr_ac_page_url;
 }
 
+/**
+ * Provides the functionality to calculate the user login redirect url.
+ *
+ * @return URL Returns the my courses page url if the flag is true otherwise
+ *             returns the default $usr_ac_page_url.
+ *
+ * @since 1.1.3
+ */
+function wdmEBUserRedirectUrl($queryStr = '')
+{
+    $usrAcPageId = null;
+    /*
+     * Set default user account page url
+     */
+    $usrAcPageUrl = site_url('/user-account');
+
+    /*
+     * Get the Edwiser Bridge genral settings.
+     */
+    $ebSettings = get_option('eb_general');
+
+    /*
+     * Set the login redirect url to the user account page.
+     */
+    if (isset($ebSettings['eb_useraccount_page_id'])) {
+        $usrAcPageId = $ebSettings['eb_useraccount_page_id'];
+        $usrAcPageUrl = get_permalink($usrAcPageId);
+    }
+    /*
+     * Sets $usrAcPageUrl to my course page if the redirection to the my 
+     * courses page is enabled in settings 
+     */
+    if (isset($ebSettings['eb_enable_my_courses']) && $ebSettings['eb_enable_my_courses'] == 'yes') {
+        $myCoursesPage = get_page_by_path('my-courses');
+        $usrAcPageUrl = get_permalink($myCoursesPage->ID);
+    }
+
+    //Extract query string into local $_GET array.
+    $get = array();
+    parse_str(parse_url($queryStr, PHP_URL_QUERY), $get);
+    $usrAcPageUrl = add_query_arg($get, $usrAcPageUrl);
+
+    return $usrAcPageUrl;
+}
 // used as a callback for usort() to sort a numeric array
 function usortNumericCallback($element1, $element2)
 {

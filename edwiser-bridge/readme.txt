@@ -131,6 +131,7 @@ Take a look at the link below to see the full list of questions which will help 
 
 =  1.1.3  =
 * Feature - Email template customization for the mail sent to the user from the Edwiser Bridge plugin.
+* Feature - Added the settings to enable login redirection to my courses page.
 * Feature - Send the test email to check the modified email template.
 * Feature - Shortcode `eb_courses` to list courses.
 * Feature - Shortcode `eb_my_courses` to list specific user's courses.

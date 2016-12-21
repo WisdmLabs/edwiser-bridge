@@ -59,6 +59,21 @@ if (!class_exists('EBSettingsGeneral')) :
                     ),
 
                     array(
+                        'title' => __('Redirect to My Courses', 'eb-textdomain'),
+                        'desc' => sprintf(
+                            __(
+                                'Redirect user to the My Courses page on login and registratoin form <a href="%s">User Account</a> page.',
+                                'eb-textdomain'
+                            ),
+                            site_url('/user-account')
+                        ),
+                        __('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
+                        'id' => 'eb_enable_my_courses',
+                        'default' => 'no',
+                        'type' => 'checkbox',
+                        'autoload' => false,
+                    ),
+                    array(
                         'title' => __('Enable Registration', 'eb-textdomain'),
                         'desc' => __('Enable user registration', 'eb-textdomain'),
                         'id' => 'eb_enable_registration',
