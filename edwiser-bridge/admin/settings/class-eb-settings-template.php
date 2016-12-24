@@ -29,7 +29,7 @@ if (!class_exists('EBSettingsTemplate')) :
         public function __construct()
         {
             $this->_id = 'template';
-            $this->label = __('Course Pages Settings', 'eb-textdomain');
+            $this->label = __('Template Settings', 'eb-textdomain');
 
             add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
@@ -49,10 +49,11 @@ if (!class_exists('EBSettingsTemplate')) :
                 'eb_template_settings',
                 array(
                     array(
-                        'title' => __('Courses Archive Page Template Options', 'eb-textdomain'),
+                        'title' => __('Courses archive page template settings', 'eb-textdomain'),
                         'type' => 'title',
                         'desc' => '',
                         'id' => 'courses_archive_template_options',
+						"class"=>"eb-settings-title",
                     ),
 
                     array(
@@ -65,8 +66,8 @@ if (!class_exists('EBSettingsTemplate')) :
                     ),
 
                     array(
-                        'title' => __('Enable Sidebar', 'eb-textdomain'),
-                        'desc' => __('Right sidebar', 'eb-textdomain'),
+                        'title' => __('Enable right idebar', 'eb-textdomain'),
+                        'desc' => "",
                         'id' => 'archive_enable_right_sidebar',
                         'default' => 'no',
                         'type' => 'checkbox',
@@ -85,19 +86,41 @@ if (!class_exists('EBSettingsTemplate')) :
                             'option_none_value' => '',
                         ),
                     ),
+                    array(
+                        'title' => __('Enable left sidebar', 'eb-textdomain'),
+                        'desc' => "",
+                        'id' => 'archive_enable_left_sidebar',
+                        'default' => 'no',
+                        'type' => 'checkbox',
+                        'autoload' => false,
+                    ),
+
+                    array(
+                        'title' => '',
+                        'desc' => '',
+                        'id' => 'archive_left_sidebar',
+                        'type' => 'select_sidebar',
+                        'default' => '',
+                        'css' => '',
+                        'args' => array(
+                            'show_option_none' => 'Select a sidebar',
+                            'option_none_value' => '',
+                        ),
+                    ),
 
                     array('type' => 'sectionend', 'id' => 'courses_archive_template_options'),
 
                     array(
-                        'title' => __('Single Course Page Template Options', 'eb-textdomain'),
+                        'title' => __('Single course page template settings', 'eb-textdomain'),
                         'type' => 'title',
                         'desc' => '',
                         'id' => 'single_course_template_options',
-                    ),
+						"class"=>"eb-settings-title",
+                    ),                   
 
                     array(
-                        'title' => __('Enable Sidebar', 'eb-textdomain'),
-                        'desc' => __('Right sidebar', 'eb-textdomain'),
+                        'title' => __('Enable right sidebar', 'eb-textdomain'),
+                        'desc' => "",
                         'id' => 'single_enable_right_sidebar',
                         'default' => 'no',
                         'type' => 'checkbox',
@@ -108,6 +131,27 @@ if (!class_exists('EBSettingsTemplate')) :
                         'title' => '',
                         'desc' => '',
                         'id' => 'single_right_sidebar',
+                        'type' => 'select_sidebar',
+                        'default' => '',
+                        'css' => '',
+                        'args' => array(
+                            'show_option_none' => 'Select a sidebar',
+                            'option_none_value' => '',
+                        ),
+                    ),
+                    array(
+                        'title' => __('Enable left sidebar', 'eb-textdomain'),
+                        'desc' => "",
+                        'id' => 'single_enable_left_sidebar',
+                        'default' => 'no',
+                        'type' => 'checkbox',
+                        'autoload' => false,
+                    ),
+
+                    array(
+                        'title' => '',
+                        'desc' => '',
+                        'id' => 'single_left_sidebar',
                         'type' => 'select_sidebar',
                         'default' => '',
                         'css' => '',

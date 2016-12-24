@@ -103,6 +103,7 @@ class EbShortcodeMyCourses
             ?><h2><?php echo $atts['my_courses_wrapper_title']; ?></h2><?php
         }
         do_action('eb_before_my_courses');
+		echo "<div class='eb-my-course'>";
         if ($courses->have_posts()) {
             while ($courses->have_posts()) :
                 $courses->the_post();
@@ -111,6 +112,7 @@ class EbShortcodeMyCourses
         } else {
             $template_loader->wpGetTemplatePart('content', 'none');
         }
+		echo "</div>";
         do_action('eb_after_my_courses');
         echo '</div>';
     }

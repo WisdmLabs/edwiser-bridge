@@ -46,7 +46,7 @@ if ( !class_exists( 'EbAdminSettings' ))
 				$settings[] = include 'settings/class-eb-settings-general.php';
 				$settings[] = include 'settings/class-eb-settings-connection.php';
 				$settings[] = include 'settings/class-eb-settings-synchronization.php';
-				$settings[] = include 'settings/class-eb-settings-template.php';
+//				$settings[] = include 'settings/class-eb-settings-template.php';
 				$settings[] = include 'settings/class-eb-settings-paypal.php';
 				self::$settings = apply_filters( 'eb_get_settings_pages', $settings );
 				$settings[] = include 'settings/class-eb-settings-licensing.php';
@@ -273,8 +273,12 @@ if ( !class_exists( 'EbAdminSettings' ))
 				switch ( $value['type'] ) {
 					// Section Titles
 					case 'title':
+						
+						if(!isset($value['class'])){
+							$value['class']="";
+						}
 						if ( !empty( $value['title'] ) ) {
-							echo '<h3>' . esc_html( $value['title'] ) . '</h3>';
+							echo "<h3 class='".$value['class']."'>" . esc_html( $value['title'] ) . '</h3>';
 						}
 						if ( !empty( $value['desc'] ) ) {
 							echo wpautop( wptexturize( wp_kses_post( $value['desc'] ) ) );
@@ -623,14 +627,22 @@ if ( !class_exists( 'EbAdminSettings' ))
 							</th>
 							<td class="forminp">
 								<select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
-								<option selected><?php _e('4', 'eb-textdomain'); ?></option>
-								<option <?php selected($args['selected'], '3'); ?>><?php _e('3', 'eb-textdomain'); ?></option>
 								<option <?php selected($args['selected'], '2'); ?>><?php _e('2', 'eb-textdomain'); ?></option>
+								<option <?php selected($args['selected'], '3'); ?>><?php _e('3', 'eb-textdomain'); ?></option>
+								<option selected><?php _e('4', 'eb-textdomain'); ?></option>
 								</select>
 							</td>
 						</tr><?php
 						break;
-
+					case 'horizontal_line':
+						?>
+						<tr valign="top" class="single_select_page">
+							<td>
+								<hr>
+							</td>
+						</tr>
+							<?php
+						break;
 					// Default: run an action
 					default:
 						do_action( 'eb_admin_field_' . $value['type'], $current_tab, $value );

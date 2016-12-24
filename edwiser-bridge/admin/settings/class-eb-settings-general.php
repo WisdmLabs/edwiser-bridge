@@ -67,11 +67,11 @@ if (!class_exists('EBSettingsGeneral')) :
                             ),
                             site_url('/user-account')
                         ),
-                        __('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
+						__('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
                         'id' => 'eb_enable_my_courses',
                         'default' => 'no',
                         'type' => 'checkbox',
-                        'autoload' => false,
+                        'autoload' => false,						
                     ),
                     array(
                         'title' => __('Enable Registration', 'eb-textdomain'),
@@ -116,6 +116,14 @@ if (!class_exists('EBSettingsGeneral')) :
                         'type' => 'text',
                         'css' => 'min-width:300px;',
                         'desc_tip' => true,
+                    ),
+                    array(
+                        'title' => __('Courses page max number course in row', 'eb-textdomain'),
+                        'desc' => '',
+                        'id' => 'courses_per_row',
+                        'type' => 'courses_per_row',
+                        'default' => '',
+                        'css' => '',
                     ),
 
                     array('type' => 'sectionend', 'id' => 'general_options'),

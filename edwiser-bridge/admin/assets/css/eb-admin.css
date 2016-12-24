@@ -446,3 +446,8 @@ span.eb-option-input .eb-option-div select{
     font-style: italic;
 }
 /* Email template page style end*/
+
+.eb-settings-title{
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 5px;
+}

@@ -32,7 +32,9 @@
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
     /*clear: left;*/
 }
-
+.eb-my-course{
+    display: inline-flex;
+}
 .sc-eb_courses-wrapper .eb-course-col,
 .eb-my-courses-wrapper .eb-course-col,
 .eb-rec-courses-wrapper .eb-course-col{
@@ -161,7 +163,7 @@
     -webkit-line-clamp: 5;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    text-align: justify;
+    /*text-align: justify;*/
 }
 
 p.read-more{
@@ -496,4 +498,7 @@ nav.eb-pagination ul li span.current {
 .wdm-col-3-2-1.hentry {
     margin-top: 10px !important;
     padding-top: 0 !important;
+}
+.eb-archive-container{
+    display: -webkit-box;
 }

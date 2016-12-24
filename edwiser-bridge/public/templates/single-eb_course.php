@@ -20,7 +20,6 @@ $template_loader = new EbTemplateLoader(
     edwiserBridgeInstance()->getPluginName(),
     edwiserBridgeInstance()->getVersion()
 );
-
 ?>
 
 <?php get_header(); ?>
@@ -37,6 +36,13 @@ endwhile;
 ?>
 <?php do_action('eb_after_single_course'); ?>
 
-<?php $template_loader->wpGetTemplate('global/wrapper-end.php', $wrapper_args); ?>
+<?php $template_loader->wpGetTemplate( 'global/wrapper-end.php', $wrapper_args ); ?>
+<?php
 
-<?php get_footer();
+if ( file_exists( get_template_directory_uri() . "/sidebar.php" ) ) {
+	get_sidebar();
+}
+?>
+<?php
+
+get_footer();

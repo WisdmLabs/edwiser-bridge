@@ -395,6 +395,13 @@
                 $('#archive_right_sidebar').closest('tr').hide();
             }
         }).change();
+        $('input#archive_enable_left_sidebar').change(function () {
+            if ( $(this).is(':checked') ) {
+                $('#archive_left_sidebar').closest('tr').show();
+            } else {
+                $('#archive_left_sidebar').closest('tr').hide();
+            }
+        }).change();
 
         // single course right sidebar
         $('input#single_enable_right_sidebar').change(function () {
@@ -402,6 +409,13 @@
                 $('#single_right_sidebar').closest('tr').show();
             } else {
                 $('#single_right_sidebar').closest('tr').hide();
+            }
+        }).change();
+        $('input#single_enable_left_sidebar').change(function () {
+            if ( $(this).is(':checked') ) {
+                $('#single_left_sidebar').closest('tr').show();
+            } else {
+                $('#single_left_sidebar').closest('tr').hide();
             }
         }).change();
 

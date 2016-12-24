@@ -175,10 +175,8 @@ function wdmUserAccountUrl($query_str = '')
 
 /**
  * Provides the functionality to calculate the user login redirect url.
- *
- * @return URL Returns the my courses page url if the flag is true otherwise
- *             returns the default $usr_ac_page_url.
- *
+ * @return URL Returns the my courses page url if the flag is true otherwise 
+ * returns the default $usr_ac_page_url.
  * @since 1.1.3
  */
 function wdmEBUserRedirectUrl($queryStr = '')
