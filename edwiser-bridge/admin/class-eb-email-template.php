@@ -9,6 +9,7 @@
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 if (!defined('ABSPATH')) {
@@ -23,12 +24,12 @@ class EBAdminEmailTemplate
 
     public function __construct()
     {
-        add_filter('mce_external_plugins', array( $this, 'addMCEPlugin' ));
+        add_filter('mce_external_plugins', array($this, 'addMCEPlugin'));
         /**
          * Filter for the email template list and email temaplte constant.
          */
-        add_filter("eb_email_templates_list", array( $this, "ebAddEmailList" ), 10, 1);
-        add_filter("eb_email_template_constant", array( $this, "emailTemplateContsnt" ), 10, 1);
+        add_filter("eb_email_templates_list", array($this, "ebAddEmailList"), 10, 1);
+        add_filter("eb_email_template_constant", array($this, "emailTemplateContsnt"), 10, 1);
     }
 
     public function ebAddEmailList($emailList)
@@ -65,18 +66,18 @@ class EBAdminEmailTemplate
                     <h3 id="eb-email-template-name"><?php echo $tmplName; ?></h3>
                     <form name="manage-email-template" method="POST">
                         <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
-                        value="<?php echo $tmplKey; ?>"/>
-                        <?php
-                        wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                        ?>
+                               value="<?php echo $tmplKey; ?>"/>
+                                <?php
+                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                                ?>
                         <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Email", "eb-textdomain"); ?></td>
                                 <td>
                                     <input type="email" name="eb_email_from" id="eb_email_from" 
-                                    value="<?php echo $fromEmail; ?>" class="eb-email-input" 
-                                    title="<?php _e("Enter an email address here to use as the form mail in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>"
-                                    placeholder="Enter from email address"/>
+                                           value="<?php echo $fromEmail; ?>" class="eb-email-input" 
+                                           title="<?php _e("Enter an email address here to use as the form mail in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>"
+                                           placeholder="Enter from email address"/>
                                 </td>
                             </tr>
                             <tr>
@@ -146,7 +147,7 @@ class EBAdminEmailTemplate
                                 echo "<div class='eb-emailtmpl-const-sec'>";
                                 echo "<h3>$secName</h3>";
                                 foreach ($tmplConst as $const => $desc) {
-                                    echo '<div class="eb-mail-templat-const"><span>' . $const . '</span>' . $desc . '</div>';
+                                    echo '<div class="eb-mail-templat-const"><span>'.$const.'</span>'.$desc.'</div>';
                                 }
                                 echo "</div>";
                             }
@@ -172,12 +173,12 @@ class EBAdminEmailTemplate
 
     public function test()
     {
-        add_filter('mce_external_plugins', array( $this, 'my_custom_plugins' ));
+        add_filter('mce_external_plugins', array($this, 'my_custom_plugins'));
     }
 
     public function addMCEPlugin()
     {
-        $plugins = array( "legacyoutput" => plugins_url('assets/', __FILE__) . 'tinymce/legacyoutput/plugin.min.js' );
+        $plugins = array("legacyoutput" => plugins_url('assets/', __FILE__).'tinymce/legacyoutput/plugin.min.js');
         return $plugins;
     }
 
@@ -325,16 +326,16 @@ class EBAdminEmailTemplate
 
         if (isset($_POST["security"]) && wp_verify_nonce($_POST["security"], "eb_send_testmail_sec")) {
             $mailTo = $this->checkIsEmpty($_POST, "mail_to");
-            $args = array( "course_id" => "1", "password" => "eb-pa88@#d", "order_id" => "#12235" );
+            $args = array("course_id" => "1", "password" => "eb-pa88@#d", "order_id" => "#12235");
             $mail = $this->sendEmail($mailTo, $args, $_POST);
             if ($mail) {
-                echo json_encode(array( "success" => "1" ));
+                echo json_encode(array("success" => "1"));
             } else {
-                echo json_encode(array( "success" => "0", "resp_msg" => "failed" ));
+                echo json_encode(array("success" => "0", "resp_msg" => "failed"));
             }
             exit;
         } else {
-            echo json_encode(array( "success" => "0", "resp_msg" => "Invalid request" ));
+            echo json_encode(array("success" => "0", "resp_msg" => "Invalid request"));
         }
     }
 
@@ -352,13 +353,13 @@ class EBAdminEmailTemplate
         /**
          * Email send start
          */
-        $tmplContent='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
-                . '<html>'
-                . '<body>'
+        $tmplContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+                .'<html>'
+                .'<body>'
                 .$tmplContent
                 ."</body>"
-                . "</html>";
-        $headers = array( 'Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"' );
+                ."</html>";
+        $headers = array('Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"');
         add_filter('wp_mail_content_type', function () {
             return "text/html";
         });
@@ -370,7 +371,6 @@ class EBAdminEmailTemplate
         /**
          * Email send end
          */
-        
         return $mail;
     }
 }

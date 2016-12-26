@@ -26,6 +26,7 @@ if (!defined('ABSPATH')) {
  */
 class EBWelcomeScreen
 {
+
     /**
      * Hook in tabs.
      */
@@ -52,11 +53,7 @@ class EBWelcomeScreen
         switch ($_GET['page']) {
             case 'eb-about':
                 add_dashboard_page(
-                    $welcome_page_title,
-                    $welcome_page_name,
-                    'manage_options',
-                    'eb-about',
-                    array($this, 'welcomeScreen')
+                        $welcome_page_title, $welcome_page_name, 'manage_options', 'eb-about', array($this, 'welcomeScreen')
                 );
                 break;
         }
@@ -237,66 +234,65 @@ class EBWelcomeScreen
         <div class="wrap about-wrap eb-about-wrap">
 
             <?php $this->intro();
-        ?>
+            ?>
 
             <div class="changelog">
                 <p class="about-description">
-                <?php
+                    <?php
                     printf(
-                        __(
-                            'Thanks for installing Edwiser Bridge!
-                            Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.',
-                            'eb-textdomain'
-                        )
+                            __(
+                                    'Thanks for installing Edwiser Bridge!
+                            Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain'
+                            )
                     );
-        ?>
+                    ?>
                 </p>
 
                 <div class="changelog prompt-subscribe-wrap">
-                <h1 style="text-align:center; margin:0; font-size:30px;">
-                    Get the latest updates on Edwiser Bridge in Your Inbox!
-                </h1>
-                <form method="post" action="<?php echo admin_url('admin.php');
-        ?>" class="prompt-subscribe-form">
-                    <h4>
-                        Stay updated with the latest features in Edwiser Bridge
-                        and receive early-bird discounts on upcoming premium add ons.
-                    </h4>
-                    <br/>
-                    <input
-                        type="email"
-                        name="eb_sub_admin_email"
-                        placeholder="Please enter your email address" value="" />
-                    <input type="hidden" name="action" value="eb_subscribe" />
-                    <?php wp_nonce_field('subscribe_nonce', 'subscribe_nonce_field');
-        ?>
-                    <input type="submit" class="subscribe-submit" value="Subscribe" />
-                </form>
-        <?php
-        if (isset($_GET['subscribed']) && $_GET['subscribed'] == 1) {
-            ?>
-                <div class="success-message">
-                    <span>Thanks for subscribing to Edwiser Bridge Updates & Notifications.</span>
+                    <h1 style="text-align:center; margin:0; font-size:30px;">
+                        Get the latest updates on Edwiser Bridge in Your Inbox!
+                    </h1>
+                    <form method="post" action="<?php echo admin_url('admin.php');
+                    ?>" class="prompt-subscribe-form">
+                        <h4>
+                            Stay updated with the latest features in Edwiser Bridge
+                            and receive early-bird discounts on upcoming premium add ons.
+                        </h4>
+                        <br/>
+                        <input
+                            type="email"
+                            name="eb_sub_admin_email"
+                            placeholder="Please enter your email address" value="" />
+                        <input type="hidden" name="action" value="eb_subscribe" />
+                        <?php wp_nonce_field('subscribe_nonce', 'subscribe_nonce_field');
+                        ?>
+                        <input type="submit" class="subscribe-submit" value="Subscribe" />
+                    </form>
+                    <?php
+                    if (isset($_GET['subscribed']) && $_GET['subscribed'] == 1) {
+                        ?>
+                        <div class="success-message">
+                            <span>Thanks for subscribing to Edwiser Bridge Updates & Notifications.</span>
+                        </div>
+                        <?php
+                    } elseif (isset($_GET['subscribed']) && $_GET['subscribed'] == 0) {
+                        ?>
+                        <div class="error-message">
+                            <span>An error occurred in subscription process, please try again.</span>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
-<?php
-        } elseif (isset($_GET['subscribed']) && $_GET['subscribed'] == 0) {
-            ?>
-                <div class="error-message">
-                    <span>An error occurred in subscription process, please try again.</span>
-                </div>
-        <?php
-        }
-        ?>
             </div>
-        </div>
 
             <div class="eb-actions">
                 <a href="<?php echo admin_url('admin.php?page=eb-settings');
-        ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain');
-        ?></a>
+                    ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain');
+                    ?></a>
                 <a href="<?php _e('https://edwiser.org/bridge/documentation/', 'eb-textdomain');
-        ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain');
-        ?></a>
+                    ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain');
+                    ?></a>
             </div>
         </div>
         <?php
@@ -323,8 +319,7 @@ class EBWelcomeScreen
             return;
         }
 
-        if ((isset($_GET['action']) && 'upgrade-plugin' == $_GET['action'])
-            || (!empty($_GET['page']) && $_GET['page'] === 'eb-about')) {
+        if ((isset($_GET['action']) && 'upgrade-plugin' == $_GET['action']) || (!empty($_GET['page']) && $_GET['page'] === 'eb-about')) {
             return;
         }
 
@@ -345,8 +340,7 @@ class EBWelcomeScreen
         $subscribed = 0;
 
         // verify nonce
-        if (!isset($_POST['subscribe_nonce_field'])
-            || !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')) {
+        if (!isset($_POST['subscribe_nonce_field']) || !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')) {
             echo 'Sorry, there is a problem!';
             exit;
         } else {
@@ -357,8 +351,7 @@ class EBWelcomeScreen
 
             // prepare email content
             $subject = apply_filters(
-                'eb_plugin_subscription_email_subject',
-                'Edwiser Bridge Plugin Subscription Notification'
+                    'eb_plugin_subscription_email_subject', 'Edwiser Bridge Plugin Subscription Notification'
             );
 
             $message = "Edwiser Bridge subscription user details: \n";
@@ -376,6 +369,7 @@ class EBWelcomeScreen
         wp_redirect(admin_url('/?page=eb-about&subscribed='.$subscribed));
         exit;
     }
+
 }
 
 new EBWelcomeScreen();

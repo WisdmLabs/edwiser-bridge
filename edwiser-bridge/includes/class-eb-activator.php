@@ -16,7 +16,6 @@ class EBActivator
 {
     /**
      * networkWide tells if the plugin was activated for the entire network or just for single site.
-     *
      * @since    1.1.1
      */
 
@@ -24,7 +23,6 @@ class EBActivator
 
     /**
      * activation function.
-     *
      * @since    1.0.0
      */
 
@@ -33,9 +31,8 @@ class EBActivator
         /**
          * deactivates legacy extensions
          */
-        
-        self::$networkWide =  $networkWide;
-    
+        self::$networkWide = $networkWide;
+
         self::deactivateLegacyExtensions();
 
         // create database tables & Pages
@@ -57,15 +54,15 @@ class EBActivator
     {
         // prepare extensions array
         $extensions = array(
-                'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
-                'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
-                'single_signon'  => array('edwiser-bridge-sso/sso.php', '1.0.0')
+            'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
+            'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
+            'single_signon' => array('edwiser-bridge-sso/sso.php', '1.0.0')
         );
 
         // deactive legacy extensions
         foreach ($extensions as $extension) {
             if (is_plugin_active($extension[0])) {
-                $plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $extension[0]);
+                $plugin_data = get_plugin_data(WP_PLUGIN_DIR.'/'.$extension[0]);
 
                 if (isset($plugin_data['Version'])) {
                     if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
@@ -77,16 +74,16 @@ class EBActivator
     }
 
     /**
-     *checks if the plugin is activated on a SIngle site or Network wide
+     * checks if the plugin is activated on a SIngle site or Network wide
      *
      * @since    1.1.1
      */
     public static function checkSingleOrMultiSite()
     {
         global $wpdb;
- 
+
         if (is_multisite()) {
-             // print_r(is_plugin_active_for_network('edwiser-bridge/edwiser-bridge.php')); die();
+            // print_r(is_plugin_active_for_network('edwiser-bridge/edwiser-bridge.php')); die();
 
             if (self::$networkWide) {
                 $allSites = wp_get_sites();
@@ -94,7 +91,7 @@ class EBActivator
 
                 foreach ($allSites as $blog) {
                     switch_to_blog($blog['blog_id']);
-            
+
                     self::createMoodleDBTables();
                     self::createPages();
                     self::createDefaultEmailTempaltes();
@@ -127,20 +124,37 @@ class EBActivator
         $enrollment_tbl_name = $wpdb->prefix.'moodle_enrollment';
 
         $enrollment_table = "CREATE TABLE IF NOT EXISTS $enrollment_tbl_name (
-                id            mediumint(9) NOT NULL AUTO_INCREMENT,
-                user_id       int(11) NOT NULL,
-                course_id     int(11) NOT NULL,
-                role_id       int(11) NOT NULL,
-                time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-                PRIMARY KEY id (id)
-            ) $charset_collate;";
-            
+            id            mediumint(9) NOT NULL AUTO_INCREMENT,
+            user_id       int(11) NOT NULL,
+            course_id     int(11) NOT NULL,
+            role_id       int(11) NOT NULL,
+            time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            expire_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            PRIMARY KEY id (id)
+        ) $charset_collate;";
+
         require_once ABSPATH.'wp-admin/includes/upgrade.php';
         dbDelta($enrollment_table);
+        self::alterTable();
     }
 
-      /**
-     *handles addtion of new blog
+    public static function alterTable()
+    {
+        global $wpdb;
+        $enrollment_tbl_name = $wpdb->prefix.'moodle_enrollment';
+        $query = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE 'expire_time';";
+        $exists = $wpdb->query($query);
+        /**
+         * Alter table if the expire_time column is not exisit in the plugin.
+         */
+        if (!$exists) {
+            $query = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);";
+            $wpdb->query($query);
+        }
+    }
+
+    /**
+     * handles addtion of new blog
      *
      * @since  1.1.1
      */
@@ -196,40 +210,31 @@ class EBActivator
         $pages = apply_filters(
             'eb_create_default_pages',
             array(
-
-                'thankyou' => array(
-                    'name' => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
-                    'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
-                    'option_key' => '',
-                ),
-
-                'useraccount' => array(
-                    'name' => _x('user-account', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('User Account', 'Page title', 'eb-textdomain'),
-                    'content' => '['.apply_filters('eb_user_account_shortcode_tag', 'eb_user_account').']',
-                    'option_key' => 'eb_useraccount_page_id',
-                ),
-
-                'mycourses' => array(
-                    'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
-                    'content' => $page_content['eb_my_courses'],
-                    'option_key' => '',
-                ),
-                'courses' => array(
-                    'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
-                    'title' => _x('Courses', 'Page title', 'eb-textdomain'),
-                    'content' => $page_content['eb_courses'],
-                    'option_key' => '',
-                ),
-                // 'course' => array(
-                //     'name' => _x('eb-course', 'Page slug', 'eb-textdomain'),
-                //     'title' => _x('Course', 'Page title', 'eb-textdomain'),
-                //     'content' => $page_content['eb_course'],
-                //     'option_key' => '',
-                // ),
-            )
+                    'thankyou' => array(
+                        'name' => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
+                        'title' => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
+                        'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
+                        'option_key' => '',
+                    ),
+                    'useraccount' => array(
+                        'name' => _x('user-account', 'Page slug', 'eb-textdomain'),
+                        'title' => _x('User Account', 'Page title', 'eb-textdomain'),
+                        'content' => '['.apply_filters('eb_user_account_shortcode_tag', 'eb_user_account').']',
+                        'option_key' => 'eb_useraccount_page_id',
+                    ),
+                    'mycourses' => array(
+                        'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
+                        'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
+                        'content' => $page_content['eb_my_courses'],
+                        'option_key' => '',
+                    ),
+                    'courses' => array(
+                        'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
+                        'title' => _x('Courses', 'Page title', 'eb-textdomain'),
+                        'content' => $page_content['eb_courses'],
+                        'option_key' => '',
+                    ),
+                )
         );
 
         foreach ($pages as $key => $page) {
@@ -237,7 +242,7 @@ class EBActivator
             wdmCreatePage(esc_sql($page['name']), $page['option_key'], $page['title'], $page['content']);
         }
     }
-    
+
     public static function createDefaultEmailTempaltes()
     {
         include_once 'class-eb-default-email-templates.php';

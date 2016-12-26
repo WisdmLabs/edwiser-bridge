@@ -1034,4 +1034,22 @@ class EBUserManager
 
         edwiserBridgeInstance()->logger()->add('user', "Enrollment records of user ID: {$user_id} are deleted.");  // add user log
     }
+	
+	public function unenrollOnCourseAccessExpire() {
+		global $wpdb;
+		$curUser = get_current_user_id();
+		global $post;
+		$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE status='1' AND expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
+		$enrollData = $wpdb->get_results( $stmt );
+		$enrollMentManager=EBEnrollmentManager::instance(  $this->plugin_name, $this->version);
+		foreach ( $enrollData as $courseEnrollData ) {
+			$args = array(
+                    'user_id' => $courseEnrollData->user_id,
+                    'courses' => array($courseEnrollData->course_id),
+                    'unenroll' => 1,
+                );
+			$enrollMentManager->updateUserCourseEnrollment($args);	
+		}
+	}
+
 }

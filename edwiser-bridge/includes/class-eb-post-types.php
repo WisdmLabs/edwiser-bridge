@@ -65,22 +65,22 @@ class EBPostTypes
                     //'update_count_callback' => '_wc_term_recount',
                     'label' => __('Course Categories', 'eb-textdomain'),
                     'labels' => array(
-                        'name' => __('Course Categories', 'eb-textdomain'),
-                        'singular_name' => __('Course Category', 'eb-textdomain'),
-                        'menu_name' => _x('Categories', 'Admin menu name', 'eb-textdomain'),
-                        'search_items' => __('Search Course Categories', 'eb-textdomain'),
-                        'all_items' => __('All Course Categories', 'eb-textdomain'),
-                        'parent_item' => __('Parent Course Categories', 'eb-textdomain'),
-                        'parent_item_colon' => __('Parent Course Category:', 'eb-textdomain'),
-                        'edit_item' => __('Edit Course Category', 'eb-textdomain'),
-                        'update_item' => __('Update Course Category', 'eb-textdomain'),
-                        'add_new_item' => __('Add New Course Category', 'eb-textdomain'),
-                        'new_item_name' => __('New Course Category Name', 'eb-textdomain'),
-                    ),
-                    'show_ui' => true,
-                    'query_var' => true,
-                    'rewrite' => array('slug' => 'eb_category'),
-                )
+                    'name' => __('Course Categories', 'eb-textdomain'),
+                    'singular_name' => __('Course Category', 'eb-textdomain'),
+                    'menu_name' => _x('Categories', 'Admin menu name', 'eb-textdomain'),
+                    'search_items' => __('Search Course Categories', 'eb-textdomain'),
+                    'all_items' => __('All Course Categories', 'eb-textdomain'),
+                    'parent_item' => __('Parent Course Categories', 'eb-textdomain'),
+                    'parent_item_colon' => __('Parent Course Category:', 'eb-textdomain'),
+                    'edit_item' => __('Edit Course Category', 'eb-textdomain'),
+                    'update_item' => __('Update Course Category', 'eb-textdomain'),
+                    'add_new_item' => __('Add New Course Category', 'eb-textdomain'),
+                    'new_item_name' => __('New Course Category Name', 'eb-textdomain'),
+                        ),
+                        'show_ui' => true,
+                        'query_var' => true,
+                        'rewrite' => array('slug' => 'eb_category'),
+                        )
             )
         );
         do_action('eb_after_register_taxonomy');
@@ -100,41 +100,41 @@ class EBPostTypes
                     'eb_register_post_type_courses',
                     array(
                         'labels' => array(
-                            'name' => __('Moodle Courses', 'eb-textdomain'),
-                            'singular_name' => __('Moodle Course', 'eb-textdomain'),
-                            'menu_name' => _x('Moodle Courses', 'Admin menu name', 'eb-textdomain'),
-                            'add_new' => __('Add Course', 'eb-textdomain'),
-                            'add_new_item' => __('Add New Course', 'eb-textdomain'),
-                            'edit' => __('Edit', 'eb-textdomain'),
-                            'edit_item' => __('Edit Course', 'eb-textdomain'),
-                            'new_item' => __('New Course', 'eb-textdomain'),
-                            'view' => __('View Course', 'eb-textdomain'),
-                            'view_item' => __('View Course', 'eb-textdomain'),
-                            'search_items' => __('Search Courses', 'eb-textdomain'),
-                            'not_found' => __('No Courses found', 'eb-textdomain'),
-                            'not_found_in_trash' => __('No Courses found in trash', 'eb-textdomain'),
-                        ),
-                        'description' => __(
-                            'This is where you can add new courses to your Moodle LMS.',
-                            'eb-textdomain'
-                        ),
-                        'public' => true,
-                        'capability_type' => 'post',
-                        'capabilities' => array(
+                        'name' => __('Moodle Courses', 'eb-textdomain'),
+                        'singular_name' => __('Moodle Course', 'eb-textdomain'),
+                        'menu_name' => _x('Moodle Courses', 'Admin menu name', 'eb-textdomain'),
+                        'add_new' => __('Add Course', 'eb-textdomain'),
+                        'add_new_item' => __('Add New Course', 'eb-textdomain'),
+                        'edit' => __('Edit', 'eb-textdomain'),
+                        'edit_item' => __('Edit Course', 'eb-textdomain'),
+                        'new_item' => __('New Course', 'eb-textdomain'),
+                        'view' => __('View Course', 'eb-textdomain'),
+                        'view_item' => __('View Course', 'eb-textdomain'),
+                        'search_items' => __('Search Courses', 'eb-textdomain'),
+                        'not_found' => __('No Courses found', 'eb-textdomain'),
+                        'not_found_in_trash' => __('No Courses found in trash', 'eb-textdomain'),
+                            ),
+                            'description' => __(
+                                'This is where you can add new courses to your Moodle LMS.',
+                                'eb-textdomain'
+                            ),
+                            'public' => true,
+                            'capability_type' => 'post',
+                            'capabilities' => array(
                             'create_posts' => false,
-                        ),
-                        'map_meta_cap' => true,
-                        'show_ui' => true,
-                        'show_in_menu' => false,
-                        'menu_position' => 80,
-                        'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                        'rewrite' => array('slug' => 'courses'),
-                        'query_var' => true,
-                        'supports' => array('title', 'editor', 'thumbnail', 'comments'),
-                        'has_archive' => true,
-                        'show_in_nav_menus' => true,
-                        'taxonomies' => array('eb_course_cat'),
-                    )
+                            ),
+                            'map_meta_cap' => true,
+                            'show_ui' => true,
+                            'show_in_menu' => false,
+                            'menu_position' => 80,
+                            'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
+                            'rewrite' => array('slug' => 'courses'),
+                            'query_var' => true,
+                            'supports' => array('title', 'editor', 'thumbnail', 'comments'),
+                            'has_archive' => true,
+                            'show_in_nav_menus' => true,
+                            'taxonomies' => array('eb_course_cat'),
+                            )
                 )
             );
         }
@@ -146,37 +146,37 @@ class EBPostTypes
                     'eb_register_post_type_order',
                     array(
                         'labels' => array(
-                            'name' => __('Orders', 'eb-textdomain'),
-                            'singular_name' => __('Order', 'eb-textdomain'),
-                            'menu_name' => _x('Orders', 'Admin menu name', 'eb-textdomain'),
-                            'add_new' => __('Add Order', 'eb-textdomain'),
-                            'add_new_item' => __('Add New Order', 'eb-textdomain'),
-                            'edit' => __('Edit', 'eb-textdomain'),
-                            'edit_item' => __('Edit Order', 'eb-textdomain'),
-                            'new_item' => __('New Order', 'eb-textdomain'),
-                            'view' => __('View Order', 'eb-textdomain'),
-                            'view_item' => __('View Order', 'eb-textdomain'),
-                            'search_items' => __('Search Orders', 'eb-textdomain'),
-                            'not_found' => __('No orders found', 'eb-textdomain'),
-                            'not_found_in_trash' => __('No orders found in trash', 'eb-textdomain'),
-                        ),
-                        'description' => __('This is where you can see course orders.', 'eb-textdomain'),
-                        'public' => false,
-                        'capability_type' => 'post',
-                        'capabilities' => array(
+                        'name' => __('Orders', 'eb-textdomain'),
+                        'singular_name' => __('Order', 'eb-textdomain'),
+                        'menu_name' => _x('Orders', 'Admin menu name', 'eb-textdomain'),
+                        'add_new' => __('Add Order', 'eb-textdomain'),
+                        'add_new_item' => __('Add New Order', 'eb-textdomain'),
+                        'edit' => __('Edit', 'eb-textdomain'),
+                        'edit_item' => __('Edit Order', 'eb-textdomain'),
+                        'new_item' => __('New Order', 'eb-textdomain'),
+                        'view' => __('View Order', 'eb-textdomain'),
+                        'view_item' => __('View Order', 'eb-textdomain'),
+                        'search_items' => __('Search Orders', 'eb-textdomain'),
+                        'not_found' => __('No orders found', 'eb-textdomain'),
+                        'not_found_in_trash' => __('No orders found in trash', 'eb-textdomain'),
+                            ),
+                            'description' => __('This is where you can see course orders.', 'eb-textdomain'),
+                            'public' => false,
+                            'capability_type' => 'post',
+                            'capabilities' => array(
                             'create_posts' => false,
-                        ),
-                        'map_meta_cap' => true,
-                        'show_ui' => true,
-                        'show_in_menu' => false,
-                        'menu_position' => 80,
-                        'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
-                        'rewrite' => array('slug' => 'orders'),
-                        'query_var' => true,
-                        'supports' => array('title'),
-                        'has_archive' => false,
-                        'show_in_nav_menus' => false,
-                    )
+                            ),
+                            'map_meta_cap' => true,
+                            'show_ui' => true,
+                            'show_in_menu' => false,
+                            'menu_position' => 80,
+                            'hierarchical' => false, // Hierarchical causes memory issues - WP loads all records!
+                            'rewrite' => array('slug' => 'orders'),
+                            'query_var' => true,
+                            'supports' => array('title'),
+                            'has_archive' => false,
+                            'show_in_nav_menus' => false,
+                            )
                 )
             );
         }
@@ -271,7 +271,6 @@ class EBPostTypes
                     'attr' => 'readonly',
                     'default' => '0',
                 ),
-
                 'course_price_type' => array(
                     'label' => __('Course Price Type', 'eb-textdomain'),
                     'description' => __('Is it free to join or one time purchase?', 'eb-textdomain'),
@@ -283,7 +282,6 @@ class EBPostTypes
                     ),
                     'default' => array('free'),
                 ),
-
                 'course_price' => array(
                     'label' => __('Course Price', 'eb-textdomain'),
                     'description' => __('Course price in currency as defined in settings.', 'eb-textdomain'),
@@ -291,7 +289,6 @@ class EBPostTypes
                     'placeholder' => __('Enter course price', 'eb-textdomain'),
                     'default' => '',
                 ),
-
                 'course_closed_url' => array(
                     'label' => __('Optional URL', 'eb-textdomain'),
                     'description' => __(
@@ -302,7 +299,19 @@ class EBPostTypes
                     'placeholder' => __('Optional URL', 'eb-textdomain'),
                     'default' => '',
                 ),
-
+                'course_expirey' => array(
+                    'label' => __('Expire Access', 'eb-textdomain'),
+                    'description' => __('Leave this field unchecked if access never expires.', 'eb-textdomain'),
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'autoload' => false,
+                ),
+                'num_days_course_access' => array(
+                    'label' => __('Expire Access After (days)', 'eb-textdomain'),
+                    'description' => __('Number of days the course is accessible', 'eb-textdomain'),
+                    'type' => 'text',
+                    'default' => '',
+                ),
                 'course_short_description' => array(
                     'label' => __('Short Description', 'eb-textdomain'),
                     'description' => __('Short description of course.', 'eb-textdomain'),
@@ -311,7 +320,6 @@ class EBPostTypes
                     'default' => '',
                 ),
             ),
-
             'eb_order' => array(
                 'order_status' => array(
                     'label' => __('Order Status', 'eb-textdomain'),
@@ -358,7 +366,7 @@ class EBPostTypes
 
         $data = '';
         if ($option) {
-                $data = $option;
+            $data = $option;
         } elseif (isset($field['default'])) {
             $data = $field['default'];
         }
@@ -472,7 +480,7 @@ class EBPostTypes
         switch ($field['type']) {
             case 'textarea':
             case 'select_multi':
-                $html .=  '<em><p class="description-label '.esc_attr($field_id);
+                $html .= '<em><p class="description-label '.esc_attr($field_id);
                 $html .= '">'.$field['description'].'</p></em>';
                 break;
             default:
@@ -516,21 +524,19 @@ class EBPostTypes
         } else {
             $fields = $this->populateMetaboxFields($post_type);
             $post_options = array();
-            if (isset($_POST[ $post_type.'_options' ])) {
-                $post_options = $_POST[ $post_type.'_options' ];
+            if (isset($_POST[$post_type.'_options'])) {
+                $post_options = $_POST[$post_type.'_options'];
             }
             if (!empty($post_options)) {
                 foreach ($fields as $key => $values) {
                     $option_name = $key;
                     $option_value = null;
-                    if (isset($post_options[ $key ])) {
-                        $option_value = wp_unslash($post_options[ $key ]);
+                    if (isset($post_options[$key])) {
+                        $option_value = wp_unslash($post_options[$key]);
                     }
-
                     //format the values
                     switch (sanitize_title($values['type'])) {
                         case 'checkbox':
-                            $option_value = '';
                             if (is_null($option_value)) {
                                 $option_value = 'no';
                             } else {
@@ -559,7 +565,7 @@ class EBPostTypes
                     }
 
                     if (!is_null($option_value)) {
-                        $update_post_options[ $option_name ] = $option_value;
+                        $update_post_options[$option_name] = $option_value;
                     }
                 }
 
@@ -649,23 +655,22 @@ class EBPostTypes
         return $messages;
     }
 
-/**
- * Used to get postmeta values by meta key.
- *
- * @since     1.0.0
- *
- * @param string $post_type post id
- * @param string $post_type post type for which data is fetched
- * @param string $key       name of custom field for which value is fetched
- * @param bool   $default   default value in case key is not set
- *
- * @return string value of custom field
- */
+    /**
+     * Used to get postmeta values by meta key.
+     *
+     * @since     1.0.0
+     *
+     * @param string $post_type post id
+     * @param string $post_type post type for which data is fetched
+     * @param string $key       name of custom field for which value is fetched
+     * @param bool   $default   default value in case key is not set
+     *
+     * @return string value of custom field
+     */
     // public static function getPostOptions( $post_id, $key, $post_type = false, $default = false ){
     //     if ( empty( $key ) ) {
     //         return $default;
     //     }
-
     //     if(!$post_type){
     //         $options = get_post_meta( $post_id, $key, true );
     //         $value = (!empty($options))?$options:$default;

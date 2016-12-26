@@ -11,10 +11,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbAdmin
 {
+
     /**
      * The ID of this plugin.
      *
@@ -66,18 +68,10 @@ class EbAdmin
          */
 
         wp_enqueue_style(
-            $this->plugin_name,
-            EB_PLUGIN_URL.'admin/assets/css/eb-admin.css',
-            array(),
-            $this->version,
-            'all'
+                $this->plugin_name, EB_PLUGIN_URL.'admin/assets/css/eb-admin.css', array(), $this->version, 'all'
         );
         wp_enqueue_style(
-            'jquery-tiptip-css',
-            EB_PLUGIN_URL.'admin/assets/css/tipTip.css',
-            array(),
-            $this->version,
-            'all'
+                'jquery-tiptip-css', EB_PLUGIN_URL.'admin/assets/css/tipTip.css', array(), $this->version, 'all'
         );
     }
 
@@ -103,30 +97,21 @@ class EbAdmin
         wp_enqueue_script('iris');
 
         wp_enqueue_script(
-            $this->plugin_name,
-            EB_PLUGIN_URL.'admin/assets/js/eb-admin.js',
-            array('jquery'),
-            $this->version,
-            false
+                $this->plugin_name, EB_PLUGIN_URL.'admin/assets/js/eb-admin.js', array('jquery'), $this->version, false
         );
 
         wp_localize_script(
-            $this->plugin_name,
-            'eb_admin_js_object',
-            array(
-                'unsaved_warning' => __('Please save the changes.', 'eb-textdomain'),
-                'plugin_url' => EB_PLUGIN_URL,
-                'ajaxurl' => admin_url('admin-ajax.php'),
-                'nonce' => $nonce,
-            )
+                $this->plugin_name, 'eb_admin_js_object', array(
+            'unsaved_warning' => __('Please save the changes.', 'eb-textdomain'),
+            'plugin_url' => EB_PLUGIN_URL,
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => $nonce,
+                )
         );
 
         wp_enqueue_script(
-            'jquery-tiptip-js',
-            EB_PLUGIN_URL.'admin/assets/js/jquery.tipTip.minified.js',
-            array('jquery'),
-            $this->version,
-            false
+                'jquery-tiptip-js', EB_PLUGIN_URL.'admin/assets/js/jquery.tipTip.minified.js', array('jquery'), $this->version, false
         );
     }
+
 }

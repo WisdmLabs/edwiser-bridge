@@ -295,7 +295,17 @@
                 $('#course_price').val('');
             }
         });
+        $("#course_expirey").change(function () {
+            if ($(this).prop("checked") == true) {
+                $('#eb_course_num_days_course_access').show();
+            } else {
+                $('#eb_course_num_days_course_access').hide();
+                $('#num_days_course_access').val("");
+            }
+        });
         $('#course_price_type').change();
+        $("#course_expirey").change();
+        
     });
 
     /**
@@ -337,12 +347,12 @@
                     ohSnap('<p>Mail delivery failed.</p>', 'error');
                 },
                 success: function (response) {
-                    response=$.parseJSON(response);
+                    response = $.parseJSON(response);
                     console.log(response["success"]);
                     $('.load-response').hide();
                     if (response["success"] == "1") {
                         console.log(response["response_message"]);
-                        ohSnap('<p>Test mail sent to ' + mailTo+"</p>", 'success');
+                        ohSnap('<p>Test mail sent to ' + mailTo + "</p>", 'success');
                     } else {
                         console.log(response["response_message"]);
                         ohSnap('<p>Mail delivery failed.</p>', 'error');

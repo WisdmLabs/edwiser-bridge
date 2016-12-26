@@ -26,40 +26,40 @@ if (!empty($licensing_info)) {
     ?>
     <div class="eb_table">
         <div class="eb_table_body">
-    <?php
-    foreach ($licensing_info as $single) {
-        ?>
+            <?php
+            foreach ($licensing_info as $single) {
+                ?>
                 <form name="<?php echo $single['plugin_slug'].'_licensing_form';
-        ?>" method="post" id="mainform" >
+                ?>" method="post" id="mainform" >
                     <div class="eb_table_row">
 
                         <div class="eb_table_cell_1">
                             <?php echo $single['plugin_name'];
-        ?>
+                            ?>
                         </div>
 
                         <div class="eb_table_cell_2">
                             <?php echo $single['license_key'];
-        ?>
+                            ?>
                         </div>
 
                         <div class="eb_table_cell_3">
                             <?php echo $single['license_status'];
-        ?>
+                            ?>
                         </div>
 
                         <div class="eb_table_cell_4">
                             <?php echo $single['activate_license'];
-        ?>
+                            ?>
                         </div>
 
                     </div>
                     <?php wp_nonce_field('eb-settings');
-        ?>
+                    ?>
                 </form>
-    <?php
-    }
-    ?>
+                <?php
+            }
+            ?>
         </div>
     </div>
     <?php

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The template for displaying single course content.
  *
@@ -9,6 +8,7 @@
  *
  * @version     1.1.3
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 if (!defined('ABSPATH')) {
@@ -31,12 +31,12 @@ $course_options = get_post_meta($post_id, 'eb_course_options', true);
 if (is_array($course_options)) {
     $course_price_type = (isset($course_options['course_price_type'])) ? $course_options['course_price_type'] : 'free';
     $course_price = (isset($course_options['course_price']) &&
-                            is_numeric($course_options['course_price'])) ?
-                        $course_options['course_price'] : 0;
+            is_numeric($course_options['course_price'])) ?
+            $course_options['course_price'] : 0;
     $course_closed_url = (isset($course_options['course_closed_url'])) ?
-                        $course_options['course_closed_url'] : '#';
+            $course_options['course_closed_url'] : '#';
     $short_description = (isset($course_options['course_short_description'])) ?
-                        $course_options['course_short_description'] : '';
+            $course_options['course_short_description'] : '';
 }
 
 if (is_numeric($course_price)) {
@@ -60,12 +60,10 @@ $course_id = $post_id;
 
 $categories = array();
 $terms = wp_get_post_terms(
-    $course_id,
-    'eb_course_cat',
-    array(
-        'orderby' => 'name',
-         'order' => 'ASC',
-          'fields' => 'all')
+        $course_id, 'eb_course_cat', array(
+    'orderby' => 'name',
+    'order' => 'ASC',
+    'fields' => 'all')
 );
 
 if (is_array($terms)) {
@@ -74,21 +72,34 @@ if (is_array($terms)) {
         $categories[] = '<a href="'.esc_url($lnk).'" target="_blank">'.$term->name.'</a>';
     }
 }
+
+/**
+ * Check is course has expiry date
+ */
+if (isset($course_options["course_expirey"]) && $course_options["course_expirey"] == "yes") {
+    if (is_user_logged_in() && $has_access) {
+        $expiryDateTime = "<span><strong>".EBEnrollmentManager::accessRemianing($user_id, $post->ID)." ".__(' days access remaining', 'eb-textdomain')."</strong></span>";
+    } else {
+        $expiryDateTime = "<span><strong>".__('Includes  ', 'eb-textdomain')." ".$course_options["num_days_course_access"].__(' days access', 'eb-textdomain')."</strong> </span>";
+    }
+} else {
+    $expiryDateTime = "<span><strong>".__('Includes lifetime access ', 'eb-textdomain')."</strong></span>";
+}
 ?>
 
 <article id="course-<?php the_ID(); ?>" class="type-post hentry single-course" >
     <h1 class="entry-title">
-    <?php
-    if (is_single()) {
-        the_title();
-    } else {
-        ?>
-        <a href="<?php the_permalink();
-        ?>" rel="bookmark"><?php the_title();
-        ?></a>
         <?php
-    }
-    ?>          
+        if (is_single()) {
+            the_title();
+        } else {
+            ?>
+            <a href="<?php the_permalink();
+            ?>" rel="bookmark"><?php the_title();
+            ?></a>
+            <?php
+        }
+        ?>          
     </h1>
     <div>
         <div class="eb-course-img-wrapper">
@@ -110,9 +121,8 @@ if (is_array($terms)) {
                         ?>
                         <div class="<?php echo 'wdm-price'.$course_price_type;
                         ?>">
-                            <strong><?php _e('Price: ', 'eb-textdomain');
-                        ?></strong><?php echo $course_price_formatted;
-                        ?>
+                                 <?php echo "<h3>".$course_price_formatted."</h3>";
+                                 ?>
                         </div>
                         <?php
                         echo ob_get_clean();
@@ -128,32 +138,38 @@ if (is_array($terms)) {
                         <span><strong><?php _e('Categories: ', 'eb-textdomain');
                     ?></strong><?php echo implode(', ', $categories);
                     ?></span>
-                    </div>
+                    </div>					
                     <?php
                 }
+                ?>
+                <div  class="eb-validity-wrapper">
+                    <?php echo $expiryDateTime;
+                    ?>
+                </div>
+                <?php
             }
             ?>
         </div>
     </div>
     <div class="eb-course-desc-wrapper">
-    <?php
-    if (is_search()) {
-        ?>
-        <div class="entry-summary"><?php the_excerpt();
-        ?></div>
         <?php
-    } else {
-        ?>
-        <h2><?php _e('Course Overview', 'eb-textdomain') ?></h2>
-        <?php
-        the_content();
+        if (is_search()) {
+            ?>
+            <div class="entry-summary"><?php the_excerpt();
+            ?></div>
+                <?php
+            } else {
+                ?>
+            <h2><?php _e('Course Overview', 'eb-textdomain') ?></h2>
+            <?php
+            the_content();
 
-        if (!$has_access || !is_user_logged_in()) {
-            echo EBPaymentManager::takeCourseButton($post->ID);
-        } else {
-            echo EBPaymentManager::accessCourseButton($post->ID);
+            if (!$has_access || !is_user_logged_in()) {
+                echo EBPaymentManager::takeCourseButton($post->ID);
+            } else {
+                echo EBPaymentManager::accessCourseButton($post->ID);
+            }
         }
-    }
-    ?>
+        ?>
     </div>
 </article><!-- #post -->

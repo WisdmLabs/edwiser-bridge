@@ -269,6 +269,17 @@ class EBCourseManager
     {
         return get_post_meta($course_id_on_wp, 'moodle_course_id', true);
     }
+    /**
+     * return the moodle id of a course using its wordpress id.
+     *
+     * @param int $course_id_on_wp the id of course synced on wordpress
+     *
+     * @return int returns respective course id on moodle
+     */
+    public function getMoodleWPCourseIdPair($course_id_on_wp)
+    {
+        return array("$course_id_on_wp"=>get_post_meta($course_id_on_wp, 'moodle_course_id', true));
+    }
 
     /**
      * create course on wordpress.

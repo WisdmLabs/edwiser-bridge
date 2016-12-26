@@ -82,6 +82,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
                     <img src="<?php echo EB_PLUGIN_URL;
                     ?>images/no-image.jpg"/>
                     <?php
+
                 }
                 ?>
             </div>
@@ -92,6 +93,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
                     <p class="entry-content"><?php echo $short_description;
     ?></p>
                         <?php
+
 }
                     ?>
                     <?php
