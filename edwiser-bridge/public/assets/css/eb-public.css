@@ -509,3 +509,26 @@ nav.eb-pagination ul li span.current {
 .eb-archive-container{
     display: -webkit-box;
 }
+
+/* @ Edit user profile styling */
+.eb-edit-user-wrapper{
+    padding: 2%;
+}
+
+.eb-error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding: 1%;
+}
+
+.eb-success{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    padding: 1%;
+}
+
+.eb-small{
+    font-size: small;
+}
+
+/* Edit user profile styling @ */

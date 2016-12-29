@@ -581,8 +581,7 @@ class EdwiserBridge
          * update course enrollment table appropriately by deleting records for user being deleted.
          */
         $this->loader->addAction('delete_user', $this->userManager(), 'deleteEnrollmentRecordsOnUserDeletion');
-		
-		$this->loader->addAction("eb_before_single_course", $this->userManager(), "unenrollOnCourseAccessExpire");
+        $this->loader->addAction("eb_before_single_course", $this->userManager(), "unenrollOnCourseAccessExpire");
     }
 
     /**
@@ -719,6 +718,7 @@ class EdwiserBridge
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
 
         $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
+        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'saveAccountDetails'));
     }
 
     /**

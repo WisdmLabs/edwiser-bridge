@@ -110,7 +110,169 @@ class EbShortcodeUserProfile
                 'user' => $user,
                 'user_meta' => $user_meta,
                 'enrolled_courses' => $courses,
+                'template_loader' => $template_loader
             )
         );
+    }
+
+    public static function saveAccountDetails()
+    {
+        if (self::isUpdateUserProfile()) {
+            $user         = new \stdClass();
+            $user->ID     = (int) get_current_user_id();
+            $current_user = get_user_by('id', $user->ID);
+
+            if ($user->ID > 0) {
+                if (isset($_SESSION['eb_msgs_'.$current_user->ID])) {
+                    session_unset($_SESSION['eb_msgs_'.$current_user->ID]);
+                }
+                $posted_data = self::getPostedData();
+                $errors = self::getErrors($posted_data);
+
+                if (count($errors)) {
+                    $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
+                } else {
+                    // Profile updated on Moodle sucessfully.
+                    if (self::updateMoodleProfile($posted_data, $user)) {
+                        self::updateWordPressProfile($posted_data, $user);
+
+                        $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';
+
+                        do_action('eb_save_account_details', $user->ID);
+                    } else {
+                        $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . __('Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'eb-textdomain') . '</p>';
+                    }
+                }
+            }
+        }
+    }
+
+    public static function isUpdateUserProfile()
+    {
+        if ('POST' !== strtoupper($_SERVER[ 'REQUEST_METHOD' ])) {
+            false;
+        }
+
+        if (empty($_POST[ 'action' ]) || 'eb-update-user' !== $_POST[ 'action' ] || empty($_POST['_wpnonce']) || ! wp_verify_nonce($_POST['_wpnonce'], 'eb-update-user')) {
+            false;
+        }
+
+        return true;
+    }
+
+    public static function getPostedData()
+    {
+        $posted_data = array();
+
+        $posted_data['username']     = self::getPostedField('username');
+        $posted_data['first_name']   = self::getPostedField('first_name');
+        $posted_data['last_name']    = self::getPostedField('first_name');
+        $posted_data['nickname']     = self::getPostedField('nickname');
+        $posted_data['email']        = self::getPostedField('email');
+        $posted_data['pass_1']       = self::getPostedField('pass_1', false);
+        $posted_data['description']  = self::getPostedField('description');
+        $posted_data['country']      = self::getPostedField('country');
+        $posted_data['city']         = self::getPostedField('city');
+
+        return $posted_data;
+    }
+
+    public static function getPostedField($fieldname, $sanitize = true)
+    {
+        $val = '';
+        if (isset($_POST[$fieldname]) && !empty($_POST[$fieldname])) {
+            $val = $_POST[$fieldname];
+            if ($sanitize) {
+                $val = sanitize_text_field($_POST[$fieldname]);
+            }
+        }
+
+        return $val;
+    }
+
+    public static function getErrors($posted_data)
+    {
+        $errors = array();
+
+        $required_fields = apply_filters('eb_save_account_details_required_fields', array(
+            'username'   => __('Username', 'eb-textdomain'),
+            'email'      => __('Email Address', 'eb-textdomain'),
+        ));
+
+        foreach ($required_fields as $field_key => $field_name) {
+            if (empty($_POST[ $field_key ])) {
+                $errors[] = sprintf(__('%s is required field.', 'eb-textdomain'), '<strong>' . $field_name . '</strong>');
+            }
+        }
+
+        $email = sanitize_email($posted_data['email']);
+        if (! is_email($email)) {
+            $errors[] = sprintf(__('%s is invalid email.', 'eb-textdomain'), '<strong>' . $email . '</strong>');
+        } elseif (email_exists($email) && $email !== $current_user->user_email) {
+            $errors[] = sprintf(__('%s is already exists.', 'eb-textdomain'), '<strong>' . $email . '</strong>');
+        }
+
+        $username = sanitize_user($posted_data['username']);
+        if (username_exists($username) && $username !== $current_user->user_login) {
+            $errors[] = sprintf(__('%s is already exists.', 'eb-textdomain'), '<strong>' . $username . '</strong>');
+        }
+
+        return $errors;
+    }
+
+    public static function updateMoodleProfile($posted_data, $user)
+    {
+        // Update Moodle profile.
+        $mdl_uid = get_user_meta($user->ID, 'moodle_user_id', true);
+        if (is_numeric($mdl_uid)) {
+            $user_data = array(
+                'id'            => (int)$mdl_uid,
+                // 'username'      => $username,
+                'email'         => $posted_data['email'],
+                'firstname'     => $posted_data['first_name'],
+                'lastname'      => $posted_data['last_name'],
+                'alternatename' => $posted_data['nickname'],
+                'auth'          => 'manual',
+                'city'          => $posted_data['city'],
+                'country'       => $posted_data['country'] ? $posted_data['country'] : '',
+                'description'   => $posted_data['description'],
+            );
+
+            if ($posted_data['pass1']) {
+                $user_data['password'] = $posted_data['pass1'];
+            }
+
+            $user_manager = new EBUserManager('edwiserbridge', EB_VERSION);
+            $response = $user_manager->createMoodleUser($user_data, 1);
+
+            if (isset($response['user_updated']) && $response['user_updated']) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function updateWordPressProfile($posted_data, $user)
+    {
+        // Update WP profile.
+        update_user_meta($user->ID, 'city', $posted_data['city']);
+        update_user_meta($user->ID, 'country', $posted_data['country']);
+
+        $args = array(
+            'ID'            => $user->ID,
+            // 'user_login'    => $username,
+            'user_email'    => $posted_data['email'],
+            'first_name'    => $posted_data['first_name'],
+            'last_name'     => $posted_data['last_name'],
+            'nicename'      => $posted_data['nickname'],
+            'description'   => $posted_data['description']
+        );
+
+        if ($posted_data['pass1']) {
+            $args['user_pass'] = $posted_data['pass1'];
+        }
+
+        wp_update_user($args);
     }
 }

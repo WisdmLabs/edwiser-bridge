@@ -112,6 +112,13 @@ class EbPublic
             $this->version,
             false
         );
+        wp_register_script(
+            $this->plugin_name . '-edit-user-profile',
+            EB_PLUGIN_URL . 'public/assets/js/edit-user-profile.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
         wp_enqueue_script(
             $this->plugin_name."-ui-block",
             EB_PLUGIN_URL . 'public/assets/js/jquery-blockui-min.js',

@@ -1,8 +1,22 @@
 <div class="eb-user-profile" >
 
-	<section class="eb-user-info">
-		<aside class="eb-user-picture">
-			<?php echo $user_avatar; ?>
+<?php
+if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
+    $template_loader->wpGetTemplate(
+        'account/edit-user-profile.php',
+        array(
+            'user_avatar' => $user_avatar,
+            'user' => $user,
+            'user_meta' => $user_meta,
+            'enrolled_courses' => $enrolled_courses,
+            'template_loader' => $template_loader
+        )
+    );
+} else {
+    ?>
+    <section class="eb-user-info">
+        <aside class="eb-user-picture">
+            <?php echo $user_avatar; ?>
         </aside>
         <div class="eb-user-data">
             <?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>'; ?>
@@ -10,10 +24,12 @@
         </div>
 
         <div class="eb-edit-profile" >
-            <a href="<?php echo get_edit_user_link($user->ID); ?>" class="wdm-btn">Edit Profile</a>
+            <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink())); ?>" class="wdm-btn">Edit Profile</a>
         </div>
-
     </section>
+    <?php
+}
+?>
 
     <section class="eb-user-courses">
         <div class="course-heading" ><span>S.No.</span> <span>Enrolled Courses</span></div>
