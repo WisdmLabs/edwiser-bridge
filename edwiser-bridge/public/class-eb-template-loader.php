@@ -17,6 +17,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbTemplateLoader
 {
+
     /**
      * The ID of this plugin.
      *

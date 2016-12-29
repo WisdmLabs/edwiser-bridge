@@ -130,14 +130,20 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 
 =  1.1.3  =
-* Feature - Email template customization for the mail sent to the user from the Edwiser Bridge plugin.
+* Feature - Functionality to set course access expiry days.
+* Feature - Introduced functionality to email template customization for the mail sent to the user from the Edwiser Bridge plugin.
 * Feature - Added the settings to enable login redirection to my courses page.
 * Feature - Send the test email to check the modified email template.
 * Feature - Shortcode `eb_courses` to list courses.
 * Feature - Shortcode `eb_my_courses` to list specific user's courses.
-* Feature - Right sidebar compatibility on archive and single course page.
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
+* Tweak - Added page(My Courses) to display the users enrolled courses.
+* Tweak - Redirect user to my courses page on login.
+* Tweak - Notification on unenrollment from the course.
+* Tweak - Archive course page layout improvement.
 * Tweak - Single course page layout improvement.
+* Tweak - Redirect non logged in user to the `Access course`/`Checkout` page on click of the `Take this Course` after login.
+* Fix - Changed Credentials spelling.
 * Fix - Undefined index: HTTP_REFFER.
 * Fix - Permalink issue.
 * Fix - Call to undefined class EBPaymentManager.

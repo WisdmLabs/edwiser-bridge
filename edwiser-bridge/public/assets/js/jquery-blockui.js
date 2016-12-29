@@ -55,32 +55,40 @@
             var callBlock = function (opts) {
                 opts = opts || {};
 
-                $.blockUI({
-                    message: $m,
-                    fadeIn: typeof opts.fadeIn !== 'undefined' ? opts.fadeIn : 700,
-                    fadeOut: typeof opts.fadeOut !== 'undefined' ? opts.fadeOut : 1000,
-                    timeout: typeof opts.timeout !== 'undefined' ? opts.timeout : timeout,
-                    centerY: false,
-                    showOverlay: false,
-                    onUnblock: onClose,
-                    css: $.blockUI.defaults.growlCSS
-                });
+                $.blockUI(
+                    {
+                        message: $m,
+                        fadeIn: typeof opts.fadeIn !== 'undefined' ? opts.fadeIn : 700,
+                        fadeOut: typeof opts.fadeOut !== 'undefined' ? opts.fadeOut : 1000,
+                        timeout: typeof opts.timeout !== 'undefined' ? opts.timeout : timeout,
+                        centerY: false,
+                        showOverlay: false,
+                        onUnblock: onClose,
+                        css: $.blockUI.defaults.growlCSS
+                    }
+                );
             };
 
             callBlock();
             var nonmousedOpacity = $m.css('opacity');
-            $m.mouseover(function () {
-                callBlock({
-                    fadeIn: 0,
-                    timeout: 30000
-                });
+            $m.mouseover(
+                function () {
+                    callBlock(
+                        {
+                            fadeIn: 0,
+                            timeout: 30000
+                        }
+                    );
 
-                var displayBlock = $('.blockMsg');
-                displayBlock.stop(); // cancel fadeout if it has started
-                displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
-            }).mouseout(function () {
-                $('.blockMsg').fadeOut(1000);
-            });
+                    var displayBlock = $('.blockMsg');
+                    displayBlock.stop(); // cancel fadeout if it has started
+                    displayBlock.fadeTo(300, 1); // make it easier to read the message by removing transparency
+                }
+            ).mouseout(
+                function () {
+                        $('.blockMsg').fadeOut(1000);
+                }
+            );
             // End konapun additions
         };
 
@@ -91,22 +99,26 @@
                 return this;
             }
             var fullOpts = $.extend({}, $.blockUI.defaults, opts || {});
-            this.each(function () {
-                var $el = $(this);
-                if (fullOpts.ignoreIfBlocked && $el.data('blockUI.isBlocked')) {
-                    return;
+            this.each(
+                function () {
+                    var $el = $(this);
+                    if (fullOpts.ignoreIfBlocked && $el.data('blockUI.isBlocked')) {
+                        return;
+                    }
+                    $el.unblock({fadeOut: 0});
                 }
-                $el.unblock({fadeOut: 0});
-            });
+            );
 
-            return this.each(function () {
-                if ($.css(this, 'position') == 'static') {
-                    this.style.position = 'relative';
-                    $(this).data('blockUI.static', true);
+            return this.each(
+                function () {
+                    if ($.css(this, 'position') == 'static') {
+                        this.style.position = 'relative';
+                        $(this).data('blockUI.static', true);
+                    }
+                    this.style.zoom = 1; // force 'hasLayout' in ie
+                    install(this, opts);
                 }
-                this.style.zoom = 1; // force 'hasLayout' in ie
-                install(this, opts);
-            });
+            );
         };
 
         // plugin method for unblocking element content
@@ -115,9 +127,11 @@
                 $.unblockUI(opts);
                 return this;
             }
-            return this.each(function () {
-                remove(this, opts);
-            });
+            return this.each(
+                function () {
+                    remove(this, opts);
+                }
+            );
         };
 
         $.blockUI.version = 2.70; // 2nd generation blocking at no extra cost!
@@ -258,7 +272,8 @@
 
             // remove the current block (if there is one)
             if (full && pageBlock) {
-                remove(window, fadeOut: 0});
+                remove(window, {fadeOut: 0});
+            }
 
             // if an existing element is being used as the blocking content then we capture
             // its current place in the DOM (and current display style) so we can restore
@@ -340,15 +355,19 @@
 
             //$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
             var layers = [lyr1, lyr2, lyr3], $par = full ? $('body') : $(el);
-            $.each(layers, function () {
-                this.appendTo($par);
-            });
+            $.each(
+                layers, function () {
+                    this.appendTo($par);
+                }
+            );
 
             if (opts.theme && opts.draggable && $.fn.draggable) {
-                lyr3.draggable({
-                    handle: '.ui-dialog-titlebar',
-                    cancel: 'li'
-                });
+                lyr3.draggable(
+                    {
+                        handle: '.ui-dialog-titlebar',
+                        cancel: 'li'
+                    }
+                );
             }
 
             // ie7 must use absolute positioning in quirks mode and to account for activex issues (when scrolling)
@@ -367,37 +386,39 @@
                 }
 
                 // simulate fixed position
-                $.each(layers, function (i, o) {
-                    var s = o[0].style;
-                    s.position = 'absolute';
-                    if (i < 2) {
-                        if (full) {
-                            s.setExpression('height', 'Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:' + opts.quirksmodeOffsetHack + ') + "px"');
-                        } else {
-                            s.setExpression('height', 'this.parentNode.offsetHeight + "px"');
+                $.each(
+                    layers, function (i, o) {
+                        var s = o[0].style;
+                        s.position = 'absolute';
+                        if (i < 2) {
+                            if (full) {
+                                s.setExpression('height', 'Math.max(document.body.scrollHeight, document.body.offsetHeight) - (jQuery.support.boxModel?0:' + opts.quirksmodeOffsetHack + ') + "px"');
+                            } else {
+                                s.setExpression('height', 'this.parentNode.offsetHeight + "px"');
+                            }
+                            if (full) {
+                                s.setExpression('width', 'jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
+                            } else {
+                                s.setExpression('width', 'this.parentNode.offsetWidth + "px"');
+                            }
+                            if (fixL) {
+                                s.setExpression('left', fixL);
+                            }
+                            if (fixT) {
+                                s.setExpression('top', fixT);
+                            }
+                        } else if (opts.centerY) {
+                            if (full) {
+                                s.setExpression('top', '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
+                            }
+                            s.marginTop = 0;
+                        } else if (!opts.centerY && full) {
+                            var top = (opts.css && opts.css.top) ? parseInt(opts.css.top, 10) : 0;
+                            var expression = '((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + ' + top + ') + "px"';
+                            s.setExpression('top', expression);
                         }
-                        if (full) {
-                            s.setExpression('width', 'jQuery.support.boxModel && document.documentElement.clientWidth || document.body.clientWidth + "px"');
-                        } else {
-                            s.setExpression('width', 'this.parentNode.offsetWidth + "px"');
-                        }
-                        if (fixL) {
-                            s.setExpression('left', fixL);
-                        }
-                        if (fixT) {
-                            s.setExpression('top', fixT);
-                        }
-                    } else if (opts.centerY) {
-                        if (full) {
-                            s.setExpression('top', '(document.documentElement.clientHeight || document.body.clientHeight) / 2 - (this.offsetHeight / 2) + (blah = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + "px"');
-                        }
-                        s.marginTop = 0;
-                    } else if (!opts.centerY && full) {
-                        var top = (opts.css && opts.css.top) ? parseInt(opts.css.top, 10) : 0;
-                        var expression = '((document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop) + ' + top + ') + "px"';
-                        s.setExpression('top', expression);
                     }
-                });
+                );
             }
 
             // show the message
@@ -452,13 +473,15 @@
 
             if (opts.timeout) {
                 // auto-unblock
-                var to = setTimeout(function () {
-                    if (full) {
-                        $.unblockUI(opts);
-                    } else {
-                        $(el).unblock(opts);
-                    }
-                }, opts.timeout);
+                var to = setTimeout(
+                    function () {
+                        if (full) {
+                            $.unblockUI(opts);
+                        } else {
+                            $(el).unblock(opts);
+                        }
+                    }, opts.timeout
+                );
                 $(el).data('blockUI.timeout', to);
             }
         }
@@ -506,11 +529,13 @@
 
             if (opts.fadeOut) {
                 count = els.length;
-                els.stop().fadeOut(opts.fadeOut, function () {
-                    if (--count === 0) {
-                        reset(els, data, opts, el);
+                els.stop().fadeOut(
+                    opts.fadeOut, function () {
+                        if (--count === 0) {
+                            reset(els, data, opts, el);
+                        }
                     }
-                });
+                );
             } else {
                 reset(els, data, opts, el);
             }
@@ -524,12 +549,14 @@
                 return;
             }
 
-            els.each(function (i, o) {
-                // remove via DOM calls so we don't lose event handlers
-                if (this.parentNode) {
-                    this.parentNode.removeChild(this);
+            els.each(
+                function (i, o) {
+                    // remove via DOM calls so we don't lose event handlers
+                    if (this.parentNode) {
+                        this.parentNode.removeChild(this);
+                    }
                 }
-            });
+            );
 
             if (data && data.el) {
                 data.el.style.display = data.display;
@@ -595,9 +622,11 @@
                     var fwd = !e.shiftKey && e.target === els[els.length - 1];
                     var back = e.shiftKey && e.target === els[0];
                     if (fwd || back) {
-                        setTimeout(function () {
-                            focus(back);
-                        }, 10);
+                        setTimeout(
+                            function () {
+                                focus(back);
+                            }, 10
+                        );
                         return false;
                     }
                 }

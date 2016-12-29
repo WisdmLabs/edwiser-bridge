@@ -37,6 +37,7 @@ class EBAdminEmailTemplate
         $emailList["eb_emailtmpl_create_user"] = "New User Account Details";
         $emailList["eb_emailtmpl_linked_existing_wp_user"] = "Link WP user account to moodle";
         $emailList["eb_emailtmpl_order_completed"] = "Course order complet";
+        $emailList["eb_emailtmpl_course_access_expir"] = "Course access expired";
         return $emailList;
     }
 
@@ -67,9 +68,9 @@ class EBAdminEmailTemplate
                     <form name="manage-email-template" method="POST">
                         <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
                                value="<?php echo $tmplKey; ?>"/>
-                                <?php
-                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                                ?>
+                               <?php
+                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                               ?>
                         <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Email", "eb-textdomain"); ?></td>
@@ -248,9 +249,15 @@ class EBAdminEmailTemplate
         $order["{COURSE_NAME}"] = "The title of the course.";
         $order["{ORDER_ID}"] = "The order id of the purchased order completed.";
 
+        /**
+         * Course unenrollment alert constants
+         */
+        $unenrollment["{WP_COURSE_PAGE_LINK}"] = "The current course page link.";
+
         $constants["General constants"] = $genral;
         $constants["New/ Link user account"] = $account;
         $constants["Order Completion "] = $order;
+        $constants["Course Unenrollment "] = $unenrollment;
         return $constants;
     }
 
@@ -289,9 +296,8 @@ class EBAdminEmailTemplate
             $subject = $this->checkIsEmpty($_POST, "eb_email_subject");
             $tmplContetn = $this->checkIsEmpty($_POST, "eb_emailtmpl_editor");
             $tmplName = $this->checkIsEmpty($_POST, "eb_tmpl_name");
-            $tmplKey = $this->checkIsEmpty($_POST, "eb_tmpl_name");
             $data = array(
-                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
+                "subject" => $subject,
                 "content" => stripslashes($tmplContetn),
             );
             $this->setFromEmail($fromEmail);

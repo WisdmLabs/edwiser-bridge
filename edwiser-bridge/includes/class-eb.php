@@ -763,6 +763,12 @@ class EdwiserBridge
             'sendOrderCompletionEmail',
             10
         ); // email on order status completed
+        $this->loader->addAction(
+            'eb_course_access_expire_alert',
+            $plugin_emailer,
+            'sendCourseAccessExpireEmail',
+            10
+        ); // email on order status completed
     }
 
     /**

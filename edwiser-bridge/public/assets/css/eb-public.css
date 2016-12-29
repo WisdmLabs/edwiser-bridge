@@ -33,7 +33,8 @@
     /*clear: left;*/
 }
 .eb-my-course{
-    display: inline-flex;
+    /*display: inline-flex;*/
+    border-top: 2px solid #333333;
 }
 .sc-eb_courses-wrapper .eb-course-col,
 .eb-my-courses-wrapper .eb-course-col,

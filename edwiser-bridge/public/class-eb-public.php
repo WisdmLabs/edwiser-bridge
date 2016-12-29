@@ -18,6 +18,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbPublic
 {
+
     /**
      * The ID of this plugin.
      *
@@ -68,7 +69,6 @@ class EbPublic
          * between the defined hooks and the functions defined in this
          * class.
          */
-
         wp_enqueue_style(
             $this->plugin_name,
             EB_PLUGIN_URL . 'public/assets/css/eb-public.css',

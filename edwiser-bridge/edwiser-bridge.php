@@ -37,6 +37,7 @@ function activateEdwiserBridge($netWide)
     require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
     EBActivator::activate($netWide);
 }
+
 register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserBridge');
 
 /**
@@ -48,6 +49,7 @@ function deactivateEdwiserBridge()
     require_once plugin_dir_path(__FILE__).'includes/class-eb-deactivator.php';
     EBDeactivator::deactivate();
 }
+
 register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivateEdwiserBridge');
 
 /*
@@ -56,6 +58,7 @@ register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivateEdwi
  * A nes link is added that takes user to plugin settings.
  */
 add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'app\wisdmlabs\edwiserBridge\wdmAddSettingsActionLink');
+
 function wdmAddSettingsActionLink($links)
 {
     $pluginlinks = array(
@@ -70,6 +73,7 @@ function wdmAddSettingsActionLink($links)
  * Show row meta on the plugin screen, custom docs link added.
  */
 add_filter('plugin_row_meta', 'app\wisdmlabs\edwiserBridge\wdmPluginRowMeta', 10, 2);
+
 function wdmPluginRowMeta($links, $file)
 {
     if ($file == plugin_basename(__FILE__)) {
@@ -92,6 +96,7 @@ function wdmPluginRowMeta($links, $file)
  * @since 1.1
  */
 add_action('admin_init', 'app\wisdmlabs\edwiserBridge\wdmShowLegacyExtensions');
+
 function wdmShowLegacyExtensions()
 {
     // prepare extensions array
@@ -139,4 +144,5 @@ function runEdwiserBridge()
 {
     edwiserBridgeInstance()->run();
 }
+
 runEdwiserBridge(); // start plugin execution

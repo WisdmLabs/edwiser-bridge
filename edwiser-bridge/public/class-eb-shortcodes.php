@@ -15,6 +15,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodes
 {
+
     /**
      * Init shortcodes
      */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Primary wrapper starting HTML content.
  */

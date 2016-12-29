@@ -68,6 +68,13 @@ class EBEmailer
         echo $this->getContentHtml('', $this->plugin_template_loader);
     }
 
+    public function sendCourseAccessExpireEmail($args){
+        $emailTmplData= EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
+        if ($emailTmplData) {
+            $emailTmplObj=new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+    }
     /**
      * Sends a new user registration email notification.
      *

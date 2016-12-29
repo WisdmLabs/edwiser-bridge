@@ -63,6 +63,5 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
     }
     ?>
 </div>
-    <?php
-    get_footer();
-    
+<?php
+get_footer();

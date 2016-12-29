@@ -53,8 +53,19 @@ if (!class_exists("EBEmailTmplParser")) {
             $constant["{COURSE_NAME}"] = $this->getCourseName($args);
             $constant["{USER_PASSWORD}"] = $this->getUserPassword($args);
             $constant["{ORDER_ID}"] = $this->getOrderID($args);
+            $constant["{WP_COURSE_PAGE_LINK}"] = $this->getCoursePageLink($args);
             
             return apply_filters("eb_emailtmpl_constants_values", $constant);
+        }
+        
+        private function getCoursePageLink($args){
+            
+            if(isset($args['course_id'])){
+                return "<a href='".get_post_permalink($args['course_id'])."'>click here</a>";
+            }else{
+                $url=  get_site_url();
+                return "<a href='".$url."'>Click here</a>";
+            }
         }
 
         private function getMoodleURL()

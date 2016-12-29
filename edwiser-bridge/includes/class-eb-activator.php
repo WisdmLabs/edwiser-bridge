@@ -10,10 +10,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBActivator
 {
+
     /**
      * networkWide tells if the plugin was activated for the entire network or just for single site.
      * @since    1.1.1
@@ -208,32 +210,31 @@ class EBActivator
         $page_content = getShortcodePageContent();
 
         $pages = apply_filters(
-            'eb_create_default_pages',
-            array(
-                    'thankyou' => array(
-                        'name' => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
-                        'title' => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
-                        'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
-                        'option_key' => '',
-                    ),
-                    'useraccount' => array(
-                        'name' => _x('user-account', 'Page slug', 'eb-textdomain'),
-                        'title' => _x('User Account', 'Page title', 'eb-textdomain'),
-                        'content' => '['.apply_filters('eb_user_account_shortcode_tag', 'eb_user_account').']',
-                        'option_key' => 'eb_useraccount_page_id',
-                    ),
-                    'mycourses' => array(
-                        'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
-                        'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
-                        'content' => $page_content['eb_my_courses'],
-                        'option_key' => '',
-                    ),
-                    'courses' => array(
-                        'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
-                        'title' => _x('Courses', 'Page title', 'eb-textdomain'),
-                        'content' => $page_content['eb_courses'],
-                        'option_key' => '',
-                    ),
+                'eb_create_default_pages', array(
+            'thankyou' => array(
+                'name' => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
+                'title' => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
+                'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
+                'option_key' => '',
+            ),
+            'useraccount' => array(
+                'name' => _x('user-account', 'Page slug', 'eb-textdomain'),
+                'title' => _x('User Account', 'Page title', 'eb-textdomain'),
+                'content' => '['.apply_filters('eb_user_account_shortcode_tag', 'eb_user_account').']',
+                'option_key' => 'eb_useraccount_page_id',
+            ),
+            'mycourses' => array(
+                'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
+                'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
+                'content' => $page_content['eb_my_courses'],
+                'option_key' => '',
+            ),
+            'courses' => array(
+                'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),
+                'title' => _x('Courses', 'Page title', 'eb-textdomain'),
+                'content' => $page_content['eb_courses'],
+                'option_key' => '',
+            ),
                 )
         );
 
@@ -247,8 +248,17 @@ class EBActivator
     {
         include_once 'class-eb-default-email-templates.php';
         $defaultTmpl = new EBDefaultEmailTemplate();
-        add_option("eb_emailtmpl_create_user", $defaultTmpl->newUserAcoount("eb_emailtmpl_create_user"));
-        add_option("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));
-        add_option("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
+        self::updateTemplateData("eb_emailtmpl_create_user", $defaultTmpl->newUserAcoount("eb_emailtmpl_create_user"));
+        self::updateTemplateData("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));
+        self::updateTemplateData("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
+        self::updateTemplateData("eb_emailtmpl_course_access_expir", $defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir"));
     }
+
+    private static function updateTemplateData($key, $value)
+    {
+        if (get_option($key) == false) {
+            update_option($key, $value);
+        }
+    }
+
 }

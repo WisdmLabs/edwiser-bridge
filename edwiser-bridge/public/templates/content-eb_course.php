@@ -41,8 +41,7 @@ if (is_numeric($course_price)) {
 $course_class = null;
 $user_id = get_current_user_id();
 $logged_in = !empty($user_id);
-$has_access =
-app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $post->ID);
+$has_access = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $post->ID);
 
 /*
  * To add class according to user access
@@ -59,7 +58,7 @@ $course_id = $post_id;
 //Shortcode eb_my_courses.
 if (isset($is_eb_my_courses) && $is_eb_my_courses) {
     $mdl_course_id = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager()->getMoodleCourseId(
-        $course_id
+            $course_id
     );
     $course_url = EB_ACCESS_URL.'/course/view.php?id='.$mdl_course_id;
 } else {
@@ -69,7 +68,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
 ?>
 
 <article id="post-<?php the_ID(); ?>"
-            <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?>>
+         <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?>>
     <div class="wdm-course-grid">
 
         <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
@@ -81,20 +80,18 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
                     ?>
                     <img src="<?php echo EB_PLUGIN_URL;
                     ?>images/no-image.jpg"/>
-                    <?php
-
-                }
-                ?>
+                         <?php
+                     }
+                     ?>
             </div>
             <div class="wdm-caption">
                 <h4 class=""><?php the_title(); ?></h4>
                 <?php if (!empty($short_description)) {
-    ?>
+                    ?>
                     <p class="entry-content"><?php echo $short_description;
-    ?></p>
+                    ?></p>
                         <?php
-
-}
+                    }
                     ?>
                     <?php
                     if ($post->post_type == 'eb_course' && !$is_eb_my_courses) {
