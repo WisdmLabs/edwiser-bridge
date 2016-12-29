@@ -127,14 +127,15 @@ class EbShortcodeUserProfile
                     session_unset($_SESSION['eb_msgs_'.$current_user->ID]);
                 }
                 $posted_data = self::getPostedData();
+                error_log(print_r($posted_data, true));
                 $errors = self::getErrors($posted_data);
 
                 if (count($errors)) {
                     $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
                 } else {
                     // Profile updated on Moodle sucessfully.
-                    if (self::updateMoodleProfile($posted_data, $user)) {
-                        self::updateWordPressProfile($posted_data, $user);
+                    if (self::updateMoodleProfile($posted_data)) {
+                        self::updateWordPressProfile($posted_data);
 
                         $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';
 
@@ -150,11 +151,11 @@ class EbShortcodeUserProfile
     public static function isUpdateUserProfile()
     {
         if ('POST' !== strtoupper($_SERVER[ 'REQUEST_METHOD' ])) {
-            false;
+            return false;
         }
 
         if (empty($_POST[ 'action' ]) || 'eb-update-user' !== $_POST[ 'action' ] || empty($_POST['_wpnonce']) || ! wp_verify_nonce($_POST['_wpnonce'], 'eb-update-user')) {
-            false;
+            return false;
         }
 
         return true;
@@ -166,7 +167,7 @@ class EbShortcodeUserProfile
 
         $posted_data['username']     = self::getPostedField('username');
         $posted_data['first_name']   = self::getPostedField('first_name');
-        $posted_data['last_name']    = self::getPostedField('first_name');
+        $posted_data['last_name']    = self::getPostedField('last_name');
         $posted_data['nickname']     = self::getPostedField('nickname');
         $posted_data['email']        = self::getPostedField('email');
         $posted_data['pass_1']       = self::getPostedField('pass_1', false);
@@ -192,6 +193,10 @@ class EbShortcodeUserProfile
 
     public static function getErrors($posted_data)
     {
+        $user         = new \stdClass();
+        $user->ID     = (int) get_current_user_id();
+        $current_user = get_user_by('id', $user->ID);
+
         $errors = array();
 
         $required_fields = apply_filters('eb_save_account_details_required_fields', array(
@@ -200,7 +205,7 @@ class EbShortcodeUserProfile
         ));
 
         foreach ($required_fields as $field_key => $field_name) {
-            if (empty($_POST[ $field_key ])) {
+            if (empty($posted_data[ $field_key ])) {
                 $errors[] = sprintf(__('%s is required field.', 'eb-textdomain'), '<strong>' . $field_name . '</strong>');
             }
         }
@@ -220,8 +225,11 @@ class EbShortcodeUserProfile
         return $errors;
     }
 
-    public static function updateMoodleProfile($posted_data, $user)
+    public static function updateMoodleProfile($posted_data)
     {
+        $user         = new \stdClass();
+        $user->ID     = (int) get_current_user_id();
+
         // Update Moodle profile.
         $mdl_uid = get_user_meta($user->ID, 'moodle_user_id', true);
         if (is_numeric($mdl_uid)) {
@@ -238,7 +246,7 @@ class EbShortcodeUserProfile
                 'description'   => $posted_data['description'],
             );
 
-            if ($posted_data['pass1']) {
+            if (isset($posted_data['pass1']) && ! empty($posted_data['pass1'])) {
                 $user_data['password'] = $posted_data['pass1'];
             }
 
@@ -253,8 +261,11 @@ class EbShortcodeUserProfile
         return false;
     }
 
-    public static function updateWordPressProfile($posted_data, $user)
+    public static function updateWordPressProfile($posted_data)
     {
+        $user         = new \stdClass();
+        $user->ID     = (int) get_current_user_id();
+
         // Update WP profile.
         update_user_meta($user->ID, 'city', $posted_data['city']);
         update_user_meta($user->ID, 'country', $posted_data['country']);
@@ -269,7 +280,7 @@ class EbShortcodeUserProfile
             'description'   => $posted_data['description']
         );
 
-        if ($posted_data['pass1']) {
+        if (isset($posted_data['pass1']) && ! empty($posted_data['pass1'])) {
             $args['user_pass'] = $posted_data['pass1'];
         }
 
