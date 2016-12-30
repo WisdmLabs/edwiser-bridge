@@ -116,7 +116,7 @@ class EBAdminEmailTemplate
                             <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="Enter email address"/>
                             <input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
                             <span class="load-response">
-                                <img src="http://localhost/wpeb/wp-content/plugins/edwiser-bridge/images/loader.gif" height="20" width="20">
+                                <img src="<?php echo site_url() . '/wp-content/plugins/edwiser-bridge/images/loader.gif'; ?>" height="20" width="20">
                             </span>
                             <div class="response-box">
                             </div>
