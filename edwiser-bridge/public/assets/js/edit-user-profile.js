@@ -247,20 +247,21 @@ var isoCountries = [
 ];
 
 
-function wdmShowCountries(countryElementId, stateElementId){
-	// given the id of the <select> tag as function argument, it inserts <option> tags
-	var countryElement = document.getElementById(countryElementId);
-	countryElement.length=0;
-	countryElement.options[0] = new Option('Select Country','0');
-	countryElement.selectedIndex = 0;
-	for (var i=0; i<isoCountries.length; i++) {
-		countryElement.options[countryElement.length] = new Option(isoCountries[i].cname, isoCountries[i].ccode);
-	}
+function wdmShowCountries(countryElementId, stateElementId)
+{
+    // given the id of the <select> tag as function argument, it inserts <option> tags
+    var countryElement = document.getElementById(countryElementId);
+    countryElement.length=0;
+    countryElement.options[0] = new Option('Select Country','0');
+    countryElement.selectedIndex = 0;
+    for (var i=0; i<isoCountries.length; i++) {
+        countryElement.options[countryElement.length] = new Option(isoCountries[i].cname, isoCountries[i].ccode);
+    }
 }
 
 
 //Usage...
-jQuery('#eb-update-profile').ready(function() {
+jQuery('#eb-update-profile').ready(function () {
     if (jQuery('#country').length) {
         wdmShowCountries("country");
 
@@ -269,7 +270,7 @@ jQuery('#eb-update-profile').ready(function() {
     }
 
     // Demo store notice
-    jQuery('input#eb-unmask').change(function() {
+    jQuery('input#eb-unmask').change(function () {
         if ( jQuery(this).is(':checked')) {
             jQuery('#pass_1').get(0).type = 'text';
         } else {

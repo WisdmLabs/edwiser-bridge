@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EBSettingsConnection')) :
+
     /**
      * EBSettingsConnection.
      */
     class EBSettingsConnection extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -79,9 +81,9 @@ if (!class_exists('EBSettingsConnection')) :
                     'title' => __('Connection Settings', 'eb-textdomain'),
                     'type' => 'title',
                     'id' => 'connection_options',
-                ),
+                    ),
 
-                array(
+                    array(
                     'title' => __('Moodle URL', 'eb-textdomain'),
                     'desc' => __(
                         'Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)',
@@ -93,9 +95,9 @@ if (!class_exists('EBSettingsConnection')) :
                     'type' => 'url',
                     'desc_tip' => true,
                     'custom_attributes' => array('required' => 'required'),
-                ),
+                    ),
 
-                array(
+                    array(
                     'title' => __('Moodle Access Token', 'eb-textdomain'),
                     'desc' => __('Moodle access token.', 'eb-textdomain'),
                     'id' => 'eb_access_token',
@@ -104,9 +106,9 @@ if (!class_exists('EBSettingsConnection')) :
                     'type' => 'text',
                     'desc_tip' => true,
                     'custom_attributes' => array('required' => 'required'),
-                ),
+                    ),
 
-                array(
+                    array(
                     'title' => __('', 'eb-textdomain'),
                     'desc' => __('', 'eb-textdomain'),
                     'id' => 'eb_test_connection_button',
@@ -114,14 +116,13 @@ if (!class_exists('EBSettingsConnection')) :
                     'type' => 'button',
                     'desc_tip' => false,
                     'class' => 'button secondary',
-                ),
+                    ),
 
-                array(
+                    array(
                     'type' => 'sectionend',
                     'id' => 'connection_options',
-                ),
-
-                )
+                    ),
+                    )
             );
 
             return apply_filters('eb_get_settings_'.$this->_id, $settings, $current_section);

@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBOrderManager
 {
+
     /**
      * The ID of this plugin.
      *
@@ -161,7 +163,7 @@ class EBOrderManager
             return false;
         }
 
-        $post_options = isset($_POST[ 'eb_order_options' ]) ? $_POST[ 'eb_order_options' ] : array();
+        $post_options = isset($_POST['eb_order_options']) ? $_POST['eb_order_options'] : array();
         if (empty($post_options)) {
             return false;
         }
@@ -249,11 +251,11 @@ class EBOrderManager
 
         $order_id = wp_insert_post(
             array(
-                'post_title' => "Course {$course_title}",
-                'post_type' => 'eb_order',
-                'post_status' => 'publish',
-                'post_author' => 1,
-            )
+                    'post_title' => "Course {$course_title}",
+                    'post_type' => 'eb_order',
+                    'post_status' => 'publish',
+                    'post_author' => 1,
+                )
         );
 
         if (!is_wp_error($order_id)) {
@@ -262,10 +264,10 @@ class EBOrderManager
                 $order_id,
                 'eb_order_options',
                 array(
-                    'order_status' => $order_status,
-                    'buyer_id' => $buyer_id,
-                    'course_id' => $course_id,
-                )
+                'order_status' => $order_status,
+                'buyer_id' => $buyer_id,
+                'course_id' => $course_id,
+                    )
             );
         }
 

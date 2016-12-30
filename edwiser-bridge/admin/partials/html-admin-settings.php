@@ -13,7 +13,7 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
         ?>
         <form method="post" id="mainform" action="" enctype="multipart/form-data">
             <?php
-        }
+    }
         ?>
         <div class="icon32 icon32-eb-settings" id="icon-edw"><br /></div>
         <h2 class="nav-tab-wrapper eb-nav-tab-wrapper">
@@ -38,8 +38,8 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
                 <?php if (!isset($GLOBALS['hide_save_button'])) : ?>
                     <input name="save" class="button-primary" type="submit"
                            value="<?php _e('Save changes', 'eb-textdomain'); ?>" />
-                           <?php endif;
-                       ?>
+                        <?php endif;
+                        ?>
                 <input type="hidden" name="subtab" id="last_tab" />
                 <?php wp_nonce_field('eb-settings'); ?>
             </p>
@@ -49,7 +49,7 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
             ?>
         </form>
         <?php
-    }
+        }
     ?>
 </div>
 <?php

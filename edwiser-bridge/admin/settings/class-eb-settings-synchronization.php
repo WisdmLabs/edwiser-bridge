@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EBSettingsSynchronization')) {
+
     /**
      * EB_Settings_Products.
      */
     class EBSettingsSynchronization extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -47,8 +49,8 @@ if (!class_exists('EBSettingsSynchronization')) {
         public function getSections()
         {
             $sections = array(
-            '' => __('Courses', 'eb-textdomain'),
-            'user_data' => __('Users', 'eb-textdomain'),
+                '' => __('Courses', 'eb-textdomain'),
+                'user_data' => __('Users', 'eb-textdomain'),
             );
 
             return apply_filters('eb_getSections_'.$this->_id, $sections);
@@ -191,6 +193,7 @@ if (!class_exists('EBSettingsSynchronization')) {
             return apply_filters('eb_get_settings_'.$this->_id, $settings, $current_section);
         }
     }
+
 }
 
 return new EBSettingsSynchronization();

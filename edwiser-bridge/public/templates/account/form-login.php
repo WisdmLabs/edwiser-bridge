@@ -93,7 +93,6 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
                     ?></a>
                     </p>
                     <?php
-
                 }
         ?>
 
@@ -103,8 +102,7 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
             </form>
 
         </div>
-    <?php
-
+        <?php
     }
     ?>
 
@@ -189,8 +187,7 @@ $enable_registration = isset($general_settings['eb_enable_registration']) ?
             </form>
 
         </div>
-    <?php
-
+        <?php
 }
     ?>
 </div>

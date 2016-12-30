@@ -12,18 +12,19 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-if (! class_exists('EBSettingsPage')) :
+if (!class_exists('EBSettingsPage')) :
+
     /**
      * EBSettingsPage
      */
     abstract class EBSettingsPage
     {
-        protected $_id    = '';
+
+        protected $_id = '';
         protected $label = '';
 
         /**
@@ -31,10 +32,10 @@ if (! class_exists('EBSettingsPage')) :
          */
         public function __construct()
         {
-            add_filter('eb_settings_tabs_array', array( $this, 'addSettingsPage' ), 20);
-            add_action('eb_sections_' . $this->_id, array( $this, 'outputSections' ));
-            add_action('eb_settings_' . $this->_id, array( $this, 'output' ));
-            add_action('eb_settings_save_' . $this->_id, array( $this, 'save' ));
+            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_action('eb_sections_'.$this->_id, array($this, 'outputSections'));
+            add_action('eb_settings_'.$this->_id, array($this, 'output'));
+            add_action('eb_settings_save_'.$this->_id, array($this, 'save'));
         }
 
         /**
@@ -44,7 +45,7 @@ if (! class_exists('EBSettingsPage')) :
          */
         public function addSettingsPage($pages)
         {
-            $pages[ $this->_id ] = $this->label;
+            $pages[$this->_id] = $this->label;
 
             return $pages;
         }
@@ -57,7 +58,7 @@ if (! class_exists('EBSettingsPage')) :
          */
         public function getSettings()
         {
-            return apply_filters('eb_getSettings_' . $this->_id, array());
+            return apply_filters('eb_getSettings_'.$this->_id, array());
         }
 
         /**
@@ -68,7 +69,7 @@ if (! class_exists('EBSettingsPage')) :
          */
         public function getSections()
         {
-            return apply_filters('eb_getSections_' . $this->_id, array());
+            return apply_filters('eb_getSections_'.$this->_id, array());
         }
 
         /**
@@ -92,11 +93,11 @@ if (! class_exists('EBSettingsPage')) :
 
             foreach ($sections as $id => $label) {
                 echo '<li>';
-                echo '<a href="' .
-                    admin_url(
-                        'admin.php?page=eb-settings&tab=' . $this->_id . '&section=' . sanitize_title($id)
-                    ) . '" class="' . ($current_section == $id ? 'current' : '') . '">' . $label . '</a> ';
-                echo (end($array_keys) == $id ? '' : '|') . ' </li>';
+                echo '<a href="'.
+                admin_url(
+                    'admin.php?page=eb-settings&tab='.$this->_id.'&section='.sanitize_title($id)
+                ).'" class="'.($current_section == $id ? 'current' : '').'">'.$label.'</a> ';
+                echo (end($array_keys) == $id ? '' : '|').' </li>';
             }
 
             echo '</ul><br class="clear" />';
@@ -127,9 +128,13 @@ if (! class_exists('EBSettingsPage')) :
             EbAdminSettings::saveFields($settings);
 
             if ($current_section) {
-                do_action('eb_update_options_' . $this->_id . '_' . $current_section);
+                do_action('eb_update_options_'.$this->_id.'_'.$current_section);
             }
         }
     }
+
+    
+
+    
 
 endif;

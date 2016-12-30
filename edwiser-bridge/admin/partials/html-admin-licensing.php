@@ -35,31 +35,31 @@ if (!empty($licensing_info)) {
 
                         <div class="eb_table_cell_1">
                             <?php echo $single['plugin_name'];
-                            ?>
+                ?>
                         </div>
 
                         <div class="eb_table_cell_2">
                             <?php echo $single['license_key'];
-                            ?>
+                ?>
                         </div>
 
                         <div class="eb_table_cell_3">
                             <?php echo $single['license_status'];
-                            ?>
+                ?>
                         </div>
 
                         <div class="eb_table_cell_4">
                             <?php echo $single['activate_license'];
-                            ?>
+                ?>
                         </div>
 
                     </div>
                     <?php wp_nonce_field('eb-settings');
-                    ?>
+                ?>
                 </form>
                 <?php
             }
-            ?>
+    ?>
         </div>
     </div>
     <?php

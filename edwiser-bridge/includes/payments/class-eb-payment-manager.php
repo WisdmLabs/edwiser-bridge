@@ -107,18 +107,18 @@ class EBPaymentManager
         if ($moodle_course_id == '') {
             return;
         } else {
-            $access_course_url = EB_ACCESS_URL . '/course/view.php?id=' . $moodle_course_id;
+            $access_course_url = EB_ACCESS_URL.'/course/view.php?id='.$moodle_course_id;
         }
 
         if (empty($access_course_url)) {
             $access_button = '';
         } else {
             if (!strpos($access_course_url, '://')) {
-                $access_course_url = 'http://' . $access_course_url;
+                $access_course_url = 'http://'.$access_course_url;
             }
             $access_button = '<div class="eb_join_button">
-            <a class="wdm-btn" href="' . $access_course_url . '" id="wdm-btn">' .
-                    __('Access Course', 'eb-textdomain') . '</a></div>';
+            <a class="wdm-btn" href="'.$access_course_url.'" id="wdm-btn">'.
+                    __('Access Course', 'eb-textdomain').'</a></div>';
         }
         $access_params = array('access_course_url' => $access_course_url,
             'post' => $course,);
@@ -267,21 +267,21 @@ class EBPaymentManager
             $closed_button = '';
             if (!empty($closed_button_url)) {
                 if (!strpos($closed_button_url, '://')) {
-                    $closed_button_url = 'http://' . $closed_button_url;
+                    $closed_button_url = 'http://'.$closed_button_url;
                 }
                 $closed_button = '<div class="eb_join_button">
-                <a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
-                        __('Take this Course', 'eb-textdomain') . '</a></div>';
+                <a class="wdm-btn" href="'.$closed_button_url.'" id="wdm-btn">'.
+                        __('Take this Course', 'eb-textdomain').'</a></div>';
             }
             $closed_params = array('closed_button_url' => $closed_button_url, 'post' => $course);
             $closed_button = apply_filters('eb_course_closed_button', $closed_button, $closed_params);
 
             return $closed_button;
         } elseif (!is_user_logged_in()) {
-            $login_url = wdmUserAccountUrl('?redirect_to=' . get_permalink($course_id) . "&is_enroll=true");
+            $login_url = wdmUserAccountUrl('?redirect_to='.get_permalink($course_id)."&is_enroll=true");
             $login_button = '<div class="eb_join_button">
-            <a class="wdm-btn" href="' . $login_url . '" id="wdm-btn">' .
-                    __('Take this Course', 'eb-textdomain') . '</a></div>';
+            <a class="wdm-btn" href="'.$login_url.'" id="wdm-btn">'.
+                    __('Take this Course', 'eb-textdomain').'</a></div>';
 
             return apply_filters('eb_course_login_button', $login_button, $login_url);
         }
@@ -302,11 +302,11 @@ class EBPaymentManager
                     $closed_button = '';
                 } else {
                     if (!strpos($closed_button_url, '://')) {
-                        $closed_button_url = 'http://' . $closed_button_url;
+                        $closed_button_url = 'http://'.$closed_button_url;
                     }
                     $closed_button = '<div class="eb_join_button">
-                    <a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
-                            __('Take this Course', 'eb-textdomain') . '</a></div>';
+                    <a class="wdm-btn" href="'.$closed_button_url.'" id="wdm-btn">'.
+                            __('Take this Course', 'eb-textdomain').'</a></div>';
                 }
                 $closed_params = array('closed_button_url' => $closed_button_url, 'post' => $course);
                 $closed_button = apply_filters('eb_course_closed_button', $closed_button, $closed_params);
@@ -314,9 +314,9 @@ class EBPaymentManager
                 return $closed_button;
             } elseif ($course_price_type == 'free' || ($course_price_type == 'paid' && empty($course_price))) { //free course button
                 $free_button = '<div class="eb_join_button"><form method="post">
-                                <input type="hidden" value="' . $course->ID . '" name="course_id">
+                                <input type="hidden" value="'.$course->ID.'" name="course_id">
                                 <input type="submit"
-                                value="' . __('Take this Course', 'eb-textdomain') . '"
+                                value="'.__('Take this Course', 'eb-textdomain').'"
                                 name="course_join" class="wdm-btn" id="wdm-btn">
                             </form></div>';
 
@@ -340,8 +340,8 @@ class EBPaymentManager
                             returnurl='{$paypal_returnurl}'
                             scriptcode='scriptcode' imagewidth='100px'
                             pagestyle='paypal' lc='{$paypal_country}'
-                            cbt='" . __('Complete Your Purchase', 'eb-textdomain') .
-                                    "' custom='" . $user_id . "']"
+                            cbt='".__('Complete Your Purchase', 'eb-textdomain').
+                                    "' custom='".$user_id."']"
                         )
                     );
                     $payment_params = array('price' => $course_price,
@@ -350,7 +350,7 @@ class EBPaymentManager
                     $payment_buttons = apply_filters('eb_course_payment_button', $paypal_button, $payment_params);
 
                     if (!empty($payment_buttons)) {
-                        return '<div class="eb_join_button">' . $payment_buttons . '</div>';
+                        return '<div class="eb_join_button">'.$payment_buttons.'</div>';
                     }
                 } else {
                     $not_purchasable = apply_filters(
@@ -358,7 +358,7 @@ class EBPaymentManager
                         __('Course Not Available', 'eb-textdomain')
                     );
 
-                    return '<div class="eb_join_button course-not-available"><p>' . $not_purchasable . '</p></div>';
+                    return '<div class="eb_join_button course-not-available"><p>'.$not_purchasable.'</p></div>';
                 }
             }
         } else {
@@ -367,7 +367,7 @@ class EBPaymentManager
                 __('Course Not Available', 'eb-textdomain')
             );
 
-            return '<div class="eb_join_button course-not-available"><p>' . $not_purchasable . '</p></div>';
+            return '<div class="eb_join_button course-not-available"><p>'.$not_purchasable.'</p></div>';
         }
     }
 

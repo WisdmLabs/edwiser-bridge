@@ -14,10 +14,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EdwiserBridge
 {
+
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
@@ -119,6 +121,7 @@ class EdwiserBridge
             define($key, $value);
         }
     }
+
     /**
      * Setup plugin constants.
      *
@@ -275,13 +278,13 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'includes/eb-core-functions.php';
         require_once EB_PLUGIN_DIR.'includes/eb-formatting-functions.php';
 
-         // To handle addition of new blog (for multisite installations)
+        // To handle addition of new blog (for multisite installations)
 
-         require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
-         
-         //To handel the email template modification
-         require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
-         require_once EB_PLUGIN_DIR.'includes/class-eb-email-template-parser.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
+
+        //To handel the email template modification
+        require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-email-template-parser.php';
 
 
         $this->loader = new EBLoader();
@@ -468,16 +471,16 @@ class EdwiserBridge
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
 
         /*
-		 * Handling custom button events on settings page
-		 * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
-		 * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
-		 */
+         * Handling custom button events on settings page
+         * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
+         * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
+         */
         $admin_settings_init = new EBSettingsAjaxInitiater($this->getPluginName(), $this->getVersion());
-        
+
         /**
          * Email template editor ajax start
          */
-        $emailTmplEditor=new EBAdminEmailTemplate();
+        $emailTmplEditor = new EBAdminEmailTemplate();
 
         $this->loader->addAction(
             'wp_ajax_wdm_eb_get_email_template',
@@ -581,6 +584,7 @@ class EdwiserBridge
          * update course enrollment table appropriately by deleting records for user being deleted.
          */
         $this->loader->addAction('delete_user', $this->userManager(), 'deleteEnrollmentRecordsOnUserDeletion');
+
         $this->loader->addAction("eb_before_single_course", $this->userManager(), "unenrollOnCourseAccessExpire");
     }
 

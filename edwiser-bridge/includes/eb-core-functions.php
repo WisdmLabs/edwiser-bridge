@@ -126,24 +126,24 @@ function wdmShowNotices()
 }
 
 /*
-//Old wdmUserAccountUrl() removed because of permalink issue.
-function wdmUserAccountUrl($arg = '')
-{
-    $eb_general_settings = get_option('eb_general');
-    $user_account_page_id = '';
-    if (isset($eb_general_settings['eb_useraccount_page_id'])) {
-        $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
-    }
+  //Old wdmUserAccountUrl() removed because of permalink issue.
+  function wdmUserAccountUrl($arg = '')
+  {
+  $eb_general_settings = get_option('eb_general');
+  $user_account_page_id = '';
+  if (isset($eb_general_settings['eb_useraccount_page_id'])) {
+  $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
+  }
 
-    if (!is_numeric($user_account_page_id)) {
-        $link = site_url('/user-account').$arg;
-    } else {
-        $link = get_permalink($user_account_page_id).$arg;
-    }
+  if (!is_numeric($user_account_page_id)) {
+  $link = site_url('/user-account').$arg;
+  } else {
+  $link = get_permalink($user_account_page_id).$arg;
+  }
 
-    return $link;
-}
-*/
+  return $link;
+  }
+ */
 
 /**
  * Remodified wdmUserAccountUrl() to return user account url.
@@ -175,8 +175,10 @@ function wdmUserAccountUrl($query_str = '')
 
 /**
  * Provides the functionality to calculate the user login redirect url.
- * @return URL Returns the my courses page url if the flag is true otherwise 
- * returns the default $usr_ac_page_url.
+ *
+ * @return URL Returns the my courses page url if the flag is true otherwise
+ *             returns the default $usr_ac_page_url.
+ *
  * @since 1.1.3
  */
 function wdmEBUserRedirectUrl($queryStr = '')
@@ -215,6 +217,7 @@ function wdmEBUserRedirectUrl($queryStr = '')
 
     return $usrAcPageUrl;
 }
+
 // used as a callback for usort() to sort a numeric array
 function usortNumericCallback($element1, $element2)
 {

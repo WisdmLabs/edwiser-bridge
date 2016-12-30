@@ -63,7 +63,7 @@ function wdmAddSettingsActionLink($links)
 {
     $pluginlinks = array(
         '<a href="'.admin_url('/admin.php?page=eb-settings').'">Settings</a>',
-        //'<a href="https://edwiser.org/bridge/documentation/" target="_blank">Documentation</a>',
+            //'<a href="https://edwiser.org/bridge/documentation/" target="_blank">Documentation</a>',
     );
 
     return array_merge($links, $pluginlinks);
@@ -80,8 +80,8 @@ function wdmPluginRowMeta($links, $file)
         $row_meta = array(
             'docs' => '<a href="https://edwiser.org/bridge/documentation/" target="_blank"
                         title="'.esc_attr(__('Edwiser Bridge Documentation', 'eb-textdomain')).'">'.
-                        __('Documentation', 'eb-textdomain').
-                        '</a>',
+            __('Documentation', 'eb-textdomain').
+            '</a>',
         );
 
         return array_merge($links, $row_meta);
@@ -101,9 +101,9 @@ function wdmShowLegacyExtensions()
 {
     // prepare extensions array
     $extensions = array(
-            'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
-            'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
-            'single_signon' => array('edwiser-bridge-sso/sso.php', '1.0.0'),
+        'selective_sync' => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
+        'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
+        'single_signon' => array('edwiser-bridge-sso/sso.php', '1.0.0'),
     );
 
     // legacy extensions

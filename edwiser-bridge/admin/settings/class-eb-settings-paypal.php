@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EbSettingsPayPal')) :
+
     /**
      * EbSettingsPayPal.
      */
     class EbSettingsPayPal extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -75,111 +77,102 @@ if (!class_exists('EbSettingsPayPal')) :
             $settings = apply_filters(
                 'eb_paypal_settings',
                 array(
-                    array(
-                        'title' => __('PayPal Settings', 'eb-textdomain'),
-                        'type' => 'title',
-                        'id' => 'paypal_options',
+                array(
+                    'title' => __('PayPal Settings', 'eb-textdomain'),
+                    'type' => 'title',
+                    'id' => 'paypal_options',
                     ),
-
                     array(
-                        'title' => __('PayPal Email', 'eb-textdomain'),
-                        'desc' => __('Enter your PayPal email here.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_email',
-                        'css' => 'min-width:350px;',
-                        'default' => '',
-                        'type' => 'email',
-                        'desc_tip' => true,
-                        'custom_attributes' => array('required' => 'required'),
+                    'title' => __('PayPal Email', 'eb-textdomain'),
+                    'desc' => __('Enter your PayPal email here.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_email',
+                    'css' => 'min-width:350px;',
+                    'default' => '',
+                    'type' => 'email',
+                    'desc_tip' => true,
+                    'custom_attributes' => array('required' => 'required'),
                     ),
-
                     array(
-                        'title' => __('PayPal Currency', 'eb-textdomain'),
-                        'desc' => __('Select transaction currency code, Default is USD.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_currency',
-                        'css' => 'min-width:350px;',
-                        'default' => '',
-                        'type' => 'select',
-                        'desc_tip' => true,
-                        'options' => array(
-                                        'USD' => __('U.S. Dollar (USD)', 'eb-textdomain'),
-                                        'CAD' => __('Canadian Dollar (CAD)', 'Wp-moodle'),
-                                        'NZD' => __('New Zealand Dollar (NZD)', 'Wp-moodle'),
-                                        'HKD' => __('Hong Kong Dollar (HKD)', 'Wp-moodle'),
-                                        'EUR' => __('Euro (EUR)', 'Wp-moodle'),
-                                        'JPY' => __('Japanese Yen (JPY)', 'Wp-moodle'),
-                                        'MXN' => __('Mexican Peso (MXN)', 'Wp-moodle'),
-                                        'CHF' => __('Swiss Franc (CHF)', 'Wp-moodle'),
-                                        'GBP' => __('Pound Sterling (GBP)', 'Wp-moodle'),
-                                        'AUD' => __('Australian Dollar (AUD)', 'Wp-moodle'),
-                                        'PLN' => __('Polish Zloty (PLN)', 'Wp-moodle'),
-                                        'DKK' => __('Danish Krone (DKK)', 'Wp-moodle'),
-                                        'SGD' => __('Singapore Dollar (SGD)', 'Wp-moodle'),
-                                    ),
+                    'title' => __('PayPal Currency', 'eb-textdomain'),
+                    'desc' => __('Select transaction currency code, Default is USD.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_currency',
+                    'css' => 'min-width:350px;',
+                    'default' => '',
+                    'type' => 'select',
+                    'desc_tip' => true,
+                    'options' => array(
+                        'USD' => __('U.S. Dollar (USD)', 'eb-textdomain'),
+                        'CAD' => __('Canadian Dollar (CAD)', 'Wp-moodle'),
+                        'NZD' => __('New Zealand Dollar (NZD)', 'Wp-moodle'),
+                        'HKD' => __('Hong Kong Dollar (HKD)', 'Wp-moodle'),
+                        'EUR' => __('Euro (EUR)', 'Wp-moodle'),
+                        'JPY' => __('Japanese Yen (JPY)', 'Wp-moodle'),
+                        'MXN' => __('Mexican Peso (MXN)', 'Wp-moodle'),
+                        'CHF' => __('Swiss Franc (CHF)', 'Wp-moodle'),
+                        'GBP' => __('Pound Sterling (GBP)', 'Wp-moodle'),
+                        'AUD' => __('Australian Dollar (AUD)', 'Wp-moodle'),
+                        'PLN' => __('Polish Zloty (PLN)', 'Wp-moodle'),
+                        'DKK' => __('Danish Krone (DKK)', 'Wp-moodle'),
+                        'SGD' => __('Singapore Dollar (SGD)', 'Wp-moodle'),
                     ),
-
+                    ),
                     array(
-                        'title' => __('PayPal Country', 'eb-textdomain'),
-                        'desc' => __('Enter your country code here.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_country_code',
-                        'css' => 'min-width:350px;',
-                        'default' => 'US',
-                        'type' => 'text',
-                        'desc_tip' => true,
-                        'custom_attributes' => array('required' => 'required'),
+                    'title' => __('PayPal Country', 'eb-textdomain'),
+                    'desc' => __('Enter your country code here.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_country_code',
+                    'css' => 'min-width:350px;',
+                    'default' => 'US',
+                    'type' => 'text',
+                    'desc_tip' => true,
+                    'custom_attributes' => array('required' => 'required'),
                     ),
-
                     array(
-                        'title' => __('PayPal Cancel URL', 'eb-textdomain'),
-                        'desc' => __('Enter the URL used for purchase cancellations.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_cancel_url',
-                        'css' => 'min-width:350px;',
-                        'default' => site_url(),
-                        'type' => 'url',
-                        'desc_tip' => true,
-                        'custom_attributes' => array('required' => 'required'),
+                    'title' => __('PayPal Cancel URL', 'eb-textdomain'),
+                    'desc' => __('Enter the URL used for purchase cancellations.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_cancel_url',
+                    'css' => 'min-width:350px;',
+                    'default' => site_url(),
+                    'type' => 'url',
+                    'desc_tip' => true,
+                    'custom_attributes' => array('required' => 'required'),
                     ),
-
                     array(
-                        'title' => __('PayPal Return URL', 'eb-textdomain'),
-                        'desc' => __(
-                            'Enter the URL used for completed purchases (a thank you page).',
-                            'eb-textdomain'
-                        ),
-                        'id' => 'eb_paypal_return_url',
-                        'css' => 'min-width:350px;',
-                        'default' => site_url('/thank-you-for-purchase/ '),
-                        'type' => 'url',
-                        'desc_tip' => true,
-                        'custom_attributes' => array('required' => 'required'),
+                    'title' => __('PayPal Return URL', 'eb-textdomain'),
+                    'desc' => __(
+                        'Enter the URL used for completed purchases (a thank you page).',
+                        'eb-textdomain'
                     ),
-
+                    'id' => 'eb_paypal_return_url',
+                    'css' => 'min-width:350px;',
+                    'default' => site_url('/thank-you-for-purchase/ '),
+                    'type' => 'url',
+                    'desc_tip' => true,
+                    'custom_attributes' => array('required' => 'required'),
+                    ),
                     array(
-                        'title' => __('PayPal Notify URL', 'eb-textdomain'),
-                        'desc' => __('Enter the URL used for IPN notifications.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_notify_url',
-                        'css' => 'min-width:350px;',
-                        'default' => site_url('/eb/paypal-notify'),
-                        'type' => 'url',
-                        'desc_tip' => true,
-                        'custom_attributes' => array('readonly' => 'readonly'),
+                    'title' => __('PayPal Notify URL', 'eb-textdomain'),
+                    'desc' => __('Enter the URL used for IPN notifications.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_notify_url',
+                    'css' => 'min-width:350px;',
+                    'default' => site_url('/eb/paypal-notify'),
+                    'type' => 'url',
+                    'desc_tip' => true,
+                    'custom_attributes' => array('readonly' => 'readonly'),
                     ),
-
                     array(
-                        'title' => __('Use PayPal Sandbox', 'eb-textdomain'),
-                        'desc' => __('Check to enable the PayPal sandbox.', 'eb-textdomain'),
-                        'id' => 'eb_paypal_sandbox',
-                        'default' => 'no',
-                        'type' => 'checkbox',
-                        'show_if_checked' => 'option',
-                        'autoload' => false,
+                    'title' => __('Use PayPal Sandbox', 'eb-textdomain'),
+                    'desc' => __('Check to enable the PayPal sandbox.', 'eb-textdomain'),
+                    'id' => 'eb_paypal_sandbox',
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'show_if_checked' => 'option',
+                    'autoload' => false,
                     ),
-
                     array(
-                        'type' => 'sectionend',
-                        'id' => 'paypal_options',
+                    'type' => 'sectionend',
+                    'id' => 'paypal_options',
                     ),
-
-                )
+                    )
             );
             //}
 

@@ -14,9 +14,11 @@ if (!defined('ABSPATH')) {
 <p>
     <?php
     printf(
-            __(
-                    'Thanks for purchasing %s course.', 'eb-textdomain'
-            ), '<strong>'.get_the_title($args['course_id']).'</strong>'
+        __(
+            'Thanks for purchasing %s course.',
+            'eb-textdomain'
+        ),
+        '<strong>'.get_the_title($args['course_id']).'</strong>'
     );
     ?>
 </p>
@@ -26,9 +28,11 @@ if (!defined('ABSPATH')) {
 <p>
     <?php
     printf(
-            __(
-                    'You can access your account here: <a href="%s">User Account</a>.', 'eb-textdomain'
-            ), wdmUserAccountUrl()
+        __(
+            'You can access your account here: <a href="%s">User Account</a>.',
+            'eb-textdomain'
+        ),
+        wdmUserAccountUrl()
     );
     ?>
 </p>

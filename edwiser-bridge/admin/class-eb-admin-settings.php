@@ -316,7 +316,8 @@ if (!class_exists('EbAdminSettings')) {
                             class="colorpickdiv" style="z-index: 100;background:#eee;
                             border:1px solid #ccc;position:absolute;display:none;"></div>';
                         }
-                        ?><tr valign="top">
+                        ?>
+                        <tr valign="top">
                             <th scope="row" class="titledesc">
                                 <label for="<?php echo esc_attr($value['id']); ?>">
                                     <?php echo esc_html($value['title']); ?>
@@ -333,7 +334,8 @@ if (!class_exists('EbAdminSettings')) {
                                     class="<?php echo esc_attr($value['class']); ?>"
                                     placeholder="<?php echo esc_attr($value['placeholder']); ?>"
                                     <?php echo implode(' ', $custom_attributes); ?>
-                                    /> <?php echo $description; ?>
+                                    />
+                                    <?php echo $description; ?>
                             </td>
                         </tr>
                         <?php
@@ -394,7 +396,8 @@ if (!class_exists('EbAdminSettings')) {
                     case 'select':
                     case 'multiselect':
                         $option_value = self::getOption($value['id'], $current_tab, $value['default']);
-                        ?><tr valign="top">
+                        ?>
+                        <tr valign="top">
                             <th scope="row" class="titledesc">
                                 <label for="<?php echo esc_attr($value['id']); ?>">
                                     <?php echo esc_html($value['title']); ?>
@@ -413,10 +416,8 @@ if (!class_exists('EbAdminSettings')) {
                                     style="<?php echo esc_attr($value['css']); ?>"
                                     class="<?php echo esc_attr($value['class']); ?>"
                                     <?php echo implode(' ', $custom_attributes); ?>
-                                    <?php echo ('multiselect' == $value['type']) ? 'multiple="multiple"' : ''; ?>
-                                    >
-                                        <?php foreach ($value['options'] as $key => $val) {
-                                            ?>
+                                    <?php echo ('multiselect' == $value['type']) ? 'multiple="multiple"' : ''; ?>>
+                                        <?php foreach ($value['options'] as $key => $val) { ?>
                                         <option value="<?php echo esc_attr($key);
                                             ?>"
                                                 <?php
@@ -426,11 +427,14 @@ if (!class_exists('EbAdminSettings')) {
                                                     selected($option_value, $key);
                                                 }
                                                 ?>>
-                                            <?php echo $val ?></option> <?php }
-                                        ?>
-                                </select> <?php echo $description; ?>
+                                                    <?php echo $val ?>
+                                        </option> <?php }
+                                                ?>
+                                </select>
+                                <?php echo $description; ?>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Radio inputs
@@ -451,28 +455,25 @@ if (!class_exists('EbAdminSettings')) {
                                         <?php foreach ($value['options'] as $key => $val) {
                                             ?>
                                             <li>
-                                                <label><input
-                                                        name="<?php echo esc_attr($value['id']);
-                                            ?>"
-                                                        value="<?php echo $key;
-                                            ?>"
+                                                <label>
+                                                    <input
+                                                        name="<?php echo esc_attr($value['id']); ?>"
+                                                        value="<?php echo $key; ?>"
                                                         type="radio"
-                                                        style="<?php echo esc_attr($value['css']);
-                                            ?>"
-                                                        class="<?php echo esc_attr($value['class']);
-                                            ?>"
-                                                        <?php echo implode(' ', $custom_attributes);
-                                                        ?>
-                                                        <?php checked($key, $option_value);
-                                                        ?>
-                                                        /> <?php echo $val ?></label>
+                                                        style="<?php echo esc_attr($value['css']); ?>"
+                                                        class="<?php echo esc_attr($value['class']); ?>"
+                                                        <?php echo implode(' ', $custom_attributes); ?>
+                                                        <?php checked($key, $option_value); ?> /> 
+                                                        <?php echo $val ?>
+                                                </label>
                                             </li>
                                         <?php }
                                         ?>
                                     </ul>
                                 </fieldset>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Checkbox input
@@ -498,24 +499,20 @@ if (!class_exists('EbAdminSettings')) {
 
                         if (!isset($value['checkboxgroup']) || 'start' == $value['checkboxgroup']) {
                             ?>
-                            <tr valign="top" class="<?php echo esc_attr(implode(' ', $visbility_class));
-                            ?>">
-                                <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?></th>
+                            <tr valign="top" class="<?php echo esc_attr(implode(' ', $visbility_class)); ?>">
+                                <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
+                                </th>
                                 <td class="forminp forminp-checkbox">
                                     <fieldset>
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class));
-                                        ?>">
-                                                      <?php
-                                                  } if (!empty($value['title'])) {
-                                                      ?>
+                                    <?php } else { ?>
+                                        <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class)); ?>">
+                                        <?php } if (!empty($value['title'])) { ?>
                                             <legend class="screen-reader-text">
-                                                <span><?php echo esc_html($value['title']) ?></span>
+                                                <span>
+                                                    <?php echo esc_html($value['title']) ?>
+                                                </span>
                                             </legend>
-                                        <?php }
-                                        ?>
+                                        <?php } ?>
                                         <label for="<?php echo $value['id'] ?>">
                                             <input
                                                 name="<?php echo esc_attr($value['id']); ?>"
@@ -523,9 +520,9 @@ if (!class_exists('EbAdminSettings')) {
                                                 type="checkbox"
                                                 value="1"
                                                 <?php checked($option_value, 'yes'); ?>
-                                                <?php echo implode(' ', $custom_attributes); ?>
-                                                /> <?php echo $description ?>
-                                        </label> <?php echo $tooltip_html; ?>
+                                                <?php echo implode(' ', $custom_attributes); ?> /> <?php echo $description ?>
+                                        </label>
+                                        <?php echo $tooltip_html; ?>
                                         <?php if (!isset($value['checkboxgroup']) || 'end' == $value['checkboxgroup']) {
                                             ?>
                                         </fieldset>
@@ -555,7 +552,8 @@ if (!class_exists('EbAdminSettings')) {
                         if (isset($value['args'])) {
                             $args = wp_parse_args($value['args'], $args);
                         }
-                        ?><tr valign="top" class="single_select_page">
+                        ?>
+                        <tr valign="top" class="single_select_page">
                             <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
                                 <?php echo $tooltip_html; ?>
                             </th>
@@ -568,7 +566,8 @@ if (!class_exists('EbAdminSettings')) {
                                 echo $description;
                                 ?>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Single sidebar select
@@ -587,7 +586,8 @@ if (!class_exists('EbAdminSettings')) {
                         if (isset($value['args'])) {
                             $args = wp_parse_args($value['args'], $args);
                         }
-                        ?><tr valign="top" class="single_select_page">
+                        ?>
+                        <tr valign="top" class="single_select_page">
                             <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
                                 <?php echo $tooltip_html; ?>
                             </th>
@@ -601,7 +601,8 @@ if (!class_exists('EbAdminSettings')) {
                                     <?php } ?>
                                 </select>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Single sidebar select
@@ -620,7 +621,8 @@ if (!class_exists('EbAdminSettings')) {
                         if (isset($value['args'])) {
                             $args = wp_parse_args($value['args'], $args);
                         }
-                        ?><tr valign="top" class="single_select_page">
+                        ?>
+                        <tr valign="top" class="single_select_page">
                             <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
                                 <?php echo $tooltip_html; ?>
                             </th>
@@ -631,7 +633,8 @@ if (!class_exists('EbAdminSettings')) {
                                     <option selected><?php _e('4', 'eb-textdomain'); ?></option>
                                 </select>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
                     case 'horizontal_line':
                         ?>

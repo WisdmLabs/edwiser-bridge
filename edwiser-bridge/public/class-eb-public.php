@@ -47,7 +47,7 @@ class EbPublic
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version     = $version;
+        $this->version = $version;
     }
 
     /**
@@ -71,14 +71,14 @@ class EbPublic
          */
         wp_enqueue_style(
             $this->plugin_name,
-            EB_PLUGIN_URL . 'public/assets/css/eb-public.css',
+            EB_PLUGIN_URL.'public/assets/css/eb-public.css',
             array(),
             $this->version,
             'all'
         );
         wp_enqueue_style(
             'wdmdatatablecss',
-            EB_PLUGIN_URL . 'public/assets/css/datatable.css',
+            EB_PLUGIN_URL.'public/assets/css/datatable.css',
             array(),
             $this->version,
             'all'
@@ -121,8 +121,8 @@ class EbPublic
         );
         wp_enqueue_script(
             $this->plugin_name."-ui-block",
-            EB_PLUGIN_URL . 'public/assets/js/jquery-blockui-min.js',
-            array( 'jquery' ),
+            EB_PLUGIN_URL.'public/assets/js/jquery-blockui-min.js',
+            array('jquery'),
             $this->version,
             false
         );
@@ -130,16 +130,16 @@ class EbPublic
             $this->plugin_name,
             'eb_public_js_object',
             array(
-                'ajaxurl' => admin_url('admin-ajax.php'),
-                'nonce' => $nonce
-            )
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce' => $nonce
+                )
         );
 
         // datatable js for user order table
         wp_enqueue_script(
             'wdmdatatablejs',
-            EB_PLUGIN_URL . 'public/assets/js/datatable.js',
-            array( 'jquery' ),
+            EB_PLUGIN_URL.'public/assets/js/datatable.js',
+            array('jquery'),
             $this->version,
             false
         );
@@ -154,7 +154,7 @@ class EbPublic
     public function afterSetupTheme()
     {
         add_theme_support('post-thumbnails');
-        
+
         //Custom sized thumbnails - single course page.
         add_image_size('course_single', 600, 450, true);
 

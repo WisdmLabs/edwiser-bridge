@@ -190,7 +190,6 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             <?php
             return ob_get_clean();
         }
-
     }
 
 }

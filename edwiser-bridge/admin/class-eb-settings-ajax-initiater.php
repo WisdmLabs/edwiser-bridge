@@ -128,5 +128,4 @@ class EBSettingsAjaxInitiater
         echo json_encode($response);
         die();
     }
-
 }

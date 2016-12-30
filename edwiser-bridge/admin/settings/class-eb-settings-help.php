@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EBSettingsGetHelp')) :
+
     /**
      * EbSettingsPayPal.
      */
     class EBSettingsGetHelp extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -62,7 +64,7 @@ if (!class_exists('EBSettingsGetHelp')) :
 
             // verify nonce
             if (!isset($_POST['subscribe_nonce_field']) ||
-                !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')
+                    !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')
             ) {
                 echo 'Sorry, there is a problem!';
                 exit;

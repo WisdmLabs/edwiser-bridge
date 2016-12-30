@@ -11,10 +11,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBI18n
 {
+
     /**
      * The domain specified for this plugin.
      *

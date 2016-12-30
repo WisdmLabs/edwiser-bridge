@@ -1,12 +1,13 @@
 <?php
+
 /**
  *  PHP-PayPal-IPN Handler.
  */
 namespace app\wisdmlabs\edwiserBridge;
 
-/*NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
-    You cannot rely on setting up some details here and then using them in your success page.
-    */
+/* NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
+  You cannot rely on setting up some details here and then using them in your success page.
+ */
 
 // if ( !defined( 'IPN_ERROR_LOG' ) )
 //  define( 'IPN_ERROR_LOG', 1 );
@@ -23,9 +24,9 @@ $listener = new EBIpnListener();
 
 edwiserBridgeInstance()->logger()->add('payment', 'IPN Listener Loaded');
 
-/*While testing your IPN script you should be using a PayPal "Sandbox"
- (get an account at: https://developer.paypal.com ) When you are ready to go live
- change use_sandbox to false.*/
+/* While testing your IPN script you should be using a PayPal "Sandbox"
+  (get an account at: https://developer.paypal.com ) When you are ready to go live
+  change use_sandbox to false. */
 
 $payment_options = array();
 
@@ -70,20 +71,20 @@ edwiserBridgeInstance()->logger()->add(
 $notify_on_valid_ipn = 1;
 
 edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : '.(($verified) ? 'YES' : 'NO'));
-/*The processIpn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID".*/
+/* The processIpn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
 
 if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Sure, Verfied! Moving Ahead.');
-    /*	Once you have a verified IPN you need to do a few more checks on the POST
-        fields--typically against data you stored in your database during when the
-        end user made a purchase (such as in the "success" page on a web payments
-        standard button). The fields PayPal recommends checking are:
-            1. Check the $_POST['payment_status'] is "Completed"
-            2. Check that $_POST['txn_id'] has not been previously processed
-            3. Check that $_POST['receiver_email'] is get_option('EVI_Paypal_Seller_email')
-            4. Check that $_POST['payment_amount'] and $_POST['payment_currency']
-                are correct
-        */
+    /* 	Once you have a verified IPN you need to do a few more checks on the POST
+      fields--typically against data you stored in your database during when the
+      end user made a purchase (such as in the "success" page on a web payments
+      standard button). The fields PayPal recommends checking are:
+      1. Check the $_POST['payment_status'] is "Completed"
+      2. Check that $_POST['txn_id'] has not been previously processed
+      3. Check that $_POST['receiver_email'] is get_option('EVI_Paypal_Seller_email')
+      4. Check that $_POST['payment_amount'] and $_POST['payment_currency']
+      are correct
+     */
 
     //note: This is just notification for us. Paypal has already made up its mind and the payment has been processed
     //  (you can't cancel that here)
@@ -109,7 +110,7 @@ if ($verified) {
     edwiserBridgeInstance()->logger()->add(
         'payment',
         'Payment Status: '.$_POST['payment_status'].' Completed? :'.(($_POST['payment_status'] == 'Completed') ?
-            'YES' : 'NO')
+                    'YES' : 'NO')
     );
     if ($_POST['payment_status'] == 'Completed') {
         edwiserBridgeInstance()->logger()->add('payment', 'Sure, Completed! Moving Ahead.');
@@ -237,9 +238,9 @@ if ($verified) {
         wp_mail($YOUR_NOTIFICATION_EMAIL_ADDRESS, 'Verified IPN', $listener->getTextReport());
     }
 } else {
-    /*An Invalid IPN *may* be caused by a fraudulent transaction attempt.
-     It's a good idea to have a developer or sys admin
-        manually investigate any invalid IPN.*/
+    /* An Invalid IPN *may* be caused by a fraudulent transaction attempt.
+      It's a good idea to have a developer or sys admin
+      manually investigate any invalid IPN. */
     edwiserBridgeInstance()->logger()->add('payment', 'Invalid IPN. Shutting Down Processing.');
     wp_mail($YOUR_NOTIFICATION_EMAIL_ADDRESS, 'Invalid IPN', $listener->getTextReport());
 }

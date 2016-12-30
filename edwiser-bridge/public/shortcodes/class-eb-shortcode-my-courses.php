@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Shortcode eb_my_courses.
  *
@@ -60,13 +59,7 @@ class EbShortcodeMyCourses
     {
         $user_id = !is_numeric($user_id) ? get_current_user_id() : (int) $user_id;
 
-        $courses = get_posts(
-                array(
-                    'post_type' => 'eb_course',
-                    'post_status' => 'publish',
-                    'posts_per_page' => -1
-                )
-        );
+        $courses = get_posts(array('post_type' => 'eb_course', 'post_status' => 'publish', 'posts_per_page' => -1));
 
         $user_courses = array();
 
@@ -82,19 +75,23 @@ class EbShortcodeMyCourses
     public static function showMyCourses($my_courses, $atts)
     {
         $template_loader = new EbTemplateLoader(
-                edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion()
+            edwiserBridgeInstance()->getPluginName(),
+            edwiserBridgeInstance()->getVersion()
         );
-
+        /**
+         * Removed unused variable.
+         */
+        
+        unset($atts);
         echo '<div class="eb-my-courses-wrapper">';
         do_action('eb_before_my_courses');
-        if(!is_user_logged_in()){
+        if (!is_user_logged_in()) {
             echo "<p>";
-            _e("You are not logged in ","eb-textdomain");
-            echo "<a href='".site_url('/user-account')."'>".__("click here","eb-textdomain")."</a>";
-            _e(" to login.","eb-textdomain");
+            _e("You are not logged in ", "eb-textdomain");
+            echo "<a href='".site_url('/user-account')."'>".__("click here", "eb-textdomain")."</a>";
+            _e(" to login.", "eb-textdomain");
             echo "</p>";
-        }else if (count($my_courses)) {
-
+        } elseif (count($my_courses)) {
             //My Courses.
             $args = array(
                 'post_type' => 'eb_course',
@@ -117,9 +114,9 @@ class EbShortcodeMyCourses
             echo "</div>";
         } else {
             echo "<h5>";
-            _e("You are not enrolled to any course. ","eb-textdomain");
-            echo "<a href='".site_url('/courses')."'>".__("click here","eb-textdomain")."</a>";
-            _e(" to access the courses page.","eb-textdomain");
+            _e("You are not enrolled to any course. ", "eb-textdomain");
+            echo "<a href='".site_url('/courses')."'>".__("click here", "eb-textdomain")."</a>";
+            _e(" to access the courses page.", "eb-textdomain");
             echo "</h5>";
         }
         do_action('eb_after_my_courses');
@@ -160,7 +157,8 @@ class EbShortcodeMyCourses
         $courses = new \WP_Query($args);
 
         $template_loader = new EbTemplateLoader(
-                edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion()
+            edwiserBridgeInstance()->getPluginName(),
+            edwiserBridgeInstance()->getVersion()
         );
 
         echo '<div class="eb-rec-courses-wrapper">';
@@ -186,5 +184,4 @@ class EbShortcodeMyCourses
         </a>
         <?php
     }
-
 }

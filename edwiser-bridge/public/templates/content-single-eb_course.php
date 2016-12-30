@@ -8,7 +8,6 @@
  *
  * @version     1.1.3
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
 if (!defined('ABSPATH')) {
@@ -60,10 +59,12 @@ $course_id = $post_id;
 
 $categories = array();
 $terms = wp_get_post_terms(
-        $course_id, 'eb_course_cat', array(
+    $course_id,
+    'eb_course_cat',
+    array(
     'orderby' => 'name',
     'order' => 'ASC',
-    'fields' => 'all')
+    'fields' => 'all', )
 );
 
 if (is_array($terms)) {
@@ -73,17 +74,17 @@ if (is_array($terms)) {
     }
 }
 
-/**
+/*
  * Check is course has expiry date
  */
-if (isset($course_options["course_expirey"]) && $course_options["course_expirey"] == "yes") {
+if (isset($course_options['course_expirey']) && $course_options['course_expirey'] == 'yes') {
     if (is_user_logged_in() && $has_access) {
-        $expiryDateTime = "<span><strong>".EBEnrollmentManager::accessRemianing($user_id, $post->ID)." ".__(' days access remaining', 'eb-textdomain')."</strong></span>";
+        $expiryDateTime = '<span><strong>'.EBEnrollmentManager::accessRemianing($user_id, $post->ID).' '.__(' days access remaining', 'eb-textdomain').'</strong></span>';
     } else {
-        $expiryDateTime = "<span><strong>".__('Includes  ', 'eb-textdomain')." ".$course_options["num_days_course_access"].__(' days access', 'eb-textdomain')."</strong> </span>";
+        $expiryDateTime = '<span><strong>'.__('Includes  ', 'eb-textdomain').' '.$course_options['num_days_course_access'].__(' days access', 'eb-textdomain').'</strong> </span>';
     }
 } else {
-    $expiryDateTime = "<span><strong>".__('Includes lifetime access ', 'eb-textdomain')."</strong></span>";
+    $expiryDateTime = '<span><strong>'.__('Includes lifetime access ', 'eb-textdomain').'</strong></span>';
 }
 ?>
 
@@ -121,8 +122,8 @@ if (isset($course_options["course_expirey"]) && $course_options["course_expirey"
                         ?>
                         <div class="<?php echo 'wdm-price'.$course_price_type;
                         ?>">
-                                 <?php echo "<h3>".$course_price_formatted."</h3>";
-                                 ?>
+                                    <?php echo '<h3>'.$course_price_formatted.'</h3>';
+                        ?>
                         </div>
                         <?php
                         echo ob_get_clean();
@@ -138,13 +139,13 @@ if (isset($course_options["course_expirey"]) && $course_options["course_expirey"
                         <span><strong><?php _e('Categories: ', 'eb-textdomain');
                     ?></strong><?php echo implode(', ', $categories);
                     ?></span>
-                    </div>					
+                    </div>                  
                     <?php
                 }
                 ?>
                 <div  class="eb-validity-wrapper">
                     <?php echo $expiryDateTime;
-                    ?>
+                ?>
                 </div>
                 <?php
             }
@@ -158,8 +159,8 @@ if (isset($course_options["course_expirey"]) && $course_options["course_expirey"
             <div class="entry-summary"><?php the_excerpt();
             ?></div>
                 <?php
-            } else {
-                ?>
+        } else {
+            ?>
             <h2><?php _e('Course Overview', 'eb-textdomain') ?></h2>
             <?php
             the_content();

@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EBSettingsGeneral')) :
+
     /**
      * EBSettingsGeneral.
      */
     class EBSettingsGeneral extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -48,87 +50,82 @@ if (!class_exists('EBSettingsGeneral')) :
             $settings = apply_filters(
                 'eb_general_settings',
                 array(
+                array(
+                    'title' => __(
+                        'General Options',
+                        'eb-textdomain'
+                    ),
+                    'type' => 'title',
+                    'desc' => '',
+                    'id' => 'general_options',
+                    ),
                     array(
-                        'title' => __(
-                            'General Options',
+                    'title' => __('Redirect to My Courses', 'eb-textdomain'),
+                    'desc' => sprintf(
+                        __(
+                            'Redirect user to the My Courses page on login and registratoin form <a href="%s">User Account</a> page.',
                             'eb-textdomain'
                         ),
-                        'type' => 'title',
-                        'desc' => '',
-                        'id' => 'general_options',
+                        site_url('/user-account')
                     ),
-
-                    array(
-                        'title' => __('Redirect to My Courses', 'eb-textdomain'),
-                        'desc' => sprintf(
-                            __(
-                                'Redirect user to the My Courses page on login and registratoin form <a href="%s">User Account</a> page.',
-                                'eb-textdomain'
-                            ),
-                            site_url('/user-account')
-                        ),
-						__('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
-                        'id' => 'eb_enable_my_courses',
-                        'default' => 'no',
-                        'type' => 'checkbox',
-                        'autoload' => false,						
+                    __('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
+                    'id' => 'eb_enable_my_courses',
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'autoload' => false,
                     ),
                     array(
-                        'title' => __('Enable Registration', 'eb-textdomain'),
-                        'desc' => __('Enable user registration', 'eb-textdomain'),
-                        'id' => 'eb_enable_registration',
-                        'default' => 'no',
-                        'type' => 'checkbox',
-                        'autoload' => false,
+                    'title' => __('Enable Registration', 'eb-textdomain'),
+                    'desc' => __('Enable user registration', 'eb-textdomain'),
+                    'id' => 'eb_enable_registration',
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'autoload' => false,
                     ),
-
                     array(
-                        'title' => __('User Account Page', 'eb-textdomain'),
-                        'desc' => '<br/>'.sprintf(
-                            __(
-                                'Select user account page here. Default page is <a href="%s">User Account</a> ',
-                                'eb-textdomain'
-                            ),
-                            site_url('/user-account')
-                        ),
-                        'id' => 'eb_useraccount_page_id',
-                        'type' => 'single_select_page',
-                        'default' => '',
-                        'css' => 'min-width:300px;',
-                        'args' => array(
-                            'show_option_none' => 'Select a page',
-                            'option_none_value' => '',
-                        ),
-                        'desc_tip' => __(
-                            'This sets the user account page, where user can see his/her purchase history.',
+                    'title' => __('User Account Page', 'eb-textdomain'),
+                    'desc' => '<br/>'.sprintf(
+                        __(
+                            'Select user account page here. Default page is <a href="%s">User Account</a> ',
                             'eb-textdomain'
                         ),
+                        site_url('/user-account')
                     ),
-
+                    'id' => 'eb_useraccount_page_id',
+                    'type' => 'single_select_page',
+                    'default' => '',
+                    'css' => 'min-width:300px;',
+                    'args' => array(
+                        'show_option_none' => 'Select a page',
+                        'option_none_value' => '',
+                    ),
+                    'desc_tip' => __(
+                        'This sets the user account page, where user can see his/her purchase history.',
+                        'eb-textdomain'
+                    ),
+                    ),
                     array(
-                        'title' => __('Moodle Language Code', 'eb-textdomain'),
-                        'desc' => __(
-                            'Enter language code which you get from moodle language settings.',
-                            'eb-textdomain'
-                        ),
-                        'id' => 'eb_language_code',
-                        'default' => 'en',
-                        'type' => 'text',
-                        'css' => 'min-width:300px;',
-                        'desc_tip' => true,
+                    'title' => __('Moodle Language Code', 'eb-textdomain'),
+                    'desc' => __(
+                        'Enter language code which you get from moodle language settings.',
+                        'eb-textdomain'
+                    ),
+                    'id' => 'eb_language_code',
+                    'default' => 'en',
+                    'type' => 'text',
+                    'css' => 'min-width:300px;',
+                    'desc_tip' => true,
                     ),
                     array(
-                        'title' => __('Courses page max number course in row', 'eb-textdomain'),
-                        'desc' => '',
-                        'id' => 'courses_per_row',
-                        'type' => 'courses_per_row',
-                        'default' => '',
-                        'css' => '',
+                    'title' => __('Courses page max number course in row', 'eb-textdomain'),
+                    'desc' => '',
+                    'id' => 'courses_per_row',
+                    'type' => 'courses_per_row',
+                    'default' => '',
+                    'css' => '',
                     ),
-
                     array('type' => 'sectionend', 'id' => 'general_options'),
-
-                )
+                    )
             );
 
             return apply_filters('eb_get_settings_'.$this->_id, $settings);

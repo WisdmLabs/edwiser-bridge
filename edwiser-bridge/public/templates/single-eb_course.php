@@ -3,7 +3,6 @@
 /**
  * The template for displaying all single moodle courses.
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
 $wrapper_args = array();
@@ -19,7 +18,8 @@ if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_e
 $wrapper_args['sidebar_id'] = isset($eb_template['single_right_sidebar']) ? $eb_template['single_right_sidebar'] : '';
 
 $template_loader = new EbTemplateLoader(
-        edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion()
+    edwiserBridgeInstance()->getPluginName(),
+    edwiserBridgeInstance()->getVersion()
 );
 ?>
 
@@ -41,7 +41,7 @@ endwhile;
 <?php $template_loader->wpGetTemplate('global/wrapper-end.php', $wrapper_args); ?>
 <?php
 
-if (file_exists(get_template_directory_uri()."/sidebar.php")) {
+if (file_exists(get_template_directory_uri().'/sidebar.php')) {
     get_sidebar();
 }
 ?>

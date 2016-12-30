@@ -53,7 +53,11 @@ class EBWelcomeScreen
         switch ($_GET['page']) {
             case 'eb-about':
                 add_dashboard_page(
-                        $welcome_page_title, $welcome_page_name, 'manage_options', 'eb-about', array($this, 'welcomeScreen')
+                    $welcome_page_title,
+                    $welcome_page_name,
+                    'manage_options',
+                    'eb-about',
+                    array($this, 'welcomeScreen')
                 );
                 break;
         }
@@ -240,10 +244,11 @@ class EBWelcomeScreen
                 <p class="about-description">
                     <?php
                     printf(
-                            __(
-                                    'Thanks for installing Edwiser Bridge!
-                            Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain'
-                            )
+                        __(
+                            'Thanks for installing Edwiser Bridge!
+                            Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.',
+                            'eb-textdomain'
+                        )
                     );
                     ?>
                 </p>
@@ -351,7 +356,8 @@ class EBWelcomeScreen
 
             // prepare email content
             $subject = apply_filters(
-                    'eb_plugin_subscription_email_subject', 'Edwiser Bridge Plugin Subscription Notification'
+                'eb_plugin_subscription_email_subject',
+                'Edwiser Bridge Plugin Subscription Notification'
             );
 
             $message = "Edwiser Bridge subscription user details: \n";
@@ -369,7 +375,6 @@ class EBWelcomeScreen
         wp_redirect(admin_url('/?page=eb-about&subscribed='.$subscribed));
         exit;
     }
-
 }
 
 new EBWelcomeScreen();

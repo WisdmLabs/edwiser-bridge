@@ -23,11 +23,11 @@ class EbShortcodes
     {
         // Define shortcodes
         $shortcodes = array(
-            'eb_user_account'   => __CLASS__ . '::userAccount',
-            'eb_user_profile'   => __CLASS__ . '::userProfile',
-            'eb_courses'        => __CLASS__ . '::courses',
-            'eb_course'         => __CLASS__ . '::course',
-            'eb_my_courses'     => __CLASS__ . '::myCourses'
+            'eb_user_account' => __CLASS__.'::userAccount',
+            'eb_user_profile' => __CLASS__.'::userProfile',
+            'eb_courses' => __CLASS__.'::courses',
+            'eb_course' => __CLASS__.'::course',
+            'eb_my_courses' => __CLASS__.'::myCourses'
         );
 
         foreach ($shortcodes as $shortcode => $function) {
@@ -47,15 +47,16 @@ class EbShortcodes
         $function,
         $atts = array(),
         $wrapper = array(
-            'class'  => '',
-            'before' => null,
-            'after'  => null
-        )
+        'class' => '',
+        'before' => null,
+        'after' => null
+    )
     ) {
+    
         ob_start();
 
-        $before = empty($wrapper['before']) ? '<div class="' . esc_attr($wrapper['class']) . '">' : $wrapper['before'];
-        $after  = empty($wrapper['after']) ? '</div>' : $wrapper['after'];
+        $before = empty($wrapper['before']) ? '<div class="'.esc_attr($wrapper['class']).'">' : $wrapper['before'];
+        $after = empty($wrapper['after']) ? '</div>' : $wrapper['after'];
 
         echo $before;
         call_user_func($function, $atts);
@@ -73,7 +74,7 @@ class EbShortcodes
      */
     public static function userAccount($atts)
     {
-        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'output' ), $atts);
+        return self::shortcodeWrapper(array('app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'output'), $atts);
     }
 
     /**
@@ -85,7 +86,7 @@ class EbShortcodes
      */
     public static function userProfile($atts)
     {
-        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'output' ), $atts);
+        return self::shortcodeWrapper(array('app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'output'), $atts);
     }
 
     /**
@@ -97,7 +98,7 @@ class EbShortcodes
      */
     public static function courses($atts)
     {
-        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeCourses', 'output' ), $atts);
+        return self::shortcodeWrapper(array('app\wisdmlabs\edwiserBridge\EbShortcodeCourses', 'output'), $atts);
     }
 
     /**
@@ -109,7 +110,7 @@ class EbShortcodes
      */
     public static function course($atts)
     {
-        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeCourse', 'output' ), $atts);
+        return self::shortcodeWrapper(array('app\wisdmlabs\edwiserBridge\EbShortcodeCourse', 'output'), $atts);
     }
 
     /**
@@ -121,6 +122,6 @@ class EbShortcodes
      */
     public static function myCourses($atts)
     {
-        return self::shortcodeWrapper(array( 'app\wisdmlabs\edwiserBridge\EbShortcodeMyCourses', 'output' ), $atts);
+        return self::shortcodeWrapper(array('app\wisdmlabs\edwiserBridge\EbShortcodeMyCourses', 'output'), $atts);
     }
 }

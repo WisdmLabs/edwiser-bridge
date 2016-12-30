@@ -356,7 +356,8 @@
             //$([lyr1[0],lyr2[0],lyr3[0]]).appendTo(full ? 'body' : el);
             var layers = [lyr1, lyr2, lyr3], $par = full ? $('body') : $(el);
             $.each(
-                layers, function () {
+                layers,
+                function () {
                     this.appendTo($par);
                 }
             );
@@ -387,7 +388,8 @@
 
                 // simulate fixed position
                 $.each(
-                    layers, function (i, o) {
+                    layers,
+                    function (i, o) {
                         var s = o[0].style;
                         s.position = 'absolute';
                         if (i < 2) {
@@ -480,7 +482,8 @@
                         } else {
                             $(el).unblock(opts);
                         }
-                    }, opts.timeout
+                    },
+                    opts.timeout
                 );
                 $(el).data('blockUI.timeout', to);
             }
@@ -530,7 +533,8 @@
             if (opts.fadeOut) {
                 count = els.length;
                 els.stop().fadeOut(
-                    opts.fadeOut, function () {
+                    opts.fadeOut,
+                    function () {
                         if (--count === 0) {
                             reset(els, data, opts, el);
                         }
@@ -625,7 +629,8 @@
                         setTimeout(
                             function () {
                                 focus(back);
-                            }, 10
+                            },
+                            10
                         );
                         return false;
                     }

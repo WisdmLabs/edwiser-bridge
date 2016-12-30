@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeUserProfile
 {
+
     /**
      * Get the shortcode content.
      *

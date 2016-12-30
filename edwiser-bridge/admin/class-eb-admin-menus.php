@@ -55,7 +55,13 @@ class EbAdminMenus
         }
 
         add_menu_page(
-                __('Edwiser Bridge', 'eb-textdomain'), __('Edwiser Bridge', 'eb-textdomain'), 'manage_options', 'edwiserbridge_lms', null, 'dashicons-book-alt', 54
+            __('Edwiser Bridge', 'eb-textdomain'),
+            __('Edwiser Bridge', 'eb-textdomain'),
+            'manage_options',
+            'edwiserbridge_lms',
+            null,
+            'dashicons-book-alt',
+            54
         );
 
         global $submenu;
@@ -123,7 +129,12 @@ class EbAdminMenus
     public function settingsMenu()
     {
         add_submenu_page(
-                'edwiserbridge_lms', __('Settings', 'eb-textdomain'), __('Settings', 'eb-textdomain'), 'manage_options', 'eb-settings', array($this, 'settingsPage')
+            'edwiserbridge_lms',
+            __('Settings', 'eb-textdomain'),
+            __('Settings', 'eb-textdomain'),
+            'manage_options',
+            'eb-settings',
+            array($this, 'settingsPage')
         );
     }
 
@@ -135,7 +146,12 @@ class EbAdminMenus
     public function extensionsMenu()
     {
         add_submenu_page(
-                'edwiserbridge_lms', __('Extensions', 'eb-textdomain'), __('Extensions', 'eb-textdomain'), 'manage_options', 'eb-extensions', array($this, 'extensionsPage')
+            'edwiserbridge_lms',
+            __('Extensions', 'eb-textdomain'),
+            __('Extensions', 'eb-textdomain'),
+            'manage_options',
+            'eb-extensions',
+            array($this, 'extensionsPage')
         );
     }
 
@@ -163,7 +179,12 @@ class EbAdminMenus
     public function emailTemplate()
     {
         add_submenu_page(
-                'edwiserbridge_lms', __('Manage Email Template', 'eb-textdomain'), __('Manage Email Template', 'eb-textdomain'), 'manage_options', 'eb-email-template', array($this, 'emailTemplatePage')
+            'edwiserbridge_lms',
+            __('Manage Email Template', 'eb-textdomain'),
+            __('Manage Email Template', 'eb-textdomain'),
+            'manage_options',
+            'eb-email-template',
+            array($this, 'emailTemplatePage')
         );
     }
 
@@ -181,7 +202,6 @@ class EbAdminMenus
             });
         </script>
         <?php
-
     }
 
     /**
@@ -207,7 +227,6 @@ class EbAdminMenus
         $emailTmpl = new EBAdminEmailTemplate();
         $emailTmpl->outPut();
     }
-
 }
 
 return new EbAdminMenus();

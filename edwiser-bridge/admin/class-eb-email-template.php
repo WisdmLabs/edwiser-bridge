@@ -68,9 +68,9 @@ class EBAdminEmailTemplate
                     <form name="manage-email-template" method="POST">
                         <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
                                value="<?php echo $tmplKey; ?>"/>
-                               <?php
-                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                               ?>
+                                <?php
+                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                                ?>
                         <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Email", "eb-textdomain"); ?></td>

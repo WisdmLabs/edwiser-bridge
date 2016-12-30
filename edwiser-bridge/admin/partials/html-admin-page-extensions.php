@@ -36,18 +36,18 @@ if (!defined('ABSPATH')) {
                 } else {
                     echo '<h3>'.$extension->title.'</h3>';
                 }
-                //echo '<span class="price">' . $extension->price . '</span>';
-                echo '<p>'.$extension->excerpt.'</p>';
-                echo '</a>';
-                echo '</li>';
-                ++$i;
+                    //echo '<span class="price">' . $extension->price . '</span>';
+                    echo '<p>'.$extension->excerpt.'</p>';
+                    echo '</a>';
+                    echo '</li>';
+                    ++$i;
             }
-            ?>
+        ?>
         </ul>
         <br />
         <a href="https://edwiser.org/bridge/extensions/" target="_blank" class="browse-all">
             <?php _e('Browse all our extensions', 'eb-textdomain');
-            ?>
+        ?>
         </a>
         <?php
     } else {
@@ -55,13 +55,16 @@ if (!defined('ABSPATH')) {
         <p>
             <?php
             printf(
-                    __(
-                            'Our list of extensions for Edwiser Bridge can be found here:
-            <a href="%s" target="_blank">Edwiser Bridge Extensions</a>', 'eb-textdomain'
-                    ), 'https://edwiser.org/bridge/extensions/'
+                __(
+                    'Our list of extensions for Edwiser Bridge can be found here:
+            <a href="%s" target="_blank">Edwiser Bridge Extensions</a>',
+                    'eb-textdomain'
+                ),
+                'https://edwiser.org/bridge/extensions/'
             );
-            ?>
-        </p>
-            <?php }
         ?>
+        </p>
+    <?php
+    }
+    ?>
 </div>

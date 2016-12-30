@@ -2,13 +2,13 @@
 global $current_user, $wp_roles;
 
 $username = $current_user->user_login;
-$first_name = (isset($_POST['first_name']) && ! empty($_POST['first_name'])) ? $_POST['first_name'] : $current_user->first_name;
-$last_name = (isset($_POST['last_name']) && ! empty($_POST['last_name'])) ? $_POST['last_name'] : $current_user->last_name;
-$nickname = (isset($_POST['nickname']) && ! empty($_POST['nickname'])) ? $_POST['nickname'] : $current_user->nickname;
-$email = (isset($_POST['email']) && ! empty($_POST['email'])) ? $_POST['email'] : $current_user->user_email;
-$description = (isset($_POST['description']) && ! empty($_POST['description'])) ? $_POST['description'] : $current_user->description;
-$city = (isset($_POST['city']) && ! empty($_POST['city'])) ? $_POST['city'] : $current_user->city;
-$country = (isset($_POST['country']) && ! empty($_POST['country'])) ? $_POST['country'] : $current_user->country;
+$first_name = (isset($_POST['first_name']) && !empty($_POST['first_name'])) ? $_POST['first_name'] : $current_user->first_name;
+$last_name = (isset($_POST['last_name']) && !empty($_POST['last_name'])) ? $_POST['last_name'] : $current_user->last_name;
+$nickname = (isset($_POST['nickname']) && !empty($_POST['nickname'])) ? $_POST['nickname'] : $current_user->nickname;
+$email = (isset($_POST['email']) && !empty($_POST['email'])) ? $_POST['email'] : $current_user->user_email;
+$description = (isset($_POST['description']) && !empty($_POST['description'])) ? $_POST['description'] : $current_user->description;
+$city = (isset($_POST['city']) && !empty($_POST['city'])) ? $_POST['city'] : $current_user->city;
+$country = (isset($_POST['country']) && !empty($_POST['country'])) ? $_POST['country'] : $current_user->country;
 
 ?>
 

@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeUserAccount
 {
+
     /**
      * Get the shortcode content.
      *
@@ -68,7 +70,6 @@ class EbShortcodeUserAccount
             'post_status' => 'publish',
             'fields' => 'ids',
             'order' => 'ASC',
-
         );
         $overall_orders = get_posts($args); // get all orders from db
 
@@ -76,14 +77,13 @@ class EbShortcodeUserAccount
             $order_detail = get_post_meta($order_id, 'eb_order_options', true);
 
             // return if there is a problem in order details
-            /*if (!isset($order_detail['order_status']) ||
-                !isset($order_detail['buyer_id']) ||
-                !isset($order_detail['course_id'])) {
-                return;
-            }*/
+            /* if (!isset($order_detail['order_status']) ||
+              !isset($order_detail['buyer_id']) ||
+              !isset($order_detail['course_id'])) {
+              return;
+              } */
 
-            if (!empty($order_detail) && $order_detail['order_status'] == 'completed'
-                && $order_detail['buyer_id'] == $user_id) {
+            if (!empty($order_detail) && $order_detail['order_status'] == 'completed' && $order_detail['buyer_id'] == $user_id) {
                 $user_orders[] = array(
                     'order_id' => $order_id,
                     'ordered_item' => $order_detail['course_id'],
@@ -102,10 +102,10 @@ class EbShortcodeUserAccount
         $template_loader->wpGetTemplate(
             'account/user-account.php',
             array(
-                'current_user' => get_user_by('id', get_current_user_id()),
-                'user_orders' => $user_orders,
-                'order_count' => $order_count,
-            )
+            'current_user' => get_user_by('id', get_current_user_id()),
+            'user_orders' => $user_orders,
+            'order_count' => $order_count,
+                )
         );
     }
 }

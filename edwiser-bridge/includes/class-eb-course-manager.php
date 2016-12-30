@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBCourseManager
 {
+
     /**
      * The ID of this plugin.
      *
@@ -152,8 +154,8 @@ class EBCourseManager
                         $course_id = $this->createCourseOnWordpress($course_data, $sync_options);
                         $courses_created[] = $course_id; // push course id in courses created array
                     } elseif (is_numeric($existing_course_id) &&
-                     isset($sync_options['eb_synchronize_previous']) &&
-                     $sync_options['eb_synchronize_previous'] == 1) {
+                            isset($sync_options['eb_synchronize_previous']) &&
+                            $sync_options['eb_synchronize_previous'] == 1) {
                         $course_id = $this->updateCourseOnWordpress(
                             $existing_course_id,
                             $course_data,
@@ -269,6 +271,7 @@ class EBCourseManager
     {
         return get_post_meta($course_id_on_wp, 'moodle_course_id', true);
     }
+
     /**
      * return the moodle id of a course using its wordpress id.
      *
@@ -278,7 +281,7 @@ class EBCourseManager
      */
     public function getMoodleWPCourseIdPair($course_id_on_wp)
     {
-        return array("$course_id_on_wp"=>get_post_meta($course_id_on_wp, 'moodle_course_id', true));
+        return array("$course_id_on_wp" => get_post_meta($course_id_on_wp, 'moodle_course_id', true));
     }
 
     /**
@@ -293,7 +296,7 @@ class EBCourseManager
         global $wpdb;
 
         $status = (isset($sync_options['eb_synchronize_draft']) &&
-        $sync_options['eb_synchronize_draft'] == 1) ? 'draft' : 'publish'; // manage course status
+                $sync_options['eb_synchronize_draft'] == 1) ? 'draft' : 'publish'; // manage course status
 
         $course_args = array(
             'post_title' => $course_data->fullname,
@@ -440,10 +443,10 @@ class EBCourseManager
                         $category->name,
                         'eb_course_cat',
                         array(
-                            'slug' => $cat_name_lower,
-                            'parent' => $parent_term,
-                            'description' => $category->id,
-                        )
+                        'slug' => $cat_name_lower,
+                        'parent' => $parent_term,
+                        'description' => $category->id,
+                            )
                     );
 
                     // Save the moodle id of category in options
@@ -455,9 +458,9 @@ class EBCourseManager
                         $category->name,
                         'eb_course_cat',
                         array(
-                            'slug' => $cat_name_lower,
-                            'description' => $category->id,
-                        )
+                        'slug' => $cat_name_lower,
+                        'description' => $category->id,
+                            )
                     );
 
                     // Save the moodle id of category in options

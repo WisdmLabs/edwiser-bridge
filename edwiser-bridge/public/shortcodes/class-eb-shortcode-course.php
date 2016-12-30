@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeCourse
 {
+
     /**
      * Get the shortcode content.
      *
@@ -36,17 +38,17 @@ class EbShortcodeCourse
     public static function output($atts)
     {
         extract($atts = shortcode_atts(apply_filters('eb_output_course_defaults', array(
-            'id'  => ''
-        )), $atts));
+            'id' => ''
+                )), $atts));
 
         //Course id required.
         if (!isset($atts['id']) || !is_numeric($atts['id'])) {
             return;
         }
-        
-        $atts['post_type']   = 'eb_course';
+
+        $atts['post_type'] = 'eb_course';
         $atts['post_status'] = 'publish';
-        $atts['p']           = $atts['id'];
+        $atts['p'] = $atts['id'];
 
         $courses = new \WP_Query($atts);
 

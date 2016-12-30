@@ -12,15 +12,15 @@ function wpSanitizeTooltip($var)
     return wp_kses(
         html_entity_decode($var),
         array(
-            'br' => array(),
-            'em' => array(),
-            'strong' => array(),
-            'span' => array(),
-            'ul' => array(),
-            'li' => array(),
-            'ol' => array(),
-            'p' => array(),
-        )
+        'br' => array(),
+        'em' => array(),
+        'strong' => array(),
+        'span' => array(),
+        'ul' => array(),
+        'li' => array(),
+        'ol' => array(),
+        'p' => array(),
+            )
     );
 }
 

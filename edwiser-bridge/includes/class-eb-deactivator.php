@@ -10,10 +10,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBDeactivator
 {
+
     /**
      * Short Description. (use period).
      *

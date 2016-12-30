@@ -43,27 +43,28 @@ if (!class_exists("EBEmailTmplParser")) {
                 $constant["{FIRST_NAME}"] = $args['first_name'];
                 $constant["{LAST_NAME}"] = $args['last_name'];
             }
-            
+
             $constant["{SITE_NAME}"] = get_bloginfo("name");
-            $constant["{SITE_URL}"] = "<a href='" . get_bloginfo("url") . "'> Site</a>";
-            $constant["{COURSES_PAGE_LINK}"] = "<a href='" . site_url('/courses') . "'> Courses</a>";
-            $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='" . wdmUserAccountUrl() . "'> User Account</a>";
-            $constant["{WP_LOGIN_PAGE_LINK}"] = "<a href='" . wp_login_url() . "'> Login Page</a>";
-            $constant["{MOODLE_URL}"] = "<a href='" . $this->getMoodleURL() . "'> Moodle Site</a>";
+            $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'> Site</a>";
+            $constant["{COURSES_PAGE_LINK}"] = "<a href='".site_url('/courses')."'> Courses</a>";
+            $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='".wdmUserAccountUrl()."'> User Account</a>";
+            $constant["{WP_LOGIN_PAGE_LINK}"] = "<a href='".wp_login_url()."'> Login Page</a>";
+            $constant["{MOODLE_URL}"] = "<a href='".$this->getMoodleURL()."'> Moodle Site</a>";
             $constant["{COURSE_NAME}"] = $this->getCourseName($args);
             $constant["{USER_PASSWORD}"] = $this->getUserPassword($args);
             $constant["{ORDER_ID}"] = $this->getOrderID($args);
             $constant["{WP_COURSE_PAGE_LINK}"] = $this->getCoursePageLink($args);
-            
+
             return apply_filters("eb_emailtmpl_constants_values", $constant);
         }
-        
-        private function getCoursePageLink($args){
-            
-            if(isset($args['course_id'])){
+
+        private function getCoursePageLink($args)
+        {
+
+            if (isset($args['course_id'])) {
                 return "<a href='".get_post_permalink($args['course_id'])."'>click here</a>";
-            }else{
-                $url=  get_site_url();
+            } else {
+                $url = get_site_url();
                 return "<a href='".$url."'>Click here</a>";
             }
         }
