@@ -607,6 +607,8 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Single sidebar select
                     case 'courses_per_row':
+                        $selectedVal=self::getOption($value['id'], $current_tab);
+                        $selectedVal=  empty(trim($selectedVal))?"4":$selectedVal;
                         $args = array(
                             'name' => $value['id'],
                             'id' => $value['id'],
@@ -615,7 +617,7 @@ if (!class_exists('EbAdminSettings')) {
                             'show_option_none' => ' ',
                             'class' => $value['class'],
                             'echo' => false,
-                            'selected' => self::getOption($value['id'], $current_tab),
+                            'selected' => $selectedVal,
                         );
 
                         if (isset($value['args'])) {
@@ -630,7 +632,7 @@ if (!class_exists('EbAdminSettings')) {
                                 <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
                                     <option <?php selected($args['selected'], '2'); ?>><?php _e('2', 'eb-textdomain'); ?></option>
                                     <option <?php selected($args['selected'], '3'); ?>><?php _e('3', 'eb-textdomain'); ?></option>
-                                    <option selected><?php _e('4', 'eb-textdomain'); ?></option>
+                                    <option <?php selected($args['selected'], '4'); ?>><?php _e('4', 'eb-textdomain'); ?></option>
                                 </select>
                             </td>
                         </tr>

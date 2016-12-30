@@ -63,17 +63,40 @@ if (!class_exists('EBSettingsGeneral')) :
                     'title' => __('Redirect to My Courses', 'eb-textdomain'),
                     'desc' => sprintf(
                         __(
-                            'Redirect user to the My Courses page on login and registratoin form <a href="%s">User Account</a> page.',
+                            'Redirect user to the My Courses page on login and registration form <a href="%s">User Account</a> page.',
                             'eb-textdomain'
                         ),
                         site_url('/user-account')
                     ),
-                    __('Redirect user to the My Courses page on login and registratoin', 'eb-textdomain'),
+                    __('Redirect user to the My Courses page on login and registration', 'eb-textdomain'),
                     'id' => 'eb_enable_my_courses',
                     'default' => 'no',
                     'type' => 'checkbox',
                     'autoload' => false,
                     ),
+                    array(
+                    'title' => __('My Courses Page', 'eb-textdomain'),
+                    'desc' => '<br/>'.sprintf(
+                        __(
+                            'Select my courses page here. Default page is <a href="%s">My Courses</a> ',
+                            'eb-textdomain'
+                        ),
+                        site_url('/eb-my-courses')
+                    ),
+                    'id' => 'eb_my_courses_page_id',
+                    'type' => 'single_select_page',
+                    'default' => '',
+                    'css' => 'min-width:300px;',
+                    'args' => array(
+                        'show_option_none' => 'Select a page',
+                        'option_none_value' => '',
+                    ),
+                    'desc_tip' => __(
+                        'This sets the my course page, where user can see his/her purchase courses history and access the course.To create the shortcode page user can use the shortcode `[eb_my_courses]`',
+                        'eb-textdomain'
+                    ),
+                    ),
+                    
                     array(
                     'title' => __('Enable Registration', 'eb-textdomain'),
                     'desc' => __('Enable user registration', 'eb-textdomain'),
@@ -117,12 +140,14 @@ if (!class_exists('EBSettingsGeneral')) :
                     'desc_tip' => true,
                     ),
                     array(
-                    'title' => __('Courses page max number course in row', 'eb-textdomain'),
+                    'title' => __('Max number of courses in row on courses page', 'eb-textdomain'),
                     'desc' => '',
                     'id' => 'courses_per_row',
                     'type' => 'courses_per_row',
                     'default' => '',
                     'css' => '',
+                    'desc_tip' =>
+                    __('This setting will be applicable only on the `/courses` page template', 'eb-textdomain'),
                     ),
                     array('type' => 'sectionend', 'id' => 'general_options'),
                     )

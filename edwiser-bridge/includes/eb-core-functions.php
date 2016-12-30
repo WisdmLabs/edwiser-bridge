@@ -187,13 +187,13 @@ function wdmEBUserRedirectUrl($queryStr = '')
     /*
      * Set default user account page url
      */
-    $usrAcPageUrl = site_url('/user-account');
+//    $usrAcPageUrl = site_url('/user-account');
 
     /*
      * Get the Edwiser Bridge genral settings.
      */
     $ebSettings = get_option('eb_general');
-
+    
     /*
      * Set the login redirect url to the user account page.
      */
@@ -206,8 +206,7 @@ function wdmEBUserRedirectUrl($queryStr = '')
      * courses page is enabled in settings 
      */
     if (isset($ebSettings['eb_enable_my_courses']) && $ebSettings['eb_enable_my_courses'] == 'yes') {
-        $myCoursesPage = get_page_by_path('my-courses');
-        $usrAcPageUrl = get_permalink($myCoursesPage->ID);
+        $usrAcPageUrl = getMycoursesPage($ebSettings);
     }
 
     //Extract query string into local $_GET array.
@@ -215,6 +214,15 @@ function wdmEBUserRedirectUrl($queryStr = '')
     parse_str(parse_url($queryStr, PHP_URL_QUERY), $get);
     $usrAcPageUrl = add_query_arg($get, $usrAcPageUrl);
 
+    return $usrAcPageUrl;
+}
+
+function getMycoursesPage($ebSettings)
+{
+    $usrAcPageUrl = site_url('/user-account');
+    if (isset($ebSettings['eb_my_courses_page_id'])) {
+        $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
+    }
     return $usrAcPageUrl;
 }
 
