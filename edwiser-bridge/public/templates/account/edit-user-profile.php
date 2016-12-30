@@ -14,7 +14,7 @@ $country = (isset($_POST['country']) && !empty($_POST['country'])) ? $_POST['cou
 
 <section class="eb-user-info eb-edit-user-wrapper">
     <h4><?php _e('Edit Account Details', 'eb-textdomain'); ?></h4>
-
+    <p class="eb-small"><?php _e('Note: Following all fields will be updated on Moodle as well as on WordPress site.', 'eb-textdomain'); ?></p>
 <?php
 if (!is_user_logged_in()) :
 ?>

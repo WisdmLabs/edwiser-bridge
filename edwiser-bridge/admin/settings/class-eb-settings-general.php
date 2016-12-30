@@ -63,10 +63,11 @@ if (!class_exists('EBSettingsGeneral')) :
                     'title' => __('Redirect to My Courses', 'eb-textdomain'),
                     'desc' => sprintf(
                         __(
-                            'Redirect user to the My Courses page on login and registration form <a href="%s">User Account</a> page.',
+                            'Redirect user to the My Courses page on %s form %s page.',
                             'eb-textdomain'
                         ),
-                        site_url('/user-account')
+                        '<strong>' . __('Login / Registration', 'eb-textdomain') . '</strong>',
+                        '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
                     __('Redirect user to the My Courses page on login and registration', 'eb-textdomain'),
                     'id' => 'eb_enable_my_courses',
