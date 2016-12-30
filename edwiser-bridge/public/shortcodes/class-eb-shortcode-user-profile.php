@@ -248,8 +248,8 @@ class EbShortcodeUserProfile
                 'description'   => $posted_data['description'],
             );
 
-            if (isset($posted_data['pass1']) && ! empty($posted_data['pass1'])) {
-                $user_data['password'] = $posted_data['pass1'];
+            if (isset($posted_data['pass_1']) && ! empty($posted_data['pass_1'])) {
+                $user_data['password'] = $posted_data['pass_1'];
             }
 
             $user_manager = new EBUserManager('edwiserbridge', EB_VERSION);
@@ -282,8 +282,8 @@ class EbShortcodeUserProfile
             'description'   => $posted_data['description']
         );
 
-        if (isset($posted_data['pass1']) && ! empty($posted_data['pass1'])) {
-            $args['user_pass'] = $posted_data['pass1'];
+        if (isset($posted_data['pass_1']) && ! empty($posted_data['pass_1'])) {
+            $args['user_pass'] = $posted_data['pass_1'];
         }
 
         wp_update_user($args);
