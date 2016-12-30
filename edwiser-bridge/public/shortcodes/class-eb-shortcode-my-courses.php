@@ -44,14 +44,12 @@ class EbShortcodeMyCourses
                 )), $atts));
         $my_courses = self::getUserCourses($atts['user_id']);
 
-//        if (count($my_courses)) {
         self::showMyCourses($my_courses, $atts);
         if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
             $rec_cats = self::getRecommendedCategories($my_courses);
             if (count($rec_cats)) {
                 self::showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
             }
-//            }
         }
     }
 
@@ -84,11 +82,16 @@ class EbShortcodeMyCourses
         }
         do_action('eb_before_my_courses');
         if (!is_user_logged_in()) {
-            echo "<p>";
-            _e("You are not logged in ", "eb-textdomain");
-            echo "<a href='".site_url('/user-account')."'>".__("click here", "eb-textdomain")."</a>";
-            _e(" to login.", "eb-textdomain");
-            echo "</p>";
+            ?>
+            <p>
+                <?php
+                printf(
+                    __('You are not logged in. %s to login.', 'eb-textdomain'),
+                    "<a href='".esc_url(site_url('/user-account'))."'>".__("Click here", "eb-textdomain")."</a>"
+                );
+                ?>
+            </p>
+            <?php
         } elseif (count($my_courses)) {
             //My Courses.
             $args = array(
@@ -111,11 +114,16 @@ class EbShortcodeMyCourses
             }
             echo "</div>";
         } else {
-            echo "<h5>";
-            _e("You are not enrolled to any course. ", "eb-textdomain");
-            echo "<a href='".site_url('/courses')."'>".__("click here", "eb-textdomain")."</a>";
-            _e(" to access the courses page.", "eb-textdomain");
-            echo "</h5>";
+            ?>
+            <h5>
+                <?php
+                printf(
+                    __('You are not enrolled to any course. %s to access the courses page.', 'eb-textdomain'),
+                    "<a href='".esc_url(site_url('/courses'))."'>".__("Click here", "eb-textdomain")."</a>"
+                );
+                ?>
+            </h5>
+            <?php
         }
         do_action('eb_after_my_courses');
         echo '</div>';

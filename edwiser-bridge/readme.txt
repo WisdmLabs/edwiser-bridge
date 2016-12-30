@@ -129,9 +129,10 @@ Take a look at the link below to see the full list of questions which will help 
 
  ==  Changelog  == 
 
-=  1.1.3  =
+=  1.2  =
 * Feature - Functionality to set course access expiry days.
 * Feature - Introduced functionality to email template customization for the mail sent to the user from the Edwiser Bridge plugin.
+* Feature - Update Moodle as well as WordPress user profile from shortcode `eb_user_profile`.
 * Feature - Added the settings to enable login redirection to my courses page.
 * Feature - Send the test email to check the modified email template.
 * Feature - Shortcode `eb_courses` to list courses.
