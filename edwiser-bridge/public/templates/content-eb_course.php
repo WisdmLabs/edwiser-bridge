@@ -50,8 +50,10 @@ $has_access = $enrollManag->userHasCourseAccess($user_id, $post->ID);
  */
 if ($has_access) {
     $course_class = 'has-access';
+    $h_title = __('Click to access.', 'eb-textdomain');
 } else {
     $course_class = 'no-access';
+    $h_title = __('Click to read more.', 'eb-textdomain');
 }
 
 $course_id = $post_id;
@@ -68,7 +70,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
 ?>
 
 <article id="post-<?php the_ID(); ?>"
-            <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?>>
+            <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
     <div class="wdm-course-grid">
 
         <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
