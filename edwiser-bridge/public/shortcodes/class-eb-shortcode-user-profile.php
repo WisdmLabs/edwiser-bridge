@@ -278,7 +278,7 @@ class EbShortcodeUserProfile
             'user_email'    => $posted_data['email'],
             'first_name'    => $posted_data['first_name'],
             'last_name'     => $posted_data['last_name'],
-            'nicename'      => $posted_data['nickname'],
+            'nickname'      => $posted_data['nickname'],
             'description'   => $posted_data['description']
         );
 
