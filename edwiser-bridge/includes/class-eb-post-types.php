@@ -197,7 +197,7 @@ class EBPostTypes
         //register metabox for course post type options
         add_meta_box(
             'eb_course_options',
-            'Course Options',
+            __('Course Options', 'eb-textdomain'),
             array($this, 'postOptionsCallback'),
             'eb_course',
             'advanced',
@@ -208,7 +208,7 @@ class EBPostTypes
         //register metabox for moodle Order post type options
         add_meta_box(
             'eb_order_options',
-            'Order Options',
+            __('Order Options', 'eb-textdomain'),
             array($this, 'postOptionsCallback'),
             'eb_order',
             'advanced',

@@ -485,13 +485,13 @@ class EBCourseManager
 
         foreach ($columns as $k => $value) {
             if ($k === 'title') {
-                $new_columns[$k] = 'Course Title';
+                $new_columns[$k] = __('Course Title', 'eb-textdomain');
             } else {
                 $new_columns[$k] = $value;
             }
 
             if ($k === 'title') {
-                $new_columns['course_type'] = 'Course Type';
+                $new_columns['course_type'] = __('Course Type', 'eb-textdomain');
             }
         }
 

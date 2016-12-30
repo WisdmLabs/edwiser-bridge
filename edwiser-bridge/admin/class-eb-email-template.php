@@ -34,10 +34,10 @@ class EBAdminEmailTemplate
 
     public function ebAddEmailList($emailList)
     {
-        $emailList["eb_emailtmpl_create_user"] = "New User Account Details";
-        $emailList["eb_emailtmpl_linked_existing_wp_user"] = "Link WP user account to moodle";
-        $emailList["eb_emailtmpl_order_completed"] = "Course order complet";
-        $emailList["eb_emailtmpl_course_access_expir"] = "Course access expired";
+        $emailList["eb_emailtmpl_create_user"] = __("New User Account Details", 'eb-textdomain');
+        $emailList["eb_emailtmpl_linked_existing_wp_user"] = __("Link WP user account to moodle", 'eb-textdomain');
+        $emailList["eb_emailtmpl_order_completed"] = __("Course order complete", 'eb-textdomain');
+        $emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
         return $emailList;
     }
 
@@ -103,7 +103,7 @@ class EBAdminEmailTemplate
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="submit" class="button-primary" value="<?php _e("Save Changes", "eb-textdomain"); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
+                                    <input type="submit" class="button-primary" value="Save Changes" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
                                 </td>
                             </tr>
                         </table>
@@ -229,30 +229,30 @@ class EBAdminEmailTemplate
         /**
          * Genral constants.
          */
-        $genral["{USER_NAME}"] = "The display name of the user.";
-        $genral["{FIRST_NAME}"] = "The first name of the user.";
-        $genral["{LAST_NAME}"] = "The last name of the user.";
-        $genral["{SITE_NAME}"] = "The name of the website.";
-        $genral["{SITE_URL}"] = "The URL of the website.";
-        $genral["{COURSES_PAGE_LINK}"] = "The link to the courses archive page.";
-        $genral["{USER_ACCOUNT_PAGE_LINK}"] = "The wordpress user account page link.";
-        $genral["{WP_LOGIN_PAGE_LINK}"] = "The wordpress login page link.";
-        $genral["{MOODLE_URL}"] = "The moodle site url entered in the connection.";
+        $genral["{USER_NAME}"] = __("The display name of the user.", 'eb-textdomain');
+        $genral["{FIRST_NAME}"] = __("The first name of the user.", 'eb-textdomain');
+        $genral["{LAST_NAME}"] = __("The last name of the user.", 'eb-textdomain');
+        $genral["{SITE_NAME}"] = __("The name of the website.", 'eb-textdomain');
+        $genral["{SITE_URL}"] = __("The URL of the website.", 'eb-textdomain');
+        $genral["{COURSES_PAGE_LINK}"] = __("The link to the courses archive page.", 'eb-textdomain');
+        $genral["{USER_ACCOUNT_PAGE_LINK}"] = __("The wordpress user account page link.", 'eb-textdomain');
+        $genral["{WP_LOGIN_PAGE_LINK}"] = __("The wordpress login page link.", 'eb-textdomain');
+        $genral["{MOODLE_URL}"] = __("The moodle site url entered in the connection.", 'eb-textdomain');
         /**
          * New account and link account constants
          */
-        $account["{USER_PASSWORD}"] = "The user accounts password.";
+        $account["{USER_PASSWORD}"] = __("The user accounts password.", 'eb-textdomain');
         /**
          * Course order template constants
          */
 //		$constants["Course order complet template constants"]="<hr>";
-        $order["{COURSE_NAME}"] = "The title of the course.";
-        $order["{ORDER_ID}"] = "The order id of the purchased order completed.";
+        $order["{COURSE_NAME}"] = __("The title of the course.", 'eb-textdomain');
+        $order["{ORDER_ID}"] = __("The order id of the purchased order completed.", 'eb-textdomain');
 
         /**
          * Course unenrollment alert constants
          */
-        $unenrollment["{WP_COURSE_PAGE_LINK}"] = "The current course page link.";
+        $unenrollment["{WP_COURSE_PAGE_LINK}"] = __("The current course page link.", 'eb-textdomain');
 
         $constants["General constants"] = $genral;
         $constants["New/ Link user account"] = $account;

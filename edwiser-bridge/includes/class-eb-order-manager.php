@@ -127,9 +127,9 @@ class EBOrderManager
         echo '<h2>Order #'.$order_id.' Details</h2>';
         foreach ($order_data as $key => $value) {
             if ($key == 'buyer_id') {
-                echo '<strong>Buyer ID: </strong>'.$value.'<br/>';
+                echo '<strong>' . __('Buyer ID: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
             } elseif ($key == 'billing_email') {
-                echo '<strong>Billing Email: </strong>'.$value.'<br/>';
+                echo '<strong>' . __('Billing Email: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
             } else {
                 continue;
             }
@@ -236,7 +236,7 @@ class EBOrderManager
         $order_status = 'pending';
 
         if (empty($buyer_id) || empty($course_id) || empty($order_status)) {
-            return new \WP_Error('warning', __('Order details are not correct. Exiting', 'edw'));
+            return new \WP_Error('warning', __('Order details are not correct. Exiting', 'eb-textdomain'));
         }
 
         // get buyer details
@@ -251,7 +251,7 @@ class EBOrderManager
 
         $order_id = wp_insert_post(
             array(
-                    'post_title' => "Course {$course_title}",
+                    'post_title' => sprintf(__("Course %s", 'eb-textdomain'), $course_title),
                     'post_type' => 'eb_order',
                     'post_status' => 'publish',
                     'post_author' => 1,
@@ -406,14 +406,14 @@ class EBOrderManager
 
         foreach ($columns as $k => $value) {
             if ($k === 'title') {
-                $new_columns[$k] = 'Order Title';
+                $new_columns[$k] = __('Order Title', 'eb-textdomain');
             } else {
                 $new_columns[$k] = $value;
             }
 
             if ($k === 'title') {
-                $new_columns['order_status'] = 'Order Status';
-                $new_columns['ordered_by'] = 'Ordered By';
+                $new_columns['order_status'] = __('Order Status', 'eb-textdomain');
+                $new_columns['ordered_by'] = __('Ordered By', 'eb-textdomain');
             }
         }
 

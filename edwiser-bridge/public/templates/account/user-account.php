@@ -3,11 +3,11 @@
 
     <p>
         <?php
-        _e(
-            "Hey <strong>{$current_user->user_login}</strong> (not {$current_user->user_login}?
-    <a href='".wp_logout_url(get_permalink())."'>Sign out</a>),
-    From here you can check the courses you have purchased and access them.",
-            'eb-textdomain'
+        printf(
+            __('Hey %s (not %s? %s). From here you can check the courses you have purchased and access them.', 'eb-textdomain'),
+            '<strong>' . $current_user->user_login . '</strong>',
+            '<strong>' . $current_user->user_login . '</strong>',
+            '<a href="'. esc_url(wp_logout_url(get_permalink())) . '">' . __('Sign out', 'eb-textdomain') . '</a>'
         );
         ?>
     </p>
@@ -28,7 +28,7 @@
             echo '<tr>';
             echo '<td><strong>#'.$order['order_id'].'</strong></td>';
             if (get_the_title($order['ordered_item']) == '') {
-                echo '<td>Not Available</td>';
+                echo '<td>' . __('Not Available', 'eb-textdomain') . '</td>';
             } else {
                 echo '<td>
         <a href="'.get_permalink($order['ordered_item']).'"/>'.

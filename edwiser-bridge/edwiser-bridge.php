@@ -62,7 +62,7 @@ add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'app\wisdmlabs\edwi
 function wdmAddSettingsActionLink($links)
 {
     $pluginlinks = array(
-        '<a href="'.admin_url('/admin.php?page=eb-settings').'">Settings</a>',
+        '<a href="'.admin_url('/admin.php?page=eb-settings').'">' . __('Settings', 'eb-textdomain') . '</a>',
             //'<a href="https://edwiser.org/bridge/documentation/" target="_blank">Documentation</a>',
     );
 
@@ -122,7 +122,7 @@ function wdmShowLegacyExtensions()
 
 function wdmShowLegacyExtensionsNotices()
 {
-    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'edw_woo').'</p></div>';
+    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'eb-textdomain').'</p></div>';
 }
 
 /**

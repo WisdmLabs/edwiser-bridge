@@ -140,6 +140,7 @@ Take a look at the link below to see the full list of questions which will help 
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
 * Tweak - Added page(My Courses) to display the users enrolled courses.
 * Tweak - Redirect user to my courses page on login.
+* Tweak - Translation ready - fix missing strings.
 * Tweak - Notification on unenrollment from the course.
 * Tweak - Archive course page layout improvement.
 * Tweak - Single course page layout improvement.

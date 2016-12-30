@@ -243,25 +243,19 @@ class EBWelcomeScreen
             <div class="changelog">
                 <p class="about-description">
                     <?php
-                    printf(
-                        __(
-                            'Thanks for installing Edwiser Bridge!
-                            Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.',
-                            'eb-textdomain'
-                        )
-                    );
+                    _e('Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain');
                     ?>
                 </p>
 
                 <div class="changelog prompt-subscribe-wrap">
                     <h1 style="text-align:center; margin:0; font-size:30px;">
-                        Get the latest updates on Edwiser Bridge in Your Inbox!
+                        <?php _e('Get the latest updates on Edwiser Bridge in Your Inbox!', 'eb-textdomain'); ?>
                     </h1>
                     <form method="post" action="<?php echo admin_url('admin.php');
                     ?>" class="prompt-subscribe-form">
                         <h4>
-                            Stay updated with the latest features in Edwiser Bridge
-                            and receive early-bird discounts on upcoming premium add ons.
+                            <?php _e('Stay updated with the latest features in Edwiser Bridge
+                            and receive early-bird discounts on upcoming premium add ons.', 'eb-textdomain'); ?>
                         </h4>
                         <br/>
                         <input
@@ -277,13 +271,13 @@ class EBWelcomeScreen
                     if (isset($_GET['subscribed']) && $_GET['subscribed'] == 1) {
                         ?>
                         <div class="success-message">
-                            <span>Thanks for subscribing to Edwiser Bridge Updates & Notifications.</span>
+                            <span><?php _e('Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain'); ?></span>
                         </div>
                         <?php
                     } elseif (isset($_GET['subscribed']) && $_GET['subscribed'] == 0) {
                         ?>
                         <div class="error-message">
-                            <span>An error occurred in subscription process, please try again.</span>
+                            <span><?php _e('An error occurred in subscription process, please try again.', 'eb-textdomain'); ?></span>
                         </div>
                         <?php
                     }
@@ -346,7 +340,7 @@ class EBWelcomeScreen
 
         // verify nonce
         if (!isset($_POST['subscribe_nonce_field']) || !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')) {
-            echo 'Sorry, there is a problem!';
+            _e('Sorry, there is a problem!', 'eb-textdomain');
             exit;
         } else {
             // process subscription
@@ -357,12 +351,12 @@ class EBWelcomeScreen
             // prepare email content
             $subject = apply_filters(
                 'eb_plugin_subscription_email_subject',
-                'Edwiser Bridge Plugin Subscription Notification'
+                __('Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain')
             );
 
-            $message = "Edwiser Bridge subscription user details: \n";
-            $message .= "\nCustomer Website:\n".site_url();
-            $message .= "\n\nCustomer Email: \n";
+            $message = __("Edwiser Bridge subscription user details:", 'eb-textdomain') ." \n";
+            $message .= "\n" . __("Customer Website:", 'eb-textdomain') . "\n". site_url();
+            $message .= "\n\n" . __("Customer Email:", 'eb-textdomain') . " \n";
             $message .= $admin_email;
 
             $sent = wp_mail($support_email, $subject, $message);

@@ -215,7 +215,7 @@ class EBActivator
             'thankyou' => array(
                 'name' => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
                 'title' => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
-                'content' => 'Thanks for purchasing the course, your order will be processed shortly.',
+                'content' => __('Thanks for purchasing the course, your order will be processed shortly.', 'eb-textdomain'),
                 'option_key' => '',
                 ),
                 'useraccount' => array(
@@ -228,7 +228,7 @@ class EBActivator
                 'name' => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
                 'title' => _x('My Courses', 'Page title', 'eb-textdomain'),
                 'content' => $page_content['eb_my_courses'],
-                'option_key' => '',
+                'option_key' => 'eb_my_courses_page_id',
                 ),
                 'courses' => array(
                 'name' => _x('eb-courses', 'Page slug', 'eb-textdomain'),

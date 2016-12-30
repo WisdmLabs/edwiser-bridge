@@ -28,7 +28,7 @@ if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
 
         <div class="eb-edit-profile" >
             <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink()));
-    ?>" class="wdm-btn">Edit Profile</a>
+    ?>" class="wdm-btn"><?php _e('Edit Profile', 'eb-textdomain'); ?></a>
         </div>
 
     </section>
@@ -37,7 +37,7 @@ if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
 ?>
 
     <section class="eb-user-courses">
-        <div class="course-heading" ><span>S.No.</span> <span>Enrolled Courses</span></div>
+        <div class="course-heading" ><span><?php _e('S.No.', 'eb-textdomain'); ?></span> <span><?php _e('Enrolled Courses', 'eb-textdomain'); ?></span></div>
         <div class="eb-course-data">
 <?php
 if (!empty($enrolled_courses)) {
@@ -49,10 +49,16 @@ if (!empty($enrolled_courses)) {
         echo '</div>';
     }
 } else {
-    echo '<p class="eb-no-course">
-            Looks like you are not enrolled in any course, get your first course
-            <a href="'.site_url('/courses').'">Here</a>
-        </p>';
+    ?>
+    <p class="eb-no-course">
+        <?php
+        printf(
+            __('Looks like you are not enrolled in any course, get your first course %s', 'eb-textdomain'),
+            '<a href="'.esc_url(site_url('/courses')) .'">' . __('here', 'eb-textdomain') . '</a>.'
+        );
+        ?>
+    </p>
+    <?php
 }
 ?>
         </div>
