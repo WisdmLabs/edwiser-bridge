@@ -4,7 +4,7 @@
  * Shortcode eb_course
  *
  * @link       https://edwiser.org
- * @since      1.1.3
+ * @since      1.2.0
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
@@ -17,7 +17,7 @@ class EbShortcodeCourse
     /**
      * Get the shortcode content.
      *
-     * @since  1.1.3
+     * @since  1.2.0
      *
      * @param array $atts
      *
@@ -31,7 +31,7 @@ class EbShortcodeCourse
     /**
      * Output the shortcode.
      *
-     * @since  1.1.3
+     * @since  1.2.0
      *
      * @param array $atts
      */

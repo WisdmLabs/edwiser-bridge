@@ -92,7 +92,7 @@ class EbShortcodes
     /**
      * courses shortcode, display courses.
      *
-     * @since  1.1.3
+     * @since  1.2.0
      * @param mixed $atts
      * @return courses
      */
@@ -104,7 +104,7 @@ class EbShortcodes
     /**
      * course shortcode, displays single course.
      *
-     * @since  1.1.3
+     * @since  1.2.0
      * @param mixed $atts
      * @return course
      */
@@ -116,7 +116,7 @@ class EbShortcodes
     /**
      * eb_my_courses shortcode, shows courses belonging to a user.
      *
-     * @since  1.1.3
+     * @since  1.2.0
      * @param mixed $atts
      * @return courses
      */

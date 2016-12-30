@@ -148,7 +148,7 @@ function wdmShowNotices()
 /**
  * Remodified wdmUserAccountUrl() to return user account url.
  *
- * @since 1.1.3
+ * @since 1.2.0
  */
 function wdmUserAccountUrl($query_str = '')
 {
@@ -179,7 +179,7 @@ function wdmUserAccountUrl($query_str = '')
  * @return URL Returns the my courses page url if the flag is true otherwise
  *             returns the default $usr_ac_page_url.
  *
- * @since 1.1.3
+ * @since 1.2.0
  */
 function wdmEBUserRedirectUrl($queryStr = '')
 {
@@ -235,7 +235,7 @@ function usortNumericCallback($element1, $element2)
 /**
  * Function returns shortcode pages content.
  *
- * @since 1.1.3
+ * @since 1.2.0
  */
 function getShortcodePageContent($the_tag = '')
 {

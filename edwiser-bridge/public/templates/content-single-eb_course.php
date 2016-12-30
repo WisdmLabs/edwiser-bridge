@@ -6,7 +6,7 @@
  *
  * @author      WisdmLabs
  *
- * @version     1.1.3
+ * @version     1.2.0
  */
 namespace app\wisdmlabs\edwiserBridge;
 

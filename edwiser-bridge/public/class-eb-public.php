@@ -149,7 +149,7 @@ class EbPublic
     /**
      * Theme specific setup.
      *
-     * @since    1.1.3
+     * @since    1.2.0
      */
     public function afterSetupTheme()
     {
