@@ -215,6 +215,15 @@ class EBEnrollmentManager
         return $response['success'];
     }
 
+    private function getMoodleWebServiceFunction($unenroll)
+    {
+        if ($unenroll == 0) {
+            return 'enrol_manual_enrol_users';
+        } elseif ($unenroll == 1) {
+            return 'enrol_manual_unenrol_users';
+        }
+    }
+
     /**
      * We have to update our enrollment table on wordpress everytime a user is enrolled
      * or unenrolled from moodle.

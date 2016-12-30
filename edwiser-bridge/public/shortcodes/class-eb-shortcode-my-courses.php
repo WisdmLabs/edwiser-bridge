@@ -78,12 +78,10 @@ class EbShortcodeMyCourses
             edwiserBridgeInstance()->getPluginName(),
             edwiserBridgeInstance()->getVersion()
         );
-        /**
-         * Removed unused variable.
-         */
-        
-        unset($atts);
         echo '<div class="eb-my-courses-wrapper">';
+        if (!empty($atts['my_courses_wrapper_title'])) {
+            ?><h2><?php echo $atts['my_courses_wrapper_title']; ?></h2><?php
+        }
         do_action('eb_before_my_courses');
         if (!is_user_logged_in()) {
             echo "<p>";
