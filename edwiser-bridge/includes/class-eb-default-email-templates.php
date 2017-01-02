@@ -11,7 +11,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 return $data;
             }
             $data = array(
-                "subject" => 'New User Account Details',
+                "subject" => __('New User Account Details', 'eb-textdomain'),
                 "content" => $this->getNewUserAccountTemplate(),
             );
             return $data;
@@ -23,7 +23,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 return $data;
             }
             $data = array(
-                "subject" => 'Your Learning Account Credentials',
+                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
                 "content" => $this->getLinkWPMoodleAccountTemplate(),
             );
             return $data;
@@ -35,7 +35,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 return $data;
             }
             $data = array(
-                "subject" => 'Your order completed successfully.',
+                "subject" => __('Your order completed successfully.', 'eb-textdomain'),
                 "content" => $this->getOrderCompleteTemplate(),
             );
             return $data;
@@ -47,7 +47,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 return $data;
             }
             $data = array(
-                "subject" => 'Course access expired.',
+                "subject" => __('Course access expired.', 'eb-textdomain'),
                 "content" => $this->getCourseAccessExpitedTemplate(),
             );
             return $data;
@@ -61,18 +61,47 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
-                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;"><?php _e('Your Learning Account Credentials', 'eb-textdomain'); ?></h1>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                    printf(
+                                        __('Hi %s', 'eb-textdomain'),
+                                        '{FIRST_NAME}'
+                                    );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Thanks for creating an account on {SITE_NAME}. Your username is <strong>{USER_NAME}</strong>.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Thanks for creating an account on %s. Your username is %s.', 'eb-textdomain'),
+                                            '{SITE_NAME}',
+                                            '<strong>{USER_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Your password has been automatically generated: <strong>{USER_PASSWORD}</strong>.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Your password has been automatically generated: %s.', 'eb-textdomain'),
+                                            '<strong>{USER_PASSWORD}</strong>'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can access your account here: <span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>.</div></td>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can access your account here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
                         </tr>
                         <tr>
                             <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
@@ -92,20 +121,54 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
-                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your Learning Account Credentials</h1>
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Your Learning Account Credentials', 'eb-textdomain'); ?>
+                                </h1>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">A learning account is linked to your profile.Use credentials given below while accessing your courses.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        _e('A learning account is linked to your profile.Use credentials given below while accessing your courses.', 'eb-textdomain');
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Username: <strong>{USER_NAME}</strong></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Username: %s', 'eb-textdomain'),
+                                            '<strong>{USER_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Password: <strong>{USER_PASSWORD} </strong></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                    printf(
+                                        __('Password: %s', 'eb-textdomain'),
+                                        '<strong>{USER_PASSWORD} </strong>'
+                                    );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can purchase &amp; access courses here: <span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>.</div></td>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can purchase &amp; access courses here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
                         </tr>
                         <tr>
                             <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
@@ -125,18 +188,48 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
-                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your order completed successfully.</h1>
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Your order completed successfully.', 'eb-textdomain'); ?>
+                                </h1>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Thanks for purchasing <strong>{COURSE_NAME}</strong> course.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Thanks for purchasing %s course.', 'eb-textdomain'),
+                                            '<strong>{COURSE_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Your order with ID <strong>{ORDER_ID}</strong> completed successfully.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Your order with ID %s completed successfully.', 'eb-textdomain'),
+                                            '<strong>{ORDER_ID}</strong>'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">You can access your account here: <span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>.</div></td>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can access your account here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
                         </tr>
                         <tr>
                             <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
@@ -156,18 +249,48 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
-                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">Your {COURSE_NAME} course access is expired.</h1>
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php
+                                        printf(
+                                            __('Your %s course access is expired.', 'eb-textdomain'),
+                                            '{COURSE_NAME}'
+                                        );
+                                    ?>
+                                </h1>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Hi {FIRST_NAME}</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Your Subscription for {COURSE_NAME} course has expired.</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Your Subscription for %s course has expired.', 'eb-textdomain'),
+                                            '{COURSE_NAME}'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Please purchase the course again to continue with it. {WP_COURSE_PAGE_LINK} to purchase now!</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Please purchase the course again to continue with it. %s to purchase now!', 'eb-textdomain'),
+                                            '{WP_COURSE_PAGE_LINK}'
+                                        );
+                                    ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">Thank you!</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php _e('Thank you!', 'eb-textdomain'); ?>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div></td>
                         </tr>

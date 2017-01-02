@@ -39,11 +39,11 @@ if (!class_exists("EBEmailTmplParser")) {
                 $constant["{LAST_NAME}"] = $args['last_name'];
             }
             $constant["{SITE_NAME}"] = get_bloginfo("name");
-            $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'> Site</a>";
-            $constant["{COURSES_PAGE_LINK}"] = "<a href='".site_url('/courses')."'> Courses</a>";
-            $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='".wdmUserAccountUrl()."'> User Account</a>";
-            $constant["{WP_LOGIN_PAGE_LINK}"] = "<a href='".wp_login_url()."'> Login Page</a>";
-            $constant["{MOODLE_URL}"] = "<a href='".$this->getMoodleURL()."'> Moodle Site</a>";
+            $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'>" . __('Site', 'eb-textdomain') . "</a>";
+            $constant["{COURSES_PAGE_LINK}"] = "<a href='".site_url('/courses')."'>" . __('Courses', 'eb-textdomain') . "</a>";
+            $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='".wdmUserAccountUrl()."'>" . __('User Account', 'eb-textdomain') . "</a>";
+            $constant["{WP_LOGIN_PAGE_LINK}"] = "<a href='".wp_login_url()."'>" . __('Login Page', 'eb-textdomain') . "</a>";
+            $constant["{MOODLE_URL}"] = "<a href='".$this->getMoodleURL()."'>" . __('Moodle Site', 'eb-textdomain') . "</a>";
             $constant["{COURSE_NAME}"] = $this->getCourseName($args);
             $constant["{USER_PASSWORD}"] = $this->getUserPassword($args);
             $constant["{ORDER_ID}"] = $this->getOrderID($args);
@@ -53,10 +53,10 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getCoursePageLink($args)
         {
             if (isset($args['course_id'])) {
-                return "<a href='".get_post_permalink($args['course_id'])."'>click here</a>";
+                return "<a href='".get_post_permalink($args['course_id'])."'>" . __('click here', 'eb-textdomain') . "</a>";
             } else {
                 $url = get_site_url();
-                return "<a href='".$url."'>Click here</a>";
+                return "<a href='".$url."'>" . __('Click here', 'eb-textdomain') . "</a>";
             }
         }
         private function getMoodleURL()

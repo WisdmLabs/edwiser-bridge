@@ -1,3 +1,5 @@
+<?php //echo do_shortcode('[eb_user_profile]'); ?>
+
 <div class="wdm-transaction-header">
     <h2 style=""><?php _e('Course Purchase History', 'eb-textdomain'); ?></h2>
 

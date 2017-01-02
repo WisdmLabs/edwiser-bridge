@@ -213,7 +213,7 @@
                         }
 
                         if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 1) {
-                            ohSnap('Categories synchronized successfully.', 'success', 1);
+                            ohSnap(eb_admin_js_object.msg_cat_sync_success, 'success', 1);
                         } else if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 0) {
                             ohSnap(response.category_response_message, 'error', 0);
                         }
@@ -270,7 +270,7 @@
                             ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         }
                     } else {
-                        ohSnap('There is a problem while connecting to moodle server.', 'error', 0);
+                        ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
                     }
                 }
             });
@@ -321,7 +321,7 @@
                 url: ajaxurl,
                 data: {action: "wdm_eb_get_email_template", tmpl_name: tmplId},
                 error: function (error) {
-                    alert("Template not found");
+                    alert(eb_admin_js_object.msg_tpl_not_found);
                 },
                 success: function (response) {
                     setTemplateData(response, name, tmplId);
@@ -344,7 +344,7 @@
                 data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, content: message, security: security},
                 error: function (error) {
                     $('.load-response').hide();
-                    ohSnap('<p>Mail delivery failed.</p>', 'error');
+                    ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
                 },
                 success: function (response) {
                     response = $.parseJSON(response);
@@ -352,10 +352,10 @@
                     $('.load-response').hide();
                     if (response["success"] == "1") {
                         console.log(response["response_message"]);
-                        ohSnap('<p>Test mail sent to ' + mailTo + "</p>", 'success');
+                        ohSnap('<p>' + eb_admin_js_object.msg_test_mail_sent_to + mailTo + '</p>', 'success');
                     } else {
                         console.log(response["response_message"]);
-                        ohSnap('<p>Mail delivery failed.</p>', 'error');
+                        ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
                     }
                 }
             });
@@ -389,7 +389,7 @@
             $("#eb_emailtmpl_name").val(tmplId);
             tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
         } catch (e) {
-            alert("An error occurred during parsing the response");
+            alert(eb_admin_js_object.msg_err_parsing_res);
             console.log("EB Error : " + e);
         }
     }

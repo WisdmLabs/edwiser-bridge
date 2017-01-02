@@ -119,6 +119,14 @@ class EbPublic
             $this->version,
             false
         );
+        wp_localize_script(
+            $this->plugin_name . '-edit-user-profile',
+            'ebEditProfile',
+            array(
+                'default' => __('- Select Country -', 'eb-textdomain')
+            )
+        );
+
         wp_enqueue_script(
             $this->plugin_name."-ui-block",
             EB_PLUGIN_URL.'public/assets/js/jquery-blockui-min.js',
