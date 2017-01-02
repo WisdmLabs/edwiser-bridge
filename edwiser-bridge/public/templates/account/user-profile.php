@@ -63,5 +63,4 @@ if (!empty($enrolled_courses)) {
 ?>
         </div>
     </section>
-
 </div>
