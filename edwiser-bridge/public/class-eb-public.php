@@ -130,9 +130,14 @@ class EbPublic
             $this->plugin_name,
             'eb_public_js_object',
             array(
-            'ajaxurl' => admin_url('admin-ajax.php'),
-            'nonce' => $nonce
-                )
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'nonce' => $nonce,
+                'msg_val_fn' => __("The field 'First Name' cannot be left blank", 'eb-textdomain'),
+                'msg_val_ln' => __("The field 'Last Name' cannot be left blank", 'eb-textdomain'),
+                'msg_val_mail' => __("The field 'Email' cannot be left blank", 'eb-textdomain'),
+                'msg_ordr_pro_err' => __('Problems in processing your order, Please try later.', 'eb-textdomain'),
+                'msg_processing' => __('Processing...', 'eb-textdomain'),
+            )
         );
 
         // datatable js for user order table

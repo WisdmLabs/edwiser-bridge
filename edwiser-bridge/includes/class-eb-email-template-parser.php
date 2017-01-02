@@ -1,5 +1,4 @@
 <?php
-
 namespace app\wisdmlabs\edwiserBridge;
 
 /**
@@ -15,12 +14,9 @@ namespace app\wisdmlabs\edwiserBridge;
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
-
 if (!class_exists("EBEmailTmplParser")) {
-
     class EBEmailTmplParser
     {
-
         public function outPut($args, $tmplContent)
         {
             $tmplConst = $this->getTmplConstant($args);
@@ -29,7 +25,6 @@ if (!class_exists("EBEmailTmplParser")) {
             }
             return apply_filters("eb_emailtmpl_content", $tmplContent);
         }
-
         private function getTmplConstant($args)
         {
             $constant = array();
@@ -43,7 +38,6 @@ if (!class_exists("EBEmailTmplParser")) {
                 $constant["{FIRST_NAME}"] = $args['first_name'];
                 $constant["{LAST_NAME}"] = $args['last_name'];
             }
-
             $constant["{SITE_NAME}"] = get_bloginfo("name");
             $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'> Site</a>";
             $constant["{COURSES_PAGE_LINK}"] = "<a href='".site_url('/courses')."'> Courses</a>";
@@ -54,13 +48,10 @@ if (!class_exists("EBEmailTmplParser")) {
             $constant["{USER_PASSWORD}"] = $this->getUserPassword($args);
             $constant["{ORDER_ID}"] = $this->getOrderID($args);
             $constant["{WP_COURSE_PAGE_LINK}"] = $this->getCoursePageLink($args);
-
             return apply_filters("eb_emailtmpl_constants_values", $constant);
         }
-
         private function getCoursePageLink($args)
         {
-
             if (isset($args['course_id'])) {
                 return "<a href='".get_post_permalink($args['course_id'])."'>click here</a>";
             } else {
@@ -68,7 +59,6 @@ if (!class_exists("EBEmailTmplParser")) {
                 return "<a href='".$url."'>Click here</a>";
             }
         }
-
         private function getMoodleURL()
         {
             $url = get_option("eb_connection");
@@ -77,7 +67,6 @@ if (!class_exists("EBEmailTmplParser")) {
             }
             return "MOODLE_URL";
         }
-
         private function getCourseName($args)
         {
             if (isset($args["course_id"])) {
@@ -85,7 +74,6 @@ if (!class_exists("EBEmailTmplParser")) {
             }
             return "COURSE_NAME";
         }
-
         private function getUserPassword($args)
         {
             if (isset($args["password"])) {
@@ -93,7 +81,6 @@ if (!class_exists("EBEmailTmplParser")) {
             }
             return "USER_PASSWORD";
         }
-
         private function getOrderID($args)
         {
             if (isset($args["order_id"])) {
@@ -102,5 +89,4 @@ if (!class_exists("EBEmailTmplParser")) {
             return "ORDER ID";
         }
     }
-
 }

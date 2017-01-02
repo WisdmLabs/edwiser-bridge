@@ -122,7 +122,20 @@ function wdmShowLegacyExtensions()
 
 function wdmShowLegacyExtensionsNotices()
 {
-    echo "<div class='error'><p>".__('Please update all <strong>Edwiser Bridge</strong> extensions to latest version.', 'eb-textdomain').'</p></div>';
+    ob_start();
+    ?>
+    <div class="error">
+        <p>
+            <?php
+            printf(
+                __('Please update all %s extensions to latest version.', 'eb-textdomain'),
+                '<strong>' . __('Edwiser Bridge', 'eb-textdomain') . '</strong>'
+            );
+            ?>
+        </p>
+    </div>
+    <?php
+    echo ob_get_clean();
 }
 
 /**

@@ -143,7 +143,7 @@ class EbTemplateLoader
         $located = $this->wpLocateTemplate($template_name, $template_path, $default_path);
 
         if (!file_exists($located)) {
-            _doing_it_wrong(__FUNCTION__, sprintf(__('<code>%s</code> does not exist.', 'eb-textdomain'), $located), '2.1');
+            _doing_it_wrong(__FUNCTION__, sprintf(__('%s does not exist.', 'eb-textdomain'), '<code>' . $located . '</code>'), '2.1');
             return;
         }
 

@@ -179,7 +179,7 @@ class EBUserManager
                         // Push user's id to separate array,
                         // if there is a problem in fetching his/her courses from moodle.
                         $response_array['user_with_error'][] = "<p style='float:left; clear:left;'>";
-                        $response_array['user_with_error'][] .= '<strong>User ID: </strong>'.$value['user_id'];
+                        $response_array['user_with_error'][] .= '<strong>' . __('User ID:', 'eb-textdomain') . ' </strong>'.$value['user_id'];
                         $response_array['user_with_error'][] .= '</p><br/>';
                     }
 

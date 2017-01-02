@@ -116,11 +116,16 @@ class EbAdmin
             $this->plugin_name,
             'eb_admin_js_object',
             array(
-            'unsaved_warning' => __('Please save the changes.', 'eb-textdomain'),
-            'plugin_url' => EB_PLUGIN_URL,
-            'ajaxurl' => admin_url('admin-ajax.php'),
-            'nonce' => $nonce,
-                )
+                'unsaved_warning' => __('Please save the changes.', 'eb-textdomain'),
+                'plugin_url' => EB_PLUGIN_URL,
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'nonce' => $nonce,
+                'msg_con_success' => __('Connection successful, Please save your connection details.', 'eb-textdomain'),
+                'msg_courses_sync_success' => __('Courses synchronized successfully.', 'eb-textdomain'),
+                'msg_con_prob' => __('There is a problem while connecting to moodle server.', 'eb-textdomain'),
+                'msg_err_users' => __('Error occured for following users: ', 'eb-textdomain'),
+                'msg_user_sync_success' => __('User data synced successfully.', 'eb-textdomain')
+            )
         );
 
         wp_enqueue_script(

@@ -236,7 +236,7 @@ class EBOrderManager
         $order_status = 'pending';
 
         if (empty($buyer_id) || empty($course_id) || empty($order_status)) {
-            return new \WP_Error('warning', __('Order details are not correct. Exiting', 'eb-textdomain'));
+            return new \WP_Error('warning', __('Order details are not correct. Existing', 'eb-textdomain'));
         }
 
         // get buyer details

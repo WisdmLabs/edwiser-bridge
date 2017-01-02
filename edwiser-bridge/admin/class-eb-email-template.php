@@ -46,7 +46,7 @@ class EBAdminEmailTemplate
      */
     public function outPut()
     {
-        if (isset($_POST["eb_save_tmpl"]) && $_POST["eb_save_tmpl"] == "Save Changes") {
+        if (isset($_POST["eb-mail-tpl-submit"]) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes") {
             $this->save();
         }
         $fromEmail = $this->getFromEmail();
@@ -61,7 +61,7 @@ class EBAdminEmailTemplate
         $tmplName = current($tmplList);
         ?>
         <div class="wrap">
-            <h1 class="wp-heading-inline eb-emailtemp-head"><?php _e("Manage Email Template", "eb-textdomain"); ?></h1>
+            <h1 class="wp-heading-inline eb-emailtemp-head"><?php _e("Manage Email Templates", "eb-textdomain"); ?></h1>
             <div class="eb-email-template-wrap">
                 <div class="eb-template-edit-form">
                     <h3 id="eb-email-template-name"><?php echo $tmplName; ?></h3>
@@ -103,7 +103,8 @@ class EBAdminEmailTemplate
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="submit" class="button-primary" value="Save Changes" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
+                                    <input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
+                                    <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'eb-textdomain'); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
                                 </td>
                             </tr>
                         </table>
@@ -116,7 +117,7 @@ class EBAdminEmailTemplate
                             <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="Enter email address"/>
                             <input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
                             <span class="load-response">
-                                <img src="<?php echo site_url() . '/wp-content/plugins/edwiser-bridge/images/loader.gif'; ?>" height="20" width="20">
+                                <img src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
                             </span>
                             <div class="response-box">
                             </div>
@@ -303,6 +304,8 @@ class EBAdminEmailTemplate
             $this->setFromEmail($fromEmail);
             $this->setFromName($fromName);
             $this->setTemplateData($tmplName, $data);
+
+            echo self::getNoticeHtml(__('Changes saved successfully!', 'eb-textdomain'));
         }
     }
 
@@ -378,5 +381,20 @@ class EBAdminEmailTemplate
          * Email send end
          */
         return $mail;
+    }
+
+    public static function getNoticeHtml($msg, $type = 'success', $dismissible = true)
+    {
+        $classes = 'notice notice-' . $type;
+        if ($dismissible) {
+            $classes .= ' is-dismissible';
+        }
+        ob_start();
+        ?>
+        <div class="<?php echo $classes; ?>">
+            <p><?php echo $msg; ?></p>
+        </div>
+        <?php
+        return ob_get_clean();
     }
 }

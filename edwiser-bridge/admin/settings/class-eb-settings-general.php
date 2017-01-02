@@ -79,10 +79,10 @@ if (!class_exists('EBSettingsGeneral')) :
                     'title' => __('My Courses Page', 'eb-textdomain'),
                     'desc' => '<br/>'.sprintf(
                         __(
-                            'Select my courses page here. Default page is <a href="%s">My Courses</a> ',
+                            'Select my courses page here. Default page is %s ',
                             'eb-textdomain'
                         ),
-                        site_url('/eb-my-courses')
+                        '<a href="' . esc_url(site_url('/eb-my-courses')) . '">' . __('My Courses', 'eb-textdomain') . '</a>'
                     ),
                     'id' => 'eb_my_courses_page_id',
                     'type' => 'single_select_page',
@@ -110,10 +110,10 @@ if (!class_exists('EBSettingsGeneral')) :
                     'title' => __('User Account Page', 'eb-textdomain'),
                     'desc' => '<br/>'.sprintf(
                         __(
-                            'Select user account page here. Default page is <a href="%s">User Account</a> ',
+                            'Select user account page here. Default page is %s ',
                             'eb-textdomain'
                         ),
-                        site_url('/user-account')
+                        '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
                     'id' => 'eb_useraccount_page_id',
                     'type' => 'single_select_page',

@@ -164,7 +164,7 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.success == 1) {
-                        ohSnap('Connection successful, Please save your connection details.', 'success', 1);
+                        ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
                     } else {
                         ohSnap(response.response_message, 'error', 0);
                     }
@@ -207,7 +207,7 @@
                     //prepare response for user
                     if (response.connection_response == 1) {
                         if (response.course_success == 1) {
-                            ohSnap('Courses synchronized successfully.', 'success', 1);
+                            ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
                         } else {
                             ohSnap(response.course_response_message, 'error', 0);
                         }
@@ -218,7 +218,7 @@
                             ohSnap(response.category_response_message, 'error', 0);
                         }
                     } else {
-                        ohSnap('There is a problem while connecting to moodle server.', 'error', 0);
+                        ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
                     }
                 }
             });
@@ -265,9 +265,9 @@
                         }
 
                         if (response.user_with_error !== undefined) {
-                            ohSnap('<p>Error occured for following users: </p>' + user_id_error, 'red');
+                            ohSnap('<p>' + eb_admin_js_object.msg_err_users + '</p>' + user_id_error, 'red');
                         } else {
-                            ohSnap('<p>User data synced successfully.', 'success', 1);
+                            ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         }
                     } else {
                         ohSnap('There is a problem while connecting to moodle server.', 'error', 0);

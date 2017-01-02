@@ -261,11 +261,11 @@ class EBWelcomeScreen
                         <input
                             type="email"
                             name="eb_sub_admin_email"
-                            placeholder="Please enter your email address" value="" />
+                            placeholder="<?php _e('Please enter your email address', 'eb-textdomain'); ?>" value="" />
                         <input type="hidden" name="action" value="eb_subscribe" />
                         <?php wp_nonce_field('subscribe_nonce', 'subscribe_nonce_field');
                         ?>
-                        <input type="submit" class="subscribe-submit" value="Subscribe" />
+                        <input type="submit" class="subscribe-submit" value="<?php _e('Subscribe', 'eb-textdomain'); ?>" />
                     </form>
                     <?php
                     if (isset($_GET['subscribed']) && $_GET['subscribed'] == 1) {

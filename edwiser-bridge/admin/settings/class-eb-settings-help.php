@@ -66,7 +66,7 @@ if (!class_exists('EBSettingsGetHelp')) :
             if (!isset($_POST['subscribe_nonce_field']) ||
                     !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')
             ) {
-                echo 'Sorry, there is a problem!';
+                _e('Sorry, there is a problem!', 'eb-textdomain');
                 exit;
             } else {
                 // process subscription

@@ -180,8 +180,8 @@ class EbAdminMenus
     {
         add_submenu_page(
             'edwiserbridge_lms',
-            __('Manage Email Template', 'eb-textdomain'),
-            __('Manage Email Template', 'eb-textdomain'),
+            __('Manage Email Templates', 'eb-textdomain'),
+            __('Manage Email Templates', 'eb-textdomain'),
             'manage_options',
             'eb-email-template',
             array($this, 'emailTemplatePage')

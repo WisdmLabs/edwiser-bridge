@@ -147,7 +147,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle URL !';
+            $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         //edwiserBridgeInstance()->logger()->add( 'user', "\n Moodle response: ".serialize($response_data) );
@@ -195,7 +195,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle connection details.';
+            $response_message = __('Please check Moodle connection details.', 'eb-textdomain');
         }
 
         return array(
@@ -237,7 +237,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle URL !';
+            $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         return array(

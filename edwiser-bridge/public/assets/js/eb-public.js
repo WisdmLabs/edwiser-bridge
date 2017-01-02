@@ -38,11 +38,11 @@
                 e.target.setCustomValidity("");
                 if (!e.target.validity.valid) {
                     if (e.target.name == "firstname") {
-                        e.target.setCustomValidity("The field 'First Name' cannot be left blank");
+                        e.target.setCustomValidity(eb_public_js_object.msg_val_fn);
                     } else if (e.target.name == "lastname") {
-                        e.target.setCustomValidity("The field 'Last Name' cannot be left blank");
+                        e.target.setCustomValidity(eb_public_js_object.msg_val_ln);
                     } else if (e.target.name == "email") {
-                        e.target.setCustomValidity("The field 'Email' cannot be left blank");
+                        e.target.setCustomValidity(eb_public_js_object.msg_val_mail);
                     }
                 }
             };
@@ -102,7 +102,7 @@
                         $("input[name='custom']").val(JSON.stringify(custom_data));
                     } else {
                         e.preventDefault();
-                        alert('Problems in processing your order, Please try later.');
+                        alert(eb_public_js_object.msg_ordr_pro_err);
                     }
                 }
             });
@@ -128,7 +128,7 @@
         ;
         if (getUrlParameter("auto_enroll") === "true") {
             $.blockUI({
-                message: "Processing..."
+                message: eb_public_js_object.msg_processing
             });
             var btn = document.getElementById('eb_course_payment_button');
             if (btn == null) {
