@@ -290,7 +290,7 @@ class EBAdminEmailTemplate
             $this->setTemplateData($tmplName, $data);
             echo self::getNoticeHtml(__('Changes saved successfully!', 'eb-textdomain'));
         } else {
-            echo self::getNoticeHtml(__('Changes not saved security issue occured, Try to reupdate.', 'eb-textdomain'), "error");
+            echo self::getNoticeHtml(__('Due to the security issue changes are not saved, Try to re-update it.', 'eb-textdomain'), "error");
         }
     }
 

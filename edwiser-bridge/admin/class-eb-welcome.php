@@ -289,7 +289,7 @@ class EBWelcomeScreen
                 <a href="<?php echo admin_url('admin.php?page=eb-settings');
                     ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain');
                     ?></a>
-                <a href="<?php _e('https://edwiser.org/bridge/documentation/', 'eb-textdomain');
+                <a href="<?php echo'https://edwiser.org/bridge/documentation/';
                     ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain');
                     ?></a>
             </div>
