@@ -30,6 +30,7 @@ class EBAdminEmailTemplate
          */
         add_filter("eb_email_templates_list", array($this, "ebAddEmailList"), 10, 1);
         add_filter("eb_email_template_constant", array($this, "emailTemplateContsnt"), 10, 1);
+        add_filter('wp_mail_from_name', array($this, "wpbSenderName"), 99, 1);
     }
 
     public function ebAddEmailList($emailList)
@@ -49,7 +50,6 @@ class EBAdminEmailTemplate
         if (isset($_POST["eb-mail-tpl-submit"]) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes") {
             $this->save();
         }
-        $fromEmail = $this->getFromEmail();
         $fromName = $this->getFromName();
         $tmplList = array();
         $tmplList = apply_filters('eb_email_templates_list', $tmplList);
@@ -76,16 +76,7 @@ class EBAdminEmailTemplate
                                <?php
                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
                                ?>
-                        <table>
-                            <tr>
-                                <td class="eb-email-lable"><?php _e("From Email", "eb-textdomain"); ?></td>
-                                <td>
-                                    <input type="email" name="eb_email_from" id="eb_email_from" 
-                                           value="<?php echo $fromEmail; ?>" class="eb-email-input" 
-                                           title="<?php _e("Enter an email address here to use as the form mail in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>"
-                                           placeholder="Enter from email address"/>
-                                </td>
-                            </tr>
+                        <table>                            
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
                                 <td>
@@ -189,8 +180,7 @@ class EBAdminEmailTemplate
 
         $data = array();
         if (isset($_POST['tmpl_name'])) {
-            $tmplData = get_option($_POST['tmpl_name']);
-            $data['from_email'] = $this->getFromEmail();
+            $tmplData = get_option($_POST['tmpl_name']);            
             $data['from_name'] = $this->getFromName();
             $data['subject'] = $tmplData['subject'];
             $data['content'] = $tmplData['content'];
@@ -274,10 +264,6 @@ class EBAdminEmailTemplate
     /**
      * Setter methods start
      */
-    private function setFromEmail($email)
-    {
-        update_option("eb_mail_from_email", $email);
-    }
 
     private function setFromName($name)
     {
@@ -292,7 +278,6 @@ class EBAdminEmailTemplate
     private function save()
     {
         if (isset($_POST["eb_emailtmpl_nonce"]) && wp_verify_nonce($_POST["eb_emailtmpl_nonce"], "eb_emailtmpl_sec")) {
-            $fromEmail = $this->checkIsEmpty($_POST, "eb_email_from");
             $fromName = $this->checkIsEmpty($_POST, "eb_email_from_name");
             $subject = $this->checkIsEmpty($_POST, "eb_email_subject");
             $tmplContetn = $this->checkIsEmpty($_POST, "eb_emailtmpl_editor");
@@ -301,7 +286,6 @@ class EBAdminEmailTemplate
                 "subject" => $subject,
                 "content" => stripslashes($tmplContetn),
             );
-            $this->setFromEmail($fromEmail);
             $this->setFromName($fromName);
             $this->setTemplateData($tmplName, $data);
             echo self::getNoticeHtml(__('Changes saved successfully!', 'eb-textdomain'));
@@ -378,10 +362,10 @@ class EBAdminEmailTemplate
                 .$tmplContent
                 ."</body>"
                 ."</html>";
-        $headers = array('Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"');
-        add_filter( 'wp_mail_from', array($this,"wpb_sender_email"),99);
-        add_filter( 'wp_mail_from_name', array($this,"wpb_sender_name"),99);
         
+            $headers = array('Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"');
+        
+
         add_filter('wp_mail_content_type', function () {
             return "text/html";
         });
@@ -390,19 +374,23 @@ class EBAdminEmailTemplate
         remove_filter('wp_mail_content_type', function () {
             return "text/html";
         });
+        
+        remove_filter('wp_mail_from_name', array($this, "wpb_sender_name"));
         /**
          * Email send end
          */
         return $mail;
     }
-public function wpb_sender_email( $original_email_address ) {
-    return $this->getFromEmail();
-}
- 
-// Function to change sender name
-public function wpb_sender_name( $original_email_from ) {
-    return $this->getFromName();
-}
+
+    public function wpbSenderEmail($email)
+    {
+        return $this->getFromEmail();
+    }
+
+    public function wpbSenderName($name)
+    {
+        return $this->getFromName();
+    }
 
     public static function getNoticeHtml($msg, $type = 'success', $dismissible = true)
     {
