@@ -93,7 +93,7 @@ if (!class_exists('EBSettingsGeneral')) :
                         'option_none_value' => '',
                     ),
                     'desc_tip' => __(
-                        'This sets the my course page, where user can see his/her purchase courses history and access the course.To create the shortcode page user can use the shortcode `[eb_my_courses]`',
+                        "This sets 'My Courses' page, where user can see history of all the purchased courses and access them directly. You could use this shortcode [eb_my_courses] to create this page.",
                         'eb-textdomain'
                     ),
                     ),

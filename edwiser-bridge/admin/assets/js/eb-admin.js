@@ -305,9 +305,31 @@
         });
         $('#course_price_type').change();
         $("#course_expirey").change();
-        
-    });
 
+    });
+    function setGetParameter(paramName, paramValue)
+    {
+        var url = window.location.href;
+        var hash = location.hash;
+        url = url.replace(hash, '');
+        if (url.indexOf("?") >= 0)
+        {
+            var params = url.substring(url.indexOf("?") + 1).split("&");
+            var paramFound = false;
+            params.forEach(function (param, index) {
+                var p = param.split("=");
+                if (p[0] == paramName) {
+                    params[index] = paramName + "=" + paramValue;
+                    paramFound = true;
+                }
+            });
+            if (!paramFound)
+                params.push(paramName + "=" + paramValue);
+            url = url.substring(0, url.indexOf("?") + 1) + params.join("&");
+        } else
+            url += "?" + paramName + "=" + paramValue;
+        window.history.pushState(null, null, url + hash);
+    }
     /**
      * Email template ajax request handler.
      */
@@ -316,6 +338,7 @@
             e.preventDefault();
             var tmplId = this.id;
             var name = $(this).text();
+            setGetParameter("curr_tmpl", tmplId);
             $.ajax({
                 type: "post",
                 url: ajaxurl,
@@ -399,14 +422,14 @@
 
         // archive courses right sidebar
         $('input#archive_enable_right_sidebar').change(function () {
-            if ( $(this).is(':checked') ) {
+            if ($(this).is(':checked')) {
                 $('#archive_right_sidebar').closest('tr').show();
             } else {
                 $('#archive_right_sidebar').closest('tr').hide();
             }
         }).change();
         $('input#archive_enable_left_sidebar').change(function () {
-            if ( $(this).is(':checked') ) {
+            if ($(this).is(':checked')) {
                 $('#archive_left_sidebar').closest('tr').show();
             } else {
                 $('#archive_left_sidebar').closest('tr').hide();
@@ -415,14 +438,14 @@
 
         // single course right sidebar
         $('input#single_enable_right_sidebar').change(function () {
-            if ( $(this).is(':checked') ) {
+            if ($(this).is(':checked')) {
                 $('#single_right_sidebar').closest('tr').show();
             } else {
                 $('#single_right_sidebar').closest('tr').hide();
             }
         }).change();
         $('input#single_enable_left_sidebar').change(function () {
-            if ( $(this).is(':checked') ) {
+            if ($(this).is(':checked')) {
                 $('#single_left_sidebar').closest('tr').show();
             } else {
                 $('#single_left_sidebar').closest('tr').hide();

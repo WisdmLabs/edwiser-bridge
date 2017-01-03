@@ -51,14 +51,19 @@ class EBAdminEmailTemplate
         }
         $fromEmail = $this->getFromEmail();
         $fromName = $this->getFromName();
-        $tmplData = $this->getEmailTemplate("eb_emailtmpl_create_user");
-        $tmplContent = apply_filters("eb_email_template_data", $tmplData);
         $tmplList = array();
         $tmplList = apply_filters('eb_email_templates_list', $tmplList);
         $section = array();
         $constSec = apply_filters('eb_email_template_constant', $section);
-        $tmplKey = key($tmplList);
-        $tmplName = current($tmplList);
+        if (isset($_GET["curr_tmpl"])) {
+            $tmplKey = $_GET["curr_tmpl"];
+            $tmplName = $tmplList[$_GET["curr_tmpl"]];
+        } else {
+            $tmplKey = key($tmplList);
+            $tmplName = current($tmplList);
+        }
+        $tmplData = $this->getEmailTemplate($tmplKey);
+        $tmplContent = apply_filters("eb_email_template_data", $tmplData);
         ?>
         <div class="wrap">
             <h1 class="wp-heading-inline eb-emailtemp-head"><?php _e("Manage Email Templates", "eb-textdomain"); ?></h1>
@@ -68,9 +73,9 @@ class EBAdminEmailTemplate
                     <form name="manage-email-template" method="POST">
                         <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
                                value="<?php echo $tmplKey; ?>"/>
-                                <?php
-                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                                ?>
+                               <?php
+                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                               ?>
                         <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Email", "eb-textdomain"); ?></td>
@@ -117,7 +122,7 @@ class EBAdminEmailTemplate
                             <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="Enter email address"/>
                             <input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
                             <span class="load-response">
-                                <img src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
+                                <img src="<?php echo EB_PLUGIN_URL.'/images/loader.gif'; ?>" height="20" width="20">
                             </span>
                             <div class="response-box">
                             </div>
@@ -132,10 +137,10 @@ class EBAdminEmailTemplate
                         <ul id="eb_email_templates_list">
                             <?php
                             foreach ($tmplList as $tmplId => $tmplName) {
-                                if (!($tmplKey == $tmplId )) {
-                                    echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmplName</li>";
-                                } else {
+                                if ($tmplKey == $tmplId) {
                                     echo "<li id='$tmplId' class='eb-emailtmpl-list-item eb-emailtmpl-active'>$tmplName</li>";
+                                } else {
+                                    echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmplName</li>";
                                 }
                             }
                             ?>                  
@@ -144,16 +149,16 @@ class EBAdminEmailTemplate
                     <div class="eb-email-templates-const-wrap">
                         <h3><?php _e("Template Constants", "eb-textdomain"); ?></h3>
                         <div class="eb-emiltemp-const-wrap">
-                            <?php
-                            foreach ($constSec as $secName => $tmplConst) {
-                                echo "<div class='eb-emailtmpl-const-sec'>";
-                                echo "<h3>$secName</h3>";
-                                foreach ($tmplConst as $const => $desc) {
-                                    echo '<div class="eb-mail-templat-const"><span>'.$const.'</span>'.$desc.'</div>';
-                                }
-                                echo "</div>";
-                            }
-                            ?>
+        <?php
+        foreach ($constSec as $secName => $tmplConst) {
+            echo "<div class='eb-emailtmpl-const-sec'>";
+            echo "<h3>$secName</h3>";
+            foreach ($tmplConst as $const => $desc) {
+                echo '<div class="eb-mail-templat-const"><span>'.$const.'</span>'.$desc.'</div>';
+            }
+            echo "</div>";
+        }
+        ?>
                         </div>
                     </div>
                 </div>
@@ -171,11 +176,6 @@ class EBAdminEmailTemplate
             'textarea_rows' => 15,
         );
         wp_editor($content, 'eb_emailtmpl_editor', $settings);
-    }
-
-    public function test()
-    {
-        add_filter('mce_external_plugins', array($this, 'my_custom_plugins'));
     }
 
     public function addMCEPlugin()
@@ -304,8 +304,9 @@ class EBAdminEmailTemplate
             $this->setFromEmail($fromEmail);
             $this->setFromName($fromName);
             $this->setTemplateData($tmplName, $data);
-
             echo self::getNoticeHtml(__('Changes saved successfully!', 'eb-textdomain'));
+        } else {
+            echo self::getNoticeHtml(__('Changes not saved security issue occured, Try to reupdate.', 'eb-textdomain'), "error");
         }
     }
 
@@ -335,7 +336,14 @@ class EBAdminEmailTemplate
 
         if (isset($_POST["security"]) && wp_verify_nonce($_POST["security"], "eb_send_testmail_sec")) {
             $mailTo = $this->checkIsEmpty($_POST, "mail_to");
-            $args = array("course_id" => "1", "password" => "eb-pa88@#d", "order_id" => "#12235");
+            /**
+             * Dummy data.
+             */
+            $args = array(
+                "course_id" => "1",
+                "password" => "eb-pa88@#d",
+                "order_id" => "#12235"
+                );
             $mail = $this->sendEmail($mailTo, $args, $_POST);
             if ($mail) {
                 echo json_encode(array("success" => "1"));
@@ -350,6 +358,8 @@ class EBAdminEmailTemplate
 
     public function sendEmail($mailTo, $args, $tmplData)
     {
+        $fromEmail = $this->getFromEmail();
+        $fromName = $this->getFromName();
         $subject = $this->checkIsEmpty($tmplData, "subject");
         $tmplContent = stripslashes($this->checkIsEmpty($tmplData, "content"));
 
@@ -369,6 +379,9 @@ class EBAdminEmailTemplate
                 ."</body>"
                 ."</html>";
         $headers = array('Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"');
+        add_filter( 'wp_mail_from', array($this,"wpb_sender_email"),99);
+        add_filter( 'wp_mail_from_name', array($this,"wpb_sender_name"),99);
+        
         add_filter('wp_mail_content_type', function () {
             return "text/html";
         });
@@ -382,10 +395,18 @@ class EBAdminEmailTemplate
          */
         return $mail;
     }
+public function wpb_sender_email( $original_email_address ) {
+    return $this->getFromEmail();
+}
+ 
+// Function to change sender name
+public function wpb_sender_name( $original_email_from ) {
+    return $this->getFromName();
+}
 
     public static function getNoticeHtml($msg, $type = 'success', $dismissible = true)
     {
-        $classes = 'notice notice-' . $type;
+        $classes = 'notice notice-'.$type;
         if ($dismissible) {
             $classes .= ' is-dismissible';
         }
@@ -397,4 +418,5 @@ class EBAdminEmailTemplate
         <?php
         return ob_get_clean();
     }
+
 }
