@@ -145,6 +145,7 @@ class EbPublic
                 'msg_val_mail' => __("The field 'Email' cannot be left blank", 'eb-textdomain'),
                 'msg_ordr_pro_err' => __('Problems in processing your order, Please try later.', 'eb-textdomain'),
                 'msg_processing' => __('Processing...', 'eb-textdomain'),
+                'access_course' => __('Access Course', 'eb-textdomain')
             )
         );
 
@@ -162,7 +163,6 @@ class EbPublic
                 'sInfo' => __('Showing _START_ to _END_ of _TOTAL_ entries', 'eb-textdomain'),
                 'sInfoEmpty' => __('Showing 0 to 0 of 0 entries', 'eb-textdomain'),
                 'sInfoFiltered' => __('filtered from _MAX_ total entries', 'eb-textdomain'),
-                'sInfoPostFix' => __('', 'eb-textdomain'),
                 'sInfoThousands' => __(',', 'eb-textdomain'),
                 'sLengthMenu' => __('Show _MENU_ entries', 'eb-textdomain'),
                 'sFirst' => __('First', 'eb-textdomain'),

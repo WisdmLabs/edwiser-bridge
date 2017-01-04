@@ -69,7 +69,6 @@
                 sInfo: ebDataTable.sInfo,
                 sInfoEmpty: ebDataTable.sInfoEmpty,
                 sInfoFiltered: ebDataTable.sInfoFiltered,
-                sInfoPostFix: ebDataTable.sInfoPostFix,
                 sInfoThousands: ebDataTable.sInfoThousands,
                 sLengthMenu: ebDataTable.sLengthMenu,
                 oPaginate: {
@@ -148,8 +147,8 @@
                     return sParameterName[1] === undefined ? true : sParameterName[1];
                 }
             }
-        }
-        ;
+        };
+        //console.log('@ ' + eb_public_js_object.access_course);
         if (getUrlParameter("auto_enroll") === "true") {
             $.blockUI({
                 message: eb_public_js_object.msg_processing
@@ -157,7 +156,7 @@
             var btn = document.getElementById('eb_course_payment_button');
             if (btn == null) {
                 btn = document.getElementById('wdm-btn');
-                if (btn.text != "Access Course") {
+                if (btn.text != eb_public_js_object.access_course) {
                     btn.click();
                 } else {
                     $.unblockUI();
