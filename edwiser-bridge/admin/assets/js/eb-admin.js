@@ -374,10 +374,8 @@
                     console.log(response["success"]);
                     $('.load-response').hide();
                     if (response["success"] == "1") {
-                        console.log(response["response_message"]);
                         ohSnap('<p>' + eb_admin_js_object.msg_test_mail_sent_to + mailTo + '</p>', 'success');
                     } else {
-                        console.log(response["response_message"]);
                         ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
                     }
                 }

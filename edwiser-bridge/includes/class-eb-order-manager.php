@@ -128,7 +128,7 @@ class EBOrderManager
         //echo '<h2>Order #'.$order_id.' Details</h2>';
         foreach ($order_data as $key => $value) {
             if ($key == 'buyer_id') {
-                echo '<strong>' . __('Buyer ID: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
+                echo '<br/><strong>' . __('Buyer ID: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
             } elseif ($key == 'billing_email') {
                 echo '<strong>' . __('Billing Email: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
             } else {
@@ -431,7 +431,13 @@ class EBOrderManager
     public function addOrderStatusColumnContent($column_name, $post_ID)
     {
         if ($column_name == 'order_status') {
-            echo ucfirst(EBPostTypes::getPostOptions($post_ID, 'order_status', 'eb_order'));
+            $status = EBPostTypes::getPostOptions($post_ID, 'order_status', 'eb_order');
+            $options = array(
+                'pending' => __('Pending', 'eb-textdomain'),
+                'completed' => __('Completed', 'eb-textdomain'),
+                'failed' => __('Failed', 'eb-textdomain'),
+            );
+            echo isset($options[$status]) ? $options[$status] : ucfirst($status);
         } elseif ($column_name == 'ordered_by') {
             //get order details
             $order_buyer_id = EBPostTypes::getPostOptions($post_ID, 'buyer_id', 'eb_order');
