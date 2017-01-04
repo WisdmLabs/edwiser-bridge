@@ -28,15 +28,17 @@
 }
 
 .eb_extensions_wrap .extensions li a h3 {
-    margin: 0 !important;
-    padding: 20px !important;
-    background: #FFF none repeat scroll 0% 0%;
+   margin: 0 !important;
+   padding: 20px !important;
+   background: #2e9aa6 none repeat scroll 0% 0%;
+   color: white;
 }
 
 .eb_extensions_wrap .extensions li a p {
-    padding: 20px !important;
-    margin: 0 !important;
-    border-top: 1px solid #F1F1F1;
+   padding: 20px !important;
+   margin: 0 !important;
+   border-top: 1px solid #eaeaea;
+   text-align: justify;
 }
 
 .eb_extensions_wrap .extensions li a img {

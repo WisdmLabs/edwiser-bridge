@@ -24,7 +24,7 @@ class EbShortcodes
         // Define shortcodes
         $shortcodes = array(
             'eb_user_account' => __CLASS__.'::userAccount',
-            'eb_user_profile' => __CLASS__.'::userProfile',
+            'eb_user_profile' => __CLASS__.'::userProfile', //Deprecated. Use shortcode eb_user_account.
             'eb_courses' => __CLASS__.'::courses',
             'eb_course' => __CLASS__.'::course',
             'eb_my_courses' => __CLASS__.'::myCourses'
@@ -81,6 +81,7 @@ class EbShortcodes
      * user profile shortcode, display user details & courses on one page.
      *
      * @since  1.0.2
+     * @deprecated 1.2.0 Use shortcode eb_user_account
      * @param mixed   $atts
      * @return string
      */

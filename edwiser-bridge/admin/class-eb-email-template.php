@@ -73,21 +73,21 @@ class EBAdminEmailTemplate
                     <form name="manage-email-template" method="POST">
                         <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
                                value="<?php echo $tmplKey; ?>"/>
-                               <?php
-                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                               ?>
+                            <?php
+                            wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                            ?>
                         <table>                            
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
                                 <td>
-                                    <input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo $fromName; ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="Enter from name"/>
+                                    <input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo $fromName; ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="<?php _e('Enter from name', 'eb-textdomain'); ?>"/>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td class="eb-email-lable"><?php _e("Subject", "eb-textdomain"); ?></td>
                                 <td>
-                                    <input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php _e("Enter the subject for the current email template. Current template will use the entered subject to send email from the site", "eb-textdomain"); ?>" placeholder="Enter email subject"/>
+                                    <input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php _e("Enter the subject for the current email template. Current template will use the entered subject to send email from the site", "eb-textdomain"); ?>" placeholder="<?php _e('Enter email subject', 'eb-textdomain'); ?>"/>
                                 </td>
                             </tr>
                             <tr>
@@ -110,7 +110,7 @@ class EBAdminEmailTemplate
                         <div class="eb-email-temp-test-mail-wrap">
                             <label class="eb-email-lable"><?php _e("To", "eb-textdomain"); ?> : </label>
                             <?php wp_nonce_field("eb_send_testmail_sec", "eb_send_testmail_sec_filed"); ?>
-                            <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="Enter email address"/>
+                            <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="<?php _e('Enter email address', 'eb-textdomain'); ?>"/>
                             <input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
                             <span class="load-response">
                                 <img src="<?php echo EB_PLUGIN_URL.'/images/loader.gif'; ?>" height="20" width="20">
@@ -180,7 +180,7 @@ class EBAdminEmailTemplate
 
         $data = array();
         if (isset($_POST['tmpl_name'])) {
-            $tmplData = get_option($_POST['tmpl_name']);            
+            $tmplData = get_option($_POST['tmpl_name']);
             $data['from_name'] = $this->getFromName();
             $data['subject'] = $tmplData['subject'];
             $data['content'] = $tmplData['content'];
@@ -406,5 +406,4 @@ class EBAdminEmailTemplate
         <?php
         return ob_get_clean();
     }
-
 }

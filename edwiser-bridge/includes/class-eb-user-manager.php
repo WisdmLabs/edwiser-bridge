@@ -915,7 +915,7 @@ class EBUserManager
                     ?></h3></th>
                         <td>
                             <select name="enroll_course">
-                                <option value=''> -- Select a Course --</option>
+                                <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>
                                 <?php
                                 foreach ($notenrolled_courses as $course) {
                                     echo "<option value='".$course->ID."'>".$course->post_title.'</option>';
@@ -929,7 +929,7 @@ class EBUserManager
                                 ?></h3></th>
                         <td>
                             <select name="unenroll_course">
-                                <option value=''> -- Select a Course --</option>
+                                <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>
                                 <?php
                                 foreach ($enrolled_courses as $course) {
                                     echo "<option value='".$course->ID."'>".$course->post_title.'</option>';

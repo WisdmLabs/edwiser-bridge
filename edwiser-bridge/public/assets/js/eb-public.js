@@ -58,7 +58,31 @@
             "columnDefs": [{
                 "targets": 'no-sort',
                 "orderable": true,
-            }]
+            }],
+            language: {
+                search: ebDataTable.search,
+                sEmptyTable: ebDataTable.sEmptyTable,
+                sLoadingRecords: ebDataTable.sLoadingRecords,
+                sSearch: ebDataTable.sSearch,
+                sZeroRecords: ebDataTable.sZeroRecords,
+                sProcessing: ebDataTable.sProcessing,
+                sInfo: ebDataTable.sInfo,
+                sInfoEmpty: ebDataTable.sInfoEmpty,
+                sInfoFiltered: ebDataTable.sInfoFiltered,
+                sInfoPostFix: ebDataTable.sInfoPostFix,
+                sInfoThousands: ebDataTable.sInfoThousands,
+                sLengthMenu: ebDataTable.sLengthMenu,
+                oPaginate: {
+                    sFirst: ebDataTable.sFirst,
+                    sLast: ebDataTable.sLast,
+                    sNext: ebDataTable.sNext,
+                    sPrevious: ebDataTable.sPrevious,
+                },
+                oAria: {
+                    sSortAscending: ebDataTable.sSortAscending,
+                    sSortDescending: ebDataTable.sSortDescending
+                }
+            }
         });
 
         /**

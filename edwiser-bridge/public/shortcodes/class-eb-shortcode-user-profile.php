@@ -5,7 +5,7 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.2
- *
+ * @deprecated 1.2.0 Use shortcode eb_user_account
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 

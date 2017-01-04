@@ -77,13 +77,19 @@ if (!class_exists('EBSettingsGetHelp')) :
                 // prepare email content
                 $subject = apply_filters(
                     'eb_plugin_subscription_email_subject',
-                    'Edwiser Bridge Plugin Subscription Notification'
+                    __('Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain')
                 );
 
-                $message = "Edwiser subscription user details: \n";
-                $message .= "\nCustomer Website:\n".site_url();
-                $message .= "\n\nCustomer Email: \n";
-                $message .= $admin_email;
+                $message = sprintf(
+                    __("Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s", 'eb-textdomain'),
+                    site_url(),
+                    $admin_email
+                );
+
+                // $message = "Edwiser subscription user details: \n";
+                // $message .= "\nCustomer Website:\n".site_url();
+                // $message .= "\n\nCustomer Email: \n";
+                // $message .= $admin_email;
 
                 $sent = wp_mail($plugin_author_email, $subject, $message);
 

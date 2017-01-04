@@ -467,7 +467,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     $code .= '<input type="hidden" src="'.$buttonUrl.'" border="0" name="submit"
                     alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'"
+                $code .= '<input type="submit" value="'.__('Take this Course', 'eb-textdomain').'"
                 class="wdm-btn" id="eb_course_payment_button">';
 
                 if ($atts['noshipping'] > -1) {

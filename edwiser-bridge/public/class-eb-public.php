@@ -148,6 +148,32 @@ class EbPublic
             )
         );
 
+        // datatable
+        wp_localize_script(
+            $this->plugin_name,
+            'ebDataTable',
+            array(
+                'search' => __('Search:', 'eb-textdomain'),
+                'sEmptyTable' => __('No data available in table', 'eb-textdomain'),
+                'sLoadingRecords' => __('Loading...', 'eb-textdomain'),
+                'sSearch' => __('Search', 'eb-textdomain'),
+                'sZeroRecords' => __('No matching records found', 'eb-textdomain'),
+                'sProcessing' => __('Processing...', 'eb-textdomain'),
+                'sInfo' => __('Showing _START_ to _END_ of _TOTAL_ entries', 'eb-textdomain'),
+                'sInfoEmpty' => __('Showing 0 to 0 of 0 entries', 'eb-textdomain'),
+                'sInfoFiltered' => __('filtered from _MAX_ total entries', 'eb-textdomain'),
+                'sInfoPostFix' => __('', 'eb-textdomain'),
+                'sInfoThousands' => __(',', 'eb-textdomain'),
+                'sLengthMenu' => __('Show _MENU_ entries', 'eb-textdomain'),
+                'sFirst' => __('First', 'eb-textdomain'),
+                'sLast' => __('Last', 'eb-textdomain'),
+                'sNext' => __('Next', 'eb-textdomain'),
+                'sPrevious' => __('Previous', 'eb-textdomain'),
+                'sSortAscending' => __(': activate to sort column ascending', 'eb-textdomain'),
+                'sSortDescending' => __(': activate to sort column descending', 'eb-textdomain')
+            )
+        );
+
         // datatable js for user order table
         wp_enqueue_script(
             'wdmdatatablejs',

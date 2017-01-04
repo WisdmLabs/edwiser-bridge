@@ -274,12 +274,13 @@ div#user_login label{
     width:175px;
     min-height:125px;
     border-radius: 3px;
-    margin-right:25px;
+    margin-right:5px;
 }
 
 .eb-user-data{
     float:left;
-    padding:10px;
+    padding-top:10px;
+    margin: 25px 0 0 0;
 }
 
 .eb-user-data div:last-child{

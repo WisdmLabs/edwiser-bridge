@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
                     break;
                 }
 
-                echo '<li class="product">';
+                echo '<li class="product" title="' . __('Click here to know more', 'eb-textdomain') . '">';
                 echo '<a href="'.$extension->link.'" target="_blank">';
                 if (!empty($extension->image)) {
                     echo '<img src="'.$extension->image.'"/>';

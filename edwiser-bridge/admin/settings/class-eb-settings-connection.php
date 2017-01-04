@@ -112,7 +112,7 @@ if (!class_exists('EBSettingsConnection')) :
                     'title' => __('', 'eb-textdomain'),
                     'desc' => __('', 'eb-textdomain'),
                     'id' => 'eb_test_connection_button',
-                    'default' => 'Test Connection',
+                    'default' => __('Test Connection', 'eb-textdomain'),
                     'type' => 'button',
                     'desc_tip' => false,
                     'class' => 'button secondary',

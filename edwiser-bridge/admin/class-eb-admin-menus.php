@@ -165,7 +165,7 @@ class EbAdminMenus
         global $submenu;
 
         $submenu['edwiserbridge_lms'][] = array(
-            '<div id="helpmenu">Help</div>',
+            '<div id="helpmenu">' . __('Help', 'eb-textdomain') . '</div>',
             'manage_options',
             'https://edwiser.org/bridge/documentation/'
         );

@@ -410,7 +410,11 @@
             $("#eb_email_from_name").val(response['from_name']);
             $("#eb_email_subject").val(response['subject']);
             $("#eb_emailtmpl_name").val(tmplId);
-            tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
+            if (tinyMCE.activeEditor == null) {
+               jQuery("#eb_emailtmpl_editor").html(response['content']);
+            } else {
+               tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
+            }
         } catch (e) {
             alert(eb_admin_js_object.msg_err_parsing_res);
             console.log("EB Error : " + e);

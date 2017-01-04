@@ -124,7 +124,8 @@ class EBOrderManager
         }
 
         echo '<div>';
-        echo '<h2>Order #'.$order_id.' Details</h2>';
+        printf(__('Order #%s Details', 'eb-textdomain'), $order_id);
+        //echo '<h2>Order #'.$order_id.' Details</h2>';
         foreach ($order_data as $key => $value) {
             if ($key == 'buyer_id') {
                 echo '<strong>' . __('Buyer ID: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';

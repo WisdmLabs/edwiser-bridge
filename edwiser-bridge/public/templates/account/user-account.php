@@ -20,10 +20,11 @@ if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
     ?>
         </aside>
         <div class="eb-user-data">
-            <?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>';
-    ?>
-            <?php echo '<div>'.$user->user_email.'</div>';
-    ?>
+            <div>
+            <?php
+            printf(esc_attr__('Hello %s%s%s (not %2$s? %sSign out%s)', 'eb-textdomain'), '<strong>', esc_html($user->display_name), '</strong>', '<a href="' . esc_url(wp_logout_url(get_permalink())) . '">', '</a>');
+            ?>
+            </div>
         </div>
 
         <div class="eb-edit-profile" >

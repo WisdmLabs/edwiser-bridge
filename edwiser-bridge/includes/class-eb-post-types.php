@@ -278,9 +278,9 @@ class EBPostTypes
                     'description' => __('Is it free to join or one time purchase?', 'eb-textdomain'),
                     'type' => 'select',
                     'options' => array(
-                        'free' => 'Free',
-                        'paid' => 'Paid',
-                        'closed' => 'Closed',
+                        'free' => __('Free', 'eb-textdomain'),
+                        'paid' => __('Paid', 'eb-textdomain'),
+                        'closed' => __('Closed', 'eb-textdomain'),
                     ),
                     'default' => array('free'),
                 ),
@@ -293,10 +293,7 @@ class EBPostTypes
                 ),
                 'course_closed_url' => array(
                     'label' => __('Optional URL', 'eb-textdomain'),
-                    'description' => __(
-                        'Optional url to redirect user on click of take this course button.',
-                        'eb-textdomain'
-                    ),
+                    'description' => __('Optional url to redirect user on click of take this course button.', 'eb-textdomain'),
                     'type' => 'text',
                     'placeholder' => __('Optional URL', 'eb-textdomain'),
                     'default' => '',
@@ -328,9 +325,9 @@ class EBPostTypes
                     'description' => __('Status of Order', 'eb-textdomain'),
                     'type' => 'select',
                     'options' => array(
-                        'pending' => 'Pending',
-                        'completed' => 'Completed',
-                        'failed' => 'Failed',
+                        'pending' => __('Pending', 'eb-textdomain'),
+                        'completed' => __('Completed', 'eb-textdomain'),
+                        'failed' => __('Failed', 'eb-textdomain'),
                     ),
                     'default' => array('pending'),
                 ),
