@@ -508,7 +508,13 @@ class EBCourseManager
     public function addCoursePriceTypeColumnContent($column_name, $post_ID)
     {
         if ($column_name == 'course_type') {
-            echo ucfirst(EBPostTypes::getPostOptions($post_ID, 'course_price_type', 'eb_course'));
+            $status = EBPostTypes::getPostOptions($post_ID, 'course_price_type', 'eb_course');
+            $options = array(
+                        'free' => __('Free', 'eb-textdomain'),
+                        'paid' => __('Paid', 'eb-textdomain'),
+                        'closed' => __('Closed', 'eb-textdomain'),
+                    );
+            echo isset($options[$status]) ? $options[$status] : ucfirst($status);
         }
     }
 }

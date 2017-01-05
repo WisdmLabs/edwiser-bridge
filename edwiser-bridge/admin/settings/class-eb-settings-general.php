@@ -89,7 +89,7 @@ if (!class_exists('EBSettingsGeneral')) :
                     'default' => '',
                     'css' => 'min-width:300px;',
                     'args' => array(
-                        'show_option_none' => 'Select a page',
+                        'show_option_none' => __('Select a page',"eb-textdomain"),
                         'option_none_value' => '',
                     ),
                     'desc_tip' => __(
@@ -120,7 +120,7 @@ if (!class_exists('EBSettingsGeneral')) :
                     'default' => '',
                     'css' => 'min-width:300px;',
                     'args' => array(
-                        'show_option_none' => 'Select a page',
+                        'show_option_none' => __('Select a page',"eb-textdomain"),
                         'option_none_value' => '',
                     ),
                     'desc_tip' => __(
