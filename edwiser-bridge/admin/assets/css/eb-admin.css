@@ -453,3 +453,15 @@ span.eb-option-input .eb-option-div select{
     border-bottom: 1px solid #dddddd;
     padding-bottom: 5px;
 }
+.eb-marketing-add > a,
+.eb-marketing-add > a:visited,
+.eb-marketing-add > a:hover,
+.eb-marketing-add > a:focus,
+.eb-marketing-add > a:active{
+    clear: both;
+    text-decoration: none;
+}
+.eb-marketing-add img{
+    width: 100%;
+    height: auto;
+}

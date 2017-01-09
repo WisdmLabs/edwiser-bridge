@@ -9,6 +9,7 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
 ?>
 <div class="wrap edw">
     <?php
+    do_action("eb_settings_header");
     if ($tab != 'licensing') {
         ?>
         <form method="post" id="mainform" action="" enctype="multipart/form-data">

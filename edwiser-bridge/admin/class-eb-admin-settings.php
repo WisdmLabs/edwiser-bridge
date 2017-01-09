@@ -41,6 +41,7 @@ if (!class_exists('EbAdminSettings')) {
 
                 // include the settings page class
                 include_once 'settings/class-eb-settings-page.php';
+                include_once 'class-eb-admin-marketing-add.php';
 
                 $settings[] = include 'settings/class-eb-settings-general.php';
                 $settings[] = include 'settings/class-eb-settings-connection.php';
