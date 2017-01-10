@@ -31,7 +31,7 @@ if (!defined('ABSPATH')) {
     <?php
     printf(
         __(
-            'You can purchase & access courses here: <a href="%s">Courses</a>.',
+            'To purchase and access more courses click here: <a href="%s">Courses</a>.',
             'eb-textdomain'
         ),
         site_url('/courses')

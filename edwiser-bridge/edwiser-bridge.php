@@ -142,50 +142,7 @@ function wdmShowLegacyExtensionsNotices()
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-eb.php';
-
-
-
-
-
-
-$wdm_mucp_plugin_data = array(
-    'plugin_short_name' => 'Edwiser Bridge',
-    'plugin_slug' => 'edwiser-bridge',
-    'plugin_version' => '1.2.0',
-    'plugin_name' => 'Edwiser Bridge',
-    'store_url' => 'http://wisdmlabs:wisdmlabs@wisdmlabs.mirealux.com/',
-    'author_name' => 'WisdmLabs',
-);
-if (!class_exists('EBMUSelectPluginUpdater')) {
-    include 'update_plugin.php';
-}
-set_site_transient('update_plugins', null);
-// setup the updater
-new EBMUSelectPluginUpdater($wdm_mucp_plugin_data['store_url'], __FILE__, array(
-    'version' => $wdm_mucp_plugin_data['plugin_version'], // current version number
-    'license' => "3c6b815d77c60a0aa0abd2bcbe064445", // license key (used get_option above to retrieve from DB)
-    'item_name' => $wdm_mucp_plugin_data['plugin_name'], // name of this plugin
-    'author' => $wdm_mucp_plugin_data['author_name'], //author of the plugin
-        ));
-
-
-
-/**
- * Defines the current plugin version
- */
-
-add_action('admin_init', 'app\wisdmlabs\edwiserBridge\processUpgrade');
-function processUpgrade()
-{
-    $newVersion = "1.2.0";
-    $currentVersion = get_option("eb_current_version");
-    if ($currentVersion == false || $currentVersion != $newVersion) {
-        require_once plugin_dir_path(__FILE__) . 'includes/class-eb-activator.php';
-        EBActivator::activate(false);
-        update_option("eb_current_version", $newVersion);
-    }
-}
+require plugin_dir_path(__FILE__).'includes/class-eb.php';
 
 /**
  * Begins execution of the plugin.

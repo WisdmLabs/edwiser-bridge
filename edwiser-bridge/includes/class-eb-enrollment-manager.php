@@ -97,9 +97,7 @@ class EBEnrollmentManager
      */
     public function updateUserCourseEnrollment($args)
     {
-
         //global $wpdb;
-
         // default args
         $defaults = array(
             'user_id' => 0,

@@ -37,7 +37,7 @@ class EBAdminEmailTemplate
     {
         $emailList["eb_emailtmpl_create_user"] = __("New User Account Details", 'eb-textdomain');
         $emailList["eb_emailtmpl_linked_existing_wp_user"] = __("Link WP user account to moodle", 'eb-textdomain');
-        $emailList["eb_emailtmpl_order_completed"] = __("Course order complete", 'eb-textdomain');
+        $emailList["eb_emailtmpl_order_completed"] = __("Course Order Completion", 'eb-textdomain');
         $emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
         return $emailList;
     }
@@ -106,7 +106,7 @@ class EBAdminEmailTemplate
                         </table>
                     </form>
                     <div class="eb-email-testmail-wrap">
-                        <h3><?php _e("Send test email using current selected template", "eb-textdomain"); ?></h3>
+                        <h3><?php _e("Send a test email of the selected template", "eb-textdomain"); ?></h3>
                         <div class="eb-email-temp-test-mail-wrap">
                             <label class="eb-email-lable"><?php _e("To", "eb-textdomain"); ?> : </label>
                             <?php wp_nonce_field("eb_send_testmail_sec", "eb_send_testmail_sec_filed"); ?>
@@ -118,7 +118,7 @@ class EBAdminEmailTemplate
                             <div class="response-box">
                             </div>
                         </div>
-                        <span class="eb-email-note"><strong><?php _e("Note", "eb-textdomain"); ?>:-</strong> <?php _e("Some of the constants in the template's will be get replaced by the demo content", "eb-textdomain"); ?>.</span>
+                        <span class="eb-email-note"><strong><?php _e("Note", "eb-textdomain"); ?>:-</strong> <?php _e("Some of the constants in these emails would be replaced by demo content", "eb-textdomain"); ?>.</span>
 
                     </div>
                 </div>
