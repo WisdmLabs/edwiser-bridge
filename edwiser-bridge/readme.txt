@@ -126,6 +126,8 @@ Take a look at the link below and follow the steps provided to configure your Mo
 11. Manage Max number of courses in the row setting for the Courses page template.
 12. Improved single course page template.
 13. Front-end user profile update. 
+14. Setting to set the course access period of the enrolled user.
+15. Edit email notification content templates.
 
 
  ==  Frequently Asked Questions  == 
