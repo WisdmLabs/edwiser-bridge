@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBEnrollmentManager
 {
+
     /**
      * The ID of this plugin.
      *
@@ -96,7 +98,6 @@ class EBEnrollmentManager
     public function updateUserCourseEnrollment($args)
     {
         //global $wpdb;
-
         // default args
         $defaults = array(
             'user_id' => 0,
@@ -132,10 +133,14 @@ class EBEnrollmentManager
 
         // get moodle course id of each course
         // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
-        $moodle_courses = array_map(
-            array(edwiserBridgeInstance()->courseManager(), 'getMoodleCourseId'),
+        $moodle_courses_raw = array_map(
+            array(edwiserBridgeInstance()->courseManager(), 'getMoodleWPCourseIdPair'),
             $args['courses']
         );
+        $moodle_courses = array();
+        foreach ($moodle_courses_raw as $course) {
+            $moodle_courses[key($course)] = reset($course);
+        }
 
         // logging
         // add user log
@@ -149,37 +154,42 @@ class EBEnrollmentManager
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
 
         // define moodle webservice function to use
-        if ($args['unenroll'] == 0) {
-            $webservice_function = 'enrol_manual_enrol_users';
-        } elseif ($args['unenroll'] == 1) {
-            $webservice_function = 'enrol_manual_unenrol_users';
-        }
+//        if ($args['unenroll'] == 0) {
+//            $webservice_function = 'enrol_manual_enrol_users';
+//        } elseif ($args['unenroll'] == 1) {
+//            $webservice_function = 'enrol_manual_unenrol_users';
+//        }
+            $webservice_function = $this->getMoodleWebServiceFunction($args['unenroll']);
+            
 
         // prepare course array
-        foreach ($moodle_courses as $key => $moodle_course) {
+        foreach ($moodle_courses as $wpCourseId => $moodleCourseId) {
             // first we check if a moodle course id exists
-            if ($moodle_course != '') {
-                $enrolments[$key] = array(
+            if ($moodleCourseId != '') {
+                $expireDate = $this->calcCourseAcessExpiryDate($wpCourseId);
+                $enrolments[$wpCourseId] = array(
                     'roleid' => $role_id,
                     'userid' => $moodle_user_id,
-                    'courseid' => $moodle_course,
+                    'courseid' => $moodleCourseId,
                 );
+                if ($webservice_function == 'enrol_manual_enrol_users' && "0000-00-00 00:00:00" != $expireDate) {
+                    $enrolments[$wpCourseId]['timestart'] = strtotime(date('Y-m-d H:i:s'));
+                    $enrolments[$wpCourseId]['timeend'] = strtotime($expireDate);
+                }
 
                 // we only add suspend parameter when we are enrolling or suspending a user.
                 // in case user is being unenrolled, no suspend parameter is expected in webservice function.
                 if ($args['unenroll'] == 0) {
-                    $enrolments[$key]['suspend'] = $args['suspend'];
+                    $enrolments[$wpCourseId]['suspend'] = $args['suspend'];
                 }
             }
         }
-
         // prepare request data
         $request_data = array('enrolments' => $enrolments);
         $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
             $webservice_function,
             $request_data
         );
-        
         // update enrollment details on wordpress enrollment table
         if ($response['success']) {
             // define args
@@ -190,7 +200,6 @@ class EBEnrollmentManager
                 'unenroll' => $args['unenroll'],
                 'suspend' => $args['suspend'],
             );
-
             $this->updateEnrollmentRecordWordpress($args);
         }
 
@@ -202,6 +211,15 @@ class EBEnrollmentManager
         do_action('eb_user_courses_updated', $args['user_id'], $response['success'], $args['courses']);
 
         return $response['success'];
+    }
+
+    private function getMoodleWebServiceFunction($unenroll)
+    {
+        if ($unenroll == 0) {
+            return 'enrol_manual_enrol_users';
+        } elseif ($unenroll == 1) {
+            return 'enrol_manual_unenrol_users';
+        }
     }
 
     /**
@@ -218,7 +236,6 @@ class EBEnrollmentManager
     public function updateEnrollmentRecordWordpress($args)
     {
         global $wpdb;
-
         // default args
         $defaults = array(
             'user_id' => 0,
@@ -227,33 +244,35 @@ class EBEnrollmentManager
             'unenroll' => 0,
             'suspend' => 0,
         );
-
         /**
          * Parse incoming $args into an array and merge it with $defaults.
          */
         $args = wp_parse_args($args, $defaults);
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
-
         // add enrollment record in DB conditionally
         // We are using user's wordpress ID and course's wordpress ID while saving record in enrollment table.
         if ($args['unenroll'] == 0 && $args['suspend'] == 0) {
             foreach ($args['courses'] as $key => $course_id) {
                 if (edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id) != '' &&
-                    !$this->userHasCourseAccess($args['user_id'], $course_id)) {
+                        !$this->userHasCourseAccess($args['user_id'], $course_id)) {
+                    $expireDate = $this->calcCourseAcessExpiryDate($course_id);
+
                     $wpdb->insert(
                         $wpdb->prefix.'moodle_enrollment',
                         array(
-                            'user_id' => $args['user_id'],
-                            'course_id' => $course_id,
-                            'role_id' => $role_id,
-                            'time' => date('Y-m-d H:i:s'),
-                        ),
+                        'user_id' => $args['user_id'],
+                        'course_id' => $course_id,
+                        'role_id' => $role_id,
+                        'time' => date('Y-m-d H:i:s'),
+                        'expire_time' => $expireDate,
+                            ),
                         array(
-                            '%d',
-                            '%d',
-                            '%d',
-                            '%s',
-                        )
+                        '%d',
+                        '%d',
+                        '%d',
+                        '%s',
+                        '%s',
+                            )
                     );
                 }
             }
@@ -262,6 +281,16 @@ class EBEnrollmentManager
                 $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
             }
         }
+    }
+
+    public function calcCourseAcessExpiryDate($courseId)
+    {
+        $courseMeta = get_post_meta($courseId, "eb_course_options", true);
+        $expiryDateTime = "0000-00-00 00:00:00";
+        if (isset($courseMeta["course_expirey"]) && $courseMeta["course_expirey"] == "yes") {
+            $expiryDateTime = date('Y-m-d H:i:s', strtotime("+".$courseMeta["num_days_course_access"]." days"));
+        }
+        return $expiryDateTime;
     }
 
     /**
@@ -285,16 +314,22 @@ class EBEnrollmentManager
         $deleted = $wpdb->delete(
             $wpdb->prefix.'moodle_enrollment',
             array(
-                'user_id' => $user_id,
-                'course_id' => $course_id,
-            ),
+            'user_id' => $user_id,
+            'course_id' => $course_id,
+                ),
             array(
-                '%d',
-                '%d',
-            )
+            '%d',
+            '%d',
+                )
         );
 
         if ($deleted) {
+            $user = get_user_by('id', $user_id);
+            $args = array(
+                'user_email' => $user->user_email,
+                'course_id' => $course_id,
+            );
+            do_action("eb_course_access_expire_alert", $args);
             edwiserBridgeInstance()->logger()->add('user', "Unenrolled user: {$user_id} from course {$course_id}");  // add user log
         }
     }
@@ -331,5 +366,18 @@ class EBEnrollmentManager
         }
 
         return $has_access;
+    }
+
+    public static function accessRemianing($userId, $courseId)
+    {
+        global $wpdb;
+        $stmt = "SELECT expire_time
+            FROM {$wpdb->prefix}moodle_enrollment
+            WHERE course_id={$courseId}
+            AND user_id={$userId};";
+        $currDate = new \DateTime((date('Y-m-d H:i:s')));
+        $expireDate = new \DateTime(($wpdb->get_var($stmt)));
+
+        return $currDate->diff($expireDate)->format("%a");
     }
 }

@@ -19,6 +19,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EBLoader
 {
+
     /**
      * The array of actions registered with WordPress.
      *
@@ -95,10 +96,10 @@ class EBLoader
     private function add($hooks, $hook, $component, $callback, $priority, $accepted_args)
     {
         $hooks[] = array(
-            'hook'          => $hook,
-            'component'     => $component,
-            'callback'      => $callback,
-            'priority'      => $priority,
+            'hook' => $hook,
+            'component' => $component,
+            'callback' => $callback,
+            'priority' => $priority,
             'accepted_args' => $accepted_args,
         );
 
@@ -116,9 +117,9 @@ class EBLoader
             add_filter(
                 $hook['hook'],
                 array(
-                    $hook['component'],
-                    $hook['callback']
-                ),
+                $hook['component'],
+                $hook['callback']
+                    ),
                 $hook['priority'],
                 $hook['accepted_args']
             );
@@ -128,9 +129,9 @@ class EBLoader
             add_action(
                 $hook['hook'],
                 array(
-                    $hook['component'],
-                    $hook['callback']
-                ),
+                $hook['component'],
+                $hook['callback']
+                    ),
                 $hook['priority'],
                 $hook['accepted_args']
             );

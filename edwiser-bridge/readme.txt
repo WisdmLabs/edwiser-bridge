@@ -128,6 +128,30 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+
+=  1.2.0  =
+* Feature - Functionality to set course access expiry days.
+* Feature - Introduced functionality to email template customization for the mail sent to the user from the Edwiser Bridge plugin.
+* Feature - Update Moodle as well as WordPress user profile from shortcode `eb_user_account`.
+* Feature - Added the settings to enable login redirection to my courses page.
+* Feature - Send the test email to check the modified email template.
+* Feature - Shortcode `eb_courses` to list courses.
+* Feature - Shortcode `eb_my_courses` to list specific user's courses.
+* Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
+* Tweak - Added page(My Courses) to display the users enrolled courses.
+* Tweak - Redirect user to my courses page on login.
+* Tweak - Translation ready - fix missing strings.
+* Tweak - Notification on unenrollment from the course.
+* Tweak - Archive course page layout improvement.
+* Tweak - Single course page layout improvement.
+* Tweak - Redirect non logged in user to the `Access course`/`Checkout` page on click of the `Take this Course` after login.
+* Tweak - Deprecated shortcode eb_user_profile. Use shortcode `eb_user_account`.
+* Fix - Changed Credentials spelling.
+* Fix - Undefined index: HTTP_REFFER.
+* Fix - Permalink issue.
+* Fix - Call to undefined class EBPaymentManager.
+
+
 =  1.1.2  =
 * Added new currency in PayPal for the Australian Dollar,Polish Zloty,Danish Krone and Singapore Dollar.
 * Fix - Resolved Paypal Sandbox mode issue.

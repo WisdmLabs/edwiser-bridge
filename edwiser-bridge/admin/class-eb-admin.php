@@ -11,10 +11,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EbAdmin
 {
+
     /**
      * The ID of this plugin.
      *
@@ -118,6 +120,16 @@ class EbAdmin
                 'plugin_url' => EB_PLUGIN_URL,
                 'ajaxurl' => admin_url('admin-ajax.php'),
                 'nonce' => $nonce,
+                'msg_con_success' => __('Connection successful, Please save your connection details.', 'eb-textdomain'),
+                'msg_courses_sync_success' => __('Courses synchronized successfully.', 'eb-textdomain'),
+                'msg_con_prob' => __('There is a problem while connecting to moodle server.', 'eb-textdomain'),
+                'msg_err_users' => __('Error occured for following users: ', 'eb-textdomain'),
+                'msg_user_sync_success' => __('User data synced successfully.', 'eb-textdomain'),
+                'msg_mail_delivery_fail' => __('Mail delivery failed.', 'eb-textdomain'),
+                'msg_test_mail_sent_to' => __('Test mail sent to ', 'eb-textdomain'),
+                'msg_err_parsing_res' => __('An error occurred during parsing the response', 'eb-textdomain'),
+                'msg_cat_sync_success' => __('Categories synchronized successfully.', 'eb-textdomain'),
+                'msg_tpl_not_found' => __('Template not found', 'eb-textdomain')
             )
         );
 

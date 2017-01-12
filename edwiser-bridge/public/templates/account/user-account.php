@@ -1,53 +1,111 @@
-<div class="wdm-transaction-header">
-	<h2 style=""><?php _e('Course Purchase History', 'eb-textdomain'); ?></h2>
+<div class="eb-user-profile" >
 
-	<p>
-	<?php
-    _e(
-        "Hey <strong>{$current_user->user_login}</strong> (not {$current_user->user_login}?
-    <a href='".wp_logout_url(get_permalink())."'>Sign out</a>),
-    From here you can check the courses you have purchased and access them.",
-        'eb-textdomain'
+<?php
+if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
+    $template_loader->wpGetTemplate(
+        'account/edit-user-profile.php',
+        array(
+            'user_avatar' => $user_avatar,
+            'user' => $user,
+            'user_meta' => $user_meta,
+            'enrolled_courses' => $enrolled_courses,
+            'template_loader' => $template_loader,
+        )
     );
-?>
-	</p>
+} else {
+    ?>
+    <section class="eb-user-info">
+        <aside class="eb-user-picture">
+            <?php echo $user_avatar;
+    ?>
+        </aside>
+        <div class="eb-user-data">
+            <div>
+            <?php
+            printf(esc_attr__('Hello %s%s%s (not %2$s? %sSign out%s)', 'eb-textdomain'), '<strong>', esc_html($user->display_name), '</strong>', '<a href="' . esc_url(wp_logout_url(get_permalink())) . '">', '</a>');
+            ?>
+            </div>
+        </div>
 
+        <div class="eb-edit-profile" >
+            <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink()));
+    ?>" class="wdm-btn"><?php _e('Edit Profile', 'eb-textdomain'); ?></a>
+        </div>
+
+    </section>
+
+    <section class="eb-user-courses">
+        <div class="course-heading" ><span><?php _e('S.No.', 'eb-textdomain'); ?></span> <span><?php _e('Enrolled Courses', 'eb-textdomain'); ?></span></div>
+        <div class="eb-course-data">
+        <?php
+        if (!empty($enrolled_courses)) {
+            foreach ($enrolled_courses as $key => $course) {
+                echo '<div class="eb-course-section course_'.$course->ID.'">';
+                echo '<div>'.($key + 1).'. </div>';
+                echo '<div><a href="'.get_the_permalink($course->ID).'">'.$course->post_title.'</a></div>';
+                echo app\wisdmlabs\edwiserBridge\EBPaymentManager::accessCourseButton($course->ID);
+                echo '</div>';
+            }
+        } else {
+            ?>
+            <p class="eb-no-course">
+                <?php
+                printf(
+                    __('Looks like you are not enrolled in any course, get your first course %s', 'eb-textdomain'),
+                    '<a href="'.esc_url(site_url('/courses')) .'">' . __('here', 'eb-textdomain') . '</a>.'
+                );
+                ?>
+            </p>
+            <?php
+        }
+        ?>
+        </div>
+    </section>
+
+     <div class="eb-cph-wrapper">
+        <div class="wdm-transaction-header">
+            <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain'); ?></h4>
+        </div>
+        <table id="wdm_user_order_history" class="display">
+            <thead>
+                <tr>
+                    <th><?php _e('Order ID', 'eb-textdomain'); ?></th>
+                    <th><?php _e('Ordered Course', 'eb-textdomain'); ?></th>
+                    <th><?php _e('Billing Email', 'eb-textdomain'); ?></th>
+                    <th><?php _e('Amount Paid', 'eb-textdomain'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($user_orders as $order) {
+                    echo '<tr>';
+                    echo '<td><strong>#'.$order['order_id'].'</strong></td>';
+                    if (get_the_title($order['ordered_item']) == '') {
+                        echo '<td>' . __('Not Available', 'eb-textdomain') . '</td>';
+                    } else {
+                        echo '<td>
+                <a href="'.get_permalink($order['ordered_item']).'"/>'.
+                        get_the_title($order['ordered_item']).
+                        '</a>
+            </td>';
+                    }
+                    echo '<td>'.$order['billing_email'].'</td>';
+                    if ($order['amount_paid'] > 0) {
+                        echo '<td><strong>'.$order['currency'].''.$order['amount_paid'].'</strong></td>';
+                    } else {
+                        echo '<td><strong>-</strong></td>';
+                    }
+                    echo '</tr>';
+                }
+
+                do_action('eb_after_order_history');
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    
+    <?php
+}
+?>
 </div>
-<table id="wdm_user_order_history" class="display">
-	<thead>
-		<tr>
-			<th><?php _e('Order ID', 'eb-textdomain'); ?></th>
-			<th><?php _e('Ordered Course', 'eb-textdomain'); ?></th>
-			<th><?php _e('Billing Email', 'eb-textdomain'); ?></th>
-			<th><?php _e('Amount Paid', 'eb-textdomain'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-	<?php
-
-    foreach ($user_orders as $order) {
-        echo '<tr>';
-        echo '<td><strong>#'.$order['order_id'].'</strong></td>';
-        if (get_the_title($order['ordered_item']) == '') {
-            echo '<td>Not Available</td>';
-        } else {
-            echo '<td>
-        <a href="'.get_permalink($order['ordered_item']).'"/>'.
-            get_the_title($order['ordered_item']).
-            '</a>
-    </td>';
-        }
-        echo '<td>'.$order['billing_email'].'</td>';
-        if ($order['amount_paid'] > 0) {
-            echo '<td><strong>'.$order['currency'].''.$order['amount_paid'].'</strong></td>';
-        } else {
-            echo '<td><strong>-</strong></td>';
-        }
-        echo '</tr>';
-    }
-
-    do_action('eb_after_order_history');
-
-?>
-		</tbody>
-	</table>

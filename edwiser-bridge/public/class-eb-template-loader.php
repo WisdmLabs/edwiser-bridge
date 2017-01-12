@@ -17,6 +17,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbTemplateLoader
 {
+
     /**
      * The ID of this plugin.
      *
@@ -45,7 +46,7 @@ class EbTemplateLoader
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version     = $version;
+        $this->version = $version;
     }
 
     /**
@@ -65,19 +66,19 @@ class EbTemplateLoader
         $file = '';
 
         if (is_single() && get_post_type() == 'eb_course') {
-            $file  = 'single-eb_course.php';
+            $file = 'single-eb_course.php';
             $find[] = $file;
-            $find[] = EB_TEMPLATE_PATH . $file;
+            $find[] = EB_TEMPLATE_PATH.$file;
         } elseif (is_post_type_archive('eb_course')) {
-            $file  = 'archive-eb_course.php';
+            $file = 'archive-eb_course.php';
             $find[] = $file;
-            $find[] = EB_TEMPLATE_PATH . $file;
+            $find[] = EB_TEMPLATE_PATH.$file;
         }
 
         if ($file) {
-            $template       = locate_template(array_unique($find));
-            if (! $template) {
-                $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
+            $template = locate_template(array_unique($find));
+            if (!$template) {
+                $template = EB_PLUGIN_DIR.'public/templates/'.$file;
             }
         }
 
@@ -99,21 +100,21 @@ class EbTemplateLoader
 
         // Look in yourtheme/edw/slug-name.php
         if ($name) {
-            $template = locate_template(array( "{$slug}-{$name}.php", EB_TEMPLATE_PATH . "{$slug}-{$name}.php" ));
+            $template = locate_template(array("{$slug}-{$name}.php", EB_TEMPLATE_PATH."{$slug}-{$name}.php"));
         }
 
         // Get default slug-name.php
-        if (! $template && $name && file_exists(EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php")) {
-            $template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
+        if (!$template && $name && file_exists(EB_PLUGIN_DIR."public/templates/{$slug}-{$name}.php")) {
+            $template = EB_PLUGIN_DIR."public/templates/{$slug}-{$name}.php";
         }
 
         // If template file doesn't exist, look in yourtheme/edw/slug.php
-        if (! $template) {
-            $template = locate_template(array( "{$slug}.php", EB_TEMPLATE_PATH . "{$slug}.php" ));
+        if (!$template) {
+            $template = locate_template(array("{$slug}.php", EB_TEMPLATE_PATH."{$slug}.php"));
         }
 
         // Allow 3rd party plugin filter template file from their plugin
-        if ((! $template) || $template) {
+        if ((!$template) || $template) {
             $template = apply_filters('eb_get_template_part', $template, $slug, $name);
         }
 
@@ -141,8 +142,8 @@ class EbTemplateLoader
 
         $located = $this->wpLocateTemplate($template_name, $template_path, $default_path);
 
-        if (! file_exists($located)) {
-            _doing_it_wrong(__FUNCTION__, sprintf('<code>%s</code> does not exist.', $located), '2.1');
+        if (!file_exists($located)) {
+            _doing_it_wrong(__FUNCTION__, sprintf(__('%s does not exist.', 'eb-textdomain'), '<code>' . $located . '</code>'), '2.1');
             return;
         }
 
@@ -174,25 +175,25 @@ class EbTemplateLoader
      */
     public function wpLocateTemplate($template_name, $template_path = '', $default_path = '')
     {
-        if (! $template_path) {
+        if (!$template_path) {
             $template_path = EB_TEMPLATE_PATH;
         }
 
-        if (! $default_path) {
-            $default_path = EB_PLUGIN_DIR . 'public/templates/';
+        if (!$default_path) {
+            $default_path = EB_PLUGIN_DIR.'public/templates/';
         }
 
         // Look within passed path within the theme - this is priority
         $template = locate_template(
             array(
-                trailingslashit($template_path) . $template_name,
-                $template_name
-            )
+                    trailingslashit($template_path).$template_name,
+                    $template_name
+                )
         );
 
         // Get default template
-        if (! $template) {
-            $template = $default_path . $template_name;
+        if (!$template) {
+            $template = $default_path.$template_name;
         }
 
         // Return what we found

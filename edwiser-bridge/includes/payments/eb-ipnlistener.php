@@ -1,4 +1,5 @@
 <?php
+
 /**
  *  PayPal IPN Listener
  *
@@ -18,6 +19,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EBIpnListener
 {
+
     /**
      *  If true, the recommended cURL PHP library is used to send the post back
      *  to PayPal. If false then fsockopen() is used. Default true.
@@ -234,7 +236,7 @@ class EBIpnListener
         $textReport = '';
 
         //date and POST url
-        for ($i=0; $i<80; $i++) {
+        for ($i = 0; $i < 80; $i++) {
             $textReport .= '-';
         }
         $textReport .= "\n[".date('m/d/Y g:i A').'] - '.$this->getPostUri();
@@ -250,7 +252,7 @@ class EBIpnListener
         //
 
         //POST vars
-        for ($i=0; $i<80; $i++) {
+        for ($i = 0; $i < 80; $i++) {
             $textReport .= '-';
         }
         $textReport .= "\n";
@@ -258,7 +260,7 @@ class EBIpnListener
         $textReport .= "PAYMENT VERIFICATION EMAIL \n";
 
         //POST vars
-        for ($i=0; $i<80; $i++) {
+        for ($i = 0; $i < 80; $i++) {
             $textReport .= '-';
         }
         $textReport .= "\n";

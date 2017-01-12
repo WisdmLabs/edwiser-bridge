@@ -15,6 +15,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EBSettingsAjaxInitiater
 {
+
     /**
      * The ID of this plugin.
      *
@@ -36,7 +37,7 @@ class EBSettingsAjaxInitiater
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version     = $version;
+        $this->version = $version;
     }
 
     /**
@@ -62,7 +63,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         // start working on request
-        $response       = edwiserBridgeInstance()->courseManager()->courseSynchronizationHandler($sync_options);
+        $response = edwiserBridgeInstance()->courseManager()->courseSynchronizationHandler($sync_options);
         echo json_encode($response);
         die();
     }
@@ -118,11 +119,11 @@ class EBSettingsAjaxInitiater
         }
 
         //start working on request
-        $url   = $_POST['url'];
+        $url = $_POST['url'];
         $token = $_POST['token'];
 
         $connection_helper = new EBConnectionHelper($this->plugin_name, $this->version);
-        $response          = $connection_helper->connectionTestHelper($url, $token);
+        $response = $connection_helper->connectionTestHelper($url, $token);
 
         echo json_encode($response);
         die();

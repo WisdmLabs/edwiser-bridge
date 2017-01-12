@@ -12,8 +12,7 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit(); // Exit if accessed directly
 }
 
@@ -22,6 +21,7 @@ if (! defined('ABSPATH')) {
  */
 class EbAdminMenus
 {
+
     /**
      * Hook in tabs.
      *
@@ -30,13 +30,14 @@ class EbAdminMenus
     public function __construct()
     {
         // Add menus
-        add_action('admin_menu', array( $this, 'adminMenu' ), 9);
-        add_action('admin_menu', array( $this, 'settingsMenu' ), 10);
-        add_action('admin_menu', array( $this, 'extensionsMenu' ), 10);
-        add_action('admin_menu', array( $this, 'helpMenu' ), 10);
-        add_action('parent_file', array( $this, 'addMenuPageTaxonomyFix' ), 10);
+        add_action('admin_menu', array($this, 'adminMenu'), 9);
+        add_action('admin_menu', array($this, 'settingsMenu'), 10);
+        add_action('admin_menu', array($this, 'emailTemplate'), 10);
+        add_action('admin_menu', array($this, 'extensionsMenu'), 10);
+        add_action('admin_menu', array($this, 'helpMenu'), 10);
+        add_action('parent_file', array($this, 'addMenuPageTaxonomyFix'), 10);
 
-        add_action('admin_footer', array( $this, 'openHelpMenuNewTab' )); // open help menu in new tab
+        add_action('admin_footer', array($this, 'openHelpMenuNewTab')); // open help menu in new tab
     }
 
     /**
@@ -50,7 +51,7 @@ class EbAdminMenus
 
         // add menu separator
         if (current_user_can('manage_options')) {
-            $menu[53.5] = array( '', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms' );
+            $menu[53.5] = array('', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms');
         }
 
         add_menu_page(
@@ -67,29 +68,29 @@ class EbAdminMenus
         $location = 55;
         $add_submenu = array(
             array(
-                "name"  =>  __("Courses", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit.php?post_type=eb_course"
+                "name" => __("Courses", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit.php?post_type=eb_course"
             ),
             array(
-                "name"  =>  __("Course Categories", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit-tags.php?taxonomy=eb_course_cat&post_type=eb_course"
+                "name" => __("Course Categories", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit-tags.php?taxonomy=eb_course_cat&post_type=eb_course"
             ),
             array(
-                "name"  =>  __("Orders", 'eb-textdomain'),
-                "cap"   =>  "manage_options",
-                "link"  => "edit.php?post_type=eb_order"
+                "name" => __("Orders", 'eb-textdomain'),
+                "cap" => "manage_options",
+                "link" => "edit.php?post_type=eb_order"
             )
         );
 
         foreach ($add_submenu as $add_submenu_item) {
             if (current_user_can($add_submenu_item["cap"])) {
                 $submenu['edwiserbridge_lms'][$location++] = array(
-                                                                $add_submenu_item['name'],
-                                                                $add_submenu_item['cap'],
-                                                                $add_submenu_item['link']
-                                                            );
+                    $add_submenu_item['name'],
+                    $add_submenu_item['cap'],
+                    $add_submenu_item['link']
+                );
             }
         }
 
@@ -133,12 +134,12 @@ class EbAdminMenus
             __('Settings', 'eb-textdomain'),
             'manage_options',
             'eb-settings',
-            array( $this, 'settingsPage' )
+            array($this, 'settingsPage')
         );
     }
 
     /**
-     * Add extensions submenu item
+     * Add email template submenu item
      *
      * @since 1.0.0
      */
@@ -150,7 +151,7 @@ class EbAdminMenus
             __('Extensions', 'eb-textdomain'),
             'manage_options',
             'eb-extensions',
-            array( $this, 'extensionsPage' )
+            array($this, 'extensionsPage')
         );
     }
 
@@ -164,12 +165,28 @@ class EbAdminMenus
         global $submenu;
 
         $submenu['edwiserbridge_lms'][] = array(
-                                            '<div id="helpmenu">Help</div>',
-                                            'manage_options',
-                                            'https://edwiser.org/bridge/documentation/'
-                                        );
+            '<div id="helpmenu">' . __('Help', 'eb-textdomain') . '</div>',
+            'manage_options',
+            'https://edwiser.org/bridge/documentation/'
+        );
     }
 
+    /**
+     * Add extensions submenu item
+     *
+     * @since 1.0.0
+     */
+    public function emailTemplate()
+    {
+        add_submenu_page(
+            'edwiserbridge_lms',
+            __('Manage Email Templates', 'eb-textdomain'),
+            __('Manage Email Templates', 'eb-textdomain'),
+            'manage_options',
+            'eb-email-template',
+            array($this, 'emailTemplatePage')
+        );
+    }
 
     /**
      * open plugin help link in new tab
@@ -179,13 +196,12 @@ class EbAdminMenus
     public function openHelpMenuNewTab()
     {
         ?>
-		    <script type="text/javascript">
-		        jQuery(document).ready( function() {
-		            jQuery('#helpmenu').parent().attr('target','_blank');
-		        });
-		    </script>
-	    <?php
-
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery('#helpmenu').parent().attr('target', '_blank');
+            });
+        </script>
+        <?php
     }
 
     /**
@@ -204,6 +220,12 @@ class EbAdminMenus
     public function extensionsPage()
     {
         EBAdminExtensions::output();
+    }
+
+    public function emailTemplatePage()
+    {
+        $emailTmpl = new EBAdminEmailTemplate();
+        $emailTmpl->outPut();
     }
 }
 

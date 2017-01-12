@@ -17,11 +17,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EbSettingsLicensing')) :
+
     /**
      * EbSettingsLicensing.
      */
     class EbSettingsLicensing extends EBSettingsPage
     {
+
         public $addon_licensing;
 
         /**
@@ -45,9 +47,8 @@ if (!class_exists('EbSettingsLicensing')) :
         public function output()
         {
             //global $current_section;
-
             // Hide the save button
-            $GLOBALS[ 'hide_save_button' ] = true;
+            $GLOBALS['hide_save_button'] = true;
             include_once EB_PLUGIN_DIR.'admin/partials/html-admin-licensing.php';
         }
 
@@ -63,16 +64,16 @@ if (!class_exists('EbSettingsLicensing')) :
             $settings = apply_filters(
                 'eb_licensing',
                 array(
-                    array(
-                        'title' => __('Licenses', 'eb-textdomain'),
-                        'type' => 'title',
-                        'id' => 'licensing_management',
+                array(
+                    'title' => __('Licenses', 'eb-textdomain'),
+                    'type' => 'title',
+                    'id' => 'licensing_management',
                     ),
                     array(
-                        'type' => 'sectionend',
-                        'id' => 'licensing_management',
+                    'type' => 'sectionend',
+                    'id' => 'licensing_management',
                     ),
-                )
+                    )
             );
 
             return apply_filters('eb_get_settings_'.$this->_id, $settings, $current_section);

@@ -125,29 +125,152 @@ function wdmShowNotices()
     }
 }
 
-// get user account url
-function wdmUserAccountUrl($arg = '')
+/*
+  //Old wdmUserAccountUrl() removed because of permalink issue.
+  function wdmUserAccountUrl($arg = '')
+  {
+  $eb_general_settings = get_option('eb_general');
+  $user_account_page_id = '';
+  if (isset($eb_general_settings['eb_useraccount_page_id'])) {
+  $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
+  }
+
+  if (!is_numeric($user_account_page_id)) {
+  $link = site_url('/user-account').$arg;
+  } else {
+  $link = get_permalink($user_account_page_id).$arg;
+  }
+
+  return $link;
+  }
+ */
+
+/**
+ * Remodified wdmUserAccountUrl() to return user account url.
+ *
+ * @since 1.2.0
+ */
+function wdmUserAccountUrl($query_str = '')
 {
+    $usr_ac_page_id = null;
+    $eb_settings = get_option('eb_general');
 
-    // $user_account_page_id = EbAdminSettings::getOption( 'eb_useraccount_page_id', 'general' );
-
-    $eb_general_settings = get_option('eb_general');
-    $user_account_page_id = '';
-    if (isset($eb_general_settings['eb_useraccount_page_id'])) {
-        $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
+    if (isset($eb_settings['eb_useraccount_page_id'])) {
+        $usr_ac_page_id = $eb_settings['eb_useraccount_page_id'];
     }
 
-    if (!is_numeric($user_account_page_id)) {
-        $link = site_url('/user-account').$arg;
-    } else {
-        $link = get_permalink($user_account_page_id).$arg;
+    $usr_ac_page_url = get_permalink($usr_ac_page_id);
+
+    if (!$usr_ac_page_url) {
+        $usr_ac_page_url = site_url('/user-account');
     }
 
-    return $link;
+    //Extract query string into local $_GET array.
+    $get = array();
+    parse_str(parse_url($query_str, PHP_URL_QUERY), $get);
+    $usr_ac_page_url = add_query_arg($get, $usr_ac_page_url);
+
+    return $usr_ac_page_url;
+}
+
+/**
+ * Provides the functionality to calculate the user login redirect url.
+ *
+ * @return URL Returns the my courses page url if the flag is true otherwise
+ *             returns the default $usr_ac_page_url.
+ *
+ * @since 1.2.0
+ */
+function wdmEBUserRedirectUrl($queryStr = '')
+{
+    $usrAcPageId = null;
+    /*
+     * Set default user account page url
+     */
+//    $usrAcPageUrl = site_url('/user-account');
+
+    /*
+     * Get the Edwiser Bridge genral settings.
+     */
+    $ebSettings = get_option('eb_general');
+    
+    /*
+     * Set the login redirect url to the user account page.
+     */
+    if (isset($ebSettings['eb_useraccount_page_id'])) {
+        $usrAcPageId = $ebSettings['eb_useraccount_page_id'];
+        $usrAcPageUrl = get_permalink($usrAcPageId);
+    }
+    /*
+     * Sets $usrAcPageUrl to my course page if the redirection to the my 
+     * courses page is enabled in settings 
+     */
+    if (isset($ebSettings['eb_enable_my_courses']) && $ebSettings['eb_enable_my_courses'] == 'yes') {
+        $usrAcPageUrl = getMycoursesPage($ebSettings);
+    }
+
+    //Extract query string into local $_GET array.
+    $get = array();
+    parse_str(parse_url($queryStr, PHP_URL_QUERY), $get);
+    $usrAcPageUrl = add_query_arg($get, $usrAcPageUrl);
+
+    return $usrAcPageUrl;
+}
+
+function getMycoursesPage($ebSettings)
+{
+    $usrAcPageUrl = site_url('/user-account');
+    if (isset($ebSettings['eb_my_courses_page_id'])) {
+        $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
+    }
+    return $usrAcPageUrl;
 }
 
 // used as a callback for usort() to sort a numeric array
 function usortNumericCallback($element1, $element2)
 {
     return $element1->id - $element2->id;
+}
+
+/**
+ * Function returns shortcode pages content.
+ *
+ * @since 1.2.0
+ */
+function getShortcodePageContent($the_tag = '')
+{
+    //Shortcodes and their attributes.
+    $shortcodes = array(
+        'eb_my_courses' => array(
+            'user_id' => '',
+            'my_courses_wrapper_title' => __('My Courses', 'eb-textdomain'),
+            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+            'number_of_recommended_courses' => 4,
+        ),
+        'eb_course' => array(
+            'id' => '',
+        ),
+        'eb_courses' => array(
+            'categories' => '',
+            'category_operator' => 'AND',
+            'order' => 'DESC',
+            'per_page' => 12,
+        ),
+    );
+
+    $page_content = array();
+    foreach ($shortcodes as $tag => $args) {
+        $buffer = '['.$tag.' ';
+        foreach ($args as $attr => $value) {
+            $buffer .= $attr.'="'.$value.'" ';
+        }
+        $buffer .= ']';
+        $page_content[$tag] = $buffer;
+    }
+
+    if (empty($the_tag)) {
+        return $page_content;
+    } elseif (isset($page_content[$the_tag])) {
+        return $page_content[$the_tag];
+    }
 }
