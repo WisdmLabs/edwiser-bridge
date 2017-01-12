@@ -14,10 +14,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EdwiserBridge
 {
+
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
@@ -106,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.0.2';
+        $this->version = '1.2.0';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -119,6 +121,7 @@ class EdwiserBridge
             define($key, $value);
         }
     }
+
     /**
      * Setup plugin constants.
      *
@@ -275,9 +278,14 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'includes/eb-core-functions.php';
         require_once EB_PLUGIN_DIR.'includes/eb-formatting-functions.php';
 
-         // To handle addition of new blog (for multisite installations)
+        // To handle addition of new blog (for multisite installations)
 
-         require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-activator.php';
+
+        //To handel the email template modification
+        require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-email-template-parser.php';
+
 
         $this->loader = new EBLoader();
     }
@@ -331,6 +339,9 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'public/class-eb-shortcodes.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-user-account.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-user-profile.php';
+        require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-courses.php';
+        require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-course.php';
+        require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-my-courses.php';
 
         /**
          * The class responsible for handling frontend forms, specifically login & registration forms.
@@ -459,12 +470,42 @@ class EdwiserBridge
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
 
-            /*
-             * Handling custom button events on settings page
-             * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
-             * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
-             */
-            $admin_settings_init = new EBSettingsAjaxInitiater($this->getPluginName(), $this->getVersion());
+        /*
+         * Handling custom button events on settings page
+         * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
+         * Specifically 'Synchronization Request' & 'Test Connection Request' on Moodle settings page.
+         */
+        $admin_settings_init = new EBSettingsAjaxInitiater($this->getPluginName(), $this->getVersion());
+
+        /**
+         * Email template editor ajax start
+         */
+        $emailTmplEditor = new EBAdminEmailTemplate();
+
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_get_email_template',
+            $emailTmplEditor,
+            'getTemplateDataAjaxCallBack'
+        );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_get_email_template',
+            $emailTmplEditor,
+            'getTemplateDataAjaxCallBack'
+        );
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_send_test_email',
+            $emailTmplEditor,
+            'sendTestEmail'
+        );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_send_test_email',
+            $emailTmplEditor,
+            'sendTestEmail'
+        );
+        /**
+         * Email template editor end
+         */
+        
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
@@ -543,6 +584,8 @@ class EdwiserBridge
          * update course enrollment table appropriately by deleting records for user being deleted.
          */
         $this->loader->addAction('delete_user', $this->userManager(), 'deleteEnrollmentRecordsOnUserDeletion');
+
+        $this->loader->addAction("eb_before_single_course", $this->userManager(), "unenrollOnCourseAccessExpire");
     }
 
     /**
@@ -677,6 +720,9 @@ class EdwiserBridge
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processRegistration', 20);
         // process course join request for free courses
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
+
+        $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
+        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'saveAccountDetails'));
     }
 
     /**
@@ -719,6 +765,12 @@ class EdwiserBridge
             'eb_order_status_completed',
             $plugin_emailer,
             'sendOrderCompletionEmail',
+            10
+        ); // email on order status completed
+        $this->loader->addAction(
+            'eb_course_access_expire_alert',
+            $plugin_emailer,
+            'sendCourseAccessExpireEmail',
             10
         ); // email on order status completed
     }

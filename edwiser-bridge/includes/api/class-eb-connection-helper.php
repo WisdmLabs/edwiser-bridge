@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBConnectionHelper
 {
+
     /**
      * The ID of this plugin.
      *
@@ -145,7 +147,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle URL !';
+            $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         //edwiserBridgeInstance()->logger()->add( 'user', "\n Moodle response: ".serialize($response_data) );
@@ -181,7 +183,7 @@ class EBConnectionHelper
             $success = 0;
             $response_message = $response->get_error_message();
         } elseif (wp_remote_retrieve_response_code($response) == 200 ||
-            wp_remote_retrieve_response_code($response) == 303) {
+                wp_remote_retrieve_response_code($response) == 303) {
             $body = json_decode(wp_remote_retrieve_body($response));
             if (!empty($body->exception)) {
                 $success = 0;
@@ -193,7 +195,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle connection details.';
+            $response_message = __('Please check Moodle connection details.', 'eb-textdomain');
         }
 
         return array(
@@ -235,7 +237,7 @@ class EBConnectionHelper
             }
         } else {
             $success = 0;
-            $response_message = 'Please check Moodle URL !';
+            $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         return array(

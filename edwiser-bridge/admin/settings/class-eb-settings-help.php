@@ -18,11 +18,13 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('EBSettingsGetHelp')) :
+
     /**
      * EbSettingsPayPal.
      */
     class EBSettingsGetHelp extends EBSettingsPage
     {
+
         /**
          * Constructor.
          */
@@ -62,9 +64,9 @@ if (!class_exists('EBSettingsGetHelp')) :
 
             // verify nonce
             if (!isset($_POST['subscribe_nonce_field']) ||
-                !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')
+                    !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')
             ) {
-                echo 'Sorry, there is a problem!';
+                _e('Sorry, there is a problem!', 'eb-textdomain');
                 exit;
             } else {
                 // process subscription
@@ -75,13 +77,19 @@ if (!class_exists('EBSettingsGetHelp')) :
                 // prepare email content
                 $subject = apply_filters(
                     'eb_plugin_subscription_email_subject',
-                    'Edwiser Bridge Plugin Subscription Notification'
+                    __('Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain')
                 );
 
-                $message = "Edwiser subscription user details: \n";
-                $message .= "\nCustomer Website:\n".site_url();
-                $message .= "\n\nCustomer Email: \n";
-                $message .= $admin_email;
+                $message = sprintf(
+                    __("Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s", 'eb-textdomain'),
+                    site_url(),
+                    $admin_email
+                );
+
+                // $message = "Edwiser subscription user details: \n";
+                // $message .= "\nCustomer Website:\n".site_url();
+                // $message .= "\n\nCustomer Email: \n";
+                // $message .= $admin_email;
 
                 $sent = wp_mail($plugin_author_email, $subject, $message);
 

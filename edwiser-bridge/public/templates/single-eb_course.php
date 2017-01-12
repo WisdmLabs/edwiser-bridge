@@ -1,30 +1,50 @@
 <?php
+
 /**
  * The template for displaying all single moodle courses.
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
-get_header(); ?>
-	<div id="primary" class="content-area">
-		<main id="content" role="main" class="site-main" style="overflow:auto;">
+$wrapper_args = array();
 
-			<?php do_action('eb_before_single_course'); ?>
-			<?php while (have_posts()) :
-                the_post();
+$eb_template = get_option('eb_template');
+if (isset($eb_template['single_enable_right_sidebar']) && $eb_template['single_enable_right_sidebar'] === 'yes') {
+    $wrapper_args['enable_right_sidebar'] = true;
+    $wrapper_args['parentcss'] = '';
+} else {
+    $wrapper_args['enable_right_sidebar'] = false;
+    $wrapper_args['parentcss'] = 'width:100%;';
+}
+$wrapper_args['sidebar_id'] = isset($eb_template['single_right_sidebar']) ? $eb_template['single_right_sidebar'] : '';
 
-                $plugin_template_loader = new EbTemplateLoader(
-                    edwiserBridgeInstance()->getPluginName(),
-                    edwiserBridgeInstance()->getVersion()
-                );
-                $plugin_template_loader->wpGetTemplatePart('content-single', get_post_type());
+$template_loader = new EbTemplateLoader(
+    edwiserBridgeInstance()->getPluginName(),
+    edwiserBridgeInstance()->getVersion()
+);
+?>
 
-                comments_template();
+<?php get_header(); ?>
 
-endwhile; ?>
-			<?php do_action('eb_after_single_course'); ?>
-		</div><!-- #content -->
-	</div><!-- #primary -->
+<?php $template_loader->wpGetTemplate('global/wrapper-start.php', $wrapper_args); ?>
 
-<?php get_sidebar(); ?>
-<?php get_footer();
+<?php do_action('eb_before_single_course'); ?>
+<?php
+
+while (have_posts()) :
+    the_post();
+    $template_loader->wpGetTemplatePart('content-single', get_post_type());
+    comments_template();
+endwhile;
+?>
+<?php do_action('eb_after_single_course'); ?>
+
+<?php $template_loader->wpGetTemplate('global/wrapper-end.php', $wrapper_args); ?>
+<?php
+
+if (file_exists(get_template_directory_uri().'/sidebar.php')) {
+    get_sidebar();
+}
+?>
+<?php
+
+get_footer();

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class defines all code necessary to manage user's moodle & WP account'.
  *
@@ -8,10 +7,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBUserManager
 {
+
     /**
      * The ID of this plugin.
      *
@@ -115,7 +116,6 @@ class EBUserManager
     {
         global $wpdb;
         // $response_array['process_completed'] = 0;
-
         // checking if moodle connection is working properly
         $connected = edwiserBridgeInstance()->connectionHelper()->connectionTestHelper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
 
@@ -145,12 +145,11 @@ class EBUserManager
                 $key;
                 // sync users courses only if checkbox is checked
                 if (isset($sync_options['eb_synchronize_user_courses']) &&
-                    $sync_options['eb_synchronize_user_courses'] == 1) {
+                        $sync_options['eb_synchronize_user_courses'] == 1) {
                     // get user's enrolled courses from moodle
                     $moodle_user_courses = edwiserBridgeInstance()->courseManager()->getMoodleCourses($value['moodle_user_id']);
 
                     $enrolled_courses = array(); // push user's all enrolled courses id in array
-
                     // enrol user to courses based on recieved data
                     if ($moodle_user_courses['success'] == 1) {
                         foreach ($moodle_user_courses['response_data'] as $course_data) {
@@ -180,7 +179,7 @@ class EBUserManager
                         // Push user's id to separate array,
                         // if there is a problem in fetching his/her courses from moodle.
                         $response_array['user_with_error'][] = "<p style='float:left; clear:left;'>";
-                        $response_array['user_with_error'][] .= '<strong>User ID: </strong>'.$value['user_id'];
+                        $response_array['user_with_error'][] .= '<strong>' . __('User ID:', 'eb-textdomain') . ' </strong>'.$value['user_id'];
                         $response_array['user_with_error'][] .= '</p><br/>';
                     }
 
@@ -203,7 +202,7 @@ class EBUserManager
                         }
                     }
 
-                    if (is_array($notenrolled_courses)  &&  !empty($notenrolled_courses)) {
+                    if (is_array($notenrolled_courses) && !empty($notenrolled_courses)) {
                         // define args
                         $args = array(
                             'user_id' => $value['user_id'],
@@ -212,7 +211,7 @@ class EBUserManager
                         );
                         edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
                     }
-                    /* Unenrollment part completed **/
+                    /* Unenrollment part completed * */
                 }
 
                 /*
@@ -270,7 +269,7 @@ class EBUserManager
         if (empty($lastname)) {
             $lastname = $_POST['lastname'];
         }
-   
+
         $username = sanitize_user(current(explode('@', $email)), true);
 
         // Ensure username is unique
@@ -285,7 +284,6 @@ class EBUserManager
         // Handle password creation
         $password = wp_generate_password();
         //$password_generated = true;
-
         // WP Validation
         $validation_errors = new \WP_Error();
 
@@ -300,11 +298,11 @@ class EBUserManager
         $wp_user_data = apply_filters(
             'eb_new_user_data',
             array(
-                'user_login' => $username,
-                'user_pass' => $password,
-                'user_email' => $email,
-                'role' => 'subscriber',
-            )
+            'user_login' => $username,
+            'user_pass' => $password,
+            'user_email' => $email,
+            'role' => 'subscriber',
+                )
         );
 
         $user_id = wp_insert_user($wp_user_data);
@@ -313,10 +311,10 @@ class EBUserManager
             return new \WP_Error(
                 'registration-error',
                 '<strong>'.__('ERROR', 'eb-textdomain').'</strong>: '.
-                __(
-                    'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-                    'eb-textdomain'
-                )
+                    __(
+                        'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
+                        'eb-textdomain'
+                    )
             );
         }
 
@@ -327,9 +325,7 @@ class EBUserManager
         // check if a user exists on moodle with same email
         $moodle_user = $this->getMoodleUser($wp_user_data['user_email']);
 
-        if (isset($moodle_user['user_exists'])
-            && $moodle_user['user_exists'] == 1
-            && is_object($moodle_user['user_data'])) {
+        if (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 1 && is_object($moodle_user['user_data'])) {
             update_user_meta($user_id, 'moodle_user_id', $moodle_user['user_data']->id);
 
             // sync courses of an individual user when an existing moodle user is linked with a wordpress account.
@@ -353,9 +349,7 @@ class EBUserManager
             // create a moodle user with above details
             if (EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '') {
                 $moodle_user = $this->createMoodleUser($user_data);
-                if (isset($moodle_user['user_created'])
-                    && $moodle_user['user_created'] == 1
-                    && is_object($moodle_user['user_data'])) {
+                if (isset($moodle_user['user_created']) && $moodle_user['user_created'] == 1 && is_object($moodle_user['user_data'])) {
                     update_user_meta($user_id, 'moodle_user_id', $moodle_user['user_data']->id);
                 }
             }
@@ -408,7 +402,6 @@ class EBUserManager
         edwiserBridgeInstance()->logger()->add('user', 'Checking if username exists....'); // add to user log
 
         $username = sanitize_user($username); // get sanitized username
-
         //$user       = array();
         $webservice_function = 'core_user_get_users_by_field';
 
@@ -456,8 +449,8 @@ class EBUserManager
         if ($response['success'] == 1 && empty($response['response_data'])) {
             $user = array('user_exists' => 0, 'user_data' => '');
         } elseif ($response['success'] == 1 &&
-            is_array($response['response_data']) &&
-            !empty($response['response_data'])) {
+                is_array($response['response_data']) &&
+                !empty($response['response_data'])) {
             $user = array('user_exists' => 1, 'user_data' => $response['response_data'][0]);
         } elseif ($response['success'] == 0) {
             $user = array('user_created' => 0, 'user_data' => $response['response_message']);
@@ -492,7 +485,6 @@ class EBUserManager
         $users = array();
 
         edwiserBridgeInstance()->logger()->add('user', 'Start creating/updating moodle user, Updating: '.$update); // add user log
-
         // set webservice function according to update parameter
         if ($update == 1) {
             $webservice_function = 'core_user_update_users';
@@ -541,14 +533,13 @@ class EBUserManager
         );
 
         // edwiserBridgeInstance()->logger()->add( 'user', 'Create/Update moodle user response: '.serialize( $response ) ); // add user log
-
         // handle response recived from moodle and creates response array accordingly
         if ($update == 0) { // when user is created
             if ($response['success'] == 1 && empty($response['response_data'])) {
                 $user = array('user_created' => 0, 'user_data' => '');
             } elseif ($response['success'] == 1 &&
-                is_array($response['response_data']) &&
-                !empty($response['response_data'])) {
+                    is_array($response['response_data']) &&
+                    !empty($response['response_data'])) {
                 $user = array('user_created' => 1, 'user_data' => $response['response_data'][0]);
             } elseif ($response['success'] == 0) {
                 $user = array('user_created' => 0, 'user_data' => $response['response_message']);
@@ -598,9 +589,7 @@ class EBUserManager
              */
             $moodle_user = $this->getMoodleUser($user->user_email);
 
-            if (isset($moodle_user['user_exists'])
-                && $moodle_user['user_exists'] == 1
-                && is_object($moodle_user['user_data'])) {
+            if (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 1 && is_object($moodle_user['user_data'])) {
                 update_user_meta($user->ID, 'moodle_user_id', $moodle_user['user_data']->id);
                 $linked = 1;
 
@@ -608,8 +597,8 @@ class EBUserManager
                 // when an exisintg moodle user is linked to wordpress account with same email
                 $this->userCourseSynchronizationHandler(
                     array(
-                        'eb_synchronize_user_courses' => 1,
-                    ),
+                    'eb_synchronize_user_courses' => 1,
+                        ),
                     $user->ID
                 );
             } elseif (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 0) {
@@ -633,9 +622,7 @@ class EBUserManager
                 );
 
                 $moodle_user = $this->createMoodleUser($user_data);
-                if (isset($moodle_user['user_created'])
-                    && $moodle_user['user_created'] == 1
-                    && is_object($moodle_user['user_data'])) {
+                if (isset($moodle_user['user_created']) && $moodle_user['user_created'] == 1 && is_object($moodle_user['user_data'])) {
                     update_user_meta($user->ID, 'moodle_user_id', $moodle_user['user_data']->id);
                     $created = 1;
                     $linked = 1;
@@ -670,28 +657,26 @@ class EBUserManager
     public function linkUserBulkActions()
     {
         $current_screen = get_current_screen(); // get current screen object
-
         // enqueue js only if current screen is users
         if ($current_screen->base == 'users') {
             ?>
             <script type="text/javascript">
-              jQuery(document).ready(function() {
-                jQuery('<option>').val('link_moodle')
-                    .text('<?php _e('Link Moodle Account', 'eb-textdomain')?>')
-                    .appendTo("select[name='action']");
-                jQuery('<option>').val('link_moodle')
-                    .text('<?php _e('Link Moodle Account', 'eb-textdomain')?>')
-                    .appendTo("select[name='action2']");
-                jQuery('<option>').val('unlink_moodle')
-                    .text('<?php _e('Unlink Moodle Account', 'eb-textdomain')?>')
-                    .appendTo("select[name='action']");
-                jQuery('<option>').val('unlink_moodle')
-                    .text('<?php _e('Unlink Moodle Account', 'eb-textdomain')?>')
-                    .appendTo("select[name='action2']");
-              });
+                jQuery(document).ready(function () {
+                    jQuery('<option>').val('link_moodle')
+                            .text('<?php _e('Link Moodle Account', 'eb-textdomain') ?>')
+                            .appendTo("select[name='action']");
+                    jQuery('<option>').val('link_moodle')
+                            .text('<?php _e('Link Moodle Account', 'eb-textdomain') ?>')
+                            .appendTo("select[name='action2']");
+                    jQuery('<option>').val('unlink_moodle')
+                            .text('<?php _e('Unlink Moodle Account', 'eb-textdomain') ?>')
+                            .appendTo("select[name='action']");
+                    jQuery('<option>').val('unlink_moodle')
+                            .text('<?php _e('Unlink Moodle Account', 'eb-textdomain') ?>')
+                            .appendTo("select[name='action2']");
+                });
             </script>
-        <?php
-
+            <?php
         }
     }
 
@@ -731,7 +716,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('linked' => $linked), $_SERVER['HTTP_REFFER']);
+                    $sendback = add_query_arg(array('linked' => $linked), $_SERVER['HTTP_REFERER']);
                 }
 
                 break;
@@ -751,7 +736,7 @@ class EBUserManager
                     }
 
                     // build the redirect url
-                    $sendback = add_query_arg(array('unlinked' => $unlinked), $_SERVER['HTTP_REFFER']);
+                    $sendback = add_query_arg(array('unlinked' => $unlinked), $_SERVER['HTTP_REFERER']);
                 }
 
                 break;
@@ -802,7 +787,7 @@ class EBUserManager
      * @param int    $user_id user id of the profile being updated
      * @param object $user    previous user object
      */
-    public function passwordUpdate($user_id/*, $user*/)
+    public function passwordUpdate($user_id/* , $user */)
     {
 
         // get new password entered by user
@@ -908,59 +893,57 @@ class EBUserManager
             ?></h3></th>
                     <td>
                         <ol>
-            <?php
-            foreach ($courses as $course) {
-                $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID);
-                if ($has_access) {
-                    $enrolled_courses[] = $course;
-                    echo "<li><a href='".get_permalink($course->ID)."'>".$course->post_title.'</a></li>';
-                } else {
-                    $notenrolled_courses[] = $course;
-                }
-            }
-            ?>
+                            <?php
+                            foreach ($courses as $course) {
+                                $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID);
+                                if ($has_access) {
+                                    $enrolled_courses[] = $course;
+                                    echo "<li><a href='".get_permalink($course->ID)."'>".$course->post_title.'</a></li>';
+                                } else {
+                                    $notenrolled_courses[] = $course;
+                                }
+                            }
+                            ?>
                         </ol>
                     </td>
                 </tr>
-            <?php
-            if (current_user_can('manage_options')) {
-                ?>
-                <tr>
-                <th><h3><?php _e('Enroll a Course', 'eb-textdomain');
-                ?></h3></th>
-                <td>
-                <select name="enroll_course">
-                    <option value=''> -- Select a Course --</option>
                 <?php
-                foreach ($notenrolled_courses as $course) {
-                    echo "<option value='".$course->ID."'>".$course->post_title.'</option>';
+                if (current_user_can('manage_options')) {
+                    ?>
+                    <tr>
+                        <th><h3><?php _e('Enroll a Course', 'eb-textdomain');
+                    ?></h3></th>
+                        <td>
+                            <select name="enroll_course">
+                                <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>
+                                <?php
+                                foreach ($notenrolled_courses as $course) {
+                                    echo "<option value='".$course->ID."'>".$course->post_title.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h3><?php _e('Unenroll a Course', 'eb-textdomain');
+                                ?></h3></th>
+                        <td>
+                            <select name="unenroll_course">
+                                <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>
+                                <?php
+                                foreach ($enrolled_courses as $course) {
+                                    echo "<option value='".$course->ID."'>".$course->post_title.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <?php
                 }
                 ?>
-                </select>
-                </td>
-                </tr>
-                <tr>
-                <th><h3><?php _e('Unenroll a Course', 'eb-textdomain');
-                ?></h3></th>
-                <td>
-                <select name="unenroll_course">
-                    <option value=''> -- Select a Course --</option>
-                <?php
-                foreach ($enrolled_courses as $course) {
-                    echo "<option value='".$course->ID."'>".$course->post_title.'</option>';
-                }
-                ?>
-                </select>
-                </td>
-                </tr>
-            <?php
-
-            }
-            ?>
             </table>
 
-        <?php
-
+            <?php
         }
 
         return true;
@@ -1036,5 +1019,23 @@ class EBUserManager
         $wpdb->delete($wpdb->prefix.'moodle_enrollment', array('user_id' => $user_id), array('%d'));
 
         edwiserBridgeInstance()->logger()->add('user', "Enrollment records of user ID: {$user_id} are deleted.");  // add user log
+    }
+
+    public function unenrollOnCourseAccessExpire()
+    {
+        global $wpdb;
+        $curUser = get_current_user_id();
+        global $post;
+        $stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
+        $enrollData = $wpdb->get_results($stmt);
+        $enrollMentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+        foreach ($enrollData as $courseEnrollData) {
+            $args = array(
+                'user_id' => $courseEnrollData->user_id,
+                'courses' => array($courseEnrollData->course_id),
+                'unenroll' => 1,
+            );
+            $enrollMentManager->updateUserCourseEnrollment($args);
+        }
     }
 }

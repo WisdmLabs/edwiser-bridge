@@ -14,16 +14,19 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-if (!class_exists('EbAdminSettings')) :
+if (!class_exists('EbAdminSettings')) {
+
     /**
      * EbAdminSettings.
      */
     class EbAdminSettings
     {
+
         private static $settings = array();
         private static $errors = array();
         private static $messages = array();
@@ -38,6 +41,7 @@ if (!class_exists('EbAdminSettings')) :
 
                 // include the settings page class
                 include_once 'settings/class-eb-settings-page.php';
+                include_once 'class-eb-admin-marketing-add.php';
 
                 $settings[] = include 'settings/class-eb-settings-general.php';
                 $settings[] = include 'settings/class-eb-settings-connection.php';
@@ -266,11 +270,14 @@ if (!class_exists('EbAdminSettings')) :
 
                 // Switch based on type
                 switch ($value['type']) {
-
                     // Section Titles
                     case 'title':
+
+                        if (!isset($value['class'])) {
+                            $value['class'] = "";
+                        }
                         if (!empty($value['title'])) {
-                            echo '<h3>'.esc_html($value['title']).'</h3>';
+                            echo "<h3 class='".$value['class']."'>".esc_html($value['title']).'</h3>';
                         }
                         if (!empty($value['desc'])) {
                             echo wpautop(wptexturize(wp_kses_post($value['desc'])));
@@ -309,7 +316,8 @@ if (!class_exists('EbAdminSettings')) :
                             class="colorpickdiv" style="z-index: 100;background:#eee;
                             border:1px solid #ccc;position:absolute;display:none;"></div>';
                         }
-                        ?><tr valign="top">
+                        ?>
+                        <tr valign="top">
                             <th scope="row" class="titledesc">
                                 <label for="<?php echo esc_attr($value['id']); ?>">
                                     <?php echo esc_html($value['title']); ?>
@@ -326,7 +334,8 @@ if (!class_exists('EbAdminSettings')) :
                                     class="<?php echo esc_attr($value['class']); ?>"
                                     placeholder="<?php echo esc_attr($value['placeholder']); ?>"
                                     <?php echo implode(' ', $custom_attributes); ?>
-                                    /> <?php echo $description; ?>
+                                    />
+                                    <?php echo $description; ?>
                             </td>
                         </tr>
                         <?php
@@ -387,7 +396,8 @@ if (!class_exists('EbAdminSettings')) :
                     case 'select':
                     case 'multiselect':
                         $option_value = self::getOption($value['id'], $current_tab, $value['default']);
-                        ?><tr valign="top">
+                        ?>
+                        <tr valign="top">
                             <th scope="row" class="titledesc">
                                 <label for="<?php echo esc_attr($value['id']); ?>">
                                     <?php echo esc_html($value['title']); ?>
@@ -401,30 +411,30 @@ if (!class_exists('EbAdminSettings')) :
                                     if ($value['type'] == 'multiselect') {
                                         echo '[]';
                                     }
-                                        ?>"
+                                    ?>"
                                     id="<?php echo esc_attr($value['id']); ?>"
                                     style="<?php echo esc_attr($value['css']); ?>"
                                     class="<?php echo esc_attr($value['class']); ?>"
                                     <?php echo implode(' ', $custom_attributes); ?>
-                                    <?php echo ('multiselect' == $value['type']) ? 'multiple="multiple"' : ''; ?>
-                                    >
-                                        <?php foreach ($value['options'] as $key => $val) {
-    ?>
+                                    <?php echo ('multiselect' == $value['type']) ? 'multiple="multiple"' : ''; ?>>
+                                        <?php foreach ($value['options'] as $key => $val) { ?>
                                         <option value="<?php echo esc_attr($key);
-    ?>"
-<?php
-if (is_array($option_value)) {
-    selected(in_array($key, $option_value), true);
-} else {
-    selected($option_value, $key);
-}
-    ?>>
-                                            <?php echo $val ?></option> <?php
-
-} ?>
-                                </select> <?php echo $description; ?>
+                                            ?>"
+                                                <?php
+                                                if (is_array($option_value)) {
+                                                    selected(in_array($key, $option_value), true);
+                                                } else {
+                                                    selected($option_value, $key);
+                                                }
+                                                ?>>
+                                                    <?php echo $val ?>
+                                        </option> <?php }
+                                                ?>
+                                </select>
+                                <?php echo $description; ?>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Radio inputs
@@ -443,31 +453,27 @@ if (is_array($option_value)) {
                                     <?php echo $description; ?>
                                     <ul>
                                         <?php foreach ($value['options'] as $key => $val) {
-    ?>
+                                            ?>
                                             <li>
-                                                <label><input
-                                                        name="<?php echo esc_attr($value['id']);
-    ?>"
-                                                        value="<?php echo $key;
-    ?>"
+                                                <label>
+                                                    <input
+                                                        name="<?php echo esc_attr($value['id']); ?>"
+                                                        value="<?php echo $key; ?>"
                                                         type="radio"
-                                                        style="<?php echo esc_attr($value['css']);
-    ?>"
-                                                        class="<?php echo esc_attr($value['class']);
-    ?>"
-                                                        <?php echo implode(' ', $custom_attributes);
-    ?>
-                                                        <?php checked($key, $option_value);
-    ?>
-                                                        /> <?php echo $val ?></label>
+                                                        style="<?php echo esc_attr($value['css']); ?>"
+                                                        class="<?php echo esc_attr($value['class']); ?>"
+                                                        <?php echo implode(' ', $custom_attributes); ?>
+                                                        <?php checked($key, $option_value); ?> /> 
+                                                        <?php echo $val ?>
+                                                </label>
                                             </li>
-                                        <?php
-
-} ?>
+                                        <?php }
+                                        ?>
                                     </ul>
                                 </fieldset>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
                     // Checkbox input
@@ -493,27 +499,20 @@ if (is_array($option_value)) {
 
                         if (!isset($value['checkboxgroup']) || 'start' == $value['checkboxgroup']) {
                             ?>
-                            <tr valign="top" class="<?php echo esc_attr(implode(' ', $visbility_class));
-                            ?>">
-                                <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?></th>
+                            <tr valign="top" class="<?php echo esc_attr(implode(' ', $visbility_class)); ?>">
+                                <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
+                                </th>
                                 <td class="forminp forminp-checkbox">
                                     <fieldset>
-                                    <?php
-
-                        } else {
-                            ?>
-                                        <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class));
-                            ?>">
-                                        <?php
-
-                        } if (!empty($value['title'])) {
-                            ?>
+                                    <?php } else { ?>
+                                        <fieldset class="<?php echo esc_attr(implode(' ', $visbility_class)); ?>">
+                                        <?php } if (!empty($value['title'])) { ?>
                                             <legend class="screen-reader-text">
-                                                <span><?php echo esc_html($value['title']) ?></span>
+                                                <span>
+                                                    <?php echo esc_html($value['title']) ?>
+                                                </span>
                                             </legend>
-                                        <?php
-
-                        } ?>
+                                        <?php } ?>
                                         <label for="<?php echo $value['id'] ?>">
                                             <input
                                                 name="<?php echo esc_attr($value['id']); ?>"
@@ -521,22 +520,20 @@ if (is_array($option_value)) {
                                                 type="checkbox"
                                                 value="1"
                                                 <?php checked($option_value, 'yes'); ?>
-                                                <?php echo implode(' ', $custom_attributes); ?>
-                                                /> <?php echo $description ?>
-                                        </label> <?php echo $tooltip_html; ?>
+                                                <?php echo implode(' ', $custom_attributes); ?> /> <?php echo $description ?>
+                                        </label>
+                                        <?php echo $tooltip_html; ?>
                                         <?php if (!isset($value['checkboxgroup']) || 'end' == $value['checkboxgroup']) {
-    ?>
+                                            ?>
                                         </fieldset>
                                 </td>
                             </tr>
-                        <?php
-
-} else {
-    ?>
+                            <?php
+                        } else {
+                            ?>
                             </fieldset>
                             <?php
-
-}
+                        }
                         break;
 
                     // Single page selects
@@ -555,24 +552,101 @@ if (is_array($option_value)) {
                         if (isset($value['args'])) {
                             $args = wp_parse_args($value['args'], $args);
                         }
-                        ?><tr valign="top" class="single_select_page">
+                        ?>
+                        <tr valign="top" class="single_select_page">
                             <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
                                 <?php echo $tooltip_html; ?>
                             </th>
                             <td class="forminp">
                                 <?php
-                                 echo str_replace(
-                                     ' id=',
-                                     " data-placeholder='".__('Select a page', 'eb-textdomain')."'
-                                     style='".$value['css']."' class='".$value['class']."' id=",
-                                     wp_dropdown_pages($args)
-                                 );
-                                 echo $description;
-                                    ?>
+                                echo str_replace(
+                                        ' id=', " data-placeholder='".__('Select a page', 'eb-textdomain')."'
+                                     style='".$value['css']."' class='".$value['class']."' id=", wp_dropdown_pages($args)
+                                );
+                                echo $description;
+                                ?>
                             </td>
-                        </tr><?php
+                        </tr>
+                        <?php
                         break;
 
+                    // Single sidebar select
+                    case 'select_sidebar':
+                        $args = array(
+                            'name' => $value['id'],
+                            'id' => $value['id'],
+                            'sort_column' => 'menu_order',
+                            'sort_order' => 'ASC',
+                            'show_option_none' => ' ',
+                            'class' => $value['class'],
+                            'echo' => false,
+                            'selected' => self::getOption($value['id'], $current_tab),
+                        );
+
+                        if (isset($value['args'])) {
+                            $args = wp_parse_args($value['args'], $args);
+                        }
+                        ?>
+                        <tr valign="top" class="single_select_page">
+                            <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
+                                <?php echo $tooltip_html; ?>
+                            </th>
+                            <td class="forminp">
+                                <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+                                    <option selected><?php _e('- Select a sidebar -', 'eb-textdomain'); ?></option>
+                                    <?php foreach ($GLOBALS['wp_registered_sidebars'] as $sidebar) { ?>
+                                        <option value="<?php echo $sidebar['id']; ?>" <?php selected($args['selected'], $sidebar['id']); ?>>
+                                            <?php echo ucwords($sidebar['name']); ?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <?php
+                        break;
+
+                    // Single sidebar select
+                    case 'courses_per_row':
+                        $selectedVal=self::getOption($value['id'], $current_tab);
+                        $selectedVal=  empty(trim($selectedVal))?"4":$selectedVal;
+                        $args = array(
+                            'name' => $value['id'],
+                            'id' => $value['id'],
+                            'sort_column' => 'menu_order',
+                            'sort_order' => 'ASC',
+                            'show_option_none' => ' ',
+                            'class' => $value['class'],
+                            'echo' => false,
+                            'selected' => $selectedVal,
+                        );
+
+                        if (isset($value['args'])) {
+                            $args = wp_parse_args($value['args'], $args);
+                        }
+                        ?>
+                        <tr valign="top" class="single_select_page">
+                            <th scope="row" class="titledesc"><?php echo esc_html($value['title']) ?>
+                                <?php echo $tooltip_html; ?>
+                            </th>
+                            <td class="forminp">
+                                <select name="<?php echo $value['id']; ?>" id="<?php echo $value['id']; ?>">
+                                    <option <?php selected($args['selected'], '2'); ?>><?php _e('2', 'eb-textdomain'); ?></option>
+                                    <option <?php selected($args['selected'], '3'); ?>><?php _e('3', 'eb-textdomain'); ?></option>
+                                    <option <?php selected($args['selected'], '4'); ?>><?php _e('4', 'eb-textdomain'); ?></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <?php
+                        break;
+                    case 'horizontal_line':
+                        ?>
+                        <tr valign="top" class="single_select_page">
+                            <td>
+                                <hr>
+                            </td>
+                        </tr>
+                        <?php
+                        break;
                     // Default: run an action
                     default:
                         do_action('eb_admin_field_'.$value['type'], $current_tab, $value);
@@ -750,8 +824,8 @@ if (is_array($option_value)) {
                 'tooltip_html' => $tooltip_html,
             );
         }
+
     }
 
-endif;
-
+}
 new EbAdminSettings();

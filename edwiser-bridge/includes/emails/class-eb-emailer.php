@@ -8,10 +8,12 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBEmailer
 {
+
     private $template_name;
 
     /**
@@ -68,6 +70,15 @@ class EBEmailer
         echo $this->getContentHtml('', $this->plugin_template_loader);
     }
 
+    public function sendCourseAccessExpireEmail($args)
+    {
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+    }
+
     /**
      * Sends a new user registration email notification.
      *
@@ -79,6 +90,17 @@ class EBEmailer
      */
     public function sendNewUserEmail($args)
     {
+        /**
+         * Using Email template Editor
+         */
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+        /**
+         * Using Default
+         */
         $this->template_name = 'emails/user-new-account.php';
 
         // prepare arguments array for email
@@ -107,6 +129,18 @@ class EBEmailer
      */
     public function sendExistingUserMoodleAccountEmail($args)
     {
+        /**
+         * Using Email template Editor
+         */
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
+
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+        /**
+         * Using Default
+         */
         $this->template_name = 'emails/user-existing-wp-account.php';
         $this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
 
@@ -142,9 +176,7 @@ class EBEmailer
         $order_detail = get_post_meta($order_id, 'eb_order_options', true); //get order details
 
         // return if there is a problem in order details
-        if (!isset($order_detail['order_status'])
-            || !isset($order_detail['buyer_id'])
-            || !isset($order_detail['course_id'])) {
+        if (!$this->checkOrderDetails($order_detail)) {
             return;
         }
 
@@ -161,16 +193,29 @@ class EBEmailer
         $args = apply_filters(
             'eb_filter_email_parameters',
             array(
-                'order_id' => $order_id,
-                'course_id' => $order_detail['course_id'],
-                'user_email' => $buyer_detail->user_email,
-                'username' => $buyer_detail->user_login,
-                'first_name' => isset($buyer_detail->first_name) ? $buyer_detail->first_name : '',
-                'last_name' => isset($buyer_detail->last_name) ? $buyer_detail->last_name : '',
-            ),
+            'order_id' => $order_id,
+            'course_id' => $order_detail['course_id'],
+            'user_email' => $buyer_detail->user_email,
+            'username' => $buyer_detail->user_login,
+            'first_name' => isset($buyer_detail->first_name) ? $buyer_detail->first_name : '',
+            'last_name' => isset($buyer_detail->last_name) ? $buyer_detail->last_name : '',
+                ),
             $this->template_name
         );
 
+        /**
+         * Using Email template Editor
+         */
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
+
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+
+        /**
+         * Using Default
+         */
         $email_subject = apply_filters(
             'eb_order_completion_email_subject',
             __('Your order completed successfully.', 'eb-textdomain')
@@ -183,6 +228,14 @@ class EBEmailer
         $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
 
         return $sent;
+    }
+
+    private function checkOrderDetails($order_detail)
+    {
+        if (!isset($order_detail['order_status']) || !isset($order_detail['buyer_id']) || !isset($order_detail['course_id'])) {
+            return false;
+        }
+        return true;
     }
 
     // custom mailer
@@ -209,11 +262,11 @@ class EBEmailer
                 italic;font-weight: 300;margin: 24px 40px;}
             blockquote blockquote {margin-right: 0;}blockquote cite,blockquote
              small {font-size: 14px;font-weight: normal;text-transform: uppercase;}'.
-            'cite {border-bottom: 0;}abbr[title] {border-bottom: 1px dotted;}
+                'cite {border-bottom: 0;}abbr[title] {border-bottom: 1px dotted;}
             address {font-style: italic;margin: 0 0 24px;}'.
-            'del {color: #333;}ins {background: #fff9c0;border: none;color: #333;text-decoration: none;}'.
-            'sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}'.
-            'sup {top: -0.5em;}sub {bottom: -0.25em;}</style>';
+                'del {color: #333;}ins {background: #fff9c0;border: none;color: #333;text-decoration: none;}'.
+                'sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}'.
+                'sup {top: -0.5em;}sub {bottom: -0.25em;}</style>';
 
         return $css;
     }
