@@ -22,7 +22,7 @@ class LinkUnlink
      */
     public function addingMoodleAccountColumn($column)
     {
-           $column['moodle_Account'] = 'Moodle Account';
+           $column['moodle_Account'] = sprintf(__('Moodle Account', 'eb-textdomain'));
           return $column;
     }
 
