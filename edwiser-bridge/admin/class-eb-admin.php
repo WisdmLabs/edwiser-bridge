@@ -129,7 +129,12 @@ class EbAdmin
                 'msg_test_mail_sent_to' => __('Test mail sent to ', 'eb-textdomain'),
                 'msg_err_parsing_res' => __('An error occurred during parsing the response', 'eb-textdomain'),
                 'msg_cat_sync_success' => __('Categories synchronized successfully.', 'eb-textdomain'),
-                'msg_tpl_not_found' => __('Template not found', 'eb-textdomain')
+                'msg_tpl_not_found' => __('Template not found', 'eb-textdomain'),
+                'msg_link_user' => __('Linked ', 'eb-textdomain'),
+                'msg_unlink_user' => __('Unlinked ', 'eb-textdomain'),
+                'msg_error_unlink_user' => __('Sorry, unable unlink  user', 'eb-textdomain'),
+                 'msg_error_link_user' => __('Sorry, unable link  user', 'eb-textdomain'),
+                 'msg_error_moodle_link' => __('Sorry, unable to link to moodle', 'eb-textdomain')
             )
         );
 

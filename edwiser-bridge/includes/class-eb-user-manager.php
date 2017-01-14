@@ -1038,4 +1038,33 @@ class EBUserManager
             $enrollMentManager->updateUserCourseEnrollment($args);
         }
     }
+
+
+    public function moodleLinkUnlinkUser()
+    {
+        if (isset($_POST['user_id']) && isset($_POST['link_user'])) {
+            $user_object = get_userdata($_POST['user_id']);
+            if ($_POST['link_user']) {
+                $flag=$this->linkMoodleUser($user_object);
+                if (!$flag) {
+                    echo "LinkError";
+                    return ;
+                }
+            } else {
+                $deleted = (delete_user_meta($_POST['user_id'], 'moodle_user_id'));
+                delete_user_meta($_POST['user_id'], 'eb_user_password');
+            }
+            echo "Success-".$user_object->user_login;
+        } else {
+            echo "failed";
+        }
+        exit;
+    }
+
+    public function moodleLinkUnlinkUserNotices()
+    {
+        echo "<div id='moodleLinkUnlinkUserNotices' class='updated'>
+                 <p>Linked one user</p>
+              </div>";
+    }
 }

@@ -59,15 +59,6 @@ The plugin can be displayed in a required language by adding the necessary .mo &
  = Hooks and Filters for Customization = 
 Various hooks and filters have been provided in Edwiser Bridge easing the customization process for developers.
 
- = Email Template customization =
-Wordpress functionality provided to edit the email notification template, To change email subject and from name.
-
-= My Courses page =
-Wordpress page to display the enrolled courses for the current logged in user.
-
-= Set course access expiry period =
-Wordpress setting to set the course access period of the enrolled user.
-
  = Premium Extensions = 
 **WooCommerce Integration for Edwiser Bridge**
 
@@ -92,7 +83,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
 
  = Minimum Requirements = 
 * PHP version 5.3 or greater
-* WordPress 4.7 or higher
+* WordPress 4.0 or higher
 * Moodle 2.9 or higher
 
  =  Automatic Installation  = 
@@ -120,14 +111,6 @@ Take a look at the link below and follow the steps provided to configure your Mo
 5. Imported Moodle courses in the WordPress Backend 
 6. Order Details of Courses Purchased from WordPress
 7. User Profile Shortcode with List of Enrolled Courses
-8. Courses page Shortcode.
-9. My Courses page Shortcode.
-10. Redirect the user to the My Courses page on login/registration from the User Account page.
-11. Setting to manage 'Max number of courses in the row' for the Courses page template.
-12. Improved single course page template.
-13. Update user profile from frontend. 
-14. Setting to set the course access period of the enrolled user.
-15. Edit email notification template's content.
 
 
  ==  Frequently Asked Questions  == 
@@ -155,13 +138,13 @@ Take a look at the link below to see the full list of questions which will help 
 * Feature - Shortcode `eb_courses` to list courses.
 * Feature - Shortcode `eb_my_courses` to list specific user's courses.
 * Feature - Shortcode `eb_course` to show single course. Argument `id` i.e Course ID decides which course to show.
-* Tweak - Added page(My Courses) to display the user's enrolled courses.
+* Tweak - Added page(My Courses) to display the users enrolled courses.
 * Tweak - Redirect user to my courses page on login.
 * Tweak - Translation ready - fix missing strings.
-* Tweak - Notification on un-enrollment from the course.
+* Tweak - Notification on unenrollment from the course.
 * Tweak - Archive course page layout improvement.
 * Tweak - Single course page layout improvement.
-* Tweak - Redirect non-logged in user to the `Access course`/`Checkout` page on click of the `Take this Course` after login.
+* Tweak - Redirect non logged in user to the `Access course`/`Checkout` page on click of the `Take this Course` after login.
 * Tweak - Deprecated shortcode eb_user_profile. Use shortcode `eb_user_account`.
 * Fix - Changed Credentials spelling.
 * Fix - Undefined index: HTTP_REFFER.
@@ -170,7 +153,7 @@ Take a look at the link below to see the full list of questions which will help 
 
 
 =  1.1.2  =
-* Added new currency in PayPal for the Australian Dollar, Polish Zloty, Danish Krone and Singapore Dollar.
+* Added new currency in PayPal for the Australian Dollar,Polish Zloty,Danish Krone and Singapore Dollar.
 * Fix - Resolved Paypal Sandbox mode issue.
 
 =  1.1.1  = 

@@ -465,3 +465,74 @@ span.eb-option-input .eb-option-div select{
     width: 100%;
     height: auto;
 }
+
+
+
+.wdm-wpcwn-type {
+    padding-left: 3px;
+}
+
+.wdm-wpcwn-type {
+    margin: 10px 0px;
+}
+
+.wdm-wpcwn-type input[type="radio"] {
+    display: none;
+}
+
+.wdm-wpcwn-type label {
+    display: inline-block;
+    background-color: #908c8c;
+    padding: 2px 10px;
+    margin: -4px;
+    margin-bottom: 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 2px;
+    color: #fff;
+    font-weight: bold;
+    padding: 7px 15px;
+    line-height: normal;
+    position: relative;
+    z-index: 200;
+    background: linear-gradient(#a3a1a1, #77797a);
+
+}
+
+.wdm-wpcwn-type input[type="radio"]:checked + label {
+    background-color: #00a0d2;
+    z-index: 20;
+    background: linear-gradient(#00a0d2, #0bbff7);
+}
+.wdm-wpcwn-type input[type="radio"]:checked + .link{
+    background-color: #00a0d2;
+    z-index: 20;
+    background: radial-gradient(rgba(0, 103, 153, 0.58),rgba(0, 103, 153, 0.75),#006799, #003e5a);
+}
+
+.wdm-wpcwn-type input[type="radio"]:checked + .unlink{
+    background-color: #00a0d2;
+    z-index: 20;
+    background: radial-gradient(rgba(0, 103, 153, 0.58),rgba(0, 103, 153, 0.75),#006799, #003e5a);
+}
+
+.wdm-wpcwn-type input[type="radio"]:not(:checked) + .unlink{
+    background-color: #908c8c;
+    box-shadow:  2px 1px 2px #77797a;
+}
+
+.wdm-wpcwn-type input[type="radio"]:not(:checked) + .link{
+    background-color: #908c8c;
+    box-shadow:  -2px 1px 2px #77797a;
+}
+
+.wdm-wpcwn-type input[type="radio"]:not(:checked) + .link:active {
+    box-shadow:  inset 2px 5px 8px #77797a;
+}
+.wdm-wpcwn-type input[type="radio"]:not(:checked) + .unlink:active {
+    box-shadow:  inset 2px 5px 8px #77797a;
+ }
+
+#moodleLinkUnlinkUserNotices{
+    display: none;
+}
