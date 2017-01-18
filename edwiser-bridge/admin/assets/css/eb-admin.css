@@ -466,21 +466,11 @@ span.eb-option-input .eb-option-div select{
     height: auto;
 }
 
-
-.wdm-wpcwn-type input[type="radio"] {
-    display: none;
+.wdm-wpcwn-type{
+    color:  #0073aa;
 }
 
-.wdm-wpcwn-type input[type="radio"]:checked + label {
-    display: none;
-}
-
-.wdm-wpcwn-type input[type="radio"]:not(:checked) + label {
-    color: #0073aa;
-}
-
-
-.wdm-wpcwn-type input[type="radio"]:not(:checked) + label:hover {
+.link-unlink:hover{
     color: #36bdfd;
     cursor: pointer;
 }

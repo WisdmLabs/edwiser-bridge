@@ -1064,7 +1064,7 @@ class EBUserManager
     public function moodleLinkUnlinkUserNotices()
     {
         echo "<div id='moodleLinkUnlinkUserNotices' class='updated'>
-                 <p>Linked one user</p>
+                 <p></p>
               </div>";
     }
 }

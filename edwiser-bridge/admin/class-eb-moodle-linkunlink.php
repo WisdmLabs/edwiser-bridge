@@ -36,18 +36,16 @@ class LinkUnlink
     public function showContent($val, $column_name, $user_id)
     {
         $link=get_user_meta($user_id, "moodle_user_id", true);
-        $checked="checked";
-        $unchecked="";
+        $checked="block";
+        $unchecked="none";
         if (trim($link) == "") {
-            $checked="";
-            $unchecked="checked";
+            $checked="none";
+            $unchecked="block";
         }
         if ($column_name == "moodle_Account") {
             $val='<div id="'.$user_id.'" class="wdm-wpcwn-type">
-                        <input type="radio" id="'.$user_id.'-link" name="'.$user_id.'note_type" value="Link" '.$checked.'>
-                        <label for="'.$user_id.'-link" title="Link user with Moodle account" class="link-unlink link">'.sprintf(__('Link', 'eb-textdomain')).'</label>
-                        <input type="radio" id="'.$user_id.'-unlink" name="'.$user_id.'note_type" value="Unlink" '.$unchecked.'>
-                        <label for="'.$user_id.'-unlink" title="Unlink user with moodle account." class="link-unlink unlink">'.sprintf(__('Unlink', 'eb-textdomain')).'</label>
+                        <label class="link-unlink" id="'.$user_id.'-link" title="Link user with Moodle account" class="link-unlink link" style="display:'.$unchecked.';">'.sprintf(__('Link User', 'eb-textdomain')).'</label>
+                        <label class="link-unlink" id="'.$user_id.'-unlink" title="Unlink user with moodle account." class="link-unlink unlink" style="display:'.$checked.';">'.sprintf(__('Unlink User', 'eb-textdomain')).'</label>
                       </div>
                   ';
         }

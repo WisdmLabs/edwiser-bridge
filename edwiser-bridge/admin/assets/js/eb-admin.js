@@ -386,7 +386,8 @@
          $(".link-unlink").click(function (e) {
             e.preventDefault();
             var userid=$(this).parent().attr("id");
-            var linkuser=$(this).attr("for");
+            var linkuser=$(this).attr("id");
+            var currDiv=$(this);
             linkuser=linkuser.substr(linkuser.indexOf("-")+1);
             var str=linkuser;
             linkuser=0;
@@ -397,6 +398,9 @@
                 var showText=eb_admin_js_object.msg_unlink_user;
             }
             $("#moodleLinkUnlinkUserNotices").css("display","none");
+
+            jQuery("body").css("cursor", "progress");
+
             $.ajax({
                 type: "post",
                 url: ajaxurl,
@@ -407,10 +411,11 @@
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                     if(str == "link")
                         {
-                            $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
-                        } else {
                             $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);
+                        } else {
+                            $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                         }
+                        jQuery("body").css("cursor", "auto");
                 },
                 success: function (response) {
                     if(response.includes("Success")){
@@ -418,7 +423,8 @@
                         $("#moodleLinkUnlinkUserNotices").addClass("updated");
                         $("#moodleLinkUnlinkUserNotices").css("display","block");
                         $("#moodleLinkUnlinkUserNotices").children().html(showText+" "+message);
-                        $("#"+userid+"-"+str).prop("checked",true);
+                        $("#"+userid+"-"+str).css("display","block");
+                        currDiv.css("display","none");
                     } else {
                          var message=response.substr(response.indexOf("-")+1);
                         $("#moodleLinkUnlinkUserNotices").css("display","block");
@@ -435,9 +441,10 @@
                             }
                         }
                     }
-
+                    jQuery("body").css("cursor", "auto");
                 }
             });
+
         });
 
     });
