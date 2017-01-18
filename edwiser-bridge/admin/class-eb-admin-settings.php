@@ -608,7 +608,8 @@ if (!class_exists('EbAdminSettings')) {
                     // Single sidebar select
                     case 'courses_per_row':
                         $selectedVal=self::getOption($value['id'], $current_tab);
-                        $selectedVal=  empty(trim($selectedVal))?"4":$selectedVal;
+                        $selectedVal=  trim($selectedVal);
+                        $selectedVal=  empty($selectedVal)?"4":$selectedVal;
                         $args = array(
                             'name' => $value['id'],
                             'id' => $value['id'],

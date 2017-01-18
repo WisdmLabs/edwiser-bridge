@@ -1042,24 +1042,30 @@ class EBUserManager
 
     public function moodleLinkUnlinkUser()
     {
+        $responce=array("code"=>"failed");
         if (isset($_POST['user_id']) && isset($_POST['link_user'])) {
             $user_object = get_userdata($_POST['user_id']);
             if ($_POST['link_user']) {
                 $flag=$this->linkMoodleUser($user_object);
                 if (!$flag) {
-                    echo "LinkError";
-                    return ;
+                    $responce["msg"]=__("Failed to process the request.", "eb-textdomain");
+                } else {
+                    $responce["code"]="success";
+                    $responce["msg"]=sprintf(__("%s's account has been linked successfully.", 'eb-textdomain'), $user_object->user_login);
                 }
             } else {
                 $deleted = (delete_user_meta($_POST['user_id'], 'moodle_user_id'));
                 delete_user_meta($_POST['user_id'], 'eb_user_password');
+                $responce["code"]="success";
+                $responce["msg"]=sprintf(__("%s's account has been unlinked successfully.", 'eb-textdomain'), $user_object->user_login);
             }
-            echo "Success-".$user_object->user_login;
         } else {
-            echo "failed";
+            $responce["msg"]=__("Invalid ajax request.", "eb-textdomain");
         }
-        exit;
+        echo json_encode($responce);
+        die();
     }
+
 
     public function moodleLinkUnlinkUserNotices()
     {
