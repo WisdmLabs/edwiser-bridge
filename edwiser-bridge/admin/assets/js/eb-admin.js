@@ -382,6 +382,69 @@
             });
         });
 
+
+         $(".link-unlink").click(function (e) {
+            e.preventDefault();
+            var userid=$(this).parent().attr("id");
+            var linkuser=$(this).attr("id");
+            /*var currDiv=$(this);*/
+            linkuser=linkuser.substr(linkuser.indexOf("-")+1);
+            var str=linkuser;
+            linkuser=0;
+            if(str == "link"){
+                linkuser=1;
+                var strCheck = "unlink";
+            } else {
+                var strCheck ="link";
+            }
+            $("#moodleLinkUnlinkUserNotices").css("display","none");
+            jQuery("body").css("cursor", "progress");
+
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user:linkuser },
+                error: function (error) {
+                    $("#moodleLinkUnlinkUserNotices").css("display","block");
+                    $("#moodleLinkUnlinkUserNotices").removeClass("updated");
+                    $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
+                    if(str == "link")
+                        {
+                            $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        } else {
+                            $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        }
+                        jQuery("body").css("cursor", "auto");
+                },
+                success: function (response) {
+                    var result=$.parseJSON(response);
+                    if(result["code"] == ("success")){
+                        $("#moodleLinkUnlinkUserNotices").addClass("updated");
+                        $("#moodleLinkUnlinkUserNotices").css("display","block");
+                        $("#moodleLinkUnlinkUserNotices").children().html(result['msg']);
+                        $("#"+userid+"-"+str).css("display","none");
+                        $("#"+userid+"-"+strCheck).css("display","block");
+                    } else {
+                        $("#moodleLinkUnlinkUserNotices").css("display","block");
+                        $("#moodleLinkUnlinkUserNotices").removeClass("updated");
+                        $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
+                        if(response.includes("LinkError")){
+                            $("#moodleLinkUnlinkUserNotices").children().html(response["msg"]);
+                        } else {
+                            if(str == "link")
+                            {
+                                $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
+                            } else {
+                                $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);
+                            }
+                        }
+                    }
+                    jQuery("body").css("cursor", "auto");
+                }
+            });
+
+        });
+
     });
 
     function ohSnap(text, type)
