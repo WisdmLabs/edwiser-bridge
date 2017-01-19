@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: WordPress, Moodle, Courses, Users, Synchronization, Sell Courses, Learning Management System, LMS, LMS Integration, Moodle WordPress, WordPress Moodle, WP Moodle,
 Requires at least: 4.0
-Tested up to: 4.4.2
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,13 +60,13 @@ The plugin can be displayed in a required language by adding the necessary .mo &
 Various hooks and filters have been provided in Edwiser Bridge easing the customization process for developers.
 
  = Email Template customization =
-Wordpress functionality provided to edit the email notification template, To change email subject and from name.
+Edit the content in email templates sent out from the plugin to users who purchase the course.
 
 = My Courses page =
-Wordpress page to display the enrolled courses for the current logged in user.
+A dedicated page which displays every user the list of courses they have purchased and based on their selection, recommends them other courses on offer.
 
 = Set course access expiry period =
-Wordpress setting to set the course access period of the enrolled user.
+Set the course expiry date on course backend and upon course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
  = Premium Extensions = 
 **WooCommerce Integration for Edwiser Bridge**
@@ -91,7 +91,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
  ==  Installation  == 
 
  = Minimum Requirements = 
-* PHP version 5.3 or greater
+* PHP version 5.6 or greater
 * WordPress 4.7 or higher
 * Moodle 2.9 or higher
 
@@ -112,7 +112,7 @@ Take a look at the link below and follow the steps provided to configure your Mo
 <a href = "https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">Moodle Website Configurations</a>
 
 
- == Screenshots == 
+== Screenshots == 
 1. General Settings for Edwiser Bridge
 2. Connection Settings for Edwiser Bridge
 3. Course Synchronization from Moodle to WordPress
@@ -145,6 +145,10 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+
+= 1.2.1 =
+* Feature - Functionality to display the users moodle account link unlink status on users list table for the admin user.
+* Fix - Fix for the plugins default data update on plugin update.
 
 =  1.2.0  =
 * Feature - Functionality to set course access expiry days.

@@ -1038,4 +1038,39 @@ class EBUserManager
             $enrollMentManager->updateUserCourseEnrollment($args);
         }
     }
+
+
+    public function moodleLinkUnlinkUser()
+    {
+        $responce=array("code"=>"failed");
+        if (isset($_POST['user_id']) && isset($_POST['link_user'])) {
+            $user_object = get_userdata($_POST['user_id']);
+            if ($_POST['link_user']) {
+                $flag=$this->linkMoodleUser($user_object);
+                if (!$flag) {
+                    $responce["msg"]=__("Failed to process the request.", "eb-textdomain");
+                } else {
+                    $responce["code"]="success";
+                    $responce["msg"]=sprintf(__("%s's account has been linked successfully.", 'eb-textdomain'), $user_object->user_login);
+                }
+            } else {
+                $deleted = (delete_user_meta($_POST['user_id'], 'moodle_user_id'));
+                delete_user_meta($_POST['user_id'], 'eb_user_password');
+                $responce["code"]="success";
+                $responce["msg"]=sprintf(__("%s's account has been unlinked successfully.", 'eb-textdomain'), $user_object->user_login);
+            }
+        } else {
+            $responce["msg"]=__("Invalid ajax request.", "eb-textdomain");
+        }
+        echo json_encode($responce);
+        die();
+    }
+
+
+    public function moodleLinkUnlinkUserNotices()
+    {
+        echo "<div id='moodleLinkUnlinkUserNotices' class='updated'>
+                 <p></p>
+              </div>";
+    }
 }

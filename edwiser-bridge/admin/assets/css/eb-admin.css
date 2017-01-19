@@ -465,3 +465,17 @@ span.eb-option-input .eb-option-div select{
     width: 100%;
     height: auto;
 }
+
+.wdm-wpcwn-type{
+    color:  #0073aa;
+}
+
+.link-unlink:hover{
+    color: #36bdfd;
+    cursor: pointer;
+}
+
+
+#moodleLinkUnlinkUserNotices{
+    display: none;
+}

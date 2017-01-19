@@ -108,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.2.0';
+        $this->version = '1.2.1';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -303,6 +303,11 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'admin/class-eb-admin.php';
         require_once EB_PLUGIN_DIR.'admin/class-eb-welcome.php';
         require_once EB_PLUGIN_DIR.'admin/class-eb-extensions.php';
+
+        /**
+        *The class used to add Moodle account column on users page frontend
+        */
+        require_once EB_PLUGIN_DIR.'admin/class-eb-moodle-linkunlink.php';
 
         /**
          * The core classes that initiates settings module.
@@ -521,6 +526,7 @@ class EdwiserBridge
             $admin_settings_init,
             'connectionTestInitiater'
         );
+ 
         //}
     }
 
@@ -573,6 +579,19 @@ class EdwiserBridge
             'edit_user_profile_update',
             $this->userManager(),
             'updateCoursesOnProfileUpdate'
+        );
+
+        $this->loader->addAction(
+            'wp_ajax_moodleLinkUnlinkUser',
+            $this->userManager(),
+            'moodleLinkUnlinkUser'
+        );
+
+
+        $this->loader->addAction(
+            'admin_notices',
+            $this->userManager(),
+            'moodleLinkUnlinkUserNotices'
         );
 
         // password sync with moodle on profile update & password reset

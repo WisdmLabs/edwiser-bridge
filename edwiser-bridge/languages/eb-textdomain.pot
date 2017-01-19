@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-03 05:22+0000\n"
-"POT-Revision-Date: Wed Jan 04 2017 16:12:38 GMT+0530 (IST)\n"
+"POT-Revision-Date: Thu Jan 19 2017 11:11:01 GMT+0530 (IST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -115,13 +115,33 @@ msgstr ""
 msgid "Template not found"
 msgstr ""
 
+#: ../admin/class-eb-admin.php:133
+msgid "Linked "
+msgstr ""
+
+#: ../admin/class-eb-admin.php:134
+msgid "Unlinked "
+msgstr ""
+
+#: ../admin/class-eb-admin.php:135
+msgid "Sorry, unable unlink  user"
+msgstr ""
+
+#: ../admin/class-eb-admin.php:136
+msgid "Sorry, unable link  user"
+msgstr ""
+
+#: ../admin/class-eb-admin.php:137
+msgid "Sorry, unable to link to moodle"
+msgstr ""
+
 #: ../admin/settings/class-eb-settings-synchronization.php:34
 msgid "Synchronization"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-synchronization.php:52 ../admin/class-eb-
 #: admin-menus.php:71 ../includes/class-eb-email-template-parser.php:43 ..
-#: /public/templates/archive-eb_course.php:27
+#: public/templates/archive-eb_course.php:27
 msgid "Courses"
 msgstr ""
 
@@ -134,7 +154,7 @@ msgid "Synchronize User Data"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-synchronization.php:108 ..
-#: /admin/settings/class-eb-settings-synchronization.php:145
+#: admin/settings/class-eb-settings-synchronization.php:145
 msgid "Synchronization Options"
 msgstr ""
 
@@ -315,7 +335,7 @@ msgstr ""
 
 #: ../admin/settings/class-eb-settings-general.php:65
 #, php-format
-msgid "Redirect user to the My Courses page on %s form %s page."
+msgid "Redirect user to the My Courses page on %s form the %s page."
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-general.php:69
@@ -343,6 +363,11 @@ msgstr ""
 #: ../admin/settings/class-eb-settings-general.php:85 ../includes/eb-core-
 #: functions.php:246
 msgid "My Courses"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:92 ../admin/settings/class-eb-
+#: settings-general.php:123 ../admin/class-eb-admin-settings.php:563
+msgid "Select a page"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-general.php:95
@@ -382,7 +407,7 @@ msgid "Enter language code which you get from moodle language settings."
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-general.php:144
-msgid "Max number of courses in row on courses page"
+msgid "Max number of courses in a row on the courses page"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-general.php:151
@@ -413,7 +438,7 @@ msgid ""
 msgstr ""
 
 #: ../admin/class-eb-admin-menus.php:76 ../includes/class-eb-post-types.php:68 ..
-#: /includes/class-eb-post-types.php:70
+#: includes/class-eb-post-types.php:70
 msgid "Course Categories"
 msgstr ""
 
@@ -430,11 +455,11 @@ msgid "Help"
 msgstr ""
 
 #: ../admin/class-eb-admin-menus.php:183 ../admin/class-eb-admin-menus.php:184 ..
-#: /admin/class-eb-email-template.php:69
+#: admin/class-eb-email-template.php:69
 msgid "Manage Email Templates"
 msgstr ""
 
-#: ../admin/partials/html-admin-settings.php:40 ../admin/class-eb-email-template.
+#: ../admin/partials/html-admin-settings.php:41 ../admin/class-eb-email-template.
 #: php:103
 msgid "Save changes"
 msgstr ""
@@ -536,31 +561,27 @@ msgstr ""
 msgid "Customer Email:"
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:72
+#: ../admin/class-eb-admin-settings.php:73
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:80
+#: ../admin/class-eb-admin-settings.php:81
 msgid "Your settings have been saved."
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:562
-msgid "Select a page"
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:595
+#: ../admin/class-eb-admin-settings.php:596
 msgid "- Select a sidebar -"
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:632
+#: ../admin/class-eb-admin-settings.php:634
 msgid "2"
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:633
+#: ../admin/class-eb-admin-settings.php:635
 msgid "3"
 msgstr ""
 
-#: ../admin/class-eb-admin-settings.php:634
+#: ../admin/class-eb-admin-settings.php:636
 msgid "4"
 msgstr ""
 
@@ -574,7 +595,7 @@ msgid "Link WP user account to moodle"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:40
-msgid "Course order complete"
+msgid "Course Order Completion"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:41
@@ -614,7 +635,7 @@ msgid "Save Changes"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:109
-msgid "Send test email using current selected template"
+msgid "Send a test email of the selected template"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:111
@@ -644,9 +665,7 @@ msgid "Note"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:121
-msgid ""
-"Some of the constants in the template's will be get replaced by the demo "
-"content"
+msgid "Some of the constants in these emails would be replaced by demo content"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:127
@@ -717,38 +736,51 @@ msgstr ""
 msgid "Due to the security issue changes are not saved, Try to re-update it."
 msgstr ""
 
+#: ../admin/class-eb-moodle-linkunlink.php:25
+msgid "Moodle Account"
+msgstr ""
+
+#: ../admin/class-eb-moodle-linkunlink.php:47
+msgid "Link User"
+msgstr ""
+
+#: ../admin/class-eb-moodle-linkunlink.php:48
+msgid "Unlink User"
+msgstr ""
+
 #: ../includes/payments/enhanced-paypal-shortcodes.php:312 ..
-#: /includes/payments/class-eb-payment-manager.php:343
+#: includes/payments/class-eb-payment-manager.php:343
 msgid "Complete Your Purchase"
 msgstr ""
 
 #: ../includes/payments/enhanced-paypal-shortcodes.php:470 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:654 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:929 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:1128 ..
-#: /includes/payments/class-eb-payment-manager.php:274 ../includes/payments/class-
+#: includes/payments/enhanced-paypal-shortcodes.php:654 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:929 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:1128 ..
+#: includes/payments/class-eb-payment-manager.php:274 ../includes/payments/class-
 #: eb-payment-manager.php:284 ../includes/payments/class-eb-payment-manager.php:
 #: 309 ../includes/payments/class-eb-payment-manager.php:319
 msgid "Take this Course"
 msgstr ""
 
 #: ../includes/payments/enhanced-paypal-shortcodes.php:652 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:927
+#: includes/payments/enhanced-paypal-shortcodes.php:927
 msgid "PayPal - The safer, easier way to pay online."
 msgstr ""
 
-#: ../includes/payments/class-eb-payment-manager.php:121
+#: ../includes/payments/class-eb-payment-manager.php:121 ../public/class-eb-
+#: public.php:148
 msgid "Access Course"
 msgstr ""
 
 #: ../includes/payments/class-eb-payment-manager.php:358 ..
-#: /includes/payments/class-eb-payment-manager.php:367
+#: includes/payments/class-eb-payment-manager.php:367
 msgid "Course Not Available"
 msgstr ""
 
 #: ../includes/emails/class-eb-emailer.php:152 ../includes/class-eb-default-email-
 #: templates.php:26 ../includes/class-eb-default-email-templates.php:64 ..
-#: /includes/class-eb-default-email-templates.php:125
+#: includes/class-eb-default-email-templates.php:125
 msgid "Your Learning Account Credentials"
 msgstr ""
 
@@ -758,11 +790,11 @@ msgid "Your order completed successfully."
 msgstr ""
 
 #: ../includes/class-eb-logger.php:74 ../includes/class-eb-logger.php:84 ..
-#: /includes/class-eb-order-manager.php:70 ../includes/class-eb-order-manager.php:
+#: includes/class-eb-order-manager.php:70 ../includes/class-eb-order-manager.php:
 #: 80 ../includes/class-eb.php:86 ../includes/class-eb.php:96 ..
-#: /includes/api/class-eb-connection-helper.php:70 ../includes/api/class-eb-
+#: includes/api/class-eb-connection-helper.php:70 ../includes/api/class-eb-
 #: connection-helper.php:80 ../includes/class-eb-course-manager.php:70 ..
-#: /includes/class-eb-course-manager.php:80 ../includes/class-eb-user-manager.php:
+#: includes/class-eb-course-manager.php:80 ../includes/class-eb-user-manager.php:
 #: 69 ../includes/class-eb-user-manager.php:79 ../includes/class-eb-enrollment-
 #: manager.php:70 ../includes/class-eb-enrollment-manager.php:80
 msgid "Cheatin&#8217; huh?"
@@ -775,9 +807,9 @@ msgstr ""
 #: ../includes/class-eb-default-email-templates.php:72 ../includes/class-eb-
 #: default-email-templates.php:134 ../includes/class-eb-default-email-templates.
 #: php:201 ../includes/class-eb-default-email-templates.php:267 ..
-#: /public/templates/emails/user-existing-wp-account.php:12 ..
-#: /public/templates/emails/user-order-completion-email.php:12 ..
-#: /public/templates/emails/user-new-account.php:12
+#: public/templates/emails/user-existing-wp-account.php:12 ..
+#: public/templates/emails/user-order-completion-email.php:12 ..
+#: public/templates/emails/user-new-account.php:12
 #, php-format
 msgid "Hi %s"
 msgstr ""
@@ -820,7 +852,7 @@ msgid "You can purchase &amp; access courses here: %s."
 msgstr ""
 
 #: ../includes/class-eb-default-email-templates.php:210 ..
-#: /public/templates/emails/user-order-completion-email.php:17
+#: public/templates/emails/user-order-completion-email.php:17
 #, php-format
 msgid "Thanks for purchasing %s course."
 msgstr ""
@@ -882,6 +914,21 @@ msgstr ""
 
 #: ../includes/class-eb-order-manager.php:417
 msgid "Ordered By"
+msgstr ""
+
+#: ../includes/class-eb-order-manager.php:436 ../includes/class-eb-post-types.php:
+#: 328
+msgid "Pending"
+msgstr ""
+
+#: ../includes/class-eb-order-manager.php:437 ../includes/class-eb-post-types.php:
+#: 329
+msgid "Completed"
+msgstr ""
+
+#: ../includes/class-eb-order-manager.php:438 ../includes/class-eb-post-types.php:
+#: 330
+msgid "Failed"
 msgstr ""
 
 #: ../includes/class-eb-post-types.php:71
@@ -1047,16 +1094,19 @@ msgstr ""
 msgid "Is it free to join or one time purchase?"
 msgstr ""
 
-#: ../includes/class-eb-post-types.php:281 ../public/templates/content-eb_course.
-#: php:37 ../public/templates/content-single-eb_course.php:49
+#: ../includes/class-eb-post-types.php:281 ../includes/class-eb-course-manager.
+#: php:513 ../public/templates/content-eb_course.php:37 ..
+#: public/templates/content-single-eb_course.php:49
 msgid "Free"
 msgstr ""
 
-#: ../includes/class-eb-post-types.php:282
+#: ../includes/class-eb-post-types.php:282 ../includes/class-eb-course-manager.
+#: php:514
 msgid "Paid"
 msgstr ""
 
-#: ../includes/class-eb-post-types.php:283
+#: ../includes/class-eb-post-types.php:283 ../includes/class-eb-course-manager.
+#: php:515
 msgid "Closed"
 msgstr ""
 
@@ -1106,18 +1156,6 @@ msgstr ""
 
 #: ../includes/class-eb-post-types.php:325
 msgid "Status of Order"
-msgstr ""
-
-#: ../includes/class-eb-post-types.php:328
-msgid "Pending"
-msgstr ""
-
-#: ../includes/class-eb-post-types.php:329
-msgid "Completed"
-msgstr ""
-
-#: ../includes/class-eb-post-types.php:330
-msgid "Failed"
 msgstr ""
 
 #: ../includes/class-eb-post-types.php:608
@@ -1332,6 +1370,24 @@ msgstr ""
 msgid "Unenroll a Course"
 msgstr ""
 
+#: ../includes/class-eb-user-manager.php:1051
+msgid "Failed to process the request."
+msgstr ""
+
+#: ../includes/class-eb-user-manager.php:1054
+#, php-format
+msgid "%s's account has been linked successfully."
+msgstr ""
+
+#: ../includes/class-eb-user-manager.php:1060
+#, php-format
+msgid "%s's account has been unlinked successfully."
+msgstr ""
+
+#: ../includes/class-eb-user-manager.php:1063
+msgid "Invalid ajax request."
+msgstr ""
+
 #: ../public/templates/emails/user-existing-wp-account.php:17
 msgid ""
 "A learning account is linked to your profile.\n"
@@ -1350,7 +1406,7 @@ msgstr ""
 
 #: ../public/templates/emails/user-existing-wp-account.php:33
 #, php-format
-msgid "You can purchase & access courses here: <a href=\"%s\">Courses</a>."
+msgid "To purchase and access more courses click here: <a href=\"%s\">Courses</a>."
 msgstr ""
 
 #: ../public/templates/emails/user-order-completion-email.php:26
@@ -1359,7 +1415,7 @@ msgid "Your order with ID #%s completed successfully."
 msgstr ""
 
 #: ../public/templates/emails/user-order-completion-email.php:31 ..
-#: /public/templates/emails/user-new-account.php:42
+#: public/templates/emails/user-new-account.php:42
 #, php-format
 msgid "You can access your account here: <a href=\"%s\">User Account</a>."
 msgstr ""
@@ -1434,17 +1490,17 @@ msgid "Don't have an Account?"
 msgstr ""
 
 #: ../public/templates/account/form-login.php:113 ..
-#: /public/templates/account/form-login.php:167
+#: public/templates/account/form-login.php:167
 msgid "Register"
 msgstr ""
 
 #: ../public/templates/account/form-login.php:122 ..
-#: /public/templates/account/edit-user-profile.php:36
+#: public/templates/account/edit-user-profile.php:36
 msgid "First Name"
 msgstr ""
 
 #: ../public/templates/account/form-login.php:134 ..
-#: /public/templates/account/edit-user-profile.php:40
+#: public/templates/account/edit-user-profile.php:40
 msgid "Last Name"
 msgstr ""
 
@@ -1466,23 +1522,23 @@ msgid "Hello %s%s%s (not %2$s? %sSign out%s)"
 msgstr ""
 
 #: ../public/templates/account/user-account.php:32 ..
-#: /public/templates/account/user-profile.php:31
+#: public/templates/account/user-profile.php:31
 msgid "Edit Profile"
 msgstr ""
 
 #: ../public/templates/account/user-account.php:38 ..
-#: /public/templates/account/user-profile.php:40
+#: public/templates/account/user-profile.php:40
 msgid "S.No."
 msgstr ""
 
 #: ../public/templates/account/user-account.php:54 ..
-#: /public/templates/account/user-profile.php:56
+#: public/templates/account/user-profile.php:56
 #, php-format
 msgid "Looks like you are not enrolled in any course, get your first course %s"
 msgstr ""
 
 #: ../public/templates/account/user-account.php:55 ..
-#: /public/templates/account/user-profile.php:57
+#: public/templates/account/user-profile.php:57
 msgid "here"
 msgstr ""
 
@@ -1626,107 +1682,107 @@ msgstr ""
 msgid "Problems in processing your order, Please try later."
 msgstr ""
 
-#: ../public/class-eb-public.php:147 ../public/class-eb-public.php:161
+#: ../public/class-eb-public.php:147 ../public/class-eb-public.php:162
 msgid "Processing..."
 msgstr ""
 
-#: ../public/class-eb-public.php:156
+#: ../public/class-eb-public.php:157
 msgid "Search:"
 msgstr ""
 
-#: ../public/class-eb-public.php:157
+#: ../public/class-eb-public.php:158
 msgid "No data available in table"
 msgstr ""
 
-#: ../public/class-eb-public.php:158
+#: ../public/class-eb-public.php:159
 msgid "Loading..."
 msgstr ""
 
-#: ../public/class-eb-public.php:159
+#: ../public/class-eb-public.php:160
 msgid "Search"
 msgstr ""
 
-#: ../public/class-eb-public.php:160
+#: ../public/class-eb-public.php:161
 msgid "No matching records found"
 msgstr ""
 
-#: ../public/class-eb-public.php:162
+#: ../public/class-eb-public.php:163
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: ../public/class-eb-public.php:163
+#: ../public/class-eb-public.php:164
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: ../public/class-eb-public.php:164
+#: ../public/class-eb-public.php:165
 msgid "filtered from _MAX_ total entries"
 msgstr ""
 
-#: ../public/class-eb-public.php:166
+#: ../public/class-eb-public.php:167
 msgid ","
 msgstr ""
 
-#: ../public/class-eb-public.php:167
+#: ../public/class-eb-public.php:168
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: ../public/class-eb-public.php:168
+#: ../public/class-eb-public.php:169
 msgid "First"
 msgstr ""
 
-#: ../public/class-eb-public.php:169
+#: ../public/class-eb-public.php:170
 msgid "Last"
 msgstr ""
 
-#: ../public/class-eb-public.php:170
+#: ../public/class-eb-public.php:171
 msgid "Next"
 msgstr ""
 
-#: ../public/class-eb-public.php:171
+#: ../public/class-eb-public.php:172
 msgid "Previous"
 msgstr ""
 
-#: ../public/class-eb-public.php:172
+#: ../public/class-eb-public.php:173
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: ../public/class-eb-public.php:173
+#: ../public/class-eb-public.php:174
 msgid ": activate to sort column descending"
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:164 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:142
+#: public/shortcodes/class-eb-shortcode-user-profile.php:142
 msgid "Account details saved successfully."
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:167 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:146
+#: public/shortcodes/class-eb-shortcode-user-profile.php:146
 msgid ""
 "Couldn't update your profile! This might be because wrong data sent to "
 "Moodle site or a Connection Error."
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:216 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:206
+#: public/shortcodes/class-eb-shortcode-user-profile.php:206
 msgid "Email Address"
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:220 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:211
+#: public/shortcodes/class-eb-shortcode-user-profile.php:211
 #, php-format
 msgid "%s is required field."
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:225 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:217
+#: public/shortcodes/class-eb-shortcode-user-profile.php:217
 #, php-format
 msgid "%s is invalid email."
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-user-account.php:227 ..
-#: /public/shortcodes/class-eb-shortcode-user-account.php:231 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:219 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:224
+#: public/shortcodes/class-eb-shortcode-user-account.php:231 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:219 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:224
 #, php-format
 msgid "%s is already exists."
 msgstr ""
