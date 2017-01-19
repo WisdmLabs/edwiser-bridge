@@ -60,13 +60,13 @@ The plugin can be displayed in a required language by adding the necessary .mo &
 Various hooks and filters have been provided in Edwiser Bridge easing the customization process for developers.
 
  = Email Template customization =
-Wordpress functionality provided to edit the email notification template, To change email subject and from name.
+Edit the content in email templates sent out from the plugin to users who purchase the course.
 
 = My Courses page =
-Wordpress page to display the enrolled courses for the current logged in user.
+A dedicated page which displays every user the list of courses they have purchased and based on their selection, recommends them other courses on offer.
 
 = Set course access expiry period =
-Wordpress setting to set the course access period of the enrolled user.
+Set the course expiry date on course backend and upon course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
  = Premium Extensions = 
 **WooCommerce Integration for Edwiser Bridge**
@@ -91,7 +91,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
  ==  Installation  == 
 
  = Minimum Requirements = 
-* PHP version 5.3 or greater
+* PHP version 5.6 or greater
 * WordPress 4.7 or higher
 * Moodle 2.9 or higher
 
@@ -147,8 +147,8 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 
 = 1.2.1 =
-* Feature - Functionality to display the users moodle account link unlink status.
-* Fix - fix for the plugin data update on plugin update.
+* Feature - Functionality to display the users moodle account link unlink status on users list table for the admin user.
+* Fix - Fix for the plugins default data update on plugin update.
 
 =  1.2.0  =
 * Feature - Functionality to set course access expiry days.

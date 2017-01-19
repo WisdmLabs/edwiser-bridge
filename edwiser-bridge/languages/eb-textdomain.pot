@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-03 05:22+0000\n"
-"POT-Revision-Date: Sat Jan 14 2017 14:20:23 GMT+0530 (IST)\n"
+"POT-Revision-Date: Thu Jan 19 2017 11:11:01 GMT+0530 (IST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -24,187 +24,125 @@ msgstr ""
 "esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
 "esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2"
 
-#: ../admin/class-eb-admin-menus.php:58 ../admin/class-eb-admin-menus.php:59 ..
-#: /edwiser-bridge.php:132
-msgid "Edwiser Bridge"
+#. Name of the plugin
+msgid "Edwiser Bridge - WordPress Moodle LMS Integration"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:71 ../admin/settings/class-eb-settings-
-#: synchronization.php:52 ../includes/class-eb-email-template-parser.php:43 ..
-#: /public/templates/archive-eb_course.php:27
-msgid "Courses"
+#. URI of the plugin
+msgid "https://edwiser.org/bridge"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:76 ../includes/class-eb-post-types.php:68 ..
-#: /includes/class-eb-post-types.php:70
-msgid "Course Categories"
+#. Description of the plugin
+msgid ""
+"Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides "
+"an easy option to import Moodle courses to WordPress and sell them using "
+"PayPal. The plugin also allows automatic registration of WordPress users on "
+"the Moodle website along with single login credentials for both the systems."
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:81 ../includes/class-eb-post-types.php:151
-msgid "Orders"
+#. Author of the plugin
+msgid "WisdmLabs"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:133 ../admin/class-eb-admin-menus.php:134 ..
-#: /edwiser-bridge.php:65
+#. Author URI of the plugin
+msgid "https://edwiser.org"
+msgstr ""
+
+#: ../edwiser-bridge.php:65 ../admin/class-eb-admin-menus.php:133 ../admin/class-
+#: eb-admin-menus.php:134
 msgid "Settings"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:150 ../admin/class-eb-admin-menus.php:151
-msgid "Extensions"
+#: ../edwiser-bridge.php:82
+msgid "Edwiser Bridge Documentation"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:168
-msgid "Help"
+#: ../edwiser-bridge.php:83
+msgid "Documentation"
 msgstr ""
 
-#: ../admin/class-eb-admin-menus.php:183 ../admin/class-eb-admin-menus.php:184 ..
-#: /admin/class-eb-email-template.php:69
-msgid "Manage Email Templates"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:34 ../admin/settings/class-
-#: eb-settings-connection.php:81
-msgid "Connection Settings"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:87
-msgid "Moodle URL"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:88
-msgid "Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:101
-msgid "Moodle Access Token"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:102
-msgid "Moodle access token."
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-connection.php:115
-msgid "Test Connection"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-help.php:34
-msgid "Get Help"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-help.php:69 ../admin/class-eb-welcome.php:
-#: 343
-msgid "Sorry, there is a problem!"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-help.php:80 ../admin/class-eb-welcome.php:
-#: 354
-msgid "Edwiser Bridge Plugin Subscription Notification"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-help.php:84
+#: ../edwiser-bridge.php:131
 #, php-format
-msgid ""
-"Edwiser subscription user details: \n"
-"\n"
-"Customer Website: %s \n"
-"Customer Email: %s"
+msgid "Please update all %s extensions to latest version."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:34
-msgid "General"
+#: ../edwiser-bridge.php:132 ../admin/class-eb-admin-menus.php:58 ../admin/class-
+#: eb-admin-menus.php:59
+msgid "Edwiser Bridge"
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:54
-msgid "General Options"
+#: ../admin/class-eb-admin.php:119
+msgid "Please save the changes."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:63
-msgid "Redirect to My Courses"
+#: ../admin/class-eb-admin.php:123
+msgid "Connection successful, Please save your connection details."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:65
-#, php-format
-msgid "Redirect user to the My Courses page on %s form the %s page."
+#: ../admin/class-eb-admin.php:124
+msgid "Courses synchronized successfully."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:69
-msgid "Login / Registration"
+#: ../admin/class-eb-admin.php:125
+msgid "There is a problem while connecting to moodle server."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:70 ../admin/settings/class-eb-
-#: settings-general.php:116 ../includes/class-eb-email-template-parser.php:44
-msgid "User Account"
+#: ../admin/class-eb-admin.php:126
+msgid "Error occured for following users: "
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:72
-msgid "Redirect user to the My Courses page on login and registration"
+#: ../admin/class-eb-admin.php:127
+msgid "User data synced successfully."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:79
-msgid "My Courses Page"
+#: ../admin/class-eb-admin.php:128
+msgid "Mail delivery failed."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:81
-#, php-format
-msgid "Select my courses page here. Default page is %s "
+#: ../admin/class-eb-admin.php:129
+msgid "Test mail sent to "
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:85 ../includes/eb-core-
-#: functions.php:246
-msgid "My Courses"
+#: ../admin/class-eb-admin.php:130
+msgid "An error occurred during parsing the response"
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:92 ../admin/settings/class-eb-
-#: settings-general.php:123 ../admin/class-eb-admin-settings.php:563
-msgid "Select a page"
+#: ../admin/class-eb-admin.php:131
+msgid "Categories synchronized successfully."
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:95
-msgid ""
-"This sets 'My Courses' page, where the user can see all his purchased "
-"courses and access them directly. You have to use this shortcode "
-"[eb_my_courses] to create this page."
+#: ../admin/class-eb-admin.php:132
+msgid "Template not found"
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:102
-msgid "Enable Registration"
+#: ../admin/class-eb-admin.php:133
+msgid "Linked "
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:103
-msgid "Enable user registration"
+#: ../admin/class-eb-admin.php:134
+msgid "Unlinked "
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:110
-msgid "User Account Page"
+#: ../admin/class-eb-admin.php:135
+msgid "Sorry, unable unlink  user"
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:112
-#, php-format
-msgid "Select user account page here. Default page is %s "
+#: ../admin/class-eb-admin.php:136
+msgid "Sorry, unable link  user"
 msgstr ""
 
-#: ../admin/settings/class-eb-settings-general.php:126
-msgid "This sets the user account page, where user can see his/her purchase history."
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-general.php:132
-msgid "Moodle Language Code"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-general.php:133
-msgid "Enter language code which you get from moodle language settings."
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-general.php:144
-msgid "Max number of courses in a row on the courses page"
-msgstr ""
-
-#: ../admin/settings/class-eb-settings-general.php:151
-msgid "This setting will be applicable only on the `/courses` page template"
+#: ../admin/class-eb-admin.php:137
+msgid "Sorry, unable to link to moodle"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-synchronization.php:34
 msgid "Synchronization"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-synchronization.php:52 ../admin/class-eb-
+#: admin-menus.php:71 ../includes/class-eb-email-template-parser.php:43 ..
+#: public/templates/archive-eb_course.php:27
+msgid "Courses"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-synchronization.php:53
@@ -216,7 +154,7 @@ msgid "Synchronize User Data"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-synchronization.php:108 ..
-#: /admin/settings/class-eb-settings-synchronization.php:145
+#: admin/settings/class-eb-settings-synchronization.php:145
 msgid "Synchronization Options"
 msgstr ""
 
@@ -243,6 +181,31 @@ msgstr ""
 #: ../admin/settings/class-eb-settings-licensing.php:36 ../admin/settings/class-
 #: eb-settings-licensing.php:68
 msgid "Licenses"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:34 ../admin/settings/class-
+#: eb-settings-connection.php:81
+msgid "Connection Settings"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:87
+msgid "Moodle URL"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:88
+msgid "Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:101
+msgid "Moodle Access Token"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:102
+msgid "Moodle access token."
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-connection.php:115
+msgid "Test Connection"
 msgstr ""
 
 #: ../admin/settings/class-eb-settings-paypal.php:34 ../admin/settings/class-eb-
@@ -358,8 +321,272 @@ msgstr ""
 msgid "Check to enable the PayPal sandbox."
 msgstr ""
 
-#: ../admin/class-eb-email-template.php:38 ../includes/class-eb-default-email-
-#: templates.php:14 ../includes/emails/class-eb-emailer.php:109
+#: ../admin/settings/class-eb-settings-general.php:34
+msgid "General"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:54
+msgid "General Options"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:63
+msgid "Redirect to My Courses"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:65
+#, php-format
+msgid "Redirect user to the My Courses page on %s form the %s page."
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:69
+msgid "Login / Registration"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:70 ../admin/settings/class-eb-
+#: settings-general.php:116 ../includes/class-eb-email-template-parser.php:44
+msgid "User Account"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:72
+msgid "Redirect user to the My Courses page on login and registration"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:79
+msgid "My Courses Page"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:81
+#, php-format
+msgid "Select my courses page here. Default page is %s "
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:85 ../includes/eb-core-
+#: functions.php:246
+msgid "My Courses"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:92 ../admin/settings/class-eb-
+#: settings-general.php:123 ../admin/class-eb-admin-settings.php:563
+msgid "Select a page"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:95
+msgid ""
+"This sets 'My Courses' page, where the user can see all his purchased "
+"courses and access them directly. You have to use this shortcode "
+"[eb_my_courses] to create this page."
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:102
+msgid "Enable Registration"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:103
+msgid "Enable user registration"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:110
+msgid "User Account Page"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:112
+#, php-format
+msgid "Select user account page here. Default page is %s "
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:126
+msgid "This sets the user account page, where user can see his/her purchase history."
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:132
+msgid "Moodle Language Code"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:133
+msgid "Enter language code which you get from moodle language settings."
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:144
+msgid "Max number of courses in a row on the courses page"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-general.php:151
+msgid "This setting will be applicable only on the `/courses` page template"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-help.php:34
+msgid "Get Help"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-help.php:69 ../admin/class-eb-welcome.php:
+#: 343
+msgid "Sorry, there is a problem!"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-help.php:80 ../admin/class-eb-welcome.php:
+#: 354
+msgid "Edwiser Bridge Plugin Subscription Notification"
+msgstr ""
+
+#: ../admin/settings/class-eb-settings-help.php:84
+#, php-format
+msgid ""
+"Edwiser subscription user details: \n"
+"\n"
+"Customer Website: %s \n"
+"Customer Email: %s"
+msgstr ""
+
+#: ../admin/class-eb-admin-menus.php:76 ../includes/class-eb-post-types.php:68 ..
+#: includes/class-eb-post-types.php:70
+msgid "Course Categories"
+msgstr ""
+
+#: ../admin/class-eb-admin-menus.php:81 ../includes/class-eb-post-types.php:151
+msgid "Orders"
+msgstr ""
+
+#: ../admin/class-eb-admin-menus.php:150 ../admin/class-eb-admin-menus.php:151
+msgid "Extensions"
+msgstr ""
+
+#: ../admin/class-eb-admin-menus.php:168
+msgid "Help"
+msgstr ""
+
+#: ../admin/class-eb-admin-menus.php:183 ../admin/class-eb-admin-menus.php:184 ..
+#: admin/class-eb-email-template.php:69
+msgid "Manage Email Templates"
+msgstr ""
+
+#: ../admin/partials/html-admin-settings.php:41 ../admin/class-eb-email-template.
+#: php:103
+msgid "Save changes"
+msgstr ""
+
+#: ../admin/partials/html-admin-page-extensions.php:14
+msgid "Our Extensions"
+msgstr ""
+
+#: ../admin/partials/html-admin-page-extensions.php:16
+msgid "Browse all extensions"
+msgstr ""
+
+#: ../admin/partials/html-admin-page-extensions.php:32
+msgid "Click here to know more"
+msgstr ""
+
+#: ../admin/partials/html-admin-page-extensions.php:49
+msgid "Browse all our extensions"
+msgstr ""
+
+#: ../admin/partials/html-admin-page-extensions.php:58
+#, php-format
+msgid ""
+"Our list of extensions for Edwiser Bridge can be found here:\n"
+"            <a href=\"%s\" target=\"_blank\">Edwiser Bridge Extensions</a>"
+msgstr ""
+
+#: ../admin/partials/html-admin-licensing.php:67
+#, php-format
+msgid ""
+"%1s You do not have any extensions activated. %2s Please activate any "
+"installed extensions. If you do not have any extensions, you can take a look "
+"at the list %3s here%4s.%5s"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:50
+msgid "About Edwiser Bridge"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:51 ../admin/class-eb-welcome.php:222
+msgid "Welcome to Edwiser Bridge"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:225
+#, php-format
+msgid "Version %s"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:246
+msgid ""
+"Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has "
+"never been so simple. We hope you enjoy using it."
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:252
+msgid "Get the latest updates on Edwiser Bridge in Your Inbox!"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:257
+msgid ""
+"Stay updated with the latest features in Edwiser Bridge\n"
+"                            and receive early-bird discounts on upcoming "
+"premium add ons."
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:264
+msgid "Please enter your email address"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:268
+msgid "Subscribe"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:274
+msgid "Thanks for subscribing to Edwiser Bridge Updates & Notifications."
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:280
+msgid "An error occurred in subscription process, please try again."
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:290
+msgid "Skip to Settings"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:293
+msgid "Docs"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:357
+msgid "Edwiser Bridge subscription user details:"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:358
+msgid "Customer Website:"
+msgstr ""
+
+#: ../admin/class-eb-welcome.php:359
+msgid "Customer Email:"
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:73
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:81
+msgid "Your settings have been saved."
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:596
+msgid "- Select a sidebar -"
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:634
+msgid "2"
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:635
+msgid "3"
+msgstr ""
+
+#: ../admin/class-eb-admin-settings.php:636
+msgid "4"
+msgstr ""
+
+#: ../admin/class-eb-email-template.php:38 ../includes/emails/class-eb-emailer.
+#: php:109 ../includes/class-eb-default-email-templates.php:14
 msgid "New User Account Details"
 msgstr ""
 
@@ -405,11 +632,6 @@ msgstr ""
 
 #: ../admin/class-eb-email-template.php:103
 msgid "Save Changes"
-msgstr ""
-
-#: ../admin/class-eb-email-template.php:103 ../admin/partials/html-admin-settings.
-#: php:41
-msgid "Save changes"
 msgstr ""
 
 #: ../admin/class-eb-email-template.php:109
@@ -514,212 +736,149 @@ msgstr ""
 msgid "Due to the security issue changes are not saved, Try to re-update it."
 msgstr ""
 
-#: ../admin/class-eb-admin.php:119
-msgid "Please save the changes."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:123
-msgid "Connection successful, Please save your connection details."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:124
-msgid "Courses synchronized successfully."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:125
-msgid "There is a problem while connecting to moodle server."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:126
-msgid "Error occured for following users: "
-msgstr ""
-
-#: ../admin/class-eb-admin.php:127
-msgid "User data synced successfully."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:128
-msgid "Mail delivery failed."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:129
-msgid "Test mail sent to "
-msgstr ""
-
-#: ../admin/class-eb-admin.php:130
-msgid "An error occurred during parsing the response"
-msgstr ""
-
-#: ../admin/class-eb-admin.php:131
-msgid "Categories synchronized successfully."
-msgstr ""
-
-#: ../admin/class-eb-admin.php:132
-msgid "Template not found"
-msgstr ""
-
-#: ../admin/class-eb-admin.php:133
-msgid "Linked "
-msgstr ""
-
-#: ../admin/class-eb-admin.php:134
-msgid "Unlinked "
-msgstr ""
-
-#: ../admin/class-eb-admin.php:135
-msgid "Sorry, unable unlink  user"
-msgstr ""
-
-#: ../admin/class-eb-admin.php:136
-msgid "Sorry, unable link  user"
-msgstr ""
-
-#: ../admin/class-eb-admin.php:137
-msgid "Sorry, unable to link to moodle"
-msgstr ""
-
 #: ../admin/class-eb-moodle-linkunlink.php:25
 msgid "Moodle Account"
 msgstr ""
 
+#: ../admin/class-eb-moodle-linkunlink.php:47
+msgid "Link User"
+msgstr ""
+
 #: ../admin/class-eb-moodle-linkunlink.php:48
-msgid "Link"
+msgid "Unlink User"
 msgstr ""
 
-#: ../admin/class-eb-moodle-linkunlink.php:50
-msgid "Unlink"
+#: ../includes/payments/enhanced-paypal-shortcodes.php:312 ..
+#: includes/payments/class-eb-payment-manager.php:343
+msgid "Complete Your Purchase"
 msgstr ""
 
-#: ../admin/partials/html-admin-licensing.php:67
-#, php-format
-msgid ""
-"%1s You do not have any extensions activated. %2s Please activate any "
-"installed extensions. If you do not have any extensions, you can take a look "
-"at the list %3s here%4s.%5s"
+#: ../includes/payments/enhanced-paypal-shortcodes.php:470 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:654 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:929 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:1128 ..
+#: includes/payments/class-eb-payment-manager.php:274 ../includes/payments/class-
+#: eb-payment-manager.php:284 ../includes/payments/class-eb-payment-manager.php:
+#: 309 ../includes/payments/class-eb-payment-manager.php:319
+msgid "Take this Course"
 msgstr ""
 
-#: ../admin/partials/html-admin-page-extensions.php:14
-msgid "Our Extensions"
+#: ../includes/payments/enhanced-paypal-shortcodes.php:652 ..
+#: includes/payments/enhanced-paypal-shortcodes.php:927
+msgid "PayPal - The safer, easier way to pay online."
 msgstr ""
 
-#: ../admin/partials/html-admin-page-extensions.php:16
-msgid "Browse all extensions"
+#: ../includes/payments/class-eb-payment-manager.php:121 ../public/class-eb-
+#: public.php:148
+msgid "Access Course"
 msgstr ""
 
-#: ../admin/partials/html-admin-page-extensions.php:32
-msgid "Click here to know more"
+#: ../includes/payments/class-eb-payment-manager.php:358 ..
+#: includes/payments/class-eb-payment-manager.php:367
+msgid "Course Not Available"
 msgstr ""
 
-#: ../admin/partials/html-admin-page-extensions.php:49
-msgid "Browse all our extensions"
+#: ../includes/emails/class-eb-emailer.php:152 ../includes/class-eb-default-email-
+#: templates.php:26 ../includes/class-eb-default-email-templates.php:64 ..
+#: includes/class-eb-default-email-templates.php:125
+msgid "Your Learning Account Credentials"
 msgstr ""
 
-#: ../admin/partials/html-admin-page-extensions.php:58
-#, php-format
-msgid ""
-"Our list of extensions for Edwiser Bridge can be found here:\n"
-"            <a href=\"%s\" target=\"_blank\">Edwiser Bridge Extensions</a>"
+#: ../includes/emails/class-eb-emailer.php:221 ../includes/class-eb-default-email-
+#: templates.php:38 ../includes/class-eb-default-email-templates.php:192
+msgid "Your order completed successfully."
 msgstr ""
 
-#: ../admin/class-eb-welcome.php:50
-msgid "About Edwiser Bridge"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:51 ../admin/class-eb-welcome.php:222
-msgid "Welcome to Edwiser Bridge"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:225
-#, php-format
-msgid "Version %s"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:246
-msgid ""
-"Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has "
-"never been so simple. We hope you enjoy using it."
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:252
-msgid "Get the latest updates on Edwiser Bridge in Your Inbox!"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:257
-msgid ""
-"Stay updated with the latest features in Edwiser Bridge\n"
-"                            and receive early-bird discounts on upcoming "
-"premium add ons."
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:264
-msgid "Please enter your email address"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:268
-msgid "Subscribe"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:274
-msgid "Thanks for subscribing to Edwiser Bridge Updates & Notifications."
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:280
-msgid "An error occurred in subscription process, please try again."
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:290
-msgid "Skip to Settings"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:293
-msgid "Docs"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:357
-msgid "Edwiser Bridge subscription user details:"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:358
-msgid "Customer Website:"
-msgstr ""
-
-#: ../admin/class-eb-welcome.php:359
-msgid "Customer Email:"
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:73
-msgid "Action failed. Please refresh the page and retry."
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:81
-msgid "Your settings have been saved."
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:596
-msgid "- Select a sidebar -"
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:633
-msgid "2"
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:634
-msgid "3"
-msgstr ""
-
-#: ../admin/class-eb-admin-settings.php:635
-msgid "4"
-msgstr ""
-
-#: ../includes/class-eb-order-manager.php:70 ../includes/class-eb-order-manager.
-#: php:80 ../includes/class-eb-logger.php:74 ../includes/class-eb-logger.php:84 ..
-#: /includes/class-eb-course-manager.php:70 ../includes/class-eb-course-manager.
-#: php:80 ../includes/api/class-eb-connection-helper.php:70 ../includes/api/class-
-#: eb-connection-helper.php:80 ../includes/class-eb.php:86 ../includes/class-eb.
-#: php:96 ../includes/class-eb-enrollment-manager.php:70 ../includes/class-eb-
-#: enrollment-manager.php:80 ../includes/class-eb-user-manager.php:69 ..
-#: /includes/class-eb-user-manager.php:79
+#: ../includes/class-eb-logger.php:74 ../includes/class-eb-logger.php:84 ..
+#: includes/class-eb-order-manager.php:70 ../includes/class-eb-order-manager.php:
+#: 80 ../includes/class-eb.php:86 ../includes/class-eb.php:96 ..
+#: includes/api/class-eb-connection-helper.php:70 ../includes/api/class-eb-
+#: connection-helper.php:80 ../includes/class-eb-course-manager.php:70 ..
+#: includes/class-eb-course-manager.php:80 ../includes/class-eb-user-manager.php:
+#: 69 ../includes/class-eb-user-manager.php:79 ../includes/class-eb-enrollment-
+#: manager.php:70 ../includes/class-eb-enrollment-manager.php:80
 msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:50
+msgid "Course access expired."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:72 ../includes/class-eb-
+#: default-email-templates.php:134 ../includes/class-eb-default-email-templates.
+#: php:201 ../includes/class-eb-default-email-templates.php:267 ..
+#: public/templates/emails/user-existing-wp-account.php:12 ..
+#: public/templates/emails/user-order-completion-email.php:12 ..
+#: public/templates/emails/user-new-account.php:12
+#, php-format
+msgid "Hi %s"
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:81
+#, php-format
+msgid "Thanks for creating an account on %s. Your username is %s."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:91
+#, php-format
+msgid "Your password has been automatically generated: %s."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:100 ../includes/class-eb-
+#: default-email-templates.php:228
+#, php-format
+msgid "You can access your account here: %s."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:142
+msgid ""
+"A learning account is linked to your profile.Use credentials given below "
+"while accessing your courses."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:149
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:158
+#, php-format
+msgid "Password: %s"
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:167
+#, php-format
+msgid "You can purchase &amp; access courses here: %s."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:210 ..
+#: public/templates/emails/user-order-completion-email.php:17
+#, php-format
+msgid "Thanks for purchasing %s course."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:219
+#, php-format
+msgid "Your order with ID %s completed successfully."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:255
+#, php-format
+msgid "Your %s course access is expired."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:276
+#, php-format
+msgid "Your Subscription for %s course has expired."
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:285
+#, php-format
+msgid "Please purchase the course again to continue with it. %s to purchase now!"
+msgstr ""
+
+#: ../includes/class-eb-default-email-templates.php:292
+msgid "Thank you!"
 msgstr ""
 
 #: ../includes/class-eb-order-manager.php:127
@@ -770,180 +929,6 @@ msgstr ""
 #: ../includes/class-eb-order-manager.php:438 ../includes/class-eb-post-types.php:
 #: 330
 msgid "Failed"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:216
-msgctxt "Page slug"
-msgid "thank-you-for-purchase"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:217
-msgctxt "Page title"
-msgid "Thank You for Purchase"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:218
-msgid "Thanks for purchasing the course, your order will be processed shortly."
-msgstr ""
-
-#: ../includes/class-eb-activator.php:222
-msgctxt "Page slug"
-msgid "user-account"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:223
-msgctxt "Page title"
-msgid "User Account"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:228
-msgctxt "Page slug"
-msgid "eb-my-courses"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:229
-msgctxt "Page title"
-msgid "My Courses"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:234
-msgctxt "Page slug"
-msgid "eb-courses"
-msgstr ""
-
-#: ../includes/class-eb-activator.php:235
-msgctxt "Page title"
-msgid "Courses"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:26 ../includes/class-eb-
-#: default-email-templates.php:64 ../includes/class-eb-default-email-templates.
-#: php:125 ../includes/emails/class-eb-emailer.php:152
-msgid "Your Learning Account Credentials"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:38 ../includes/class-eb-
-#: default-email-templates.php:192 ../includes/emails/class-eb-emailer.php:221
-msgid "Your order completed successfully."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:50
-msgid "Course access expired."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:72 ../includes/class-eb-
-#: default-email-templates.php:134 ../includes/class-eb-default-email-templates.
-#: php:201 ../includes/class-eb-default-email-templates.php:267 ..
-#: /public/templates/emails/user-new-account.php:12 ..
-#: /public/templates/emails/user-existing-wp-account.php:12 ..
-#: /public/templates/emails/user-order-completion-email.php:12
-#, php-format
-msgid "Hi %s"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:81
-#, php-format
-msgid "Thanks for creating an account on %s. Your username is %s."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:91
-#, php-format
-msgid "Your password has been automatically generated: %s."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:100 ../includes/class-eb-
-#: default-email-templates.php:228
-#, php-format
-msgid "You can access your account here: %s."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:142
-msgid ""
-"A learning account is linked to your profile.Use credentials given below "
-"while accessing your courses."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:149
-#, php-format
-msgid "Username: %s"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:158
-#, php-format
-msgid "Password: %s"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:167
-#, php-format
-msgid "You can purchase &amp; access courses here: %s."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:210 ..
-#: /public/templates/emails/user-order-completion-email.php:17
-#, php-format
-msgid "Thanks for purchasing %s course."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:219
-#, php-format
-msgid "Your order with ID %s completed successfully."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:255
-#, php-format
-msgid "Your %s course access is expired."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:276
-#, php-format
-msgid "Your Subscription for %s course has expired."
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:285
-#, php-format
-msgid "Please purchase the course again to continue with it. %s to purchase now!"
-msgstr ""
-
-#: ../includes/class-eb-default-email-templates.php:292
-msgid "Thank you!"
-msgstr ""
-
-#: ../includes/eb-core-functions.php:247 ../public/shortcodes/class-eb-shortcode-
-#: my-courses.php:42
-msgid "Recommended Courses"
-msgstr ""
-
-#: ../includes/class-eb-course-manager.php:488
-msgid "Course Title"
-msgstr ""
-
-#: ../includes/class-eb-course-manager.php:494
-msgid "Course Type"
-msgstr ""
-
-#: ../includes/class-eb-course-manager.php:513 ../includes/class-eb-post-types.
-#: php:281 ../public/templates/content-eb_course.php:37 ..
-#: /public/templates/content-single-eb_course.php:49
-msgid "Free"
-msgstr ""
-
-#: ../includes/class-eb-course-manager.php:514 ../includes/class-eb-post-types.
-#: php:282
-msgid "Paid"
-msgstr ""
-
-#: ../includes/class-eb-course-manager.php:515 ../includes/class-eb-post-types.
-#: php:283
-msgid "Closed"
-msgstr ""
-
-#: ../includes/api/class-eb-connection-helper.php:150 ../includes/api/class-eb-
-#: connection-helper.php:240
-msgid "Please check Moodle URL !"
-msgstr ""
-
-#: ../includes/api/class-eb-connection-helper.php:198
-msgid "Please check Moodle connection details."
 msgstr ""
 
 #: ../includes/class-eb-post-types.php:71
@@ -1109,6 +1094,22 @@ msgstr ""
 msgid "Is it free to join or one time purchase?"
 msgstr ""
 
+#: ../includes/class-eb-post-types.php:281 ../includes/class-eb-course-manager.
+#: php:513 ../public/templates/content-eb_course.php:37 ..
+#: public/templates/content-single-eb_course.php:49
+msgid "Free"
+msgstr ""
+
+#: ../includes/class-eb-post-types.php:282 ../includes/class-eb-course-manager.
+#: php:514
+msgid "Paid"
+msgstr ""
+
+#: ../includes/class-eb-post-types.php:283 ../includes/class-eb-course-manager.
+#: php:515
+msgid "Closed"
+msgstr ""
+
 #: ../includes/class-eb-post-types.php:288
 msgid "Course Price"
 msgstr ""
@@ -1211,6 +1212,23 @@ msgstr ""
 msgid "%s draft updated. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
 msgstr ""
 
+#: ../includes/api/class-eb-connection-helper.php:150 ../includes/api/class-eb-
+#: connection-helper.php:240
+msgid "Please check Moodle URL !"
+msgstr ""
+
+#: ../includes/api/class-eb-connection-helper.php:198
+msgid "Please check Moodle connection details."
+msgstr ""
+
+#: ../includes/class-eb-course-manager.php:488
+msgid "Course Title"
+msgstr ""
+
+#: ../includes/class-eb-course-manager.php:494
+msgid "Course Type"
+msgstr ""
+
 #: ../includes/class-eb-email-template-parser.php:42
 msgid "Site"
 msgstr ""
@@ -1231,6 +1249,55 @@ msgstr ""
 #: eb-shortcode-my-courses.php:90 ../public/shortcodes/class-eb-shortcode-my-
 #: courses.php:122
 msgid "Click here"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:216
+msgctxt "Page slug"
+msgid "thank-you-for-purchase"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:217
+msgctxt "Page title"
+msgid "Thank You for Purchase"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:218
+msgid "Thanks for purchasing the course, your order will be processed shortly."
+msgstr ""
+
+#: ../includes/class-eb-activator.php:222
+msgctxt "Page slug"
+msgid "user-account"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:223
+msgctxt "Page title"
+msgid "User Account"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:228
+msgctxt "Page slug"
+msgid "eb-my-courses"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:229
+msgctxt "Page title"
+msgid "My Courses"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:234
+msgctxt "Page slug"
+msgid "eb-courses"
+msgstr ""
+
+#: ../includes/class-eb-activator.php:235
+msgctxt "Page title"
+msgid "Courses"
+msgstr ""
+
+#: ../includes/eb-core-functions.php:247 ../public/shortcodes/class-eb-shortcode-
+#: my-courses.php:42
+msgid "Recommended Courses"
 msgstr ""
 
 #: ../includes/class-eb-user-manager.php:182
@@ -1303,71 +1370,291 @@ msgstr ""
 msgid "Unenroll a Course"
 msgstr ""
 
-#: ../includes/payments/class-eb-payment-manager.php:121 ../public/class-eb-
-#: public.php:148
-msgid "Access Course"
+#: ../includes/class-eb-user-manager.php:1051
+msgid "Failed to process the request."
 msgstr ""
 
-#: ../includes/payments/class-eb-payment-manager.php:274 ..
-#: /includes/payments/class-eb-payment-manager.php:284 ../includes/payments/class-
-#: eb-payment-manager.php:309 ../includes/payments/class-eb-payment-manager.php:
-#: 319 ../includes/payments/enhanced-paypal-shortcodes.php:470 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:654 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:929 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:1128
-msgid "Take this Course"
-msgstr ""
-
-#: ../includes/payments/class-eb-payment-manager.php:343 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:312
-msgid "Complete Your Purchase"
-msgstr ""
-
-#: ../includes/payments/class-eb-payment-manager.php:358 ..
-#: /includes/payments/class-eb-payment-manager.php:367
-msgid "Course Not Available"
-msgstr ""
-
-#: ../includes/payments/enhanced-paypal-shortcodes.php:652 ..
-#: /includes/payments/enhanced-paypal-shortcodes.php:927
-msgid "PayPal - The safer, easier way to pay online."
-msgstr ""
-
-#. Name of the plugin
-msgid "Edwiser Bridge - WordPress Moodle LMS Integration"
-msgstr ""
-
-#. URI of the plugin
-msgid "https://edwiser.org/bridge"
-msgstr ""
-
-#. Description of the plugin
-msgid ""
-"Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides "
-"an easy option to import Moodle courses to WordPress and sell them using "
-"PayPal. The plugin also allows automatic registration of WordPress users on "
-"the Moodle website along with single login credentials for both the systems."
-msgstr ""
-
-#. Author of the plugin
-msgid "WisdmLabs"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://edwiser.org"
-msgstr ""
-
-#: ../edwiser-bridge.php:82
-msgid "Edwiser Bridge Documentation"
-msgstr ""
-
-#: ../edwiser-bridge.php:83
-msgid "Documentation"
-msgstr ""
-
-#: ../edwiser-bridge.php:131
+#: ../includes/class-eb-user-manager.php:1054
 #, php-format
-msgid "Please update all %s extensions to latest version."
+msgid "%s's account has been linked successfully."
+msgstr ""
+
+#: ../includes/class-eb-user-manager.php:1060
+#, php-format
+msgid "%s's account has been unlinked successfully."
+msgstr ""
+
+#: ../includes/class-eb-user-manager.php:1063
+msgid "Invalid ajax request."
+msgstr ""
+
+#: ../public/templates/emails/user-existing-wp-account.php:17
+msgid ""
+"A learning account is linked to your profile.\n"
+"        Use credentials given below while accessing your courses."
+msgstr ""
+
+#: ../public/templates/emails/user-existing-wp-account.php:26
+#, php-format
+msgid "Username: <strong>%s</strong>"
+msgstr ""
+
+#: ../public/templates/emails/user-existing-wp-account.php:28
+#, php-format
+msgid "Password: <strong>%s</strong>"
+msgstr ""
+
+#: ../public/templates/emails/user-existing-wp-account.php:33
+#, php-format
+msgid "To purchase and access more courses click here: <a href=\"%s\">Courses</a>."
+msgstr ""
+
+#: ../public/templates/emails/user-order-completion-email.php:26
+#, php-format
+msgid "Your order with ID #%s completed successfully."
+msgstr ""
+
+#: ../public/templates/emails/user-order-completion-email.php:31 ..
+#: public/templates/emails/user-new-account.php:42
+#, php-format
+msgid "You can access your account here: <a href=\"%s\">User Account</a>."
+msgstr ""
+
+#: ../public/templates/emails/user-new-account.php:17
+#, php-format
+msgid "Thanks for creating an account on %s. Your username is <strong>%s</strong>."
+msgstr ""
+
+#: ../public/templates/emails/user-new-account.php:30
+#, php-format
+msgid "Your password has been automatically generated: <strong>%s</strong>"
+msgstr ""
+
+#: ../public/templates/content-eb_course.php:53
+msgid "Click to access."
+msgstr ""
+
+#: ../public/templates/content-eb_course.php:56
+msgid "Click to read more."
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:82
+msgid " days access remaining"
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:84
+msgid "Includes  "
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:84
+msgid " days access"
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:87
+msgid "Includes lifetime access "
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:139
+msgid "Categories: "
+msgstr ""
+
+#: ../public/templates/content-single-eb_course.php:164
+msgid "Course Overview"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:27 ../public/templates/account/form-
+#: login.php:64
+msgid "Login"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:36 ../public/shortcodes/class-eb-
+#: shortcode-user-account.php:215 ../public/shortcodes/class-eb-shortcode-user-
+#: profile.php:205
+msgid "Username"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:46
+msgid "Password"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:56
+msgid "Remember me"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:69
+msgid "Lost your password?"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:92
+msgid "Don't have an Account?"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:113 ..
+#: public/templates/account/form-login.php:167
+msgid "Register"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:122 ..
+#: public/templates/account/edit-user-profile.php:36
+msgid "First Name"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:134 ..
+#: public/templates/account/edit-user-profile.php:40
+msgid "Last Name"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:146
+msgid "Email"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:158
+msgid "Anti-spam"
+msgstr ""
+
+#: ../public/templates/account/form-login.php:180
+msgid "Already have an account?"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:25
+#, php-format
+msgid "Hello %s%s%s (not %2$s? %sSign out%s)"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:32 ..
+#: public/templates/account/user-profile.php:31
+msgid "Edit Profile"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:38 ..
+#: public/templates/account/user-profile.php:40
+msgid "S.No."
+msgstr ""
+
+#: ../public/templates/account/user-account.php:54 ..
+#: public/templates/account/user-profile.php:56
+#, php-format
+msgid "Looks like you are not enrolled in any course, get your first course %s"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:55 ..
+#: public/templates/account/user-profile.php:57
+msgid "here"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:67
+msgid "Course Purchase History"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:72
+msgid "Order ID"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:73
+msgid "Ordered Course"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:74
+msgid "Billing Email"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:75
+msgid "Amount Paid"
+msgstr ""
+
+#: ../public/templates/account/user-account.php:84
+msgid "Not Available"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:16
+msgid "Edit Account Details"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:17
+msgid ""
+"Note: Following all fields will be updated on Moodle as well as on WordPress "
+"site."
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:21
+msgid "You must be logged in to edit your profile."
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:32
+msgid "Username *"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:32
+msgid "(The system does not allow username to be changed)"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:44
+msgid "Nick Name"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:48
+msgid "E-mail *"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:52
+msgid "New Password"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:52
+msgid "(Keep blank to leave unchanged)"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:54
+msgid "Unmask"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:57
+msgid "Biographical Information"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:61
+msgid "City"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:66
+msgid "Country"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:77
+msgid "Update"
+msgstr ""
+
+#: ../public/templates/account/edit-user-profile.php:85
+msgid "Back to the profile"
+msgstr ""
+
+#: ../public/templates/archive-eb_course.php:45
+msgid "Previous page"
+msgstr ""
+
+#: ../public/templates/archive-eb_course.php:46
+msgid "Next page"
+msgstr ""
+
+#: ../public/templates/archive-eb_course.php:48
+msgid "Page"
+msgstr ""
+
+#: ../public/class-eb-frontend-form-handler.php:39 ../public/class-eb-frontend-
+#: form-handler.php:48 ../public/class-eb-frontend-form-handler.php:57
+msgid "Error"
+msgstr ""
+
+#: ../public/class-eb-frontend-form-handler.php:50
+msgid "Username is required."
+msgstr ""
+
+#: ../public/class-eb-frontend-form-handler.php:59
+msgid "Password is required."
+msgstr ""
+
+#: ../public/class-eb-frontend-form-handler.php:132
+msgid "Anti-spam field was filled in."
 msgstr ""
 
 #: ../public/class-eb-template-loader.php:146
@@ -1463,273 +1750,41 @@ msgstr ""
 msgid ": activate to sort column descending"
 msgstr ""
 
-#: ../public/class-eb-frontend-form-handler.php:39 ../public/class-eb-frontend-
-#: form-handler.php:48 ../public/class-eb-frontend-form-handler.php:57
-msgid "Error"
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:164 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:142
+msgid "Account details saved successfully."
 msgstr ""
 
-#: ../public/class-eb-frontend-form-handler.php:50
-msgid "Username is required."
-msgstr ""
-
-#: ../public/class-eb-frontend-form-handler.php:59
-msgid "Password is required."
-msgstr ""
-
-#: ../public/class-eb-frontend-form-handler.php:132
-msgid "Anti-spam field was filled in."
-msgstr ""
-
-#: ../public/templates/account/user-account.php:25
-#, php-format
-msgid "Hello %s%s%s (not %2$s? %sSign out%s)"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:32 ..
-#: /public/templates/account/user-profile.php:31
-msgid "Edit Profile"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:38 ..
-#: /public/templates/account/user-profile.php:40
-msgid "S.No."
-msgstr ""
-
-#: ../public/templates/account/user-account.php:54 ..
-#: /public/templates/account/user-profile.php:56
-#, php-format
-msgid "Looks like you are not enrolled in any course, get your first course %s"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:55 ..
-#: /public/templates/account/user-profile.php:57
-msgid "here"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:67
-msgid "Course Purchase History"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:72
-msgid "Order ID"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:73
-msgid "Ordered Course"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:74
-msgid "Billing Email"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:75
-msgid "Amount Paid"
-msgstr ""
-
-#: ../public/templates/account/user-account.php:84
-msgid "Not Available"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:16
-msgid "Edit Account Details"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:17
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:167 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:146
 msgid ""
-"Note: Following all fields will be updated on Moodle as well as on WordPress "
-"site."
+"Couldn't update your profile! This might be because wrong data sent to "
+"Moodle site or a Connection Error."
 msgstr ""
 
-#: ../public/templates/account/edit-user-profile.php:21
-msgid "You must be logged in to edit your profile."
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:216 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:206
+msgid "Email Address"
 msgstr ""
 
-#: ../public/templates/account/edit-user-profile.php:32
-msgid "Username *"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:32
-msgid "(The system does not allow username to be changed)"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:36 ..
-#: /public/templates/account/form-login.php:122
-msgid "First Name"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:40 ..
-#: /public/templates/account/form-login.php:134
-msgid "Last Name"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:44
-msgid "Nick Name"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:48
-msgid "E-mail *"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:52
-msgid "New Password"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:52
-msgid "(Keep blank to leave unchanged)"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:54
-msgid "Unmask"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:57
-msgid "Biographical Information"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:61
-msgid "City"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:66
-msgid "Country"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:77
-msgid "Update"
-msgstr ""
-
-#: ../public/templates/account/edit-user-profile.php:85
-msgid "Back to the profile"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:27 ../public/templates/account/form-
-#: login.php:64
-msgid "Login"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:36 ../public/shortcodes/class-eb-
-#: shortcode-user-account.php:215 ../public/shortcodes/class-eb-shortcode-user-
-#: profile.php:205
-msgid "Username"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:46
-msgid "Password"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:56
-msgid "Remember me"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:69
-msgid "Lost your password?"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:92
-msgid "Don't have an Account?"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:113 ..
-#: /public/templates/account/form-login.php:167
-msgid "Register"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:146
-msgid "Email"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:158
-msgid "Anti-spam"
-msgstr ""
-
-#: ../public/templates/account/form-login.php:180
-msgid "Already have an account?"
-msgstr ""
-
-#: ../public/templates/content-eb_course.php:53
-msgid "Click to access."
-msgstr ""
-
-#: ../public/templates/content-eb_course.php:56
-msgid "Click to read more."
-msgstr ""
-
-#: ../public/templates/emails/user-new-account.php:17
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:220 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:211
 #, php-format
-msgid "Thanks for creating an account on %s. Your username is <strong>%s</strong>."
+msgid "%s is required field."
 msgstr ""
 
-#: ../public/templates/emails/user-new-account.php:30
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:225 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:217
 #, php-format
-msgid "Your password has been automatically generated: <strong>%s</strong>"
+msgid "%s is invalid email."
 msgstr ""
 
-#: ../public/templates/emails/user-new-account.php:42 ..
-#: /public/templates/emails/user-order-completion-email.php:31
+#: ../public/shortcodes/class-eb-shortcode-user-account.php:227 ..
+#: public/shortcodes/class-eb-shortcode-user-account.php:231 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:219 ..
+#: public/shortcodes/class-eb-shortcode-user-profile.php:224
 #, php-format
-msgid "You can access your account here: <a href=\"%s\">User Account</a>."
-msgstr ""
-
-#: ../public/templates/emails/user-existing-wp-account.php:17
-msgid ""
-"A learning account is linked to your profile.\n"
-"        Use credentials given below while accessing your courses."
-msgstr ""
-
-#: ../public/templates/emails/user-existing-wp-account.php:26
-#, php-format
-msgid "Username: <strong>%s</strong>"
-msgstr ""
-
-#: ../public/templates/emails/user-existing-wp-account.php:28
-#, php-format
-msgid "Password: <strong>%s</strong>"
-msgstr ""
-
-#: ../public/templates/emails/user-existing-wp-account.php:33
-#, php-format
-msgid "To purchase and access more courses click here: <a href=\"%s\">Courses</a>."
-msgstr ""
-
-#: ../public/templates/emails/user-order-completion-email.php:26
-#, php-format
-msgid "Your order with ID #%s completed successfully."
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:82
-msgid " days access remaining"
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:84
-msgid "Includes  "
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:84
-msgid " days access"
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:87
-msgid "Includes lifetime access "
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:139
-msgid "Categories: "
-msgstr ""
-
-#: ../public/templates/content-single-eb_course.php:164
-msgid "Course Overview"
-msgstr ""
-
-#: ../public/templates/archive-eb_course.php:45
-msgid "Previous page"
-msgstr ""
-
-#: ../public/templates/archive-eb_course.php:46
-msgid "Next page"
-msgstr ""
-
-#: ../public/templates/archive-eb_course.php:48
-msgid "Page"
+msgid "%s is already exists."
 msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-my-courses.php:89
@@ -1744,41 +1799,4 @@ msgstr ""
 
 #: ../public/shortcodes/class-eb-shortcode-my-courses.php:189
 msgid "View More &rarr;"
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:164 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:142
-msgid "Account details saved successfully."
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:167 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:146
-msgid ""
-"Couldn't update your profile! This might be because wrong data sent to "
-"Moodle site or a Connection Error."
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:216 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:206
-msgid "Email Address"
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:220 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:211
-#, php-format
-msgid "%s is required field."
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:225 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:217
-#, php-format
-msgid "%s is invalid email."
-msgstr ""
-
-#: ../public/shortcodes/class-eb-shortcode-user-account.php:227 ..
-#: /public/shortcodes/class-eb-shortcode-user-account.php:231 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:219 ..
-#: /public/shortcodes/class-eb-shortcode-user-profile.php:224
-#, php-format
-msgid "%s is already exists."
 msgstr ""

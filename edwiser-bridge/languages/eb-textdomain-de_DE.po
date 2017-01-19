@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-01-03 05:22+0000\n"
-"PO-Revision-Date: Thu Jan 12 2017 14:03:34 GMT+0530 (IST)\n"
+"PO-Revision-Date: Thu Jan 19 2017 11:09:37 GMT+0530 (IST)\n"
 "Last-Translator: sudam <sudam.chakor@wisdmlabs.com>\n"
 "Language-Team: \n"
 "Language: German\n"
@@ -21,6 +21,56 @@ msgstr ""
 "X-Loco-Target-Locale: de_DE\n"
 "X-Generator: Loco - https://localise.biz/\n"
 "X-Poedit-SearchPath-0: .."
+
+#: ../admin/class-eb-admin.php:133
+msgid "Linked "
+msgstr "Verlinkt"
+
+#: ../admin/class-eb-admin.php:134
+msgid "Unlinked "
+msgstr "Unverlinkt "
+
+#: ../admin/class-eb-admin.php:135
+msgid "Sorry, unable unlink  user"
+msgstr "Entschuldigung, deaktivieren Sie 'Benutzer unverlinken' "
+
+#: ../admin/class-eb-admin.php:136
+msgid "Sorry, unable link  user"
+msgstr "Entschuldigung, deaktivieren Sie 'Benutzer verlinken' "
+
+#: ../admin/class-eb-admin.php:137
+msgid "Sorry, unable to link to moodle"
+msgstr "Entschuldigung, kann nicht zum Moodle verlinkt werden"
+
+#: ../admin/class-eb-moodle-linkunlink.php:25
+msgid "Moodle Account"
+msgstr "Moodle Konto\n"
+
+#: ../admin/class-eb-moodle-linkunlink.php:47
+msgid "Link User"
+msgstr "Benutzer verlinken "
+
+#: ../admin/class-eb-moodle-linkunlink.php:48
+msgid "Unlink User"
+msgstr "Benutzer unverlinken "
+
+#: ../includes/class-eb-user-manager.php:1051
+msgid "Failed to process the request."
+msgstr "Die Anfrage konnte nicht abgearbeitet werden. "
+
+#: ../includes/class-eb-user-manager.php:1054
+#, php-format
+msgid "%s's account has been linked successfully."
+msgstr "Das Konto von %s wird erfolgreich verlinkt. \n"
+
+#: ../includes/class-eb-user-manager.php:1060
+#, php-format
+msgid "%s's account has been unlinked successfully."
+msgstr "Das Konto von %s wird erfolgreich unverlinkt. \n"
+
+#: ../includes/class-eb-user-manager.php:1063
+msgid "Invalid ajax request."
+msgstr "Ungültige ajax Anfrage.\n"
 
 #. Name of the plugin
 msgid "Edwiser Bridge - WordPress Moodle LMS Integration"
@@ -576,15 +626,15 @@ msgstr "Ihre Einstellungen werden gespeichert. "
 msgid "- Select a sidebar -"
 msgstr "- Eine Seitenleiste auswählen  -"
 
-#: ../admin/class-eb-admin-settings.php:633
+#: ../admin/class-eb-admin-settings.php:634
 msgid "2"
 msgstr "2"
 
-#: ../admin/class-eb-admin-settings.php:634
+#: ../admin/class-eb-admin-settings.php:635
 msgid "3"
 msgstr "3"
 
-#: ../admin/class-eb-admin-settings.php:635
+#: ../admin/class-eb-admin-settings.php:636
 msgid "4"
 msgstr "4"
 
