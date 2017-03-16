@@ -492,6 +492,17 @@ class EBUserManager
             $webservice_function = 'core_user_create_users';
         }
 
+
+        /**
+         * to lowercase the username for moodle
+         * @since  1.2.2
+         */
+
+        // confirm that username is in lowercase always
+        if (isset($user_data['username'])) {
+            $user_data['username'] = strtolower($user_data['username']);
+        }
+
         // Ensure username is unique, when creating a new user on moodle
         if ($update == 0) {
             $append = 1;
@@ -514,11 +525,11 @@ class EBUserManager
          * used to add additional user profile fields value that is passed to moodle
          */
         $user_data = apply_filters('eb_moodle_user_profile_details', $user_data, $update);
-
+/*
         // confirm that username is in lowercase always
         if (isset($user_data['username'])) {
             $user_data['username'] = strtolower($user_data['username']);
-        }
+        }*/
 
         // prepare user data array
         foreach ($user_data as $key => $value) {
