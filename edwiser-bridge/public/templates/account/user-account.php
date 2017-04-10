@@ -68,7 +68,6 @@
                     ?>
                     </p>
                     <?php
-
                 }
         ?>
             </div>
@@ -107,13 +106,15 @@
                         echo '<td>'.ucfirst($order['status']).'</td>';
                         echo '</tr>';
                     }
-        do_action('eb_after_order_history');
-        ?>
+
+                    do_action('eb_after_order_history');
+                    ?>
                 </tbody>
             </table>
         </div>
-        <?php
 
+
+        <?php
     }
     ?>
 </div>

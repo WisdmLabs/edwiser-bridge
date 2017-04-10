@@ -150,6 +150,7 @@ class EBOrderManager
         if (!is_numeric($course_id)) {
             return;
         }
+
         //return array( 'buyer_id' => $buyer_id, 'billing_email' => $billing_email, 'course_id' => $course_id );
     }
 
