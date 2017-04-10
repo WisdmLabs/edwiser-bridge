@@ -118,7 +118,7 @@ class EbShortcodeUserAccount
     public static function getUserOrders($user_id)
     {
         $user_orders = array();
-        
+        $user_id;
         // get all completed orders of a user
         $args = array(
             'posts_per_page' => -1,
@@ -144,7 +144,7 @@ class EbShortcodeUserAccount
             );
 //            }
         }
-        return apply_filters("eb_user_orders",$user_orders);
+        return apply_filters("eb_user_orders", $user_orders);
     }
 
     public static function saveAccountDetails()

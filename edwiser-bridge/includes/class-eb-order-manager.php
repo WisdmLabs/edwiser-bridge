@@ -125,25 +125,24 @@ class EBOrderManager
         $byerDetails=  get_userdata($order_data['buyer_id']);
         $byerDetails=$byerDetails->data;
         foreach ($order_data as $key => $value) {
+            $value;
             if ($key == 'buyer_id') {
-                
                 echo "<div class='eb-order-meta-byer-details'>";
                 echo '<p><strong>'. __('Buyer Details: ', 'eb-textdomain') .'</strong></p>';
                 echo '<div><label>'.__('Name: ', 'eb-textdomain') ." </label> ". $byerDetails->user_login . '</div>';
                 echo '<div><label>'.__('Email: ', 'eb-textdomain')."  </label> " . $byerDetails->user_email . '</div>';
                 echo "</div>";
-                
+
                 echo "<div class='eb-order-meta-details'>";
                 echo '<p><strong>'. __('Order Details: ', 'eb-textdomain') .'</strong></p>';
                 echo '<div><label>'.__('Id: ', 'eb-textdomain')." </label> " . $order_id . '</div>';
                 echo '<div><label>'.__('Course Name: ', 'eb-textdomain')." </label> <a href='" .get_permalink($order_data['course_id'])."'>". get_the_title($order_data['course_id']) . '</a></div>';
-                echo '<div><label>'.__('Date: ', 'eb-textdomain')." </label> " . get_the_date("Y-m-d H:i",$order_id) . '</div>';
+                echo '<div><label>'.__('Date: ', 'eb-textdomain')." </label> " . get_the_date("Y-m-d H:i", $order_id) . '</div>';
                 echo "</div>";
-                
             } else {
                 continue;
             }
-        }        
+        }
 
         //get ordered item id
         $course_id = $order_data['course_id'];
@@ -151,16 +150,7 @@ class EBOrderManager
         if (!is_numeric($course_id)) {
             return;
         }
-
         //return array( 'buyer_id' => $buyer_id, 'billing_email' => $billing_email, 'course_id' => $course_id );
-    }
-    
-    public function getUserDetails($orderId){
-        echo "<div>getUserDetails</div>";
-    }
-    
-    public function getProductDetails($orderId){
-        echo "<div>getProductDetails</div>";
     }
 
     /**

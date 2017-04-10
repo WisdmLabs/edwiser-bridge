@@ -230,7 +230,7 @@ class EBEnrollmentManager
      *
      * @return bool true
      */
-    public function updateEnrollmentRecordWordpress($args,$roleId = "5")
+    public function updateEnrollmentRecordWordpress($args, $roleId = "5")
     {
         global $wpdb;
         // default args
