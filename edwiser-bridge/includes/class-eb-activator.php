@@ -253,6 +253,10 @@ class EBActivator
         self::updateTemplateData("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));
         self::updateTemplateData("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
         self::updateTemplateData("eb_emailtmpl_course_access_expir", $defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir"));
+        self::updateTemplateData("eb_emailtmpl_create_user_notify_allow", "ON");
+        self::updateTemplateData("eb_emailtmpl_linked_existing_wp_user_notify_allow", "ON");
+        self::updateTemplateData("eb_emailtmpl_order_completed_notify_allow", "ON");
+        self::updateTemplateData("eb_emailtmpl_course_access_expir_notify_allow","ON");
     }
 
     private static function updateTemplateData($key, $value)

@@ -73,8 +73,9 @@ class EBEmailer
     public function sendCourseAccessExpireEmail($args)
     {
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
-        if ($emailTmplData) {
-            $emailTmplObj = new EBAdminEmailTemplate();
+        $allowNotify=get_option("eb_emailtmpl_course_access_expir_notify_allow");
+        if ($emailTmplData && $allowNotify!=false && !empty($allowNotify)) {
+            $emailTmplObj = new EBAdminEmailTemplate();            
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
     }
@@ -94,6 +95,10 @@ class EBEmailer
          * Using Email template Editor
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        $allowNotify=get_option("eb_emailtmpl_create_user_notify_allow");
+        if($allowNotify==false || $allowNotify!="ON"){
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
@@ -134,6 +139,11 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
 
+        $allowNotify=get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
+        
+        if($allowNotify==false || $allowNotify!="ON"){
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
@@ -208,6 +218,10 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
 
+        $allowNotify=get_option("eb_emailtmpl_order_completed_notify_allow");
+        if($allowNotify==false || $allowNotify!="ON"){
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);

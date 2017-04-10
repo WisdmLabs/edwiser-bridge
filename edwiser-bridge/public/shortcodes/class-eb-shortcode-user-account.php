@@ -114,6 +114,7 @@ class EbShortcodeUserAccount
             )
         );
     }
+
     public static function getUserOrders($user_id)
     {
         $user_orders = array();
@@ -130,46 +131,51 @@ class EbShortcodeUserAccount
         $overall_orders = get_posts($args); // get all orders from db
         foreach ($overall_orders as $order_id) {
             $order_detail = get_post_meta($order_id, 'eb_order_options', true);
-            if (!empty($order_detail) && $order_detail['order_status'] == 'completed' && $order_detail['buyer_id'] == $user_id) {
-                $user_orders[] = array(
-                    'order_id' => $order_id,
-                    'ordered_item' => $order_detail['course_id'],
-                    'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
-                    'currency' => isset($order_detail['currency']) ? $order_detail['currency'] : '$',
-                    'amount_paid' => isset($order_detail['amount_paid']) ? $order_detail['amount_paid'] : '',
-                );
-            }
+
+//            if (!empty($order_detail) && $order_detail['order_status'] == 'completed' && $order_detail['buyer_id'] == $user_id) {
+            $user_orders[] = array(
+                'order_id' => $order_id,
+                'ordered_item' => $order_detail['course_id'],
+                'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
+                'currency' => isset($order_detail['currency']) ? $order_detail['currency'] : '$',
+                'amount_paid' => isset($order_detail['amount_paid']) ? $order_detail['amount_paid'] : '',
+                'status' => isset($order_detail['order_status']) ? $order_detail['order_status'] : '',
+                'date' => get_the_date("Y-m-d", $order_id),
+            );
+//            }
         }
-        return $user_orders;
+        return apply_filters("eb_user_orders",$user_orders);
     }
+
     public static function saveAccountDetails()
     {
         if (self::isUpdateUserProfile()) {
-            $user         = new \stdClass();
-            $user->ID     = (int) get_current_user_id();
+            $user = new \stdClass();
+            $user->ID = (int) get_current_user_id();
             $current_user = get_user_by('id', $user->ID);
             if ($user->ID > 0) {
-                if (isset($_SESSION['eb_msgs_'.$current_user->ID])) {
-                    session_unset($_SESSION['eb_msgs_'.$current_user->ID]);
+                if (isset($_SESSION['eb_msgs_' . $current_user->ID])) {
+                    session_unset($_SESSION['eb_msgs_' . $current_user->ID]);
                 }
                 $posted_data = self::getPostedData();
                 //error_log(print_r($posted_data, true));
                 $errors = self::getErrors($posted_data);
                 if (count($errors)) {
-                    $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
+                    $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
                 } else {
                     // Profile updated on Moodle sucessfully.
                     if (self::updateMoodleProfile($posted_data)) {
                         self::updateWordPressProfile($posted_data);
-                        $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';
+                        $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';
                         do_action('eb_save_account_details', $user->ID);
                     } else {
-                        $_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . __('Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'eb-textdomain') . '</p>';
+                        $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-error">' . __('Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'eb-textdomain') . '</p>';
                     }
                 }
             }
         }
     }
+
     public static function isUpdateUserProfile()
     {
         if ('POST' !== strtoupper($_SERVER[ 'REQUEST_METHOD' ])) {
@@ -180,6 +186,7 @@ class EbShortcodeUserAccount
         }
         return true;
     }
+
     public static function getPostedData()
     {
         $posted_data = array();
@@ -194,6 +201,7 @@ class EbShortcodeUserAccount
         $posted_data['city']         = self::getPostedField('city');
         return $posted_data;
     }
+
     public static function getPostedField($fieldname, $sanitize = true)
     {
         $val = '';
@@ -205,6 +213,7 @@ class EbShortcodeUserAccount
         }
         return $val;
     }
+
     public static function getErrors($posted_data)
     {
         $user         = new \stdClass();
@@ -232,6 +241,7 @@ class EbShortcodeUserAccount
         }
         return $errors;
     }
+
     public static function updateMoodleProfile($posted_data)
     {
         $user         = new \stdClass();
@@ -262,6 +272,7 @@ class EbShortcodeUserAccount
         }
         return false;
     }
+
     public static function updateWordPressProfile($posted_data)
     {
         $user         = new \stdClass();

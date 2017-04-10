@@ -55,6 +55,8 @@ class EBAdminEmailTemplate
         $tmplList = apply_filters('eb_email_templates_list', $tmplList);
         $section = array();
         $constSec = apply_filters('eb_email_template_constant', $section);
+        $checked=array();
+        $notifOn = $this->isNotifEnabled($_GET["curr_tmpl"]);
         if (isset($_GET["curr_tmpl"])) {
             $tmplKey = $_GET["curr_tmpl"];
             $tmplName = $tmplList[$_GET["curr_tmpl"]];
@@ -90,6 +92,13 @@ class EBAdminEmailTemplate
                                     <input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php _e("Enter the subject for the current email template. Current template will use the entered subject to send email from the site", "eb-textdomain"); ?>" placeholder="<?php _e('Enter email subject', 'eb-textdomain'); ?>"/>
                                 </td>
                             </tr>
+                            
+                             <tr>
+                                <td class="eb_email_notification_on"><?php _e("Send email notifcation to the user", "eb-textdomain"); ?></td>
+                                <td>
+                                    <input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn,"ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
+                                </td>
+                            </tr>                            
                             <tr>
                                 <td colspan="2" class="eb-template-edit-cell">
                                     <?php
@@ -158,6 +167,14 @@ class EBAdminEmailTemplate
         <?php
     }
 
+    private function isNotifEnabled($currTmplName){
+        $notifEnabled = get_option($currTmplName."_notify_allow");
+        if(isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled!=false){
+        return "ON";
+        }else{
+            return "";
+        }
+    }
     private function getEditor($content)
     {
 
@@ -181,9 +198,11 @@ class EBAdminEmailTemplate
         $data = array();
         if (isset($_POST['tmpl_name'])) {
             $tmplData = get_option($_POST['tmpl_name']);
+            $notifyAllow = get_option($_POST['tmpl_name']."_notify_allow");
             $data['from_name'] = $this->getFromName();
             $data['subject'] = $tmplData['subject'];
             $data['content'] = $tmplData['content'];
+            $data['notify_allow'] = $notifyAllow;
         }
         echo json_encode($data);
         die();
@@ -274,6 +293,10 @@ class EBAdminEmailTemplate
     {
         update_option($tempalteName, $tempalteData);
     }
+    private function setNotifyAllow($tempalteName, $notifyAllow)
+    {
+        update_option($tempalteName."_notify_allow", $notifyAllow);
+    }
 
     private function save()
     {
@@ -282,11 +305,14 @@ class EBAdminEmailTemplate
             $subject = $this->checkIsEmpty($_POST, "eb_email_subject");
             $tmplContetn = $this->checkIsEmpty($_POST, "eb_emailtmpl_editor");
             $tmplName = $this->checkIsEmpty($_POST, "eb_tmpl_name");
+            $notifyAllow = $this->checkIsEmpty($_POST, "eb_email_notification_on");
+            $notifyAllow=$notifyAllow=="ON"?$notifyAllow:"";
             $data = array(
                 "subject" => $subject,
                 "content" => stripslashes($tmplContetn),
             );
             $this->setFromName($fromName);
+            $this->setNotifyAllow($tmplName,$notifyAllow);
             $this->setTemplateData($tmplName, $data);
             echo self::getNoticeHtml(__('Changes saved successfully!', 'eb-textdomain'));
         } else {
@@ -328,7 +354,7 @@ class EBAdminEmailTemplate
                 "password" => "eb-pa88@#d",
                 "order_id" => "#12235"
                 );
-            $mail = $this->sendEmail($mailTo, $args, $_POST);
+            $mail = $this->sendEmail($mailTo, $args, $_POST['content']);
             if ($mail) {
                 echo json_encode(array("success" => "1"));
             } else {

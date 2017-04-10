@@ -383,55 +383,55 @@
         });
 
 
-         $(".link-unlink").click(function (e) {
+        $(".link-unlink").click(function (e) {
             e.preventDefault();
-            var userid=$(this).parent().attr("id");
-            var linkuser=$(this).attr("id");
+            var userid = $(this).parent().attr("id");
+            var linkuser = $(this).attr("id");
             /*var currDiv=$(this);*/
-            linkuser=linkuser.substr(linkuser.indexOf("-")+1);
-            var str=linkuser;
-            linkuser=0;
-            if(str == "link"){
-                linkuser=1;
+            linkuser = linkuser.substr(linkuser.indexOf("-") + 1);
+            var str = linkuser;
+            linkuser = 0;
+            if (str == "link") {
+                linkuser = 1;
                 var strCheck = "unlink";
             } else {
-                var strCheck ="link";
+                var strCheck = "link";
             }
-            $("#moodleLinkUnlinkUserNotices").css("display","none");
+            $("#moodleLinkUnlinkUserNotices").css("display", "none");
             jQuery("body").css("cursor", "progress");
 
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user:linkuser },
+                data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user: linkuser},
                 error: function (error) {
-                    $("#moodleLinkUnlinkUserNotices").css("display","block");
+                    $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                    if(str == "link")
-                        {
-                            $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
-                        } else {
-                            $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
-                        }
-                        jQuery("body").css("cursor", "auto");
+                    if (str == "link")
+                    {
+                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                    } else {
+                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                    }
+                    jQuery("body").css("cursor", "auto");
                 },
                 success: function (response) {
-                    var result=$.parseJSON(response);
-                    if(result["code"] == ("success")){
+                    var result = $.parseJSON(response);
+                    if (result["code"] == ("success")) {
                         $("#moodleLinkUnlinkUserNotices").addClass("updated");
-                        $("#moodleLinkUnlinkUserNotices").css("display","block");
+                        $("#moodleLinkUnlinkUserNotices").css("display", "block");
                         $("#moodleLinkUnlinkUserNotices").children().html(result['msg']);
-                        $("#"+userid+"-"+str).css("display","none");
-                        $("#"+userid+"-"+strCheck).css("display","block");
+                        $("#" + userid + "-" + str).css("display", "none");
+                        $("#" + userid + "-" + strCheck).css("display", "block");
                     } else {
-                        $("#moodleLinkUnlinkUserNotices").css("display","block");
+                        $("#moodleLinkUnlinkUserNotices").css("display", "block");
                         $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                         $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                        if(response.includes("LinkError")){
+                        if (response.includes("LinkError")) {
                             $("#moodleLinkUnlinkUserNotices").children().html(response["msg"]);
                         } else {
-                            if(str == "link")
+                            if (str == "link")
                             {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
@@ -470,11 +470,16 @@
             $("#eb_email_from").val(response['from_email']);
             $("#eb_email_from_name").val(response['from_name']);
             $("#eb_email_subject").val(response['subject']);
+            if (response['notify_allow'] == "ON") {
+                $("#eb_email_notification_on").attr('checked', true)
+            } else {
+                $("#eb_email_notification_on").attr('checked', false)
+            }
             $("#eb_emailtmpl_name").val(tmplId);
             if (tinyMCE.activeEditor == null) {
-               jQuery("#eb_emailtmpl_editor").html(response['content']);
+                jQuery("#eb_emailtmpl_editor").html(response['content']);
             } else {
-               tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
+                tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
             }
         } catch (e) {
             alert(eb_admin_js_object.msg_err_parsing_res);

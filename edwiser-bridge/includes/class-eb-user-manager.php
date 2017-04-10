@@ -525,11 +525,6 @@ class EBUserManager
          * used to add additional user profile fields value that is passed to moodle
          */
         $user_data = apply_filters('eb_moodle_user_profile_details', $user_data, $update);
-/*
-        // confirm that username is in lowercase always
-        if (isset($user_data['username'])) {
-            $user_data['username'] = strtolower($user_data['username']);
-        }*/
 
         // prepare user data array
         foreach ($user_data as $key => $value) {
@@ -642,13 +637,13 @@ class EBUserManager
         }
 
         // add a dynamic hook only if a new user is created on moodle and linked to wordpress account
-        if ($created && $linked) {
+        if ($created || $linked) {
             $args = array(
-                'user_email' => $user_data['email'],
+                'user_email' => $user->user_email,
                 'username' => $moodle_user['user_data']->username,
-                'first_name' => $user_data['firstname'],
-                'last_name' => $user_data['lastname'],
-                'password' => $user_data['password'],
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'password' => $user->user_pass,
             );
             //create a new action hook with user details as argument.
             do_action('eb_linked_to_existing_wordpress_user', $args);

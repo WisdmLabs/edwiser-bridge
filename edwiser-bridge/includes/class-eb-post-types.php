@@ -208,7 +208,7 @@ class EBPostTypes
         //register metabox for moodle Order post type options
         add_meta_box(
             'eb_order_options',
-            __('Order Options', 'eb-textdomain'),
+            __('Order Details', 'eb-textdomain'),
             array($this, 'postOptionsCallback'),
             'eb_order',
             'advanced',
@@ -232,12 +232,15 @@ class EBPostTypes
         $post;
         // get fields for a specific post type
         $fields = $this->populateMetaboxFields($args['args']['post_type']);
-
-        echo "<div id='{$args['args']['post_type']}_options' class='post-options'>";
-
-        // display content before order options, only if post type is moodle order.
+        $cssClass = "";
         if ($args['args']['post_type'] == 'eb_order') {
-            edwiserBridgeInstance()->orderManager()->getOrderDetails(get_the_id());
+            $cssClass = "eb-wdm-order-meta";
+            echo "<strong>";
+            printf(__('Order #%s Details', 'eb-textdomain'), get_the_id());
+            echo "</strong>";
+            echo "<div id='{$args['args']['post_type']}_options' class='post-options " . $cssClass . "'>";
+        } else {
+            echo "<div id='{$args['args']['post_type']}_options' class='post-options'>";
         }
 
         // render fields using our renderMetaboxFields() function
@@ -248,6 +251,10 @@ class EBPostTypes
                 'post_type' => $args['args']['post_type'],
             );
             $this->renderMetaboxFields($field_args);
+        }
+        // display content before order options, only if post type is moodle order.
+        if ($args['args']['post_type'] == 'eb_order') {
+            edwiserBridgeInstance()->orderManager()->getOrderDetails(get_the_id());
         }
         echo '</div>';
     }

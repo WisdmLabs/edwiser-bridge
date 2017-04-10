@@ -209,6 +209,10 @@ class EbFrontendFormHandler
             /* enroll user to course */
             //$course_enrolled =
             edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
+            $edwiser=EdwiserBridge::instance();
+            $orderManager=EBOrderManager::instance($edwiser->getPluginName(), $edwiser->getVersion());
+            $orderData = array('buyer_id'=>$user_id,'course_id'=>$course_id,'order_status'=>'completed');
+            $orderManager->createNewOrder($orderData);
         }
     }
 

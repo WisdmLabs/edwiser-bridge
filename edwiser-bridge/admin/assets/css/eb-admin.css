@@ -28,17 +28,17 @@
 }
 
 .eb_extensions_wrap .extensions li a h3 {
-   margin: 0 !important;
-   padding: 20px !important;
-   background: #2e9aa6 none repeat scroll 0% 0%;
-   color: white;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: #2e9aa6 none repeat scroll 0% 0%;
+    color: white;
 }
 
 .eb_extensions_wrap .extensions li a p {
-   padding: 20px !important;
-   margin: 0 !important;
-   border-top: 1px solid #eaeaea;
-   text-align: justify;
+    padding: 20px !important;
+    margin: 0 !important;
+    border-top: 1px solid #eaeaea;
+    text-align: justify;
 }
 
 .eb_extensions_wrap .extensions li a img {
@@ -147,8 +147,8 @@ a.browse-all:hover{
 
 /* help tip css */
 table.form-table th img.help_tip {
-  margin: 0 -10px 0 0;
-  float: right;
+    margin: 0 -10px 0 0;
+    float: right;
 }
 
 /* loader image for action buttons */
@@ -216,9 +216,9 @@ span.eb-option-input {
 }
 
 /*span.eb-option-input .eb-option-div input{
-	width:50%;
-	height:35px;
-	padding-right:15px;
+        width:50%;
+        height:35px;
+        padding-right:15px;
 }*/
 span.eb-option-input .eb-option-div select{
     width:25%;
@@ -431,7 +431,7 @@ span.eb-option-input .eb-option-div select{
 }
 .eb-mail-templat-const{
     padding: 5px 5px;
-        border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 .eb-emailtmpl-const-sec > h3{
     background: lightgray;
@@ -478,4 +478,37 @@ span.eb-option-input .eb-option-div select{
 
 #moodleLinkUnlinkUserNotices{
     display: none;
+}
+.eb-order-meta-details, 
+.eb-order-meta-byer-details{
+    position: relative;
+    margin-left: 30px;
+}
+.eb-order-meta-details >div, .eb-order-meta-byer-details >div{
+    /*display: inline-flex;*/
+    margin: 5px 0px;
+}
+.eb-order-meta-details label,
+.eb-order-meta-byer-details label{
+    margin-right: 3px;
+    font-weight: bold;
+}
+.eb-wdm-order-meta{
+    display: inline-flex;
+    width: 100%;
+}
+#eb_order_order_status{
+    display: inline-flex;    
+}
+#eb_order_order_status > .eb-option-input{
+    width: 100%;    
+}
+#eb_order_order_status > .eb-option-label{
+    min-width: unset;    
+}
+#order_status{
+    width: unset;
+}
+#eb_order_order_status{
+    width: unset;
 }

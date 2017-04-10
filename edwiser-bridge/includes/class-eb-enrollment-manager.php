@@ -95,13 +95,11 @@ class EBEnrollmentManager
      *
      * @return bool true / false
      */
-    public function updateUserCourseEnrollment($args)
+    public function updateUserCourseEnrollment($args, $roleId = "5")
     {
-        //global $wpdb;
-        // default args
         $defaults = array(
             'user_id' => 0,
-            'role_id' => 5,
+            'role_id' => $roleId,
             'courses' => array(),
             'unenroll' => 0,
             'suspend' => 0,
@@ -111,7 +109,6 @@ class EBEnrollmentManager
          * Parse incoming $args into an array and merge it with $defaults.
          */
         $args = wp_parse_args($args, $defaults);
-
         // get moodle user id of user
         $moodle_user_id = get_user_meta($args['user_id'], 'moodle_user_id', true);
         $msg = '';
@@ -233,13 +230,13 @@ class EBEnrollmentManager
      *
      * @return bool true
      */
-    public function updateEnrollmentRecordWordpress($args)
+    public function updateEnrollmentRecordWordpress($args,$roleId = "5")
     {
         global $wpdb;
         // default args
         $defaults = array(
             'user_id' => 0,
-            'role_id' => 5,
+            'role_id' => $roleId,
             'courses' => array(),
             'unenroll' => 0,
             'suspend' => 0,
