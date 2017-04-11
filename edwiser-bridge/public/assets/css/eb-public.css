@@ -471,7 +471,7 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-rec-courses-wrapper{
-    /*clear: both;*/
+    clear: both;
     margin: 10px 0;
 }
 

@@ -208,14 +208,14 @@ class EBOrderManager
              */
             if ($order_options['order_status'] == "completed" && $order_status != "completed") {
                 $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+                $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
                 $args = array(
-                    'user_id' => get_current_user_id(),
+                    'user_id' => $ordDetail['buyer_id'],
                     'role_id' => 5,
                     'courses' => array($order_options['course_id']),
                     'unenroll' => 1,
                     'suspend' => 0,
                 );
-                error_log("Unerolling student");
                 $enrollmentManager->updateUserCourseEnrollment($args);
             }
 

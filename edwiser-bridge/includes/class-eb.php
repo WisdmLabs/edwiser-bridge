@@ -308,6 +308,7 @@ class EdwiserBridge
         *The class used to add Moodle account column on users page frontend
         */
         require_once EB_PLUGIN_DIR.'admin/class-eb-moodle-linkunlink.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-manage-enrollment.php';
 
         /**
          * The core classes that initiates settings module.

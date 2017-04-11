@@ -132,8 +132,8 @@ class EbShortcodeUserAccount
         foreach ($overall_orders as $order_id) {
             $order_detail = get_post_meta($order_id, 'eb_order_options', true);
 
-//            if (!empty($order_detail) && $order_detail['order_status'] == 'completed' && $order_detail['buyer_id'] == $user_id) {
-            $user_orders[] = array(
+            if (!empty($order_detail) && $order_detail['buyer_id'] == $user_id) {
+                $user_orders[] = array(
                 'order_id' => $order_id,
                 'ordered_item' => $order_detail['course_id'],
                 'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
@@ -141,8 +141,8 @@ class EbShortcodeUserAccount
                 'amount_paid' => isset($order_detail['amount_paid']) ? $order_detail['amount_paid'] : '',
                 'status' => isset($order_detail['order_status']) ? $order_detail['order_status'] : '',
                 'date' => get_the_date("Y-m-d", $order_id),
-            );
-//            }
+                );
+            }
         }
         return apply_filters("eb_user_orders", $user_orders);
     }
