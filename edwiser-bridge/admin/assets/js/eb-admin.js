@@ -31,32 +31,32 @@
     $(window).load(function () {
 
 // Color picker
-        jQuery('.colorpick').iris({
+        $('.colorpick').iris({
             change: function (event, ui) {
-                jQuery(this).css({backgroundColor: ui.color.toString()});
+                $(this).css({backgroundColor: ui.color.toString()});
             },
             hide: true,
             border: true
         }).each(function () {
-            jQuery(this).css({backgroundColor: jQuery(this).val()});
+            $(this).css({backgroundColor: jQuery(this).val()});
         })
                 .click(function () {
-                    jQuery('.iris-picker').hide();
-                    jQuery(this).closest('.color_box, td').find('.iris-picker').show();
+                    $('.iris-picker').hide();
+                    $(this).closest('.color_box, td').find('.iris-picker').show();
                 });
-        jQuery('body').click(function () {
-            jQuery('.iris-picker').hide();
+        $('body').click(function () {
+            $('.iris-picker').hide();
         });
-        jQuery('.color_box, .colorpick').click(function (event) {
+        $('.color_box, .colorpick').click(function (event) {
             event.stopPropagation();
         });
         // Edit prompt
-        jQuery(function () {
+        $(function () {
             var changed = false;
-            jQuery('input, textarea, select, checkbox').change(function () {
+            $('input, textarea, select, checkbox').change(function () {
                 changed = true;
             });
-            jQuery('.eb-nav-tab-wrapper a').click(function () {
+            $('.eb-nav-tab-wrapper a').click(function () {
                 if (changed) {
                     window.onbeforeunload = function () {
                         var flag = true;
@@ -77,8 +77,57 @@
                     window.onbeforeunload = '';
                 }
             });
-            jQuery('.submit input').click(function () {
+            $('.submit input').click(function () {
                 window.onbeforeunload = '';
+            });
+            $('.eb-unenrol').click(function (e) {
+                var userId = jQuery(this).data('user-id');
+                var recordId = jQuery(this).data('record-id');
+                var courseId = jQuery(this).data('course-id');
+                var row = jQuery(this).parents('tr');
+                $.ajax({
+                    method: "post",
+                    url: eb_admin_js_object.ajaxurl,
+                    dataType: "json",
+                    data: {
+                        'action': 'wdm_eb_user_manage_unenroll_unenroll_user',
+                        'user_id': userId,
+                        'course_id': courseId,
+                    },
+                    success: function (response) {
+                        $('.load-response').hide();
+                        var message = "";
+                        if (response['success'] == true) {
+                            var msg = response['data'];
+                            message = "<div class='notice notice-success is-dismissible'>"
+                                    + "<p><strong>" + msg + "</strong></p>"
+                                    + "<button type='button' class='notice-dismiss'>"
+                                    + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                                    + "</button>"
+                                    + "</div>";
+                            jQuery(row).css('background-color', '#d7cad2');
+                            jQuery(row).fadeOut(2000, function () { });
+
+                        } else {
+                            var msg = response['data'];
+                            message = "<div class='notice notice-error is-dismissible'>"
+                                    + "<p><strong>" + msg + "</strong></p>"
+                                    + "<button type='button' class='notice-dismiss'>"
+                                    + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                                    + "</button>"
+                                    + "</div>";
+                        }
+                        $("#eb-notices").append(message)
+                    },
+                    error: function (error) {
+                        var html = "<div class='notice notice-error is-dismissible'>"
+                                + "<p><strong>Error unenrolling student</strong></p>"
+                                + "<button type='button' class='notice-dismiss'>"
+                                + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                                + "</button>"
+                                + "</div>";
+                    }
+                });
             });
         });
         //help tip
@@ -88,10 +137,10 @@
             'fadeOut': 50,
             'delay': 200
         };
-        jQuery(".tips, .help_tip, .help-tip").tipTip(tiptip_args);
+        $(".tips, .help_tip, .help-tip").tipTip(tiptip_args);
         // Add tiptip to parent element for widefat tables
-        jQuery(".parent-tips").each(function () {
-            jQuery(this).closest('a, th').attr('data-tip', jQuery(this).data('tip')).tipTip(tiptip_args).css('cursor', 'help');
+        $(".parent-tips").each(function () {
+            $(this).closest('a, th').attr('data-tip', jQuery(this).data('tip')).tipTip(tiptip_args).css('cursor', 'help');
         });
         /**
          * == OhSnap!.js ==

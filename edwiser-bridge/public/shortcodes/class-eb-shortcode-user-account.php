@@ -134,13 +134,13 @@ class EbShortcodeUserAccount
 
             if (!empty($order_detail) && $order_detail['buyer_id'] == $user_id) {
                 $user_orders[] = array(
-                'order_id' => $order_id,
-                'ordered_item' => $order_detail['course_id'],
-                'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
-                'currency' => isset($order_detail['currency']) ? $order_detail['currency'] : '$',
-                'amount_paid' => isset($order_detail['amount_paid']) ? $order_detail['amount_paid'] : '',
-                'status' => isset($order_detail['order_status']) ? $order_detail['order_status'] : '',
-                'date' => get_the_date("Y-m-d", $order_id),
+                    'order_id' => $order_id,
+                    'ordered_item' => $order_detail['course_id'],
+                    'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
+                    'currency' => isset($order_detail['currency']) ? $order_detail['currency'] : '$',
+                    'amount_paid' => isset($order_detail['amount_paid']) ? $order_detail['amount_paid'] : '',
+                    'status' => isset($order_detail['order_status']) ? $order_detail['order_status'] : '',
+                    'date' => get_the_date("Y-m-d", $order_id),
                 );
             }
         }

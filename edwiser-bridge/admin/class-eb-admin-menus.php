@@ -240,7 +240,8 @@ class EbAdminMenus
      */
     public function manageEnrollmentContent()
     {
-        $enrollmentManager=new EBManageUserEnrollment();
+        $edwiser=EdwiserBridge::instance();
+        $enrollmentManager=new EBManageUserEnrollment($edwiser->getPluginName(), $edwiser->getVersion());
         $enrollmentManager->outPut();
     }
 

@@ -308,6 +308,7 @@ class EdwiserBridge
         *The class used to add Moodle account column on users page frontend
         */
         require_once EB_PLUGIN_DIR.'admin/class-eb-moodle-linkunlink.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-custom-list-table.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-manage-enrollment.php';
 
         /**
@@ -471,7 +472,6 @@ class EdwiserBridge
      */
     private function defineAdminHooks()
     {
-        //if (is_admin()) {
         $plugin_admin = new EbAdmin($this->getPluginName(), $this->getVersion());
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
@@ -487,6 +487,7 @@ class EdwiserBridge
          * Email template editor ajax start
          */
         $emailTmplEditor = new EBAdminEmailTemplate();
+        $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
 
         $this->loader->addAction(
             'wp_ajax_wdm_eb_get_email_template',
@@ -508,6 +509,11 @@ class EdwiserBridge
             $emailTmplEditor,
             'sendTestEmail'
         );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user',
+            $manageEnrollment,
+            'unenrollUser'
+        );
         /**
          * Email template editor end
          */
@@ -527,8 +533,11 @@ class EdwiserBridge
             $admin_settings_init,
             'connectionTestInitiater'
         );
- 
-        //}
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
+            $manageEnrollment,
+            'unenrollUser'
+        );
     }
 
     /**
