@@ -178,7 +178,7 @@ class EBAdminEmailTemplate
     private function isNotifEnabled($currTmplName)
     {
         $notifEnabled = get_option($currTmplName . "_notify_allow");
-        if (isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled != false) {
+        if (isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled=="ON") {
             return "ON";
         } else {
             return "";
@@ -315,7 +315,7 @@ class EBAdminEmailTemplate
             $tmplContetn = $this->checkIsEmpty($_POST, "eb_emailtmpl_editor");
             $tmplName = $this->checkIsEmpty($_POST, "eb_tmpl_name");
             $notifyAllow = $this->checkIsEmpty($_POST, "eb_email_notification_on");
-            $notifyAllow = $notifyAllow == "ON" ? $notifyAllow : "";
+            $notifyAllow = $notifyAllow == "ON" ? $notifyAllow : "OFF";
             $data = array(
                 "subject" => $subject,
                 "content" => stripslashes($tmplContetn),
