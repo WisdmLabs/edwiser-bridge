@@ -195,10 +195,6 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         }
         
         
-        
-        
-        
-        
         private function getLinkWPMoodleAccountTemplate()
         {
             ob_start();

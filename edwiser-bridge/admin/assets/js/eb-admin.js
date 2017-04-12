@@ -399,7 +399,7 @@
             $("#current_selected_email_tmpl_key").val(tmplId);
             setGetParameter("curr_tmpl", tmplId);
             $("#eb-lading-parent").show();
-            getTamplateContent(tmplId,name);
+            getTamplateContent(tmplId, name);
             $(document).on("click", ".notice-dismiss", function () {
                 $("#eb-notices").empty();
             });
@@ -408,8 +408,8 @@
 //            });
         });
         $(document).on("click", ".notice-dismiss", function () {
-                $("#eb-notices").empty();
-            });
+            $("#eb-notices").empty();
+        });
         $("#eb_send_test_email").click(function (e) {
             e.preventDefault();
             $('.response-box').empty();
@@ -440,11 +440,11 @@
                 }
             });
         });
-        
+
         $("#eb_email_reset_template").click(function (e) {
             e.preventDefault();
-            var tmplName=$("#current_selected_email_tmpl_key").val();
-            var tmplSub=$("#current-tmpl-name").val();
+            var tmplName = $("#current_selected_email_tmpl_key").val();
+            var tmplSub = $("#current-tmpl-name").val();
             console.log(tmplName);
             $("#eb-lading-parent").show();
             $.ajax({
@@ -459,15 +459,15 @@
                 },
                 success: function (response) {
                     if (response["success"] == true) {
-                        getTamplateContent(tmplName,tmplSub);
+                        getTamplateContent(tmplName, tmplSub);
                     } else {
-                        alert("Failed to reset template");
+                        alert("Template is identical, did not restore.");
                     }
                     $("#eb-lading-parent").hide();
                 }
             });
         });
-        
+
 
 
         $(".link-unlink").click(function (e) {
@@ -536,27 +536,27 @@
     $(document).one("click", ".notice-dismiss", function () {
         $("#eb-notices").empty();
     });
-    
-    function getTamplateContent(tmplId,name){
+
+    function getTamplateContent(tmplId, name) {
         $.ajax({
-                type: "post",
-                url: ajaxurl,
-                data: {
-                    action: "wdm_eb_get_email_template",
-                    tmpl_name: tmplId
-                },
-                error: function (error) {
-                    alert(eb_admin_js_object.msg_tpl_not_found);
-                    $("#eb-lading-parent").hide();
-                },
-                success: function (response) {
-                    setTemplateData(response, name, tmplId);
-                    $(".eb-emailtmpl-list-item").removeClass("eb-emailtmpl-active");
-                    $("#" + tmplId).addClass("eb-emailtmpl-active");
-                    $("#eb-lading-parent").hide();
-                    $("#current-tmpl-name").val(response['subject']);
-                }
-            });
+            type: "post",
+            url: ajaxurl,
+            data: {
+                action: "wdm_eb_get_email_template",
+                tmpl_name: tmplId
+            },
+            error: function (error) {
+                alert(eb_admin_js_object.msg_tpl_not_found);
+                $("#eb-lading-parent").hide();
+            },
+            success: function (response) {
+                setTemplateData(response, name, tmplId);
+                $(".eb-emailtmpl-list-item").removeClass("eb-emailtmpl-active");
+                $("#" + tmplId).addClass("eb-emailtmpl-active");
+                $("#eb-lading-parent").hide();
+                $("#current-tmpl-name").val(response['subject']);
+            }
+        });
     }
     function ohSnap(text, type)
     {
