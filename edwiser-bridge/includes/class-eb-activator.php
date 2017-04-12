@@ -247,7 +247,6 @@ class EBActivator
 
     public static function createDefaultEmailTempaltes()
     {
-        include_once 'class-eb-default-email-templates.php';
         $defaultTmpl = new EBDefaultEmailTemplate();
         self::updateTemplateData("eb_emailtmpl_create_user", $defaultTmpl->newUserAcoount("eb_emailtmpl_create_user"));
         self::updateTemplateData("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));

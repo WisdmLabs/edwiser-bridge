@@ -56,8 +56,8 @@ class EBAdminEmailTemplate
         $section = array();
         $constSec = apply_filters('eb_email_template_constant', $section);
         $checked = array();
-        $notifOn="";
-        
+        $notifOn = "";
+
         if (isset($_GET["curr_tmpl"])) {
             $tmplKey = $_GET["curr_tmpl"];
             $tmplName = $tmplList[$_GET["curr_tmpl"]];
@@ -65,9 +65,9 @@ class EBAdminEmailTemplate
         } else {
             $tmplKey = key($tmplList);
             $tmplName = current($tmplList);
-             $notifOn = $this->isNotifEnabled($tmplKey);
+            $notifOn = $this->isNotifEnabled($tmplKey);
         }
-        
+
         $tmplData = $this->getEmailTemplate($tmplKey);
         $tmplContent = apply_filters("eb_email_template_data", $tmplData);
         ?>
@@ -98,7 +98,7 @@ class EBAdminEmailTemplate
                             </tr>
 
                             <tr>
-                                <td class="eb_email_notification_on"><?php _e("Send email notification to the user", "eb-textdomain"); ?></td>
+                                <td class="eb-email-lable"><?php _e("Send email notification to the user", "eb-textdomain"); ?></td>
                                 <td>
                                     <input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
                                 </td>
@@ -114,6 +114,9 @@ class EBAdminEmailTemplate
                                 <td>
                                     <input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
                                     <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'eb-textdomain'); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
+                                    <input type="button" class="button-primary" value="<?php _e("Reset template content", "eb-textdomain"); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
+                                    <input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo $tmplKey; ?>" />
+                                    <input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo $tmplContent['subject']; ?>" />
                                 </td>
                             </tr>
                         </table>
@@ -171,11 +174,12 @@ class EBAdminEmailTemplate
         <?php
     }
 
-    private function isNotifEnabled($currTmplName){
-        $notifEnabled = get_option($currTmplName."_notify_allow");
-        if(isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled!=false){
-        return "ON";
-        }else{
+    private function isNotifEnabled($currTmplName)
+    {
+        $notifEnabled = get_option($currTmplName . "_notify_allow");
+        if (isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled != false) {
+            return "ON";
+        } else {
             return "";
         }
     }
@@ -212,7 +216,6 @@ class EBAdminEmailTemplate
         echo json_encode($data);
         die();
     }
-
     /**
      * Getter methods start
      */
@@ -256,7 +259,7 @@ class EBAdminEmailTemplate
         /**
          * New account and link account constants
          */
-        $account["{USER_PASSWORD}"] = __("The user accounts password.", 'eb-textdomain');
+//        $account["{USER_PASSWORD}"] = __("The user accounts password.", 'eb-textdomain');
         /**
          * Course order template constants
          */
@@ -270,7 +273,7 @@ class EBAdminEmailTemplate
         $unenrollment["{WP_COURSE_PAGE_LINK}"] = __("The current course page link.", 'eb-textdomain');
 
         $constants["General constants"] = $genral;
-        $constants["New/ Link user account"] = $account;
+//        $constants["New/ Link user account"] = $account;
         $constants["Order Completion "] = $order;
         $constants["Course Unenrollment "] = $unenrollment;
         return $constants;
@@ -280,7 +283,6 @@ class EBAdminEmailTemplate
     {
         return get_option($tmplName);
     }
-
     /**
      * Getter methods end
      */
@@ -437,5 +439,52 @@ class EBAdminEmailTemplate
         </div>
         <?php
         return ob_get_clean();
+    }
+
+    public function resetEmailTemplateContent()
+    {
+        $responce = array("data"=>__("Failed to reste email template", "eb-textdomain"),"status"=>"failed");
+        if (isset($_POST['action']) && isset($_POST['tmpl_name']) && $_POST['action'] == "wdm_eb_email_tmpl_restore_content") {
+            $args = $this->restoreEmailTemplate(array("is_restored" => false, "tmpl_name"=>$_POST['tmpl_name']));
+            if ($args["is_restored"] == true) {
+                $responce['data'] = __("Template restored sucessfully", "eb-textdomain");
+                $responce['status']="success";
+                wp_send_json_success($responce);
+            } else {                
+                wp_send_json_error($responce);
+            }
+        } else {
+            wp_send_json_error($responce);
+        }
+    }
+
+    public function restoreEmailTemplate($args)
+    {
+        $defaultTmpl = new EBDefaultEmailTemplate();
+        $tmplKey=$args['tmpl_name'];
+        switch ($tmplKey) {
+            case "eb_emailtmpl_create_user":
+                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user",true);
+                break;
+            case "eb_emailtmpl_linked_existing_wp_user":
+                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user",true);
+                break;
+            case "eb_emailtmpl_order_completed":
+                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed",true);
+                break;
+            case "eb_emailtmpl_course_access_expir":
+                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir",true);
+                break;
+            default :
+                $args=apply_filters("eb_reset_email_tmpl_content", array("is_restored" => false, "tmpl_name"=>$args['tmpl_name']));
+                return $args;
+        }
+        $status=  update_option($tmplKey, $value);
+        if($status){
+            $args['is_restored']=true;
+            return $args;
+        }else{
+            return $args;
+        }
     }
 }

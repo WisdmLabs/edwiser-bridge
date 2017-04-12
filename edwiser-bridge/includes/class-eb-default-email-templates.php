@@ -4,10 +4,10 @@ namespace app\wisdmlabs\edwiserBridge;
 if (!class_exists("EBDefaultEmailTemplate")) {
     class EBDefaultEmailTemplate
     {
-        public function newUserAcoount($tmplId)
+        public function newUserAcoount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -16,10 +16,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-        public function linkWPMoodleAccount($tmplId)
+        public function linkWPMoodleAccount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -28,10 +28,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-        public function orderComplete($tmplId)
+        public function orderComplete($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -40,10 +40,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-        public function courseAccessExpired($tmplId)
+        public function courseAccessExpired($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -139,27 +139,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
                                     <?php
-                                        _e('A learning account is linked to your profile.Use credentials given below while accessing your courses.', 'eb-textdomain');
+                                        _e('A learning account is linked to your moodle profile.', 'eb-textdomain');
                                     ?>
                                 </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-                                    <?php
-                                        printf(
-                                            __('Username: %s', 'eb-textdomain'),
-                                            '<strong>{USER_NAME}</strong>'
-                                        );
-                                    ?>
-                                </div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
-                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-                                    <?php
-                                    printf(
-                                        __('Password: %s', 'eb-textdomain'),
-                                        '<strong>{USER_PASSWORD} </strong>'
-                                    );
-                                    ?>
-                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
                                     <?php
@@ -168,7 +151,8 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                                             '<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
                                         );
                                     ?>
-                                </div></td>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>

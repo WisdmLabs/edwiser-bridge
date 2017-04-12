@@ -512,8 +512,8 @@ span.eb-option-input .eb-option-div select{
 #eb_order_order_status{
     width: unset;
 }
- #loading-div-background {
-     display: none;
+#loading-div-background {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -521,7 +521,7 @@ span.eb-option-input .eb-option-div select{
     width: 100%;
     height: 100%;
 }
- #loading-div {
+#loading-div {
     width: 300px;
     height: 200px;
     background-color: #ffffff;
@@ -534,4 +534,38 @@ span.eb-option-input .eb-option-div select{
 }
 .eb-unenrol{
     cursor: pointer;
+}
+
+.eb-loader-progsessing-anim {
+    border: 5px solid #ffffff;
+    border-top: 5px solid #07a3c3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    display: inline-block;
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.eb-lading-parent-wrap{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.73);
+    z-index: 999;
 }

@@ -285,6 +285,8 @@ class EdwiserBridge
         //To handel the email template modification
         require_once EB_PLUGIN_DIR.'admin/class-eb-email-template.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-email-template-parser.php';
+        
+        include_once EB_PLUGIN_DIR.'includes/class-eb-default-email-templates.php';
 
 
         $this->loader = new EBLoader();
@@ -514,6 +516,11 @@ class EdwiserBridge
             $manageEnrollment,
             'unenrollUser'
         );
+        $this->loader->addAction(
+            'wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content',
+            $manageEnrollment,
+            'resetEmailTemplateContent'
+        );
         /**
          * Email template editor end
          */
@@ -537,6 +544,11 @@ class EdwiserBridge
             'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
             $manageEnrollment,
             'unenrollUser'
+        );
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_email_tmpl_restore_content',
+            $emailTmplEditor,
+            'resetEmailTemplateContent'
         );
     }
 
