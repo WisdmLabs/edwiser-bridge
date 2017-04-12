@@ -57,16 +57,17 @@ class EBAdminEmailTemplate
         $constSec = apply_filters('eb_email_template_constant', $section);
         $checked = array();
         $notifOn="";
-        if (isset($_GET["curr_tmpl"])) {
-            $notifOn = $this->isNotifEnabled($_GET["curr_tmpl"]);
-        }
+        
         if (isset($_GET["curr_tmpl"])) {
             $tmplKey = $_GET["curr_tmpl"];
             $tmplName = $tmplList[$_GET["curr_tmpl"]];
+            $notifOn = $this->isNotifEnabled($_GET["curr_tmpl"]);
         } else {
             $tmplKey = key($tmplList);
             $tmplName = current($tmplList);
+             $notifOn = $this->isNotifEnabled($tmplKey);
         }
+        
         $tmplData = $this->getEmailTemplate($tmplKey);
         $tmplContent = apply_filters("eb_email_template_data", $tmplData);
         ?>
@@ -97,7 +98,7 @@ class EBAdminEmailTemplate
                             </tr>
 
                             <tr>
-                                <td class="eb_email_notification_on"><?php _e("Send email notifcation to the user", "eb-textdomain"); ?></td>
+                                <td class="eb_email_notification_on"><?php _e("Send email notification to the user", "eb-textdomain"); ?></td>
                                 <td>
                                     <input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
                                 </td>
