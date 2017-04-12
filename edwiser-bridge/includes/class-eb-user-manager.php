@@ -636,7 +636,6 @@ class EBUserManager
         }
 
         // add a dynamic hook only if a new user is created on moodle and linked to wordpress account
-        
         if (!$created && $linked) {
             $args = array(
                 'user_email' => $user->user_email,
@@ -646,6 +645,16 @@ class EBUserManager
             );
             //create a new action hook with user details as argument.
             do_action('eb_linked_to_existing_wordpress_user', $args);
+        } else if ($created && $linked) {
+            $args = array(
+                'user_email' => $user_data['email'],
+                'username' => $moodle_user['user_data']->username,
+                'first_name' => $user_data['firstname'],
+                'last_name' => $user_data['lastname'],
+                'password' => $user_data['password'],
+            );
+            //create a new action hook with user details as argument.
+            do_action('eb_linked_to_existing_wordpress_to_new_user', $args);
         }
 
         return $linked;

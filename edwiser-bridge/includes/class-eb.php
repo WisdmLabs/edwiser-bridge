@@ -803,6 +803,12 @@ class EdwiserBridge
             10
         ); // email on moodle user link to existing wordpress user
         $this->loader->addAction(
+            'eb_linked_to_existing_wordpress_to_new_user',
+            $plugin_emailer,
+            'sendExistingWpUserNewMoodleAccountEmail',
+            10
+        ); // email on moodle user link to existing wordpress user
+        $this->loader->addAction(
             'eb_order_status_completed',
             $plugin_emailer,
             'sendOrderCompletionEmail',

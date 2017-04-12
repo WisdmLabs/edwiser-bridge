@@ -37,6 +37,7 @@ class EBAdminEmailTemplate
     {
         $emailList["eb_emailtmpl_create_user"] = __("New User Account Details", 'eb-textdomain');
         $emailList["eb_emailtmpl_linked_existing_wp_user"] = __("Link WP user account to moodle", 'eb-textdomain');
+        $emailList["eb_emailtmpl_linked_existing_wp_new_moodle_user"] = __("Create new moodle account", 'eb-textdomain');
         $emailList["eb_emailtmpl_order_completed"] = __("Course Order Completion", 'eb-textdomain');
         $emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
         return $emailList;
@@ -259,7 +260,7 @@ class EBAdminEmailTemplate
         /**
          * New account and link account constants
          */
-//        $account["{USER_PASSWORD}"] = __("The user accounts password.", 'eb-textdomain');
+        $account["{USER_PASSWORD}"] = __("The user accounts password.", 'eb-textdomain');
         /**
          * Course order template constants
          */
@@ -273,7 +274,7 @@ class EBAdminEmailTemplate
         $unenrollment["{WP_COURSE_PAGE_LINK}"] = __("The current course page link.", 'eb-textdomain');
 
         $constants["General constants"] = $genral;
-//        $constants["New/ Link user account"] = $account;
+        $constants["New moodle user account"] = $account;
         $constants["Order Completion "] = $order;
         $constants["Course Unenrollment "] = $unenrollment;
         return $constants;
@@ -474,6 +475,9 @@ class EBAdminEmailTemplate
                 break;
             case "eb_emailtmpl_course_access_expir":
                 $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir",true);
+                break;
+            case "eb_emailtmpl_linked_existing_wp_new_moodle_user":
+                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user",true);
                 break;
             default :
                 $args=apply_filters("eb_reset_email_tmpl_content", array("is_restored" => false, "tmpl_name"=>$args['tmpl_name']));

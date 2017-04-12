@@ -79,6 +79,16 @@ class EBEmailer
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
     }
+    
+    public function sendExistingWpUserNewMoodleAccountEmail($args)
+    {
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_new_moodle_user");
+        $allowNotify=get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
+        if ($emailTmplData && $allowNotify!=false && !empty($allowNotify)) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+    }
 
     /**
      * Sends a new user registration email notification.

@@ -321,8 +321,11 @@ class EBEnrollmentManager
         );
 
         if ($deleted) {
-            $user = get_user_by('id', $user_id);
+            $user = get_userdata($user_id);
             $args = array(
+                'username' =>$user->user_login,
+                'first_name' =>$user->user_firstname,
+                'last_name' =>$user->user_lastname,
                 'user_email' => $user->user_email,
                 'course_id' => $course_id,
             );

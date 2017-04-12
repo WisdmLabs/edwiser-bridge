@@ -23,8 +23,20 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 return $data;
             }
             $data = array(
-                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
+                "subject" => __('Your learning account is linked with moodle', 'eb-textdomain'),
                 "content" => $this->getLinkWPMoodleAccountTemplate(),
+            );
+            return $data;
+        }
+        public function linkNewMoodleAccount($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
+                "content" => $this->getLinkNewMoodleAccountTemplate(),
             );
             return $data;
         }
@@ -112,7 +124,9 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             <?php
             return ob_get_clean();
         }
-        private function getLinkWPMoodleAccountTemplate()
+        
+        
+        private function getLinkNewMoodleAccountTemplate()
         {
             ob_start();
             ?>
@@ -123,6 +137,79 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                             <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
                                 <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
                                     <?php _e('Your Learning Account Credentials', 'eb-textdomain'); ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        _e('A learning account is linked to your profile.Use credentials given below while accessing your courses.', 'eb-textdomain');
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Username: %s', 'eb-textdomain'),
+                                            '<strong>{USER_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                    printf(
+                                        __('Password: %s', 'eb-textdomain'),
+                                        '<strong>{USER_PASSWORD} </strong>'
+                                    );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can purchase &amp; access courses here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>         
+            <?php
+            return ob_get_clean();
+        }
+        
+        
+        
+        
+        
+        
+        private function getLinkWPMoodleAccountTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Your learning account is linked with moodle', 'eb-textdomain'); ?>
                                 </h1>
                             </td>
                         </tr>
