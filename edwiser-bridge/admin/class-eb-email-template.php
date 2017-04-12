@@ -114,7 +114,7 @@ class EBAdminEmailTemplate
                                 <td>
                                     <input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
                                     <input type="submit" class="button-primary" value="<?php _e('Save Changes', 'eb-textdomain'); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
-                                    <input type="button" class="button-primary" value="<?php _e("Reset template content", "eb-textdomain"); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
+                                    <input type="button" class="button-primary" value="<?php _e("Restore template content", "eb-textdomain"); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
                                     <input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo $tmplKey; ?>" />
                                     <input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo $tmplContent['subject']; ?>" />
                                 </td>
