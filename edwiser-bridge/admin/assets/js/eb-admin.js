@@ -400,14 +400,16 @@
             setGetParameter("curr_tmpl", tmplId);
             $("#eb-lading-parent").show();
             getTamplateContent(tmplId,name);
-            $(document).one("click", ".notice-dismiss", function () {
+            $(document).on("click", ".notice-dismiss", function () {
                 $("#eb-notices").empty();
             });
-            $(".notice-dismiss").click(function () {
-                $("#eb-notices").empty();
-            });
+//            $(".notice-dismiss").click(function () {
+//                $("#eb-notices").empty();
+//            });
         });
-        
+        $(document).on("click", ".notice-dismiss", function () {
+                $("#eb-notices").empty();
+            });
         $("#eb_send_test_email").click(function (e) {
             e.preventDefault();
             $('.response-box').empty();

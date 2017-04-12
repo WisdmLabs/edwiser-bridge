@@ -269,7 +269,7 @@ class EBActivator
     private static function updateAllowMailSendData($key, $value)
     {
         $data=get_option($key);
-        if ($data == false && !empty($data)) {
+        if ($data == false || !empty($data)) {
             update_option($key, $value);
         }
     }
