@@ -86,6 +86,8 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
         public function outPut()
         {
             $listTable = new EBCustomListTable();
+            $currentAction = $listTable->current_action();
+            $this->handleBulkAction($currentAction);
             $listTable->prepare_items();
             ?>
             <div class="eb-manage-user-enrol-wrap">
@@ -117,28 +119,95 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             <?php
         }
 
-        public function unenrollUser()
+        private function handleBulkAction($action)
+        {
+            switch ($action) {
+                case "unenroll":
+                    $this->multipalUnenrollByRecId($_POST);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private function multipalUnenrollByRecId($data)
+        {
+            if (!isset($data['enrollment'])) {
+                return;
+            }
+            $users = $data['enrollment'];
+            global $wpdb;
+            $enrollTbl = $wpdb->prefix . 'moodle_enrollment';
+            $stmt = "select user_id,course_id from $enrollTbl where id in('" . implode("','", $users) . "')";
+            $results = $wpdb->get_results($stmt, ARRAY_A);
+            $cnt = 0;
+            foreach ($results as $rec) {
+                if ($this->unenrollUser($rec['course_id'], $rec['user_id'])) {
+                    $cnt++;
+                }
+            }
+            if ($cnt > 0) {
+                ?>
+                <div class="notice notice-success is-dismissible">
+                    <p>
+                        <strong>
+                            <?php _e(sprintf("%s users has been unenrolled sucessfully.", $cnt), 'eb-textdomain'); ?>
+                        </strong>
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text"><?php _e('Dismiss this notice', VC_TXT_DOMAIN);
+                            ?>.</span>
+                    </button>
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="error notice">
+                    <p>
+                        <strong>
+                            <?php _e('No users has been unenrolled', 'eb-textdomain'); ?>
+                        </strong>
+                    </p>
+                    <button type="button" class="notice-dismiss">
+                        <span class="screen-reader-text"><?php _e('Dismiss this notice', VC_TXT_DOMAIN);
+                            ?>.</span>
+                    </button>
+                </div>
+                <?php
+            }
+        }
+
+        public function unenrollUserAjaxHandler()
         {
             $responce = "Failed unenroll user";
             if (isset($_POST['user_id']) && isset($_POST['course_id']) && isset($_POST['action']) && $_POST['action'] == 'wdm_eb_user_manage_unenroll_unenroll_user') {
-                $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
                 $courseId = $_POST['course_id'];
                 $userId = $_POST['user_id'];
-                $args = array(
-                    'user_id' => $userId,
-                    'role_id' => 5,
-                    'courses' => array($courseId),
-                    'unenroll' => 1,
-                    'suspend' => 0,
-                );
-                $enrollmentManager->updateUserCourseEnrollment($args);
-                $courseName = get_the_title($courseId);
-                $user = get_userdata($userId);
-                $responce = ucfirst($user->user_login) . " has been unenrolled from the $courseName course";
-                wp_send_json_success($responce);
+                $res = $this->unenrollUser($courseId, $userId);
+                if ($res) {
+                    $courseName = get_the_title($courseId);
+                    $user = get_userdata($userId);
+                    $responce = ucfirst($user->user_login) . " has been unenrolled from the $courseName course";
+                    wp_send_json_success($responce);
+                } else {
+                    wp_send_json_error($responce);
+                }
             } else {
                 wp_send_json_error($responce);
             }
+        }
+
+        private function unenrollUser($courseId, $userId)
+        {
+            $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+            $args = array(
+                'user_id' => $userId,
+                'role_id' => 5,
+                'courses' => array($courseId),
+                'unenroll' => 1,
+                'suspend' => 0,
+            );
+            return $enrollmentManager->updateUserCourseEnrollment($args);
         }
     }
 }

@@ -514,7 +514,7 @@ class EdwiserBridge
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user',
             $manageEnrollment,
-            'unenrollUser'
+            'unenrollUserAjaxHandler'
         );
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content',
@@ -543,7 +543,7 @@ class EdwiserBridge
         $this->loader->addAction(
             'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
             $manageEnrollment,
-            'unenrollUser'
+            'unenrollUserAjaxHandler'
         );
         $this->loader->addAction(
             'wp_ajax_wdm_eb_email_tmpl_restore_content',

@@ -19,6 +19,7 @@ if (!class_exists("EBEmailTmplParser")) {
     {
         public function outPut($args, $tmplContent)
         {
+            $tmplContent=apply_filters("eb_emailtmpl_content_before", $tmplContent);
             $tmplConst = $this->getTmplConstant($args);
             foreach ($tmplConst as $const => $val) {
                 $tmplContent = str_replace($const, $val, $tmplContent);
