@@ -155,7 +155,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                         </strong>
                     </p>
                     <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text"><?php _e('Dismiss this notice', VC_TXT_DOMAIN);
+                        <span class="screen-reader-text"><?php _e('Dismiss this notice', "eb-textdomain");
                             ?>.</span>
                     </button>
                 </div>
@@ -169,7 +169,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                         </strong>
                     </p>
                     <button type="button" class="notice-dismiss">
-                        <span class="screen-reader-text"><?php _e('Dismiss this notice', VC_TXT_DOMAIN);
+                        <span class="screen-reader-text"><?php _e('Dismiss this notice', "eb-textdomain");
                             ?>.</span>
                     </button>
                 </div>
