@@ -45,13 +45,13 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
                 $row['user'] = $this->getUserProfileURL($result->user_id);
                 $row['course'] = '<a href="' . esc_url(get_permalink($result->course_id)) . '">' . get_the_title($result->course_id) . '</a>';
                 $row['enrolled_date'] = $result->time;
-                $row['manage'] = '&ndash;';
+                $row['manage'] = true;
                 $row['ID'] = $result->id;
                 $row['rId'] = $result->id;
                 $row['course_id'] = $result->course_id;
                 $tblRecords[] = $row;
             }
-            return apply_filters("eb_manage_student_enrollment_table_data",$tblRecords);
+            return apply_filters("eb_manage_student_enrollment_table_data", $tblRecords);
         }
 
         /**
@@ -63,7 +63,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
          */
         private function getUserProfileURL($userId)
         {
-            $userName="";
+            $userName = "";
             $user_info = get_userdata($userId);
             if ($user_info) {
                 $edit_link = get_edit_user_link($userId);
@@ -160,7 +160,11 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
 
         protected function column_manage($item)
         {
-            return apply_filters('edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="'.$item['course_id'].'">' . __('Unenroll', 'eb-textdomain') . '</a>');
+            $outPut="---";
+            if ($item['manage']) {
+                $outPut=apply_filters('edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="' . $item['course_id'] . '">' . __('Unenroll', 'eb-textdomain') . '</a>');
+            }
+            return $outPut;
         }
 
         /**
@@ -330,6 +334,6 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
             $result = strcmp($first[$orderby], $second[$orderby]);
 
             return ( 'asc' === $order ) ? $result : - $result;
-        }        
+        }
     }
 }

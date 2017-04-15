@@ -29,6 +29,14 @@
      */
 
     $(window).load(function () {
+        if ($("#eb_email_templates_list").length) {
+            var container=$("#eb_email_templates_list");
+            var scrollTo=$(".eb-emailtmpl-active");
+            console.log("Scrollling......................");
+            container.animate({
+                scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+            });
+        }
         /**
          * Add the ajax processing icon
          * @type String

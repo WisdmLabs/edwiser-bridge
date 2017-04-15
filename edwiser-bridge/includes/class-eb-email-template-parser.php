@@ -1,4 +1,5 @@
 <?php
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /**
@@ -19,13 +20,19 @@ if (!class_exists("EBEmailTmplParser")) {
     {
         public function outPut($args, $tmplContent)
         {
-            $tmplContent=apply_filters("eb_emailtmpl_content_before", $tmplContent);
+            $tmplContent = apply_filters("eb_emailtmpl_content_before", array("args" => $args, "content" => $tmplContent));
+            $args = $tmplContent['args'];
+            $tmplContent = $tmplContent['content'];
             $tmplConst = $this->getTmplConstant($args);
             foreach ($tmplConst as $const => $val) {
                 $tmplContent = str_replace($const, $val, $tmplContent);
             }
-            return apply_filters("eb_emailtmpl_content", $tmplContent);
+            $tmplContent = apply_filters("eb_emailtmpl_content", array("args" => $args, "content" => $tmplContent));
+            $args = $tmplContent['args'];
+            $tmplContent = $tmplContent['content'];
+            return $tmplContent;
         }
+
         private function getTmplConstant($args)
         {
             $constant = array();
@@ -62,12 +69,13 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getCoursePageLink($args)
         {
             if (isset($args['course_id'])) {
-                return "<a href='".get_post_permalink($args['course_id'])."'>" . __('click here', 'eb-textdomain') . "</a>";
+                return "<a href='" . get_post_permalink($args['course_id']) . "'>" . __('click here', 'eb-textdomain') . "</a>";
             } else {
                 $url = get_site_url();
-                return "<a href='".$url."'>" . __('Click here', 'eb-textdomain') . "</a>";
+                return "<a href='" . $url . "'>" . __('Click here', 'eb-textdomain') . "</a>";
             }
         }
+
         private function getMoodleURL()
         {
             $url = get_option("eb_connection");
