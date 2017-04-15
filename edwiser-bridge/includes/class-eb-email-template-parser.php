@@ -18,6 +18,16 @@ if (!defined('ABSPATH')) {
 if (!class_exists("EBEmailTmplParser")) {
     class EBEmailTmplParser
     {
+        /**
+         * Provides the functionality to parse the email temaplte raw content
+         *
+         * Provides the filters to parse the template content.
+         *
+         * @param array $args default arguments to replace the email template constants
+         * @param HTML $tmplContent html content to prepare the email content
+         *
+         * @return html returns the email template content
+         */
         public function outPut($args, $tmplContent)
         {
             $tmplContent = apply_filters("eb_emailtmpl_content_before", array("args" => $args, "content" => $tmplContent));
@@ -33,6 +43,13 @@ if (!class_exists("EBEmailTmplParser")) {
             return $tmplContent;
         }
 
+        /**
+         * Provides the functionality to get the values for the email temaplte constants
+         * @param array $args array of the default values for the constants to
+         * prepare the email template contetn
+         * @return array returns the array of the email temaplte constants with
+         * associated values for the constants
+         */
         private function getTmplConstant($args)
         {
             $constant = array();
@@ -47,8 +64,9 @@ if (!class_exists("EBEmailTmplParser")) {
                 $constant["{LAST_NAME}"] = $curUser->last_name;
             }
             $constant["{SITE_NAME}"] = get_bloginfo("name");
-            $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'>".__('Site', 'eb-textdomain')."</a>";
+            $constant["{SITE_URL}"] = "<a href='".get_bloginfo("url")."'>".  get_bloginfo("name")."</a>";
             $constant["{COURSES_PAGE_LINK}"] = "<a href='".site_url('/courses')."'>".__('Courses', 'eb-textdomain')."</a>";
+            $constant["{MY_COURSES_PAGE_LINK}"] = $this->getMyCoursesPageLink();
             $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='".wdmUserAccountUrl()."'>".__('User Account', 'eb-textdomain')."</a>";
             $constant["{WP_LOGIN_PAGE_LINK}"] = "<a href='".$this->getLoginPageUrl()."'>".__('Login Page', 'eb-textdomain')."</a>";
             $constant["{MOODLE_URL}"] = "<a href='".$this->getMoodleURL()."'>".__('Moodle Site', 'eb-textdomain')."</a>";
@@ -59,6 +77,22 @@ if (!class_exists("EBEmailTmplParser")) {
             return apply_filters("eb_emailtmpl_constants_values", $constant);
         }
 
+        /**
+         * Prvides the functionality to ge tthe mycourses page link
+         * @return link returns the mycourses page (set in the EB settings) link
+         */
+        private function getMyCoursesPageLink()
+        {
+            $genralSettings = get_option("eb_general");
+            $myCoursesPageId = $genralSettings["eb_my_courses_page_id"];
+            $url=get_permalink($myCoursesPageId);
+            return "<a href='$url'>".__('My Courses', 'eb-textdomain')."</a>";
+        }
+
+        /**
+         * Provides the login page link
+         * @return link rerutns the link for the login page(set in the EB settings) url
+         */
         private function getLoginPageUrl()
         {
             $genralSettings = get_option("eb_general");
@@ -66,6 +100,11 @@ if (!class_exists("EBEmailTmplParser")) {
             return get_permalink($accountPageId);
         }
 
+        /**
+         * Provides the functionality to get the course page link
+         * @param array $args accepts the email tempalte argumaent to prepare the email template
+         * @return link returns the link for the emal single course page link
+         */
         private function getCoursePageLink($args)
         {
             if (isset($args['course_id'])) {
@@ -76,6 +115,10 @@ if (!class_exists("EBEmailTmplParser")) {
             }
         }
 
+        /**
+         * Provides the functionality to get the moodle site link
+         * @return linl returns the link to the moodle site.
+         */
         private function getMoodleURL()
         {
             $url = get_option("eb_connection");
@@ -85,6 +128,11 @@ if (!class_exists("EBEmailTmplParser")) {
             return "MOODLE_URL";
         }
 
+        /**
+         * Provides the functionality to ge tthe course name using course id
+         * @param array $args  array of default email page arguments
+         * @return string returns the course name
+         */
         private function getCourseName($args)
         {
             if (isset($args["course_id"])) {
@@ -93,6 +141,11 @@ if (!class_exists("EBEmailTmplParser")) {
             return "COURSE_NAME";
         }
 
+        /**
+         * Provides the functionality to ge tthe user accounts password
+         * @param array $args  array of default email page arguments
+         * @return string returns the account password
+         */
         private function getUserPassword($args)
         {
             if (isset($args["password"])) {
@@ -101,6 +154,11 @@ if (!class_exists("EBEmailTmplParser")) {
             return "USER_PASSWORD";
         }
 
+        /**
+         * Provides the functionality to get the order id
+         * array $args  array of default email page arguments
+         * @return string returns the order id
+         */
         private function getOrderID($args)
         {
             if (isset($args["order_id"])) {

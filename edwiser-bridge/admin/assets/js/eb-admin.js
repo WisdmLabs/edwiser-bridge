@@ -30,8 +30,8 @@
 
     $(window).load(function () {
         if ($("#eb_email_templates_list").length) {
-            var container=$("#eb_email_templates_list");
-            var scrollTo=$(".eb-emailtmpl-active");
+            var container = $("#eb_email_templates_list");
+            var scrollTo = $(".eb-emailtmpl-active");
             console.log("Scrollling......................");
             container.animate({
                 scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
@@ -437,13 +437,16 @@
                     $("#eb-lading-parent").hide();
                 },
                 success: function (response) {
-                    response = $.parseJSON(response);
-                    $('.load-response').hide();
-                    if (response["success"] == "1") {
-                        ohSnap('<p>' + eb_admin_js_object.msg_test_mail_sent_to + mailTo + '</p>', 'success');
-                    } else {
-                        ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
+                    if (response['success']) {                        
+                        if (response["data"] == "OK") {
+                            ohSnap('<p>' + eb_admin_js_object.msg_test_mail_sent_to + mailTo + '</p>', 'success');
+                        } else {
+                            ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
+                        }
+                    }else{
+                      ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');  
                     }
+                    $('.load-response').hide();
                     $("#eb-lading-parent").hide();
                 }
             });

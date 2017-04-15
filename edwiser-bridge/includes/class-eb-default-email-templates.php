@@ -4,6 +4,13 @@ namespace app\wisdmlabs\edwiserBridge;
 if (!class_exists("EBDefaultEmailTemplate")) {
     class EBDefaultEmailTemplate
     {
+        /**
+         * Preapares the default new user account creation on moodle and WP email
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
         public function newUserAcoount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
@@ -16,6 +23,14 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Preapares the default link moodle account email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
         public function linkWPMoodleAccount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
@@ -28,6 +43,14 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Preapares the default new moolde account creation email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
         public function linkNewMoodleAccount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
@@ -40,6 +63,14 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Preapares the default new course order creation email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
         public function orderComplete($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
@@ -52,6 +83,14 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Preapares the default course access expire email notification
+         * email tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
         public function courseAccessExpired($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
@@ -64,6 +103,12 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Prepares the html template with constants for the new WP and moodle user account creation
+         * @return html returns the email template body content for the new user
+         * acount creation on moodle and WP
+         */
         private function getNewUserAccountTemplate()
         {
             ob_start();
@@ -120,12 +165,16 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         </tr>
                     </tbody>
                 </table>
-            </div>          
+            </div>
             <?php
             return ob_get_clean();
         }
-        
-        
+
+        /**
+         * Prepares the html template with constants for the new moodle user account creation
+         * @return html returns the email template body content for the new user
+         * acount creation on moodle.
+         */
         private function getLinkNewMoodleAccountTemplate()
         {
             ob_start();
@@ -189,12 +238,16 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         </tr>
                     </tbody>
                 </table>
-            </div>         
+            </div>
             <?php
             return ob_get_clean();
         }
-        
-        
+
+        /**
+         * Prepares the html template with constants for the linking moodle user account with WP
+         * @return html returns the email template body content for the linking user
+         * acount to moodle
+         */
         private function getLinkWPMoodleAccountTemplate()
         {
             ob_start();
@@ -242,10 +295,17 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         </tr>
                     </tbody>
                 </table>
-            </div>          
+            </div>
             <?php
             return ob_get_clean();
         }
+
+        /**
+         * Prepares the html template with constants for the new course order
+         * creation
+         * @return html returns the email template body content for the new
+         * course order creation
+         */
         private function getOrderCompleteTemplate()
         {
             ob_start();
@@ -307,6 +367,13 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             <?php
             return ob_get_clean();
         }
+
+         /**
+         * Prepares the html template with constants for the course access expire
+         * creation
+         * @return html returns the email template body content for the course
+         * access expire
+         */
         private function getCourseAccessExpitedTemplate()
         {
             ob_start();

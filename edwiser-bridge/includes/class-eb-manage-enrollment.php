@@ -83,6 +83,9 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             $this->version = $version;
         }
 
+        /**
+         * Displays the manage email tempalte page output
+         */
         public function outPut()
         {
             $listTable = new EBCustomListTable();
@@ -119,6 +122,11 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             <?php
         }
 
+        /**
+         * Callback to handle the bulk or individul action applied on the list
+         * table row from the manage user enrolment page
+         * @param type $action bulk action
+         */
         private function handleBulkAction($action)
         {
             switch ($action) {
@@ -130,6 +138,11 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             }
         }
 
+        /**
+         * Provides the functionality to unenroll multipal users from the course
+         * @param type $data bulk action data to unenroll users
+         * @return type
+         */
         private function multipalUnenrollByRecId($data)
         {
             if (!isset($data['enrollment'])) {
@@ -177,6 +190,9 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             }
         }
 
+        /**
+         * Ajax callback to unenroo the users from the database
+         */
         public function unenrollUserAjaxHandler()
         {
             $responce = "Failed unenroll user";
@@ -197,6 +213,13 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             }
         }
 
+        /**
+         * Provides the functionality to unenroll the user from the course
+         * @param type $courseId
+         * @param type $userId
+         * @return bolean returns ture if the user is unenrolled from the course
+         * othrewise returns false.
+         */
         private function unenrollUser($courseId, $userId)
         {
             $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
