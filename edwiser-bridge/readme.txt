@@ -155,6 +155,7 @@ Take a look at the link below to see the full list of questions which will help 
 * Tweak- User get's un-enroll from the course on the order status marked from completed to pending or failed.
 * Tweak- Updated the user order details on the user account page and added the order status column.
 * Fix - User not getting created on moodle when username contains the uppercase characters.
+* Fix - My courses shortcode showing only 10 courses not more than that.
 
 
 = 1.2.1 =

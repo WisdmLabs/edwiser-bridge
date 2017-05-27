@@ -131,7 +131,6 @@ class EBConnectionHelper
         $request_url = $url.'/webservice/rest/server.php?wstoken=';
         $request_url .= $token.'&wsfunction=';
         $request_url .= $webservice_function.'&moodlewsrestformat=json';
-
         // $response = wp_remote_post( $request_url, $request_args );
         $response = wp_remote_post($request_url);
 

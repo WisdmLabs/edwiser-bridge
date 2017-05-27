@@ -483,7 +483,6 @@ class EBUserManager
     {
         $user = array(); // to store user creation/updation response
         $users = array();
-
         edwiserBridgeInstance()->logger()->add('user', 'Start creating/updating moodle user, Updating: '.$update); // add user log
         // set webservice function according to update parameter
         if ($update == 1) {
@@ -491,7 +490,6 @@ class EBUserManager
         } else {
             $webservice_function = 'core_user_create_users';
         }
-
 
         /**
          * to lowercase the username for moodle
@@ -525,20 +523,16 @@ class EBUserManager
          * used to add additional user profile fields value that is passed to moodle
          */
         $user_data = apply_filters('eb_moodle_user_profile_details', $user_data, $update);
-
         // prepare user data array
         foreach ($user_data as $key => $value) {
             $users[0][$key] = $value;
         }
-
         // prepare request data
         $request_data = array('users' => $users);
         $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
             $webservice_function,
             $request_data
         );
-
-        // edwiserBridgeInstance()->logger()->add( 'user', 'Create/Update moodle user response: '.serialize( $response ) ); // add user log
         // handle response recived from moodle and creates response array accordingly
         if ($update == 0) { // when user is created
             if ($response['success'] == 1 && empty($response['response_data'])) {
@@ -564,7 +558,6 @@ class EBUserManager
             $wp_user = get_user_by('email', $user_data['email']);
             $this->userCourseSynchronizationHandler(array('eb_synchronize_user_courses' => 1), $wp_user->ID);
         }
-
         return $user;
     }
 
