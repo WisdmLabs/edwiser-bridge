@@ -128,6 +128,7 @@ Take a look at the link below and follow the steps provided to configure your Mo
 13. Update user profile from frontend. 
 14. Setting to set the course access period of the enrolled user.
 15. Edit email notification template's content.
+15. Manage user enrollment.
 
 
  ==  Frequently Asked Questions  == 
