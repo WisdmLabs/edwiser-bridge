@@ -108,7 +108,7 @@ class EBAdminEmailTemplate
                             </tr>
 
                             <tr>
-                                <td class="eb-email-lable"><?php _e("Send email notification to the user", "eb-textdomain"); ?></td>
+                                <td class="eb-email-lable"><?php _e("Send email notification to the user?", "eb-textdomain"); ?></td>
                                 <td>
                                     <input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
                                 </td>
