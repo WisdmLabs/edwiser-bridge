@@ -33,7 +33,6 @@ class EBEmailer
      * @var string The current version of this plugin.
      */
     private $version;
-
     //template loader object
     private $plugin_template_loader;
 
@@ -73,7 +72,18 @@ class EBEmailer
     public function sendCourseAccessExpireEmail($args)
     {
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
-        if ($emailTmplData) {
+        $allowNotify = get_option("eb_emailtmpl_course_access_expir_notify_allow");
+        if ($emailTmplData && $allowNotify == "ON") {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+    }
+    
+    public function sendExistingWpUserNewMoodleAccountEmail($args)
+    {
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_new_moodle_user");
+        $allowNotify = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
+        if ($emailTmplData && $allowNotify == "ON") {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
@@ -94,6 +104,10 @@ class EBEmailer
          * Using Email template Editor
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        $allowNotify=get_option("eb_emailtmpl_create_user_notify_allow");
+        if ($allowNotify==false || $allowNotify!="ON") {
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
@@ -134,6 +148,11 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
 
+        $allowNotify=get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
+
+        if ($allowNotify==false || $allowNotify!="ON") {
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
@@ -208,6 +227,10 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
 
+        $allowNotify=get_option("eb_emailtmpl_order_completed_notify_allow");
+        if ($allowNotify==false || $allowNotify!="ON") {
+            return;
+        }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);

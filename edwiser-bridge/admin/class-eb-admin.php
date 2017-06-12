@@ -101,6 +101,9 @@ class EbAdmin
          * class.
          */
         $nonce = wp_create_nonce('check_sync_action');
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-dialog');
 
         wp_enqueue_script('iris');
 

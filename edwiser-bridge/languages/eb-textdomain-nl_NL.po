@@ -1,0 +1,955 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Mon Jan 09 2017 10:53:44 GMT+0530 (IST)\n"
+"PO-Revision-Date: 2017-01-19 11:08+0100\n"
+"Last-Translator: Ron Pluylaar <r.pluylaar@xs4all.nl>\n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;__:1;_e:1;"
+"_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;_x:1,2c;_ex:1,2c;"
+"_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;esc_attr__:1;esc_html__:1;"
+"esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;esc_html_x:1,2c;comments_number_link:2,3;"
+"t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Loco-Target-Locale: de_DE\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#. Name of the plugin
+msgid "Edwiser Bridge - WordPress Moodle LMS Integration"
+msgstr "Edwiser Bridge - WordPress Moodle LMS-integratie"
+
+#. URI of the plugin
+msgid "https://edwiser.org/bridge"
+msgstr "https://edwiser.org/bridge"
+
+#. Description of the plugin
+msgid ""
+"Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy "
+"option to import Moodle courses to WordPress and sell them using PayPal. The plugin "
+"also allows automatic registration of WordPress users on the Moodle website along "
+"with single login credentials for both the systems."
+msgstr ""
+"Edwiser Bridge integreert WordPress met de Moodle LMS. De plugin biedt een "
+"eenvoudige optie om Moodle cursussen naar WordPress te importeren en te verkopen via "
+"PayPal. De plugin maakt ook automatische registratie van WordPress gebruikers op de "
+"website van Moodle samen met enkele inloggegevens voor beide systemen mogelijk."
+
+#. Author of the plugin
+msgid "WisdmLabs"
+msgstr "WisdmLabs"
+
+#. Author URI of the plugin
+msgid "https://edwiser.org"
+msgstr "https://edwiser.org"
+
+#: ../edwiser-bridge.php:80
+msgid "Edwiser Bridge Documentation"
+msgstr "Edwiser Bridge documentatie"
+
+#: ../edwiser-bridge.php:81
+msgid "Documentation"
+msgstr "Documentatie"
+
+#: ../edwiser-bridge.php:122
+msgid "Please update all <strong>Edwiser Bridge</strong> extensions to latest version."
+msgstr ""
+"Werk alle uitbreidingen van de <strong>Edwiser brug</strong> naar de nieuwste versie."
+
+#: ../admin/class-eb-admin.php:117
+msgid "Please save the changes."
+msgstr "Sla aub uw wijzigingen op"
+
+#: ../admin/class-eb-admin-settings.php:69
+msgid "Action failed. Please refresh the page and retry."
+msgstr "Actie mislukt; vernieuw de pagina en probeer het nog eens."
+
+#: ../admin/class-eb-admin-settings.php:77
+msgid "Your settings have been saved."
+msgstr "Je instellingen zijn opgeslagen."
+
+#: ../admin/class-eb-admin-settings.php:566
+msgid "Select a page"
+msgstr "Selecteer een pagina"
+
+#: ../admin/class-eb-admin-menus.php:57 ../admin/class-eb-admin-menus.php:58
+msgid "Edwiser Bridge"
+msgstr "Edwiser Bridge"
+
+#: ../admin/class-eb-admin-menus.php:70 ../admin/settings/class-eb-settings-
+#: synchronization.php:50
+msgid "Courses"
+msgstr "Cursussen"
+
+#: ../admin/class-eb-admin-menus.php:75 ../includes/class-eb-post-types.php:66 ..
+#: /includes/class-eb-post-types.php:68
+msgid "Course Categories"
+msgstr "Categorieën"
+
+#: ../admin/class-eb-admin-menus.php:80 ../includes/class-eb-post-types.php:149
+msgid "Orders"
+msgstr "Bestellingen"
+
+#: ../admin/class-eb-admin-menus.php:132 ../admin/class-eb-admin-menus.php:133
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../admin/class-eb-admin-menus.php:149 ../admin/class-eb-admin-menus.php:150
+msgid "Extensions"
+msgstr "Extenties"
+
+#: ../admin/class-eb-welcome.php:49
+msgid "About Edwiser Bridge"
+msgstr "Over Edwiser Bridge"
+
+#: ../admin/class-eb-welcome.php:50 ../admin/class-eb-welcome.php:222
+msgid "Welcome to Edwiser Bridge"
+msgstr "Welkom bij Edwiser Bridge"
+
+#: ../admin/class-eb-welcome.php:225
+#, php-format
+msgid "Version %s"
+msgstr "Versie %s"
+
+#: ../admin/class-eb-welcome.php:248
+msgid ""
+"Thanks for installing Edwiser Bridge!\n"
+"                            Integrating WordPress with Moodle has never been so "
+"simple. We hope you enjoy using it."
+msgstr ""
+"Bedankt voor het installeren van Edwiser Bridge!\n"
+"                            Het integreren van WordPress met Moodle was nog nooit zo "
+"eenvoudig. Wij hopen dat u ons product met plezier gebruikt."
+
+#: ../admin/class-eb-welcome.php:299
+msgid "Skip to Settings"
+msgstr "Ga naar instellingen"
+
+#: ../admin/class-eb-welcome.php:301
+msgid "https://edwiser.org/bridge/documentation/"
+msgstr "https://edwiser.org/bridge/documentation/"
+
+#: ../admin/class-eb-welcome.php:302
+msgid "Docs"
+msgstr "Documentatie"
+
+#: ../admin/partials/html-admin-settings.php:41
+msgid "Save changes"
+msgstr "Bewaar wijzigingen"
+
+#: ../admin/partials/html-admin-page-extensions.php:14
+msgid "Our Extensions"
+msgstr "Onze Extenties"
+
+#: ../admin/partials/html-admin-page-extensions.php:16
+msgid "Browse all extensions"
+msgstr "Bekijk alle extenties"
+
+#: ../admin/partials/html-admin-page-extensions.php:49
+msgid "Browse all our extensions"
+msgstr "Bekijk alle extenties"
+
+#: ../admin/partials/html-admin-page-extensions.php:57
+#, php-format
+msgid ""
+"Our list of extensions for Edwiser Bridge can be found here:\n"
+"            <a href=\"%s\" target=\"_blank\">Edwiser Bridge Extensions</a>"
+msgstr ""
+"Onze lijst met extenties voor Edwiser Bridge kunt u hier vinden:\n"
+"            <a href=\"%s\" target=\"_blank\">Edwiser Bridge Extensions</a>"
+
+#: ../admin/partials/html-admin-licensing.php:69
+#, php-format
+msgid ""
+"%1s You do not have any extensions activated. %2s Please activate any installed "
+"extensions. If you do not have any extensions, you can take a look at the list %3s "
+"here%4s.%5s"
+msgstr ""
+"%1s U heeft geen extensies geactiveerd. %2s Activeer de geinstalleerde "
+"extensiesPlease activate any installed extensions. If you do not have any "
+"extensions, you can take a look at the list %3s here%4s.%5s"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:32
+msgid "Synchronization"
+msgstr "Synchronisatie"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:51
+msgid "Users"
+msgstr "Gebruikers"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:100
+msgid "Synchronize User Data"
+msgstr "Synchroniseer Gebruikers Data"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:106 ..
+#: /admin/settings/class-eb-settings-synchronization.php:143
+msgid "Synchronization Options"
+msgstr "Synchronisatie Opties"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:107
+msgid "Update user's course enrollment status"
+msgstr "Update Gebruikers cursus enrollment  status"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:137
+msgid "Synchronize Courses"
+msgstr "Synchroniseer cursussen"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:144
+msgid "Synchronize course categories"
+msgstr "Synchroniseer cursus categorieën"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:154
+msgid "Update previously synchronized courses"
+msgstr "Update eerder gesynchroniseerde cursussen"
+
+#: ../admin/settings/class-eb-settings-synchronization.php:164
+msgid "Keep synchronized courses as draft"
+msgstr "Bewaar gesynchroniseerde cursussen als draft"
+
+#: ../admin/settings/class-eb-settings-help.php:32
+msgid "Get Help"
+msgstr "Help"
+
+#: ../admin/settings/class-eb-settings-paypal.php:32 ../admin/settings/class-eb-
+#: settings-paypal.php:79
+msgid "PayPal Settings"
+msgstr "PayPal instellingen"
+
+#: ../admin/settings/class-eb-settings-paypal.php:85
+msgid "PayPal Email"
+msgstr "PayPal E-mail"
+
+#: ../admin/settings/class-eb-settings-paypal.php:86
+msgid "Enter your PayPal email here."
+msgstr "Voer hier uw PayPal e-mail adres in"
+
+#: ../admin/settings/class-eb-settings-paypal.php:96
+msgid "PayPal Currency"
+msgstr "PayPal valuta"
+
+#: ../admin/settings/class-eb-settings-paypal.php:97
+msgid "Select transaction currency code, Default is USD."
+msgstr "Selecteer de valuta code voor transacties, standaard is USD"
+
+#: ../admin/settings/class-eb-settings-paypal.php:104
+msgid "U.S. Dollar (USD)"
+msgstr "U.S. Dollar (USD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:105
+msgid "Canadian Dollar (CAD)"
+msgstr "Canadese Dollar (CAD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:106
+msgid "New Zealand Dollar (NZD)"
+msgstr "New Zealand Dollar (NZD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:107
+msgid "Hong Kong Dollar (HKD)"
+msgstr "Hong Kong Dollar (HKD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:108
+msgid "Euro (EUR)"
+msgstr "Euro (EUR)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:109
+msgid "Japanese Yen (JPY)"
+msgstr "Japanse Yen (JPY)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:110
+msgid "Mexican Peso (MXN)"
+msgstr "Mexicaanse Peso (MXN)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:111
+msgid "Swiss Franc (CHF)"
+msgstr "Zwitserse Franc (CHF)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:112
+msgid "Pound Sterling (GBP)"
+msgstr "Britse Pond (GBP)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:113
+msgid "Australian Dollar (AUD)"
+msgstr "Australische Dollar (AUD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:114
+msgid "Polish Zloty (PLN)"
+msgstr "Poolse Zloty (PLN)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:115
+msgid "Danish Krone (DKK)"
+msgstr "Deense Kroon (DKK)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:116
+msgid "Singapore Dollar (SGD)"
+msgstr "Singapore Dollar (SGD)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:121
+msgid "PayPal Country"
+msgstr "PayPal Land"
+
+#: ../admin/settings/class-eb-settings-paypal.php:122
+msgid "Enter your country code here."
+msgstr "Voer hier uw landcode in"
+
+#: ../admin/settings/class-eb-settings-paypal.php:132
+msgid "PayPal Cancel URL"
+msgstr "PayPal Annuleren URL"
+
+#: ../admin/settings/class-eb-settings-paypal.php:133
+msgid "Enter the URL used for purchase cancellations."
+msgstr "Geef de URL voor aankoop annuleringen"
+
+#: ../admin/settings/class-eb-settings-paypal.php:143
+msgid "PayPal Return URL"
+msgstr "PayPal Return URL"
+
+#: ../admin/settings/class-eb-settings-paypal.php:144
+msgid "Enter the URL used for completed purchases (a thank you page)."
+msgstr "Geef de URL voor afgeronde aankopen (een bedank pagina)"
+
+#: ../admin/settings/class-eb-settings-paypal.php:157
+msgid "PayPal Notify URL"
+msgstr "PayPal Notificatie URL"
+
+#: ../admin/settings/class-eb-settings-paypal.php:158
+msgid "Enter the URL used for IPN notifications."
+msgstr "Geef de URL voor IPN notificaties"
+
+#: ../admin/settings/class-eb-settings-paypal.php:168
+msgid "Use PayPal Sandbox"
+msgstr "Gebruik PayPal Sandbox"
+
+#: ../admin/settings/class-eb-settings-paypal.php:169
+msgid "Check to enable the PayPal sandbox."
+msgstr "Vink aan om de PayPal Sandbox te activeren"
+
+#: ../admin/settings/class-eb-settings-connection.php:32 ../admin/settings/class-
+#: eb-settings-connection.php:79
+msgid "Connection Settings"
+msgstr "Verbinding Instellingen"
+
+#: ../admin/settings/class-eb-settings-connection.php:85
+msgid "Moodle URL"
+msgstr "Moodle URL"
+
+#: ../admin/settings/class-eb-settings-connection.php:86
+msgid "Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)"
+msgstr "Moodle URL ( Zoals: http://example.com of http://example.com/moodle etc.)"
+
+#: ../admin/settings/class-eb-settings-connection.php:99
+msgid "Moodle Access Token"
+msgstr "Moodle Toegangstoken"
+
+#: ../admin/settings/class-eb-settings-connection.php:100
+msgid "Moodle access token."
+msgstr "Moodle Toegangstoken"
+
+#: ../admin/settings/class-eb-settings-licensing.php:34 ../admin/settings/class-
+#: eb-settings-licensing.php:67
+msgid "Licenses"
+msgstr "Licenties"
+
+#: ../admin/settings/class-eb-settings-general.php:32
+msgid "General"
+msgstr "Algemeen"
+
+#: ../admin/settings/class-eb-settings-general.php:52
+msgid "General Options"
+msgstr "Algemene instellingen"
+
+#: ../admin/settings/class-eb-settings-general.php:62
+msgid "Enable Registration"
+msgstr "Registratie inschakelen"
+
+#: ../admin/settings/class-eb-settings-general.php:63
+msgid "Enable user registration"
+msgstr "Gebruikersregistratie inschakelen"
+
+#: ../admin/settings/class-eb-settings-general.php:71
+msgid "User Account Page"
+msgstr "Gebruikersaccount pagina"
+
+#: ../admin/settings/class-eb-settings-general.php:73
+#, php-format
+msgid "Select user account page here. Default page is <a href=\"%s\">User Account</a> "
+msgstr ""
+"Selecteer gebruikers account pagina hier. Standaard pagina is <a href=\"%s"
+"\">Gebruikers Account</a> "
+
+#: ../admin/settings/class-eb-settings-general.php:87
+msgid "This sets the user account page, where user can see his/her purchase history."
+msgstr ""
+"Dit stelt de gebruikers account pagina in, waar de gebruiker zijn/haar "
+"aankoopgeschiedenis kan zien."
+
+#: ../admin/settings/class-eb-settings-general.php:94
+msgid "Moodle Language Code"
+msgstr "Moodle Taal code"
+
+#: ../admin/settings/class-eb-settings-general.php:95
+msgid "Enter language code which you get from moodle language settings."
+msgstr "Geef de taalcode die u krijgt vanuit de Moodle Taal instellingen"
+
+#: ../includes/class-eb-enrollment-manager.php:68 ../includes/class-eb-enrollment-
+#: manager.php:78 ../includes/class-eb-logger.php:73 ../includes/class-eb-logger.
+#: php:83 ../includes/class-eb.php:84 ../includes/class-eb.php:94 ..
+#: /includes/class-eb-order-manager.php:68 ../includes/class-eb-order-manager.php:78
+#: ../includes/class-eb-course-manager.php:68 ../includes/class-eb-course-
+#: ../includes/class-eb-user-manager.php:68 ../includes/class-eb- user-manager.php:78
+#: ../includes/api/class-eb-connection-helper.php:68
+#: /includes/api/class-eb-connection-helper.php:78
+msgid "Cheatin&#8217; huh?"
+msgstr "Aan het vals spelen hè?"
+
+#: ../includes/class-eb-order-manager.php:237
+msgid "Order details are not correct. Exiting"
+msgstr "Order details zijn niet correct.  Afsluiten"
+
+#: ../includes/class-eb-post-types.php:69
+msgid "Course Category"
+msgstr "Cursus Categorie"
+
+#: ../includes/class-eb-post-types.php:70
+msgctxt "Admin menu name"
+msgid "Categories"
+msgstr "Categorieën"
+
+#: ../includes/class-eb-post-types.php:71
+msgid "Search Course Categories"
+msgstr "Zoek Cursus Categorieën"
+
+#: ../includes/class-eb-post-types.php:72
+msgid "All Course Categories"
+msgstr "Alle  Cursus Categorieën"
+
+#: ../includes/class-eb-post-types.php:73
+msgid "Parent Course Categories"
+msgstr "Bovenliggende Cursus Categorieën"
+
+#: ../includes/class-eb-post-types.php:74
+msgid "Parent Course Category:"
+msgstr "Bovenliggende Cursus Categorie"
+
+#: ../includes/class-eb-post-types.php:75
+msgid "Edit Course Category"
+msgstr "Wijzig Cursus Categorie"
+
+#: ../includes/class-eb-post-types.php:76
+msgid "Update Course Category"
+msgstr "Update Cursus Categorie"
+
+#: ../includes/class-eb-post-types.php:77
+msgid "Add New Course Category"
+msgstr "Voeg nieuwe Cursus Categorie toe"
+
+#: ../includes/class-eb-post-types.php:78
+msgid "New Course Category Name"
+msgstr "Nieuwe Cursus Categorie Naam"
+
+#: ../includes/class-eb-post-types.php:103
+msgid "Moodle Courses"
+msgstr "Moodle Cursussen"
+
+#: ../includes/class-eb-post-types.php:104
+msgid "Moodle Course"
+msgstr "Moodle Cursus"
+
+#: ../includes/class-eb-post-types.php:105
+msgctxt "Admin menu name"
+msgid "Moodle Courses"
+msgstr "Moodle Cursussen"
+
+#: ../includes/class-eb-post-types.php:106
+msgid "Add Course"
+msgstr "Voeg cursus toe"
+
+#: ../includes/class-eb-post-types.php:107
+msgid "Add New Course"
+msgstr "Voeg een nieuwe cursus toe"
+
+#: ../includes/class-eb-post-types.php:108 ../includes/class-eb-post-types.php:154
+msgid "Edit"
+msgstr "Bewerken"
+
+#: ../includes/class-eb-post-types.php:109
+msgid "Edit Course"
+msgstr "Bewerk Cursus"
+
+#: ../includes/class-eb-post-types.php:110
+msgid "New Course"
+msgstr "Nieuwe Cursus"
+
+#: ../includes/class-eb-post-types.php:111 ../includes/class-eb-post-types.php:112
+msgid "View Course"
+msgstr "Bekijk Cursus"
+
+#: ../includes/class-eb-post-types.php:113
+msgid "Search Courses"
+msgstr "Zoek cursussen"
+
+#: ../includes/class-eb-post-types.php:114
+msgid "No Courses found"
+msgstr "Geen cursussen gevonden"
+
+#: ../includes/class-eb-post-types.php:115
+msgid "No Courses found in trash"
+msgstr "Geen cursussen gevonden in Prullenbak"
+
+#: ../includes/class-eb-post-types.php:117
+msgid "This is where you can add new courses to your Moodle LMS."
+msgstr "Hier kunt U nieuwe cursussen toevoegen aan het Moodle LMS"
+
+#: ../includes/class-eb-post-types.php:150
+msgid "Order"
+msgstr "Bestelling"
+
+#: ../includes/class-eb-post-types.php:151
+msgctxt "Admin menu name"
+msgid "Orders"
+msgstr "Bestellingen"
+
+#: ../includes/class-eb-post-types.php:152
+msgid "Add Order"
+msgstr "Bestelling toevoegen"
+
+#: ../includes/class-eb-post-types.php:153
+msgid "Add New Order"
+msgstr "Voeg een nieuwe bestelling toe"
+
+#: ../includes/class-eb-post-types.php:155
+msgid "Edit Order"
+msgstr "Bestelling wijzigen"
+
+#: ../includes/class-eb-post-types.php:156
+msgid "New Order"
+msgstr "Nieuwe bestelling"
+
+#: ../includes/class-eb-post-types.php:157 ../includes/class-eb-post-types.php:158
+msgid "View Order"
+msgstr "Bekijk bestelling"
+
+#: ../includes/class-eb-post-types.php:159
+msgid "Search Orders"
+msgstr "Zoek bestellingen"
+
+#: ../includes/class-eb-post-types.php:160
+msgid "No orders found"
+msgstr "Geen bestellingen gevonden"
+
+#: ../includes/class-eb-post-types.php:161
+msgid "No orders found in trash"
+msgstr "Geen bestellingen gevonden in de prullenbak"
+
+#: ../includes/class-eb-post-types.php:163
+msgid "This is where you can see course orders."
+msgstr "Hier kunt U bestelde cursussen bekijken"
+
+#: ../includes/class-eb-post-types.php:267
+msgid "Moodle Course ID"
+msgstr "Moodle Cursus ID"
+
+#: ../includes/class-eb-post-types.php:268
+msgid "ID of this course on moodle."
+msgstr "ID van deze Moodle cursus"
+
+#: ../includes/class-eb-post-types.php:276
+msgid "Course Price Type"
+msgstr "Cursus Prijs type"
+
+#: ../includes/class-eb-post-types.php:277
+msgid "Is it free to join or one time purchase?"
+msgstr "Gratis of éénmalige aanschaf?"
+
+#: ../includes/class-eb-post-types.php:288
+msgid "Course Price"
+msgstr "Cursus prijs"
+
+#: ../includes/class-eb-post-types.php:289
+msgid "Course price in currency as defined in settings."
+msgstr "Cursus Prijs in valuta zoals gedefinieerd in de instellingen"
+
+#: ../includes/class-eb-post-types.php:291
+msgid "Enter course price"
+msgstr "Voeg cursus prijs toe"
+
+#: ../includes/class-eb-post-types.php:296 ../includes/class-eb-post-types.php:302
+msgid "Optional URL"
+msgstr "Optionele URL"
+
+#: ../includes/class-eb-post-types.php:297
+msgid "Optional url to redirect user on click of take this course button."
+msgstr "Optionele URL om gebruiker door te verwijzen na klik op 'Start Cursus' knop"
+
+#: ../includes/class-eb-post-types.php:307
+msgid "Short Description"
+msgstr "Korte omschrijving"
+
+#: ../includes/class-eb-post-types.php:308
+msgid "Short description of course."
+msgstr "Korte omschrijving van de cursus"
+
+#: ../includes/class-eb-post-types.php:317
+msgid "Order Status"
+msgstr "Bestelling status"
+
+#: ../includes/class-eb-post-types.php:318
+msgid "Status of Order"
+msgstr "Status van de bestelling"
+
+#: ../includes/class-eb-post-types.php:603
+#, php-format
+msgid "%s updated. <a href=\"%s\" target=\"_blank\">View %s</a>"
+msgstr "%s updated. <a href=\"%s\" target=\"_blank\">Bekijk %s</a>"
+
+#: ../includes/class-eb-post-types.php:608
+msgid "Custom field updated."
+msgstr "Extra veld bijgewerkt."
+
+#: ../includes/class-eb-post-types.php:609
+msgid "Custom field deleted."
+msgstr "Extra veld verwijderd."
+
+#: ../includes/class-eb-post-types.php:610
+#, php-format
+msgid "%s updated."
+msgstr "%s updated."
+
+#: ../includes/class-eb-post-types.php:612
+#, php-format
+msgid "%2$s restored to revision from %1$s"
+msgstr "%2$s teruggezet naar revisie van %s"
+
+#: ../includes/class-eb-post-types.php:617
+#, php-format
+msgid "%s published. <a href=\"%s\">View %s</a>"
+msgstr "%s gepubliceerd. <a href=\"%s\">Bekijk %s</a>"
+
+#: ../includes/class-eb-post-types.php:622
+#, php-format
+msgid "%s saved."
+msgstr "%s opgeslagen."
+
+#: ../includes/class-eb-post-types.php:624
+#, php-format
+msgid "%s submitted. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
+msgstr "%s verzonden. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
+
+#: ../includes/class-eb-post-types.php:630
+#, php-format
+msgid ""
+"%s scheduled for: <strong>%s</strong>. <a href=\"%s\" target=\"_blank\">Preview %s</"
+"a>"
+msgstr ""
+"%s gepland voor: <strong>%s</strong>. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
+
+#: ../includes/class-eb-post-types.php:633
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: ../includes/class-eb-post-types.php:642
+#, php-format
+msgid "%s draft updated. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
+msgstr "%s concept updated. <a href=\"%s\" target=\"_blank\">Preview %s</a>"
+
+#: ../includes/class-eb-activator.php:197
+msgctxt "Page slug"
+msgid "thank-you-for-purchase"
+msgstr "dank-voor-uw-aankoop"
+
+#: ../includes/class-eb-activator.php:198
+msgctxt "Page title"
+msgid "Thank You for Purchase"
+msgstr "Bedankt voor uw aankoop"
+
+#: ../includes/class-eb-activator.php:204
+msgctxt "Page slug"
+msgid "user-account"
+msgstr "gebruikers-account"
+
+#: ../includes/class-eb-activator.php:205
+msgctxt "Page title"
+msgid "User Account"
+msgstr "Gebruikers Account"
+
+#: ../includes/class-eb-user-manager.php:255
+msgid "Please provide a valid email address."
+msgstr "Vul alstublieft een geldig e-mailadres in."
+
+#: ../includes/class-eb-user-manager.php:261
+msgid "An account is already registered with your email address. Please login."
+msgstr "Er is al een account geregistreerd met uw e-mail adres. Gelieve in te loggen"
+
+#: ../includes/class-eb-user-manager.php:315
+msgid "ERROR"
+msgstr "FOUT"
+
+#: ../includes/class-eb-user-manager.php:316
+msgid ""
+"Couldn&#8217;t register you&hellip; please contact us if you continue to have "
+"problems."
+msgstr ""
+"Kon U niet registreren&hellip; neem contact op wanneer U problemen blijft "
+"ondervinden."
+
+#: ../includes/class-eb-user-manager.php:680 ../includes/class-eb-user-manager. php:683
+msgid "Link Moodle Account"
+msgstr "Link Moodle Account"
+
+#: ../includes/class-eb-user-manager.php:686 ../includes/class-eb-user-manager. php:689
+msgid "Unlink Moodle Account"
+msgstr "Unlink Moodle Account"
+
+#: ../includes/class-eb-user-manager.php:779
+#, php-format
+msgid "%s User Unlinked."
+msgstr "%s Gebruiker Unlinked."
+
+#: ../includes/class-eb-user-manager.php:782
+#, php-format
+msgid "%s Users Unlinked."
+msgstr "%s Gebruikers Unlinked."
+
+#: ../includes/class-eb-user-manager.php:786
+#, php-format
+msgid "%s User Linked."
+msgstr "%s Gebruiker linked."
+
+#: ../includes/class-eb-user-manager.php:788
+#, php-format
+msgid "%s Users Linked."
+msgstr "%s Gebruikers linked."
+
+#: ../includes/class-eb-user-manager.php:907
+msgid "Enrolled Courses"
+msgstr "Aangemelde cursussen"
+
+#: ../includes/class-eb-user-manager.php:929
+msgid "Enroll a Course"
+msgstr "Aanmelden in cursus"
+
+#: ../includes/class-eb-user-manager.php:943
+msgid "Unenroll a Course"
+msgstr "Afmelden in cursus"
+
+#: ../includes/emails/class-eb-emailer.php:87
+msgid "New User Account Details"
+msgstr "Nieuwe gebruikers-account details"
+
+#: ../includes/emails/class-eb-emailer.php:118
+msgid "Your Learning Account Credentials"
+msgstr "Uw gebruikers account inloggegevens"
+
+#: ../includes/emails/class-eb-emailer.php:176
+msgid "Your order completed successfully."
+msgstr "Uw aankoop is succesvol voltooid."
+
+#: ../includes/payments/enhanced-paypal-shortcodes.php:312 ..
+#: /includes/payments/class-eb-payment-manager.php:351
+msgid "Complete Your Purchase"
+msgstr "Voltooi uw aankoop"
+
+#: ../includes/payments/enhanced-paypal-shortcodes.php:470 ..
+#: /includes/payments/enhanced-paypal-shortcodes.php:654
+#: /includes/payments/enhanced-paypal-shortcodes.php:929
+#: /includes/payments/enhanced-paypal-shortcodes.php:1128
+#: /includes/payments/class-eb-payment-manager.php:279 ../includes/payments/class-
+#: eb-payment-manager.php:289 ../includes/payments/class-eb-payment-manager.php:314
+#: ../includes/payments/class-eb-payment-manager.php:326
+msgid "Take this Course"
+msgstr "Start deze cursus"
+
+#: ../includes/payments/enhanced-paypal-shortcodes.php:652 ..
+#: /includes/payments/enhanced-paypal-shortcodes.php:927
+msgid "PayPal - The safer, easier way to pay online."
+msgstr "PayPal - de veilige, eenvoudige manier om on-line te betalen."
+
+#: ../includes/payments/class-eb-payment-manager.php:122
+msgid "Access Course"
+msgstr "Start Cursus"
+
+#: ../includes/payments/class-eb-payment-manager.php:366 ..
+#: /includes/payments/class-eb-payment-manager.php:375
+msgid "Course Not Available"
+msgstr "Cursus niet beschikbaar"
+
+#: ../public/class-eb-frontend-form-handler.php:37 ../public/class-eb-frontend-
+#: form-handler.php:46 ../public/class-eb-frontend-form-handler.php:55
+msgid "Error"
+msgstr "Fout"
+
+#: ../public/class-eb-frontend-form-handler.php:48
+msgid "Username is required."
+msgstr "Gebruikersnaam is verplicht"
+
+#: ../public/class-eb-frontend-form-handler.php:57
+msgid "Password is required."
+msgstr "Wachtwoord is verplicht"
+
+#: ../public/class-eb-frontend-form-handler.php:117
+msgid "Anti-spam field was filled in."
+msgstr "Anti-spam veld was ingevuld."
+
+#: ../public/templates/content-single-eb_course.php:40 ..
+#: /public/templates/content-eb_course.php:38
+msgid "Free"
+msgstr "Gratis"
+
+#: ../public/templates/content-single-eb_course.php:113
+msgid "<strong>Price: </strong>"
+msgstr "<strong>Prijs: </strong>"
+
+#: ../public/templates/content-single-eb_course.php:125
+msgid "Courses:"
+msgstr "Cursussen:"
+
+#: ../public/templates/content-eb_course.php:104
+msgid "Read More"
+msgstr "Lees Meer"
+
+#: ../public/templates/archive-eb_course.php:45
+msgid "Previous page"
+msgstr "Vorige pagina"
+
+#: ../public/templates/archive-eb_course.php:46
+msgid "Next page"
+msgstr "Volgende pagina"
+
+#: ../public/templates/archive-eb_course.php:48
+msgid "Page"
+msgstr "Pagina"
+
+#: ../public/templates/account/user-account.php:2
+msgid "Course Purchase History"
+msgstr "Cursus Aankoop geschiedenis"
+
+#: ../public/templates/account/user-account.php:19
+msgid "Order ID"
+msgstr "Bestelling ID"
+
+#: ../public/templates/account/user-account.php:20
+msgid "Ordered Course"
+msgstr "Bestelde cursus"
+
+#: ../public/templates/account/user-account.php:21
+msgid "Billing Email"
+msgstr "Factuur e-mail adres"
+
+#: ../public/templates/account/user-account.php:22
+msgid "Amount Paid"
+msgstr "Bedrag betaald"
+
+#: ../public/templates/account/form-login.php:27 ../public/templates/account/form-
+#: login.php:64
+msgid "Login"
+msgstr "Inloggen"
+
+#: ../public/templates/account/form-login.php:36
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+#: ../public/templates/account/form-login.php:46
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: ../public/templates/account/form-login.php:56
+msgid "Remember me"
+msgstr "Onthoud mij"
+
+#: ../public/templates/account/form-login.php:69
+msgid "Lost your password?"
+msgstr "Je wachtwoord vergeten?"
+
+#: ../public/templates/account/form-login.php:84
+msgid "Don't have an Account?"
+msgstr "Geen account?"
+
+#: ../public/templates/account/form-login.php:104 ..
+#: /public/templates/account/form-login.php:158
+msgid "Register"
+msgstr "Registreer"
+
+#: ../public/templates/account/form-login.php:113
+msgid "First Name"
+msgstr "Voornaam"
+
+#: ../public/templates/account/form-login.php:125
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: ../public/templates/account/form-login.php:137
+msgid "Email"
+msgstr "E-mail"
+
+#: ../public/templates/account/form-login.php:149
+msgid "Anti-spam"
+msgstr "Anti-spam"
+
+#: ../public/templates/account/form-login.php:171
+msgid "Already have an account?"
+msgstr "Reeds een account?"
+
+#: ../public/templates/emails/user-order-completion-email.php:13 ..
+#: /public/templates/emails/user-new-account.php:13
+#: /public/templates/emails/user-existing-wp-account.php:17
+#, php-format
+msgid "Hi %s"
+msgstr "Hallo %s"
+
+#: ../public/templates/emails/user-order-completion-email.php:18
+#, php-format
+msgid "Thanks for purchasing %s course."
+msgstr "Dank voor het aanschaffen van %s cursus."
+
+#: ../public/templates/emails/user-order-completion-email.php:27
+#, php-format
+msgid "Your order with ID #%s completed successfully."
+msgstr "Uw aankoop met ID #%s is succesvol voltooid."
+
+#: ../public/templates/emails/user-order-completion-email.php:32 ..
+#: /public/templates/emails/user-new-account.php:43
+#, php-format
+msgid "You can access your account here: <a href=\"%s\">User Account</a>."
+msgstr "U kunt hier inloggen op uw account : <a href=\"%s\">Gebruikers  Account</a>."
+
+#: ../public/templates/emails/user-new-account.php:18
+#, php-format
+msgid "Thanks for creating an account on %s. Your username is <strong>%s</strong>."
+msgstr ""
+"Bedankt voor het aanmaken van een account op %s.  Uw gebruikersnaam is <strong>%s</"
+"strong>."
+
+#: ../public/templates/emails/user-new-account.php:31
+#, php-format
+msgid "Your password has been automatically generated: <strong>%s</strong>"
+msgstr "Uw wachtwoord is automatisch gegenereerd: <strong>%s</strong>"
+
+#: ../public/templates/emails/user-existing-wp-account.php:21
+msgid ""
+"A learning account is linked to your profile.\n"
+"        Use creadentials given below while accessing your courses."
+msgstr ""
+"Een account is gelinkt aan uw profiel.\n"
+"        Gebruik onderstaande gegevens om uw cursus te starten."
+
+#: ../public/templates/emails/user-existing-wp-account.php:29
+#, php-format
+msgid "Username: <strong>%s</strong>"
+msgstr "Gebruikersnaam: <strong>%s</strong>"
+
+#: ../public/templates/emails/user-existing-wp-account.php:31
+#, php-format
+msgid "Password: <strong>%s</strong>"
+msgstr "Wachtwoord: <strong>%s</strong>"
+
+#: ../public/templates/emails/user-existing-wp-account.php:35
+#, php-format
+msgid "You can purchase & access courses here: <a href=\"%s\">Courses</a>."
+msgstr "U kunt cursussen hier aankopen en starten: <a href=\"%s\">Cursussen</a>."
+

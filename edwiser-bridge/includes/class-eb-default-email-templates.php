@@ -4,10 +4,17 @@ namespace app\wisdmlabs\edwiserBridge;
 if (!class_exists("EBDefaultEmailTemplate")) {
     class EBDefaultEmailTemplate
     {
-        public function newUserAcoount($tmplId)
+        /**
+         * Preapares the default new user account creation on moodle and WP email
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function newUserAcoount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -16,22 +23,58 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-        public function linkWPMoodleAccount($tmplId)
+
+        /**
+         * Preapares the default link moodle account email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function linkWPMoodleAccount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
-                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
+                "subject" => __('Your learning account is linked with moodle', 'eb-textdomain'),
                 "content" => $this->getLinkWPMoodleAccountTemplate(),
             );
             return $data;
         }
-        public function orderComplete($tmplId)
+
+        /**
+         * Preapares the default new moolde account creation email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function linkNewMoodleAccount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
+                "content" => $this->getLinkNewMoodleAccountTemplate(),
+            );
+            return $data;
+        }
+
+        /**
+         * Preapares the default new course order creation email notification
+         * tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function orderComplete($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -40,10 +83,18 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-        public function courseAccessExpired($tmplId)
+
+        /**
+         * Preapares the default course access expire email notification
+         * email tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function courseAccessExpired($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
-            if ($data) {
+            if ($data && !$restore) {
                 return $data;
             }
             $data = array(
@@ -52,6 +103,12 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
+
+        /**
+         * Prepares the html template with constants for the new WP and moodle user account creation
+         * @return html returns the email template body content for the new user
+         * acount creation on moodle and WP
+         */
         private function getNewUserAccountTemplate()
         {
             ob_start();
@@ -108,11 +165,17 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         </tr>
                     </tbody>
                 </table>
-            </div>          
+            </div>
             <?php
             return ob_get_clean();
         }
-        private function getLinkWPMoodleAccountTemplate()
+
+        /**
+         * Prepares the html template with constants for the new moodle user account creation
+         * @return html returns the email template body content for the new user
+         * acount creation on moodle.
+         */
+        private function getLinkNewMoodleAccountTemplate()
         {
             ob_start();
             ?>
@@ -175,10 +238,74 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         </tr>
                     </tbody>
                 </table>
-            </div>          
+            </div>
             <?php
             return ob_get_clean();
         }
+
+        /**
+         * Prepares the html template with constants for the linking moodle user account with WP
+         * @return html returns the email template body content for the linking user
+         * acount to moodle
+         */
+        private function getLinkWPMoodleAccountTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Your learning account is linked with moodle', 'eb-textdomain'); ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        _e('A learning account is linked to your moodle profile.', 'eb-textdomain');
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can purchase &amp; access courses here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+        /**
+         * Prepares the html template with constants for the new course order
+         * creation
+         * @return html returns the email template body content for the new
+         * course order creation
+         */
         private function getOrderCompleteTemplate()
         {
             ob_start();
@@ -240,6 +367,13 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             <?php
             return ob_get_clean();
         }
+
+         /**
+         * Prepares the html template with constants for the course access expire
+         * creation
+         * @return html returns the email template body content for the course
+         * access expire
+         */
         private function getCourseAccessExpitedTemplate()
         {
             ob_start();
