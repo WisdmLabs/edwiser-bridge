@@ -483,13 +483,22 @@ class EBUserManager
     {
         $user = array(); // to store user creation/updation response
         $users = array();
-
         edwiserBridgeInstance()->logger()->add('user', 'Start creating/updating moodle user, Updating: '.$update); // add user log
         // set webservice function according to update parameter
         if ($update == 1) {
             $webservice_function = 'core_user_update_users';
         } else {
             $webservice_function = 'core_user_create_users';
+        }
+
+        /**
+         * to lowercase the username for moodle
+         * @since  1.2.2
+         */
+
+        // confirm that username is in lowercase always
+        if (isset($user_data['username'])) {
+            $user_data['username'] = strtolower($user_data['username']);
         }
 
         // Ensure username is unique, when creating a new user on moodle
@@ -514,25 +523,16 @@ class EBUserManager
          * used to add additional user profile fields value that is passed to moodle
          */
         $user_data = apply_filters('eb_moodle_user_profile_details', $user_data, $update);
-
-        // confirm that username is in lowercase always
-        if (isset($user_data['username'])) {
-            $user_data['username'] = strtolower($user_data['username']);
-        }
-
         // prepare user data array
         foreach ($user_data as $key => $value) {
             $users[0][$key] = $value;
         }
-
         // prepare request data
         $request_data = array('users' => $users);
         $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
             $webservice_function,
             $request_data
         );
-
-        // edwiserBridgeInstance()->logger()->add( 'user', 'Create/Update moodle user response: '.serialize( $response ) ); // add user log
         // handle response recived from moodle and creates response array accordingly
         if ($update == 0) { // when user is created
             if ($response['success'] == 1 && empty($response['response_data'])) {
@@ -558,7 +558,6 @@ class EBUserManager
             $wp_user = get_user_by('email', $user_data['email']);
             $this->userCourseSynchronizationHandler(array('eb_synchronize_user_courses' => 1), $wp_user->ID);
         }
-
         return $user;
     }
 
@@ -573,7 +572,6 @@ class EBUserManager
      */
     public function linkMoodleUser($user)
     {
-
         // check if a moodle user account is already linked
         $moodle_user_id = get_user_meta($user->ID, 'moodle_user_id', true);
         $created = 0;
@@ -631,7 +629,16 @@ class EBUserManager
         }
 
         // add a dynamic hook only if a new user is created on moodle and linked to wordpress account
-        if ($created && $linked) {
+        if (!$created && $linked) {
+            $args = array(
+                'user_email' => $user->user_email,
+                'username' => $moodle_user['user_data']->username,
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+            );
+            //create a new action hook with user details as argument.
+            do_action('eb_linked_to_existing_wordpress_user', $args);
+        } else if ($created && $linked) {
             $args = array(
                 'user_email' => $user_data['email'],
                 'username' => $moodle_user['user_data']->username,
@@ -640,7 +647,7 @@ class EBUserManager
                 'password' => $user_data['password'],
             );
             //create a new action hook with user details as argument.
-            do_action('eb_linked_to_existing_wordpress_user', $args);
+            do_action('eb_linked_to_existing_wordpress_to_new_user', $args);
         }
 
         return $linked;

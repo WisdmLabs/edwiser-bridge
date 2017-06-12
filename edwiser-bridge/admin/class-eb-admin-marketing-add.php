@@ -34,7 +34,7 @@ if (!class_exists('EbAdminMarketingAdd')) {
             ?>
             <div class='eb-marketing-add'>
                 <a target="_blank" href='https://goo.gl/jOzaEl'>
-                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.png"); ?>">
+                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.jpg"); ?>">
                 </a>
             </div>
             <?php

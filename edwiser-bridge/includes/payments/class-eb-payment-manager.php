@@ -319,7 +319,6 @@ class EBPaymentManager
                                 value="'.__('Take this Course', 'eb-textdomain').'"
                                 name="course_join" class="wdm-btn" id="wdm-btn">
                             </form></div>';
-
                 return apply_filters('eb_course_free_button', $free_button, $course->ID);
             } elseif (!empty($course_price) && $course_price_type == 'paid') { //paid course button
                 require_once 'enhanced-paypal-shortcodes.php';

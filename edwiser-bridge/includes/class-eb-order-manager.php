@@ -115,7 +115,6 @@ class EBOrderManager
      */
     public function getOrderDetails($order_id)
     {
-
         //get order billing id & email
         $order_data = get_post_meta($order_id, 'eb_order_options', true);
 
@@ -123,22 +122,30 @@ class EBOrderManager
             $order_data = array();
         }
 
-        echo '<div>';
-        printf(__('Order #%s Details', 'eb-textdomain'), $order_id);
-        //echo '<h2>Order #'.$order_id.' Details</h2>';
+        $byerDetails=  get_userdata($order_data['buyer_id']);
+        $byerDetails=$byerDetails->data;
         foreach ($order_data as $key => $value) {
+            $value;
             if ($key == 'buyer_id') {
-                echo '<br/><strong>' . __('Buyer ID: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
-            } elseif ($key == 'billing_email') {
-                echo '<strong>' . __('Billing Email: ', 'eb-textdomain') . '</strong>'.$value.'<br/>';
+                echo "<div class='eb-order-meta-byer-details'>";
+                echo '<p><strong>'. __('Buyer Details: ', 'eb-textdomain') .'</strong></p>';
+                echo '<div><label>'.__('Name: ', 'eb-textdomain') ." </label> ". $byerDetails->user_login . '</div>';
+                echo '<div><label>'.__('Email: ', 'eb-textdomain')."  </label> " . $byerDetails->user_email . '</div>';
+                echo "</div>";
+
+                echo "<div class='eb-order-meta-details'>";
+                echo '<p><strong>'. __('Order Details: ', 'eb-textdomain') .'</strong></p>';
+                echo '<div><label>'.__('Id: ', 'eb-textdomain')." </label> " . $order_id . '</div>';
+                echo '<div><label>'.__('Course Name: ', 'eb-textdomain')." </label> <a href='" .get_permalink($order_data['course_id'])."'>". get_the_title($order_data['course_id']) . '</a></div>';
+                echo '<div><label>'.__('Date: ', 'eb-textdomain')." </label> " . get_the_date("Y-m-d H:i", $order_id) . '</div>';
+                echo "</div>";
             } else {
                 continue;
             }
         }
-        echo '</div>';
 
         //get ordered item id
-        $course_id = get_post_meta($order_id, 'course_id', true);
+        $course_id = $order_data['course_id'];
         //return if order does not have an item(course) associated
         if (!is_numeric($course_id)) {
             return;
@@ -196,6 +203,22 @@ class EBOrderManager
 
             $order_options = get_post_meta($order_id, 'eb_order_options', true);
 
+            /**
+             * Unenroll the user if the order is get marked as pending or failed form the compleated.
+             */
+            if ($order_options['order_status'] == "completed" && $order_status != "completed") {
+                $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+                $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
+                $args = array(
+                    'user_id' => $ordDetail['buyer_id'],
+                    'role_id' => 5,
+                    'courses' => array($order_options['course_id']),
+                    'unenroll' => 1,
+                    'suspend' => 0,
+                );
+                $enrollmentManager->updateUserCourseEnrollment($args);
+            }
+
             foreach ($order_options as $key => $option) {
                 $option;
                 if ($key == 'order_status') {
@@ -204,11 +227,9 @@ class EBOrderManager
             }
 
             update_post_meta($order_id, 'eb_order_options', $order_options);
-            do_action('eb_order_status_'.$order_status, $order_id);
+            do_action('eb_order_status_' . $order_status, $order_id);
         }
-
-        edwiserBridgeInstance()->logger()->add('order', 'Order status updated, Status: '.$order_status); // add order log
-
+        edwiserBridgeInstance()->logger()->add('order', 'Order status updated, Status: ' . $order_status); // add order log
         return 1;
     }
 
@@ -235,6 +256,9 @@ class EBOrderManager
             $course_id = $order_data['course_id'];
         }
         $order_status = 'pending';
+        if (isset($order_data['order_status'])) {
+            $order_status = $order_data['order_status'];
+        }
 
         if (empty($buyer_id) || empty($course_id) || empty($order_status)) {
             return new \WP_Error('warning', __('Order details are not correct. Existing', 'eb-textdomain'));
@@ -272,7 +296,7 @@ class EBOrderManager
             );
         }
 
-        edwiserBridgeInstance()->logger()->add('order', 'New order created, Order ID: '.$order_id); // add order log
+        edwiserBridgeInstance()->logger()->add('order', 'New order created, Order ID: ' . $order_id); // add order log
 
         /*
          * hooks to execute a function on new order creation
@@ -376,7 +400,6 @@ class EBOrderManager
         edwiserBridgeInstance()->userManager()->linkMoodleUser($buyer);
 
         //$course_meta = get_post_meta( $course_id, "eb_course_options", true );
-
         // define args
         $args = array(
             'user_id' => $buyer_id,
@@ -452,13 +475,13 @@ class EBOrderManager
 
             $buyer_name = '';
             if (isset($buyer->first_name) && isset($buyer->last_name)) {
-                $buyer_name = $buyer->first_name.' '.$buyer->last_name;
+                $buyer_name = $buyer->first_name . ' ' . $buyer->last_name;
             }
 
             if ($buyer_name == '') {
                 $buyer_name = $buyer->user_login;
             }
-            echo "<a href='".get_edit_user_link($order_buyer_id)."'>".$buyer_name.'</a>';
+            echo "<a href='" . get_edit_user_link($order_buyer_id) . "'>" . $buyer_name . '</a>';
         }
     }
 }
