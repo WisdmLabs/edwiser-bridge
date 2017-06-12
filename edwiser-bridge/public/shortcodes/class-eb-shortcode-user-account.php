@@ -163,7 +163,7 @@ class EbShortcodeUserAccount
                 if (count($errors)) {
                     $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
                 } else {
-                    // Profile updated on Moodle sucessfully.
+                    // Profile updated on Moodle successfully.
                     if (self::updateMoodleProfile($posted_data)) {
                         self::updateWordPressProfile($posted_data);
                         $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';

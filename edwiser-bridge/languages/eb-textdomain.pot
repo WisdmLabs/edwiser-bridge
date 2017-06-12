@@ -1133,11 +1133,11 @@ msgid "Due to the security issue changes are not saved, Try to re-update it."
 msgstr ""
 
 #: admin/class-eb-email-template.php:538
-msgid "Failed to reste email template"
+msgid "Failed to reset email template"
 msgstr ""
 
 #: admin/class-eb-email-template.php:542
-msgid "Template restored sucessfully"
+msgid "Template restored successfully"
 msgstr ""
 
 #: public/class-eb-frontend-form-handler.php:39
@@ -1906,7 +1906,7 @@ msgid ""
 "Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides "
 "an easy option to import Moodle courses to WordPress and sell them using "
 "PayPal. The plugin also allows automatic registration of WordPress users on "
-"the Moodle website along with single login credentials for both the systems."
+"the Moodle web site along with single login credentials for both the systems."
 msgstr ""
 
 #. URI of the plugin

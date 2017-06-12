@@ -125,10 +125,10 @@ Take a look at the link below and follow the steps provided to configure your Mo
 10. Redirect the user to the My Courses page on login/registration from the User Account page.
 11. Setting to manage 'Max number of courses in the row' for the Courses page template.
 12. Improved single course page template.
-13. Update user profile from frontend. 
+13. A student can update their profile details from the frontend. 
 14. Setting to set the course access period of the enrolled user.
 15. Edit email notification template's content.
-15. Manage user enrollment.
+16. Manage user enrollment.
 
 
  ==  Frequently Asked Questions  == 
@@ -148,12 +148,12 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 
 = 1.2.2 =
-* Feature - Added the page for manage user enrollment.
-* Feature - Added the new email template for the new moodle account create notification.
-* Feature - Functionality to disable email notifications to student.
+* Feature - New page for the admin to manage user enrollment.
+* Feature - New email template for the moodle account creation.
+* Feature - Functionality to disable email notifications.
 * Feature - Functionality to place the order for the free course to maintain the purchase history.
 * Tweak- Added the order and Buyer details in order page.
-* Tweak- User get's un-enroll from the course on the order status marked from completed to pending or failed.
+* Tweak- User gets un-enroll from the course on the order status marked from completed to pending or failed.
 * Tweak- Updated the user order details on the user account page and added the order status column.
 * Fix - User not getting created on moodle when username contains the uppercase characters.
 * Fix - My courses shortcode showing only 10 courses not more than that.

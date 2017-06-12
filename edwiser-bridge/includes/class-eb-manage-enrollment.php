@@ -164,7 +164,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                 <div class="notice notice-success is-dismissible">
                     <p>
                         <strong>
-                            <?php _e(sprintf("%s users has been unenrolled sucessfully.", $cnt), 'eb-textdomain'); ?>
+                            <?php _e(sprintf("%s users has been unenrolled successfully.", $cnt), 'eb-textdomain'); ?>
                         </strong>
                     </p>
                     <button type="button" class="notice-dismiss">

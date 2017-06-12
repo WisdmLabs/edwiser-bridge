@@ -445,7 +445,7 @@ class EBAdminEmailTemplate
      * @param type $mailTo email id to send the email id
      * @param type $args the default email argument 
      * @param type $tmplData email template contetn
-     * @return boolean returns true if the email sent sucessfully othrewise false
+     * @return boolean returns true if the email sent successfully othrewise false
      */
     public function sendEmail($mailTo, $args, $tmplData)
     {
@@ -535,11 +535,11 @@ class EBAdminEmailTemplate
      */
     public function resetEmailTemplateContent()
     {
-        $responce = array("data"=>__("Failed to reste email template", "eb-textdomain"),"status"=>"failed");
+        $responce = array("data"=>__("Failed to reset email template", "eb-textdomain"),"status"=>"failed");
         if (isset($_POST['action']) && isset($_POST['tmpl_name']) && $_POST['action'] == "wdm_eb_email_tmpl_restore_content") {
             $args = $this->restoreEmailTemplate(array("is_restored" => false, "tmpl_name"=>$_POST['tmpl_name']));
             if ($args["is_restored"] == true) {
-                $responce['data'] = __("Template restored sucessfully", "eb-textdomain");
+                $responce['data'] = __("Template restored successfully", "eb-textdomain");
                 $responce['status']="success";
                 wp_send_json_success($responce);
             } else {                
