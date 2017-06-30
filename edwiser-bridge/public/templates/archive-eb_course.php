@@ -33,7 +33,8 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 /* ************************************** */
 
 
-    $categories = get_terms();
+    $categories = get_terms(array(
+    'taxonomy' => 'eb_course_cat'));
 
     foreach ($categories as $category) {
         $args = array(
@@ -53,12 +54,15 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
         $courses = new \WP_Query($args);
 
         if ($courses->have_posts()) {
-            echo "<h3>".$category->name."</h3><tr>";
+            echo "<h2 class = 'page-title eb_cat_title'>".$category->name."</h2><tr>";
+            echo "<div class = 'eb_".$category->slug."'>";
+            echo "<hr></hr>";
             while ($courses->have_posts()) :
                 $courses->the_post();
                 $template_loader->wpGetTemplatePart('content', get_post_type());
             // End the loop.
             endwhile;
+            echo "<div>";
         }
     }
 

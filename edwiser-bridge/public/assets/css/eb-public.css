@@ -533,3 +533,8 @@ nav.eb-pagination ul li span.current {
 }
 
 /* Edit user profile styling @ */
+
+/* Category Page */
+.eb_cat_title {
+    padding-top: 5% !important;   
+}
