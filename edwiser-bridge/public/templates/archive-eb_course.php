@@ -29,50 +29,7 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
     <?php endif; ?>
 
     <?php
-
-/* ************************************** */
-
-
-    $categories = get_terms(array(
-    'taxonomy' => 'eb_course_cat'));
-
-    foreach ($categories as $category) {
-        $args = array(
-            'post_type' => 'eb_course',
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'eb_course_cat',
-                    'field' => 'slug',
-                    'terms' => $category->slug,
-                ),
-            ),
-    /*        'post__not_in' => $exclude_courses*/
-        );
-
-        $courses = new \WP_Query($args);
-
-        if ($courses->have_posts()) {
-            echo "<h2 class = 'page-title eb_cat_title'>".$category->name."</h2><tr>";
-            echo "<div class = 'eb_".$category->slug."'>";
-            echo "<hr></hr>";
-            while ($courses->have_posts()) :
-                $courses->the_post();
-                $template_loader->wpGetTemplatePart('content', get_post_type());
-            // End the loop.
-            endwhile;
-            echo "<div>";
-        }
-    }
-
-
-
-
-/* ************************************** */
-
-
-/*    if (have_posts()) {
+    if (have_posts()) {
         ?>
         <?php
         // Start the Loop.
@@ -93,7 +50,7 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
         );
     } else {
         $template_loader->wpGetTemplatePart('content', 'none');
-    }*/
+    }
     ?>
 
     <?php

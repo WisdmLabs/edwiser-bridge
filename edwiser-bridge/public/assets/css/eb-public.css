@@ -538,3 +538,25 @@ nav.eb-pagination ul li span.current {
 .eb_cat_title {
     padding-top: 5% !important;   
 }
+
+/**
+* Start eb-courses page shortcode styling
+*/
+.eb-cat-parent{
+    display: block;
+    position: relative;
+}
+.eb-cat-courses-cont{
+    display: inline-flex;
+    overflow: auto;
+    /*overflow-x: scroll;*/
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+.eb-cat-courses-cont > .eb-course-col{
+    min-width: 250px;
+}
+/**
+* End eb-courses page shortcode styling
+*/
