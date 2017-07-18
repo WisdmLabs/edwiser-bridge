@@ -101,10 +101,7 @@ class EbShortcodeCourses
                 }
                 ?>
                 <div class='eb-cat-parent'>
-                    <h3>
-                        <?php echo $category->name; ?>
-                    </h3>
-                    <hr>
+                    <h3 class="eb-cat-title"><?php echo $category->name; ?></h3>
                     <?php
                     $args['tax_query'] = array(
                         array(
@@ -124,7 +121,13 @@ class EbShortcodeCourses
                 $args['posts_per_page'] = $atts['per_page'];
                 $args['paged'] = get_query_var('paged') ? get_query_var('paged') : 1;
             }
-            $currClass->genCoursesGridView($args, $scrollHorizontal);
+            ?>
+            <div class='eb-cat-parent'>
+                <?php
+                $currClass->genCoursesGridView($args, $scrollHorizontal);
+                ?>
+            </div>
+            <?php
         }
     }
 
@@ -241,6 +244,7 @@ class EbShortcodeCourses
         );
         ?>
         <div class="<?php echo $scrollClass; ?>">
+            <span class="fa fa-angle-left eb-scroll-left" id="eb-scroll-left"></span>
             <?php
             do_action('eb_before_course_archive');
             if ($custom_query->have_posts()) {
@@ -266,6 +270,7 @@ class EbShortcodeCourses
             $wp_query = $temp_query;
             do_action('eb_after_course_archive');
             ?>
+            <span class="fa fa-angle-right eb-scroll-right" id="eb-scroll-right"></span>
         </div>
         <?php
     }

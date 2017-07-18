@@ -50,10 +50,10 @@ $has_access = $enrollManag->userHasCourseAccess($user_id, $post->ID);
  */
 if ($has_access) {
     $course_class = 'has-access';
-    $h_title = __('Click to access.', 'eb-textdomain');
+    $h_title = __(sprintf('Click to access %s course', get_the_title(get_the_ID())), 'eb-textdomain');
 } else {
     $course_class = 'no-access';
-    $h_title = __('Click to read more.', 'eb-textdomain');
+    $h_title = __(sprintf('Click to read more about %s course', get_the_title(get_the_ID())), 'eb-textdomain');
 }
 
 $course_id = $post_id;

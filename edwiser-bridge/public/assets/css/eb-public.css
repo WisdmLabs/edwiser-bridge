@@ -56,15 +56,17 @@
     text-decoration: none;
     display: block;
     overflow: hidden;
+    height: 100%;
+    max-height: 300px;
 }
 .wdm-course-grid > a:hover{
     text-decoration: none;
 }
 .wdm-course-image{
-
+    height: 70%;
 }
 .wdm-course-image img{
-    height: auto;
+    height: 100%;
     transition: all 0.20s ease-in-out 0s;
     width: 100%;
 }
@@ -105,22 +107,10 @@
     cursor: pointer;
     box-shadow: 0px 2px 0px #d0d0d0;
     text-align: center;
+    height: 100%;
+    max-height: 300px;
 }
 .wdm-course-grid .wdm-price {
-    /*    background: none repeat scroll 0 0 #5cb85c;
-        box-shadow: 0 1px rgba(0, 0, 0, 0.2);
-        color: #fff;
-        font-size: 14px;
-        font-weight: bold;
-        left: -8px;
-        padding: 3px 10px;
-        position: absolute;
-        text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-        top: 10;
-        z-index: 2;*/
-
-
-    /*font-size: 14px;*/
     top: 10;
     color: #5cb85c;
     text-align: center;
@@ -132,20 +122,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
-/*.wdm-course-grid .wdm-price::before {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    border-color: #348c34 #348c34 transparent transparent;
-    border-image: none;
-    border-style: solid;
-    border-width: 4px;
-    bottom: -8px;
-    content: "";
-    left: 0;
-    position: absolute;
-}*/
+
 .wdm-course-thumbnail {
     display: block;
 }
@@ -468,6 +445,11 @@ nav.eb-pagination ul li span.current {
         float: none;
         width: 100%;
     }
+    .eb-cat-courses-cont > .eb-course-col{
+        min-width: 60% !important;
+    }
+
+
 }
 
 .eb-rec-courses-wrapper{
@@ -549,14 +531,92 @@ nav.eb-pagination ul li span.current {
 .eb-cat-courses-cont{
     display: inline-flex;
     overflow: auto;
-    /*overflow-x: scroll;*/
-    overflow-y: hidden;
     white-space: nowrap;
     width: 100%;
 }
+
+.eb-cat-courses-cont .eb-scroll-left:hover,
+.eb-cat-courses-cont .eb-scroll-right:hover{
+    box-shadow: 1px 2px 10px 1px rgba(0, 0, 0, .3);
+}
+.eb-cat-courses-cont .eb-scroll-left,
+.eb-cat-courses-cont .eb-scroll-right{
+    position: absolute;
+    top: 35%;
+    z-index: 999;
+    height: auto;
+    padding: 5% 0.3em;
+    border: 0px;
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+    font-size: 2em;
+    box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
+    cursor: pointer;
+
+}
+.eb-cat-courses-cont .eb-scroll-left{
+    left: 0;
+    border-radius: 0px 4px 4px 0px;
+
+}
+.eb-cat-courses-cont .eb-scroll-right{
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+.eb-cat-courses-cont .eb-scroll-right:hover,
+.eb-cat-courses-cont .eb-scroll-right:active,
+.eb-cat-courses-cont .eb-scroll-right:focus,
+.eb-cat-courses-cont .eb-scroll-left:hover,
+.eb-cat-courses-cont .eb-scroll-left:active,
+.eb-cat-courses-cont .eb-scroll-left:focus{
+    border: 0px;
+    background: white;
+    color: black;
+    /*font-weight: bold;*/
+}
+
 .eb-cat-courses-cont > .eb-course-col{
-    min-width: 250px;
+    min-width: 30%;
+}
+
+
+.eb-cat-courses-cont::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-thumb {
+    background: #000000;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-thumb:active {
+    background: #000000;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-track {
+    background: #eeeeee;
+    border: 0px none #ffffff;
+    border-radius: 13px;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-track:hover {
+    background: #eeeeee;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-track:active {
+    background: #eeeeee;
+}
+.eb-cat-courses-cont::-webkit-scrollbar-corner {
+    background: transparent;
+}
+.eb-cat-title{
+    border-bottom: 1px solid;
 }
 /**
 * End eb-courses page shortcode styling
 */
+
