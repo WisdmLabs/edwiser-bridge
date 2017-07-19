@@ -255,6 +255,9 @@ function getShortcodePageContent($the_tag = '')
             'category_operator' => 'AND',
             'order' => 'DESC',
             'per_page' => 12,
+            'cat_per_page'=>3,
+            'group_by_cat'=>'yes',
+            'horizontally_scroll'=>'yes'
         ),
     );
 

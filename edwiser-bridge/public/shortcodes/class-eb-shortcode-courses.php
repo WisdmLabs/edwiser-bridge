@@ -48,7 +48,7 @@ class EbShortcodeCourses
             'post_type' => 'eb_course',
             'order' => $atts['order'],
             'post_status' => 'publish',
-            'posts_per_page' => -1,
+            'posts_per_page' => $atts['per_page'],
         );
 
         /**
@@ -94,6 +94,7 @@ class EbShortcodeCourses
             }
             $catStart = $page * (int) $atts['cat_per_page'] - (int) $atts['cat_per_page'];
             $cnt = 0;
+            $args['posts_per_page']=-1;
             foreach ($dispCat as $category) {
                 $cnt++;
                 if ($cnt < $catStart + 1 ||$cnt > $catStart + (int) $atts['cat_per_page']) {
@@ -244,7 +245,9 @@ class EbShortcodeCourses
         );
         ?>
         <div class="<?php echo $scrollClass; ?>">
-            <span class="fa fa-angle-left eb-scroll-left" id="eb-scroll-left"></span>
+            <?php if ($groupByCat) { ?>
+                <span class="fa fa-angle-left eb-scroll-left" id="eb-scroll-left"></span>
+            <?php } ?>
             <?php
             do_action('eb_before_course_archive');
             if ($custom_query->have_posts()) {
@@ -269,8 +272,10 @@ class EbShortcodeCourses
             $wp_query = null;
             $wp_query = $temp_query;
             do_action('eb_after_course_archive');
-            ?>
-            <span class="fa fa-angle-right eb-scroll-right" id="eb-scroll-right"></span>
+            if ($groupByCat) {
+                ?>
+                <span class="fa fa-angle-right eb-scroll-right" id="eb-scroll-right"></span>
+            <?php } ?>
         </div>
         <?php
     }
