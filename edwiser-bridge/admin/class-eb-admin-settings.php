@@ -49,6 +49,7 @@ if (!class_exists('EbAdminSettings')) {
                 $settings[] = include 'settings/class-eb-settings-paypal.php';
                 self::$settings = apply_filters('eb_get_settings_pages', $settings);
                 $settings[] = include 'settings/class-eb-settings-licensing.php';
+                $settings[] = include 'settings/class-eb-settings-shortcode-doc.php';
             }
 
             return self::$settings;

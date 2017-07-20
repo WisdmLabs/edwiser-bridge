@@ -38,9 +38,9 @@ class EbShortcodeCourses
         extract($atts = shortcode_atts(apply_filters('eb_shortcode_courses_defaults', array(
             'categories' => '',
             'order' => 'DESC',
-            'group_by_cat' => 'yes',
+            'group_by_cat' => 'no',
             'cat_per_page' => '4', //-1 for all in one row
-            'horizontally_scroll' => 'yes',
+            'horizontally_scroll' => 'no',
             'per_page' => 10
                 )), $atts));
 

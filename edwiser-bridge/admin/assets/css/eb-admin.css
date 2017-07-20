@@ -573,3 +573,18 @@ span.eb-option-input .eb-option-div select{
 .eb_table_cell_4 > .button-primary{
     margin: 0px 5px;
 }
+.eb-shortcode-doc-wpra{
+    background: white;
+    border: 1px solid #dfdfdf;
+    padding: 3px 15px;
+    clear: both;
+}
+.eb-shortcode-doc-wpra h4{
+    border-bottom: 2px solid #dddddd;
+}
+.eb_shortcode-doc-para{
+    font-weight: bold;
+}
+.eb-shortcode-doc-desc{
+    padding-left: 20px;
+}
