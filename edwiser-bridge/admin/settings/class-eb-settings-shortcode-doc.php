@@ -63,6 +63,12 @@ if (!class_exists('EBSettingsConnection')) {
             <h3><?php _e("Edwiser Bridge Shortcodes", "eb-textdomain"); ?></h3>
             <div class="eb-shortcode-doc-wpra">
                 <div class="eb-shortcode-doc">
+                    <h3><?php _e("Shortcode Options", "eb-textdomain"); ?> </h3>
+                    <div class="eb-shortcode-doc-desc">
+                        <p><?php _e("You may use shortcodes to add information to any page/course/lesson/quiz. Here are built-in shortcodes for displaying relavent user information.", "eb-textdomain") ?></p>
+                    </div>
+                </div>
+                <div class="eb-shortcode-doc">
                     <h4>[eb_user_account]</h4>
                     <div class="eb-shortcode-doc-desc">
                         <p><?php _e("This shortcode shows the user account details,his enrolled courses and orders placed by him. This shortcode also provides the functoinality to edit user profile.", "eb-textdomain") ?></p>
@@ -73,10 +79,9 @@ if (!class_exists('EBSettingsConnection')) {
                     <div class="eb-shortcode-doc-desc">
                         <p><?php _e("This shortcode shows the list of the edwiser bridge courses. You can use this shortcode on any page. This shortcode can take following parameters:", "eb-textdomain") ?></p>
                         <ul>
-                            <li><span class="eb_shortcode-doc-para">categories</span>: <?php printf(__("Shows courses from spesified category slugs. Example: %s", "eb-textdomain"), '<strong>[eb_courses categories="basic,moderated"]</strong>'); ?></li>
-                            <li><span class="eb_shortcode-doc-para">category_operator</span>: <?php printf(__("Sets the relation between the categorys. Possible values:AND,OR. This will not work while using category grouping parameter. Example %s shows the courses from all categorys.", "eb-textdomain"), '<strong>[eb_courses category_operator="OR"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">order</span>: <?php printf(__("Sets order of courses. Possible values: DESC, ASC. Example: %s shows courses in ascending order.", "eb-textdomain"), '<strong>[eb_courses order="ASC"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">per_page</span>: <?php printf(__("Sets number of courses per page. Example: %s", "eb-textdomain"), '<strong>[eb_courses per_page="10"]</strong>'); ?></li>
+                            <li><span class="eb_shortcode-doc-para">categories</span>: <?php printf(__("Shows courses from spesified category slugs. Example: %s", "eb-textdomain"), '<strong>[eb_courses categories="basic,moderated"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">cat_per_page</span>: <?php printf(__("Sets number of categorys groups shown per page Example: %s", "eb-textdomain"), '<strong>[eb_courses cat_per_page="3"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">group_by_cat</span>: <?php printf(__("This shows the courses grouped by the categorys. Possible values:yes,no. Example: %s", "eb-textdomain"), '<strong>[eb_courses group_by_cat="yes"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">horizontally_scroll</span>: <?php printf(__("This will shows the courses in one row with horizontal scroll. Possible values:yes,no. Example: %s", "eb-textdomain"), '<strong>[eb_courses horizontally_scroll="yes"]</strong>'); ?></li>

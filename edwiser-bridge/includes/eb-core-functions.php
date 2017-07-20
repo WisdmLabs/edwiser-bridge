@@ -35,10 +35,6 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     $option_value = 0;
     if (trim($option_key) != '') {
-        // if (empty($eb_general_settings)) {
-        //     $eb_general_settings = array();
-        // }
-
         if (isset($eb_general_settings[$option_key])) {
             $option_value = $eb_general_settings[$option_key];
         }
@@ -69,13 +65,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
     }
 
     if ($page_found_id) {
-        // if ($option_value == '' && trim($option_key) != '') {
-        //     // update the page id in general settings
-        //     $eb_general_settings[$option_key] = $page_found_id;
-        //     update_option('eb_general', $eb_general_settings);
-        // }
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
-
         return $page_found_id;
     }
 
@@ -89,14 +79,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
         'comment_status' => 'closed',
     );
     $page_id = wp_insert_post($page_data);
-
-    // update the page id in general settings
-    // if ($option_value == '' && trim($option_key) != '') {
-    //     $eb_general_settings[$option_key] = $page_id;
-    //     update_option('eb_general', $eb_general_settings);
-    // }
     wdmUpdatePageId($option_value, $option_key, $page_id, $eb_general_settings);
-
     return $page_id;
 }
 
@@ -252,7 +235,6 @@ function getShortcodePageContent($the_tag = '')
         ),
         'eb_courses' => array(
             'categories' => '',
-            'category_operator' => 'AND',
             'order' => 'DESC',
             'per_page' => 12,
             'cat_per_page'=>3,
