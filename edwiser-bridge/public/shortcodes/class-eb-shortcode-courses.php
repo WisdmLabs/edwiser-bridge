@@ -78,6 +78,7 @@ class EbShortcodeCourses
          */
         if (isset($atts['horizontally_scroll']) && $atts['horizontally_scroll'] == 'yes') {
             $scrollHorizontal = true;
+            $args['posts_per_page']=-1;
         }
 
         /**
