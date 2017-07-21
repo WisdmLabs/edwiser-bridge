@@ -237,7 +237,6 @@ class EbShortcodeUserProfile
         if (is_numeric($mdl_uid)) {
             $user_data = array(
                 'id'            => (int)$mdl_uid,
-                // 'username'      => $username,
                 'email'         => $posted_data['email'],
                 'firstname'     => $posted_data['first_name'],
                 'lastname'      => $posted_data['last_name'],
@@ -251,7 +250,7 @@ class EbShortcodeUserProfile
             if (isset($posted_data['pass_1']) && ! empty($posted_data['pass_1'])) {
                 $user_data['password'] = $posted_data['pass_1'];
             }
-
+            $user_data=  apply_filters("eb_update_moodle_profile_data", $user_data);
             $user_manager = new EBUserManager('edwiserbridge', EB_VERSION);
             $response = $user_manager->createMoodleUser($user_data, 1);
 
@@ -274,18 +273,16 @@ class EbShortcodeUserProfile
 
         $args = array(
             'ID'            => $user->ID,
-            // 'user_login'    => $username,
             'user_email'    => $posted_data['email'],
             'first_name'    => $posted_data['first_name'],
             'last_name'     => $posted_data['last_name'],
             'nickname'      => $posted_data['nickname'],
             'description'   => $posted_data['description']
         );
-
+        $args=  apply_filters("eb_wp_update_user_profile", $args);
         if (isset($posted_data['pass_1']) && ! empty($posted_data['pass_1'])) {
             $args['user_pass'] = $posted_data['pass_1'];
         }
-
         wp_update_user($args);
     }
 }
