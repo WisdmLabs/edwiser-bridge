@@ -70,9 +70,17 @@ class EbPublic
          * class.
          */
         wp_enqueue_style(
+            $this->plugin_name . '_font_awesome',
+            EB_PLUGIN_URL.'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        
+        wp_enqueue_style(
             $this->plugin_name,
             EB_PLUGIN_URL.'public/assets/css/eb-public.css',
-            array(),
+            array($this->plugin_name . '_font_awesome'),
             $this->version,
             'all'
         );

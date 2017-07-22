@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: WordPress, Moodle, Courses, Users, Synchronization, Sell Courses, Learning Management System, LMS, LMS Integration, Moodle WordPress, WordPress Moodle, WP Moodle,
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.8
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -145,6 +145,11 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+= 1.2.3 =
+* Feature - Functionality to display courses by category in eb_courses shortcode.
+* Feature - Functionality to display eb_courses shortcode output horizontally scrollable.
+* Feature - Functionality to display courses in single row using eb_courses shortcode.
+* Feature - SSO compatibility to login user on registration after clicking on enrolled course.
 
 = 1.2.2 =
 * Feature - New page for the admin to manage user enrollment.

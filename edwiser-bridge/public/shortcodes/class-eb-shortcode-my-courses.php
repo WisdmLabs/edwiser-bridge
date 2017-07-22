@@ -42,18 +42,19 @@ class EbShortcodeMyCourses
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
             'number_of_recommended_courses' => 7,
                 )), $atts));
-        $my_courses = self::getUserCourses($atts['user_id']);
+        $currentClass=new EbShortcodeMyCourses();
+        $my_courses = $currentClass->getUserCourses($atts['user_id']);
 
-        self::showMyCourses($my_courses, $atts);
+        $currentClass->showMyCourses($my_courses, $atts);
         if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
-            $rec_cats = self::getRecommendedCategories($my_courses);
+            $rec_cats = $currentClass->getRecommendedCategories($my_courses);
             if (count($rec_cats)) {
-                self::showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
+                $currentClass->showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
             }
         }
     }
 
-    public static function getUserCourses($user_id = null)
+    public function getUserCourses($user_id = null)
     {
         $user_id = !is_numeric($user_id) ? get_current_user_id() : (int) $user_id;
 
@@ -70,7 +71,7 @@ class EbShortcodeMyCourses
         return $user_courses;
     }
 
-    public static function showMyCourses($my_courses, $atts)
+    public function showMyCourses($my_courses, $atts)
     {
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
@@ -130,7 +131,7 @@ class EbShortcodeMyCourses
         echo '</div>';
     }
 
-    public static function getRecommendedCategories($user_courses)
+    public function getRecommendedCategories($user_courses)
     {
         //Recommended Courses.
         $rec_cats = array();
@@ -145,7 +146,7 @@ class EbShortcodeMyCourses
         return $rec_cats;
     }
 
-    public static function showRecommendedCourses($rec_cats, $exclude_courses, $count, $atts)
+    public function showRecommendedCourses($rec_cats, $exclude_courses, $count, $atts)
     {
         $args = array(
             'post_type' => 'eb_course',

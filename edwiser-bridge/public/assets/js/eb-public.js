@@ -29,9 +29,9 @@
      * be doing this, we should try to minimize doing that in our own work.
      */
 
-/**
- * Provides the functionality to place the new order on click of the Take this course button.
- */
+    /**
+     * Provides the functionality to place the new order on click of the Take this course button.
+     */
     function placeOrder() {
         var course_id = $("input[name='item_number']").val();
         var order_id = '';
@@ -65,7 +65,7 @@
             }
         });
     }
-    
+
     $(window).load(function () {
 
         /* Change required fields error messages for login / register page */
@@ -93,9 +93,9 @@
             "iDisplayLength": 10,
             "order": [[1, "desc"]],
             "columnDefs": [{
-                "targets": 'no-sort',
-                "orderable": true,
-            }],
+                    "targets": 'no-sort',
+                    "orderable": true,
+                }],
             language: {
                 search: ebDataTable.search,
                 sEmptyTable: ebDataTable.sEmptyTable,
@@ -135,7 +135,7 @@
          *
          */
         $('#eb_course_payment_button').click(function (e) {
-            placeOrder();            
+            placeOrder();
         });
     });
 
@@ -174,7 +174,57 @@
                 placeOrder();
             }
         }
+
+        /**
+         * Scroll left
+         */
+        $(".eb-scroll-left").on("click", function (event) {
+            event.preventDefault();
+            var parent = $(this).parents(".eb-cat-courses-cont");
+            var newScrollLeft = parent.scrollLeft();
+            var width = parent.width();
+            var scrollWidth = parent.get(0).scrollWidth;
+            var scrollOffcet = width / 2;
+
+            parent.animate({scrollLeft: parent.scrollLeft() - scrollOffcet}, "fast");
+            if (newScrollLeft <= 0 + scrollOffcet) {
+                $(this).hide();
+            }
+            if (scrollWidth >= newScrollLeft) {
+                parent.children(".eb-scroll-right").show()
+            }
+        });
+
+        /**
+         * Scroll right
+         */
+        $(".eb-scroll-right").on("click", function (event) {
+            event.preventDefault();
+            var parent = $(this).parents(".eb-cat-courses-cont");
+            var newScrollLeft = parent.scrollLeft();
+            var width = parent.width();
+            var scrollWidth = parent.get(0).scrollWidth;
+            var scrollOffcet = width / 2;
+            $(parent).children(".eb-scroll-left").show();
+            parent.animate({scrollLeft: parent.scrollLeft() + scrollOffcet}, "fast");
+            if (scrollWidth <= newScrollLeft + width + scrollOffcet) {
+                $(this).hide();
+            }
+            if (newScrollLeft <= 0) {
+                parent.children(".eb-scroll-left").show()
+            }
+        });
+
+        $(".eb-cat-courses-cont").each(function () {
+            var documentScrollLeft = jQuery(".eb-cat-courses-cont").scrollLeft();
+            var lastScrollLeft = 0;
+            var width = $(this).width();
+            var scrollWidth = $(this).get(0).scrollWidth;
+            if (scrollWidth <= width) {
+                lastScrollLeft = documentScrollLeft;
+                $(this).children(".eb-scroll-right").hide();
+            }
+            $(this).children(".eb-scroll-left").hide();
+        });
     });
-
-
 })(jQuery);
