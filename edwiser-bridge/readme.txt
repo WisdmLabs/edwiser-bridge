@@ -120,15 +120,18 @@ Take a look at the link below and follow the steps provided to configure your Mo
 5. Imported moodle courses in the WordPress Backend
 6. Order Details of Courses Purchased from WordPress
 7. User Profile Shortcode with List of Enrolled Courses
-8. Courses page Shortcode.
+8. Courses page Shortcode to display edwiser bridge courses.
 9. My Courses page Shortcode.
-10. Redirect the user to the My Courses page on login/registration from the User Account page.
-11. Setting to manage 'Max number of courses in the row' for the Courses page template.
-12. Single course page template.
-13. A student can update their profile details from the frontend. 
-14. Setting to set the course access period of the enrolled user.
-15. Edit email notification template's content.
-16. Manage user enrollment.
+10. Courses archive page template.
+11. Single course page template.
+12. A student can update their profile details from the frontend. 
+13. Setting to set the course access period of the enrolled user.
+14. Edit email notification template's content.
+15. Manage user enrollment.
+16. Edwiser Bridge Plugin shortcodes documentation.
+17. Courses page shortcode horizontally scrollable courses list.
+18. Display courses with category grouping using eb_courses page shortcode.
+
 
  ==  Frequently Asked Questions  == 
 

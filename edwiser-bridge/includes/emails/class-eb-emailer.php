@@ -103,6 +103,7 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
+        $args = apply_filters("eb_args_data", $args);
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
         $allowNotify=get_option("eb_emailtmpl_create_user_notify_allow");
         if ($allowNotify==false || $allowNotify!="ON") {
