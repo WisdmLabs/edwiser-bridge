@@ -905,7 +905,11 @@ class EBUserManager
                                 $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID);
                                 if ($has_access) {
                                     $enrolled_courses[] = $course;
-                                    echo "<li><a href='".get_permalink($course->ID)."'>".$course->post_title.'</a></li>';
+                                    echo "<li>";
+                                    echo do_action("eb_before_enrolled_courses", $course->ID);
+                                    echo "<a href='".get_permalink($course->ID)."'>".$course->post_title.'</a>';
+                                    echo do_action("eb_after_enrolled_courses", $course->ID);
+                                    echo '</li>';
                                 } else {
                                     $notenrolled_courses[] = $course;
                                 }
