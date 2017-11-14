@@ -558,6 +558,8 @@ class EBUserManager
             $wp_user = get_user_by('email', $user_data['email']);
             $this->userCourseSynchronizationHandler(array('eb_synchronize_user_courses' => 1), $wp_user->ID);
         }
+        do_action('eb_after_moodle_user_creation', $user);
+
         return $user;
     }
 
@@ -905,11 +907,7 @@ class EBUserManager
                                 $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID);
                                 if ($has_access) {
                                     $enrolled_courses[] = $course;
-                                    echo "<li>";
-                                    echo do_action("eb_before_enrolled_courses", $course->ID);
-                                    echo "<a href='".get_permalink($course->ID)."'>".$course->post_title.'</a>';
-                                    echo do_action("eb_after_enrolled_courses", $course->ID);
-                                    echo '</li>';
+                                    echo "<li><a href='".get_permalink($course->ID)."'>".$course->post_title.'</a></li>';
                                 } else {
                                     $notenrolled_courses[] = $course;
                                 }
@@ -1050,7 +1048,6 @@ class EBUserManager
         }
     }
 
-
     public function moodleLinkUnlinkUser()
     {
         $responce=array("code"=>"failed");
@@ -1076,7 +1073,6 @@ class EBUserManager
         echo json_encode($responce);
         die();
     }
-
 
     public function moodleLinkUnlinkUserNotices()
     {

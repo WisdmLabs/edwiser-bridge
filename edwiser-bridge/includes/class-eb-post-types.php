@@ -233,6 +233,7 @@ class EBPostTypes
         // get fields for a specific post type
         $fields = $this->populateMetaboxFields($args['args']['post_type']);
         $cssClass = "";
+        echo "<div>";
         if ($args['args']['post_type'] == 'eb_order') {
             $cssClass = "eb-wdm-order-meta";
             echo "<strong>";
@@ -254,8 +255,11 @@ class EBPostTypes
         }
         // display content before order options, only if post type is moodle order.
         if ($args['args']['post_type'] == 'eb_order') {
-            edwiserBridgeInstance()->orderManager()->getOrderDetails(get_the_id());
+            $orderMeta=new EBOrderMeta($this->plugin_name, $this->version);
+            $orderMeta->getOrderDetails(get_the_id());
         }
+        echo "</div>";
+        do_action("eb_post_add_meta", $args);
         echo '</div>';
     }
 
@@ -661,32 +665,6 @@ class EBPostTypes
         return $messages;
     }
 
-    /**
-     * Used to get postmeta values by meta key.
-     *
-     * @since     1.0.0
-     *
-     * @param string $post_type post id
-     * @param string $post_type post type for which data is fetched
-     * @param string $key       name of custom field for which value is fetched
-     * @param bool   $default   default value in case key is not set
-     *
-     * @return string value of custom field
-     */
-    // public static function getPostOptions( $post_id, $key, $post_type = false, $default = false ){
-    //     if ( empty( $key ) ) {
-    //         return $default;
-    //     }
-    //     if(!$post_type){
-    //         $options = get_post_meta( $post_id, $key, true );
-    //         $value = (!empty($options))?$options:$default;
-    //         return $value;
-    //     } else {
-    //         $options = get_post_meta( $post_id, '_'.$post_type.'_options', true );
-    //         $value = isset( $options[ $key ] ) ? $options[ $key ] : $default;
-    //         return $value;
-    //     }
-    // }
     public static function getPostOptions($post_id, $key, $post_type, $default = false)
     {
         if (empty($key)) {
