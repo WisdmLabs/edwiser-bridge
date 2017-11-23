@@ -7,7 +7,6 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBOrderMeta
@@ -34,60 +33,14 @@ class EBOrderMeta
     public function __construct($pluginName, $version)
     {
         $this->plugin_name = $pluginName;
-        $this->version = $version;
+        $this->version     = $version;
     }
 
     public function addEbOrderMetaBoxes()
     {
-        add_meta_box("eb_order_status_update_history_meta", __("Order status history", "eb-textdomain"), array( $this, "addOrderStatusHistoryMeta" ), "eb_order", 'side', 'default');
-        add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array( $this, "addOrderRefundMeta" ), "eb_order", 'advanced', 'default');
-    }
-
-    public function addOrderStatusHistoryMeta()
-    {
-        ?>
-        <div>
-            <?php
-            global $post;
-            $orderHist = get_post_meta($post->ID, "eb_order_status_update_history");
-            wp_nonce_field("eb_order_history_meta_nons", "eb_order_meta_nons");
-            if (is_array($orderHist) && count($orderHist) > 0) {
-                foreach ($orderHist as $history) {
-                    $this->createHistoryTag($history);
-                }
-            }
-            ?>
-        </div>
-        <?php
-    }
-
-    public function saveMeta($postId, $post)
-    {
-        unset($post);
-        if (!current_user_can('edit_post', $postId)) {
-            return $postId;
-        }
-        if (!wp_verify_nonce($_POST['eb_order_meta_nons'], "eb_order_history_meta_nons")) {
-            return;
-        }
-    }
-
-    // private function saveOrderStatusHistory($history)
-    // {
-    // }
-
-    // private function saveOrderRefundHistory($refund)
-    // {
-    // }
-
-    private function createHistoryTag($history)
-    {
-        unset($history);
-        ?>
-        <div>
-
-        </div>
-        <?php
+        $statusHit=new EBOrderHistory($this->plugin_name, $this->version);
+        add_meta_box("eb_order_status_update_history_meta", __("Order status history", "eb-textdomain"), array($statusHit, "addOrderStatusHistoryMeta"), "eb_order", 'side', 'default');
+        add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array($this, "addOrderRefundMeta"), "eb_order", 'advanced', 'default');
     }
 
     /**
@@ -110,20 +63,20 @@ class EBOrderMeta
     {
         // global $post;
         $payment_options = get_option('eb_paypal');
-        $currency = isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD' ? "$" : $payment_options['eb_paypal_currency'];
-        // $price = "2";
-        $avlRefundAmt = "2";
-        $refundedAmt = "0";
+        $currency        = isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD' ? "$" : $payment_options['eb_paypal_currency'];
+        // $price           = "2";
+        $avlRefundAmt    = "2";
+        $refundedAmt     = "0";
         ?>
         <div class="eb-order-refund-data">
             <table class="eb-order-refund-unenroll">
                 <tbody>
                     <tr>
                         <td>
-                            <?php _e("Unenroll user from associated courses: ", "eb-textdomain"); ?>
+                            <?php _e("Unenroll from purchased courses?: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="checkbox" name="eb_order_meta_unenroll_user" value="ON" disabled="disabled" />
+                            <input type="checkbox" name="eb_order_meta_unenroll_user" value="ON" />
                         </td>
                     </tr>
                     <tr>
@@ -147,7 +100,7 @@ class EBOrderMeta
                             <?php _e("Refund amount: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="text" id="eb_ord_refund_amt"  name="eb_ord_refund_amt" value="" placeholder="0.0"/>
+                            <input type="number" id="eb_ord_refund_amt" min="0" name="eb_ord_refund_amt" placeholder="0.00"/>
                         </td>
                     </tr>
                     <tr>
@@ -155,14 +108,14 @@ class EBOrderMeta
                             <?php _e("Reason for refund (optional): ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="text" id="eb_order_refund_note" name="eb_order_refund_note" value="" />
+                            <input type="text" id="eb_order_refund_note" name="eb_order_refund_note" />
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="eb-ord-refund-btn-cont">
                 <button type="button" class="button-primary" id="eb_order_refund_btn" name="eb_order_refund_btn" >
-                    <?php echo __("Refund", "eb-textdomain")." ".$currency." "; ?>
+                    <?php echo __("Refund", "eb-textdomain") . " " . $currency . " "; ?>
                     <span id="eb-ord-refund-amt-btn-txt">0.00</span>
                 </button>
             </div>
@@ -219,8 +172,7 @@ class EBOrderMeta
                 <?php echo $byerDetails->user_login ?>
             </p>
             <p>
-                <label>
-                    <?php _e('Email: ', 'eb-textdomain'); ?></label>
+                <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
                 <?php echo $byerDetails->user_email ?>
             </p>
         </div>
@@ -239,9 +191,7 @@ class EBOrderMeta
                 <?php echo $order_id; ?>
             </p>
             <p>
-                <label>
-                    <?php _e('Course Name: ', 'eb-textdomain') ?>
-                </label>
+                <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
                 <a href='<?php echo get_permalink($order_data['course_id']) ?>'>
                     <?php echo get_the_title($order_data['course_id']); ?>
                 </a>

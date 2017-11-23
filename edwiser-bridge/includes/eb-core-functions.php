@@ -66,6 +66,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     if ($page_found_id) {
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
+
         return $page_found_id;
     }
 
@@ -80,6 +81,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
     );
     $page_id = wp_insert_post($page_data);
     wdmUpdatePageId($option_value, $option_key, $page_id, $eb_general_settings);
+
     return $page_id;
 }
 
@@ -176,7 +178,7 @@ function wdmEBUserRedirectUrl($queryStr = '')
      * Get the Edwiser Bridge genral settings.
      */
     $ebSettings = get_option('eb_general');
-    
+
     /*
      * Set the login redirect url to the user account page.
      */
@@ -206,6 +208,7 @@ function getMycoursesPage($ebSettings)
     if (isset($ebSettings['eb_my_courses_page_id'])) {
         $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
     }
+
     return $usrAcPageUrl;
 }
 
@@ -237,9 +240,9 @@ function getShortcodePageContent($the_tag = '')
             'categories' => '',
             'order' => 'DESC',
             'per_page' => 12,
-            'cat_per_page'=>3,
-            'group_by_cat'=>'yes',
-            'horizontally_scroll'=>'yes'
+            'cat_per_page' => 3,
+            'group_by_cat' => 'yes',
+            'horizontally_scroll' => 'yes',
         ),
     );
 
@@ -258,4 +261,40 @@ function getShortcodePageContent($the_tag = '')
     } elseif (isset($page_content[$the_tag])) {
         return $page_content[$the_tag];
     }
+}
+
+/**
+ * Provides the functionality to get the current PayPal currency symbol.
+ *
+ * @return mixed returns the currency in string format or symbol
+ */
+function getCurrentPayPalcurrencySymb()
+{
+    $payment_options = get_option('eb_paypal');
+    $currency = $payment_options['eb_paypal_currency'];
+    if (isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD') {
+        $currency = '$';
+    }
+    $currency = apply_filters('eb_paypal_get_currancy_symbol', $currency);
+
+    return $currency;
+}
+
+/**
+ * Function provides the functionality to check that  is the array key value is present in array or not
+ * otherwise returns the default value.
+ *
+ * @param array  $arr   array to check the value present or not.
+ * @param string $key   array key to check the value.
+ * @param mixed  $value default value to return by default empty string.
+ *
+ * @return returns array value.
+ */
+function getArrValue($arr, $key, $value = '')
+{
+    if (isset($arr[$key])) {
+        $value = $arr[$key];
+    }
+
+    return $value;
 }

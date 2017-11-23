@@ -592,7 +592,7 @@ span.eb-option-input .eb-option-div select{
 * Eb order meta boxes style start
 **/
 .eb-order-refund-data{
-       text-align: -webkit-right;
+    text-align: -webkit-right;
 }
 .eb-ord-refund-btn-cont{
     border-top: 1px solid grey;
@@ -605,7 +605,7 @@ span.eb-option-input .eb-option-div select{
     padding-left: 3em;
 }
 .eb-order-refund-unenroll input[type="checkbox"]{
-    
+
 }
 .eb-ord-refund-amt{
     font-weight: bold;
@@ -630,7 +630,7 @@ span.eb-option-input .eb-option-div select{
 
 #eb_order_refund_note,
 #eb_ord_refund_amt{
- width: 10em;   
+    width: 10em;   
 }
 .eb-order-refund-btn-secondary{
     padding: 7px 12px;
@@ -653,3 +653,37 @@ span.eb-option-input .eb-option-div select{
 /**
 * Eb order meta boxes style start
 **/
+
+.eb-sso-hist-note-wrap li{
+    margin-left: 15px;
+}
+.eb-sso-hist-note-wrap{
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.eb-sso-hist-note:before {
+    content: "";
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    bottom: -10px;
+    left: 15px;
+    border-color: #e6e6fa transparent transparent transparent;
+    border-style: solid;
+    border-width: 15px 10px 0px 0px;
+}
+
+.eb-sso-hist-note{
+    background: lavender;
+    padding: 5px;
+    font-size: 13px;
+    /*font-family: sans-serif;*/
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+}
+.eb-sso-hist-by{
+    font-size: 11px;
+    /*font-family: cursive;*/
+    padding: 5px;
+}

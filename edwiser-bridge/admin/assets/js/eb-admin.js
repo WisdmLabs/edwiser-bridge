@@ -437,14 +437,14 @@
                     $("#eb-lading-parent").hide();
                 },
                 success: function (response) {
-                    if (response['success']) {                        
+                    if (response['success']) {
                         if (response["data"] == "OK") {
                             ohSnap('<p>' + eb_admin_js_object.msg_test_mail_sent_to + mailTo + '</p>', 'success');
                         } else {
                             ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
                         }
-                    }else{
-                      ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');  
+                    } else {
+                        ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
                     }
                     $('.load-response').hide();
                     $("#eb-lading-parent").hide();
@@ -540,6 +540,16 @@
                 }
             });
 
+        });
+
+        /**
+         * Order page JS
+         *
+         */
+        $("#eb_ord_refund_amt").blur(function () {
+            $(this).val(Number($(this).val()).toFixed(2));
+            var rfndAmt = $(this).val();
+            $("#eb-ord-refund-amt-btn-txt").text(rfndAmt);
         });
 
     });

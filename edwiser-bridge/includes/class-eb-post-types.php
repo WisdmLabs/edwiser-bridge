@@ -339,6 +339,7 @@ class EBPostTypes
                         'pending' => __('Pending', 'eb-textdomain'),
                         'completed' => __('Completed', 'eb-textdomain'),
                         'failed' => __('Failed', 'eb-textdomain'),
+                        'refunded' => __('Refunded', 'eb-textdomain'),
                     ),
                     'default' => array('pending'),
                 ),

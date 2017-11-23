@@ -328,11 +328,13 @@ class EdwiserBridge
          * Courses & User Data Synchronization
          */
         require_once EB_PLUGIN_DIR.'admin/class-eb-settings-ajax-initiater.php';
-        
+
         /**
          * Add order meta boxes.
          */
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-meta.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-status-update.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-history-meta.php';
     }
 
     /**
@@ -482,23 +484,28 @@ class EdwiserBridge
         $plugin_admin = new EbAdmin($this->getPluginName(), $this->getVersion());
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
-        
+
         /**
          * Add action to add the meta boxes in backend for the order
          */
-        $orderMeta=new EBOrderMeta($this->plugin_name, $this->version);
+        $orderMeta = new EBOrderMeta($this->plugin_name, $this->version);
+        $saveOrderMeta=new EBOrderStatus($this->plugin_name, $this->version);
         $this->loader->addAction(
             'add_meta_boxes',
             $orderMeta,
             'addEbOrderMetaBoxes'
         );
         $this->loader->addAction(
+            'save_post_eb_order',
+            $saveOrderMeta,
+            'saveMeta'
+        );
+        $this->loader->addAction(
             'eb_post_add_meta',
             $orderMeta,
             'addOrderRefundButton'
         );
-        
-        
+
         /*
          * Handling custom button events on settings page
          * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
@@ -545,7 +552,7 @@ class EdwiserBridge
         /**
          * Email template editor end
          */
-        
+
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
@@ -661,7 +668,7 @@ class EdwiserBridge
 
         // Registers core post types, taxonomies and metaboxes.
         $plugin_post_types = new EBPostTypes($this->getPluginName(), $this->getVersion());
-        
+
         $this->loader->addAction('init', $plugin_post_types, 'registerTaxonomies');
         $this->loader->addAction('init', $plugin_post_types, 'registerPostTypes');
         $this->loader->addFilter(
@@ -674,7 +681,7 @@ class EdwiserBridge
             $plugin_post_types,
             'registerMetaBoxes'
         );
-        
+
         $this->loader->addAction(
             'save_post',
             $plugin_post_types,
