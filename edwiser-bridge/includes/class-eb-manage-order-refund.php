@@ -1,7 +1,7 @@
 <?php
 namespace app\wisdmlabs\edwiserBridge;
 
-class EBOrderInitRefund
+class EBManageOrderRefund
 {
 
     private $plugin_name;
@@ -13,7 +13,7 @@ class EBOrderInitRefund
         $this->version     = $version;
     }
 
-    public function processRefund($orderId, $amt, $curanecy)
+    public function init($orderId, $amt, $curanecy)
     {
         unset($orderId, $amt, $curanecy);
     }

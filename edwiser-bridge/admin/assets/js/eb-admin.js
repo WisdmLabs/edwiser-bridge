@@ -411,9 +411,6 @@
             $(document).on("click", ".notice-dismiss", function () {
                 $("#eb-notices").empty();
             });
-//            $(".notice-dismiss").click(function () {
-//                $("#eb-notices").empty();
-//            });
         });
         $(document).on("click", ".notice-dismiss", function () {
             $("#eb-notices").empty();
@@ -549,11 +546,21 @@
         $("#eb_ord_refund_amt").blur(function () {
             $(this).val(Number($(this).val()).toFixed(2));
             var rfndAmt = $(this).val();
-            if(rfndAmt=="NaN"){
-                rfndAmt="0.00";
+            if (rfndAmt == "NaN") {
+                rfndAmt = "0.00";
                 $(this).val(rfndAmt);
             }
             $("#eb-ord-refund-amt-btn-txt").text(rfndAmt);
+        });
+        /**
+         * Refund order click event handler
+         */
+        $("#eb_order_refund_btn").click(function () {
+            var orderId = getUrlParameter("post");
+            var resp = confirm(eb_admin_js_object.msg_confirm_refund + orderId);
+            if (resp == true) {
+                sendRefundRequest(orderId);
+            }
         });
 
     });
@@ -623,41 +630,50 @@
         }
     }
 
-    //Single course and archive page settings.
-    $(document).ready(function () {
+    function sendRefundRequest(orderId) {
+        var refAmt = $("#eb_ord_refund_amt").val();
+        var refNote = $("#eb_order_refund_note").val();
+        var isUneroll = "";
+        var nonce=$("#eb_order_refund_nons").val();
+        if ($("#eb_order_meta_unenroll_user").prop("checked")) {
+            isUneroll = "ON";
+        }
+        
 
-        // archive courses right sidebar
-        $('input#archive_enable_right_sidebar').change(function () {
-            if ($(this).is(':checked')) {
-                $('#archive_right_sidebar').closest('tr').show();
-            } else {
-                $('#archive_right_sidebar').closest('tr').hide();
+        $.ajax({
+            type: "post",
+            url: ajaxurl,
+            data: {
+                action: "wdm_eb_order_refund",
+                eb_ord_refund_amt: refAmt,
+                eb_order_refund_note: refNote,
+                eb_order_meta_unenroll_user: isUneroll,
+                eb_order_id:orderId,
+                order_nonce:eb_admin_js_object.eb_order_refund_nonce
+            },
+            error: function (error) {
+                
+            },
+            success: function (response) {
+                
             }
-        }).change();
-        $('input#archive_enable_left_sidebar').change(function () {
-            if ($(this).is(':checked')) {
-                $('#archive_left_sidebar').closest('tr').show();
-            } else {
-                $('#archive_left_sidebar').closest('tr').hide();
-            }
-        }).change();
+        });
 
-        // single course right sidebar
-        $('input#single_enable_right_sidebar').change(function () {
-            if ($(this).is(':checked')) {
-                $('#single_right_sidebar').closest('tr').show();
-            } else {
-                $('#single_right_sidebar').closest('tr').hide();
-            }
-        }).change();
-        $('input#single_enable_left_sidebar').change(function () {
-            if ($(this).is(':checked')) {
-                $('#single_left_sidebar').closest('tr').show();
-            } else {
-                $('#single_left_sidebar').closest('tr').hide();
-            }
-        }).change();
+    }
 
-    });
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    }
 
 })(jQuery);

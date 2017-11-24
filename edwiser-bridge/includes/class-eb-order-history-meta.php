@@ -55,42 +55,42 @@ class EBOrderHistory
      */
     private function getHistoryTag($ordHist)
     {
-        $updatedBy  = getArrValue($ordHist, "by");
-        $updatedOn  = getArrValue($ordHist, "time");
-        $note       = getArrValue($ordHist, "note");
-        $extraNote  = getArrValue($note, "extra_note", false);
-        $oldStatus  = getArrValue($note, "old_status");
-        $newStatus  = getArrValue($note, "new_status");
-        $refundData = getArrValue($note, "refund_data", false);
-        $statusNote = $this->getStatusUpdateNote($newStatus, $oldStatus);
-        $refundNote="";
-        if ($refundData != false) {
-            $refundNote = $this->addRefundNote($refundData);
-        }
-
-        if ($extraNote) {
-            $newOrd= getArrValue($extraNote, "new_ord", false);
-            if ($newOrd) {
-                $statusNote=getArrValue($extraNote, "msg", "");
-            }
-        }
-        $statusNote = apply_filters("eb_update_sso_status_update_note", $statusNote, $ordHist);
-        $refundNote = apply_filters("eb_update_sso_refund_status_update_note", $refundNote, $refundData);
+        $updatedBy = getArrValue($ordHist, "by");
+        $updatedOn = getArrValue($ordHist, "time");
+        $noteData  = getArrValue($ordHist, "note", array());
+        $note      = $this->createNoteMsg($noteData);
         ?>
         <li>
             <div class="eb-sso-hist-note">
-                <?php
-                echo $statusNote;
-                echo $refundNote;
-                ?>
+                <?php echo $note; ?>
             </div>
             <div class="eb-sso-hist-by">
-                <?php
-                printf(__("added by %s on %s.", "eb-textdomain"), $updatedBy, date("F j, Y, g:i a", $updatedOn));
-                ?>
+                <?php printf(__("added by %s on %s.", "eb-textdomain"), $updatedBy, date("F j, Y, g:i a", $updatedOn)); ?>
             </div>
         </li>
         <?php
+    }
+
+    private function createNoteMsg($noteData)
+    {
+        $type = getArrValue($noteData, "type", "");
+        $msg  = getArrValue($noteData, "msg", "");
+        $note = "";
+        switch ($type) {
+            case "status_update":
+                $note = $this->getStatusUpdateMsg($msg);
+                break;
+            case "refund":
+                $note = $this->getRefundNoteMsg($msg);
+                break;
+            case "new_order":
+                $note = $this->getNewORderNoteMsg($msg);
+                break;
+            default:
+                $note = apply_filters("eb_order_history_meta_type_default", $type, $msg);
+                break;
+        }
+        return $note;
     }
 
     /**
@@ -101,54 +101,41 @@ class EBOrderHistory
      * @param type $oldStatus old order updated status.
      * @return string returns the order status updates in statement format.
      */
-    private function getStatusUpdateNote($newStatus, $oldStatus)
+    private function getStatusUpdateMsg($note)
     {
-        $status    = array(
+        $oldStatus   = getArrValue($note, "old_status");
+        $newStatus   = getArrValue($note, "new_status");
+        $constStatus = array(
             'pending'   => __('Pending', "eb-textdomain"),
             'completed' => __('Completed', "eb-textdomain"),
             'failed'    => __('Failed', "eb-textdomain"),
             'refunded'  => __('Refunded', "eb-textdomain"),
         );
-        $statOld   = getArrValue($status, $oldStatus);
-        $statNew   = getArrValue($status, $newStatus);
-        $noteState = sprintf(__("Order status changed from %s to %s.", "eb-textdomain"), $statOld, $statNew);
+        $statOld     = getArrValue($constStatus, $oldStatus);
+        $statNew     = getArrValue($constStatus, $newStatus);
+        $noteState   = sprintf(__("Order status changed from %s to %s.", "eb-textdomain"), $statOld, $statNew);
+        $noteState   = apply_filters("eb_order_history_disp_status_change_msg", $noteState, $note);
         return $noteState;
     }
 
-    /**
-     * Provides the functionality to prepare the refund statement.
-     *
-     * @since 1.3.0
-     * @param array  $refundData array of the refunded order status element.
-     * @return string returns the order status updates in statement format.
-     */
-    private function addRefundNote($refundData)
+    private function getRefundNoteMsg($note)
     {
-        $status = getArrValue($refundData, "status", false);
-        if ($status == false) {
-            return "";
+        $currency        = getArrValue($note, 'currency', getCurrentPayPalcurrencySymb());
+        $refundAmt       = getArrValue($note, 'refund_amt', "0.00");
+        $refundNote      = getArrValue($note, 'refund_note');
+        $refundIsUneroll = getArrValue($note, 'refund_uneroll_users');
+        $unenrollMsg     = "";
+        if ($refundIsUneroll == "ON") {
+            $unenrollMsg = __(" also the user is unenrolled from associated course.", "eb-textdomain");
         }
-        $currency        = getArrValue($refundData, 'currency', getCurrentPayPalcurrencySymb());
-        $refundAmt       = getArrValue($refundData, 'refund_amt', "0.00");
-        $refundNote      = getArrValue($refundData, 'refund_note');
-        $refundIsUneroll = getArrValue($refundData, 'refund_uneroll_users');
-        ob_start();
-        ?>
-        <div>
-            <?php
-            printf(
-                __("Amount %s%s has been refunded due to %s", "eb-textdomain"),
-                $currency,
-                $refundAmt,
-                $refundNote
-            );
-            if ($refundIsUneroll == "ON") {
-                _e(" also the user is unenrolled from associated course.", "eb-textdomain");
-            }
-            ?>
-        </div>
-        <?php
-        $stmtHistNote   = ob_get_clean();
-        return $stmtHistNote;
+        $histNote = sprintf(__("Amount %s%s has been refunded due to %s %s.", "eb-textdomain"), $currency, $refundAmt, $refundNote, $unenrollMsg);
+        $histNote = apply_filters("eb_order_history_disp_refund_msg", $histNote, $note);
+        return $histNote;
+    }
+
+    private function getNewORderNoteMsg($note)
+    {
+        $note = apply_filters("eb_order_history_disp_refund_msg", $note);
+        return $note;
     }
 }
