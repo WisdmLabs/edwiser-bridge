@@ -98,9 +98,26 @@
                         echo '<td><strong>#'.$order['order_id'].'</strong></td>';
                         if (get_the_title($order['ordered_item']) == '') {
                             echo '<td>'.__('Not Available', 'eb-textdomain').'</td>';
+                        } elseif (is_array($order['ordered_item']) && count($order['ordered_item']) !== 1) {
+                            echo "<td>";
+                            echo "<ul>";
+                            foreach ($order['ordered_item'] as $moodleCoursePostId) {
+                                echo "<li>";
+                                echo '<a href="'.get_permalink($moodleCoursePostId).'"/>'.get_the_title($moodleCoursePostId).'</a>';
+                                echo "</li>";
+                            }
+                            echo "</ul>";
+                            echo '</td>';
+                        } elseif (is_array($order['ordered_item']) && count($order['ordered_item']) === 1) {
+                            echo "<td>";
+                            foreach ($order['ordered_item'] as $moodleCoursePostId) {
+                                echo '<a href="'.get_permalink($moodleCoursePostId).'"/>'.get_the_title($moodleCoursePostId).'</a>';
+                            }
+                            echo '</td>';
                         } else {
-                            echo '<td> <a href="'.get_permalink($order['ordered_item']).'"/>'.
-                            get_the_title($order['ordered_item']).'</a> </td>';
+                            echo '<td>';
+                            echo ' <a href="'.get_permalink($order['ordered_item']).'"/>'.get_the_title($order['ordered_item']).'</a> ';
+                            echo '</td>';
                         }
                         echo '<td>'.$order['date'].'</td>';
                         echo '<td>'.ucfirst($order['status']).'</td>';
