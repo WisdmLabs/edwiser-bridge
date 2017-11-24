@@ -38,7 +38,7 @@ class EBOrderMeta
 
     public function addEbOrderMetaBoxes()
     {
-        $statusHit=new EBOrderHistory($this->plugin_name, $this->version);
+        $statusHit = new EBOrderHistory($this->plugin_name, $this->version);
         add_meta_box("eb_order_status_update_history_meta", __("Order status history", "eb-textdomain"), array($statusHit, "addOrderStatusHistoryMeta"), "eb_order", 'side', 'default');
         add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array($this, "addOrderRefundMeta"), "eb_order", 'advanced', 'default');
     }
@@ -61,19 +61,22 @@ class EBOrderMeta
 
     public function addOrderRefundMeta()
     {
-        // global $post;
+        global $post;
         $payment_options = get_option('eb_paypal');
         $currency        = isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD' ? "$" : $payment_options['eb_paypal_currency'];
-        // $price           = "2";
-        $avlRefundAmt    = "2";
-        $refundedAmt     = "0";
+        $price           = $this->getCoursePrice($post->ID);
+        $refunds         = $this->getOrdersAllRefund($post->ID);
+        $refundedAmt     = $this->getTotalRefuncdAmt($refunds);
+        $avlRefundAmt    = $price - $refundedAmt;
         ?>
         <div class="eb-order-refund-data">
+            <?php $this->dispRefunds($refunds); ?>
             <table class="eb-order-refund-unenroll">
                 <tbody>
+                    <?php do_action("eb_before_order_refund_meta"); ?>
                     <tr>
                         <td>
-                            <?php _e("Unenroll from purchased courses?: ", "eb-textdomain"); ?>
+                            <?php _e("Unenroll user from purchased courses?: ", "eb-textdomain"); ?>
                         </td>
                         <td>
                             <input type="checkbox" name="eb_order_meta_unenroll_user" value="ON" />
@@ -81,10 +84,18 @@ class EBOrderMeta
                     </tr>
                     <tr>
                         <td>
+                            <?php _e("Purchase cost: ", "eb-textdomain"); ?>
+                        </td>
+                        <td>
+                            <label class="eb-ord-cost"><?php echo $currency . $price; ?></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <?php _e("Amount already refunded: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <label class="eb-ord-refund-amt">- <?php echo $currency . " " . $refundedAmt; ?></label>
+                            <label class="eb-ord-refunded-amt">- <?php echo $currency . $refundedAmt; ?></label>
                         </td>
                     </tr>
                     <tr>
@@ -92,7 +103,7 @@ class EBOrderMeta
                             <?php _e("Total available to refund: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <label class="eb-ord-refund-amt"><?php echo $currency . " " . $avlRefundAmt; ?></label>
+                            <label class="eb-ord-avlb-refund-amt"><?php echo $currency . $avlRefundAmt; ?></label>
                         </td>
                     </tr>
                     <tr>
@@ -100,7 +111,7 @@ class EBOrderMeta
                             <?php _e("Refund amount: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="number" id="eb_ord_refund_amt" min="0" name="eb_ord_refund_amt" placeholder="0.00"/>
+                            <input type="text" id="eb_ord_refund_amt" min="0" max="<?php echo $avlRefundAmt ?>" name="eb_ord_refund_amt" placeholder="0.00"/>
                         </td>
                     </tr>
                     <tr>
@@ -111,16 +122,67 @@ class EBOrderMeta
                             <input type="text" id="eb_order_refund_note" name="eb_order_refund_note" />
                         </td>
                     </tr>
+                    <?php do_action("eb_after_order_refund_meta"); ?>
                 </tbody>
             </table>
             <div class="eb-ord-refund-btn-cont">
+                <?php do_action("eb_before_order_refund_meta_button"); ?>
                 <button type="button" class="button-primary" id="eb_order_refund_btn" name="eb_order_refund_btn" >
                     <?php echo __("Refund", "eb-textdomain") . " " . $currency . " "; ?>
                     <span id="eb-ord-refund-amt-btn-txt">0.00</span>
                 </button>
+                <?php do_action("eb_after_order_refund_meta_button"); ?>
             </div>
         </div>
         <?php
+    }
+
+    private function getCoursePrice($orderId)
+    {
+        $orderData = get_post_meta($orderId, 'eb_order_options', true);
+        $price     = getArrValue($orderData, "price", "0.00");
+        return (float) $price;
+    }
+
+    private function getOrdersAllRefund($orderId)
+    {
+        $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);
+        if (!is_array($refunds)) {
+            $refunds = array();
+        }
+        return $refunds;
+    }
+
+    private function dispRefunds($refunds)
+    {
+        ?>
+        <ul class="eb-order-refund-hist-cont">
+            <?php
+            foreach ($refunds as $refund) {
+                $refndBy  = getArrValue($refund, "by");
+                $time     = getArrValue($refund, "time");
+                $amt      = getArrValue($refund, "amt");
+                $currency = getArrValue($refund, "currency");
+                ?>
+                <li>
+                    <div class="eb-order-refund-hist-stmt"><?php printf(__("Refunded by %s on %s", "eb-textdomain"), $refndBy, date("F j, Y, g:i a", $time)); ?></div>
+                    <div class="eb-order-refund-hist-amt"><?php echo "$currency$amt"; ?></div>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+        <?php
+    }
+
+    private function getTotalRefuncdAmt($refunds)
+    {
+        $totalRefund = (float) "0.00";
+        foreach ($refunds as $refund) {
+            $refundAmt   = getArrValue($refund, "amt", "0.00");
+            $totalRefund += (float) $refundAmt;
+        }
+        return $totalRefund;
     }
 
     /**

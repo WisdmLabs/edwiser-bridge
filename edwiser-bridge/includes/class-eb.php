@@ -335,6 +335,7 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-meta.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-status-update.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-history-meta.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-refund.php';
     }
 
     /**
@@ -498,12 +499,23 @@ class EdwiserBridge
         $this->loader->addAction(
             'save_post_eb_order',
             $saveOrderMeta,
-            'saveMeta'
+            'saveMeta',
+            05
+        );
+        $this->loader->addAction(
+            'eb_order_created',
+            $saveOrderMeta,
+            'saveNewOrderPlaceNote'
         );
         $this->loader->addAction(
             'eb_post_add_meta',
             $orderMeta,
             'addOrderRefundButton'
+        );
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_email_tmpl_restore_content',
+            $orderMeta,
+            'initEbOrderRefund'
         );
 
         /*

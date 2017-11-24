@@ -549,6 +549,10 @@
         $("#eb_ord_refund_amt").blur(function () {
             $(this).val(Number($(this).val()).toFixed(2));
             var rfndAmt = $(this).val();
+            if(rfndAmt=="NaN"){
+                rfndAmt="0.00";
+                $(this).val(rfndAmt);
+            }
             $("#eb-ord-refund-amt-btn-txt").text(rfndAmt);
         });
 

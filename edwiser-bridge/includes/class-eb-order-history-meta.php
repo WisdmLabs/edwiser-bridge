@@ -58,13 +58,24 @@ class EBOrderHistory
         $updatedBy  = getArrValue($ordHist, "by");
         $updatedOn  = getArrValue($ordHist, "time");
         $note       = getArrValue($ordHist, "note");
+        $extraNote  = getArrValue($note, "extra_note", false);
         $oldStatus  = getArrValue($note, "old_status");
         $newStatus  = getArrValue($note, "new_status");
         $refundData = getArrValue($note, "refund_data", false);
         $statusNote = $this->getStatusUpdateNote($newStatus, $oldStatus);
+        $refundNote="";
         if ($refundData != false) {
             $refundNote = $this->addRefundNote($refundData);
         }
+
+        if ($extraNote) {
+            $newOrd= getArrValue($extraNote, "new_ord", false);
+            if ($newOrd) {
+                $statusNote=getArrValue($extraNote, "msg", "");
+            }
+        }
+        $statusNote = apply_filters("eb_update_sso_status_update_note", $statusNote, $ordHist);
+        $refundNote = apply_filters("eb_update_sso_refund_status_update_note", $refundNote, $refundData);
         ?>
         <li>
             <div class="eb-sso-hist-note">
@@ -75,10 +86,7 @@ class EBOrderHistory
             </div>
             <div class="eb-sso-hist-by">
                 <?php
-                _e("added by ", "eb-textdomain");
-                echo $updatedBy;
-                _e(" on ", "eb-textdomain");
-                echo date("F j, Y, g:i a", $updatedOn);
+                printf(__("added by %s on %s.", "eb-textdomain"), $updatedBy, date("F j, Y, g:i a", $updatedOn));
                 ?>
             </div>
         </li>
@@ -104,7 +112,6 @@ class EBOrderHistory
         $statOld   = getArrValue($status, $oldStatus);
         $statNew   = getArrValue($status, $newStatus);
         $noteState = sprintf(__("Order status changed from %s to %s.", "eb-textdomain"), $statOld, $statNew);
-        $noteState = apply_filters("eb_update_sso_status_update_note", $noteState);
         return $noteState;
     }
 
@@ -141,8 +148,7 @@ class EBOrderHistory
             ?>
         </div>
         <?php
-        $stmtNote   = ob_get_clean();
-        $statusNote = apply_filters("eb_update_sso_refund_status_update_note", $stmtNote);
-        return $statusNote;
+        $stmtHistNote   = ob_get_clean();
+        return $stmtHistNote;
     }
 }

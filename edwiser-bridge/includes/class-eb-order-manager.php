@@ -236,14 +236,17 @@ class EBOrderManager
 
         if (!is_wp_error($order_id)) {
             //update order meta
+            $price= $this->getCoursePrice($course_id);
+            $price = apply_filters("eb_new_order_course_price", $price, $order_data);
             update_post_meta(
                 $order_id,
                 'eb_order_options',
                 array(
-                'order_status' => $order_status,
-                'buyer_id' => $buyer_id,
-                'course_id' => $course_id,
-                    )
+                    'order_status' => $order_status,
+                    'buyer_id' => $buyer_id,
+                    'course_id' => $course_id,
+                    'price' => $price,
+                )
             );
         }
 
@@ -256,6 +259,24 @@ class EBOrderManager
         do_action('eb_order_created', $order_id);
 
         return $order_id;
+    }
+
+    /**
+     * Provides the functionality to get the courses price from course meta.
+     *
+     * @since 1.3.0
+     * @param type $courseId
+     * @return string returns the courses associated price.
+     */
+    private function getCoursePrice($courseId)
+    {
+        $courseMeta = get_post_meta($courseId, "eb_course_options", true);
+        $price="0.00";
+        $courseType= getArrValue($courseMeta, "course_price_type", false);
+        if ($courseType && $courseType=="paid") {
+            $price = getArrValue($courseMeta, "course_price", "0.00");
+        }
+        return $price;
     }
 
     /**
