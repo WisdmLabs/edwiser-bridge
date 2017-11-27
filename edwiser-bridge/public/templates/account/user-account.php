@@ -1,5 +1,4 @@
 <div class="eb-user-profile" >
-
     <?php
     if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
         $template_loader->wpGetTemplate(
@@ -21,12 +20,10 @@
             </aside>
             <div class="eb-user-data">
                 <div>
-                    <?php
-                    printf(esc_attr__('Hello %s%s%s (not %2$s? %sSign out%s)', 'eb-textdomain'), '<strong>', esc_html($user->display_name), '</strong>', '<a href="'.esc_url(wp_logout_url(get_permalink())).'">', '</a>');
+                    <?php printf(esc_attr__('Hello %s%s%s (not %2$s? %sSign out%s)', 'eb-textdomain'), '<strong>', esc_html($user->display_name), '</strong>', '<a href="'.esc_url(wp_logout_url(get_permalink())).'">', '</a>');
         ?>
                 </div>
             </div>
-
             <div class="eb-edit-profile" >
                 <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink()));
         ?>" class="wdm-btn">
@@ -34,7 +31,6 @@
         ?>
                 </a>
             </div>
-
         </section>
 
         <section class="eb-user-courses">
@@ -58,16 +54,10 @@
                     ?>
                     <p class="eb-no-course">
                         <?php
-                        printf(
-                            __(
-                                'Looks like you are not enrolled in any course, get your first course %s',
-                                'eb-textdomain'
-                            ),
-                            '<a href="'.esc_url(site_url('/courses')).'">'.__('here', 'eb-textdomain').'</a>.'
-                        );
+                        printf(__('Looks like you are not enrolled in any course, get your first course %s', 'eb-textdomain'), '<a href="'.esc_url(site_url('/courses')).'">'.__('here', 'eb-textdomain').'</a>.');
                     ?>
                     </p>
-                    <?php
+                <?php
                 }
         ?>
             </div>
@@ -75,63 +65,94 @@
 
         <div class="eb-cph-wrapper">
             <div class="wdm-transaction-header">
-                <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain');
-        ?></h4>
+                <h4 style="">
+                    <?php _e('Course Purchase History', 'eb-textdomain');
+        ?>
+                </h4>
             </div>
             <table id="wdm_user_order_history" class="display">
                 <thead>
                     <tr>
-                        <th><?php _e('Order ID', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Ordered Course', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Order Date', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Status', 'eb-textdomain');
-        ?></th>
+                        <th>
+                            <?php _e('Order ID', 'eb-textdomain');
+        ?>
+                        </th>
+                        <th>
+                            <?php _e('Ordered Course', 'eb-textdomain');
+        ?>
+                        </th>
+                        <th>
+                            <?php _e('Order Date', 'eb-textdomain');
+        ?>
+                        </th>
+                        <th>
+                            <?php _e('Status', 'eb-textdomain');
+        ?>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     foreach ($user_orders as $order) {
-                        echo '<tr>';
-                        echo '<td><strong>#'.$order['order_id'].'</strong></td>';
-                        if (get_the_title($order['ordered_item']) == '') {
-                            echo '<td>'.__('Not Available', 'eb-textdomain').'</td>';
-                        } elseif (is_array($order['ordered_item']) && count($order['ordered_item']) !== 1) {
-                            echo "<td>";
-                            echo "<ul>";
-                            foreach ($order['ordered_item'] as $moodleCoursePostId) {
-                                echo "<li>";
-                                echo '<a href="'.get_permalink($moodleCoursePostId).'"/>'.get_the_title($moodleCoursePostId).'</a>';
-                                echo "</li>";
-                            }
-                            echo "</ul>";
-                            echo '</td>';
-                        } elseif (is_array($order['ordered_item']) && count($order['ordered_item']) === 1) {
-                            echo "<td>";
-                            foreach ($order['ordered_item'] as $moodleCoursePostId) {
-                                echo '<a href="'.get_permalink($moodleCoursePostId).'"/>'.get_the_title($moodleCoursePostId).'</a>';
-                            }
-                            echo '</td>';
-                        } else {
-                            echo '<td>';
-                            echo ' <a href="'.get_permalink($order['ordered_item']).'"/>'.get_the_title($order['ordered_item']).'</a> ';
-                            echo '</td>';
+                        $ordId = isset($order['order_id']) ? $order['order_id'] : '---';
+                        $ordCourses = isset($order['ordered_item']) ? $order['ordered_item'] : array();
+                        $ordDate = isset($order['date']) ? $order['date'] : '---';
+                        $ordStatus = isset($order['status']) ? $order['status'] : '---';
+                        if (!is_array($ordCourses)) {
+                            $ordCourses = array($ordCourses);
                         }
-                        echo '<td>'.$order['date'].'</td>';
-                        echo '<td>'.ucfirst($order['status']).'</td>';
-                        echo '</tr>';
+                        ?>
+                        <tr>
+                            <td>
+                                <strong><?php echo "#$ordId";
+                        ?></strong>
+                            </td>
+                            <?php
+                            if (get_the_title($order['ordered_item']) == '') {
+                                ?>
+                                <td>
+                                    <?php _e('Not Available', 'eb-textdomain');
+                                ?>
+                                </td>
+                            <?php
+                            } else {
+                                ?>
+                                <td>
+                                    <ul class="eb-ord-courses-list">
+                                        <?php
+                                        foreach ($ordCourses as $courseId) {
+                                            ?>
+                                            <li>
+                                                <a href="<?php echo get_permalink($courseId);
+                                            ?>"/>
+                                                <?php echo get_the_title($courseId);
+                                            ?>
+                                                </a>
+                                            </li>
+                                        <?php
+                                        }
+                                ?>
+                                    </ul>
+                                </td>
+                            <?php
+                            }
+                        ?>
+                            <td>
+                                <?php echo $ordDate;
+                        ?>
+                            </td>
+                            <td>
+                                <?php echo ucfirst($ordStatus);
+                        ?>
+                            </td>
+                        </tr>
+                        <?php
                     }
-
                     do_action('eb_after_order_history');
-                    ?>
+        ?>
                 </tbody>
             </table>
         </div>
-
-
-        <?php
-    }
-    ?>
+    <?php
+    } ?>
 </div>
