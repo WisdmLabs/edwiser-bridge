@@ -148,6 +148,10 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+= 1.2.4 =
+* Feature - Added functionality to display multiple courses on user account page.
+* Feature - Added compatibility for woocommerce-integration to display orders on user account page.
+
 = 1.2.3 =
 * Feature - Functionality to display courses by category in eb_courses shortcode.
 * Feature - Functionality to display eb_courses shortcode output horizontally scrollable.

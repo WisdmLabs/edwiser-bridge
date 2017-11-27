@@ -620,3 +620,6 @@ nav.eb-pagination ul li span.current {
 * End eb-courses page shortcode styling
 */
 
+.eb-ord-courses-list{
+    list-style: none;
+}
