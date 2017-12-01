@@ -230,11 +230,20 @@ div#user_login label{
 }
 
 /* user profile shortcode style */
+.eb-user-account-navigation{
+    float: left;
+    width: 20%;
+}
+.eb-user-account-content{
+    float: right;
+    width: 75%
+}
 .eb-user-profile{
-    border: 1px solid rgba(68, 68, 68, 0.21);
-    padding: 10px;
+/*    border: 1px solid rgba(68, 68, 68, 0.21);
+*/    padding: 10px;
     border-radius: 3px;
     font-family: "Noto Sans", sans-serif!important;
+    display: flex;
 }
 
 .eb-user-info{

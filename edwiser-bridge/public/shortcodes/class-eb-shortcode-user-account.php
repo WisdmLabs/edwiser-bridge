@@ -11,6 +11,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeUserAccount
 {
+
     /**
      * Get the shortcode content.
      *
@@ -31,6 +32,11 @@ class EbShortcodeUserAccount
      *
      * @param array $atts
      */
+    public static function getInstance()
+    {
+        return new EbShortcodeUserAccount();
+    }
+
     public static function output($atts)
     {
         if (!is_user_logged_in()) {
