@@ -1,3 +1,6 @@
+            <aside class="eb-user-picture">
+                <?php echo $user_avatar;?>
+            </aside>
             <div class="eb-user-data">
                 <div>
                     <?php

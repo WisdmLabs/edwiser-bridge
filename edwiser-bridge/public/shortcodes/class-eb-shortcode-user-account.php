@@ -11,7 +11,7 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeUserAccount
 {
-
+    
     /**
      * Get the shortcode content.
      *
@@ -37,6 +37,9 @@ class EbShortcodeUserAccount
         return new EbShortcodeUserAccount();
     }
 
+    /*
+    *
+    */
     public static function output($atts)
     {
         if (!is_user_logged_in()) {
@@ -299,5 +302,86 @@ class EbShortcodeUserAccount
             $args['user_pass'] = $posted_data['pass_1'];
         }
         wp_update_user($args);
+    }
+    public function getUserAccountNavigationItems()
+    {
+         return apply_filters(
+             'eb_user_account_labels',
+             array(
+                array(
+                    'label'=> 'Dashboard',
+                    'href' => ''
+                    ),
+                array(
+                    'label' => 'My Profile',
+                    'href' => 'eb-my-profile'
+                    ),
+                array(
+                    'label' =>'Orders',
+                    'href'=>'eb-orders'
+                    ),
+                array(
+                    'label' => 'My Courses',
+                    'href'=> 'eb-my-courses'
+                    )
+             )
+         );
+    }
+    public function getUserAccountContent($ebActiveLink, $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader)
+    {
+        switch ($ebActiveLink) {
+            case '':
+                $template_loader->wpGetTemplate(
+                    'account/user-data.php',
+                    array(
+                    'user' => $user,
+                    'user_avatar' => $user_avatar
+                    )
+                );
+                break;
+
+            case 'eb-my-profile':
+                $template_loader->wpGetTemplate(
+                    'account/edit-user-profile.php',
+                    array(
+                    'user_avatar' => $user_avatar,
+                    'user' => $user,
+                    'user_meta' => $user_meta,
+                    'enrolled_courses' => $enrolled_courses,
+                    'template_loader' => $template_loader,
+                    )
+                );
+
+                break;
+            case 'eb-orders':
+                $template_loader->wpGetTemplate(
+                    'account/user-orders.php',
+                    array(
+                    'user' => $user,
+                    'user_meta' => $user_meta,
+                    'enrolled_courses' => $enrolled_courses,
+                    'template_loader' => $template_loader,
+                    'user_orders'=> $user_orders,
+                    'user_count'=>$order_count
+                    )
+                );
+
+                break;
+            case 'eb-my-courses':
+                $template_loader->wpGetTemplate(
+                    'account/my-courses.php',
+                    array(
+                    'user' => $user,
+                    'user_meta' => $user_meta,
+                    'enrolled_courses' => $enrolled_courses,
+                    'template_loader' => $template_loader,
+                    )
+                );
+
+                break;
+            default:
+                do_action('eb_user_account_label_content', $_GET['eb-active-link']);
+                break;
+        }
     }
 }

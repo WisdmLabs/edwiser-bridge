@@ -136,10 +136,8 @@ class EbAdmin
                 'msg_link_user' => __('Linked ', 'eb-textdomain'),
                 'msg_unlink_user' => __('Unlinked ', 'eb-textdomain'),
                 'msg_error_unlink_user' => __('Sorry, unable unlink  user', 'eb-textdomain'),
-                'msg_error_link_user' => __('Sorry, unable link  user', 'eb-textdomain'),
-                'msg_error_moodle_link' => __('Sorry, unable to link to moodle', 'eb-textdomain'),
-                'msg_confirm_refund' => __('Do you want to refund for the order id: #', 'eb-textdomain'),
-                'eb_order_refund_nonce' => wp_create_nonce("eb_order_refund_nons_field")
+                 'msg_error_link_user' => __('Sorry, unable link  user', 'eb-textdomain'),
+                 'msg_error_moodle_link' => __('Sorry, unable to link to moodle', 'eb-textdomain')
             )
         );
 

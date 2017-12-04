@@ -437,6 +437,7 @@ class EBOrderManager
 
             if (!$buyer) {
                 echo '-';
+
                 return;
             }
 

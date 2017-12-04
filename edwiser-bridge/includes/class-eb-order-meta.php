@@ -79,7 +79,7 @@ class EBOrderMeta
                             <?php _e("Unenroll user from purchased courses?: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="checkbox" name="eb_order_meta_unenroll_user" id="eb_order_meta_unenroll_user" value="ON" />
+                            <input type="checkbox" name="eb_order_meta_unenroll_user" value="ON" />
                         </td>
                     </tr>
                     <tr>
@@ -131,10 +131,7 @@ class EBOrderMeta
                     <?php echo __("Refund", "eb-textdomain") . " " . $currency . " "; ?>
                     <span id="eb-ord-refund-amt-btn-txt">0.00</span>
                 </button>
-                <?php
-                do_action("eb_after_order_refund_meta_button");
-                wp_nonce_field("eb_order_refund_nons_field", "eb_order_refund_nons");
-                ?>
+                <?php do_action("eb_after_order_refund_meta_button"); ?>
             </div>
         </div>
         <?php
