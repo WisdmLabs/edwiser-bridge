@@ -11,7 +11,6 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EbShortcodeUserAccount
 {
-    
     /**
      * Get the shortcode content.
      *

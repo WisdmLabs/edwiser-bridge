@@ -250,6 +250,8 @@ class EBEnrollmentManager
         // We are using user's wordpress ID and course's wordpress ID while saving record in enrollment table.
         if ($args['unenroll'] == 0 && $args['suspend'] == 0) {
             foreach ($args['courses'] as $key => $course_id) {
+                //Get User Course Access Count
+                $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
                 if (edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id) != '' &&
                         !$this->userHasCourseAccess($args['user_id'], $course_id)) {
                     $expireDate = $this->calcCourseAcessExpiryDate($course_id);
@@ -262,6 +264,7 @@ class EBEnrollmentManager
                         'role_id' => $role_id,
                         'time' => date('Y-m-d H:i:s'),
                         'expire_time' => $expireDate,
+                        'act_cnt' => 1,
                             ),
                         array(
                         '%d',
@@ -269,15 +272,62 @@ class EBEnrollmentManager
                         '%d',
                         '%s',
                         '%s',
+                        '%d',
                             )
                     );
+                } elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
+                    //increase the count value
+                    $act_cnt= $act_cnt +1;
+                    //update increased count value
+                    $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
                 }
             }
         } elseif ($args['unenroll'] == 1 || $args['suspend'] == 1) {
             foreach ($args['courses'] as $key => $course_id) {
-                $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
+                //Get User Course Access Count
+                $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
+                //decrease the count value
+                $act_cnt = $act_cnt - 1;
+                if ($act_cnt !== 0) {
+                    //update decreased count value
+                    $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
+                } elseif ($act_cnt === 0) {
+                    //delete row if count equals zero
+                    $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
+                }
             }
         }
+    }
+    /**
+     * used to update the count of users access to a course.
+     *
+     * @since  1.2.5
+     *
+     * @param int $user_id   WordPress user id of a user
+     * @param int $course_id WordPress course id of a course
+     * @param int $count WordPress course id of a course
+     */
+
+    public function updateUserCourseAccessCount($user_id, $course_id, $count)
+    {
+        global $wpdb;
+        $wpdb->update(
+            $wpdb->prefix.'moodle_enrollment',
+            array(
+            'act_cnt' => $count   //increase OR decrease count value
+            ),
+            array(
+            'user_id' => $user_id,
+            'course_id'=> $course_id
+            ),
+            array(
+            '%d'
+            ),
+            array(
+            '%d',
+            '%d',
+            )
+        );
     }
 
     public function calcCourseAcessExpiryDate($courseId)
@@ -367,6 +417,36 @@ class EBEnrollmentManager
 
         return $has_access;
     }
+    /**
+     * used to get the count of users access to a course.
+     *
+     * @since  1.2.5
+     *
+     * @param int $user_id   WordPress user id of a user
+     * @param int $course_id WordPress course id of a course
+     *
+     * @return bool/int (true/ false)/ account access count
+     */
+    public function getUserCourseAccessCount($user_id, $course_id)
+    {
+        global $wpdb;
+        $act_cnt = false;
+
+        if ($user_id == '' || $course_id == '') {
+            return $act_cnt;
+        }
+
+        //check if user has access to course
+        $act_cnt = $wpdb->get_var(
+            "SELECT act_cnt
+            FROM {$wpdb->prefix}moodle_enrollment
+            WHERE course_id={$course_id}
+            AND user_id={$user_id};"
+        );
+
+        return $act_cnt;
+    }
+
 
     public static function accessRemianing($userId, $courseId)
     {

@@ -120,41 +120,49 @@ class EBActivator
      */
     public static function createMoodleDBTables()
     {
-        global $wpdb;
+           global $wpdb;
 
-        $charset_collate = $wpdb->get_charset_collate();
-        $enrollment_tbl_name = $wpdb->prefix.'moodle_enrollment';
+           $charset_collate     = $wpdb->get_charset_collate();
+           $enrollment_tbl_name = $wpdb->prefix . 'moodle_enrollment';
 
-        $enrollment_table = "CREATE TABLE IF NOT EXISTS $enrollment_tbl_name (
-            id            mediumint(9) NOT NULL AUTO_INCREMENT,
-            user_id       int(11) NOT NULL,
-            course_id     int(11) NOT NULL,
-            role_id       int(11) NOT NULL,
-            time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-            expire_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-            PRIMARY KEY id (id)
-        ) $charset_collate;";
+           $enrollment_table = "CREATE TABLE IF NOT EXISTS $enrollment_tbl_name (
+           id            mediumint(9) NOT NULL AUTO_INCREMENT,
+           user_id       int(11) NOT NULL,
+           course_id     int(11) NOT NULL,
+           role_id       int(11) NOT NULL,
+           time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+           expire_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+           act_cnt int(5) DEFAULT 1 NOT NULL,
+           PRIMARY KEY id (id)
+       ) $charset_collate;";
 
-        require_once ABSPATH.'wp-admin/includes/upgrade.php';
-        dbDelta($enrollment_table);
-        self::alterTable();
+           require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+           dbDelta($enrollment_table);
+           self::alterTable();
     }
 
     public static function alterTable()
     {
         global $wpdb;
-        $enrollment_tbl_name = $wpdb->prefix.'moodle_enrollment';
-        $query = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE 'expire_time';";
-        $exists = $wpdb->query($query);
-        /**
-         * Alter table if the expire_time column is not exisit in the plugin.
-         */
-        if (!$exists) {
-            $query = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);";
-            $wpdb->query($query);
+        $enrollment_tbl_name = $wpdb->prefix . 'moodle_enrollment';
+        $newCol              = array(
+           "expire_time" => array("type" => "datetime", "default" => "0000-00-00 00:00:00"),
+           "act_cnt"     => array("type" => "int(5)", "default" => 1),
+        );
+        foreach ($newCol as $col => $val) {
+            $query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
+            $exists = $wpdb->query($query);
+            /**
+            * Alter table if the expire_time column is not exisit in the plugin.
+            */
+            if (!$exists) {
+                $dType      = $val['type'];
+                $defaultVal = $val['default'];
+                $query      = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` $dType DEFAULT $defaultVal NOT NULL);";
+                $wpdb->query($query);
+            }
         }
     }
-
     /**
      * handles addtion of new blog
      *
