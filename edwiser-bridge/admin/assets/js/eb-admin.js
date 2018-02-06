@@ -542,6 +542,9 @@
 
         });
 
+
+
+/*************** from 1.2.4  ********************/
         /**
          * Order page JS
          *
@@ -555,6 +558,36 @@
             }
             $("#eb-ord-refund-amt-btn-txt").text(rfndAmt);
         });
+
+
+        $("#eb_order_refund_btn").click(function(){
+            var refund_amt = $('#eb_ord_refund_amt').val();
+            var order_id = $('#eb_order_id').text();
+            $.ajax({
+                type: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': "refund_initiater",
+                    'order_id': order_id,
+                    'refund_amt': refund_amt,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+
+        });
+
+
+
+
+
+
+/******************  end of order page js  ***************************/
 
     });
 

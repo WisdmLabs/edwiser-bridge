@@ -250,7 +250,7 @@ class EBOrderMeta
             </p>
             <p>
                 <label><?php _e('Id: ', 'eb-textdomain'); ?></label>
-                <?php echo $order_id; ?>
+                <span id="eb_order_id"><?php echo $order_id; ?></span>
             </p>
             <p>
                 <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>

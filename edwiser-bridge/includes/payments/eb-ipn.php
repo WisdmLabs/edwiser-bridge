@@ -225,6 +225,13 @@ if ($verified) {
         $order_options['amount_paid'] = $course_price;
         update_post_meta($order_id, 'eb_order_options', $order_options);
 
+
+        //since 1.2.4
+        if (isset($_POST['txn_id']) && !empty($_POST['txn_id'])) {
+            update_post_meta($order_id, 'eb_transaction_id', $_POST['txn_id']);
+        }
+
+
         $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
 
         if ($order_completed) {

@@ -172,6 +172,42 @@ if (!class_exists('EbSettingsPayPal')) :
                     'type' => 'sectionend',
                     'id' => 'paypal_options',
                     ),
+                    array(
+                    'title' => __('PayPal API Credentials', 'eb-textdomain'),
+                    'type' => 'title',
+                    'id' => 'paypal_api_options',
+                    ),
+                    array(
+                    'title' => __('API username', 'eb-textdomain'),
+                    'desc' => __('Optional', 'eb-textdomain'),
+                    'id' => 'eb_api_username',
+                    'default' => '',
+                    'type' => 'text',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'title' => __('API password', 'eb-textdomain'),
+                    'desc' => __('Optional', 'eb-textdomain'),
+                    'id' => 'eb_api_password',
+                    'default' => '',
+                    'type' => 'password',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'title' => __('API signature', 'eb-textdomain'),
+                    'desc' => __('Optional', 'eb-textdomain'),
+                    'id' => 'eb_api_signature',
+                    'default' => '',
+                    'type' => 'text',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'type' => 'sectionend',
+                    'id' => 'paypal_api_options',
+                    ),
                     )
             );
             //}

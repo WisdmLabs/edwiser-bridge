@@ -320,6 +320,22 @@ class EBOrderManager
             if (!is_wp_error($order_id_created)) {
                 $success = 1;
                 $order_id = $order_id_created;
+
+                /**
+                 * @since 1.2.4
+                 *update post meta if the sandbox is enabled for each order if the sandbox is enabled
+                 */
+                $options = get_option("eb_paypal");
+                if (isset($options["eb_paypal_sandbox"]) && $options["eb_paypal_sandbox"] == "yes") {
+                    update_post_meta($order_id, "eb_paypal_sandbox", "yes");
+                }
+
+                error_log("options :: ".print_r($options, 1));
+                error_log("paypal currency :: ".print_r($options['eb_paypal_currency'], 1));
+
+                if (isset($options['eb_paypal_currency']) && !empty($options['eb_paypal_currency'])) {
+                    update_post_meta($order_id, 'eb_paypal_currency', $options['eb_paypal_currency']);
+                }
             }
         }
 

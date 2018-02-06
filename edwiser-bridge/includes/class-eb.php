@@ -274,6 +274,12 @@ class EdwiserBridge
          */
         require_once EB_PLUGIN_DIR.'includes/payments/class-eb-payment-manager.php';
 
+        /*
+         * loading refund dependencies.
+         */
+        require_once EB_PLUGIN_DIR.'includes/payments/class-eb-refund-paypal-payment-manager.php';
+
+
         // core functions
         require_once EB_PLUGIN_DIR.'includes/eb-core-functions.php';
         require_once EB_PLUGIN_DIR.'includes/eb-formatting-functions.php';
@@ -561,6 +567,19 @@ class EdwiserBridge
             $manageEnrollment,
             'resetEmailTemplateContent'
         );
+
+        /**
+         *refund functionality
+         */
+        $refundManager = new EBRefundPaymentManager();
+        $this->loader->addAction(
+            'wp_ajax_refund_initiater',
+            $refundManager,
+            'refundInitiater'
+        );
+
+
+
         /**
          * Email template editor end
          */
