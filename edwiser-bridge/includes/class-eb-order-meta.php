@@ -62,8 +62,8 @@ class EBOrderMeta
     public function addOrderRefundMeta()
     {
         global $post;
-        $payment_options = get_option('eb_paypal');
-        $currency        = isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD' ? "$" : $payment_options['eb_paypal_currency'];
+        // $payment_options = get_option('eb_paypal');
+        $currency        = getCurrentPayPalcurrencySymb();
         $price           = $this->getCoursePrice($post->ID);
         $refunds         = $this->getOrdersAllRefund($post->ID);
         $refundedAmt     = $this->getTotalRefuncdAmt($refunds);
@@ -79,7 +79,7 @@ class EBOrderMeta
                             <?php _e("Unenroll user from purchased courses?: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="checkbox" name="eb_order_meta_unenroll_user" value="ON" />
+                            <input type="checkbox" name="eb_order_meta_unenroll_user" id="eb_order_meta_unenroll_user" value="ON" />
                         </td>
                     </tr>
                     <tr>
@@ -131,7 +131,10 @@ class EBOrderMeta
                     <?php echo __("Refund", "eb-textdomain") . " " . $currency . " "; ?>
                     <span id="eb-ord-refund-amt-btn-txt">0.00</span>
                 </button>
-                <?php do_action("eb_after_order_refund_meta_button"); ?>
+                <?php
+                do_action("eb_after_order_refund_meta_button");
+                wp_nonce_field("eb_order_refund_nons_field", "eb_order_refund_nons");
+                ?>
             </div>
         </div>
         <?php
@@ -250,7 +253,7 @@ class EBOrderMeta
             </p>
             <p>
                 <label><?php _e('Id: ', 'eb-textdomain'); ?></label>
-                <span id="eb_order_id"><?php echo $order_id; ?></span>
+                <?php echo $order_id; ?>
             </p>
             <p>
                 <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>

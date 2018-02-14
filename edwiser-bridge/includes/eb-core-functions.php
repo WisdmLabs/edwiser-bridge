@@ -289,7 +289,7 @@ function getCurrentPayPalcurrencySymb()
  */
 function getArrValue($arr, $key, $value = '')
 {
-    if (isset($arr[$key])) {
+    if (isset($arr[$key]) && !empty($arr[$key])) {
         $value = $arr[$key];
     }
 

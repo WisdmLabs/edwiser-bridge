@@ -7,32 +7,28 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
-class EBRefundPaymentManager
+class EbPaymentRefundManager
 {
-
 
     public function refundInitiater()
     {
+        return;
 
         if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
             die('Busted!');
         }
 
         if (isset($_POST['order_id']) && !empty($_POST['order_id']) && isset($_POST['refund_amt']) && !empty($_POST['refund_amt'])) {
-            $response = self::refundTransaction($_POST['order_id'], $_POST['refund_amt'], "dummy reason ");
+            $response = $this->refundTransaction($_POST['order_id'], $_POST['refund_amt'], "dummy reason ");
         }
 
-        error_log("POST ::".print_r($_POST, 1));
-        error_log("response :: ".print_r($response, 1));
+        error_log("POST ::" . print_r($_POST, 1));
+        error_log("response :: " . print_r($response, 1));
         echo json_encode(array("succes" => $response));
         die();
     }
-
-
-
 
     /**
      * Refund an order via PayPal.
@@ -41,30 +37,26 @@ class EBRefundPaymentManager
      * @param  string   $reason
      * @return object Either an object of name value pairs for a success, or a WP_ERROR object.
      */
-    public static function refundTransaction($orderId, $amount = null, $reason = '')
+    public function refundTransaction($orderId, $amount = null, $reason = '')
     {
-        $sandbox = get_post_meta($orderId, "eb_paypal_sandbox", 1);
+        $sandbox   = get_post_meta($orderId, "eb_paypal_sandbox", 1);
+        $payPalURL = "https://api-3t.paypal.com/nvp";
         if (isset($sandbox) && !empty($sandbox) && $sandbox == "yes") {
-            $sandbox = 1;
-        } else {
-            $sandbox = 0;
+            $payPalURL = "https://api-3t.sandbox.paypal.com/nvp";
         }
 
-
         $raw_response = wp_safe_remote_post(
-            $sandbox ? 'https://api-3t.sandbox.paypal.com/nvp' : 'https://api-3t.paypal.com/nvp',
+            $payPalURL,
             array(
-                'method'      => 'POST',
-                'body'        => self::getRefundRequestData($orderId, $amount, $reason),
-                'timeout'     => 70,
-                // 'user-agent'  => 'WooCommerce/' . WC()->version,
-                'httpversion' => '1.1',
-            )
+            'method'      => 'POST',
+            'body'        => $this->getRefundRequestData($orderId, $amount, $reason),
+            'timeout'     => 100,
+            'httpversion' => '1.1',
+                )
         );
 
-
         if (empty($raw_response['body'])) {
-            return new WP_Error('paypal-api', 'Empty Response');
+            return new WP_Error('paypal-api', __('Empty Response', "eb-textdomain"));
         } elseif (is_wp_error($raw_response)) {
             return $raw_response;
         }
@@ -74,7 +66,6 @@ class EBRefundPaymentManager
         return (object) $response;
     }
 
-
     /**
      * Get refund request args.
      * @param  eb_order $order
@@ -82,18 +73,18 @@ class EBRefundPaymentManager
      * @param  string   $reason
      * @return array
      */
-    public static function getRefundRequestData($orderId, $amount = null, $reason = '')
+    private function getRefundRequestData($orderId, $amount = null, $reason = '')
     {
-        $txnId = self::getTransactionId($orderId);
+        $txnId = $this->getTransactionId($orderId);
         if (!$txnId) {
-            echo json_encode(array("msg" => "Sorry, can not process this request as this is invalid transaction."));
+            echo json_encode(array("msg" => __("Sorry, can not process this request as this is invalid transaction.", "eb-textdomain")));
             die();
         }
 
-        $apiDetails = self::getPaypalApiDetails();
+        $apiDetails = $this->getPaypalApiDetails();
 
         if (!$apiDetails) {
-            echo json_encode(array("msg" => "Please update Paypal API details on edwiser paypal settings page."));
+            echo json_encode(array("msg" => __("Please update Paypal API details on edwiser paypal settings page.", "eb-textdomain")));
             die();
         }
 
@@ -104,48 +95,40 @@ class EBRefundPaymentManager
             'PWD'           => $apiDetails['password'],
             'METHOD'        => 'RefundTransaction',
             'TRANSACTIONID' => $txnId,
-            /*'NOTE'          => html_entity_decode(wc_trim_string($reason, 255), ENT_NOQUOTES, 'UTF-8'),*/
             'NOTE'          => $reason,
             'REFUNDTYPE'    => 'Full'
         );
+        if (!is_null($amount)) {
+            $request['AMT'] = $this->numberFormat($amount, $orderId);
 
+            $request['CURRENCYCODE'] = $this->getCurrencyCode($orderId);
 
-
-
-        if (! is_null($amount)) {
-            $request['AMT']          = self::numberFormat($amount, $orderId);
-
-            $request['CURRENCYCODE'] = self::getCurrencyCode($orderId);
-
-            $request['REFUNDTYPE']   = 'Partial';
+            $request['REFUNDTYPE'] = 'Partial';
         }
         return $request;
-        // return apply_filters( 'woocommerce_paypal_refund_request', $request, $order, $amount, $reason );
     }
 
-
-    public static function getPaypalApiDetails()
+    private function getPaypalApiDetails()
     {
-
         $apiDetails = get_option("eb_paypal");
-        if (isset($apiDetails['eb_api_username']) && !empty($apiDetails['eb_api_username']) && isset($apiDetails['eb_api_password']) && !empty($apiDetails['eb_api_password']) && isset($apiDetails['eb_api_signature']) && !empty($apiDetails['eb_api_signature'])) {
-            return array("username" => $apiDetails['eb_api_username'], "password" => $apiDetails['eb_api_password'], "sign" => $apiDetails['eb_api_signature']);
-        }
-        return 0;
+        $payPalData = array(
+            "username" => getArrValue($apiDetails, 'eb_api_username', ""),
+            "password" => getArrValue($apiDetails, 'eb_api_password', ""),
+            "sign"     => getArrValue($apiDetails, 'eb_api_signature', "")
+        );
+        return $payPalData;
     }
 
-
-    public static function getTransactionId($orderId)
+    private function getTransactionId($orderId)
     {
         $txnId = get_post_meta($orderId, "eb_transaction_id", 1);
-
         if ($txnId && !empty($txnId)) {
             return $txnId;
         }
         return 0;
     }
 
-    public static function getCurrencyCode($orderId)
+    private function getCurrencyCode($orderId)
     {
         $currencyCode = get_post_meta($orderId, "eb_paypal_currency", 1);
         if (!$currencyCode && empty($currencyCode)) {
@@ -155,25 +138,21 @@ class EBRefundPaymentManager
         return $currencyCode;
     }
 
-
-
-    public static function currencyHasDecimals($currency)
+    private function currencyHasDecimals($currency)
     {
         if (in_array($currency, array('HUF', 'JPY', 'TWD'))) {
             return false;
         }
-
         return true;
     }
 
-    public static function numberFormat($price, $orderId)
+    private function numberFormat($price, $orderId)
     {
         $decimals = 2;
 
-        if (!self::currencyHasDecimals(self::getCurrencyCode($orderId))) {
+        if (!$this->currencyHasDecimals($this->getCurrencyCode($orderId))) {
             $decimals = 0;
         }
-
         return number_format($price, $decimals, '.', '');
     }
 }

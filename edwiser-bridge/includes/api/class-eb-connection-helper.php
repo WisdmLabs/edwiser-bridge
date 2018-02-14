@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class works as a connection helper to connect with Moodle webservice API.
  *
@@ -8,7 +7,6 @@
  *
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
-
 namespace app\wisdmlabs\edwiserBridge;
 
 class EBConnectionHelper
@@ -91,7 +89,7 @@ class EBConnectionHelper
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version = $version;
+        $this->version     = $version;
     }
 
     /**
@@ -122,30 +120,31 @@ class EBConnectionHelper
      */
     public function connectionTestHelper($url, $token)
     {
-        $success = 1;
+        $success          = 1;
         $response_message = 'success';
 
         //function to check if webservice token is properly set.
         $webservice_function = 'core_course_get_courses';
 
-        $request_url = $url.'/webservice/rest/server.php?wstoken=';
-        $request_url .= $token.'&wsfunction=';
-        $request_url .= $webservice_function.'&moodlewsrestformat=json';
+        $request_url  = $url . '/webservice/rest/server.php?wstoken=';
+        $request_url  .= $token . '&wsfunction=';
+        $request_url  .= $webservice_function . '&moodlewsrestformat=json';
         // $response = wp_remote_post( $request_url, $request_args );
-        $response = wp_remote_post($request_url);
-
+        $request_args = array("timeout" => 100);
+        $response     = wp_remote_post($request_url, $request_args);
+//        var_dump(($response));
         if (is_wp_error($response)) {
-            $success = 0;
+            $success          = 0;
             $response_message = $response->get_error_message();
         } elseif (wp_remote_retrieve_response_code($response) == 200 ||
                 wp_remote_retrieve_response_code($response) == 303) {
             $body = json_decode(wp_remote_retrieve_body($response));
             if (!empty($body->exception)) {
-                $success = 0;
+                $success          = 0;
                 $response_message = $body->message;
             }
         } else {
-            $success = 0;
+            $success          = 0;
             $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
@@ -168,81 +167,83 @@ class EBConnectionHelper
      */
     public function connectMoodleHelper($webservice_function = null)
     {
-        $success = 1;
+        $success          = 1;
         $response_message = 'success';
-        $response_data = array();
+        $response_data    = array();
 
-        $request_url = EB_ACCESS_URL.'/webservice/rest/server.php?wstoken=';
-        $request_url .= EB_ACCESS_TOKEN.'&wsfunction='.$webservice_function.'&moodlewsrestformat=json';
+        $request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+        $request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
         // $response = wp_remote_post( $request_url, $request_args );
-        $response = wp_remote_post($request_url);
+        $request_args = array("timeout" => 100);
+        $response     = wp_remote_post($request_url, $request_args);
 
         if (is_wp_error($response)) {
-            $success = 0;
+            $success          = 0;
             $response_message = $response->get_error_message();
         } elseif (wp_remote_retrieve_response_code($response) == 200 ||
                 wp_remote_retrieve_response_code($response) == 303) {
             $body = json_decode(wp_remote_retrieve_body($response));
             if (!empty($body->exception)) {
-                $success = 0;
+                $success          = 0;
                 //.' - '.isset( $body->debuginfo )?$body->debuginfo:''
                 $response_message = $body->message;
             } else {
-                $success = 1;
+                $success       = 1;
                 $response_data = $body;
             }
         } else {
-            $success = 0;
+            $success          = 0;
             $response_message = __('Please check Moodle connection details.', 'eb-textdomain');
         }
 
         return array(
-            'success' => $success,
+            'success'          => $success,
             'response_message' => $response_message,
-            'response_data' => $response_data,
+            'response_data'    => $response_data,
         );
     }
 
     public function connectMoodleWithArgsHelper($webservice_function, $request_data)
     {
-        $success = 1;
+        $success          = 1;
         $response_message = 'success';
-        $response_data = array();
+        $response_data    = array();
 
-        $request_url = EB_ACCESS_URL.'/webservice/rest/server.php?wstoken=';
-        $request_url .= EB_ACCESS_TOKEN.'&wsfunction='.$webservice_function.'&moodlewsrestformat=json';
+        $request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+        $request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
         $request_args = array(
-            'body' => $request_data,
+            'body'    => $request_data,
+            "timeout" => 100,
         );
 
         $response = wp_remote_post($request_url, $request_args);
         if (is_wp_error($response)) {
-            $success = 0;
+            $success          = 0;
             $response_message = $response->get_error_message();
         } elseif (wp_remote_retrieve_response_code($response) == 200) {
             $body = json_decode(wp_remote_retrieve_body($response));
             if (!empty($body->exception)) {
                 $success = 0;
                 if (isset($body->debuginfo)) {
-                    $response_message = $body->message.' - '.$body->debuginfo;
+                    $response_message = $body->message . ' - ' . $body->debuginfo;
                 } else {
                     $response_message = $body->message;
                 }
             } else {
-                $success = 1;
+                $success       = 1;
                 $response_data = $body;
             }
         } else {
-            $success = 0;
+            $success          = 0;
             $response_message = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         return array(
-            'success' => $success,
+            'success'          => $success,
             'response_message' => $response_message,
-            'response_data' => $response_data,
+            'response_data'    => $response_data,
         );
     }
 }

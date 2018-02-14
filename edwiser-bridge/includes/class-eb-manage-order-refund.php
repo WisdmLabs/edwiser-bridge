@@ -13,8 +13,13 @@ class EBManageOrderRefund
         $this->version     = $version;
     }
 
-    public function init($orderId, $amt, $curanecy)
+    public function initRefund($orderId, $refundData)
     {
-        unset($orderId, $amt, $curanecy);
+        // $orderDetail= get_post_meta($orderId, "", true);
+        // $curanecy = getCurrentPayPalcurrencySymb();
+        // $amt      = getArrValue($refundData, "amt");
+         $msg      = sprintf(__("Failed to initiate refund for order: #%s due to %s."), $orderId, "");
+         unset($refundData);
+        return array("status" => false, "msg" => $msg);
     }
 }

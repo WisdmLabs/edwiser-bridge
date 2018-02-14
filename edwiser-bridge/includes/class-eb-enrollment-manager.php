@@ -56,7 +56,6 @@ class EBEnrollmentManager
         if (is_null(self::$instance)) {
             self::$instance = new self($plugin_name, $version);
         }
-
         return self::$instance;
     }
 
@@ -149,15 +148,7 @@ class EBEnrollmentManager
 
         $enrolments = array();
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
-
-        // define moodle webservice function to use
-//        if ($args['unenroll'] == 0) {
-//            $webservice_function = 'enrol_manual_enrol_users';
-//        } elseif ($args['unenroll'] == 1) {
-//            $webservice_function = 'enrol_manual_unenrol_users';
-//        }
-            $webservice_function = $this->getMoodleWebServiceFunction($args['unenroll']);
-            
+        $webservice_function = $this->getMoodleWebServiceFunction($args['unenroll']);
 
         // prepare course array
         foreach ($moodle_courses as $wpCourseId => $moodleCourseId) {

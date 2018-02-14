@@ -330,9 +330,6 @@ class EBOrderManager
                     update_post_meta($order_id, "eb_paypal_sandbox", "yes");
                 }
 
-                error_log("options :: ".print_r($options, 1));
-                error_log("paypal currency :: ".print_r($options['eb_paypal_currency'], 1));
-
                 if (isset($options['eb_paypal_currency']) && !empty($options['eb_paypal_currency'])) {
                     update_post_meta($order_id, 'eb_paypal_currency', $options['eb_paypal_currency']);
                 }
@@ -453,7 +450,6 @@ class EBOrderManager
 
             if (!$buyer) {
                 echo '-';
-
                 return;
             }
 

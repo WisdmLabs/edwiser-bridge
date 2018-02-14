@@ -142,47 +142,15 @@ class EdwiserBridge
         if (isset($connection_options['eb_access_token'])) {
             $eb_moodle_token = $connection_options['eb_access_token'];
         }
-
-        // Plugin version
-        // if (!defined('EB_VERSION')) {
-        //     define('EB_VERSION', $this->version);
-        // }
+        /**
+         * Define plugin constants.
+         */
         $this->checkConstantDefined('EB_VERSION', $this->version);
-
-        // Plugin Folder URL
-        // if (!defined('EB_PLUGIN_URL')) {
-        //     define('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
-        // }
         $this->checkConstantDefined('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
-
-        // Plugin Folder Path
-        // if (!defined('EB_PLUGIN_DIR')) {
-        //     define('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
-        // }
         $this->checkConstantDefined('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
-
-        // Templates Path ( In case one wants to override templates in child themes )
-        // if (!defined('EB_TEMPLATE_PATH')) {
-        //     define('EB_TEMPLATE_PATH', 'edwiserbridge/');
-        // }
         $this->checkConstantDefined('EB_TEMPLATE_PATH', 'edwiserBridge/');
-
-        // Moodle Access Token
-        // if (!defined('EB_ACCESS_TOKEN')) {
-        //     define('EB_ACCESS_TOKEN', $eb_moodle_token);
-        // }
         $this->checkConstantDefined('EB_ACCESS_TOKEN', $eb_moodle_token);
-
-        // Moodle Access URL
-        // if (!defined('EB_ACCESS_URL')) {
-        //     define('EB_ACCESS_URL', $eb_moodle_url);
-        // }
         $this->checkConstantDefined('EB_ACCESS_URL', $eb_moodle_url);
-
-        // Debug Log Directory
-        // if (!defined('EB_LOG_DIR')) {
-        //     define('EB_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/');
-        // }
         $this->checkConstantDefined('EB_LOG_DIR', $upload_dir['basedir'].'/eb-logs/');
     }
 
@@ -277,7 +245,7 @@ class EdwiserBridge
         /*
          * loading refund dependencies.
          */
-        require_once EB_PLUGIN_DIR.'includes/payments/class-eb-refund-paypal-payment-manager.php';
+        require_once EB_PLUGIN_DIR.'includes/payments/class-eb-refund-manager.php';
 
 
         // core functions
@@ -341,7 +309,7 @@ class EdwiserBridge
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-meta.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-status-update.php';
         require_once EB_PLUGIN_DIR.'includes/class-eb-order-history-meta.php';
-        require_once EB_PLUGIN_DIR.'includes/class-eb-order-refund.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-manage-order-refund.php';
     }
 
     /**
@@ -505,7 +473,7 @@ class EdwiserBridge
         $this->loader->addAction(
             'save_post_eb_order',
             $saveOrderMeta,
-            'saveMeta',
+            'saveStatusUpdateMeta',
             05
         );
         $this->loader->addAction(
@@ -519,8 +487,8 @@ class EdwiserBridge
             'addOrderRefundButton'
         );
         $this->loader->addAction(
-            'wp_ajax_wdm_eb_email_tmpl_restore_content',
-            $orderMeta,
+            'wp_ajax_wdm_eb_order_refund',
+            $saveOrderMeta,
             'initEbOrderRefund'
         );
 
@@ -570,8 +538,9 @@ class EdwiserBridge
 
         /**
          *refund functionality
+         *
          */
-        $refundManager = new EBRefundPaymentManager();
+        $refundManager = new EbPaymentRefundManager();
         $this->loader->addAction(
             'wp_ajax_refund_initiater',
             $refundManager,
@@ -828,7 +797,7 @@ class EdwiserBridge
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
 
         $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
-        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'saveAccountDetails'));
+        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'saveAccountDetails'));
     }
 
     /**
