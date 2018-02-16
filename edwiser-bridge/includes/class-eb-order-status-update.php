@@ -50,7 +50,7 @@ class EBOrderStatus
             "note"           => getArrValue($_POST, "eb_order_refund_note", ""),
             "unenroll_users" => getArrValue($_POST, "eb_order_meta_unenroll_user", "NO"),
         );
-        $refundManager = new EBManageOrderRefund($this->plugin_name, $this->version);
+        $refundManager = new EbOrderRefundManage($this->plugin_name, $this->version);
         $refund        = $refundManager->initRefund($orderId, $refundData);
         $refundStatus  = getArrValue($refund, "status", false);
         if ($refundStatus) {

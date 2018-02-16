@@ -62,7 +62,6 @@ class EBOrderMeta
     public function addOrderRefundMeta()
     {
         global $post;
-        // $payment_options = get_option('eb_paypal');
         $currency        = getCurrentPayPalcurrencySymb();
         $price           = $this->getCoursePrice($post->ID);
         $refunds         = $this->getOrdersAllRefund($post->ID);
@@ -178,7 +177,7 @@ class EBOrderMeta
         <?php
     }
 
-    private function getTotalRefuncdAmt($refunds)
+    public function getTotalRefuncdAmt($refunds)
     {
         $totalRefund = (float) "0.00";
         foreach ($refunds as $refund) {

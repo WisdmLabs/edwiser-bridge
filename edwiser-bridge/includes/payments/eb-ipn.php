@@ -1,8 +1,8 @@
 <?php
-
 /**
  *  PHP-PayPal-IPN Handler.
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /* NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
@@ -11,7 +11,6 @@ namespace app\wisdmlabs\edwiserBridge;
 
 // if ( !defined( 'IPN_ERROR_LOG' ) )
 //  define( 'IPN_ERROR_LOG', 1 );
-
 //create an object of logger class
 edwiserBridgeInstance()->logger()->add('payment', "\n");
 
@@ -72,7 +71,8 @@ $notify_on_valid_ipn = 1;
 
 edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : '.(($verified) ? 'YES' : 'NO'));
 /* The processIpn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
-
+error_log('IPN responce');
+error_log(print_r($_POST, 1));
 if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Sure, Verfied! Moving Ahead.');
     /* 	Once you have a verified IPN you need to do a few more checks on the POST
@@ -115,7 +115,6 @@ if ($verified) {
     if ($_POST['payment_status'] == 'Completed') {
         edwiserBridgeInstance()->logger()->add('payment', 'Sure, Completed! Moving Ahead.');
         //a customer has purchased from this website
-
         // email used by buyer to purchase course
         $billing_email = $_REQUEST['payer_email'];
         edwiserBridgeInstance()->logger()->add('payment', 'Billing Email: '.$billing_email);
@@ -225,12 +224,10 @@ if ($verified) {
         $order_options['amount_paid'] = $course_price;
         update_post_meta($order_id, 'eb_order_options', $order_options);
 
-
         //since 1.2.4
         if (isset($_POST['txn_id']) && !empty($_POST['txn_id'])) {
             update_post_meta($order_id, 'eb_transaction_id', $_POST['txn_id']);
         }
-
 
         $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
 
@@ -251,5 +248,3 @@ if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Invalid IPN. Shutting Down Processing.');
     wp_mail($YOUR_NOTIFICATION_EMAIL_ADDRESS, 'Invalid IPN', $listener->getTextReport());
 }
-
-//we're done here

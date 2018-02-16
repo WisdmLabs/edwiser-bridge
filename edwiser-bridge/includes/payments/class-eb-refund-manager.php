@@ -9,25 +9,19 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
-class EbPaymentRefundManager
+class EbPayPalRefundManager
 {
 
-    public function refundInitiater()
+    private $pluginName = null;
+    private $version    = null;
+    private $ebLogger   = null;
+
+    public function __construct($pluginName, $version)
     {
-        return;
-
-        if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
-            die('Busted!');
-        }
-
-        if (isset($_POST['order_id']) && !empty($_POST['order_id']) && isset($_POST['refund_amt']) && !empty($_POST['refund_amt'])) {
-            $response = $this->refundTransaction($_POST['order_id'], $_POST['refund_amt'], "dummy reason ");
-        }
-
-        error_log("POST ::" . print_r($_POST, 1));
-        error_log("response :: " . print_r($response, 1));
-        echo json_encode(array("succes" => $response));
-        die();
+        $this->ebLogger   = edwiserBridgeInstance()->logger();
+        $this->pluginName = $pluginName;
+        $this->version    = $version;
+        add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
     }
 
     /**
@@ -37,33 +31,51 @@ class EbPaymentRefundManager
      * @param  string   $reason
      * @return object Either an object of name value pairs for a success, or a WP_ERROR object.
      */
-    public function refundTransaction($orderId, $amount = null, $reason = '')
+    public function refund($status, $orderId, $refundType = "Full", $amount = null, $reason = '')
     {
+        $success   = 1;
         $sandbox   = get_post_meta($orderId, "eb_paypal_sandbox", 1);
         $payPalURL = "https://api-3t.paypal.com/nvp";
         if (isset($sandbox) && !empty($sandbox) && $sandbox == "yes") {
             $payPalURL = "https://api-3t.sandbox.paypal.com/nvp";
         }
-
-        $raw_response = wp_safe_remote_post(
-            $payPalURL,
-            array(
-            'method'      => 'POST',
-            'body'        => $this->getRefundRequestData($orderId, $amount, $reason),
-            'timeout'     => 100,
-            'httpversion' => '1.1',
-                )
-        );
-
-        if (empty($raw_response['body'])) {
-            return new WP_Error('paypal-api', __('Empty Response', "eb-textdomain"));
-        } elseif (is_wp_error($raw_response)) {
-            return $raw_response;
+        $requestData = $this->getRefundRequestData($orderId, $refundType, $amount, $reason);
+        if ($requestData["status"]) {
+            $reqArgs  = array(
+                'method'      => 'POST',
+                'body'        => $requestData["data"],
+                'timeout'     => 100,
+                'httpversion' => '1.1',
+                'headers'     => array("content-type" => "application/json")
+            );
+            $this->ebLogger->add('refund', "Order: $orderId ,Sending Refund request to PayPal. Request data is : " . serialize($reqArgs));
+            $response = wp_safe_remote_post($payPalURL, $reqArgs);
+            try {
+                if (is_wp_error($response)) {
+                    $success       = 0;
+                    $status['msg'] = $response;
+                } elseif (empty($response['body'])) {
+                    $success       = 0;
+                    $status['msg'] = __('No Response from PayPal', "eb-textdomain");
+                }
+                parse_str($response['body'], $response);
+                $this->ebLogger->add('refund', "PayPal refund responce: " . serialize($response));
+            } catch (Exception $ex) {
+                $this->ebLogger->add('refund', "Order: $orderId ,Exception: " . serialize($ex));
+            }
+            $respStatus = getArrValue($response, "ACK", false);
+            if ($respStatus == "success") {
+                $status['msg'] = __(sprintf("Refund for amount %s aginst the order #%s has been initiated successfully.", getArrValue($response, "GROSSREFUNDAMT"), $orderId));
+            } else if ($respStatus == "Failure") {
+                $success       = 0;
+                $status['msg'] = getArrValue($response, "L_LONGMESSAGE0", "");
+            }
+        } else {
+            $success       = 0;
+            $status['msg'] = $requestData['data'];
         }
-
-        parse_str($raw_response['body'], $response);
-
-        return (object) $response;
+        $status['status'] = $success;
+        return $status;
     }
 
     /**
@@ -73,39 +85,43 @@ class EbPaymentRefundManager
      * @param  string   $reason
      * @return array
      */
-    private function getRefundRequestData($orderId, $amount = null, $reason = '')
+    private function getRefundRequestData($orderId, $refundType, $amount = null, $reason = '')
     {
-        $txnId = $this->getTransactionId($orderId);
+        $txnId   = $this->getTransactionId($orderId);
+        $sucess  = 1;
+        $reqData = array();
         if (!$txnId) {
-            echo json_encode(array("msg" => __("Sorry, can not process this request as this is invalid transaction.", "eb-textdomain")));
-            die();
+            $sucess          = 0;
+            $reqData['data'] = __("Sorry, can not process this request as this is invalid transaction.", "eb-textdomain");
         }
 
         $apiDetails = $this->getPaypalApiDetails();
 
         if (!$apiDetails) {
-            echo json_encode(array("msg" => __("Please update Paypal API details on edwiser paypal settings page.", "eb-textdomain")));
-            die();
+            $sucess          = 0;
+            $reqData['data'] = __("Please update Paypal API details on edwiser paypal settings page.", "eb-textdomain");
         }
 
-        $request = array(
-            'VERSION'       => '84.0',
-            'SIGNATURE'     => $apiDetails['sign'],
-            'USER'          => $apiDetails['username'],
-            'PWD'           => $apiDetails['password'],
-            'METHOD'        => 'RefundTransaction',
-            'TRANSACTIONID' => $txnId,
-            'NOTE'          => $reason,
-            'REFUNDTYPE'    => 'Full'
-        );
-        if (!is_null($amount)) {
-            $request['AMT'] = $this->numberFormat($amount, $orderId);
-
-            $request['CURRENCYCODE'] = $this->getCurrencyCode($orderId);
-
-            $request['REFUNDTYPE'] = 'Partial';
+        if ($sucess) {
+            $data = array(
+                'VERSION'       => '84.0',
+                'SIGNATURE'     => $apiDetails['sign'],
+                'USER'          => $apiDetails['username'],
+                'PWD'           => $apiDetails['password'],
+                'METHOD'        => 'RefundTransaction',
+                'TRANSACTIONID' => $txnId,
+                'NOTE'          => $reason,
+                'REFUNDTYPE'    => $refundType
+            );
+            if (!is_null($amount)) {
+                $data['AMT']          = $this->numberFormat($amount, $orderId);
+                $data['CURRENCYCODE'] = $this->getCurrencyCode($orderId);
+                $data['REFUNDTYPE']   = $this->getRefundType($orderId, $amount);
+            }
+            $reqData['data'] = $data;
         }
-        return $request;
+        $reqData['status'] = $sucess;
+        return $reqData;
     }
 
     private function getPaypalApiDetails()
@@ -149,10 +165,11 @@ class EbPaymentRefundManager
     private function numberFormat($price, $orderId)
     {
         $decimals = 2;
-
         if (!$this->currencyHasDecimals($this->getCurrencyCode($orderId))) {
             $decimals = 0;
         }
         return number_format($price, $decimals, '.', '');
     }
 }
+
+new EbPayPalRefundManager();

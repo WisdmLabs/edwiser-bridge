@@ -559,26 +559,26 @@
 	/**
 	 *refund ajax handler added by krunal
 	 */
-	$("#eb_order_refund_btn").click(function(){
-            var refund_amt = $('#eb_ord_refund_amt').val();
-            var orderId = getUrlParameter("post");
-            $.ajax({
-                type: "post",
-                url: eb_admin_js_object.ajaxurl,
-                data: {
-                    'action': "refund_initiater",
-                    'order_id': orderId,
-                    'refund_amt': refund_amt,
-                    '_wpnonce_field': eb_admin_js_object.nonce,
-                },
-                error: function (error) {
-                    console.log(error);
-                },
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-	});
+//	$("#eb_order_refund_btn").click(function(){
+//            var refund_amt = $('#eb_ord_refund_amt').val();
+//            var orderId = getUrlParameter("post");
+//            $.ajax({
+//                type: "post",
+//                url: eb_admin_js_object.ajaxurl,
+//                data: {
+//                    'action': "refund_initiater",
+//                    'order_id': orderId,
+//                    'refund_amt': refund_amt,
+//                    '_wpnonce_field': eb_admin_js_object.nonce,
+//                },
+//                error: function (error) {
+//                    console.log(error);
+//                },
+//                success: function (response) {
+//                    console.log(response);
+//                }
+//            });
+//	});
 	
 
 
@@ -677,7 +677,7 @@
             isUneroll = "ON";
         }
 
-
+        $("#eb-lading-parent").show();
         $.ajax({
             type: "post",
             url: ajaxurl,
@@ -695,9 +695,11 @@
                 $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_refund_failed);
                 $('html, body').animate({scrollTop: 0}, "fast");
+                $("#eb-lading-parent").hide();
             },
             success: function (response) {
                 if (response.success == true) {
+                    $("#eb-lading-parent").hide();
                     location.reload();
                 } else {
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
@@ -706,6 +708,7 @@
                     $("#moodleLinkUnlinkUserNotices").children().html(response['data']);
                     $('html, body').animate({scrollTop: 0}, "fast");
                 }
+                $("#eb-lading-parent").hide();
             }
         });
 
