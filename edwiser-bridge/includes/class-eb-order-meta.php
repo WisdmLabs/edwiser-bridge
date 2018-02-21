@@ -62,11 +62,16 @@ class EBOrderMeta
     public function addOrderRefundMeta()
     {
         global $post;
-        $currency        = getCurrentPayPalcurrencySymb();
-        $price           = $this->getCoursePrice($post->ID);
-        $refunds         = $this->getOrdersAllRefund($post->ID);
-        $refundedAmt     = $this->getTotalRefuncdAmt($refunds);
-        $avlRefundAmt    = $price - $refundedAmt;
+        $refundable  = get_post_meta($post->ID, 'eb_transaction_id', true);
+        if (!$refundable || empty($refundable)) {
+            _e("Refund not available for this order", "eb-textdomain");
+            return;
+        }
+        $currency     = getCurrentPayPalcurrencySymb();
+        $price        = $this->getCoursePrice($post->ID);
+        $refunds      = $this->getOrdersAllRefund($post->ID);
+        $refundedAmt  = $this->getTotalRefuncdAmt($refunds);
+        $avlRefundAmt = $price - $refundedAmt;
         ?>
         <div class="eb-order-refund-data">
             <?php $this->dispRefunds($refunds); ?>
@@ -75,7 +80,7 @@ class EBOrderMeta
                     <?php do_action("eb_before_order_refund_meta"); ?>
                     <tr>
                         <td>
-                            <?php _e("Unenroll user from purchased courses?: ", "eb-textdomain"); ?>
+                            <?php _e("Suspend course enrollment?: ", "eb-textdomain"); ?>
                         </td>
                         <td>
                             <input type="checkbox" name="eb_order_meta_unenroll_user" id="eb_order_meta_unenroll_user" value="ON" />

@@ -14,11 +14,9 @@ class EbPayPalRefundManager
 
     private $pluginName = null;
     private $version    = null;
-    private $ebLogger   = null;
 
     public function __construct($pluginName, $version)
     {
-        $this->ebLogger   = edwiserBridgeInstance()->logger();
         $this->pluginName = $pluginName;
         $this->version    = $version;
         add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
@@ -48,7 +46,7 @@ class EbPayPalRefundManager
                 'httpversion' => '1.1',
                 'headers'     => array("content-type" => "application/json")
             );
-            $this->ebLogger->add('refund', "Order: $orderId ,Sending Refund request to PayPal. Request data is : " . serialize($reqArgs));
+            edwiserBridgeInstance()->logger()->add('refund', "Order: $orderId ,Sending Refund request to PayPal. Request data is : " . serialize($reqArgs));
             $response = wp_safe_remote_post($payPalURL, $reqArgs);
             try {
                 if (is_wp_error($response)) {
@@ -59,13 +57,13 @@ class EbPayPalRefundManager
                     $status['msg'] = __('No Response from PayPal', "eb-textdomain");
                 }
                 parse_str($response['body'], $response);
-                $this->ebLogger->add('refund', "PayPal refund responce: " . serialize($response));
+                edwiserBridgeInstance()->logger()->add('refund', "PayPal refund responce: " . serialize($response));
             } catch (Exception $ex) {
-                $this->ebLogger->add('refund', "Order: $orderId ,Exception: " . serialize($ex));
+                edwiserBridgeInstance()->logger()->add('refund', "Order: $orderId ,Exception: " . serialize($ex));
             }
             $respStatus = getArrValue($response, "ACK", false);
-            if ($respStatus == "success") {
-                $status['msg'] = __(sprintf("Refund for amount %s aginst the order #%s has been initiated successfully.", getArrValue($response, "GROSSREFUNDAMT"), $orderId));
+            if ($respStatus == "Success") {
+                $status['msg'] = __(sprintf("Refund for amount %s aginst the order #%s has been initiated successfully. Transaction id: %s", getArrValue($response, "GROSSREFUNDAMT"), $orderId, getArrValue($response, "REFUNDTRANSACTIONID")));
             } else if ($respStatus == "Failure") {
                 $success       = 0;
                 $status['msg'] = getArrValue($response, "L_LONGMESSAGE0", "");
@@ -116,7 +114,6 @@ class EbPayPalRefundManager
             if (!is_null($amount)) {
                 $data['AMT']          = $this->numberFormat($amount, $orderId);
                 $data['CURRENCYCODE'] = $this->getCurrencyCode($orderId);
-                $data['REFUNDTYPE']   = $this->getRefundType($orderId, $amount);
             }
             $reqData['data'] = $data;
         }
@@ -137,7 +134,7 @@ class EbPayPalRefundManager
 
     private function getTransactionId($orderId)
     {
-        $txnId = get_post_meta($orderId, "eb_transaction_id", 1);
+        $txnId = get_post_meta($orderId, "eb_transaction_id", true);
         if ($txnId && !empty($txnId)) {
             return $txnId;
         }
@@ -171,5 +168,3 @@ class EbPayPalRefundManager
         return number_format($price, $decimals, '.', '');
     }
 }
-
-new EbPayPalRefundManager();

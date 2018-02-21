@@ -87,7 +87,7 @@ class EBOrderHistory
                 $note = $this->getNewORderNoteMsg($msg);
                 break;
             default:
-                $note = apply_filters("eb_order_history_meta_type_default", $type, $msg);
+                $note = apply_filters("eb_order_history_meta_type_default", $msg, $type);
                 break;
         }
         return $note;
@@ -120,15 +120,15 @@ class EBOrderHistory
 
     private function getRefundNoteMsg($note)
     {
-        $currency        = getArrValue($note, 'currency', getCurrentPayPalcurrencySymb());
-        $refundAmt       = getArrValue($note, 'refund_amt', "0.00");
+        // $currency        = getArrValue($note, 'currency', getCurrentPayPalcurrencySymb());
+        // $refundAmt       = getArrValue($note, 'refund_amt', "0.00");
         $refundNote      = getArrValue($note, 'refund_note');
         $refundIsUneroll = getArrValue($note, 'refund_uneroll_users');
         $unenrollMsg     = "";
         if ($refundIsUneroll == "ON") {
-            $unenrollMsg = __(" also the user is unenrolled from associated course.", "eb-textdomain");
+            $unenrollMsg = __(" Also the user is unenrolled from associated course.", "eb-textdomain");
         }
-        $histNote = sprintf(__("Amount %s%s has been refunded due to %s %s.", "eb-textdomain"), $currency, $refundAmt, $refundNote, $unenrollMsg);
+        $histNote = sprintf(__($refundNote." %s", "eb-textdomain"), $unenrollMsg);
         $histNote = apply_filters("eb_order_history_disp_refund_msg", $histNote, $note);
         return $histNote;
     }

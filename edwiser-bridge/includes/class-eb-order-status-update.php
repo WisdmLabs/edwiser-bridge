@@ -44,23 +44,25 @@ class EBOrderStatus
     public function initEbOrderRefund()
     {
         check_ajax_referer("eb_order_refund_nons_field", "order_nonce");
-        $orderId       = getArrValue($_POST, "eb_order_id");
+        $orderId = getArrValue($_POST, "eb_order_id");
+
+        $refundManager = new EbOrderRefundManage($this->plugin_name, $this->version);
         $refundData    = array(
             "amt"            => getArrValue($_POST, "eb_ord_refund_amt"),
             "note"           => getArrValue($_POST, "eb_order_refund_note", ""),
             "unenroll_users" => getArrValue($_POST, "eb_order_meta_unenroll_user", "NO"),
         );
-        $refundManager = new EbOrderRefundManage($this->plugin_name, $this->version);
         $refund        = $refundManager->initRefund($orderId, $refundData);
         $refundStatus  = getArrValue($refund, "status", false);
+        $refundMsg     = getArrValue($refund, "msg", "");
         if ($refundStatus) {
-            $note = $this->getOrderRefundStatusMsg($orderId, $refundData);
+            $refundData["note"] = $refundMsg;
+            $note               = $this->getOrderRefundStatusMsg($orderId, $refundData);
             $this->saveOrderStatusHistory($orderId, $note);
-            $msg  = sprintf(__("Refund has been initiated for the order:%s."), $orderId);
-            wp_send_json_success($msg);
+            do_action("eb_order_refund_init_success", $orderId, $note);
+            wp_send_json_success($refundMsg);
         } else {
-            $refundErr = getArrValue($refund, "msg", "");
-            wp_send_json_error($refundErr);
+            wp_send_json_error($refundMsg);
         }
     }
 
@@ -129,11 +131,8 @@ class EBOrderStatus
     /**
      * Provides the functionality to prepate the refund note data in the format of
      * array(
-     * "status"=>"",
-     * "refund_amt"=>"",
      * "refund_note"=>"",
      * "refund_unenroll_users"=>"",
-     * "currancy"=>"",
      * )
      * @since 1.3.0
      * @param number $orderId current eb_order post id.
@@ -144,13 +143,15 @@ class EBOrderStatus
     {
         $refundAmt = getArrValue($data, 'amt');
         $msg       = array(
-            "refund_amt"            => $refundAmt,
+            "amt"=>$refundAmt,
             "refund_note"           => getArrValue($data, 'note'),
-            "refund_unenroll_users" => getArrValue($data, 'unenroll_users'),
-            "currency"              => getCurrentPayPalcurrencySymb(),
+            "refund_unenroll_users" => getArrValue($data, 'unenroll_users', false),
         );
-        $msg       = apply_filters("eb_order_history_save_refund_status_msg", $msg);
-        $note      = array(
+        if (getArrValue($msg, "refund_unenroll_users")=="ON") {
+            $this->unenrollUserFromCourses($orderId);
+        }
+        $msg  = apply_filters("eb_order_history_save_refund_status_msg", $msg);
+        $note = array(
             "type" => "refund",
             "msg"  => $msg
         );
@@ -161,7 +162,6 @@ class EBOrderStatus
     private function saveOrderRefundAmt($orderId, $refundAmt)
     {
         $curUser = wp_get_current_user();
-        $curUser->user_login;
         $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);
         $refund  = array(
             "amt"      => $refundAmt,
@@ -186,19 +186,30 @@ class EBOrderStatus
      */
     private function saveOrderStatusHistory($orderId, $note)
     {
-        $history = get_post_meta($orderId, "eb_order_status_history", true);
         $curUser = wp_get_current_user();
-        if (!is_array($history)) {
-            $history = array();
-        }
-        $newHist = array(
-            "by"   => $curUser->user_login,
-            "time" => current_time("timestamp"),
-            "note" => $note,
+        updateOrderHistMeta($orderId, $curUser->user_login, $note);
+    }
+
+    private function unenrollUserFromCourses($orderId)
+    {
+        $orderDetails   = get_post_meta($orderId, "eb_order_options", true);
+        $courseId       = getArrValue($orderDetails, "course_id", "");
+        $userWpId       = getArrValue($orderDetails, "buyer_id", "");
+        $enrollmentMang = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+        $args           = array(
+            'user_id' => $userWpId,
+            'courses' => array($courseId),
+            'suspend' => 1,
         );
-        array_unshift($history, $newHist);
-        do_action("eb_before_order_refund_meta_save");
-        update_post_meta($orderId, "eb_order_status_history", $history);
-        do_action("eb_after_order_refund_meta_save");
+        $resp           = $enrollmentMang->updateUserCourseEnrollment($args);
+        if ($resp) {
+            $curUser = wp_get_current_user();
+            $note    = array(
+                "type" => "enrollment_susspend",
+                "msg"  => __("User enrollment has been suspended on order refund request.", "eb-textdomain")
+            );
+            updateOrderHistMeta($orderId, $curUser->user_login, $note);
+        }
+        return $resp;
     }
 }

@@ -71,11 +71,10 @@ $notify_on_valid_ipn = 1;
 
 edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : '.(($verified) ? 'YES' : 'NO'));
 /* The processIpn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
-error_log('IPN responce');
-error_log(print_r($_POST, 1));
+
 if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Sure, Verfied! Moving Ahead.');
-    /* 	Once you have a verified IPN you need to do a few more checks on the POST
+    /*  Once you have a verified IPN you need to do a few more checks on the POST
       fields--typically against data you stored in your database during when the
       end user made a purchase (such as in the "success" page on a web payments
       standard button). The fields PayPal recommends checking are:
@@ -207,14 +206,12 @@ if ($verified) {
 
         // // record in course
         // edwiserBridgeInstance()->logger()->add( 'payment', 'Starting to give course access...' );
-
         // $course_enrolled = edwiserBridgeInstance()->enrollment_manager()->update_user_course_enrollment(
         // $buyer_id, array( $course_id ) );
         // if ( $course_enrolled )
         //  edwiserBridgeInstance()->logger()->add( 'payment', 'Course enrolled to the user: '.$buyer_id );
         // else
         //  edwiserBridgeInstance()->logger()->add( 'payment', 'Error in course enrollment: '.$buyer_id );
-
         // log transaction
         edwiserBridgeInstance()->logger()->add('payment', 'Starting Order Status Updation.');
 
@@ -233,7 +230,21 @@ if ($verified) {
 
         if ($order_completed) {
             edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: '.$order_id);
+            $note = array(
+                'type' => 'PayPal IPN',
+                'msg' => __("IPN has been recived for the order id #$order_id. payment status: ".$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'. ', 'eb-textdomain'),
+            );
+            updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
         }
+    } elseif ($_POST['payment_status'] == 'Refunded') {
+        $custom_data = json_decode(stripslashes($_REQUEST['custom']));
+        edwiserBridgeInstance()->logger()->add('refund', print_r($custom_data, 1));
+        $order_id = isset($custom_data->order_id) ? $custom_data->order_id : '';
+        $note = array(
+            'type' => 'PayPal IPN',
+            'msg' => __('IPN has been recived, for the refund of amount '.abs($_POST['mc_gross']).'. Payment status: '.$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'.', 'eb-textdomain'),
+        );
+        updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
     }
 
     edwiserBridgeInstance()->logger()->add('payment', 'IPN Processing Completed Successfully.');

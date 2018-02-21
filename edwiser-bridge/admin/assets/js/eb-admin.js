@@ -556,33 +556,6 @@
             $("#eb-ord-refund-amt-btn-txt").text(rfndAmt);
         });
 
-	/**
-	 *refund ajax handler added by krunal
-	 */
-//	$("#eb_order_refund_btn").click(function(){
-//            var refund_amt = $('#eb_ord_refund_amt').val();
-//            var orderId = getUrlParameter("post");
-//            $.ajax({
-//                type: "post",
-//                url: eb_admin_js_object.ajaxurl,
-//                data: {
-//                    'action': "refund_initiater",
-//                    'order_id': orderId,
-//                    'refund_amt': refund_amt,
-//                    '_wpnonce_field': eb_admin_js_object.nonce,
-//                },
-//                error: function (error) {
-//                    console.log(error);
-//                },
-//                success: function (response) {
-//                    console.log(response);
-//                }
-//            });
-//	});
-	
-
-
-
         /**
          * Refund order click event handler
          */
@@ -593,13 +566,6 @@
                 sendRefundRequest(orderId);
             }
         });
-
-
-
-
-
-
-/******************  end of order page js  ***************************/
 
     });
 

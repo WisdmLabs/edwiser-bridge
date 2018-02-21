@@ -620,6 +620,8 @@ span.eb-option-input .eb-option-div select{
 .eb-order-refund-hist-cont{
     box-shadow: 0px 1px 0px #dddddd;
     padding-bottom: 3px;
+    overflow-y: auto;
+    max-height: 150px;
 }
 .eb-ord-refunded-amt{
     color: red;

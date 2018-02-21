@@ -66,6 +66,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     if ($page_found_id) {
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
+
         return $page_found_id;
     }
 
@@ -80,6 +81,7 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
     );
     $page_id = wp_insert_post($page_data);
     wdmUpdatePageId($option_value, $option_key, $page_id, $eb_general_settings);
+
     return $page_id;
 }
 
@@ -206,6 +208,7 @@ function getMycoursesPage($ebSettings)
     if (isset($ebSettings['eb_my_courses_page_id'])) {
         $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
     }
+
     return $usrAcPageUrl;
 }
 
@@ -249,7 +252,7 @@ function getShortcodePageContent($the_tag = '')
         foreach ($args as $attr => $value) {
             $buffer .= $attr.'="'.$value.'" ';
         }
-        $buffer .= ']';
+        $buffer             .= ']';
         $page_content[$tag] = $buffer;
     }
 
@@ -294,4 +297,22 @@ function getArrValue($arr, $key, $value = '')
     }
 
     return $value;
+}
+
+function updateOrderHistMeta($orderId, $updatedBy, $note)
+{
+    $history = get_post_meta($orderId, 'eb_order_status_history', true);
+    if (!is_array($history)) {
+        $history = array();
+    }
+    $newHist = array(
+        'by' => $updatedBy,
+        'time' => current_time('timestamp'),
+        'note' => $note,
+    );
+
+    array_unshift($history, $newHist);
+    $history = apply_filters('eb_order_history', $history, $newHist, $orderId);
+    update_post_meta($orderId, 'eb_order_status_history', $history);
+    do_action('eb_after_order_refund_meta_save', $orderId, $history);
 }
