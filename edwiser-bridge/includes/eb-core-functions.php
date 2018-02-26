@@ -208,7 +208,6 @@ function getMycoursesPage($ebSettings)
     if (isset($ebSettings['eb_my_courses_page_id'])) {
         $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
     }
-
     return $usrAcPageUrl;
 }
 

@@ -1,39 +1,48 @@
-        <div class="eb-cph-wrapper">
-            <div class="wdm-transaction-header">
-                <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain');
-        ?></h4>
-            </div>
-            <table id="wdm_user_order_history" class="display">
-                <thead>
-                    <tr>
-                        <th><?php _e('Order ID', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Ordered Course', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Order Date', 'eb-textdomain');
-        ?></th>
-                        <th><?php _e('Status', 'eb-textdomain');
-        ?></th>
-                    </tr>
-                </thead>
-                <tbody>
+<div class="eb-cph-wrapper">
+    <div class="wdm-transaction-header">
+        <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain');
+?></h4>
+    </div>
+    <table id="wdm_user_order_history" class="display">
+        <thead>
+            <tr>
+                <th><?php _e('Order ID', 'eb-textdomain'); ?></th>
+                <th><?php _e('Ordered Course', 'eb-textdomain'); ?></th>
+                <th><?php _e('Order Date', 'eb-textdomain'); ?></th>
+                <th><?php _e('Status', 'eb-textdomain'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($user_orders as $order) {
+                ?>
+                <tr>
+                    <td><strong>#<?php echo $order['order_id']; ?></strong></td>
                     <?php
-                    foreach ($user_orders as $order) {
-                        echo '<tr>';
-                        echo '<td><strong>#'.$order['order_id'].'</strong></td>';
-                        if (get_the_title($order['ordered_item']) == '') {
-                            echo '<td>'.__('Not Available', 'eb-textdomain').'</td>';
-                        } else {
-                            echo '<td> <a href="'.get_permalink($order['ordered_item']).'"/>'.
-                            get_the_title($order['ordered_item']).'</a> </td>';
-                        }
-                        echo '<td>'.$order['date'].'</td>';
-                        echo '<td>'.ucfirst($order['status']).'</td>';
-                        echo '</tr>';
+                    if (is_array($order['ordered_item'])) {
+                        $ordItems = $order['ordered_item'];
+                    } else {
+                        $ordItems = array($order['ordered_item']);
                     }
-
-                    do_action('eb_after_order_history');
+                    $row = "<ul class='eb-user-order-courses'>";
+                    foreach ($ordItems as $item) {
+                        if (get_the_title($item) == '') {
+                            $title = __('Not Available', 'eb-textdomain');
+                        } else {
+                            $title = "<a href='" . get_permalink($item) . "'/>" . get_the_title($item) . "</a>";
+                        }
+                        $row .= "<li>$title</li>";
+                    }
+                    $row .= "</ul>";
                     ?>
-                </tbody>
-            </table>
-        </div>
+                    <td><?php echo $row; ?></td>
+                    <td><?php echo $order['date']; ?> </td>
+                    <td><?php ucfirst($order['status']); ?></td>
+                </tr>
+                <?php
+            }
+            do_action('eb_after_order_history');
+            ?>
+        </tbody>
+    </table>
+</div>

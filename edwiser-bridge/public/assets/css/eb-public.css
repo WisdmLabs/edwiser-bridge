@@ -24,9 +24,8 @@
  */
 .hentry.wdm-col-3-2-1 {
     float: left;
-    margin: 15px 0px 30px 0px;
-    padding: 0 15px;
-    /*width: 25%;*/
+    margin: 1em 0em;
+    padding: 0 0.5em;    
 }
 
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
@@ -50,7 +49,7 @@
 
 .wdm-course-grid:hover{
     z-index: 500;
-    box-shadow: 3px 3px 3px #dee2e5;
+    box-shadow: 1px 2px 1px #dee2e5;
 }
 .wdm-course-grid > a{
     text-decoration: none;
@@ -64,14 +63,19 @@
 }
 .wdm-course-image{
     height: 60%;
+    overflow: hidden;
 }
+/*.wdm-course-image:hover{
+    background-color: black;
+}*/
 .wdm-course-image img{
     height: 100%;
     transition: all 0.20s ease-in-out 0s;
     width: 100%;
 }
 .wdm-course-image img:hover{
-    transform: scale(1.2, 1) translateZ(0px);
+    transform: scale(1.2, 1.2) translateZ(0px);
+    opacity: 0.7;
 }
 
 
@@ -105,7 +109,7 @@
     border-radius: 2px;
     position: relative;
     cursor: pointer;
-    box-shadow: 0px 2px 0px #d0d0d0;
+    box-shadow: 0px 1px 0px #d0d0d0;
     text-align: center;
     height: 100%;
     max-height: 300px;
@@ -244,7 +248,7 @@ div.course-not-available{
     text-transform: capitalize;
 }
 .eb-profile-txt-field select{
-        background: transparent;
+    background: transparent;
     line-height: 1.5;
     border: 1px solid grey;
     padding: 0.5em;
@@ -274,18 +278,24 @@ div.course-not-available{
 }
 .eb-user-account-navigation-link{
     list-style: none;
+    list-style-type:none;
     padding:5px 2px;
     border-bottom: 1px solid grey;
+    
 }
 .eb-user-account-navigation-link > a{
     text-decoration: none;
     clear: both;
+    box-shadow: unset;
 }
 div#user_login label{
-    display: inline-block;
-    width: 125px;
+    display: block;
+    /*width: 125px;*/
+    letter-spacing: 0.1em;
 }
-
+.form-row{
+    margin: 0.5em;
+}
 /* user profile shortcode style */
 .eb-user-account-navigation{
     float: left;
@@ -328,6 +338,28 @@ div#user_login label{
 
 .eb-user-data div:last-child{
     font-size:16px;
+}
+#user_login > h2{
+    
+}
+.eb-login-button{
+    /*float: right;*/
+    letter-spacing: 0.1em;
+}
+.form-row,.input-text{
+    width: -webkit-fill-available;
+}
+.eb-user-reg-form,
+.eb-wrap-login-form{
+    border: 1px solid #dddddd;
+    border-radius: 0.4em;
+    padding: 1em;
+    box-shadow: 1px 1px 2px 2px #dddddd;
+    max-width: 50em;
+}
+.eb-wrap-login-form > p{
+    display: block;
+        
 }
 
 .eb-edit-profile{
@@ -373,11 +405,7 @@ div#user_login label{
 .course-heading span:first-child{
     float:left;
     width:40px;
-}/*
-
-.course-heading span:last-child{
-  float:right;
-}*/
+}
 
 .eb-course-data{
     padding: 0 10px;
@@ -514,6 +542,16 @@ nav.eb-pagination ul li span.current {
     .eb-cat-courses-cont > .eb-course-col{
         min-width: 60% !important;
     }
+    .eb-user-profile{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .eb-user-account-navigation{
+        width: 100%;
+    }
+    .eb-profile-row-block .eb-profile-txt-field{
+        display: table-row;
+    }
 
 
 }
@@ -552,8 +590,9 @@ nav.eb-pagination ul li span.current {
 }
 
 .wdm-col-3-2-1.hentry {
-    margin-top: 10px !important;
-    padding-top: 0 !important;
+    margin-top: 10px;
+    padding-top: 0;
+    height: 25em;    
 }
 .eb-archive-container{
     display: -webkit-box;
@@ -608,10 +647,10 @@ nav.eb-pagination ul li span.current {
 .eb-cat-courses-cont .eb-scroll-left,
 .eb-cat-courses-cont .eb-scroll-right{
     position: absolute;
-    top: 35%;
+    top: 45%;
     z-index: 999;
     height: auto;
-    padding: 5% 0.3em;
+    padding: 0.5em 0.8em;
     border: 0px;
     background: rgba(255, 255, 255, 0.8);
     color: black;
@@ -622,12 +661,12 @@ nav.eb-pagination ul li span.current {
 }
 .eb-cat-courses-cont .eb-scroll-left{
     left: 0;
-    border-radius: 0px 4px 4px 0px;
+    border-radius: 1em;
 
 }
 .eb-cat-courses-cont .eb-scroll-right{
     right: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 1em;
 }
 .eb-cat-courses-cont .eb-scroll-right:hover,
 .eb-cat-courses-cont .eb-scroll-right:active,
@@ -642,7 +681,7 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-cat-courses-cont > .eb-course-col{
-    min-width: 30%;
+    min-width: 27%;
 }
 
 
@@ -687,5 +726,8 @@ nav.eb-pagination ul li span.current {
 */
 
 .eb-ord-courses-list{
+    list-style: none;
+}
+.eb-user-order-courses{
     list-style: none;
 }
