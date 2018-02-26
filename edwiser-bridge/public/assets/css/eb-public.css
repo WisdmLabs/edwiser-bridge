@@ -44,7 +44,7 @@
 .sc-eb_courses-wrapper .eb-course-col:nth-of-type(4n+1),
 .eb-my-courses-wrapper .eb-course-col:nth-of-type(4n+1),
 .eb-rec-courses-wrapper .eb-course-col:nth-of-type(4n+1){
-    clear: left;
+    /*clear: left;*/
 }
 
 .wdm-course-grid:hover{
@@ -281,7 +281,6 @@ div.course-not-available{
     list-style-type:none;
     padding:5px 2px;
     border-bottom: 1px solid grey;
-    
 }
 .eb-user-account-navigation-link > a{
     text-decoration: none;
@@ -340,7 +339,6 @@ div#user_login label{
     font-size:16px;
 }
 #user_login > h2{
-    
 }
 .eb-login-button{
     /*float: right;*/
@@ -359,7 +357,6 @@ div#user_login label{
 }
 .eb-wrap-login-form > p{
     display: block;
-        
 }
 
 .eb-edit-profile{
@@ -592,7 +589,10 @@ nav.eb-pagination ul li span.current {
 .wdm-col-3-2-1.hentry {
     margin-top: 10px;
     padding-top: 0;
-    height: 25em;    
+    height: 15vw;    
+    width: 14vw;
+    min-width: 12em;
+    min-height: 16em;
 }
 .eb-archive-container{
     display: -webkit-box;
@@ -654,7 +654,7 @@ nav.eb-pagination ul li span.current {
     border: 0px;
     background: rgba(255, 255, 255, 0.8);
     color: black;
-    font-size: 2em;
+    font-size: 1.7em;
     box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
     cursor: pointer;
 

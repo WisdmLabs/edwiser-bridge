@@ -87,6 +87,11 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
 
 <a href = "https://edwiser.org/bridge/extensions/selective-synchronization/">Selective Synchronization for Edwiser Bridge</a>
 
+**Bulk Purchase for Edwiser Bridge**
+
+The Bulk Purchase plugin lets you buy more than one Moodle course through WooCommerce at one go and enroll each student of your class.
+
+<a href = "https://edwiser.org/bridge/extensions/bulk-purchase/">Bulk Purchase for Edwiser Bridge</a>
 
  ==  Installation  == 
 
@@ -148,6 +153,17 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+= 1.3.0 =
+* Feature - Refund functionality for the order placed using the edwiser bridge plugin.
+* Feature - New order status(Refund).
+* Feature - New meta box on the eb order page to display the order status update history. On full refund Order status will change to the refunded.
+* Feature - Refurbished the user account page, added menus for the pages like Dashboard, user-account, orders, and my courses.
+* Twik - Now user can view there woo and eb orders on the same page.
+* Twik - To display multiple courses from the same order on the user order page.
+* Twik - For the security purpose, added password confirmation fields on the user account page.
+* Twik - Updated the eb-courses page sliding buttons.
+* Fixed- The courses gride item height issue on my courses and courses page.
+
 = 1.2.3 =
 * Feature - Functionality to display courses by category in eb_courses shortcode.
 * Feature - Functionality to display eb_courses shortcode output horizontally scrollable.
