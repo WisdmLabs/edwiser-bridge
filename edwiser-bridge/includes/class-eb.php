@@ -855,6 +855,13 @@ class EdwiserBridge
             'sendCourseAccessExpireEmail',
             10
         ); // email on order status completed
+
+        $this->loader->addAction(
+            'eb_refund_completion',
+            $plugin_emailer,
+            'refundCompletionEmail',
+            10
+        ); // email on successful refund
     }
 
     /**

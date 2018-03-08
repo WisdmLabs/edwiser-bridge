@@ -97,7 +97,7 @@ The Bulk Purchase plugin lets you buy more than one Moodle course through WooCom
 
  = Minimum Requirements = 
 * PHP version 5.6 or greater
-* WordPress 4.7 or higher
+* WordPress 4.9 or higher
 * Moodle 2.9 or higher
 
  =  Automatic Installation  = 
@@ -155,6 +155,8 @@ Take a look at the link below to see the full list of questions which will help 
  ==  Changelog  == 
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the edwiser bridge plugin.
+* Feature - Email temaplet for the admin and customr on order refund
+* Feature - Setting to send refund notificaton to spesific email or admin users email.
 * Feature - New order status(Refund).
 * Feature - New meta box on the eb order page to display the order status update history. On full refund Order status will change to the refunded.
 * Feature - Refurbished the user account page, added menus for the pages like Dashboard, user-account, orders, and my courses.
@@ -162,7 +164,8 @@ Take a look at the link below to see the full list of questions which will help 
 * Twik - To display multiple courses from the same order on the user order page.
 * Twik - For the security purpose, added password confirmation fields on the user account page.
 * Twik - Updated the eb-courses page sliding buttons.
-* Fixed- The courses gride item height issue on my courses and courses page.
+* Fix - The courses grid item height issue on my courses and courses page.
+* Fix - Fixed the 'TAKE THIS COURSE' button style issue.
 
 = 1.2.3 =
 * Feature - Functionality to display courses by category in eb_courses shortcode.

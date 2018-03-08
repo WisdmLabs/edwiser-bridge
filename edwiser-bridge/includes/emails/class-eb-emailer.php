@@ -39,12 +39,12 @@ class EBEmailer
     public function __construct($plugin_name, $version)
     {
         $this->plugin_name = $plugin_name;
-        $this->version = $version;
+        $this->version     = $version;
 
         /**
          * Class responsible for loading templates.
          */
-        require_once EB_PLUGIN_DIR.'public/class-eb-template-loader.php';
+        require_once EB_PLUGIN_DIR . 'public/class-eb-template-loader.php';
 
         $this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
     }
@@ -72,21 +72,69 @@ class EBEmailer
     public function sendCourseAccessExpireEmail($args)
     {
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
-        $allowNotify = get_option("eb_emailtmpl_course_access_expir_notify_allow");
+        $allowNotify   = get_option("eb_emailtmpl_course_access_expir_notify_allow");
         if ($emailTmplData && $allowNotify == "ON") {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
     }
-    
+
     public function sendExistingWpUserNewMoodleAccountEmail($args)
     {
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_new_moodle_user");
-        $allowNotify = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
+        $allowNotify   = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
         if ($emailTmplData && $allowNotify == "ON") {
             $emailTmplObj = new EBAdminEmailTemplate();
             return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
         }
+    }
+
+    /**
+     * send succes refund email to user and admin.
+     * @return [type] [description]
+     */
+    public function refundCompletionEmail($args)
+    {
+
+        $args               = apply_filters("eb_args_data", $args);
+        $userEmailTmplData  = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_refund_completion_notifier_to_user");
+        $adminEmailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_refund_completion_notifier_to_admin");
+
+        $emailTmplObj = new EBAdminEmailTemplate();
+
+        $ebGeneral = get_option('eb_general');
+        if ($ebGeneral) {
+            $sendEmailToAdmin        = getArrValue($ebGeneral, 'eb_refund_mail_to_admin', false);
+            $specifiedEmailForRefund = getArrValue($ebGeneral, 'eb_refund_mail', false);
+        }
+
+        $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow");
+        if ($allowNotify != false || $allowNotify == "ON") {
+            if ($userEmailTmplData) {
+                $user= get_user_by("id", getArrValue($args, "buyer_id"), "");
+                $emailTmplObj->sendEmail($user->user_email, $args, $userEmailTmplData);
+            }
+        }
+
+        $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow");
+        if ($allowNotify != false || $allowNotify == "ON") {
+            if (isset($sendEmailToAdmin) || !empty($sendEmailToAdmin)) {
+                $userArgs = array(
+                    'role' => 'Administrator',
+                );
+                $result   = get_users($userArgs);
+
+                foreach ($result as $value) {
+                    $emailTmplObj->sendEmail($value->data->user_email, $args, $adminEmailTmplData);
+                }
+            }
+
+            if (isset($specifiedEmailForRefund) || !empty($specifiedEmailForRefund)) {
+                $emailTmplObj->sendEmail($specifiedEmailForRefund, $args, $adminEmailTmplData);
+            }
+        }
+
+        return 1;
     }
 
     /**
@@ -103,10 +151,10 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        $args = apply_filters("eb_args_data", $args);
+        $args          = apply_filters("eb_args_data", $args);
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
-        $allowNotify=get_option("eb_emailtmpl_create_user_notify_allow");
-        if ($allowNotify==false || $allowNotify!="ON") {
+        $allowNotify   = get_option("eb_emailtmpl_create_user_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
@@ -121,10 +169,10 @@ class EBEmailer
         // prepare arguments array for email
         $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
 
-        $email_subject = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
+        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
         $args['header'] = $email_subject; // send email subject as header in email template
-        $email_content = $this->getContentHtml($args);
-        $email_headers = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
 
         //send email
         $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
@@ -149,9 +197,9 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
 
-        $allowNotify=get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
+        $allowNotify = get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
 
-        if ($allowNotify==false || $allowNotify!="ON") {
+        if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
@@ -161,7 +209,7 @@ class EBEmailer
         /**
          * Using Default
          */
-        $this->template_name = 'emails/user-existing-wp-account.php';
+        $this->template_name          = 'emails/user-existing-wp-account.php';
         $this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
 
         // prepare arguments array for email
@@ -172,8 +220,8 @@ class EBEmailer
             __('Your Learning Account Credentials', 'eb-textdomain')
         );
         $args['header'] = $email_subject; // send email subject as header in email template
-        $email_content = $this->getContentHtml($args);
-        $email_headers = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
 
         //send email
         $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
@@ -201,9 +249,9 @@ class EBEmailer
         }
 
         $buyer_detail = get_userdata($order_detail['buyer_id']); //get buyer details
-        $args = array(); // arguments array for email
+        $args         = array(); // arguments array for email
 
-        $this->template_name = 'emails/user-order-completion-email.php'; // template for order completion email
+        $this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email
         $this->plugin_template_loader = new EbTemplateLoader(
             $this->plugin_name,
             $this->version
@@ -228,8 +276,8 @@ class EBEmailer
          */
         $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
 
-        $allowNotify=get_option("eb_emailtmpl_order_completed_notify_allow");
-        if ($allowNotify==false || $allowNotify!="ON") {
+        $allowNotify = get_option("eb_emailtmpl_order_completed_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
@@ -267,8 +315,8 @@ class EBEmailer
     {
 
         // inject CSS rules for text and image alignment
-        $email_css = $this->mailerCss();
-        $email_content = $email_css.$email_content;
+        $email_css     = $this->mailerCss();
+        $email_content = $email_css . $email_content;
 
         $sent = wp_mail($_to, $email_subject, $email_content, $email_headers);
 
@@ -285,11 +333,11 @@ class EBEmailer
             q:after {content: "";content: none;} blockquote {font-size: 24px;font-style:
                 italic;font-weight: 300;margin: 24px 40px;}
             blockquote blockquote {margin-right: 0;}blockquote cite,blockquote
-             small {font-size: 14px;font-weight: normal;text-transform: uppercase;}'.
+             small {font-size: 14px;font-weight: normal;text-transform: uppercase;}' .
                 'cite {border-bottom: 0;}abbr[title] {border-bottom: 1px dotted;}
-            address {font-style: italic;margin: 0 0 24px;}'.
-                'del {color: #333;}ins {background: #fff9c0;border: none;color: #333;text-decoration: none;}'.
-                'sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}'.
+            address {font-style: italic;margin: 0 0 24px;}' .
+                'del {color: #333;}ins {background: #fff9c0;border: none;color: #333;text-decoration: none;}' .
+                'sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}' .
                 'sup {top: -0.5em;}sub {bottom: -0.25em;}</style>';
 
         return $css;

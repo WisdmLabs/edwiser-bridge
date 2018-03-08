@@ -18,7 +18,7 @@ class EbOrderRefundManage
         $amt          = getArrValue($refundData, "amt");
         $note         = getArrValue($refundData, "note");
         $refundStatus = array(
-            "amt"=>$amt,
+            "amt"    => $amt,
             "status" => false,
             "msg"    => __("Failed to initiate refund for order #$orderId", "eb-textdomain"),
         );
@@ -30,18 +30,18 @@ class EbOrderRefundManage
 
     private function getRefundType($orderId, $amt)
     {
-        $type        = "Partial";
-        $orderData   = get_post_meta($orderId, "eb_order_options", true);
-        $refunds     = get_post_meta($orderId, "eb_order_refund_hist", true);
-        $order       = new EBOrderMeta($this->pluginName, $this->version);
+        $type      = "Partial";
+        $orderData = get_post_meta($orderId, "eb_order_options", true);
+        $order     = new EBOrderMeta($this->pluginName, $this->version);
+        $refunds   = $order->getOrdersAllRefund($orderId);
         $paidAmt     = getArrValue($orderData, "amount_paid");
-        $totalRefund   = $order->getTotalRefuncdAmt($refunds);
+        $totalRefund = getTotalRefundAmt($refunds);
 
-        if (empty($refunds) && $paidAmt==$amt) {
+        if (empty($refunds) && $paidAmt == $amt) {
             $type = "Full";
         }
 
-        if ($paidAmt<=$totalRefund+$amt) {
+        if ($paidAmt <= $totalRefund + $amt) {
             edwiserBridgeInstance()->orderManager()->updateOrderStatus($orderId, 'refunded');
         }
         return $type;

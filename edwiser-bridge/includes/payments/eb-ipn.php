@@ -2,6 +2,7 @@
 /**
  *  PHP-PayPal-IPN Handler.
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /* NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
@@ -31,13 +32,13 @@ $payment_options = array();
 //get payment options
 $payment_options = get_option('eb_paypal');
 
-$paypal_email     = isset($payment_options['eb_paypal_email']) ? $payment_options['eb_paypal_email'] : '';
-$paypal_currency  = isset($payment_options['eb_paypal_currency']) ? $payment_options['eb_paypal_currency'] : 'USD';
-$paypal_country   = isset($payment_options['eb_paypal_country']) ? $payment_options['eb_paypal_country'] : 'US';
+$paypal_email = isset($payment_options['eb_paypal_email']) ? $payment_options['eb_paypal_email'] : '';
+$paypal_currency = isset($payment_options['eb_paypal_currency']) ? $payment_options['eb_paypal_currency'] : 'USD';
+$paypal_country = isset($payment_options['eb_paypal_country']) ? $payment_options['eb_paypal_country'] : 'US';
 $paypal_cancelurl = isset($payment_options['eb_paypal_cancel_url']) ? $payment_options['eb_paypal_cancel_url'] : site_url();
 $paypal_returnurl = isset($payment_options['eb_paypal_return_url']) ? $payment_options['eb_paypal_return_url'] : site_url();
 $paypal_notifyurl = isset($payment_options['eb_paypal_notify_url']) ? $payment_options['eb_paypal_notify_url'] : '';
-$paypal_sandbox   = isset($payment_options['eb_paypal_sandbox']) ? $payment_options['eb_paypal_sandbox'] : 'yes';
+$paypal_sandbox = isset($payment_options['eb_paypal_sandbox']) ? $payment_options['eb_paypal_sandbox'] : 'yes';
 
 edwiserBridgeInstance()->logger()->add('payment', 'Payment Settings Loaded.');
 
@@ -54,12 +55,12 @@ try {
     $verified = $listener->processIpn();
     edwiserBridgeInstance()->logger()->add('payment', 'Post method check completed.');
 } catch (\Exception $e) {
-    edwiserBridgeInstance()->logger()->add('payment', 'Found Exception: ' . $e->getMessage() . ' Exiting....');
+    edwiserBridgeInstance()->logger()->add('payment', 'Found Exception: '.$e->getMessage().' Exiting....');
     exit(0);
 }
 
 $YOUR_NOTIFICATION_EMAIL_ADDRESS = get_option('admin_email');
-$seller_email                    = $paypal_email;
+$seller_email = $paypal_email;
 
 edwiserBridgeInstance()->logger()->add(
     'payment',
@@ -68,7 +69,7 @@ edwiserBridgeInstance()->logger()->add(
 );
 $notify_on_valid_ipn = 1;
 
-edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : ' . (($verified) ? 'YES' : 'NO'));
+edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : '.(($verified) ? 'YES' : 'NO'));
 /* The processIpn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
 
 if ($verified) {
@@ -115,7 +116,7 @@ if ($verified) {
         //a customer has purchased from this website
         // email used by buyer to purchase course
         $billing_email = $_REQUEST['payer_email'];
-        edwiserBridgeInstance()->logger()->add('payment', 'Billing Email: ' . $billing_email);
+        edwiserBridgeInstance()->logger()->add('payment', 'Billing Email: '.$billing_email);
 
         //id of course passed by PayPal
         $course_id = $_REQUEST['item_number'];
@@ -150,10 +151,10 @@ if ($verified) {
             // decode json data
             $custom_data = json_decode(stripslashes($_REQUEST['custom']));
             edwiserBridgeInstance()->logger()->add('payment', print_r($custom_data, 1));
-            $buyer_id    = isset($custom_data->buyer_id) ? $custom_data->buyer_id : '';
-            $order_id    = isset($custom_data->order_id) ? $custom_data->order_id : '';
+            $buyer_id = isset($custom_data->buyer_id) ? $custom_data->buyer_id : '';
+            $order_id = isset($custom_data->order_id) ? $custom_data->order_id : '';
 
-            edwiserBridgeInstance()->logger()->add('payment', 'Buyer ID: ' . $buyer_id . ' - Order ID: ' . $order_id);
+            edwiserBridgeInstance()->logger()->add('payment', 'Buyer ID: '.$buyer_id.' - Order ID: '.$order_id);
 
             if (empty($buyer_id) || empty($order_id)) {
                 edwiserBridgeInstance()->logger()->add('payment', 'WARNING ! Buyer ID or Order ID is missing. Exiting!!!');
@@ -215,9 +216,9 @@ if ($verified) {
         edwiserBridgeInstance()->logger()->add('payment', 'Starting Order Status Updation.');
 
         //update billing email in order meta
-        $order_options                  = get_post_meta($order_id, 'eb_order_options', true);
+        $order_options = get_post_meta($order_id, 'eb_order_options', true);
         $order_options['billing_email'] = $billing_email;
-        $order_options['amount_paid']   = $course_price;
+        $order_options['amount_paid'] = $course_price;
         update_post_meta($order_id, 'eb_order_options', $order_options);
 
         //since 1.2.4
@@ -228,22 +229,33 @@ if ($verified) {
         $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
 
         if ($order_completed) {
-            edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: ' . $order_id);
+            edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: '.$order_id);
             $note = array(
-                "type" => "PayPal IPN",
-                "msg"  => __("IPN has been recived for the order id #$order_id. payment status: " . $_POST['payment_status'] . " Transaction id: ".$_POST['txn_id'].". ", "eb-textdomain")
+                'type' => 'PayPal IPN',
+                'msg' => __("IPN has been recived for the order id #$order_id. payment status: ".$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'. ', 'eb-textdomain'),
             );
-            updateOrderHistMeta($order_id, __("Paypal IPN", 'eb-textdomain'), $note);
+            updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
         }
     } elseif ($_POST['payment_status'] == 'Refunded') {
         $custom_data = json_decode(stripslashes($_REQUEST['custom']));
         edwiserBridgeInstance()->logger()->add('refund', print_r($custom_data, 1));
-        $order_id    = isset($custom_data->order_id) ? $custom_data->order_id : '';
-        $note        = array(
-            "type" => "PayPal IPN",
-            "msg"  => __("IPN has been recived, for the refund of amount " . abs($_POST['mc_gross']) . ". Payment status: " . $_POST['payment_status'] . " Transaction id: ".$_POST['txn_id'].".", "eb-textdomain")
+        $order_id = isset($custom_data->order_id) ? $custom_data->order_id : '';
+        $note = array(
+            'type' => 'PayPal IPN',
+            'msg' => __('IPN has been recived, for the refund of amount '.abs($_POST['mc_gross']).'. Payment status: '.$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'.', 'eb-textdomain'),
         );
-        updateOrderHistMeta($order_id, __("Paypal IPN", 'eb-textdomain'), $note);
+        updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
+
+        $args = array(
+            'order_id' => $custom_data->order_id,
+            'buyer_id' => $custom_data->buyer_id,
+            'refunded_cur' => getArrValue($_POST, 'mc_currency', 'USD'),
+            'refund_amount' => abs(getArrValue($_POST, 'mc_gross', '0.00')),
+            'refunded_status' => getArrValue($_POST, 'payment_status', 'Unknown'),
+        );
+        //error_log("Printing request data");
+        //error_log(print_r($args,1));
+        do_action('eb_refund_completion', $args);
     }
 
     edwiserBridgeInstance()->logger()->add('payment', 'IPN Processing Completed Successfully.');
