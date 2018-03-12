@@ -49,6 +49,10 @@ class EBAdminEmailTemplate
         $emailList["eb_emailtmpl_linked_existing_wp_new_moodle_user"] = __("Create new moodle account", 'eb-textdomain');
         $emailList["eb_emailtmpl_order_completed"] = __("Course Order Completion", 'eb-textdomain');
         $emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
+
+        $emailList["eb_emailtmpl_refund_completion_notifier_to_user"] = __("Refund Success mail to customer", 'eb-textdomain');
+        $emailList["eb_emailtmpl_refund_completion_notifier_to_admin"] = __("Refund Success mail to admin or specified email", 'eb-textdomain');
+
         return $emailList;
     }
 
@@ -304,6 +308,21 @@ class EBAdminEmailTemplate
         $order["{COURSE_NAME}"] = __("The title of the course.", 'eb-textdomain');
         $order["{ORDER_ID}"] = __("The order id of the purchased order completed.", 'eb-textdomain');
 
+        /*
+         *Refund Order template constants
+         */
+        $refund['{ORDER_ID}'] = __("Refund order id.", 'eb-textdomain');
+        $refund['{CUSTOMER_DETAILS}'] = __("This will get replaced by the customer details.", 'eb-textdomain');
+        $refund['{ORDER_ITEM}'] = __("Order associated item list.", 'eb-textdomain');
+        $refund['{TOTAL_AMOUNT_PAID}'] = __("Amount paid at the time of order placed.", 'eb-textdomain');
+        $refund['{CURRENT_REFUNDED_AMOUNT}'] = __("Currantly refunded amount.", 'eb-textdomain');
+        $refund['{TOTAL_REFUNDED_AMOUNT}'] = __("Total amount refunded till the time.", 'eb-textdomain');
+        $refund['{ORDER_REFUND_STATUS}'] = __("Order reufnd status transaction.", 'eb-textdomain');
+//        $refund['{REFUND_AMOUNT}'] = __("Refunded amount for the oder", 'eb-textdomain');
+//        $refund['{REFUND_DATE}'] = __("Refund completion date.", 'eb-textdomain');
+//        $refund['{REFUND_TXN_ID}'] = __("Refund transaction ID", 'eb-textdomain');
+
+
         /**
          * Course unenrollment alert constants
          */
@@ -313,6 +332,7 @@ class EBAdminEmailTemplate
         $constants["New moodle user account"] = $account;
         $constants["Order Completion "] = $order;
         $constants["Course Unenrollment "] = $unenrollment;
+        $constants["Order Refund"] = $refund;
         return $constants;
     }
 
@@ -561,21 +581,30 @@ class EBAdminEmailTemplate
         $tmplKey=$args['tmpl_name'];
         switch ($tmplKey) {
             case "eb_emailtmpl_create_user":
-                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user",true);
+                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_user":
-                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user",true);
+                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user", true);
                 break;
             case "eb_emailtmpl_order_completed":
-                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed",true);
+                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed", true);
                 break;
             case "eb_emailtmpl_course_access_expir":
-                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir",true);
+                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_new_moodle_user":
-                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user",true);
+                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user", true);
                 break;
-            default :
+
+            case "eb_emailtmpl_refund_completion_notifier_to_user":
+                $value=$defaultTmpl->notifyUserOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_user", true);
+                break;
+            case "eb_emailtmpl_refund_completion_notifier_to_admin":
+                $value=$defaultTmpl->notifyAdminOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_admin", true);
+                break;
+
+
+            default:
                 $args=apply_filters("eb_reset_email_tmpl_content", array("is_restored" => false, "tmpl_name"=>$args['tmpl_name']));
                 return $args;
         }

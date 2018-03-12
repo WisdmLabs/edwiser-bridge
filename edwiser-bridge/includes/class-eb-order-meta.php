@@ -70,7 +70,7 @@ class EBOrderMeta
         $currency     = getCurrentPayPalcurrencySymb();
         $price        = $this->getCoursePrice($post->ID);
         $refunds      = $this->getOrdersAllRefund($post->ID);
-        $refundedAmt  = $this->getTotalRefuncdAmt($refunds);
+        $refundedAmt  = getTotalRefundAmt($refunds);
         $avlRefundAmt = $price - $refundedAmt;
         ?>
         <div class="eb-order-refund-data">
@@ -151,7 +151,7 @@ class EBOrderMeta
         return (float) $price;
     }
 
-    private function getOrdersAllRefund($orderId)
+    public function getOrdersAllRefund($orderId)
     {
         $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);
         if (!is_array($refunds)) {
@@ -182,15 +182,15 @@ class EBOrderMeta
         <?php
     }
 
-    public function getTotalRefuncdAmt($refunds)
-    {
-        $totalRefund = (float) "0.00";
-        foreach ($refunds as $refund) {
-            $refundAmt   = getArrValue($refund, "amt", "0.00");
-            $totalRefund += (float) $refundAmt;
-        }
-        return $totalRefund;
-    }
+//    public function getTotalRefundAmt($refunds)
+//    {
+//        $totalRefund = (float) "0.00";
+//        foreach ($refunds as $refund) {
+//            $refundAmt   = getArrValue($refund, "amt", "0.00");
+//            $totalRefund += (float) $refundAmt;
+//        }
+//        return $totalRefund;
+//    }
 
     /**
      * get details of an order by order id.
@@ -229,7 +229,7 @@ class EBOrderMeta
         }
     }
 
-    private function printByerDetails($byerDetails)
+    public function printByerDetails($byerDetails)
     {
         ?>
         <div class='eb-order-meta-byer-details'>

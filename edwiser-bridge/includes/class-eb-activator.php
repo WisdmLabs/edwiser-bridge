@@ -254,10 +254,18 @@ class EBActivator
     {
         $defaultTmpl = new EBDefaultEmailTemplate();
         self::updateTemplateData("eb_emailtmpl_create_user", $defaultTmpl->newUserAcoount("eb_emailtmpl_create_user"));
+
+        self::updateTemplateData("eb_emailtmpl_refund_completion_notifier_to_user", $defaultTmpl->notifyUserOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_user"));
+        self::updateTemplateData("eb_emailtmpl_refund_completion_notifier_to_admin", $defaultTmpl->notifyAdminOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_admin"));
+
         self::updateTemplateData("eb_emailtmpl_linked_existing_wp_user", $defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user"));
         self::updateTemplateData("eb_emailtmpl_linked_existing_wp_new_moodle_user", $defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user"));
         self::updateTemplateData("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
         self::updateTemplateData("eb_emailtmpl_course_access_expir", $defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir"));
+
+        self::updateAllowMailSendData("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow", "ON");
+        self::updateAllowMailSendData("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow", "ON");
+
         self::updateAllowMailSendData("eb_emailtmpl_create_user_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_linked_existing_wp_user_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow", "ON");

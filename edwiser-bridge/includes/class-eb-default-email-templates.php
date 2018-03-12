@@ -2,8 +2,10 @@
 namespace app\wisdmlabs\edwiserBridge;
 
 if (!class_exists("EBDefaultEmailTemplate")) {
+
     class EBDefaultEmailTemplate
     {
+
         /**
          * Preapares the default new user account creation on moodle and WP email
          * notification tempalte and subject
@@ -100,6 +102,46 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             $data = array(
                 "subject" => __('Course access expired.', 'eb-textdomain'),
                 "content" => $this->getCourseAccessExpitedTemplate(),
+            );
+            return $data;
+        }
+
+        /**
+         * Preapares the default refund completion email for the user who placed this order
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function notifyUserOnOrderRefund($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Order refund notification', 'eb-textdomain'),
+                "content" => $this->userRefundedNotificationTemplate(),
+            );
+            return $data;
+        }
+
+        /**
+         * Preapares the default refund completion email for all the admins
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function notifyAdminOnOrderRefund($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Order refund notification', 'eb-textdomain'),
+                "content" => $this->adminRefundedNotificationTemplate(),
             );
             return $data;
         }
@@ -368,7 +410,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             return ob_get_clean();
         }
 
-         /**
+        /**
          * Prepares the html template with constants for the course access expire
          * creation
          * @return html returns the email template body content for the course
@@ -426,6 +468,162 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                                     <?php _e('Thank you!', 'eb-textdomain'); ?>
                                 </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+        public function userRefundedNotificationTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; padding: 70px 70px 70px 70px; margin: auto; height: auto;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 1px 2px 0px 1px #d0d0d0; border-radius: 6px !important; background-color: #dfdfdf; margin: auto;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
+                                <h1 style="color: white; margin: 0; padding: 10px; display: block; text-align: left; line-height: 150%;">
+                                    <?php
+                                    printf(__("Your order %s has been successfully refunded.", "eb-textdomain"), "{ORDER_ID}");
+                                    ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php printf(__("Hello %s %s,", "eb-textdomain"), "{FIRST_NAME}", "{LAST_NAME}"); ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                    printf(
+                                        __(
+                                            "This is to inform you that, The amount %s has been refunded successfully, against the order %s by {SITE_NAME}.",
+                                            "eb-textdomain"
+                                        ),
+                                        "{CURRENT_REFUNDED_AMOUNT}",
+                                        "{ORDER_ID}",
+                                        "{SITE_NAME}"
+                                    );
+                                    ?>
+                                </div>
+                                <div></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php printf(__("Order %s Details:", "eb-textdomain"), "{ORDER_ID}"); ?>
+                                </div>
+                                <div></div>
+                                <div style="font-family: Arial;">
+                                    <table style="border-collapse: collapse;">
+                                        <tbody>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    <?php _e("Order Item", "eb-textdomain"); ?>
+                                                </td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    {ORDER_ITEM}
+                                                </td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    <?php _e("Total Amount Paid", "eb-textdomain"); ?>
+                                                </td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    {TOTAL_AMOUNT_PAID}
+                                                </td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    <?php _e("Current Refunded Amount", "eb-textdomain"); ?>
+                                                </td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    {CURRENT_REFUNDED_AMOUNT}
+                                                </td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    <?php _e("Total Refunded Amount", "eb-textdomain"); ?>
+                                                </td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">
+                                                    {TOTAL_REFUNDED_AMOUNT}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+        public function adminRefundedNotificationTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; padding: 70px 70px 70px 70px; margin: auto; height: auto;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 1px 2px 0px 1px #d0d0d0; border-radius: 6px !important; background-color: #dfdfdf; margin: auto;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
+                                <h1 style="color: white; margin: 0; padding: 10px; display: block; text-align: left; line-height: 150%;">
+                                    Refund notification for the order id:{ORDER_ID}.
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    Hello,</div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    This is to inform you that, Refund for the order id {ORDER_ID} has been {ORDER_REFUND_STATUS}.
+                                </div>
+                                <div></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    Order {ORDER_ID} Details:
+                                </div>
+                                <div></div>
+                                <div style="font-family: Arial;">
+                                    <table style="border-collapse: collapse;">
+                                        <tbody>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">Customer Details</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">{CUSTOMER_DETAILS}</td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">Order Item</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">{ORDER_ITEM}</td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">Total paid amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_AMOUNT_PAID}</td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">Current Refunded Amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">{CURRENT_REFUNDED_AMOUNT}</td>
+                                            </tr>
+                                            <tr style="border: 1px solid #465b94; padding: 5px;">
+                                                <td style="border: 1px solid #465b94; padding: 5px;">Total Refunded Amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_REFUNDED_AMOUNT}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div></td>
                         </tr>
                         <tr>
