@@ -37,7 +37,7 @@
                     ?>
                     <td><?php echo $row; ?></td>
                     <td><?php echo $order['date']; ?> </td>
-                    <td><?php ucfirst($order['status']); ?></td>
+                    <td><?php _e(ucfirst($order['status']), 'eb-textdomain'); ?></td>
                 </tr>
                 <?php
             }
