@@ -109,7 +109,7 @@ class EBEmailer
         }
 
         $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow");
-        if ($allowNotify != false || $allowNotify == "ON") {
+        if ($allowNotify != false && $allowNotify == "ON") {
             if ($userEmailTmplData) {
                 $user= get_user_by("id", getArrValue($args, "buyer_id"), "");
                 $args['first_name'] = $user->first_name;
@@ -120,7 +120,7 @@ class EBEmailer
         }
 
         $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow");
-        if ($allowNotify != false || $allowNotify == "ON") {
+        if ($allowNotify != false && $allowNotify == "ON") {
             if (isset($sendEmailToAdmin) && !empty($sendEmailToAdmin) &&  "yes" == $sendEmailToAdmin) {
                 $userArgs = array(
                     'role' => 'Administrator',
