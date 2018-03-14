@@ -176,6 +176,7 @@ if (!class_exists('EbSettingsPayPal')) :
                     'title' => __('PayPal API Credentials', 'eb-textdomain'),
                     'type' => 'title',
                     'id' => 'paypal_api_options',
+                    'desc' => __('To use order refunds following fields are mandatory.', 'eb-textdomain'),
                     ),
                     array(
                     'title' => __('API username', 'eb-textdomain'),
