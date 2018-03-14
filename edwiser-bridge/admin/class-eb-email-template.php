@@ -317,7 +317,7 @@ class EBAdminEmailTemplate
         $refund['{TOTAL_AMOUNT_PAID}'] = __("Amount paid at the time of order placed.", 'eb-textdomain');
         $refund['{CURRENT_REFUNDED_AMOUNT}'] = __("Currantly refunded amount.", 'eb-textdomain');
         $refund['{TOTAL_REFUNDED_AMOUNT}'] = __("Total amount refunded till the time.", 'eb-textdomain');
-        $refund['{ORDER_REFUND_STATUS}'] = __("Order reufnd status transaction.", 'eb-textdomain');
+        $refund['{ORDER_REFUND_STATUS}'] = __("Order refund status transaction.", 'eb-textdomain');
 //        $refund['{REFUND_AMOUNT}'] = __("Refunded amount for the oder", 'eb-textdomain');
 //        $refund['{REFUND_DATE}'] = __("Refund completion date.", 'eb-textdomain');
 //        $refund['{REFUND_TXN_ID}'] = __("Refund transaction ID", 'eb-textdomain');

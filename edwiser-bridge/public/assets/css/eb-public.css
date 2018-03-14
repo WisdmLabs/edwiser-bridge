@@ -267,7 +267,7 @@ div.course-not-available{
 .eb-profile-txt-field input[type='text']{
     width: 100%;
 }
-.eb-user-account-navigation ul{
+.eb-user-account-navigation div{
     margin: 0px 3px;
 }
 .eb-user-account-navigation-link{
@@ -293,6 +293,7 @@ div#user_login label{
 .eb-user-account-navigation{
     float: left;
     width: 20%;
+    padding-right: 2%;
 }
 .eb-user-account-content{
     float: right;
@@ -311,9 +312,20 @@ div#user_login label{
     clear: both;
     position: relative;
     padding: 5px;
+    padding-top: 0px;
     /*border: 1px solid rgba(68, 68, 68, 0.21);*/
     border-radius: 3px;
 }
+
+
+.eb-user-info-h4{
+    margin-top: 2px !important;
+}
+
+.wdm-transaction-header h4{
+    margin-top: 2px;
+}
+
 
 .eb-user-picture{
     float:left;
@@ -552,9 +564,21 @@ nav.eb-pagination ul li span.current {
     margin: 10px 0;
 }
 
-.eb-rec-courses-wrapper h2, .eb-my-courses-wrapper h2{
+.eb-rec-courses-wrapper h2{
     border-bottom: 2px solid #1a1a1a;
     padding: 10px;
+}
+
+
+.eb-my-courses-wrapper h2{
+    border-bottom: 2px solid #1a1a1a;
+    padding: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.eb-my-courses-h2{
+    margin-top: 0px !important;
 }
 
 .eb-rec-courses-view-more{
@@ -595,6 +619,17 @@ nav.eb-pagination ul li span.current {
 /* @ Edit user profile styling */
 .eb-edit-user-wrapper{
     padding: 2%;
+    padding-top: 0px;
+}
+
+.wdm-transaction-header h4{
+    margin-top: 2px !important;
+}
+
+
+.eb-user-account-navigation-link:first-child{
+    padding-top: 0px;
+
 }
 
 .eb-error{

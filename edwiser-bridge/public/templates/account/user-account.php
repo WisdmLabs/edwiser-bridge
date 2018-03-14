@@ -16,7 +16,7 @@
         $labels = $ebShortcodeObj->getUserAccountNavigationItems();
         ?>
         <div class="eb-user-account-navigation">
-            <ul>
+            <div>
                 <?php
                 foreach ($labels as $label) {
                     $navItem = isset($label['label']) ? $label['label'] : '';
@@ -26,16 +26,16 @@
                         $cssClass .= ' eb-active-profile-nav';
                     }
                     ?>
-                <li class="<?php echo $cssClass;
+                <nav class="<?php echo $cssClass;
                     ?>">
                         <a href="<?php echo esc_url(add_query_arg('eb-active-link', $navHref, get_permalink()));
                     ?>"><?php _e($navItem, 'eb-textdomain');
                     ?></a>
-                    </li>
+                    </nav>
                     <?php
                 }
         ?>
-            </ul>
+            </div>
         </div>
         <div class="eb-user-account-content">
             <?php

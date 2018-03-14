@@ -12,7 +12,7 @@ $country     = getArrValue($_POST, "country", $current_user->country);
 ?>
 
 <section class="eb-user-info eb-edit-user-wrapper">
-    <h4><?php _e('Edit Account Details', 'eb-textdomain'); ?></h4>    
+    <h4 class="eb-user-info-h4"><?php _e('Edit Account Details', 'eb-textdomain'); ?></h4>    
     <?php
     if (!is_user_logged_in()) {
         ?>
