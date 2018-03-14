@@ -489,7 +489,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
-                                <h1 style="color: white; margin: 0; padding: 10px; display: block; text-align: left; line-height: 150%;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
                                     <?php
                                     printf(__("Your order %s has been successfully refunded.", "eb-textdomain"), "{ORDER_ID}");
                                     ?>
@@ -580,7 +580,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                     <tbody>
                         <tr>
                             <td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
-                                <h1 style="color: white; margin: 0; padding: 10px; display: block; text-align: left; line-height: 150%;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
                                     Refund notification for the order id:{ORDER_ID}.
                                 </h1>
                             </td>
