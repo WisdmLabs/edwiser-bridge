@@ -246,11 +246,6 @@ class EBIpnListener
             $textReport .= " (fsockopen)\n";
         }
 
-        // //HTTP Response
-        // for ($i=0; $i<80; $i++) { $textReport .= '-'; }
-        // $textReport .= "\n{$this->getResponse()}\n";
-        //
-
         //POST vars
         for ($i = 0; $i < 80; $i++) {
             $textReport .= '-';

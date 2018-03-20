@@ -558,6 +558,8 @@ class EBUserManager
             $wp_user = get_user_by('email', $user_data['email']);
             $this->userCourseSynchronizationHandler(array('eb_synchronize_user_courses' => 1), $wp_user->ID);
         }
+        do_action('eb_after_moodle_user_creation', $user);
+
         return $user;
     }
 
@@ -1046,7 +1048,6 @@ class EBUserManager
         }
     }
 
-
     public function moodleLinkUnlinkUser()
     {
         $responce=array("code"=>"failed");
@@ -1072,7 +1073,6 @@ class EBUserManager
         echo json_encode($responce);
         die();
     }
-
 
     public function moodleLinkUnlinkUserNotices()
     {

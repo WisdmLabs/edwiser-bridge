@@ -66,20 +66,22 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     if ($page_found_id) {
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
+
         return $page_found_id;
     }
 
     $page_data = array(
-        'post_status' => 'publish',
-        'post_type' => 'page',
-        'post_author' => 1,
-        'post_name' => $slug,
-        'post_title' => $page_title,
-        'post_content' => $page_content,
+        'post_status'    => 'publish',
+        'post_type'      => 'page',
+        'post_author'    => 1,
+        'post_name'      => $slug,
+        'post_title'     => $page_title,
+        'post_content'   => $page_content,
         'comment_status' => 'closed',
     );
-    $page_id = wp_insert_post($page_data);
+    $page_id   = wp_insert_post($page_data);
     wdmUpdatePageId($option_value, $option_key, $page_id, $eb_general_settings);
+
     return $page_id;
 }
 
@@ -103,7 +105,7 @@ function wdmShowNotices()
     //display form messages
     if (defined('USER_FORM_MESSAGE')) {
         echo "<div class='wdm-flash-error'>";
-        echo '<span>'.USER_FORM_MESSAGE.'</span><br />';
+        echo '<span>' . USER_FORM_MESSAGE . '</span><br />';
         echo '</div>';
     }
 }
@@ -136,7 +138,7 @@ function wdmShowNotices()
 function wdmUserAccountUrl($query_str = '')
 {
     $usr_ac_page_id = null;
-    $eb_settings = get_option('eb_general');
+    $eb_settings    = get_option('eb_general');
 
     if (isset($eb_settings['eb_useraccount_page_id'])) {
         $usr_ac_page_id = $eb_settings['eb_useraccount_page_id'];
@@ -149,7 +151,7 @@ function wdmUserAccountUrl($query_str = '')
     }
 
     //Extract query string into local $_GET array.
-    $get = array();
+    $get             = array();
     parse_str(parse_url($query_str, PHP_URL_QUERY), $get);
     $usr_ac_page_url = add_query_arg($get, $usr_ac_page_url);
 
@@ -176,12 +178,12 @@ function wdmEBUserRedirectUrl($queryStr = '')
      * Get the Edwiser Bridge genral settings.
      */
     $ebSettings = get_option('eb_general');
-    
+
     /*
      * Set the login redirect url to the user account page.
      */
     if (isset($ebSettings['eb_useraccount_page_id'])) {
-        $usrAcPageId = $ebSettings['eb_useraccount_page_id'];
+        $usrAcPageId  = $ebSettings['eb_useraccount_page_id'];
         $usrAcPageUrl = get_permalink($usrAcPageId);
     }
     /*
@@ -193,7 +195,7 @@ function wdmEBUserRedirectUrl($queryStr = '')
     }
 
     //Extract query string into local $_GET array.
-    $get = array();
+    $get          = array();
     parse_str(parse_url($queryStr, PHP_URL_QUERY), $get);
     $usrAcPageUrl = add_query_arg($get, $usrAcPageUrl);
 
@@ -206,6 +208,7 @@ function getMycoursesPage($ebSettings)
     if (isset($ebSettings['eb_my_courses_page_id'])) {
         $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
     }
+
     return $usrAcPageUrl;
 }
 
@@ -225,31 +228,31 @@ function getShortcodePageContent($the_tag = '')
     //Shortcodes and their attributes.
     $shortcodes = array(
         'eb_my_courses' => array(
-            'user_id' => '',
-            'my_courses_wrapper_title' => __('My Courses', 'eb-textdomain'),
+            'user_id'                           => '',
+            'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
-            'number_of_recommended_courses' => 4,
+            'number_of_recommended_courses'     => 4,
         ),
-        'eb_course' => array(
+        'eb_course'     => array(
             'id' => '',
         ),
-        'eb_courses' => array(
-            'categories' => '',
-            'order' => 'DESC',
-            'per_page' => 12,
-            'cat_per_page'=>3,
-            'group_by_cat'=>'yes',
-            'horizontally_scroll'=>'yes'
+        'eb_courses'    => array(
+            'categories'          => '',
+            'order'               => 'DESC',
+            'per_page'            => 12,
+            'cat_per_page'        => 3,
+            'group_by_cat'        => 'yes',
+            'horizontally_scroll' => 'yes',
         ),
     );
 
     $page_content = array();
     foreach ($shortcodes as $tag => $args) {
-        $buffer = '['.$tag.' ';
+        $buffer = '[' . $tag . ' ';
         foreach ($args as $attr => $value) {
-            $buffer .= $attr.'="'.$value.'" ';
+            $buffer .= $attr . '="' . $value . '" ';
         }
-        $buffer .= ']';
+        $buffer             .= ']';
         $page_content[$tag] = $buffer;
     }
 
@@ -258,4 +261,69 @@ function getShortcodePageContent($the_tag = '')
     } elseif (isset($page_content[$the_tag])) {
         return $page_content[$the_tag];
     }
+}
+
+/**
+ * Provides the functionality to get the current PayPal currency symbol.
+ *
+ * @return mixed returns the currency in string format or symbol
+ */
+function getCurrentPayPalcurrencySymb()
+{
+    $payment_options = get_option('eb_paypal');
+    $currency        = $payment_options['eb_paypal_currency'];
+    if (isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD') {
+        $currency = '$';
+    }
+    $currency = apply_filters('eb_paypal_get_currancy_symbol', $currency);
+
+    return $currency;
+}
+
+/**
+ * Function provides the functionality to check that  is the array key value is present in array or not
+ * otherwise returns the default value.
+ *
+ * @param array  $arr   array to check the value present or not.
+ * @param string $key   array key to check the value.
+ * @param mixed  $value default value to return by default empty string.
+ *
+ * @return returns array value.
+ */
+function getArrValue($arr, $key, $value = '')
+{
+    if (isset($arr[$key]) && !empty($arr[$key])) {
+        $value = $arr[$key];
+    }
+
+    return $value;
+}
+
+function updateOrderHistMeta($orderId, $updatedBy, $note)
+{
+    $history = get_post_meta($orderId, 'eb_order_status_history', true);
+    if (!is_array($history)) {
+        $history = array();
+    }
+    $newHist = array(
+        'by'   => $updatedBy,
+        'time' => current_time('timestamp'),
+        'note' => $note,
+    );
+
+    array_unshift($history, $newHist);
+    $history = apply_filters('eb_order_history', $history, $newHist, $orderId);
+    update_post_meta($orderId, 'eb_order_status_history', $history);
+    do_action('eb_after_order_refund_meta_save', $orderId, $history);
+}
+
+function getTotalRefundAmt($refunds)
+{
+    $totalRefund = (float) "0.00";
+    foreach ($refunds as $refund) {
+        $refundAmt   = getArrValue($refund, "amt", "0.00");
+        $totalRefund += (float) $refundAmt;
+    }
+
+    return $totalRefund;
 }

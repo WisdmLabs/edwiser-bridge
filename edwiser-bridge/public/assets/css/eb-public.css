@@ -24,9 +24,8 @@
  */
 .hentry.wdm-col-3-2-1 {
     float: left;
-    margin: 15px 0px 30px 0px;
-    padding: 0 15px;
-    /*width: 25%;*/
+    margin: 1em 0em;
+    padding: 0 0.5em;    
 }
 
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
@@ -45,12 +44,12 @@
 .sc-eb_courses-wrapper .eb-course-col:nth-of-type(4n+1),
 .eb-my-courses-wrapper .eb-course-col:nth-of-type(4n+1),
 .eb-rec-courses-wrapper .eb-course-col:nth-of-type(4n+1){
-    clear: left;
+    /*clear: left;*/
 }
 
 .wdm-course-grid:hover{
     z-index: 500;
-    box-shadow: 3px 3px 3px #dee2e5;
+    box-shadow: 1px 2px 1px #dee2e5;
 }
 .wdm-course-grid > a{
     text-decoration: none;
@@ -63,15 +62,20 @@
     text-decoration: none;
 }
 .wdm-course-image{
-    height: 70%;
+    height: 60%;
+    overflow: hidden;
 }
+/*.wdm-course-image:hover{
+    background-color: black;
+}*/
 .wdm-course-image img{
     height: 100%;
     transition: all 0.20s ease-in-out 0s;
     width: 100%;
 }
 .wdm-course-image img:hover{
-    transform: scale(1.2, 1) translateZ(0px);
+    transform: scale(1.2, 1.2) translateZ(0px);
+    opacity: 0.7;
 }
 
 
@@ -105,7 +109,7 @@
     border-radius: 2px;
     position: relative;
     cursor: pointer;
-    box-shadow: 0px 2px 0px #d0d0d0;
+    box-shadow: 0px 1px 0px #d0d0d0;
     text-align: center;
     height: 100%;
     max-height: 300px;
@@ -118,7 +122,7 @@
 .wdm-course-grid h4{
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
@@ -138,10 +142,9 @@
     width: auto !important;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 1;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    /*text-align: justify;*/
 }
 
 p.read-more{
@@ -149,40 +152,35 @@ p.read-more{
     text-transform: uppercase;
     text-align: center;
 }
-
-.wdm-btn {
-    border-color: #357ebd;
-    border-radius: 3px;
-    display: inline-block;
-    line-height: 1.82857;
-    margin-bottom: 0;
-    padding: 6px 12px;
+.wdm-btn {    
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    font-weight: 600;
-    background-color: #333!important;
+    font-weight: 500;
+    background-color: #333 !important;
     color: #fff;
     cursor: pointer;
     font-family: "Noto Sans", sans-serif;
     font-size: 1.1rem;
-    padding: 0.4017em 0.503em;
     text-transform: uppercase;
     text-decoration: none!important;
+    letter-spacing: 0.1em;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s
+}
+.eb_join_button > a{
+    padding: 0.7em;
 }
 
 .eb_join_button input[type="submit"]{
-    border-radius: 3px;
-    background:#333!important;
-    border:0!important;
-    padding: 0.4017em 0.503em!important;
+    letter-spacing: 0.1em;
+    padding: 0.5em;
 }
 
 .wdm-btn:hover {
-    background: #555!important;
-    border-color: #285e8e;
-    color:whitesmoke!important;
+    color:white;
     text-decoration: none;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 
@@ -224,17 +222,89 @@ div.course-not-available{
 }
 
 /* user login and registration page styling */
-div#user_login label{
-    display: inline-block;
-    width: 125px;
+.eb-active-profile-nav a{
+    color: currentColor;
 }
-
+#eb-update-profile > fieldset{
+    margin: 1.5em;
+}
+.eb-profile-row-block{
+    display: table-row;
+}
+.eb-profile-row-block .eb-profile-txt-field{
+    display: table-cell;    
+}
+.eb-profile-form-submit .button-primary{
+    letter-spacing: 0.1em;
+}
+#eb-update-profile legend{
+    letter-spacing: 0.1em;
+    text-transform: capitalize;
+}
+.eb-profile-txt-field select{
+    background: transparent;
+    line-height: 1.5;
+    border: 1px solid grey;
+    padding: 0.5em;
+    width: 100%;
+}
+.eb-profile-txt-area-field input[type='text']{
+    height: 10em;
+}
+.eb-profile-txt-area-field,
+.eb-profile-password-field,
+.eb-profile-txt-field{
+    padding-right: 1em;
+    display: grid;
+}
+.eb-profile-txt-area-field label,
+.eb-profile-password-field label,
+.eb-profile-txt-field label{
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;    
+}
+.eb-profile-txt-field input[type='email'],
+.eb-profile-txt-field input[type='text']{
+    width: 100%;
+}
+.eb-user-account-navigation div{
+    margin: 0px 3px;
+}
+.eb-user-account-navigation-link{
+    list-style: none;
+    list-style-type:none;
+    padding:5px 2px;
+    border-bottom: 1px solid grey;
+}
+.eb-user-account-navigation-link > a{
+    text-decoration: none;
+    clear: both;
+    box-shadow: unset;
+}
+div#user_login label{
+    display: block;
+    /*width: 125px;*/
+    letter-spacing: 0.1em;
+}
+.form-row{
+    margin: 0.5em;
+}
 /* user profile shortcode style */
+.eb-user-account-navigation{
+    float: left;
+    width: 20%;
+    padding-right: 2%;
+}
+.eb-user-account-content{
+    float: right;
+    width: 75%
+}
 .eb-user-profile{
-    border: 1px solid rgba(68, 68, 68, 0.21);
-    padding: 10px;
+    /*    border: 1px solid rgba(68, 68, 68, 0.21);
+    */    padding: 10px;
     border-radius: 3px;
     font-family: "Noto Sans", sans-serif!important;
+    display: flex;
 }
 
 .eb-user-info{
@@ -242,9 +312,20 @@ div#user_login label{
     clear: both;
     position: relative;
     padding: 5px;
-    border: 1px solid rgba(68, 68, 68, 0.21);
+    padding-top: 0px;
+    /*border: 1px solid rgba(68, 68, 68, 0.21);*/
     border-radius: 3px;
 }
+
+
+.eb-user-info-h4{
+    margin-top: 2px !important;
+}
+
+.wdm-transaction-header h4{
+    margin-top: 2px;
+}
+
 
 .eb-user-picture{
     float:left;
@@ -262,6 +343,26 @@ div#user_login label{
 
 .eb-user-data div:last-child{
     font-size:16px;
+}
+#user_login > h2{
+}
+.eb-login-button{
+    /*float: right;*/
+    letter-spacing: 0.1em;
+}
+.form-row,.input-text{
+    width: -webkit-fill-available;
+}
+.eb-user-reg-form,
+.eb-wrap-login-form{
+    border: 1px solid #dddddd;
+    border-radius: 0.4em;
+    padding: 1em;
+    box-shadow: 1px 1px 2px 2px #dddddd;
+    max-width: 50em;
+}
+.eb-wrap-login-form > p{
+    display: block;
 }
 
 .eb-edit-profile{
@@ -307,11 +408,7 @@ div#user_login label{
 .course-heading span:first-child{
     float:left;
     width:40px;
-}/*
-
-.course-heading span:last-child{
-  float:right;
-}*/
+}
 
 .eb-course-data{
     padding: 0 10px;
@@ -448,6 +545,16 @@ nav.eb-pagination ul li span.current {
     .eb-cat-courses-cont > .eb-course-col{
         min-width: 60% !important;
     }
+    .eb-user-profile{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .eb-user-account-navigation{
+        width: 100%;
+    }
+    .eb-profile-row-block .eb-profile-txt-field{
+        display: table-row;
+    }
 
 
 }
@@ -457,9 +564,21 @@ nav.eb-pagination ul li span.current {
     margin: 10px 0;
 }
 
-.eb-rec-courses-wrapper h2, .eb-my-courses-wrapper h2{
+.eb-rec-courses-wrapper h2{
     border-bottom: 2px solid #1a1a1a;
     padding: 10px;
+}
+
+
+.eb-my-courses-wrapper h2{
+    border-bottom: 2px solid #1a1a1a;
+    padding: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+.eb-my-courses-h2{
+    margin-top: 0px !important;
 }
 
 .eb-rec-courses-view-more{
@@ -486,8 +605,12 @@ nav.eb-pagination ul li span.current {
 }
 
 .wdm-col-3-2-1.hentry {
-    margin-top: 10px !important;
-    padding-top: 0 !important;
+    margin-top: 10px;
+    padding-top: 0;
+    height: 15vw;    
+    width: 14vw;
+    min-width: 12em;
+    min-height: 16em;
 }
 .eb-archive-container{
     display: -webkit-box;
@@ -496,6 +619,17 @@ nav.eb-pagination ul li span.current {
 /* @ Edit user profile styling */
 .eb-edit-user-wrapper{
     padding: 2%;
+    padding-top: 0px;
+}
+
+.wdm-transaction-header h4{
+    margin-top: 2px !important;
+}
+
+
+.eb-user-account-navigation-link:first-child{
+    padding-top: 0px;
+
 }
 
 .eb-error{
@@ -542,26 +676,26 @@ nav.eb-pagination ul li span.current {
 .eb-cat-courses-cont .eb-scroll-left,
 .eb-cat-courses-cont .eb-scroll-right{
     position: absolute;
-    top: 35%;
+    top: 45%;
     z-index: 999;
     height: auto;
-    padding: 5% 0.3em;
+    padding: 0.5em 0.8em;
     border: 0px;
     background: rgba(255, 255, 255, 0.8);
     color: black;
-    font-size: 2em;
+    font-size: 1.7em;
     box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, .3);
     cursor: pointer;
 
 }
 .eb-cat-courses-cont .eb-scroll-left{
     left: 0;
-    border-radius: 0px 4px 4px 0px;
+    border-radius: 1em;
 
 }
 .eb-cat-courses-cont .eb-scroll-right{
     right: 0;
-    border-radius: 4px 0 0 4px;
+    border-radius: 1em;
 }
 .eb-cat-courses-cont .eb-scroll-right:hover,
 .eb-cat-courses-cont .eb-scroll-right:active,
@@ -576,7 +710,7 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-cat-courses-cont > .eb-course-col{
-    min-width: 30%;
+    min-width: 27%;
 }
 
 
@@ -621,5 +755,8 @@ nav.eb-pagination ul li span.current {
 */
 
 .eb-ord-courses-list{
+    list-style: none;
+}
+.eb-user-order-courses{
     list-style: none;
 }

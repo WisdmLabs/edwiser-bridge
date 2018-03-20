@@ -50,7 +50,6 @@
                 '_wpnonce_field': eb_public_js_object.nonce,
             },
             success: function (response) {
-
                 //prepare response for user
                 if (response.success == 1) {
                     //create custom data encoded in json

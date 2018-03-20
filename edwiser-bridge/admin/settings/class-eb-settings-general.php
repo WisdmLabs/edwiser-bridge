@@ -1,5 +1,4 @@
 <?php
-
 namespace app\wisdmlabs\edwiserBridge;
 
 /*
@@ -30,12 +29,12 @@ if (!class_exists('EBSettingsGeneral')) :
          */
         public function __construct()
         {
-            $this->_id = 'general';
+            $this->_id   = 'general';
             $this->label = __('General', 'eb-textdomain');
 
             add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
-            add_action('eb_settings_'.$this->_id, array($this, 'output'));
-            add_action('eb_settings_save_'.$this->_id, array($this, 'save'));
+            add_action('eb_settings_' . $this->_id, array($this, 'output'));
+            add_action('eb_settings_save_' . $this->_id, array($this, 'save'));
         }
 
         /**
@@ -51,17 +50,14 @@ if (!class_exists('EBSettingsGeneral')) :
                 'eb_general_settings',
                 array(
                 array(
-                    'title' => __(
-                        'General Options',
-                        'eb-textdomain'
-                    ),
-                    'type' => 'title',
-                    'desc' => '',
-                    'id' => 'general_options',
-                    ),
-                    array(
-                    'title' => __('Redirect to My Courses', 'eb-textdomain'),
-                    'desc' => sprintf(
+                    'title' => __('General Options', 'eb-textdomain'),
+                    'type'  => 'title',
+                    'desc'  => '',
+                    'id'    => 'general_options',
+                ),
+                array(
+                    'title'    => __('Redirect to My Courses', 'eb-textdomain'),
+                    'desc'     => sprintf(
                         __(
                             'Redirect user to the My Courses page on %s from the %s page.',
                             'eb-textdomain'
@@ -70,91 +66,113 @@ if (!class_exists('EBSettingsGeneral')) :
                         '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
                     __('Redirect user to the My Courses page on login and registration', 'eb-textdomain'),
-                    'id' => 'eb_enable_my_courses',
-                    'default' => 'no',
-                    'type' => 'checkbox',
+                    'id'       => 'eb_enable_my_courses',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
                     'autoload' => false,
-                    ),
-                    array(
-                    'title' => __('My Courses Page', 'eb-textdomain'),
-                    'desc' => '<br/>'.sprintf(
+                ),
+                array(
+                    'title'    => __('My Courses Page', 'eb-textdomain'),
+                    'desc'     => '<br/>' . sprintf(
                         __(
                             'Select my courses page here. Default page is %s ',
                             'eb-textdomain'
                         ),
                         '<a href="' . esc_url(site_url('/eb-my-courses')) . '">' . __('My Courses', 'eb-textdomain') . '</a>'
                     ),
-                    'id' => 'eb_my_courses_page_id',
-                    'type' => 'single_select_page',
-                    'default' => '',
-                    'css' => 'min-width:300px;',
-                    'args' => array(
-                        'show_option_none' =>__('Select a page', "eb-textdomain"),
+                    'id'       => 'eb_my_courses_page_id',
+                    'type'     => 'single_select_page',
+                    'default'  => '',
+                    'css'      => 'min-width:300px;',
+                    'args'     => array(
+                        'show_option_none'  => __('Select a page', "eb-textdomain"),
                         'option_none_value' => '',
                     ),
                     'desc_tip' => __(
                         "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.",
                         'eb-textdomain'
                     ),
-                    ),
-                    
-                    array(
-                    'title' => __('Enable Registration', 'eb-textdomain'),
-                    'desc' => __('Enable user registration', 'eb-textdomain'),
-                    'id' => 'eb_enable_registration',
-                    'default' => 'no',
-                    'type' => 'checkbox',
+                ),
+                array(
+                    'title'    => __('Enable Registration', 'eb-textdomain'),
+                    'desc'     => __('Enable user registration', 'eb-textdomain'),
+                    'id'       => 'eb_enable_registration',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
                     'autoload' => false,
-                    ),
-                    array(
-                    'title' => __('User Account Page', 'eb-textdomain'),
-                    'desc' => '<br/>'.sprintf(
+                ),
+                array(
+                    'title'    => __('User Account Page', 'eb-textdomain'),
+                    'desc'     => '<br/>' . sprintf(
                         __(
                             'Select user account page here. Default page is %s ',
                             'eb-textdomain'
                         ),
                         '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
-                    'id' => 'eb_useraccount_page_id',
-                    'type' => 'single_select_page',
-                    'default' => '',
-                    'css' => 'min-width:300px;',
-                    'args' => array(
-                        'show_option_none' =>__('Select a page', "eb-textdomain"),
+                    'id'       => 'eb_useraccount_page_id',
+                    'type'     => 'single_select_page',
+                    'default'  => '',
+                    'css'      => 'min-width:300px;',
+                    'args'     => array(
+                        'show_option_none'  => __('Select a page', "eb-textdomain"),
                         'option_none_value' => '',
                     ),
                     'desc_tip' => __(
                         'This sets the user account page, where user can see his/her purchase history.',
                         'eb-textdomain'
                     ),
-                    ),
-                    array(
-                    'title' => __('Moodle Language Code', 'eb-textdomain'),
-                    'desc' => __(
+                ),
+                array(
+                    'title'    => __('Moodle Language Code', 'eb-textdomain'),
+                    'desc'     => __(
                         'Enter language code which you get from moodle language settings.',
                         'eb-textdomain'
                     ),
-                    'id' => 'eb_language_code',
-                    'default' => 'en',
-                    'type' => 'text',
-                    'css' => 'min-width:300px;',
+                    'id'       => 'eb_language_code',
+                    'default'  => 'en',
+                    'type'     => 'text',
+                    'css'      => 'min-width:300px;',
                     'desc_tip' => true,
-                    ),
-                    array(
-                    'title' => __('Max number of courses in a row on the courses page', 'eb-textdomain'),
-                    'desc' => '',
-                    'id' => 'courses_per_row',
-                    'type' => 'courses_per_row',
-                    'default' => '',
-                    'css' => '',
+                ),
+                array(
+                    'title'    => __('Max number of courses in a row on the courses page', 'eb-textdomain'),
+                    'desc'     => '',
+                    'id'       => 'courses_per_row',
+                    'type'     => 'courses_per_row',
+                    'default'  => '',
+                    'css'      => '',
                     'desc_tip' =>
                     __('This setting will be applicable only on the `/courses` page template', 'eb-textdomain'),
-                    ),
-                    array('type' => 'sectionend', 'id' => 'general_options'),
+                ),
+                array('type' => 'sectionend', 'id' => 'general_options'),
+                array(
+                    'title' => __('Refund Notification Settings', 'eb-textdomain'),
+                    'type'  => 'title',
+                    'desc'  => '',
+                    'id'    => 'refund_options',
+                ),
+                array(
+                    'title'    => __('Notify Admin', 'eb-textdomain'),
+                    'desc'     => sprintf(__('Notify admin users on refund.', 'eb-textdomain')),
+                    'id'       => 'eb_refund_mail_to_admin',
+                    'default'  => 'yes',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('Notification Email', 'eb-textdomain'),
+                    'desc'     => '<br/>' .sprintf(__('Email address to send refund notification.', 'eb-textdomain')),
+                    'id'       => 'eb_refund_mail',
+                    'type'     => 'text',
+                    'default'  => '',
+                    'desc_tip' => __("Specify email address to send refund notification, otherwise keep it blank.", 'eb-textdomain'),
+                ),
+                array('type' => 'sectionend', 'id' => 'general_options'),
                     )
             );
 
-            return apply_filters('eb_get_settings_'.$this->_id, $settings);
+            return apply_filters('eb_get_settings_' . $this->_id, $settings);
         }
 
         /**
@@ -169,7 +187,6 @@ if (!class_exists('EBSettingsGeneral')) :
             EbAdminSettings::saveFields($settings);
         }
     }
-
 endif;
 
 return new EBSettingsGeneral();

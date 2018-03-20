@@ -172,6 +172,43 @@ if (!class_exists('EbSettingsPayPal')) :
                     'type' => 'sectionend',
                     'id' => 'paypal_options',
                     ),
+                    array(
+                    'title' => __('PayPal API Credentials (Optional)', 'eb-textdomain'),
+                    'type' => 'title',
+                    'id' => 'paypal_api_options',
+                    'desc' => __('To use order refunds following fields are mandatory.', 'eb-textdomain'),
+                    ),
+                    array(
+                    'title' => __('API username', 'eb-textdomain'),
+                    'id' => 'eb_api_username',
+                    'css' => 'min-width:350px;',
+                    'default' => '',
+                    'type' => 'text',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'title' => __('API password', 'eb-textdomain'),
+                    'id' => 'eb_api_password',
+                    'css' => 'min-width:350px;',
+                    'default' => '',
+                    'type' => 'password',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'title' => __('API signature', 'eb-textdomain'),
+                    'id' => 'eb_api_signature',
+                    'css' => 'min-width:350px;',
+                    'default' => '',
+                    'type' => 'text',
+                    // 'show_if_checked' => 'option',
+                    'autoload' => false,
+                    ),
+                    array(
+                    'type' => 'sectionend',
+                    'id' => 'paypal_api_options',
+                    ),
                     )
             );
             //}

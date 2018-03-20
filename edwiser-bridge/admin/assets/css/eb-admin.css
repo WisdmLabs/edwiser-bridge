@@ -588,3 +588,115 @@ span.eb-option-input .eb-option-div select{
 .eb-shortcode-doc-desc{
     padding-left: 20px;
 }
+/**
+* Eb order meta boxes style start
+**/
+.eb-order-refund-data{
+    text-align: -webkit-right;
+}
+.eb-ord-refund-btn-cont{
+    border-top: 1px solid #dddddd;
+    padding-top: 0.5em;
+}
+.eb-order-refund-unenroll td{
+    text-align: right;
+    padding: 3px;
+}
+.eb-order-refund-unenroll td:nth-child(2){
+    padding-left: 3em;
+}
+.eb-order-refund-unenroll input[type="checkbox"]{
+
+}
+.eb-order-refund-hist-amt,
+.eb-ord-cost,
+.eb-ord-avlb-refund-amt,
+.eb-ord-refunded-amt{
+    font-weight: bold;
+}
+.eb-order-refund-hist-stmt{
+    float: left;
+}
+.eb-order-refund-hist-cont{
+    box-shadow: 0px 1px 0px #dddddd;
+    padding-bottom: 3px;
+    overflow-y: auto;
+    max-height: 150px;
+}
+.eb-ord-refunded-amt{
+    color: red;
+}
+
+.eb-order-refund-btn-secondary:focus{
+    border-color: #5b9dd9;
+    -webkit-box-shadow: 0 0 3px rgba(0,115,170,.8);
+    box-shadow: 0 0 3px rgba(0,115,170,.8);
+}
+.eb-order-refund-btn-secondary:hover{
+    background: #fafafa;
+    border-color: #999;
+    color: #23282d;
+}
+.eb-order-refund-manage-btn .eb-order-refund-btn-secondary{
+    text-align: left;
+}
+
+#eb_order_refund_note,
+#eb_ord_refund_amt{
+    width: 10em;   
+}
+.eb-order-refund-btn-secondary{
+    padding: 7px 12px;
+    color: #555;
+    border-color: #ccc;
+    background: #f7f7f7;
+    box-shadow: 0 1px 0 #ccc;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.eb-btn-refund-order{
+    margin-right: 2em;
+    float: right;
+}
+
+
+
+/**
+* Eb order meta boxes style start
+**/
+
+.eb-sso-hist-note-wrap li{
+    margin-left: 15px;
+}
+.eb-sso-hist-note-wrap{
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.eb-sso-hist-note:before {
+    content: "";
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    bottom: -10px;
+    left: 15px;
+    border-color: #e6e6fa transparent transparent transparent;
+    border-style: solid;
+    border-width: 15px 10px 0px 0px;
+}
+
+.eb-sso-hist-note{
+    background: lavender;
+    padding: 5px;
+    font-size: 13px;
+    /*font-family: sans-serif;*/
+    border-radius: 3px;
+    position: relative;
+    display: inline-block;
+}
+.eb-sso-hist-by{
+    font-size: 11px;
+    /*font-family: cursive;*/
+    padding: 5px;
+}

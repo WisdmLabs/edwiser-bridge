@@ -108,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.2.2';
+        $this->version = '1.3.0';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -142,47 +142,15 @@ class EdwiserBridge
         if (isset($connection_options['eb_access_token'])) {
             $eb_moodle_token = $connection_options['eb_access_token'];
         }
-
-        // Plugin version
-        // if (!defined('EB_VERSION')) {
-        //     define('EB_VERSION', $this->version);
-        // }
+        /**
+         * Define plugin constants.
+         */
         $this->checkConstantDefined('EB_VERSION', $this->version);
-
-        // Plugin Folder URL
-        // if (!defined('EB_PLUGIN_URL')) {
-        //     define('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
-        // }
         $this->checkConstantDefined('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
-
-        // Plugin Folder Path
-        // if (!defined('EB_PLUGIN_DIR')) {
-        //     define('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
-        // }
         $this->checkConstantDefined('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
-
-        // Templates Path ( In case one wants to override templates in child themes )
-        // if (!defined('EB_TEMPLATE_PATH')) {
-        //     define('EB_TEMPLATE_PATH', 'edwiserbridge/');
-        // }
         $this->checkConstantDefined('EB_TEMPLATE_PATH', 'edwiserBridge/');
-
-        // Moodle Access Token
-        // if (!defined('EB_ACCESS_TOKEN')) {
-        //     define('EB_ACCESS_TOKEN', $eb_moodle_token);
-        // }
         $this->checkConstantDefined('EB_ACCESS_TOKEN', $eb_moodle_token);
-
-        // Moodle Access URL
-        // if (!defined('EB_ACCESS_URL')) {
-        //     define('EB_ACCESS_URL', $eb_moodle_url);
-        // }
         $this->checkConstantDefined('EB_ACCESS_URL', $eb_moodle_url);
-
-        // Debug Log Directory
-        // if (!defined('EB_LOG_DIR')) {
-        //     define('EB_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/');
-        // }
         $this->checkConstantDefined('EB_LOG_DIR', $upload_dir['basedir'].'/eb-logs/');
     }
 
@@ -274,6 +242,12 @@ class EdwiserBridge
          */
         require_once EB_PLUGIN_DIR.'includes/payments/class-eb-payment-manager.php';
 
+        /*
+         * loading refund dependencies.
+         */
+        require_once EB_PLUGIN_DIR.'includes/payments/class-eb-refund-manager.php';
+
+
         // core functions
         require_once EB_PLUGIN_DIR.'includes/eb-core-functions.php';
         require_once EB_PLUGIN_DIR.'includes/eb-formatting-functions.php';
@@ -328,6 +302,14 @@ class EdwiserBridge
          * Courses & User Data Synchronization
          */
         require_once EB_PLUGIN_DIR.'admin/class-eb-settings-ajax-initiater.php';
+
+        /**
+         * Add order meta boxes.
+         */
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-meta.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-status-update.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-order-history-meta.php';
+        require_once EB_PLUGIN_DIR.'includes/class-eb-manage-order-refund.php';
     }
 
     /**
@@ -478,6 +460,39 @@ class EdwiserBridge
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
         $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
 
+        /**
+         * Add action to add the meta boxes in backend for the order
+         */
+        $orderMeta = new EBOrderMeta($this->plugin_name, $this->version);
+        $saveOrderMeta=new EBOrderStatus($this->plugin_name, $this->version);
+        new EbPayPalRefundManager($this->plugin_name, $this->version);
+        $this->loader->addAction(
+            'add_meta_boxes',
+            $orderMeta,
+            'addEbOrderMetaBoxes'
+        );
+        $this->loader->addAction(
+            'save_post_eb_order',
+            $saveOrderMeta,
+            'saveStatusUpdateMeta',
+            05
+        );
+        $this->loader->addAction(
+            'eb_order_created',
+            $saveOrderMeta,
+            'saveNewOrderPlaceNote'
+        );
+        $this->loader->addAction(
+            'eb_post_add_meta',
+            $orderMeta,
+            'addOrderRefundButton'
+        );
+        $this->loader->addAction(
+            'wp_ajax_wdm_eb_order_refund',
+            $saveOrderMeta,
+            'initEbOrderRefund'
+        );
+
         /*
          * Handling custom button events on settings page
          * Responsible for initiating ajax requests made by custom buttons placed in settings pages.
@@ -521,10 +536,24 @@ class EdwiserBridge
             $manageEnrollment,
             'resetEmailTemplateContent'
         );
+
+        /**
+         *refund functionality
+         *
+         */
+        
+//        $this->loader->addAction(
+//            'wp_ajax_refund_initiater',
+//            $refundManager,
+//            'refundInitiater'
+//        );
+
+
+
         /**
          * Email template editor end
          */
-        
+
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
@@ -640,6 +669,7 @@ class EdwiserBridge
 
         // Registers core post types, taxonomies and metaboxes.
         $plugin_post_types = new EBPostTypes($this->getPluginName(), $this->getVersion());
+
         $this->loader->addAction('init', $plugin_post_types, 'registerTaxonomies');
         $this->loader->addAction('init', $plugin_post_types, 'registerPostTypes');
         $this->loader->addFilter(
@@ -647,7 +677,12 @@ class EdwiserBridge
             $plugin_post_types,
             'customPostTypeUpdateMessages'
         ); // change post updated messages
-        $this->loader->addAction('add_meta_boxes', $plugin_post_types, 'registerMetaBoxes');
+        $this->loader->addAction(
+            'add_meta_boxes',
+            $plugin_post_types,
+            'registerMetaBoxes'
+        );
+
         $this->loader->addAction(
             'save_post',
             $plugin_post_types,
@@ -763,7 +798,7 @@ class EdwiserBridge
         $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
 
         $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
-        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserProfile', 'saveAccountDetails'));
+        add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'saveAccountDetails'));
     }
 
     /**
@@ -820,6 +855,13 @@ class EdwiserBridge
             'sendCourseAccessExpireEmail',
             10
         ); // email on order status completed
+
+        $this->loader->addAction(
+            'eb_refund_completion',
+            $plugin_emailer,
+            'refundCompletionEmail',
+            10
+        ); // email on successful refund
     }
 
     /**

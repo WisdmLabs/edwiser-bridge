@@ -1,8 +1,8 @@
 <?php
-
 /**
  *  PHP-PayPal-IPN Handler.
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /* NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
@@ -11,7 +11,6 @@ namespace app\wisdmlabs\edwiserBridge;
 
 // if ( !defined( 'IPN_ERROR_LOG' ) )
 //  define( 'IPN_ERROR_LOG', 1 );
-
 //create an object of logger class
 edwiserBridgeInstance()->logger()->add('payment', "\n");
 
@@ -75,7 +74,7 @@ edwiserBridgeInstance()->logger()->add('payment', 'Payment Verified? : '.(($veri
 
 if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Sure, Verfied! Moving Ahead.');
-    /* 	Once you have a verified IPN you need to do a few more checks on the POST
+    /*  Once you have a verified IPN you need to do a few more checks on the POST
       fields--typically against data you stored in your database during when the
       end user made a purchase (such as in the "success" page on a web payments
       standard button). The fields PayPal recommends checking are:
@@ -115,7 +114,6 @@ if ($verified) {
     if ($_POST['payment_status'] == 'Completed') {
         edwiserBridgeInstance()->logger()->add('payment', 'Sure, Completed! Moving Ahead.');
         //a customer has purchased from this website
-
         // email used by buyer to purchase course
         $billing_email = $_REQUEST['payer_email'];
         edwiserBridgeInstance()->logger()->add('payment', 'Billing Email: '.$billing_email);
@@ -208,14 +206,12 @@ if ($verified) {
 
         // // record in course
         // edwiserBridgeInstance()->logger()->add( 'payment', 'Starting to give course access...' );
-
         // $course_enrolled = edwiserBridgeInstance()->enrollment_manager()->update_user_course_enrollment(
         // $buyer_id, array( $course_id ) );
         // if ( $course_enrolled )
         //  edwiserBridgeInstance()->logger()->add( 'payment', 'Course enrolled to the user: '.$buyer_id );
         // else
         //  edwiserBridgeInstance()->logger()->add( 'payment', 'Error in course enrollment: '.$buyer_id );
-
         // log transaction
         edwiserBridgeInstance()->logger()->add('payment', 'Starting Order Status Updation.');
 
@@ -225,11 +221,41 @@ if ($verified) {
         $order_options['amount_paid'] = $course_price;
         update_post_meta($order_id, 'eb_order_options', $order_options);
 
+        //since 1.2.4
+        if (isset($_POST['txn_id']) && !empty($_POST['txn_id'])) {
+            update_post_meta($order_id, 'eb_transaction_id', $_POST['txn_id']);
+        }
+
         $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
 
         if ($order_completed) {
             edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: '.$order_id);
+            $note = array(
+                'type' => 'PayPal IPN',
+                'msg' => __("IPN has been recived for the order id #$order_id. payment status: ".$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'. ', 'eb-textdomain'),
+            );
+            updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
         }
+    } elseif ($_POST['payment_status'] == 'Refunded') {
+        $custom_data = json_decode(stripslashes($_REQUEST['custom']));
+        edwiserBridgeInstance()->logger()->add('refund', print_r($custom_data, 1));
+        $order_id = isset($custom_data->order_id) ? $custom_data->order_id : '';
+        $note = array(
+            'type' => 'PayPal IPN',
+            'msg' => __('IPN has been recived, for the refund of amount '.abs($_POST['mc_gross']).'. Payment status: '.$_POST['payment_status'].' Transaction id: '.$_POST['txn_id'].'.', 'eb-textdomain'),
+        );
+        updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
+
+        $args = array(
+            'order_id' => $custom_data->order_id,
+            'buyer_id' => $custom_data->buyer_id,
+            'refunded_cur' => getArrValue($_POST, 'mc_currency', 'USD'),
+            'refund_amount' => abs(getArrValue($_POST, 'mc_gross', '0.00')),
+            'refunded_status' => getArrValue($_POST, 'payment_status', 'Unknown'),
+        );
+        //error_log("Printing request data");
+        //error_log(print_r($args,1));
+        do_action('eb_refund_completion', $args);
     }
 
     edwiserBridgeInstance()->logger()->add('payment', 'IPN Processing Completed Successfully.');
@@ -244,5 +270,3 @@ if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Invalid IPN. Shutting Down Processing.');
     wp_mail($YOUR_NOTIFICATION_EMAIL_ADDRESS, 'Invalid IPN', $listener->getTextReport());
 }
-
-//we're done here

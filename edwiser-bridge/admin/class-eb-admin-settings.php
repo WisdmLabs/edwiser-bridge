@@ -1,5 +1,4 @@
 <?php
-
 namespace app\wisdmlabs\edwiserBridge;
 
 /*
@@ -489,7 +488,7 @@ if (!class_exists('EbAdminSettings')) {
                             $value['show_if_checked'] = false;
                         }
                         if ('yes' == $value['hide_if_checked'] || 'yes' == $value['show_if_checked']) {
-                            $visbility_class[] = 'hidden_option';
+                            $visbility_class[] = 'wdm_hidden_option';
                         }
                         if ('option' == $value['hide_if_checked']) {
                             $visbility_class[] = 'hide_options_if_checked';
@@ -608,9 +607,9 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Single sidebar select
                     case 'courses_per_row':
-                        $selectedVal=self::getOption($value['id'], $current_tab);
-                        $selectedVal=  trim($selectedVal);
-                        $selectedVal=  empty($selectedVal)?"4":$selectedVal;
+                        $selectedVal = self::getOption($value['id'], $current_tab);
+                        $selectedVal = trim($selectedVal);
+                        $selectedVal = empty($selectedVal) ? "4" : $selectedVal;
                         $args = array(
                             'name' => $value['id'],
                             'id' => $value['id'],
@@ -826,8 +825,6 @@ if (!class_exists('EbAdminSettings')) {
                 'tooltip_html' => $tooltip_html,
             );
         }
-
     }
-
 }
 new EbAdminSettings();

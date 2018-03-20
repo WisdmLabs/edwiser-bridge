@@ -34,11 +34,11 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the functionality to prepare the email temaplte list to display 
+     * Provides the functionality to prepare the email temaplte list to display
      * in the manage email temaplte page
-     * 
+     *
      * This is the callback for the eb_email_templates_list
-     * 
+     *
      * @param type $emailList array of the email template list
      * @return array of the email tempalte list
      */
@@ -49,6 +49,10 @@ class EBAdminEmailTemplate
         $emailList["eb_emailtmpl_linked_existing_wp_new_moodle_user"] = __("Create new moodle account", 'eb-textdomain');
         $emailList["eb_emailtmpl_order_completed"] = __("Course Order Completion", 'eb-textdomain');
         $emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
+
+        $emailList["eb_emailtmpl_refund_completion_notifier_to_user"] = __("Refund Success mail to customer", 'eb-textdomain');
+        $emailList["eb_emailtmpl_refund_completion_notifier_to_admin"] = __("Refund Success mail to admin or specified email", 'eb-textdomain');
+
         return $emailList;
     }
 
@@ -87,12 +91,12 @@ class EBAdminEmailTemplate
                 <div class="eb-template-edit-form">
                     <h3 id="eb-email-template-name"><?php echo $tmplName; ?></h3>
                     <form name="manage-email-template" method="POST">
-                        <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
+                        <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name"
                                value="<?php echo $tmplKey; ?>"/>
-                               <?php
-                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                               ?>
-                        <table>                            
+                                <?php
+                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                                ?>
+                        <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
                                 <td>
@@ -160,7 +164,7 @@ class EBAdminEmailTemplate
                                     echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmplName</li>";
                                 }
                             }
-                            ?>                  
+                            ?>
                         </ul>
                     </div>
                     <div class="eb-email-templates-const-wrap">
@@ -186,7 +190,7 @@ class EBAdminEmailTemplate
 
     /**
      * Provides the functionality to check is the notification enabled for the email temaplte.
-     * @param string $currTmplName email temaplte option key 
+     * @param string $currTmplName email temaplte option key
      * @return string returns ON if the email template is enambled for the provided template
      */
     private function isNotifEnabled($currTmplName)
@@ -215,7 +219,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the functionality to add the mce plugin for the email tempalte editing 
+     * Provides the functionality to add the mce plugin for the email tempalte editing
      * callback for the mce_external_plugins actoin
      * @return string
      */
@@ -226,7 +230,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Ajax callback to get the template content 
+     * Ajax callback to get the template content
      * callback for the action wdm_eb_get_email_template
      */
     public function getTemplateDataAjaxCallBack()
@@ -304,6 +308,21 @@ class EBAdminEmailTemplate
         $order["{COURSE_NAME}"] = __("The title of the course.", 'eb-textdomain');
         $order["{ORDER_ID}"] = __("The order id of the purchased order completed.", 'eb-textdomain');
 
+        /*
+         *Refund Order template constants
+         */
+        $refund['{ORDER_ID}'] = __("Refund order id.", 'eb-textdomain');
+        $refund['{CUSTOMER_DETAILS}'] = __("This will get replaced by the customer details.", 'eb-textdomain');
+        $refund['{ORDER_ITEM}'] = __("Order associated item list.", 'eb-textdomain');
+        $refund['{TOTAL_AMOUNT_PAID}'] = __("Amount paid at the time of order placed.", 'eb-textdomain');
+        $refund['{CURRENT_REFUNDED_AMOUNT}'] = __("Currantly refunded amount.", 'eb-textdomain');
+        $refund['{TOTAL_REFUNDED_AMOUNT}'] = __("Total amount refunded till the time.", 'eb-textdomain');
+        $refund['{ORDER_REFUND_STATUS}'] = __("Order refund status transaction.", 'eb-textdomain');
+//        $refund['{REFUND_AMOUNT}'] = __("Refunded amount for the oder", 'eb-textdomain');
+//        $refund['{REFUND_DATE}'] = __("Refund completion date.", 'eb-textdomain');
+//        $refund['{REFUND_TXN_ID}'] = __("Refund transaction ID", 'eb-textdomain');
+
+
         /**
          * Course unenrollment alert constants
          */
@@ -313,6 +332,7 @@ class EBAdminEmailTemplate
         $constants["New moodle user account"] = $account;
         $constants["Order Completion "] = $order;
         $constants["Course Unenrollment "] = $unenrollment;
+        $constants["Order Refund"] = $refund;
         return $constants;
     }
 
@@ -351,8 +371,8 @@ class EBAdminEmailTemplate
 
     /**
      * Provides the functionality to set the notification enable disable value into the databse
-     * @param type $tempalteName template option key 
-     * @param type $notifyAllow is notificaiotn allow to send or not 
+     * @param type $tempalteName template option key
+     * @param type $notifyAllow is notificaiotn allow to send or not
      */
     private function setNotifyAllow($tempalteName, $notifyAllow)
     {
@@ -385,7 +405,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Checks the array value is set for the current key 
+     * Checks the array value is set for the current key
      * @param type $dataArray array of the data
      * @param type $key key to check value is present in the array
      * @return boolean/string the value associated for the array key otherwise returns false
@@ -402,7 +422,7 @@ class EBAdminEmailTemplate
     /**
      * Provides teh functioanlityto get the email tempalte constant
      * @param type $tmplName template key
-     * @return string returns the template content associated with the template 
+     * @return string returns the template content associated with the template
      * kay othrewise emapty string
      */
     public static function getEmailTmplContent($tmplName)
@@ -427,7 +447,7 @@ class EBAdminEmailTemplate
             $args = array(
                 "course_id" => "1",
                 "password" => "eb-pa88@#d",
-                "order_id" => "#12235"
+                "order_id" => "12235"
             );
             $mail = $this->sendEmail($mailTo, $args, $_POST);
             if ($mail) {
@@ -441,9 +461,9 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the funcationlity to send the email temaplte 
+     * Provides the funcationlity to send the email temaplte
      * @param type $mailTo email id to send the email id
-     * @param type $args the default email argument 
+     * @param type $args the default email argument
      * @param type $tmplData email template contetn
      * @return boolean returns true if the email sent successfully othrewise false
      */
@@ -542,7 +562,7 @@ class EBAdminEmailTemplate
                 $responce['data'] = __("Template restored successfully", "eb-textdomain");
                 $responce['status']="success";
                 wp_send_json_success($responce);
-            } else {                
+            } else {
                 wp_send_json_error($responce);
             }
         } else {
@@ -561,21 +581,30 @@ class EBAdminEmailTemplate
         $tmplKey=$args['tmpl_name'];
         switch ($tmplKey) {
             case "eb_emailtmpl_create_user":
-                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user",true);
+                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_user":
-                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user",true);
+                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user", true);
                 break;
             case "eb_emailtmpl_order_completed":
-                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed",true);
+                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed", true);
                 break;
             case "eb_emailtmpl_course_access_expir":
-                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir",true);
+                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_new_moodle_user":
-                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user",true);
+                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user", true);
                 break;
-            default :
+
+            case "eb_emailtmpl_refund_completion_notifier_to_user":
+                $value=$defaultTmpl->notifyUserOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_user", true);
+                break;
+            case "eb_emailtmpl_refund_completion_notifier_to_admin":
+                $value=$defaultTmpl->notifyAdminOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_admin", true);
+                break;
+
+
+            default:
                 $args=apply_filters("eb_reset_email_tmpl_content", array("is_restored" => false, "tmpl_name"=>$args['tmpl_name']));
                 return $args;
         }

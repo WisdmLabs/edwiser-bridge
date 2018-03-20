@@ -13,28 +13,8 @@ namespace app\wisdmlabs\edwiserBridge;
 
 class EBPaymentManager
 {
-    /**
-     * The ID of this plugin.
-     *
-     * @since    1.0.0
-     *
-     * @var string The ID of this plugin.
-     */
-    //private $plugin_name;
-
-    /**
-     * The version of this plugin.
-     *
-     * @since    1.0.0
-     *
-     * @var string The current version of this plugin.
-     */
-    //private $version;
-
     public function __construct() /* $plugin_name, $version */
     {
-        //$this->plugin_name = $plugin_name;
-        //$this->version     = $version;
         // craeate payment button shortcode
         add_shortcode('eb_payment_buttons', array($this, 'eb_payment_buttons_shortcode'));
     }
@@ -179,28 +159,18 @@ class EBPaymentManager
             'course_price_type',
             'free'
         );
-        // if(isset($course_meta['course_price_type'])) {
-        //     $course_price_type = $course_meta['course_price_type'];
-        // }
         $course_price = self::checkArrayValueSet(
             $course_meta,
             'course_price',
             'course_price',
             0
         );
-        // if(isset($course_meta['course_price'])) {
-        //     $course_price = $course_meta['course_price'];
-        // }
         $closed_button_url = self::checkArrayValueSet(
             $course_meta,
             'course_closed_url',
             'course_closed_url',
             '#'
         );
-        // if(isset($course_meta['course_closed_url'])) {
-        //     $closed_button_url = $course_meta['course_closed_url'];
-        // }
-        // get payment options
         $payment_options = get_option('eb_paypal');
 
         $paypal_email = self::checkArrayValueSet(
@@ -209,60 +179,36 @@ class EBPaymentManager
             'eb_paypal_email',
             ''
         );
-        // if(isset($payment_options['eb_paypal_email'])) {
-        //     $paypal_email = $payment_options['eb_paypal_email'];
-        // }
         $paypal_currency = self::checkArrayValueSet(
             $payment_options,
             'eb_paypal_currency',
             'eb_paypal_currency',
             'USD'
         );
-        // if(isset($payment_options['eb_paypal_currency'])) {
-        //     $paypal_currency = $payment_options['eb_paypal_currency'];
-        // }
         $paypal_country = self::checkArrayValueSet(
             $payment_options,
             'eb_paypal_country',
             'eb_paypal_country',
             'US'
         );
-        // if(isset($payment_options['eb_paypal_country'])) {
-        //     $paypal_country = $payment_options['eb_paypal_country'];
-        // }
-        //$paypal_cancelurl = isset($payment_options['eb_paypal_cancel_url'])?
-        //    $payment_options['eb_paypal_cancel_url']:site_url();
         $paypal_returnurl = self::checkArrayValueSet(
             $payment_options,
             'eb_paypal_return_url',
             'eb_paypal_return_url',
             site_url()
         );
-        // if(isset($payment_options['eb_paypal_return_url'])) {
-        //     $paypal_returnurl = $payment_options['eb_paypal_return_url'];
-        // }
         $paypal_notifyurl = self::checkArrayValueSet(
             $payment_options,
             'eb_paypal_notify_url',
             'eb_paypal_notify_url',
             ''
         );
-        // if(isset($payment_options['eb_paypal_notify_url'])) {
-        //     $paypal_notifyurl = $payment_options['eb_paypal_notify_url'];
-        // }
         $paypal_sandbox = self::checkArrayValueSet(
             $payment_options,
             'eb_paypal_sandbox',
             'eb_paypal_sandbox',
             'yes'
         );
-        // if(isset($payment_options['eb_paypal_sandbox'])) {
-        //     $paypal_sandbox = $payment_options['eb_paypal_sandbox'];
-        // }
-        // if ($paypal_sandbox == 'no') {
-        //     $paypal_sandbox = 0;
-        // }
-        //redirect to register / login page if user is not logged in
         if (!is_user_logged_in() && $course_price_type == 'closed') {
             $closed_button = '';
             if (!empty($closed_button_url)) {
@@ -369,16 +315,4 @@ class EBPaymentManager
             return '<div class="eb_join_button course-not-available"><p>'.$not_purchasable.'</p></div>';
         }
     }
-
-    // public function eb_payment_buttons_shortcode( $attr ) {
-    //  $shortcode_atts = shortcode_atts ( array(
-    //    'course_id' => 0
-    //   ), $attr );
-    //  extract( $shortcode_atts );
-    //  if ( empty( $course_id ) )
-    //   return "";
-    //  else
-    //   return $this->takeCourseButton( $course_id );
-    // }
-//
 }

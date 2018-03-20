@@ -104,55 +104,6 @@ class EBOrderManager
         return $order_status;
     }
 
-    /**
-     * get details of an order by order id.
-     *
-     * @since  1.0.0
-     *
-     * @param int $order_id id of an order
-     *
-     * @return string order details
-     */
-    public function getOrderDetails($order_id)
-    {
-        //get order billing id & email
-        $order_data = get_post_meta($order_id, 'eb_order_options', true);
-
-        if (!is_array($order_data)) {
-            $order_data = array();
-        }
-
-        $byerDetails=  get_userdata($order_data['buyer_id']);
-        $byerDetails=$byerDetails->data;
-        foreach ($order_data as $key => $value) {
-            $value;
-            if ($key == 'buyer_id') {
-                echo "<div class='eb-order-meta-byer-details'>";
-                echo '<p><strong>'. __('Buyer Details: ', 'eb-textdomain') .'</strong></p>';
-                echo '<div><label>'.__('Name: ', 'eb-textdomain') ." </label> ". $byerDetails->user_login . '</div>';
-                echo '<div><label>'.__('Email: ', 'eb-textdomain')."  </label> " . $byerDetails->user_email . '</div>';
-                echo "</div>";
-
-                echo "<div class='eb-order-meta-details'>";
-                echo '<p><strong>'. __('Order Details: ', 'eb-textdomain') .'</strong></p>';
-                echo '<div><label>'.__('Id: ', 'eb-textdomain')." </label> " . $order_id . '</div>';
-                echo '<div><label>'.__('Course Name: ', 'eb-textdomain')." </label> <a href='" .get_permalink($order_data['course_id'])."'>". get_the_title($order_data['course_id']) . '</a></div>';
-                echo '<div><label>'.__('Date: ', 'eb-textdomain')." </label> " . get_the_date("Y-m-d H:i", $order_id) . '</div>';
-                echo "</div>";
-            } else {
-                continue;
-            }
-        }
-
-        //get ordered item id
-        $course_id = $order_data['course_id'];
-        //return if order does not have an item(course) associated
-        if (!is_numeric($course_id)) {
-            return;
-        }
-
-        //return array( 'buyer_id' => $buyer_id, 'billing_email' => $billing_email, 'course_id' => $course_id );
-    }
 
     /**
      * update order status on saving an order from edit order page.
@@ -285,14 +236,17 @@ class EBOrderManager
 
         if (!is_wp_error($order_id)) {
             //update order meta
+            $price= $this->getCoursePrice($course_id);
+            $price = apply_filters("eb_new_order_course_price", $price, $order_data);
             update_post_meta(
                 $order_id,
                 'eb_order_options',
                 array(
-                'order_status' => $order_status,
-                'buyer_id' => $buyer_id,
-                'course_id' => $course_id,
-                    )
+                    'order_status' => $order_status,
+                    'buyer_id' => $buyer_id,
+                    'course_id' => $course_id,
+                    'price' => $price,
+                )
             );
         }
 
@@ -305,6 +259,24 @@ class EBOrderManager
         do_action('eb_order_created', $order_id);
 
         return $order_id;
+    }
+
+    /**
+     * Provides the functionality to get the courses price from course meta.
+     *
+     * @since 1.3.0
+     * @param type $courseId
+     * @return string returns the courses associated price.
+     */
+    private function getCoursePrice($courseId)
+    {
+        $courseMeta = get_post_meta($courseId, "eb_course_options", true);
+        $price="0.00";
+        $courseType= getArrValue($courseMeta, "course_price_type", false);
+        if ($courseType && $courseType=="paid") {
+            $price = getArrValue($courseMeta, "course_price", "0.00");
+        }
+        return $price;
     }
 
     /**
@@ -348,6 +320,19 @@ class EBOrderManager
             if (!is_wp_error($order_id_created)) {
                 $success = 1;
                 $order_id = $order_id_created;
+
+                /**
+                 * @since 1.2.4
+                 *update post meta if the sandbox is enabled for each order if the sandbox is enabled
+                 */
+                $options = get_option("eb_paypal");
+                if (isset($options["eb_paypal_sandbox"]) && $options["eb_paypal_sandbox"] == "yes") {
+                    update_post_meta($order_id, "eb_paypal_sandbox", "yes");
+                }
+
+                if (isset($options['eb_paypal_currency']) && !empty($options['eb_paypal_currency'])) {
+                    update_post_meta($order_id, 'eb_paypal_currency', $options['eb_paypal_currency']);
+                }
             }
         }
 
@@ -407,10 +392,6 @@ class EBOrderManager
         );
 
         $course_enrolled = edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args); // enroll user to course
-        // $course_enrolled = edwiserBridgeInstance()->enrollment_manager()->update_user_course_enrollment(
-        //      $buyer_id,
-        //      array( $course_id )
-        // );
 
         return $course_enrolled;
     }
@@ -469,7 +450,6 @@ class EBOrderManager
 
             if (!$buyer) {
                 echo '-';
-
                 return;
             }
 
