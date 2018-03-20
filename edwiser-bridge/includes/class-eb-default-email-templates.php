@@ -581,7 +581,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                         <tr>
                             <td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
                                 <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-                                    Refund notification for the order id:{ORDER_ID}.
+                                <?php printf(__("Refund notification for the order id: %s.", "eb-textdomain"), "{ORDER_ID}"); ?>
                                 </h1>
                             </td>
                         </tr>
@@ -591,34 +591,35 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                                     Hello,</div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-                                    This is to inform you that, Refund for the order id {ORDER_ID} has been {ORDER_REFUND_STATUS}.
+                                <?php printf(__("This is to inform you that, Refund for the order id %s has been %s.", "eb-textdomain"), "{ORDER_ID}", "{ORDER_REFUND_STATUS}"); ?>
+                                    .
                                 </div>
                                 <div></div>
                                 <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-                                    Order {ORDER_ID} Details:
+                                <?php printf(__("Order %s Details:", "eb-textdomain"), "{ORDER_ID}"); ?>
                                 </div>
                                 <div></div>
                                 <div style="font-family: Arial;">
                                     <table style="border-collapse: collapse;">
                                         <tbody>
                                             <tr style="border: 1px solid #465b94; padding: 5px;">
-                                                <td style="border: 1px solid #465b94; padding: 5px;">Customer Details</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;"> <?php _e("Customer Details", "eb-textdomain") ?></td>
                                                 <td style="border: 1px solid #465b94; padding: 5px;">{CUSTOMER_DETAILS}</td>
                                             </tr>
                                             <tr style="border: 1px solid #465b94; padding: 5px;">
-                                                <td style="border: 1px solid #465b94; padding: 5px;">Order Item</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;"> <?php _e("Order Item", "eb-textdomain") ?></td>
                                                 <td style="border: 1px solid #465b94; padding: 5px;">{ORDER_ITEM}</td>
                                             </tr>
                                             <tr style="border: 1px solid #465b94; padding: 5px;">
-                                                <td style="border: 1px solid #465b94; padding: 5px;">Total paid amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;"> <?php _e("Total paid amount", "eb-textdomain") ?></td>
                                                 <td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_AMOUNT_PAID}</td>
                                             </tr>
                                             <tr style="border: 1px solid #465b94; padding: 5px;">
-                                                <td style="border: 1px solid #465b94; padding: 5px;">Current Refunded Amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;"> <?php _e("Current Refunded Amount", "eb-textdomain") ?></td>
                                                 <td style="border: 1px solid #465b94; padding: 5px;">{CURRENT_REFUNDED_AMOUNT}</td>
                                             </tr>
                                             <tr style="border: 1px solid #465b94; padding: 5px;">
-                                                <td style="border: 1px solid #465b94; padding: 5px;">Total Refunded Amount</td>
+                                                <td style="border: 1px solid #465b94; padding: 5px;"> <?php _e("Total Refunded Amount", "eb-textdomain") ?></td>
                                                 <td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_REFUNDED_AMOUNT}</td>
                                             </tr>
                                         </tbody>

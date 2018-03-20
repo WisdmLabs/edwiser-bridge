@@ -63,7 +63,7 @@ class EbPayPalRefundManager
             }
             $respStatus = getArrValue($response, "ACK", false);
             if ($respStatus == "Success") {
-                $status['msg'] = __(sprintf("Refund for amount %s aginst the order #%s has been initiated successfully. Transaction id: %s", getArrValue($response, "GROSSREFUNDAMT"), $orderId, getArrValue($response, "REFUNDTRANSACTIONID")));
+                $status['msg'] = __(sprintf("Refund for amount %s against the order #%s has been initiated successfully. Transaction id: %s", getArrValue($response, "GROSSREFUNDAMT"), $orderId, getArrValue($response, "REFUNDTRANSACTIONID")));
             } else if ($respStatus == "Failure") {
                 $success       = 0;
                 $status['msg'] = "<strong>".__("PayPal Responce: ", "eb-textdomain")."</strong>".getArrValue($response, "L_LONGMESSAGE0", "");

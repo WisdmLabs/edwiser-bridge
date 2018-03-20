@@ -34,11 +34,11 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the functionality to prepare the email temaplte list to display 
+     * Provides the functionality to prepare the email temaplte list to display
      * in the manage email temaplte page
-     * 
+     *
      * This is the callback for the eb_email_templates_list
-     * 
+     *
      * @param type $emailList array of the email template list
      * @return array of the email tempalte list
      */
@@ -91,12 +91,12 @@ class EBAdminEmailTemplate
                 <div class="eb-template-edit-form">
                     <h3 id="eb-email-template-name"><?php echo $tmplName; ?></h3>
                     <form name="manage-email-template" method="POST">
-                        <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name" 
+                        <input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name"
                                value="<?php echo $tmplKey; ?>"/>
-                               <?php
-                               wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
-                               ?>
-                        <table>                            
+                                <?php
+                                wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+                                ?>
+                        <table>
                             <tr>
                                 <td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
                                 <td>
@@ -164,7 +164,7 @@ class EBAdminEmailTemplate
                                     echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmplName</li>";
                                 }
                             }
-                            ?>                  
+                            ?>
                         </ul>
                     </div>
                     <div class="eb-email-templates-const-wrap">
@@ -190,7 +190,7 @@ class EBAdminEmailTemplate
 
     /**
      * Provides the functionality to check is the notification enabled for the email temaplte.
-     * @param string $currTmplName email temaplte option key 
+     * @param string $currTmplName email temaplte option key
      * @return string returns ON if the email template is enambled for the provided template
      */
     private function isNotifEnabled($currTmplName)
@@ -219,7 +219,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the functionality to add the mce plugin for the email tempalte editing 
+     * Provides the functionality to add the mce plugin for the email tempalte editing
      * callback for the mce_external_plugins actoin
      * @return string
      */
@@ -230,7 +230,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Ajax callback to get the template content 
+     * Ajax callback to get the template content
      * callback for the action wdm_eb_get_email_template
      */
     public function getTemplateDataAjaxCallBack()
@@ -371,8 +371,8 @@ class EBAdminEmailTemplate
 
     /**
      * Provides the functionality to set the notification enable disable value into the databse
-     * @param type $tempalteName template option key 
-     * @param type $notifyAllow is notificaiotn allow to send or not 
+     * @param type $tempalteName template option key
+     * @param type $notifyAllow is notificaiotn allow to send or not
      */
     private function setNotifyAllow($tempalteName, $notifyAllow)
     {
@@ -405,7 +405,7 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Checks the array value is set for the current key 
+     * Checks the array value is set for the current key
      * @param type $dataArray array of the data
      * @param type $key key to check value is present in the array
      * @return boolean/string the value associated for the array key otherwise returns false
@@ -422,7 +422,7 @@ class EBAdminEmailTemplate
     /**
      * Provides teh functioanlityto get the email tempalte constant
      * @param type $tmplName template key
-     * @return string returns the template content associated with the template 
+     * @return string returns the template content associated with the template
      * kay othrewise emapty string
      */
     public static function getEmailTmplContent($tmplName)
@@ -447,7 +447,7 @@ class EBAdminEmailTemplate
             $args = array(
                 "course_id" => "1",
                 "password" => "eb-pa88@#d",
-                "order_id" => "#12235"
+                "order_id" => "12235"
             );
             $mail = $this->sendEmail($mailTo, $args, $_POST);
             if ($mail) {
@@ -461,9 +461,9 @@ class EBAdminEmailTemplate
     }
 
     /**
-     * Provides the funcationlity to send the email temaplte 
+     * Provides the funcationlity to send the email temaplte
      * @param type $mailTo email id to send the email id
-     * @param type $args the default email argument 
+     * @param type $args the default email argument
      * @param type $tmplData email template contetn
      * @return boolean returns true if the email sent successfully othrewise false
      */
@@ -562,7 +562,7 @@ class EBAdminEmailTemplate
                 $responce['data'] = __("Template restored successfully", "eb-textdomain");
                 $responce['status']="success";
                 wp_send_json_success($responce);
-            } else {                
+            } else {
                 wp_send_json_error($responce);
             }
         } else {
