@@ -25,6 +25,19 @@ class EbOrderRefundManage
         $refundType   = $this->getRefundType($orderId, $amt);
         edwiserBridgeInstance()->logger()->add('refund', "Initaiting $refundType refund for order ID: ['$orderId'], Refund amount: $amt and refund note: $note");
         $refundStatus = apply_filters("eb_order_refund_init", $refundStatus, $orderId, $refundType, $amt, $note);
+        
+        if (isset($refundStatus['status']) && $refundStatus['status']) {
+            $order     = new EBOrderMeta($this->pluginName, $this->version);
+            $orderData = get_post_meta($orderId, "eb_order_options", true);
+            $refunds   = $order->getOrdersAllRefund($orderId);
+            $paidAmt     = getArrValue($orderData, "amount_paid");
+            $totalRefund = getTotalRefundAmt($refunds);
+
+            if ($paidAmt <= $totalRefund + $amt) {
+                edwiserBridgeInstance()->orderManager()->updateOrderStatus($orderId, 'refunded');
+            }
+        }
+        
         return $refundStatus;
     }
 
@@ -35,15 +48,12 @@ class EbOrderRefundManage
         $order     = new EBOrderMeta($this->pluginName, $this->version);
         $refunds   = $order->getOrdersAllRefund($orderId);
         $paidAmt     = getArrValue($orderData, "amount_paid");
-        $totalRefund = getTotalRefundAmt($refunds);
+        //$totalRefund = getTotalRefundAmt($refunds);
 
         if (empty($refunds) && $paidAmt == $amt) {
             $type = "Full";
         }
 
-        if ($paidAmt <= $totalRefund + $amt) {
-            edwiserBridgeInstance()->orderManager()->updateOrderStatus($orderId, 'refunded');
-        }
         return $type;
     }
 }
