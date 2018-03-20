@@ -154,7 +154,8 @@ class EBActivator
             if (!$exists) {
                 //$dType      = $val['type'];
                 $defaultVal = $val['default'];
-                $query      = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` datetime DEFAULT '$defaultVal' NOT NULL);";
+                $type = $val['type'];
+                $query      = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` $type DEFAULT '$defaultVal' NOT NULL);";
                 $wpdb->query($query);
             }
         }

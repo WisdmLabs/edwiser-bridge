@@ -12,7 +12,7 @@ $country     = getArrValue($_POST, "country", $current_user->country);
 ?>
 
 <section class="eb-user-info eb-edit-user-wrapper">
-    <h4><?php _e('Edit Account Details', 'eb-textdomain'); ?></h4>    
+    <h4 class="eb-user-info-h4"><?php _e('Edit Account Details', 'eb-textdomain'); ?></h4>    
     <?php
     if (!is_user_logged_in()) {
         ?>
@@ -69,7 +69,7 @@ $country     = getArrValue($_POST, "country", $current_user->country);
             <fieldset>
                 <legend><?php _e('Password Change', 'eb-textdomain'); ?></legend>
                 <p class="eb-profile-password-field">
-                    <label for="eb_curr_psw"><?php _e('Current Passowrd', 'eb-textdomain'); ?> <span class="eb-small"><?php _e('(Keep blank to leave unchanged)', 'eb-textdomain'); ?></span></label>
+                    <label for="eb_curr_psw"><?php _e('Current Password', 'eb-textdomain'); ?> <span class="eb-small"><?php _e('(Keep blank to leave unchanged)', 'eb-textdomain'); ?></span></label>
                     <input class="text-input" name="curr_psw" type="password" id="eb_curr_psw" />                
                 </p>
                 <p class="eb-profile-password-field">

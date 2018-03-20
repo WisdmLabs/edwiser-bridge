@@ -109,33 +109,42 @@ class EBEmailer
         }
 
         $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow");
-        if ($allowNotify != false || $allowNotify == "ON") {
+        if ($allowNotify != false && $allowNotify == "ON") {
             if ($userEmailTmplData) {
                 $user= get_user_by("id", getArrValue($args, "buyer_id"), "");
+                $args['first_name'] = $user->first_name;
+                $args['last_name'] = $user->last_name;
+                $args['username'] = $user->user_login;
                 $emailTmplObj->sendEmail($user->user_email, $args, $userEmailTmplData);
             }
         }
 
         $allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow");
-        if ($allowNotify != false || $allowNotify == "ON") {
-            if (isset($sendEmailToAdmin) || !empty($sendEmailToAdmin)) {
+        if ($allowNotify != false && $allowNotify == "ON") {
+            if (isset($sendEmailToAdmin) && !empty($sendEmailToAdmin) &&  "yes" == $sendEmailToAdmin) {
                 $userArgs = array(
                     'role' => 'Administrator',
                 );
                 $result   = get_users($userArgs);
 
                 foreach ($result as $value) {
+                    $adminUser = get_user_by("id", $value->data->ID, "");
+                    $args['first_name'] = $adminUser->first_name;
+                    $args['last_name'] = $adminUser->last_name;
+                    $args['username'] = $adminUser->user_login;
                     $emailTmplObj->sendEmail($value->data->user_email, $args, $adminEmailTmplData);
                 }
             }
 
-            if (isset($specifiedEmailForRefund) || !empty($specifiedEmailForRefund)) {
+            if (isset($specifiedEmailForRefund) && !empty($specifiedEmailForRefund)) {
                 $emailTmplObj->sendEmail($specifiedEmailForRefund, $args, $adminEmailTmplData);
             }
         }
 
         return 1;
     }
+
+
 
     /**
      * Sends a new user registration email notification.
