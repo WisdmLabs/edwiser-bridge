@@ -66,7 +66,6 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
 
     if ($page_found_id) {
         wdmUpdatePageId($option_value, $option_key, $page_found_id, $eb_general_settings);
-
         return $page_found_id;
     }
 
@@ -81,7 +80,6 @@ function wdmCreatePage($slug, $option_key = '', $page_title = '', $page_content 
     );
     $page_id   = wp_insert_post($page_data);
     wdmUpdatePageId($option_value, $option_key, $page_id, $eb_general_settings);
-
     return $page_id;
 }
 
@@ -208,7 +206,6 @@ function getMycoursesPage($ebSettings)
     if (isset($ebSettings['eb_my_courses_page_id'])) {
         $usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
     }
-
     return $usrAcPageUrl;
 }
 

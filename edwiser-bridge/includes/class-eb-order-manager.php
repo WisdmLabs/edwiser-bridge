@@ -130,7 +130,33 @@ class EBOrderManager
         if (!empty($post_options) && isset($post_options['order_status'])) {
             $this->updateOrderStatus($order_id, $post_options['order_status']);
         }
+
+        if (!empty($post_options) && isset($post_options['eb_order_username']) && isset($post_options['eb_order_date'])) {
+            $this->updateOrderStatusForNewOrder($order_id, $post_options);
+        }
     }
+
+    /**
+     * update order status and all meta-data on new order creation.
+     *
+     * @since 1.3.0
+     *
+     * @param int $order_id     id of order
+     * @param int $order_status new status of order ( completed, pending or failed )
+     *
+     * @return bool
+     */
+    public function updateOrderStatusForNewOrder($order_id, $order_options)
+    {
+        $eb_order_options['buyer_id'] = $order_options['eb_order_username'];
+        $eb_order_options['order_status'] = $order_options['order_status'];
+        $eb_order_options['course_id'] = $order_options['eb_order_course'];
+        $eb_order_options['creation_date'] = strtotime($order_options['eb_order_date']);
+
+        update_post_meta($order_id, 'eb_order_options', $eb_order_options);
+    }
+
+
 
     /**
      * Change status of an order.
@@ -157,23 +183,26 @@ class EBOrderManager
             /**
              * Unenroll the user if the order is get marked as pending or failed form the compleated.
              */
-            if ($order_options['order_status'] == "completed" && $order_status != "completed") {
-                $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
-                $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
-                $args = array(
-                    'user_id' => $ordDetail['buyer_id'],
-                    'role_id' => 5,
-                    'courses' => array($order_options['course_id']),
-                    'unenroll' => 1,
-                    'suspend' => 0,
-                );
-                $enrollmentManager->updateUserCourseEnrollment($args);
-            }
+            if (isset($order_options) && !empty($order_options) && $order_options) {
+                if (isset($order_options['order_status']) && $order_options['order_status'] == "completed" && $order_status != "completed") {
+                    $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+                    $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
+                    $args = array(
+                        'user_id' => $ordDetail['buyer_id'],
+                        'role_id' => 5,
+                        'courses' => array($order_options['course_id']),
+                        'unenroll' => 1,
+                        'suspend' => 0,
+                    );
+                    $enrollmentManager->updateUserCourseEnrollment($args);
+                }
 
-            foreach ($order_options as $key => $option) {
-                $option;
-                if ($key == 'order_status') {
-                    $order_options[$key] = $order_status;
+
+                foreach ($order_options as $key => $option) {
+                    $option;
+                    if ($key == 'order_status') {
+                        $order_options[$key] = $order_status;
+                    }
                 }
             }
 

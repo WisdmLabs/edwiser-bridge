@@ -81,6 +81,13 @@ class EbAdmin
             $this->version,
             'all'
         );
+        wp_enqueue_style(
+            "eb-select2-css",
+            EB_PLUGIN_URL.'admin/assets/css/select2.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -114,6 +121,15 @@ class EbAdmin
             $this->version,
             false
         );
+
+        wp_enqueue_script(
+            "eb-select2-js",
+            EB_PLUGIN_URL.'admin/assets/js/select2.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+
 
         wp_localize_script(
             $this->plugin_name,

@@ -253,8 +253,6 @@ if ($verified) {
             'refund_amount' => abs(getArrValue($_POST, 'mc_gross', '0.00')),
             'refunded_status' => getArrValue($_POST, 'payment_status', 'Unknown'),
         );
-        //error_log("Printing request data");
-        //error_log(print_r($args,1));
         do_action('eb_refund_completion', $args);
     }
 
@@ -270,3 +268,5 @@ if ($verified) {
     edwiserBridgeInstance()->logger()->add('payment', 'Invalid IPN. Shutting Down Processing.');
     wp_mail($YOUR_NOTIFICATION_EMAIL_ADDRESS, 'Invalid IPN', $listener->getTextReport());
 }
+
+//we're done here
