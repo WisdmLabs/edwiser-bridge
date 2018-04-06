@@ -153,6 +153,13 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+= 1.3.1 =
+* Feature - Added New Order functionality.
+* Feature - Added admin notice on backend to rate Edwiser Bridge Plugin.
+* Tweak- Added Biographical Information on user-account dashboard.
+* Fix - eb-ourses page was showing courses in parent as well as child category.
+* Fix - Synched Categories not synching description from moodle.
+
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the Edwiser bridge plugin.
 * Feature - Email template for the admin and customer on order refund

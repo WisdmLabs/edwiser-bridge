@@ -166,7 +166,7 @@ class EBPostTypes
                             'public' => false,
                             'capability_type' => 'post',
                             'capabilities' => array(
-                            'create_posts' => false,
+                            'create_posts' => true,
                             ),
                             'map_meta_cap' => true,
                             'show_ui' => true,
@@ -409,6 +409,7 @@ class EBPostTypes
             case 'text':
             case 'password':
             case 'number':
+            case 'date':
                 $html .= '<input id="'.esc_attr($field_id);
                 $html .= '" type="'.$field['type'];
                 $html .= '" name="'.esc_attr($option_name);

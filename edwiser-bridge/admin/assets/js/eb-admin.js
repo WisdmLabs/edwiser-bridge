@@ -695,4 +695,13 @@
         }
     }
 
+/*JS for Order page*/
+    $(document).ready(function () {
+        $('#eb_order_username').select2();
+        $('#eb_order_course').select2();
+    });
+/*JS for Order page end*/
+
+
+
 })(jQuery);

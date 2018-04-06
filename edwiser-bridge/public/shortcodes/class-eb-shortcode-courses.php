@@ -109,6 +109,7 @@ class EbShortcodeCourses
                         array(
                             'taxonomy' => 'eb_course_cat',
                             'field' => 'slug',
+                            'include_children' => false,
                             'terms' => $category->slug,
                         )
                     );

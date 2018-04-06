@@ -164,7 +164,6 @@ class EbShortcodeUserAccount
                     session_unset($_SESSION['eb_msgs_' . $current_user->ID]);
                 }
                 $posted_data = self::getPostedData();
-                //error_log(print_r($posted_data, true));
                 $errors      = self::getErrors($posted_data);
                 if (count($errors)) {
                     $_SESSION['eb_msgs_' . $user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';

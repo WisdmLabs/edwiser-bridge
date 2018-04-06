@@ -8,6 +8,10 @@
     overflow: hidden;
 }
 
+.eb_admin_feedback_notice_message{
+    text-align: right;
+}
+
 .eb_extensions_wrap .extensions li {
     float: left;
     margin: 0 1em 1em 0 !important;

@@ -308,11 +308,19 @@ class EBCourseManager
         $wp_course_id = wp_insert_post($course_args); // create a course on wordpress
 
         // get term id on wordpress to which course is associated on moodle
-        $term_id = $wpdb->get_var(
+        /*$term_id = $wpdb->get_var(
             "SELECT term_id
             FROM {$wpdb->prefix}term_taxonomy
             WHERE taxonomy = 'eb_course_cat'
             AND description = ".$course_data->categoryid
+        );*/
+
+
+        $term_id = $wpdb->get_var(
+            "SELECT term_id
+            FROM {$wpdb->prefix}termmeta
+            WHERE meta_key = 'eb_moodle_cat_id'
+            AND meta_value = ".$course_data->categoryid
         );
 
         // $term_id = get_option( "eb_course_cat_".$course_data->categoryid );
@@ -359,11 +367,19 @@ class EBCourseManager
         wp_update_post($course_args);
 
         // get term id on wordpress to which course is associated on moodle
-        $term_id = $wpdb->get_var(
+        /*$term_id = $wpdb->get_var(
             "SELECT term_id
             FROM {$wpdb->prefix}term_taxonomy
             WHERE taxonomy = 'eb_course_cat'
             AND description = ".$course_data->categoryid
+        );*/
+
+
+        $term_id = $wpdb->get_var(
+            "SELECT term_id
+            FROM {$wpdb->prefix}termmeta
+            WHERE meta_key = 'eb_moodle_cat_id'
+            AND meta_value = ".$course_data->categoryid
         );
 
         // $term_id = get_option( "eb_course_cat_".$course_data->categoryid );
@@ -429,39 +445,53 @@ class EBCourseManager
 
             if ($parent > 0) {
                 // get parent term if exists
-                $parent_term = $wpdb->get_var(
+                /*$parent_term = $wpdb->get_var(
                     "SELECT term_id
                     FROM {$wpdb->prefix}term_taxonomy
                     WHERE taxonomy = 'eb_course_cat'
                     AND description = ".$category->parent
+                );*/
+
+                $parent_term = $wpdb->get_var(
+                    "SELECT term_id
+                    FROM {$wpdb->prefix}termmeta
+                    WHERE meta_key = 'eb_moodle_cat_id'
+                    AND meta_value = ".$category->parent
                 );
 
                 // $parent_term = get_option( "eb_course_cat_".$category->parent );
 
-                if ($parent_term && !term_exists($category->name, 'eb_course_cat', $parent_term)) {
+
+                if ($parent_term && !term_exists($cat_name_lower, 'eb_course_cat', $parent_term)) {
                     $created_term = wp_insert_term(
                         $category->name,
                         'eb_course_cat',
                         array(
                         'slug' => $cat_name_lower,
                         'parent' => $parent_term,
-                        'description' => $category->id,
-                            )
+                        'description' => $category->description,
+                        )
                     );
+
+
+                    update_term_meta($created_term['term_id'], "eb_moodle_cat_id", $category->id);
+
+
 
                     // Save the moodle id of category in options
                     // update_option( "eb_course_cat_".$category->id, $created_term['term_id'] );
                 }
             } else {
-                if (!term_exists($category->name, 'eb_course_cat')) {
+                if (!term_exists($cat_name_lower, 'eb_course_cat')) {
                     $created_term = wp_insert_term(
                         $category->name,
                         'eb_course_cat',
                         array(
                         'slug' => $cat_name_lower,
-                        'description' => $category->id,
+                        'description' => $category->description,
                             )
                     );
+                    update_term_meta($created_term['term_id'], "eb_moodle_cat_id", $category->id);
 
                     // Save the moodle id of category in options
                     // update_option( "eb_course_cat_".$category->id, $created_term['term_id'] );

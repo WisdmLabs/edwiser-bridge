@@ -41,7 +41,45 @@ class EBActivator
 
         // redirect to welcome screen
         set_transient('_eb_activation_redirect', 1, 30);
+        set_transient("edwiser_bridge_admin_feedback_notice", "eb_admin_feedback_notice", 60*60*24*15);
+
+        add_action('admin_notices', array($this, 'ebAdminFeedbackNotice'));
+        add_action('admin_init', array($this, 'ebAdminNoticeDismissHandler'));
     }
+
+    /**
+     * show admin feedback notice
+     * @since 1.3.1
+     * @return [type] [description]
+     */
+    public function ebAdminFeedbackNotice()
+    {
+        if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
+            $user_id = get_current_user_id();
+            if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
+                echo '  <div class="notice notice-success">
+                            <p>' . __('Enjoying Edwiser bridge, Please  ', 'eb-textdomain') .'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' this link ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</p>
+                            <div class="eb_admin_feedback_notice_message">
+                                <a href="?eb-feedback-notice-dismissed">Dismiss</a>
+                            </div>
+                        </div>';
+            }
+        }
+    }
+
+    /**
+     * handle notice dismiss
+     * @since 1.3.1
+     * @return [type] [description]
+     */
+    public function ebAdminNoticeDismissHandler()
+    {
+        $user_id = get_current_user_id();
+        if (isset($_GET['eb-feedback-notice-dismissed'])) {
+            add_user_meta($user_id, 'eb_feedback_notice_dismissed', 'true', true);
+        }
+    }
+
 
     /**
      * deactivates legacy extensions
