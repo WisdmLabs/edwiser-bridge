@@ -113,7 +113,6 @@ class EBOrderHistory
         );
 
         $user = get_userdata(get_current_user_id());
-        // error_log("user".print_r($user, 1));
 
         $statOld     = getArrValue($constStatus, $oldStatus);
         $statNew     = getArrValue($constStatus, $newStatus);
