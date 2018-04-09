@@ -244,7 +244,7 @@ class EBOrderMeta
                 <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
                 <!-- <input type="select" name="eb_order_options[eb_order_username]"> -->
                 <div>
-                    <select id="eb_order_username" name="eb_order_options[eb_order_username]">
+                    <select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
                     <?=
                         $this->getAllUsers($userID);
                     ?>
@@ -272,12 +272,6 @@ class EBOrderMeta
             $courseId = $order_data['course_id'];
         }
 
-        $date = get_the_date("Y-m-d", $order_id);
-        if (isset($order_data['creation_date']) && !empty($order_data['creation_date'])) {
-            $date = date('Y-m-d', $order_data['creation_date']);
-        }
-
-
         ?>
         <div class='eb-order-meta-details'>
             <p>
@@ -291,7 +285,7 @@ class EBOrderMeta
                 <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
                 <!-- <input type="text" name="eb_order_options[eb_order_course]"> -->
                 <div>
-                    <select id="eb_order_course" name="eb_order_options[eb_order_course]">
+                    <select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
                     <?=
                         $this->getAllCourses($courseId);
                     ?>
@@ -303,9 +297,7 @@ class EBOrderMeta
                 <label>
                     <?php _e('Date: ', 'eb-textdomain'); ?>
                 </label>
-                <div>
-                    <input type="date" name="eb_order_options[eb_order_date]" value="<?= $date ?>">
-                </div>
+                <?php echo get_the_date("Y-m-d H:i", $order_id); ?>
             </p>
         </div>
         <?php
@@ -320,10 +312,14 @@ class EBOrderMeta
     {
         $users = get_users();
         // $usersArray = array("" => "Select User");
-        $html = "<option value=''> Select User</option>";
+        $html = "<option value='' disabled selected> Select User</option>";
         foreach ($users as $user) {
             if ($userId) {
-                $html .= '<option value="'.$user->ID.'" selected="selected"> '.$user->user_login.'</option>';
+                $selected = '';
+                if ($userId == $user->ID) {
+                    $selected = "selected";
+                }
+                $html .= '<option value="'.$user->ID.'" '.$selected.'> '.$user->user_login.'</option>';
             } else {
                 $html .= '<option value="'.$user->ID.'" > '.$user->user_login.'</option>';
             }
@@ -347,11 +343,15 @@ class EBOrderMeta
         );
         $courses = get_posts($course_args);
         // $coursesArray= array("" => "Select Course");
-        $html = "<option value=''> Select Course </option>";
+        $html = "<option value='' disabled selected> Select Course </option>";
 
         foreach ($courses as $course) {
             if ($courseId) {
-                $html .= '<option value="'.$course->ID.'" selected> '.$course->post_title.'</option>';
+                $selected = '';
+                if ($courseId == $course->ID) {
+                    $selected = "selected";
+                }
+                $html .= '<option value="'.$course->ID.'" '.$selected.'> '.$course->post_title.'</option>';
             } else {
                 $html .= '<option value="'.$course->ID.'" > '.$course->post_title.'</option>';
             }

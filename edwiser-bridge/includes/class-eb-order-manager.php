@@ -127,10 +127,6 @@ class EBOrderManager
             return false;
         }
 
-        if (!empty($post_options) && isset($post_options['order_status'])) {
-            $this->updateOrderStatus($order_id, $post_options['order_status']);
-        }
-
         $this->updateOrderStatusForNewOrder($order_id, $post_options);
     }
 
@@ -149,7 +145,7 @@ class EBOrderManager
         $eb_order_options['buyer_id'] = $order_options['eb_order_username'];
         $eb_order_options['order_status'] = $order_options['order_status'];
         $eb_order_options['course_id'] = $order_options['eb_order_course'];
-        $eb_order_options['creation_date'] = strtotime($order_options['eb_order_date']);
+        // $eb_order_options['creation_date'] = strtotime($order_options['eb_order_date']);
 
         update_post_meta($order_id, 'eb_order_options', $eb_order_options);
     }
@@ -166,9 +162,9 @@ class EBOrderManager
      *
      * @return bool
      */
-    public function updateOrderStatus($order_id, $order_status)
+    public function updateOrderStatus($order_id, $post_options)
     {
-
+        $order_status = $post_options['order_status'];
         // get previous status
         $plugin_post_types = new EBPostTypes($this->plugin_name, $this->version);
         $previous_status = $plugin_post_types->getPostOptions($order_id, 'order_status', 'eb_order');
@@ -181,30 +177,31 @@ class EBOrderManager
             /**
              * Unenroll the user if the order is get marked as pending or failed form the compleated.
              */
-            if (isset($order_options) && !empty($order_options) && $order_options) {
-                if (isset($order_options['order_status']) && $order_options['order_status'] == "completed" && $order_status != "completed") {
-                    $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
-                    $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
-                    $args = array(
-                        'user_id' => $ordDetail['buyer_id'],
-                        'role_id' => 5,
-                        'courses' => array($order_options['course_id']),
-                        'unenroll' => 1,
-                        'suspend' => 0,
-                    );
-                    $enrollmentManager->updateUserCourseEnrollment($args);
-                }
 
+            if (isset($order_options['order_status']) && $order_options['order_status'] == "completed" && $order_status != "completed") {
+                $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+                $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
+                $args = array(
+                    'user_id' => $ordDetail['buyer_id'],
+                    'role_id' => 5,
+                    'courses' => array($order_options['course_id']),
+                    'unenroll' => 1,
+                    'suspend' => 0,
+                );
+                $enrollmentManager->updateUserCourseEnrollment($args);
+            }
 
+            if (isset($order_options) && !empty($order_options)) {
                 foreach ($order_options as $key => $option) {
                     $option;
                     if ($key == 'order_status') {
                         $order_options[$key] = $order_status;
                     }
                 }
+                update_post_meta($order_id, 'eb_order_options', $order_options);
+            } else {
+                $this->updateOrderStatusForNewOrder($order_id, $post_options);
             }
-
-            update_post_meta($order_id, 'eb_order_options', $order_options);
             do_action('eb_order_status_' . $order_status, $order_id);
         }
         edwiserBridgeInstance()->logger()->add('order', 'Order status updated, Status: ' . $order_status); // add order log
@@ -383,7 +380,6 @@ class EBOrderManager
      */
     public function enrollToCourseOnOrderComplete($order_id)
     {
-
         // get order options
         $order_options = get_post_meta($order_id, 'eb_order_options', true);
 

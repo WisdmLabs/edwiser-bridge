@@ -90,6 +90,44 @@ function wdmPluginRowMeta($links, $file)
     return (array) $links;
 }
 
+add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
+
+/**
+ * show admin feedback notice
+ * @since 1.3.1
+ * @return [type] [description]
+ */
+function ebAdminFeedbackNotice()
+{
+    if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
+        $user_id = get_current_user_id();
+        if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
+            echo '  <div class="notice notice-success">
+                        <p>' . __('Enjoying Edwiser bridge, Please  ', 'eb-textdomain') .'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</p>
+                        <div class="eb_admin_feedback_notice_message">
+                            <a href="?eb-feedback-notice-dismissed">Dismiss</a>
+                        </div>
+                    </div>';
+        }
+    }
+}
+
+add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
+
+/**
+ * handle notice dismiss
+ * @since 1.3.1
+ * @return [type] [description]
+ */
+function ebAdminNoticeDismissHandler()
+{
+    $user_id = get_current_user_id();
+    if (isset($_GET['eb-feedback-notice-dismissed'])) {
+        add_user_meta($user_id, 'eb_feedback_notice_dismissed', 'true', true);
+    }
+}
+
+
 /*
  * Always show warning if legacy extensions are active
  *
