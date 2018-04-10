@@ -9,8 +9,28 @@
 }
 
 .eb_admin_feedback_notice_message{
-    text-align: right;
+    float: left;
 }
+
+
+.eb_admin_feedback_notice_message_cont{
+    overflow: auto;
+    padding: 13px;
+}
+
+
+.eb_admin_feedback_dismiss_notice_message{
+    float: right;
+}
+
+.eb_admin_feedback_dismiss_notice_message a{
+    text-decoration: blink;
+}
+
+.eb_admin_feedback_dismiss_notice_message span:hover{
+    color: red;
+}
+
 
 .eb_extensions_wrap .extensions li {
     float: left;

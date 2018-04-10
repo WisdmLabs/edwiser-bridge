@@ -240,25 +240,34 @@ class EBOrderMeta
             <p>
                 <strong><?php _e('Buyer Details: ', 'eb-textdomain'); ?></strong>
             </p>
-            <p>
-                <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
-                <!-- <input type="select" name="eb_order_options[eb_order_username]"> -->
-                <div>
-                    <select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
-                    <?=
-                        $this->getAllUsers($userID);
-                    ?>
-                    </select>
-                </div>
-            </p>
-            <p>
             <?php
             if (isset($byerDetails->user_email) && !empty($byerDetails->user_email)) {
-            ?>
-                <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
-                <?php echo $byerDetails->user_email ?>
-            </p>
-            <?php
+                ?>
+                <p>
+                    <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
+                    <?php echo $byerDetails->user_login ?>
+                </p>
+
+                <p>
+
+                    <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
+                    <?php echo $byerDetails->user_email ?>
+                </p>
+                <?php
+            } else {
+                ?>
+                <p>
+                    <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
+                    <!-- <input type="select" name="eb_order_options[eb_order_username]"> -->
+                    <div>
+                        <select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
+                        <?=
+                            $this->getAllUsers($userID);
+                        ?>
+                        </select>
+                    </div>
+                </p>
+                <?php
             }
             ?>
         </div>
@@ -281,18 +290,36 @@ class EBOrderMeta
                 <label><?php _e('Id: ', 'eb-textdomain'); ?></label>
                 <?php echo $order_id; ?>
             </p>
-            <p>
-                <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
-                <!-- <input type="text" name="eb_order_options[eb_order_course]"> -->
-                <div>
-                    <select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
-                    <?=
-                        $this->getAllCourses($courseId);
-                    ?>
-                    </select>
 
-                </div>
-            </p>
+            <?php
+            if ($courseId) {
+                ?>
+
+                <p>
+                    <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
+                    <a href='<?php echo get_permalink($order_data['course_id']) ?>'>
+                        <?php echo get_the_title($courseId); ?>
+                    </a>
+                </p>
+
+                <?php
+            } else {
+                ?>
+                <p>
+                    <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
+                    <!-- <input type="text" name="eb_order_options[eb_order_course]"> -->
+                    <div>
+                        <select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
+                        <?=
+                            $this->getAllCourses($courseId);
+                        ?>
+                        </select>
+
+                    </div>
+                </p>
+                <?php
+            }
+            ?>
             <p>
                 <label>
                     <?php _e('Date: ', 'eb-textdomain'); ?>

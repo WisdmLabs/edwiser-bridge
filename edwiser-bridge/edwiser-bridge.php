@@ -102,9 +102,10 @@ function ebAdminFeedbackNotice()
     if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
         $user_id = get_current_user_id();
         if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
-            echo '  <div class="notice notice-success">
-                        <p>' . __('Enjoying Edwiser bridge, Please  ', 'eb-textdomain') .'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</p>
-                        <div class="eb_admin_feedback_notice_message">
+            echo '  <div class="notice notice-success eb_admin_feedback_notice_message_cont">
+                        <div class="eb_admin_feedback_notice_message">' . __('Enjoying Edwiser bridge, Please  ', 'eb-textdomain') .'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</div>
+                        <div class="eb_admin_feedback_dismiss_notice_message">
+                            <span class="dashicons dashicons-dismiss"></span>
                             <a href="?eb-feedback-notice-dismissed">Dismiss</a>
                         </div>
                     </div>';
