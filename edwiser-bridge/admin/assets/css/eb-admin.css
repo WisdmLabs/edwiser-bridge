@@ -23,6 +23,10 @@
     float: right;
 }
 
+.eb_admin_feedback_dismiss_notice_message a span{
+    color: red;
+}
+
 .eb_admin_feedback_dismiss_notice_message a{
     text-decoration: blink;
 }
