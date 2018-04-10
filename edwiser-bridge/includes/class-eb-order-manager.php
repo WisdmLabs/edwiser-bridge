@@ -127,7 +127,12 @@ class EBOrderManager
             return false;
         }
 
-        $this->updateOrderStatusForNewOrder($order_id, $post_options);
+        if (!empty($post_options) && isset($post_options['order_status'])) {
+            $this->updateOrderStatus($order_id, $post_options['order_status'], $post_options);
+        }
+
+
+        // $this->updateOrderStatusForNewOrder($order_id, $post_options);
     }
 
     /**
@@ -162,9 +167,8 @@ class EBOrderManager
      *
      * @return bool
      */
-    public function updateOrderStatus($order_id, $post_options)
+    public function updateOrderStatus($order_id, $order_status, $post_options = array())
     {
-        $order_status = $post_options['order_status'];
         // get previous status
         $plugin_post_types = new EBPostTypes($this->plugin_name, $this->version);
         $previous_status = $plugin_post_types->getPostOptions($order_id, 'order_status', 'eb_order');
