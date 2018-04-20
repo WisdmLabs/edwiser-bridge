@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
+    <classes>
+      <class name="com.edwiser.EdwiserBridge.AppTest">
+        <methods>
+          <include name="tc10"/>
+          <include name="driverinit"/>
+          <include name="tc9"/>
+          <include name="tc8"/>
+          <include name="tc11"/>
+          <include name="tc5"/>
+        </methods>
+      </class> <!-- com.edwiser.EdwiserBridge.AppTest -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

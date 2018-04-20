@@ -1,0 +1,96 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Edwiser Test Suite" preserve-order="true">
+	<!-- <parameter name="browser" value="PhantomJS" /> -->
+	<parameter name="browser" value="Chrome" />
+	<parameter name="siteURL" value="http://yogeshdeore.wisdmlabs.net/" />
+	<parameter name="username" value="yogeshdeore" />
+	<parameter name="password" value="something" />
+
+	<!-- <parameter name="moodleURL" value="http://localhost/mdl/" />
+	<parameter name="moodleToken" value="5fe27e08a76c05084fac646908c93b96" />-->
+	<parameter name="moodleURL" value="http://yogeshdeore.wisdmlabs.net/moodle/" />
+	<parameter name="moodleToken" value="72169001f71699632b84fb81025cfcbd" />
+	<parameter name="moodleAdminUser" value="yogeshderoe" />
+	<parameter name="moodleAdminPassword" value="something" />
+
+	<!-- User Details For DashBoard EnrollMent -->
+	<parameter name="testUser" value="testUser" />
+	<parameter name="testUserEmail" value="test@User.net" />
+	<parameter name="testUserFname" value="Test" />
+	<parameter name="testUserLname" value="User" />
+	<parameter name="testuserpassword" value="testUser" />
+
+	<!-- User Details For Front-End Course Purchase -->
+	<parameter name="testUser1" value="testUser1" />
+	<parameter name="testUser1Email" value="testUser1@User.net" />
+	<parameter name="testUser1Fname" value="Test1" />
+	<parameter name="testUser1Lname" value="User1" />
+	<parameter name="testuser1password" value="testUser1" />
+
+	<parameter name="course1" value="PHP" /> <!--This will be Free Course -->
+	<parameter name="course2" value="JAVA" /><!--This will be Paid 
+		Course -->
+	<parameter name="course3" value="Android" /><!--This will be 
+		Closed Course -->
+	<parameter name="course4" value="Introduction to HTML" /><!--This will be Expire 
+		Access Enabled and Free Course -->
+	<parameter name="noOfDaysForExpireAccess" value="5" /><!--For 
+		course4 Expire Access number of Days -->
+
+
+
+	<test name="RunProject SetUp First">
+		<classes>
+			<class name="setUp.projectSetUp" />
+		</classes>
+	</test>
+
+	<test name="Edwiser Connection Settings">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.ConnectionSettings" />
+		</classes>
+	</test> 
+
+	<test name="Edwiser Synchronization Settings">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.SynchronizationSettings" />
+		</classes>
+	</test>
+
+	<test name="Edwiser Extra Settings">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.Extras" />
+		</classes>
+	</test>
+
+	<test name="Edwiser Link Users with Moodle">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.LinkUnlinkUser" />
+		</classes>
+	</test>
+
+	<test name="Edwiser User Edit Page Course Enrollment and UnEnrollment">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment" />
+		</classes>
+	</test>
+
+	<test name="Edwiser Set Course Type and Check From FrontEnd">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.CourseTypeSettings" />
+		</classes>
+	</test>
+
+	<test name="Edwiser Purchase Course From Front End">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.FrontEndCoursePurchase" />
+		</classes>
+	</test>
+
+	<test name="Edwiser User Account Page">
+		<classes>
+			<class name="com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails" />
+		</classes>
+	</test>
+
+</suite>

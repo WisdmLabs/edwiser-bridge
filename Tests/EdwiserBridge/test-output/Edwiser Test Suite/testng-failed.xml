@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Edwiser Test Suite]">
+  <parameter name="moodleURL" value="http://yogeshdeore.wisdmlabs.net/moodle/"/>
+  <parameter name="course4" value="Introduction to HTML"/>
+  <parameter name="moodleToken" value="72169001f71699632b84fb81025cfcbd"/>
+  <parameter name="course3" value="Android"/>
+  <parameter name="siteURL" value="http://yogeshdeore.wisdmlabs.net/"/>
+  <parameter name="testUserLname" value="User"/>
+  <parameter name="moodleAdminUser" value="yogeshderoe"/>
+  <parameter name="testUserEmail" value="test@User.net"/>
+  <parameter name="testuserpassword" value="testUser"/>
+  <parameter name="moodleAdminPassword" value="something"/>
+  <parameter name="course2" value="JAVA"/>
+  <parameter name="testUser1" value="testUser1"/>
+  <parameter name="course1" value="PHP"/>
+  <parameter name="testUserFname" value="Test"/>
+  <parameter name="testUser1Email" value="testUser1@User.net"/>
+  <parameter name="password" value="something"/>
+  <parameter name="testUser1Fname" value="Test1"/>
+  <parameter name="browser" value="Chrome"/>
+  <parameter name="testuser1password" value="testUser1"/>
+  <parameter name="testUser" value="testUser"/>
+  <parameter name="noOfDaysForExpireAccess" value="5"/>
+  <parameter name="username" value="yogeshdeore"/>
+  <parameter name="testUser1Lname" value="User1"/>
+  <test name="Edwiser Extra Settings(failed)">
+    <classes>
+      <class name="com.edwiser.EdwiserBridge.Extras">
+        <methods>
+          <include name="beforeClassObjectSetUp"/>
+          <include name="CheckExtensionsPageLinks"/>
+        </methods>
+      </class> <!-- com.edwiser.EdwiserBridge.Extras -->
+    </classes>
+  </test> <!-- Edwiser Extra Settings(failed) -->
+  <test name="Edwiser Purchase Course From Front End(failed)">
+    <classes>
+      <class name="com.edwiser.EdwiserBridge.FrontEndCoursePurchase">
+        <methods>
+          <include name="purchasePaidCourse" invocation-numbers="0"/>
+          <include name="purchaseFreeCourseForNewUser" invocation-numbers="0"/>
+          <include name="purchaseExpireAccessEnabledCourse" invocation-numbers="0"/>
+          <include name="beforeClassObjectSetUp"/>
+        </methods>
+      </class> <!-- com.edwiser.EdwiserBridge.FrontEndCoursePurchase -->
+    </classes>
+  </test> <!-- Edwiser Purchase Course From Front End(failed) -->
+  <test name="Edwiser User Account Page(failed)">
+    <classes>
+      <class name="com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails">
+        <methods>
+          <include name="editUserDetailsFromUserAccountPage" invocation-numbers="0"/>
+          <include name="checkEnrolledCoursesOnUserAccountPage" invocation-numbers="0"/>
+          <include name="beforeClassObjectSetUp"/>
+        </methods>
+      </class> <!-- com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails -->
+    </classes>
+  </test> <!-- Edwiser User Account Page(failed) -->
+</suite> <!-- Failed suite [Edwiser Test Suite] -->

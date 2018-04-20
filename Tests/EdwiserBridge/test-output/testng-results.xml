@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="6" ignored="0" total="29" passed="23">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Edwiser Test Suite" duration-ms="402296" started-at="2018-04-10T06:48:48Z" finished-at="2018-04-10T06:55:30Z">
+    <groups>
+    </groups>
+    <test name="RunProject SetUp First" duration-ms="11" started-at="2018-04-10T06:48:48Z" finished-at="2018-04-10T06:48:48Z">
+    </test> <!-- RunProject SetUp First -->
+    <test name="Edwiser Connection Settings" duration-ms="23328" started-at="2018-04-10T06:48:48Z" finished-at="2018-04-10T06:49:11Z">
+      <class name="com.edwiser.EdwiserBridge.ConnectionSettings">
+        <test-method status="PASS" signature="connectionSettingsSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="connectionSettingsSetUp" is-config="true" duration-ms="9619" started-at="2018-04-10T12:18:48Z" finished-at="2018-04-10T12:18:57Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- connectionSettingsSetUp -->
+        <test-method status="PASS" signature="emptyURLandToken()[pri:1, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="emptyURLandToken" duration-ms="2557" started-at="2018-04-10T12:18:57Z" finished-at="2018-04-10T12:19:00Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- emptyURLandToken -->
+        <test-method status="PASS" signature="invalidMoodleURL()[pri:2, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="invalidMoodleURL" duration-ms="1074" started-at="2018-04-10T12:19:00Z" finished-at="2018-04-10T12:19:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invalidMoodleURL -->
+        <test-method status="PASS" signature="nonMoodleSiteURL()[pri:3, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="nonMoodleSiteURL" duration-ms="6852" started-at="2018-04-10T12:19:01Z" finished-at="2018-04-10T12:19:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- nonMoodleSiteURL -->
+        <test-method status="PASS" signature="invalidAccessToken(java.lang.String)[pri:4, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="invalidAccessToken" duration-ms="1469" started-at="2018-04-10T12:19:08Z" finished-at="2018-04-10T12:19:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/moodle/]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- invalidAccessToken -->
+        <test-method status="PASS" signature="validDetails(java.lang.String, java.lang.String)[pri:5, instance:com.edwiser.EdwiserBridge.ConnectionSettings@73ad2d6]" name="validDetails" duration-ms="1731" started-at="2018-04-10T12:19:09Z" finished-at="2018-04-10T12:19:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/moodle/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[72169001f71699632b84fb81025cfcbd]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validDetails -->
+      </class> <!-- com.edwiser.EdwiserBridge.ConnectionSettings -->
+    </test> <!-- Edwiser Connection Settings -->
+    <test name="Edwiser Synchronization Settings" duration-ms="51624" started-at="2018-04-10T06:49:11Z" finished-at="2018-04-10T06:50:03Z">
+      <class name="com.edwiser.EdwiserBridge.SynchronizationSettings">
+        <test-method status="PASS" signature="synchronizationSettingsSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="synchronizationSettingsSetUp" is-config="true" duration-ms="7685" started-at="2018-04-10T12:19:11Z" finished-at="2018-04-10T12:19:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- synchronizationSettingsSetUp -->
+        <test-method status="PASS" signature="syncWithOutConnection(java.lang.String, java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="syncWithOutConnection" duration-ms="15302" started-at="2018-04-10T12:19:19Z" finished-at="2018-04-10T12:19:34Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/moodle/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[72169001f71699632b84fb81025cfcbd]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- syncWithOutConnection -->
+        <test-method status="PASS" signature="syncCourseAsDraft(java.lang.String, java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="syncCourseAsDraft" duration-ms="7716" started-at="2018-04-10T12:19:34Z" finished-at="2018-04-10T12:19:42Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/moodle/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[72169001f71699632b84fb81025cfcbd]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- syncCourseAsDraft -->
+        <test-method status="PASS" signature="syncCourseAsPublish(java.lang.String, java.lang.String)[pri:3, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="syncCourseAsPublish" duration-ms="8987" started-at="2018-04-10T12:19:42Z" finished-at="2018-04-10T12:19:51Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/moodle/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[72169001f71699632b84fb81025cfcbd]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- syncCourseAsPublish -->
+        <test-method status="PASS" signature="syncCourseCategories()[pri:4, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="syncCourseCategories" duration-ms="4828" started-at="2018-04-10T12:19:51Z" finished-at="2018-04-10T12:19:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- syncCourseCategories -->
+        <test-method status="PASS" signature="syncUpdateCourses()[pri:5, instance:com.edwiser.EdwiserBridge.SynchronizationSettings@1e397ed7]" name="syncUpdateCourses" duration-ms="7100" started-at="2018-04-10T12:19:55Z" finished-at="2018-04-10T12:20:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- syncUpdateCourses -->
+      </class> <!-- com.edwiser.EdwiserBridge.SynchronizationSettings -->
+    </test> <!-- Edwiser Synchronization Settings -->
+    <test name="Edwiser Extra Settings" duration-ms="27289" started-at="2018-04-10T06:50:03Z" finished-at="2018-04-10T06:50:30Z">
+      <class name="com.edwiser.EdwiserBridge.Extras">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.Extras@5cb9f472]" name="beforeClassObjectSetUp" is-config="true" duration-ms="7271" started-at="2018-04-10T12:20:03Z" finished-at="2018-04-10T12:20:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="PASS" signature="PayPal()[pri:1, instance:com.edwiser.EdwiserBridge.Extras@5cb9f472]" name="PayPal" duration-ms="1899" started-at="2018-04-10T12:20:10Z" finished-at="2018-04-10T12:20:12Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PayPal -->
+        <test-method status="PASS" signature="licenseTabExtensionsLink()[pri:2, instance:com.edwiser.EdwiserBridge.Extras@5cb9f472]" name="licenseTabExtensionsLink" duration-ms="955" started-at="2018-04-10T12:20:12Z" finished-at="2018-04-10T12:20:13Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- licenseTabExtensionsLink -->
+        <test-method status="PASS" signature="help()[pri:3, instance:com.edwiser.EdwiserBridge.Extras@5cb9f472]" name="help" duration-ms="397" started-at="2018-04-10T12:20:13Z" finished-at="2018-04-10T12:20:13Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- help -->
+        <test-method status="FAIL" signature="CheckExtensionsPageLinks()[pri:4, instance:com.edwiser.EdwiserBridge.Extras@5cb9f472]" name="CheckExtensionsPageLinks" duration-ms="16760" started-at="2018-04-10T12:20:13Z" finished-at="2018-04-10T12:20:30Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[All Extenssipns are not getting displayed on Extenssions page expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: All Extenssipns are not getting displayed on Extenssions page expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:93)
+	at org.testng.Assert.failNotEquals(Assert.java:512)
+	at org.testng.Assert.assertTrue(Assert.java:41)
+	at com.edwiser.EdwiserBridge.Extras.CheckExtensionsPageLinks(Extras.java:141)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- CheckExtensionsPageLinks -->
+      </class> <!-- com.edwiser.EdwiserBridge.Extras -->
+    </test> <!-- Edwiser Extra Settings -->
+    <test name="Edwiser Link Users with Moodle" duration-ms="33391" started-at="2018-04-10T06:50:30Z" finished-at="2018-04-10T06:51:03Z">
+      <class name="com.edwiser.EdwiserBridge.LinkUnlinkUser">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.LinkUnlinkUser@5702b3b1]" name="beforeClassObjectSetUp" is-config="true" duration-ms="7891" started-at="2018-04-10T12:20:30Z" finished-at="2018-04-10T12:20:38Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="PASS" signature="linkUserFromBulkAction(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.LinkUnlinkUser@5702b3b1]" name="linkUserFromBulkAction" duration-ms="11742" started-at="2018-04-10T12:20:38Z" finished-at="2018-04-10T12:20:50Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[test@User.net]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Test]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[User]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- linkUserFromBulkAction -->
+        <test-method status="PASS" signature="unlinkUserFromBulkAction(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.LinkUnlinkUser@5702b3b1]" name="unlinkUserFromBulkAction" duration-ms="1745" started-at="2018-04-10T12:20:50Z" finished-at="2018-04-10T12:20:51Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[test@User.net]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Test]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[User]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- unlinkUserFromBulkAction -->
+        <test-method status="PASS" signature="linkUserFromLinkUnlinkLink(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.edwiser.EdwiserBridge.LinkUnlinkUser@5702b3b1]" name="linkUserFromLinkUnlinkLink" duration-ms="9606" started-at="2018-04-10T12:20:51Z" finished-at="2018-04-10T12:21:01Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[test@User.net]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Test]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[User]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- linkUserFromLinkUnlinkLink -->
+        <test-method status="PASS" signature="unlinkUserFromLinkUnlinkLink(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:4, instance:com.edwiser.EdwiserBridge.LinkUnlinkUser@5702b3b1]" name="unlinkUserFromLinkUnlinkLink" duration-ms="2403" started-at="2018-04-10T12:21:01Z" finished-at="2018-04-10T12:21:03Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[test@User.net]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Test]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[User]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- unlinkUserFromLinkUnlinkLink -->
+      </class> <!-- com.edwiser.EdwiserBridge.LinkUnlinkUser -->
+    </test> <!-- Edwiser Link Users with Moodle -->
+    <test name="Edwiser User Edit Page Course Enrollment and UnEnrollment" duration-ms="52151" started-at="2018-04-10T06:51:03Z" finished-at="2018-04-10T06:51:55Z">
+      <class name="com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment@6adede5]" name="beforeClassObjectSetUp" is-config="true" duration-ms="7215" started-at="2018-04-10T12:21:03Z" finished-at="2018-04-10T12:21:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="PASS" signature="EnrollUserFromUsrEditPage(java.lang.String, java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment@6adede5]" name="EnrollUserFromUsrEditPage" duration-ms="28705" started-at="2018-04-10T12:21:10Z" finished-at="2018-04-10T12:21:39Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PHP]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- EnrollUserFromUsrEditPage -->
+        <test-method status="PASS" signature="unenrollUserFromUsrEditPage(java.lang.String, java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment@6adede5]" name="unenrollUserFromUsrEditPage" duration-ms="16219" started-at="2018-04-10T12:21:39Z" finished-at="2018-04-10T12:21:55Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[PHP]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- unenrollUserFromUsrEditPage -->
+      </class> <!-- com.edwiser.EdwiserBridge.UserEditPageCourseEnrollment -->
+    </test> <!-- Edwiser User Edit Page Course Enrollment and UnEnrollment -->
+    <test name="Edwiser Set Course Type and Check From FrontEnd" duration-ms="22257" started-at="2018-04-10T06:51:55Z" finished-at="2018-04-10T06:52:18Z">
+      <class name="com.edwiser.EdwiserBridge.CourseTypeSettings">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.CourseTypeSettings@55d56113]" name="beforeClassObjectSetUp" is-config="true" duration-ms="7590" started-at="2018-04-10T12:21:55Z" finished-at="2018-04-10T12:22:03Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="PASS" signature="makeCoursePaidAndAddPrice(java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.CourseTypeSettings@55d56113]" name="makeCoursePaidAndAddPrice" duration-ms="5656" started-at="2018-04-10T12:22:03Z" finished-at="2018-04-10T12:22:09Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[JAVA]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- makeCoursePaidAndAddPrice -->
+        <test-method status="PASS" signature="makeCourseClosedAndRedirectionURL(java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.CourseTypeSettings@55d56113]" name="makeCourseClosedAndRedirectionURL" duration-ms="3178" started-at="2018-04-10T12:22:09Z" finished-at="2018-04-10T12:22:12Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Android]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- makeCourseClosedAndRedirectionURL -->
+        <test-method status="PASS" signature="setCourseExpireAccessDays(java.lang.String, java.lang.String)[pri:3, instance:com.edwiser.EdwiserBridge.CourseTypeSettings@55d56113]" name="setCourseExpireAccessDays" duration-ms="5830" started-at="2018-04-10T12:22:12Z" finished-at="2018-04-10T12:22:18Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Introduction to HTML]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[5]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setCourseExpireAccessDays -->
+      </class> <!-- com.edwiser.EdwiserBridge.CourseTypeSettings -->
+    </test> <!-- Edwiser Set Course Type and Check From FrontEnd -->
+    <test name="Edwiser Purchase Course From Front End" duration-ms="74104" started-at="2018-04-10T06:52:18Z" finished-at="2018-04-10T06:53:32Z">
+      <class name="com.edwiser.EdwiserBridge.FrontEndCoursePurchase">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.FrontEndCoursePurchase@60c6f5b]" name="beforeClassObjectSetUp" is-config="true" duration-ms="16" started-at="2018-04-10T12:22:18Z" finished-at="2018-04-10T12:22:18Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="FAIL" signature="purchaseFreeCourseForNewUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.FrontEndCoursePurchase@60c6f5b]" name="purchaseFreeCourseForNewUser" duration-ms="11511" started-at="2018-04-10T12:22:18Z" finished-at="2018-04-10T12:22:29Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[PHP]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser1@User.net]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Test1]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[User1]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='wdm-caption']/h4[text()='PHP']"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='wdm-caption']/h4[text()='PHP']}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='wdm-caption']/h4[text()='PHP']"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='wdm-caption']/h4[text()='PHP']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:82)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:45)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:646)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:416)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:518)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:408)
+	at setUp.GeneralisedProjectOperations.findAndReturnWebElement(GeneralisedProjectOperations.java:39)
+	at pageClasses.CoursesFrontEnd.courseLink(CoursesFrontEnd.java:46)
+	at pageClasses.CoursesFrontEnd.makeOrderforCourse(CoursesFrontEnd.java:90)
+	at com.edwiser.EdwiserBridge.FrontEndCoursePurchase.purchaseFreeCourseForNewUser(FrontEndCoursePurchase.java:91)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- purchaseFreeCourseForNewUser -->
+        <test-method status="FAIL" signature="purchaseExpireAccessEnabledCourse(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.FrontEndCoursePurchase@60c6f5b]" name="purchaseExpireAccessEnabledCourse" duration-ms="41789" started-at="2018-04-10T12:22:29Z" finished-at="2018-04-10T12:23:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Introduction to HTML]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser1@User.net]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Test1]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[User1]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[5]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[@class='register-link']/a' (tried for 15 second(s) with 500 MILLISECONDS interval)]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[@class='register-link']/a' (tried for 15 second(s) with 500 MILLISECONDS interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:80)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:232)
+	at pageClasses.CoursesFrontEnd.makeOrderforCourse(CoursesFrontEnd.java:98)
+	at com.edwiser.EdwiserBridge.FrontEndCoursePurchase.purchaseExpireAccessEnabledCourse(FrontEndCoursePurchase.java:139)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='register-link']/a"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='register-link']/a}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:82)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:45)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:646)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:416)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:518)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:408)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy11.isDisplayed(Unknown Source)
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:302)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$100(ExpectedConditions.java:44)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:288)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:285)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
+	... 27 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- purchaseExpireAccessEnabledCourse -->
+        <test-method status="FAIL" signature="purchasePaidCourse(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.edwiser.EdwiserBridge.FrontEndCoursePurchase@60c6f5b]" name="purchasePaidCourse" duration-ms="20767" started-at="2018-04-10T12:23:11Z" finished-at="2018-04-10T12:23:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[JAVA]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser1@User.net]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Test1]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[User1]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="6">
+              <value>
+                <![CDATA[5]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='wdm-caption']/h4[text()='JAVA']"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='wdm-caption']/h4[text()='JAVA']}]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='wdm-caption']/h4[text()='JAVA']"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='wdm-caption']/h4[text()='JAVA']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:82)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:45)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:646)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:416)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:518)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:408)
+	at setUp.GeneralisedProjectOperations.findAndReturnWebElement(GeneralisedProjectOperations.java:39)
+	at pageClasses.CoursesFrontEnd.courseLink(CoursesFrontEnd.java:46)
+	at pageClasses.CoursesFrontEnd.makeOrderforCourse(CoursesFrontEnd.java:90)
+	at com.edwiser.EdwiserBridge.FrontEndCoursePurchase.purchasePaidCourse(FrontEndCoursePurchase.java:176)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- purchasePaidCourse -->
+      </class> <!-- com.edwiser.EdwiserBridge.FrontEndCoursePurchase -->
+    </test> <!-- Edwiser Purchase Course From Front End -->
+    <test name="Edwiser User Account Page" duration-ms="118035" started-at="2018-04-10T06:53:32Z" finished-at="2018-04-10T06:55:30Z">
+      <class name="setUp.projectSetUp">
+        <test-method status="PASS" signature="driverSetUp(java.lang.String)[pri:0, instance:setUp.projectSetUp@7cd62f43]" name="driverSetUp" is-config="true" duration-ms="2663" started-at="2018-04-10T12:18:45Z" finished-at="2018-04-10T12:18:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- driverSetUp -->
+        <test-method status="PASS" signature="AfterClass()[pri:0, instance:setUp.projectSetUp@7cd62f43]" name="AfterClass" is-config="true" duration-ms="90" started-at="2018-04-10T12:25:30Z" finished-at="2018-04-10T12:25:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- AfterClass -->
+      </class> <!-- setUp.projectSetUp -->
+      <class name="com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails">
+        <test-method status="PASS" signature="beforeClassObjectSetUp(java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails@5383967b]" name="beforeClassObjectSetUp" is-config="true" duration-ms="4" started-at="2018-04-10T12:23:32Z" finished-at="2018-04-10T12:23:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[http://yogeshdeore.wisdmlabs.net/]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[yogeshdeore]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[something]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeClassObjectSetUp -->
+        <test-method status="FAIL" signature="editUserDetailsFromUserAccountPage(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:1, instance:com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails@5383967b]" name="editUserDetailsFromUserAccountPage" duration-ms="42835" started-at="2018-04-10T12:23:32Z" finished-at="2018-04-10T12:24:15Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Android]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser1@User.net]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Test1]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[User1]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[testUser1]]>
+              </value>
+            </param>
+          </params>
+          <exception class="org.openqa.selenium.TimeoutException">
+            <message>
+              <![CDATA[Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[@class='eb-edit-profile']/a' (tried for 15 second(s) with 500 MILLISECONDS interval)]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //*[@class='eb-edit-profile']/a' (tried for 15 second(s) with 500 MILLISECONDS interval)
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:80)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:232)
+	at com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails.editUserDetailsFromUserAccountPage(UserAccountPageEditUserDetails.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='eb-edit-profile']/a"}
+  (Session info: chrome=65.0.3325.181)
+  (Driver info: chromedriver=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881),platform=Linux 4.13.0-38-generic x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 0 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.5.3', revision: 'a88d25fe6b', time: '2017-08-29T12:42:44.417Z'
+System info: host: 'yogesh-H81M-S', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '4.13.0-38-generic', java.version: '1.8.0_161'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{mobileEmulationEnabled=false, hasTouchScreen=false, platform=LINUX, acceptSslCerts=false, acceptInsecureCerts=false, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, platformName=LINUX, setWindowRect=true, unexpectedAlertBehaviour=, applicationCacheEnabled=false, rotatable=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.35.528139 (47ead77cb35ad2a9a83248b292151462a66cd881), userDataDir=/tmp/.org.chromium.Chromium.SwEyI0}, takesHeapSnapshot=true, pageLoadStrategy=normal, unhandledPromptBehavior=, databaseEnabled=false, handlesAlerts=true, version=65.0.3325.181, browserConnectionEnabled=false, nativeEvents=true, locationContextEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 164d871ef98a01cf964c9a83739c0b00
+*** Element info: {Using=xpath, value=//*[@class='eb-edit-profile']/a}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:215)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:167)
+	at org.openqa.selenium.remote.http.JsonHttpResponseCodec.reconstructValue(JsonHttpResponseCodec.java:40)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:82)
+	at org.openqa.selenium.remote.http.AbstractHttpResponseCodec.decode(AbstractHttpResponseCodec.java:45)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:82)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:646)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:416)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:518)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:408)
+	at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:69)
+	at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:38)
+	at com.sun.proxy.$Proxy11.isDisplayed(Unknown Source)
+	at org.openqa.selenium.support.ui.ExpectedConditions.elementIfVisible(ExpectedConditions.java:302)
+	at org.openqa.selenium.support.ui.ExpectedConditions.access$100(ExpectedConditions.java:44)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:288)
+	at org.openqa.selenium.support.ui.ExpectedConditions$10.apply(ExpectedConditions.java:285)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:209)
+	... 26 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.openqa.selenium.TimeoutException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- editUserDetailsFromUserAccountPage -->
+        <test-method status="FAIL" signature="checkEnrolledCoursesOnUserAccountPage(java.lang.String, java.lang.String, java.lang.String)[pri:2, instance:com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails@5383967b]" name="checkEnrolledCoursesOnUserAccountPage" duration-ms="42874" started-at="2018-04-10T12:24:15Z" finished-at="2018-04-10T12:24:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Android]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Enrolled Courses Not Showing on User Account Page expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Enrolled Courses Not Showing on User Account Page expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:93)
+	at org.testng.Assert.failNotEquals(Assert.java:512)
+	at org.testng.Assert.assertTrue(Assert.java:41)
+	at com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails.checkEnrolledCoursesOnUserAccountPage(UserAccountPageEditUserDetails.java:212)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:108)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:661)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:869)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1193)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:744)
+	at org.testng.TestRunner.run(TestRunner.java:602)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:380)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:375)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:340)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:289)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1226)
+	at org.testng.TestNG.runSuites(TestNG.java:1144)
+	at org.testng.TestNG.run(TestNG.java:1115)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkEnrolledCoursesOnUserAccountPage -->
+        <test-method status="PASS" signature="checkUnenrolledCoursesOnUserAccountPage(java.lang.String, java.lang.String, java.lang.String)[pri:3, instance:com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails@5383967b]" name="checkUnenrolledCoursesOnUserAccountPage" duration-ms="32315" started-at="2018-04-10T12:24:58Z" finished-at="2018-04-10T12:25:30Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Android]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[testUser]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkUnenrolledCoursesOnUserAccountPage -->
+      </class> <!-- com.edwiser.EdwiserBridge.UserAccountPageEditUserDetails -->
+    </test> <!-- Edwiser User Account Page -->
+  </suite> <!-- Edwiser Test Suite -->
+</testng-results>
