@@ -5,8 +5,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-//import org.openqa.selenium.phantomjs.PhantomJSDriver;
-//import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+// import org.openqa.selenium.phantomjs.PhantomJSDriver;
+// import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -41,19 +41,19 @@ public class projectSetUp {
 			// Set the chrome driver system property
 			// System.setProperty("webdriver.chrome.driver", "/home/yogesh/eclipse-workspace/Drivers/chromedriver");
 			driver = new ChromeDriver();
-		} else if (browser.equals("PhantomJS")) {
-			DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-			cliArgsCap.add("--web-security=false");
-			cliArgsCap.add("--ssl-protocol=any");
-			cliArgsCap.add("--ignore-ssl-errors=true");
-			capabilities.setCapability("takesScreenshot", false);
-			capabilities.setJavascriptEnabled(true);
-			 // capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"/usr/local/bin/phantomjs");
-			capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
-			capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
-					new String[] { "--logLevel=2" });
-			driver = new PhantomJSDriver(capabilities);
-//			driver.manage().window().setSize(new Dimension(1024,768));
+// 		} else if (browser.equals("PhantomJS")) {
+// 			DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+// 			cliArgsCap.add("--web-security=false");
+// 			cliArgsCap.add("--ssl-protocol=any");
+// 			cliArgsCap.add("--ignore-ssl-errors=true");
+// 			capabilities.setCapability("takesScreenshot", false);
+// 			capabilities.setJavascriptEnabled(true);
+// 			 // capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,"/usr/local/bin/phantomjs");
+// 			capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
+// 			capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
+// 					new String[] { "--logLevel=2" });
+// 			driver = new PhantomJSDriver(capabilities);
+// //			driver.manage().window().setSize(new Dimension(1024,768));
 			
 		}
 
