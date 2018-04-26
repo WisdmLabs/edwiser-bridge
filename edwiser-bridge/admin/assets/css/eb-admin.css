@@ -118,18 +118,21 @@ color: #2ecc71;
     animation: 1s ease-out 0s 1 slideInFromLeft;*/
 }
 
-.eb-premium-discount button{
+.eb-premium-discount div{
     color: white;
     padding: 8px 5px;
     background-color: #f86935;
     border-color: #f86935;
     cursor: pointer;
     border-style: unset;
+    background: linear-gradient(#f66f3d 5%, #dd6133 100%) #F86934;
+    text-shadow: #8f8e8e 0px 1px 0px;
 }
 
-.eb-premium-discount button:hover{
-    background-color: #db6134;
-    transition: background-color 1s;
+.eb-premium-discount div:hover{
+    /*background-color: #db6134;
+    transition: background-color 1s;*/
+    background: linear-gradient(#dd6133 5%, #f66f3d 100%) #f66f3d;
 }
 
 
@@ -137,7 +140,7 @@ color: #2ecc71;
     text-align: center;
 }
 
-.eb-premium-disc button{
+.eb-premium-disc div{
     color: white;
     padding: 15px 15px;
     background-color: #f86935;
@@ -150,18 +153,25 @@ color: #2ecc71;
     box-shadow: #f86935 0px 10px 14px -7px;
     background: linear-gradient(#f66f3d 5%, #dd6133 100%) #F86934;
     text-shadow: #8f8e8e 0px 1px 0px;
+    width: 35%;
+    margin: auto auto;
 }
 
-.eb-premium-disc button:hover{
+.eb-premium-disc div:hover{
     background: linear-gradient(#dd6133 5%, #f66f3d 100%) #f66f3d;
     box-shadow: #db6134 0px 10px 14px -7px;
     /*background-color: #db6134;*/
     /*transition: background-color 1s;*/
 }
 
+.eb-premium-disc a, .eb-premium-discount a{
+    text-decoration: none;
+}
+
 
 .eb-premium-discount{
     margin: auto;
+    text-align: center;
     padding: 2% 2%;
     width: 20%;
     font-size: 1.3em;

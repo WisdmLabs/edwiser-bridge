@@ -56,14 +56,14 @@ if (!class_exists('EbSettingsRemui')) :
                             </div>
                             <div class="eb-premium-discount">
                                 <a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=InProduct&utm_medium=Page&utm_campaign=preext&utm_term=Apr&utm_content=cta1">
-                                    <button>
+                                    <div>
                                     <?php
                                         _e(
                                             "Buy Edwiser Bridge Bundle @25% Off!",
                                             "eb-textdomain"
                                         );
                                     ?>
-                                    </button>
+                                    </div>
                                 </a>
                             </div>
                         </div>
@@ -208,14 +208,14 @@ if (!class_exists('EbSettingsRemui')) :
                     <div class="eb-premium-bottom">
                         <div class="eb-premium-disc">
                             <a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=InProduct&utm_medium=Page&utm_campaign=preext&utm_term=Apr&utm_content=cta2">
-                                <button>
+                                <div>
                                     <?php
                                         _e(
                                             "Buy Edwiser Bridge Bundle @25% Off!",
                                             "eb-textdomain"
                                         );
                                     ?>
-                                </button>
+                                </div>
                             </a>
                         </div>
                     </div>
