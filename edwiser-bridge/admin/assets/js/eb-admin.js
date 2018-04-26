@@ -453,7 +453,6 @@
             e.preventDefault();
             var tmplName = $("#current_selected_email_tmpl_key").val();
             var tmplSub = $("#current-tmpl-name").val();
-            console.log(tmplName);
             $("#eb-lading-parent").show();
             $.ajax({
                 type: "post",
@@ -699,6 +698,85 @@
     $(document).ready(function () {
         $('#eb_order_username').select2();
         $('#eb_order_course').select2();
+
+
+        $('.eb_table_row div input[name$=license_activate]').click(function(){
+            event.preventDefault();
+            var form = $(this).parent().parent();
+            form = form.parent();
+
+            // $(".eb_table_cell_1").dialog();
+            $('<div />').html(eb_admin_js_object.edwiser_terms_content).dialog({
+                title: eb_admin_js_object.edwiser_terms_title,
+                modal: true,
+                resizable: true,
+                width: 500,
+                dialogClass: 'eb_admin_terms_dialog',
+                buttons: [
+                    {
+                        text: "Agree",
+                        "class": 'eb_terms_button_agree',
+                        click: function() {
+                            form.submit();
+                        }
+                    },
+                    {
+                        text: "Disagree",
+                        "class": 'eb_terms_button_disagree',
+                        click: function() {
+                             $(this).dialog("close");
+                        }
+                    }
+                ],
+            });
+        });
+
+
+
+
+        $(window).scroll(function(){
+            // This is then function used to detect if the element is scrolled into view
+            function elementScrolled(elem)
+            {
+                var docViewTop = $(window).scrollTop();
+                var docViewBottom = docViewTop + $(window).height();
+
+                var elemTop = $(elem).offset().top;
+                var elemBottom = elemTop + $(elem).height();
+
+
+                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+            }
+
+
+
+
+            // This is where we use the function to detect if ".box2" is scrolled into view, and when it is add the class ".animated" to the <p> child element
+            var elementsArray = [".eb-premium-extension-woo-int", ".eb-premium-extension-sso", ".eb-premium-extension-selective-synch"];
+            elementsArray.forEach(function(item) {
+                if ($(".eb-premium-extension-woo-int").length && $(".eb-premium-extension-sso").length && $(".eb-premium-extension-selective-synch").length) {
+
+                    if(elementScrolled(item)) {
+                        $(item).animate(
+                        {
+                        opacity: 1
+                        }, 1000);
+                    }
+                }
+            });
+
+        });
+
+
+
+        if ($(".eb-nav-tab-wrapper .nav-tab:last-child").hasClass("nav-tab-active")) {
+            $(".eb-nav-tab-wrapper .nav-tab:last-child").css("color", "#2e9aa6");
+        } else {
+            $(".eb-nav-tab-wrapper .nav-tab:last-child").css("background-color", "#2e9aa6");
+            $(".eb-nav-tab-wrapper .nav-tab:last-child").css("color", "white");
+        }
+
+
     });
 /*JS for Order page end*/
 

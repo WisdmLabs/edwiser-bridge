@@ -157,8 +157,10 @@ Take a look at the link below to see the full list of questions which will help 
 * Feature - Added New Order functionality.
 * Feature - Added admin notice on backend to rate Edwiser Bridge Plugin.
 * Tweak- Added Biographical Information on user-account dashboard.
+* Tweak- Added premium extensions tab on the edwiser-bridge settings.
+* Tweak- Added terms and condition pop-up on the license activate page.
 * Fix - eb-ourses page was showing courses in parent as well as child category.
-* Fix - Synched Categories not synching description from moodle.
+* Fix - Synched Categories from moodle not synching description.
 
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the Edwiser bridge plugin.
