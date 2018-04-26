@@ -702,8 +702,7 @@
 
         $('.eb_table_row div input[name$=license_activate]').click(function(){
             event.preventDefault();
-            var form = $(this).parent().parent();
-            form = form.parent();
+            var submitButton = $(this);
 
             // $(".eb_table_cell_1").dialog();
             $('<div />').html(eb_admin_js_object.edwiser_terms_content).dialog({
@@ -717,7 +716,8 @@
                         text: "Agree",
                         "class": 'eb_terms_button_agree',
                         click: function() {
-                            form.submit();
+                            $(this).dialog("close");
+                            submitButton.click();
                         }
                     },
                     {
