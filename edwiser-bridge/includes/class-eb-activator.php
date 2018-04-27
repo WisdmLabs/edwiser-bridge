@@ -41,6 +41,7 @@ class EBActivator
 
         // redirect to welcome screen
         set_transient('_eb_activation_redirect', 1, 30);
+        set_transient("edwiser_bridge_admin_feedback_notice", "eb_admin_feedback_notice", 60*60*24*15);
     }
 
     /**

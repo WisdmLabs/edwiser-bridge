@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: WordPress, Moodle, Courses, Users, Synchronization, Sell Courses, Learning Management System, LMS, LMS Integration, Moodle WordPress, WordPress Moodle, WP Moodle,
 Requires at least: 4.0
-Tested up to: 4.9.4
+Tested up to: 4.9.5
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -153,6 +153,15 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  == 
+= 1.3.1 =
+* Feature - Added New Order functionality.
+* Feature - Added admin notice on the backend to rate Edwiser Bridge Plugin.
+* Tweak- Added Biographical Information on the user-account dashboard.
+* Tweak- Added premium extensions tab in the edwiser-bridge settings.
+* Tweak- Added terms and condition pop-up on the license activate page.
+* Fix - eb-courses page was showing courses in the parent as well as the child category.
+* Fix - Synced Categories from Moodle was not syncing category description. 
+
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the Edwiser bridge plugin.
 * Feature - Email template for the admin and customer on order refund

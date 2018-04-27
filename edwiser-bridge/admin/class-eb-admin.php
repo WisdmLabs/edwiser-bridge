@@ -67,6 +67,8 @@ class EbAdmin
          * class.
          */
 
+        wp_enqueue_style('dashicons');
+
         wp_enqueue_style(
             $this->plugin_name,
             EB_PLUGIN_URL.'admin/assets/css/eb-admin.css',
@@ -77,6 +79,21 @@ class EbAdmin
         wp_enqueue_style(
             'jquery-tiptip-css',
             EB_PLUGIN_URL.'admin/assets/css/tipTip.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        wp_enqueue_style(
+            "eb-select2-css",
+            EB_PLUGIN_URL.'admin/assets/css/select2.css',
+            array(),
+            $this->version,
+            'all'
+        );
+
+        wp_enqueue_style(
+            "eb-jquery-ui-css",
+            EB_PLUGIN_URL.'admin/assets/css/jquery-ui.css',
             array(),
             $this->version,
             'all'
@@ -110,10 +127,19 @@ class EbAdmin
         wp_enqueue_script(
             $this->plugin_name,
             EB_PLUGIN_URL.'admin/assets/js/eb-admin.js',
+            array('jquery', 'jquery-ui-dialog'),
+            $this->version,
+            false
+        );
+
+        wp_enqueue_script(
+            "eb-select2-js",
+            EB_PLUGIN_URL.'admin/assets/js/select2.js',
             array('jquery'),
             $this->version,
             false
         );
+
 
         wp_localize_script(
             $this->plugin_name,
@@ -141,6 +167,8 @@ class EbAdmin
                 'msg_confirm_refund' => __('Do you want to refund for the order id: #', 'eb-textdomain'),
                 'eb_order_refund_nonce' => wp_create_nonce("eb_order_refund_nons_field"),
                 'msg_refund_failed' => __('Failed to refund the order', 'eb-textdomain'),
+                'edwiser_terms_title' => __('Edwiser Terms and Conditions', 'eb-textdomain'),
+                'edwiser_terms_content' => __('Edwiser extensions licensing system used to provide the latest stable code of the product as well as to check the renewals for this license at our end. For this purpose, we acquire the details like <b> " Site Name, IP Address " </b>and once the license gets deactivated or expires we won\'t get this information from your site. We need this information for giving you a seamless experience of selling Moodle courses through WordPress. Do hit the <b> "Agree" </b> button if you are ready to share these details with us. ', 'eb-textdomain'),
             )
         );
 

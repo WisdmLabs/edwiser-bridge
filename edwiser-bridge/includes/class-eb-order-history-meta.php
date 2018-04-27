@@ -111,9 +111,16 @@ class EBOrderHistory
             'failed'    => __('Failed', "eb-textdomain"),
             'refunded'  => __('Refunded', "eb-textdomain"),
         );
+
+        $user = get_userdata(get_current_user_id());
+
         $statOld     = getArrValue($constStatus, $oldStatus);
         $statNew     = getArrValue($constStatus, $newStatus);
         $noteState   = sprintf(__("Order status changed from %s to %s.", "eb-textdomain"), $statOld, $statNew);
+
+        if (empty($oldStatus)) {
+            $noteState   = sprintf(__("New Order created by %s.", "eb-textdomain"), $user->user_login);
+        }
         $noteState   = apply_filters("eb_order_history_disp_status_change_msg", $noteState, $note);
         return $noteState;
     }

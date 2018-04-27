@@ -210,46 +210,77 @@ class EBOrderMeta
             $order_data = array();
         }
 
-        $byerDetails = get_userdata($order_data['buyer_id']);
-        foreach ($order_data as $key => $value) {
-            $value;
-            if ($key == 'buyer_id') {
-                $this->printByerDetails($byerDetails->data);
-                $this->printProductDetails($order_id, $order_data);
-            } else {
-                continue;
-            }
+        if (isset($order_data['buyer_id']) && !empty($order_data['buyer_id'])) {
+            $byerDetails = get_userdata($order_data['buyer_id']);
+            $this->printByerDetails($byerDetails->data);
+        } else {
+            $this->printByerDetails();
         }
+
+        $this->printProductDetails($order_id, $order_data);
 
         // get ordered item id
-        $course_id = $order_data['course_id'];
+        // $course_id = $order_data['course_id'];
         // return if order does not have an item(course) associated
-        if (!is_numeric($course_id)) {
+        /*if (!is_numeric($course_id)) {
             return;
-        }
+        }*/
     }
 
-    public function printByerDetails($byerDetails)
+    public function printByerDetails($byerDetails = '')
     {
+
+        $userID = 0;
+        if (isset($byerDetails->ID) && !empty($byerDetails->ID)) {
+            $userID = $byerDetails->ID;
+        }
+
         ?>
         <div class='eb-order-meta-byer-details'>
             <p>
                 <strong><?php _e('Buyer Details: ', 'eb-textdomain'); ?></strong>
             </p>
-            <p>
-                <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
-                <?php echo $byerDetails->user_login ?>
-            </p>
-            <p>
-                <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
-                <?php echo $byerDetails->user_email ?>
-            </p>
+            <?php
+            if (isset($byerDetails->user_email) && !empty($byerDetails->user_email)) {
+                ?>
+                <p>
+                    <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
+                    <?php echo $byerDetails->user_login ?>
+                </p>
+
+                <p>
+
+                    <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
+                    <?php echo $byerDetails->user_email ?>
+                </p>
+                <?php
+            } else {
+                ?>
+                <p>
+                    <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
+                    <!-- <input type="select" name="eb_order_options[eb_order_username]"> -->
+                    <div>
+                        <select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
+                        <?=
+                            $this->getAllUsers($userID);
+                        ?>
+                        </select>
+                    </div>
+                </p>
+                <?php
+            }
+            ?>
         </div>
         <?php
     }
 
     private function printProductDetails($order_id, $order_data)
     {
+        $courseId = 0;
+        if (isset($order_data['course_id']) && !empty($order_data['course_id'])) {
+            $courseId = $order_data['course_id'];
+        }
+
         ?>
         <div class='eb-order-meta-details'>
             <p>
@@ -259,19 +290,103 @@ class EBOrderMeta
                 <label><?php _e('Id: ', 'eb-textdomain'); ?></label>
                 <?php echo $order_id; ?>
             </p>
-            <p>
-                <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
-                <a href='<?php echo get_permalink($order_data['course_id']) ?>'>
-                    <?php echo get_the_title($order_data['course_id']); ?>
-                </a>
-            </p>
+
+            <?php
+            if ($courseId) {
+                ?>
+
+                <p>
+                    <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
+                    <a href='<?php echo get_permalink($order_data['course_id']) ?>'>
+                        <?php echo get_the_title($courseId); ?>
+                    </a>
+                </p>
+
+                <?php
+            } else {
+                ?>
+                <p>
+                    <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
+                    <!-- <input type="text" name="eb_order_options[eb_order_course]"> -->
+                    <div>
+                        <select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
+                        <?=
+                            $this->getAllCourses($courseId);
+                        ?>
+                        </select>
+
+                    </div>
+                </p>
+                <?php
+            }
+            ?>
             <p>
                 <label>
-                    <?php _e('Date: ', 'eb-textdomain'); ?> 
+                    <?php _e('Date: ', 'eb-textdomain'); ?>
                 </label>
                 <?php echo get_the_date("Y-m-d H:i", $order_id); ?>
             </p>
         </div>
         <?php
+    }
+
+
+    /**
+     * function to get all users array
+     * @return returns array of users
+     */
+    public function getAllUsers($userId = '')
+    {
+        $users = get_users();
+        // $usersArray = array("" => "Select User");
+        $html = "<option value='' disabled selected> Select User</option>";
+        foreach ($users as $user) {
+            if ($userId) {
+                $selected = '';
+                if ($userId == $user->ID) {
+                    $selected = "selected";
+                }
+                $html .= '<option value="'.$user->ID.'" '.$selected.'> '.$user->user_login.'</option>';
+            } else {
+                $html .= '<option value="'.$user->ID.'" > '.$user->user_login.'</option>';
+            }
+            // $usersArray[$user->ID] = $user->user_login;
+        }
+
+
+        return $html;
+    }
+
+    /**
+     * function to get list of all courses
+     * @return array of all courses with ID
+     */
+    public function getAllCourses($courseId = '')
+    {
+        $course_args = array(
+            'post_type' => 'eb_course',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+        );
+        $courses = get_posts($course_args);
+        // $coursesArray= array("" => "Select Course");
+        $html = "<option value='' disabled selected> Select Course </option>";
+
+        foreach ($courses as $course) {
+            if ($courseId) {
+                $selected = '';
+                if ($courseId == $course->ID) {
+                    $selected = "selected";
+                }
+                $html .= '<option value="'.$course->ID.'" '.$selected.'> '.$course->post_title.'</option>';
+            } else {
+                $html .= '<option value="'.$course->ID.'" > '.$course->post_title.'</option>';
+            }
+
+            // $coursesArray[$course->ID] = $course->post_title;
+        }
+
+
+        return $html;
     }
 }
