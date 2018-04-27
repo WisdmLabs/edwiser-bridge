@@ -82,6 +82,12 @@ color: #2ecc71;
 
 /************************************/
 
+
+.eb-nav-tab-wrapper .nav-tab:last-child:hover{
+    background-color: white !important;
+    color: #2e9aa6 !important;
+}
+
 .eb-premium-interest{
     text-align: center;
     padding-top: 5%;
