@@ -133,8 +133,4 @@ if (!class_exists('EBSettingsPage')) :
         }
     }
 
-    
-
-    
-
 endif;

@@ -140,6 +140,30 @@ do_action('eb_before_customer_login_form');
                     </label>
                     <input type="email" class="input-text" name="email" id="reg_email" value="<?php echo esc_attr($email); ?>" required/>
                 </p>
+
+                <?php
+                if (isset($general_settings['eb_enable_terms_and_cond']) && $general_settings['eb_enable_terms_and_cond'] == "yes" && isset($general_settings['eb_terms_and_cond'])) {
+                ?>
+
+                <p class="form-row form-row-wide">
+                    <input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
+                    <?php _e("I agree to the ", "eb-textdomain"); ?>
+                    <span style="color: #00bfff; cursor: pointer;" id="eb_terms_cond_check"><?php _e("Terms and Conditions", "eb-textdomain"); ?></span>
+                </p>
+
+                <div class="eb-user-account-terms">
+                    <div id = "eb-user-account-terms-content" title="<?php _e("Terms and Conditions", "eb-textdomain")?>">
+                        <?=
+                        $general_settings['eb_terms_and_cond'];
+                        ?>
+                    </div>
+                </div>
+
+                <?php
+                }
+                ?>
+
+
                 <!-- Spam Trap -->
                 <div style="<?php echo (is_rtl()) ? 'right' : 'left'; ?>: -999em; position: absolute;">
                     <label for="trap">

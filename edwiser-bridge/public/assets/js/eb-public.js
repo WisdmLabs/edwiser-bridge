@@ -141,6 +141,58 @@
 
 
     $(document).ready(function () {
+
+        if ($("#reg_terms_and_cond").length) {
+            $("input[name='register']").prop('disabled', true);
+            $("input[name='register']").css("cursor", "no-drop");
+            $("#reg_terms_and_cond").change(function() {
+                if(this.checked) {
+                    $("input[name='register']").prop('disabled', false);
+                    $("input[name='register']").css("cursor", "pointer");
+                } else {
+                    $("input[name='register']").prop('disabled', true);
+                    $("input[name='register']").css("cursor", "no-drop");
+                }
+            });
+        }
+
+
+
+
+        $('#eb_terms_cond_check').click(function(){
+            var checkbox = $(this).parent().parent();
+            checkbox = checkbox.find("input[name='reg_terms_and_cond']");
+            console.log(checkbox.attr("name"));
+            $('#eb-user-account-terms-content').dialog({
+                modal: true,
+                resizable: true,
+                width: 500,
+                dialogClass: 'eb_admin_terms_dialog',
+                buttons: [
+                    {
+                        text: "Agree",
+                        "class": 'eb_terms_button_agree',
+                        click: function() {
+                            checkbox.prop('checked', true);
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                        text: "Disagree",
+                        "class": 'eb_terms_button_disagree',
+                        click: function() {
+                            checkbox.prop('checked', false);
+                             $(this).dialog("close");
+                        }
+                    }
+                ],
+            });
+
+            // $('.eb-user-account-terms div').dialog();
+        });
+
+
+
         function getUrlParameter(sParam)
         {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
