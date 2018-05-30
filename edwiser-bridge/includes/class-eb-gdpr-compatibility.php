@@ -13,7 +13,7 @@
 namespace app\wisdmlabs\edwiserBridge;
 
 /**
-*
+*Class responsible to create plugin GDPR compatible
 */
 class EBGDPRCompatible
 {
@@ -21,6 +21,12 @@ class EBGDPRCompatible
     {
     }
 
+    /**
+     * functionality to add data to the wordpress data exporter function
+     * @param  string  $email email id of the user
+     * @param  integer $page  how many export data pages we have
+     * @return status of the export
+     */
     public function ebDataExporter($email, $page = 1)
     {
         $user = get_user_by("email", $email);
@@ -76,6 +82,11 @@ class EBGDPRCompatible
     }
 
 
+    /**
+     * functionality to get list all enrolled courses
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
     public function getEnrolledCourses($userId)
     {
         global $wpdb;
@@ -93,21 +104,28 @@ class EBGDPRCompatible
         return $enrolledCourse;
     }
 
-
+    /**
+     * functionality to register data exporter function
+     * @param  [type] $exporters [description]
+     * @return [type]            [description]
+     */
     public function ebRegisterMyPluginExporter($exporters)
     {
-        $exporters['my-plugin-slug'] = array(
+        $exporters['edwiser-bridge'] = array(
             'exporter_friendly_name' => __('Edwiser Bridge Plugin'),
             'callback' => array($this, 'ebDataExporter'),
         );
         return $exporters;
     }
 
-
-
     /**************  DELETE FUNCTION  ****************/
 
-
+    /**
+     * functionality to erase all user related data
+     * @param  [type]  $email [description]
+     * @param  integer $page  [description]
+     * @return [type]         [description]
+     */
     public function ebPluginDataEraser($email, $page = 1)
     {
         global $wpdb;
@@ -149,22 +167,27 @@ class EBGDPRCompatible
     }
 
 
-
+    /**
+     * functionality to register eraser function.
+     * @param  [type] $erasers [description]
+     * @return [type]          [description]
+     */
     public function ebRegisterPluginEraser($erasers)
     {
-        $erasers['my-plugin-slug'] = array(
+        $erasers['edwiser-bridge'] = array(
             'eraser_friendly_name' => __('Edwiser Bridge Plugin'),
             'callback'             => array($this, 'ebPluginDataEraser'),
         );
         return $erasers;
     }
 
-
+    /**
+     * get all privacy policy related data
+     * @return [type] [description]
+     */
     public function ebPrivacyPolicyPageData()
     {
         $content = apply_filters("eb-privacy-policy-content", $this->ebPrivacyPolicyContent());
-        /*if (in_array("woocommerce-integration/bridge-woocommerce.php", $active_plugins)) {
-        }*/
 
         if (function_exists('wp_add_privacy_policy_content')) {
             wp_add_privacy_policy_content("Edwiser Bridge", $content);
@@ -172,7 +195,10 @@ class EBGDPRCompatible
     }
 
 
-
+    /**
+     * functionality to merge all the sections data which we want to show on the privacy policy page
+     * @return [type] [description]
+     */
     public function ebPrivacyPolicyContent()
     {
         $sections = array(__("User Account Creation", "eb-textdomain") => $this->ebUserAccountCreationPolicy());
@@ -184,8 +210,6 @@ class EBGDPRCompatible
         }
 
         $sections = apply_filters("eb-policy-sections", $sections);
-
-
         $html = "<div class= 'wp-suggested-text'>
                     <div>
                         <h2>".__("Edwiser", "eb-textdomain")."</h2>
@@ -208,6 +232,10 @@ class EBGDPRCompatible
         return $html;
     }
 
+    /**
+     * policy content of all the account creation activities
+     * @return [type] [description]
+     */
     public function ebUserAccountCreationPolicy()
     {
         $activePlugins = apply_filters('active_plugins', get_option('active_plugins'));
@@ -246,6 +274,10 @@ class EBGDPRCompatible
         return $content;
     }
 
+    /**
+     * payments policy data
+     * @return [type] [description]
+     */
     public function ebPaymentPolicy()
     {
         $content = "<p>
@@ -262,7 +294,10 @@ class EBGDPRCompatible
         return $content;
     }
 
-
+    /**
+     * sso policy data
+     * @return [type] [description]
+     */
     public function ebSSOPolicy()
     {
         $content = "<p>
@@ -271,48 +306,4 @@ class EBGDPRCompatible
         $content = apply_filters("eb-privacy-policy-sso-section", $content);
         return $content;
     }
-
-
-/*    public function ebebPrivacyPolicyContent()
-    {
-
-        $html = "<div>
-                    <div>
-                        <h2>Edwiser</h2>
-                        <p>
-                            Edwiser Bridge or any of its extensions does not capture any data or information from your site.
-                            All the data collection and data processing takes place on your server and no information or data ever goes out of your site to Edwiser or any of its associated sites.
-                        </p>
-                    </div>
-                    <div>
-                        <h2>User Account Creation</h2>
-                        <p>
-                            Whenever a user purchases course in WordPress and completes the payment through PayPal or any payment gateway.
-                            Once the payment gets credited, the user account gets created in WordPress and subsequent user account gets created in Moodle.
-                        </p>
-                        <p>
-                            Example - A user purchases course from “ bridge.edwiser.org “ and his/her payment gets credited then their user account gets created in “ bridge.edwiser.org/moodle “
-                        </p>
-                        <p>
-                            The user related data that is needed to create these user accounts gets stored in your WordPress & Moodle sites respectively.
-                        </p>
-                    </div>
-                    <div>
-                        <h2>Payments</h2>
-                        <p>
-                            In this subsection you should list which third party payment processors you’re using to take payments on your store since these may handle customer data. We’ve included PayPal as an example, but you should remove this if you’re not using PayPal.
-                        </p>
-                        <p>
-                            We accept payments through PayPal. When processing payments, some of your data will be passed to PayPal, including information required to process or support the payment, such as the purchase total and billing information.
-                        </p>
-                        <p>
-                            Please see the <a href = 'https://www.paypal.com/us/webapps/mpp/ua/privacy-full'> PayPal Privacy Policy </a> for more details.
-                        </p>
-                        <p>
-                            For more details you could read our Privacy Policy and Terms and Conditions for better understanding of our product and services.
-                        </p>
-                    </div>
-                </div>";
-        return $html;
-    }*/
 }

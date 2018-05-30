@@ -148,7 +148,7 @@ do_action('eb_before_customer_login_form');
                 <p class="form-row form-row-wide">
                     <input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
                     <?php _e("I agree to the ", "eb-textdomain"); ?>
-                    <span style="color: #00bfff; cursor: pointer;" id="eb_terms_cond_check"><?php _e("Terms and Conditions", "eb-textdomain"); ?></span>
+                    <span style="cursor: pointer;" id="eb_terms_cond_check"> <u><?php _e("Terms and Conditions", "eb-textdomain"); ?></u></span>
                 </p>
 
                 <div class="eb-user-account-terms">

@@ -589,7 +589,6 @@ class EdwiserBridge
 
 
         $gdprCompatible = new EBGDPRCompatible();
-        
         /**
          *used to add eb personal while exporting personal data
          *@since  1.3.2
