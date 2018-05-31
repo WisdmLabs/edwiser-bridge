@@ -65,17 +65,19 @@ class EBGDPRCompatible
                 'done' => true,
             );
         } else {
-            return array(
-                'data' => array(
+            $export_items[] = array(
                 'group_id' => "eb_user_meta",
                 'group_label' => __("Edwiser and Extensions Meta", "woocommerce-integration"),
                 'item_id' => "eb_user_meta",
-
-                    array(
-                      'name' => __('Moodle User ID', "woocommerce-integration"),
-                      'value' => __("Not Available (Not linked to the Moodle LMS site)", "woocommerce-integration")
+                'data' =>  array(
+                        array(
+                            'name' => __('Moodle User ID', "woocommerce-integration"),
+                            'value' => __("Not Available (Not linked to the Moodle LMS site)", "woocommerce-integration")
+                        )
                     )
-                ),
+                );
+            return array(
+                'data' => $export_items,
                 'done' => true,
             );
         }
@@ -135,7 +137,7 @@ class EBGDPRCompatible
         $msg = array();
         $enrollMentManager = EBEnrollmentManager::instance(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
         $enrolledCourses = $this->getEnrolledCourses($user->ID);
-
+        $unenrolled = 0;
         if ($enrolledCourses && !empty($enrolledCourses)) {
             if (isset($generalSettings['eb_erase_moodle_data']) && $generalSettings['eb_erase_moodle_data'] == "yes") {
                 foreach ($enrolledCourses as $key => $value) {
@@ -146,8 +148,11 @@ class EBGDPRCompatible
                         'unenroll' => 1,
                     );
                     $enrollMentManager->updateUserCourseEnrollment($args);
-                    array_push($msg, __("Edwiser Bridge : Unenrolled user from courses", "eb-textdomain"));
+                    $unenrolled = 1;
                 }
+            }
+            if ($unenrolled) {
+                array_push($msg, __("Edwiser Bridge : Deleted Courses related data from the Moodle site", "eb-textdomain"));
             }
 
             $tableName = $wpdb->prefix."moodle_enrollment";
@@ -155,7 +160,7 @@ class EBGDPRCompatible
             $wpdb->get_results($query);
             array_push($msg, __("Edwiser Bridge : Deleted Courses related data from the wordpress site", "eb-textdomain"));
             delete_user_meta($user->ID, "moodle_user_id");
-            array_push($msg, __("Edwiser Bridge : Deleted moodle user ID", "eb-textdomain"));
+            array_push($msg, __("Edwiser Bridge : Deleted Moodle user ID", "eb-textdomain"));
         }
 
         return array(
@@ -214,7 +219,7 @@ class EBGDPRCompatible
                     <div>
                         <h2>".__("Edwiser", "eb-textdomain")."</h2>
                         <p>
-                            ".__("This sample language includes the basics around what personal data our site is using to integrate our site with the Moodle LMS site.", "eb-textdomain")."
+                            ".__("This sample language includes the basics of what personal data our site is using to integrate our site with the Moodle LMS site.", "eb-textdomain")."
                         </p>
                         <p>
                             ".__("We collect information about you and process them for the following purposes.", "eb-textdomain")."
@@ -240,19 +245,19 @@ class EBGDPRCompatible
     {
         $activePlugins = apply_filters('active_plugins', get_option('active_plugins'));
         $content = "<p>
-                        ".__("We enroll user into the course in Moodle for which we need to create account in Moodle below are the ways by which we create users in moodle.", "eb-textdomain")."
+                        ".__("We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle.", "eb-textdomain")."
                     </p>
                     <p>
                         ".__("When you purchase from us through courses page, we’ll ask you to provide information including your first name, last name and email and creates username and password for the user. We’ll use this information for purposes, such as, to:", "eb-textdomain")."
                         <ul>
-                            <li>".__("Create user on the ", "eb-textdomain")."<a href = ".EB_ACCESS_URL.">".__("Moodle site", "eb-textdomain")."</a></li>
-                            <li>".__("Enroll same user into the course.", "eb-textdomain")."</li>
+                            <li>".__("Create a user on the ", "eb-textdomain")."<a href = ".EB_ACCESS_URL.">".__("Moodle site", "eb-textdomain")."</a></li>
+                            <li>".__("Enroll the same user into the course.", "eb-textdomain")."</li>
                         </ul>
                     </p>";
 
         if (in_array("woocommerce-integration/bridge-woocommerce.php", $activePlugins)) {
             $content .= "<p>
-                            ".__("We collect user information whenever you submit an checkout form on woocommerce store. When you submit woocommerce checkout form, we will use following information to create the user account on the moodle site(this should be the link of the moodle site, get the connection url).:", "eb-textdomain")."
+                            ".__("We collect user information whenever you submit a checkout form on woocommerce store. When you submit woocommerce checkout form, we will use following information to create the user account on the Moodle site:", "eb-textdomain")."
 
                             <ul>
                                 <li>".__("First Name", "eb-textdomain")."</li>
