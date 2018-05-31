@@ -99,21 +99,21 @@ add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice')
  */
 function ebAdminFeedbackNotice()
 {
-    $redirection = "?eb-feedback-notice-dismissed";
+    $redirection = '?eb-feedback-notice-dismissed';
     if (isset($_GET) && !empty($_GET)) {
-        $redirection = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $redirection .= "&eb-feedback-notice-dismissed";
+        $redirection = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $redirection .= '&eb-feedback-notice-dismissed';
     }
 
     if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
         $user_id = get_current_user_id();
         if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
             echo '  <div class="notice notice-success eb_admin_feedback_notice_message_cont">
-                        <div class="eb_admin_feedback_notice_message">' . __('Enjoying Edwiser bridge, Please  ', 'eb-textdomain') .'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</div>
+                        <div class="eb_admin_feedback_notice_message">'.__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</div>
                         <div class="eb_admin_feedback_dismiss_notice_message">
                             <a href="'.$redirection.'">
                                 <span class="dashicons dashicons-dismiss"></span>
-                                '. __(' Dismiss ', 'eb-textdomain') .'
+                                '.__(' Dismiss ', 'eb-textdomain').'
                             </a>
                         </div>
                     </div>';
@@ -175,9 +175,9 @@ function wdmShowLegacyExtensionsNotices()
             <?php
             printf(
                 __('Please update all %s extensions to latest version.', 'eb-textdomain'),
-                '<strong>' . __('Edwiser Bridge', 'eb-textdomain') . '</strong>'
+                '<strong>'.__('Edwiser Bridge', 'eb-textdomain').'</strong>'
             );
-            ?>
+    ?>
         </p>
     </div>
     <?php
