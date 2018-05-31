@@ -170,7 +170,7 @@ if (!class_exists('EBSettingsGeneral')) :
                     'id'       => 'eb_terms_and_cond',
                     'default'  => '',
                     'type'     => 'textarea',
-                    'css'      => 'min-width:300px;',
+                    'css'      => 'min-width:300px; min-height: 110px;',
                     'desc_tip' => true,
                 ),
                 array('type' => 'sectionend', 'id' => 'general_options'),

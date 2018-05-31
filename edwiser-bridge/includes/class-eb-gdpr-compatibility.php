@@ -31,30 +31,30 @@ class EBGDPRCompatible
     {
         $user = get_user_by("email", $email);
         $moodleUserId = get_user_meta($user->ID, "moodle_user_id", 1);
-        $enrolledCourses = $this->getEnrolledCourses($user->ID);
+        $enrolledCourses = $this->getEnrolledCoursesWithDate($user->ID);
         $data = array(
                     array(
-                      'name' => __('Moodle User ID', "woocommerce-integration"),
-                      'value' => $moodleUserId
+                      'name' => __('Course Name', "woocommerce-integration"),
+                      'value' => __('Enrollment Date and Time', "woocommerce-integration")
                     )
                 );
         foreach ($enrolledCourses as $key => $value) {
             array_push($data, array(
-                'name' => __("Moodle Course ID", "woocommerce-integration"),
+                'name' => $value,
                 'value' => $key
                 ));
 
-            array_push($data, array(
+/*            array_push($data, array(
                 'name' => __("Moodle Course Name", "woocommerce-integration"),
                 'value' => $value
-                ));
+                ));*/
         }
         $page =$page;
         $export_items = array();
         if ($moodleUserId) {
             $export_items[] = array(
                 'group_id' => "eb_user_meta",
-                'group_label' => __("Edwiser and Extensions Meta", "woocommerce-integration"),
+                'group_label' => __("User enrollment data", "woocommerce-integration"),
                 'item_id' => "eb_user_meta",
                 'data' => $data,
               );
@@ -67,11 +67,11 @@ class EBGDPRCompatible
         } else {
             $export_items[] = array(
                 'group_id' => "eb_user_meta",
-                'group_label' => __("Edwiser and Extensions Meta", "woocommerce-integration"),
+                'group_label' => __("User enrollment data", "woocommerce-integration"),
                 'item_id' => "eb_user_meta",
                 'data' =>  array(
                         array(
-                            'name' => __('Moodle User ID', "woocommerce-integration"),
+                            'name' => __('Enrollment data', "woocommerce-integration"),
                             'value' => __("Not Available (Not linked to the Moodle LMS site)", "woocommerce-integration")
                         )
                     )
@@ -101,6 +101,29 @@ class EBGDPRCompatible
         if (! empty($result)) {
             foreach ($result as $single_result) {
                 $enrolledCourse[$single_result->course_id] = get_the_title($single_result->course_id);
+            }
+        }
+        return $enrolledCourse;
+    }
+
+
+        /**
+     * functionality to get list all enrolled courses
+     * @param  [type] $userId [description]
+     * @return [type]         [description]
+     */
+    public function getEnrolledCoursesWithDate($userId)
+    {
+        global $wpdb;
+        $tableName = $wpdb->prefix."moodle_enrollment";
+        $query = $wpdb->prepare('SELECT `course_id`, `time` FROM '.$tableName.' WHERE user_id = %d', $userId);
+
+        $enrolledCourse = array();
+        $result = $wpdb->get_results($query);
+
+        if (! empty($result)) {
+            foreach ($result as $single_result) {
+                $enrolledCourse[$single_result->time] = get_the_title($single_result->course_id);
             }
         }
         return $enrolledCourse;
@@ -152,15 +175,15 @@ class EBGDPRCompatible
                 }
             }
             if ($unenrolled) {
-                array_push($msg, __("Edwiser Bridge : Deleted Courses related data from the Moodle site", "eb-textdomain"));
+                array_push($msg, __("Deleted Courses related data from the Moodle site", "eb-textdomain"));
             }
 
             $tableName = $wpdb->prefix."moodle_enrollment";
             $query = $wpdb->prepare('DELETE FROM '.$tableName.' WHERE user_id = %d', $user->ID);
             $wpdb->get_results($query);
-            array_push($msg, __("Edwiser Bridge : Deleted Courses related data from the wordpress site", "eb-textdomain"));
+            array_push($msg, __("Deleted Courses related data from the wordpress site", "eb-textdomain"));
             delete_user_meta($user->ID, "moodle_user_id");
-            array_push($msg, __("Edwiser Bridge : Deleted Moodle user ID", "eb-textdomain"));
+            array_push($msg, __("Deleted Moodle user ID", "eb-textdomain"));
         }
 
         return array(
