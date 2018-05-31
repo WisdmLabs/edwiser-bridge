@@ -38,16 +38,11 @@ class EBGDPRCompatible
                       'value' => __('Enrollment Date and Time', "woocommerce-integration")
                     )
                 );
-        foreach ($enrolledCourses as $key => $value) {
+        foreach ($enrolledCourses as $value) {
             array_push($data, array(
-                'name' => $value,
-                'value' => $key
+                'name' => $value["name"],
+                'value' => $value["time"]
                 ));
-
-/*            array_push($data, array(
-                'name' => __("Moodle Course Name", "woocommerce-integration"),
-                'value' => $value
-                ));*/
         }
         $page =$page;
         $export_items = array();
@@ -107,7 +102,7 @@ class EBGDPRCompatible
     }
 
 
-        /**
+    /**
      * functionality to get list all enrolled courses
      * @param  [type] $userId [description]
      * @return [type]         [description]
@@ -123,7 +118,10 @@ class EBGDPRCompatible
 
         if (! empty($result)) {
             foreach ($result as $single_result) {
-                $enrolledCourse[$single_result->time] = get_the_title($single_result->course_id);
+                $enrolledCourse[$single_result->course_id] = array(
+                                    "time" => $single_result->time,
+                                    "name" => get_the_title($single_result->course_id)
+                                );
             }
         }
         return $enrolledCourse;
