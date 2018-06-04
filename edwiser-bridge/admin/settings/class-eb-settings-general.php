@@ -145,6 +145,34 @@ if (!class_exists('EBSettingsGeneral')) :
                     'desc_tip' =>
                     __('This setting will be applicable only on the `/courses` page template', 'eb-textdomain'),
                 ),
+                array(
+                    'title'    => __('Erase associated Moodle data from Moodle site', 'eb-textdomain'),
+                    'desc'     => __('Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'eb-textdomain'),
+                    'id'       => 'eb_erase_moodle_data',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('Enable terms and conditions', 'eb-textdomain'),
+                    'desc'     => __('Check this to use terms and conditions checkbox on the user-account page.', 'eb-textdomain'),
+                    'id'       => 'eb_enable_terms_and_cond',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('Terms and Conditions', 'eb-textdomain'),
+                    'desc'     => __(
+                        'Please enter the Terms and Conditions you want to show on user-account page.',
+                        'eb-textdomain'
+                    ),
+                    'id'       => 'eb_terms_and_cond',
+                    'default'  => '',
+                    'type'     => 'textarea',
+                    'css'      => 'min-width:300px; min-height: 110px;',
+                    'desc_tip' => true,
+                ),
                 array('type' => 'sectionend', 'id' => 'general_options'),
                 array(
                     'title' => __('Refund Notification Settings', 'eb-textdomain'),

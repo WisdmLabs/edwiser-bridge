@@ -91,6 +91,13 @@ class EbPublic
             $this->version,
             'all'
         );
+        wp_enqueue_style(
+            "eb-public-jquery-ui-css",
+            EB_PLUGIN_URL.'admin/assets/css/jquery-ui.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -113,10 +120,12 @@ class EbPublic
          * class.
          */
         $nonce = wp_create_nonce('public_js_nonce');
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-dialog');
         wp_enqueue_script(
             $this->plugin_name,
             EB_PLUGIN_URL . 'public/assets/js/eb-public.js',
-            array( 'jquery' ),
+            array( 'jquery', 'jquery-ui-dialog' ),
             $this->version,
             false
         );
@@ -153,7 +162,7 @@ class EbPublic
                 'msg_val_mail' => __("The field 'Email' cannot be left blank", 'eb-textdomain'),
                 'msg_ordr_pro_err' => __('Problems in processing your order, Please try later.', 'eb-textdomain'),
                 'msg_processing' => __('Processing...', 'eb-textdomain'),
-                'access_course' => __('Access Course', 'eb-textdomain')
+                'access_course' => __('Access Course', 'eb-textdomain'),
             )
         );
 

@@ -263,6 +263,13 @@ class EdwiserBridge
         include_once EB_PLUGIN_DIR.'includes/class-eb-default-email-templates.php';
 
 
+        /*
+         * loading refund dependencies.
+         * @since      1.3.3
+         */
+        require_once EB_PLUGIN_DIR.'includes/class-eb-gdpr-compatibility.php';
+
+
         $this->loader = new EBLoader();
     }
 
@@ -578,6 +585,35 @@ class EdwiserBridge
             'wp_ajax_wdm_eb_email_tmpl_restore_content',
             $emailTmplEditor,
             'resetEmailTemplateContent'
+        );
+
+
+        $gdprCompatible = new EBGDPRCompatible();
+        /**
+         *used to add eb personal while exporting personal data
+         *@since  1.3.2
+         */
+        $this->loader->addAction(
+            'wp_privacy_personal_data_exporters',
+            $gdprCompatible,
+            'ebRegisterMyPluginExporter'
+        );
+
+
+        /**
+         *used to add eb personal while exporting personal data
+         *@since  1.3.2
+         */
+        $this->loader->addAction(
+            'wp_privacy_personal_data_erasers',
+            $gdprCompatible,
+            'ebRegisterPluginEraser'
+        );
+
+        $this->loader->addAction(
+            "admin_init",
+            $gdprCompatible,
+            'ebPrivacyPolicyPageData'
         );
     }
 

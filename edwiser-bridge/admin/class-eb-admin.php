@@ -134,7 +134,7 @@ class EbAdmin
 
         wp_enqueue_script(
             "eb-select2-js",
-            EB_PLUGIN_URL.'admin/assets/js/select2.js',
+            EB_PLUGIN_URL.'admin/assets/js/select2.full.js',
             array('jquery'),
             $this->version,
             false

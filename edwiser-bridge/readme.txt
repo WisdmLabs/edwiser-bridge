@@ -1,6 +1,6 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration === 
 Contributors: WisdmLabs
-Tags: WordPress, Moodle, Courses, Users, Synchronization, Sell Courses, Learning Management System, LMS, LMS Integration, Moodle WordPress, WordPress Moodle, WP Moodle,
+Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
 Requires at least: 4.0
 Tested up to: 4.9.5
 Stable tag: trunk
@@ -62,11 +62,28 @@ Various hooks and filters have been provided in Edwiser Bridge easing the custom
  = Email Template customization =
 Edit the content in email templates sent out from the plugin to users who purchase the course.
 
-= My Courses page =
+ = My Courses page =
 A dedicated page which displays every user the list of courses they have purchased and based on their selection, recommends them other courses on offer.
 
-= Set course access expiry period =
+ = Set course access expiry period =
 Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
+
+ = Set course access expiry period =
+Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
+
+ = Refund Functionality =
+Now you can give refunds to your students/clients from the Orders section under Edwiser Bridge.
+As an admin, you can make sure that people other than you are notified whenever a refund is given.
+The student or client will be notified by email when the refund is given.
+Admin can also customize the email template sent to the student/client.
+
+ = Order Status Update History =
+A new widget is added to the Orders edit page. It displays the full history of actions taken for that order.
+
+ = User Account Page =
+We have improved the user account page.Now your buyers will get all the purchase & course related information in one place.
+They can also update their profile and change their account passwords.
+The passwords updated here will reflect on both the WordPress and Moodle sites.
 
  = Premium Extensions = 
 **WooCommerce Integration for Edwiser Bridge**
@@ -92,6 +109,14 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
 The Bulk Purchase plugin lets you buy more than one Moodle course through WooCommerce at one go and enroll each student in your class.
 
 <a href = "https://edwiser.org/bridge/extensions/bulk-purchase/">Bulk Purchase for Edwiser Bridge</a>
+
+
+**Edwiser RemUI Theme for Moodle**
+
+The world's first User Centric theme for Moodle. Level Up your Moodle experience with Edwiser RemUI.
+
+<a href = "https://edwiser.org/remui/">Edwiser RemUI Theme for Moodle</a>
+
 
  ==  Installation  == 
 
@@ -152,7 +177,17 @@ No, this is not possible using Edwiser Bridge.
 Take a look at the link below to see the full list of questions which will help you around the Edwiser Bridge plugin. 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
- ==  Changelog  == 
+ ==  Changelog  ==
+= 1.3.3 =
+* Feature - Added optional terms and conditions on user account page depending on the backend setting.
+* Tweak- Added user meta data related to the edwiser-bridge while exporting the users data.
+* Tweak- Added functionality to remove user meta data related to the edwiser-bridge while erasing the users data.
+* Tweak- Added privacy policy data on the wordpress privacy policy page.
+
+
+= 1.3.2 =
+* Tweak - Added missing JS and CSS Files.
+
 = 1.3.1 =
 * Feature - Added New Order functionality.
 * Feature - Added admin notice on the backend to rate Edwiser Bridge Plugin.

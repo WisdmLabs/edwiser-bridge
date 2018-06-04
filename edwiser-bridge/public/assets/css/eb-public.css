@@ -24,6 +24,73 @@
 }
 
 
+/*
+ * user account terms and conditions style
+ */
+.eb_admin_terms_dialog{
+    padding: 0px 0px !important;
+}
+
+.eb_admin_terms_dialog .ui-dialog-titlebar{
+    font-size: 1.2em !important;
+    color: white !important;
+    background-color: #1564ae !important;
+    border: 0px solid grey !important;
+}
+
+.eb_admin_terms_dialog .ui-dialog-content{
+    font-weight: 500 !important;
+    font-size: 1.1em !important;
+    padding: 10px 15px !important;
+    color: #5c5b5b !important;
+    line-height: 1.5em !important;
+}
+
+.eb_terms_button_agree{
+    border: 1px solid #0b5d9e !important;
+    background-color: #0a65ae !important;
+    color: white !important;
+    margin: 0.2em .4em .2em 0 !important;
+    padding: 8px 13px !important;
+    /* font-weight: 600; */
+    /* background-color: #414b5d; */
+    font-weight: 800 !important;
+    font-size: 1.1em !important;
+}
+
+.ui-widget-overlay{
+    background: #000000 !important;
+    opacity: .7 !important;
+}
+
+.ui-dialog-buttonpane{
+    padding-bottom: 0px !important;
+}
+
+.eb_terms_button_disagree{
+    margin: 0.2em .4em .2em 0;
+    /* background-color: #0a65ae; */
+    /* color: white; */
+    padding: 8px 13px !important;
+    /* font-weight: 600; */
+    background-color: #d8d9d9 !important;
+    font-weight: 800 !important;
+    /* color: white; */
+    font-size: 1.1em !important;
+}
+
+.eb_terms_button_disagree:hover{
+    /*box-shadow: 1px 1px 1px grey;*/
+    border: 1px solid #0000003d;
+}
+
+/*
+ * End
+ */
+
+.eb-user-account-terms{
+    display: none;
+}
 
 /**
  * course archive template style
