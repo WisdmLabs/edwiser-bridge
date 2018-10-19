@@ -2,7 +2,7 @@
 
 #Whether to enable static analyzer for this repo. When set to 1, checks are enabled and all static analyzers are executed.
 #When set to 0, no static analyzer is not exeucted for this repo
-ENABLE_ALL_CHECKS="0"
+ENABLE_ALL_CHECKS="1"
 
 #When this parameter is not provided or blank, it takes PSR2 standard by default
 PHPCS_CODING_STANDARD=""
