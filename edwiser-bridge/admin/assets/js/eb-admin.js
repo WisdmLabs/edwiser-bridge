@@ -565,6 +565,70 @@
             }
         });
 
+/********  recommended courses settings in general settings and course edit settings   ************/
+
+
+        function dfaultRecommendedSectionGeneralSettings(dfaultSection, dropdownDiv, selectDropDown, displayType)
+        {
+            if ($(dfaultSection).prop("checked") == true) {
+                $(selectDropDown).val([]);
+                dropdownDiv.css("display", "none");
+            } else {
+                dropdownDiv.css("display", displayType);
+            }
+        }
+
+
+        function recommendedCourseSectionGeneralSettings(enbleSection, dfaultSection, checkboxDiv, dropdownDiv, selectDropDown, displayType)
+        {
+            if ($(enbleSection).prop("checked") == true) {
+                checkboxDiv.css("display", displayType);
+                dfaultRecommendedSectionGeneralSettings(dfaultSection, dropdownDiv, selectDropDown, displayType);
+            } else {
+                checkboxDiv.css("display", "none");
+                dropdownDiv.css("display", "none");
+            }
+        }
+
+
+        $("#eb_enable_recmnd_courses").click(function(){
+            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"),$("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
+        });
+
+        $("#eb_show_default_recmnd_courses").click(function(){
+            dfaultRecommendedSectionGeneralSettings("#eb_show_default_recmnd_courses", $("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
+        });
+
+        if ($("#eb_show_default_recmnd_courses").length) {
+            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"),$("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row") ;
+        }
+
+        $("#enable_recmnd_courses").click(function(){
+            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"),$("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block") ;
+        });
+
+        $("#show_default_recmnd_course").click(function(){
+            dfaultRecommendedSectionGeneralSettings("#show_default_recmnd_course", $("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block");
+        });
+
+
+        if ($("#show_default_recmnd_course").length) {
+            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"),$("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block") ;
+        }
+
+
+        $("#eb_recmnd_courses").select2({
+            placeholder: "Select Course",
+        });
+        $("#enable_recmnd_courses_single_course").select2({
+            placeholder: "Select Course",
+            width: 'auto'
+        });
+
+
+
+/*******************  END   *********************/
+
     });
 
     $(document).one("click", ".notice-dismiss", function () {

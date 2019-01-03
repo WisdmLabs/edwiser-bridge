@@ -46,10 +46,15 @@ class EbShortcodeMyCourses
         $my_courses = $currentClass->getUserCourses($atts['user_id']);
 
         $currentClass->showMyCourses($my_courses, $atts);
-        if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
-            $rec_cats = $currentClass->getRecommendedCategories($my_courses);
-            if (count($rec_cats)) {
-                $currentClass->showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
+
+        $ebGeneralSetings = get_option("eb_general");
+
+        if (isset($ebGeneralSetings['eb_enable_recmnd_courses']) && $ebGeneralSetings['eb_enable_recmnd_courses'] == "yes") {
+            if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
+                $rec_cats = $currentClass->getRecommendedCategories($my_courses);
+                if (count($rec_cats)) {
+                    $currentClass->showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
+                }
             }
         }
     }
@@ -116,12 +121,18 @@ class EbShortcodeMyCourses
             }
             echo "</div>";
         } else {
+            $ebGeneralSettings = get_option("eb_general");
+            if (isset($ebGeneralSettings['eb_my_course_link']) && !empty($ebGeneralSettings['eb_my_course_link'])) {
+                $link = $ebGeneralSettings['eb_my_course_link'];
+            } else {
+                $link = site_url('/courses');
+            }
             ?>
             <h5>
                 <?php
                 printf(
                     __('You are not enrolled to any course. %s to access the courses page.', 'eb-textdomain'),
-                    "<a href='".esc_url(site_url('/courses'))."'>".__("Click here", "eb-textdomain")."</a>"
+                    "<a href='".$link."'>".__("Click here", "eb-textdomain")."</a>"
                 );
                 ?>
             </h5>
@@ -135,33 +146,20 @@ class EbShortcodeMyCourses
     {
         //Recommended Courses.
         $rec_cats = array();
-
         foreach ($user_courses as $user_course_id) {
             $terms = wp_get_post_terms($user_course_id, 'eb_course_cat');
             foreach ($terms as $term) {
                 $rec_cats[$term->slug] = $term->name;
             }
         }
-
         return $rec_cats;
     }
 
-    public function showRecommendedCourses($rec_cats, $exclude_courses, $count, $atts)
+    public function showRecommendedCourses($rec_cats = "", $exclude_courses = "", $count = "", $atts = "", $args = "")
     {
-        $args = array(
-            'post_type' => 'eb_course',
-            'post_status' => 'publish',
-            'posts_per_page' => $count,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'eb_course_cat',
-                    'field' => 'slug',
-                    'terms' => array_keys($rec_cats),
-                ),
-            ),
-            'post__not_in' => $exclude_courses
-        );
-
+        if ($args == "") {
+            $args = $this->createQuery($count, $rec_cats, $exclude_courses);
+        }
         $courses = new \WP_Query($args);
 
         $template_loader = new EbTemplateLoader(
@@ -191,5 +189,100 @@ class EbShortcodeMyCourses
             <?php _e('View More &rarr;', 'eb-textdomain'); ?>
         </a>
         <?php
+    }
+
+
+
+
+    public function createQuery($count, $rec_cats, $exclude_courses)
+    {
+        $ebGeneralSetings = get_option("eb_general");
+
+        if (isset($ebGeneralSetings['eb_show_default_recmnd_courses']) && $ebGeneralSetings['eb_show_default_recmnd_courses'] == "yes") {
+            $args = array(
+                'post_type' => 'eb_course',
+                'post_status' => 'publish',
+                'posts_per_page' => $count,
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'eb_course_cat',
+                        'field' => 'slug',
+                        'terms' => array_keys($rec_cats),
+                    ),
+                ),
+                'post__not_in' => $exclude_courses
+            );
+        } elseif (isset($ebGeneralSetings['eb_recmnd_courses']) && !empty($ebGeneralSetings['eb_recmnd_courses'])) {
+            $args = array(
+                'post_type' => 'eb_course',
+                'post_status' => 'publish',
+                'posts_per_page' => $count,
+                'post__in' => $ebGeneralSetings['eb_recmnd_courses']
+            );
+        }
+
+        return $args;
+        /*$args = array(
+            'post_type' => 'eb_course',
+            'post_status' => 'publish',
+            'posts_per_page' => $count,
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'eb_course_cat',
+                    'field' => 'slug',
+                    'terms' => array_keys($rec_cats),
+                ),
+            ),
+            'post__not_in' => $exclude_courses
+        );*/
+    }
+
+    /**
+     * function to create a custom wp query which created on the basis of the category or the custom courses selected in setting
+     * @return [type] [description]
+     */
+    public function generateRecommendedCourses()
+    {
+        global $post;
+        $courseOptions = get_post_meta($post->ID, "eb_course_options", true);
+
+
+        if (isset($courseOptions['enable_recmnd_courses']) && $courseOptions['enable_recmnd_courses'] == "yes") {
+            if (isset($courseOptions['show_default_recmnd_course']) && $courseOptions['show_default_recmnd_course'] == "yes") {
+                $args = array(
+                    'post_type' => 'eb_course',
+                    'post_status' => 'publish',
+                    'posts_per_page' => 4,
+                    'tax_query' => array(
+                        array(
+                            'taxonomy' => 'eb_course_cat',
+                            'field' => 'slug',
+                            'terms' => $this->getRecommendedCategories(array($post->ID))
+                        ),
+                    ),
+                    // 'post__not_in' => $exclude_courses
+                );
+            } elseif (isset($courseOptions['enable_recmnd_courses_single_course']) && !empty($courseOptions['enable_recmnd_courses_single_course'])) {
+                $args = array(
+                    'post_type' => 'eb_course',
+                    'post_status' => 'publish',
+                    // 'posts_per_page' => 4,
+                    'post__in' => $courseOptions['enable_recmnd_courses_single_course']
+                );
+            }
+
+            $attr["recommended_courses_wrapper_title"] = __("Recommended Courses", "eb-textdomain");
+            $this->showRecommendedCourses("", "", "", $attr, $args);
+        }
+
+        /*if ($courseOptions["enable_recmnd_courses"] == "yes") {
+            $args = array(
+                'post_type' => 'eb_course',
+                'post_status' => 'publish',
+                'posts_per_page' => 3,
+                'post__in' => $courseOptions["enable_recmnd_courses_single_course"]
+            );
+
+        }*/
     }
 }

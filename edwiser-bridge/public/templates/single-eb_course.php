@@ -30,9 +30,13 @@ $template_loader = new EbTemplateLoader(
 <?php do_action('eb_before_single_course'); ?>
 <?php
 
+$ebShrtcodeWrapper =  new EbShortcodeMyCourses();
+
 while (have_posts()) :
     the_post();
     $template_loader->wpGetTemplatePart('content-single', get_post_type());
+
+    $ebShrtcodeWrapper->generateRecommendedCourses();
     comments_template();
 endwhile;
 ?>

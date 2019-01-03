@@ -146,6 +146,18 @@ if (!class_exists('EBSettingsGeneral')) :
                     __('This setting will be applicable only on the `/courses` page template', 'eb-textdomain'),
                 ),
                 array(
+                    'title'    => __('Link on My courses page', 'eb-textdomain'),
+                    'desc'     => __(
+                        'Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page',
+                        'eb-textdomain'
+                    ),
+                    'id'       => 'eb_my_course_link',
+                    'default'  => '',
+                    'type'     => 'text',
+                    'css'      => 'min-width:300px;',
+                    'desc_tip' => true,
+                ),
+                array(
                     'title'    => __('Erase associated Moodle data from Moodle site', 'eb-textdomain'),
                     'desc'     => __('Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'eb-textdomain'),
                     'id'       => 'eb_erase_moodle_data',
@@ -174,6 +186,38 @@ if (!class_exists('EBSettingsGeneral')) :
                     'desc_tip' => true,
                 ),
                 array('type' => 'sectionend', 'id' => 'general_options'),
+                array(
+                    'title' => __('Recommended Courses Settings', 'eb-textdomain'),
+                    'type'  => 'title',
+                    'desc'  => '',
+                    'id'    => 'general_recommended_options',
+                ),
+                array(
+                    'title'    => __('Show Recommended Courses', 'eb-textdomain'),
+                    'desc'     => sprintf(__('Show recommended courses on eb-my-courses page.', 'eb-textdomain')),
+                    'id'       => 'eb_enable_recmnd_courses',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('Show Default Recommended Courses', 'eb-textdomain'),
+                    'desc'     => sprintf(__('Show category wise selected recommended courses on eb-my-courses page.', 'eb-textdomain')),
+                    'id'       => 'eb_show_default_recmnd_courses',
+                    'default'  => 'yes',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('Select Courses', 'eb-textdomain'),
+                    'desc'     => '<br/>' .sprintf(__('Select courses to show in custom courses in recommended course section.', 'eb-textdomain')),
+                    'id'       => 'eb_recmnd_courses',
+                    'type'     => 'multiselect',
+                    'default'  => '',
+                    'options'  => getAllEbSourses(),
+                    'desc_tip' => __("", 'eb-textdomain'),
+                ),
+                array('type' => 'sectionend', 'id' => 'general_recommended_options'),
                 array(
                     'title' => __('Refund Notification Settings', 'eb-textdomain'),
                     'type'  => 'title',

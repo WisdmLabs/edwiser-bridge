@@ -1083,3 +1083,12 @@ span.eb-option-input .eb-option-div select{
     /*font-family: cursive;*/
     padding: 5px;
 }
+
+
+/*****  Recommended course section css   *****/
+
+#eb_course_show_default_recmnd_course, #eb_course_enable_recmnd_courses_single_course{
+    display: none;
+}
+
+/*****  Recommended course section css END   *****/
