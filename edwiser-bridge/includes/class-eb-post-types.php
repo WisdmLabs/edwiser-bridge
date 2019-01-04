@@ -294,6 +294,7 @@ class EBPostTypes
      */
     private function populateMetaboxFields($post_type)
     {
+        global $post;
         $args_array = array(
             'eb_course' => array(
                 'moodle_course_id' => array(
@@ -369,7 +370,7 @@ class EBPostTypes
                     'label' => __('Select Courses', 'eb-textdomain'),
                     'description' => __('Select courses to show in custom courses in recommended course section.', 'eb-textdomain'),
                     'type' => 'select_multi',
-                    'options' => getAllEbSourses(),
+                    'options' => getAllEbSourses($post->ID),
                     'default' => array('pending'),
                 ),
             ),

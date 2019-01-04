@@ -326,7 +326,7 @@ function getTotalRefundAmt($refunds)
 }
 
 
-function getAllEbSourses()
+function getAllEbSourses($postId = 0)
 {
     $posts = get_posts(
         array(
@@ -335,6 +335,13 @@ function getAllEbSourses()
             'post_type' => 'eb_course'
         )
     );
+
+    if ($postId) {
+        $key = array_search($postId, $posts);
+        if ($key !== false) {
+            unset($posts[$key]);
+        }
+    }
 
     $postsWithTitle = array();
     foreach ($posts as $value) {
