@@ -142,6 +142,10 @@ class EbShortcodeMyCourses
         echo '</div>';
     }
 
+    /**
+     * Functionality to return the recommended categories for the recommended courses.
+     * @since  1.3.4
+     */
     public function getRecommendedCategories($user_courses)
     {
         //Recommended Courses.
@@ -155,6 +159,15 @@ class EbShortcodeMyCourses
         return $rec_cats;
     }
 
+    /**
+     *
+     * @param  string $rec_cats        Recommended categories for the courses.
+     * @param  string $exclude_courses which courses should be excluded from the recommended courses sestion.
+     * @param  string $count           No of courses shown in the recommended section.
+     * @param  string $atts            This array contains the attrivutes sent from the shortcode.
+     * @param  string $args            Wp-Query
+     * @return [type]                  Prints entire section of the recommended courses.
+     */
     public function showRecommendedCourses($rec_cats = "", $exclude_courses = "", $count = "", $atts = "", $args = "")
     {
         if ($args == "") {
@@ -167,33 +180,40 @@ class EbShortcodeMyCourses
             edwiserBridgeInstance()->getVersion()
         );
 
-        echo '<div class="eb-rec-courses-wrapper">';
-        if (!empty($atts['recommended_courses_wrapper_title'])) {
-            ?><h2><?php echo $atts['recommended_courses_wrapper_title']; ?></h2><?php
-        }
-        do_action('eb_before_recommended_courses');
         if ($courses->have_posts()) {
+            echo '<div class="eb-rec-courses-wrapper">';
+            if (!empty($atts['recommended_courses_wrapper_title'])) {
+                ?><h2><?php echo $atts['recommended_courses_wrapper_title']; ?></h2><?php
+            }
+            do_action('eb_before_recommended_courses');
             while ($courses->have_posts()) :
                 $courses->the_post();
                 $template_loader->wpGetTemplatePart('content', 'eb_course');
             endwhile;
+            do_action('eb_after_recommended_courses');
+            echo '</div>';
+            $eb_course = get_post_type_object('eb_course');
+            $view_more_url = site_url($eb_course->rewrite['slug']);
+            ?>
+            <a href="<?php echo $view_more_url; ?>" class="wdm-btn eb-rec-courses-view-more">
+                <?php _e('View More &rarr;', 'eb-textdomain'); ?>
+            </a>
+            <?php
         } else {
             $template_loader->wpGetTemplatePart('content', 'none');
         }
-        do_action('eb_after_recommended_courses');
-        echo '</div>';
-        $eb_course = get_post_type_object('eb_course');
-        $view_more_url = site_url($eb_course->rewrite['slug']);
-        ?>
-        <a href="<?php echo $view_more_url; ?>" class="wdm-btn eb-rec-courses-view-more">
-            <?php _e('View More &rarr;', 'eb-textdomain'); ?>
-        </a>
-        <?php
     }
 
 
 
-
+    /**
+     * FUnction used to create wp-query according to the backend options
+     * @since  1.3.4
+     * @param  [type] $count           No of courses shown in the recommended section
+     * @param  [type] $rec_cats        Recommended categories for the courses
+     * @param  [type] $exclude_courses which courses should be excluded from the recommended courses sestion
+     * @return [type]                  Wp-query
+     */
     public function createQuery($count, $rec_cats, $exclude_courses)
     {
         $ebGeneralSetings = get_option("eb_general");
@@ -220,32 +240,19 @@ class EbShortcodeMyCourses
                 'post__in' => $ebGeneralSetings['eb_recmnd_courses']
             );
         }
-
         return $args;
-        /*$args = array(
-            'post_type' => 'eb_course',
-            'post_status' => 'publish',
-            'posts_per_page' => $count,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => 'eb_course_cat',
-                    'field' => 'slug',
-                    'terms' => array_keys($rec_cats),
-                ),
-            ),
-            'post__not_in' => $exclude_courses
-        );*/
     }
 
     /**
      * function to create a custom wp query which created on the basis of the category or the custom courses selected in setting
+     * @since  1.3.4
      * @return [type] [description]
      */
     public function generateRecommendedCourses()
     {
         global $post;
         $courseOptions = get_post_meta($post->ID, "eb_course_options", true);
-
+        $attr["recommended_courses_wrapper_title"] = __("Recommended Courses", "eb-textdomain");
 
         if (isset($courseOptions['enable_recmnd_courses']) && $courseOptions['enable_recmnd_courses'] == "yes") {
             if (isset($courseOptions['show_default_recmnd_course']) && $courseOptions['show_default_recmnd_course'] == "yes") {
@@ -260,8 +267,9 @@ class EbShortcodeMyCourses
                             'terms' => $this->getRecommendedCategories(array($post->ID))
                         ),
                     ),
-                    // 'post__not_in' => $exclude_courses
+                    'post__not_in' => array($post->ID)
                 );
+                $this->showRecommendedCourses("", "", "", $attr, $args);
             } elseif (isset($courseOptions['enable_recmnd_courses_single_course']) && !empty($courseOptions['enable_recmnd_courses_single_course'])) {
                 $args = array(
                     'post_type' => 'eb_course',
@@ -269,20 +277,8 @@ class EbShortcodeMyCourses
                     // 'posts_per_page' => 4,
                     'post__in' => $courseOptions['enable_recmnd_courses_single_course']
                 );
+                $this->showRecommendedCourses("", "", "", $attr, $args);
             }
-
-            $attr["recommended_courses_wrapper_title"] = __("Recommended Courses", "eb-textdomain");
-            $this->showRecommendedCourses("", "", "", $attr, $args);
         }
-
-        /*if ($courseOptions["enable_recmnd_courses"] == "yes") {
-            $args = array(
-                'post_type' => 'eb_course',
-                'post_status' => 'publish',
-                'posts_per_page' => 3,
-                'post__in' => $courseOptions["enable_recmnd_courses_single_course"]
-            );
-
-        }*/
     }
 }

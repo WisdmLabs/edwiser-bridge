@@ -294,6 +294,7 @@ class EBPostTypes
      */
     private function populateMetaboxFields($post_type)
     {
+        global $post;
         $args_array = array(
             'eb_course' => array(
                 'moodle_course_id' => array(
@@ -353,14 +354,14 @@ class EBPostTypes
             'eb_recommended_course_options' => array(
                 'enable_recmnd_courses' => array(
                     'label' => __('Show Recommended Courses', 'eb-textdomain'),
-                    'description' => __('Show recommended courses on eb-my-courses page.', 'eb-textdomain'),
+                    'description' => __('Show recommended courses on single course page.', 'eb-textdomain'),
                     'default' => 'no',
                     'type' => 'checkbox',
                     'autoload' => false,
                 ),
                 'show_default_recmnd_course' => array(
                     'label' => __('Show Category Wise Recommended Courses', 'eb-textdomain'),
-                    'description' => __('Show category wise selected recommended courses on eb-my-courses page.', 'eb-textdomain'),
+                    'description' => __('Show category wise selected recommended courses on single course page.', 'eb-textdomain'),
                     'default' => 'no',
                     'type' => 'checkbox',
                     'autoload' => false,
@@ -369,7 +370,7 @@ class EBPostTypes
                     'label' => __('Select Courses', 'eb-textdomain'),
                     'description' => __('Select courses to show in custom courses in recommended course section.', 'eb-textdomain'),
                     'type' => 'select_multi',
-                    'options' => getAllEbSourses(),
+                    'options' => getAllEbSourses($post->ID),
                     'default' => array('pending'),
                 ),
             ),
