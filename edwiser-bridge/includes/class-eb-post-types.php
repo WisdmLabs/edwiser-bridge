@@ -354,14 +354,14 @@ class EBPostTypes
             'eb_recommended_course_options' => array(
                 'enable_recmnd_courses' => array(
                     'label' => __('Show Recommended Courses', 'eb-textdomain'),
-                    'description' => __('Show recommended courses on eb-my-courses page.', 'eb-textdomain'),
+                    'description' => __('Show recommended courses on single course page.', 'eb-textdomain'),
                     'default' => 'no',
                     'type' => 'checkbox',
                     'autoload' => false,
                 ),
                 'show_default_recmnd_course' => array(
                     'label' => __('Show Category Wise Recommended Courses', 'eb-textdomain'),
-                    'description' => __('Show category wise selected recommended courses on eb-my-courses page.', 'eb-textdomain'),
+                    'description' => __('Show category wise selected recommended courses on single course page.', 'eb-textdomain'),
                     'default' => 'no',
                     'type' => 'checkbox',
                     'autoload' => false,
