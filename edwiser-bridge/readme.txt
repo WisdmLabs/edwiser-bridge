@@ -178,6 +178,14 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
  ==  Changelog  ==
+
+= 1.3.4 =
+* Feature - Added option to add link for the redirection from eb-my-courses page if user is not enrolled in any course.
+* Feature - Added option to disable and customize recommended courses section in eb-my-courses page.
+* Feature - Added option to add and customize recommended courses for the single course page.
+
+
+
 = 1.3.3 =
 * Feature - Added optional terms and conditions on user account page depending on the backend setting.
 * Tweak- Added user meta data related to the edwiser-bridge while exporting the users data.

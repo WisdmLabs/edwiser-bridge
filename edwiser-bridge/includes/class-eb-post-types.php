@@ -205,6 +205,19 @@ class EBPostTypes
             array('post_type' => 'eb_course')
         );
 
+
+        //register metabox for recommended course section on single course page.
+        add_meta_box(
+            'eb_recommended_course_options',
+            __('Recommended Course Settings', 'eb-textdomain'),
+            array($this, 'postOptionsCallback'),
+            'eb_course',
+            'advanced',
+            'default',
+            array('post_type' => 'eb_course')
+        );
+
+
         //register metabox for moodle Order post type options
         add_meta_box(
             'eb_order_options',
@@ -231,7 +244,14 @@ class EBPostTypes
     {
         $post;
         // get fields for a specific post type
-        $fields = $this->populateMetaboxFields($args['args']['post_type']);
+
+        if ($args['id'] == "eb_recommended_course_options") {
+            $fields = $this->populateMetaboxFields($args['id']);
+        } else {
+            $fields = $this->populateMetaboxFields($args['args']['post_type']);
+        }
+
+
         $cssClass = "";
         echo "<div>";
         if ($args['args']['post_type'] == 'eb_order') {
@@ -274,6 +294,7 @@ class EBPostTypes
      */
     private function populateMetaboxFields($post_type)
     {
+        global $post;
         $args_array = array(
             'eb_course' => array(
                 'moodle_course_id' => array(
@@ -328,6 +349,29 @@ class EBPostTypes
                     'type' => 'textarea',
                     'placeholder' => __('', 'eb-textdomain'),
                     'default' => '',
+                )
+            ),
+            'eb_recommended_course_options' => array(
+                'enable_recmnd_courses' => array(
+                    'label' => __('Show Recommended Courses', 'eb-textdomain'),
+                    'description' => __('Show recommended courses on single course page.', 'eb-textdomain'),
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'autoload' => false,
+                ),
+                'show_default_recmnd_course' => array(
+                    'label' => __('Show Category Wise Recommended Courses', 'eb-textdomain'),
+                    'description' => __('Show category wise selected recommended courses on single course page.', 'eb-textdomain'),
+                    'default' => 'no',
+                    'type' => 'checkbox',
+                    'autoload' => false,
+                ),
+                'enable_recmnd_courses_single_course' => array(
+                    'label' => __('Select Courses', 'eb-textdomain'),
+                    'description' => __('Select courses to show in custom courses in recommended course section.', 'eb-textdomain'),
+                    'type' => 'select_multi',
+                    'options' => getAllEbSourses($post->ID),
+                    'default' => array('pending'),
                 ),
             ),
             'eb_order' => array(
@@ -403,6 +447,9 @@ class EBPostTypes
                   <div class='eb-option-div'>";
 
         switch ($field['type']) {
+            case 'title':
+                $html .= '<h2 id="'.esc_attr($field_id).'" />'.$field['label'].'</h2>';
+                break;
             case 'label':
                 $html .= '<span id="'.esc_attr($field_id).'" /><b>'.$data.'</b></span>'."\n";
                 break;
@@ -534,7 +581,10 @@ class EBPostTypes
         if (!in_array($post_type, array('eb_course', 'eb_order'))) {
             return;
         } else {
-            $fields = $this->populateMetaboxFields($post_type);
+            if ($post_type == "eb_course") {
+                $fields = $this->populateMetaboxFields($post_type);
+                $fields = array_merge($this->populateMetaboxFields("eb_recommended_course_options"), $fields);
+            }
             $post_options = array();
             if (isset($_POST[$post_type.'_options'])) {
                 $post_options = $_POST[$post_type.'_options'];

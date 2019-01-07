@@ -324,3 +324,28 @@ function getTotalRefundAmt($refunds)
 
     return $totalRefund;
 }
+
+
+function getAllEbSourses($postId = 0)
+{
+    $posts = get_posts(
+        array(
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'post_type' => 'eb_course'
+        )
+    );
+
+    if ($postId) {
+        $key = array_search($postId, $posts);
+        if ($key !== false) {
+            unset($posts[$key]);
+        }
+    }
+
+    $postsWithTitle = array();
+    foreach ($posts as $value) {
+        $postsWithTitle[$value] = get_the_title($value);
+    }
+    return $postsWithTitle;
+}
