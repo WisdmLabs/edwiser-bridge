@@ -416,7 +416,15 @@ if (!class_exists('EbAdminSettings')) {
                                     class="<?php echo esc_attr($value['class']); ?>"
                                     <?php echo implode(' ', $custom_attributes); ?>
                                     <?php echo ('multiselect' == $value['type']) ? 'multiple="multiple"' : ''; ?>>
-                                        <?php foreach ($value['options'] as $key => $val) { ?>
+                                        <?php
+                                        if (isset($value["default"]) && !empty($value["default"])) {
+                                            ?>
+                                            <option value=""> <?= $value["default"] ?></option>
+                                            <?php
+                                        }
+
+
+                                        foreach ($value['options'] as $key => $val) { ?>
                                         <option value="<?php echo esc_attr($key);
                                             ?>"
                                                 <?php

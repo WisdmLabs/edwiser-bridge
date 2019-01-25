@@ -102,6 +102,23 @@ if (!class_exists('EBSettingsGeneral')) :
                     'autoload' => false,
                 ),
                 array(
+                    'title'    => __('Select Role', 'eb-textdomain'),
+                    'desc'     => '<br/>' .
+                        __(
+                            'Select default role for users on registration from User Account Page.',
+                            'eb-textdomain'
+                        ),
+                    'id'       => 'eb_default_role',
+                    'type'     => 'select',
+                    'default'  => __('Select Role', "eb-textdomain"),
+                    'css'      => 'min-width:300px;',
+                    'options'     => getAllWpRoles(),
+                    'desc_tip' => __(
+                        'Select default role for users on registration from User Account Page.',
+                        'eb-textdomain'
+                    ),
+                ),
+                array(
                     'title'    => __('User Account Page', 'eb-textdomain'),
                     'desc'     => '<br/>' . sprintf(
                         __(

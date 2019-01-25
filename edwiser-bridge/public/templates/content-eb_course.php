@@ -59,9 +59,52 @@ if ($has_access) {
 $course_id = $post_id;
 //Shortcode eb_my_courses.
 if (isset($is_eb_my_courses) && $is_eb_my_courses) {
+
     $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
     $mdl_course_id = $courseMang->getMoodleCourseId($course_id);
     $moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);
+
+/*******   two way synch  *******/
+
+    if ($moodle_user_id) {
+
+        $showProgress = 1;
+
+        $courseProgressManager = new app\wisdmlabs\edwiserBridge\EbCourseProgress();
+        $progressData = $courseProgressManager->getCourseProgress();
+        $courseId = array_keys($progressData);
+
+/*error_log("courseId ::: ".print_r($courseId, 1));
+
+error_log("get_the_ID ::: ".print_r(get_the_ID(), 1));
+
+error_log("progressData ::: ".print_r($progressData, 1));*/
+
+
+
+        if (in_array(get_the_ID(), $courseId)) {
+            if ($progressData[get_the_ID()] == 0) {
+                $progressClass = "start";
+                $progressBtnDiv = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
+
+            } elseif ($progressData[get_the_ID()] > 0 && $progressData[get_the_ID()] < 100) {
+
+                $progressClass = "resume";
+                $progressWidth = $progressData[get_the_ID()];
+                $progressBtnDiv = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
+
+            } else {
+                $progressClass = "completed";
+                $progressBtnDiv = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
+            }
+        }
+
+    }
+/**********************/
+
+
+
+
     if ($moodle_user_id != '' && function_exists("ebsso\generateMoodleUrl")) {
         $query = array(
             'moodle_user_id' => $moodle_user_id, //moodle user id
@@ -76,7 +119,8 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
     $course_url = get_permalink();
 }
 ?>
-<article id="<?php echo 'post-'.get_the_ID(); ?>" <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
+<div id="<?php echo 'post-'.get_the_ID(); ?>" <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
+<div class="eb-test-container">
     <div class="wdm-course-grid">
         <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
             <?php
@@ -87,7 +131,9 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
                 echo '<img src="'.EB_PLUGIN_URL.'images/no-image.jpg"/>';
             }
             echo '</div>';
+
             echo '<div class="wdm-caption">';
+
             echo '<h4 class="">';
             the_title();
             echo '</h4>';
@@ -101,8 +147,39 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
                     echo '</div>';
                 }
             }
+
+
+                echo "</div>";
+
+/***********/
+
+            if (isset($showProgress) && $showProgress == 1) {
+
+
+                echo "<div class='eb-course-action-cont'>";
+                if ($progressClass == "resume") {
+                    echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:".round($progressWidth)."%' ></div></div>";
+                }
+
+                echo $progressBtnDiv;
+
+                echo "</div>";
+
+            }
+
+
+
+
+/***********/
+
+
             echo '</div>'; //wdm-caption
+
             ?>
         </a>
-    </div><!-- .wdm-course-grid -->
-</article><!-- #post -->
+    </div>
+
+
+
+    <!-- .wdm-course-grid -->
+</div><!-- #post -->

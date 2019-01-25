@@ -182,6 +182,11 @@ class EdwiserBridge
         /**
          * The core class to manage debug log on the plugin.
          */
+        require_once EB_PLUGIN_DIR.'includes/api/class-eb-external-api.php';
+
+        /**
+         * The core class to manage debug log on the plugin.
+         */
         require_once EB_PLUGIN_DIR.'includes/class-eb-logger.php';
 
         /**
@@ -326,6 +331,14 @@ class EdwiserBridge
      */
     private function frontendDependencies()
     {
+
+        /*
+         * inlcuding course progress file
+         * @since 1.4
+         */
+        require_once EB_PLUGIN_DIR.'includes/class-eb-course-progress.php';
+
+
         /**
          * The classes responsible for defining and handling all actions that occur in the public-facing
          * side of the site.
@@ -334,6 +347,7 @@ class EdwiserBridge
         /**
          * Tha classes responsible for defining shortcodes.
          */
+        require_once EB_PLUGIN_DIR.'includes/class-eb-manage-enrollment.php';
         require_once EB_PLUGIN_DIR.'public/class-eb-shortcodes.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-user-account.php';
         require_once EB_PLUGIN_DIR.'public/shortcodes/class-eb-shortcode-user-profile.php';
@@ -471,7 +485,7 @@ class EdwiserBridge
          * Add action to add the meta boxes in backend for the order
          */
         $orderMeta = new EBOrderMeta($this->plugin_name, $this->version);
-        $saveOrderMeta=new EBOrderStatus($this->plugin_name, $this->version);
+        $saveOrderMeta = new EBOrderStatus($this->plugin_name, $this->version);
         new EbPayPalRefundManager($this->plugin_name, $this->version);
         $this->loader->addAction(
             'add_meta_boxes',
@@ -489,11 +503,14 @@ class EdwiserBridge
             $saveOrderMeta,
             'saveNewOrderPlaceNote'
         );
-        $this->loader->addAction(
+
+
+        //Disabled from 1.3.5
+        /*$this->loader->addAction(
             'eb_post_add_meta',
             $orderMeta,
             'addOrderRefundButton'
-        );
+        );*/
         $this->loader->addAction(
             'wp_ajax_wdm_eb_order_refund',
             $saveOrderMeta,
@@ -548,7 +565,6 @@ class EdwiserBridge
          *refund functionality
          *
          */
-        
 //        $this->loader->addAction(
 //            'wp_ajax_refund_initiater',
 //            $refundManager,
@@ -624,6 +640,18 @@ class EdwiserBridge
      */
     private function defineUserHooks()
     {
+
+
+        $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
+
+        //@since 1.3.5
+        $this->loader->addAction(
+            'wp_login',
+            $manageEnrollment,
+            'processEnrollmentOnLogin',
+            100,
+            2
+        );
 
         // display bulk action to unlink moodle account
         // On users page in dashboard.
@@ -705,6 +733,12 @@ class EdwiserBridge
 
         // Registers core post types, taxonomies and metaboxes.
         $plugin_post_types = new EBPostTypes($this->getPluginName(), $this->getVersion());
+
+/*************/
+        $apiEndPointHandler = new EBExternalApiEndpoint();
+        $this->loader->addAction('rest_api_init', $apiEndPointHandler, "apiRegistration");
+/*************/
+
 
         $this->loader->addAction('init', $plugin_post_types, 'registerTaxonomies');
         $this->loader->addAction('init', $plugin_post_types, 'registerPostTypes');
@@ -817,6 +851,10 @@ class EdwiserBridge
     {
         $plugin_public = new EbPublic($this->getPluginName(), $this->getVersion());
         $template_loader = new EbTemplateLoader($this->getPluginName(), $this->getVersion());
+/*        $courseProgress = new EbCourseProgress();
+
+
+        $this->loader->addAction('template_redirect', $courseProgress, 'getCourseProgress');*/
 
         $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'publicEnqueueStyles');
         $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'publicEnqueueScripts');
@@ -898,6 +936,34 @@ class EdwiserBridge
             'refundCompletionEmail',
             10
         ); // email on successful refund
+
+
+        /********  Two way synch  ******/
+
+        $this->loader->addAction(
+            'eb_mdl_enrollment_trigger',
+            $plugin_emailer,
+            'sendMdlTriggeredEnrollmentEmail',
+            10
+        ); // email on trigger of the Moodle course enrollment
+
+
+        $this->loader->addAction(
+            'eb_mdl_un_enrollment_trigger',
+            $plugin_emailer,
+            'sendMdlTriggeredUnenrollmentEmail',
+            10
+        ); // email on trigger of the Moodle course Un enrollment
+
+        $this->loader->addAction(
+            'eb_mdl_user_deletion_trigger',
+            $plugin_emailer,
+            'sendMdlTriggeredUserDeletionEmail',
+            10
+        ); // email on trigger of the Moodle User Deletion
+
+
+        /**************/
     }
 
     /**

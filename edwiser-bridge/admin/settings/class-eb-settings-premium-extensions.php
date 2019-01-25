@@ -122,7 +122,7 @@ if (!class_exists('EbSettingsRemui')) :
                                 ?>
                                 </div>
                                 <div class="eb-premium-woo-int-img">
-                                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/woo-int.png"); ?>">
+                                    <img alt="<?php __('Sorry, unable to load the image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/woo-int.png"); ?>">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ if (!class_exists('EbSettingsRemui')) :
                             </div>
                             <div class="eb-premium-sso-info-wrapper">
                                 <div class="eb-premium-sso-img">
-                                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/sso.png"); ?>">
+                                    <img alt="<?php __('Sorry, unable to load the image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/sso.png"); ?>">
                                 </div>
                                 <div class="eb-premium-sso-info">
                                     <h4>
@@ -199,7 +199,7 @@ if (!class_exists('EbSettingsRemui')) :
                                 </div>
 
                                 <div class="eb-premium-selective-synch-img">
-                                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/selective-synch.png"); ?>">
+                                    <img alt="<?php __('Sorry, unable to load the image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/selective-synch.png"); ?>">
                                 </div>
                             </div>
                         </div>

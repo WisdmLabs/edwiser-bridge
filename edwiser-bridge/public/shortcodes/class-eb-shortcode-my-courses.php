@@ -78,6 +78,7 @@ class EbShortcodeMyCourses
 
     public function showMyCourses($my_courses, $atts)
     {
+
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
             edwiserBridgeInstance()->getVersion()

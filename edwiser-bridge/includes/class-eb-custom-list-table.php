@@ -113,10 +113,12 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
          */
         protected function column_default($item, $column_name)
         {
-            switch ($column_name) {
+            /*switch ($column_name) {
                 default:
                     return $item[$column_name];
-            }
+            }*/
+            // from 1.3.5
+            return $item[$column_name];
         }
 
         /**

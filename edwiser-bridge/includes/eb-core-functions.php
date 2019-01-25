@@ -349,3 +349,40 @@ function getAllEbSourses($postId = 0)
     }
     return $postsWithTitle;
 }
+
+
+function getAllWpRoles()
+{
+    global $wp_roles;
+    $all_roles = $wp_roles->get_names();
+    // $all_roles[] = __("Select Role", "eb-textdomain");
+    return $all_roles;
+}
+
+
+
+/**
+ * FUnction accptes moodle user id and returns wordpress user id and if not exists then false
+ * @return [type] [description]
+ */
+function getWpUserIdFromMoodleId($mdlUserId)
+{
+    global $wpdb;
+    $result = $wpdb->get_var("SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value={$mdlUserId} AND meta_key = 'moodle_user_id'");
+    return $result;
+}
+
+
+
+
+
+/**
+ * FUnction accptes moodle course id and returns wordpress course id and if not exists then false
+ * @return [type] [description]
+ */
+function getWpCourseIdFromMoodleCourseId($mdlCourseId)
+{
+    global $wpdb;
+    $result = $wpdb->get_var("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$mdlCourseId} AND meta_key = 'moodle_course_id'");
+    return $result;
+}

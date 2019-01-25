@@ -146,6 +146,74 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             return $data;
         }
 
+
+/******  two way synch   ***********/
+
+
+
+/**
+         * Preapares the default refund completion email for all the admins
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function moodleEnrollmentTrigger($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Moodle Course Enrollment', 'eb-textdomain'),
+                "content" => $this->moodleEnrollmentTriggerTemplate(),
+            );
+            return $data;
+        }
+/**
+         * Preapares the default refund completion email for all the admins
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function moodleUnenrollmentTrigger($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('Moodle Course Un-Enrollment', 'eb-textdomain'),
+                "content" => $this->moodleUnenrollmentTriggerTemplate(),
+            );
+            return $data;
+        }
+/**
+         * Preapares the default refund completion email for all the admins
+         * notification tempalte and subject
+         * @param type $tmplId temaplte optoin key for the new user template
+         * @param type $restore boolean value to restore the email temaplte or not
+         * @return array returns the array of the email tempalte content and subject
+         */
+        public function userDeletionTrigger($tmplId, $restore = false)
+        {
+            $data = get_option($tmplId);
+            if ($data && !$restore) {
+                return $data;
+            }
+            $data = array(
+                "subject" => __('User Account Deleted', 'eb-textdomain'),
+                "content" => $this->moodleUserDeletionTriggerTemplate(),
+            );
+            return $data;
+        }
+
+
+/**********************/
+
+
+
         /**
          * Prepares the html template with constants for the new WP and moodle user account creation
          * @return html returns the email template body content for the new user
@@ -636,5 +704,176 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             <?php
             return ob_get_clean();
         }
+
+
+
+
+
+        public function moodleEnrollmentTriggerTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Course Enrollment.', 'eb-textdomain'); ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You are successfully enrolled in %s course.', 'eb-textdomain'),
+                                            '<strong>{COURSE_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can access your account here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+
+
+        public function moodleUnenrollmentTriggerTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('Course Un-Enrollment.', 'eb-textdomain'); ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You are un-enrolled from %s course.', 'eb-textdomain'),
+                                            '<strong>{COURSE_NAME}</strong>'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('You can access your account here: %s.', 'eb-textdomain'),
+                                            '<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
+                                        );
+                                    ?>
+                                </div></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+
+
+
+
+        public function moodleUserDeletionTriggerTemplate()
+        {
+            ob_start();
+            ?>
+            <div style="background-color: #efefef; width: 100%; -webkit-text-size-adjust: none !important; margin: 0; padding: 70px 70px 70px 70px;">
+                <table id="template_container" style="padding-bottom: 20px; box-shadow: 0 0 0 3px rgba(0,0,0,0.025) !important; border-radius: 6px !important; background-color: #dfdfdf;" border="0" width="600" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
+                                <h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
+                                    <?php _e('User Deleted', 'eb-textdomain'); ?>
+                                </h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Hi %s', 'eb-textdomain'),
+                                            '{FIRST_NAME}'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+                                    <?php
+                                        printf(
+                                            __('Your user account is deleted from %s.', 'eb-textdomain'),
+                                            '<strong>{SITE_URL}</strong>'
+                                        );
+                                    ?>
+                                </div>
+                                <div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center; border-top: 0; -webkit-border-radius: 6px;" align="center" valign="top"><span style="font-family: Arial; font-size: 12px;">{SITE_NAME}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+
+
+
+
+
+
     }
 }

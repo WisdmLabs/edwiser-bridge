@@ -35,7 +35,7 @@ class LinkUnlink
      */
     public function showContent($val, $column_name, $user_id)
     {
-        $link=get_user_meta($user_id, "moodle_user_id", true);
+        $link = get_user_meta($user_id, "moodle_user_id", true);
         $checked="block";
         $unchecked="none";
         if (trim($link) == "") {

@@ -43,11 +43,17 @@ class EBOrderMeta
         add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array($this, "addOrderRefundMeta"), "eb_order", 'advanced', 'default');
     }
 
+
+
+
+
+    //Disabled from 1.3.5
+
     /**
      * Function adds the functionality to add the refund button on the eb_order meta box.
      * @param type $args contains the post types array.
      */
-    public function addOrderRefundButton($args)
+    /*public function addOrderRefundButton($args)
     {
         return;
         if ($args['args']['post_type'] == 'eb_order') {
@@ -57,7 +63,7 @@ class EBOrderMeta
             </div>
             <?php
         }
-    }
+    }*/
 
     public function addOrderRefundMeta()
     {

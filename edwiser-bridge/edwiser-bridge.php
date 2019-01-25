@@ -221,3 +221,41 @@ function runEdwiserBridge()
 
 runEdwiserBridge(); // start plugin execution
 
+require_once plugin_dir_path(__FILE__).'includes/api/class-eb-external-api.php';
+
+/*require_once plugin_dir_path(__FILE__).'includes/class-eb-manage-enrollment.php';
+$manageEnrollment = new EBManageUserEnrollment("edwiserbridge", "1.3.1");
+add_action('wp_login', array($manageEnrollment, 'processEnrollmentOnLogin'));*/
+
+
+
+/*
+add_action('rest_api_init', 'app\wisdmlabs\edwiserBridge\apiRegistration');
+
+
+function apiRegistration()
+{
+
+// error_log("======================");
+
+    register_rest_route(
+        'edwiser-bridge',
+        '/',
+        array(
+            'methods' => 'POST',
+            'callback' => 'app\wisdmlabs\edwiserBridge\externalApiEndpointDef',
+        )
+    );
+}
+
+
+function externalApiEndpointDef($data)
+{
+
+error_log("AAAAAAAAAAAAAAA");
+
+    // return array("status" => "1", "msg" => "successful");
+    return "aaaaaaa";
+
+}
+*/

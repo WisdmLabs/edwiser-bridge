@@ -100,7 +100,6 @@ class EbFrontendFormHandler
      */
     public static function processRegistration()
     {
-
         $generalSettings = get_option("eb_general");
         if (isset($generalSettings['eb_enable_terms_and_cond']) && $generalSettings['eb_enable_terms_and_cond'] == "yes") {
             if (isset($_POST['reg_terms_and_cond']) && $_POST['reg_terms_and_cond'] != "on") {
@@ -140,11 +139,19 @@ class EbFrontendFormHandler
                     throw new \Exception(__('Anti-spam field was filled in.', 'eb-textdomain'));
                 }
 
-                $new_user = $user_manager->createWordpressUser(sanitize_email($email), $firstname, $lastname);
+                //added afyter
+                $role = self::defaultRegistrationRole();
+
+                $new_user = $user_manager->createWordpressUser(sanitize_email($email), $firstname, $lastname, $role);
 
                 if (is_wp_error($new_user)) {
                     throw new \Exception($new_user->get_error_message());
                 }
+
+                //add role code here
+
+                // error_log("USER :: ".print_r($new_user, 1));
+
 
                 $user_manager->setUserAuthCookie($new_user);
 
@@ -163,6 +170,30 @@ class EbFrontendFormHandler
             }
         }
     }
+
+
+
+    /**
+     * Default role set to the user on registration from user-account page
+     * @return [type] [description]
+     */
+    public static function defaultRegistrationRole()
+    {
+        $role = "";
+        $ebOptions = get_option("eb_general");
+        if (isset($ebOptions["eb_default_role"]) && !empty($ebOptions["eb_default_role"])) {
+            $role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
+        }
+
+error_log("ROLE :: ".print_r($role, 1));
+
+        return $role;
+    }
+
+
+
+
+
 
     /**
      * process course join for free courses.

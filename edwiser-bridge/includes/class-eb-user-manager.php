@@ -246,7 +246,7 @@ class EBUserManager
      *
      * @return int|WP_Error on failure, Int (user ID) on success
      */
-    public function createWordpressUser($email, $firstname, $lastname)
+    public function createWordpressUser($email, $firstname, $lastname, $role = "")
     {
 
         // Check the e-mail address
@@ -295,14 +295,20 @@ class EBUserManager
             return $validation_errors;
         }
 
+        //Added after 1.3.4
+        if ($role == "") {
+            $role = get_option("default_role");
+        }
+
+
         $wp_user_data = apply_filters(
             'eb_new_user_data',
             array(
-            'user_login' => $username,
-            'user_pass' => $password,
-            'user_email' => $email,
-            'role' => 'subscriber',
-                )
+                'user_login' => $username,
+                'user_pass' => $password,
+                'user_email' => $email,
+                'role' => $role,
+            )
         );
 
         $user_id = wp_insert_user($wp_user_data);
@@ -444,6 +450,11 @@ class EBUserManager
         // prepare request data array
         $request_data = array('field' => 'email', 'values' => array($user_email));
         $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper($webservice_function, $request_data);
+
+
+
+
+
 
         // create response array based on response recieved from api helper class
         if ($response['success'] == 1 && empty($response['response_data'])) {

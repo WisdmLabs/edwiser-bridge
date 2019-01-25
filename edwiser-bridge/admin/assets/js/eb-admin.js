@@ -525,6 +525,9 @@
                         } else {
                             if (str == "link")
                             {
+
+console.log(eb_admin_js_object.msg_error_link_user);
+
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);

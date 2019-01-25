@@ -3,6 +3,82 @@
  * included in this file.
  */
 
+
+/*  REMOVE  */
+
+.eb-test-container{
+    position: relative;
+    z-index: 1;
+}
+
+
+.eb-course-action-cont{
+    /*transition: transform .3s,-webkit-transform .3s;
+    -webkit-transform: translateY(42px);
+    transform: translateY(42px);*/
+    background-color: #9873cb4d;
+}
+
+
+.eb-course-action-btn{
+    position: relative;
+    top: 0px;
+    /*transition: transform .2s ease-in-out;*/
+}
+
+/*.wdm-course-grid-wrap:hover .eb-course-action-cont{
+    transform: translate3d(0px, 0px, 0px);
+}*/
+
+
+.eb-course-action-btn-start{
+    border: 1px solid #1767ba;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #0068ba;
+}
+
+.eb-course-action-btn-resume{
+    border: 1px solid #a57afa;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #a57afa;;
+}
+
+
+.eb-course-action-btn-completed{
+    border: 1px solid #059b4f;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #059b4f;
+}
+
+
+.eb-course-action-progress-cont{
+    line-height: 4px;
+    height: 4px;
+    background-color: #a57afa21;
+}
+
+
+.eb-course-action-progress{
+    line-height: 4px;
+    height: 4px;
+    background-color: #8c68d3;
+}
+
+
+
+
+/**********/
+
+
+
+
+
 .wdm-flash-error{
     margin: 5px 0 15px;
     background: none repeat scroll 0% 0% #FFF;

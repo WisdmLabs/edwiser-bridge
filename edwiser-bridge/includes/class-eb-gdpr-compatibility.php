@@ -27,7 +27,7 @@ class EBGDPRCompatible
      * @param  integer $page  how many export data pages we have
      * @return status of the export
      */
-    public function ebDataExporter($email, $page = 1)
+    public function ebDataExporter($email)
     {
         $user = get_user_by("email", $email);
         $moodleUserId = get_user_meta($user->ID, "moodle_user_id", 1);
@@ -44,7 +44,7 @@ class EBGDPRCompatible
                 'value' => $value["time"]
                 ));
         }
-        $page =$page;
+        // $page = $page;
         $export_items = array();
         if ($moodleUserId) {
             $export_items[] = array(
@@ -149,10 +149,10 @@ class EBGDPRCompatible
      * @param  integer $page  [description]
      * @return [type]         [description]
      */
-    public function ebPluginDataEraser($email, $page = 1)
+    public function ebPluginDataEraser($email)
     {
         global $wpdb;
-        $page = $page;
+        // $page = $page;
         $generalSettings    = get_option('eb_general');
         $user = get_user_by("email", $email);
         $msg = array();
@@ -161,11 +161,22 @@ class EBGDPRCompatible
         $unenrolled = 0;
         if ($enrolledCourses && !empty($enrolledCourses)) {
             if (isset($generalSettings['eb_erase_moodle_data']) && $generalSettings['eb_erase_moodle_data'] == "yes") {
-                foreach ($enrolledCourses as $key => $value) {
+                /*foreach ($enrolledCourses as $key => $value) {
                     $value = $value;
                     $args = array(
                         'user_id' => $user->ID,
                         'courses' => array($key),
+                        'unenroll' => 1,
+                    );
+                    $enrollMentManager->updateUserCourseEnrollment($args);
+                    $unenrolled = 1;
+                }*/
+
+                $courseKey = array_keys($enrolledCourses);
+                foreach ($courseKey as $value) {
+                    $args = array(
+                        'user_id' => $user->ID,
+                        'courses' => array($value),
                         'unenroll' => 1,
                     );
                     $enrollMentManager->updateUserCourseEnrollment($args);
