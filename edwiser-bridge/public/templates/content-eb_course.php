@@ -59,7 +59,6 @@ if ($has_access) {
 $course_id = $post_id;
 //Shortcode eb_my_courses.
 if (isset($is_eb_my_courses) && $is_eb_my_courses) {
-
     $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
     $mdl_course_id = $courseMang->getMoodleCourseId($course_id);
     $moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);
@@ -67,9 +66,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
 /*******   two way synch  *******/
 
     if ($moodle_user_id) {
-
         $showProgress = 1;
-
         $courseProgressManager = new app\wisdmlabs\edwiserBridge\EbCourseProgress();
         $progressData = $courseProgressManager->getCourseProgress();
         $courseId = array_keys($progressData);
@@ -86,19 +83,15 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
             if ($progressData[get_the_ID()] == 0) {
                 $progressClass = "start";
                 $progressBtnDiv = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
-
             } elseif ($progressData[get_the_ID()] > 0 && $progressData[get_the_ID()] < 100) {
-
                 $progressClass = "resume";
                 $progressWidth = $progressData[get_the_ID()];
                 $progressBtnDiv = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
-
             } else {
                 $progressClass = "completed";
                 $progressBtnDiv = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
             }
         }
-
     }
 /**********************/
 
@@ -154,17 +147,12 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
 /***********/
 
             if (isset($showProgress) && $showProgress == 1) {
-
-
                 echo "<div class='eb-course-action-cont'>";
                 if ($progressClass == "resume") {
                     echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:".round($progressWidth)."%' ></div></div>";
                 }
-
                 echo $progressBtnDiv;
-
                 echo "</div>";
-
             }
 
 

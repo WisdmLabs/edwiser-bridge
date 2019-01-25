@@ -9,7 +9,6 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
-
 class EBExternalApiEndpoint
 {
     public function __construct()
@@ -92,6 +91,7 @@ class EBExternalApiEndpoint
 
         if (isset($data["user_id"]) && isset($data["course_id"])) {
             $mdlCourseId = $data["course_id"];
+            $mdlCourseId =$mdlCourseId;
             $wpCourseId = getWpCourseIdFromMoodleCourseId($data["course_id"]);
 
             if ($wpCourseId) {
@@ -131,7 +131,6 @@ class EBExternalApiEndpoint
                 }
             }
         }
-
     }
 
 
@@ -174,11 +173,10 @@ class EBExternalApiEndpoint
 
     public function createOnlyWpUser($username, $email, $firstname, $lastname)
     {
-
         // Check the e-mail address
-        if (empty($email) || !is_email($email)) {
+/*        if (empty($email) || !is_email($email)) {
             return new \WP_Error('registration-error', __('Please provide a valid email address.', 'eb-textdomain'));
-        }
+        }*/
 
         if (email_exists($email)) {
             return new \WP_Error(
@@ -186,14 +184,6 @@ class EBExternalApiEndpoint
                 __('An account is already registered with your email address. Please login.', 'eb-textdomain'),
                 'eb_email_exists'
             );
-        }
-
-        if (empty($firstname)) {
-            $firstname = $_POST['firstname'];
-        }
-
-        if (empty($lastname)) {
-            $lastname = $_POST['lastname'];
         }
 
         // $username = sanitize_user(current(explode('@', $email)), true);
@@ -254,7 +244,6 @@ class EBExternalApiEndpoint
         update_user_meta($user_id, 'first_name', $firstname);
         update_user_meta($user_id, 'last_name', $lastname);
         return $user_id;
-
     }
 
 

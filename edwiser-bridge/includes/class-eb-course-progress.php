@@ -17,17 +17,13 @@ class EbCourseProgress
 {
     public function __construct()
     {
-
     }
 
 
     public function getCourseProgress()
     {
-
         $settings = get_option("eb_general");
-
         if (isset($settings["eb_my_courses_page_id"]) && !empty($settings["eb_my_courses_page_id"]) && isset($settings["eb_useraccount_page_id"]) && !empty($settings["eb_useraccount_page_id"])) {
-
             if (is_page($settings["eb_my_courses_page_id"]) || is_page($settings["eb_useraccount_page_id"])) {
                 $user= wp_get_current_user();
                 $userId = $user->ID;
@@ -50,26 +46,14 @@ class EbCourseProgress
                     if (isset($response["success"]) && $response["success"]) {
                         foreach ($response["response_data"] as $value) {
                             $courseId = getWpCourseIdFromMoodleCourseId($value->course_id);
-
-error_log("  ID :::  ".print_r($courseId, 1));
-error_log("  value->completion :::  ".print_r($value->completion, 1));
-
                             $courseProgressArray[$courseId] = $value->completion;
                         }
                     }
-
-error_log("courseProgressArray ::: ".print_r($courseProgressArray, 1));
-
-
                     update_user_meta($userId, "moodle_course_progress", serialize($courseProgressArray));
                     return $courseProgressArray;
-
                     // error_log("RESPONSE ::::: ".print_r($response, 1));
-
-
                 }
             }
-
         }
     }
 }

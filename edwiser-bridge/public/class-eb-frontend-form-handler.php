@@ -184,9 +184,6 @@ class EbFrontendFormHandler
         if (isset($ebOptions["eb_default_role"]) && !empty($ebOptions["eb_default_role"])) {
             $role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
         }
-
-error_log("ROLE :: ".print_r($role, 1));
-
         return $role;
     }
 

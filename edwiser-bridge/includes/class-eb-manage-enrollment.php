@@ -236,7 +236,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
         /**
          * @return [type] [description]
          */
-        public function processEnrollmentOnLogin($user_login, $user)
+       /* public function processEnrollmentOnLogin($user_login, $user)
         {
             global $wpdb;
             $userId = $user->ID;
@@ -301,7 +301,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
 
                 edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
             }
-        }
+        }*/
 
 
         public function getWPPostID($moodleCourseId)

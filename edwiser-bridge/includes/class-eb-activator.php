@@ -295,10 +295,6 @@ class EBActivator
         self::updateAllowMailSendData("eb_emailtmpl_mdl_enrollment_trigger_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow", "ON");
-
-/***************************/
-
-
     }
 
     private static function updateTemplateData($key, $value)

@@ -642,16 +642,16 @@ class EdwiserBridge
     {
 
 
-        $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
+        // $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
 
         //@since 1.3.5
-        $this->loader->addAction(
+/*        $this->loader->addAction(
             'wp_login',
             $manageEnrollment,
             'processEnrollmentOnLogin',
             100,
             2
-        );
+        );*/
 
         // display bulk action to unlink moodle account
         // On users page in dashboard.
