@@ -140,7 +140,7 @@ class EbFrontendFormHandler
                 }
 
                 //added afyter
-                $role = self::defaultRegistrationRole();
+                $role = defaultRegistrationRole();
 
                 $new_user = $user_manager->createWordpressUser(sanitize_email($email), $firstname, $lastname, $role);
 
@@ -177,7 +177,7 @@ class EbFrontendFormHandler
      * Default role set to the user on registration from user-account page
      * @return [type] [description]
      */
-    public static function defaultRegistrationRole()
+    /*public static function defaultRegistrationRole()
     {
         $role = "";
         $ebOptions = get_option("eb_general");
@@ -185,7 +185,7 @@ class EbFrontendFormHandler
             $role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
         }
         return $role;
-    }
+    }*/
 
 
 

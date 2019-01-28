@@ -135,6 +135,9 @@ class EBCourseManager
              */
             $moodle_course_resp = $this->getMoodleCourses(); // get courses from moodle
 
+
+
+            // if ((isset($sync_options["eb_synchronize_draft"]) && $sync_options['eb_synchronize_draft'] == 1) || (isset($sync_options["eb_synchronize_previous"]) && $sync_options['eb_synchronize_previous'] == 1)) {
             // creating courses based on recieved data
             if ($moodle_course_resp['success'] == 1) {
                 foreach ($moodle_course_resp['response_data'] as $course_data) {
@@ -165,10 +168,13 @@ class EBCourseManager
                     }
                 }
             }
-
-            // push course response in array
             $response_array['course_success'] = $moodle_course_resp['success'];
+            // push course response in array
             $response_array['course_response_message'] = $moodle_course_resp['response_message'];
+            // }
+
+
+
 
             /*
              * hook to be run on course completion

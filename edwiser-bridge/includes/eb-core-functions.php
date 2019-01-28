@@ -386,3 +386,19 @@ function getWpCourseIdFromMoodleCourseId($mdlCourseId)
     $result = $wpdb->get_var("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$mdlCourseId} AND meta_key = 'moodle_course_id'");
     return $result;
 }
+
+
+
+/**
+ * Default role set to the user on registration from user-account page
+ * @return [type] [description]
+ */
+function defaultRegistrationRole()
+{
+    $role = "";
+    $ebOptions = get_option("eb_general");
+    if (isset($ebOptions["eb_default_role"]) && !empty($ebOptions["eb_default_role"])) {
+        $role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
+    }
+    return $role;
+}

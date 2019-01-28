@@ -112,8 +112,8 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
     $course_url = get_permalink();
 }
 ?>
-<div id="<?php echo 'post-'.get_the_ID(); ?>" <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
-<div class="eb-test-container">
+<article id="<?php echo 'post-'.get_the_ID(); ?>" <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
+<div class="eb-grid-container">
     <div class="wdm-course-grid">
         <a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
             <?php
@@ -124,9 +124,7 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
                 echo '<img src="'.EB_PLUGIN_URL.'images/no-image.jpg"/>';
             }
             echo '</div>';
-
             echo '<div class="wdm-caption">';
-
             echo '<h4 class="">';
             the_title();
             echo '</h4>';
@@ -141,11 +139,9 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
                 }
             }
 
-
-                echo "</div>";
+            echo "</div>";
 
 /***********/
-
             if (isset($showProgress) && $showProgress == 1) {
                 echo "<div class='eb-course-action-cont'>";
                 if ($progressClass == "resume") {
@@ -154,9 +150,6 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
                 echo $progressBtnDiv;
                 echo "</div>";
             }
-
-
-
 
 /***********/
 
@@ -170,4 +163,4 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
 
 
     <!-- .wdm-course-grid -->
-</div><!-- #post -->
+</article><!-- #post -->

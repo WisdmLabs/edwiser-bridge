@@ -59,10 +59,6 @@ class EBExternalApiEndpoint
                     break;
             }
         }
-
-
-
-
         return $responseData;
     }
 
@@ -98,7 +94,8 @@ class EBExternalApiEndpoint
                 $mdlUserId = $data["user_id"];
                 $wpUserId = getWpUserIdFromMoodleId($data["user_id"]);
                 if (!$wpUserId && empty($wpUserId) && $unEnroll == 0) {
-                    $wpUserId = $this->createOnlyWpUser($data['user_name'], $data['email'], $data['first_name'], $data['last_name']);
+                    $role = defaultRegistrationRole();
+                    $wpUserId = $this->createOnlyWpUser($data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role);
                     update_user_meta($wpUserId, "moodle_user_id", $mdlUserId);
                 }
 
@@ -138,9 +135,9 @@ class EBExternalApiEndpoint
 
     public function ebTriggerUserCreation($data)
     {
-
         if (isset($data['user_name']) && isset($data['email'])) {
-            $wpUserId = $this->createOnlyWpUser($data["user_name"], $data["email"], $data["first_name"], $data['last_name']);
+            $role = defaultRegistrationRole();
+            $wpUserId = $this->createOnlyWpUser($data["user_name"], $data["email"], $data["first_name"], $data['last_name'], $role);
             if ($wpUserId) {
                 update_user_meta($wpUserId, "moodle_user_id", $data["user_id"]);
             }
@@ -171,7 +168,7 @@ class EBExternalApiEndpoint
 
 
 
-    public function createOnlyWpUser($username, $email, $firstname, $lastname)
+    public function createOnlyWpUser($username, $email, $firstname, $lastname, $role = "")
     {
         // Check the e-mail address
 /*        if (empty($email) || !is_email($email)) {
@@ -243,6 +240,15 @@ class EBExternalApiEndpoint
         //update firstname, lastname
         update_user_meta($user_id, 'first_name', $firstname);
         update_user_meta($user_id, 'last_name', $lastname);
+
+        $args = array(
+            'user_email' => $email,
+            'username' => $username,
+            'first_name' => $firstname,
+            'last_name' => $lastname,
+            'password' => $password,
+        );
+        do_action('eb_created_user', $args);
         return $user_id;
     }
 

@@ -6,9 +6,13 @@
 
 /*  REMOVE  */
 
-.eb-test-container{
+.eb-grid-container{
     position: relative;
     z-index: 1;
+}
+
+.wdm-course-grid .wdm-caption h4{
+    margin: 0rem 0;
 }
 
 
@@ -32,6 +36,7 @@
 
 
 .eb-course-action-btn-start{
+    margin-top: 4px;
     border: 1px solid #1767ba;
     padding: 8px;
     color: white;
@@ -49,6 +54,7 @@
 
 
 .eb-course-action-btn-completed{
+    margin-top: 4px;
     border: 1px solid #059b4f;
     padding: 8px;
     color: white;
@@ -171,7 +177,7 @@
 /**
  * course archive template style
  */
-.hentry.wdm-col-3-2-1 {
+.eb-my-courses-wrapper .eb-my-course .hentry.wdm-col-3-2-1 {
     float: left;
     margin: 1em 0em;
     padding: 0 0.5em;    
@@ -254,7 +260,7 @@
 }
 .wdm-course-grid {
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd9e;
     border-radius: 2px;
     position: relative;
     cursor: pointer;
