@@ -271,13 +271,13 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.connection_response == 1) {
-                        // if (sync_options['eb_synchronize_previous'] == 1 && response.category_success == 1) {
-                        if (response.course_success == 1) {
-                            ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
-                        } else {
-                            ohSnap(response.course_response_message, 'error', 0);
+                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] == 1) {
+                            if (response.course_success == 1) {
+                                ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
+                            } else {
+                                ohSnap(response.course_response_message, 'error', 0);
+                            }
                         }
-                        // }
 
                         if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 1) {
                             ohSnap(eb_admin_js_object.msg_cat_sync_success, 'success', 1);

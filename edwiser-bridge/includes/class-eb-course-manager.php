@@ -137,41 +137,41 @@ class EBCourseManager
 
 
 
-            // if ((isset($sync_options["eb_synchronize_draft"]) && $sync_options['eb_synchronize_draft'] == 1) || (isset($sync_options["eb_synchronize_previous"]) && $sync_options['eb_synchronize_previous'] == 1)) {
-            // creating courses based on recieved data
-            if ($moodle_course_resp['success'] == 1) {
-                foreach ($moodle_course_resp['response_data'] as $course_data) {
-                    /*
-                     * moodle always returns moodle frontpage as first course,
-                     * below step is to avoid the frontpage to be added as a course.
-                     */
-                    if ($course_data->id == 1) {
-                        continue;
-                    }
+            if ((isset($sync_options["eb_synchronize_draft"]) && $sync_options['eb_synchronize_draft'] == 1) || (isset($sync_options["eb_synchronize_previous"]) && $sync_options['eb_synchronize_previous'] == 1)) {
+                // creating courses based on recieved data
+                if ($moodle_course_resp['success'] == 1) {
+                    foreach ($moodle_course_resp['response_data'] as $course_data) {
+                        /*
+                         * moodle always returns moodle frontpage as first course,
+                         * below step is to avoid the frontpage to be added as a course.
+                         */
+                        if ($course_data->id == 1) {
+                            continue;
+                        }
 
-                    // check if course is previously synced
-                    $existing_course_id = $this->isCoursePresynced($course_data->id);
+                        // check if course is previously synced
+                        $existing_course_id = $this->isCoursePresynced($course_data->id);
 
-                    // creates new course or updates previously synced course conditionally
-                    if (!is_numeric($existing_course_id)) {
-                        $course_id = $this->createCourseOnWordpress($course_data, $sync_options);
-                        $courses_created[] = $course_id; // push course id in courses created array
-                    } elseif (is_numeric($existing_course_id) &&
-                            isset($sync_options['eb_synchronize_previous']) &&
-                            $sync_options['eb_synchronize_previous'] == 1) {
-                        $course_id = $this->updateCourseOnWordpress(
-                            $existing_course_id,
-                            $course_data,
-                            $sync_options
-                        );
-                        $courses_updated[] = $course_id; // push course id in courses updated array
+                        // creates new course or updates previously synced course conditionally
+                        if (!is_numeric($existing_course_id) && $sync_options["eb_synchronize_draft"]) {
+                            $course_id = $this->createCourseOnWordpress($course_data, $sync_options);
+                            $courses_created[] = $course_id; // push course id in courses created array
+                        } elseif (is_numeric($existing_course_id) &&
+                                isset($sync_options['eb_synchronize_previous']) &&
+                                $sync_options['eb_synchronize_previous'] == 1 ) {
+                            $course_id = $this->updateCourseOnWordpress(
+                                $existing_course_id,
+                                $course_data,
+                                $sync_options
+                            );
+                            $courses_updated[] = $course_id; // push course id in courses updated array
+                        }
                     }
                 }
+                $response_array['course_success'] = $moodle_course_resp['success'];
+                // push course response in array
+                $response_array['course_response_message'] = $moodle_course_resp['response_message'];
             }
-            $response_array['course_success'] = $moodle_course_resp['success'];
-            // push course response in array
-            $response_array['course_response_message'] = $moodle_course_resp['response_message'];
-            // }
 
 
 
