@@ -147,11 +147,8 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         }
 
 
-/******  two way synch   ***********/
-
-
-
-/**
+        /******  two way synch emails   ***********/
+        /**
          * Preapares the default refund completion email for all the admins
          * notification tempalte and subject
          * @param type $tmplId temaplte optoin key for the new user template
@@ -170,7 +167,9 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-/**
+
+
+        /**
          * Preapares the default refund completion email for all the admins
          * notification tempalte and subject
          * @param type $tmplId temaplte optoin key for the new user template
@@ -189,7 +188,9 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-/**
+
+
+        /**
          * Preapares the default refund completion email for all the admins
          * notification tempalte and subject
          * @param type $tmplId temaplte optoin key for the new user template
@@ -208,8 +209,6 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             );
             return $data;
         }
-
-
 /**********************/
 
 
@@ -548,6 +547,11 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             return ob_get_clean();
         }
 
+
+        /**
+         * User refund initiated notification email
+         * @return [type] [description]
+         */
         public function userRefundedNotificationTemplate()
         {
             ob_start();
@@ -639,6 +643,11 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             return ob_get_clean();
         }
 
+
+        /**
+         * Notification dend to admin on refund initiation.
+         * @return [type] [description]
+         */
         public function adminRefundedNotificationTemplate()
         {
             ob_start();
@@ -706,9 +715,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         }
 
 
-
-
-
+        /**
+         *Send enrollment email on  enrollment request from Moodle
+         * @return [type] [description]
+         */
         public function moodleEnrollmentTriggerTemplate()
         {
             ob_start();
@@ -764,7 +774,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
         }
 
 
-
+        /**
+         *Send Unenrollment email on  unenrollment request from Moodle
+         * @return [type] [description]
+         */
         public function moodleUnenrollmentTriggerTemplate()
         {
             ob_start();
@@ -821,8 +834,10 @@ if (!class_exists("EBDefaultEmailTemplate")) {
 
 
 
-
-
+        /**
+         *Send User deletion email on  user deletion request from Moodle
+         * @return [type] [description]
+         */
         public function moodleUserDeletionTriggerTemplate()
         {
             ob_start();

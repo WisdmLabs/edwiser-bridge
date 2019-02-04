@@ -15,7 +15,10 @@ class EBExternalApiEndpoint
     {
     }
 
-
+    /**
+     * This method registers the webservice endpointr
+     * @return [type] [description]
+     */
     public function apiRegistration()
     {
         register_rest_route(
@@ -29,6 +32,11 @@ class EBExternalApiEndpoint
     }
 
 
+    /**
+     * this function parse the request coming from
+     * @param  [type] $data request Data
+     * @return [type]       error or success message
+     */
     public function externalApiEndpointDef($data)
     {
         $data = stripcslashes($_POST["data"]);
@@ -63,6 +71,11 @@ class EBExternalApiEndpoint
     }
 
 
+    /**
+     * function to test connection for the request from Moodle
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     protected function ebTestConnection($data)
     {
         $status = 0;
@@ -82,6 +95,12 @@ class EBExternalApiEndpoint
     }
 
 
+    /**
+     * Function to enroll or unenroll from the course for the request coming from Moodle
+     * @param  [type] $data     [description]
+     * @param  [type] $unEnroll [description]
+     * @return [type]           [description]
+     */
     protected function ebCourseEnrollment($data, $unEnroll)
     {
 
@@ -132,7 +151,11 @@ class EBExternalApiEndpoint
 
 
 
-
+    /**
+     * function to create user for the user creation request coming from Moodle
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function ebTriggerUserCreation($data)
     {
         if (isset($data['user_name']) && isset($data['email'])) {
@@ -145,6 +168,11 @@ class EBExternalApiEndpoint
     }
 
 
+    /**
+     * function to delete user for the user deletion request coming from Moodle
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function ebTriggerUserDelete($data)
     {
         require_once(ABSPATH.'wp-admin/includes/user.php');
@@ -168,13 +196,17 @@ class EBExternalApiEndpoint
 
 
 
+    /**
+     * functinality to create only wordpress user.
+     * @param  [type] $username  username
+     * @param  [type] $email     email
+     * @param  [type] $firstname firstname
+     * @param  [type] $lastname  lastname
+     * @param  string $role      default role
+     * @return [type]            success or error message
+     */
     public function createOnlyWpUser($username, $email, $firstname, $lastname, $role = "")
     {
-        // Check the e-mail address
-/*        if (empty($email) || !is_email($email)) {
-            return new \WP_Error('registration-error', __('Please provide a valid email address.', 'eb-textdomain'));
-        }*/
-
         if (email_exists($email)) {
             return new \WP_Error(
                 'registration-error',
@@ -182,8 +214,6 @@ class EBExternalApiEndpoint
                 'eb_email_exists'
             );
         }
-
-        // $username = sanitize_user(current(explode('@', $email)), true);
 
         // Ensure username is unique
         $append = 1;
@@ -196,13 +226,8 @@ class EBExternalApiEndpoint
 
         // Handle password creation
         $password = wp_generate_password();
-        //$password_generated = true;
         // WP Validation
         $validation_errors = new \WP_Error();
-
-        // do_action('eb_register_post', $username, $email, $validation_errors);
-
-        // $validation_errors = apply_filters('eb_registration_errors', $validation_errors, $username, $email);
 
         if ($validation_errors->get_error_code()) {
             return $validation_errors;
@@ -251,87 +276,4 @@ class EBExternalApiEndpoint
         do_action('eb_created_user', $args);
         return $user_id;
     }
-
-
-
-
-
-
-/*
-    public function updateUserEnrollmentData($moodleUserId, $userId)
-    {
-
-        // if (trim($moodleUserId) == "") {
-             $enrolledCourses = edwiserBridgeInstance()->courseManager()->getMoodleCourses($moodleUserId);
-
-            if (!isset($enrolledCourses["success"]) || !$enrolledCourses["success"]) {
-                return;
-            }
-
-            $moodleCourseData = array();
-            foreach ($enrolledCourses["response_data"] as $value) {
-                $moodleCourseId = $value->id;
-                $wordpressCourseId = $this->getWPPostID($moodleCourseId);
-                if ($wordpressCourseId) {
-                    $moodleCourseData[$wordpressCourseId] = $moodleCourseId;
-                }
-            }
-
-            $result = $wpdb->get_results(
-                "SELECT course_id
-                FROM {$wpdb->prefix}moodle_enrollment
-                WHERE user_id={$userId};",
-                ARRAY_N
-            );
-
-
-            $wordpressCourseData = array();
-
-            foreach ($result as $value) {
-                $moodleCourseId = get_post_meta($value[0], "moodle_course_id", true);
-                $wordpressCourseId = $value[0];
-                if ($wordpressCourseId) {
-                    $wordpressCourseData[$wordpressCourseId] = $moodleCourseId;
-                }
-            }
-
-            $newEnrolledCourses = array_diff($moodleCourseData, $wordpressCourseData);
-            $unEnrolledCOurses = array_diff($wordpressCourseData, $moodleCourseData);
-
-
-            $args = array(
-                'user_id' => $userId,
-                'role_id' => 5,
-                'courses' => array_keys($newEnrolledCourses),
-                'unenroll' => 0,
-                'suspend' => 0,
-            );
-
-            edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
-
-
-            $args = array(
-                'user_id' => $userId,
-                'role_id' => 5,
-                'courses' => array_keys($unEnrolledCOurses),
-                'unenroll' => 1,
-                'suspend' => 0,
-            );
-
-            edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
-        // }
-
-
-
-
-
-
-
-
-
-
-
-    }*/
 }
-
-// new EBExternalApiEndpoint();
