@@ -179,6 +179,21 @@ Take a look at the link below to see the full list of questions which will help 
 
  ==  Changelog  ==
 
+= 1.4.0 =
+* Feature - Users will be enrolled in the course in the WordPress site when they are enrolled manually in Moodle directly.
+* Feature - Email template for User enrolled directly in Moodle.
+* Feature - User will get un-enrolled from the course on WordPress site if the same user gets un-enrolled from the course on Moodle site.
+* Feature - Email template for user un-enrollment directly in Moodle.
+* Feature - User account will be created on WordPress site if a user is created on the Moodle site.
+* Feature - User account will be deleted on WordPress site if the user is deleted from the Moodle site.
+* Feature - Email template can be sent when the user deletion happens in Moodle.
+* Feature - Course progress shown on the eb-my-courses page.
+* Feature - Default user role can be set for the newly created users if they are created from Edwiser Bridge user-account page or through any of its functionality.
+* Tweak - Start, Resume and completed buttons on the eb-my-courses page according to the course completion status.
+* Fix - course synchronization settings was synchronizing courses even if they are not checked. This has been resolved.
+
+
+
 = 1.3.4 =
 * Feature - Added option to add link for the redirection from eb-my-courses page if user is not enrolled in any course.
 * Feature - Added option to disable and customize recommended courses section in eb-my-courses page.
@@ -203,7 +218,7 @@ Take a look at the link below to see the full list of questions which will help 
 * Tweak- Added premium extensions tab in the edwiser-bridge settings.
 * Tweak- Added terms and condition pop-up on the license activate page.
 * Fix - eb-courses page was showing courses in the parent as well as the child category.
-* Fix - Synced Categories from Moodle was not syncing category description. 
+* Fix - Synced Categories from Moodle was not syncing category description.
 
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the Edwiser bridge plugin.
