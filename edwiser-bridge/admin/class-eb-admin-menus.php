@@ -183,11 +183,13 @@ class EbAdminMenus
     {
         global $submenu;
 
-        $submenu['edwiserbridge_lms'][] = array(
-            '<div id="helpmenu">' . __('Help', 'eb-textdomain') . '</div>',
-            'manage_options',
-            'https://edwiser.org/bridge/documentation/'
-        );
+        if (current_user_can('manage_options')) {
+            $submenu['edwiserbridge_lms'][] = array(
+                '<div id="helpmenu">' . __('Help', 'eb-textdomain') . '</div>',
+                'manage_options',
+                'https://edwiser.org/bridge/documentation/'
+            );
+        }
     }
 
     /**
