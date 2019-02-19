@@ -1043,12 +1043,15 @@ class EBUserManager
 
     public function unenrollOnCourseAccessExpire()
     {
-        global $wpdb;
+        global $wpdb, $post;
         $curUser = get_current_user_id();
-        global $post;
         $stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
         $enrollData = $wpdb->get_results($stmt);
         $enrollMentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+
+        //Added for the bulk purchase plugin expiration functionality
+        $enrollData = apply_filters("eb_user_list_on_course_expiration", $enrollData);
+
         foreach ($enrollData as $courseEnrollData) {
             $args = array(
                 'user_id' => $courseEnrollData->user_id,
