@@ -182,7 +182,6 @@ class EbAdminMenus
     public function helpMenu()
     {
         global $submenu;
-
         if (current_user_can('manage_options')) {
             $submenu['edwiserbridge_lms'][] = array(
                 '<div id="helpmenu">' . __('Help', 'eb-textdomain') . '</div>',

@@ -845,6 +845,14 @@ console.log(eb_admin_js_object.msg_error_link_user);
         }
 
 
+        /****  TO hide eb update notice   ***/
+        $(".eb_update_notice_hide").click(function(){
+            var parent = $(this).parent().parent();
+            parent.css("display", "none");
+        });
+
+
+
     });
 /*JS for Order page end*/
 

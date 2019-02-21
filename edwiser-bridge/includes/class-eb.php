@@ -285,6 +285,14 @@ class EdwiserBridge
      */
     private function adminDependencies()
     {
+
+        /*
+         *Class responsible to show admin notices
+         */
+
+        require_once EB_PLUGIN_DIR.'includes/class-eb-admin-notice-handler.php';
+
+
         /**
          * The class responsible for defining all actions that occur in the admin area.
          */
@@ -516,6 +524,38 @@ class EdwiserBridge
             $saveOrderMeta,
             'initEbOrderRefund'
         );
+
+
+        $adminNoticeHandler = new EBAdminNoticeHandler();
+        // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateMoodlePluginNotice');
+
+        $this->loader->addAction(
+            'admin_notices',
+            $adminNoticeHandler,
+            'ebAdminUpdateMoodlePluginNotice'
+        );
+        
+        // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
+        $this->loader->addAction(
+            'admin_init',
+            $adminNoticeHandler,
+            'ebAdminUpdateNoticeDismissHandler'
+        );
+
+        // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
+        $this->loader->addAction(
+            'admin_notices',
+            $adminNoticeHandler,
+            'ebAdminFeedbackNotice'
+        );
+
+        // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
+        $this->loader->addAction(
+            'admin_init',
+            $adminNoticeHandler,
+            'ebAdminNoticeDismissHandler'
+        );
+
 
         /*
          * Handling custom button events on settings page

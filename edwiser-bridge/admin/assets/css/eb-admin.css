@@ -300,8 +300,6 @@ color: #2ecc71;
 
 /****  premium extensions css end  ***/
 
-
-
 /* extensions page css */
 .eb_extensions_wrap .extensions {
     overflow: hidden;
@@ -311,24 +309,49 @@ color: #2ecc71;
     float: left;
 }
 
-.eb_admin_feedback_notice_message_cont{
+.eb_update_notice_hide{
+    cursor: pointer;
+}
+
+.eb_update_notice_img{
+    width: 114px;
+    height: 100%;
+}
+
+.eb_admin_update_notice_message_cont{
+    border-left: 5px solid #2e9aa6;
+}
+
+.eb_admin_update_notice_message{
+    display: flex;
+    width: 90%;
+    float: left;
+}
+
+
+.eb_update_notice_content{
+    padding-top: 2px;
+}
+
+
+.eb_admin_feedback_notice_message_cont, .eb_admin_update_notice_message_cont{
     overflow: auto;
     padding: 13px;
 }
 
-.eb_admin_feedback_dismiss_notice_message{
+.eb_admin_feedback_dismiss_notice_message, .eb_admin_update_dismiss_notice_message{
     float: right;
 }
 
-.eb_admin_feedback_dismiss_notice_message a span{
+.eb_admin_feedback_dismiss_notice_message a span, .eb_admin_update_dismiss_notice_message a span{
     color: red;
 }
 
-.eb_admin_feedback_dismiss_notice_message a{
+.eb_admin_feedback_dismiss_notice_message a, .eb_admin_update_dismiss_notice_message a{
     text-decoration: blink;
 }
 
-.eb_admin_feedback_dismiss_notice_message span:hover{
+.eb_admin_feedback_dismiss_notice_message span:hover,.eb_admin_update_dismiss_notice_message span:hover{
     color: red;
 }
 
