@@ -52,7 +52,7 @@ class EbShortcodeMyCourses
         if (isset($ebGeneralSetings['eb_enable_recmnd_courses']) && $ebGeneralSetings['eb_enable_recmnd_courses'] == "yes") {
             if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
                 $rec_cats = $currentClass->getRecommendedCategories($my_courses);
-                if (count($rec_cats) || count($ebGeneralSetings['eb_recmnd_courses'])) {
+                if (count($rec_cats) || (isset($ebGeneralSetings['eb_recmnd_courses']) && count($ebGeneralSetings['eb_recmnd_courses']))) {
                     $currentClass->showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
                 }
             }
