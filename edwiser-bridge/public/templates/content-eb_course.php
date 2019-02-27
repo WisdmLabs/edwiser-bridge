@@ -139,9 +139,6 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
                 }
             }
 
-            echo "</div>";
-
-/***********/
             if (isset($showProgress) && $showProgress == 1) {
                 echo "<div class='eb-course-action-cont'>";
                 if ($progressClass == "resume") {
@@ -151,7 +148,6 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
                 echo "</div>";
             }
 
-/***********/
 
 
             echo '</div>'; //wdm-caption
@@ -159,6 +155,8 @@ error_log("progressData ::: ".print_r($progressData, 1));*/
             ?>
         </a>
     </div>
+</div>
+
 
 
 

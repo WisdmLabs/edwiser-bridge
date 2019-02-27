@@ -76,11 +76,16 @@
     background-color: #8c68d3;
 }
 
-
-
-
 /**********/
 
+
+/***  Theme compatibility *****/
+
+.eb-archive-container #primary.twentyseventeen{
+    width: 100%;
+}
+
+/********/
 
 
 
@@ -180,7 +185,13 @@
 .eb-my-courses-wrapper .eb-my-course .hentry.wdm-col-3-2-1 {
     float: left;
     margin: 1em 0em;
-    padding: 0 0.5em;    
+    padding: 0 0.5em;
+}
+
+.hentry.wdm-col-3-2-1 {
+    float: left;
+    margin: 1em 0em;
+    padding: 0 0.5em;
 }
 
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
@@ -288,9 +299,16 @@
 .wdm-course-thumbnail > img {
     width: 100%;
 }
-.wdm-caption {
+
+.wdm-caption{
+    padding-top: 10px;
+}
+
+.wdm-caption h4{
     padding: 10px;
 }
+
+
 .wdm-caption .entry-content {
     padding: 0;
     float: none !important;
