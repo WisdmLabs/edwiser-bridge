@@ -56,7 +56,6 @@ class EbAdmin
      */
     public function adminEnqueueStyles()
     {
-
         /*
          * An instance of this class should be passed to the run() function
          * defined in EB_Loader as all of the hooks are defined
@@ -68,6 +67,14 @@ class EbAdmin
          */
 
         wp_enqueue_style('dashicons');
+
+        wp_enqueue_style(
+            $this->plugin_name . '_font_awesome',
+            EB_PLUGIN_URL.'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+            array(),
+            $this->version,
+            'all'
+        );
 
         wp_enqueue_style(
             $this->plugin_name,

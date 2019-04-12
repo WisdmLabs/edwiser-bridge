@@ -768,7 +768,7 @@ console.log(eb_admin_js_object.msg_error_link_user);
         $('#eb_order_course').select2();
 
 
-        $('.eb_table_row div input[name$=license_activate]').click(function(){
+/*        $('.eb_table_row div input[name$=license_activate]').click(function(){
             event.preventDefault();
             var submitButton = $(this);
 
@@ -798,11 +798,11 @@ console.log(eb_admin_js_object.msg_error_link_user);
                 ],
             });
         });
+*/
 
 
 
-
-        $(window).scroll(function(){
+        /*$(window).scroll(function(){
             // This is then function used to detect if the element is scrolled into view
             function elementScrolled(elem)
             {
@@ -833,7 +833,7 @@ console.log(eb_admin_js_object.msg_error_link_user);
                 }
             });
 
-        });
+        });*/
 
 
 
@@ -851,7 +851,16 @@ console.log(eb_admin_js_object.msg_error_link_user);
             parent.css("display", "none");
         });
 
+        $(".eb_admin_discount_notice_hide").click(function(){
+            var parent = $(this).parent().parent();
+            parent.css("display", "none");
+        });
 
+
+        $(".eb_admin_feedback_dismiss_notice_message").click(function(){
+            var parent = $(this).parent();
+            parent.css("display", "none");
+        });
 
     });
 /*JS for Order page end*/

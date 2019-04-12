@@ -42,10 +42,14 @@ class EBAdminNoticeHandler
                                 '. __('Thanks for updating to the latest version of Edwiser Bridge plugin, <b>please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.</b>', 'eb-textdomain').'
                                 <a href="#">'.__(' Click here ', "eb-textdomain").'</a>
                                 '.__(" to download Moodle plugin", "eb-textdomain").'
-                                <div style="padding-top: 8px;">
-                                    <a href="'.$redirection.'">
-                                        '.__('Dismiss this notice', 'eb-textdomain').'
-                                    </a>
+                                 <div style="padding-top: 8px;">
+                                    '.__('For setup assistance check our ', 'eb-textdomain').'
+                                    <a href="#">'.__(' documentation. ', "eb-textdomain").'</a>
+                                    <span style="padding-left: 20px;">
+                                        <a href="'.$redirection.'">
+                                            '.__(' Dismiss notice', 'eb-textdomain').'
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -55,6 +59,61 @@ class EBAdminNoticeHandler
                     </div>';
         }
     }
+
+
+
+    /**
+     * handle notice dismiss
+     * @since 1.3.1
+     * @return [type] [description]
+     */
+    public function ebAdminDiscountNoticeDismissHandler()
+    {
+        $user_id = get_current_user_id();
+        if (isset($_GET['eb-discount-notice-dismissed'])) {
+            add_user_meta($user_id, 'eb_discount_notice_dismissed', 'true', true);
+        }
+    }
+
+
+    /**
+     * show admin feedback notice
+     * @since 1.3.1
+     * @return [type] [description]
+     */
+    public function ebAdminDiscountNotice()
+    {
+        $redirection = '?eb-discount-notice-dismissed';
+        if (isset($_GET) && !empty($_GET)) {
+            $redirection = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $redirection .= '&eb-discount-notice-dismissed';
+        }
+
+        $user_id = get_current_user_id();
+        if (!get_user_meta($user_id, 'eb_discount_notice_dismissed')) {
+            echo '  <div class="notice  eb_admin_discount_notice_message">
+                        <div class="eb_admin_discount_notice_message_cont">
+                            <div class="eb_admin_discount_notice_content">
+                                '. __('Get all Premium Edwiser Products at Flat 20% Off!', 'eb-textdomain').'
+
+                                <div style="font-size:13px; padding-top:4px;">
+                                    <a href="'.$redirection.'">
+                                        '.__(' Dismiss this notice', 'eb-textdomain').'
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <a class="eb_admin_discount_offer_btn" href="#">'.__("Avail Offer Now!", "eb-textdomain").'</a>
+                            </div>
+                        </div>
+                        <div class="eb_admin_discount_dismiss_notice_message">
+                            <span class="dashicons dashicons-dismiss eb_admin_discount_notice_hide"></span>
+                        </div>
+                    </div>';
+        }
+    }
+
+
 
 
 
@@ -74,7 +133,6 @@ class EBAdminNoticeHandler
 
 
 
-
     /**
      * show admin feedback notice
      * @since 1.3.1
@@ -88,16 +146,32 @@ class EBAdminNoticeHandler
             $redirection .= '&eb-feedback-notice-dismissed';
         }
 
+        $user_id = get_current_user_id();
+        $feedbackUsermeta = get_user_meta($user_id, 'eb_feedback_notice_dismissed', true);
         if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
-            $user_id = get_current_user_id();
-            if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
-                echo '  <div class="notice notice-success eb_admin_feedback_notice_message_cont">
-                            <div class="eb_admin_feedback_notice_message">'.__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</div>
+            if ((!$feedbackUsermeta ||  $feedbackUsermeta != "remind_me_later") && $feedbackUsermeta != "dismiss_permanantly") {
+                echo '  <div class="notice eb_admin_feedback_notice_message_cont">
+                            <div class="eb_admin_feedback_notice_message">'
+                                .__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'
+                                <a href="https://wordpress.org/plugins/edwiser-bridge/">'
+                                    .__(' click here ', 'eb-textdomain').
+                                '</a>'
+                                .__(' to rate us.', 'eb-textdomain').'
+                                <div style="padding-top:8px; font-size:13px;">
+                                    <span class="eb_feedback_rate_links">
+                                        <a href="'.$redirection.'=remind_me_later">
+                                        '.__('Remind me Later!', 'eb-textdomain').'
+                                        </a>
+                                    </span>
+                                    <span class="eb_feedback_rate_links">
+                                        <a href="'.$redirection.'=dismiss_permanantly">
+                                        '.__('Dismiss Notice', 'eb-textdomain').'
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="eb_admin_feedback_dismiss_notice_message">
-                                <a href="'.$redirection.'">
-                                    <span class="dashicons dashicons-dismiss"></span>
-                                    '.__(' Dismiss ', 'eb-textdomain').'
-                                </a>
+                                <span class="dashicons dashicons-dismiss"></span>
                             </div>
                         </div>';
             }
@@ -114,7 +188,34 @@ class EBAdminNoticeHandler
     {
         $user_id = get_current_user_id();
         if (isset($_GET['eb-feedback-notice-dismissed'])) {
-            add_user_meta($user_id, 'eb_feedback_notice_dismissed', 'true', true);
+            add_user_meta($user_id, 'eb_feedback_notice_dismissed', $_GET['eb-feedback-notice-dismissed'], true);
         }
+    }
+
+
+
+    public function ebShowInlinePluginUpdateNotification($currPluginMetadata, $newPluginMetadata)
+    {
+       // check "upgrade_notice"
+        // $newPluginMetadata->upgrade_notice = __("Please update associated Moodle plugin", "eb-textdomain");
+        // if (isset($newPluginMetadata->upgrade_notice) && strlen(trim($newPluginMetadata->upgrade_notice)) > 0) {
+        // echo '<p><strong>Important Update Notice:</strong> ';
+        // echo esc_html($newPluginMetadata->upgrade_notice), '</p>';
+        // }
+        // unset($currPluginMetadata);
+        $currPluginMetadata = $currPluginMetadata;
+        $newPluginMetadata = $newPluginMetadata;
+        ob_start();
+        ?>
+            <p>
+                <strong><?= __("Important Update Notice:", "eb-textdomain") ?></strong>
+                <?= __("Please download and update associated edwiserbridge Moodle plugin.", "eb-textdomain") ?>
+                <a href=""><?=  __("Click here ") ?></a>
+                <?= __(" to download", "eb-textdomain") ?>
+
+            </p>
+
+        <?php
+        echo ob_get_clean();
     }
 }

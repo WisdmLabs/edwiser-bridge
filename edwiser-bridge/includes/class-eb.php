@@ -534,12 +534,27 @@ class EdwiserBridge
             $adminNoticeHandler,
             'ebAdminUpdateMoodlePluginNotice'
         );
-        
+
+
+        $this->loader->addAction(
+            'admin_notices',
+            $adminNoticeHandler,
+            'ebAdminDiscountNotice'
+        );
+
+
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
             'ebAdminUpdateNoticeDismissHandler'
+        );
+
+
+        $this->loader->addAction(
+            'admin_init',
+            $adminNoticeHandler,
+            'ebAdminDiscountNoticeDismissHandler'
         );
 
         // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
@@ -555,6 +570,17 @@ class EdwiserBridge
             $adminNoticeHandler,
             'ebAdminNoticeDismissHandler'
         );
+
+
+        $hook = "in_plugin_update_message-".EB_PLUGIN_NAME."/".EB_BASE_FILE_NAME;
+        $this->loader->addAction(
+            $hook,
+            $adminNoticeHandler,
+            'ebShowInlinePluginUpdateNotification',
+            10,
+            2
+        );
+
 
 
         /*

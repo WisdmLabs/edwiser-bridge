@@ -1,4 +1,4 @@
-=== Edwiser Bridge - WordPress Moodle LMS Integration === 
+=== Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
 Requires at least: 4.0
@@ -24,7 +24,7 @@ Moodle courses can be sold from WordPress using the PayPal payment gateway.
 An account will be created on Moodle for all users registering on WordPress. 
 
  = Identical Login Credentials for Registered User = 
-Login credentials for accounts created on WordPress and Moodle will be the same. 
+Login credentials for accounts created on WordPress and Moodle will be the same for all new users in WordPress and Moodle using Edwiser Bridge's user account page. 
 
  = Enable/ Disable Registration to Courses = 
 Registration to all courses can be enabled or disabled at once from the settings page. 
@@ -32,7 +32,7 @@ Registration to all courses can be enabled or disabled at once from the settings
  = Create Course Categories in WordPress = 
 Course categories can be created in WordPress and can be assigned to courses imported from Moodle.
 
- = Synchronize Course Categories from WordPress = 
+ = Synchronize Course categories from Moodle = 
 Course categories from Moodle can be imported to WordPress and can be assigned to courses that have been imported from Moodle.
 
  = Synchronize Enrolled Courses Data for Users = 
@@ -68,8 +68,6 @@ A dedicated page which displays every user the list of courses they have purchas
  = Set course access expiry period =
 Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
- = Set course access expiry period =
-Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
  = Refund Functionality =
 Now you can give refunds to your students/clients from the Orders section under Edwiser Bridge.
@@ -106,7 +104,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
 
 **Bulk Purchase for Edwiser Bridge**
 
-The Bulk Purchase plugin lets you buy more than one Moodle course through WooCommerce at one go and enroll each student in your class.
+The Bulk Purchase plugin lets you buy more than one seat in a Moodle course through WooCommerce at one go and enroll students in the purchased course.
 
 <a href = "https://edwiser.org/bridge/extensions/bulk-purchase/">Bulk Purchase for Edwiser Bridge</a>
 
@@ -123,7 +121,7 @@ The world's first User Centric theme for Moodle. Level Up your Moodle experience
  = Minimum Requirements = 
 * PHP version 5.6 or greater
 * WordPress 4.9 or higher
-* Moodle 2.9 or higher
+* Moodle 3.0.3 or higher
 
  =  Automatic Installation  = 
 * Go to the Plugins menu from the dashboard. 
@@ -136,6 +134,19 @@ The world's first User Centric theme for Moodle. Level Up your Moodle experience
 * Download the Edwiser Bridge plugin from wordpress.org. 
 * Now unzip and upload the folder using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard. 
+
+= Moodle Plugin Automatic Installation =
+* Download the Moodle edwiserbridge plugin from <a href = "">here</a>.
+* Go to the Plugins menu in Moodle.
+* Click on Install plugins.
+* Upload plugins zip file.
+* Then click on Install plugin from the Zip file.
+
+ = Moodle Plugin Manual Installation  = 
+* Download the Moodle edwiserbridge plugin from <a href = "">here</a>.
+* Now unzip and upload the folder using the FTP application of your choice.
+* The plugin can then be activated by navigating to the Plugins menu in the dashboard. 
+
 
  = Moodle Configuration = 
 Take a look at the link below and follow the steps provided to configure your Moodle website. 

@@ -150,9 +150,6 @@ class EbFrontendFormHandler
 
                 //add role code here
 
-                // error_log("USER :: ".print_r($new_user, 1));
-
-
                 $user_manager->setUserAuthCookie($new_user);
 
                 if (!empty($_GET['redirect_to'])) {

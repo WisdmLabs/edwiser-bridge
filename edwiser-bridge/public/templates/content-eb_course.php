@@ -71,14 +71,6 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses) {
         $progressData = $courseProgressManager->getCourseProgress();
         $courseId = array_keys($progressData);
 
-/*error_log("courseId ::: ".print_r($courseId, 1));
-
-error_log("get_the_ID ::: ".print_r(get_the_ID(), 1));
-
-error_log("progressData ::: ".print_r($progressData, 1));*/
-
-
-
         if (in_array(get_the_ID(), $courseId)) {
             if ($progressData[get_the_ID()] == 0) {
                 $progressClass = "start";
