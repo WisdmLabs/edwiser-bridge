@@ -18,6 +18,32 @@ class EBAdminNoticeHandler
     {
     }
 
+
+
+    public function checkIfMoodlePluginInstalled()
+    {
+        $connection_options = get_option('eb_connection');
+        $ebMoodleUrl = '';
+        if (isset($connection_options['eb_url'])) {
+            $ebMoodleUrl = $connection_options['eb_url'];
+        }
+        $ebMoodleToken = '';
+        if (isset($connection_options['eb_access_token'])) {
+            $ebMoodleToken = $connection_options['eb_access_token'];
+        }
+        $requestUrl = $ebMoodleUrl . '/webservice/rest/server.php?wstoken=';
+
+        $moodleFunction = "eb_test_connection";
+        $requestUrl .= $ebMoodleToken . '&wsfunction=' . $moodleFunction . '&moodlewsrestformat=json';
+        $response = wp_remote_post($requestUrl);
+        if (strpos($response['body'], 'accessexception') != false) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+
     /**
      * show admin feedback notice
      * @since 1.3.1
@@ -31,8 +57,12 @@ class EBAdminNoticeHandler
             $redirection .= '&eb-update-notice-dismissed';
         }
 
-        $user_id = get_current_user_id();
-        if (!get_user_meta($user_id, 'eb_update_notice_dismissed')) {
+
+        // $user_id = get_current_user_id();
+        if (!get_option('eb_update_notice_dismissed')) {
+            if ($this->checkIfMoodlePluginInstalled()) {
+                update_option('eb_update_notice_dismissed', 'true', true);
+            }
             echo '  <div class="notice  eb_admin_update_notice_message_cont">
                         <div class="eb_admin_update_notice_message">
                             <div style="width: 21%">
@@ -103,7 +133,7 @@ class EBAdminNoticeHandler
                                 </div>
                             </div>
                             <div>
-                                <a class="eb_admin_discount_offer_btn" href="#">'.__("Avail Offer Now!", "eb-textdomain").'</a>
+                                <a class="eb_admin_discount_offer_btn" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=wordpress&utm_medium=notif&utm_campaign=inbridge"  target="_blank">'.__("Avail Offer Now!", "eb-textdomain").'</a>
                             </div>
                         </div>
                         <div class="eb_admin_discount_dismiss_notice_message">
@@ -124,9 +154,8 @@ class EBAdminNoticeHandler
      */
     public function ebAdminUpdateNoticeDismissHandler()
     {
-        $user_id = get_current_user_id();
         if (isset($_GET['eb-update-notice-dismissed'])) {
-            add_user_meta($user_id, 'eb_update_notice_dismissed', 'true', true);
+            update_option('eb_update_notice_dismissed', 'true', true);
         }
     }
 
@@ -203,8 +232,11 @@ class EBAdminNoticeHandler
         // echo esc_html($newPluginMetadata->upgrade_notice), '</p>';
         // }
         // unset($currPluginMetadata);
+
+        //added this just for commit purpose
         $currPluginMetadata = $currPluginMetadata;
         $newPluginMetadata = $newPluginMetadata;
+
         ob_start();
         ?>
             <p>

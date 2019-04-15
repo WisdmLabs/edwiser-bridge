@@ -39,7 +39,10 @@ class EbCourseProgress
                         $request_data
                     );
 
+                    // error_log("PROGRESS ::: ".print_r($response, 1));
+
                     $courseProgressArray = array();
+
                     if (isset($response["success"]) && $response["success"]) {
                         foreach ($response["response_data"] as $value) {
                             $courseId = getWpCourseIdFromMoodleCourseId($value->course_id);
