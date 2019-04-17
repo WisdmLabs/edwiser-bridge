@@ -36,11 +36,15 @@ class EBAdminNoticeHandler
         $moodleFunction = "eb_test_connection";
         $requestUrl .= $ebMoodleToken . '&wsfunction=' . $moodleFunction . '&moodlewsrestformat=json';
         $response = wp_remote_post($requestUrl);
-        if (strpos($response['body'], 'accessexception') != false) {
-            return 0;
-        } else {
-            return 1;
+
+        if (!is_wp_error($response)) {
+            if (strpos($response['body'], 'accessexception') != false) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
+        return 0;
     }
 
 

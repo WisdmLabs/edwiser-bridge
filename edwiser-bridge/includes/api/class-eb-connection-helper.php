@@ -222,9 +222,6 @@ class EBConnectionHelper
 
 
 
-
-
-
         if (is_wp_error($response)) {
             $success          = 0;
             $response_message = $response->get_error_message();

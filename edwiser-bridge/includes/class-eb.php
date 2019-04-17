@@ -494,7 +494,20 @@ class EdwiserBridge
          */
         $orderMeta = new EBOrderMeta($this->plugin_name, $this->version);
         $saveOrderMeta = new EBOrderStatus($this->plugin_name, $this->version);
-        new EbPayPalRefundManager($this->plugin_name, $this->version);
+        $paypalRefundManager =  new EbPayPalRefundManager($this->plugin_name, $this->version);
+
+
+        // add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
+        $this->loader->addAction(
+            'eb_order_refund_init',
+            $paypalRefundManager,
+            'refund',
+            10,
+            5
+        );
+
+
+
         $this->loader->addAction(
             'add_meta_boxes',
             $orderMeta,

@@ -217,7 +217,13 @@ class EBOrderMeta
         }
 
         if (isset($order_data['buyer_id']) && !empty($order_data['buyer_id'])) {
-            $byerDetails = get_userdata($order_data['buyer_id']);
+            $buyerIdJsonDecoded = json_decode($order_data['buyer_id']);
+
+            $buyerId = $order_data['buyer_id'];
+            if (isset($buyerIdJsonDecoded->buyer_id) && !empty($buyerIdJsonDecoded->buyer_id)) {
+                $buyerId = $buyerIdJsonDecoded->buyer_id;
+            }
+            $byerDetails = get_userdata($buyerId);
             $this->printByerDetails($byerDetails->data);
         } else {
             $this->printByerDetails();
