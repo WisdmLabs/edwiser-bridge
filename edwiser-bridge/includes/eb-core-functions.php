@@ -229,6 +229,7 @@ function getShortcodePageContent($the_tag = '')
             'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
             'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
             'number_of_recommended_courses'     => 4,
+            'my_courses_progress'               => 1
         ),
         'eb_course'     => array(
             'id' => '',

@@ -58,7 +58,7 @@ if ($has_access) {
 
 $course_id = $post_id;
 //Shortcode eb_my_courses.
-if (isset($is_eb_my_courses) && $is_eb_my_courses) {
+if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr) && isset($attr["my_courses_progress"]) && $attr["my_courses_progress"]) {
     $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
     $mdl_course_id = $courseMang->getMoodleCourseId($course_id);
     $moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);

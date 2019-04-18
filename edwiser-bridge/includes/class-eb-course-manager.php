@@ -466,8 +466,6 @@ class EBCourseManager
                 );
 
                 // $parent_term = get_option( "eb_course_cat_".$category->parent );
-
-
                 if ($parent_term && !term_exists($cat_name_lower, 'eb_course_cat', $parent_term)) {
                     $created_term = wp_insert_term(
                         $category->name,
@@ -478,11 +476,7 @@ class EBCourseManager
                         'description' => $category->description,
                         )
                     );
-
-
                     update_term_meta($created_term['term_id'], "eb_moodle_cat_id", $category->id);
-
-
 
                     // Save the moodle id of category in options
                     // update_option( "eb_course_cat_".$category->id, $created_term['term_id'] );
