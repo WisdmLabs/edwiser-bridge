@@ -271,10 +271,12 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.connection_response == 1) {
-                        if (response.course_success == 1) {
-                            ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
-                        } else {
-                            ohSnap(response.course_response_message, 'error', 0);
+                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] == 1) {
+                            if (response.course_success == 1) {
+                                ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
+                            } else {
+                                ohSnap(response.course_response_message, 'error', 0);
+                            }
                         }
 
                         if (sync_options['eb_synchronize_categories'] == 1 && response.category_success == 1) {
@@ -525,6 +527,9 @@
                         } else {
                             if (str == "link")
                             {
+
+console.log(eb_admin_js_object.msg_error_link_user);
+
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);
@@ -763,7 +768,7 @@
         $('#eb_order_course').select2();
 
 
-        $('.eb_table_row div input[name$=license_activate]').click(function(){
+/*        $('.eb_table_row div input[name$=license_activate]').click(function(){
             event.preventDefault();
             var submitButton = $(this);
 
@@ -793,11 +798,11 @@
                 ],
             });
         });
+*/
 
 
 
-
-        $(window).scroll(function(){
+        /*$(window).scroll(function(){
             // This is then function used to detect if the element is scrolled into view
             function elementScrolled(elem)
             {
@@ -828,7 +833,7 @@
                 }
             });
 
-        });
+        });*/
 
 
 
@@ -839,6 +844,23 @@
             $(".eb-nav-tab-wrapper .nav-tab:last-child").css("color", "white");
         }
 
+
+        /****  TO hide eb update notice   ***/
+        $(".eb_update_notice_hide").click(function(){
+            var parent = $(this).parent().parent();
+            parent.css("display", "none");
+        });
+
+        $(".eb_admin_discount_notice_hide").click(function(){
+            var parent = $(this).parent().parent();
+            parent.css("display", "none");
+        });
+
+
+        $(".eb_admin_feedback_dismiss_notice_message").click(function(){
+            var parent = $(this).parent();
+            parent.css("display", "none");
+        });
 
     });
 /*JS for Order page end*/

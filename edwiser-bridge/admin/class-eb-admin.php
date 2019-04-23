@@ -56,7 +56,6 @@ class EbAdmin
      */
     public function adminEnqueueStyles()
     {
-
         /*
          * An instance of this class should be passed to the run() function
          * defined in EB_Loader as all of the hooks are defined
@@ -68,6 +67,14 @@ class EbAdmin
          */
 
         wp_enqueue_style('dashicons');
+
+        wp_enqueue_style(
+            $this->plugin_name . '_font_awesome',
+            EB_PLUGIN_URL.'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+            array(),
+            $this->version,
+            'all'
+        );
 
         wp_enqueue_style(
             $this->plugin_name,
@@ -161,9 +168,9 @@ class EbAdmin
                 'msg_tpl_not_found' => __('Template not found', 'eb-textdomain'),
                 'msg_link_user' => __('Linked ', 'eb-textdomain'),
                 'msg_unlink_user' => __('Unlinked ', 'eb-textdomain'),
-                'msg_error_unlink_user' => __('Sorry, unable unlink  user', 'eb-textdomain'),
-                'msg_error_link_user' => __('Sorry, unable link  user', 'eb-textdomain'),
-                'msg_error_moodle_link' => __('Sorry, unable to link to moodle', 'eb-textdomain'),
+                'msg_error_unlink_user' => "<div>".__('Sorry, unable to link user', 'eb-textdomain')."<ol><li>".__("Check if first name and last name of the user is empty.", 'eb-textdomain')."</li><li>".__("Please test Moodle connection.", "eb-textdomain")."</li></ol>".__("To know more about this error please", "eb-textdomain")."<a target='_blank' href='https://knowledgebase.edwiser.org/'>".__(" click here", "eb-textdomain")."</a></div>",
+                'msg_error_link_user' => "<div>".__('Sorry, unable to link user', 'eb-textdomain')."<ol><li>".__("Check if first name and last name of the user is empty.", 'eb-textdomain')."</li><li>".__("Please test Moodle connection.", "eb-textdomain")."</li></ol>".__("To know more about this error please ", "eb-textdomain")."<a target='_blank' href='https://knowledgebase.edwiser.org/'>".__(" click here", "eb-textdomain")."</a></div>",
+                'msg_error_moodle_link' => __('Sorry, unable to link to the moodle', 'eb-textdomain'),
                 'msg_confirm_refund' => __('Do you want to refund for the order id: #', 'eb-textdomain'),
                 'eb_order_refund_nonce' => wp_create_nonce("eb_order_refund_nons_field"),
                 'msg_refund_failed' => __('Failed to refund the order', 'eb-textdomain'),

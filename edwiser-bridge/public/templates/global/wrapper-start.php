@@ -38,7 +38,7 @@ switch ($template) {
         .$parentcss.'"><main id="main" class="site-main" role="main">';
         break;
     case 'twentyseventeen':
-        echo '<div class="wrap"><div id="primary" class="content-area" style="'
+        echo '<div class="wrap"><div id="primary" class="content-area twentyseventeen" style="'
         .$parentcss.'"><main id="main" class="site-main" role="main">';
         break;
     default:

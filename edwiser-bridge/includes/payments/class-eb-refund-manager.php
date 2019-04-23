@@ -19,7 +19,7 @@ class EbPayPalRefundManager
     {
         $this->pluginName = $pluginName;
         $this->version    = $version;
-        add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
+        // add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
     }
 
     /**
@@ -42,7 +42,7 @@ class EbPayPalRefundManager
             $reqArgs  = array(
                 'method'      => 'POST',
                 'body'        => $requestData["data"],
-                'timeout'     => 100,
+                'timeout'     => 500,
                 'httpversion' => '1.1',
                 'headers'     => array("content-type" => "application/json")
             );

@@ -232,5 +232,84 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             );
             return $enrollmentManager->updateUserCourseEnrollment($args);
         }
+
+        /**
+         * @return [type] [description]
+         */
+       /* public function processEnrollmentOnLogin($user_login, $user)
+        {
+            global $wpdb;
+            $userId = $user->ID;
+            $moodleUserId = get_user_meta($userId, "moodle_user_id", true);
+
+            if (trim($moodleUserId) == "") {
+                 $enrolledCourses = edwiserBridgeInstance()->courseManager()->getMoodleCourses($moodleUserId);
+
+                if (!isset($enrolledCourses["success"]) || !$enrolledCourses["success"]) {
+                    return;
+                }
+
+                $moodleCourseData = array();
+                foreach ($enrolledCourses["response_data"] as $value) {
+                    $moodleCourseId = $value->id;
+                    $wordpressCourseId = $this->getWPPostID($moodleCourseId);
+                    if ($wordpressCourseId) {
+                        $moodleCourseData[$wordpressCourseId] = $moodleCourseId;
+                    }
+                }
+
+                $result = $wpdb->get_results(
+                    "SELECT course_id
+                    FROM {$wpdb->prefix}moodle_enrollment
+                    WHERE user_id={$userId};",
+                    ARRAY_N
+                );
+
+
+                $wordpressCourseData = array();
+
+                foreach ($result as $value) {
+                    $moodleCourseId = get_post_meta($value[0], "moodle_course_id", true);
+                    $wordpressCourseId = $value[0];
+                    if ($wordpressCourseId) {
+                        $wordpressCourseData[$wordpressCourseId] = $moodleCourseId;
+                    }
+                }
+
+                $newEnrolledCourses = array_diff($moodleCourseData, $wordpressCourseData);
+                $unEnrolledCOurses = array_diff($wordpressCourseData, $moodleCourseData);
+
+
+                $args = array(
+                    'user_id' => $userId,
+                    'role_id' => 5,
+                    'courses' => array_keys($newEnrolledCourses),
+                    'unenroll' => 0,
+                    'suspend' => 0,
+                );
+
+                edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
+
+
+                $args = array(
+                    'user_id' => $userId,
+                    'role_id' => 5,
+                    'courses' => array_keys($unEnrolledCOurses),
+                    'unenroll' => 1,
+                    'suspend' => 0,
+                );
+
+                edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
+            }
+        }*/
+
+
+        public function getWPPostID($moodleCourseId)
+        {
+            global $wpdb;
+            $result = $wpdb->get_var("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$moodleCourseId} AND meta_key = 'moodle_course_id'");
+
+            return $result;
+        }
     }
 }

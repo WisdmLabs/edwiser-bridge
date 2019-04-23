@@ -34,7 +34,7 @@ if (!class_exists('EbAdminMarketingAdd')) {
             ?>
             <div class='eb-marketing-add'>
                 <a target="_blank" href='https://edwiser.org/remui/?utm_source=InProduct&utm_medium=banner&utm_campaign=Bridge&utm_term=Apr'>
-                    <img src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.jpg"); ?>">
+                    <img alt="<?php __('Sorry, Unable to load image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.jpg"); ?>">
                 </a>
             </div>
             <?php

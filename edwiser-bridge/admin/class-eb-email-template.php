@@ -53,6 +53,16 @@ class EBAdminEmailTemplate
         $emailList["eb_emailtmpl_refund_completion_notifier_to_user"] = __("Refund Success mail to customer", 'eb-textdomain');
         $emailList["eb_emailtmpl_refund_completion_notifier_to_admin"] = __("Refund Success mail to admin or specified email", 'eb-textdomain');
 
+
+/*******  Two way synch ********/
+
+        $emailList["eb_emailtmpl_mdl_enrollment_trigger"] = __("Moodle Course Enrollment", 'eb-textdomain');
+        $emailList["eb_emailtmpl_mdl_un_enrollment_trigger"] = __("Moodle Course Un-Enrollment", 'eb-textdomain');
+        $emailList["eb_emailtmpl_mdl_user_deletion_trigger"] = __("User Account Deleted", 'eb-textdomain');
+
+/******************/
+
+
         return $emailList;
     }
 
@@ -143,7 +153,7 @@ class EBAdminEmailTemplate
                             <input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="<?php _e('Enter email address', 'eb-textdomain'); ?>"/>
                             <input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
                             <span class="load-response">
-                                <img src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
+                                <img alt="<?php __('Sorry, unable to load the image', 'eb-textdomain') ?>" src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
                             </span>
                             <div class="response-box">
                             </div>
@@ -601,6 +611,19 @@ class EBAdminEmailTemplate
                 break;
             case "eb_emailtmpl_refund_completion_notifier_to_admin":
                 $value=$defaultTmpl->notifyAdminOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_admin", true);
+                break;
+
+
+            case "eb_emailtmpl_mdl_enrollment_trigger":
+                $value=$defaultTmpl->moodleEnrollmentTrigger("eb_emailtmpl_mdl_enrollment_trigger", true);
+                break;
+
+            case "eb_emailtmpl_mdl_un_enrollment_trigger":
+                $value=$defaultTmpl->moodleUnenrollmentTrigger("eb_emailtmpl_mdl_un_enrollment_trigger", true);
+                break;
+
+            case "eb_emailtmpl_mdl_user_deletion_trigger":
+                $value=$defaultTmpl->userDeletionTrigger("eb_emailtmpl_mdl_user_deletion_trigger", true);
                 break;
 
 

@@ -36,13 +36,23 @@ class EbShortcodeMyCourses
      */
     public static function output($atts)
     {
-        extract($atts = shortcode_atts(apply_filters('eb_shortcode_my_courses_defaults', array(
-            'user_id' => get_current_user_id(),
-            'my_courses_wrapper_title' => '',
-            'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
-            'number_of_recommended_courses' => 7,
-                )), $atts));
-        $currentClass=new EbShortcodeMyCourses();
+        extract(
+            $atts = shortcode_atts(
+                apply_filters(
+                    'eb_shortcode_my_courses_defaults',
+                    array
+                    (
+                        'user_id' => get_current_user_id(),
+                        'my_courses_wrapper_title' => '',
+                        'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+                        'number_of_recommended_courses' => 7,
+                        'my_courses_progress' => "1"
+                    )
+                ),
+                $atts
+            )
+        );
+        $currentClass = new EbShortcodeMyCourses();
         $my_courses = $currentClass->getUserCourses($atts['user_id']);
 
         $currentClass->showMyCourses($my_courses, $atts);
@@ -52,7 +62,7 @@ class EbShortcodeMyCourses
         if (isset($ebGeneralSetings['eb_enable_recmnd_courses']) && $ebGeneralSetings['eb_enable_recmnd_courses'] == "yes") {
             if (is_numeric($atts['number_of_recommended_courses']) && $atts['number_of_recommended_courses'] > 0) {
                 $rec_cats = $currentClass->getRecommendedCategories($my_courses);
-                if (count($rec_cats)) {
+                if (count($rec_cats) || (isset($ebGeneralSetings['eb_recmnd_courses']) && count($ebGeneralSetings['eb_recmnd_courses']))) {
                     $currentClass->showRecommendedCourses($rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts);
                 }
             }
@@ -78,6 +88,7 @@ class EbShortcodeMyCourses
 
     public function showMyCourses($my_courses, $atts)
     {
+
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
             edwiserBridgeInstance()->getVersion()
@@ -114,7 +125,7 @@ class EbShortcodeMyCourses
             if ($courses->have_posts()) {
                 while ($courses->have_posts()) :
                     $courses->the_post();
-                    $template_loader->wpGetTemplate('content-eb_course.php', array('is_eb_my_courses' => true));
+                    $template_loader->wpGetTemplate('content-eb_course.php', array('is_eb_my_courses' => true, "attr" => $atts));
                 endwhile;
             } else {
                 $template_loader->wpGetTemplatePart('content', 'none');

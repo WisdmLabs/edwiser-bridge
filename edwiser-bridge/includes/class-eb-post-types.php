@@ -425,9 +425,9 @@ class EBPostTypes
         } elseif (isset($field['default'])) {
             $data = $field['default'];
         }
-        $field['placeholder'] = '';
-        if (isset($field['placeholder'])) {
-            $field['placeholder'] = $field['placeholder'];
+
+        if (!isset($field['placeholder'])) {
+            $field['placeholder'] = "";
         }
         $label = '';
         if (isset($field['label'])) {

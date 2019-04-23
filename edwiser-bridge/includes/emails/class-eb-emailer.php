@@ -311,6 +311,181 @@ class EBEmailer
         return $sent;
     }
 
+
+
+
+/*********   Two way synch    **********/
+
+
+
+    /**
+     * Sends email notification when Enrollment triggered on Moodle.
+     *
+     * called using 'eb_created_user' hook after user registration.
+     *
+     * @param array $args user details array
+     *
+     * @return bool
+     */
+    public function sendMdlTriggeredEnrollmentEmail($args)
+    {
+        /**
+         * Using Email template Editor
+         */
+
+/// write appropriate filter name
+
+        $args          = apply_filters("eb_args_data", $args);
+
+
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_enrollment_trigger");
+        $allowNotify   = get_option("eb_emailtmpl_mdl_enrollment_trigger_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
+            return;
+        }
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+        /**
+         * Using Default
+         */
+        /*$this->template_name = 'emails/user-new-account.php';
+
+        // prepare arguments array for email
+        $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+
+        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
+        $args['header'] = $email_subject; // send email subject as header in email template
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+        //send email
+        $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+
+        return $sent;*/
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Sends email notification when Un Enrollment triggered on Moodle.
+     *
+     * called using 'eb_created_user' hook after user registration.
+     *
+     * @param array $args user details array
+     *
+     * @return bool
+     */
+    public function sendMdlTriggeredUnenrollmentEmail($args)
+    {
+        /**
+         * Using Email template Editor
+         */
+
+/// write appropriate filter name
+
+
+        $args          = apply_filters("eb_args_data", $args);
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_un_enrollment_trigger");
+        $allowNotify   = get_option("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
+            return;
+        }
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+        /**
+         * Using Default
+         */
+        /*$this->template_name = 'emails/user-new-account.php';
+
+        // prepare arguments array for email
+        $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+
+        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
+        $args['header'] = $email_subject; // send email subject as header in email template
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+        //send email
+        $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+
+        return $sent;*/
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Sends email notification when User Deletion triggered on Moodle.
+     *
+     * called using 'eb_created_user' hook after user registration.
+     *
+     * @param array $args user details array
+     *
+     * @return bool
+     */
+    public function sendMdlTriggeredUserDeletionEmail($args)
+    {
+        /**
+         * Using Email template Editor
+         */
+
+/// write appropriate filter name
+
+
+
+        $args          = apply_filters("eb_args_data", $args);
+        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_user_deletion_trigger");
+        $allowNotify   = get_option("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
+            return;
+        }
+        if ($emailTmplData) {
+            $emailTmplObj = new EBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }
+        /**
+         * Using Default
+         */
+        /*$this->template_name = 'emails/user-new-account.php';
+
+        // prepare arguments array for email
+        $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+
+        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
+        $args['header'] = $email_subject; // send email subject as header in email template
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+        //send email
+        $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+
+        return $sent;*/
+    }
+
+
+
+
+
+
+
+
+
+/***********************************/
+
+
     private function checkOrderDetails($order_detail)
     {
         if (!isset($order_detail['order_status']) || !isset($order_detail['buyer_id']) || !isset($order_detail['course_id'])) {

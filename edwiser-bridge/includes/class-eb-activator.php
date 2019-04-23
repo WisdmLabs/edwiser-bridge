@@ -265,6 +265,20 @@ class EBActivator
         self::updateTemplateData("eb_emailtmpl_order_completed", $defaultTmpl->orderComplete("eb_emailtmpl_order_completed"));
         self::updateTemplateData("eb_emailtmpl_course_access_expir", $defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir"));
 
+
+
+/******  Two way synch Moodle triggered emails   ******/
+
+        self::updateTemplateData("eb_emailtmpl_mdl_enrollment_trigger", $defaultTmpl->moodleEnrollmentTrigger("eb_emailtmpl_mdl_enrollment_trigger"));
+        self::updateTemplateData("eb_emailtmpl_mdl_un_enrollment_trigger", $defaultTmpl->moodleUnenrollmentTrigger("eb_emailtmpl_mdl_un_enrollment_trigger"));
+        self::updateTemplateData("eb_emailtmpl_mdl_user_deletion_trigger", $defaultTmpl->userDeletionTrigger("eb_emailtmpl_mdl_user_deletion_trigger"));
+
+/************************************/
+
+
+
+
+
         self::updateAllowMailSendData("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow", "ON");
 
@@ -273,6 +287,14 @@ class EBActivator
         self::updateAllowMailSendData("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_order_completed_notify_allow", "ON");
         self::updateAllowMailSendData("eb_emailtmpl_course_access_expir_notify_allow", "ON");
+
+
+
+/******  Two way synch Moodle triggered emails   ******/
+
+        self::updateAllowMailSendData("eb_emailtmpl_mdl_enrollment_trigger_notify_allow", "ON");
+        self::updateAllowMailSendData("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow", "ON");
+        self::updateAllowMailSendData("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow", "ON");
     }
 
     private static function updateTemplateData($key, $value)

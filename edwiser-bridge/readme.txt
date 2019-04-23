@@ -1,8 +1,8 @@
-=== Edwiser Bridge - WordPress Moodle LMS Integration === 
+=== Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
 Requires at least: 4.0
-Tested up to: 4.9.5
+Tested up to: 5.0.3
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ Moodle courses can be sold from WordPress using the PayPal payment gateway.
 An account will be created on Moodle for all users registering on WordPress. 
 
  = Identical Login Credentials for Registered User = 
-Login credentials for accounts created on WordPress and Moodle will be the same. 
+Login credentials for accounts created on WordPress and Moodle will be the same for all new users in WordPress and Moodle using Edwiser Bridge's user account page. 
 
  = Enable/ Disable Registration to Courses = 
 Registration to all courses can be enabled or disabled at once from the settings page. 
@@ -32,7 +32,7 @@ Registration to all courses can be enabled or disabled at once from the settings
  = Create Course Categories in WordPress = 
 Course categories can be created in WordPress and can be assigned to courses imported from Moodle.
 
- = Synchronize Course Categories from WordPress = 
+ = Synchronize Course categories from Moodle = 
 Course categories from Moodle can be imported to WordPress and can be assigned to courses that have been imported from Moodle.
 
  = Synchronize Enrolled Courses Data for Users = 
@@ -68,8 +68,6 @@ A dedicated page which displays every user the list of courses they have purchas
  = Set course access expiry period =
 Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
- = Set course access expiry period =
-Set the course expiry date on course backend and after course expire, users are automatically unenrolled from the course on WordPress and Moodle.
 
  = Refund Functionality =
 Now you can give refunds to your students/clients from the Orders section under Edwiser Bridge.
@@ -106,7 +104,7 @@ Selectively synchronize Moodle courses or courses belonging to a particular cate
 
 **Bulk Purchase for Edwiser Bridge**
 
-The Bulk Purchase plugin lets you buy more than one Moodle course through WooCommerce at one go and enroll each student in your class.
+The Bulk Purchase plugin lets you buy more than one seat in a Moodle course through WooCommerce at one go and enroll students in the purchased course.
 
 <a href = "https://edwiser.org/bridge/extensions/bulk-purchase/">Bulk Purchase for Edwiser Bridge</a>
 
@@ -123,7 +121,7 @@ The world's first User Centric theme for Moodle. Level Up your Moodle experience
  = Minimum Requirements = 
 * PHP version 5.6 or greater
 * WordPress 4.9 or higher
-* Moodle 2.9 or higher
+* Moodle 3.0.3 or higher
 
  =  Automatic Installation  = 
 * Go to the Plugins menu from the dashboard. 
@@ -136,6 +134,19 @@ The world's first User Centric theme for Moodle. Level Up your Moodle experience
 * Download the Edwiser Bridge plugin from wordpress.org. 
 * Now unzip and upload the folder using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard. 
+
+= Moodle Plugin Automatic Installation =
+* Download the Moodle edwiserbridge plugin from <a href = "">here</a>.
+* Go to the Plugins menu in Moodle.
+* Click on Install plugins.
+* Upload plugins zip file.
+* Then click on Install plugin from the Zip file.
+
+ = Moodle Plugin Manual Installation  = 
+* Download the Moodle edwiserbridge plugin from <a href = "">here</a>.
+* Now unzip and upload the folder using the FTP application of your choice.
+* The plugin can then be activated by navigating to the Plugins menu in the dashboard. 
+
 
  = Moodle Configuration = 
 Take a look at the link below and follow the steps provided to configure your Moodle website. 
@@ -179,6 +190,21 @@ Take a look at the link below to see the full list of questions which will help 
 
  ==  Changelog  ==
 
+= 1.4.0 =
+* Feature - Users will be enrolled in the course in the WordPress site when they are enrolled manually in Moodle directly.
+* Feature - Email template for User enrolled directly in Moodle.
+* Feature - User will get un-enrolled from the course on WordPress site if the same user gets un-enrolled from the course on Moodle site.
+* Feature - Email template for user un-enrollment directly in Moodle.
+* Feature - User account will be created on WordPress site if a user is created on the Moodle site.
+* Feature - User account will be deleted on WordPress site if the user is deleted from the Moodle site.
+* Feature - Email template can be sent when the user deletion happens in Moodle.
+* Feature - Course progress shown on the eb-my-courses page.
+* Feature - Default user role can be set for the newly created users if they are created from Edwiser Bridge user-account page or through any of its functionality.
+* Tweak - Start, Resume and completed buttons on the eb-my-courses page according to the course completion status.
+* Fix - course synchronization settings was synchronizing courses even if they are not checked. This has been resolved.
+
+
+
 = 1.3.4 =
 * Feature - Added option to add link for the redirection from eb-my-courses page if user is not enrolled in any course.
 * Feature - Added option to disable and customize recommended courses section in eb-my-courses page.
@@ -203,7 +229,7 @@ Take a look at the link below to see the full list of questions which will help 
 * Tweak- Added premium extensions tab in the edwiser-bridge settings.
 * Tweak- Added terms and condition pop-up on the license activate page.
 * Fix - eb-courses page was showing courses in the parent as well as the child category.
-* Fix - Synced Categories from Moodle was not syncing category description. 
+* Fix - Synced Categories from Moodle was not syncing category description.
 
 = 1.3.0 =
 * Feature - Refund functionality for the order placed using the Edwiser bridge plugin.

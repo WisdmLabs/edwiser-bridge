@@ -3,6 +3,93 @@
  * included in this file.
  */
 
+
+/*  REMOVE  */
+
+.eb-grid-container{
+    position: relative;
+    z-index: 1;
+}
+
+.wdm-course-grid .wdm-caption h4{
+    margin: 0rem 0;
+}
+
+
+.eb-course-action-cont{
+    /*transition: transform .3s,-webkit-transform .3s;
+    -webkit-transform: translateY(42px);
+    transform: translateY(42px);*/
+    background-color: #9873cb4d;
+}
+
+
+.eb-course-action-btn{
+    position: relative;
+    top: 0px;
+    /*transition: transform .2s ease-in-out;*/
+}
+
+/*.wdm-course-grid-wrap:hover .eb-course-action-cont{
+    transform: translate3d(0px, 0px, 0px);
+}*/
+
+
+.eb-course-action-btn-start{
+    margin-top: 4px;
+    border: 1px solid #1767ba;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #0068ba;
+}
+
+.eb-course-action-btn-resume{
+    border: 1px solid #a57afa;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #a57afa;;
+}
+
+
+.eb-course-action-btn-completed{
+    margin-top: 4px;
+    border: 1px solid #059b4f;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #059b4f;
+}
+
+
+.eb-course-action-progress-cont{
+    line-height: 4px;
+    height: 4px;
+    background-color: #a57afa21;
+}
+
+
+.eb-course-action-progress{
+    line-height: 4px;
+    height: 4px;
+    background-color: #8c68d3;
+}
+
+/**********/
+
+
+/***  Theme compatibility *****/
+
+.eb-archive-container #primary.twentyseventeen{
+    width: 100%;
+}
+
+/********/
+
+
+
+
 .wdm-flash-error{
     margin: 5px 0 15px;
     background: none repeat scroll 0% 0% #FFF;
@@ -95,10 +182,16 @@
 /**
  * course archive template style
  */
+.eb-my-courses-wrapper .eb-my-course .hentry.wdm-col-3-2-1 {
+    float: left;
+    margin: 1em 0em;
+    padding: 0 0.5em;
+}
+
 .hentry.wdm-col-3-2-1 {
     float: left;
     margin: 1em 0em;
-    padding: 0 0.5em;    
+    padding: 0 0.5em;
 }
 
 .hentry.wdm-col-3-2-1:nth-of-type(4n+1) {
@@ -178,7 +271,7 @@
 }
 .wdm-course-grid {
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #dddddd9e;
     border-radius: 2px;
     position: relative;
     cursor: pointer;
@@ -206,9 +299,16 @@
 .wdm-course-thumbnail > img {
     width: 100%;
 }
-.wdm-caption {
+
+.wdm-caption{
+    padding-top: 10px;
+}
+
+.wdm-caption h4{
     padding: 10px;
 }
+
+
 .wdm-caption .entry-content {
     padding: 0;
     float: none !important;

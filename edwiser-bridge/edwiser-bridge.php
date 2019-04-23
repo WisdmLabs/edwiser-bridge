@@ -14,7 +14,7 @@ namespace app\wisdmlabs\edwiserBridge;
  * Plugin Name:       Edwiser Bridge - WordPress Moodle LMS Integration
  * Plugin URI:        https://edwiser.org/bridge/
  * Description:       Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy option to import Moodle courses to WordPress and sell them using PayPal. The plugin also allows automatic registration of WordPress users on the Moodle website along with single login credentials for both the systems.
- * Version:           1.3.4
+ * Version:           1.4.0
  * Author:            WisdmLabs
  * Author URI:        https://edwiser.org
  * License:           GPL-2.0+
@@ -32,6 +32,16 @@ if (!defined('WPINC')) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-eb-activator.php.
  */
+
+if (!defined("EB_BASE_FILE_NAME")) {
+    define("EB_BASE_FILE_NAME", basename(__FILE__));
+}
+
+if (!defined("EB_PLUGIN_NAME")) {
+    define("EB_PLUGIN_NAME", basename(dirname(__FILE__)));
+}
+
+
 function activateEdwiserBridge($netWide)
 {
     require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
@@ -90,51 +100,7 @@ function wdmPluginRowMeta($links, $file)
     return (array) $links;
 }
 
-add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
 
-/**
- * show admin feedback notice
- * @since 1.3.1
- * @return [type] [description]
- */
-function ebAdminFeedbackNotice()
-{
-    $redirection = '?eb-feedback-notice-dismissed';
-    if (isset($_GET) && !empty($_GET)) {
-        $redirection = (isset($_SERVER['HTTPS']) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $redirection .= '&eb-feedback-notice-dismissed';
-    }
-
-    if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
-        $user_id = get_current_user_id();
-        if (!get_user_meta($user_id, 'eb_feedback_notice_dismissed')) {
-            echo '  <div class="notice notice-success eb_admin_feedback_notice_message_cont">
-                        <div class="eb_admin_feedback_notice_message">'.__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'<a href="https://wordpress.org/plugins/edwiser-bridge/">'.__(' click here ', 'eb-textdomain').'</a>'.__(' to rate us.', 'eb-textdomain').'</div>
-                        <div class="eb_admin_feedback_dismiss_notice_message">
-                            <a href="'.$redirection.'">
-                                <span class="dashicons dashicons-dismiss"></span>
-                                '.__(' Dismiss ', 'eb-textdomain').'
-                            </a>
-                        </div>
-                    </div>';
-        }
-    }
-}
-
-add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
-
-/**
- * handle notice dismiss
- * @since 1.3.1
- * @return [type] [description]
- */
-function ebAdminNoticeDismissHandler()
-{
-    $user_id = get_current_user_id();
-    if (isset($_GET['eb-feedback-notice-dismissed'])) {
-        add_user_meta($user_id, 'eb_feedback_notice_dismissed', 'true', true);
-    }
-}
 
 /*
  * Always show warning if legacy extensions are active
@@ -196,7 +162,7 @@ require plugin_dir_path(__FILE__).'includes/class-eb.php';
 add_action('admin_init', 'app\wisdmlabs\edwiserBridge\processUpgrade');
 function processUpgrade()
 {
-    $newVersion = '1.3.4';
+    $newVersion = '1.4.0';
     $currentVersion = get_option('eb_current_version');
     if ($currentVersion == false || $currentVersion != $newVersion) {
         require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
@@ -220,4 +186,6 @@ function runEdwiserBridge()
 }
 
 runEdwiserBridge(); // start plugin execution
+
+require_once plugin_dir_path(__FILE__).'includes/api/class-eb-external-api.php';
 
