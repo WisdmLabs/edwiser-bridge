@@ -33,18 +33,37 @@ class EBAdminNoticeHandler
         }
         $requestUrl = $ebMoodleUrl . '/webservice/rest/server.php?wstoken=';
 
-        $moodleFunction = "eb_test_connection";
+        $moodleFunction = "eb_get_course_progress";
         $requestUrl .= $ebMoodleToken . '&wsfunction=' . $moodleFunction . '&moodlewsrestformat=json';
         $response = wp_remote_post($requestUrl);
 
-        if (!is_wp_error($response)) {
+        if (is_wp_error($response)) {
+            return 0;
+        } elseif (wp_remote_retrieve_response_code($response) == 200 ||
+                wp_remote_retrieve_response_code($response) == 303) {
+            $body = json_decode(wp_remote_retrieve_body($response));
+
+            if ($body->errorcode == 'accessexception') {
+                return 0;
+            }
+
+            /*if (!empty($body->exception)) {
+                return 0;
+            }*/
+        } else {
+            return 0;
+        }
+
+        return 1;
+
+        /*if (!is_wp_error($response)) {
             if (strpos($response['body'], 'accessexception') != false) {
                 return 0;
             } else {
                 return 1;
             }
         }
-        return 0;
+        return 0;*/
     }
 
 
@@ -78,7 +97,7 @@ class EBAdminNoticeHandler
                                 '.__(" to download Moodle plugin", "eb-textdomain").'
                                  <div style="padding-top: 8px;">
                                     '.__('For setup assistance check our ', 'eb-textdomain').'
-                                    <a href="https://edwiser.org/bridge/documentation/">'.__(' documentation. ', "eb-textdomain").'</a>
+                                    <a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">'.__(' documentation. ', "eb-textdomain").'</a>
                                     <span style="padding-left: 20px;">
                                         <a href="'.$redirection.'">
                                             '.__(' Dismiss notice', 'eb-textdomain').'
