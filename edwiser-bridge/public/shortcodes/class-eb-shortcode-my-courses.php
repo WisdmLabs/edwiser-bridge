@@ -46,7 +46,7 @@ class EbShortcodeMyCourses
                         'my_courses_wrapper_title' => '',
                         'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
                         'number_of_recommended_courses' => 7,
-                        'my_courses_progress' => "1"
+                        'my_courses_progress' => "0"
                     )
                 ),
                 $atts

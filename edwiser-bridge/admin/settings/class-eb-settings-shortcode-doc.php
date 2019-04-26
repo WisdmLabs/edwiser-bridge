@@ -102,6 +102,7 @@ if (!class_exists('EBSettingsConnection')) {
                             <li><span class="eb_shortcode-doc-para">my_courses_wrapper_title</span>:<?php printf(__("This will sets the title for the courses wrapper Example: %s", "eb-textdomain"), '<strong>[eb_my_courses my_courses_wrapper_title="My Courses"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">recommended_courses_wrapper_title</span>:<?php printf(__("This will sets the title for the courses wrapper Example: %s", "eb-textdomain"), '<strong>[eb_my_courses recommended_courses_wrapper_title="Recommended courses"]</strong>'); ?></li>
                             <li><span class="eb_shortcode-doc-para">number_of_recommended_courses</span>:<?php printf(__("This will sets the quntity to show in the recommended courses Example: %s", "eb-textdomain"), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>'); ?></li>
+                            <li><span class="eb_shortcode-doc-para">my_courses_progress</span>:<?php printf(__("This will show the course progress if it is set 1 and will hide course progress if set to 0 and if the parameter is not set", "eb-textdomain"), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>'); ?></li>
                         </ul>
                     </div>
                 </div>
