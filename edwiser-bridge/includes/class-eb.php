@@ -549,11 +549,11 @@ class EdwiserBridge
         );
 
 
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_notices',
             $adminNoticeHandler,
             'ebAdminDiscountNotice'
-        );
+        );*/
 
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
@@ -564,19 +564,19 @@ class EdwiserBridge
         );
 
 
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
             'ebAdminDiscountNoticeDismissHandler'
-        );
+        );*/
 
         // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_notices',
             $adminNoticeHandler,
             'ebAdminFeedbackNotice'
         );
-
+*/
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',

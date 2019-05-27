@@ -164,6 +164,8 @@ Take a look at the link below and follow the steps provided to configure your Mo
 16. Edwiser Bridge Plugin shortcodes documentation.
 17. Courses page shortcode horizontally scrollable courses list.
 18. Display courses with category grouping using eb_courses page shortcode.
+19. Refund edwiser bridge order
+20. Connection Settings for Moodle Edwiser Bridge
 
 
  ==  Frequently Asked Questions  == 

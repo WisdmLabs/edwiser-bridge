@@ -126,7 +126,18 @@ class EBAdminEmailTemplate
                                 <td>
                                     <input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
                                 </td>
-                            </tr>                            
+                            </tr>
+
+
+
+                            <?php
+
+                            do_action("eb_manage_email_template_before_text_editor", $tmplKey);
+
+                            ?>
+
+
+
                             <tr>
                                 <td colspan="2" class="eb-template-edit-cell">
                                     <?php

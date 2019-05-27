@@ -88,22 +88,20 @@ class EBAdminNoticeHandler
             }
             echo '  <div class="notice  eb_admin_update_notice_message_cont">
                         <div class="eb_admin_update_notice_message">
-                            <div style="width: 21%">
-                                <img class="eb_update_notice_img" src="'.EB_PLUGIN_URL.'images/logo.png" alt="'.__('Sorry, unable to load image', "eb-textdomain").'">
-                            </div>
+
                             <div class="eb_update_notice_content">
                                 '. __('Thanks for updating to the latest version of Edwiser Bridge plugin, <b>please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.</b>', 'eb-textdomain').'
                                 <a href="https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip">'.__(' Click here ', "eb-textdomain").'</a>
-                                '.__(" to download Moodle plugin", "eb-textdomain").'
-                                 <div style="padding-top: 8px;">
+                                '.__(" to download Moodle plugin.", "eb-textdomain").'
+
                                     '.__('For setup assistance check our ', 'eb-textdomain').'
-                                    <a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">'.__(' documentation. ', "eb-textdomain").'</a>
+                                    <a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">'.__(' documentation', "eb-textdomain").'</a>.
                                     <span style="padding-left: 20px;">
                                         <a href="'.$redirection.'">
                                             '.__(' Dismiss notice', 'eb-textdomain').'
                                         </a>
                                     </span>
-                                </div>
+
                             </div>
                         </div>
                         <div class="eb_admin_update_dismiss_notice_message">

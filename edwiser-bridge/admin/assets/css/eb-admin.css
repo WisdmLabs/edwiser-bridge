@@ -555,8 +555,8 @@ color: #2ecc71;
 
 
 .eb_update_notice_content{
-    font-size: 15px;
-    line-height: 25px;
+    font-size: 12px;
+    /*line-height: 25px;*/
     padding-left: 10px;
 }
 
