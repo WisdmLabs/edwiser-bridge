@@ -207,6 +207,10 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 1.4.1 =
+* Fix - Removed admin notices.
+* Fix - Solved eb-my-courses course progress issue.
+
 = 1.4.0 =
 * Feature - Users will be enrolled in the course in the WordPress site when they are enrolled manually in Moodle directly.
 * Feature - Email template for User enrolled directly in Moodle.
