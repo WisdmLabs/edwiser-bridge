@@ -107,12 +107,13 @@ class EBUserManager
      *
      * @param array $sync_options    user sync options
      * @param int   $user_id_to_sync to only sync courses of an individual user on registration
+     * @param int  $offset LIMIT query offset
      *
      * @since   1.0.0
      *
      * @return array $response     array containing status & response message
      */
-    public function userCourseSynchronizationHandler($sync_options = array(), $user_id_to_sync = '')
+    public function userCourseSynchronizationHandler($sync_options = array(), $user_id_to_sync = '', $offset = 0)
     {
         global $wpdb;
         // $response_array['process_completed'] = 0;
@@ -120,24 +121,37 @@ class EBUserManager
         $connected = edwiserBridgeInstance()->connectionHelper()->connectionTestHelper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
 
         $response_array['connection_response'] = $connected['success']; // add connection response in response array
-
+        $wp_users_count = 1;
         if ($connected['success'] == 1) {
             // get all wordpress users having an associated moodle account
             if (is_numeric($user_id_to_sync)) {
+                // added limit for get users in chunk
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
                     FROM {$wpdb->base_prefix}usermeta
-                    WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
+                    WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL
+                    ORDER BY user_id ASC
+                    LIMIT ".$offset.", 20",
                     ARRAY_A
                 );
             } else {
+                // added limit for get users in chunk
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
                     FROM {$wpdb->base_prefix}usermeta
                     WHERE meta_key = 'moodle_user_id'
-                    AND meta_value IS NOT NULL",
+                    AND meta_value IS NOT NULL
+                    ORDER BY user_id ASC
+                    LIMIT ".$offset.", 20",
                     ARRAY_A
                 );
+                // used to get all users count
+                $users_count = $wpdb->get_results(
+                    "SELECT COUNT(user_id) AS users_count
+                    FROM {$wpdb->base_prefix}usermeta
+                    WHERE meta_key = 'moodle_user_id'
+                    AND meta_value IS NOT NULL");
+                $wp_users_count = $users_count[0]->users_count;
             }
 
             // get courses of each user having a moodle a/c assosiated
@@ -221,7 +235,9 @@ class EBUserManager
                  */
                 do_action('eb_user_synchronization_complete_single', $value['user_id'], $sync_options);
             }
-
+            // these two properties are used to track, how many user's data have beedn updated.
+            $response_array['users_count'] = count($all_users);
+            $response_array['wp_users_count'] = $wp_users_count;
             /*
              * hook to be run on user data sync total completion
              * we are passing all user ids for which sync is performed

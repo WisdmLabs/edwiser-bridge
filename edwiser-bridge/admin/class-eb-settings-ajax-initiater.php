@@ -86,12 +86,13 @@ class EBSettingsAjaxInitiater
         if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
             die('Busted!');
         }
-
+        // Added offset for user get limit.
+        $offset = $_POST['offset'];
         // get sync options
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options);
+        $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
 
         echo json_encode($response);
         die();

@@ -809,6 +809,9 @@ if (!class_exists('EbAdminSettings')) {
                 $description = '<span class="load-response">
                                     <img src="'.EB_PLUGIN_URL.'images/loader.gif" height="20" width="20" />
                                 </span>
+                                <span id="ebProgress">
+                                  <span id="ebBar"></span>
+                                </span>
                                 <div class="response-box"></div>';
             } elseif ($description) {
                 $description = '<span class="description">'.wp_kses_post($description).'</span>';

@@ -300,9 +300,6 @@
 
             // get selected options
             // var sync_user_courses 	= ($('#eb_synchronize_user_courses').prop('checked'))?1:0;
-            var response_message = '';
-            var user_id_success = '';
-            var user_id_error = '';
             var $this = $(this);
             var sync_options = {};
             // prepare sync options array
@@ -311,36 +308,13 @@
                 var cb_value = (this.checked ? $(this).val() : 0);
                 sync_options[cb_key] = cb_value;
             });
+            var offset = 0;
+            var progressWidth = 0;
             //display loading animation
-            $('.load-response').show();
-            $.ajax({
-                method: "post",
-                url: eb_admin_js_object.ajaxurl,
-                dataType: "json",
-                data: {
-                    'action': 'handleUserCourseSynchronization',
-                    'sync_options': JSON.stringify(sync_options),
-                    '_wpnonce_field': eb_admin_js_object.nonce
-                },
-                success: function (response) {
-                    $('.load-response').hide();
-                    if (response.connection_response == 1) {
-                        if (response.user_with_error !== undefined) {
-                            $.each(response.user_with_error, function (index, value) {
-                                user_id_error += this;
-                            });
-                        }
-
-                        if (response.user_with_error !== undefined) {
-                            ohSnap('<p>' + eb_admin_js_object.msg_err_users + '</p>' + user_id_error, 'red');
-                        } else {
-                            ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
-                        }
-                    } else {
-                        ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
-                    }
-                }
-            });
+            $('#ebProgress').show();
+            $('#ebProgress').css('display', 'inline-flex');
+            // new Ajax call function for user synchronization.
+            userSyncAjax($this, sync_options, offset, progressWidth);
         });
         /**
          * Handle course price dropdown toggle.
@@ -374,6 +348,54 @@
         $("#course_expirey").change();
 
     });
+    /* Function for user synchronization, this will have a ajax call which will run after completion of another(recursively) */
+    function userSyncAjax($this, sync_options, offset, progressWidth) {
+        var response_message = '';
+        var user_id_success = '';
+        var user_id_error = '';
+        $.ajax({
+            method: "post",
+            url: eb_admin_js_object.ajaxurl,
+            dataType: "json",
+            data: {
+                'action': 'handleUserCourseSynchronization',
+                'sync_options': JSON.stringify(sync_options),
+                '_wpnonce_field': eb_admin_js_object.nonce,
+                'offset': offset
+            },
+            success: function (response) {
+                offset = offset + response.users_count;
+                progressWidth = Math.round((offset/response.wp_users_count) * 100);
+                showProgressBar(progressWidth);
+                // $('.load-response').hide();
+                if (response.connection_response == 1) {
+                    if (response.user_with_error !== undefined) {
+                        $.each(response.user_with_error, function (index, value) {
+                            user_id_error += this;
+                        });
+                    }
+
+                    if (response.user_with_error !== undefined) {
+                        ohSnap('<p>' + eb_admin_js_object.msg_err_users + '</p>' + user_id_error, 'red');
+                    } else {
+                        if (offset < response.wp_users_count) {
+                            userSyncAjax($this, sync_options, offset, progressWidth);
+                        } else {
+                            ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
+                        }
+                    }
+                } else {
+                    ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
+                }
+            }
+        });
+    }
+    /* Function to show progress bar */
+    function showProgressBar(width = 100) {
+        var elem = document.getElementById("ebBar");
+        elem.style.width = width + '%';
+        elem.innerHTML = width * 1 + '%';
+    }
     function setGetParameter(paramName, paramValue)
     {
         var url = window.location.href;
