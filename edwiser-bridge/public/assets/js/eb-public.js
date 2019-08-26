@@ -32,7 +32,7 @@
     /**
      * Provides the functionality to place the new order on click of the Take this course button.
      */
-    function placeOrder() {
+    function placeOrder(formSubmit) {
         var course_id = $("input[name='item_number']").val();
         var order_id = '';
         var buyer_id = $("input[name='custom']").val();
@@ -57,6 +57,17 @@
                     custom_data['order_id'] = parseInt(response.order_id);
 
                     $("input[name='custom']").val(JSON.stringify(custom_data));
+
+                    /*
+                     *---------------------------------------
+                     *Added code to solve payment pending issue
+                     * -------------------------------------
+                     */
+                    // submitting form if the submit form is on.
+                    // added button click event on class as there are 2 payment forms in the single course page with 2 submit buttons with same id.
+                    if (formSubmit) {
+                        $(".eb-paid-course").click();
+                    }
                 } else {
                     e.preventDefault();
                     alert(eb_public_js_object.msg_ordr_pro_err);
@@ -66,6 +77,58 @@
     }
 
     $(window).load(function () {
+
+
+        function getUrlParameter(sParam)
+        {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+
+
+
+
+        if (getUrlParameter("auto_enroll") === "true") {
+
+            $.blockUI({
+                message: eb_public_js_object.msg_processing
+            });
+            var btn = document.getElementById('eb_course_payment_button');
+            if (btn == null) {
+                btn = document.getElementById('wdm-btn');
+                if (btn.text != eb_public_js_object.access_course) {
+                    btn.click();
+                } else {
+                    $.unblockUI();
+                }
+            } else {
+
+
+                /*
+                 * ---------------------------------
+                 * Commented the btn.click() to solve pending payment issue.
+                 * --------------------------------
+                 */
+                /*btn.click();*/
+                placeOrder(1);
+            }
+        }
+
+
+
+
+
+
 
         /* Change required fields error messages for login / register page */
         var intputElements = document.getElementsByTagName("INPUT");
@@ -133,8 +196,8 @@
          * add the newly created order it in form to be sent to paypal.
          *
          */
-        $('#eb_course_payment_button').click(function (e) {
-            placeOrder();
+        $('.eb-paid-course').click(function (e) {
+            placeOrder(0);
         });
     });
 
@@ -162,7 +225,6 @@
         $('#eb_terms_cond_check').click(function(){
             var checkbox = $(this).parent().parent();
             checkbox = checkbox.find("input[name='reg_terms_and_cond']");
-            console.log(checkbox.attr("name"));
             $('#eb-user-account-terms-content').dialog({
                 modal: true,
                 resizable: true,
@@ -193,7 +255,7 @@
 
 
 
-        function getUrlParameter(sParam)
+        /*function getUrlParameter(sParam)
         {
             var sPageURL = decodeURIComponent(window.location.search.substring(1)),
                     sURLVariables = sPageURL.split('&'),
@@ -207,8 +269,8 @@
                     return sParameterName[1] === undefined ? true : sParameterName[1];
                 }
             }
-        };
-        if (getUrlParameter("auto_enroll") === "true") {
+        };*/
+        /*if (getUrlParameter("auto_enroll") === "true") {
             $.blockUI({
                 message: eb_public_js_object.msg_processing
             });
@@ -224,7 +286,7 @@
                 btn.click();
                 placeOrder();
             }
-        }
+        }*/
 
         /**
          * Scroll left

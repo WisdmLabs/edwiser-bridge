@@ -468,7 +468,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
                 $code .= '<input type="submit" value="'.__('Take this Course', 'eb-textdomain').'"
-                class="wdm-btn" id="eb_course_payment_button">';
+                class="wdm-btn eb-paid-course" id="eb_course_payment_button">';
 
                 if ($atts['noshipping'] > -1) {
                     $code .= '
@@ -652,7 +652,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                             __('PayPal - The safer, easier way to pay online.', 'eb-textdomain').'" class="ppalbtn">';
                 }
                 $code .= '<input type="submit" value="'.__('Take this Course', 'edw').
-                        '" class="wdm-btn" id="eb_course_payment_button ">';
+                        '" class="wdm-btn eb-paid-course" id="eb_course_payment_button ">';
 
                 // if ($atts['email']) {
                 //     $code.='<input type="hidden" name="business" value="'.$atts['email'].'">';
@@ -926,7 +926,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     border="0" name="submit" alt="'.
                             __('PayPal - The safer, easier way to pay online.', 'eb-textdomain').'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn"
+                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn eb-paid-course"
                 id="eb_course_payment_button">';
 
                 $code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
@@ -1125,7 +1125,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     $code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
                     border="0" name="submit" alt="'.ALT_ADD.'" class="ppalbtn">';
                 }
-                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn"
+                $code .= '<input type="submit" value="'.__('Take this Course', 'edw').'" class="wdm-btn eb-paid-course"
                 id="eb_course_payment_button">';
 
                 $code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
