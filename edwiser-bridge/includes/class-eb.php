@@ -667,6 +667,11 @@ class EdwiserBridge
             'userDataSynchronizationInitiater'
         );
         $this->loader->addAction(
+            'wp_ajax_handleUserLinkToMoodle',
+            $admin_settings_init,
+            'usersLinkToMoodleSynchronization'
+        );
+        $this->loader->addAction(
             'wp_ajax_handleConnectionTest',
             $admin_settings_init,
             'connectionTestInitiater'

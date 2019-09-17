@@ -114,7 +114,15 @@ if (!class_exists('EBSettingsSynchronization')) {
                         'checkboxgroup' => 'start',
                         'show_if_checked' => 'option',
                         'autoload' => false,
-
+                    ),
+                    array(
+                        'desc' => __('Link user\'s account to moodle', 'eb-textdomain'),
+                        'id' => 'eb_link_users_to_moodle',
+                        'default' => 'no',
+                        'type' => 'checkbox',
+                        'checkboxgroup' => '',
+                        'show_if_checked' => 'no',
+                        'autoload' => false,
                     ),
 
                     array(

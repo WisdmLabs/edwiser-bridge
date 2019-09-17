@@ -125,16 +125,14 @@ class EBUserManager
         if ($connected['success'] == 1) {
             // get all wordpress users having an associated moodle account
             if (is_numeric($user_id_to_sync)) {
-                // added limit for get users in chunk
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
                     FROM {$wpdb->base_prefix}usermeta
-                    WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL
-                    ORDER BY user_id ASC
-                    LIMIT ".$offset.", 20",
+                    WHERE user_id = ".$user_id_to_sync." AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
                     ARRAY_A
                 );
             } else {
+                 // query to get all wordpress users having an associated moodle account so that we can synchronize the course enrollment
                 // added limit for get users in chunk
                 $all_users = $wpdb->get_results(
                     "SELECT user_id, meta_value AS moodle_user_id
@@ -150,7 +148,8 @@ class EBUserManager
                     "SELECT COUNT(user_id) AS users_count
                     FROM {$wpdb->base_prefix}usermeta
                     WHERE meta_key = 'moodle_user_id'
-                    AND meta_value IS NOT NULL");
+                    AND meta_value IS NOT NULL"
+                );
                 $wp_users_count = $users_count[0]->users_count;
             }
 
@@ -192,7 +191,7 @@ class EBUserManager
                     } else {
                         // Push user's id to separate array,
                         // if there is a problem in fetching his/her courses from moodle.
-                        $response_array['user_with_error'][] = "<p style='float:left; clear:left;'>";
+                        $response_array['user_with_error'][] = $value['user_id'];
                         $response_array['user_with_error'][] .= '<strong>' . __('User ID:', 'eb-textdomain') . ' </strong>'.$value['user_id'];
                         $response_array['user_with_error'][] .= '</p><br/>';
                     }
@@ -238,6 +237,7 @@ class EBUserManager
             // these two properties are used to track, how many user's data have beedn updated.
             $response_array['users_count'] = count($all_users);
             $response_array['wp_users_count'] = $wp_users_count;
+
             /*
              * hook to be run on user data sync total completion
              * we are passing all user ids for which sync is performed
@@ -250,6 +250,71 @@ class EBUserManager
             ); // add connection log
         }
 
+        return $response_array;
+    }
+    /**
+     * Initiate the process to link users to moodle, get user's who have not linked to moodle
+     * and link them to moodle
+     *
+     * Called by usersLinkToMoodleSynchronization() from class EBSettingsAjaxInitiater
+     *
+     * @param array $sync_options    user sync options
+     * @param int  $offset LIMIT query offset for getting the resluts in chunk
+     *
+     * @since   1.4.1
+     *
+     * @return array $response     array containing status & response message
+     */
+    public function userLinkToMoodlenHandler($sync_options = array(), $offset = 0)
+    {
+        global $wpdb;
+        // checking if moodle connection is working properly
+        $connected = edwiserBridgeInstance()->connectionHelper()->connectionTestHelper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
+
+        $response_array['connection_response'] = $connected['success']; // add connection response in response array
+        $link_users_count = 0;
+        if ($connected['success'] == 1) {
+            if ((isset($sync_options["eb_link_users_to_moodle"]) && $sync_options['eb_link_users_to_moodle'] == 1)) {
+                // query to get list of users who have not linked to moodle with limit
+                $unlinked_users = $wpdb->get_results(
+                    "SELECT DISTINCT(user_id)
+                    FROM {$wpdb->base_prefix}usermeta
+                    WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)
+                    ORDER BY user_id ASC
+                    LIMIT ".$offset.", 20",
+                    ARRAY_A
+                );
+                if (!empty($unlinked_users)) {
+                    foreach ($unlinked_users as $key => $value) {
+                        $user_object = get_userdata($value['user_id']);
+                        $flag = $this->linkMoodleUser($user_object);
+                        // if user not linked then add it in unlinked users array
+                        if (!$flag) {
+                            $user = get_userdata($value['user_id']);
+                            $response_array['user_with_error'][] = '<tr><td>'.$value['user_id'].'</td><td> '.$user->user_login.'</td></tr>';
+                        } else {
+                            $link_users_count++;
+                        }
+                    }
+                }
+                // used to get all unlinked users count
+                $users_count = $wpdb->get_results(
+                    "SELECT COUNT(DISTINCT(user_id)) as users_count
+                    FROM {$wpdb->base_prefix}usermeta
+                    WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)"
+                );
+                $users_count = $users_count[0]->users_count;
+            }
+            // these properties are used to track, how many user's have linked.
+            $response_array['unlinked_users_count'] = count($unlinked_users);
+            $response_array['users_count'] = $users_count;
+            $response_array['linked_users_count'] = $link_users_count;
+        } else {
+            edwiserBridgeInstance()->logger()->add(
+                'user',
+                'Connection problem in synchronization, Response:'.print_r($connected, true)
+            ); // add connection log
+        }
         return $response_array;
     }
 
@@ -925,8 +990,7 @@ class EBUserManager
             ?>
             <table class="form-table">
                 <tr>
-                    <th><h3><?php _e('Enrolled Courses', 'eb-textdomain');
-            ?></h3></th>
+                    <th><h3><?php _e('Enrolled Courses', 'eb-textdomain');?></h3></th>
                     <td>
                         <ol>
                             <?php
@@ -947,8 +1011,7 @@ class EBUserManager
                 if (current_user_can('manage_options')) {
                     ?>
                     <tr>
-                        <th><h3><?php _e('Enroll a Course', 'eb-textdomain');
-                    ?></h3></th>
+                        <th><h3><?php _e('Enroll a Course', 'eb-textdomain');?></h3></th>
                         <td>
                             <select name="enroll_course">
                                 <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>
@@ -961,8 +1024,7 @@ class EBUserManager
                         </td>
                     </tr>
                     <tr>
-                        <th><h3><?php _e('Unenroll a Course', 'eb-textdomain');
-                                ?></h3></th>
+                        <th><h3><?php _e('Unenroll a Course', 'eb-textdomain');?></h3></th>
                         <td>
                             <select name="unenroll_course">
                                 <option value=''><?php _e('-- Select a Course --', 'eb-textdomain'); ?></option>

@@ -809,10 +809,23 @@ if (!class_exists('EbAdminSettings')) {
                 $description = '<span class="load-response">
                                     <img src="'.EB_PLUGIN_URL.'images/loader.gif" height="20" width="20" />
                                 </span>
-                                <span id="ebProgress">
-                                  <span id="ebBar"></span>
-                                </span>
-                                <div class="response-box"></div>';
+                                <span class="response-box"></span>
+                                <div class="linkresponse-box"></div>
+                                <div id="unlinkerrorid-modal" class="unlinkerror-modal">
+                                  <div class="unlinkerror-modal-content">
+                                    <span class="unlinkerror-modal-close">&times;</span>
+                                    <table class="unlink-table">
+                                     <thead>
+                                        <tr>
+                                           <th>'.__("User ID", "eb-textdomain").'</th>
+                                           <th>'.__("Name", "eb-textdomain").'</th>
+                                        </tr>
+                                     </thead>
+                                     <tbody>
+                                     </tbody>
+                                  </table>
+                                  </div>
+                                 </div>';
             } elseif ($description) {
                 $description = '<span class="description">'.wp_kses_post($description).'</span>';
             }
