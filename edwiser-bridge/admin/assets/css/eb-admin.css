@@ -1415,14 +1415,14 @@ span.eb-option-input .eb-option-div select{
 
 /*** START User Sync CSS ***/
 .linkresponse-box {
-    margin-top: 1%;
-    margin-left: 23.4%;
+    margin-top: 0%;
+    position: absolute;
+    margin-left: 20px;
 }
 
 @media screen and (max-width: 640px) {
     .linkresponse-box {
-        margin-top: 25%;
-        margin-left: 56.4% !important;
+        margin-top: 35%;
     }
 }
 .linkresponse-box .alert {

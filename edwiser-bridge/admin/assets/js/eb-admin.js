@@ -364,6 +364,10 @@
         var response_message = '';
         var user_id_success = '';
         var user_id_error = '';
+        if(!$('.response-box').is(":empty"))
+        {
+            $('.linkresponse-box').css('margin-top', '3%');
+        }
         $.ajax({
             method: "post",
             url: eb_admin_js_object.ajaxurl,
@@ -408,6 +412,10 @@
         var response_message = '';
         var user_id_success = '';
         var user_id_error = '';
+        if(!$('.response-box').is(":empty"))
+        {
+            $('.linkresponse-box').css('margin-top', '3%');
+        }
         $.ajax({
             method: "post",
             url: eb_admin_js_object.ajaxurl,
@@ -437,7 +445,7 @@
                         userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
                     } else {
                         $('.load-response').hide();
-                        $('.linkresponse-box').css('margin-left', '19.4%');
+                        $('.linkresponse-box').css('margin-left', '0px !important');
                         // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
                             var container = $('.linkresponse-box');

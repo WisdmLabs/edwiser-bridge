@@ -810,7 +810,7 @@ if (!class_exists('EbAdminSettings')) {
                                     <img src="'.EB_PLUGIN_URL.'images/loader.gif" height="20" width="20" />
                                 </span>
                                 <span class="response-box"></span>
-                                <div class="linkresponse-box"></div>
+                                <span class="linkresponse-box"></span>
                                 <div id="unlinkerrorid-modal" class="unlinkerror-modal">
                                   <div class="unlinkerror-modal-content">
                                     <span class="unlinkerror-modal-close">&times;</span>
