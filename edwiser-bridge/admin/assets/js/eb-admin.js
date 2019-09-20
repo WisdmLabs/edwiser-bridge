@@ -396,6 +396,10 @@
                             userSyncAjax($this, sync_options, offset, progressWidth);
                         } else {
                             $('.load-response').hide();
+                            if(!$('.response-box').is(":empty"))
+					        {
+					            $('.linkresponse-box').css('margin-top', '3%');
+					        }
                             ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         }
                     }
@@ -445,6 +449,10 @@
                         userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
                     } else {
                         $('.load-response').hide();
+                        if(!$('.response-box').is(":empty"))
+				        {
+				            $('.linkresponse-box').css('margin-top', '3%');
+				        }
                         $('.linkresponse-box').css('margin-left', '0px !important');
                         // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
