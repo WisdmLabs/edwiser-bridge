@@ -276,7 +276,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean(). "</div>";
         }
 
         /**
@@ -349,7 +349,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
         /**
@@ -406,7 +406,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
         /**
@@ -474,7 +474,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
         /**
@@ -544,7 +544,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
 
@@ -640,7 +640,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
 
@@ -711,7 +711,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
 
@@ -770,7 +770,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
 
@@ -829,7 +829,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
 
 
@@ -882,7 +882,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
                 </table>
             </div>
             <?php
-            return ob_get_clean();
+            return "<div>" . ob_get_clean() . "</div>";
         }
     }
 }

@@ -288,9 +288,12 @@
 .wdm-course-grid h4{
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    /* -webkit-line-clamp: 1; */
+    /* display: -webkit-box; */
+    /* -webkit-box-orient: vertical; */
+    /* float: left; */
+    white-space: nowrap;
+    width: 100%;
 }
 
 .wdm-course-thumbnail {

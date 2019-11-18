@@ -108,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.4.0';
+        $this->version = '1.4.2';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -549,11 +549,11 @@ class EdwiserBridge
         );
 
 
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_notices',
             $adminNoticeHandler,
             'ebAdminDiscountNotice'
-        );
+        );*/
 
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
@@ -564,19 +564,19 @@ class EdwiserBridge
         );
 
 
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
             'ebAdminDiscountNoticeDismissHandler'
-        );
+        );*/
 
         // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
-        $this->loader->addAction(
+        /*$this->loader->addAction(
             'admin_notices',
             $adminNoticeHandler,
             'ebAdminFeedbackNotice'
         );
-
+*/
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
@@ -665,6 +665,11 @@ class EdwiserBridge
             'wp_ajax_handleUserCourseSynchronization',
             $admin_settings_init,
             'userDataSynchronizationInitiater'
+        );
+        $this->loader->addAction(
+            'wp_ajax_handleUserLinkToMoodle',
+            $admin_settings_init,
+            'usersLinkToMoodleSynchronization'
         );
         $this->loader->addAction(
             'wp_ajax_handleConnectionTest',

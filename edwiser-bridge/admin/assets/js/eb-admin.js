@@ -297,12 +297,9 @@
         $('#eb_synchronize_users_button').click(function () {
 
             $('.response-box').empty(); // empty the response
-
+            $('.linkresponse-box').empty(); // empty the response
             // get selected options
             // var sync_user_courses 	= ($('#eb_synchronize_user_courses').prop('checked'))?1:0;
-            var response_message = '';
-            var user_id_success = '';
-            var user_id_error = '';
             var $this = $(this);
             var sync_options = {};
             // prepare sync options array
@@ -311,36 +308,23 @@
                 var cb_value = (this.checked ? $(this).val() : 0);
                 sync_options[cb_key] = cb_value;
             });
+            var offset = 0;
+            var progressWidth = 0;
+            var linkedUsers = 0;
+            var users_count = 0;
+            var queryLimit = 0;
+            var notLinkedusers = [];
             //display loading animation
             $('.load-response').show();
-            $.ajax({
-                method: "post",
-                url: eb_admin_js_object.ajaxurl,
-                dataType: "json",
-                data: {
-                    'action': 'handleUserCourseSynchronization',
-                    'sync_options': JSON.stringify(sync_options),
-                    '_wpnonce_field': eb_admin_js_object.nonce
-                },
-                success: function (response) {
-                    $('.load-response').hide();
-                    if (response.connection_response == 1) {
-                        if (response.user_with_error !== undefined) {
-                            $.each(response.user_with_error, function (index, value) {
-                                user_id_error += this;
-                            });
-                        }
-
-                        if (response.user_with_error !== undefined) {
-                            ohSnap('<p>' + eb_admin_js_object.msg_err_users + '</p>' + user_id_error, 'red');
-                        } else {
-                            ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
-                        }
-                    } else {
-                        ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
-                    }
-                }
-            });
+            // new Ajax call function for user course status synchronization.
+            if($("#eb_synchronize_user_courses").prop('checked') == true){
+                userSyncAjax($this, sync_options, offset, progressWidth);
+            }
+            // new Ajax call function for user link to moodle synchronization.
+            if($("#eb_link_users_to_moodle").prop('checked') == true){
+                $(".unlink-table tbody").empty();
+                userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
+            }
         });
         /**
          * Handle course price dropdown toggle.
@@ -374,6 +358,148 @@
         $("#course_expirey").change();
 
     });
+    /* Function for user synchronization, this will have a ajax call which will run after completion of another(recursively) */
+    function userSyncAjax($this, sync_options, offset, progressWidth) {
+        $('.load-response').show();
+        var response_message = '';
+        var user_id_success = '';
+        var user_id_error = '';
+        if(!$('.response-box').is(":empty"))
+        {
+            $('.linkresponse-box').css('margin-top', '3%');
+        }
+        $.ajax({
+            method: "post",
+            url: eb_admin_js_object.ajaxurl,
+            dataType: "json",
+            data: {
+                'action': 'handleUserCourseSynchronization',
+                'sync_options': JSON.stringify(sync_options),
+                '_wpnonce_field': eb_admin_js_object.nonce,
+                'offset': offset
+            },
+            success: function (response) {
+                offset = offset + response.users_count;
+                showUserCourseSynchProgress(offset, response.wp_users_count, 'success');
+                if (response.connection_response == 1) {
+                    if (response.user_with_error !== undefined) {
+                        $.each(response.user_with_error, function (index, value) {
+                            user_id_error += this;
+                        });
+                    }
+
+                    if (response.user_with_error !== undefined) {
+                        $('.load-response').hide();
+                        ohSnap('<p>' + eb_admin_js_object.msg_err_users + '</p>' + user_id_error, 'red');
+                    } else {
+                        if (offset < response.wp_users_count) {
+                            userSyncAjax($this, sync_options, offset, progressWidth);
+                        } else {
+                            $('.load-response').hide();
+                            if(!$('.response-box').is(":empty"))
+					        {
+					            $('.linkresponse-box').css('margin-top', '3%');
+					        }
+                            ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
+                        }
+                    }
+                } else {
+                    $('.load-response').hide();
+                    ohSnap(eb_admin_js_object.msg_con_prob, 'error', 0);
+                }
+            }
+        });
+    }
+     /* Function for link users to moodle, this will have a ajax call which will run after completion of another(recursively) */
+    function userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers) {
+        $('.load-response').show();
+        var response_message = '';
+        var user_id_success = '';
+        var user_id_error = '';
+        if(!$('.response-box').is(":empty"))
+        {
+            $('.linkresponse-box').css('margin-top', '3%');
+        }
+        $.ajax({
+            method: "post",
+            url: eb_admin_js_object.ajaxurl,
+            dataType: "json",
+            data: {
+                'action': 'handleUserLinkToMoodle',
+                'sync_options': JSON.stringify(sync_options),
+                '_wpnonce_field': eb_admin_js_object.nonce,
+                'offset': offset
+            },
+            success: function (response) {
+                queryLimit = queryLimit + 20;
+                offset = offset + Math.abs(parseInt(response.unlinked_users_count) - parseInt(response.linked_users_count));
+                linkedUsers = parseInt(linkedUsers) + parseInt(response.linked_users_count);
+                users_count = parseInt(linkedUsers) + parseInt(response.users_count);
+                showLinkedUsersProgress(linkedUsers, users_count, 'success');
+                if (response.connection_response == 1) {
+                    if (response.user_with_error !== undefined) {
+                        $.each(response.user_with_error, function (index, value) {
+                            if (!notLinkedusers.includes(value)) {
+                                notLinkedusers.push(value);
+                                user_id_error += this;
+                            }
+                        });
+                    }
+                    if (queryLimit < users_count) {
+                        userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
+                    } else {
+                        $('.load-response').hide();
+                        if(!$('.response-box').is(":empty"))
+				        {
+				            $('.linkresponse-box').css('margin-top', '3%');
+				        }
+                        $('.linkresponse-box').css('margin-left', '0px !important');
+                        // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
+                        if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
+                            var container = $('.linkresponse-box');
+                            var html = '<span class="linkresponse-box-error">'+eb_admin_js_object.msg_unlink_users_list+'</span>';
+                            container.append(html);
+                            $(".unlink-table tbody").append(notLinkedusers);
+                        }
+                    }
+                } else {
+                    $('.load-response').hide();
+                    linkUserResponseBox(eb_admin_js_object.msg_con_prob, 'error', 0);
+                }
+            }
+        });
+    }
+    // Used to show the response in popup for unlinked users to moodle functionality.
+    $(document).on('click', '.linkresponse-box a', function(){
+        $("#unlinkerrorid-modal").show();
+    });
+     // Used to hide the response in popup for unlinked users to moodle functionality.
+    $(document).on('click', '.unlinkerror-modal-close', function(){
+        $("#unlinkerrorid-modal").hide();
+    });
+    /**
+     * This function is used to show the response for link users to moodle functionliaty.
+     */
+    function linkUserResponseBox(text, type) {
+        var container = $('.linkresponse-box');
+        var html = '<div class="alert alert-' + type + '">' + text + '</div>';
+        container.empty();
+        container.append(html);
+    }
+    /* Function to show user's course synch progress */
+    function showUserCourseSynchProgress(users_count = 0, wp_users_count = 0, type) {
+        var container = $('.response-box');
+        var html = '<div class="alert alert-' + type + '">' + users_count+' / '+wp_users_count+' '+eb_admin_js_object.msg_user_sync_success+'</div>';
+        container.empty();
+        container.append(html);
+    }
+     /* Function to show progress of link users to moodle functionality*/
+    function showLinkedUsersProgress(linked_users_count = 0, unlinked_users_count = 0, type) {
+        var container = $('.linkresponse-box');
+        var html = '<div class="alert alert-' + type + '">' + linked_users_count+' / '+unlinked_users_count+' '+eb_admin_js_object.msg_user_link_to_moodle_success+ '</div>';
+        container.empty();
+        container.append(html);
+    }
     function setGetParameter(paramName, paramValue)
     {
         var url = window.location.href;

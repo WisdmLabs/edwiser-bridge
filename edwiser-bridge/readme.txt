@@ -1,8 +1,8 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
-Requires at least: 4.0
-Tested up to: 5.1.1
+Requires at least: 4.4
+Tested up to: 5.3.0
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -112,7 +112,7 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 
  = Minimum Requirements =
 * PHP version 5.6 or greater
-* WordPress 4.9 or higher
+* WordPress 4.4 or higher
 * Moodle 3.0.3 or higher
 
  =  Automatic Installation  =
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -164,6 +164,8 @@ Take a look at the link below and follow the steps provided to configure your Mo
 16. Edwiser Bridge Plugin shortcodes documentation.
 17. Courses page shortcode horizontally scrollable courses list.
 18. Display courses with category grouping using eb_courses page shortcode.
+19. Refund edwiser bridge order
+20. Connection Settings for Moodle Edwiser Bridge
 
 
  ==  Frequently Asked Questions  == 
@@ -180,7 +182,7 @@ No, this is not possible using Edwiser Bridge.
 
  = Can one Moodle site be connected to multiple WordPress sites?
 
-Yes, if you are using Edwiser Bridge version 1.4.0 then you will now be able to connect your Moodle site to multiple WordPress sites.
+Yes, if you are using Edwiser Bridge version 1.4.0 onwards then you will now be able to connect your Moodle site to multiple WordPress sites.
 
  = Can I use another payment gateway in place of PayPal to sell my courses?
 
@@ -204,6 +206,16 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.2 =
+* Tweak - Added functionality to synchronize large number of users.
+* Fix - Paid orders sometimes were not getting completed for new users. This issue has been resolved.
+* Fix - Solved the title issue appearing without elipses on course card.
+* Fix - Removed blank spaces added automatically before email templates.
+
+= 1.4.1 =
+* Fix - Removed admin notices.
+* Fix - Solved eb-my-courses course progress issue.
 
 = 1.4.0 =
 * Feature - Users will be enrolled in the course in the WordPress site when they are enrolled manually in Moodle directly.

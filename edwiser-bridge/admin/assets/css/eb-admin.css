@@ -555,8 +555,8 @@ color: #2ecc71;
 
 
 .eb_update_notice_content{
-    font-size: 15px;
-    line-height: 25px;
+    font-size: 12px;
+    /*line-height: 25px;*/
     padding-left: 10px;
 }
 
@@ -1411,11 +1411,83 @@ span.eb-option-input .eb-option-div select{
 .eb_feedback_rate_links{
     padding-right: 10px;
 }
-
-
-
-
 /**********   END admin Notice  csss  ***********/
 
+/*** START User Sync CSS ***/
+.linkresponse-box {
+    margin-top: 0%;
+    position: absolute;
+    margin-left: 20px;
+}
 
+@media screen and (max-width: 640px) {
+    .linkresponse-box {
+        margin-top: 35%;
+    }
+}
+.linkresponse-box .alert {
+    display: inline-block;
+}
+.linkresponse-box a {
+    text-decoration: none;
+}
+.linkresponse-box-error {
+    color: red;
+}
+/* The Modal (background) */
+.unlinkerror-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.unlinkerror-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto auto 35%;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 33%; /* Could be more or less, depending on screen size */
+  max-height: 400px;
+  overflow: auto;
+}
+
+/* The Close Button */
+.unlinkerror-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.unlinkerror-modal-close:hover,
+.unlinkerror-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.unlink-table {
+    clear: both;
+}
+.unlinkerror-modal-content table {
+    clear: both;
+    border: 1px solid black;
+}
+.unlinkerror-modal-content thead {
+    background-color: #465C94;
+}
+.unlinkerror-modal-content thead th {
+    text-align: center;
+    color: #FFF;
+}
+.unlinkerror-modal-content tbody td {
+    text-align: center;
+}
 
