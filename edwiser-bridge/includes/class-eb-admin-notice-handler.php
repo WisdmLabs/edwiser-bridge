@@ -263,7 +263,7 @@ class EBAdminNoticeHandler
             <p>
                 <strong><?= __("Important Update Notice:", "eb-textdomain") ?></strong>
                 <?= __("Please download and update associated edwiserbridge Moodle plugin.", "eb-textdomain") ?>
-                <a href="https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip"><?=  __("Click here ") ?></a>
+                <a href="https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_1.4.2.zip"><?=  __("Click here ") ?></a>
                 <?= __(" to download", "eb-textdomain") ?>
 
             </p>
