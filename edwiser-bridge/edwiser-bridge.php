@@ -143,7 +143,7 @@ function wdmShowLegacyExtensionsNotices()
                 __('Please update all %s extensions to latest version.', 'eb-textdomain'),
                 '<strong>'.__('Edwiser Bridge', 'eb-textdomain').'</strong>'
             );
-    ?>
+            ?>
         </p>
     </div>
     <?php
