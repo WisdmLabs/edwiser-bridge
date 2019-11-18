@@ -1,8 +1,8 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
-Requires at least: 4.0
-Tested up to: 5.1.1
+Requires at least: 4.4
+Tested up to: 5.3.0
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -112,7 +112,7 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 
  = Minimum Requirements =
 * PHP version 5.6 or greater
-* WordPress 4.9 or higher
+* WordPress 4.4 or higher
 * Moodle 3.0.3 or higher
 
  =  Automatic Installation  =
@@ -206,6 +206,12 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.2 =
+* Tweak - Added functionality to synchronize large number of users.
+* Fix - Paid orders sometimes were not getting completed for new users. This issue has been resolved.
+* Fix - Solved the title issue appearing without elipses on course card.
+* Fix - Removed blank spaces added automatically before email templates.
 
 = 1.4.1 =
 * Fix - Removed admin notices.
