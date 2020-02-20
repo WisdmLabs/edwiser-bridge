@@ -121,9 +121,11 @@ class EBConnectionHelper
     public function connectionTestHelper($url, $token)
     {
         $success          = 1;
-        $response_message = 'success';
+        $responseMessage = 'success';
 
         //function to check if webservice token is properly set.
+        // $webservice_function = 'core_course_get_courses';
+
         $webservice_function = 'core_course_get_courses';
 
         $request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -132,26 +134,126 @@ class EBConnectionHelper
         // $response = wp_remote_post( $request_url, $request_args );
         $request_args = array("timeout" => 100);
         $response     = wp_remote_post($request_url, $request_args);
+
+
+
 //        var_dump(($response));
         if (is_wp_error($response)) {
             $success          = 0;
-            $response_message = $response->get_error_message();
+            $responseMessage = $response->get_error_message();
         } elseif (wp_remote_retrieve_response_code($response) == 200 ||
                 wp_remote_retrieve_response_code($response) == 303) {
             $body = json_decode(wp_remote_retrieve_body($response));
             if (!empty($body->exception)) {
-                $success          = 0;
-                $response_message = $body->message;
-            }
+                $success         = 0;
+                $responseMessage = $body->message;
+            } /*else {
+                //added else to check the other services access error
+
+                $accessControlResult = $this->checkServiceAccess($url, $token);
+
+
+                if (!$accessControlResult['success']) {
+                    $success         = 0;
+                    $responseMessage = $accessControlResult['response_message'];
+                }
+            }*/
         } else {
-            $success          = 0;
-            $response_message = __('Please check Moodle URL !', 'eb-textdomain');
+            $success         = 0;
+            $responseMessage = __('Please check Moodle URL !', 'eb-textdomain');
         }
 
         //edwiserBridgeInstance()->logger()->add( 'user', "\n Moodle response: ".serialize($response_data) );
 
-        return array('success' => $success, 'response_message' => $response_message);
+        return array('success' => $success, 'response_message' => $responseMessage);
     }
+
+
+
+    /**
+     * This is called on the test connection
+     */
+    public function checkServiceAccess($url, $token)
+    {
+        $success         = 1;
+        $responseMessage = '<div>';
+
+        $responseMessage .= '<div>'. __('Below are the functions which don\'t have access to the web service you created. This is due to :', 'eb-textdomain') .'</div>
+                                <div>
+                                    <div>
+                                        <ol>
+                                            <li>'.__('Function is not added to the web service', 'eb-textdomain').'</li>
+                                            <li>'.__('Authorised user don\'t have enough capabilities i.e he is not admin', 'eb-textdomain').'</li>
+                                            <li>'.__('Edwiser Moodle extensions are not installed or have the lower version', 'eb-textdomain').'</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>'. __('Services:', 'eb-textdomain') .'</div>
+                                    <div>
+                                        ';
+
+
+
+
+        $webserviceFunctions = ebGetAllWebServiceFunctions();
+        $missingWebServiceFns = array();
+        foreach ($webserviceFunctions as $webserviceFunction) {
+            $request_url   = $url . '/webservice/rest/server.php?wstoken=';
+            $request_url  .= $token . '&wsfunction=';
+            $request_url  .= $webserviceFunction . '&moodlewsrestformat=json';
+            // $response = wp_remote_post( $request_url, $request_args );
+            $request_args  = array("timeout" => 100);
+            $response      = wp_remote_post($request_url, $request_args);
+
+
+
+            /*if (is_wp_error($response)) {
+                $success          = 0;
+                $responseMessage = $response->get_error_message();
+            } else*/
+            if (wp_remote_retrieve_response_code($response) == 200 ||
+                    wp_remote_retrieve_response_code($response) == 303) {
+                $body = json_decode(wp_remote_retrieve_body($response));
+                if (!empty($body->exception)) {
+                    $success          = 0;
+                    // $responseMessage = $body->message;
+
+                    //check if the error response is moodle_access_exception
+                    //reasons are function missing, not authorised user or pluginis not activated.
+                    if (isset($body->errorcode) && 'accessexception' == $body->errorcode) {
+                        $success = 0;
+                        array_push($missingWebServiceFns, $webserviceFunction);
+                        // $responseMessage .= '<span>'. $webserviceFunction .'</span> , ';
+                    }
+                }
+            }
+        }
+
+
+        if (count($missingWebServiceFns) > 0) {
+            $responseMessage .= implode(' , ', $missingWebServiceFns);
+
+            $responseMessage .=  '
+                                        </div>
+                                    </div>';
+            $responseMessage .=  '</div>';
+            return array('success' => $success, 'response_message' => $responseMessage);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * helper function, recieves request to fetch data from moodle
