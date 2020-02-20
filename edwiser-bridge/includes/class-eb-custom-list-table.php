@@ -33,24 +33,33 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
             ));
         }
 
-        public function bpGetTable()
+        public function bpGetTable($searchText)
         {
             global $wpdb;
             $tblRecords = array();
             $stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
             $results = $wpdb->get_results($stmt);
             foreach ($results as $result) {
+                /*if (!empty($searchText)) {
+                    $user_info = get_userdata($result->user_id);
+                    if (strpos($user_info->user_login, $searchText) === false && strpos(get_the_title($result->course_id), $searchText) === false) {
+                        continue;
+                    }
+                }*/
+
                 $row = array();
                 $row['user_id'] = $result->user_id;
-                $row['user'] = $this->getUserProfileURL($result->user_id);
+                $row['user'] = $this->getUserProfileURL($result->user_id) ;
                 $row['course'] = '<a href="' . esc_url(get_permalink($result->course_id)) . '">' . get_the_title($result->course_id) . '</a>';
                 $row['enrolled_date'] = $result->time;
                 $row['manage'] = true;
                 $row['ID'] = $result->id;
                 $row['rId'] = $result->id;
                 $row['course_id'] = $result->course_id;
-                $tblRecords[] = $row;
+                $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $searchText);
             }
+
+
             return apply_filters("eb_manage_student_enrollment_table_data", $tblRecords);
         }
 
@@ -266,7 +275,14 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBCustomListTable')) {
              */
             $this->process_bulk_action();
 
-            $data = $this->bpGetTable();
+            $searchText = "";
+
+            if (isset($_REQUEST['s']) && !empty($_REQUEST['s'])) {
+                $searchText = $_REQUEST['s'];
+            }
+
+            $data = $this->bpGetTable($searchText);
+
             /*
              * This checks for sorting input and sorts the data in our array of dummy
              * data accordingly (using a custom usort_reorder() function). It's for

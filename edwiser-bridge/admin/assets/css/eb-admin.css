@@ -333,6 +333,154 @@ color: #2ecc71;
 
 /**************   PREMIUM END    **********************/
 
+
+
+/*****************  sidebar css  ****************/
+
+/*.eb-setting-right-sidebar-accordion{
+    padding-top: 1em;
+}
+
+.eb-setting-right-sidebar-info .eb-setting-right-sidebar-accordion .eb-setting-sidebar-h3{
+    margin: 0px 0 0 0;
+    border-top: solid 1px #8080803b;
+    border-radius: 1px;
+    padding: 10px 5px 10px 5px;
+    font-weight: 600;
+}
+
+.eb-setting-sidebar-h3.ui-state-active{
+    border: 1px solid #2e9aa6;
+    background: #2e9aa6;
+    color: #fff;
+}*/
+
+
+.eb-form-content-wrap .form-content{
+    min-width: 85%;
+    width: 85%;
+}
+
+.eb_setting_right_sidebar_info{
+    width: 30%
+}
+
+
+
+.eb_setting_help_pop_up, .eb_setting_rate_pop_up{
+    padding-left: 20px;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 20%;
+    right: -25px;
+    /*background-color: #111;*/
+    /*overflow-x: hidden;*/
+    transition: 0.5s;
+    padding-top: 20px;
+    background-color: white;
+    border: solid 1px #8080804d;
+    box-shadow: 1px 2px 6px 3px #8080808a;
+}
+
+.eb_setting_help_pop_up{
+    height: 60%;
+}
+
+.eb_setting_rate_pop_up{
+    height: 25%;
+}
+
+.eb_open_btn{
+    /*vertical-align:top;*/
+    /*transform:rotate(270deg);*/
+    /*-ms-transform:rotate(270deg);*/ /* IE 9 */
+    /*-moz-transform:rotate(270deg);*/ /* Firefox */
+    /*-webkit-transform:rotate(270deg);*/ /* Safari and Chrome */
+    /*-o-transform:rotate(270deg);*/ /* Opera */
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #2e9aa6;
+    color: white;
+    padding: 10px 21px;
+    /*font-weight: 600;*/
+    border: none;
+    margin-top: 10px;
+    width: 70%;
+}
+
+
+.closebtn{
+    position: absolute;
+    border-radius: 20px;
+    padding: 1px 5px;
+    background-color: #2e9aa6;
+    color: white;
+    top: -6px;
+    left: -4px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.eb_setting_help_h4{
+    border:0px;
+    background-color: white;
+    color: #2e9aa6;
+    border-bottom:solid 1px #80808052;
+
+}
+
+.eb-setting-help-accordion a{
+    text-decoration: none;
+}
+
+
+.eb_settings_rate_btn_wrap, .eb_settings_help_btn_wrap{
+    /*position: absolute;*/
+    /*border-radius: 20px;*/
+    /*padding: 1px 5px;*/
+    /*right: -15px;*/
+}
+
+.eb_settings_pop_btn_wrap{
+    text-align: right;
+}
+
+
+/*.eb_settings_help_btn_wrap{
+    top: 40px;
+}
+
+.eb_settings_rate_btn_wrap{
+    top: 150px;
+}*/
+
+.eb_settings_pop_btn_wrap{
+    position: relative;
+}
+
+.eb_settings_rate_btn_wrap a{
+    color: white;
+    text-decoration: none;
+}
+
+
+.eb_settings_rate_btn_wrap a.eb_open_btn{
+    display: inline-block;
+    width: 70%;
+    position: static;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+
+
+/************  Sidebar css end  *************/
+
+
+
 /*.eb-premium-interest{
     text-align: center;
     padding-top: 5%;
@@ -900,8 +1048,13 @@ span.eb-option-input .eb-option-div select{
 }
 
 .eb_table_cell_2{
-    width: 35%;
+    width: 33%;
 }
+
+.eb_table_cell_2 input{
+    width: 95%;
+}
+
 
 .eb_table_cell_3{
     width: 10%;

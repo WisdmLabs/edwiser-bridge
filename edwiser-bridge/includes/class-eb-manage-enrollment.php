@@ -114,6 +114,10 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                     <input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
                     <?php
                     wp_nonce_field('eb-manage-user-enrol', 'eb-manage-user-enrol');
+
+                    //will add search box in next update.
+                    // $listTable->search_box(__('Search Users / course', 'eb-textdomain'), 'eb_manage_enroll_search');
+
                     $listTable->display();
                     ?>
                 </form>
@@ -169,7 +173,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                     </p>
                     <button type="button" class="notice-dismiss">
                         <span class="screen-reader-text"><?php _e('Dismiss this notice', "eb-textdomain");
-                            ?>.</span>
+                        ?>.</span>
                     </button>
                 </div>
                 <?php
@@ -183,7 +187,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                     </p>
                     <button type="button" class="notice-dismiss">
                         <span class="screen-reader-text"><?php _e('Dismiss this notice', "eb-textdomain");
-                            ?>.</span>
+                        ?>.</span>
                     </button>
                 </div>
                 <?php
@@ -222,7 +226,14 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
          */
         private function unenrollUser($courseId, $userId)
         {
-            $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+            /**
+             * This is commented due to the error Avoid using static access to class
+             * This doesn't allow the class to call other class statically
+             */
+            // $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+
+            $enrollmentManager = new EBEnrollmentManager($this->plugin_name, $this->version);
+
             $args = array(
                 'user_id' => $userId,
                 'role_id' => 5,

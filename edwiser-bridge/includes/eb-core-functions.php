@@ -185,8 +185,8 @@ function wdmEBUserRedirectUrl($queryStr = '')
         $usrAcPageUrl = get_permalink($usrAcPageId);
     }
     /*
-     * Sets $usrAcPageUrl to my course page if the redirection to the my 
-     * courses page is enabled in settings 
+     * Sets $usrAcPageUrl to my course page if the redirection to the my
+     * courses page is enabled in settings
      */
     if (isset($ebSettings['eb_enable_my_courses']) && $ebSettings['eb_enable_my_courses'] == 'yes') {
         $usrAcPageUrl = getMycoursesPage($ebSettings);
@@ -402,4 +402,84 @@ function defaultRegistrationRole()
         $role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
     }
     return $role;
+}
+
+
+
+/**
+ * Remove this method and add standard processing.
+ * This is added due to the error Avoid using static access to class
+ * This doesn't allow the class to call other class statically
+ */
+/*function ebReturnEnrollmentManagerObj($pluginName, $version)
+{
+    return EBEnrollmentManager::instance($pluginName, $version);
+}
+*/
+
+
+
+
+
+
+
+function ebGetAllWebServiceFunctions()
+{
+    // $activePlugins = get_option('active_plugins');
+    $extensions = apply_filters(
+        'eb_extensions_web_service_functions',
+        array(
+            'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' => array(
+                'core_cohort_add_cohort_members',
+                'core_cohort_create_cohorts',
+                'core_role_assign_roles',
+                'core_role_unassign_roles',
+                'core_cohort_delete_cohort_members',
+                'core_cohort_get_cohorts',
+                // 'eb_manage_cohort_enrollment',
+                'eb_delete_cohort',
+                // 'wdm_manage_cohort_enrollment'
+            ),
+            'woocommerce-integration/bridge-woocommerce.php' => array(),
+            'edwiser-bridge-sso/sso.php' => array(
+                'wdm_sso_verify_token'
+            ),
+            'selective-synchronization/selective-synchronization.php' => array(
+                'eb_get_users'
+            )
+        )
+    );
+
+    $edwiserBridgeFns = apply_filters(
+        'eb_web_service_functions',
+        array(
+            'core_user_get_users_by_field',
+            'core_user_update_users',
+            'core_course_get_courses',
+            'core_course_get_categories',
+            'enrol_manual_enrol_users',
+            'enrol_manual_unenrol_users',
+            'core_enrol_get_users_courses',
+            'eb_test_connection',
+            'eb_get_site_data',
+            'eb_get_course_progress'
+        )
+    );
+
+    foreach ($extensions as $extension => $functions) {
+        if (is_plugin_active($extension)) {
+            if ('edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' == $extension) {
+                $bpVersion = get_option('eb_bp_plugin_version');
+                if (version_compare('2.0.0', $bpVersion) <= 0) {
+                    array_merge($functions, array('wdm_manage_cohort_enrollment'));
+                } elseif (version_compare('2.1.0', $bpVersion) == 0) {
+                    array_merge($functions, array('eb_manage_cohort_enrollment'));
+                }
+            }
+
+            $edwiserBridgeFns = array_merge($edwiserBridgeFns, $functions);
+        }
+    }
+
+    return apply_filters('eb_total_web_service_functions', $edwiserBridgeFns);
 }

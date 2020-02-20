@@ -988,6 +988,39 @@ console.log(eb_admin_js_object.msg_error_link_user);
             parent.css("display", "none");
         });
 
+
+
+
+        // $( ".eb-setting-help-accordion" ).accordion();
+
+
+
+        /*--------------------------------
+         * Sidebar
+         *---------------------------------*/
+        $('.eb_settings_help_btn_wrap .eb_open_btn').click(function(event){
+            event.preventDefault();
+            $(".eb_setting_help_pop_up").css('width', '250px');
+            // $("main").css('margin-left', '250px');
+        });
+
+
+        $('.eb_setting_help_pop_up .closebtn').click(function(event){
+            $(".eb_setting_help_pop_up").css('width', "0");
+            // document.getElementById("main").style.marginLeft= "0";
+        });
+
+        // $('.eb_settings_rate_btn_wrap .eb_open_btn').click(function(event){
+        //     event.preventDefault();
+        //     // $(".eb_setting_rate_pop_up").css('width', '250px');
+        //     // $("main").css('margin-left', '250px');
+        // });
+
+        // $('.eb_setting_rate_pop_up .closebtn').click(function(event){
+        //     $(".eb_setting_rate_pop_up").css('width', "0");
+        //     // document.getElementById("main").style.marginLeft= "0";
+        // });
+
     });
 /*JS for Order page end*/
 
