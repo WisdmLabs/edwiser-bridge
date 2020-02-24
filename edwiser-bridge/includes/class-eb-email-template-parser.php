@@ -239,21 +239,24 @@ if (!class_exists("EBEmailTmplParser")) {
             $orderId         = getArrValue($args, "order_id", false);
             if ($orderId) {
                 $order_data      = get_post_meta($orderId, 'eb_order_options', true);
-                $byerDetails     = get_userdata($order_data['buyer_id']);
-                ob_start();
-                ?>
-                <div class='eb-order-meta-byer-details'>                    
-                    <p>
-                        <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
-                        <?php echo $byerDetails->user_login ?>
-                    </p>
-                    <p>
-                        <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
-                        <?php echo $byerDetails->user_email ?>
-                    </p>
-                </div>
-                <?php
-                $customerDetails = ob_get_clean();
+                $byerDetails     = isset($order_data['buyer_id']) ? get_userdata($order_data['buyer_id']) : '';
+
+                if (!empty($byerDetails)) {
+                    ob_start();
+                    ?>
+                    <div class='eb-order-meta-byer-details'>
+                        <p>
+                            <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
+                            <?php echo $byerDetails->user_login ?>
+                        </p>
+                        <p>
+                            <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
+                            <?php echo $byerDetails->user_email ?>
+                        </p>
+                    </div>
+                    <?php
+                    $customerDetails = ob_get_clean();
+                }
             }
             return $customerDetails;
         }

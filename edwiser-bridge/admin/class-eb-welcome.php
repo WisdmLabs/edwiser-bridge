@@ -102,16 +102,16 @@ class EBWelcomeScreen
             .eb-about-wrap .feature-rest div {
                 width: 50% !important;
                 padding-<?php echo is_rtl() ? 'left' : 'right';
-        ?>: 100px;
+                ?>: 100px;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box;
                 margin: 0 !important;
             }
             .eb-about-wrap .feature-rest div.last-feature {
                 padding-<?php echo is_rtl() ? 'right' : 'left';
-        ?>: 100px;
+                ?>: 100px;
                 padding-<?php echo is_rtl() ? 'left' : 'right';
-        ?>: 0;
+                ?>: 0;
             }
             .eb-about-wrap div.icon {
                 width: 0 !important;
@@ -247,6 +247,10 @@ class EBWelcomeScreen
                     ?>
                 </p>
 
+                 <p class="eb_welcome_mdl_dwnld_btn_wrap">
+                    <a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip"> <?= __('Download Moodle Plugin', 'eb-textdomain') ?> </a>
+                 </p>
+
                 <div class="changelog prompt-subscribe-wrap">
                     <h1 style="text-align:center; margin:0; font-size:30px;">
                         <?php _e('Get the latest updates on Edwiser Bridge in Your Inbox!', 'eb-textdomain'); ?>
@@ -287,11 +291,9 @@ class EBWelcomeScreen
 
             <div class="eb-actions">
                 <a href="<?php echo admin_url('admin.php?page=eb-settings');
-                    ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain');
-                    ?></a>
+                ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain');?></a>
                 <a href="<?php echo'https://edwiser.org/bridge/documentation/';
-                    ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain');
-                    ?></a>
+                ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain');?></a>
             </div>
         </div>
         <?php

@@ -34,7 +34,7 @@ $payment_options = get_option('eb_paypal');
 
 $paypal_email = isset($payment_options['eb_paypal_email']) ? $payment_options['eb_paypal_email'] : '';
 $paypal_currency = isset($payment_options['eb_paypal_currency']) ? $payment_options['eb_paypal_currency'] : 'USD';
-$paypal_country = isset($payment_options['eb_paypal_country']) ? $payment_options['eb_paypal_country'] : 'US';
+$paypal_country = isset($payment_options['eb_paypal_country_code']) ? $payment_options['eb_paypal_country_code'] : 'US';
 $paypal_cancelurl = isset($payment_options['eb_paypal_cancel_url']) ? $payment_options['eb_paypal_cancel_url'] : site_url();
 $paypal_returnurl = isset($payment_options['eb_paypal_return_url']) ? $payment_options['eb_paypal_return_url'] : site_url();
 $paypal_notifyurl = isset($payment_options['eb_paypal_notify_url']) ? $payment_options['eb_paypal_notify_url'] : '';

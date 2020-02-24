@@ -476,9 +476,32 @@ color: #2ecc71;
 
 
 
-
 /************  Sidebar css end  *************/
 
+
+
+/*********  Welcome page download button   ***********/
+
+.eb_welcome_mdl_dwnld_btn_wrap{
+    text-align: right;
+}
+
+.eb_welcome_mdl_dwnld_btn{
+    background-color: #1a91cd;
+    color: white;
+    text-decoration: none;
+    padding: 12px 29px;
+    font-size: 15px;
+    border-radius: 2px;
+}
+
+.eb_welcome_mdl_dwnld_btn:hover{
+    text-decoration: none;
+    color: white;
+}
+
+
+/**********************/
 
 
 /*.eb-premium-interest{

@@ -232,6 +232,7 @@
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
                     } else {
                         ohSnap(response.response_message, 'error', 0);
+                        // ohSnap(custom_response, 'error', 0);
                     }
                 }
             });
