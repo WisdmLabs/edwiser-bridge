@@ -149,9 +149,7 @@ class EBConnectionHelper
                 $responseMessage = $body->message;
             } else {
                 //added else to check the other services access error
-
                 $accessControlResult = $this->checkServiceAccess($url, $token);
-
 
                 if (!$accessControlResult['success']) {
                     $success         = 0;
@@ -216,7 +214,6 @@ class EBConnectionHelper
                     wp_remote_retrieve_response_code($response) == 303) {
                 $body = json_decode(wp_remote_retrieve_body($response));
                 if (!empty($body->exception)) {
-                    $success          = 0;
                     // $responseMessage = $body->message;
 
                     //check if the error response is moodle_access_exception
@@ -238,8 +235,8 @@ class EBConnectionHelper
                                         </div>
                                     </div>';
             $responseMessage .=  '</div>';
-            return array('success' => $success, 'response_message' => $responseMessage);
         }
+        return array('success' => $success, 'response_message' => $responseMessage);
     }
 
 
