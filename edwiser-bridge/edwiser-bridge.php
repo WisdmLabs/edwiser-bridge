@@ -154,10 +154,6 @@ function wdmShowLegacyExtensionsNotices()
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-
-require_once plugin_dir_path(__FILE__).'includes/class-eb-load-admin-public-hooks.php.php';
-require_once plugin_dir_path(__FILE__).'includes/class-eb-file-loader.php';
-require_once plugin_dir_path(__FILE__).'includes/class-eb-load-common-hooks.php';
 require plugin_dir_path(__FILE__).'includes/class-eb.php';
 
 /*
