@@ -247,6 +247,12 @@ class EBEnrollmentManager
                         !$this->userHasCourseAccess($args['user_id'], $course_id)) {
                     $expireDate = $this->calcCourseAcessExpiryDate($course_id);
 
+                    //Set timezone
+                    $timeZone = get_option('timezone_string');
+                    if (isset($timeZone) && !empty($timeZone)) {
+                        date_default_timezone_set(get_option('timezone_string'));
+                    }
+
                     $wpdb->insert(
                         $wpdb->prefix.'moodle_enrollment',
                         array(

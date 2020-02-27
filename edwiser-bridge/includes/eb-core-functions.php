@@ -419,10 +419,6 @@ function defaultRegistrationRole()
 
 
 
-
-
-
-
 function ebGetAllWebServiceFunctions()
 {
     // $activePlugins = get_option('active_plugins');

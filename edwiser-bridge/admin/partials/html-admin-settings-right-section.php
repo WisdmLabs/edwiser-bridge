@@ -18,13 +18,13 @@ $extensionsDetails = apply_filters(
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
             ),
         'bulk-purchase'   => array(
-            'name'   =>'Single Sign On',
+            'name'   =>'Bulk Purchase',
             'path'   => 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
             'doc'    =>'https://edwiser.org/bridge/extensions/bulk-purchase/documentation/',
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
             ),
         'selective-synch' =>  array(
-            'name'   => 'Single Sign On',
+            'name'   => 'Selective Synchronization',
             'path'   => 'selective-synchronization/selective-synchronization.php',
             'doc'    => 'https://edwiser.org/documentation/selective-synchronization/',
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
@@ -36,7 +36,7 @@ $extensionsDetails = apply_filters(
 foreach ($extensionsDetails as $key => $value) {
     if (is_plugin_active($value['path'])) {
         $documentation .='<li>
-                            <a href="'. $value['doc'] .'"> '.__($value['name'], 'eb-textdomain') .'</a>
+                            <a href="'. $value['doc'] .'" target="_blank"> '.__($value['name'], 'eb-textdomain') .'</a>
                         </li>';
     }
 }
@@ -71,7 +71,7 @@ foreach ($extensionsDetails as $key => $value) {
                         <ol>
 
                             <li>
-                                 <a href="https://edwiser.org/bridge/documentation/"> <?= __('Edwiser Bridge', 'eb-textdomain') ?></a>
+                                 <a href="https://edwiser.org/bridge/documentation/" target="_blank"> <?= __('Edwiser Bridge', 'eb-textdomain') ?></a>
                             </li>
 
 
@@ -82,12 +82,13 @@ foreach ($extensionsDetails as $key => $value) {
 
                     <h4 class='eb_setting_help_h4'><?= __('FAQs', 'eb-textdomain') ?></h4>
                     <div>
-                        <a href="https://knowledgebase.edwiser.org/en/category/edwiser-bridge-plugin-5d8teq/"> <?= __('Click here to check frequently asked questions.', 'eb-textdomain') ?>  </a>
+                        <a href="https://knowledgebase.edwiser.org/en/category/edwiser-bridge-plugin-5d8teq/" target="_blank"> <?= __('Click here ', 'eb-textdomain') ?>  </a>
+                        <?= __('to check frequently asked questions.', 'eb-textdomain') ?>
                     </div>
 
                     <h4 class='eb_setting_help_h4'><?= __('Contact Us', 'eb-textdomain') ?></h4>
                     <div>
-                        <a href="https://edwiser.org/bridge/"> <?= __('Click here to chat with us', 'eb-textdomain') ?>  </a>
+                        <a href="https://edwiser.org/bridge/" target="_blank"> <?= __('Click here ', 'eb-textdomain') ?>  </a> <?= __('to chat with us', 'eb-textdomain') ?>
                     </div>
                 </div>
             </div>

@@ -53,6 +53,9 @@ class EbShortcodeMyCourses
             )
         );
         $currentClass = new EbShortcodeMyCourses();
+
+        do_action('eb_before_my_courses_wrapper');
+
         $my_courses = $currentClass->getUserCourses($atts['user_id']);
 
         $currentClass->showMyCourses($my_courses, $atts);

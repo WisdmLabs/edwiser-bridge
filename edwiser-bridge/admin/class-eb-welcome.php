@@ -80,7 +80,7 @@ class EBWelcomeScreen
                 position: relative;
                 margin: 25px 40px 0px 20px;
                 /*margin:0 auto;*/
-                max-width: 1050px;
+                max-width: 100%;
                 font-size: 15px;
             }
 

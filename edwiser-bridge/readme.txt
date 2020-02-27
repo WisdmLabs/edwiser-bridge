@@ -207,6 +207,15 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 1.4.3 =
+* Feature - Added functionality to show a set-up wizard on Moodle plugin installation to create web service automatically with authorized user.
+* Feature - Added functionality to add missing functions on linking the existing web-service.
+* Tweak - Added functionality to show all non added Moodle web service functions on test connection functionality.
+* Tweak - Added buttons on settings page for help and rating.
+* Fix - While synchronizing courses if all checkboxes are not ticked then nothing was happening fixed this issue and now courses gets created in Wordpress with a status as published.
+* Fix - Wordpress enrollment record timezone was not same as the Wordpress timezone so fixed it.
+
+
 = 1.4.2 =
 * Tweak - Added functionality to synchronize large number of users.
 * Fix - Paid orders sometimes were not getting completed for new users. This issue has been resolved.

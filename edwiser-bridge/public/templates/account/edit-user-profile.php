@@ -21,7 +21,7 @@ $country     = getArrValue($_POST, "country", $current_user->country);
     } else {
         if (isset($_SESSION['eb_msgs_' . $current_user->ID])) {
             echo $_SESSION['eb_msgs_' . $current_user->ID];
-            session_unset($_SESSION['eb_msgs_' . $current_user->ID]);
+            unset($_SESSION['eb_msgs_' . $current_user->ID]);
         }
         ?>
         <form method="post" id="eb-update-profile" action="#<?php // echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink())); ?>">

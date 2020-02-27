@@ -421,12 +421,12 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 $code .= '"><form name="buynow" id="buynowform" action="'.$paypalUrl.'" method="post">
             <input type="hidden" name="cmd" value="_xclick" />
 
-    		<input type="hidden" name="bn" value="PP-BuyNowBF" />
-    		<input type="hidden" name="business" value="'.$atts['email'].'">
-    		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
-    		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
-    		<input type="hidden" name="item_name" value="'.$atts['name'].'">
-    		<input type="hidden" name="amount" value="'.$atts['amount'].'">';
+        <input type="hidden" name="bn" value="PP-BuyNowBF" />
+        <input type="hidden" name="business" value="'.$atts['email'].'">
+        <input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
+        <input type="hidden" name="item_number" value="'.$atts['itemno'].'">
+        <input type="hidden" name="item_name" value="'.$atts['name'].'">
+        <input type="hidden" name="amount" value="'.$atts['amount'].'">';
 
                 // Add Quantity
                 if ($atts['qty'] == 'ask') {
@@ -472,7 +472,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 if ($atts['noshipping'] > -1) {
                     $code .= '
-    			<input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
+          <input type="hidden" name="no_shipping" value="'.$atts['noshipping'].'">';
                 }
 
                 if ($atts['nonote'] > -1) {
@@ -482,7 +482,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 if ($atts['rm'] > -1) {
                     $code .= '
-    			<input type="hidden" name="rm" value="'.$atts['rm'].'">';
+          <input type="hidden" name="rm" value="'.$atts['rm'].'">';
                 }
 
                 // Add language code
@@ -575,12 +575,12 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 );
 
                 // if ($atts['buyer_user_id']) {
-                // 	    $code.='<input type="hidden" name="buyer_user_id" value="'.$atts['buyer_user_id'].'">';
+                //      $code.='<input type="hidden" name="buyer_user_id" value="'.$atts['buyer_user_id'].'">';
                 // }
                 // if ($atts['buyer_order_id']) {
                 //      $code.='<input type="hidden" name="buyer_order_id" value="'.$atts['buyer_order_id'].'">';
                 // } else{
-                // 	    $code.='<input type="hidden" name="buyer_order_id" value="">';
+                //      $code.='<input type="hidden" name="buyer_order_id" value="">';
                 // }
 
                 if ($atts['scriptcode']) {
@@ -636,7 +636,7 @@ if (!function_exists('enhancedPaypalShortcode')) {
                 $code .= '"><form name="subscribewithpaypal" action="'.$paypalUrl.'" method="post">
             <input type="hidden" name="cmd" value="_xclick-subscriptions" />
 
-    		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0"
+        <input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0"
             alt="" width="1" height="1" class="ppalholder">';
 
                 if ($atts['imageurl']) {
@@ -910,8 +910,8 @@ if (!function_exists('enhancedPaypalShortcode')) {
 
                 $code .= '"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick">
-    		<input type="hidden" name="hosted_button_id" value="'.$atts['buttonid'].'">
-    		<input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt=""
+        <input type="hidden" name="hosted_button_id" value="'.$atts['buttonid'].'">
+        <input type="image" src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt=""
             width="1" height="1">';
 
                 if ($atts['imageurl']) {
@@ -972,17 +972,17 @@ if (!function_exists('enhancedPaypalShortcode')) {
                     $code .= 'margin-bottom: 10px;';
                 }
                 $code .= '"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
-    		<input type="hidden" name="cmd" value="_cart">
-    		<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
-    		<input type="hidden" name="add" value="1">';
+        <input type="hidden" name="cmd" value="_cart">
+        <input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
+        <input type="hidden" name="add" value="1">';
                 if ($atts['display'] == 1) {
                     $code .= '<input type="hidden" name="display" value="1">';
                 }
                 $code .= '<input type="hidden" name="business" value="'.$atts['email'].'">
-    		<input type="hidden" name="lc" value="'.$atts['lc'].'">
-    		<input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
-    		<input type="hidden" name="item_number" value="'.$atts['itemno'].'">
-    		<input type="hidden" name="item_name" value="'.$atts['name'].'">';
+        <input type="hidden" name="lc" value="'.$atts['lc'].'">
+        <input type="hidden" name="currency_code" value="'.$atts['currencycode'].'">
+        <input type="hidden" name="item_number" value="'.$atts['itemno'].'">
+        <input type="hidden" name="item_name" value="'.$atts['name'].'">';
                 if ($atts['amount']) {
                     $code .= '<input type="hidden" name="amount" value="'.$atts['amount'].'">';
                 }

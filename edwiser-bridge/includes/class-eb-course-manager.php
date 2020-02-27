@@ -137,7 +137,7 @@ class EBCourseManager
 
 
 
-            if ((isset($sync_options["eb_synchronize_draft"]) && $sync_options['eb_synchronize_draft'] == 1) || (isset($sync_options["eb_synchronize_previous"]) && $sync_options['eb_synchronize_previous'] == 1)) {
+            if ((isset($sync_options["eb_synchronize_draft"])/* && $sync_options['eb_synchronize_draft'] == 1*/) || (isset($sync_options["eb_synchronize_previous"]) && $sync_options['eb_synchronize_previous'] == 1)) {
                 // creating courses based on recieved data
                 if ($moodle_course_resp['success'] == 1) {
                     foreach ($moodle_course_resp['response_data'] as $course_data) {
@@ -153,12 +153,12 @@ class EBCourseManager
                         $existing_course_id = $this->isCoursePresynced($course_data->id);
 
                         // creates new course or updates previously synced course conditionally
-                        if (!is_numeric($existing_course_id) && $sync_options["eb_synchronize_draft"]) {
+                        if (!is_numeric($existing_course_id) /*&& $sync_options["eb_synchronize_draft"]*/) {
                             $course_id = $this->createCourseOnWordpress($course_data, $sync_options);
                             $courses_created[] = $course_id; // push course id in courses created array
                         } elseif (is_numeric($existing_course_id) &&
                                 isset($sync_options['eb_synchronize_previous']) &&
-                                $sync_options['eb_synchronize_previous'] == 1 ) {
+                                $sync_options['eb_synchronize_previous'] == 1) {
                             $course_id = $this->updateCourseOnWordpress(
                                 $existing_course_id,
                                 $course_data,
@@ -172,9 +172,6 @@ class EBCourseManager
                 // push course response in array
                 $response_array['course_response_message'] = $moodle_course_resp['response_message'];
             }
-
-
-
 
             /*
              * hook to be run on course completion

@@ -58,10 +58,7 @@ if (!class_exists('EBSettingsGeneral')) :
                 array(
                     'title'    => __('Redirect to My Courses', 'eb-textdomain'),
                     'desc'     => sprintf(
-                        __(
-                            'Redirect user to the My Courses page on %s from the %s page.',
-                            'eb-textdomain'
-                        ),
+                        __('Redirect user to the My Courses page on %s from the %s page.', 'eb-textdomain'),
                         '<strong>' . __('Login / Registration', 'eb-textdomain') . '</strong>',
                         '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
@@ -74,10 +71,7 @@ if (!class_exists('EBSettingsGeneral')) :
                 array(
                     'title'    => __('My Courses Page', 'eb-textdomain'),
                     'desc'     => '<br/>' . sprintf(
-                        __(
-                            'Select my courses page here. Default page is %s ',
-                            'eb-textdomain'
-                        ),
+                        __('Select my courses page here. Default page is %s ', 'eb-textdomain'),
                         '<a href="' . esc_url(site_url('/eb-my-courses')) . '">' . __('My Courses', 'eb-textdomain') . '</a>'
                     ),
                     'id'       => 'eb_my_courses_page_id',
@@ -88,10 +82,7 @@ if (!class_exists('EBSettingsGeneral')) :
                         'show_option_none'  => __('Select a page', "eb-textdomain"),
                         'option_none_value' => '',
                     ),
-                    'desc_tip' => __(
-                        "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.",
-                        'eb-textdomain'
-                    ),
+                    'desc_tip' => __("This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.", 'eb-textdomain'),
                 ),
                 array(
                     'title'    => __('Enable Registration', 'eb-textdomain'),
@@ -104,27 +95,18 @@ if (!class_exists('EBSettingsGeneral')) :
                 array(
                     'title'    => __('Select Role', 'eb-textdomain'),
                     'desc'     => '<br/>' .
-                        __(
-                            'Select default role for users on registration from User Account Page.',
-                            'eb-textdomain'
-                        ),
+                        __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
                     'id'       => 'eb_default_role',
                     'type'     => 'select',
                     'default'  => __('Select Role', "eb-textdomain"),
                     'css'      => 'min-width:300px;',
                     'options'     => getAllWpRoles(),
-                    'desc_tip' => __(
-                        'Select default role for users on registration from User Account Page.',
-                        'eb-textdomain'
-                    ),
+                    'desc_tip' => __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
                 ),
                 array(
                     'title'    => __('User Account Page', 'eb-textdomain'),
                     'desc'     => '<br/>' . sprintf(
-                        __(
-                            'Select user account page here. Default page is %s ',
-                            'eb-textdomain'
-                        ),
+                        __('Select user account page here. Default page is %s ', 'eb-textdomain'),
                         '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
                     ),
                     'id'       => 'eb_useraccount_page_id',
@@ -135,10 +117,7 @@ if (!class_exists('EBSettingsGeneral')) :
                         'show_option_none'  => __('Select a page', "eb-textdomain"),
                         'option_none_value' => '',
                     ),
-                    'desc_tip' => __(
-                        'This sets the user account page, where user can see his/her purchase history.',
-                        'eb-textdomain'
-                    ),
+                    'desc_tip' => __('This sets the user account page, where user can see his/her purchase history.', 'eb-textdomain'),
                 ),
                 array(
                     'title'    => __('Moodle Language Code', 'eb-textdomain'),
@@ -164,10 +143,7 @@ if (!class_exists('EBSettingsGeneral')) :
                 ),
                 array(
                     'title'    => __('Link on My courses page', 'eb-textdomain'),
-                    'desc'     => __(
-                        'Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page',
-                        'eb-textdomain'
-                    ),
+                    'desc'     => __('Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page', 'eb-textdomain'),
                     'id'       => 'eb_my_course_link',
                     'default'  => '',
                     'type'     => 'text',
@@ -260,7 +236,6 @@ if (!class_exists('EBSettingsGeneral')) :
                 array('type' => 'sectionend', 'id' => 'general_options'),
                     )
             );
-
             return apply_filters('eb_get_settings_' . $this->_id, $settings);
         }
 

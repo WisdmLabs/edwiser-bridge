@@ -1,7 +1,6 @@
 <div class="eb-cph-wrapper">
     <div class="wdm-transaction-header">
-        <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain');
-?></h4>
+        <h4 style=""><?php _e('Course Purchase History', 'eb-textdomain');?></h4>
     </div>
     <table id="wdm_user_order_history" class="display">
         <thead>
