@@ -147,7 +147,7 @@ class EBConnectionHelper
             if (!empty($body->exception)) {
                 $success         = 0;
                 $responseMessage = $body->message;
-            } /*else {
+            } else {
                 //added else to check the other services access error
 
                 $accessControlResult = $this->checkServiceAccess($url, $token);
@@ -157,7 +157,7 @@ class EBConnectionHelper
                     $success         = 0;
                     $responseMessage = $accessControlResult['response_message'];
                 }
-            }*/
+            }
         } else {
             $success         = 0;
             $responseMessage = __('Please check Moodle URL !', 'eb-textdomain');
