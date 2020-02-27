@@ -118,7 +118,9 @@ class EBLogger
             return true;
         }
 
-        if ($this->_handles[$handle] = @fopen(wdmLogFilePath($handle), 'a')) {
+        $this->_handles[$handle] = @fopen(wdmLogFilePath($handle), 'a');
+
+        if ($this->_handles[$handle]) {
             return true;
         }
 

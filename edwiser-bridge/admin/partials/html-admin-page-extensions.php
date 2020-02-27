@@ -42,12 +42,11 @@ if (!defined('ABSPATH')) {
                     echo '</li>';
                     ++$i;
             }
-        ?>
+            ?>
         </ul>
         <br />
         <a href="https://edwiser.org/bridge/extensions/" target="_blank" class="browse-all">
-            <?php _e('Browse all our extensions', 'eb-textdomain');
-        ?>
+            <?php _e('Browse all our extensions', 'eb-textdomain');?>
         </a>
         <?php
     } else {
@@ -62,9 +61,9 @@ if (!defined('ABSPATH')) {
                 ),
                 'https://edwiser.org/bridge/extensions/'
             );
-        ?>
+            ?>
         </p>
-    <?php
+        <?php
     }
     ?>
 </div>

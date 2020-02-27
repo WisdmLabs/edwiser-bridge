@@ -143,7 +143,7 @@ do_action('eb_before_customer_login_form');
 
                 <?php
                 if (isset($general_settings['eb_enable_terms_and_cond']) && $general_settings['eb_enable_terms_and_cond'] == "yes" && isset($general_settings['eb_terms_and_cond'])) {
-                ?>
+                    ?>
 
                 <p class="form-row form-row-wide">
                     <input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
@@ -159,7 +159,7 @@ do_action('eb_before_customer_login_form');
                     </div>
                 </div>
 
-                <?php
+                    <?php
                 }
                 ?>
 

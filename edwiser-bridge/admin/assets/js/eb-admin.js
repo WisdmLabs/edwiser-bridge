@@ -272,7 +272,7 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.connection_response == 1) {
-                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] == 1) {
+                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] !== null ) {
                             if (response.course_success == 1) {
                                 ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
                             } else {

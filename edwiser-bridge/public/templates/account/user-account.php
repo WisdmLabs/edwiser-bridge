@@ -26,15 +26,12 @@
                         $cssClass .= ' eb-active-profile-nav';
                     }
                     ?>
-                <nav class="<?php echo $cssClass;
-                    ?>">
-                        <a href="<?php echo esc_url(add_query_arg('eb-active-link', $navHref, get_permalink()));
-                    ?>"><?php _e($navItem, 'eb-textdomain');
-                    ?></a>
+                <nav class="<?php echo $cssClass;?>">
+                        <a href="<?php echo esc_url(add_query_arg('eb-active-link', $navHref, get_permalink()));?>"><?php _e($navItem, 'eb-textdomain');?></a>
                     </nav>
                     <?php
                 }
-        ?>
+                ?>
             </div>
         </div>
         <div class="eb-user-account-content">
@@ -50,7 +47,7 @@
                         )
                 );
             }
-        ?>
+            ?>
         </div>
         <?php
     }// end of else i.e content for logged in users?>

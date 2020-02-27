@@ -5,6 +5,17 @@
 
 
 
+/******   Manage enrollment   *****/
+
+#eb-manage-user-enrollment-filter{
+    padding-right: 10px;
+}
+
+/*******************/
+
+
+
+
 /****  premium extensions css start  ***/
 
 .bounce {
@@ -369,6 +380,7 @@ color: #2ecc71;
 
 .eb_setting_help_pop_up, .eb_setting_rate_pop_up{
     padding-left: 20px;
+    padding-bottom: 20px;
     width: 0;
     position: fixed;
     z-index: 1;
@@ -384,7 +396,7 @@ color: #2ecc71;
 }
 
 .eb_setting_help_pop_up{
-    height: 60%;
+    height: auto;
 }
 
 .eb_setting_rate_pop_up{
@@ -407,6 +419,10 @@ color: #2ecc71;
     border: none;
     margin-top: 10px;
     width: 70%;
+}
+
+.eb_open_btn:hover{
+    box-shadow: 0px 1px 5px 1px #80808063;
 }
 
 
@@ -715,7 +731,7 @@ color: #2ecc71;
 
 .eb_admin_update_notice_message{
     display: flex;
-    width: 90%;
+    width: 96%;
     float: left;
 }
 
@@ -723,12 +739,17 @@ color: #2ecc71;
 
 }
 
+.eb_update_notice_dismiss_wrap{
+    text-align: right;
+    width: 15%;
+}
 
 
 .eb_update_notice_content{
     font-size: 12px;
     /*line-height: 25px;*/
     padding-left: 10px;
+    width: 85%;
 }
 
 
