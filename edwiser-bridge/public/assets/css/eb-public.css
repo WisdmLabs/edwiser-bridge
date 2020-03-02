@@ -462,9 +462,13 @@ div#user_login label{
     /*width: 125px;*/
     letter-spacing: 0.1em;
 }
-.form-row{
+
+
+/*.form-row{
     margin: 0.5em;
-}
+}*/
+
+
 /* user profile shortcode style */
 .eb-user-account-navigation{
     float: left;
