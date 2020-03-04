@@ -221,8 +221,8 @@
                 dataType: "json",
                 data: {
                     'action': 'handleConnectionTest',
-                    'url': url,
-                    'token': token,
+                    'url': url.trim(),
+                    'token': token.trim(),
                     '_wpnonce_field': eb_admin_js_object.nonce,
                 },
                 success: function (response) {
