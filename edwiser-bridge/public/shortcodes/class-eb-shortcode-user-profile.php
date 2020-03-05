@@ -126,7 +126,7 @@ class EbShortcodeUserProfile
 
             if ($user->ID > 0) {
                 if (isset($_SESSION['eb_msgs_'.$current_user->ID])) {
-                    session_unset($_SESSION['eb_msgs_'.$current_user->ID]);
+                    unset($_SESSION['eb_msgs_'.$current_user->ID]);
                 }
                 $posted_data = self::getPostedData();
                 $errors = self::getErrors($posted_data);

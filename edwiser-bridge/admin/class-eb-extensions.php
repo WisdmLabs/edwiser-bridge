@@ -29,7 +29,8 @@ class EBAdminExtensions
      */
     public static function output()
     {
-        if (false === ($extensions = get_transient('edwiser_bridge_extensions_data'))) {
+        $extensions = get_transient('edwiser_bridge_extensions_data');
+        if (false === $extensions) {
             $extensions_json = wp_remote_get(
                 'https://edwiser.org/edwiserbridge-extensions.json',
                 array(

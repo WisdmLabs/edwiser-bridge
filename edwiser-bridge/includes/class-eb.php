@@ -108,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.4.2';
+        $this->version = '1.4.3';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -496,7 +496,6 @@ class EdwiserBridge
         $saveOrderMeta = new EBOrderStatus($this->plugin_name, $this->version);
         $paypalRefundManager =  new EbPayPalRefundManager($this->plugin_name, $this->version);
 
-
         // add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
         $this->loader->addAction(
             'eb_order_refund_init',
@@ -505,8 +504,6 @@ class EdwiserBridge
             10,
             5
         );
-
-
 
         $this->loader->addAction(
             'add_meta_boxes',
@@ -525,19 +522,11 @@ class EdwiserBridge
             'saveNewOrderPlaceNote'
         );
 
-
-        //Disabled from 1.3.5
-        /*$this->loader->addAction(
-            'eb_post_add_meta',
-            $orderMeta,
-            'addOrderRefundButton'
-        );*/
         $this->loader->addAction(
             'wp_ajax_wdm_eb_order_refund',
             $saveOrderMeta,
             'initEbOrderRefund'
         );
-
 
         $adminNoticeHandler = new EBAdminNoticeHandler();
         // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateMoodlePluginNotice');
@@ -548,14 +537,6 @@ class EdwiserBridge
             'ebAdminUpdateMoodlePluginNotice'
         );
 
-
-        /*$this->loader->addAction(
-            'admin_notices',
-            $adminNoticeHandler,
-            'ebAdminDiscountNotice'
-        );*/
-
-
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
@@ -563,27 +544,12 @@ class EdwiserBridge
             'ebAdminUpdateNoticeDismissHandler'
         );
 
-
-        /*$this->loader->addAction(
-            'admin_init',
-            $adminNoticeHandler,
-            'ebAdminDiscountNoticeDismissHandler'
-        );*/
-
-        // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminFeedbackNotice');
-        /*$this->loader->addAction(
-            'admin_notices',
-            $adminNoticeHandler,
-            'ebAdminFeedbackNotice'
-        );
-*/
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
             'ebAdminNoticeDismissHandler'
         );
-
 
         $hook = "in_plugin_update_message-".EB_PLUGIN_NAME."/".EB_BASE_FILE_NAME;
         $this->loader->addAction(
@@ -593,8 +559,6 @@ class EdwiserBridge
             10,
             2
         );
-
-
 
         /*
          * Handling custom button events on settings page
@@ -640,22 +604,6 @@ class EdwiserBridge
             'resetEmailTemplateContent'
         );
 
-        /**
-         *refund functionality
-         *
-         */
-//        $this->loader->addAction(
-//            'wp_ajax_refund_initiater',
-//            $refundManager,
-//            'refundInitiater'
-//        );
-
-
-
-        /**
-         * Email template editor end
-         */
-
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
@@ -687,7 +635,6 @@ class EdwiserBridge
             'resetEmailTemplateContent'
         );
 
-
         $gdprCompatible = new EBGDPRCompatible();
         /**
          *used to add eb personal while exporting personal data
@@ -698,7 +645,6 @@ class EdwiserBridge
             $gdprCompatible,
             'ebRegisterMyPluginExporter'
         );
-
 
         /**
          *used to add eb personal while exporting personal data

@@ -221,8 +221,8 @@
                 dataType: "json",
                 data: {
                     'action': 'handleConnectionTest',
-                    'url': url,
-                    'token': token,
+                    'url': url.trim(),
+                    'token': token.trim(),
                     '_wpnonce_field': eb_admin_js_object.nonce,
                 },
                 success: function (response) {
@@ -232,6 +232,7 @@
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
                     } else {
                         ohSnap(response.response_message, 'error', 0);
+                        // ohSnap(custom_response, 'error', 0);
                     }
                 }
             });
@@ -271,7 +272,7 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.connection_response == 1) {
-                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] == 1) {
+                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] !== null ) {
                             if (response.course_success == 1) {
                                 ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
                             } else {
@@ -987,6 +988,39 @@ console.log(eb_admin_js_object.msg_error_link_user);
             var parent = $(this).parent();
             parent.css("display", "none");
         });
+
+
+
+
+        // $( ".eb-setting-help-accordion" ).accordion();
+
+
+
+        /*--------------------------------
+         * Sidebar
+         *---------------------------------*/
+        $('.eb_settings_help_btn_wrap .eb_open_btn').click(function(event){
+            event.preventDefault();
+            $(".eb_setting_help_pop_up").css('width', '250px');
+            // $("main").css('margin-left', '250px');
+        });
+
+
+        $('.eb_setting_help_pop_up .closebtn').click(function(event){
+            $(".eb_setting_help_pop_up").css('width', "0");
+            // document.getElementById("main").style.marginLeft= "0";
+        });
+
+        // $('.eb_settings_rate_btn_wrap .eb_open_btn').click(function(event){
+        //     event.preventDefault();
+        //     // $(".eb_setting_rate_pop_up").css('width', '250px');
+        //     // $("main").css('margin-left', '250px');
+        // });
+
+        // $('.eb_setting_rate_pop_up .closebtn').click(function(event){
+        //     $(".eb_setting_rate_pop_up").css('width', "0");
+        //     // document.getElementById("main").style.marginLeft= "0";
+        // });
 
     });
 /*JS for Order page end*/

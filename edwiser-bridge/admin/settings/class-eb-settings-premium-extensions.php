@@ -47,20 +47,13 @@ if (!class_exists('EbSettingsRemui')) :
                         <div class="eb-premium-info">
                             <div class="eb-premium-general-title">
                                 <?php
-                                    _e(
-                                        "A Comprehensive e-commerce solution for your Moodle.
-                                        ",
-                                        "eb-textdomain"
-                                    );
+                                    _e("A Comprehensive e-commerce solution for your Moodle.", "eb-textdomain");
                                 ?>
                             </div>
                             <div class="eb-premium-general-sub-title">
                                 <div>
                                 <?php
-                                    _e(
-                                        "With this solution, you get 4 extensions that automate your course selling process further!",
-                                        "eb-textdomain"
-                                    );
+                                    _e("With this solution, you get 4 extensions that automate your course selling process further!", "eb-textdomain");
                                 ?>
                                 </div>
                             </div>
@@ -68,10 +61,7 @@ if (!class_exists('EbSettingsRemui')) :
                                 <a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=wordpress&utm_medium=cta1&utm_campaign=bridgeplugincta1"  target="_blank">
                                     <span>
                                     <?php
-                                        _e(
-                                            "Get Started!",
-                                            "eb-textdomain"
-                                        );
+                                        _e("Get Started!", "eb-textdomain");
                                     ?>
                                     <i style="-webkit-transform: rotate(20deg); transform: rotate(180deg);" class="dashicons dashicons-admin-collapse"></i>
                                     </span>
@@ -99,20 +89,14 @@ if (!class_exists('EbSettingsRemui')) :
                     <div class="eb-premium-middle">
                         <div class="eb-premium-middle-title">
                             <?php
-                                _e(
-                                    "Edwiser Bundle solution completely automates the process of selling moodle courses using WordPress:",
-                                    "eb-textdomain"
-                                );
+                                _e("Edwiser Bundle solution completely automates the process of selling moodle courses using WordPress:", "eb-textdomain");
                             ?>
                         </div>
                         <div class="eb-premium-extensions eb-premium-extension-woo-int">
                             <div class="eb-premium-extensions-title">
                                 <span>
                                     <?php
-                                        _e(
-                                            "Automate your Course Selling Process",
-                                            "eb-textdomain"
-                                        );
+                                        _e("Automate your Course Selling Process", "eb-textdomain");
                                     ?>
                                 </span>
                             </div>
@@ -124,34 +108,22 @@ if (!class_exists('EbSettingsRemui')) :
                                     <ul class="eb-premium-exte-list">
                                         <li>
                                         <?php
-                                            _e(
-                                                "Sell Courses with a digital Shopfront",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Sell Courses with a digital Shopfront", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Sell different types of products (ebook, merch, digests, etc) along with Moodle courses",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Sell different types of products (ebook, merch, digests, etc) along with Moodle courses", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Sell Moodle courses as Subscriptions",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Sell Moodle courses as Subscriptions", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Seamless selling with 160+ Payment gateways",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Seamless selling with 160+ Payment gateways", "eb-textdomain");
                                         ?>
                                         </li>
                                     </ul>
@@ -163,10 +135,7 @@ if (!class_exists('EbSettingsRemui')) :
                             <div class="eb-premium-extensions-title">
                                 <span>
                                     <?php
-                                        _e(
-                                            "Simplified User Management",
-                                            "eb-textdomain"
-                                        );
+                                        _e("Simplified User Management", "eb-textdomain");
                                     ?>
                                 </span>
                             </div>
@@ -175,26 +144,17 @@ if (!class_exists('EbSettingsRemui')) :
                                     <ul class="eb-premium-exte-list">
                                         <li>
                                         <?php
-                                            _e(
-                                                "Single Set of Login Credentials (Simultaneous Login to  WordPress & Moodle)",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Single Set of Login Credentials (Simultaneous Login to  WordPress & Moodle)", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Auto-enroll students to courses after purchase",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Auto-enroll students to courses after purchase", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Auto-sync of course progress across both platforms",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Auto-sync of course progress across both platforms", "eb-textdomain");
                                         ?>
                                         </li>
                                     </ul>
@@ -209,10 +169,7 @@ if (!class_exists('EbSettingsRemui')) :
                             <div class="eb-premium-extensions-title">
                                 <span>
                                     <?php
-                                        _e(
-                                            "Advanced Reporting & Account Management",
-                                            "eb-textdomain"
-                                        );
+                                        _e("Advanced Reporting & Account Management", "eb-textdomain");
                                     ?>
                                 </span>
                             </div>
@@ -224,26 +181,17 @@ if (!class_exists('EbSettingsRemui')) :
                                     <ul class="eb-premium-exte-list">
                                         <li>
                                         <?php
-                                            _e(
-                                                "Automated Invoicing for Purchases",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Automated Invoicing for Purchases", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Get access to smart in-depth reports",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Get access to smart in-depth reports", "eb-textdomain");
                                         ?>
                                         </li>
                                         <li>
                                         <?php
-                                            _e(
-                                                "Manage Orders of users easily",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Manage Orders of users easily", "eb-textdomain");
                                         ?>
                                         </li>
                                     </ul>
@@ -255,10 +203,7 @@ if (!class_exists('EbSettingsRemui')) :
                                 <a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=wordpress&utm_medium=cta2&utm_campaign=bridgeplugincta2"  target="_blank">
                                     <span>
                                         <?php
-                                            _e(
-                                                "Get Edwiser Bundle Now!",
-                                                "eb-textdomain"
-                                            );
+                                            _e("Get Edwiser Bundle Now!", "eb-textdomain");
                                         ?>
                                         <i style="-webkit-transform: rotate(20deg); transform: rotate(180deg);" class="dashicons dashicons-admin-collapse"></i>
                                     </span>
@@ -267,9 +212,6 @@ if (!class_exists('EbSettingsRemui')) :
                         </div>
                     </div>
                 </div>
-
-
-
             <?php
         }
     }

@@ -1,6 +1,6 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
-Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
+Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
 Tested up to: 5.3.0
 Stable tag: trunk
@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -146,26 +146,28 @@ Take a look at the link below and follow the steps provided to configure your Mo
 
 
 == Screenshots == 
-1. General Settings for Edwiser Bridge
-2. Connection Settings for Edwiser Bridge
-3. Course Synchronization from Moodle to WordPress
-4. User Enrollment Data Synchronization
-5. Imported moodle courses in the WordPress Backend
-6. Order Details of Courses Purchased from WordPress
-7. User Profile Shortcode with List of Enrolled Courses
-8. Courses page Shortcode to display edwiser bridge courses.
-9. My Courses page Shortcode.
-10. Courses archive page template.
-11. Single course page template.
-12. A student can update their profile details from the frontend. 
-13. Setting to set the course access period of the enrolled user.
-14. Edit email notification template's content.
-15. Manage user enrollment.
-16. Edwiser Bridge Plugin shortcodes documentation.
-17. Courses page shortcode horizontally scrollable courses list.
-18. Display courses with category grouping using eb_courses page shortcode.
-19. Refund edwiser bridge order
-20. Connection Settings for Moodle Edwiser Bridge
+1. General Settings for Edwiser Bridge.
+2. Connection Settings for Edwiser Bridge.
+3. Course Synchronization from Moodle to WordPress.
+4. User Enrollment Data Synchronization.
+5. Paypal Payment Gateway Settings.
+6. Courses imported from Moodle in the WordPress Backend.
+7. Course Edit Page.
+8. Orders of Courses Purchased from WordPress.
+9. Order Edit Page.
+10. Refund edwiser bridge order.
+11. A student can update their profile details from the frontend.
+12. Shortcode for User Dashboard with Orders and Account details.
+13. Courses archive page template.
+14. Courses page Shortcode to display edwiser bridge courses.
+15. Display courses with category grouping using eb_courses page shortcode.
+16. My Courses page Shortcode.
+17. Single course page template.
+18. Edit email notification template's content.
+19. Manage user enrollment.
+20. Connection Settings for Moodle Edwiser Bridge.
+21. Moodle set-up wizard.
+
 
 
  ==  Frequently Asked Questions  == 
@@ -206,6 +208,15 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.3 =
+* Feature - Added functionality to show a set-up wizard on Moodle plugin installation to create web service automatically with authorized user.
+* Feature - Added functionality to add missing functions on linking the existing web-service.
+* Tweak - Added functionality to show all non added Moodle web service functions on test connection functionality.
+* Tweak - Added buttons on settings page for help and rating.
+* Fix - While synchronizing courses if all checkboxes are not ticked then nothing was happening fixed this issue and now courses gets created in Wordpress with a status as published.
+* Fix - Wordpress enrollment record timezone was not same as the Wordpress timezone so fixed it.
+
 
 = 1.4.2 =
 * Tweak - Added functionality to synchronize large number of users.

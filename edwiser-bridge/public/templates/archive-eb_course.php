@@ -23,9 +23,7 @@ $template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
     <?php $template_loader->wpGetTemplate('global/wrapper-start.php', $wrapper_args); ?>
 
     <?php if (apply_filters('eb_show_page_title', true)) : ?>
-
         <h1 class="page-title"><?php _e('Courses', 'eb-textdomain'); ?></h1>
-
     <?php endif; ?>
 
     <?php

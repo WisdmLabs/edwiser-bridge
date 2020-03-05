@@ -96,8 +96,7 @@ if (isset($course_options['course_expirey']) && $course_options['course_expirey'
         } else {
             ?>
             <a href="<?php the_permalink();
-            ?>" rel="bookmark"><?php the_title();
-            ?></a>
+            ?>" rel="bookmark"><?php the_title();?></a>
             <?php
         }
         ?>          
@@ -122,8 +121,7 @@ if (isset($course_options['course_expirey']) && $course_options['course_expirey'
                         ?>
                         <div class="<?php echo 'wdm-price'.$course_price_type;
                         ?>">
-                                    <?php echo '<h3>'.$course_price_formatted.'</h3>';
-                        ?>
+                                    <?php echo '<h3>'.$course_price_formatted.'</h3>';?>
                         </div>
                         <?php
                         echo ob_get_clean();
@@ -136,16 +134,13 @@ if (isset($course_options['course_expirey']) && $course_options['course_expirey'
                 if (count($categories)) {
                     ?>
                     <div  class="eb-cat-wrapper">
-                        <span><strong><?php _e('Categories: ', 'eb-textdomain');
-                    ?></strong><?php echo implode(', ', $categories);
-                    ?></span>
+                        <span><strong><?php _e('Categories: ', 'eb-textdomain');?></strong><?php echo implode(', ', $categories);?></span>
                     </div>                  
                     <?php
                 }
                 ?>
                 <div  class="eb-validity-wrapper">
-                    <?php echo $expiryDateTime;
-                ?>
+                    <?php echo $expiryDateTime;?>
                 </div>
                 <?php
             }

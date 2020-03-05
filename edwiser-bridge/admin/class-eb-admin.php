@@ -134,7 +134,7 @@ class EbAdmin
         wp_enqueue_script(
             $this->plugin_name,
             EB_PLUGIN_URL.'admin/assets/js/eb-admin.js',
-            array('jquery', 'jquery-ui-dialog'),
+            array('jquery', 'jquery-ui-dialog', 'jquery-ui-accordion'),
             $this->version,
             false
         );

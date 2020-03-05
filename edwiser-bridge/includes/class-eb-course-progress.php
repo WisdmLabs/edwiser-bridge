@@ -39,7 +39,6 @@ class EbCourseProgress
                 $request_data
             );
 
-            // error_log("PROGRESS ::: ".print_r($response, 1));
 
             $courseProgressArray = array();
 
@@ -51,7 +50,6 @@ class EbCourseProgress
             }
             update_user_meta($userId, "moodle_course_progress", serialize($courseProgressArray));
             return $courseProgressArray;
-            // error_log("RESPONSE ::::: ".print_r($response, 1));
         }
             // }
         // }

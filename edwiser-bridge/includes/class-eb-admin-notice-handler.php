@@ -96,13 +96,16 @@ class EBAdminNoticeHandler
 
                                     '.__('For setup assistance check our ', 'eb-textdomain').'
                                     <a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">'.__(' documentation', "eb-textdomain").'</a>.
-                                    <span style="padding-left: 20px;">
-                                        <a href="'.$redirection.'">
-                                            '.__(' Dismiss notice', 'eb-textdomain').'
-                                        </a>
-                                    </span>
-
                             </div>
+                            
+                            <div class="eb_update_notice_dismiss_wrap">
+                                <span style="padding-left: 5px;">
+                                    <a href="'.$redirection.'">
+                                        '.__(' Dismiss notice', 'eb-textdomain').'
+                                    </a>
+                                </span>
+                            </div>
+
                         </div>
                         <div class="eb_admin_update_dismiss_notice_message">
                                 <span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
@@ -263,7 +266,7 @@ class EBAdminNoticeHandler
             <p>
                 <strong><?= __("Important Update Notice:", "eb-textdomain") ?></strong>
                 <?= __("Please download and update associated edwiserbridge Moodle plugin.", "eb-textdomain") ?>
-                <a href="https://edwiser.org/wp-content/uploads/edd/2019/11/edwiserbridge_Moodle_1.4.2.zip"><?=  __("Click here ") ?></a>
+                <a href="https://edwiser.org/bridge/"><?=  __("Click here ") ?></a>
                 <?= __(" to download", "eb-textdomain") ?>
 
             </p>

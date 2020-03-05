@@ -16,19 +16,15 @@ if (isset($_GET['eb_action']) && $_GET['eb_action'] === 'edit-profile') {
     ?>
     <section class="eb-user-info">
         <aside class="eb-user-picture">
-            <?php echo $user_avatar;
-    ?>
+            <?php echo $user_avatar;?>
         </aside>
         <div class="eb-user-data">
-            <?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>';
-    ?>
-            <?php echo '<div>'.$user->user_email.'</div>';
-    ?>
+            <?php echo '<div>'.@$user->first_name.' '.@$user->last_name.'</div>';?>
+            <?php echo '<div>'.$user->user_email.'</div>';?>
         </div>
 
         <div class="eb-edit-profile" >
-            <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink()));
-    ?>" class="wdm-btn"><?php _e('Edit Profile', 'eb-textdomain'); ?></a>
+            <a href="<?php echo esc_url(add_query_arg('eb_action', 'edit-profile', get_permalink()));?>" class="wdm-btn"><?php _e('Edit Profile', 'eb-textdomain'); ?></a>
         </div>
 
     </section>

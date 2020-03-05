@@ -370,7 +370,7 @@ class EBPostTypes
                     'label' => __('Select Courses', 'eb-textdomain'),
                     'description' => __('Select courses to show in custom courses in recommended course section.', 'eb-textdomain'),
                     'type' => 'select_multi',
-                    'options' => getAllEbSourses($post->ID),
+                    'options' => isset($post->ID) ? getAllEbSourses($post->ID) : array(),
                     'default' => array('pending'),
                 ),
             ),
@@ -565,6 +565,8 @@ class EBPostTypes
      */
     public function handlePostOptionsSave($post_id)
     {
+        $fields = array();
+
         if (empty($_POST)) {
             return false;
         }

@@ -187,8 +187,8 @@ class EBPaymentManager
         );
         $paypal_country = self::checkArrayValueSet(
             $payment_options,
-            'eb_paypal_country',
-            'eb_paypal_country',
+            'eb_paypal_country_code',
+            'eb_paypal_country_code',
             'US'
         );
         $paypal_returnurl = self::checkArrayValueSet(
