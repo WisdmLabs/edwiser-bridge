@@ -632,7 +632,7 @@ msgstr ""
 msgid "My Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:91
+#: admin/settings/class-eb-settings-general.php:132
 msgid ""
 "This sets 'My Courses' page, where the user can see all his purchased "
 "courses and access them directly. You have to use this shortcode "
@@ -686,8 +686,8 @@ msgstr ""
 msgid "This setting will be applicable only on the `/courses` page template"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:166
-msgid "Link on My courses page"
+#: admin/settings/class-eb-settings-general.php:132
+msgid "Empty My courses Page Redirect Link"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:167
