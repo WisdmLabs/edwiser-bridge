@@ -1,6 +1,6 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
-Tags: Moodle, Courses, eLearning, WordPress Moodle, LMS, Users, Synchronization, Sell Courses, Learning Management System, LMS Integration, Moodle WordPress, WP Moodle,
+Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
 Tested up to: 5.3.0
 Stable tag: trunk
@@ -146,26 +146,28 @@ Take a look at the link below and follow the steps provided to configure your Mo
 
 
 == Screenshots == 
-1. General Settings for Edwiser Bridge
-2. Connection Settings for Edwiser Bridge
-3. Course Synchronization from Moodle to WordPress
-4. User Enrollment Data Synchronization
-5. Imported moodle courses in the WordPress Backend
-6. Order Details of Courses Purchased from WordPress
-7. User Profile Shortcode with List of Enrolled Courses
-8. Courses page Shortcode to display edwiser bridge courses.
-9. My Courses page Shortcode.
-10. Courses archive page template.
-11. Single course page template.
-12. A student can update their profile details from the frontend. 
-13. Setting to set the course access period of the enrolled user.
-14. Edit email notification template's content.
-15. Manage user enrollment.
-16. Edwiser Bridge Plugin shortcodes documentation.
-17. Courses page shortcode horizontally scrollable courses list.
-18. Display courses with category grouping using eb_courses page shortcode.
-19. Refund edwiser bridge order
-20. Connection Settings for Moodle Edwiser Bridge
+1. General Settings for Edwiser Bridge.
+2. Connection Settings for Edwiser Bridge.
+3. Course Synchronization from Moodle to WordPress.
+4. User Enrollment Data Synchronization.
+5. Paypal Payment Gateway Settings.
+6. Courses imported from Moodle in the WordPress Backend.
+7. Course Edit Page.
+8. Orders of Courses Purchased from WordPress.
+9. Order Edit Page.
+10. Refund edwiser bridge order.
+11. A student can update their profile details from the frontend.
+12. Shortcode for User Dashboard with Orders and Account details.
+13. Courses archive page template.
+14. Courses page Shortcode to display edwiser bridge courses.
+15. Display courses with category grouping using eb_courses page shortcode.
+16. My Courses page Shortcode.
+17. Single course page template.
+18. Edit email notification template's content.
+19. Manage user enrollment.
+20. Connection Settings for Moodle Edwiser Bridge.
+21. Moodle set-up wizard.
+
 
 
  ==  Frequently Asked Questions  == 

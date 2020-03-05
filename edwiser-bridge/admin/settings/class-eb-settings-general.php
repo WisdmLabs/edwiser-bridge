@@ -56,6 +56,50 @@ if (!class_exists('EBSettingsGeneral')) :
                     'id'    => 'general_options',
                 ),
                 array(
+                    'title'    => __('Enable Registration', 'eb-textdomain'),
+                    'desc'     => __('Enable user registration', 'eb-textdomain'),
+                    'id'       => 'eb_enable_registration',
+                    'default'  => 'no',
+                    'type'     => 'checkbox',
+                    'autoload' => false,
+                ),
+                array(
+                    'title'    => __('User Account Page', 'eb-textdomain'),
+                    'desc'     => '<br/>' . sprintf(
+                        __('Select user account page here. Default page is %s ', 'eb-textdomain'),
+                        '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
+                    ),
+                    'id'       => 'eb_useraccount_page_id',
+                    'type'     => 'single_select_page',
+                    'default'  => '',
+                    'css'      => 'min-width:300px;',
+                    'args'     => array(
+                        'show_option_none'  => __('Select a page', "eb-textdomain"),
+                        'option_none_value' => '',
+                    ),
+                    'desc_tip' => __('This sets the user account page, where user can see his/her purchase history.', 'eb-textdomain'),
+                ),
+                array(
+                    'title'    => __('Select Role', 'eb-textdomain'),
+                    'desc'     => '<br/>' .
+                        __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
+                    'id'       => 'eb_default_role',
+                    'type'     => 'select',
+                    'default'  => __('Select Role', "eb-textdomain"),
+                    'css'      => 'min-width:300px;',
+                    'options'     => getAllWpRoles(),
+                    'desc_tip' => __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
+                ),
+                array(
+                    'title'    => __('Moodle Language Code', 'eb-textdomain'),
+                    'desc'     => __('Enter language code which you get from moodle language settings.', 'eb-textdomain'),
+                    'id'       => 'eb_language_code',
+                    'default'  => 'en',
+                    'type'     => 'text',
+                    'css'      => 'min-width:300px;',
+                    'desc_tip' => true,
+                ),
+                array(
                     'title'    => __('Redirect to My Courses', 'eb-textdomain'),
                     'desc'     => sprintf(
                         __('Redirect user to the My Courses page on %s from the %s page.', 'eb-textdomain'),
@@ -85,48 +129,10 @@ if (!class_exists('EBSettingsGeneral')) :
                     'desc_tip' => __("This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.", 'eb-textdomain'),
                 ),
                 array(
-                    'title'    => __('Enable Registration', 'eb-textdomain'),
-                    'desc'     => __('Enable user registration', 'eb-textdomain'),
-                    'id'       => 'eb_enable_registration',
-                    'default'  => 'no',
-                    'type'     => 'checkbox',
-                    'autoload' => false,
-                ),
-                array(
-                    'title'    => __('Select Role', 'eb-textdomain'),
-                    'desc'     => '<br/>' .
-                        __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
-                    'id'       => 'eb_default_role',
-                    'type'     => 'select',
-                    'default'  => __('Select Role', "eb-textdomain"),
-                    'css'      => 'min-width:300px;',
-                    'options'     => getAllWpRoles(),
-                    'desc_tip' => __('Select default role for users on registration from User Account Page.', 'eb-textdomain'),
-                ),
-                array(
-                    'title'    => __('User Account Page', 'eb-textdomain'),
-                    'desc'     => '<br/>' . sprintf(
-                        __('Select user account page here. Default page is %s ', 'eb-textdomain'),
-                        '<a href="' . esc_url(site_url('/user-account')) . '">' . __('User Account', 'eb-textdomain') . '</a>'
-                    ),
-                    'id'       => 'eb_useraccount_page_id',
-                    'type'     => 'single_select_page',
+                    'title'    => __('Empty My courses Page Redirect Link', 'eb-textdomain'),
+                    'desc'     => __('Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page', 'eb-textdomain'),
+                    'id'       => 'eb_my_course_link',
                     'default'  => '',
-                    'css'      => 'min-width:300px;',
-                    'args'     => array(
-                        'show_option_none'  => __('Select a page', "eb-textdomain"),
-                        'option_none_value' => '',
-                    ),
-                    'desc_tip' => __('This sets the user account page, where user can see his/her purchase history.', 'eb-textdomain'),
-                ),
-                array(
-                    'title'    => __('Moodle Language Code', 'eb-textdomain'),
-                    'desc'     => __(
-                        'Enter language code which you get from moodle language settings.',
-                        'eb-textdomain'
-                    ),
-                    'id'       => 'eb_language_code',
-                    'default'  => 'en',
                     'type'     => 'text',
                     'css'      => 'min-width:300px;',
                     'desc_tip' => true,
@@ -142,21 +148,19 @@ if (!class_exists('EBSettingsGeneral')) :
                     __('This setting will be applicable only on the `/courses` page template', 'eb-textdomain'),
                 ),
                 array(
-                    'title'    => __('Link on My courses page', 'eb-textdomain'),
-                    'desc'     => __('Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page', 'eb-textdomain'),
-                    'id'       => 'eb_my_course_link',
-                    'default'  => '',
-                    'type'     => 'text',
-                    'css'      => 'min-width:300px;',
-                    'desc_tip' => true,
-                ),
-                array(
                     'title'    => __('Erase associated Moodle data from Moodle site', 'eb-textdomain'),
                     'desc'     => __('Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'eb-textdomain'),
                     'id'       => 'eb_erase_moodle_data',
                     'default'  => 'no',
                     'type'     => 'checkbox',
                     'autoload' => false,
+                ),
+                array('type' => 'sectionend', 'id' => 'general_options'),
+                array(
+                    'title' => __('Privacy Policy', 'eb-textdomain'),
+                    'type'  => 'title',
+                    'desc'  => '',
+                    'id'    => 'general_privacy_policy',
                 ),
                 array(
                     'title'    => __('Enable terms and conditions', 'eb-textdomain'),
@@ -178,7 +182,7 @@ if (!class_exists('EBSettingsGeneral')) :
                     'css'      => 'min-width:300px; min-height: 110px;',
                     'desc_tip' => true,
                 ),
-                array('type' => 'sectionend', 'id' => 'general_options'),
+                array('type' => 'sectionend', 'id' => 'general_privacy_policy'),
                 array(
                     'title' => __('Recommended Courses Settings', 'eb-textdomain'),
                     'type'  => 'title',
