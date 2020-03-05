@@ -4,14 +4,14 @@
 #When set to 0, no static analyzer is not exeucted for this repo
 ENABLE_ALL_CHECKS="1"
 
-#When this parameter is not provided or blank, it takes PSR2 standard by default
-PHPCS_CODING_STANDARD=""
+#When this parameter is not provided or blank, it takes wordpress standard by default
+PHPCS_CODING_STANDARD="PSR2"
 
 #Give file names only. Do not include directory separator. Path of the file does not matter.So provide comma separated file names
 PHPCPD_IGNORE_FILES="includes/payments/enhanced-paypal-shortcodes.php,includes/class-eb-custom-list-table.php"
 
 #Provide Relative Paths of files and folders to be ignored for PHPMD. Accepts Comma Separated List
-PHPMD_IGNORE_FILES="includes/class-eb-custom-list-table.php,admin/class-eb-admin-settings.php,admin/class-eb-email-template.php,admin/class-eb-admin-settings.php,includes/class-eb-post-types.php,includes/class-eb-user-manager.php,includes/payments/class-eb-payment-manager.php,includes/payments/enhanced-paypal-shortcodes.php"
+PHPMD_IGNORE_FILES="includes/class-eb.php,includes/class-eb-custom-list-table.php,admin/class-eb-admin-settings.php,admin/class-eb-email-template.php,admin/class-eb-admin-settings.php,includes/class-eb-post-types.php,includes/class-eb-user-manager.php,includes/payments/class-eb-payment-manager.php,includes/payments/enhanced-paypal-shortcodes.php"
 
 #Provide Relative Paths of files and folders to be ignored for PHPCS, Aceepts Comma separated list
 PHPCS_IGNORE_FILES="includes/class-eb-custom-list-table.php,admin/class-eb-email-template.php,admin/class-eb-admin-settings.php"
