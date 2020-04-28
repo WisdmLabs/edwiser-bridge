@@ -224,25 +224,45 @@ class EBEnrollmentManager
     public function updateEnrollmentRecordWordpress($args, $roleId = "5")
     {
         global $wpdb;
+
+        $success = 0;
         // default args
         $defaults = array(
-            'user_id' => 0,
-            'role_id' => $roleId,
-            'courses' => array(),
+            'user_id'  => 0,
+            'role_id'  => $roleId,
+            'courses'  => array(),
             'unenroll' => 0,
-            'suspend' => 0,
+            'suspend'  => 0,
         );
+
         /**
          * Parse incoming $args into an array and merge it with $defaults.
          */
         $args = wp_parse_args($args, $defaults);
+
+        if (isset($args['user_id']) && !empty($args['user_id'])) {
+            $user = get_user_by("ID", $args['user_id']);
+
+            $email_args = array(
+                'user_email' => $user->user_email,
+                'username'   => $user->user_login,
+                'first_name' => $user->first_name,
+                'last_name'  => $user->last_name,
+                'course_id'  => $args['courses']
+            );
+        }
+
+
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
         // add enrollment record in DB conditionally
         // We are using user's wordpress ID and course's wordpress ID while saving record in enrollment table.
         if ($args['unenroll'] == 0 && $args['suspend'] == 0) {
             foreach ($args['courses'] as $key => $course_id) {
+
                 //Get User Course Access Count
                 $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
+
+                //If not enrolled to any of the coursers.
                 if (edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id) != '' &&
                         !$this->userHasCourseAccess($args['user_id'], $course_id)) {
                     //Set timezone
@@ -272,13 +292,26 @@ class EBEnrollmentManager
                         '%d',
                             )
                     );
-                } elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
+
+                    $success = 1;
+
+
+                } /*elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
                     //increase the count value
                     $act_cnt= $act_cnt +1;
                     //update increased count value
                     $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
-                }
+                }*/
             }
+
+
+            if ($success) {
+                do_action('eb_mdl_enrollment_trigger', $email_args);
+            }
+
+
+            //Trigger Email.
+
         } elseif ($args['unenroll'] == 1 || $args['suspend'] == 1) {
             foreach ($args['courses'] as $key => $course_id) {
                 //Get User Course Access Count
@@ -292,9 +325,20 @@ class EBEnrollmentManager
                     //delete row if count equals zero
                     $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
                 }
+                $success = 1;
             }
+
+            if ($success) {
+                do_action("eb_mdl_un_enrollment_trigger", $email_args);
+            }
+
+            //Trigger email.
         }
     }
+
+
+
+
     /**
      * used to update the count of users access to a course.
      *

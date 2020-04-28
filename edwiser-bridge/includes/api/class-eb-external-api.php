@@ -131,19 +131,6 @@ class EBExternalApiEndpoint
                     );
 
                     edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
-
-                    $args = array(
-                        'user_email' => $user->user_email,
-                        'username'   => $user->user_login,
-                        'first_name' => $user->first_name,
-                        'last_name'  => $user->last_name,
-                        'course_id'=> $wpCourseId
-                    );
-                    if ($unEnroll) {
-                        do_action("eb_mdl_un_enrollment_trigger", $args);
-                    } else {
-                        do_action('eb_mdl_enrollment_trigger', $args);
-                    }
                 }
             }
         }
