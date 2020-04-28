@@ -225,7 +225,6 @@ class EBEnrollmentManager
     {
         global $wpdb;
 
-        $success = 0;
         // default args
         $defaults = array(
             'user_id'  => 0,
@@ -239,18 +238,6 @@ class EBEnrollmentManager
          * Parse incoming $args into an array and merge it with $defaults.
          */
         $args = wp_parse_args($args, $defaults);
-
-        if (isset($args['user_id']) && !empty($args['user_id'])) {
-            $user = get_user_by("ID", $args['user_id']);
-
-            $email_args = array(
-                'user_email' => $user->user_email,
-                'username'   => $user->user_login,
-                'first_name' => $user->first_name,
-                'last_name'  => $user->last_name,
-                'course_id'  => $args['courses']
-            );
-        }
 
 
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
@@ -293,22 +280,13 @@ class EBEnrollmentManager
                             )
                     );
 
-                    $success = 1;
-
-
-                } /*elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
+                } elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
                     //increase the count value
                     $act_cnt= $act_cnt +1;
                     //update increased count value
                     $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
-                }*/
+                }
             }
-
-
-            if ($success) {
-                do_action('eb_mdl_enrollment_trigger', $email_args);
-            }
-
 
             //Trigger Email.
 
@@ -325,11 +303,6 @@ class EBEnrollmentManager
                     //delete row if count equals zero
                     $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
                 }
-                $success = 1;
-            }
-
-            if ($success) {
-                do_action("eb_mdl_un_enrollment_trigger", $email_args);
             }
 
             //Trigger email.

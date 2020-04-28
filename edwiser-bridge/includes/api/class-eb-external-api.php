@@ -130,7 +130,27 @@ class EBExternalApiEndpoint
                         'suspend'  => 0,
                     );
 
+                    //check if there any pending enrollments for the given course then don't enroll user.
+                    $user_enrollment_meta = get_user_meta($wpUserId, 'eb_pending_enrollment', 1);
+
+                    if (in_array($wpCourseId, $user_enrollment_meta)) {
+                        return;
+                    }
+
                     edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
+
+                    $args = array(
+                        'user_email' => $user->user_email,
+                        'username'   => $user->user_login,
+                        'first_name' => $user->first_name,
+                        'last_name'  => $user->last_name,
+                        'course_id'=> $wpCourseId
+                    );
+                    if ($unEnroll) {
+                        do_action("eb_mdl_un_enrollment_trigger", $args);
+                    } else {
+                        do_action('eb_mdl_enrollment_trigger', $args);
+                    }
                 }
             }
         }
