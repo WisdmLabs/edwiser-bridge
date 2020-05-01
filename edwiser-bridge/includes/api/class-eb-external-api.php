@@ -130,6 +130,13 @@ class EBExternalApiEndpoint
                         'suspend'  => 0,
                     );
 
+                    //check if there any pending enrollments for the given course then don't enroll user.
+                    $user_enrollment_meta = get_user_meta($wpUserId, 'eb_pending_enrollment', 1);
+
+                    if (in_array($wpCourseId, $user_enrollment_meta)) {
+                        return;
+                    }
+
                     edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
 
                     $args = array(

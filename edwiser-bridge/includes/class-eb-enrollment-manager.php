@@ -224,25 +224,32 @@ class EBEnrollmentManager
     public function updateEnrollmentRecordWordpress($args, $roleId = "5")
     {
         global $wpdb;
+
         // default args
         $defaults = array(
-            'user_id' => 0,
-            'role_id' => $roleId,
-            'courses' => array(),
+            'user_id'  => 0,
+            'role_id'  => $roleId,
+            'courses'  => array(),
             'unenroll' => 0,
-            'suspend' => 0,
+            'suspend'  => 0,
         );
+
         /**
          * Parse incoming $args into an array and merge it with $defaults.
          */
         $args = wp_parse_args($args, $defaults);
+
+
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
         // add enrollment record in DB conditionally
         // We are using user's wordpress ID and course's wordpress ID while saving record in enrollment table.
         if ($args['unenroll'] == 0 && $args['suspend'] == 0) {
             foreach ($args['courses'] as $key => $course_id) {
+
                 //Get User Course Access Count
                 $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
+
+                //If not enrolled to any of the coursers.
                 if (edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id) != '' &&
                         !$this->userHasCourseAccess($args['user_id'], $course_id)) {
                     //Set timezone
@@ -272,6 +279,7 @@ class EBEnrollmentManager
                         '%d',
                             )
                     );
+
                 } elseif ($this->userHasCourseAccess($args['user_id'], $course_id) && $act_cnt!= false) {
                     //increase the count value
                     $act_cnt= $act_cnt +1;
@@ -279,6 +287,9 @@ class EBEnrollmentManager
                     $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
                 }
             }
+
+            //Trigger Email.
+
         } elseif ($args['unenroll'] == 1 || $args['suspend'] == 1) {
             foreach ($args['courses'] as $key => $course_id) {
                 //Get User Course Access Count
@@ -293,8 +304,14 @@ class EBEnrollmentManager
                     $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
                 }
             }
+
+            //Trigger email.
         }
     }
+
+
+
+
     /**
      * used to update the count of users access to a course.
      *
