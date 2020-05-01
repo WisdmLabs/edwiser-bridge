@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
-Tested up to: 5.3.0
+Tested up to: 5.4.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -208,6 +208,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.1 =
+* Tweak - Changed user enrollment email functionality to make it compatible with Edwiser Bulk Purchase and Group Registration 2.2.0..
+
 
 = 1.4.3 =
 * Feature - Added functionality to show a set-up wizard on Moodle plugin installation to create web service automatically with authorized user.
