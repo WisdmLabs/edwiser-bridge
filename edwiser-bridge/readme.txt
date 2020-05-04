@@ -209,7 +209,7 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
-= 1.4.1 =
+= 1.4.4 =
 * Tweak - Changed user enrollment email functionality to make it compatible with Edwiser Bulk Purchase and Group Registration 2.2.0..
 
 
