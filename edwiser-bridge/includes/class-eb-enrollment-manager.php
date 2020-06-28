@@ -102,6 +102,7 @@ class EBEnrollmentManager
             'courses' => array(),
             'unenroll' => 0,
             'suspend' => 0,
+            'complete_unenroll' => 0
         );
 
         /**
@@ -187,6 +188,8 @@ class EBEnrollmentManager
                 'courses' => $args['courses'],
                 'unenroll' => $args['unenroll'],
                 'suspend' => $args['suspend'],
+                'complete_unenroll' => $args['complete_unenroll']
+
             );
             $this->updateEnrollmentRecordWordpress($args);
         }
@@ -200,6 +203,56 @@ class EBEnrollmentManager
 
         return $response['success'];
     }
+
+
+
+
+
+
+        /**
+    *
+    **/
+    public function check_enroll_count($args, $wp_course_id)
+    {
+        global $wpdb;
+
+error_log('check_enroll_count ::: ');
+
+        /*if ($moodle_course_id == '') {
+            return 0;
+        }*/
+
+        if (isset($args['complete_unenroll']) && !$args['complete_unenroll']) {
+         
+            /*$course_id = $wpdb->get_var(
+            "SELECT act_cnt
+            FROM {$wpdb->prefix}moodle_enrollment
+            WHERE user_id = 'moodle_course_id'
+            AND meta_value = '".$course_id_on_moodle."'"*/
+        
+
+            $result = $wpdb->get_var(
+                "SELECT act_cnt
+                FROM {$wpdb->prefix}moodle_enrollment
+                WHERE course_id={$wp_course_id}
+                AND user_id={$args['user_id']};"
+            );
+
+
+error_log('result ::: '.print_r($result, 1));
+
+            if ($result > 1) {
+                return 0;
+            }
+        }
+
+        return 1;
+
+    }
+
+
+
+
 
     private function getMoodleWebServiceFunction($unenroll)
     {
@@ -232,6 +285,7 @@ class EBEnrollmentManager
             'courses'  => array(),
             'unenroll' => 0,
             'suspend'  => 0,
+            'complete_unenroll' => 0
         );
 
         /**
@@ -296,10 +350,18 @@ class EBEnrollmentManager
                 $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
                 //decrease the count value
                 $act_cnt = $act_cnt - 1;
-                if ($act_cnt !== 0) {
+                /*if ($act_cnt !== 0) {
                     //update decreased count value
                     $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
                 } elseif ($act_cnt === 0) {
+                    //delete row if count equals zero
+                    $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
+                }*/
+
+                if ($act_cnt !== 0 && !$args['complete_unenroll']) {
+                    //update decreased count value
+                    $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
+                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
                     //delete row if count equals zero
                     $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
                 }

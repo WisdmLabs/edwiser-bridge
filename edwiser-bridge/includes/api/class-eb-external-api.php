@@ -137,6 +137,12 @@ class EBExternalApiEndpoint
                         return;
                     }
 
+
+                    $args['complete_unenroll'] = 0;
+                    if ($unEnroll) {
+                        $args['complete_unenroll'] = 1;
+                    }
+
                     edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
 
                     $args = array(

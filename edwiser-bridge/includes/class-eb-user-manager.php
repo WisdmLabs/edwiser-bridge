@@ -1057,9 +1057,13 @@ class EBUserManager
      */
     public function updateCoursesOnProfileUpdate($user_id)
     {
+
         if (!current_user_can('manage_options')) {
             return false;
         }
+
+error_log('updateCoursesOnProfileUpdate ::: ');
+
 
         $user = get_userdata($user_id);
 
@@ -1071,27 +1075,36 @@ class EBUserManager
             if (isset($_POST['enroll_course'])) {
                 $enroll_course = $_POST['enroll_course'];
             }
+
             $unenroll_course = '';
             if (isset($_POST['unenroll_course'])) {
                 $unenroll_course = $_POST['unenroll_course'];
             }
+
             if (is_numeric($enroll_course)) {
                 // define args
                 $args = array(
-                    'user_id' => $user->ID,
-                    'courses' => array($enroll_course),
+                    'user_id'           => $user->ID,
+                    'courses'           => array($enroll_course),
+                    'complete_unenroll' => 0
                 );
 
                 // enroll user to course
                 edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
             }
 
+
+
             if (is_numeric($unenroll_course)) {
+
+error_log('UNENROLLING ::: ');
+
                 // define args
                 $args = array(
-                    'user_id' => $user->ID,
-                    'courses' => array($unenroll_course),
-                    'unenroll' => 1,
+                    'user_id'           => $user->ID,
+                    'courses'           => array($unenroll_course),
+                    'unenroll'          => 1,
+                    'complete_unenroll' => 1
                 );
 
                 // enroll user to course
