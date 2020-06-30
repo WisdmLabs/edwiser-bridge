@@ -97,11 +97,11 @@ class EBEnrollmentManager
     public function updateUserCourseEnrollment($args, $roleId = "5")
     {
         $defaults = array(
-            'user_id' => 0,
-            'role_id' => $roleId,
-            'courses' => array(),
-            'unenroll' => 0,
-            'suspend' => 0,
+            'user_id'           => 0,
+            'role_id'           => $roleId,
+            'courses'           => array(),
+            'unenroll'          => 0,
+            'suspend'           => 0,
             'complete_unenroll' => 0
         );
 
@@ -216,21 +216,7 @@ class EBEnrollmentManager
     {
         global $wpdb;
 
-error_log('check_enroll_count ::: ');
-
-        /*if ($moodle_course_id == '') {
-            return 0;
-        }*/
-
         if (isset($args['complete_unenroll']) && !$args['complete_unenroll']) {
-         
-            /*$course_id = $wpdb->get_var(
-            "SELECT act_cnt
-            FROM {$wpdb->prefix}moodle_enrollment
-            WHERE user_id = 'moodle_course_id'
-            AND meta_value = '".$course_id_on_moodle."'"*/
-        
-
             $result = $wpdb->get_var(
                 "SELECT act_cnt
                 FROM {$wpdb->prefix}moodle_enrollment
@@ -238,16 +224,12 @@ error_log('check_enroll_count ::: ');
                 AND user_id={$args['user_id']};"
             );
 
-
-error_log('result ::: '.print_r($result, 1));
-
             if ($result > 1) {
                 return 0;
             }
         }
 
         return 1;
-
     }
 
 

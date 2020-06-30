@@ -189,3 +189,4 @@ runEdwiserBridge(); // start plugin execution
 
 require_once plugin_dir_path(__FILE__).'includes/api/class-eb-external-api.php';
 
+error_log('is_multisite() ::: '.print_r(is_multisite(), 1));

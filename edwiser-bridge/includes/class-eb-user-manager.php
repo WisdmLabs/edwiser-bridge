@@ -1062,9 +1062,6 @@ class EBUserManager
             return false;
         }
 
-error_log('updateCoursesOnProfileUpdate ::: ');
-
-
         $user = get_userdata($user_id);
 
         //check if a moodle user account is already linked
@@ -1096,9 +1093,6 @@ error_log('updateCoursesOnProfileUpdate ::: ');
 
 
             if (is_numeric($unenroll_course)) {
-
-error_log('UNENROLLING ::: ');
-
                 // define args
                 $args = array(
                     'user_id'           => $user->ID,
