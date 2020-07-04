@@ -73,15 +73,33 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
         $progressData = $courseProgressManager->getCourseProgress();
         $courseId = array_keys($progressData);
 
+error_log('progressData INDIVIDUAL ::: '.print_r($progressData[get_the_ID()], 1));
+
+
         if (in_array(get_the_ID(), $courseId)) {
+
+error_log('IFFFF  ::: ');
+
             if ($progressData[get_the_ID()] == 0) {
+
+
+error_log('111111');
+
                 $progressClass = "start";
                 $progressBtnDiv = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
             } elseif ($progressData[get_the_ID()] > 0 && $progressData[get_the_ID()] < 100) {
+
+error_log('222222');
+
+
                 $progressClass = "resume";
                 $progressWidth = $progressData[get_the_ID()];
                 $progressBtnDiv = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
             } else {
+
+error_log('333333');
+
+
                 $progressClass = "completed";
                 $progressBtnDiv = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
             }

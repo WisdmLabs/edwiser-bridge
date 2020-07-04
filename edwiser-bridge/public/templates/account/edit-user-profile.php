@@ -47,6 +47,11 @@ $country     = getArrValue($_POST, "country", $current_user->country);
                     <input class="text-input" name="email" type="email" id="email" value="<?php echo $email; ?>" required />
                 </p>
                 <?php
+
+
+                do_action('eb_user_account_show_account_details_fields', $current_user);
+
+
                 /**
                  * This will add the list of the countrys in the dropdown.
                  */

@@ -24,24 +24,11 @@ class EB_Usage_Tracking {
     */
     public function usage_tracking_cron() {
 
-
-error_log('usage_tracking_cron ::: ');
-
         if ( ! wp_next_scheduled( 'eb_monthly_usage_tracking' ) ) {
-
-error_log('SCHEDULING :::');
             // wp_schedule_event( time(), 'every_month', 'eb_monthly_usage_tracking' );
             wp_schedule_event( time(), 'monthly', 'eb_monthly_usage_tracking' );
             
         }
-
-        /*if ( ! wp_next_scheduled( 'eb_monthly_usage_tracking' ) ) {
-            wp_schedule_event( time(), 'every_minute', 'eb_monthly_usage_tracking' );
-        }*/
-
-
-/*every_three_minutes*/
-
     }
 
 
@@ -55,91 +42,44 @@ error_log('SCHEDULING :::');
 
         global $DB, $CFG;
 
-        
-
-error_log('send_usage_analytics ::: ');
-
         // execute code only if current user is site admin
         // reduces calls to DB
-        // if (is_siteadmin()) {
             
-            // check consent to send tracking data
-            // $consent = get_config('edwiser_b', 'enableusagetracking');
+        // check consent to send tracking data
+        $eb_general = get_option('eb_general');
+        if ($eb_general) {
+            $consent = getArrValue($eb_general, 'eb_usage_tracking', false);
+        }
 
 
-            $eb_general = get_option('eb_general');
-            if ($eb_general) {
-                $consent = getArrValue($eb_general, 'eb_usage_tracking', false);
+        if($consent) {
+            $result_arr = [];
+
+            $analytics_data = json_encode($this->prepare_usage_analytics());                 
+
+            $url = "https://edwiser.org/wp-json/edwiser_customizations/send_usage_data";
+            // call api endpoint with data
+            $ch = curl_init();
+
+            //set the url, number of POST vars, POST data
+            curl_setopt($ch,CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $analytics_data);                                                                  
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+                'Content-Type: application/json',                                                                                
+                'Content-Length: ' . strlen($analytics_data))                                                                       
+            );
+
+            //execute post
+            $result = curl_exec($ch);
+
+            if($result) {
+                $result_arr = json_decode($result, 1);
             }
-
-
-            if($consent) {
-                
-                // TODO: A check needs to be added here, that user has agreed to send this data.
-                // TODO: We will have to add a settings checkbox for that or something similar.
-                
-                /*$last_sent_data = isset($CFG->usage_data_last_sent_format_remuiformat)?$CFG->usage_data_last_sent_format_remuiformat:false;
-                
-                // if current time is greater then saved time, send data again
-                if(!$last_sent_data || time() > $last_sent_data) {*/
-                    $result_arr = [];
-
-                    $analytics_data = json_encode($this->prepare_usage_analytics());                 
-
-
-                    error_log('analytics_data ::: '.print_r($analytics_data, 1));
-
-
-                    $url = "https://edwiser.org/wp-json/edwiser_customizations/send_usage_data";
-                    // call api endpoint with data
-                    $ch = curl_init();
-
-                    //set the url, number of POST vars, POST data
-                    curl_setopt($ch,CURLOPT_URL, $url);
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $analytics_data);                                                                  
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-                        'Content-Type: application/json',                                                                                
-                        'Content-Length: ' . strlen($analytics_data))                                                                       
-                    );
-
-
-/*                    $request_args = array(
-                        // 'headers' => array(
-                        //     'content-type'   => 'application/json',
-                        //     'Content-Length' => strlen($analytics_data)
-                        // ),
-                        'body'    => $analytics_data,
-                        "timeout" => 100,
-                    );
-
-                    $response = wp_remote_post($url, $request_args);*/
-
-
-
-
-                    //execute post
-                    $result = curl_exec($ch);
-
-
-
-error_log('RESULT :: '.print_r($result, 1));
-
-
-                    if($result) {
-                        $result_arr = json_decode($result, 1);
-                    }
-                    //close connection
-                    curl_close($ch);
-
-                    // save new timestamp, 7 days --- save only if api returned success
-                    /*if(isset($result_arr['success']) && $result_arr['success']) {
-                        set_config('usage_data_last_sent_format_remuiformat', time()+604800);
-                    }*/
-                // }
-            }
-        // }
+            //close connection
+            curl_close($ch);
+        }
     }
 
      /** 
@@ -233,32 +173,10 @@ error_log('RESULT :: '.print_r($result, 1));
 
     // get plugins installed by user excluding the default plugins
     private function get_user_installed_plugins() {
-        // all plugins - "external/installed by user"
-        /*$all_plugins = array();
-
-        $pluginman = \core_plugin_manager::instance();
-        $plugininfos = $pluginman->get_plugins();
-        
-        foreach($plugininfos as $key => $modtype) {
-            foreach($modtype as $key => $plug) {
-                if (!$plug->is_standard() && !$plug->is_subplugin()) {
-                    // each plugin data, // can be different structuer in case of wordpress product
-                    $all_plugins[] = array(
-                        'name' => $plug->displayname,
-                        'versiondisk' => $plug->versiondisk,
-                        'versiondb' => $plug->versiondb,
-                        'versiondisk' => $plug->versiondisk,
-                        'release' => $plug->release
-                    );
-                }
-            }
-        }*/
-
 
         if ( ! function_exists( 'get_plugins' ) ) {
 		    require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-
 
 
 		$all_plugins = array();
@@ -266,15 +184,11 @@ error_log('RESULT :: '.print_r($result, 1));
 
 
         foreach($plugin_infos as $key => $each_plugin_details) {
-            // if (!$plug->is_standard() && !$plug->is_subplugin()) {
-                // each plugin data, // can be different structuer in case of wordpress product
-                $all_plugins[] = array(
-                    'name'        => $each_plugin_details['Name'],
-                    'version'     => $each_plugin_details['Version']
-                );
-            // }
+            $all_plugins[] = array(
+                'name'        => $each_plugin_details['Name'],
+                'version'     => $each_plugin_details['Version']
+            );
         }
-
 
         return $all_plugins;
     }
