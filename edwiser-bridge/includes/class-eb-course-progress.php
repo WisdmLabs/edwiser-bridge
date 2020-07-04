@@ -49,11 +49,6 @@ class EbCourseProgress
                 }
             }
             update_user_meta($userId, "moodle_course_progress", serialize($courseProgressArray));
-
-
-
-error_log('courseProgressArray ::: '.print_r($courseProgressArray, 1));
-
             return $courseProgressArray;
         }
             // }

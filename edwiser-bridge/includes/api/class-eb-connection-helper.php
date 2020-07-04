@@ -141,9 +141,6 @@ class EBConnectionHelper
             );
         $response     = wp_remote_post($request_url, $request_args);
 
-
-
-//        var_dump(($response));
         if (is_wp_error($response)) {
             $success          = 0;
             $responseMessage = $response->get_error_message();
