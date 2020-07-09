@@ -248,7 +248,7 @@ class EBWelcomeScreen
                 </p>
 
                  <p class="eb_welcome_mdl_dwnld_btn_wrap">
-                    <a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip"> <?= __('Download Moodle Plugin', 'eb-textdomain') ?> </a>
+                    <a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/07/edwiserbridgemoodle_1.4.5.zip"> <?= __('Download Moodle Plugin', 'eb-textdomain') ?> </a>
                  </p>
 
                 <div class="changelog prompt-subscribe-wrap">

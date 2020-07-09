@@ -82,7 +82,7 @@ foreach ($extensionsDetails as $key => $value) {
 
                     <h4 class='eb_setting_help_h4'><?= __('FAQs', 'eb-textdomain') ?></h4>
                     <div>
-                        <a href="https://knowledgebase.edwiser.org/en/category/edwiser-bridge-plugin-5d8teq/" target="_blank"> <?= __('Click here ', 'eb-textdomain') ?>  </a>
+                        <a href="https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin" target="_blank"> <?= __('Click here ', 'eb-textdomain') ?>  </a>
                         <?= __('to check frequently asked questions.', 'eb-textdomain') ?>
                     </div>
 
