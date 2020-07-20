@@ -108,7 +108,7 @@ class EdwiserBridge
     public function __construct()
     {
         $this->plugin_name = 'edwiserbridge';
-        $this->version = '1.4.4';
+        $this->version = '1.4.5';
         $this->defineConstants();
         $this->loadDependencies();
         $this->setLocale();
@@ -178,6 +178,18 @@ class EdwiserBridge
         } else {
             $this->frontendDependencies();
         }
+
+
+        /*
+        * Adding this function because of is_plugin_active function not found error is given
+        */
+        include_once(ABSPATH.'wp-admin/includes/plugin.php');
+
+        /*
+         * Usage tracking file.
+         */
+        require_once EB_PLUGIN_DIR.'includes/class-eb-usage-tracking.php';
+
 
         /**
          * The core class to manage debug log on the plugin.
@@ -768,6 +780,17 @@ class EdwiserBridge
         $apiEndPointHandler = new EBExternalApiEndpoint();
         $this->loader->addAction('rest_api_init', $apiEndPointHandler, "apiRegistration");
 /*************/
+
+
+
+        /*
+        * Usage Tracking hook.
+        */
+        $usage_tracking = new EB_Usage_Tracking();
+        $this->loader->addAction('admin_init', $usage_tracking,'usage_tracking_cron');
+        $this->loader->addAction('eb_monthly_usage_tracking', $usage_tracking, 'send_usage_analytics');
+
+
 
 
         $this->loader->addAction('init', $plugin_post_types, 'registerTaxonomies');

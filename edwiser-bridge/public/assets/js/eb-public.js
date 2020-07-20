@@ -206,6 +206,7 @@
     $(document).ready(function () {
 
         if ($("#reg_terms_and_cond").length) {
+
             $("input[name='register']").prop('disabled', true);
             $("input[name='register']").css("cursor", "no-drop");
             $("#reg_terms_and_cond").change(function() {
@@ -218,7 +219,6 @@
                 }
             });
         }
-
 
 
 
@@ -236,6 +236,8 @@
                         "class": 'eb_terms_button_agree',
                         click: function() {
                             checkbox.prop('checked', true);
+                            $("input[name='register']").prop('disabled', false);
+                            $("input[name='register']").css("cursor", "pointer");
                             $(this).dialog("close");
                         }
                     },

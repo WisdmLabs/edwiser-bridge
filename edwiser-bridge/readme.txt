@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2020/07/edwiserbridgemoodle_1.4.5.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/07/edwiserbridgemoodle_1.4.5.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/03/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/07/edwiserbridgemoodle_1.4.5.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -203,14 +203,22 @@ Take a look at the link below to see the full list of questions which will help 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
 Also check our knowledge base for more queries
-<a href = "https://knowledgebase.edwiser.org/en/category/edwiser-bridge-plugin-5d8teq/">knowledge base for Edwiser Bridge</a>
+<a href = "https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin">knowledge base for Edwiser Bridge</a>
 
 
 
  ==  Changelog  ==
 
+= 1.4.5 =
+* Feature - All required Moodle settings are now able to configure from the Edwiser Bridge settings.
+* Feature - Settings and connection summary page will be shown on the Moodle.
+* Tweak - Admin user unenrollment from edit user page and manage enrollment page will unenroll user from course irrespective of thr enrollment method and the enrollment count.
+* Tweak - Modified Moodle service creation process.
+* Fix - Unenrolment from Moodle use to decrease only Wordpress enrollment count now it will make enrollment count as 0.
+
+
 = 1.4.4 =
-* Tweak - Changed user enrollment email functionality to make it compatible with Edwiser Bulk Purchase and Group Registration 2.2.0..
+* Tweak - Changed user enrollment email functionality to make it compatible with Edwiser Bulk Purchase and Group Registration 2.2.0.
 
 
 = 1.4.3 =

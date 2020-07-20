@@ -91,7 +91,7 @@ class EBAdminNoticeHandler
 
                             <div class="eb_update_notice_content">
                                 '. __('Thanks for updating to the latest version of Edwiser Bridge plugin, <b>please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.</b>', 'eb-textdomain').'
-                                <a href="https://edwiser.org/wp-content/uploads/edd/2019/04/edwiserbridge_v1.4.0.zip">'.__(' Click here ', "eb-textdomain").'</a>
+                                <a href="https://edwiser.org/wp-content/uploads/edd/2020/07/edwiserbridgemoodle_1.4.5.zip">'.__(' Click here ', "eb-textdomain").'</a>
                                 '.__(" to download Moodle plugin.", "eb-textdomain").'
 
                                     '.__('For setup assistance check our ', 'eb-textdomain').'

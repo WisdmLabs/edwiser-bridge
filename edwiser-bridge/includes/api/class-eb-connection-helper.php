@@ -132,12 +132,15 @@ class EBConnectionHelper
         $request_url  .= $token . '&wsfunction=';
         $request_url  .= $webservice_function . '&moodlewsrestformat=json';
         // $response = wp_remote_post( $request_url, $request_args );
-        $request_args = array("timeout" => 100);
+        $request_args = array(
+            /*'headers' => array(
+                    'content-type'   => 'application/json',
+                    'Content-Length' => 100
+                ),*/
+                "timeout" => 100
+            );
         $response     = wp_remote_post($request_url, $request_args);
 
-
-
-//        var_dump(($response));
         if (is_wp_error($response)) {
             $success          = 0;
             $responseMessage = $response->get_error_message();
@@ -318,8 +321,6 @@ class EBConnectionHelper
         );
 
         $response = wp_remote_post($request_url, $request_args);
-
-
 
         if (is_wp_error($response)) {
             $success          = 0;

@@ -156,7 +156,7 @@ class EBSettingsAjaxInitiater
         $response = $connection_helper->connectionTestHelper($url, $token);
 
         if ($response["success"] == 0) {
-            $response["response_message"] .= __(" : to know more about this error", "eb-textdomain"). "<a href='https://knowledgebase.edwiser.org/' target='_blank'>" .__(" click here", "eb-textdomain"). "</a>";
+            $response["response_message"] .= __(" : to know more about this error", "eb-textdomain"). "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" .__(" click here", "eb-textdomain"). "</a>";
         }
 
         echo json_encode($response);

@@ -518,6 +518,7 @@ class EBAdminEmailTemplate
             return "text/html";
         });
 
+
         $mail = wp_mail($mailTo, $subject, $tmplContent, $headers);
         remove_filter('wp_mail_content_type', function () {
             return "text/html";

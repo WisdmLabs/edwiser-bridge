@@ -235,11 +235,12 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
             $enrollmentManager = new EBEnrollmentManager($this->plugin_name, $this->version);
 
             $args = array(
-                'user_id' => $userId,
-                'role_id' => 5,
-                'courses' => array($courseId),
-                'unenroll' => 1,
-                'suspend' => 0,
+                'user_id'           => $userId,
+                'role_id'           => 5,
+                'courses'           => array($courseId),
+                'unenroll'          => 1,
+                'suspend'           => 0,
+                'complete_unenroll' => 1
             );
             return $enrollmentManager->updateUserCourseEnrollment($args);
         }
