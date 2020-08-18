@@ -225,7 +225,7 @@ if (!class_exists("EBEmailTmplParser")) {
          */
         private function getOrderID($args)
         {
-            return "#" . getArrValue($args, "order_id", "ORDER ID");
+            return "#" . getArrValue($args, "eb_order_id", "ORDER ID"); // chnaged 1.4.7
         }
 
         /**
@@ -236,7 +236,7 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getCustomerDetais($args)
         {
             $customerDetails = "CUSTOMER_DETAILS";
-            $orderId         = getArrValue($args, "order_id", false);
+            $orderId         = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7 
             if ($orderId) {
                 $order_data      = get_post_meta($orderId, 'eb_order_options', true);
                 $byerDetails     = isset($order_data['buyer_id']) ? get_userdata($order_data['buyer_id']) : '';
@@ -269,7 +269,7 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getOrderAssItems($args)
         {
             $orderItems = "ORDER_ITEM";
-            $orderId    = getArrValue($args, "order_id", false);
+            $orderId    = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7
             if ($orderId) {
                 $order_data = get_post_meta($orderId, 'eb_order_options', true);
                 $courseIds  = getArrValue($order_data, "course_id", array());
@@ -299,7 +299,7 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getAmountPaidForOrder($args)
         {
             $amtPaidForOrder = "TOTAL_AMOUNT_PAID";
-            $orderId         = getArrValue($args, "order_id", false);
+            $orderId         = getArrValue($args, "eb_order_id", false);
             if ($orderId) {
                 $order_data      = get_post_meta($orderId, 'eb_order_options', true);
                 $amtPaidForOrder = getCurrentPayPalcurrencySymb() . getArrValue($order_data, "amount_paid", "0.00");
@@ -320,7 +320,7 @@ if (!class_exists("EBEmailTmplParser")) {
         private function getTotalRefundedAmt($args)
         {
             $amtPaidForOrder = "TOTAL_REFUNDED_AMOUNT";
-            $orderId         = getArrValue($args, "order_id", false);
+            $orderId         = getArrValue($args, "eb_order_id", false);
             if ($orderId) {
 //                $ordMeta = new EBOrderMeta($this->plugin_name, $this->version);
                 $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);

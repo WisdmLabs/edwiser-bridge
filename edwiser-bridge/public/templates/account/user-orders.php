@@ -16,7 +16,7 @@
             foreach ($user_orders as $order) {
                 ?>
                 <tr>
-                    <td><strong>#<?php echo $order['order_id']; ?></strong></td>
+                    <td><strong>#<?php echo $order['eb_order_id']; // changed 1.4.7 ?></strong></td>
                     <?php
                     if (is_array($order['ordered_item'])) {
                         $ordItems = $order['ordered_item'];

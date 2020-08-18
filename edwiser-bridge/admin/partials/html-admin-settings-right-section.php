@@ -8,19 +8,19 @@ $extensionsDetails = apply_filters(
         'woo-int'         => array(
             'name'   =>'Woocommerce Integration',
             'path'   => 'woocommerce-integration/bridge-woocommerce.php',
-            'doc'    =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/',
+            'doc'    =>'https://edwiser.org/documentation/edwiser-bridge-woocommerce-integration/',
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
             ),
         'sso'             => array(
             'name'   =>'Single Sign On',
             'path'   => 'edwiser-bridge-sso/sso.php',
-            'doc'    =>'https://edwiser.org/bridge/extensions/single-sign-on/#Documentation',
+            'doc'    =>'https://edwiser.org/documentation/single-sign-on/',
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
             ),
         'bulk-purchase'   => array(
             'name'   =>'Bulk Purchase',
             'path'   => 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
-            'doc'    =>'https://edwiser.org/bridge/extensions/bulk-purchase/documentation/',
+            'doc'    =>'https://edwiser.org/documentation/bulk-purchase/',
             'rating' =>'https://edwiser.org/bridge/extensions/woocommerce-integration/documentation/'
             ),
         'selective-synch' =>  array(

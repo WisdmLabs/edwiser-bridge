@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
-Tested up to: 5.4.1
+Tested up to: 5.5.0
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -208,6 +208,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.6 =
+* Fix - Solved admin js console issue causing error while test connection.
+
 
 = 1.4.5 =
 * Feature - All required Moodle settings are now able to configure from the Edwiser Bridge settings.

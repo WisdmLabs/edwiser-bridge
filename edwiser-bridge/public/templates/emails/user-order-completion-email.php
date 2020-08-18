@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
     ?>
 </p>
 
-<p><?php printf(__('Your order with ID #%s completed successfully.', 'eb-textdomain'), $args['order_id']); ?></p>
+<p><?php printf(__('Your order with ID #%s completed successfully.', 'eb-textdomain'), $args['eb_order_id']);   // cahnges 1.4.7 ?></p>
 
 <p>
     <?php

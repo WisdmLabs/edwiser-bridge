@@ -247,7 +247,8 @@ if ($verified) {
         updateOrderHistMeta($order_id, __('Paypal IPN', 'eb-textdomain'), $note);
 
         $args = array(
-            'order_id' => $custom_data->order_id,
+            // 'order_id' => $custom_data->order_id,
+            'eb_order_id' => $custom_data->order_id, // changed 1.4.7
             'buyer_id' => $custom_data->buyer_id,
             'refunded_cur' => getArrValue($_POST, 'mc_currency', 'USD'),
             'refund_amount' => abs(getArrValue($_POST, 'mc_gross', '0.00')),
