@@ -164,9 +164,12 @@ Take a look at the link below and follow the steps provided to configure your Mo
 16. My Courses page Shortcode.
 17. Single course page template.
 18. Edit email notification template's content.
-19. Manage user enrollment.
-20. Connection Settings for Moodle Edwiser Bridge.
-21. Moodle set-up wizard.
+19. Moodle Set-up wizard.
+20. Moodle Set-up wizard: General Settings.
+21. Moodle Set-up wizard: Web Service Settings.
+22. Moodle Set-up wizard: WordPress Site Connection Settings.
+23. Moodle Set-up wizard: WordPress Site Connection Syncronisation settings.
+24. Moodle Set-up wizard: Settings Summary
 
 
 
@@ -208,6 +211,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 1.4.7 =
+* Tweak - Compatibility with Wordpress 5.5 and Woocommerce Integration 2.0.1 .
 
 = 1.4.6 =
 * Fix - Solved admin js console issue causing error while test connection.

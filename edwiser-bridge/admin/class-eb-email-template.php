@@ -468,7 +468,7 @@ class EBAdminEmailTemplate
             $args = array(
                 "course_id" => "1",
                 "password" => "eb-pa88@#d",
-                "order_id" => "12235"
+                "eb_order_id" => "12235" // chnaged 1.4.7
             );
             $mail = $this->sendEmail($mailTo, $args, $_POST);
             if ($mail) {

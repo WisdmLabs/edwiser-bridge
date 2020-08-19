@@ -140,7 +140,8 @@ class EbShortcodeUserAccount
 
             if (!empty($order_detail) && $order_detail['buyer_id'] == $user_id) {
                 $user_orders[] = array(
-                    'order_id'      => $order_id,
+                    // 'order_id'      => $order_id,
+                    'eb_order_id'      => $order_id, // cahnged 1.4.7 Order Id 
                     'ordered_item'  => $order_detail['course_id'],
                     'billing_email' => isset($order_detail['billing_email']) ? $order_detail['billing_email'] : '-',
                     'currency'      => isset($order_detail['currency']) ? $order_detail['currency'] : '$',

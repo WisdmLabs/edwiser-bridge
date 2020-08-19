@@ -270,7 +270,8 @@ class EBEmailer
         $args = apply_filters(
             'eb_filter_email_parameters',
             array(
-            'order_id' => $order_id,
+            // 'order_id' => $order_id,
+            'eb_order_id' => $order_id, // changed 1.4.7
             'course_id' => $order_detail['course_id'],
             'user_email' => $buyer_detail->user_email,
             'username' => $buyer_detail->user_login,
