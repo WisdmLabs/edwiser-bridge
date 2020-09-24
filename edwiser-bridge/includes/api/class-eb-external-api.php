@@ -25,7 +25,7 @@ class EBExternalApiEndpoint
             'edwiser-bridge',
             '/wisdmlabs/',
             array(
-                'methods' => 'POST',
+                'methods' => WP_REST_Server::EDITABLE = 'POST, PUT, PATCH',
                 'callback' => array($this, "externalApiEndpointDef"),
             )
         );
