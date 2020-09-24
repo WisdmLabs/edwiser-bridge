@@ -91,7 +91,6 @@ class EbShortcodeMyCourses
 
     public function showMyCourses($my_courses, $atts)
     {
-
         $template_loader = new EbTemplateLoader(
             edwiserBridgeInstance()->getPluginName(),
             edwiserBridgeInstance()->getVersion()
@@ -231,7 +230,7 @@ class EbShortcodeMyCourses
     public function createQuery($count, $rec_cats, $exclude_courses)
     {
         $ebGeneralSetings = get_option("eb_general");
-
+        $args=array();
         if (isset($ebGeneralSetings['eb_show_default_recmnd_courses']) && $ebGeneralSetings['eb_show_default_recmnd_courses'] == "yes") {
             $args = array(
                 'post_type' => 'eb_course',
