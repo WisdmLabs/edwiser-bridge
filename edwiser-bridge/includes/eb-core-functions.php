@@ -479,3 +479,17 @@ function ebGetAllWebServiceFunctions()
 
     return apply_filters('eb_total_web_service_functions', $edwiserBridgeFns);
 }
+/**
+* The function will check if the array key exist or not and dose the arrya key associated a non empty value 
+* @param array  associative array.
+* @param string array key to get the value.
+* @returns arrays value associated with the key if exist and not empty. Otherwise retrurns false.
+*/
+
+function checkValueSet($dataarray, $key){
+    $value=false;
+    if(is_array($dataarray) && array_key_exists($key,$dataarray) && $dataarray[$key]){
+        $value=empty($dataarray[$key]) ? false : $dataarray[$key];
+    }
+    return $value;
+}
