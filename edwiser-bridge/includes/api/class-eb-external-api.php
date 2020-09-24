@@ -23,9 +23,9 @@ class EBExternalApiEndpoint
     {
         register_rest_route(
             'edwiser-bridge',
-            '/wisdmlabs/',
+            "/wisdmlabs/",
             array(
-                'methods' => WP_REST_Server::EDITABLE,
+                'methods' => \WP_REST_Server::EDITABLE,
                 'callback' => array($this, "externalApiEndpointDef"),
             )
         );
@@ -103,7 +103,6 @@ class EBExternalApiEndpoint
      */
     protected function ebCourseEnrollment($data, $unEnroll)
     {
-
         if (isset($data["user_id"]) && isset($data["course_id"])) {
             $mdlCourseId = $data["course_id"];
             $mdlCourseId =$mdlCourseId;
