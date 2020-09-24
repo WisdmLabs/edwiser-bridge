@@ -60,7 +60,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 
 
 
-= Recommended Plugins to Extend Edwiser Bridgeâ€™s Features - =
+= Recommended Plugins to Extend Edwiser Bridge's Features - =
 
 = Why we need to extend the functionality? =
 If you wish to create a complete eCommerce shopfront to sell your Moodle courses.
@@ -191,7 +191,7 @@ Yes, if you are using Edwiser Bridge version 1.4.0 onwards then you will now be 
 
  = Can I use another payment gateway in place of PayPal to sell my courses?
 
-As of now Edwiser Bridge has only one payment gateway integrated with it and thatâ€™s PayPal.
+As of now Edwiser Bridge has only one payment gateway integrated with it and that's PayPal.
 But we are open to adding new payment gateways as part of the product but for that we need your suggestions so that we add the one that works best for you.
 
 You can post your suggestions in our Ideas Forum.   
