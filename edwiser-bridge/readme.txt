@@ -60,7 +60,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 
 
 
-= Recommended Plugins to Extend Edwiser Bridge’s Features - =
+= Recommended Plugins to Extend Edwiser Bridgeâ€™s Features - =
 
 = Why we need to extend the functionality? =
 If you wish to create a complete eCommerce shopfront to sell your Moodle courses.
@@ -191,7 +191,7 @@ Yes, if you are using Edwiser Bridge version 1.4.0 onwards then you will now be 
 
  = Can I use another payment gateway in place of PayPal to sell my courses?
 
-As of now Edwiser Bridge has only one payment gateway integrated with it and that’s PayPal.
+As of now Edwiser Bridge has only one payment gateway integrated with it and thatâ€™s PayPal.
 But we are open to adding new payment gateways as part of the product but for that we need your suggestions so that we add the one that works best for you.
 
 You can post your suggestions in our Ideas Forum.   
@@ -211,6 +211,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 1.4.8 =
+* Fix - fix for the register_rest_route was called incorrectly.
+* Tweek - Added common function to check the array value.
 
 = 1.4.7 =
 * Tweak - Compatibility with Wordpress 5.5 and Woocommerce Integration 2.0.1 .
