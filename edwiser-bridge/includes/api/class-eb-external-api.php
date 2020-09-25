@@ -27,6 +27,7 @@ class EBExternalApiEndpoint
             array(
                 'methods' => \WP_REST_Server::EDITABLE,
                 'callback' => array($this, "externalApiEndpointDef"),
+                'permission_callback' => '__return_true',
             )
         );
     }

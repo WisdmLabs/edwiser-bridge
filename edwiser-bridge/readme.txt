@@ -211,8 +211,12 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+ = 1.4.8 =
+* Fix - Added permission callback in register_rest_route to fix the notice genrated in the wp 5.5 and above.
+
+
 = 1.4.8 =
-* Fix - fix for the register_rest_route was called incorrectly.
+* Fix - Fix for the register_rest_route was called incorrectly.
 * Tweek - Added common function to check the array value.
 
 = 1.4.7 =
