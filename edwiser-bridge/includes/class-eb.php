@@ -498,8 +498,8 @@ class EdwiserBridge
     private function defineAdminHooks()
     {
         $plugin_admin = new EbAdmin($this->getPluginName(), $this->getVersion());
-        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueStyles');
-        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'adminEnqueueScripts');
+        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles');
+        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts');
 
         /**
          * Add action to add the meta boxes in backend for the order
@@ -588,22 +588,22 @@ class EdwiserBridge
         $this->loader->addAction(
             'wp_ajax_wdm_eb_get_email_template',
             $emailTmplEditor,
-            'getTemplateDataAjaxCallBack'
+            'get_template_data_ajax_callBack'
         );
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_get_email_template',
             $emailTmplEditor,
-            'getTemplateDataAjaxCallBack'
+            'get_template_data_ajax_callBack'
         );
         $this->loader->addAction(
             'wp_ajax_wdm_eb_send_test_email',
             $emailTmplEditor,
-            'sendTestEmail'
+            'send_test_email'
         );
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_send_test_email',
             $emailTmplEditor,
-            'sendTestEmail'
+            'send_test_email'
         );
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user',
@@ -613,28 +613,28 @@ class EdwiserBridge
         $this->loader->addAction(
             'wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content',
             $manageEnrollment,
-            'resetEmailTemplateContent'
+            'reset_email_template_content'
         );
 
         $this->loader->addAction(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
-            'courseSynchronizationInitiater'
+            'course_synchronization_initiater'
         );
         $this->loader->addAction(
             'wp_ajax_handleUserCourseSynchronization',
             $admin_settings_init,
-            'userDataSynchronizationInitiater'
+            'user_data_synchronization_initiater'
         );
         $this->loader->addAction(
             'wp_ajax_handleUserLinkToMoodle',
             $admin_settings_init,
-            'usersLinkToMoodleSynchronization'
+            'users_link_to_moodle_synchronization'
         );
         $this->loader->addAction(
             'wp_ajax_handleConnectionTest',
             $admin_settings_init,
-            'connectionTestInitiater'
+            'connection_test_initiater'
         );
         $this->loader->addAction(
             'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
@@ -644,7 +644,7 @@ class EdwiserBridge
         $this->loader->addAction(
             'wp_ajax_wdm_eb_email_tmpl_restore_content',
             $emailTmplEditor,
-            'resetEmailTemplateContent'
+            'reset_email_template_content'
         );
 
         $gdprCompatible = new EBGDPRCompatible();

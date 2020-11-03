@@ -35,7 +35,7 @@ if (!class_exists('EbSettingsLicensing')) :
             $this->_id = 'licensing';
             $this->label = __('Licenses', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
         }
 
@@ -51,6 +51,10 @@ if (!class_exists('EbSettingsLicensing')) :
             $GLOBALS['hide_save_button'] = true;
             include_once EB_PLUGIN_DIR.'admin/partials/html-admin-licensing.php';
         }
+
+
+
+        /*NOT-used function*/
 
         /**
          * Get settings array.

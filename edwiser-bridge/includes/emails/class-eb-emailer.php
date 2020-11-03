@@ -71,21 +71,21 @@ class EBEmailer
 
     public function sendCourseAccessExpireEmail($args)
     {
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_course_access_expir");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_course_access_expir");
         $allowNotify   = get_option("eb_emailtmpl_course_access_expir_notify_allow");
         if ($emailTmplData && $allowNotify == "ON") {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
     }
 
     public function sendExistingWpUserNewMoodleAccountEmail($args)
     {
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_new_moodle_user");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_linked_existing_wp_new_moodle_user");
         $allowNotify   = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
         if ($emailTmplData && $allowNotify == "ON") {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
     }
 
@@ -97,8 +97,8 @@ class EBEmailer
     {
 
         $args               = apply_filters("eb_args_data", $args);
-        $userEmailTmplData  = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_refund_completion_notifier_to_user");
-        $adminEmailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_refund_completion_notifier_to_admin");
+        $userEmailTmplData  = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_refund_completion_notifier_to_user");
+        $adminEmailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_refund_completion_notifier_to_admin");
 
         $emailTmplObj = new EBAdminEmailTemplate();
 
@@ -115,7 +115,7 @@ class EBEmailer
                 $args['first_name'] = $user->first_name;
                 $args['last_name'] = $user->last_name;
                 $args['username'] = $user->user_login;
-                $emailTmplObj->sendEmail($user->user_email, $args, $userEmailTmplData);
+                $emailTmplObj->send_email($user->user_email, $args, $userEmailTmplData);
             }
         }
 
@@ -132,12 +132,12 @@ class EBEmailer
                     $args['first_name'] = $adminUser->first_name;
                     $args['last_name'] = $adminUser->last_name;
                     $args['username'] = $adminUser->user_login;
-                    $emailTmplObj->sendEmail($value->data->user_email, $args, $adminEmailTmplData);
+                    $emailTmplObj->send_email($value->data->user_email, $args, $adminEmailTmplData);
                 }
             }
 
             if (isset($specifiedEmailForRefund) && !empty($specifiedEmailForRefund)) {
-                $emailTmplObj->sendEmail($specifiedEmailForRefund, $args, $adminEmailTmplData);
+                $emailTmplObj->send_email($specifiedEmailForRefund, $args, $adminEmailTmplData);
             }
         }
 
@@ -161,14 +161,14 @@ class EBEmailer
          * Using Email template Editor
          */
         $args          = apply_filters("eb_args_data", $args);
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_create_user");
         $allowNotify   = get_option("eb_emailtmpl_create_user_notify_allow");
         if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -204,7 +204,7 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_linked_existing_wp_user");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_linked_existing_wp_user");
 
         $allowNotify = get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
 
@@ -213,7 +213,7 @@ class EBEmailer
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -284,7 +284,7 @@ class EBEmailer
         /**
          * Using Email template Editor
          */
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_order_completed");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_order_completed");
 
         $allowNotify = get_option("eb_emailtmpl_order_completed_notify_allow");
         if ($allowNotify == false || $allowNotify != "ON") {
@@ -292,7 +292,7 @@ class EBEmailer
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
 
         /**
@@ -339,14 +339,14 @@ class EBEmailer
         $args          = apply_filters("eb_args_data", $args);
 
 
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_enrollment_trigger");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_enrollment_trigger");
         $allowNotify   = get_option("eb_emailtmpl_mdl_enrollment_trigger_notify_allow");
         if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -393,14 +393,14 @@ class EBEmailer
 
 
         $args          = apply_filters("eb_args_data", $args);
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_un_enrollment_trigger");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_un_enrollment_trigger");
         $allowNotify   = get_option("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow");
         if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default
@@ -448,14 +448,14 @@ class EBEmailer
 
 
         $args          = apply_filters("eb_args_data", $args);
-        $emailTmplData = EBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_mdl_user_deletion_trigger");
+        $emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_user_deletion_trigger");
         $allowNotify   = get_option("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow");
         if ($allowNotify == false || $allowNotify != "ON") {
             return;
         }
         if ($emailTmplData) {
             $emailTmplObj = new EBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+            return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
         }
         /**
          * Using Default

@@ -54,7 +54,7 @@ class EbAdmin
      *
      * @since    1.0.0
      */
-    public function adminEnqueueStyles()
+    public function admin_enqueue_styles()
     {
         /*
          * An instance of this class should be passed to the run() function
@@ -112,7 +112,7 @@ class EbAdmin
      *
      * @since    1.0.0
      */
-    public function adminEnqueueScripts()
+    public function admin_enqueue_scripts()
     {
 
         /*

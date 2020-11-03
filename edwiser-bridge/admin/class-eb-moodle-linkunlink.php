@@ -11,8 +11,8 @@ class LinkUnlink
      */
     public function __construct()
     {
-        add_filter('manage_users_columns', array($this,'addingMoodleAccountColumn'));
-        add_filter('manage_users_custom_column', array($this, 'showContent'), 10, 3);
+        add_filter('manage_users_columns', array($this,'adding_moodle_account_column'));
+        add_filter('manage_users_custom_column', array($this, 'show_content'), 10, 3);
     }
 
     /**
@@ -20,7 +20,7 @@ class LinkUnlink
      * @param  [array] $column array of all column from users.php page
      * @return [array]         returning array by adding our column in it
      */
-    public function addingMoodleAccountColumn($column)
+    public function adding_moodle_account_column($column)
     {
            $column['moodle_Account'] = sprintf(__('Moodle Account', 'eb-textdomain'));
           return $column;
@@ -33,7 +33,7 @@ class LinkUnlink
      * @param  [integer] $user_id     id of the user
      * @return [string]              returning data needed to add in column
      */
-    public function showContent($val, $column_name, $user_id)
+    public function show_content($val, $column_name, $user_id)
     {
         $link = get_user_meta($user_id, "moodle_user_id", true);
         $checked="block";

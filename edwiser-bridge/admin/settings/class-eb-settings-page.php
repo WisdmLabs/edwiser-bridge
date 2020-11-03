@@ -32,8 +32,8 @@ if (!class_exists('EBSettingsPage')) :
          */
         public function __construct()
         {
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
-            add_action('eb_sections_'.$this->_id, array($this, 'outputSections'));
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
+            add_action('eb_sections_'.$this->_id, array($this, 'output_sections'));
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
             add_action('eb_settings_save_'.$this->_id, array($this, 'save'));
         }
@@ -43,7 +43,7 @@ if (!class_exists('EBSettingsPage')) :
          *
          * @since  1.0.0
          */
-        public function addSettingsPage($pages)
+        public function add_settings_page($pages)
         {
             $pages[$this->_id] = $this->label;
 
@@ -56,7 +56,7 @@ if (!class_exists('EBSettingsPage')) :
          * @since  1.0.0
          * @return array
          */
-        public function getSettings()
+        public function get_settings()
         {
             return apply_filters('eb_getSettings_'.$this->_id, array());
         }
@@ -67,7 +67,7 @@ if (!class_exists('EBSettingsPage')) :
          * @since  1.0.0
          * @return array
          */
-        public function getSections()
+        public function get_sections()
         {
             return apply_filters('eb_getSections_'.$this->_id, array());
         }
@@ -77,11 +77,11 @@ if (!class_exists('EBSettingsPage')) :
          *
          * @since  1.0.0
          */
-        public function outputSections()
+        public function output_sections()
         {
             global $current_section;
 
-            $sections = $this->getSections();
+            $sections = $this->get_sections();
 
             if (empty($sections)) {
                 return;
@@ -110,9 +110,9 @@ if (!class_exists('EBSettingsPage')) :
          */
         public function output()
         {
-            $settings = $this->getSettings();
+            $settings = $this->get_settings();
 
-            EbAdminSettings::outputFields($settings);
+            EbAdminSettings::output_fields($settings);
         }
 
         /**
@@ -124,8 +124,8 @@ if (!class_exists('EBSettingsPage')) :
         {
             global $current_section;
 
-            $settings = $this->getSettings();
-            EbAdminSettings::saveFields($settings);
+            $settings = $this->get_settings();
+            EbAdminSettings::save_fields($settings);
 
             if ($current_section) {
                 do_action('eb_update_options_'.$this->_id.'_'.$current_section);

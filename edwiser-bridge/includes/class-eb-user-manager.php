@@ -256,7 +256,7 @@ class EBUserManager
      * Initiate the process to link users to moodle, get user's who have not linked to moodle
      * and link them to moodle
      *
-     * Called by usersLinkToMoodleSynchronization() from class EBSettingsAjaxInitiater
+     * Called by users_link_to_moodle_synchronization() from class EBSettingsAjaxInitiater
      *
      * @param array $sync_options    user sync options
      * @param int  $offset LIMIT query offset for getting the resluts in chunk

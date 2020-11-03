@@ -88,7 +88,7 @@ class EBCourseManager
 
     /**
      * Initiate the synchronization process.
-     * Called by courseSynchronizationInitiater() from class EBSettingsAjaxInitiater.
+     * Called by course_synchronization_initiater() from class EBSettingsAjaxInitiater.
      *
      * @param array $sync_options course sync options
      *

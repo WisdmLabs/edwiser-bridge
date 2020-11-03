@@ -48,7 +48,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function courseSynchronizationInitiater()
+    public function course_synchronization_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -76,7 +76,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function userDataSynchronizationInitiater()
+    public function user_data_synchronization_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -105,7 +105,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function usersLinkToMoodleSynchronization()
+    public function users_link_to_moodle_synchronization()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -137,7 +137,7 @@ class EBSettingsAjaxInitiater
      *
      * @return boolean true on success else false
      */
-    public function connectionTestInitiater()
+    public function connection_test_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');

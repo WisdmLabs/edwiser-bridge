@@ -33,10 +33,10 @@ if (!class_exists('EBSettingsSynchronization')) {
             $this->_id = 'synchronization';
             $this->label = __('Synchronization', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
             add_action('eb_settings_save_'.$this->_id, array($this, 'save'));
-            add_action('eb_sections_'.$this->_id, array($this, 'outputSections'));
+            add_action('eb_sections_'.$this->_id, array($this, 'output_sections'));
         }
 
         /**
@@ -70,7 +70,7 @@ if (!class_exists('EBSettingsSynchronization')) {
 
             $settings = $this->getSettings($current_section);
 
-            EbAdminSettings::outputFields($settings);
+            EbAdminSettings::output_fields($settings);
         }
 
         /**
@@ -83,7 +83,7 @@ if (!class_exists('EBSettingsSynchronization')) {
             global $current_section;
 
             $settings = $this->getSettings($current_section);
-            EbAdminSettings::saveFields($settings);
+            EbAdminSettings::save_fields($settings);
         }
 
         /**

@@ -322,6 +322,17 @@ class EBConnectionHelper
 
         $response = wp_remote_post($request_url, $request_args);
 
+/*var_dump($request_url);
+var_dump($request_args);
+var_dump($response);*/
+
+
+error_log('request_url ::: '.print_r($request_url, 1));
+error_log('request_args ::: '.print_r($request_args, 1));
+error_log('response ::: '.print_r($response, 1));
+
+
+
         if (is_wp_error($response)) {
             $success          = 0;
             $response_message = $response->get_error_message();

@@ -32,7 +32,7 @@ if (!class_exists('EBSettingsConnection')) {
             $this->_id = 'shortcode_doc';
             $this->label = __('Shortcodes', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             add_action('eb_settings_' . $this->_id, array($this, 'output'));
         }
 
@@ -45,7 +45,7 @@ if (!class_exists('EBSettingsConnection')) {
         {
             $GLOBALS['hide_save_button'] = true;
             do_action("eb_befor_shortcode_doc");
-            echo $this->getDocumentatoin();
+            echo $this->get_documentation();
             do_action("eb_after_shortcode_doc");
         }
 
@@ -56,7 +56,7 @@ if (!class_exists('EBSettingsConnection')) {
          *
          * @return array
          */
-        public function getDocumentatoin()
+        public function get_documentation()
         {
             ob_start();
             ?>

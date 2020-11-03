@@ -33,7 +33,7 @@ if (!class_exists('EbAdminSettings')) {
         /**
          * Include the settings page classes.
          */
-        public static function getSettingsPages()
+        public static function get_settings_pages()
         {
             if (empty(self::$settings)) {
                 $settings = array();
@@ -79,7 +79,7 @@ if (!class_exists('EbAdminSettings')) {
             do_action('eb_update_options_'.$current_tab);
             do_action('eb_update_options');
             if (!strpos($referer, 'admin.php?page=eb-settings&tab=licensing')) {
-                self::addMessage(__('Your settings have been saved.', 'eb-textdomain'));
+                self::add_message(__('Your settings have been saved.', 'eb-textdomain'));
             }
             do_action('eb_settings_saved');
         }
@@ -91,7 +91,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @param string $text
          */
-        public static function addMessage($text)
+        public static function add_message($text)
         {
             self::$messages[] = $text;
         }
@@ -103,7 +103,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @param string $text
          */
-        public static function addError($text)
+        public static function add_error($text)
         {
             self::$errors[] = $text;
         }
@@ -115,7 +115,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @return string
          */
-        public static function showMessages()
+        public static function show_messages()
         {
             if (sizeof(self::$errors) > 0) {
                 foreach (self::$errors as $error) {
@@ -146,7 +146,7 @@ if (!class_exists('EbAdminSettings')) {
             do_action('eb_settings_start');
 
             // Include settings pages
-            self::getSettingsPages();
+            self::get_settings_pages();
 
             // Get current tab/section
             $current_tab = '';
@@ -167,14 +167,14 @@ if (!class_exists('EbAdminSettings')) {
 
             // Add any posted messages
             if (!empty($_GET['wp_error'])) {
-                self::addError(stripslashes($_GET['wp_error']));
+                self::add_error(stripslashes($_GET['wp_error']));
             }
 
             if (!empty($_GET['wp_message'])) {
-                self::addMessage(stripslashes($_GET['wp_message']));
+                self::add_message(stripslashes($_GET['wp_message']));
             }
 
-            self::showMessages();
+            self::show_messages();
 
             // Get tabs for the settings page
             $tabs = apply_filters('eb_settings_tabs_array', array());
@@ -194,7 +194,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @return option value
          */
-        public static function getOption($option_name, $current_tab, $default = '')
+        public static function get_option($option_name, $current_tab, $default = '')
         {
 
             //get options of current tab
@@ -224,7 +224,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @param array $options Opens array to output
          */
-        public static function outputFields($options)
+        public static function output_fields($options)
         {
             global $current_tab;
 
@@ -266,7 +266,7 @@ if (!class_exists('EbAdminSettings')) {
                 }
 
                 // Description handling
-                $field_description = self::getFieldDescription($value);
+                $field_description = self::get_field_description($value);
                 extract($field_description);
 
                 // Switch based on type
@@ -308,7 +308,7 @@ if (!class_exists('EbAdminSettings')) {
                     case 'color':
                     case 'password':
                         $type = $value['type'];
-                        $option_value = self::getOption($value['id'], $current_tab, $value['default']);
+                        $option_value = self::get_option($value['id'], $current_tab, $value['default']);
 
                         if ($value['type'] == 'color') {
                             $type = 'text';
@@ -344,7 +344,7 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Textarea
                     case 'textarea':
-                        $option_value = self::getOption($value['id'], $current_tab, $value['default']);
+                        $option_value = self::get_option($value['id'], $current_tab, $value['default']);
                         ?>
                         <tr valign="top">
                             <th scope="row" class="titledesc">
@@ -394,7 +394,7 @@ if (!class_exists('EbAdminSettings')) {
                     // Select boxes
                     case 'select':
                     case 'multiselect':
-                        $option_value = self::getOption($value['id'], $current_tab, $value['default']);
+                        $option_value = self::get_option($value['id'], $current_tab, $value['default']);
                         ?>
                         <tr valign="top">
                             <th scope="row" class="titledesc">
@@ -446,7 +446,7 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Radio inputs
                     case 'radio':
-                        $option_value = self::getOption($value['id'], $current_tab, $value['default']);
+                        $option_value = self::get_option($value['id'], $current_tab, $value['default']);
                         ?>
                         <tr valign="top">
                             <th scope="row" class="titledesc">
@@ -485,7 +485,7 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Checkbox input
                     case 'checkbox':
-                        $option_value = self::getOption($value['id'], $current_tab, $value['default']);
+                        $option_value = self::get_option($value['id'], $current_tab, $value['default']);
                         $visbility_class = array();
 
                         if (!isset($value['hide_if_checked'])) {
@@ -553,7 +553,7 @@ if (!class_exists('EbAdminSettings')) {
                             'show_option_none' => ' ',
                             'class' => $value['class'],
                             'echo' => false,
-                            'selected' => absint(self::getOption($value['id'], $current_tab)),
+                            'selected' => absint(self::get_option($value['id'], $current_tab)),
                         );
 
                         if (isset($value['args'])) {
@@ -587,7 +587,7 @@ if (!class_exists('EbAdminSettings')) {
                             'show_option_none' => ' ',
                             'class' => $value['class'],
                             'echo' => false,
-                            'selected' => self::getOption($value['id'], $current_tab),
+                            'selected' => self::get_option($value['id'], $current_tab),
                         );
 
                         if (isset($value['args'])) {
@@ -614,7 +614,7 @@ if (!class_exists('EbAdminSettings')) {
 
                     // Single sidebar select
                     case 'courses_per_row':
-                        $selectedVal = self::getOption($value['id'], $current_tab);
+                        $selectedVal = self::get_option($value['id'], $current_tab);
                         $selectedVal = trim($selectedVal);
                         $selectedVal = empty($selectedVal) ? "4" : $selectedVal;
                         $args = array(
@@ -674,7 +674,7 @@ if (!class_exists('EbAdminSettings')) {
          *
          * @return bool
          */
-        public static function saveFields($options)
+        public static function save_fields($options)
         {
             global $current_tab;
 
@@ -787,9 +787,9 @@ if (!class_exists('EbAdminSettings')) {
          * @param array $value The form field value array
          * @returns array The description and tip as a 2 element array
          */
-        public static function getFieldDescription($value)
+        public static function get_field_description($value)
         {
-            $description = '';
+            $description  = '';
             $tooltip_html = '';
 
             if (true === $value['desc_tip']) {

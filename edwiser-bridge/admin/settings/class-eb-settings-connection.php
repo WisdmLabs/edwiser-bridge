@@ -33,7 +33,7 @@ if (!class_exists('EBSettingsConnection')) :
             $this->_id = 'connection';
             $this->label = __('Connection Settings', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             add_action('eb_settings_'.$this->_id, array($this, 'output'));
             add_action('eb_settings_save_'.$this->_id, array($this, 'save'));
         }
@@ -47,9 +47,9 @@ if (!class_exists('EBSettingsConnection')) :
         {
             global $current_section;
 
-            $settings = $this->getSettings($current_section);
+            $settings = $this->get_settings($current_section);
 
-            EbAdminSettings::outputFields($settings);
+            EbAdminSettings::output_fields($settings);
         }
 
         /**
@@ -61,8 +61,8 @@ if (!class_exists('EBSettingsConnection')) :
         {
             global $current_section;
 
-            $settings = $this->getSettings($current_section);
-            EbAdminSettings::saveFields($settings);
+            $settings = $this->get_settings($current_section);
+            EbAdminSettings::save_fields($settings);
         }
 
         /**
@@ -72,7 +72,7 @@ if (!class_exists('EBSettingsConnection')) :
          *
          * @return array
          */
-        public function getSettings($current_section = '')
+        public function get_settings($current_section = '')
         {
             $settings = apply_filters(
                 'eb_connection_settings',

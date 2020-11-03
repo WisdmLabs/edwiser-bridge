@@ -30,15 +30,15 @@ class EbAdminMenus
     public function __construct()
     {
         // Add menus
-        add_action('admin_menu', array($this, 'adminMenu'), 9);
-        add_action('admin_menu', array($this, 'settingsMenu'), 10);
-        add_action('admin_menu', array($this, 'emailTemplate'), 10);
-        add_action('admin_menu', array($this, 'manageEnrollmentMenu'), 10);
-        add_action('admin_menu', array($this, 'extensionsMenu'), 10);
-        add_action('admin_menu', array($this, 'helpMenu'), 10);
-        add_action('parent_file', array($this, 'addMenuPageTaxonomyFix'), 10);
+        add_action('admin_menu', array($this, 'admin_menu'), 9);
+        add_action('admin_menu', array($this, 'settings_menu'), 10);
+        add_action('admin_menu', array($this, 'email_template'), 10);
+        add_action('admin_menu', array($this, 'manage_enrollment_menu'), 10);
+        add_action('admin_menu', array($this, 'extensions_menu'), 10);
+        add_action('admin_menu', array($this, 'help_menu'), 10);
+        add_action('parent_file', array($this, 'add_menu_page_taxonomy_fix'), 10);
 
-        add_action('admin_footer', array($this, 'openHelpMenuNewTab')); // open help menu in new tab
+        add_action('admin_footer', array($this, 'open_help_menu_new_tab')); // open help menu in new tab
     }
 
     /**
@@ -46,7 +46,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function adminMenu()
+    public function admin_menu()
     {
         global $menu;
 
@@ -104,7 +104,7 @@ class EbAdminMenus
      * @since 1.0.0
      * @param string  $parent_file slug of current main menu selected
      */
-    public function addMenuPageTaxonomyFix($parent_file)
+    public function add_menu_page_taxonomy_fix($parent_file)
     {
         global $submenu_file, $current_screen, $pagenow;
 
@@ -128,7 +128,7 @@ class EbAdminMenus
      *
      * @since 1.1.0
      */
-    public function settingsMenu()
+    public function settings_menu()
     {
         add_submenu_page(
             'edwiserbridge_lms',
@@ -136,7 +136,7 @@ class EbAdminMenus
             __('Settings', 'eb-textdomain'),
             'manage_options',
             'eb-settings',
-            array($this, 'settingsPage')
+            array($this, 'settings_page')
         );
     }
 
@@ -145,7 +145,7 @@ class EbAdminMenus
      *
      * @since 1.2.2
      */
-    public function manageEnrollmentMenu()
+    public function manage_enrollment_menu()
     {
         add_submenu_page(
             'edwiserbridge_lms',
@@ -153,7 +153,7 @@ class EbAdminMenus
             __('Manage Enrollment', 'eb-textdomain'),
             'manage_options',
             'mucp-manage-enrollment',
-            array($this, 'manageEnrollmentContent')
+            array($this, 'manage_enrollment_content')
         );
     }
 
@@ -162,7 +162,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function extensionsMenu()
+    public function extensions_menu()
     {
         add_submenu_page(
             'edwiserbridge_lms',
@@ -170,7 +170,7 @@ class EbAdminMenus
             __('Extensions', 'eb-textdomain'),
             'manage_options',
             'eb-extensions',
-            array($this, 'extensionsPage')
+            array($this, 'extensions_page')
         );
     }
 
@@ -179,7 +179,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function helpMenu()
+    public function help_menu()
     {
         global $submenu;
         if (current_user_can('manage_options')) {
@@ -196,7 +196,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function emailTemplate()
+    public function email_template()
     {
         add_submenu_page(
             'edwiserbridge_lms',
@@ -204,7 +204,7 @@ class EbAdminMenus
             __('Manage Email Templates', 'eb-textdomain'),
             'manage_options',
             'eb-email-template',
-            array($this, 'emailTemplatePage')
+            array($this, 'email_template_page')
         );
     }
 
@@ -213,7 +213,7 @@ class EbAdminMenus
      *
      * @since  1.0.0
      */
-    public function openHelpMenuNewTab()
+    public function open_help_menu_new_tab()
     {
         ?>
         <script type="text/javascript">
@@ -229,7 +229,7 @@ class EbAdminMenus
      *
      * @since 1.0.0
      */
-    public function settingsPage()
+    public function settings_page()
     {
         EbAdminSettings::output();
     }
@@ -239,7 +239,7 @@ class EbAdminMenus
      *
      * @since 1.2.2
      */
-    public function manageEnrollmentContent()
+    public function manage_enrollment_content()
     {
         $edwiser=EdwiserBridge::instance();
         $enrollmentManager=new EBManageUserEnrollment($edwiser->getPluginName(), $edwiser->getVersion());
@@ -249,12 +249,12 @@ class EbAdminMenus
     /**
      * Initialize the extensions page
      */
-    public function extensionsPage()
+    public function extensions_page()
     {
         EBAdminExtensions::output();
     }
 
-    public function emailTemplatePage()
+    public function email_template_page()
     {
         $emailTmpl = new EBAdminEmailTemplate();
         $emailTmpl->outPut();

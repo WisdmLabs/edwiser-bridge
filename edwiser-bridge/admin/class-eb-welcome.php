@@ -32,16 +32,16 @@ class EBWelcomeScreen
      */
     public function __construct()
     {
-        add_action('admin_menu', array($this, 'adminMenus'));
-        add_action('admin_head', array($this, 'adminHead'));
-        add_action('admin_init', array($this, 'welcomeHandler'));
-        add_action('admin_action_eb_subscribe', array($this, 'subscribeHandler'));
+        add_action('admin_menu', array($this, 'admin_menus'));
+        add_action('admin_head', array($this, 'admin_head'));
+        add_action('admin_init', array($this, 'welcome_handler'));
+        add_action('admin_action_eb_subscribe', array($this, 'subscribe_handler'));
     }
 
     /**
      * Add admin menus/screens.
      */
-    public function adminMenus()
+    public function admin_menus()
     {
         if (empty($_GET['page'])) {
             return;
@@ -57,7 +57,7 @@ class EBWelcomeScreen
                     $welcome_page_name,
                     'manage_options',
                     'eb-about',
-                    array($this, 'welcomeScreen')
+                    array($this, 'welcome_screen')
                 );
                 break;
         }
@@ -68,7 +68,7 @@ class EBWelcomeScreen
      *
      * @since  1.0.0
      */
-    public function adminHead()
+    public function admin_head()
     {
         remove_submenu_page('index.php', 'eb-about'); ?>
 
@@ -224,7 +224,7 @@ class EBWelcomeScreen
     /**
      * Output the about screen.
      */
-    public function welcomeScreen()
+    public function welcome_screen()
     {
         ?>
 
@@ -290,7 +290,7 @@ class EBWelcomeScreen
      *
      * @since  1.0.0
      */
-    public function welcomeHandler()
+    public function welcome_handler()
     {
 
         // return if no activation redirect transient is set
@@ -322,7 +322,7 @@ class EBWelcomeScreen
      *
      * @since  1.0.0
      */
-    public function subscribeHandler()
+    public function subscribe_handler()
     {
         $subscribed = 0;
 

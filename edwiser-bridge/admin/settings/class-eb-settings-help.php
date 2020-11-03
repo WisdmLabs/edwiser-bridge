@@ -33,7 +33,7 @@ if (!class_exists('EBSettingsGetHelp')) :
             $this->_id = 'get-help';
             $this->label = __('Get Help', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             //add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
             //add_action( 'eb_settings_save_' . $this->_id, array( $this, 'save' ) );
             add_action('admin_action_eb_help', array($this, 'helpSubscribeHandler'));
@@ -51,6 +51,10 @@ if (!class_exists('EBSettingsGetHelp')) :
             // Hide the save button
             $GLOBALS['hide_save_button'] = true;
         }
+
+
+
+        /*NOT-USED function*/
 
         /**
          * user help subscription form handler.

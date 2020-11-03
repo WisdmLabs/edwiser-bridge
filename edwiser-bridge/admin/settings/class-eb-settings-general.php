@@ -32,7 +32,7 @@ if (!class_exists('EBSettingsGeneral')) :
             $this->_id   = 'general';
             $this->label = __('General', 'eb-textdomain');
 
-            add_filter('eb_settings_tabs_array', array($this, 'addSettingsPage'), 20);
+            add_filter('eb_settings_tabs_array', array($this, 'add_settings_page'), 20);
             add_action('eb_settings_' . $this->_id, array($this, 'output'));
             add_action('eb_settings_save_' . $this->_id, array($this, 'save'));
         }
@@ -44,7 +44,7 @@ if (!class_exists('EBSettingsGeneral')) :
          *
          * @return array
          */
-        public function getSettings()
+        public function get_settings()
         {
             $settings = apply_filters(
                 'eb_general_settings',
@@ -266,9 +266,9 @@ if (!class_exists('EBSettingsGeneral')) :
          */
         public function save()
         {
-            $settings = $this->getSettings();
+            $settings = $this->get_settings();
 
-            EbAdminSettings::saveFields($settings);
+            EbAdminSettings::save_fields($settings);
         }
     }
 endif;
