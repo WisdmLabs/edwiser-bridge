@@ -546,28 +546,28 @@ class EdwiserBridge
         $this->loader->addAction(
             'admin_notices',
             $adminNoticeHandler,
-            'ebAdminUpdateMoodlePluginNotice'
+            'eb_admin_update_moodle_plugin_notice'
         );
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
-            'ebAdminUpdateNoticeDismissHandler'
+            'eb_admin_update_notice_dismiss_handler'
         );
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
         $this->loader->addAction(
             'admin_init',
             $adminNoticeHandler,
-            'ebAdminNoticeDismissHandler'
+            'eb_admin_notice_dismiss_handler'
         );
 
         $hook = "in_plugin_update_message-".EB_PLUGIN_NAME."/".EB_BASE_FILE_NAME;
         $this->loader->addAction(
             $hook,
             $adminNoticeHandler,
-            'ebShowInlinePluginUpdateNotification',
+            'eb_show_inline_plugin_update_notification',
             10,
             2
         );
@@ -862,19 +862,19 @@ class EdwiserBridge
         $this->loader->addAction(
             'before_delete_post',
             $this->courseManager(),
-            'deleteEnrollmentRecordsOnCourseDeletion'
+            'delete_enrollment_rRecords_on_course_deletion'
         );
         $this->loader->addAction(
             'manage_eb_course_posts_columns',
             $this->courseManager(),
-            'addCoursePriceTypeColumn',
+            'add_course_price_type_column',
             10,
             1
         );
         $this->loader->addAction(
             'manage_eb_course_posts_custom_column',
             $this->courseManager(),
-            'addCoursePriceTypeColumnContent',
+            'add_course_price_type_column_content',
             10,
             2
         );
@@ -885,7 +885,7 @@ class EdwiserBridge
         $this->loader->addAction(
             'wpmu_new_blog',
             'app\wisdmlabs\edwiserBridge\EBActivator',
-            'handleNewBlog',
+            'handle_new_blog',
             10,
             1
         );

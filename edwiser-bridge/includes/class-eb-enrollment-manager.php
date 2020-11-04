@@ -131,7 +131,7 @@ class EBEnrollmentManager
         // get moodle course id of each course
         // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
         $moodle_courses_raw = array_map(
-            array(edwiserBridgeInstance()->courseManager(), 'getMoodleWPCourseIdPair'),
+            array(edwiserBridgeInstance()->courseManager(), 'get_moodle_wp_course_id_pair'),
             $args['courses']
         );
         $moodle_courses = array();
@@ -286,7 +286,7 @@ class EBEnrollmentManager
                 $act_cnt = $this->getUserCourseAccessCount($args['user_id'], $course_id);
 
                 //If not enrolled to any of the coursers.
-                if (edwiserBridgeInstance()->courseManager()->getMoodleCourseId($course_id) != '' &&
+                if (edwiserBridgeInstance()->courseManager()->get_moodle_course_id($course_id) != '' &&
                         !$this->userHasCourseAccess($args['user_id'], $course_id)) {
                     //Set timezone
                     $timeZone = get_option('timezone_string');

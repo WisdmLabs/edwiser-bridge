@@ -13,7 +13,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function newUserAcoount($tmplId, $restore = false)
+        public function new_user_acoount($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -21,7 +21,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('New User Account Details', 'eb-textdomain'),
-                "content" => $this->getNewUserAccountTemplate(),
+                "content" => $this->get_new_user_account_template(),
             );
             return $data;
         }
@@ -33,7 +33,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function linkWPMoodleAccount($tmplId, $restore = false)
+        public function link_wp_moodle_account($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -41,7 +41,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Your learning account is linked with moodle', 'eb-textdomain'),
-                "content" => $this->getLinkWPMoodleAccountTemplate(),
+                "content" => $this->get_link_wp_moodle_account_template(),
             );
             return $data;
         }
@@ -53,7 +53,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function linkNewMoodleAccount($tmplId, $restore = false)
+        public function link_new_moodle_account($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -61,7 +61,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Your Learning Account Credentials', 'eb-textdomain'),
-                "content" => $this->getLinkNewMoodleAccountTemplate(),
+                "content" => $this->get_link_new_moodle_account_template(),
             );
             return $data;
         }
@@ -73,7 +73,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function orderComplete($tmplId, $restore = false)
+        public function order_complete($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -81,7 +81,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Your order completed successfully.', 'eb-textdomain'),
-                "content" => $this->getOrderCompleteTemplate(),
+                "content" => $this->get_order_complete_template(),
             );
             return $data;
         }
@@ -93,7 +93,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function courseAccessExpired($tmplId, $restore = false)
+        public function course_access_expired($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -101,7 +101,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Course access expired.', 'eb-textdomain'),
-                "content" => $this->getCourseAccessExpitedTemplate(),
+                "content" => $this->get_course_access_expired_template(),
             );
             return $data;
         }
@@ -113,7 +113,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function notifyUserOnOrderRefund($tmplId, $restore = false)
+        public function notify_user_on_order_refund($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -121,7 +121,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Order refund notification', 'eb-textdomain'),
-                "content" => $this->userRefundedNotificationTemplate(),
+                "content" => $this->user_refunded_notification_template(),
             );
             return $data;
         }
@@ -133,7 +133,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function notifyAdminOnOrderRefund($tmplId, $restore = false)
+        public function notify_admin_on_order_refund($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -141,7 +141,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Order refund notification', 'eb-textdomain'),
-                "content" => $this->adminRefundedNotificationTemplate(),
+                "content" => $this->admin_refunded_notification_template(),
             );
             return $data;
         }
@@ -155,7 +155,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function moodleEnrollmentTrigger($tmplId, $restore = false)
+        public function moodle_enrollment_trigger($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -163,7 +163,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Moodle Course Enrollment', 'eb-textdomain'),
-                "content" => $this->moodleEnrollmentTriggerTemplate(),
+                "content" => $this->moodle_enrollment_trigger_template(),
             );
             return $data;
         }
@@ -176,7 +176,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function moodleUnenrollmentTrigger($tmplId, $restore = false)
+        public function moodle_unenrollment_trigger($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -184,7 +184,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('Moodle Course Un-Enrollment', 'eb-textdomain'),
-                "content" => $this->moodleUnenrollmentTriggerTemplate(),
+                "content" => $this->moodle_unenrollment_trigger_template(),
             );
             return $data;
         }
@@ -197,7 +197,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @param type $restore boolean value to restore the email temaplte or not
          * @return array returns the array of the email tempalte content and subject
          */
-        public function userDeletionTrigger($tmplId, $restore = false)
+        public function user_deletion_trigger($tmplId, $restore = false)
         {
             $data = get_option($tmplId);
             if ($data && !$restore) {
@@ -205,7 +205,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
             }
             $data = array(
                 "subject" => __('User Account Deleted', 'eb-textdomain'),
-                "content" => $this->moodleUserDeletionTriggerTemplate(),
+                "content" => $this->moodle_user_deletion_trigger_template(),
             );
             return $data;
         }
@@ -218,7 +218,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @return html returns the email template body content for the new user
          * acount creation on moodle and WP
          */
-        private function getNewUserAccountTemplate()
+        private function get_new_user_account_template()
         {
             ob_start();
             ?>
@@ -284,7 +284,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @return html returns the email template body content for the new user
          * acount creation on moodle.
          */
-        private function getLinkNewMoodleAccountTemplate()
+        private function get_link_new_moodle_account_template()
         {
             ob_start();
             ?>
@@ -357,7 +357,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @return html returns the email template body content for the linking user
          * acount to moodle
          */
-        private function getLinkWPMoodleAccountTemplate()
+        private function get_link_wp_moodle_account_template()
         {
             ob_start();
             ?>
@@ -415,7 +415,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @return html returns the email template body content for the new
          * course order creation
          */
-        private function getOrderCompleteTemplate()
+        private function get_order_complete_template()
         {
             ob_start();
             ?>
@@ -483,7 +483,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * @return html returns the email template body content for the course
          * access expire
          */
-        private function getCourseAccessExpitedTemplate()
+        private function get_course_access_expired_template()
         {
             ob_start();
             ?>
@@ -552,7 +552,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * User refund initiated notification email
          * @return [type] [description]
          */
-        public function userRefundedNotificationTemplate()
+        public function user_refunded_notification_template()
         {
             ob_start();
             ?>
@@ -648,7 +648,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          * Notification dend to admin on refund initiation.
          * @return [type] [description]
          */
-        public function adminRefundedNotificationTemplate()
+        public function admin_refunded_notification_template()
         {
             ob_start();
             ?>
@@ -719,7 +719,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          *Send enrollment email on  enrollment request from Moodle
          * @return [type] [description]
          */
-        public function moodleEnrollmentTriggerTemplate()
+        public function moodle_enrollment_trigger_template()
         {
             ob_start();
             ?>
@@ -778,7 +778,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          *Send Unenrollment email on  unenrollment request from Moodle
          * @return [type] [description]
          */
-        public function moodleUnenrollmentTriggerTemplate()
+        public function moodle_unenrollment_trigger_template()
         {
             ob_start();
             ?>
@@ -838,7 +838,7 @@ if (!class_exists("EBDefaultEmailTemplate")) {
          *Send User deletion email on  user deletion request from Moodle
          * @return [type] [description]
          */
-        public function moodleUserDeletionTriggerTemplate()
+        public function moodle_user_deletion_trigger_template()
         {
             ob_start();
             ?>

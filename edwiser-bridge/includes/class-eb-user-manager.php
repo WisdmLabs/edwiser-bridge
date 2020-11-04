@@ -160,14 +160,14 @@ class EBUserManager
                 if (isset($sync_options['eb_synchronize_user_courses']) &&
                         $sync_options['eb_synchronize_user_courses'] == 1) {
                     // get user's enrolled courses from moodle
-                    $moodle_user_courses = edwiserBridgeInstance()->courseManager()->getMoodleCourses($value['moodle_user_id']);
+                    $moodle_user_courses = edwiserBridgeInstance()->courseManager()->get_moodle_courses($value['moodle_user_id']);
 
                     $enrolled_courses = array(); // push user's all enrolled courses id in array
                     // enrol user to courses based on recieved data
                     if ($moodle_user_courses['success'] == 1) {
                         foreach ($moodle_user_courses['response_data'] as $course_data) {
                             // get wordpress id of course
-                            $existing_course_id = edwiserBridgeInstance()->courseManager()->isCoursePresynced($course_data->id);
+                            $existing_course_id = edwiserBridgeInstance()->courseManager()->is_course_presynced($course_data->id);
 
                             // enroll user to course if course exist on wordpress ( synchronized on wordpress )
                             if (is_numeric($existing_course_id)) {

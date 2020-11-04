@@ -63,7 +63,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         // start working on request
-        $response = edwiserBridgeInstance()->courseManager()->courseSynchronizationHandler($sync_options);
+        $response = edwiserBridgeInstance()->courseManager()->course_synchronization_handler($sync_options);
         echo json_encode($response);
         die();
     }

@@ -96,7 +96,7 @@ class EBCourseManager
      *
      * @return array $response     array containing status & response message
      */
-    public function courseSynchronizationHandler($sync_options = array())
+    public function course_synchronization_handler($sync_options = array())
     {
         edwiserBridgeInstance()->logger()->add('user', 'Initiating course & category sync process....'); // add course log
 
@@ -118,11 +118,11 @@ class EBCourseManager
              * executes only if user chooses to sync categories.
              */
             if (isset($sync_options['eb_synchronize_categories']) && $sync_options['eb_synchronize_categories'] == 1) {
-                $moodle_category_resp = $this->getMoodleCourseCategories(); // get categories from moodle
+                $moodle_category_resp = $this->get_moodle_course_categories(); // get categories from moodle
 
                 // creating categories based on recieved data
                 if ($moodle_category_resp['success'] == 1) {
-                    $this->createCourseCategoriesOnWordpress($moodle_category_resp['response_data']);
+                    $this->create_course_categories_on_wordpress($moodle_category_resp['response_data']);
                 }
 
                 // push category response in array
@@ -133,7 +133,7 @@ class EBCourseManager
             /*
              * sync moodle courses to wordpress.
              */
-            $moodle_course_resp = $this->getMoodleCourses(); // get courses from moodle
+            $moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle
 
 
 
@@ -150,16 +150,16 @@ class EBCourseManager
                         }
 
                         // check if course is previously synced
-                        $existing_course_id = $this->isCoursePresynced($course_data->id);
+                        $existing_course_id = $this->is_course_presynced($course_data->id);
 
                         // creates new course or updates previously synced course conditionally
                         if (!is_numeric($existing_course_id) /*&& $sync_options["eb_synchronize_draft"]*/) {
-                            $course_id = $this->createCourseOnWordpress($course_data, $sync_options);
+                            $course_id = $this->create_course_on_wordpress($course_data, $sync_options);
                             $courses_created[] = $course_id; // push course id in courses created array
                         } elseif (is_numeric($existing_course_id) &&
                                 isset($sync_options['eb_synchronize_previous']) &&
                                 $sync_options['eb_synchronize_previous'] == 1) {
-                            $course_id = $this->updateCourseOnWordpress(
+                            $course_id = $this->update_course_on_wordpress(
                                 $existing_course_id,
                                 $course_data,
                                 $sync_options
@@ -197,7 +197,7 @@ class EBCourseManager
      *
      * @return array stores moodle web service response.
      */
-    public function getMoodleCourses($moodle_user_id = null)
+    public function get_moodle_courses($moodle_user_id = null)
     {
         $response = '';
 
@@ -229,7 +229,7 @@ class EBCourseManager
      *
      * @return array stores moodle web service response.
      */
-    public function getMoodleCourseCategories($webservice_function = null)
+    public function get_moodle_course_categories($webservice_function = null)
     {
         if ($webservice_function == null) {
             $webservice_function = 'core_course_get_categories';
@@ -248,7 +248,7 @@ class EBCourseManager
      *
      * @return bool returns respective course id on wordpress if exist else returns null
      */
-    public function isCoursePresynced($course_id_on_moodle)
+    public function is_course_presynced($course_id_on_moodle)
     {
         global $wpdb;
 
@@ -270,7 +270,7 @@ class EBCourseManager
      *
      * @return int returns respective course id on moodle
      */
-    public function getMoodleCourseId($course_id_on_wp)
+    public function get_moodle_course_id($course_id_on_wp)
     {
         return get_post_meta($course_id_on_wp, 'moodle_course_id', true);
     }
@@ -282,7 +282,7 @@ class EBCourseManager
      *
      * @return int returns respective course id on moodle
      */
-    public function getMoodleWPCourseIdPair($course_id_on_wp)
+    public function get_moodle_wp_course_id_pair($course_id_on_wp)
     {
         return array("$course_id_on_wp" => get_post_meta($course_id_on_wp, 'moodle_course_id', true));
     }
@@ -294,7 +294,7 @@ class EBCourseManager
      *
      * @return int returns id of course
      */
-    public function createCourseOnWordpress($course_data, $sync_options = array())
+    public function create_course_on_wordpress($course_data, $sync_options = array())
     {
         global $wpdb;
 
@@ -357,7 +357,7 @@ class EBCourseManager
      *
      * @return int returns id of course
      */
-    public function updateCourseOnWordpress($wp_course_id, $course_data, $sync_options)
+    public function update_course_on_wordpress($wp_course_id, $course_data, $sync_options)
     {
         global $wpdb;
         $course_args = array(
@@ -411,7 +411,7 @@ class EBCourseManager
      *
      * @param int $course_id
      */
-    public function deleteEnrollmentRecordsOnCourseDeletion($course_id)
+    public function delete_enrollment_rRecords_on_course_deletion($course_id)
     {
         global $wpdb;
 
@@ -427,7 +427,7 @@ class EBCourseManager
      *
      * @param array $category_response accepts categories fetched from moodle
      */
-    public function createCourseCategoriesOnWordpress($category_response)
+    public function create_course_categories_on_wordpress($category_response)
     {
         global $wpdb;
 
@@ -506,7 +506,7 @@ class EBCourseManager
      *
      * @return array $new_columns   updated columns array
      */
-    public function addCoursePriceTypeColumn($columns)
+    public function add_course_price_type_column($columns)
     {
         $new_columns = array(); // new columns array
 
@@ -532,7 +532,7 @@ class EBCourseManager
      *
      * @param array $columns name of a column
      */
-    public function addCoursePriceTypeColumnContent($column_name, $post_ID)
+    public function add_course_price_type_column_content($column_name, $post_ID)
     {
         if ($column_name == 'course_type') {
             $status = EBPostTypes::getPostOptions($post_ID, 'course_price_type', 'eb_course');

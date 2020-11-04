@@ -62,7 +62,7 @@ $course_id = $post_id;
 
 if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
     $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
-    $mdl_course_id = $courseMang->getMoodleCourseId($course_id);
+    $mdl_course_id = $courseMang->get_moodle_course_id($course_id);
     $moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);
 
 /*******   two way synch  *******/
@@ -70,7 +70,7 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
     if ($moodle_user_id && isset($attr["my_courses_progress"]) && $attr["my_courses_progress"]) {
         $showProgress = 1;
         $courseProgressManager = new app\wisdmlabs\edwiserBridge\EbCourseProgress();
-        $progressData = $courseProgressManager->getCourseProgress();
+        $progressData = $courseProgressManager->get_course_progress();
         $courseId = array_keys($progressData);
 
         if (in_array(get_the_ID(), $courseId)) {

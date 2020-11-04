@@ -20,22 +20,22 @@ class EBAdminNoticeHandler
 
 
 
-    public function checkIfMoodlePluginInstalled()
+    public function check_if_moodle_plugin_installed()
     {
         $connection_options = get_option('eb_connection');
-        $ebMoodleUrl = '';
+        $eb_moodle_url = '';
         if (isset($connection_options['eb_url'])) {
-            $ebMoodleUrl = $connection_options['eb_url'];
+            $eb_moodle_url = $connection_options['eb_url'];
         }
-        $ebMoodleToken = '';
+        $eb_moodle_token = '';
         if (isset($connection_options['eb_access_token'])) {
-            $ebMoodleToken = $connection_options['eb_access_token'];
+            $eb_moodle_token = $connection_options['eb_access_token'];
         }
-        $requestUrl = $ebMoodleUrl . '/webservice/rest/server.php?wstoken=';
+        $request_url = $eb_moodle_url . '/webservice/rest/server.php?wstoken=';
 
-        $moodleFunction = "eb_get_course_progress";
-        $requestUrl .= $ebMoodleToken . '&wsfunction=' . $moodleFunction . '&moodlewsrestformat=json';
-        $response = wp_remote_post($requestUrl);
+        $moodle_function = "eb_get_course_progress";
+        $request_url .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
+        $response = wp_remote_post($request_url);
 
         if (is_wp_error($response)) {
             return 0;
@@ -72,7 +72,7 @@ class EBAdminNoticeHandler
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminUpdateMoodlePluginNotice()
+    public function eb_admin_update_moodle_plugin_notice()
     {
         $redirection = '?eb-update-notice-dismissed';
         if (isset($_GET) && !empty($_GET)) {
@@ -83,7 +83,7 @@ class EBAdminNoticeHandler
 
         // $user_id = get_current_user_id();
         if (!get_option('eb_update_notice_dismissed')) {
-            if ($this->checkIfMoodlePluginInstalled()) {
+            if ($this->check_if_moodle_plugin_installed()) {
                 update_option('eb_update_notice_dismissed', 'true', true);
             }
             echo '  <div class="notice  eb_admin_update_notice_message_cont">
@@ -117,11 +117,12 @@ class EBAdminNoticeHandler
 
 
     /**
+     * NOT USED FUNCTION
      * handle notice dismiss
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminDiscountNoticeDismissHandler()
+    public function eb_admin_discount_notice_dismiss_handler()
     {
         $user_id = get_current_user_id();
         if (isset($_GET['eb-discount-notice-dismissed'])) {
@@ -131,11 +132,12 @@ class EBAdminNoticeHandler
 
 
     /**
+     * NOT USED FUNCTION
      * show admin feedback notice
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminDiscountNotice()
+    public function eb_admin_discount_notice()
     {
         $redirection = '?eb-discount-notice-dismissed';
         if (isset($_GET) && !empty($_GET)) {
@@ -176,7 +178,7 @@ class EBAdminNoticeHandler
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminUpdateNoticeDismissHandler()
+    public function eb_admin_update_notice_dismiss_handler()
     {
         if (isset($_GET['eb-update-notice-dismissed'])) {
             update_option('eb_update_notice_dismissed', 'true', true);
@@ -187,11 +189,12 @@ class EBAdminNoticeHandler
 
 
     /**
+     * NOT USED FUNCTION
      * show admin feedback notice
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminFeedbackNotice()
+    public function eb_admin_feedback_notice()
     {
         $redirection = '?eb-feedback-notice-dismissed';
         if (isset($_GET) && !empty($_GET)) {
@@ -200,9 +203,9 @@ class EBAdminNoticeHandler
         }
 
         $user_id = get_current_user_id();
-        $feedbackUsermeta = get_user_meta($user_id, 'eb_feedback_notice_dismissed', true);
+        $feedback_usermeta = get_user_meta($user_id, 'eb_feedback_notice_dismissed', true);
         if ('eb_admin_feedback_notice' != get_transient('edwiser_bridge_admin_feedback_notice')) {
-            if ((!$feedbackUsermeta ||  $feedbackUsermeta != "remind_me_later") && $feedbackUsermeta != "dismiss_permanantly") {
+            if ((!$feedback_usermeta ||  $feedback_usermeta != "remind_me_later") && $feedback_usermeta != "dismiss_permanantly") {
                 echo '  <div class="notice eb_admin_feedback_notice_message_cont">
                             <div class="eb_admin_feedback_notice_message">'
                                 .__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'
@@ -237,7 +240,7 @@ class EBAdminNoticeHandler
      * @since 1.3.1
      * @return [type] [description]
      */
-    public function ebAdminNoticeDismissHandler()
+    public function eb_admin_notice_dismiss_handler()
     {
         $user_id = get_current_user_id();
         if (isset($_GET['eb-feedback-notice-dismissed'])) {
@@ -247,7 +250,7 @@ class EBAdminNoticeHandler
 
 
 
-    public function ebShowInlinePluginUpdateNotification($currPluginMetadata, $newPluginMetadata)
+    public function eb_show_inline_plugin_update_notification($curr_plugin_meta_data, $new_plugin_meta_data)
     {
        // check "upgrade_notice"
         // $newPluginMetadata->upgrade_notice = __("Please update associated Moodle plugin", "eb-textdomain");
@@ -258,8 +261,8 @@ class EBAdminNoticeHandler
         // unset($currPluginMetadata);
 
         //added this just for commit purpose
-        $currPluginMetadata = $currPluginMetadata;
-        $newPluginMetadata = $newPluginMetadata;
+        $curr_plugin_meta_data = $curr_plugin_meta_data;
+        $new_plugin_meta_data = $new_plugin_meta_data;
 
         ob_start();
         ?>

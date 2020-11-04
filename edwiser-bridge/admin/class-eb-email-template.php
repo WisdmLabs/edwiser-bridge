@@ -603,39 +603,39 @@ class EBAdminEmailTemplate
         $tmplKey=$args['tmpl_name'];
         switch ($tmplKey) {
             case "eb_emailtmpl_create_user":
-                $value=$defaultTmpl->newUserAcoount("eb_emailtmpl_create_user", true);
+                $value=$defaultTmpl->new_user_acoount("eb_emailtmpl_create_user", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_user":
-                $value=$defaultTmpl->linkWPMoodleAccount("eb_emailtmpl_linked_existing_wp_user", true);
+                $value=$defaultTmpl->link_wp_moodle_account("eb_emailtmpl_linked_existing_wp_user", true);
                 break;
             case "eb_emailtmpl_order_completed":
-                $value=$defaultTmpl->orderComplete("eb_emailtmpl_order_completed", true);
+                $value=$defaultTmpl->order_complete("eb_emailtmpl_order_completed", true);
                 break;
             case "eb_emailtmpl_course_access_expir":
-                $value=$defaultTmpl->courseAccessExpired("eb_emailtmpl_course_access_expir", true);
+                $value=$defaultTmpl->course_access_expired("eb_emailtmpl_course_access_expir", true);
                 break;
             case "eb_emailtmpl_linked_existing_wp_new_moodle_user":
-                $value=$defaultTmpl->linkNewMoodleAccount("eb_emailtmpl_linked_existing_wp_new_moodle_user", true);
+                $value=$defaultTmpl->link_new_moodle_account("eb_emailtmpl_linked_existing_wp_new_moodle_user", true);
                 break;
 
             case "eb_emailtmpl_refund_completion_notifier_to_user":
-                $value=$defaultTmpl->notifyUserOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_user", true);
+                $value=$defaultTmpl->notify_user_on_order_refund("eb_emailtmpl_refund_completion_notifier_to_user", true);
                 break;
             case "eb_emailtmpl_refund_completion_notifier_to_admin":
-                $value=$defaultTmpl->notifyAdminOnOrderRefund("eb_emailtmpl_refund_completion_notifier_to_admin", true);
+                $value=$defaultTmpl->notify_admin_on_order_refund("eb_emailtmpl_refund_completion_notifier_to_admin", true);
                 break;
 
 
             case "eb_emailtmpl_mdl_enrollment_trigger":
-                $value=$defaultTmpl->moodleEnrollmentTrigger("eb_emailtmpl_mdl_enrollment_trigger", true);
+                $value=$defaultTmpl->moodle_enrollment_trigger("eb_emailtmpl_mdl_enrollment_trigger", true);
                 break;
 
             case "eb_emailtmpl_mdl_un_enrollment_trigger":
-                $value=$defaultTmpl->moodleUnenrollmentTrigger("eb_emailtmpl_mdl_un_enrollment_trigger", true);
+                $value=$defaultTmpl->moodle_unenrollment_trigger("eb_emailtmpl_mdl_un_enrollment_trigger", true);
                 break;
 
             case "eb_emailtmpl_mdl_user_deletion_trigger":
-                $value=$defaultTmpl->userDeletionTrigger("eb_emailtmpl_mdl_user_deletion_trigger", true);
+                $value=$defaultTmpl->user_deletion_trigger("eb_emailtmpl_mdl_user_deletion_trigger", true);
                 break;
 
 
