@@ -11,7 +11,7 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class EBEnrollmentManager
+class Eb_Enrollment_Manager
 {
 
     /**
@@ -33,23 +33,23 @@ class EBEnrollmentManager
     private $version;
 
     /**
-     * @var EBEnrollmentManager The single instance of the class
+     * @var Eb_Enrollment_Manager The single instance of the class
      *
      * @since 1.0.0
      */
     protected static $instance = null;
 
     /**
-     * Main EBEnrollmentManager Instance.
+     * Main Eb_Enrollment_Manager Instance.
      *
-     * Ensures only one instance of EBEnrollmentManager is loaded or can be loaded.
+     * Ensures only one instance of Eb_Enrollment_Manager is loaded or can be loaded.
      *
      * @since 1.0.0
      * @static
      *
-     * @see EBEnrollmentManager()
+     * @see Eb_Enrollment_Manager()
      *
-     * @return EBEnrollmentManager - Main instance
+     * @return Eb_Enrollment_Manager - Main instance
      */
     public static function instance($plugin_name, $version)
     {
@@ -119,7 +119,7 @@ class EBEnrollmentManager
             $msg = 'No, Exiting!!!';
         }
 
-        edwiserBridgeInstance()->logger()->add(
+        edwiser_bridge_instance()->logger()->add(
             'user',
             'Associated moodle a/c found? :'.($msg)
         ); // add user log
@@ -132,7 +132,7 @@ class EBEnrollmentManager
         // get moodle course id of each course
         // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
         $moodle_courses_raw = array_map(
-            array(edwiserBridgeInstance()->course_manager(), 'get_moodle_wp_course_id_pair'),
+            array(edwiser_bridge_instance()->course_manager(), 'get_moodle_wp_course_id_pair'),
             $args['courses']
         );
         $moodle_courses = array();
@@ -142,11 +142,11 @@ class EBEnrollmentManager
 
         // logging
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
+        edwiser_bridge_instance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
+        edwiser_bridge_instance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', "\n");
+        edwiser_bridge_instance()->logger()->add('user', "\n");
 
         $enrolments = array();
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
@@ -176,7 +176,7 @@ class EBEnrollmentManager
         }
         // prepare request data
         $request_data = array('enrolments' => $enrolments);
-        $response = edwiserBridgeInstance()->connection_helper()->connectMoodleWithArgsHelper(
+        $response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
             $webservice_function,
             $request_data
         );
@@ -241,7 +241,7 @@ class EBEnrollmentManager
             $msg = 'No, Exiting!!!';
         }
 
-        edwiserBridgeInstance()->logger()->add(
+        edwiser_bridge_instance()->logger()->add(
             'user',
             'Associated moodle a/c found? :'.($msg)
         ); // add user log
@@ -254,7 +254,7 @@ class EBEnrollmentManager
         // get moodle course id of each course
         // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
         $moodle_courses_raw = array_map(
-            array(edwiserBridgeInstance()->course_manager(), 'get_moodle_wp_course_id_pair'),
+            array(edwiser_bridge_instance()->course_manager(), 'get_moodle_wp_course_id_pair'),
             $args['courses']
         );
         $moodle_courses = array();
@@ -264,11 +264,11 @@ class EBEnrollmentManager
 
         // logging
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
+        edwiser_bridge_instance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
+        edwiser_bridge_instance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
         // add user log
-        edwiserBridgeInstance()->logger()->add('user', "\n");
+        edwiser_bridge_instance()->logger()->add('user', "\n");
 
         $enrolments = array();
         $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
@@ -298,7 +298,7 @@ class EBEnrollmentManager
         }
         // prepare request data
         $request_data = array('enrolments' => $enrolments);
-        $response = edwiserBridgeInstance()->connection_helper()->connectMoodleWithArgsHelper(
+        $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
             $webservice_function,
             $request_data
         );
@@ -411,7 +411,7 @@ class EBEnrollmentManager
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
 
                 //If not enrolled to any of the coursers.
-                if (edwiserBridgeInstance()->course_manager()->get_moodle_course_id($course_id) != '' &&
+                if (edwiser_bridge_instance()->course_manager()->get_moodle_course_id($course_id) != '' &&
                         !$this->user_has_course_access($args['user_id'], $course_id)) {
                     //Set timezone
                     $timeZone = get_option('timezone_string');
@@ -528,7 +528,7 @@ class EBEnrollmentManager
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
 
                 //If not enrolled to any of the coursers.
-                if (edwiserBridgeInstance()->course_manager()->get_moodle_course_id($course_id) != '' &&
+                if (edwiser_bridge_instance()->course_manager()->get_moodle_course_id($course_id) != '' &&
                         !$this->user_has_course_access($args['user_id'], $course_id)) {
                     //Set timezone
                     $timeZone = get_option('timezone_string');
@@ -730,7 +730,7 @@ class EBEnrollmentManager
                 'course_id' => $course_id,
             );
             do_action("eb_course_access_expire_alert", $args);
-            edwiserBridgeInstance()->logger()->add('user', "Unenrolled user: {$user_id} from course {$course_id}");  // add user log
+            edwiser_bridge_instance()->logger()->add('user', "Unenrolled user: {$user_id} from course {$course_id}");  // add user log
         }
     }
 
@@ -777,7 +777,7 @@ class EBEnrollmentManager
                 'course_id' => $course_id,
             );
             do_action("eb_course_access_expire_alert", $args);
-            edwiserBridgeInstance()->logger()->add('user', "Unenrolled user: {$user_id} from course {$course_id}");  // add user log
+            edwiser_bridge_instance()->logger()->add('user', "Unenrolled user: {$user_id} from course {$course_id}");  // add user log
         }
     }
 

@@ -9,7 +9,7 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
-class EbPayPalRefundManager
+class Eb_Paypal_Refund_Manager
 {
 
     private $pluginName = null;
@@ -46,7 +46,7 @@ class EbPayPalRefundManager
                 'httpversion' => '1.1',
                 'headers'     => array("content-type" => "application/json")
             );
-            edwiserBridgeInstance()->logger()->add('refund', "Order: $orderId ,Sending Refund request to PayPal. Request data is : " . serialize($reqArgs));
+            edwiser_bridge_instance()->logger()->add('refund', "Order: $orderId ,Sending Refund request to PayPal. Request data is : " . serialize($reqArgs));
             $response = wp_safe_remote_post($payPalURL, $reqArgs);
             try {
                 if (is_wp_error($response)) {
@@ -57,16 +57,16 @@ class EbPayPalRefundManager
                     $status['msg'] = __('No Response from PayPal', "eb-textdomain");
                 }
                 parse_str($response['body'], $response);
-                edwiserBridgeInstance()->logger()->add('refund', "PayPal refund responce: " . serialize($response));
+                edwiser_bridge_instance()->logger()->add('refund', "PayPal refund responce: " . serialize($response));
             } catch (Exception $ex) {
-                edwiserBridgeInstance()->logger()->add('refund', "Order: $orderId ,Exception: " . serialize($ex));
+                edwiser_bridge_instance()->logger()->add('refund', "Order: $orderId ,Exception: " . serialize($ex));
             }
-            $respStatus = getArrValue($response, "ACK", false);
+            $respStatus = get_arr_value($response, "ACK", false);
             if ($respStatus == "Success") {
-                $status['msg'] = __(sprintf("Refund for amount %s against the order #%s has been initiated successfully. Transaction id: %s", getArrValue($response, "GROSSREFUNDAMT"), $orderId, getArrValue($response, "REFUNDTRANSACTIONID")));
+                $status['msg'] = __(sprintf("Refund for amount %s against the order #%s has been initiated successfully. Transaction id: %s", get_arr_value($response, "GROSSREFUNDAMT"), $orderId, get_arr_value($response, "REFUNDTRANSACTIONID")));
             } else if ($respStatus == "Failure") {
                 $success       = 0;
-                $status['msg'] = "<strong>".__("PayPal Responce: ", "eb-textdomain")."</strong>".getArrValue($response, "L_LONGMESSAGE0", "");
+                $status['msg'] = "<strong>".__("PayPal Responce: ", "eb-textdomain")."</strong>".get_arr_value($response, "L_LONGMESSAGE0", "");
             }
         } else {
             $success       = 0;
@@ -125,9 +125,9 @@ class EbPayPalRefundManager
     {
         $apiDetails = get_option("eb_paypal");
         $payPalData = array(
-            "username" => getArrValue($apiDetails, 'eb_api_username', ""),
-            "password" => getArrValue($apiDetails, 'eb_api_password', ""),
-            "sign"     => getArrValue($apiDetails, 'eb_api_signature', "")
+            "username" => get_arr_value($apiDetails, 'eb_api_username', ""),
+            "password" => get_arr_value($apiDetails, 'eb_api_password', ""),
+            "sign"     => get_arr_value($apiDetails, 'eb_api_signature', "")
         );
         return $payPalData;
     }

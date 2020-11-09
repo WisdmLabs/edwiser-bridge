@@ -15,7 +15,7 @@ namespace app\wisdmlabs\edwiserBridge;
 /**
 *Class responsible to create plugin GDPR compatible
 */
-class EBGDPRCompatible
+class Eb_Gdpr_Compatiblity
 {
     public function __construct()
     {
@@ -158,7 +158,7 @@ class EBGDPRCompatible
         $general_settings    = get_option('eb_general');
         $user = get_user_by("email", $email);
         $msg = array();
-        $enrollment_manager = EBEnrollmentManager::instance(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
+        $enrollment_manager = Eb_Enrollment_Manager::instance(edwiser_bridge_instance()->get_plugin_name(), edwiser_bridge_instance()->get_version());
         $enrolled_courses = $this->get_enrolled_courses($user->ID);
         $unenrolled = 0;
         if ($enrolled_courses && !empty($enrolled_courses)) {

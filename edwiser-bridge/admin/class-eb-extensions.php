@@ -19,9 +19,9 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * EBAdminExtensions Class
+ * Eb_Admin_Extensions Class
  */
-class EBAdminExtensions
+class Eb_Admin_Extensions
 {
 
     /**

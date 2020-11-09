@@ -45,7 +45,7 @@ if (!defined("EB_PLUGIN_NAME")) {
 function activateEdwiserBridge($netWide)
 {
     require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
-    EBActivator::activate($netWide);
+    Eb_Activator::activate($netWide);
 }
 
 register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserBridge');
@@ -57,7 +57,7 @@ register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserB
 function deactivateEdwiserBridge()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-eb-deactivator.php';
-    EBDeactivator::deactivate();
+    Eb_Deactivator::deactivate();
 }
 
 register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivateEdwiserBridge');
@@ -164,7 +164,7 @@ function processUpgrade()
     $currentVersion = get_option('eb_current_version');
     if ($currentVersion == false || $currentVersion != $newVersion) {
         require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
-        EBActivator::activate(false);
+        Eb_Activator::activate(false);
         update_option('eb_current_version', $newVersion);
     }
 }
@@ -180,7 +180,7 @@ function processUpgrade()
  */
 function runEdwiserBridge()
 {
-    edwiserBridgeInstance()->run();
+    edwiser_bridge_instance()->run();
 }
 
 runEdwiserBridge(); // start plugin execution

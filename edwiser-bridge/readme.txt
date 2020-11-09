@@ -353,7 +353,7 @@ Also check our knowledge base for more queries
 * Fix - Changed Credentials spelling.
 * Fix - Undefined index: HTTP_REFFER.
 * Fix - Permalink issue.
-* Fix - Call to undefined class EBPaymentManager.
+* Fix - Call to undefined class Eb_Payment_Manager.
 
 
 =  1.1.2  =

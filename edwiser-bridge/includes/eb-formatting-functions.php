@@ -7,7 +7,7 @@
  *
  * @return string
  */
-function wpSanitizeTooltip($var)
+function wp_sanitize_tooltip($var)
 {
     return wp_kses(
         html_entity_decode($var),
@@ -31,7 +31,7 @@ function wpSanitizeTooltip($var)
  *
  * @return string
  */
-function wpClean($var)
+function wp_clean($var)
 {
     return sanitize_text_field($var);
 }

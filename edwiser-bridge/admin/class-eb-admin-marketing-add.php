@@ -3,7 +3,7 @@
 namespace app\wisdmlabs\edwiserBridge;
 
 /*
- * EDW EbAdminMarketingAdd Class.
+ * EDW Eb_Admin_Marketing_Add Class.
  *
  * @since      1.2.0
  *
@@ -16,12 +16,12 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-if (!class_exists('EbAdminMarketingAdd')) {
+if (!class_exists('Eb_Admin_Marketing_Add')) {
 
     /**
      * EbAdminSettings.
      */
-    class EbAdminMarketingAdd
+    class Eb_Admin_Marketing_Add
     {
 
         public function __construct()
@@ -41,5 +41,5 @@ if (!class_exists('EbAdminMarketingAdd')) {
         }
     }
 }
-new EbAdminMarketingAdd();
+new Eb_Admin_Marketing_Add();
 
