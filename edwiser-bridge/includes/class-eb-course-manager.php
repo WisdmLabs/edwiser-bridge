@@ -108,7 +108,7 @@ class EBCourseManager
         //$category_created   = array(); // array of categories created / synced from moodle
 
         // checking if moodle connection is working properly
-        $connected = edwiserBridgeInstance()->connectionHelper()->connectionTestHelper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
+        $connected = edwiserBridgeInstance()->connection_helper()->connectionTestHelper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
 
         $response_array['connection_response'] = $connected['success']; // add connection response in response array
 
@@ -205,7 +205,7 @@ class EBCourseManager
             $webservice_function = 'core_enrol_get_users_courses'; // get a users enrolled courses from moodle
             $request_data = array('userid' => $moodle_user_id); // prepare request data array
 
-            $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
+            $response = edwiserBridgeInstance()->connection_helper()->connectMoodleWithArgsHelper(
                 $webservice_function,
                 $request_data
             );
@@ -213,7 +213,7 @@ class EBCourseManager
             edwiserBridgeInstance()->logger()->add('course', 'User course response: '.serialize($response)); // add course log
         } elseif (empty($moodle_user_id)) {
             $webservice_function = 'core_course_get_courses'; // get all courses from moodle
-            $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleHelper($webservice_function);
+            $response = edwiserBridgeInstance()->connection_helper()->connectMoodleHelper($webservice_function);
 
             edwiserBridgeInstance()->logger()->add('course', 'Response: '.serialize($response)); // add course log
         }
@@ -235,7 +235,7 @@ class EBCourseManager
             $webservice_function = 'core_course_get_categories';
         }
 
-        $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleHelper($webservice_function);
+        $response = edwiserBridgeInstance()->connection_helper()->connectMoodleHelper($webservice_function);
         edwiserBridgeInstance()->logger()->add('course', serialize($response));
 
         return $response;
@@ -535,7 +535,7 @@ class EBCourseManager
     public function add_course_price_type_column_content($column_name, $post_ID)
     {
         if ($column_name == 'course_type') {
-            $status = EBPostTypes::getPostOptions($post_ID, 'course_price_type', 'eb_course');
+            $status = EBPostTypes::get_post_options($post_ID, 'course_price_type', 'eb_course');
             $options = array(
                         'free' => __('Free', 'eb-textdomain'),
                         'paid' => __('Paid', 'eb-textdomain'),

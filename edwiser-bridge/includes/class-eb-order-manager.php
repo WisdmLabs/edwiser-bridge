@@ -87,6 +87,7 @@ class EBOrderManager
     }
 
     /**
+     * NOT USED FUNCTION
      * get status of an order by order id.
      *
      * @since  1.0.0
@@ -95,11 +96,11 @@ class EBOrderManager
      *
      * @return string $order_status   current status of an order
      */
-    public function getOrderStatus($order_id)
+    public function get_order_status($order_id)
     {
         //get previous status
         $plugin_post_types = new EBPostTypes($this->plugin_name, $this->version);
-        $order_status = $plugin_post_types->getPostOptions($order_id, 'order_status', 'eb_order');
+        $order_status = $plugin_post_types->get_post_options($order_id, 'order_status', 'eb_order');
 
         return $order_status;
     }
@@ -116,7 +117,7 @@ class EBOrderManager
      *
      * @return
      */
-    public function updateOrderStatusOnOrderSave($order_id)
+    public function update_order_status_on_order_save($order_id)
     {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return false;
@@ -128,7 +129,7 @@ class EBOrderManager
         }
 
         if (!empty($post_options) && isset($post_options['order_status'])) {
-            $this->updateOrderStatus($order_id, $post_options['order_status'], $post_options);
+            $this->update_order_status($order_id, $post_options['order_status'], $post_options);
         }
 
 
@@ -145,7 +146,7 @@ class EBOrderManager
      *
      * @return bool
      */
-    public function updateOrderStatusForNewOrder($order_id, $order_options)
+    public function update_order_status_for_new_order($order_id, $order_options)
     {
         $eb_order_options['buyer_id'] = $order_options['eb_order_username'];
         $eb_order_options['order_status'] = $order_options['order_status'];
@@ -167,11 +168,11 @@ class EBOrderManager
      *
      * @return bool
      */
-    public function updateOrderStatus($order_id, $order_status, $post_options = array())
+    public function update_order_status($order_id, $order_status, $post_options = array())
     {
         // get previous status
         $plugin_post_types = new EBPostTypes($this->plugin_name, $this->version);
-        $previous_status = $plugin_post_types->getPostOptions($order_id, 'order_status', 'eb_order');
+        $previous_status = $plugin_post_types->get_post_options($order_id, 'order_status', 'eb_order');
 
         if (!$previous_status || $previous_status != $order_status) {
             edwiserBridgeInstance()->logger()->add('order', 'Updating order status...'); // add order log
@@ -183,7 +184,7 @@ class EBOrderManager
              */
 
             if (isset($order_options['order_status']) && $order_options['order_status'] == "completed" && $order_status != "completed") {
-                $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
+                $enrollment_manager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
                 $ordDetail=get_post_meta($order_id, 'eb_order_options', true);
                 $args = array(
                     'user_id' => $ordDetail['buyer_id'],
@@ -192,7 +193,9 @@ class EBOrderManager
                     'unenroll' => 1,
                     'suspend' => 0,
                 );
-                $enrollmentManager->updateUserCourseEnrollment($args);
+                // $enrollmentManager->updateUserCourseEnrollment($args);
+                $enrollment_manager->update_user_course_enrollment($args);
+
             }
 
             if (isset($order_options) && !empty($order_options)) {
@@ -204,7 +207,7 @@ class EBOrderManager
                 }
                 update_post_meta($order_id, 'eb_order_options', $order_options);
             } else {
-                $this->updateOrderStatusForNewOrder($order_id, $post_options);
+                $this->update_order_status_for_new_order($order_id, $post_options);
             }
             do_action('eb_order_status_' . $order_status, $order_id);
         }
@@ -222,7 +225,7 @@ class EBOrderManager
      *
      * @return int $order_id   returns id of newly created order or error object
      */
-    public function createNewOrder($order_data = array())
+    public function create_new_order($order_data = array())
     {
         edwiserBridgeInstance()->logger()->add('order', 'Creating new order...'); // add order log
 
@@ -264,7 +267,7 @@ class EBOrderManager
 
         if (!is_wp_error($order_id)) {
             //update order meta
-            $price= $this->getCoursePrice($course_id);
+            $price = $this->get_course_price($course_id);
             $price = apply_filters("eb_new_order_course_price", $price, $order_data);
             update_post_meta(
                 $order_id,
@@ -296,13 +299,13 @@ class EBOrderManager
      * @param type $courseId
      * @return string returns the courses associated price.
      */
-    private function getCoursePrice($courseId)
+    private function get_course_price($courseId)
     {
-        $courseMeta = get_post_meta($courseId, "eb_course_options", true);
-        $price="0.00";
-        $courseType= getArrValue($courseMeta, "course_price_type", false);
-        if ($courseType && $courseType=="paid") {
-            $price = getArrValue($courseMeta, "course_price", "0.00");
+        $course_meta = get_post_meta($courseId, "eb_course_options", true);
+        $price       = "0.00";
+        $course_type= getArrValue($course_meta, "course_price_type", false);
+        if ($course_type && $course_type == "paid") {
+            $price = getArrValue($course_meta, "course_price", "0.00");
         }
         return $price;
     }
@@ -317,7 +320,7 @@ class EBOrderManager
      *
      * @return array order details
      */
-    public function createNewOrderAjaxWrapper()
+    public function create_new_order_ajax_wrapper()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -343,7 +346,7 @@ class EBOrderManager
         if (empty($buyer_id) || empty($course_id)) {
             $success = 0;
         } else {
-            $order_id_created = $this->createNewOrder(array('buyer_id' => $buyer_id, 'course_id' => $course_id));
+            $order_id_created = $this->create_new_order(array('buyer_id' => $buyer_id, 'course_id' => $course_id));
 
             if (!is_wp_error($order_id_created)) {
                 $success = 1;
@@ -382,7 +385,7 @@ class EBOrderManager
      *
      * @return bool true / false
      */
-    public function enrollToCourseOnOrderComplete($order_id)
+    public function enroll_to_course_on_order_complete($order_id)
     {
         // get order options
         $order_options = get_post_meta($order_id, 'eb_order_options', true);
@@ -409,7 +412,7 @@ class EBOrderManager
         $buyer = get_userdata($buyer_id);
 
         // link existing moodle account or create a new one
-        edwiserBridgeInstance()->userManager()->linkMoodleUser($buyer);
+        edwiserBridgeInstance()->user_manager()->link_moodle_user($buyer);
 
         //$course_meta = get_post_meta( $course_id, "eb_course_options", true );
         // define args
@@ -418,7 +421,8 @@ class EBOrderManager
             'courses' => array($course_id),
         );
 
-        $course_enrolled = edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args); // enroll user to course
+        // $course_enrolled = edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args); // enroll user to course
+        $course_enrolled = edwiserBridgeInstance()->enrollment_manager()->update_user_course_enrollment($args); // enroll user to course
 
         return $course_enrolled;
     }
@@ -432,7 +436,7 @@ class EBOrderManager
      *
      * @return array $new_columns   updated columns array
      */
-    public function addOrderStatusColumn($columns)
+    public function add_order_status_column($columns)
     {
         $new_columns = array(); // new columns array
 
@@ -459,10 +463,10 @@ class EBOrderManager
      *
      * @param array $columns name of a column
      */
-    public function addOrderStatusColumnContent($column_name, $post_ID)
+    public function add_order_status_column_content($column_name, $post_ID)
     {
         if ($column_name == 'order_status') {
-            $status = EBPostTypes::getPostOptions($post_ID, 'order_status', 'eb_order');
+            $status = EBPostTypes::get_post_options($post_ID, 'order_status', 'eb_order');
             $options = array(
                 'pending' => __('Pending', 'eb-textdomain'),
                 'completed' => __('Completed', 'eb-textdomain'),
@@ -471,7 +475,7 @@ class EBOrderManager
             echo isset($options[$status]) ? $options[$status] : ucfirst($status);
         } elseif ($column_name == 'ordered_by') {
             //get order details
-            $order_buyer_id = EBPostTypes::getPostOptions($post_ID, 'buyer_id', 'eb_order');
+            $order_buyer_id = EBPostTypes::get_post_options($post_ID, 'buyer_id', 'eb_order');
 
             $buyer = get_userdata($order_buyer_id); // buyer details
 

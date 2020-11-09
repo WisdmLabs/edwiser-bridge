@@ -142,7 +142,7 @@ class EbFrontendFormHandler
                 //added afyter
                 $role = defaultRegistrationRole();
 
-                $new_user = $user_manager->createWordpressUser(sanitize_email($email), $firstname, $lastname, $role);
+                $new_user = $user_manager->create_wordpress_user(sanitize_email($email), $firstname, $lastname, $role);
 
                 if (is_wp_error($new_user)) {
                     throw new \Exception($new_user->get_error_message());
@@ -150,7 +150,7 @@ class EbFrontendFormHandler
 
                 //add role code here
 
-                $user_manager->setUserAuthCookie($new_user);
+                $user_manager->set_user_auth_cookie($new_user);
 
                 if (!empty($_GET['redirect_to'])) {
                     $redirect = $_GET['redirect_to'];
@@ -228,7 +228,7 @@ class EbFrontendFormHandler
         $user = get_userdata($user_id);
 
         /* link existing moodle account or create a new one */
-        edwiserBridgeInstance()->userManager()->linkMoodleUser($user);
+        edwiserBridgeInstance()->user_manager()->link_moodle_user($user);
 
         if (!isset($course_meta['course_price_type']) ||
                 $course_meta['course_price_type'] == 'free' ||
@@ -241,11 +241,13 @@ class EbFrontendFormHandler
             );
             /* enroll user to course */
             //$course_enrolled =
-            edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
-            $edwiser=EdwiserBridge::instance();
-            $orderManager=EBOrderManager::instance($edwiser->getPluginName(), $edwiser->getVersion());
+            // edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
+            edwiserBridgeInstance()->enrollment_manager()->update_user_course_enrollment($args);
+            
+            $edwiser       = EdwiserBridge::instance();
+            $order_manager = EBOrderManager::instance($edwiser->getPluginName(), $edwiser->getVersion());
             $orderData = array('buyer_id'=>$user_id,'course_id'=>$course_id,'order_status'=>'completed');
-            $orderManager->createNewOrder($orderData);
+            $order_manager->create_new_order($orderData);
         }
     }
 

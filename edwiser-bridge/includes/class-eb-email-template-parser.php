@@ -25,9 +25,9 @@ if (!class_exists("EBEmailTmplParser")) {
 
         public function __construct()
         {
-            $ebInstance        = EdwiserBridge::instance();
-            $this->plugin_name = $ebInstance->getPluginName();
-            $this->version     = $ebInstance->getVersion();
+            $eb_instance        = EdwiserBridge::instance();
+            $this->plugin_name = $eb_instance->getPluginName();
+            $this->version     = $eb_instance->getVersion();
         }
 
         /**
@@ -40,19 +40,19 @@ if (!class_exists("EBEmailTmplParser")) {
          *
          * @return html returns the email template content
          */
-        public function outPut($args, $tmplContent)
+        public function outPut($args, $tmpl_content)
         {
-            $tmplContent = apply_filters("eb_emailtmpl_content_before", array("args" => $args, "content" => $tmplContent));
-            $args        = $tmplContent['args'];
-            $tmplContent = $tmplContent['content'];
-            $tmplConst   = $this->getTmplConstant($args);
-            foreach ($tmplConst as $const => $val) {
-                $tmplContent = str_replace($const, $val, $tmplContent);
+            $tmpl_content = apply_filters("eb_emailtmpl_content_before", array("args" => $args, "content" => $tmpl_content));
+            $args        = $tmpl_content['args'];
+            $tmpl_content = $tmpl_content['content'];
+            $tmpl_const   = $this->get_tmpl_constant($args);
+            foreach ($tmpl_const as $const => $val) {
+                $tmpl_content = str_replace($const, $val, $tmpl_content);
             }
-            $tmplContent = apply_filters("eb_emailtmpl_content", array("args" => $args, "content" => $tmplContent));
-            $args        = $tmplContent['args'];
-            $tmplContent = $tmplContent['content'];
-            return $tmplContent;
+            $tmpl_content = apply_filters("eb_emailtmpl_content", array("args" => $args, "content" => $tmpl_content));
+            $args        = $tmpl_content['args'];
+            $tmpl_content = $tmpl_content['content'];
+            return $tmpl_content;
         }
 
         /**
@@ -62,7 +62,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * @return array returns the array of the email temaplte constants with
          * associated values for the constants
          */
-        private function getTmplConstant($args)
+        private function get_tmpl_constant($args)
         {
             $constant = array();
             if (isset($args['username']) && $args['first_name'] && $args['last_name']) {
@@ -70,34 +70,34 @@ if (!class_exists("EBEmailTmplParser")) {
                 $constant["{FIRST_NAME}"] = $args['first_name'];
                 $constant["{LAST_NAME}"]  = $args['last_name'];
             } elseif (is_user_logged_in()) {
-                $curUser                  = wp_get_current_user();
-                $constant["{USER_NAME}"]  = $curUser->user_login;
-                $constant["{FIRST_NAME}"] = $curUser->first_name;
-                $constant["{LAST_NAME}"]  = $curUser->last_name;
+                $cur_user                  = wp_get_current_user();
+                $constant["{USER_NAME}"]  = $cur_user->user_login;
+                $constant["{FIRST_NAME}"] = $cur_user->first_name;
+                $constant["{LAST_NAME}"]  = $cur_user->last_name;
             }
             $constant["{SITE_NAME}"]              = get_bloginfo("name");
             $constant["{SITE_URL}"]               = "<a href='" . get_bloginfo("url") . "'>" . get_bloginfo("name") . "</a>";
             $constant["{COURSES_PAGE_LINK}"]      = "<a href='" . site_url('/courses') . "'>" . __('Courses', 'eb-textdomain') . "</a>";
-            $constant["{MY_COURSES_PAGE_LINK}"]   = $this->getMyCoursesPageLink();
+            $constant["{MY_COURSES_PAGE_LINK}"]   = $this->get_my_courses_page_link();
             $constant["{USER_ACCOUNT_PAGE_LINK}"] = "<a href='" . wdmUserAccountUrl() . "'>" . __('User Account', 'eb-textdomain') . "</a>";
-            $constant["{WP_LOGIN_PAGE_LINK}"]     = "<a href='" . $this->getLoginPageUrl() . "'>" . __('Login Page', 'eb-textdomain') . "</a>";
-            $constant["{MOODLE_URL}"]             = "<a href='" . $this->getMoodleURL() . "'>" . __('Moodle Site', 'eb-textdomain') . "</a>";
-            $constant["{COURSE_NAME}"]            = $this->getCourseName($args);
-            $constant["{USER_PASSWORD}"]          = $this->getUserPassword($args);
-            $constant["{ORDER_ID}"]               = $this->getOrderID($args);
-            $constant["{WP_COURSE_PAGE_LINK}"]    = $this->getCoursePageLink($args);
+            $constant["{WP_LOGIN_PAGE_LINK}"]     = "<a href='" . $this->get_login_page_url() . "'>" . __('Login Page', 'eb-textdomain') . "</a>";
+            $constant["{MOODLE_URL}"]             = "<a href='" . $this->get_moodle_url() . "'>" . __('Moodle Site', 'eb-textdomain') . "</a>";
+            $constant["{COURSE_NAME}"]            = $this->get_course_name($args);
+            $constant["{USER_PASSWORD}"]          = $this->get_user_password($args);
+            $constant["{ORDER_ID}"]               = $this->get_order_id($args);
+            $constant["{WP_COURSE_PAGE_LINK}"]    = $this->get_course_page_link($args);
 
             /**
              * Refund Template parser.
              * @since 1.3.0
              */
-            $constant["{ORDER_ID}"]                = $this->getOrderID($args);
-            $constant["{CUSTOMER_DETAILS}"]        = $this->getCustomerDetais($args);
-            $constant["{TOTAL_AMOUNT_PAID}"]       = $this->getAmountPaidForOrder($args);
-            $constant["{CURRENT_REFUNDED_AMOUNT}"] = $this->getRefundAmount($args);
-            $constant["{TOTAL_REFUNDED_AMOUNT}"]   = $this->getTotalRefundedAmt($args);
-            $constant["{ORDER_REFUND_STATUS}"]     = $this->getRefundStatus($args);
-            $constant["{ORDER_ITEM}"]              = $this->getOrderAssItems($args);
+            $constant["{ORDER_ID}"]                = $this->get_order_id($args);
+            $constant["{CUSTOMER_DETAILS}"]        = $this->get_customer_details($args);
+            $constant["{TOTAL_AMOUNT_PAID}"]       = $this->get_amount_paid_for_order($args);
+            $constant["{CURRENT_REFUNDED_AMOUNT}"] = $this->get_refund_amount($args);
+            $constant["{TOTAL_REFUNDED_AMOUNT}"]   = $this->get_total_refunded_amt($args);
+            $constant["{ORDER_REFUND_STATUS}"]     = $this->get_refund_status($args);
+            $constant["{ORDER_ITEM}"]              = $this->get_order_ass_items($args);
             return apply_filters("eb_emailtmpl_constants_values", $constant);
         }
 
@@ -132,24 +132,24 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param array $args  array of default email page arguments
          * @return string returns the course name
          */
-        private function getRefundAmount($args)
+        private function get_refund_amount($args)
         {
-            $refundAmt="CURRENT_REFUND_AMOUNT";
+            $refund_amt="CURRENT_REFUND_AMOUNT";
             if (isset($args["refund_amount"])) {
-                $refundAmt= getArrValue($args, 'refund_amount', "0.00");
+                $refund_amt= getArrValue($args, 'refund_amount', "0.00");
             }
-            return $refundAmt;
+            return $refund_amt;
         }
 
         /**
          * Prvides the functionality to ge tthe mycourses page link
          * @return link returns the mycourses page (set in the EB settings) link
          */
-        private function getMyCoursesPageLink()
+        private function get_my_courses_page_link()
         {
-            $genralSettings  = get_option("eb_general");
-            $myCoursesPageId = $genralSettings["eb_my_courses_page_id"];
-            $url             = get_permalink($myCoursesPageId);
+            $general_settings  = get_option("eb_general");
+            $my_courses_page_id = $general_settings["eb_my_courses_page_id"];
+            $url             = get_permalink($my_courses_page_id);
             return "<a href='$url'>" . __('My Courses', 'eb-textdomain') . "</a>";
         }
 
@@ -157,11 +157,11 @@ if (!class_exists("EBEmailTmplParser")) {
          * Provides the login page link
          * @return link rerutns the link for the login page(set in the EB settings) url
          */
-        private function getLoginPageUrl()
+        private function get_login_page_url()
         {
-            $genralSettings = get_option("eb_general");
-            $accountPageId  = $genralSettings["eb_useraccount_page_id"];
-            return get_permalink($accountPageId);
+            $general_settings = get_option("eb_general");
+            $account_page_id  = $general_settings["eb_useraccount_page_id"];
+            return get_permalink($account_page_id);
         }
 
         /**
@@ -169,7 +169,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param array $args accepts the email tempalte argumaent to prepare the email template
          * @return link returns the link for the emal single course page link
          */
-        private function getCoursePageLink($args)
+        private function get_course_page_link($args)
         {
             if (isset($args['course_id'])) {
                 return "<a href='" . get_post_permalink($args['course_id']) . "'>" . __('click here', 'eb-textdomain') . "</a>";
@@ -183,7 +183,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * Provides the functionality to get the moodle site link
          * @return linl returns the link to the moodle site.
          */
-        private function getMoodleURL()
+        private function get_moodle_url()
         {
             $url = get_option("eb_connection");
             if ($url) {
@@ -197,7 +197,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param array $args  array of default email page arguments
          * @return string returns the course name
          */
-        private function getCourseName($args)
+        private function get_course_name($args)
         {
             if (isset($args["course_id"])) {
                 return get_the_title($args['course_id']);
@@ -210,7 +210,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param array $args  array of default email page arguments
          * @return string returns the account password
          */
-        private function getUserPassword($args)
+        private function get_user_password($args)
         {
             if (isset($args["password"])) {
                 return $args["password"];
@@ -223,7 +223,7 @@ if (!class_exists("EBEmailTmplParser")) {
          * array $args  array of default email page arguments
          * @return string returns the order id
          */
-        private function getOrderID($args)
+        private function get_order_id($args)
         {
             return "#" . getArrValue($args, "eb_order_id", "ORDER ID"); // chnaged 1.4.7
         }
@@ -233,32 +233,32 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param type $args array of the argument.
          * @return returns the order id if $args contains the order_id otherwise constant  CUSTOMER_DETAILS
          */
-        private function getCustomerDetais($args)
+        private function get_customer_details($args)
         {
-            $customerDetails = "CUSTOMER_DETAILS";
-            $orderId         = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7 
-            if ($orderId) {
-                $order_data      = get_post_meta($orderId, 'eb_order_options', true);
-                $byerDetails     = isset($order_data['buyer_id']) ? get_userdata($order_data['buyer_id']) : '';
+            $customer_details = "CUSTOMER_DETAILS";
+            $order_id         = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7 
+            if ($order_id) {
+                $order_data      = get_post_meta($order_id, 'eb_order_options', true);
+                $buyer_details     = isset($order_data['buyer_id']) ? get_userdata($order_data['buyer_id']) : '';
 
-                if (!empty($byerDetails)) {
+                if (!empty($buyer_details)) {
                     ob_start();
                     ?>
                     <div class='eb-order-meta-byer-details'>
                         <p>
                             <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
-                            <?php echo $byerDetails->user_login ?>
+                            <?php echo $buyer_details->user_login ?>
                         </p>
                         <p>
                             <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
-                            <?php echo $byerDetails->user_email ?>
+                            <?php echo $buyer_details->user_email ?>
                         </p>
                     </div>
                     <?php
-                    $customerDetails = ob_get_clean();
+                    $customer_details = ob_get_clean();
                 }
             }
-            return $customerDetails;
+            return $customer_details;
         }
 
         /**
@@ -266,29 +266,29 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param type $args
          * @return returns the list of the orders associated items if the order_id exists otherwise prints the constant ORDER_ITEM
          */
-        private function getOrderAssItems($args)
+        private function get_order_ass_items($args)
         {
-            $orderItems = "ORDER_ITEM";
-            $orderId    = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7
-            if ($orderId) {
-                $order_data = get_post_meta($orderId, 'eb_order_options', true);
-                $courseIds  = getArrValue($order_data, "course_id", array());
-                if (!is_array($courseIds)) {
-                    $courseIds = (array) $courseIds;
+            $order_items = "ORDER_ITEM";
+            $order_id    = getArrValue($args, "eb_order_id", false); // chnaged 1.4.7
+            if ($order_id) {
+                $order_data = get_post_meta($order_id, 'eb_order_options', true);
+                $course_ids  = getArrValue($order_data, "course_id", array());
+                if (!is_array($course_ids)) {
+                    $course_ids = (array) $course_ids;
                 }
                 ob_start();
                 ?>
                 <ul class="eb-user-order-courses">
                     <?php
-                    foreach ($courseIds as $courseId) {
-                        ?><li><?php echo get_the_title($courseId); ?></li><?php
+                    foreach ($course_ids as $course_id) {
+                        ?><li><?php echo get_the_title($course_id); ?></li><?php
                     }
                     ?>
                 </ul>
                 <?php
-                $orderItems = ob_get_clean();
+                $order_items = ob_get_clean();
             }
-            return $orderItems;
+            return $order_items;
         }
 
         /**
@@ -296,15 +296,15 @@ if (!class_exists("EBEmailTmplParser")) {
          * @param type $args
          * @return returns the amount paid for the order_id exists otherwise prints the constant TOTAL_AMOUNT_PAID
          */
-        private function getAmountPaidForOrder($args)
+        private function get_amount_paid_for_order($args)
         {
-            $amtPaidForOrder = "TOTAL_AMOUNT_PAID";
-            $orderId         = getArrValue($args, "eb_order_id", false);
-            if ($orderId) {
-                $order_data      = get_post_meta($orderId, 'eb_order_options', true);
-                $amtPaidForOrder = getCurrentPayPalcurrencySymb() . getArrValue($order_data, "amount_paid", "0.00");
+            $amt_paid_for_order = "TOTAL_AMOUNT_PAID";
+            $order_id         = getArrValue($args, "eb_order_id", false);
+            if ($order_id) {
+                $order_data      = get_post_meta($order_id, 'eb_order_options', true);
+                $amt_paid_for_order = getCurrentPayPalcurrencySymb() . getArrValue($order_data, "amount_paid", "0.00");
             }
-            return $amtPaidForOrder;
+            return $amt_paid_for_order;
         }
 
         /**
@@ -317,22 +317,22 @@ if (!class_exists("EBEmailTmplParser")) {
         //     return getArrValue($args, "refunded_cur", "") . getArrValue($args, "refund_amount", "0.00");
         // }
 
-        private function getTotalRefundedAmt($args)
+        private function get_total_refunded_amt($args)
         {
-            $amtPaidForOrder = "TOTAL_REFUNDED_AMOUNT";
-            $orderId         = getArrValue($args, "eb_order_id", false);
-            if ($orderId) {
+            $amt_paid_for_order = "TOTAL_REFUNDED_AMOUNT";
+            $order_id         = getArrValue($args, "eb_order_id", false);
+            if ($order_id) {
 //                $ordMeta = new EBOrderMeta($this->plugin_name, $this->version);
-                $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);
+                $refunds = get_post_meta($order_id, "eb_order_refund_hist", true);
                 if (!is_array($refunds)) {
                     $refunds = array();
                 }
-                $amtPaidForOrder = getTotalRefundAmt($refunds);
+                $amt_paid_for_order = getTotalRefundAmt($refunds);
             }
-            return $amtPaidForOrder;
+            return $amt_paid_for_order;
         }
 
-        private function getRefundStatus($args)
+        private function get_refund_status($args)
         {
             return getArrValue($args, "refunded_status", "ORDER_REFUND_STATUS");
         }

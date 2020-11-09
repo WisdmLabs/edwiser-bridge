@@ -90,7 +90,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
         {
             $listTable = new EBCustomListTable();
             $currentAction = $listTable->current_action();
-            $this->handleBulkAction($currentAction);
+            $this->handle_bulk_action($currentAction);
             $listTable->prepare_items();
             ?>
             <div class="eb-manage-user-enrol-wrap">
@@ -131,11 +131,11 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
          * table row from the manage user enrolment page
          * @param type $action bulk action
          */
-        private function handleBulkAction($action)
+        private function handle_bulk_action($action)
         {
             switch ($action) {
                 case "unenroll":
-                    $this->multipalUnenrollByRecId($_POST);
+                    $this->multiple_unenroll_by_rec_id($_POST);
                     break;
                 default:
                     break;
@@ -147,19 +147,19 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
          * @param type $data bulk action data to unenroll users
          * @return type
          */
-        private function multipalUnenrollByRecId($data)
+        private function multiple_unenroll_by_rec_id($data)
         {
+            global $wpdb;
             if (!isset($data['enrollment'])) {
                 return;
             }
             $users = $data['enrollment'];
-            global $wpdb;
-            $enrollTbl = $wpdb->prefix . 'moodle_enrollment';
-            $stmt = "select user_id,course_id from $enrollTbl where id in('" . implode("','", $users) . "')";
+            $enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
+            $stmt = "select user_id,course_id from $enroll_tbl where id in('" . implode("','", $users) . "')";
             $results = $wpdb->get_results($stmt, ARRAY_A);
             $cnt = 0;
             foreach ($results as $rec) {
-                if ($this->unenrollUser($rec['course_id'], $rec['user_id'])) {
+                if ($this->unenroll_user($rec['course_id'], $rec['user_id'])) {
                     $cnt++;
                 }
             }
@@ -197,23 +197,23 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
         /**
          * Ajax callback to unenroo the users from the database
          */
-        public function unenrollUserAjaxHandler()
+        public function unenroll_user_ajax_handler()
         {
-            $responce = "Failed unenroll user";
+            $response = "Failed unenroll user";
             if (isset($_POST['user_id']) && isset($_POST['course_id']) && isset($_POST['action']) && $_POST['action'] == 'wdm_eb_user_manage_unenroll_unenroll_user') {
-                $courseId = $_POST['course_id'];
-                $userId = $_POST['user_id'];
-                $res = $this->unenrollUser($courseId, $userId);
+                $course_id = $_POST['course_id'];
+                $user_id = $_POST['user_id'];
+                $res = $this->unenroll_user($course_id, $user_id);
                 if ($res) {
-                    $courseName = get_the_title($courseId);
-                    $user = get_userdata($userId);
-                    $responce = ucfirst($user->user_login) . " has been unenrolled from the $courseName course";
-                    wp_send_json_success($responce);
+                    $course_name = get_the_title($course_id);
+                    $user = get_userdata($user_id);
+                    $response = ucfirst($user->user_login) . " has been unenrolled from the $course_name course";
+                    wp_send_json_success($response);
                 } else {
-                    wp_send_json_error($responce);
+                    wp_send_json_error($response);
                 }
             } else {
-                wp_send_json_error($responce);
+                wp_send_json_error($response);
             }
         }
 
@@ -224,7 +224,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
          * @return bolean returns ture if the user is unenrolled from the course
          * othrewise returns false.
          */
-        private function unenrollUser($courseId, $userId)
+        private function unenroll_user($courseId, $userId)
         {
             /**
              * This is commented due to the error Avoid using static access to class
@@ -232,7 +232,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
              */
             // $enrollmentManager = EBEnrollmentManager::instance($this->plugin_name, $this->version);
 
-            $enrollmentManager = new EBEnrollmentManager($this->plugin_name, $this->version);
+            $enrollment_manager = new EBEnrollmentManager($this->plugin_name, $this->version);
 
             $args = array(
                 'user_id'           => $userId,
@@ -242,7 +242,8 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                 'suspend'           => 0,
                 'complete_unenroll' => 1
             );
-            return $enrollmentManager->updateUserCourseEnrollment($args);
+            // return $enrollmentManager->updateUserCourseEnrollment($args);
+            return $enrollment_manager->update_user_course_enrollment($args);
         }
 
         /**
@@ -264,7 +265,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
                 $moodleCourseData = array();
                 foreach ($enrolledCourses["response_data"] as $value) {
                     $moodleCourseId = $value->id;
-                    $wordpressCourseId = $this->getWPPostID($moodleCourseId);
+                    $wordpressCourseId = $this->get_wp_post_id($moodleCourseId);
                     if ($wordpressCourseId) {
                         $moodleCourseData[$wordpressCourseId] = $moodleCourseId;
                     }
@@ -316,7 +317,10 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\EBManageUserEnrollment')) {
         }*/
 
 
-        public function getWPPostID($moodleCourseId)
+        /*
+         * NOT USED FUNCTION
+         */
+        public function get_wp_post_id($moodleCourseId)
         {
             global $wpdb;
             $result = $wpdb->get_var("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$moodleCourseId} AND meta_key = 'moodle_course_id'");

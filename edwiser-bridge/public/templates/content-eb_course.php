@@ -41,8 +41,8 @@ if (is_numeric($course_price)) {
 $course_class = null;
 $user_id = get_current_user_id();
 $logged_in = !empty($user_id);
-$enrollManag = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollmentManager();
-$has_access = $enrollManag->userHasCourseAccess($user_id, $post->ID);
+$enrollManag = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->enrollment_manager();
+$has_access = $enrollManag->user_has_course_access($user_id, $post->ID);
 
 /*
  * To add class according to user access
@@ -61,7 +61,7 @@ $course_id = $post_id;
 
 
 if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
-    $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->courseManager();
+    $courseMang = app\wisdmlabs\edwiserBridge\edwiserBridgeInstance()->course_manager();
     $mdl_course_id = $courseMang->get_moodle_course_id($course_id);
     $moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);
 

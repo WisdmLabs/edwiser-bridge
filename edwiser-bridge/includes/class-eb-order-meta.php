@@ -36,11 +36,11 @@ class EBOrderMeta
         $this->version     = $version;
     }
 
-    public function addEbOrderMetaBoxes()
+    public function add_eb_order_meta_boxes()
     {
-        $statusHit = new EBOrderHistory($this->plugin_name, $this->version);
-        add_meta_box("eb_order_status_update_history_meta", __("Order status history", "eb-textdomain"), array($statusHit, "addOrderStatusHistoryMeta"), "eb_order", 'side', 'default');
-        add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array($this, "addOrderRefundMeta"), "eb_order", 'advanced', 'default');
+        $status_hit = new EBOrderHistory($this->plugin_name, $this->version);
+        add_meta_box("eb_order_status_update_history_meta", __("Order status history", "eb-textdomain"), array($status_hit, "add_order_status_history_meta"), "eb_order", 'side', 'default');
+        add_meta_box("eb_order_refund_meta", __("Refund order", "eb-textdomain"), array($this, "add_order_refund_meta"), "eb_order", 'advanced', 'default');
     }
 
 
@@ -65,7 +65,7 @@ class EBOrderMeta
         }
     }*/
 
-    public function addOrderRefundMeta()
+    public function add_order_refund_meta()
     {
         global $post;
         $refundable  = get_post_meta($post->ID, 'eb_transaction_id', true);
@@ -74,13 +74,13 @@ class EBOrderMeta
             return;
         }
         $currency     = getCurrentPayPalcurrencySymb();
-        $price        = $this->getCoursePrice($post->ID);
-        $refunds      = $this->getOrdersAllRefund($post->ID);
-        $refundedAmt  = getTotalRefundAmt($refunds);
-        $avlRefundAmt = $price - $refundedAmt;
+        $price        = $this->get_course_price($post->ID);
+        $refunds      = $this->get_orders_all_refund($post->ID);
+        $refunded_amt  = getTotalRefundAmt($refunds);
+        $avl_refund_amt = $price - $refunded_amt;
         ?>
         <div class="eb-order-refund-data">
-            <?php $this->dispRefunds($refunds); ?>
+            <?php $this->disp_refunds($refunds); ?>
             <table class="eb-order-refund-unenroll">
                 <tbody>
                     <?php do_action("eb_before_order_refund_meta"); ?>
@@ -105,7 +105,7 @@ class EBOrderMeta
                             <?php _e("Amount already refunded: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <label class="eb-ord-refunded-amt">- <?php echo $currency . $refundedAmt; ?></label>
+                            <label class="eb-ord-refunded-amt">- <?php echo $currency . $refunded_amt; ?></label>
                         </td>
                     </tr>
                     <tr>
@@ -113,7 +113,7 @@ class EBOrderMeta
                             <?php _e("Total available to refund: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <label class="eb-ord-avlb-refund-amt"><?php echo $currency . $avlRefundAmt; ?></label>
+                            <label class="eb-ord-avlb-refund-amt"><?php echo $currency . $avl_refund_amt; ?></label>
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +121,7 @@ class EBOrderMeta
                             <?php _e("Refund amount: ", "eb-textdomain"); ?>
                         </td>
                         <td>
-                            <input type="text" id="eb_ord_refund_amt" min="0" max="<?php echo $avlRefundAmt ?>" name="eb_ord_refund_amt" placeholder="0.00"/>
+                            <input type="text" id="eb_ord_refund_amt" min="0" max="<?php echo $avl_refund_amt ?>" name="eb_ord_refund_amt" placeholder="0.00"/>
                         </td>
                     </tr>
                     <tr>
@@ -150,35 +150,35 @@ class EBOrderMeta
         <?php
     }
 
-    private function getCoursePrice($orderId)
+    private function get_course_price($order_id)
     {
-        $orderData = get_post_meta($orderId, 'eb_order_options', true);
-        $price     = getArrValue($orderData, "price", "0.00");
+        $order_data = get_post_meta($order_id, 'eb_order_options', true);
+        $price     = getArrValue($order_data, "price", "0.00");
         return (float) $price;
     }
 
-    public function getOrdersAllRefund($orderId)
+    public function get_orders_all_refund($order_id)
     {
-        $refunds = get_post_meta($orderId, "eb_order_refund_hist", true);
+        $refunds = get_post_meta($order_id, "eb_order_refund_hist", true);
         if (!is_array($refunds)) {
             $refunds = array();
         }
         return $refunds;
     }
 
-    private function dispRefunds($refunds)
+    private function disp_refunds($refunds)
     {
         ?>
         <ul class="eb-order-refund-hist-cont">
             <?php
             foreach ($refunds as $refund) {
-                $refndBy  = getArrValue($refund, "by");
-                $time     = getArrValue($refund, "time");
-                $amt      = getArrValue($refund, "amt");
-                $currency = getArrValue($refund, "currency");
+                $refund_by  = getArrValue($refund, "by");
+                $time       = getArrValue($refund, "time");
+                $amt        = getArrValue($refund, "amt");
+                $currency   = getArrValue($refund, "currency");
                 ?>
                 <li>
-                    <div class="eb-order-refund-hist-stmt"><?php printf(__("Refunded by %s on %s", "eb-textdomain"), $refndBy, date("F j, Y, g:i a", $time)); ?></div>
+                    <div class="eb-order-refund-hist-stmt"><?php printf(__("Refunded by %s on %s", "eb-textdomain"), $refund_by, date("F j, Y, g:i a", $time)); ?></div>
                     <div class="eb-order-refund-hist-amt"><?php echo "$currency$amt"; ?></div>
                 </li>
                 <?php
@@ -207,7 +207,7 @@ class EBOrderMeta
      *
      * @return string order details
      */
-    public function getOrderDetails($order_id)
+    public function get_order_details($order_id)
     {
         //      get order billing id & email
         $order_data = get_post_meta($order_id, 'eb_order_options', true);
@@ -217,19 +217,19 @@ class EBOrderMeta
         }
 
         if (isset($order_data['buyer_id']) && !empty($order_data['buyer_id'])) {
-            $buyerIdJsonDecoded = json_decode($order_data['buyer_id']);
+            $buyer_id_js_on_decoded = json_decode($order_data['buyer_id']);
 
-            $buyerId = $order_data['buyer_id'];
-            if (isset($buyerIdJsonDecoded->buyer_id) && !empty($buyerIdJsonDecoded->buyer_id)) {
-                $buyerId = $buyerIdJsonDecoded->buyer_id;
+            $buyer_id = $order_data['buyer_id'];
+            if (isset($buyer_id_js_on_decoded->buyer_id) && !empty($buyer_id_js_on_decoded->buyer_id)) {
+                $buyer_id = $buyer_id_js_on_decoded->buyer_id;
             }
-            $byerDetails = get_userdata($buyerId);
-            $this->printByerDetails($byerDetails->data);
+            $buyer_details = get_userdata($buyer_id);
+            $this->print_buyer_details($buyer_details->data);
         } else {
-            $this->printByerDetails();
+            $this->print_buyer_details();
         }
 
-        $this->printProductDetails($order_id, $order_data);
+        $this->print_product_details($order_id, $order_data);
 
         // get ordered item id
         // $course_id = $order_data['course_id'];
@@ -239,12 +239,12 @@ class EBOrderMeta
         }*/
     }
 
-    public function printByerDetails($byerDetails = '')
+    public function print_buyer_details($buyer_details = '')
     {
 
-        $userID = 0;
-        if (isset($byerDetails->ID) && !empty($byerDetails->ID)) {
-            $userID = $byerDetails->ID;
+        $user_id = 0;
+        if (isset($buyer_details->ID) && !empty($buyer_details->ID)) {
+            $user_id = $buyer_details->ID;
         }
 
         ?>
@@ -253,17 +253,17 @@ class EBOrderMeta
                 <strong><?php _e('Buyer Details: ', 'eb-textdomain'); ?></strong>
             </p>
             <?php
-            if (isset($byerDetails->user_email) && !empty($byerDetails->user_email)) {
+            if (isset($buyer_details->user_email) && !empty($buyer_details->user_email)) {
                 ?>
                 <p>
                     <label><?php _e('Name: ', 'eb-textdomain'); ?></label>
-                    <?php echo $byerDetails->user_login ?>
+                    <?php echo $buyer_details->user_login ?>
                 </p>
 
                 <p>
 
                     <label><?php _e('Email: ', 'eb-textdomain'); ?></label>
-                    <?php echo $byerDetails->user_email ?>
+                    <?php echo $buyer_details->user_email ?>
                 </p>
                 <?php
             } else {
@@ -274,7 +274,7 @@ class EBOrderMeta
                     <div>
                         <select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
                         <?=
-                            $this->getAllUsers($userID);
+                            $this->get_all_users($user_id);
                         ?>
                         </select>
                     </div>
@@ -286,11 +286,11 @@ class EBOrderMeta
         <?php
     }
 
-    private function printProductDetails($order_id, $order_data)
+    private function print_product_details($order_id, $order_data)
     {
-        $courseId = 0;
+        $course_id = 0;
         if (isset($order_data['course_id']) && !empty($order_data['course_id'])) {
-            $courseId = $order_data['course_id'];
+            $course_id = $order_data['course_id'];
         }
 
         ?>
@@ -304,13 +304,13 @@ class EBOrderMeta
             </p>
 
             <?php
-            if ($courseId) {
+            if ($course_id) {
                 ?>
 
                 <p>
                     <label><?php _e('Course Name: ', 'eb-textdomain') ?></label>
                     <a href='<?php echo get_permalink($order_data['course_id']) ?>'>
-                        <?php echo get_the_title($courseId); ?>
+                        <?php echo get_the_title($course_id); ?>
                     </a>
                 </p>
 
@@ -323,7 +323,7 @@ class EBOrderMeta
                     <div>
                         <select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
                         <?=
-                            $this->getAllCourses($courseId);
+                            $this->get_all_courses($course_id);
                         ?>
                         </select>
 
@@ -347,15 +347,15 @@ class EBOrderMeta
      * function to get all users array
      * @return returns array of users
      */
-    public function getAllUsers($userId = '')
+    public function get_all_users($user_id = '')
     {
         $users = get_users();
         // $usersArray = array("" => "Select User");
         $html = "<option value='' disabled selected> Select User</option>";
         foreach ($users as $user) {
-            if ($userId) {
+            if ($user_id) {
                 $selected = '';
-                if ($userId == $user->ID) {
+                if ($user_id == $user->ID) {
                     $selected = "selected";
                 }
                 $html .= '<option value="'.$user->ID.'" '.$selected.'> '.$user->user_login.'</option>';
@@ -373,7 +373,7 @@ class EBOrderMeta
      * function to get list of all courses
      * @return array of all courses with ID
      */
-    public function getAllCourses($courseId = '')
+    public function get_all_courses($course_id = '')
     {
         $course_args = array(
             'post_type' => 'eb_course',
@@ -385,9 +385,9 @@ class EBOrderMeta
         $html = "<option value='' disabled selected> Select Course </option>";
 
         foreach ($courses as $course) {
-            if ($courseId) {
+            if ($course_id) {
                 $selected = '';
-                if ($courseId == $course->ID) {
+                if ($course_id == $course->ID) {
                     $selected = "selected";
                 }
                 $html .= '<option value="'.$course->ID.'" '.$selected.'> '.$course->post_title.'</option>';

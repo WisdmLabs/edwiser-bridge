@@ -63,7 +63,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         // start working on request
-        $response = edwiserBridgeInstance()->courseManager()->course_synchronization_handler($sync_options);
+        $response = edwiserBridgeInstance()->course_manager()->course_synchronization_handler($sync_options);
         echo json_encode($response);
         die();
     }
@@ -92,7 +92,9 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
+        // $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
+        $response = edwiserBridgeInstance()->user_manager()->user_course_synchronization_handler($sync_options, false, $offset);
+        
 
         echo json_encode($response);
         die();
@@ -121,7 +123,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiserBridgeInstance()->userManager()->userLinkToMoodlenHandler($sync_options, $offset);
+        $response = edwiserBridgeInstance()->user_manager()->user_link_to_moodle_handler($sync_options, $offset);
 
         echo json_encode($response);
         die();

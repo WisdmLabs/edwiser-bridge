@@ -109,13 +109,13 @@ class EdwiserBridge
     {
         $this->plugin_name = 'edwiserbridge';
         $this->version = '1.4.7';
-        $this->defineConstants();
-        $this->loadDependencies();
-        $this->setLocale();
-        $this->definePluginHooks();
+        $this->define_constants();
+        $this->load_dependencies();
+        $this->set_locale();
+        $this->define_plugin_hooks();
     }
 
-    private function checkConstantDefined($key, $value)
+    private function check_constant_defined($key, $value)
     {
         if (!defined($key)) {
             define($key, $value);
@@ -127,7 +127,7 @@ class EdwiserBridge
      *
      * @since 1.0.0
      */
-    private function defineConstants()
+    private function define_constants()
     {
         $upload_dir = wp_upload_dir();
 
@@ -145,13 +145,13 @@ class EdwiserBridge
         /**
          * Define plugin constants.
          */
-        $this->checkConstantDefined('EB_VERSION', $this->version);
-        $this->checkConstantDefined('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
-        $this->checkConstantDefined('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
-        $this->checkConstantDefined('EB_TEMPLATE_PATH', 'edwiserBridge/');
-        $this->checkConstantDefined('EB_ACCESS_TOKEN', $eb_moodle_token);
-        $this->checkConstantDefined('EB_ACCESS_URL', $eb_moodle_url);
-        $this->checkConstantDefined('EB_LOG_DIR', $upload_dir['basedir'].'/eb-logs/');
+        $this->check_constant_defined('EB_VERSION', $this->version);
+        $this->check_constant_defined('EB_PLUGIN_URL', plugin_dir_url(dirname(__FILE__)));
+        $this->check_constant_defined('EB_PLUGIN_DIR', plugin_dir_path(dirname(__FILE__)));
+        $this->check_constant_defined('EB_TEMPLATE_PATH', 'edwiserBridge/');
+        $this->check_constant_defined('EB_ACCESS_TOKEN', $eb_moodle_token);
+        $this->check_constant_defined('EB_ACCESS_URL', $eb_moodle_url);
+        $this->check_constant_defined('EB_LOG_DIR', $upload_dir['basedir'].'/eb-logs/');
     }
 
     /**
@@ -169,14 +169,14 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function loadDependencies()
+    private function load_dependencies()
     {
 
         // load admin & public facing files conditionally
         if (is_admin()) {
-            $this->adminDependencies();
+            $this->admin_dependencies();
         } else {
-            $this->frontendDependencies();
+            $this->frontend_dependencies();
         }
 
 
@@ -295,7 +295,7 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function adminDependencies()
+    private function admin_dependencies()
     {
 
         /*
@@ -349,7 +349,7 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function frontendDependencies()
+    private function frontend_dependencies()
     {
 
         /*
@@ -389,12 +389,12 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function setLocale()
+    private function set_locale()
     {
         $plugin_i18n = new EBI18n();
-        $plugin_i18n->setDomain('eb-textdomain');
+        $plugin_i18n->set_domain('eb-textdomain');
 
-        $this->loader->addAction('plugins_loaded', $plugin_i18n, 'loadPluginTextdomain');
+        $this->loader->eb_add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
     }
 
     /**
@@ -404,7 +404,7 @@ class EdwiserBridge
      *
      * @return EBUserManager
      */
-    public function userManager()
+    public function user_manager()
     {
         return EBUserManager::instance($this->getPluginName(), $this->getVersion());
     }
@@ -416,7 +416,7 @@ class EdwiserBridge
      *
      * @return EBCourseManager
      */
-    public function courseManager()
+    public function course_manager()
     {
         return EBCourseManager::instance($this->getPluginName(), $this->getVersion());
     }
@@ -428,12 +428,14 @@ class EdwiserBridge
      *
      * @return EBEnrollmentManager
      */
-    public function enrollmentManager()
+    public function enrollment_manager()
     {
         return EBEnrollmentManager::instance($this->getPluginName(), $this->getVersion());
     }
 
     /**
+     * DEPREACATED FUNCTION
+     *
      * Get Order Manager class.
      *
      * @since    1.0.0
@@ -445,7 +447,22 @@ class EdwiserBridge
         return EBOrderManager::instance($this->getPluginName(), $this->getVersion());
     }
 
+
     /**
+     * Get Order Manager class.
+     *
+     * @since    1.0.0
+     *
+     * @return EBOrderManager
+     */
+    public function order_manager()
+    {
+        return EBOrderManager::instance($this->getPluginName(), $this->getVersion());
+    }
+
+    /**
+     * DEPRECATED FUNCTION
+     *
      * Get Connection Helper class.
      *
      * @since    1.0.0
@@ -456,6 +473,21 @@ class EdwiserBridge
     {
         return EBConnectionHelper::instance($this->getPluginName(), $this->getVersion());
     }
+
+
+
+     /**
+     * Get Connection Helper class.
+     *
+     * @since    1.0.0
+     *
+     * @return EBConnectionHelper
+     */
+    public function connection_helper()
+    {
+        return EBConnectionHelper::instance($this->getPluginName(), $this->getVersion());
+    }
+
 
     /**
      * Get Logger class.
@@ -474,16 +506,16 @@ class EdwiserBridge
      *
      * @since   1.0.0
      */
-    private function definePluginHooks()
+    private function define_plugin_hooks()
     {
-        $this->defineUserHooks();
+        $this->define_user_hooks();
 
         $this->defineSystemHooks();
 
         $this->defineEmailHooks();
 
         if (is_admin()) {
-            $this->defineAdminHooks();
+            $this->define_admin_hooks();
         } else {
             $this->definePublicHooks();
         }
@@ -495,11 +527,11 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function defineAdminHooks()
+    private function define_admin_hooks()
     {
         $plugin_admin = new EbAdmin($this->getPluginName(), $this->getVersion());
-        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles');
-        $this->loader->addAction('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts');
+        $this->loader->eb_add_action('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles');
+        $this->loader->eb_add_action('admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts');
 
         /**
          * Add action to add the meta boxes in backend for the order
@@ -509,7 +541,7 @@ class EdwiserBridge
         $paypalRefundManager =  new EbPayPalRefundManager($this->plugin_name, $this->version);
 
         // add_filter("eb_order_refund_init", array($this, "refund"), 10, 5);
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_order_refund_init',
             $paypalRefundManager,
             'refund',
@@ -517,54 +549,54 @@ class EdwiserBridge
             5
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'add_meta_boxes',
             $orderMeta,
-            'addEbOrderMetaBoxes'
+            'add_eb_order_meta_boxes'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'save_post_eb_order',
             $saveOrderMeta,
-            'saveStatusUpdateMeta',
+            'save_status_update_meta',
             05
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_order_created',
             $saveOrderMeta,
-            'saveNewOrderPlaceNote'
+            'save_new_order_place_note'
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_wdm_eb_order_refund',
             $saveOrderMeta,
-            'initEbOrderRefund'
+            'init_eb_order_refund'
         );
 
         $adminNoticeHandler = new EBAdminNoticeHandler();
         // add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateMoodlePluginNotice');
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_notices',
             $adminNoticeHandler,
             'eb_admin_update_moodle_plugin_notice'
         );
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminUpdateNoticeDismissHandler');
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_init',
             $adminNoticeHandler,
             'eb_admin_update_notice_dismiss_handler'
         );
 
         // add_action('admin_init', 'app\wisdmlabs\edwiserBridge\ebAdminNoticeDismissHandler');
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_init',
             $adminNoticeHandler,
             'eb_admin_notice_dismiss_handler'
         );
 
         $hook = "in_plugin_update_message-".EB_PLUGIN_NAME."/".EB_BASE_FILE_NAME;
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             $hook,
             $adminNoticeHandler,
             'eb_show_inline_plugin_update_notification',
@@ -585,63 +617,63 @@ class EdwiserBridge
         $emailTmplEditor = new EBAdminEmailTemplate();
         $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_wdm_eb_get_email_template',
             $emailTmplEditor,
             'get_template_data_ajax_callBack'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_nopriv_wdm_eb_get_email_template',
             $emailTmplEditor,
             'get_template_data_ajax_callBack'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_wdm_eb_send_test_email',
             $emailTmplEditor,
             'send_test_email'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_nopriv_wdm_eb_send_test_email',
             $emailTmplEditor,
             'send_test_email'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user',
             $manageEnrollment,
-            'unenrollUserAjaxHandler'
+            'unenroll_user_ajax_handler'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content',
             $manageEnrollment,
             'reset_email_template_content'
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_handleCourseSynchronization',
             $admin_settings_init,
             'course_synchronization_initiater'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_handleUserCourseSynchronization',
             $admin_settings_init,
             'user_data_synchronization_initiater'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_handleUserLinkToMoodle',
             $admin_settings_init,
             'users_link_to_moodle_synchronization'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_handleConnectionTest',
             $admin_settings_init,
             'connection_test_initiater'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
             $manageEnrollment,
-            'unenrollUserAjaxHandler'
+            'unenroll_user_ajax_handler'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_wdm_eb_email_tmpl_restore_content',
             $emailTmplEditor,
             'reset_email_template_content'
@@ -652,26 +684,26 @@ class EdwiserBridge
          *used to add eb personal while exporting personal data
          *@since  1.3.2
          */
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_privacy_personal_data_exporters',
             $gdprCompatible,
-            'ebRegisterMyPluginExporter'
+            'eb_register_my_plugin_exporter'
         );
 
         /**
          *used to add eb personal while exporting personal data
          *@since  1.3.2
          */
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_privacy_personal_data_erasers',
             $gdprCompatible,
-            'ebRegisterPluginEraser'
+            'eb_register_plugin_eraser'
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             "admin_init",
             $gdprCompatible,
-            'ebPrivacyPolicyPageData'
+            'eb_privacy_policy_page_data'
         );
     }
 
@@ -680,14 +712,14 @@ class EdwiserBridge
      *
      * @since    1.0.0
      */
-    private function defineUserHooks()
+    private function define_user_hooks()
     {
 
 
         // $manageEnrollment = new EBManageUserEnrollment($this->plugin_name, $this->version);
 
         //@since 1.3.5
-/*        $this->loader->addAction(
+/*        $this->loader->eb_add_action(
             'wp_login',
             $manageEnrollment,
             'processEnrollmentOnLogin',
@@ -697,71 +729,71 @@ class EdwiserBridge
 
         // display bulk action to unlink moodle account
         // On users page in dashboard.
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_print_scripts',
-            $this->userManager(),
-            'linkUserBulkActions',
+            $this->user_manager(),
+            'link_user_bulk_actions',
             100
         ); //add unlink action
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'load-users.php',
-            $this->userManager(),
-            'linkUserBulkActionsHandler'
+            $this->user_manager(),
+            'link_user_bulk_actions_handler'
         ); // handle unlink action
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_notices',
-            $this->userManager(),
-            'linkUserBulkActionsNotices'
+            $this->user_manager(),
+            'link_user_bulk_actions_notices'
         ); // display unlink notices
 
         // display enroll to course dropdown in user profile
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'show_user_profile',
-            $this->userManager(),
-            'displayUsersEnrolledCourses'
+            $this->user_manager(),
+            'display_users_enrolled_courses'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'edit_user_profile',
-            $this->userManager(),
-            'displayUsersEnrolledCourses'
+            $this->user_manager(),
+            'display_users_enrolled_courses'
         );
 
         // enroll user to course on user profile update
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'personal_options_update',
-            $this->userManager(),
-            'updateCoursesOnProfileUpdate'
+            $this->user_manager(),
+            'update_courses_on_profile_update'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'edit_user_profile_update',
-            $this->userManager(),
-            'updateCoursesOnProfileUpdate'
+            $this->user_manager(),
+            'update_courses_on_profile_update'
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_moodleLinkUnlinkUser',
-            $this->userManager(),
-            'moodleLinkUnlinkUser'
+            $this->user_manager(),
+            'moodle_link_unlink_user'
         );
 
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'admin_notices',
-            $this->userManager(),
-            'moodleLinkUnlinkUserNotices'
+            $this->user_manager(),
+            'moodle_link_unlink_user_notices'
         );
 
         // password sync with moodle on profile update & password reset
-        $this->loader->addAction('profile_update', $this->userManager(), 'passwordUpdate', 10, 2);
-        $this->loader->addAction('password_reset', $this->userManager(), 'passwordReset', 10, 2);
+        $this->loader->eb_add_action('profile_update', $this->user_manager(), 'password_update', 10, 2);
+        $this->loader->eb_add_action('password_reset', $this->user_manager(), 'password_reset', 10, 2);
 
         /*
          * In case a user is permanentaly deleted from wordpress,
          * update course enrollment table appropriately by deleting records for user being deleted.
          */
-        $this->loader->addAction('delete_user', $this->userManager(), 'deleteEnrollmentRecordsOnUserDeletion');
+        $this->loader->eb_add_action('delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion');
 
-        $this->loader->addAction("eb_before_single_course", $this->userManager(), "unenrollOnCourseAccessExpire");
+        $this->loader->eb_add_action("eb_before_single_course", $this->user_manager(), "unenroll_on_course_access_expire");
     }
 
     /**
@@ -778,7 +810,7 @@ class EdwiserBridge
 
 /*************/
         $apiEndPointHandler = new EBExternalApiEndpoint();
-        $this->loader->addAction('rest_api_init', $apiEndPointHandler, "apiRegistration");
+        $this->loader->eb_add_action('rest_api_init', $apiEndPointHandler, "apiRegistration");
 /*************/
 
 
@@ -787,93 +819,93 @@ class EdwiserBridge
         * Usage Tracking hook.
         */
         $usage_tracking = new EB_Usage_Tracking();
-        $this->loader->addAction('admin_init', $usage_tracking,'usage_tracking_cron');
-        $this->loader->addAction('eb_monthly_usage_tracking', $usage_tracking, 'send_usage_analytics');
+        $this->loader->eb_add_action('admin_init', $usage_tracking,'usage_tracking_cron');
+        $this->loader->eb_add_action('eb_monthly_usage_tracking', $usage_tracking, 'send_usage_analytics');
 
 
 
 
-        $this->loader->addAction('init', $plugin_post_types, 'registerTaxonomies');
-        $this->loader->addAction('init', $plugin_post_types, 'registerPostTypes');
-        $this->loader->addFilter(
+        $this->loader->eb_add_action('init', $plugin_post_types, 'register_taxonomies');
+        $this->loader->eb_add_action('init', $plugin_post_types, 'register_post_types');
+        $this->loader->eb_add_filter(
             'post_updated_messages',
             $plugin_post_types,
-            'customPostTypeUpdateMessages'
+            'custom_post_type_update_messages'
         ); // change post updated messages
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'add_meta_boxes',
             $plugin_post_types,
-            'registerMetaBoxes'
+            'register_meta_boxes'
         );
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'save_post',
             $plugin_post_types,
-            'handlePostOptionsSave',
+            'handle_post_options_save',
             15
         ); //this hook must be run after update_order_status() function added below.
 
         // hooks related to order manager class
         // should be called before handle_post_options_save() function
         // to determine previous order status on order status change.
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'save_post_eb_order',
-            $this->orderManager(),
-            'updateOrderStatusOnOrderSave',
+            $this->order_manager(),
+            'update_order_status_on_order_save',
             10
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_order_status_completed',
-            $this->orderManager(),
-            'enrollToCourseOnOrderComplete',
+            $this->order_manager(),
+            'enroll_to_course_on_order_complete',
             10
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wp_ajax_createNewOrderAjaxWrapper',
-            $this->orderManager(),
-            'createNewOrderAjaxWrapper',
+            $this->order_manager(),
+            'create_new_order_ajax_wrapper',
             10
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'manage_eb_order_posts_columns',
-            $this->orderManager(),
-            'addOrderStatusColumn',
+            $this->order_manager(),
+            'add_order_status_column',
             10,
             1
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'manage_eb_order_posts_custom_column',
-            $this->orderManager(),
-            'addOrderStatusColumnContent',
+            $this->order_manager(),
+            'add_order_status_column_content',
             10,
             2
         );
 
         // hooks related to payment management
         $payment_mgr = new EBPaymentManager($this->getPluginName(), $this->getVersion());
-        $this->loader->addAction('generate_rewrite_rules', $payment_mgr, 'paypalRewriteRules');
-        $this->loader->addFilter('query_vars', $payment_mgr, 'addQueryVars');
-        $this->loader->addAction('parse_request', $payment_mgr, 'parseIpnRequest');
+        $this->loader->eb_add_action('generate_rewrite_rules', $payment_mgr, 'paypalRewriteRules');
+        $this->loader->eb_add_filter('query_vars', $payment_mgr, 'addQueryVars');
+        $this->loader->eb_add_action('parse_request', $payment_mgr, 'parseIpnRequest');
 
         /*
          * In case a course is permanentaly deleted from moodle course list,
          * update course enrollment table appropriately by deleting records for course being deleted.
          */
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'before_delete_post',
-            $this->courseManager(),
+            $this->course_manager(),
             'delete_enrollment_rRecords_on_course_deletion'
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'manage_eb_course_posts_columns',
-            $this->courseManager(),
+            $this->course_manager(),
             'add_course_price_type_column',
             10,
             1
         );
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'manage_eb_course_posts_custom_column',
-            $this->courseManager(),
+            $this->course_manager(),
             'add_course_price_type_column_content',
             10,
             2
@@ -882,7 +914,7 @@ class EdwiserBridge
 
         // handles addtion of new blog
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'wpmu_new_blog',
             'app\wisdmlabs\edwiserBridge\EBActivator',
             'handle_new_blog',
@@ -891,7 +923,7 @@ class EdwiserBridge
         );
 
         // wp_remote_post() has default timeout set as 5 seconds, increase it to remove timeout problem
-        $this->loader->addFilter('http_request_timeout', $this->connectionHelper(), 'connectionTimeoutExtender');
+        $this->loader->eb_add_filter('http_request_timeout', $this->connection_helper(), 'connectionTimeoutExtender');
     }
 
     /**
@@ -907,24 +939,24 @@ class EdwiserBridge
 /*        $courseProgress = new EbCourseProgress();
 
 
-        $this->loader->addAction('template_redirect', $courseProgress, 'getCourseProgress');*/
+        $this->loader->eb_add_action('template_redirect', $courseProgress, 'getCourseProgress');*/
 
-        $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'publicEnqueueStyles');
-        $this->loader->addAction('wp_enqueue_scripts', $plugin_public, 'publicEnqueueScripts');
+        $this->loader->eb_add_action('wp_enqueue_scripts', $plugin_public, 'publicEnqueueStyles');
+        $this->loader->eb_add_action('wp_enqueue_scripts', $plugin_public, 'publicEnqueueScripts');
 
         // Template loader hooks
-        $this->loader->addFilter('template_include', $template_loader, 'templateLoader');
+        $this->loader->eb_add_filter('template_include', $template_loader, 'templateLoader');
 
         // Initiate our shortcodes class on init hook
-        $this->loader->addAction('init', 'app\wisdmlabs\edwiserBridge\EbShortcodes', 'init');
+        $this->loader->eb_add_action('init', 'app\wisdmlabs\edwiserBridge\EbShortcodes', 'init');
 
         // Frontend form handler hooks to handle user login & registration
-        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processLogin', 20);
-        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processRegistration', 20);
+        $this->loader->eb_add_action('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processLogin', 20);
+        $this->loader->eb_add_action('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processRegistration', 20);
         // process course join request for free courses
-        $this->loader->addAction('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
+        $this->loader->eb_add_action('wp_loaded', 'app\wisdmlabs\edwiserBridge\EbFrontendFormHandler', 'processFreeCourseJoinRequest');
 
-        $this->loader->addAction('after_setup_theme', $plugin_public, 'afterSetupTheme');
+        $this->loader->eb_add_action('after_setup_theme', $plugin_public, 'afterSetupTheme');
         add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\EbShortcodeUserAccount', 'saveAccountDetails'));
     }
 
@@ -939,51 +971,51 @@ class EdwiserBridge
         $plugin_emailer = new EBEmailer($this->getPluginName(), $this->getVersion());
 
         // send emails on various system events as specified
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_email_header',
             $plugin_emailer,
             'getEmailHeader',
             10,
             1
         ); // Get email header template.
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_email_footer',
             $plugin_emailer,
             'getEmailFooter',
             10
         ); // Get email footer template.
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_created_user',
             $plugin_emailer,
             'sendNewUserEmail',
             10
         ); // email on new user registration
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_linked_to_existing_wordpress_user',
             $plugin_emailer,
             'sendExistingUserMoodleAccountEmail',
             10
         ); // email on moodle user link to existing wordpress user
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_linked_to_existing_wordpress_to_new_user',
             $plugin_emailer,
             'sendExistingWpUserNewMoodleAccountEmail',
             10
         ); // email on moodle user link to existing wordpress user
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_order_status_completed',
             $plugin_emailer,
             'sendOrderCompletionEmail',
             10
         ); // email on order status completed
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_course_access_expire_alert',
             $plugin_emailer,
             'sendCourseAccessExpireEmail',
             10
         ); // email on order status completed
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_refund_completion',
             $plugin_emailer,
             'refundCompletionEmail',
@@ -993,7 +1025,7 @@ class EdwiserBridge
 
         /********  Two way synch  ******/
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_mdl_enrollment_trigger',
             $plugin_emailer,
             'sendMdlTriggeredEnrollmentEmail',
@@ -1001,14 +1033,14 @@ class EdwiserBridge
         ); // email on trigger of the Moodle course enrollment
 
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_mdl_un_enrollment_trigger',
             $plugin_emailer,
             'sendMdlTriggeredUnenrollmentEmail',
             10
         ); // email on trigger of the Moodle course Un enrollment
 
-        $this->loader->addAction(
+        $this->loader->eb_add_action(
             'eb_mdl_user_deletion_trigger',
             $plugin_emailer,
             'sendMdlTriggeredUserDeletionEmail',

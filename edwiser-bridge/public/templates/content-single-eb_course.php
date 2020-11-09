@@ -53,7 +53,7 @@ if (is_numeric($course_price)) {
 $course_class = null;
 $user_id = get_current_user_id();
 $logged_in = !empty($user_id);
-$has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $post->ID);
+$has_access = edwiserBridgeInstance()->enrollment_manager()->user_has_course_access($user_id, $post->ID);
 
 $course_id = $post_id;
 
@@ -79,7 +79,7 @@ if (is_array($terms)) {
  */
 if (isset($course_options['course_expirey']) && $course_options['course_expirey'] == 'yes') {
     if (is_user_logged_in() && $has_access) {
-        $expiryDateTime = '<span><strong>'.EBEnrollmentManager::accessRemianing($user_id, $post->ID).' '.__(' days access remaining', 'eb-textdomain').'</strong></span>';
+        $expiryDateTime = '<span><strong>'.EBEnrollmentManager::access_remianing($user_id, $post->ID).' '.__(' days access remaining', 'eb-textdomain').'</strong></span>';
     } else {
         $expiryDateTime = '<span><strong>'.__('Includes  ', 'eb-textdomain').' '.$course_options['num_days_course_access'].__(' days access', 'eb-textdomain').'</strong> </span>';
     }

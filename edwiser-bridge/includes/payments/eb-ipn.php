@@ -124,7 +124,7 @@ if ($verified) {
         edwiserBridgeInstance()->logger()->add('payment', 'Checking if payment amount is correct and was not modified.');
 
         //verify course price
-        $course_price = EBPostTypes::getPostOptions($course_id, 'course_price', 'eb_course');
+        $course_price = EBPostTypes::get_post_options($course_id, 'course_price', 'eb_course');
 
         if ($_REQUEST['mc_gross'] == $course_price) {
             edwiserBridgeInstance()->logger()->add('payment', 'Course price is varified. Let\'s continue...');
@@ -184,7 +184,7 @@ if ($verified) {
 
         //verify order
         //get order details
-        $order_buyer_id = EBPostTypes::getPostOptions($order_id, 'buyer_id', 'eb_order');
+        $order_buyer_id = EBPostTypes::get_post_options($order_id, 'buyer_id', 'eb_order');
         if ($buyer_id != $order_buyer_id) {
             edwiserBridgeInstance()->logger()->add(
                 'payment',
@@ -194,7 +194,7 @@ if ($verified) {
             exit(0);
         }
 
-        $order_course_id = EBPostTypes::getPostOptions($order_id, 'course_id', 'eb_order');
+        $order_course_id = EBPostTypes::get_post_options($order_id, 'course_id', 'eb_order');
         if ($course_id != $order_course_id) {
             edwiserBridgeInstance()->logger()->add(
                 'payment',
@@ -226,7 +226,7 @@ if ($verified) {
             update_post_meta($order_id, 'eb_transaction_id', $_POST['txn_id']);
         }
 
-        $order_completed = edwiserBridgeInstance()->orderManager()->updateOrderStatus($order_id, 'completed');
+        $order_completed = edwiserBridgeInstance()->order_manager()->update_order_status($order_id, 'completed');
 
         if ($order_completed) {
             edwiserBridgeInstance()->logger()->add('payment', 'Order status set to Complete: '.$order_id);

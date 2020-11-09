@@ -34,7 +34,7 @@ class EbCourseProgress
 
             $request_data = array('user_id' => $mdl_user_id); // prepare request data array
 
-            $response = edwiserBridgeInstance()->connectionHelper()->connectMoodleWithArgsHelper(
+            $response = edwiserBridgeInstance()->connection_helper()->connectMoodleWithArgsHelper(
                 $webservice_function,
                 $request_data
             );

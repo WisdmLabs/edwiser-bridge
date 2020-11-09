@@ -88,7 +88,7 @@ class EbShortcodeUserProfile
 
         // remove course from array in which user is not enrolled
         foreach ($courses as $key => $course) {
-            $has_access = edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID);
+            $has_access = edwiserBridgeInstance()->enrollment_manager()->user_has_course_access($user_id, $course->ID);
 
             if (!$has_access) {
                 unset($courses[$key]);
@@ -251,7 +251,7 @@ class EbShortcodeUserProfile
             }
             $user_data=  apply_filters("eb_update_moodle_profile_data", $user_data);
             $user_manager = new EBUserManager('edwiserbridge', EB_VERSION);
-            $response = $user_manager->createMoodleUser($user_data, 1);
+            $response = $user_manager->create_moodle_user($user_data, 1);
 
             if (isset($response['user_updated']) && $response['user_updated']) {
                 return true;

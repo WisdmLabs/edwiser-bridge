@@ -143,7 +143,9 @@ class EBExternalApiEndpoint
                         $args['complete_unenroll'] = 1;
                     }
 
-                    edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
+                    // edwiserBridgeInstance()->enrollmentManager()->updateEnrollmentRecordWordpress($args);
+                    edwiserBridgeInstance()->enrollment_manager()->update_enrollment_record_wordpress($args);
+                    
 
                     $args = array(
                         'user_email' => $user->user_email,

@@ -31,7 +31,7 @@ class EBI18n
      *
      * @since    1.0.0
      */
-    public function loadPluginTextdomain()
+    public function load_plugin_textdomain()
     {
         load_plugin_textdomain(
             $this->domain,
@@ -47,7 +47,7 @@ class EBI18n
      *
      * @param string $domain The domain that represents the locale of this plugin.
      */
-    public function setDomain($domain)
+    public function set_domain($domain)
     {
         $this->domain = $domain;
     }

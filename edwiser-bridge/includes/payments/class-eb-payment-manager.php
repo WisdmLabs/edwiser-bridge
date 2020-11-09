@@ -80,7 +80,7 @@ class EBPaymentManager
             return '';
         }
 
-        $moodle_course_id = edwiserBridgeInstance()->courseManager()->get_moodle_course_id($course_id);
+        $moodle_course_id = edwiserBridgeInstance()->course_manager()->get_moodle_course_id($course_id);
         $access_course_url = '';
         $access_button = '';
 
@@ -238,7 +238,7 @@ class EBPaymentManager
         /*
          * Handle take course button in case user already has course access or course access is in suspended state.
          */
-        if (edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course_id)) {
+        if (edwiserBridgeInstance()->enrollment_manager()->user_has_course_access($user_id, $course_id)) {
             return '';
         }
 

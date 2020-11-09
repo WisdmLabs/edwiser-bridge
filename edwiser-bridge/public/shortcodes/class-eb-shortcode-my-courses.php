@@ -81,7 +81,7 @@ class EbShortcodeMyCourses
         $user_courses = array();
 
         foreach ($courses as $course) {
-            if (edwiserBridgeInstance()->enrollmentManager()->userHasCourseAccess($user_id, $course->ID)) {
+            if (edwiserBridgeInstance()->enrollment_manager()->user_has_course_access($user_id, $course->ID)) {
                 $user_courses[] = $course->ID;
             }
         }

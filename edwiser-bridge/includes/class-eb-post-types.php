@@ -49,7 +49,7 @@ class EBPostTypes
     /**
      * Register EDW taxonomies.
      */
-    public function registerTaxonomies()
+    public function register_taxonomies()
     {
         if (taxonomy_exists('eb_course_cat')) {
             return;
@@ -91,7 +91,7 @@ class EBPostTypes
     /**
      * Register core post types.
      */
-    public function registerPostTypes()
+    public function register_post_types()
     {
         do_action('eb_register_post_type');
 
@@ -191,14 +191,14 @@ class EBPostTypes
      *
      * @since         1.0.0
      */
-    public function registerMetaBoxes()
+    public function register_meta_boxes()
     {
 
         //register metabox for course post type options
         add_meta_box(
             'eb_course_options',
             __('Course Options', 'eb-textdomain'),
-            array($this, 'postOptionsCallback'),
+            array($this, 'post_options_callback'),
             'eb_course',
             'advanced',
             'default',
@@ -210,7 +210,7 @@ class EBPostTypes
         add_meta_box(
             'eb_recommended_course_options',
             __('Recommended Course Settings', 'eb-textdomain'),
-            array($this, 'postOptionsCallback'),
+            array($this, 'post_options_callback'),
             'eb_course',
             'advanced',
             'default',
@@ -222,7 +222,7 @@ class EBPostTypes
         add_meta_box(
             'eb_order_options',
             __('Order Details', 'eb-textdomain'),
-            array($this, 'postOptionsCallback'),
+            array($this, 'post_options_callback'),
             'eb_order',
             'advanced',
             'default',
@@ -240,15 +240,15 @@ class EBPostTypes
      *
      * @return string renders and returns renedered html output
      */
-    public function postOptionsCallback($post, $args)
+    public function post_options_callback($post, $args)
     {
         $post;
         // get fields for a specific post type
 
         if ($args['id'] == "eb_recommended_course_options") {
-            $fields = $this->populateMetaboxFields($args['id']);
+            $fields = $this->populate_metabox_fields($args['id']);
         } else {
-            $fields = $this->populateMetaboxFields($args['args']['post_type']);
+            $fields = $this->populate_metabox_fields($args['args']['post_type']);
         }
 
 
@@ -264,19 +264,19 @@ class EBPostTypes
             echo "<div id='{$args['args']['post_type']}_options' class='post-options'>";
         }
 
-        // render fields using our renderMetaboxFields() function
+        // render fields using our render_metabox_fields() function
         foreach ($fields as $key => $values) {
             $field_args = array(
                 'field_id' => $key,
                 'field' => $values,
                 'post_type' => $args['args']['post_type'],
             );
-            $this->renderMetaboxFields($field_args);
+            $this->render_metabox_fields($field_args);
         }
         // display content before order options, only if post type is moodle order.
         if ($args['args']['post_type'] == 'eb_order') {
             $orderMeta=new EBOrderMeta($this->plugin_name, $this->version);
-            $orderMeta->getOrderDetails(get_the_id());
+            $orderMeta->get_order_details(get_the_id());
         }
         echo "</div>";
         do_action("eb_post_add_meta", $args);
@@ -292,7 +292,7 @@ class EBPostTypes
      *
      * @return array $args_array returns complete fields array.
      */
-    private function populateMetaboxFields($post_type)
+    private function populate_metabox_fields($post_type)
     {
         global $post;
         $args_array = array(
@@ -408,7 +408,7 @@ class EBPostTypes
      *
      * @param array $args Field data
      */
-    public function renderMetaboxFields($args)
+    public function render_metabox_fields($args)
     {
         $post_id = get_the_id();
         $field_id = $args['field_id'];
@@ -417,7 +417,7 @@ class EBPostTypes
         $html = '';
         $option_name = $post_type.'_options['.$field_id.']';
         //$option      = $this->getPostOptions( $post_id, $field_id );
-        $option = self::getPostOptions($post_id, $field_id, $post_type);
+        $option = self::get_post_options($post_id, $field_id, $post_type);
 
         $data = '';
         if ($option) {
@@ -563,7 +563,7 @@ class EBPostTypes
      *
      * @return bool returns true
      */
-    public function handlePostOptionsSave($post_id)
+    public function handle_post_options_save($post_id)
     {
         $fields = array();
 
@@ -584,8 +584,8 @@ class EBPostTypes
             return;
         } else {
             if ($post_type == "eb_course") {
-                $fields = $this->populateMetaboxFields($post_type);
-                $fields = array_merge($this->populateMetaboxFields("eb_recommended_course_options"), $fields);
+                $fields = $this->populate_metabox_fields($post_type);
+                $fields = array_merge($this->populate_metabox_fields("eb_recommended_course_options"), $fields);
             }
             $post_options = array();
             if (isset($_POST[$post_type.'_options'])) {
@@ -657,7 +657,7 @@ class EBPostTypes
      *
      * @param [type] $messages
      */
-    public function customPostTypeUpdateMessages($messages)
+    public function custom_post_type_update_messages($messages)
     {
         global $post;
 
@@ -719,7 +719,7 @@ class EBPostTypes
         return $messages;
     }
 
-    public static function getPostOptions($post_id, $key, $post_type, $default = false)
+    public static function get_post_options($post_id, $key, $post_type, $default = false)
     {
         if (empty($key)) {
             return $default;
