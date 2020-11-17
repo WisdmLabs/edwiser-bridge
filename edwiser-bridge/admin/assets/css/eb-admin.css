@@ -344,6 +344,18 @@ color: #2ecc71;
 
 /**************   PREMIUM END    **********************/
 
+/******   Manage enrollment table css   ******/
+
+.eb_manage_enroll_custom_nav_wrap{
+    /*float: right;
+    display: flex;*/
+}
+
+.eb_manage_enroll_custom_nav_wrap > span{
+    padding-right: 30px;
+}
+
+/**** END  ***/
 
 
 /*****************  sidebar css  ****************/

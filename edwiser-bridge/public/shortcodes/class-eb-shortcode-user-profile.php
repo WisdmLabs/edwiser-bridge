@@ -117,9 +117,9 @@ class Eb_Shortcode_User_Profile
 		);
 	}
 
-	public static function saveAccountDetails()
+	public static function save_account_details()
 	{
-		if (self::isUpdateUserProfile()) {
+		if (self::is_update_user_profile()) {
 			$user         = new \stdClass();
 			$user->ID     = (int) get_current_user_id();
 			$current_user = get_user_by('id', $user->ID);
@@ -128,15 +128,15 @@ class Eb_Shortcode_User_Profile
 				if (isset($_SESSION['eb_msgs_'.$current_user->ID])) {
 					unset($_SESSION['eb_msgs_'.$current_user->ID]);
 				}
-				$posted_data = self::getPostedData();
-				$errors = self::getErrors($posted_data);
+				$posted_data = self::get_posted_data();
+				$errors = self::get_errors($posted_data);
 
 				if (count($errors)) {
 					$_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-error">' . implode("<br />", $errors) . '</p>';
 				} else {
 					// Profile updated on Moodle successfully.
-					if (self::updateMoodleProfile($posted_data)) {
-						self::updateWordPressProfile($posted_data);
+					if (self::update_moodle_profile($posted_data)) {
+						self::update_wordPress_profile($posted_data);
 
 						$_SESSION['eb_msgs_'.$user->ID] = '<p class="eb-success">' . __('Account details saved successfully.', 'eb-textdomain') . '</p>';
 
@@ -149,7 +149,7 @@ class Eb_Shortcode_User_Profile
 		}
 	}
 
-	public static function isUpdateUserProfile()
+	public static function is_update_user_profile()
 	{
 		if ('POST' !== strtoupper($_SERVER[ 'REQUEST_METHOD' ])) {
 			return false;
@@ -162,24 +162,24 @@ class Eb_Shortcode_User_Profile
 		return true;
 	}
 
-	public static function getPostedData()
+	public static function get_posted_data()
 	{
 		$posted_data = array();
 
-		$posted_data['username']     = self::getPostedField('username');
-		$posted_data['first_name']   = self::getPostedField('first_name');
-		$posted_data['last_name']    = self::getPostedField('last_name');
-		$posted_data['nickname']     = self::getPostedField('nickname');
-		$posted_data['email']        = self::getPostedField('email');
-		$posted_data['pass_1']       = self::getPostedField('pass_1', false);
-		$posted_data['description']  = self::getPostedField('description');
-		$posted_data['country']      = self::getPostedField('country');
-		$posted_data['city']         = self::getPostedField('city');
+		$posted_data['username']     = self::get_posted_field('username');
+		$posted_data['first_name']   = self::get_posted_field('first_name');
+		$posted_data['last_name']    = self::get_posted_field('last_name');
+		$posted_data['nickname']     = self::get_posted_field('nickname');
+		$posted_data['email']        = self::get_posted_field('email');
+		$posted_data['pass_1']       = self::get_posted_field('pass_1', false);
+		$posted_data['description']  = self::get_posted_field('description');
+		$posted_data['country']      = self::get_posted_field('country');
+		$posted_data['city']         = self::get_posted_field('city');
 
 		return $posted_data;
 	}
 
-	public static function getPostedField($fieldname, $sanitize = true)
+	public static function get_posted_field($fieldname, $sanitize = true)
 	{
 		$val = '';
 		if (isset($_POST[$fieldname]) && !empty($_POST[$fieldname])) {
@@ -192,7 +192,7 @@ class Eb_Shortcode_User_Profile
 		return $val;
 	}
 
-	public static function getErrors($posted_data)
+	public static function get_errors($posted_data)
 	{
 		$user         = new \stdClass();
 		$user->ID     = (int) get_current_user_id();
@@ -226,7 +226,7 @@ class Eb_Shortcode_User_Profile
 		return $errors;
 	}
 
-	public static function updateMoodleProfile($posted_data)
+	public static function update_moodle_profile($posted_data)
 	{
 		$user         = new \stdClass();
 		$user->ID     = (int) get_current_user_id();
@@ -261,7 +261,7 @@ class Eb_Shortcode_User_Profile
 		return false;
 	}
 
-	public static function updateWordPressProfile($posted_data)
+	public static function update_wordPress_profile($posted_data)
 	{
 		$user         = new \stdClass();
 		$user->ID     = (int) get_current_user_id();

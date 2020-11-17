@@ -153,6 +153,31 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'autoload' => false,
 					),
 					array('type' => 'sectionend', 'id' => 'general_options'),
+					/*array(
+						'title' => __( 'User Enrollment', 'eb-textdomain' ),
+						'type'  => 'title',
+						'desc'  => '',
+						'id'    => 'general_user_enrollment',
+					),
+					array(
+						'title'    => __( 'On course Expiration', 'eb-textdomain' ),
+						'desc'     => '<br/>' . __( 'Select an action to perform on course access expiration.', 'eb-textdomain' ),
+						'id'       => 'eb_sitewide_course_expire_action',
+						'type'     => 'select',
+						'default'  => '',
+						'css'      => 'min-width:300px;',
+						'options'  => array(
+                            'unenroll'   => 'Unenroll',
+                            'suspend'    => 'Suspend',
+                            'do-nothing' => 'Do Nothing',
+                            ),
+                        'args'    => array(
+                            'show_option_none'  =>__( '- Select a page -', 'eb-textdomain' ),
+                            'option_none_value' => '',
+                        ),
+						'desc_tip' => __( "Select an action to perform on course access expiration.", 'eb-textdomain' ),
+					),
+					array('type' => 'sectionend', 'id' => 'general_user_enrollment'),*/
 					array(
 						'title' => __( 'Privacy Policy', 'eb-textdomain' ),
 						'type'  => 'title',

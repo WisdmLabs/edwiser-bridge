@@ -298,9 +298,7 @@ class Eb_Post_Types
 		global $post;
 
 
-error_log('post ::: '.print_r($post, 1));
         $post_id = get_the_id();
-error_log('ID :: '.print_r($post_id, 1));
 
         $deletion_status = self::get_post_options($post->ID, 'mdl_course_deleted', $post_type);
 
@@ -350,6 +348,17 @@ error_log('ID :: '.print_r($post_id, 1));
 					'default' => 'no',
 					'type' => 'checkbox',
 					'autoload' => false,
+				),
+				'course_expiry_action' => array(
+					'label' => __('On Course Expiration', 'eb-textdomain'),
+					'description' => __('Select an action to perform on course access expiration.', 'eb-textdomain'),
+					'type' => 'select',
+					'options' => array(
+						'unenroll' => __('Unenroll', 'eb-textdomain'),
+						'suspend' => __('Suspend', 'eb-textdomain'),
+						'do-nothing' => __('Do nothing', 'eb-textdomain'),
+					),
+					'default' => array('unenroll'),
 				),
 				'num_days_course_access' => array(
 					'label' => __('Expire Access After (days)', 'eb-textdomain'),

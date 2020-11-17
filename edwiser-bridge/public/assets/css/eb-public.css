@@ -35,6 +35,16 @@
 }*/
 
 
+.eb-course-action-btn-suspended{
+    margin-top: 4px;
+    border: 1px solid #dfa700;
+    padding: 8px;
+    color: white;
+    font-weight: 800;
+    background-color: #dfa700
+}
+
+
 .eb-course-action-btn-start{
     margin-top: 4px;
     border: 1px solid #1767ba;

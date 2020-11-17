@@ -489,9 +489,32 @@ function eb_get_all_web_service_functions()
 * @returns arrays value associated with the key if exist and not empty. Otherwise retrurns false.
 */
 function check_value_set($dataarray, $key){
-	$value=false;
+	$value = false;
 	if(is_array($dataarray) && array_key_exists($key,$dataarray) && $dataarray[$key]){
 		$value=empty($dataarray[$key]) ? false : $dataarray[$key];
 	}
 	return $value;
 }
+
+
+function get_user_suspended_status($user_id, $course_id) {
+    global $wpdb;
+    $suspended = 0;
+
+    if ($user_id == '' || $course_id == '') {
+        return $suspended;
+    }
+
+    //check if user has access to course
+    $suspended = $wpdb->get_var(
+        "SELECT suspended
+        FROM {$wpdb->prefix}moodle_enrollment
+        WHERE course_id={$course_id}
+        AND user_id={$user_id};"
+    );
+
+    return $suspended;
+
+
+}
+

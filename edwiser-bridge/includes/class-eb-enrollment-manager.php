@@ -174,12 +174,56 @@ class Eb_Enrollment_Manager
                 }
             }
         }
-        // prepare request data
+        /*// prepare request data
         $request_data = array('enrolments' => $enrolments);
         $response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
             $webservice_function,
             $request_data
-        );
+        );*/
+
+        // If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
+
+        if ($args['unenroll'] != 1 && $args['suspend'] != 1) {
+            // prepare request data
+            $request_data = array('enrolments' => $enrolments);
+            $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+                $webservice_function,
+                $request_data
+            );
+        } else {
+            foreach ($args['courses'] as $key => $course_id) {
+                //Get User Course access Count.
+                $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
+
+error_log('act_cnt ::'.print_r($act_cnt, 1));
+
+
+                //decrease the count value
+                // $act_cnt = $act_cnt - 1;
+
+                if ($act_cnt == 1 && !$args['complete_unenroll']) {
+                    //update decreased count value
+                    // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
+                    $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
+
+                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
+                    //delete row if count equals zero
+                    // $this->delete_user_enrollment_record($args['user_id'], $course_id);
+
+                    //Process Moodle unenrollment.
+                    // prepare request data
+                    $request_data = array('enrolments' => $enrolments);
+                    $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+                        $webservice_function,
+                        $request_data
+                    );
+                }
+            }
+                //Trigger email.
+        }
+
+
+        
         // update enrollment details on wordpress enrollment table
         if ($response['success']) {
             // define args
@@ -296,27 +340,69 @@ class Eb_Enrollment_Manager
                 }
             }
         }
-        // prepare request data
-        $request_data = array('enrolments' => $enrolments);
-        $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-            $webservice_function,
-            $request_data
-        );
+
+        
+error_log('ARGS :: '.print_r($args, 1));
+
+        $response = array();
+        // If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
+
+        if ($args['unenroll'] != 1 /*&& $args['suspend'] != 1*/) {
+
+error_log('SUSPENDING ::: ');
+
+            // prepare request data
+            $request_data = array('enrolments' => $enrolments);
+            $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+                $webservice_function,
+                $request_data
+            );
+        } elseif ($args['unenroll'] == 1) {
+            foreach ($args['courses'] as $key => $course_id) {
+                //Get User Course access Count.
+                $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
+
+error_log('act_cnt ::'.print_r($act_cnt, 1));
+
+
+                //decrease the count value
+                // $act_cnt = $act_cnt - 1;
+
+                if ($act_cnt == 1 && !$args['complete_unenroll']) {
+                    //update decreased count value
+                    // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
+                    $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
+                    $response['success'] = 1;
+                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
+                    //delete row if count equals zero
+                    // $this->delete_user_enrollment_record($args['user_id'], $course_id);
+
+                    //Process Moodle unenrollment.
+                    // prepare request data
+                    $request_data = array('enrolments' => $enrolments);
+                    $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+                        $webservice_function,
+                        $request_data
+                    );
+                }
+            }
+                //Trigger email.
+        }
+
         // update enrollment details on wordpress enrollment table
-        if ($response['success']) {
+        if ( isset( $response['success'] ) && $response['success'] ) {
             // define args
             $args = array(
-                'user_id' => $args['user_id'],
-                'role_id' => $args['role_id'],
-                'courses' => $args['courses'],
+                'user_id'  => $args['user_id'],
+                'role_id'  => $args['role_id'],
+                'courses'  => $args['courses'],
                 'unenroll' => $args['unenroll'],
-                'suspend' => $args['suspend'],
+                'suspend'  => $args['suspend'],
                 'complete_unenroll' => $args['complete_unenroll']
 
             );
             // $this->updateEnrollmentRecordWordpress($args);
             $this->update_enrollment_record_wordpress($args);
-
         }
 
         /*
@@ -455,7 +541,7 @@ class Eb_Enrollment_Manager
 
             //Trigger Email.
 
-        } elseif ($args['unenroll'] == 1 || $args['suspend'] == 1) {
+        } elseif ($args['unenroll'] == 1 /*|| $args['suspend'] == 1*/) {
             foreach ($args['courses'] as $key => $course_id) {
                 //Get User Course Access Count
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
@@ -481,6 +567,11 @@ class Eb_Enrollment_Manager
             }
 
             //Trigger email.
+        } else {
+            // Handle suspend action
+
+            // update only DB column suspended as 1.
+            $this->update_user_course_suspend_status( $args['user_id'], $course_id );
         }
     }
 
@@ -560,7 +651,7 @@ class Eb_Enrollment_Manager
                             )
                     );
 
-                } elseif ($this->user_has_course_access($args['user_id'], $course_id) && $act_cnt!= false) {
+                } elseif ($this->user_has_cours_access($args['user_id'], $course_id) && $act_cnt!= false) {
                     //increase the count value
                     $act_cnt= $act_cnt +1;
                     //update increased count value
@@ -572,7 +663,7 @@ class Eb_Enrollment_Manager
 
             //Trigger Email.
 
-        } elseif ($args['unenroll'] == 1 || $args['suspend'] == 1) {
+        } elseif ($args['unenroll'] == 1 /*|| $args['suspend'] == 1*/) {
             foreach ($args['courses'] as $key => $course_id) {
                 //Get User Course Access Count
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
@@ -598,6 +689,12 @@ class Eb_Enrollment_Manager
             }
 
             //Trigger email.
+        } else {
+            // Handle suspend action
+            foreach ($args['courses'] as $key => $course_id) {
+                $this->update_user_course_suspend_status( $args['user_id'], $course_id );
+            }
+            // update only DB column suspended as 1.
         }
     }
 
@@ -660,7 +757,8 @@ class Eb_Enrollment_Manager
         $wpdb->update(
             $wpdb->prefix.'moodle_enrollment',
             array(
-            'act_cnt' => $count   //increase OR decrease count value
+            'act_cnt'   => $count,   //increase OR decrease count value
+            'suspended' => 0
             ),
             array(
             'user_id' => $user_id,
@@ -677,6 +775,37 @@ class Eb_Enrollment_Manager
     }
 
 
+    /**
+     * used to update user suspend action.
+     *
+     * @since  1.2.5
+     *
+     * @param int $user_id   WordPress user id of a user
+     * @param int $course_id WordPress course id of a course
+     * @param int $count WordPress course id of a course
+     */
+
+    public function update_user_course_suspend_status($user_id, $course_id)
+    {
+        global $wpdb;
+        $wpdb->update(
+            $wpdb->prefix.'moodle_enrollment',
+            array(
+            'suspended' => 1   //increase OR decrease count value
+            ),
+            array(
+            'user_id' => $user_id,
+            'course_id'=> $course_id
+            ),
+            array(
+            '%d'
+            ),
+            array(
+            '%d',
+            '%d',
+            )
+        );
+    }
 
 
 

@@ -145,6 +145,7 @@ class Eb_Activator
 		$new_col             = array(
 			"expire_time" => array("type" => "datetime", "default" => "0000-00-00 00:00:00"),
 			"act_cnt"     => array("type" => "int(5)", "default" => "1"),
+			"suspended"   => array("type" => "int(5)", "default" => "0"),
 		);
 		foreach ($new_col as $col => $val) {
 			$query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";

@@ -13,7 +13,7 @@
 				)
 		);
 	} else {
-		$labels = $ebShortcodeObj->getUserAccountNavigationItems();
+		$labels = $ebShortcodeObj->get_user_account_navigation_items();
 		?>
 		<div class="eb-user-account-navigation">
 			<div>
@@ -37,7 +37,7 @@
 		<div class="eb-user-account-content">
 			<?php
 			if (isset($_GET['eb-active-link'])) {
-				$ebShortcodeObj->getUserAccountContent($_GET['eb-active-link'], $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader);
+				$ebShortcodeObj->get_user_account_content($_GET['eb-active-link'], $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader);
 			} else {
 				$template_loader->wp_get_template(
 					'account/user-data.php',

@@ -1582,6 +1582,16 @@ class EBUserManager
 				// enroll user to course
 				// edwiserBridgeInstance()->enrollmentManager()->updateUserCourseEnrollment($args);
 				edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment($args);
+
+				$args = array(
+                        'user_email' => $user->user_email,
+                        'username'   => $user->user_login,
+                        'first_name' => $user->first_name,
+                        'last_name'  => $user->last_name,
+                        'course_id'  => $enroll_course
+                    );
+                    
+                do_action('eb_mdl_enrollment_trigger', $args);
 			}
 
 
@@ -1623,23 +1633,50 @@ class EBUserManager
 
 	public function unenroll_on_course_access_expire()
 	{
+
+error_log('unenroll_on_course_access_expire');
+
+
 		global $wpdb, $post;
-		$curUser = get_current_user_id();
+		$cur_user = get_current_user_id();
 		$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
-		$enrollData = $wpdb->get_results($stmt);
-		$enrollMentManager = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
+
+error_log('stmt :: '.print_r($stmt, 1));
+
+		$enroll_data = $wpdb->get_results($stmt);
+		$enrollment_manager = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
 
 		//Added for the bulk purchase plugin expiration functionality
-		$enrollData = apply_filters("eb_user_list_on_course_expiration", $enrollData);
+		$enroll_data = apply_filters("eb_user_list_on_course_expiration", $enroll_data);
 
-		foreach ($enrollData as $courseEnrollData) {
+error_log('enroll_data :: '.print_r($enroll_data, 1));
+
+
+		foreach ($enroll_data as $course_enroll_data) {
+
+			$course_options = get_post_meta($course_enroll_data->course_id, 'eb_course_options', true);
+
+error_log('course_enroll_data->course_id :: '.print_r($course_enroll_data->course_id, 1));
+error_log('course_options :: '.print_r($course_options, 1));
+
 			$args = array(
-				'user_id' => $courseEnrollData->user_id,
-				'courses' => array($courseEnrollData->course_id),
-				'unenroll' => 1,
+				'user_id' => $course_enroll_data->user_id,
+				'courses' => array($course_enroll_data->course_id),
+				// 'unenroll' => 1,
 			);
+			// get expiration action.
+			if (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'suspend') {
+				$args['suspend'] = 1;
+			} elseif (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'do-nothing') {
+				return;
+			} else {
+				$args['unenroll'] = 1;
+			}
+
+error_log('args :: '.print_r($args, 1));
+
 			// $enrollMentManager->updateUserCourseEnrollment($args);
-			$enrollMentManager->update_user_course_enrollment($args);
+			$enrollment_manager->update_user_course_enrollment($args);
 
 		}
 	}

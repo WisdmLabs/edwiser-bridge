@@ -38,14 +38,26 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			global $wpdb;
 			$tblRecords = array();
 			$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+
+
+			if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
+                $stmt .= " WHERE  time>'".$_REQUEST['enrollment_from_date']."' ";
+            }
+
+            if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date']) && isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
+                $stmt .= " AND time<'".$_REQUEST['enrollment_to_date']."' ";
+            }
+
+
+			/*if (!empty($searchText)) {
+				$user_info = get_userdata($result->user_id);
+				if (strpos($user_info->user_login, $searchText) === false && strpos(get_the_title($result->course_id), $searchText) === false) {
+					continue;
+				}
+			}*/
+
 			$results = $wpdb->get_results($stmt);
 			foreach ($results as $result) {
-				/*if (!empty($searchText)) {
-					$user_info = get_userdata($result->user_id);
-					if (strpos($user_info->user_login, $searchText) === false && strpos(get_the_title($result->course_id), $searchText) === false) {
-						continue;
-					}
-				}*/
 
 				$row = array();
 				$row['user_id'] = $result->user_id;
@@ -56,7 +68,10 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 				$row['ID'] = $result->id;
 				$row['rId'] = $result->id;
 				$row['course_id'] = $result->course_id;
-				$tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $searchText);
+				// $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $searchText);
+
+                $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $result, $searchText);
+
 			}
 
 
@@ -225,6 +240,39 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 				}
 			}
 		}
+
+
+
+
+		// Mike reed changes
+        public function extra_tablenav($which) {
+
+            $from = '';
+            $to   = '';
+
+            if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
+                $from = $_REQUEST['enrollment_from_date'];
+            }
+            $disabled = 'disabled';
+            if (isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
+                $disabled = '';
+                $to = $_REQUEST['enrollment_to_date'];
+            }
+
+            if ($which == "top") {
+                echo '<span class="eb_manage_enroll_custom_nav_wrap">' . __('From : ') . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="'.__('Search').'"/> </span>
+                <span><input type="text" name="eb_manage_enroll_search" id="eb_manage_enroll_search"/> <input type="submit" name="eb_manage_enroll_text_search" id="eb_manage_enroll_text_search" class="button action" value="'.__('Search').'"/> </span></span>';
+
+                // WITH EXPORT BUTTON
+                /*echo __('From : ') . '<input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" value="'.__('Search').'"/>
+                <input type="hidden" name="eb_manage_enroll_export" id="eb_manage_enroll_export"/>
+                <input type="submit" class="button primary-button" value="export" name="eb_enrollment_export" id="eb_enrollment_export" >';*/
+            }
+
+        }
+
+
+
 
 		/**
 		 * Prepares the list of items for displaying.

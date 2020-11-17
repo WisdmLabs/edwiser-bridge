@@ -61,29 +61,39 @@ $course_id = $post_id;
 
 
 if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
-	$courseMang = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
-	$mdl_course_id = $courseMang->get_moodle_course_id($course_id);
-	$moodle_user_id = get_user_meta(get_current_user_id(), 'moodle_user_id', true);
+	$course_mang = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
+	$mdl_course_id = $course_mang->get_moodle_course_id($course_id);
+	$moodle_user_id = get_user_meta($user_id, 'moodle_user_id', true);
 
 /*******   two way synch  *******/
 
 	if ($moodle_user_id && isset($attr["my_courses_progress"]) && $attr["my_courses_progress"]) {
 		$showProgress = 1;
-		$courseProgressManager = new app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
-		$progressData = $courseProgressManager->get_course_progress();
-		$courseId = array_keys($progressData);
+		$course_progress_manager = new app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
 
-		if (in_array(get_the_ID(), $courseId)) {
-			if ($progressData[get_the_ID()] == 0) {
-				$progressClass = "start";
-				$progressBtnDiv = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
-			} elseif ($progressData[get_the_ID()] > 0 && $progressData[get_the_ID()] < 100) {
-				$progressClass = "resume";
-				$progressWidth = $progressData[get_the_ID()];
-				$progressBtnDiv = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
+		// Before showing progress check for the suspended course.
+
+		$progress_data = $course_progress_manager->get_course_progress();
+		$courseId = array_keys($progress_data);
+		// Function to get suspended status info.
+		$is_user_suspended = get_user_suspended_status($user_id, $course_id);
+
+		if ($is_user_suspended) {
+			// User course is suspended.
+			$progress_class = "suspended";
+			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>".__("SUSPENDED", "eb-textdomain")."</div>";
+		} elseif (in_array(get_the_ID(), $courseId)) {
+			// User course is not suspended then show these buttons.
+			if ($progress_data[get_the_ID()] == 0) {
+				$progress_class = "start";
+				$progress_btn_div = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
+			} elseif ($progress_data[get_the_ID()] > 0 && $progress_data[get_the_ID()] < 100) {
+				$progress_class = "resume";
+				$progressWidth = $progress_data[get_the_ID()];
+				$progress_btn_div = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
 			} else {
-				$progressClass = "completed";
-				$progressBtnDiv = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
+				$progress_class = "completed";
+				$progress_btn_div = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
 			}
 		}
 	}
@@ -133,10 +143,10 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
 
 			if (isset($showProgress) && $showProgress == 1) {
 				echo "<div class='eb-course-action-cont'>";
-				if ($progressClass == "resume") {
+				if ($progress_class == "resume") {
 					echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:".round($progressWidth)."%' ></div></div>";
 				}
-				echo $progressBtnDiv;
+				echo $progress_btn_div;
 				echo "</div>";
 			}
 

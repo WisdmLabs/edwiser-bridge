@@ -327,5 +327,126 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment')) {
 
 			return $result;
 		}
+
+
+
+
+		// Added this function for the export as csv functionality which we will add in the next version 
+		/*public function print_enrollment_csv()
+		{
+		    global $wpdb;
+
+		    if (isset($_POST['eb_manage_enroll_export']) && 'export' == $_POST['eb_manage_enroll_export']) {
+
+		    // if ( ! current_user_can( 'manage_options' ) )
+		    //     return;
+
+		    header('Content-Type: application/csv');
+		    header('Content-Disposition: attachment; filename=enrollment_record.csv');
+		    header('Pragma: no-cache');
+
+
+		    // output the CSV data
+
+		    // create a file pointer connected to the output stream
+		    $output = fopen('php://output', 'w');
+
+
+		    // output the column headings
+		    $column_headers = apply_filters(
+		        'eb_manage_enrollment_csv_file_column_headers',
+		        array(
+		            'user_id'       => 'User ID',
+		            'name'          => 'User Name',
+		            'email'         =>'Email',
+		            'course'        =>'Course',
+		            'enrolled_date' =>'Enrolled Date'
+		        )
+		    );
+
+
+		    fputcsv($output, $column_headers);
+
+
+
+		    $tblRecords = array();
+		    $stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+
+
+		    if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
+		        $stmt .= " WHERE  time>'".$_REQUEST['enrollment_from_date']."' ";
+		    }
+
+		    if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date']) && isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
+		        $stmt .= " AND time<'".$_REQUEST['enrollment_to_date']."' ";
+		    }
+
+
+		    $results = $wpdb->get_results($stmt, ARRAY_A);
+
+		    $results = apply_filters('eb_manage_enrollment_csv_export_all_data', $results);
+
+
+		    // error_log('results ::: '.print_r($results, 1));
+
+
+
+		    foreach ($results as $result) {
+		        // if (!empty($searchText)) {
+		        //     $user_info = get_userdata($result->user_id);
+		        //     if (strpos($user_info->user_login, $searchText) === false && strpos(get_the_title($result->course_id), $searchText) === false) {
+		        //         continue;
+		        //     }
+		        // }
+
+		        // $row = array();
+		        // $row['user_id'] = $result->user_id;
+		        // $row['user'] = $this->getUserProfileURL($result->user_id) ;
+		        // $row['course'] = '<a href="' . esc_url(get_permalink($result->course_id)) . '">' . get_the_title($result->course_id) . '</a>';
+		        // $row['enrolled_date'] = $result->time;
+		        // $row['manage'] = true;
+		        // $row['ID'] = $result->id;
+		        // $row['rId'] = $result->id;
+		        // $row['course_id'] = $result->course_id;
+		        // $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $searchText);
+
+
+
+		        $user = get_user_by('ID', $result['user_id']);
+		        $full_name = $user->first_name . ' ' . $user->last_name;
+		        $course_name = get_the_title($result['course_id']);
+		        // $woo_order_id = $result->woo_order_id;
+
+		        $row = apply_filters(
+		            'eb_manage_enrollment_csv_file_row_data',
+		                array(
+		                'user_id'       => $result['user_id'],
+		                'name'          => $full_name,
+		                'email'         => $user->user_email,
+		                'course'        => $course_name,
+		                'enrolled_date' => $result['time']
+		            ),
+		            $result 
+		        );
+
+
+		        fputcsv($output, $row);
+		    }
+
+		    // loop over the rows, outputting them
+
+		    fclose($output);
+		    // return ob_get_clean();
+
+		    }
+
+		}*/
+
+
+
+
+
+
+
 	}
 }

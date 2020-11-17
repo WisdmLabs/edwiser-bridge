@@ -202,6 +202,65 @@
         $('.alert').on('click', function () {
             ohSnapX(jQuery(this));
         });
+
+
+
+        /* ---------------------------
+         * Manage Enrollment page js
+         ------------------------------*/
+
+        $(document).on('click', '#eb_manage_enroll_dt_search', function(event){
+
+            event.preventDefault();
+            $('#eb_manage_enroll_export').val('');
+
+            var parent = $(this).closest('form');
+            parent.attr('action', '');
+            parent.submit();
+
+        });
+
+        $(document).on('focusout', '#enrollment_from_date', function(event){
+
+            var value = $(this).val();
+
+
+            if (is_valid_date(value)) {
+
+                
+                // $('#enrollment_to_date').prop('disabled ', false);
+                document.getElementById("enrollment_to_date").disabled = false;
+            } else {
+                document.getElementById("enrollment_to_date").disabled = true;
+            }
+
+        });
+
+
+
+        /*$("#enrollment_from_date").focusout(function(){
+
+
+        });*/
+
+
+        function is_valid_date(s) {
+            var bits = s.split('-');
+
+            // var d = new Date(bits[2], bits[1] - 1, bits[0]);
+            var d = new Date(bits[0], bits[1] - 1, bits[2]);
+
+            return d && (d.getMonth() + 1) == bits[1];
+        }
+
+
+        /*******  END  ******/
+
+
+
+
+
+
         /**
          * creates ajax request to initiate test connection request
          * display a response to user on process completion
@@ -811,6 +870,9 @@ console.log(eb_admin_js_object.msg_error_link_user);
             $("#eb_email_from").val(response['from_email']);
             $("#eb_email_from_name").val(response['from_name']);
             $("#eb_email_subject").val(response['subject']);
+            $("#eb_bcc_email").val(response['bcc_email']);
+
+
             if (response['notify_allow'] == "ON") {
                 $("#eb_email_notification_on").attr('checked', true)
             } else {

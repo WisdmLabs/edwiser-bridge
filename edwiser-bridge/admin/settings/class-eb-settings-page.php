@@ -193,7 +193,10 @@ if (!class_exists('ESettingsPage')) :
 		 */
 		public function output()
 		{
-			$settings = $this->get_settings();
+			$settings = $this->getSettings();
+            if (empty($settings)) {
+                $settings = $this->get_settings();
+            }
 
 			EbAdminSettings::output_fields($settings);
 		}

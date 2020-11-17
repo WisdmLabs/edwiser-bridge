@@ -25,7 +25,7 @@ class Eb_Course_Progress
 		// $settings = get_option("eb_general");
 		// if (isset($settings["eb_my_courses_page_id"]) && !empty($settings["eb_my_courses_page_id"]) && isset($settings["eb_useraccount_page_id"]) && !empty($settings["eb_useraccount_page_id"])) {
 			// if (is_page($settings["eb_my_courses_page_id"]) || is_page($settings["eb_useraccount_page_id"])) {
-		$user= wp_get_current_user();
+		$user = wp_get_current_user();
 		$user_id = $user->ID;
 		$mdl_user_id = get_user_meta($user->ID, "moodle_user_id", true);
 

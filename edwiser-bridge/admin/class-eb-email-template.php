@@ -74,35 +74,49 @@ class EBAdminEmailTemplate
 		if (isset($_POST["eb-mail-tpl-submit"]) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes") {
 			$this->save();
 		}
-		$fromName = $this->get_from_name();
-		$tmplList = array();
-		$tmplList = apply_filters('eb_email_templates_list', $tmplList);
-		$section = array();
-		$constSec = apply_filters('eb_email_template_constant', $section);
-		$checked = array();
-		$notifOn = "";
+		$from_name = $this->get_from_name();
+		$tmpl_list = array();
+		$tmpl_list = apply_filters('eb_email_templates_list', $tmpl_list);
+		$section   = array();
+		$const_sec = apply_filters('eb_email_template_constant', $section);
+		$checked   = array();
+		$notif_on  = "";
+
+error_log('OUTPUT ::: ');
 
 		if (isset($_GET["curr_tmpl"])) {
-			$tmplKey = $_GET["curr_tmpl"];
-			$tmplName = $tmplList[$_GET["curr_tmpl"]];
-			$notifOn = $this->is_not_if_enabled($_GET["curr_tmpl"]);
+
+error_log('11111');
+
+			$tmpl_key  = $_GET["curr_tmpl"];
+			$tmpl_name = $tmpl_list[$_GET["curr_tmpl"]];
+			$notif_on  = $this->is_not_if_enabled($_GET["curr_tmpl"]);
+			$bcc_email = $this->get_bcc_email($_GET["curr_tmpl"]);
 		} else {
-			$tmplKey = key($tmplList);
-			$tmplName = current($tmplList);
-			$notifOn = $this->is_not_if_enabled($tmplKey);
+
+error_log('22222');
+
+
+			$tmpl_key  = key($tmpl_list);
+			$tmpl_name = current($tmpl_list);
+			$notif_on  = $this->is_not_if_enabled($tmpl_key);
+
+error_log('tmpl_key ::: '.print_r($tmpl_key, 1));
+
+			$bcc_email  = $this->get_bcc_email($tmpl_key);
 		}
 
-		$tmplData = $this->get_email_template($tmplKey);
+		$tmplData = $this->get_email_template($tmpl_key);
 		$tmplContent = apply_filters("eb_email_template_data", $tmplData);
 		?>
 		<div class="wrap">
 			<h1 class="wp-heading-inline eb-emailtemp-head"><?php _e("Manage Email Templates", "eb-textdomain"); ?></h1>
 			<div class="eb-email-template-wrap">
 				<div class="eb-template-edit-form">
-					<h3 id="eb-email-template-name"><?php echo $tmplName; ?></h3>
+					<h3 id="eb-email-template-name"><?php echo $tmpl_name; ?></h3>
 					<form name="manage-email-template" method="POST">
 						<input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name"
-							   value="<?php echo $tmplKey; ?>"/>
+							   value="<?php echo $tmpl_key; ?>"/>
 								<?php
 								wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
 								?>
@@ -110,7 +124,7 @@ class EBAdminEmailTemplate
 							<tr>
 								<td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
 								<td>
-									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo $fromName; ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="<?php _e('Enter from name', 'eb-textdomain'); ?>"/>
+									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo $from_name; ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="<?php _e('Enter from name', 'eb-textdomain'); ?>"/>
 								</td>
 							</tr>
 
@@ -124,15 +138,22 @@ class EBAdminEmailTemplate
 							<tr>
 								<td class="eb-email-lable"><?php _e("Send email notification to the user?", "eb-textdomain"); ?></td>
 								<td>
-									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notifOn, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
+									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notif_on, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
 								</td>
 							</tr>
 
 
+					        <tr>
+					            <td class="eb-email-lable">
+					                <?php _e("Additional Email Adress For BCC in Mail", "eb-extension"); ?>
+					            </td>
+					            <td>
+					                <input type="email" value="<?= $bcc_email ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
+					            </td>
+					        </tr>
+					        <?php
 
-							<?php
-
-							do_action("eb_manage_email_template_before_text_editor", $tmplKey);
+							do_action("eb_manage_email_template_before_text_editor", $tmpl_key);
 
 							?>
 
@@ -150,7 +171,7 @@ class EBAdminEmailTemplate
 									<input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
 									<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'eb-textdomain'); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
 									<input type="button" class="button-primary" value="<?php _e("Restore template content", "eb-textdomain"); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
-									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo $tmplKey; ?>" />
+									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo $tmpl_key; ?>" />
 									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo $tmplContent['subject']; ?>" />
 								</td>
 							</tr>
@@ -178,11 +199,11 @@ class EBAdminEmailTemplate
 						<h3><?php _e("Email Templates", "eb-textdomain"); ?></h3>
 						<ul id="eb_email_templates_list">
 							<?php
-							foreach ($tmplList as $tmplId => $tmplName) {
-								if ($tmplKey == $tmplId) {
-									echo "<li id='$tmplId' class='eb-emailtmpl-list-item eb-emailtmpl-active'>$tmplName</li>";
+							foreach ($tmpl_list as $tmplId => $tmpl_name) {
+								if ($tmpl_key == $tmplId) {
+									echo "<li id='$tmplId' class='eb-emailtmpl-list-item eb-emailtmpl-active'>$tmpl_name</li>";
 								} else {
-									echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmplName</li>";
+									echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmpl_name</li>";
 								}
 							}
 							?>
@@ -192,7 +213,7 @@ class EBAdminEmailTemplate
 						<h3><?php _e("Template Constants", "eb-textdomain"); ?></h3>
 						<div class="eb-emiltemp-const-wrap">
 							<?php
-							foreach ($constSec as $secName => $tmplConst) {
+							foreach ($const_sec as $secName => $tmplConst) {
 								echo "<div class='eb-emailtmpl-const-sec'>";
 								echo "<h3>$secName</h3>";
 								foreach ($tmplConst as $const => $desc) {
@@ -214,15 +235,25 @@ class EBAdminEmailTemplate
 	 * @param string $currTmplName email temaplte option key
 	 * @return string returns ON if the email template is enambled for the provided template
 	 */
-	private function is_not_if_enabled($currTmplName)
+	private function is_not_if_enabled($curr_tmpl_name)
 	{
-		$notifEnabled = get_option($currTmplName . "_notify_allow");
-		if (isset($notifEnabled) && !empty($notifEnabled) && $notifEnabled=="ON") {
+		$notif_enabled = get_option($curr_tmpl_name . "_notify_allow");
+		if (isset($notif_enabled) && !empty($notif_enabled) && $notif_enabled=="ON") {
 			return "ON";
 		} else {
 			return "";
 		}
 	}
+
+
+	public function get_bcc_email($curr_tmpl_name) {
+		$bcc_email = get_option($curr_tmpl_name . "_bcc_email");
+		if (!$bcc_email) {
+			$bcc_email =  "";
+		}
+		return $bcc_email;
+	}
+
 
 	/**
 	 * Provides the functionality to prepare the wp editor for the email template edit
@@ -259,12 +290,19 @@ class EBAdminEmailTemplate
 
 		$data = array();
 		if (isset($_POST['tmpl_name'])) {
-			$tmplData = get_option($_POST['tmpl_name']);
-			$notifyAllow = get_option($_POST['tmpl_name'] . "_notify_allow");
-			$data['from_name'] = $this->get_from_name();
-			$data['subject'] = $tmplData['subject'];
-			$data['content'] = $tmplData['content'];
-			$data['notify_allow'] = $notifyAllow;
+			$tmpl_data    = get_option($_POST['tmpl_name']);
+			$notify_allow = get_option($_POST['tmpl_name'] . "_notify_allow");
+			$bcc_email    = get_option($_POST['tmpl_name'] . "_bcc_email");
+
+			if (!$bcc_email) {
+				$bcc_email = '';
+			}
+
+			$data['from_name']    = $this->get_from_name();
+			$data['subject']      = $tmpl_data['subject'];
+			$data['content']      = $tmpl_data['content'];
+			$data['notify_allow'] = $notify_allow;
+			$data['bcc_email']    = $bcc_email;
 		}
 		echo json_encode($data);
 		die();
@@ -292,11 +330,11 @@ class EBAdminEmailTemplate
 	 */
 	private function get_from_name()
 	{
-		$fromName = get_option("eb_mail_from_name");
-		if ($fromName == false) {
-			$fromName = get_bloginfo("name");
+		$from_name = get_option("eb_mail_from_name");
+		if ($from_name == false) {
+			$from_name = get_bloginfo("name");
 		}
-		return $fromName;
+		return $from_name;
 	}
 
 	/**
@@ -362,9 +400,9 @@ class EBAdminEmailTemplate
 	 * @param type $tmplName the option key to fetch the email temaplate content
 	 * @return returns the array of the email template subject and content
 	 */
-	private function get_email_template($tmplName)
+	private function get_email_template($tmpl_name)
 	{
-		return get_option($tmplName);
+		return get_option($tmpl_name);
 	}
 	/**
 	 * Getter methods end
@@ -385,9 +423,9 @@ class EBAdminEmailTemplate
 	 * @param type $tempalteName template option key to store into the databse
 	 * @param type $tempalteData store the template conten in the database
 	 */
-	private function set_template_data($tempalteName, $tempalteData)
+	private function set_template_data($tempalte_name, $tempalteData)
 	{
-		update_option($tempalteName, $tempalteData);
+		update_option($tempalte_name, $tempalteData);
 	}
 
 	/**
@@ -395,10 +433,22 @@ class EBAdminEmailTemplate
 	 * @param type $tempalteName template option key
 	 * @param type $notifyAllow is notificaiotn allow to send or not
 	 */
-	private function set_notify_allow($tempalteName, $notifyAllow)
+	private function set_notify_allow($tempalte_name, $notifyAllow)
 	{
-		update_option($tempalteName . "_notify_allow", $notifyAllow);
+		update_option($tempalte_name . "_notify_allow", $notifyAllow);
 	}
+
+
+	/**
+	 * Provides the functionality to set the notification enable disable value into the databse
+	 * @param type $tempalteName template option key
+	 * @param type $notifyAllow is notificaiotn allow to send or not
+	 */
+	private function set_bcc_email_address($tempalte_name, $notifyAllow)
+	{
+		update_option($tempalte_name . "_bcc_email", $notifyAllow);
+	}
+
 
 	/**
 	 * Provides the functionality to save the email temaplte content into the database
@@ -406,19 +456,24 @@ class EBAdminEmailTemplate
 	private function save()
 	{
 		if (isset($_POST["eb_emailtmpl_nonce"]) && wp_verify_nonce($_POST["eb_emailtmpl_nonce"], "eb_emailtmpl_sec")) {
-			$fromName = $this->check_is_empty($_POST, "eb_email_from_name");
+			$from_name = $this->check_is_empty($_POST, "eb_email_from_name");
 			$subject = $this->check_is_empty($_POST, "eb_email_subject");
-			$tmplContetn = $this->check_is_empty($_POST, "eb_emailtmpl_editor");
-			$tmplName = $this->check_is_empty($_POST, "eb_tmpl_name");
-			$notifyAllow = $this->check_is_empty($_POST, "eb_email_notification_on");
-			$notifyAllow = $notifyAllow == "ON" ? $notifyAllow : "OFF";
+			$tmpl_contetn = $this->check_is_empty($_POST, "eb_emailtmpl_editor");
+			$tmpl_name = $this->check_is_empty($_POST, "eb_tmpl_name");
+			$notify_allow = $this->check_is_empty($_POST, "eb_email_notification_on");
+			$notify_allow = $notify_allow == "ON" ? $notify_allow : "OFF";
+			$bcc_email = $this->check_is_empty($_POST, "eb_bcc_email");
+
 			$data = array(
 				"subject" => $subject,
-				"content" => stripslashes($tmplContetn),
+				"content" => stripslashes($tmpl_contetn),
 			);
-			$this->set_from_name($fromName);
-			$this->set_notify_allow($tmplName, $notifyAllow);
-			$this->set_template_data($tmplName, $data);
+
+			$this->set_from_name($from_name);
+			$this->set_notify_allow($tmpl_name, $notify_allow);
+			$this->set_template_data($tmpl_name, $data);
+			$this->set_bcc_email_address($tmpl_name, $bcc_email);
+
 			echo self::get_notice_html(__('Changes saved successfully!', 'eb-textdomain'));
 		} else {
 			echo self::get_notice_html(__('Due to the security issue changes are not saved, Try to re-update it.', 'eb-textdomain'), "error");
@@ -446,9 +501,9 @@ class EBAdminEmailTemplate
 	 * @return string returns the template content associated with the template
 	 * kay othrewise emapty string
 	 */
-	public static function get_email_tmpl_content($tmplName)
+	public static function get_email_tmpl_content($tmpl_name)
 	{
-		$tmplContent = get_option($tmplName);
+		$tmplContent = get_option($tmpl_name);
 		if ($tmplContent) {
 			return $tmplContent;
 		}
@@ -491,7 +546,7 @@ class EBAdminEmailTemplate
 	public function send_email($mailTo, $args, $tmplData)
 	{
 		$fromEmail = $this->get_from_email();
-		$fromName = $this->get_from_name();
+		$from_name = $this->get_from_name();
 		$subject = $this->check_is_empty($tmplData, "subject");
 		$tmplContent = stripslashes($this->check_is_empty($tmplData, "content"));
 
@@ -517,6 +572,12 @@ class EBAdminEmailTemplate
 		add_filter('wp_mail_content_type', function () {
 			return "text/html";
 		});
+
+		//CUSTOMIZATION CHANGES
+		if (isset($args["headers"])) {
+	        $headers[] = $args["headers"];
+		}
+
 
 
 		$mail = wp_mail($mailTo, $subject, $tmplContent, $headers);
@@ -600,8 +661,8 @@ class EBAdminEmailTemplate
 	public function restore_email_template($args)
 	{
 		$defaultTmpl = new Eb_Default_Email_Template();
-		$tmplKey=$args['tmpl_name'];
-		switch ($tmplKey) {
+		$tmpl_key=$args['tmpl_name'];
+		switch ($tmpl_key) {
 			case "eb_emailtmpl_create_user":
 				$value=$defaultTmpl->new_user_acoount("eb_emailtmpl_create_user", true);
 				break;
@@ -643,7 +704,7 @@ class EBAdminEmailTemplate
 				$args=apply_filters("eb_reset_email_tmpl_content", array("is_restored" => false, "tmpl_name"=>$args['tmpl_name']));
 				return $args;
 		}
-		$status=  update_option($tmplKey, $value);
+		$status=  update_option($tmpl_key, $value);
 		if ($status) {
 			$args['is_restored']=true;
 			return $args;

@@ -69,12 +69,61 @@ class Eb_Emailer
 		echo $this->get_content_html('', $this->plugin_template_loader);
 	}
 
+
+
+    public function set_bcc_field_in_email_header($args, $emailOptionKey)
+    {
+
+        $header = get_option($emailOptionKey."_additional_email");
+        $args["headers"] = "";
+        if ($header) {
+            $args["headers"] = "Bcc:".$header;
+        }
+
+        return $args;
+
+
+
+        /*$args          = apply_filters("eb_args_data", $args);
+        $emailTmplData = ExtendedEBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
+        $allowNotify   = get_option("eb_emailtmpl_create_user_notify_allow");
+        if ($allowNotify == false || $allowNotify != "ON") {
+            return;
+        }
+        if ($emailTmplData) {
+            $emailTmplObj = new ExtendedEBAdminEmailTemplate();
+            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
+        }*/
+
+
+        /**
+         * Using Default
+         */
+        /*$this->template_name = 'emails/user-new-account.php';
+
+        // prepare arguments array for email
+        $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+
+        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
+        $args['header'] = $email_subject; // send email subject as header in email template
+        $email_content  = $this->getContentHtml($args);
+        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+        //send email
+        $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);*/
+    }
+
+
+
 	public function send_course_access_expire_email($args)
 	{
 		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_course_access_expir");
 		$allowNotify   = get_option("eb_emailtmpl_course_access_expir_notify_allow");
 		if ($emailTmplData && $allowNotify == "ON") {
 			$emailTmplObj = new EBAdminEmailTemplate();
+
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_course_access_expir");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 	}
@@ -85,6 +134,9 @@ class Eb_Emailer
 		$allowNotify   = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
 		if ($emailTmplData && $allowNotify == "ON") {
 			$emailTmplObj = new EBAdminEmailTemplate();
+
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_new_moodle_user");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 	}
@@ -115,6 +167,10 @@ class Eb_Emailer
 				$args['first_name'] = $user->first_name;
 				$args['last_name'] = $user->last_name;
 				$args['username'] = $user->user_login;
+
+				//CUSTOMIZATION HOOKS
+                $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_user");
+
 				$emailTmplObj->send_email($user->user_email, $args, $userEmailTmplData);
 			}
 		}
@@ -132,11 +188,18 @@ class Eb_Emailer
 					$args['first_name'] = $adminUser->first_name;
 					$args['last_name'] = $adminUser->last_name;
 					$args['username'] = $adminUser->user_login;
+					
+					//CUSTOMIZATION HOOKS
+            		$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_admin");
+
 					$emailTmplObj->send_email($value->data->user_email, $args, $adminEmailTmplData);
 				}
 			}
 
 			if (isset($specifiedEmailForRefund) && !empty($specifiedEmailForRefund)) {
+
+				 //CUSTOMIZATION HOOKS
+            	$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_admin");
 				$emailTmplObj->send_email($specifiedEmailForRefund, $args, $adminEmailTmplData);
 			}
 		}
@@ -168,6 +231,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+			//CUSTOMIZATION HOOKS
+        	$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_create_user");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 		/**
@@ -183,6 +248,9 @@ class Eb_Emailer
 		$email_content  = $this->get_content_html($args);
 		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
 
+
+		//CUSTOMIZATION HOOKS
+        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_create_user");
 		//send email
 		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
 
@@ -213,6 +281,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_user");
+
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 		/**
@@ -231,6 +301,9 @@ class Eb_Emailer
 		$args['header'] = $email_subject; // send email subject as header in email template
 		$email_content  = $this->get_content_html($args);
 		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_user");
+
 
 		//send email
 		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
@@ -292,6 +365,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_order_completed");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 
@@ -305,6 +380,10 @@ class Eb_Emailer
 		$args['header'] = $email_subject; // send email subject as header in email template
 		$email_content = $this->get_content_html($args);
 		$email_headers = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+
+		//CUSTOMIZATION HOOKS
+        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_order_completed");
+
 
 		//send email
 		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
@@ -346,6 +425,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_enrollment_trigger");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 		/**
@@ -400,6 +481,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_un_enrollment_trigger");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 		/**
@@ -455,6 +538,8 @@ class Eb_Emailer
 		}
 		if ($emailTmplData) {
 			$emailTmplObj = new EBAdminEmailTemplate();
+			//CUSTOMIZATION HOOKS
+            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_user_deletion_trigger");
 			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
 		}
 		/**

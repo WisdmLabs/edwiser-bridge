@@ -957,7 +957,7 @@ class EdwiserBridge
 		$this->loader->eb_add_action('wp_loaded', 'app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_free_course_join_request');
 
 		$this->loader->eb_add_action('after_setup_theme', $plugin_public, 'after_setup_theme');
-		add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\Eb_Shortcode_User_Account', 'saveAccountDetails'));
+		add_action('template_redirect', array('\app\wisdmlabs\edwiserBridge\Eb_Shortcode_User_Account', 'save_account_details'));
 	}
 
 	/**
@@ -1046,6 +1046,18 @@ class EdwiserBridge
 			'send_mdl_triggered_user_deletion_email',
 			10
 		); // email on trigger of the Moodle User Deletion
+
+
+		//Hook to get bcc field set for the email.
+		$this->loader->eb_add_action(
+			'eb_email_custom_args',
+			$plugin_emailer,
+			'set_bcc_field_in_email_header',
+			10,
+			2
+		); 
+
+
 
 
 		/**************/
