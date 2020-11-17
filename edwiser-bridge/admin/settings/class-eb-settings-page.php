@@ -43,12 +43,29 @@ if (!class_exists('ESettingsPage')) :
 		 *
 		 * @since  1.0.0
 		 */
-		public function add_settings_page($pages)
+		public function addSettingsPage($pages)
 		{
+
 			$pages[$this->_id] = $this->label;
 
 			return $pages;
 		}
+
+
+		/**
+		 * Add this page to settings
+		 *
+		 * @since  1.0.0
+		 */
+		public function add_settings_page($pages)
+		{
+
+
+			$pages[$this->_id] = $this->label;
+
+			return $pages;
+		}
+
 
 		/**
 		 * Get settings array
@@ -57,6 +74,19 @@ if (!class_exists('ESettingsPage')) :
 		 * @return array
 		 */
 		public function get_settings()
+		{
+			return apply_filters('eb_getSettings_'.$this->_id, array());
+		}
+
+		/**
+		 * Deprecated Function
+		 *
+		 * Get settings array
+		 *
+		 * @since  1.0.0
+		 * @return array
+		 */
+		public function getSettings()
 		{
 			return apply_filters('eb_getSettings_'.$this->_id, array());
 		}
@@ -71,6 +101,24 @@ if (!class_exists('ESettingsPage')) :
 		{
 			return apply_filters('eb_getSections_'.$this->_id, array());
 		}
+
+
+
+		/**
+		 * Deprecated Function
+		 *
+		 * Get sections
+		 *
+		 * @since  1.0.0
+		 * @return array
+		 */
+		public function getSections()
+		{
+			return apply_filters('eb_getSections_'.$this->_id, array());
+		}
+
+
+
 
 		/**
 		 * Output sections
@@ -102,6 +150,41 @@ if (!class_exists('ESettingsPage')) :
 
 			echo '</ul><br class="clear" />';
 		}
+
+
+		/**
+		 * Deprecated Function
+		 *
+		 * Output sections
+		 *
+		 * @since  1.0.0
+		 */
+		public function outputSections()
+		{
+			global $current_section;
+
+			$sections = $this->get_sections();
+
+			if (empty($sections)) {
+				return;
+			}
+
+			echo '<ul class="subsubsub">';
+
+			$array_keys = array_keys($sections);
+
+			foreach ($sections as $id => $label) {
+				echo '<li>';
+				echo '<a href="'.
+				admin_url(
+					'admin.php?page=eb-settings&tab='.$this->_id.'&section='.sanitize_title($id)
+				).'" class="'.($current_section == $id ? 'current' : '').'">'.$label.'</a> ';
+				echo (end($array_keys) == $id ? '' : '|').' </li>';
+			}
+
+			echo '</ul><br class="clear" />';
+		}
+
 
 		/**
 		 * Output the settings

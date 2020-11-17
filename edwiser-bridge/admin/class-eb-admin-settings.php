@@ -50,6 +50,10 @@ if (!class_exists('EbAdminSettings')) {
 				$settings[] = include 'settings/class-eb-settings-licensing.php';
 				$settings[] = include 'settings/class-eb-settings-shortcode-doc.php';
 				$settings[] = include 'settings/class-eb-settings-premium-extensions.php';
+
+				error_log('SETTINGS :: '.print_r($settings, 1));
+
+
 			}
 
 			return self::$settings;

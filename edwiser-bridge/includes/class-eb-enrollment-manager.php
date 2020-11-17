@@ -419,6 +419,8 @@ class Eb_Enrollment_Manager
                         date_default_timezone_set(get_option('timezone_string'));
                     }
 
+
+
                     $expireDate = $this->calc_course_acess_expiry_date($course_id);
 
                     $wpdb->insert(

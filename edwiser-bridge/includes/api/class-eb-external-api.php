@@ -42,33 +42,43 @@ class Eb_External_Api_Endpoint
     {
         $data = stripcslashes($_POST["data"]);
         $data = unserialize($data);
+        $response_data = array();
+
         if (isset($_POST["action"]) && !empty($_POST["action"])) {
             switch ($_POST["action"]) {
                 case 'test_connection':
-                    $responseData = $this->eb_test_connection($data);
+                    $response_data = $this->eb_test_connection($data);
                     break;
 
                 case 'course_enrollment':
-                    $responseData = $this->eb_course_enrollment($data, 0);
+                    $response_data = $this->eb_course_enrollment($data, 0);
                     break;
 
                 case 'course_un_enrollment':
-                    $responseData = $this->eb_course_enrollment($data, 1);
+                    $response_data = $this->eb_course_enrollment($data, 1);
                     break;
 
                 case 'user_creation':
-                    $responseData = $this->eb_trigger_user_creation($data);
+                    $response_data = $this->eb_trigger_user_creation($data);
                     break;
 
                 case 'user_deletion':
-                    $responseData = $this->eb_trigger_user_delete($data);
+                    $response_data = $this->eb_trigger_user_delete($data);
+                    break;
+
+                case 'user_updated':
+                    $response_data = $this->eb_trigger_user_update($data);
+                    break;
+
+                case 'course_deleted':
+                    $response_data = $this->eb_trigger_course_delete($data);
                     break;
 
                 default:
                     break;
             }
         }
-        return $responseData;
+        return $response_data;
     }
 
 
@@ -291,4 +301,81 @@ class Eb_External_Api_Endpoint
         do_action('eb_created_user', $args);
         return $user_id;
     }
+
+
+
+    public function eb_trigger_course_delete($data) {
+
+        if (isset($data["course_id"])) {
+            // get WP course id from moodle course id.
+            $wp_course_id = get_wp_course_id_from_moodle_course_id($data["course_id"]);
+
+            if ($wp_course_id) {
+                // Update course meta to delete.
+                // mdl_course_deleted.
+                $course_meta = get_post_meta($wp_course_id, 'eb_course_options', 1);
+            
+                error_log('course_meta :: '.print_r($course_meta, 1));
+
+                $course_meta['mdl_course_deleted'] = 1;
+
+                update_post_meta($wp_course_id, 'eb_course_options', $course_meta);
+            }
+        }
+    }
+
+
+
+    public function eb_trigger_user_update($data) {
+
+error_log('data :: '.print_r($data, 1));
+
+        // get WP User id if present then process.
+        $wp_user_id = get_wp_user_id_from_moodle_id($data['user_id']);
+
+        if (!empty($wp_user_id)) {
+            // get fields.
+            $user_update_array = array(
+                'ID'         => $wp_user_id,
+                'first_name' => $data['first_name'],
+                'last_name'  => $data['last_name'],
+            );
+            
+
+            // if password is present then decode with key.
+
+        
+
+
+            if (isset($data['password']) && !empty($data['password'])) {
+
+                $enc_method = 'AES-128-CTR';
+                // $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
+                $enc_iv = '1234567891011121'; 
+
+                $enc_key = openssl_digest(EB_ACCESS_TOKEN, 'SHA256', true );
+                $password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+                $user_update_array['user_pass'] = $password;
+            }
+
+            $user_update_array = apply_filters('eb_mdl_user_update_trigger_data', $user_update_array);
+
+error_log('user_update_array :: '.print_r($user_update_array, 1));
+
+
+            // Update password and fields.
+            wp_update_user($user_update_array);
+        }
+
+        
+        
+
+
+    }
+
+
+
+
+
+
 }

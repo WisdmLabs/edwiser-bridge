@@ -511,6 +511,9 @@ class Eb_Course_Manager
 		$new_columns = array(); // new columns array
 
 		foreach ($columns as $k => $value) {
+
+error_log('columns :: '.print_r( $columns,1));
+
 			if ($k === 'title') {
 				$new_columns[$k] = __('Course Title', 'eb-textdomain');
 			} else {
@@ -520,7 +523,18 @@ class Eb_Course_Manager
 			if ($k === 'title') {
 				$new_columns['course_type'] = __('Course Type', 'eb-textdomain');
 			}
+
+            if ($k === 'title') {
+
+                $new_columns['mdl_course_id'] = __('Moodle Course Id', 'eb-textdomain');
+            }
+
+            $new_columns = apply_filters( 'eb_course_each_table_header', $new_columns);
+
 		}
+
+
+        $new_columns = apply_filters( 'eb_course_table_headers', $new_columns);
 
 		return $new_columns;
 	}
@@ -532,16 +546,24 @@ class Eb_Course_Manager
 	 *
 	 * @param array $columns name of a column
 	 */
-	public function add_course_price_type_column_content($column_name, $post_ID)
+	public function add_course_price_type_column_content($column_name, $post_id)
 	{
 		if ($column_name == 'course_type') {
-			$status = Eb_Post_Types::get_post_options($post_ID, 'course_price_type', 'eb_course');
+			$status = Eb_Post_Types::get_post_options($post_id, 'course_price_type', 'eb_course');
 			$options = array(
 						'free' => __('Free', 'eb-textdomain'),
 						'paid' => __('Paid', 'eb-textdomain'),
 						'closed' => __('Closed', 'eb-textdomain'),
 					);
 			echo isset($options[$status]) ? $options[$status] : ucfirst($status);
-		}
+		} elseif($column_name == 'mdl_course_id') {
+            $mdl_course_id = Eb_Post_Types::get_post_options($post_id, 'moodle_course_id', 'eb_course');
+            $mdl_course_deleted = Eb_Post_Types::get_post_options($post_id, 'mdl_course_deleted', 'eb_course');
+
+            echo !empty($mdl_course_deleted) ? '<span style="color:red;">' . __('Deleted', 'eb-textdomain') . '<span>' : $mdl_course_id;
+        }
+
+        do_action( 'eb_course_table_content', $column_name, $post_id);
+
 	}
 }

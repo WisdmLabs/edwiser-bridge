@@ -45,7 +45,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 		 *
 		 * @return array
 		 */
-		public function getSections() {
+		public function get_sections() {
 			$sections = array(
 				''          => __( 'Courses', 'eb-textdomain' ),
 				'user_data' => __( 'Users', 'eb-textdomain' ),

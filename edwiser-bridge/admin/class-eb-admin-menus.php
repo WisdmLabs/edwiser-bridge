@@ -48,7 +48,7 @@ class Eb_Admin_Menus
 	 */
 	public function admin_menu()
 	{
-		global $menu;
+		global $menu, $submenu;
 
 		// add menu separator
 		if (current_user_can('manage_options')) {
@@ -65,7 +65,7 @@ class Eb_Admin_Menus
 			54
 		);
 
-		global $submenu;
+		
 		$location = 55;
 		$add_submenu = array(
 			array(

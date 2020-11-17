@@ -271,6 +271,7 @@ class Eb_Post_Types
 				'field' => $values,
 				'post_type' => $args['args']['post_type'],
 			);
+
 			$this->render_metabox_fields($field_args);
 		}
 		// display content before order options, only if post type is moodle order.
@@ -295,15 +296,28 @@ class Eb_Post_Types
 	private function populate_metabox_fields($post_type)
 	{
 		global $post;
+
+
+error_log('post ::: '.print_r($post, 1));
+        $post_id = get_the_id();
+error_log('ID :: '.print_r($post_id, 1));
+
+        $deletion_status = self::get_post_options($post->ID, 'mdl_course_deleted', $post_type);
+
+
+// error_log('option:: '.print_r($option, 1));
+
+
 		$args_array = array(
 			'eb_course' => array(
 				'moodle_course_id' => array(
 					'label' => __('Moodle Course ID', 'eb-textdomain'),
-					'description' => __('ID of this course on moodle.', 'eb-textdomain'),
-					'type' => 'label',
+					'description' => __('', 'eb-textdomain'),
+					'type' => 'text',
 					'placeholder' => __('', 'eb-textdomain'),
-					'attr' => 'readonly',
+					'attr' => 'text',
 					'default' => '0',
+                    'note' => isset($deletion_status) && !empty($deletion_status) ? '<span style="color:red;">'. __('This course is deleted on Moodle', 'eb-textdomain') . '</span>' : '',
 				),
 				'course_price_type' => array(
 					'label' => __('Course Price Type', 'eb-textdomain'),
@@ -546,6 +560,11 @@ class Eb_Post_Types
 				$html .= '<span class="description-label '.esc_attr($field_id);
 				$html .= '"><img class="help-tip" src="'.EB_PLUGIN_URL.'images/question.png" data-tip="';
 				$html .= $field['description'].'" /></span>';
+
+                //Adding note after input.
+                $html .= isset($field['note']) ? $field['note'] : '';
+
+
 				break;
 		}
 
