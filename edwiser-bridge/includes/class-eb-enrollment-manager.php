@@ -195,9 +195,6 @@ class Eb_Enrollment_Manager
                 //Get User Course access Count.
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
 
-error_log('act_cnt ::'.print_r($act_cnt, 1));
-
-
                 //decrease the count value
                 // $act_cnt = $act_cnt - 1;
 
@@ -341,15 +338,11 @@ error_log('act_cnt ::'.print_r($act_cnt, 1));
             }
         }
 
-        
-error_log('ARGS :: '.print_r($args, 1));
 
         $response = array();
         // If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
 
         if ($args['unenroll'] != 1 /*&& $args['suspend'] != 1*/) {
-
-error_log('SUSPENDING ::: ');
 
             // prepare request data
             $request_data = array('enrolments' => $enrolments);
@@ -361,9 +354,6 @@ error_log('SUSPENDING ::: ');
             foreach ($args['courses'] as $key => $course_id) {
                 //Get User Course access Count.
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
-
-error_log('act_cnt ::'.print_r($act_cnt, 1));
-
 
                 //decrease the count value
                 // $act_cnt = $act_cnt - 1;

@@ -244,9 +244,9 @@ class EBConnectionHelper
 	public function check_service_access($url, $token)
 	{
 		$success         = 1;
-		$responseMessage = '<div>';
+		$response_message = '<div>';
 
-		$responseMessage .= '<div>'. __('Below are the functions which don\'t have access to the web service you created. This is due to :', 'eb-textdomain') .'</div>
+		$response_message .= '<div>'. __('Below are the functions which don\'t have access to the web service you created. This is due to :', 'eb-textdomain') .'</div>
 								<div>
 									<div>
 										<ol>
@@ -299,14 +299,26 @@ class EBConnectionHelper
 
 
 		if (count($missingWebServiceFns) > 0) {
-			$responseMessage .= implode(' , ', $missingWebServiceFns);
+			$response_message .= implode(' , ', $missingWebServiceFns);
 
-			$responseMessage .=  '
+			$response_message .=  '
 										</div>
 									</div>';
-			$responseMessage .=  '</div>';
+			// Add new message here.
+
+			$response_message .= __('You can check added webservice here ', 'eb-textdomain') . '<a href="'. get_moodle_url() .'/admin/settings.php?section=externalservices">' . get_moodle_url() . '/admin/settings.php?section=externalservices</a>'. __(' or you can directly create new token and webservice in our Moodle edwiser settings here '. 'eb-textdomain' . '<a href="'. get_moodle_url() .'local/edwiserbridge/edwiserbridge.php?tab=service">' . get_moodle_url() . 'local/edwiserbridge/edwiserbridge.php?tab=service</a>');
+
+
+			$response_message .=  '</div>';
 		}
-		return array('success' => $success, 'response_message' => $responseMessage);
+
+
+
+
+
+
+
+		return array('success' => $success, 'response_message' => $response_message);
 	}
 
 

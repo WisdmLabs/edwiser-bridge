@@ -314,8 +314,6 @@ class Eb_External_Api_Endpoint
                 // Update course meta to delete.
                 // mdl_course_deleted.
                 $course_meta = get_post_meta($wp_course_id, 'eb_course_options', 1);
-            
-                error_log('course_meta :: '.print_r($course_meta, 1));
 
                 $course_meta['mdl_course_deleted'] = 1;
 
@@ -327,8 +325,6 @@ class Eb_External_Api_Endpoint
 
 
     public function eb_trigger_user_update($data) {
-
-error_log('data :: '.print_r($data, 1));
 
         // get WP User id if present then process.
         $wp_user_id = get_wp_user_id_from_moodle_id($data['user_id']);
@@ -359,9 +355,6 @@ error_log('data :: '.print_r($data, 1));
             }
 
             $user_update_array = apply_filters('eb_mdl_user_update_trigger_data', $user_update_array);
-
-error_log('user_update_array :: '.print_r($user_update_array, 1));
-
 
             // Update password and fields.
             wp_update_user($user_update_array);

@@ -82,27 +82,16 @@ class EBAdminEmailTemplate
 		$checked   = array();
 		$notif_on  = "";
 
-error_log('OUTPUT ::: ');
 
 		if (isset($_GET["curr_tmpl"])) {
-
-error_log('11111');
-
 			$tmpl_key  = $_GET["curr_tmpl"];
 			$tmpl_name = $tmpl_list[$_GET["curr_tmpl"]];
 			$notif_on  = $this->is_not_if_enabled($_GET["curr_tmpl"]);
 			$bcc_email = $this->get_bcc_email($_GET["curr_tmpl"]);
 		} else {
-
-error_log('22222');
-
-
 			$tmpl_key  = key($tmpl_list);
 			$tmpl_name = current($tmpl_list);
 			$notif_on  = $this->is_not_if_enabled($tmpl_key);
-
-error_log('tmpl_key ::: '.print_r($tmpl_key, 1));
-
 			$bcc_email  = $this->get_bcc_email($tmpl_key);
 		}
 

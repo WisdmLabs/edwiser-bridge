@@ -512,8 +512,6 @@ class Eb_Course_Manager
 
 		foreach ($columns as $k => $value) {
 
-error_log('columns :: '.print_r( $columns,1));
-
 			if ($k === 'title') {
 				$new_columns[$k] = __('Course Title', 'eb-textdomain');
 			} else {

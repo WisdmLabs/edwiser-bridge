@@ -518,3 +518,15 @@ function get_user_suspended_status($user_id, $course_id) {
 
 }
 
+
+
+function get_moodle_url()
+{
+	$url = get_option("eb_connection");
+	if ($url) {
+		return $url["eb_url"];
+	}
+	return "MOODLE_URL";
+}
+
+

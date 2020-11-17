@@ -260,8 +260,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
             }
 
             if ($which == "top") {
-                echo '<span class="eb_manage_enroll_custom_nav_wrap">' . __('From : ') . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="'.__('Search').'"/> </span>
-                <span><input type="text" name="eb_manage_enroll_search" id="eb_manage_enroll_search"/> <input type="submit" name="eb_manage_enroll_text_search" id="eb_manage_enroll_text_search" class="button action" value="'.__('Search').'"/> </span></span>';
+                echo '<span class="eb_manage_enroll_custom_nav_wrap">' . __('From : ') . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="'.__('Search').'"/> </span>';
 
                 // WITH EXPORT BUTTON
                 /*echo __('From : ') . '<input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" value="'.__('Search').'"/>

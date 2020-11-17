@@ -1633,15 +1633,9 @@ class EBUserManager
 
 	public function unenroll_on_course_access_expire()
 	{
-
-error_log('unenroll_on_course_access_expire');
-
-
 		global $wpdb, $post;
 		$cur_user = get_current_user_id();
 		$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
-
-error_log('stmt :: '.print_r($stmt, 1));
 
 		$enroll_data = $wpdb->get_results($stmt);
 		$enrollment_manager = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
@@ -1649,15 +1643,9 @@ error_log('stmt :: '.print_r($stmt, 1));
 		//Added for the bulk purchase plugin expiration functionality
 		$enroll_data = apply_filters("eb_user_list_on_course_expiration", $enroll_data);
 
-error_log('enroll_data :: '.print_r($enroll_data, 1));
-
-
 		foreach ($enroll_data as $course_enroll_data) {
 
 			$course_options = get_post_meta($course_enroll_data->course_id, 'eb_course_options', true);
-
-error_log('course_enroll_data->course_id :: '.print_r($course_enroll_data->course_id, 1));
-error_log('course_options :: '.print_r($course_options, 1));
 
 			$args = array(
 				'user_id' => $course_enroll_data->user_id,
@@ -1672,8 +1660,6 @@ error_log('course_options :: '.print_r($course_options, 1));
 			} else {
 				$args['unenroll'] = 1;
 			}
-
-error_log('args :: '.print_r($args, 1));
 
 			// $enrollMentManager->updateUserCourseEnrollment($args);
 			$enrollment_manager->update_user_course_enrollment($args);
