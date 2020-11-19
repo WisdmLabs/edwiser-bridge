@@ -42,49 +42,49 @@ if (!defined("EB_PLUGIN_NAME")) {
 }
 
 
-function activateEdwiserBridge($netWide)
+function activate_edwiser_bridge($netWide)
 {
     require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
     Eb_Activator::activate($netWide);
 }
 
-register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activateEdwiserBridge');
+register_activation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\activate_edwiser_bridge');
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-eb-deactivator.php.
  */
-function deactivateEdwiserBridge()
+function deactivate_edwiser_bridge()
 {
     require_once plugin_dir_path(__FILE__).'includes/class-eb-deactivator.php';
     Eb_Deactivator::deactivate();
 }
 
-register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivateEdwiserBridge');
+register_deactivation_hook(__FILE__, 'app\wisdmlabs\edwiserBridge\deactivate_edwiser_bridge');
 
 /*
  * Applied to the list of links to display on the plugins page (beside the activate/deactivate links).
  *
  * A nes link is added that takes user to plugin settings.
  */
-add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'app\wisdmlabs\edwiserBridge\wdmAddSettingsActionLink');
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'app\wisdmlabs\edwiserBridge\wdm_add_settings_action_link');
 
-function wdmAddSettingsActionLink($links)
+function wdm_add_settings_action_link($links)
 {
-    $pluginlinks = array(
+    $plugin_links = array(
         '<a href="'.admin_url('/admin.php?page=eb-settings').'">' . __('Settings', 'eb-textdomain') . '</a>',
             //'<a href="https://edwiser.org/bridge/documentation/" target="_blank">Documentation</a>',
     );
 
-    return array_merge($links, $pluginlinks);
+    return array_merge($links, $plugin_links);
 }
 
 /*
  * Show row meta on the plugin screen, custom docs link added.
  */
-add_filter('plugin_row_meta', 'app\wisdmlabs\edwiserBridge\wdmPluginRowMeta', 10, 2);
+add_filter('plugin_row_meta', 'app\wisdmlabs\edwiserBridge\wdm_plugin_row_meta', 10, 2);
 
-function wdmPluginRowMeta($links, $file)
+function wdm_plugin_row_meta($links, $file)
 {
     if ($file == plugin_basename(__FILE__)) {
         $row_meta = array(
@@ -107,9 +107,9 @@ function wdmPluginRowMeta($links, $file)
  *
  * @since 1.1
  */
-add_action('admin_init', 'app\wisdmlabs\edwiserBridge\wdmShowLegacyExtensions');
+add_action('admin_init', 'app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions');
 
-function wdmShowLegacyExtensions()
+function wdm_show_legacy_extensions()
 {
     // prepare extensions array
     $extensions = array(
@@ -125,14 +125,14 @@ function wdmShowLegacyExtensions()
 
             if (isset($plugin_data['Version'])) {
                 if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
-                    add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\wdmShowLegacyExtensionsNotices');
+                    add_action('admin_notices', 'app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions_notices');
                 }
             }
         }
     }
 }
 
-function wdmShowLegacyExtensionsNotices()
+function wdm_show_legacy_extensions_notices()
 {
     ob_start(); ?>
     <div class="error">
@@ -157,15 +157,15 @@ require plugin_dir_path(__FILE__).'includes/class-eb.php';
 /*
  * Executes on the plugin update.
  */
-add_action('admin_init', 'app\wisdmlabs\edwiserBridge\processUpgrade');
-function processUpgrade()
+add_action('admin_init', 'app\wisdmlabs\edwiserBridge\process_upgrade');
+function process_upgrade()
 {
-    $newVersion = '1.4.9';
-    $currentVersion = get_option('eb_current_version');
-    if ($currentVersion == false || $currentVersion != $newVersion) {
+    $new_version = '1.4.9';
+    $current_version = get_option('eb_current_version');
+    if ($current_version == false || $current_version != $new_version) {
         require_once plugin_dir_path(__FILE__).'includes/class-eb-activator.php';
         Eb_Activator::activate(false);
-        update_option('eb_current_version', $newVersion);
+        update_option('eb_current_version', $new_version);
     }
 }
 
@@ -178,12 +178,12 @@ function processUpgrade()
  *
  * @since    1.0.0
  */
-function runEdwiserBridge()
+function run_edwiser_bridge()
 {
     edwiser_bridge_instance()->run();
 }
 
-runEdwiserBridge(); // start plugin execution
+run_edwiser_bridge(); // start plugin execution
 
 require_once plugin_dir_path(__FILE__).'includes/api/class-eb-external-api.php';
 
