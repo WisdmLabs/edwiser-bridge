@@ -397,6 +397,22 @@ class EdwiserBridge
 		$this->loader->eb_add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
 
+
+
+	/**
+	 * DEPRECATED FUNCTION
+	 * Get User Manager class.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @return EBUserManager
+	 */
+	public function userManager()
+	{
+		return EBUserManager::instance($this->get_plugin_name(), $this->get_version());
+	}
+
+
 	/**
 	 * Get User Manager class.
 	 *
@@ -410,6 +426,21 @@ class EdwiserBridge
 	}
 
 	/**
+	 * DEPRECATED FUNCTION
+	 *
+	 * Get Course Manager class.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @return Eb_Course_Manager
+	 */
+	public function courseManager()
+	{
+		return Eb_Course_Manager::instance($this->get_plugin_name(), $this->get_version());
+	}
+
+
+	/**
 	 * Get Course Manager class.
 	 *
 	 * @since    1.0.0
@@ -420,6 +451,22 @@ class EdwiserBridge
 	{
 		return Eb_Course_Manager::instance($this->get_plugin_name(), $this->get_version());
 	}
+
+
+	/**
+	 * DEPRECATED FUNCTION
+	 *
+	 * Get Enrollment Manager class.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @return Eb_Enrollment_Manager
+	 */
+	public function enrollmentManager()
+	{
+		return Eb_Enrollment_Manager::instance($this->get_plugin_name(), $this->get_version());
+	}
+
 
 	/**
 	 * Get Enrollment Manager class.
@@ -432,6 +479,8 @@ class EdwiserBridge
 	{
 		return Eb_Enrollment_Manager::instance($this->get_plugin_name(), $this->get_version());
 	}
+
+
 
 	/**
 	 * DEPREACATED FUNCTION
