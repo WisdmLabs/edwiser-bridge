@@ -131,8 +131,12 @@ if (!class_exists('ESettingsPage')) :
 
 			$sections = $this->get_sections();
 
+
 			if (empty($sections)) {
+				// $sections = $this->getSections();
+				// if (empty($sections)) {
 				return;
+				// }
 			}
 
 			echo '<ul class="subsubsub">';
@@ -163,7 +167,7 @@ if (!class_exists('ESettingsPage')) :
 		{
 			global $current_section;
 
-			$sections = $this->get_sections();
+			$sections = $this->getSections();
 
 			if (empty($sections)) {
 				return;

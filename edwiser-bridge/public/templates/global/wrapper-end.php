@@ -33,7 +33,23 @@ switch ($template) {
         echo '</main></div>';
         echo '</div>';
         break;
-    default:
+        //divi
+    case 'Divi':
         echo '</div></div>';
+        //Ending one div which started in wrapper-content-start template.
+        echo '</div>';
+        break;
+
+    case 'flatsome':
+        echo '</div></div>';
+        //Ending one div which started in wrapper-content-start template.
+        // echo '</div>';
+        break;
+
+    default:
+        // Divi container
+        echo '</div></div>';
+        //Ending one div which started in wrapper-content-start template.
+        // echo '</div>';
         break;
 }

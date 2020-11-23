@@ -279,13 +279,16 @@ class EdwiserBridge
 		
 		include_once EB_PLUGIN_DIR.'includes/class-eb-default-email-templates.php';
 
+		// handles theme compatibility.
+		require_once EB_PLUGIN_DIR.'public/class-eb-theme-compatibility.php';
+
+
 
 		/*
 		 * loading refund dependencies.
 		 * @since      1.3.3
 		 */
 		require_once EB_PLUGIN_DIR.'includes/class-eb-gdpr-compatibility.php';
-
 
 		$this->loader = new Eb_Loader();
 	}
@@ -379,6 +382,7 @@ class EdwiserBridge
 		 * The class responsible for handling frontend forms, specifically login & registration forms.
 		 */
 		require_once EB_PLUGIN_DIR.'public/class-eb-frontend-form-handler.php';
+
 	}
 
 	/**
@@ -973,6 +977,43 @@ class EdwiserBridge
 
 		// wp_remote_post() has default timeout set as 5 seconds, increase it to remove timeout problem
 		$this->loader->eb_add_filter('http_request_timeout', $this->connection_helper(), 'connection_timeout_extender');
+
+
+		// Adding theme compatibility hooks here.
+		$theme_compatibility = new Eb_Theme_Compatibility();
+		$this->loader->eb_add_action(
+			'eb_archive_before_content',
+			$theme_compatibility,
+			'eb_content_start_theme_compatibility',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_action(
+			'eb_archive_after_content',
+			$theme_compatibility,
+			'eb_content_end_theme_compatibility',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_action(
+			'eb_archive_before_sidebar',
+			$theme_compatibility,
+			'eb_sidebar_start_theme_compatibility',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_action(
+			'eb_archive_after_sidebar',
+			$theme_compatibility,
+			'eb_sidebar_end_theme_compatibility',
+			10,
+			2
+		);
+
+
 	}
 
 	/**

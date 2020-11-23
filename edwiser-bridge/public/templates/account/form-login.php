@@ -98,7 +98,7 @@ do_action('eb_before_customer_login_form');
 	<?php
 	if (isset($_GET['action']) && $_GET['action'] == 'eb_register' && $enable_registration == 'yes') {
 		$fname = get_arr_value($_POST, 'firstname', "");
-		$lname = get_arr_value($_POST, 'lasttname', "");
+		$lname = get_arr_value($_POST, 'lastname', "");
 		$email = get_arr_value($_POST, 'email', "");
 		?>
 

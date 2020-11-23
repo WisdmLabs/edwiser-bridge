@@ -6,6 +6,7 @@
 global $post;
 $post_id = $post->ID;
 
+
 // get currency
 $payment_options = get_option('eb_paypal');
 $currency = isset($payment_options['eb_paypal_currency']) ? $payment_options['eb_paypal_currency'] : 'USD';
@@ -39,10 +40,10 @@ if (is_numeric($course_price)) {
 }
 
 $course_class = null;
-$user_id = get_current_user_id();
-$logged_in = !empty($user_id);
-$enrollManag = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
-$has_access = $enrollManag->user_has_course_access($user_id, $post->ID);
+$user_id      = get_current_user_id();
+$logged_in    = !empty($user_id);
+$enrollManag  = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
+$has_access   = $enrollManag->user_has_course_access($user_id, $post->ID);
 
 /*
  * To add class according to user access
@@ -56,11 +57,15 @@ if ($has_access) {
 	$h_title = __(sprintf('Click to read more about %s course', get_the_title(get_the_ID())), 'eb-textdomain');
 }
 
+
+
+
 $course_id = $post_id;
 //Shortcode eb_my_courses.
 
 
 if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
+	$course_class .= ' eb_my_course_article';
 	$course_mang = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
 	$mdl_course_id = $course_mang->get_moodle_course_id($course_id);
 	$moodle_user_id = get_user_meta($user_id, 'moodle_user_id', true);
@@ -149,7 +154,6 @@ if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
 				echo $progress_btn_div;
 				echo "</div>";
 			}
-
 
 
 			echo '</div>'; //wdm-caption

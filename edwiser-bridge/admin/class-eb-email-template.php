@@ -484,6 +484,27 @@ class EBAdminEmailTemplate
 		}
 	}
 
+
+
+	/**
+	 * DEPRECATED FUNCTION.
+	 * 
+	 * Provides teh functioanlityto get the email tempalte constant
+	 * @param type $tmplName template key
+	 * @return string returns the template content associated with the template
+	 * kay othrewise emapty string
+	 */
+	public static function getEmailTmplContent($tmpl_name)
+	{
+		$tmplContent = get_option($tmpl_name);
+		if ($tmplContent) {
+			return $tmplContent;
+		}
+		return "";
+	}
+
+
+
 	/**
 	 * Provides teh functioanlityto get the email tempalte constant
 	 * @param type $tmplName template key
@@ -510,9 +531,10 @@ class EBAdminEmailTemplate
 			 * Dummy data.
 			 */
 			$args = array(
-				"course_id" => "1",
-				"password" => "eb-pa88@#d",
-				"eb_order_id" => "12235" // chnaged 1.4.7
+				"course_id"   => "1",
+				"password"    => "eb-pa88@#d",
+				"eb_order_id" => "12235", // chnaged 1.4.7
+				"headers"     => isset($_POST['headers']) ? $_POST['headers'] : "",
 			);
 			$mail = $this->send_email($mailTo, $args, $_POST);
 			if ($mail) {
@@ -525,15 +547,19 @@ class EBAdminEmailTemplate
 		}
 	}
 
+
 	/**
+	 * DEPRECATED FUNCTION.
+	 *
 	 * Provides the funcationlity to send the email temaplte
 	 * @param type $mailTo email id to send the email id
 	 * @param type $args the default email argument
 	 * @param type $tmplData email template contetn
 	 * @return boolean returns true if the email sent successfully othrewise false
 	 */
-	public function send_email($mailTo, $args, $tmplData)
+	public function sendEmail($mailTo, $args, $tmplData)
 	{
+
 		$fromEmail = $this->get_from_email();
 		$from_name = $this->get_from_name();
 		$subject = $this->check_is_empty($tmplData, "subject");
@@ -561,6 +587,68 @@ class EBAdminEmailTemplate
 		add_filter('wp_mail_content_type', function () {
 			return "text/html";
 		});
+
+
+		//CUSTOMIZATION CHANGES
+		if (isset($args["headers"])) {
+	        $headers[] = $args["headers"];
+		}
+
+
+
+		$mail = wp_mail($mailTo, $subject, $tmplContent, $headers);
+		remove_filter('wp_mail_content_type', function () {
+			return "text/html";
+		});
+
+		remove_filter('wp_mail_from_name', array($this, "wpb_sender_name"));
+		/**
+		 * Email send end
+		 */
+		return $mail;
+	}
+
+
+
+
+	/**
+	 * Provides the funcationlity to send the email temaplte
+	 * @param type $mailTo email id to send the email id
+	 * @param type $args the default email argument
+	 * @param type $tmplData email template contetn
+	 * @return boolean returns true if the email sent successfully othrewise false
+	 */
+	public function send_email($mailTo, $args, $tmplData)
+	{
+
+		$fromEmail = $this->get_from_email();
+		$from_name = $this->get_from_name();
+		$subject = $this->check_is_empty($tmplData, "subject");
+		$tmplContent = stripslashes($this->check_is_empty($tmplData, "content"));
+
+		/**
+		 * Call the email template parser
+		 */
+		$emailTmplParser = new Eb_Email_Tmpl_Parser();
+		$tmplContent = $emailTmplParser->outPut($args, $tmplContent);
+
+		/**
+		 * Email send start
+		 */
+		$tmplContent = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+				. '<html>'
+				. '<body>'
+				. $tmplContent
+				. "</body>"
+				. "</html>";
+
+		$headers = array('Content-Type: text/html; charset=UTF-8; http-equiv="Content-Language" content="en-us"');
+
+
+		add_filter('wp_mail_content_type', function () {
+			return "text/html";
+		});
+
 
 		//CUSTOMIZATION CHANGES
 		if (isset($args["headers"])) {
