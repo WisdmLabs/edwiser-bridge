@@ -998,6 +998,22 @@ class EdwiserBridge
 		);
 
 		$this->loader->eb_add_action(
+			'eb_before_single_course',
+			$theme_compatibility,
+			'eb_content_start_theme_compatibility',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_action(
+			'eb_after_single_course',
+			$theme_compatibility,
+			'eb_content_end_theme_compatibility',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_action(
 			'eb_archive_before_sidebar',
 			$theme_compatibility,
 			'eb_sidebar_start_theme_compatibility',

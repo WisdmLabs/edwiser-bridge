@@ -62,10 +62,30 @@ endwhile;
 
 do_action('eb_after_single_course'); 
 
+?>
+
+<!-- </div> -->
+
+<?php
+
+
+    // Use this Hook to add sidebar container
+do_action('eb_archive_before_sidebar', $wrapper_args);
+    
+get_sidebar();
+    
+// Use this Hook to close sidebar containers. 
+do_action('eb_archive_after_sidebar', $wrapper_args);
+
+
 
 /* -------------------------------------
  * CONTENT END
  --------------------------------------*/
+
+
+
+
 
 
 /* -------------------------------------
@@ -76,9 +96,9 @@ do_action('eb_after_single_course');
 $template_loader->wp_get_template('global/wrapper-end.php', $wrapper_args); ?>
 <?php
 
-/*if (file_exists(get_template_directory_uri().'/sidebar.php')) {
-    get_sidebar();
-}*/
+// if (file_exists(get_template_directory_uri().'/sidebar.php')) {
+    // get_sidebar();
+// }
 ?>
 <?php
 

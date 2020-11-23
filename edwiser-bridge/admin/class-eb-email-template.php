@@ -656,6 +656,8 @@ class EBAdminEmailTemplate
 		}
 
 
+error_log('HEADERS :: '.print_r($headers, 1));
+
 
 		$mail = wp_mail($mailTo, $subject, $tmplContent, $headers);
 		remove_filter('wp_mail_content_type', function () {

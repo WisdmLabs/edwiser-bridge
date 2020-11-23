@@ -79,7 +79,7 @@ error_log('set_bcc_field_in_email_header :: ');
         $header = get_option($emailOptionKey."_additional_email");
         $args["headers"] = "";
         if ($header) {
-            $args["headers"] = "Bcc:".$header;
+            $args["headers"] = "Bcc: ".$header;
         }
 
         return $args;

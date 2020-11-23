@@ -352,6 +352,24 @@ p.read-more{
     text-transform: uppercase;
     text-align: center;
 }
+#wdm-btn {    
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-weight: 500;
+    background-color: #333 !important;
+    /*color: #2ea3f2;*/
+    color: white;
+    cursor: pointer;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-decoration: none!important;
+    letter-spacing: 0.1em;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s
+}
+
 .wdm-btn {    
     text-align: center;
     vertical-align: middle;
@@ -368,6 +386,9 @@ p.read-more{
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s
 }
+
+
+
 .eb_join_button > a{
     padding: 0.7em;
 }
@@ -728,13 +749,13 @@ nav.eb-pagination ul li span.current {
 
 .eb-course-img-wrapper{
     float:left;
-    width:55%;
+    width:49%;
     margin-bottom: 2em;
 }
 
 .eb-course-summary{
     float:right;
-    width:40%;
+    width:49%;
     margin-bottom: 2em;
     padding: 1em 0 0 0;
     /*position: relative;*/

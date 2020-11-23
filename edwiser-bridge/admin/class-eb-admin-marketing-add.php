@@ -33,8 +33,8 @@ if (!class_exists('Eb_Admin_Marketing_Add')) {
         {
             ?>
             <div class='eb-marketing-add'>
-                <a target="_blank" href='https://edwiser.org/remui/?utm_source=InProduct&utm_medium=banner&utm_campaign=Bridge&utm_term=Apr'>
-                    <img alt="<?php __('Sorry, Unable to load image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.jpg"); ?>">
+                <a target="_blank" href='https://edwiser.org/bridge/extensions/edwiser-bundle/'>
+                    <img alt="<?php __('Sorry, Unable to load image', 'eb-textdomain') ?>" src="<?php echo plugins_url("edwiser-bridge/admin/assets/images/rem-ui.png"); ?>">
                 </a>
             </div>
             <?php
