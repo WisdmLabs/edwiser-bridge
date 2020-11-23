@@ -609,12 +609,20 @@
             var mailTo = $("#eb_test_email_add_txt").val();
             var subject = $("#eb_email_subject").val();
             var security = $("#eb_send_testmail_sec_filed").val();
+            var header = $("#eb_bcc_email").val();
             var message = tinyMCE.get("eb_emailtmpl_editor").getContent();
             $("#eb-lading-parent").show();
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, content: message, security: security},
+                data: {
+                    action: "wdm_eb_send_test_email",
+                    mail_to: mailTo,
+                    headers: "Bcc:" + header,
+                    subject: subject,
+                    content: message,
+                    security: security
+                },
                 error: function (error) {
                     $('.load-response').hide();
                     ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
@@ -685,6 +693,7 @@
                 url: ajaxurl,
                 data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user: linkuser},
                 error: function (error) {
+                    var result = $.parseJSON(response);
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
@@ -713,9 +722,6 @@
                         } else {
                             if (str == "link")
                             {
-
-console.log(eb_admin_js_object.msg_error_link_user);
-
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);

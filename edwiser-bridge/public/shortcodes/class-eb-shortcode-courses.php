@@ -186,7 +186,7 @@ class Eb_Shortcode_Courses
 				if ($currentPage != 1) {
 					?>
 					<a class="prev page-numbers" href="<?php echo add_query_arg(array("eb-cat-page-no" => $currentPage - 1), get_permalink()); ?>">
-						<?php _e("Previous page", 'eb-textdomain'); ?>
+						<?php _e("&larr;", 'eb-textdomain'); ?>
 					</a>
 					<?php
 				}
@@ -212,7 +212,7 @@ class Eb_Shortcode_Courses
 				if ($currentPage < $page - 1) {
 					?>
 					<a class="next page-numbers" href="<?php echo add_query_arg(array("eb-cat-page-no" => $currentPage <= 1 ? 2 : $currentPage + 1), get_permalink()); ?>">
-						<?php _e("Next Page", 'eb-textdomain'); ?>
+						<?php _e("&rarr;", 'eb-textdomain'); ?>
 					</a>
 					<?php
 				}

@@ -466,9 +466,9 @@ class EBUserManager
 			'eb_new_user_data',
 			array(
 				'user_login' => $username,
-				'user_pass' => $password,
+				'user_pass'  => $password,
 				'user_email' => $email,
-				'role' => $role,
+				'role'       => $role,
 			)
 		);
 

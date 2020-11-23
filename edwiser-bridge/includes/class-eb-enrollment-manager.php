@@ -183,6 +183,8 @@ class Eb_Enrollment_Manager
 
         // If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
 
+        $response = array();
+        
         if ($args['unenroll'] != 1 && $args['suspend'] != 1) {
             // prepare request data
             $request_data = array('enrolments' => $enrolments);
@@ -904,12 +906,7 @@ class Eb_Enrollment_Manager
 
 
 
-
-
-
-
-
-    /**
+/**
      * used to check if a user has access to a course.
      *
      * @since  1.0.0
@@ -919,8 +916,9 @@ class Eb_Enrollment_Manager
      *
      * @return bool true / false
      */
-    public function user_has_course_access($user_id, $course_id)
+    public function user_has_cours_access($user_id, $course_id)
     {
+        
         global $wpdb;
         $has_access = false;
 
@@ -942,6 +940,84 @@ class Eb_Enrollment_Manager
 
         return $has_access;
     }
+
+
+
+
+    /**
+     * used to check if a user has access to a course.
+     *
+     * @since  1.0.0
+     *
+     * @param int $user_id   WordPress user id of a user
+     * @param int $course_id WordPress course id of a course
+     *
+     * @return bool true / false
+     */
+    public function userHasCourseAccess($user_id, $course_id)
+    {
+
+        global $wpdb;
+        $has_access = false;
+
+        if ($user_id == '' || $course_id == '') {
+            return $has_access;
+        }
+
+        //check if user has access to course
+        $result = $wpdb->get_var(
+            "SELECT user_id
+            FROM {$wpdb->prefix}moodle_enrollment
+            WHERE course_id={$course_id}
+            AND user_id={$user_id};"
+        );
+
+        if ($result == $user_id) {
+            $has_access = true;
+        }
+
+        return $has_access;
+    }
+
+
+
+
+    /**
+     * used to check if a user has access to a course.
+     *
+     * @since  1.0.0
+     *
+     * @param int $user_id   WordPress user id of a user
+     * @param int $course_id WordPress course id of a course
+     *
+     * @return bool true / false
+     */
+    public function user_has_course_access($user_id, $course_id)
+    {
+
+        global $wpdb;
+        $has_access = false;
+
+        if ($user_id == '' || $course_id == '') {
+            return $has_access;
+        }
+
+        //check if user has access to course
+        $result = $wpdb->get_var(
+            "SELECT user_id
+            FROM {$wpdb->prefix}moodle_enrollment
+            WHERE course_id={$course_id}
+            AND user_id={$user_id};"
+        );
+
+        if ($result == $user_id) {
+            $has_access = true;
+        }
+
+        return $has_access;
+    }
+
+
     /**
      * used to get the count of users access to a course.
      *
