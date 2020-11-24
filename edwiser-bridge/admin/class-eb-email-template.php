@@ -137,7 +137,7 @@ class EBAdminEmailTemplate
 					                <?php _e("Additional Email Adress For BCC in Mail", "eb-extension"); ?>
 					            </td>
 					            <td>
-					                <input type="email" value="<?= $bcc_email ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
+					                <input type="text" value="<?= $bcc_email ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
 					            </td>
 					        </tr>
 					        <?php
