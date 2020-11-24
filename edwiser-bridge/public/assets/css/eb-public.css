@@ -246,13 +246,13 @@
     display: block;
     overflow: hidden;
     height: 100%;
-    max-height: 300px;
+    max-height: 330px;
 }
 .wdm-course-grid > a:hover{
     text-decoration: none;
 }
 .wdm-course-image{
-    height: 60%;
+    height: 58%;
     overflow: hidden;
 }
 /*.wdm-course-image:hover{
@@ -302,7 +302,7 @@
     box-shadow: 0px 1px 0px #d0d0d0;
     text-align: center;
     height: 100%;
-    max-height: 300px;
+    max-height: 330px;
 }
 .wdm-course-grid .wdm-price {
     top: 10;
@@ -332,12 +332,12 @@
 }
 
 .wdm-caption h4{
-    padding: 10px;
+    padding: 0px 10px;
 }
 
 
 .wdm-caption .entry-content {
-    padding: 0px 5px;
+    padding: 0px 10px;
     float: none !important;
     width: auto !important;
     overflow: hidden;
@@ -345,6 +345,7 @@
     -webkit-line-clamp: 1;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    margin-bottom: 0px;
 }
 
 p.read-more{

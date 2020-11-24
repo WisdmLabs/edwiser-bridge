@@ -135,7 +135,7 @@ class Eb_Shortcode_User_Account
 		// get all completed orders of a user
 		$args           = array(
 			'posts_per_page' => -1,
-			'author'         =>  $user_id,
+			// 'author'         =>  $user_id,
 			'meta_key'       => '',
 			'post_type'      => 'eb_order',
 			'post_status'    => 'publish',

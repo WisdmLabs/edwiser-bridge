@@ -44,6 +44,8 @@ class Eb_External_Api_Endpoint
         $data = unserialize($data);
         $response_data = array();
 
+error_log('external_api_endpoint_def :: '.print_r($data, 1));
+
         if (isset($_POST["action"]) && !empty($_POST["action"])) {
             switch ($_POST["action"]) {
                 case 'test_connection':
@@ -183,9 +185,28 @@ class Eb_External_Api_Endpoint
      */
     public function eb_trigger_user_creation($data)
     {
+
+error_log('eb_trigger_user_creation :: ');
+
         if (isset($data['user_name']) && isset($data['email'])) {
             $role = default_registration_role();
-            $wpUserId = $this->create_only_wp_user($data["user_name"], $data["email"], $data["first_name"], $data['last_name'], $role);
+
+            $password = '';
+            if (isset($data['password']) && !empty($data['password'])) {
+
+                $enc_method = 'AES-128-CTR';
+                // $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
+                $enc_iv = '1234567891011121'; 
+
+                $enc_key = openssl_digest(EB_ACCESS_TOKEN, 'SHA256', true );
+                $password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+                // $user_update_array['user_pass'] = $password;
+            }
+error_log('eb_trigger_user_creation  11111:: ');
+
+
+
+            $wpUserId = $this->create_only_wp_user($data["user_name"], $data["email"], $data["first_name"], $data['last_name'], $role, $password);
             if ($wpUserId) {
                 update_user_meta($wpUserId, "moodle_user_id", $data["user_id"]);
             }
@@ -230,8 +251,12 @@ class Eb_External_Api_Endpoint
      * @param  string $role      default role
      * @return [type]            success or error message
      */
-    public function create_only_wp_user($username, $email, $firstname, $lastname, $role = "")
+    public function create_only_wp_user($username, $email, $firstname, $lastname, $role = "", $password = '')
     {
+
+error_log('eb_trigger_user_creation  22222 :: ');
+
+
         if (email_exists($email)) {
             return new \WP_Error(
                 'registration-error',
@@ -249,8 +274,12 @@ class Eb_External_Api_Endpoint
             ++$append;
         }
 
-        // Handle password creation
-        $password = wp_generate_password();
+        if (empty($password)) {
+            // Handle password creation
+            $password = wp_generate_password();
+        }
+
+
         // WP Validation
         $validation_errors = new \WP_Error();
 
@@ -273,6 +302,10 @@ class Eb_External_Api_Endpoint
                 'role' => $role,
             )
         );
+
+error_log('eb_trigger_user_creation  4444:: '.print_r($wp_user_data, 1));
+
+
 
         $user_id = wp_insert_user($wp_user_data);
 

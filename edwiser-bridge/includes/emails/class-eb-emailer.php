@@ -71,16 +71,21 @@ class Eb_Emailer
 
 
 
-    public function set_bcc_field_in_email_header($args, $emailOptionKey)
+    public function set_bcc_field_in_email_header($args, $email_option_key)
     {
 
-error_log('set_bcc_field_in_email_header :: ');
+error_log('set_bcc_field_in_email_header :: '.print_r($email_option_key, 1));
 
-        $header = get_option($emailOptionKey."_additional_email");
+        $header = get_option($email_option_key."_bcc_email");
+error_log('HEADER :: '.print_r($header, 1));
+
         $args["headers"] = "";
         if ($header) {
             $args["headers"] = "Bcc: ".$header;
         }
+
+error_log('args :: '.print_r($args, 1));
+
 
         return $args;
 
