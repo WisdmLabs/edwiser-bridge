@@ -202,6 +202,10 @@ class Eb_Frontend_Form_Handler
 			return;
 		}
 
+		if ( !isset( $_POST['eb_course_payment_nonce']) ||  ( isset( $_POST['eb_course_payment_nonce'] ) && !wp_verify_nonce( $_POST['eb_course_payment_nonce'], 'eb_course_payment_nonce' ) ) ) {
+			return;
+		}
+
 		$course_id = $_POST['course_id'];
 
 		if (is_numeric($course_id)) {

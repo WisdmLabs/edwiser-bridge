@@ -26,7 +26,7 @@ if (!class_exists('Eb_Admin_Marketing_Add')) {
 
         public function __construct()
         {
-            add_action("eb_settings_header", array($this, "outPut"));
+            add_action("eb_settings_footer", array($this, "outPut"));
         }
 
         public function outPut()

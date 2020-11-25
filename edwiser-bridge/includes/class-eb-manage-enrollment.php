@@ -200,7 +200,8 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment')) {
 		public function unenroll_user_ajax_handler()
 		{
 			$response = "Failed unenroll user";
-			if (isset($_POST['user_id']) && isset($_POST['course_id']) && isset($_POST['action']) && $_POST['action'] == 'wdm_eb_user_manage_unenroll_unenroll_user') {
+			if (isset($_POST['user_id']) && isset($_POST['course_id']) && isset($_POST['action']) && $_POST['action'] == 'wdm_eb_user_manage_unenroll_unenroll_user' && isset($_POST['admin_nonce']) && wp_verify_nonce($_POST['admin_nonce'], 'eb_admin_nonce')) {
+
 				$course_id = $_POST['course_id'];
 				$user_id = $_POST['user_id'];
 				$res = $this->unenroll_user($course_id, $user_id);

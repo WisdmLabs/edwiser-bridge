@@ -97,157 +97,7 @@ class Eb_Enrollment_Manager
      */
     public function updateUserCourseEnrollment($args, $roleId = "5")
     {
-        $defaults = array(
-            'user_id'           => 0,
-            'role_id'           => $roleId,
-            'courses'           => array(),
-            'unenroll'          => 0,
-            'suspend'           => 0,
-            'complete_unenroll' => 0
-        );
-
-        /**
-         * Parse incoming $args into an array and merge it with $defaults.
-         */
-        $args = wp_parse_args($args, $defaults);
-        // get moodle user id of user
-        $moodle_user_id = get_user_meta($args['user_id'], 'moodle_user_id', true);
-        $msg = '';
-        if ($moodle_user_id) {
-            $msg = 'Yes, Moodle user ID is: '.$moodle_user_id;
-        } else {
-            $msg = 'No, Exiting!!!';
-        }
-
-        edwiser_bridge_instance()->logger()->add(
-            'user',
-            'Associated moodle a/c found? :'.($msg)
-        ); // add user log
-
-        // exit if no associated moodle user found.
-        if (!is_numeric($moodle_user_id)) {
-            return;
-        }
-
-        // get moodle course id of each course
-        // we are fetching course id  of each course as on moodle, to send enrollment request on moodle.
-        $moodle_courses_raw = array_map(
-            array(edwiser_bridge_instance()->course_manager(), 'get_moodle_wp_course_id_pair'),
-            $args['courses']
-        );
-        $moodle_courses = array();
-        foreach ($moodle_courses_raw as $course) {
-            $moodle_courses[key($course)] = reset($course);
-        }
-
-        // logging
-        // add user log
-        edwiser_bridge_instance()->logger()->add('user', 'Course IDs: '.serialize($args['courses']));
-        // add user log
-        edwiser_bridge_instance()->logger()->add('user', 'Respective moodle course IDs: '.serialize($moodle_courses));
-        // add user log
-        edwiser_bridge_instance()->logger()->add('user', "\n");
-
-        $enrolments = array();
-        $role_id = $args['role_id']; // the role id 5 denotes student role on moodle
-        $webservice_function = $this->get_moodle_web_service_function($args['unenroll']);
-
-        // prepare course array
-        foreach ($moodle_courses as $wpCourseId => $moodleCourseId) {
-            // first we check if a moodle course id exists
-            if ($moodleCourseId != '') {
-                $expireDate = $this->calc_course_acess_expiry_date($wpCourseId);
-                $enrolments[$wpCourseId] = array(
-                    'roleid' => $role_id,
-                    'userid' => $moodle_user_id,
-                    'courseid' => $moodleCourseId,
-                );
-                if ($webservice_function == 'enrol_manual_enrol_users' && "0000-00-00 00:00:00" != $expireDate) {
-                    $enrolments[$wpCourseId]['timestart'] = strtotime(date('Y-m-d H:i:s'));
-                    $enrolments[$wpCourseId]['timeend'] = strtotime($expireDate);
-                }
-
-                // we only add suspend parameter when we are enrolling or suspending a user.
-                // in case user is being unenrolled, no suspend parameter is expected in webservice function.
-                if ($args['unenroll'] == 0) {
-                    $enrolments[$wpCourseId]['suspend'] = $args['suspend'];
-                }
-            }
-        }
-        /*// prepare request data
-        $request_data = array('enrolments' => $enrolments);
-        $response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-            $webservice_function,
-            $request_data
-        );*/
-
-        // If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
-
-        $response = array();
-        
-        if ($args['unenroll'] != 1 && $args['suspend'] != 1) {
-            // prepare request data
-            $request_data = array('enrolments' => $enrolments);
-            $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-                $webservice_function,
-                $request_data
-            );
-        } else {
-            foreach ($args['courses'] as $key => $course_id) {
-                //Get User Course access Count.
-                $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
-
-                //decrease the count value
-                // $act_cnt = $act_cnt - 1;
-
-                if ($act_cnt == 1 && !$args['complete_unenroll']) {
-                    //update decreased count value
-                    // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
-                    $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
-
-                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
-                    //delete row if count equals zero
-                    // $this->delete_user_enrollment_record($args['user_id'], $course_id);
-
-                    //Process Moodle unenrollment.
-                    // prepare request data
-                    $request_data = array('enrolments' => $enrolments);
-                    $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-                        $webservice_function,
-                        $request_data
-                    );
-                }
-            }
-                //Trigger email.
-        }
-
-
-        
-        // update enrollment details on wordpress enrollment table
-        if ($response['success']) {
-            // define args
-            $args = array(
-                'user_id' => $args['user_id'],
-                'role_id' => $args['role_id'],
-                'courses' => $args['courses'],
-                'unenroll' => $args['unenroll'],
-                'suspend' => $args['suspend'],
-                'complete_unenroll' => $args['complete_unenroll']
-
-            );
-            // $this->updateEnrollmentRecordWordpress($args);
-            $this->update_enrollment_record_wordpress($args);
-
-        }
-
-        /*
-         * hook to execute custom function on user course enrollment update.
-         * $courses is passed as argument containing courses for which user is enrolled.
-         * response is passed to know if request is successful or not
-         */
-        do_action('eb_user_courses_updated', $args['user_id'], $response['success'], $args['courses']);
-
-        return $response['success'];
+        return $this->update_user_course_enrollment($args, $roleId);
     }
 
 
@@ -353,19 +203,34 @@ class Eb_Enrollment_Manager
                 $request_data
             );
         } elseif ($args['unenroll'] == 1) {
+
+error_log('UNENROLL ::: ');
+
             foreach ($args['courses'] as $key => $course_id) {
+
+error_log('FOREACH :: ');
+
                 //Get User Course access Count.
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
+
+error_log('act_cnt :: '.print_r($act_cnt, 1));
 
                 //decrease the count value
                 // $act_cnt = $act_cnt - 1;
 
                 if ($act_cnt == 1 && !$args['complete_unenroll']) {
+
+error_log('UNENROLLING :: ');
+
                     //update decreased count value
                     // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
                     $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
                     $response['success'] = 1;
-                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
+                } elseif ($act_cnt <= 0 || $args['complete_unenroll']) {
+
+error_log('UNENROLLING 1111:: ');
+
+
                     //delete row if count equals zero
                     // $this->delete_user_enrollment_record($args['user_id'], $course_id);
 
@@ -402,9 +267,9 @@ class Eb_Enrollment_Manager
          * $courses is passed as argument containing courses for which user is enrolled.
          * response is passed to know if request is successful or not
          */
-        do_action('eb_user_courses_updated', $args['user_id'], $response['success'], $args['courses']);
+        do_action('eb_user_courses_updated', $args['user_id'], isset($response['success']) ? $response['success'] : 0, $args['courses']);
 
-        return $response['success'];
+        return isset($response['success']) ? $response['success'] : 0;
     }
 
 
@@ -492,11 +357,14 @@ class Eb_Enrollment_Manager
                 if (edwiser_bridge_instance()->course_manager()->get_moodle_course_id($course_id) != '' &&
                         !$this->user_has_course_access($args['user_id'], $course_id)) {
                     //Set timezone
-                    $timeZone = get_option('timezone_string');
+                    /*$timeZone = get_option('timezone_string');
                     if (isset($timeZone) && !empty($timeZone)) {
                         date_default_timezone_set(get_option('timezone_string'));
-                    }
+                    }*/
 
+                    // New code for time.
+                    $current_date_time_obj = current_datetime();
+                    $current_date = $current_date_time_obj->format('Y-m-d H:i:s');
 
 
                     $expireDate = $this->calc_course_acess_expiry_date($course_id);
@@ -507,7 +375,8 @@ class Eb_Enrollment_Manager
                         'user_id' => $args['user_id'],
                         'course_id' => $course_id,
                         'role_id' => $role_id,
-                        'time' => date('Y-m-d H:i:s'),
+                        // 'time' => date('Y-m-d H:i:s'),
+                        'time' => $current_date,
                         'expire_time' => $expireDate,
                         'act_cnt' => 1,
                             ),
@@ -616,10 +485,15 @@ class Eb_Enrollment_Manager
                 if (edwiser_bridge_instance()->course_manager()->get_moodle_course_id($course_id) != '' &&
                         !$this->user_has_course_access($args['user_id'], $course_id)) {
                     //Set timezone
-                    $timeZone = get_option('timezone_string');
+                    /*$timeZone = get_option('timezone_string');
                     if (isset($timeZone) && !empty($timeZone)) {
                         date_default_timezone_set(get_option('timezone_string'));
-                    }
+                    }*/
+
+                    // New code for time.
+                    $current_date_time_obj = current_datetime();
+                    $current_date = $current_date_time_obj->format('Y-m-d H:i:s');
+
 
                     $expireDate = $this->calc_course_acess_expiry_date($course_id);
 
@@ -629,7 +503,8 @@ class Eb_Enrollment_Manager
                         'user_id' => $args['user_id'],
                         'course_id' => $course_id,
                         'role_id' => $role_id,
-                        'time' => date('Y-m-d H:i:s'),
+                        // 'time' => date('Y-m-d H:i:s'),
+                        'time' => $current_date,
                         'expire_time' => $expireDate,
                         'act_cnt' => 1,
                             ),
@@ -669,15 +544,14 @@ class Eb_Enrollment_Manager
                     $this->deleteUserEnrollmentRecord($args['user_id'], $course_id);
                 }*/
 
-                if ($act_cnt !== 0 && !$args['complete_unenroll']) {
+                } if ($act_cnt <= 0 || $args['complete_unenroll']) {
+                    //delete row if count equals zero
+                    $this->delete_user_enrollment_record($args['user_id'], $course_id);
+                } elseif ($act_cnt !== 0 && !$args['complete_unenroll']) {
                     //update decreased count value
                     // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
                     $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt);
 
-                } elseif ($act_cnt === 0 || $args['complete_unenroll']) {
-                    //delete row if count equals zero
-                    $this->delete_user_enrollment_record($args['user_id'], $course_id);
-                }
             }
 
             //Trigger email.

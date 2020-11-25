@@ -122,53 +122,7 @@ class EBConnectionHelper
 	 */
 	public function connectionTestHelper($url, $token)
 	{
-		$success          = 1;
-		$responseMessage = 'success';
-
-		//function to check if webservice token is properly set.
-		// $webservice_function = 'core_course_get_courses';
-
-		$webservice_function = 'core_course_get_courses';
-
-		$request_url  = $url . '/webservice/rest/server.php?wstoken=';
-		$request_url  .= $token . '&wsfunction=';
-		$request_url  .= $webservice_function . '&moodlewsrestformat=json';
-		// $response = wp_remote_post( $request_url, $request_args );
-		$request_args = array(
-			/*'headers' => array(
-					'content-type'   => 'application/json',
-					'Content-Length' => 100
-				),*/
-				"timeout" => 100
-			);
-		$response     = wp_remote_post($request_url, $request_args);
-
-		if (is_wp_error($response)) {
-			$success          = 0;
-			$responseMessage = $response->get_error_message();
-		} elseif (wp_remote_retrieve_response_code($response) == 200 ||
-				wp_remote_retrieve_response_code($response) == 303) {
-			$body = json_decode(wp_remote_retrieve_body($response));
-			if (!empty($body->exception)) {
-				$success         = 0;
-				$responseMessage = $body->message;
-			} else {
-				//added else to check the other services access error
-				$accessControlResult = $this->check_service_access($url, $token);
-
-				if (!$accessControlResult['success']) {
-					$success         = 0;
-					$responseMessage = $accessControlResult['response_message'];
-				}
-			}
-		} else {
-			$success         = 0;
-			$responseMessage = __('Please check Moodle URL !', 'eb-textdomain');
-		}
-
-		//edwiserBridgeInstance()->logger()->add( 'user', "\n Moodle response: ".serialize($response_data) );
-
-		return array('success' => $success, 'response_message' => $responseMessage);
+		return $this->connection_test_helper($url, $token);
 	}
 
 
@@ -340,41 +294,7 @@ class EBConnectionHelper
 	 */
 	public function connectMoodleHelper($webservice_function = null)
 	{
-		$success          = 1;
-		$response_message = 'success';
-		$response_data    = array();
-
-		$request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
-
-		// $response = wp_remote_post( $request_url, $request_args );
-		$request_args = array("timeout" => 100);
-		$response     = wp_remote_post($request_url, $request_args);
-
-		if (is_wp_error($response)) {
-			$success          = 0;
-			$response_message = $response->get_error_message();
-		} elseif (wp_remote_retrieve_response_code($response) == 200 ||
-				wp_remote_retrieve_response_code($response) == 303) {
-			$body = json_decode(wp_remote_retrieve_body($response));
-			if (!empty($body->exception)) {
-				$success          = 0;
-				//.' - '.isset( $body->debuginfo )?$body->debuginfo:''
-				$response_message = $body->message;
-			} else {
-				$success       = 1;
-				$response_data = $body;
-			}
-		} else {
-			$success          = 0;
-			$response_message = __('Please check Moodle connection details.', 'eb-textdomain');
-		}
-
-		return array(
-			'success'          => $success,
-			'response_message' => $response_message,
-			'response_data'    => $response_data,
-		);
+		return $this->connect_moodle_helper($webservice_function);
 	}
 
 

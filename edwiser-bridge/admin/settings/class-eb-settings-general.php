@@ -284,10 +284,73 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type' => 'sectionend',
 						'id'   => 'general_options',
 					),
+					array(
+                        'type' => 'cust_html',
+                        'html'=>$this->getPopupCode()
+                    ),
+
 				)
 			);
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings );
 		}
+
+
+
+		private function getPopupCode()
+        {
+            ob_start(); ?>
+            <div id="dialog-tnc" style="display:none;">
+                <p>Here is an overview of the different data collected by Edwiser products and why it will be beneficial for the Edwiser community.</p>
+                <div>
+                    <h3>Goal</h3>
+                    <ul>
+                        <li>To generate statistics about the usage of Edwiser products and its various features.</li>
+                        <li>This knowledge will help us improve those features that are popularly used by the community.</li>
+                        <li>In turn, help in catering to Edwiser communities needs in a better way.</li>
+                        <li>Provide future updates to existing products after taking into consideration the various WordPress & Moodle environments of Edwiser users.</li>
+                        <li>This information also be used to better debugging and the roll-out of the zero-error product</li>
+                    <ul>
+                </div>
+                <div>
+                    <h3>Things we would NEVER do</h3>
+                    <ul>
+                        <li>Edwiser would never collect any personal or sensitive information like email address, user results, etc.</li>
+                        <li>Nor would we collect any type of information that could expose the personal information of you or your students,</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Data Collected during this process </h3>
+                    <ul>
+                        <li>The data is automatically gathered unless disabled within the product.</li>
+                        <li>All the data points mentioned here may not be included as part of all Edwiser products some of these are product specific. The ones which are specific to the product will be explicitly mentioned below.</li>
+                    </ul>
+                </div>
+                <h4> The Data collected primarily falls under the following categories:</h4>
+                <div>
+                    <h3>Site Details</h3>
+                    <ul>
+                        <li>Information like Edwiser plugin settings, Site URL, Moodle Version, Active WordPress theme, Active Moodle Theme, Active WordPress plugins, Active Moodle plugins, Total Courses, Categories & Users, etc.</li>
+                        <li>This information helps us understand the WordPress and Moodle environment used by Edwiser users and accordingly develop solutions that would work well in these environments.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Debug</h3>
+                    <p>Many times we end up losing a lot of time when it comes to resolving issues that arise on the sites of a few WordPress and Moodle users.</p>
+                    <p>Usually, these WordPress and Moodle sites are hosted on a shared hosting service, and without the necessary information about the server doing any debugging could cause more issues.</p>
+                    <p>To reduce the time lost in debugging an issue and to always provide a stable solution to you we need the following details,</p>
+                    <ul>
+                        <li><i>Installed Plugins:</i> To check whether 3rd party plugins are causing any conflicts with Edwiser products.</li>
+                        <li><i>Product Settings:</i> To understand the various features used by Edwiser users,</li>
+                    </ul>
+                </div>
+            </div>
+        <?php
+            return ob_get_clean();
+        }
+
+
+
+
 
 		/**
 		 * Save settings.

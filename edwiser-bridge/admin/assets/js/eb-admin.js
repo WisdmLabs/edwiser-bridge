@@ -106,6 +106,7 @@
                         'action': 'wdm_eb_user_manage_unenroll_unenroll_user',
                         'user_id': userId,
                         'course_id': courseId,
+                        'admin_nonce': eb_admin_js_object.admin_nonce,
                     },
                     success: function (response) {
                         $('.load-response').hide();
@@ -655,6 +656,7 @@
                 data: {
                     action: "wdm_eb_email_tmpl_restore_content",
                     tmpl_name: tmplName,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
                 },
                 error: function (error) {
                     $("#eb-lading-parent").hide();
@@ -691,7 +693,12 @@
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user: linkuser},
+                data: {
+                    action: "moodleLinkUnlinkUser",
+                    user_id: userid,
+                    link_user: linkuser,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
+                },
                 error: function (error) {
                     var result = $.parseJSON(response);
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
@@ -838,7 +845,8 @@
             url: ajaxurl,
             data: {
                 action: "wdm_eb_get_email_template",
-                tmpl_name: tmplId
+                tmpl_name: tmplId,
+                admin_nonce: eb_admin_js_object.admin_nonce
             },
             error: function (error) {
                 alert(eb_admin_js_object.msg_tpl_not_found);

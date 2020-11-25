@@ -277,8 +277,9 @@ class EBAdminEmailTemplate
 	public function get_template_data_ajax_callBack()
 	{
 
+		
 		$data = array();
-		if (isset($_POST['tmpl_name'])) {
+		if (isset($_POST['tmpl_name']) && isset($_POST['admin_nonce']) && wp_verify_nonce($_POST['admin_nonce'], 'eb_admin_nonce')) {
 			$tmpl_data    = get_option($_POST['tmpl_name']);
 			$notify_allow = get_option($_POST['tmpl_name'] . "_notify_allow");
 			$bcc_email    = get_option($_POST['tmpl_name'] . "_bcc_email");
@@ -560,6 +561,9 @@ class EBAdminEmailTemplate
 	public function sendEmail($mailTo, $args, $tmplData)
 	{
 
+error_log('debug_backtrace :: '.print_r(debug_backtrace(), 1));
+
+
 		$fromEmail = $this->get_from_email();
 		$from_name = $this->get_from_name();
 		$subject = $this->check_is_empty($tmplData, "subject");
@@ -620,6 +624,7 @@ class EBAdminEmailTemplate
 	 */
 	public function send_email($mailTo, $args, $tmplData)
 	{
+
 
 		$fromEmail = $this->get_from_email();
 		$from_name = $this->get_from_name();
@@ -718,7 +723,8 @@ error_log('HEADERS :: '.print_r($headers, 1));
 	public function reset_email_template_content()
 	{
 		$responce = array("data"=>__("Failed to reset email template", "eb-textdomain"),"status"=>"failed");
-		if (isset($_POST['action']) && isset($_POST['tmpl_name']) && $_POST['action'] == "wdm_eb_email_tmpl_restore_content") {
+		if (isset($_POST['action']) && isset($_POST['tmpl_name']) && $_POST['action'] == "wdm_eb_email_tmpl_restore_content" && isset($_POST['admin_nonce']) && wp_verify_nonce($_POST['admin_nonce'], 'eb_admin_nonce')) {
+
 			$args = $this->restore_email_template(array("is_restored" => false, "tmpl_name"=>$_POST['tmpl_name']));
 			if ($args["is_restored"] == true) {
 				$responce['data'] = __("Template restored successfully", "eb-textdomain");

@@ -99,31 +99,7 @@ class EbTemplateLoader
 	 */
 	public function wpGetTemplatePart($slug, $name = '')
 	{
-		$template = '';
-
-		// Look in yourtheme/edw/slug-name.php
-		if ($name) {
-			$template = locate_template(array("{$slug}-{$name}.php", EB_TEMPLATE_PATH."{$slug}-{$name}.php"));
-		}
-
-		// Get default slug-name.php
-		if (!$template && $name && file_exists(EB_PLUGIN_DIR."public/templates/{$slug}-{$name}.php")) {
-			$template = EB_PLUGIN_DIR."public/templates/{$slug}-{$name}.php";
-		}
-
-		// If template file doesn't exist, look in yourtheme/edw/slug.php
-		if (!$template) {
-			$template = locate_template(array("{$slug}.php", EB_TEMPLATE_PATH."{$slug}.php"));
-		}
-
-		// Allow 3rd party plugin filter template file from their plugin
-		if ((!$template) || $template) {
-			$template = apply_filters('eb_get_template_part', $template, $slug, $name);
-		}
-
-		if ($template) {
-			load_template($template, false);
-		}
+		$this->wp_get_template_part( $slug, $name );
 	}
 
 
@@ -183,25 +159,7 @@ class EbTemplateLoader
 	 */
 	public function wpGetTemplate($template_name, $args = array(), $template_path = '', $default_path = '')
 	{
-		if ($args && is_array($args)) {
-			extract($args);
-		}
-
-		$located = $this->wp_locate_template($template_name, $template_path, $default_path);
-
-		if (!file_exists($located)) {
-			_doing_it_wrong(__FUNCTION__, sprintf(__('%s does not exist.', 'eb-textdomain'), '<code>' . $located . '</code>'), '2.1');
-			return;
-		}
-
-		// Allow 3rd party plugin filter template file from their plugin
-		$located = apply_filters('eb_get_template', $located, $template_name, $args, $template_path, $default_path);
-
-		do_action('eb_before_template_part', $template_name, $template_path, $located, $args);
-
-		include $located;
-
-		do_action('eb_after_template_part', $template_name, $template_path, $located, $args);
+		$this->wp_get_template( $template_name, $args , $template_path , $default_path );
 	}
 
 

@@ -619,6 +619,7 @@ class EdwiserBridge
 			'save_new_order_place_note'
 		);
 
+		// Nonce is already added.
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_order_refund',
 			$saveOrderMeta,

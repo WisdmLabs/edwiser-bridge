@@ -229,6 +229,8 @@ class Eb_Order_Manager
 	{
 		edwiser_bridge_instance()->logger()->add('order', 'Creating new order...'); // add order log
 
+error_log('create_new_order ::');
+
 		$buyer_id = '';
 		if (isset($order_data['buyer_id'])) {
 			$buyer_id = $order_data['buyer_id'];
@@ -246,6 +248,10 @@ class Eb_Order_Manager
 			return new \WP_Error('warning', __('Order details are not correct. Existing', 'eb-textdomain'));
 		}
 
+error_log('create_new_order ::1111');
+
+
+
 		// get buyer details
 		//$buyer = get_userdata($buyer_id);
 
@@ -256,6 +262,9 @@ class Eb_Order_Manager
 			$course_title = $course->post_title;
 		}
 
+error_log('create_new_order ::2222');
+
+
 		$order_id = wp_insert_post(
 			array(
 					'post_title' => sprintf(__("Course %s", 'eb-textdomain'), $course_title),
@@ -265,7 +274,15 @@ class Eb_Order_Manager
 				)
 		);
 
+
+error_log('create_new_order ::3333 ::: '.print_r($order_id, 1));
+
+
 		if (!is_wp_error($order_id)) {
+
+error_log('create_new_order ::4444 ::: ');
+
+
 			//update order meta
 			$price = $this->get_course_price($course_id);
 			$price = apply_filters("eb_new_order_course_price", $price, $order_data);
@@ -322,14 +339,22 @@ class Eb_Order_Manager
 	 */
 	public function create_new_order_ajax_wrapper()
 	{
+
+	error_log('create_new_order_ajax_wrapper :::');
 		if (!isset($_POST['_wpnonce_field'])) {
 			die('Busted!');
 		}
+
+	error_log('create_new_order_ajax_wrapper ::: 1111');
+
 
 		// verifying generated nonce we created earlier
 		if (!wp_verify_nonce($_POST['_wpnonce_field'], 'public_js_nonce')) {
 			die('Busted!');
 		}
+
+
+	error_log('create_new_order_ajax_wrapper ::: 22222');
 
 		$success = 0;
 		$order_id = 0;
@@ -344,13 +369,23 @@ class Eb_Order_Manager
 		}
 
 		if (empty($buyer_id) || empty($course_id)) {
+	error_log('create_new_order_ajax_wrapper ::: 3333');
+
 			$success = 0;
 		} else {
+
+	error_log('create_new_order_ajax_wrapper ::: 4444');
 			$order_id_created = $this->create_new_order(array('buyer_id' => $buyer_id, 'course_id' => $course_id));
+
+
 
 			if (!is_wp_error($order_id_created)) {
 				$success = 1;
 				$order_id = $order_id_created;
+
+
+	error_log('create_new_order_ajax_wrapper ::: 5555');
+
 
 				/**
 				 * @since 1.2.4
