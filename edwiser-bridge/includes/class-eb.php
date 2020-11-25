@@ -108,7 +108,7 @@ class EdwiserBridge
 	public function __construct()
 	{
 		$this->plugin_name = 'edwiserbridge';
-		$this->version = '1.4.7';
+		$this->version = '2.0.0';
 		$this->define_constants();
 		$this->load_dependencies();
 		$this->set_locale();

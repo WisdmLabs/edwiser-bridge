@@ -165,7 +165,32 @@ if (!class_exists('ESettingsPage')) :
 		 */
 		public function outputSections()
 		{
-			$this->output_sections();
+			global $current_section;
+
+			$sections = $this->getSections();
+
+
+			if (empty($sections)) {
+				// $sections = $this->getSections();
+				// if (empty($sections)) {
+				return;
+				// }
+			}
+
+			echo '<ul class="subsubsub">';
+
+			$array_keys = array_keys($sections);
+
+			foreach ($sections as $id => $label) {
+				echo '<li>';
+				echo '<a href="'.
+				admin_url(
+					'admin.php?page=eb-settings&tab='.$this->_id.'&section='.sanitize_title($id)
+				).'" class="'.($current_section == $id ? 'current' : '').'">'.$label.'</a> ';
+				echo (end($array_keys) == $id ? '' : '|').' </li>';
+			}
+
+			echo '</ul><br class="clear" />';
 		}
 
 
