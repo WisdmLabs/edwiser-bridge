@@ -106,6 +106,7 @@
                         'action': 'wdm_eb_user_manage_unenroll_unenroll_user',
                         'user_id': userId,
                         'course_id': courseId,
+                        'admin_nonce': eb_admin_js_object.admin_nonce,
                     },
                     success: function (response) {
                         $('.load-response').hide();
@@ -202,6 +203,65 @@
         $('.alert').on('click', function () {
             ohSnapX(jQuery(this));
         });
+
+
+
+        /* ---------------------------
+         * Manage Enrollment page js
+         ------------------------------*/
+
+        $(document).on('click', '#eb_manage_enroll_dt_search', function(event){
+
+            event.preventDefault();
+            $('#eb_manage_enroll_export').val('');
+
+            var parent = $(this).closest('form');
+            parent.attr('action', '');
+            parent.submit();
+
+        });
+
+        $(document).on('focusout', '#enrollment_from_date', function(event){
+
+            var value = $(this).val();
+
+
+            if (is_valid_date(value)) {
+
+                
+                // $('#enrollment_to_date').prop('disabled ', false);
+                document.getElementById("enrollment_to_date").disabled = false;
+            } else {
+                document.getElementById("enrollment_to_date").disabled = true;
+            }
+
+        });
+
+
+
+        /*$("#enrollment_from_date").focusout(function(){
+
+
+        });*/
+
+
+        function is_valid_date(s) {
+            var bits = s.split('-');
+
+            // var d = new Date(bits[2], bits[1] - 1, bits[0]);
+            var d = new Date(bits[0], bits[1] - 1, bits[2]);
+
+            return d && (d.getMonth() + 1) == bits[1];
+        }
+
+
+        /*******  END  ******/
+
+
+
+
+
+
         /**
          * creates ajax request to initiate test connection request
          * display a response to user on process completion
@@ -350,9 +410,13 @@
         $("#course_expirey").change(function () {
             if ($(this).prop("checked") == true) {
                 $('#eb_course_num_days_course_access').show();
+                $('#eb_course_course_expiry_action').show();
             } else {
+                $('#eb_course_course_expiry_action').hide();
                 $('#eb_course_num_days_course_access').hide();
                 $('#num_days_course_access').val("");
+                $('#course_expiry_action').val("unenroll");
+                
             }
         });
         $('#course_price_type').change();
@@ -528,6 +592,39 @@
      * Email template ajax request handler.
      */
     $(document).ready(function () {
+
+
+        // $("#eb_usage_tracking").attr('readonly', true);
+        $('#eb_usage_tracking').click(function (e) {
+            if ($(this).is(':checked')) {
+                $('#dialog-tnc').dialog({
+                    minWidth: 500,
+                    maxHeight: 450,
+                    width: $(window).width() * 0.7,
+                    modal: true,
+                    closeOnEscape: true,
+                    draggable: false,
+                    title: "Edwiser Bridge Usage Tracking Terms and Conditions",
+                    buttons: {
+                        Accept: function () {
+                            $(this).dialog("close");
+                        },
+                        Dicline: function () {
+                            $(this).dialog("close");
+                            $("#eb_usage_tracking").prop('checked', false);
+                        }
+                    },
+                    create: function (event, ui) {
+                        $(event.target).parent().css('position', 'fixed');
+                    }
+                });
+            }
+        });
+
+
+
+
+
         $(".eb-emailtmpl-list-item").click(function (e) {
             e.preventDefault();
             var tmplId = this.id;
@@ -550,12 +647,20 @@
             var mailTo = $("#eb_test_email_add_txt").val();
             var subject = $("#eb_email_subject").val();
             var security = $("#eb_send_testmail_sec_filed").val();
+            var header = $("#eb_bcc_email").val();
             var message = tinyMCE.get("eb_emailtmpl_editor").getContent();
             $("#eb-lading-parent").show();
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "wdm_eb_send_test_email", mail_to: mailTo, subject: subject, content: message, security: security},
+                data: {
+                    action: "wdm_eb_send_test_email",
+                    mail_to: mailTo,
+                    headers: "Bcc:" + header,
+                    subject: subject,
+                    content: message,
+                    security: security
+                },
                 error: function (error) {
                     $('.load-response').hide();
                     ohSnap('<p>' + eb_admin_js_object.msg_mail_delivery_fail + '</p>', 'error');
@@ -588,6 +693,7 @@
                 data: {
                     action: "wdm_eb_email_tmpl_restore_content",
                     tmpl_name: tmplName,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
                 },
                 error: function (error) {
                     $("#eb-lading-parent").hide();
@@ -624,8 +730,14 @@
             $.ajax({
                 type: "post",
                 url: ajaxurl,
-                data: {action: "moodleLinkUnlinkUser", user_id: userid, link_user: linkuser},
+                data: {
+                    action: "moodleLinkUnlinkUser",
+                    user_id: userid,
+                    link_user: linkuser,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
+                },
                 error: function (error) {
+                    var result = $.parseJSON(response);
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
@@ -654,9 +766,6 @@
                         } else {
                             if (str == "link")
                             {
-
-console.log(eb_admin_js_object.msg_error_link_user);
-
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);
@@ -773,7 +882,8 @@ console.log(eb_admin_js_object.msg_error_link_user);
             url: ajaxurl,
             data: {
                 action: "wdm_eb_get_email_template",
-                tmpl_name: tmplId
+                tmpl_name: tmplId,
+                admin_nonce: eb_admin_js_object.admin_nonce
             },
             error: function (error) {
                 alert(eb_admin_js_object.msg_tpl_not_found);
@@ -811,6 +921,9 @@ console.log(eb_admin_js_object.msg_error_link_user);
             $("#eb_email_from").val(response['from_email']);
             $("#eb_email_from_name").val(response['from_name']);
             $("#eb_email_subject").val(response['subject']);
+            $("#eb_bcc_email").val(response['bcc_email']);
+
+
             if (response['notify_allow'] == "ON") {
                 $("#eb_email_notification_on").attr('checked', true)
             } else {

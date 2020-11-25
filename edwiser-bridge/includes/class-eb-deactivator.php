@@ -13,7 +13,7 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class EBDeactivator
+class Eb_Deactivator
 {
 
     /**

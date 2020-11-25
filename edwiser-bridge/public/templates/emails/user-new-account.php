@@ -43,7 +43,7 @@ if (!defined('ABSPATH')) {
             'You can access your account here: <a href="%s">User Account</a>.',
             'eb-textdomain'
         ),
-        wdmUserAccountUrl()
+        wdm_user_account_url()
     );
     ?>
 </p>

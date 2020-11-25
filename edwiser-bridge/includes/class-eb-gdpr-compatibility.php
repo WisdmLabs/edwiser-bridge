@@ -15,7 +15,7 @@ namespace app\wisdmlabs\edwiserBridge;
 /**
 *Class responsible to create plugin GDPR compatible
 */
-class EBGDPRCompatible
+class Eb_Gdpr_Compatiblity
 {
     public function __construct()
     {
@@ -27,26 +27,28 @@ class EBGDPRCompatible
      * @param  integer $page  how many export data pages we have
      * @return status of the export
      */
-    public function ebDataExporter($email)
+    public function eb_data_exporter($email)
     {
         $user = get_user_by("email", $email);
-        $moodleUserId = get_user_meta($user->ID, "moodle_user_id", 1);
-        $enrolledCourses = $this->getEnrolledCoursesWithDate($user->ID);
+        $moodle_user_id = get_user_meta($user->ID, "moodle_user_id", 1);
+        $enrolled_courses = $this->get_enrolled_courses_with_date($user->ID);
         $data = array(
-                    array(
-                      'name' => __('Course Name', "woocommerce-integration"),
-                      'value' => __('Enrollment Date and Time', "woocommerce-integration")
-                    )
-                );
-        foreach ($enrolledCourses as $value) {
+            array(
+              'name' => __('Course Name', "woocommerce-integration"),
+              'value' => __('Enrollment Date and Time', "woocommerce-integration")
+            )
+        );
+
+        foreach ($enrolled_courses as $value) {
             array_push($data, array(
                 'name' => $value["name"],
                 'value' => $value["time"]
                 ));
         }
+
         // $page = $page;
         $export_items = array();
-        if ($moodleUserId) {
+        if ($moodle_user_id) {
             $export_items[] = array(
                 'group_id' => "eb_user_meta",
                 'group_label' => __("User enrollment data", "woocommerce-integration"),
@@ -84,21 +86,21 @@ class EBGDPRCompatible
      * @param  [type] $userId [description]
      * @return [type]         [description]
      */
-    public function getEnrolledCourses($userId)
+    public function get_enrolled_courses($user_id)
     {
         global $wpdb;
-        $tableName = $wpdb->prefix."moodle_enrollment";
-        $query = $wpdb->prepare('SELECT `course_id` FROM '.$tableName.' WHERE user_id = %d', $userId);
+        $table_name = $wpdb->prefix."moodle_enrollment";
+        $query = $wpdb->prepare('SELECT `course_id` FROM '.$table_name.' WHERE user_id = %d', $user_id);
 
-        $enrolledCourse = array();
+        $enrolled_course = array();
         $result = $wpdb->get_results($query);
 
         if (! empty($result)) {
             foreach ($result as $single_result) {
-                $enrolledCourse[$single_result->course_id] = get_the_title($single_result->course_id);
+                $enrolled_course[$single_result->course_id] = get_the_title($single_result->course_id);
             }
         }
-        return $enrolledCourse;
+        return $enrolled_course;
     }
 
 
@@ -107,24 +109,24 @@ class EBGDPRCompatible
      * @param  [type] $userId [description]
      * @return [type]         [description]
      */
-    public function getEnrolledCoursesWithDate($userId)
+    public function get_enrolled_courses_with_date($user_id)
     {
         global $wpdb;
-        $tableName = $wpdb->prefix."moodle_enrollment";
-        $query = $wpdb->prepare('SELECT `course_id`, `time` FROM '.$tableName.' WHERE user_id = %d', $userId);
+        $table_name = $wpdb->prefix."moodle_enrollment";
+        $query = $wpdb->prepare('SELECT `course_id`, `time` FROM '.$table_name.' WHERE user_id = %d', $user_id);
 
-        $enrolledCourse = array();
+        $enrolled_course = array();
         $result = $wpdb->get_results($query);
 
         if (! empty($result)) {
             foreach ($result as $single_result) {
-                $enrolledCourse[$single_result->course_id] = array(
+                $enrolled_course[$single_result->course_id] = array(
                                     "time" => $single_result->time,
                                     "name" => get_the_title($single_result->course_id)
                                 );
             }
         }
-        return $enrolledCourse;
+        return $enrolled_course;
     }
 
     /**
@@ -132,11 +134,11 @@ class EBGDPRCompatible
      * @param  [type] $exporters [description]
      * @return [type]            [description]
      */
-    public function ebRegisterMyPluginExporter($exporters)
+    public function eb_register_my_plugin_exporter($exporters)
     {
         $exporters['edwiser-bridge'] = array(
             'exporter_friendly_name' => __('Edwiser Bridge Plugin'),
-            'callback' => array($this, 'ebDataExporter'),
+            'callback' => array($this, 'eb_data_exporter'),
         );
         return $exporters;
     }
@@ -149,18 +151,18 @@ class EBGDPRCompatible
      * @param  integer $page  [description]
      * @return [type]         [description]
      */
-    public function ebPluginDataEraser($email)
+    public function eb_plugin_data_eraser($email)
     {
         global $wpdb;
         // $page = $page;
-        $generalSettings    = get_option('eb_general');
+        $general_settings    = get_option('eb_general');
         $user = get_user_by("email", $email);
         $msg = array();
-        $enrollMentManager = EBEnrollmentManager::instance(edwiserBridgeInstance()->getPluginName(), edwiserBridgeInstance()->getVersion());
-        $enrolledCourses = $this->getEnrolledCourses($user->ID);
+        $enrollment_manager = Eb_Enrollment_Manager::instance(edwiser_bridge_instance()->get_plugin_name(), edwiser_bridge_instance()->get_version());
+        $enrolled_courses = $this->get_enrolled_courses($user->ID);
         $unenrolled = 0;
-        if ($enrolledCourses && !empty($enrolledCourses)) {
-            if (isset($generalSettings['eb_erase_moodle_data']) && $generalSettings['eb_erase_moodle_data'] == "yes") {
+        if ($enrolled_courses && !empty($enrolled_courses)) {
+            if (isset($general_settings['eb_erase_moodle_data']) && $general_settings['eb_erase_moodle_data'] == "yes") {
                 /*foreach ($enrolledCourses as $key => $value) {
                     $value = $value;
                     $args = array(
@@ -172,14 +174,16 @@ class EBGDPRCompatible
                     $unenrolled = 1;
                 }*/
 
-                $courseKey = array_keys($enrolledCourses);
-                foreach ($courseKey as $value) {
+                $course_key = array_keys($enrolled_courses);
+                foreach ($course_key as $value) {
                     $args = array(
                         'user_id' => $user->ID,
                         'courses' => array($value),
                         'unenroll' => 1,
                     );
-                    $enrollMentManager->updateUserCourseEnrollment($args);
+                    // $enrollMentManager->updateUserCourseEnrollment($args);
+                    $enrollment_manager->update_user_course_enrollment($args);
+
                     $unenrolled = 1;
                 }
             }
@@ -187,8 +191,8 @@ class EBGDPRCompatible
                 array_push($msg, __("Deleted Courses related data from the Moodle site", "eb-textdomain"));
             }
 
-            $tableName = $wpdb->prefix."moodle_enrollment";
-            $query = $wpdb->prepare('DELETE FROM '.$tableName.' WHERE user_id = %d', $user->ID);
+            $table_name = $wpdb->prefix."moodle_enrollment";
+            $query = $wpdb->prepare('DELETE FROM '.$table_name.' WHERE user_id = %d', $user->ID);
             $wpdb->get_results($query);
             array_push($msg, __("Deleted Courses related data from the wordpress site", "eb-textdomain"));
             delete_user_meta($user->ID, "moodle_user_id");
@@ -209,11 +213,11 @@ class EBGDPRCompatible
      * @param  [type] $erasers [description]
      * @return [type]          [description]
      */
-    public function ebRegisterPluginEraser($erasers)
+    public function eb_register_plugin_eraser($erasers)
     {
         $erasers['edwiser-bridge'] = array(
             'eraser_friendly_name' => __('Edwiser Bridge Plugin'),
-            'callback'             => array($this, 'ebPluginDataEraser'),
+            'callback'             => array($this, 'eb_plugin_data_eraser'),
         );
         return $erasers;
     }
@@ -222,9 +226,9 @@ class EBGDPRCompatible
      * get all privacy policy related data
      * @return [type] [description]
      */
-    public function ebPrivacyPolicyPageData()
+    public function eb_privacy_policy_page_data()
     {
-        $content = apply_filters("eb-privacy-policy-content", $this->ebPrivacyPolicyContent());
+        $content = apply_filters("eb-privacy-policy-content", $this->eb_privacy_policy_content());
 
         if (function_exists('wp_add_privacy_policy_content')) {
             wp_add_privacy_policy_content("Edwiser Bridge", $content);
@@ -236,14 +240,14 @@ class EBGDPRCompatible
      * functionality to merge all the sections data which we want to show on the privacy policy page
      * @return [type] [description]
      */
-    public function ebPrivacyPolicyContent()
+    public function eb_privacy_policy_content()
     {
-        $sections = array(__("User Account Creation", "eb-textdomain") => $this->ebUserAccountCreationPolicy());
+        $sections = array(__("User Account Creation", "eb-textdomain") => $this->eb_user_account_creation_policy());
 
-        $sections[__("Payments", "eb-textdomain")] = $this->ebPaymentPolicy();
-        $activePlugins = apply_filters('active_plugins', get_option('active_plugins'));
-        if (in_array("edwiser-bridge-sso/sso.php", $activePlugins)) {
-            $sections[__("User’s Simultaneous login and logout", "eb-textdomain")] = $this->ebSSOPolicy();
+        $sections[__("Payments", "eb-textdomain")] = $this->eb_payment_policy();
+        $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+        if (in_array("edwiser-bridge-sso/sso.php", $active_plugins)) {
+            $sections[__("User’s Simultaneous login and logout", "eb-textdomain")] = $this->eb_sso_policy();
         }
 
         $sections = apply_filters("eb-policy-sections", $sections);
@@ -273,9 +277,9 @@ class EBGDPRCompatible
      * policy content of all the account creation activities
      * @return [type] [description]
      */
-    public function ebUserAccountCreationPolicy()
+    public function eb_user_account_creation_policy()
     {
-        $activePlugins = apply_filters('active_plugins', get_option('active_plugins'));
+        $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
         $content = "<p>
                         ".__("We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle.", "eb-textdomain")."
                     </p>
@@ -287,7 +291,7 @@ class EBGDPRCompatible
                         </ul>
                     </p>";
 
-        if (in_array("woocommerce-integration/bridge-woocommerce.php", $activePlugins)) {
+        if (in_array("woocommerce-integration/bridge-woocommerce.php", $active_plugins)) {
             $content .= "<p>
                             ".__("We collect user information whenever you submit a checkout form on woocommerce store. When you submit woocommerce checkout form, we will use following information to create the user account on the Moodle site:", "eb-textdomain")."
 
@@ -315,7 +319,7 @@ class EBGDPRCompatible
      * payments policy data
      * @return [type] [description]
      */
-    public function ebPaymentPolicy()
+    public function eb_payment_policy()
     {
         $content = "<p>
                         ".__("We accept payments through PayPal. When processing payments, some of your data will be passed to PayPal, including information required to process or support the payment, such as the purchase total and billing information.", "eb-textdomain")."
@@ -335,7 +339,7 @@ class EBGDPRCompatible
      * sso policy data
      * @return [type] [description]
      */
-    public function ebSSOPolicy()
+    public function eb_sso_policy()
     {
         $content = "<p>
                         We allow user to login on Wordpress as well as Moodle site simultaneously if the user is linked to the Moodle site. We use Moodle user id of the user for logging into the Moodle site and vice versa. All this login and logout actions performed using very secured encoding method in PHP which is through PHP Mcrypt extension.

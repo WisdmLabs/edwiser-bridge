@@ -13,6 +13,7 @@ if (!isset($parentcss) || !is_string($parentcss)) {
 
 $template = get_option('template');
 
+
 switch ($template) {
     case 'twentyeleven':
         echo '<section id="primary" style="'.$parentcss.'"><div id="content" role="main">';
@@ -41,6 +42,22 @@ switch ($template) {
         echo '<div class="wrap"><div id="primary" class="content-area twentyseventeen" style="'
         .$parentcss.'"><main id="main" class="site-main" role="main">';
         break;
+        //flatsome
+    case 'twentyseventeen':
+        echo '<div class="wrap"><div id="primary" class="content-area twentyseventeen" style="'
+        .$parentcss.'"><main id="main" class="site-main" role="main">';
+        break;
+        //Divi
+    case 'Divi':
+        echo '<div id="main-content" style="'
+        .$parentcss.'"><div class="container">';
+        break;
+
+    case 'flatsome':
+        echo '<div id="content" style="padding:30px 0px;"'
+        .$parentcss.'"><div class="row row-large row-divided">';
+        break;
+
     default:
         echo '<div id="container" class="eb-primary" style="'
         .$parentcss.'"><div id="content" role="main">';

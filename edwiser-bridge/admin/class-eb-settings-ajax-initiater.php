@@ -13,7 +13,7 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class EBSettingsAjaxInitiater
+class Eb_Settings_Ajax_Initiater
 {
 
     /**
@@ -48,7 +48,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function courseSynchronizationInitiater()
+    public function course_synchronization_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -63,7 +63,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         // start working on request
-        $response = edwiserBridgeInstance()->courseManager()->courseSynchronizationHandler($sync_options);
+        $response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler($sync_options);
         echo json_encode($response);
         die();
     }
@@ -76,7 +76,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function userDataSynchronizationInitiater()
+    public function user_data_synchronization_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -92,7 +92,9 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
+        // $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
+        $response = edwiser_bridge_instance()->user_manager()->user_course_synchronization_handler($sync_options, false, $offset);
+        
 
         echo json_encode($response);
         die();
@@ -105,7 +107,7 @@ class EBSettingsAjaxInitiater
      *
      * @return
      */
-    public function usersLinkToMoodleSynchronization()
+    public function users_link_to_moodle_synchronization()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -121,7 +123,7 @@ class EBSettingsAjaxInitiater
         $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
 
         //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiserBridgeInstance()->userManager()->userLinkToMoodlenHandler($sync_options, $offset);
+        $response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler($sync_options, $offset);
 
         echo json_encode($response);
         die();
@@ -137,7 +139,7 @@ class EBSettingsAjaxInitiater
      *
      * @return boolean true on success else false
      */
-    public function connectionTestInitiater()
+    public function connection_test_initiater()
     {
         if (!isset($_POST['_wpnonce_field'])) {
             die('Busted!');
@@ -153,7 +155,7 @@ class EBSettingsAjaxInitiater
         $token = $_POST['token'];
 
         $connection_helper = new EBConnectionHelper($this->plugin_name, $this->version);
-        $response = $connection_helper->connectionTestHelper($url, $token);
+        $response = $connection_helper->connection_test_helper($url, $token);
 
         if ($response["success"] == 0) {
             $response["response_message"] .= __(" : to know more about this error", "eb-textdomain"). "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" .__(" click here", "eb-textdomain"). "</a>";

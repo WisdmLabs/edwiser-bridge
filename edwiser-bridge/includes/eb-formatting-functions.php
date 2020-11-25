@@ -7,7 +7,7 @@
  *
  * @return string
  */
-function wpSanitizeTooltip($var)
+function wp_sanitize_tooltip($var)
 {
     return wp_kses(
         html_entity_decode($var),
@@ -25,6 +25,8 @@ function wpSanitizeTooltip($var)
 }
 
 /**
+ * DEPRECATED FUNCTION.
+ *
  * Clean variables.
  *
  * @param string $var
@@ -32,6 +34,19 @@ function wpSanitizeTooltip($var)
  * @return string
  */
 function wpClean($var)
+{
+    return sanitize_text_field($var);
+}
+
+
+/**
+ * Clean variables.
+ *
+ * @param string $var
+ *
+ * @return string
+ */
+function wp_clean($var)
 {
     return sanitize_text_field($var);
 }
