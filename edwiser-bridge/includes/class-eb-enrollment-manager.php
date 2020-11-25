@@ -112,6 +112,7 @@ class Eb_Enrollment_Manager
      */
     public function update_user_course_enrollment($args, $roleId = "5")
     {
+
         $defaults = array(
             'user_id'           => 0,
             'role_id'           => $roleId,
@@ -203,27 +204,25 @@ class Eb_Enrollment_Manager
                 $request_data
             );
         } elseif ($args['unenroll'] == 1) {
-
-
             foreach ($args['courses'] as $key => $course_id) {
 
 
                 //Get User Course access Count.
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
 
-
                 //decrease the count value
                 // $act_cnt = $act_cnt - 1;
 
-                if ($act_cnt == 1 && !$args['complete_unenroll']) {
-
+                if ($act_cnt <= 1 && !$args['complete_unenroll']) {
 
                     //update decreased count value
                     // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
-                    $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
-                    $response['success'] = 1;
-                } elseif ($act_cnt <= 0 || $args['complete_unenroll']) {
-
+                    $request_data = array('enrolments' => $enrolments);
+                    $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+                        $webservice_function,
+                        $request_data
+                    );
+                } elseif ($act_cnt > 1 || $args['complete_unenroll']) {
 
 
                     //delete row if count equals zero
@@ -231,11 +230,8 @@ class Eb_Enrollment_Manager
 
                     //Process Moodle unenrollment.
                     // prepare request data
-                    $request_data = array('enrolments' => $enrolments);
-                    $response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-                        $webservice_function,
-                        $request_data
-                    );
+                    $this->update_user_course_access_count($args['user_id'], $course_id, $act_cnt-1);
+                    $response['success'] = 1;
                 }
             }
                 //Trigger email.
