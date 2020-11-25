@@ -45,6 +45,18 @@
 }*/
 
 
+
+
+/*sticky button styling*/
+
+.eb-course-action-btn-suspended, .eb-course-action-btn-start, .eb-course-action-btn-resume, .eb-course-action-btn-completed{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+}
+
+
+
 .eb-course-action-btn-suspended{
     margin-top: 4px;
     border: 1px solid #dfa700;
@@ -58,10 +70,10 @@
 .eb-course-action-btn-start{
  /*New css*/
 
-    position: absolute;
+    /*position: absolute;
     width: 100%;
     bottom: 0px;
-
+*/
     margin-top: 4px;
     border: 1px solid #1767ba;
     padding: 8px;
@@ -830,6 +842,7 @@ nav.eb-pagination ul li span.current {
 
 .eb-my-courses-wrapper{
     padding-bottom: 20px;
+    display: inline-block;
 }
 
 

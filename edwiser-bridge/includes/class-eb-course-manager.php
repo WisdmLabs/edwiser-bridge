@@ -202,28 +202,9 @@ class Eb_Course_Manager
 	 *
 	 * @return array stores moodle web service response.
 	 */
-	public function getMoodleCourses($moodle_user_id = null)
+	public function getMoodleCourses( $moodle_user_id = null )
 	{
-		$response = '';
-
-		if (!empty($moodle_user_id)) {
-			$webservice_function = 'core_enrol_get_users_courses'; // get a users enrolled courses from moodle
-			$request_data = array('userid' => $moodle_user_id); // prepare request data array
-
-			$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-				$webservice_function,
-				$request_data
-			);
-
-			edwiser_bridge_instance()->logger()->add('course', 'User course response: '.serialize($response)); // add course log
-		} elseif (empty($moodle_user_id)) {
-			$webservice_function = 'core_course_get_courses'; // get all courses from moodle
-			$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper($webservice_function);
-
-			edwiser_bridge_instance()->logger()->add('course', 'Response: '.serialize($response)); // add course log
-		}
-
-		return $response;
+		return $this->get_moodle_courses( $moodle_user_id );
 	}
 
 
@@ -236,7 +217,7 @@ class Eb_Course_Manager
 	 *
 	 * @return array stores moodle web service response.
 	 */
-	public function get_moodle_courses($moodle_user_id = null)
+	public function get_moodle_courses( $moodle_user_id = null )
 	{
 		$response = '';
 
@@ -318,17 +299,7 @@ class Eb_Course_Manager
 	 */
 	public function isCoursePresynced($course_id_on_moodle)
 	{
-		global $wpdb;
-
-		//get id of course on wordpress based on id on moodle $course_id =
-		$course_id = $wpdb->get_var(
-			"SELECT post_id
-			FROM {$wpdb->prefix}postmeta
-			WHERE meta_key = 'moodle_course_id'
-			AND meta_value = '".$course_id_on_moodle."'"
-		);
-
-		return $course_id;
+		return $this->is_course_presynced($course_id_on_moodle);
 	}
 
 
@@ -391,6 +362,70 @@ class Eb_Course_Manager
 	{
 		return array("$course_id_on_wp" => get_post_meta($course_id_on_wp, 'moodle_course_id', true));
 	}
+
+
+	/**
+	 * create course on wordpress.
+	 *
+	 * @param array $course_data course data recieved from initiate_course_sync_process()
+	 *
+	 * @return int returns id of course
+	 */
+	public function createCourseOnWordpress($course_data, $sync_options = array())
+	{
+		global $wpdb;
+
+		$status = (isset($sync_options['eb_synchronize_draft']) &&
+				$sync_options['eb_synchronize_draft'] == 1) ? 'draft' : 'publish'; // manage course status
+
+		$course_args = array(
+			'post_title' => $course_data->fullname,
+			'post_content' => $course_data->summary,
+			'post_status' => $status,
+			'post_type' => 'eb_course',
+		);
+
+		$wp_course_id = wp_insert_post($course_args); // create a course on wordpress
+
+		// get term id on wordpress to which course is associated on moodle
+		/*$term_id = $wpdb->get_var(
+			"SELECT term_id
+			FROM {$wpdb->prefix}term_taxonomy
+			WHERE taxonomy = 'eb_course_cat'
+			AND description = ".$course_data->categoryid
+		);*/
+
+
+		$term_id = $wpdb->get_var(
+			"SELECT term_id
+			FROM {$wpdb->prefix}termmeta
+			WHERE meta_key = 'eb_moodle_cat_id'
+			AND meta_value = ".$course_data->categoryid
+		);
+
+		// $term_id = get_option( "eb_course_cat_".$course_data->categoryid );
+
+		// set course terms
+		if ($term_id > 0) {
+			wp_set_post_terms($wp_course_id, $term_id, 'eb_course_cat');
+		}
+
+		// add course id on moodle in corse meta on WP
+		$eb_course_options = array('moodle_course_id' => $course_data->id);
+		add_post_meta($wp_course_id, 'moodle_course_id', $course_data->id);
+		add_post_meta($wp_course_id, 'eb_course_options', $eb_course_options);
+
+		/*
+		 * execute your own action on course creation on WorPress
+		 * we are passing newly created course id as well as its respective moodle id in arguments
+		 *
+		 * sync_options are also passed as it can be used in a custom action on hook.
+		 */
+		do_action('eb_course_created_wp', $wp_course_id, $course_data, $sync_options);
+
+		return $wp_course_id;
+	}
+
 
 	/**
 	 * create course on wordpress.
@@ -470,48 +505,7 @@ class Eb_Course_Manager
 	 */
 	public function updateCourseOnWordpress($wp_course_id, $course_data, $sync_options)
 	{
-		global $wpdb;
-		$course_args = array(
-			'ID' => $wp_course_id,
-			'post_title' => $course_data->fullname,
-			'post_content' => $course_data->summary,
-		);
-
-		// updater course on wordpress
-		wp_update_post($course_args);
-
-		// get term id on wordpress to which course is associated on moodle
-		/*$term_id = $wpdb->get_var(
-			"SELECT term_id
-			FROM {$wpdb->prefix}term_taxonomy
-			WHERE taxonomy = 'eb_course_cat'
-			AND description = ".$course_data->categoryid
-		);*/
-
-
-		$term_id = $wpdb->get_var(
-			"SELECT term_id
-			FROM {$wpdb->prefix}termmeta
-			WHERE meta_key = 'eb_moodle_cat_id'
-			AND meta_value = ".$course_data->categoryid
-		);
-
-		// $term_id = get_option( "eb_course_cat_".$course_data->categoryid );
-
-		// set course terms
-		if ($term_id > 0) {
-			wp_set_post_terms($wp_course_id, $term_id, 'eb_course_cat');
-		}
-
-		/*
-		 * execute your own action on course updation on WordPress
-		 * we are passing newly created course id as well as its respective moodle id in arguments
-		 *
-		 * sync_options are also passed as it can be used in a custom action on hook.
-		 */
-		do_action('eb_course_updated_wp', $wp_course_id, $course_data, $sync_options);
-
-		return $wp_course_id;
+		return $this->update_course_on_wordpress($wp_course_id, $course_data, $sync_options);
 	}
 
 
@@ -600,72 +594,7 @@ class Eb_Course_Manager
 	 */
 	public function createCourseCategoriesOnWordpress($category_response)
 	{
-		global $wpdb;
-
-		//$term_id_array          = array();
-		//$moodle_category_array  = array();
-		//$i                      = 0;
-
-		// sort category response by id in incremental order
-		usort($category_response, 'usort_numeric_callback');
-
-		foreach ($category_response as $category) {
-			$cat_name_clean = preg_replace('/\s*/', '', $category->name);
-			$cat_name_lower = strtolower($cat_name_clean);
-			$parent = ($category->parent == 0 ? 0 : $category->parent);
-
-			//$term_id = '';
-			//$term_description = '';
-
-			if ($parent > 0) {
-				// get parent term if exists
-				/*$parent_term = $wpdb->get_var(
-					"SELECT term_id
-					FROM {$wpdb->prefix}term_taxonomy
-					WHERE taxonomy = 'eb_course_cat'
-					AND description = ".$category->parent
-				);*/
-
-				$parent_term = $wpdb->get_var(
-					"SELECT term_id
-					FROM {$wpdb->prefix}termmeta
-					WHERE meta_key = 'eb_moodle_cat_id'
-					AND meta_value = ".$category->parent
-				);
-
-				// $parent_term = get_option( "eb_course_cat_".$category->parent );
-				if ($parent_term && !term_exists($cat_name_lower, 'eb_course_cat', $parent_term)) {
-					$created_term = wp_insert_term(
-						$category->name,
-						'eb_course_cat',
-						array(
-						'slug' => $cat_name_lower,
-						'parent' => $parent_term,
-						'description' => $category->description,
-						)
-					);
-					update_term_meta($created_term['term_id'], "eb_moodle_cat_id", $category->id);
-
-					// Save the moodle id of category in options
-					// update_option( "eb_course_cat_".$category->id, $created_term['term_id'] );
-				}
-			} else {
-				if (!term_exists($cat_name_lower, 'eb_course_cat')) {
-					$created_term = wp_insert_term(
-						$category->name,
-						'eb_course_cat',
-						array(
-						'slug' => $cat_name_lower,
-						'description' => $category->description,
-							)
-					);
-					update_term_meta($created_term['term_id'], "eb_moodle_cat_id", $category->id);
-
-					// Save the moodle id of category in options
-					// update_option( "eb_course_cat_".$category->id, $created_term['term_id'] );
-				}
-			}
-		}
+		$this->create_course_categories_on_wordpress($category_response);
 	}
 
 

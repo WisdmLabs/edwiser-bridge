@@ -445,6 +445,9 @@ error_log('send_new_user_email ::: ');
 
 /// write appropriate filter name
 
+
+error_log('debug_backtrace :: '.print_r(debug_backtrace(), 1));
+
 		$args          = apply_filters("eb_args_data", $args);
 
 

@@ -57,7 +57,7 @@ $tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : '';
         if ($tab != 'licensing') {
             ?>
         </form>
-        <hr/>
+            <hr/>
             <?php
             do_action("eb_settings_footer");
         }

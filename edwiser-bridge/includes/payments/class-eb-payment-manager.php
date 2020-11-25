@@ -96,13 +96,33 @@ class Eb_Payment_Manager
 			if (!strpos($access_course_url, '://')) {
 				$access_course_url = 'http://'.$access_course_url;
 			}
+
+
 			$access_button = '<div class="eb_join_button">
 			<a class="wdm-btn" href="'.$access_course_url.'" id="wdm-btn">'.
 					__('Access Course', 'eb-textdomain').'</a></div>';
 		}
+
+
 		$access_params = array('access_course_url' => $access_course_url,
 			'post' => $course,);
+
+// error_log('access_button :: '.print_r($access_button, 1));
+
 		$button = apply_filters('eb_course_access_button', $access_button, $access_params);
+
+error_log('button :: '.print_r($button, 1));
+		
+		$user_id      = get_current_user_id();
+		$is_user_suspended = get_user_suspended_status($user_id, $course_id);
+
+
+		if ($is_user_suspended) {
+			$button = str_replace( "Access Course", "Suspended", $button );
+		}
+
+error_log('button 111 :: '.print_r($button, 1));
+
 
 		return $button;
 	}
@@ -264,6 +284,8 @@ class Eb_Payment_Manager
 								<input type="submit"
 								value="'.__('Take this Course', 'eb-textdomain').'"
 								name="course_join" class="wdm-btn" id="wdm-btn">
+					
+								'. wp_nonce_field('eb_course_payment_nonce', 'eb_course_payment_nonce') .'
 							</form></div>';
 				return apply_filters('eb_course_free_button', $free_button, $course->ID);
 			} elseif (!empty($course_price) && $course_price_type == 'paid') { //paid course button

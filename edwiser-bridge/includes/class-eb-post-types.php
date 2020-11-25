@@ -300,7 +300,7 @@ class Eb_Post_Types
 
         $post_id = get_the_id();
 
-        $deletion_status = self::get_post_options($post->ID, 'mdl_course_deleted', $post_type);
+        $deletion_status = self::get_post_options($post_id, 'mdl_course_deleted', $post_type);
 
 
 // error_log('option:: '.print_r($option, 1));

@@ -169,6 +169,9 @@ error_log('external_api_endpoint_def :: '.print_r($data, 1));
                     if ($unEnroll) {
                         do_action("eb_mdl_un_enrollment_trigger", $args);
                     } else {
+
+error_log('EMAIL 1111 :::');
+
                         do_action('eb_mdl_enrollment_trigger', $args);
                     }
                 }

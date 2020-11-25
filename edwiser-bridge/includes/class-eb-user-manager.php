@@ -342,55 +342,7 @@ class EBUserManager
 	 */
 	public function userLinkToMoodlenHandler($sync_options = array(), $offset = 0)
 	{
-		global $wpdb;
-		// checking if moodle connection is working properly
-		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper(EB_ACCESS_URL, EB_ACCESS_TOKEN);
-
-		$response_array['connection_response'] = $connected['success']; // add connection response in response array
-		$link_users_count = 0;
-		if ($connected['success'] == 1) {
-			if ((isset($sync_options["eb_link_users_to_moodle"]) && $sync_options['eb_link_users_to_moodle'] == 1)) {
-				// query to get list of users who have not linked to moodle with limit
-				$unlinked_users = $wpdb->get_results(
-					"SELECT DISTINCT(user_id)
-					FROM {$wpdb->base_prefix}usermeta
-					WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)
-					ORDER BY user_id ASC
-					LIMIT ".$offset.", 20",
-					ARRAY_A
-				);
-				if (!empty($unlinked_users)) {
-					foreach ($unlinked_users as $key => $value) {
-						$user_object = get_userdata($value['user_id']);
-						$flag = $this->link_moodle_user($user_object);
-						// if user not linked then add it in unlinked users array
-						if (!$flag) {
-							$user = get_userdata($value['user_id']);
-							$response_array['user_with_error'][] = '<tr><td>'.$value['user_id'].'</td><td> '.$user->user_login.'</td></tr>';
-						} else {
-							$link_users_count++;
-						}
-					}
-				}
-				// used to get all unlinked users count
-				$users_count = $wpdb->get_results(
-					"SELECT COUNT(DISTINCT(user_id)) as users_count
-					FROM {$wpdb->base_prefix}usermeta
-					WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)"
-				);
-				$users_count = $users_count[0]->users_count;
-			}
-			// these properties are used to track, how many user's have linked.
-			$response_array['unlinked_users_count'] = count($unlinked_users);
-			$response_array['users_count'] = $users_count;
-			$response_array['linked_users_count'] = $link_users_count;
-		} else {
-			edwiser_bridge_instance()->logger()->add(
-				'user',
-				'Connection problem in synchronization, Response:'.print_r($connected, true)
-			); // add connection log
-		}
-		return $response_array;
+		return $this->user_link_to_moodle_handler( $sync_options , $offset );
 	}
 
 
@@ -409,149 +361,7 @@ class EBUserManager
 	 */
 	public function createWordpressUser($email, $firstname, $lastname, $role = "")
 	{
-
-		// Check the e-mail address
-		if (empty($email) || !is_email($email)) {
-			return new \WP_Error('registration-error', __('Please provide a valid email address.', 'eb-textdomain'));
-		}
-
-		if (email_exists($email)) {
-			return new \WP_Error(
-				'registration-error',
-				__('An account is already registered with your email address. Please login.', 'eb-textdomain'),
-				'eb_email_exists'
-			);
-		}
-
-		if (empty($firstname)) {
-			$firstname = $_POST['firstname'];
-		}
-
-		if (empty($lastname)) {
-			$lastname = $_POST['lastname'];
-		}
-
-		$username = sanitize_user(current(explode('@', $email)), true);
-
-		// Ensure username is unique
-		$append = 1;
-		$o_username = $username;
-
-		while (username_exists($username)) {
-			$username = $o_username.$append;
-			++$append;
-		}
-
-		// Handle password creation
-		$password = wp_generate_password();
-		//$password_generated = true;
-		// WP Validation
-		$validation_errors = new \WP_Error();
-
-		do_action('eb_register_post', $username, $email, $validation_errors);
-
-		$validation_errors = apply_filters('eb_registration_errors', $validation_errors, $username, $email);
-
-		if ($validation_errors->get_error_code()) {
-			return $validation_errors;
-		}
-
-		//Added after 1.3.4
-		if ($role == "") {
-			$role = get_option("default_role");
-		}
-
-
-		$wp_user_data = apply_filters(
-			'eb_new_user_data',
-			array(
-				'user_login' => $username,
-				'user_pass'  => $password,
-				'user_email' => $email,
-				'role'       => $role,
-			)
-		);
-
-		$user_id = wp_insert_user($wp_user_data);
-
-		if (is_wp_error($user_id)) {
-			return new \WP_Error(
-				'registration-error',
-				'<strong>'.__('ERROR', 'eb-textdomain').'</strong>: '.
-					__(
-						'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-						'eb-textdomain'
-					)
-			);
-		}
-
-		//update firstname, lastname
-		update_user_meta($user_id, 'first_name', $firstname);
-		update_user_meta($user_id, 'last_name', $lastname);
-
-		// check if a user exists on moodle with same email
-		$moodle_user = $this->get_moodle_user($wp_user_data['user_email']);
-
-		if (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 1 && is_object($moodle_user['user_data'])) {
-			update_user_meta($user_id, 'moodle_user_id', $moodle_user['user_data']->id);
-
-			// sync courses of an individual user when an existing moodle user is linked with a wordpress account.
-			$this->user_course_synchronization_handler(array('eb_synchronize_user_courses' => 1), $user_id);
-		} else {
-			$general_settings = get_option('eb_general');
-			$language = 'en';
-			if (isset($general_settings['eb_language_code'])) {
-				$language = $general_settings['eb_language_code'];
-			}
-			$user_data = array(
-				'username' => $username,
-				'password' => $password,
-				'firstname' => $firstname,
-				'lastname' => $lastname,
-				'email' => $email,
-				'auth' => 'manual',
-				'lang' => $language,
-			);
-
-			// create a moodle user with above details
-			if (EB_ACCESS_TOKEN != '' && EB_ACCESS_URL != '') {
-				$moodle_user = $this->create_moodle_user($user_data);
-				if (isset($moodle_user['user_created']) && $moodle_user['user_created'] == 1 && is_object($moodle_user['user_data'])) {
-					update_user_meta($user_id, 'moodle_user_id', $moodle_user['user_data']->id);
-				}
-			}
-		}
-
-		$args = array(
-			'user_email' => $email,
-			'username' => $username,
-			'first_name' => $firstname,
-			'last_name' => $lastname,
-			'password' => $password,
-		);
-		do_action('eb_created_user', $args);
-
-		// send another email if moodle user account created has a different username then wordpress
-		// in case the username was already registered on moodle, so our system generates a new username automatically.
-		//
-		// In this case we need to send another mail with moodle account credentials
-		$created = 0;
-		if (isset($moodle_user['user_created'])) {
-			$created = $moodle_user['user_created'];
-		}
-		if ($created && strtolower($username) != strtolower($moodle_user['user_data']->username)) {
-			$args = array(
-				'user_email' => $email,
-				'username' => $moodle_user['user_data']->username,
-				'first_name' => $firstname,
-				'last_name' => $lastname,
-				'password' => $password,
-			);
-			// create a new action hook with user details as argument.
-			do_action('eb_linked_to_existing_wordpress_user', $args);
-		}
-
-		return $user_id;
+		return $this->create_wordpress_user( $email, $firstname, $lastname, $role );
 	}
 
 
@@ -729,24 +539,7 @@ class EBUserManager
 	 */
 	public function isMoodleUsernameAvailable($username)
 	{
-		//global $wpdb;
-
-		edwiser_bridge_instance()->logger()->add('user', 'Checking if username exists....'); // add to user log
-
-		$username = sanitize_user($username); // get sanitized username
-		//$user       = array();
-		$webservice_function = 'core_user_get_users_by_field';
-
-		// prepare request data array
-		$request_data = array('field' => 'username', 'values' => array($username));
-		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper($webservice_function, $request_data);
-
-		// return true only if username is available
-		if ($response['success'] == 1 && empty($response['response_data'])) {
-			return true;
-		} else {
-			return false;
-		}
+		return $this->is_moodle_username_available($username);
 	}
 
 
@@ -854,86 +647,7 @@ class EBUserManager
 	 */
 	public function createMoodleUser($user_data, $update = 0)
 	{
-		$user = array(); // to store user creation/updation response
-		$users = array();
-		edwiser_bridge_instance()->logger()->add('user', 'Start creating/updating moodle user, Updating: '.$update); // add user log
-		// set webservice function according to update parameter
-		if ($update == 1) {
-			$webservice_function = 'core_user_update_users';
-		} else {
-			$webservice_function = 'core_user_create_users';
-		}
-
-		/**
-		 * to lowercase the username for moodle
-		 * @since  1.2.2
-		 */
-
-		// confirm that username is in lowercase always
-		if (isset($user_data['username'])) {
-			$user_data['username'] = strtolower($user_data['username']);
-		}
-
-		// Ensure username is unique, when creating a new user on moodle
-		if ($update == 0) {
-			$append = 1;
-			if (!empty($user_data['username'])) {
-				$o_username = $user_data['username'];
-
-				// we will check if the username is vailable on moodle before creating a user
-				while (!$this->is_moodle_username_available($user_data['username'])) {
-					$user_data['username'] = $o_username.$append;
-					++$append;
-				}
-
-				// apply custom filter on username generated
-				$user_data['username'] = apply_filters('eb_unique_moodle_username', $user_data['username']);
-			}
-		}
-
-		/*
-		 * apply custom filter on userdata that is used to create or update moodle account
-		 * used to add additional user profile fields value that is passed to moodle
-		 */
-		$user_data = apply_filters('eb_moodle_user_profile_details', $user_data, $update);
-		// prepare user data array
-		foreach ($user_data as $key => $value) {
-			$users[0][$key] = $value;
-		}
-		// prepare request data
-		$request_data = array('users' => $users);
-		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			$webservice_function,
-			$request_data
-		);
-		// handle response recived from moodle and creates response array accordingly
-		if ($update == 0) { // when user is created
-			if ($response['success'] == 1 && empty($response['response_data'])) {
-				$user = array('user_created' => 0, 'user_data' => '');
-			} elseif ($response['success'] == 1 &&
-					is_array($response['response_data']) &&
-					!empty($response['response_data'])) {
-				$user = array('user_created' => 1, 'user_data' => $response['response_data'][0]);
-			} elseif ($response['success'] == 0) {
-				$user = array('user_created' => 0, 'user_data' => $response['response_message']);
-			}
-		} elseif ($update == 1) { // when updating profile details of an existing user on moodle
-			if ($response['success'] == 1 && empty($response['response_data'])) {
-				$user = array('user_updated' => 1);
-			} else {
-				$user = array('user_updated' => 0);
-			}
-		}
-
-		// sync courses of an individual user when user is created or updated on moodle
-		// get wordpress user id by wordpress user email
-		if ($update == 0 && isset($user_data['email'])) {
-			$wp_user = get_user_by('email', $user_data['email']);
-			$this->user_course_synchronization_handler(array('eb_synchronize_user_courses' => 1), $wp_user->ID);
-		}
-		do_action('eb_after_moodle_user_creation', $user);
-
-		return $user;
+		return $this->create_moodle_user( $user_data, $update );
 	}
 
 
@@ -1059,85 +773,7 @@ class EBUserManager
 	 */
 	public function linkMoodleUser($user)
 	{
-		// check if a moodle user account is already linked
-		$moodle_user_id = get_user_meta($user->ID, 'moodle_user_id', true);
-		$created = 0;
-		$linked = 0;
-		$user_data = array();
-
-		if (empty($moodle_user_id)) {
-			/*
-			 * get user's id from moodle and add in wordpress usermeta.
-			 *
-			 * first checks if user exists on moodle,
-			 * creates a new user account on moodle with same user details including password.
-			 */
-			$moodle_user = $this->get_moodle_user($user->user_email);
-
-			if (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 1 && is_object($moodle_user['user_data'])) {
-				update_user_meta($user->ID, 'moodle_user_id', $moodle_user['user_data']->id);
-				$linked = 1;
-
-				// sync courses of an individual user
-				// when an exisintg moodle user is linked to wordpress account with same email
-				$this->user_course_synchronization_handler(
-					array(
-					'eb_synchronize_user_courses' => 1,
-						),
-					$user->ID
-				);
-			} elseif (isset($moodle_user['user_exists']) && $moodle_user['user_exists'] == 0) {
-				$general_settings = get_option('eb_general');
-				$language = 'en';
-				if (isset($general_settings['eb_language_code'])) {
-					$language = $general_settings['eb_language_code'];
-				}
-
-				//generate random password for moodle account, as user is already registered on wordpress.
-				$password = apply_filters('eb_filter_moodle_password', wp_generate_password());
-
-				$user_data = array(
-					'username' => $user->user_login,
-					'password' => $password,
-					'firstname' => $user->first_name,
-					'lastname' => $user->last_name,
-					'email' => $user->user_email,
-					'auth' => 'manual',
-					'lang' => $language,
-				);
-
-				$moodle_user = $this->create_moodle_user($user_data);
-				if (isset($moodle_user['user_created']) && $moodle_user['user_created'] == 1 && is_object($moodle_user['user_data'])) {
-					update_user_meta($user->ID, 'moodle_user_id', $moodle_user['user_data']->id);
-					$created = 1;
-					$linked = 1;
-				}
-			}
-		}
-
-		// add a dynamic hook only if a new user is created on moodle and linked to wordpress account
-		if (!$created && $linked) {
-			$args = array(
-				'user_email' => $user->user_email,
-				'username' => $moodle_user['user_data']->username,
-				'first_name' => $user->first_name,
-				'last_name' => $user->last_name,
-			);
-			//create a new action hook with user details as argument.
-			do_action('eb_linked_to_existing_wordpress_user', $args);
-		} else if ($created && $linked) {
-			$args = array(
-				'user_email' => $user_data['email'],
-				'username' => $moodle_user['user_data']->username,
-				'first_name' => $user_data['firstname'],
-				'last_name' => $user_data['lastname'],
-				'password' => $user_data['password'],
-			);
-			//create a new action hook with user details as argument.
-			do_action('eb_linked_to_existing_wordpress_to_new_user', $args);
-		}
-
-		return $linked;
+		return $this->link_moodle_user($user);
 	}
 
 
@@ -1590,7 +1226,10 @@ class EBUserManager
                         'last_name'  => $user->last_name,
                         'course_id'  => $enroll_course
                     );
-                    
+               
+
+error_log('EMAIL 2222 ::: ');
+
                 do_action('eb_mdl_enrollment_trigger', $args);
 			}
 
@@ -1637,13 +1276,26 @@ class EBUserManager
 		$cur_user = get_current_user_id();
 		$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
 
+error_log('stmt :: '.print_r($stmt, 1));
+
+
 		$enroll_data = $wpdb->get_results($stmt);
+
+
+error_log('enroll_data :: '.print_r($enroll_data, 1));
+
+
 		$enrollment_manager = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
 
 		//Added for the bulk purchase plugin expiration functionality
 		$enroll_data = apply_filters("eb_user_list_on_course_expiration", $enroll_data);
 
+error_log('enroll_data 111:: '.print_r($enroll_data, 1));
+
+
 		foreach ($enroll_data as $course_enroll_data) {
+
+error_log('foreach');
 
 			$course_options = get_post_meta($course_enroll_data->course_id, 'eb_course_options', true);
 
@@ -1654,12 +1306,24 @@ class EBUserManager
 			);
 			// get expiration action.
 			if (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'suspend') {
+error_log('foreach 111');
+
+
 				$args['suspend'] = 1;
 			} elseif (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'do-nothing') {
-				return;
+				
+error_log('foreach 222');
+
+				continue;
 			} else {
+error_log('foreach 333');
+
+
 				$args['unenroll'] = 1;
 			}
+
+error_log('ARGS :: '.print_r($args, 1));
+
 
 			// $enrollMentManager->updateUserCourseEnrollment($args);
 			$enrollment_manager->update_user_course_enrollment($args);
@@ -1669,8 +1333,15 @@ class EBUserManager
 
 	public function moodle_link_unlink_user()
 	{
+
+error_log('moodle_link_unlink_user');
+
 		$responce=array("code"=>"failed");
-		if (isset($_POST['user_id']) && isset($_POST['link_user'])) {
+		if (isset($_POST['user_id']) && isset($_POST['link_user']) && isset($_POST['admin_nonce']) && wp_verify_nonce($_POST['admin_nonce'], 'eb_admin_nonce')) {
+
+error_log('moodle_link_unlink_user INNNN ::: ');
+
+
 			$user_object = get_userdata($_POST['user_id']);
 			if ($_POST['link_user']) {
 				$flag=$this->link_moodle_user($user_object);

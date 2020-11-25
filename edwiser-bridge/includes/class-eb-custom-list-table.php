@@ -39,6 +39,13 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			$tblRecords = array();
 			$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
 
+error_log('_REQUEST :: '.print_r($_REQUEST, 1));
+
+			if (!isset($_REQUEST['eb-manage-user-enrol'] ) || ( isset( $_REQUEST['eb-manage-user-enrol'] ) && !wp_verify_nonce( $_REQUEST['eb-manage-user-enrol'], 'eb-manage-user-enrol' ) ) ) {
+
+				return;
+			}
+			
 
 			if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
                 $stmt .= " WHERE  time>'".$_REQUEST['enrollment_from_date']."' ";
@@ -47,6 +54,8 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
             if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date']) && isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
                 $stmt .= " AND time<'".$_REQUEST['enrollment_to_date']."' ";
             }
+
+error_log('STMT :: '.print_r($stmt, 1));
 
 
 			/*if (!empty($searchText)) {

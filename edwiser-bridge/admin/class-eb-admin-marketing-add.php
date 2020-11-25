@@ -23,6 +23,7 @@ if (!class_exists('Eb_Admin_Marketing_Add')) {
      */
     class Eb_Admin_Marketing_Add
     {
+
         public function __construct()
         {
             add_action("eb_settings_footer", array($this, "outPut"));
@@ -41,3 +42,4 @@ if (!class_exists('Eb_Admin_Marketing_Add')) {
     }
 }
 new Eb_Admin_Marketing_Add();
+
