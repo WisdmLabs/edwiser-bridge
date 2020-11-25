@@ -13,8 +13,6 @@ if (!isset($parentcss) || !is_string($parentcss)) {
 
 $template = get_option('template');
 
-error_log('template :: '.print_r($template, 1));
-error_log('parentcss :: '.print_r($parentcss, 1));
 
 switch ($template) {
     case 'twentyeleven':

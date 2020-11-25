@@ -187,21 +187,3 @@ run_edwiser_bridge(); // start plugin execution
 
 require_once plugin_dir_path(__FILE__).'includes/api/class-eb-external-api.php';
 
-
-
-
-/*error_log('DATE 222 ::: '.print_r(get_gmt_from_date(get_the_date('Y-m-d H:i:s')), 1));
-
-
-error_log('current_time'.print_r(current_datetime('PHP'), 1));
-
-$date = current_datetime();
-$f = $date->format('Y-m-d H:i:s');
-
-error_log('current_time 1111 :::'.print_r($f, 1));
-
-
-error_log('time '.print_r(date('Y-m-d H:i:s'), 1));*/
-
-
-

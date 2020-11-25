@@ -111,8 +111,6 @@ class Eb_Payment_Manager
 
 		$button = apply_filters('eb_course_access_button', $access_button, $access_params);
 
-error_log('button :: '.print_r($button, 1));
-		
 		$user_id      = get_current_user_id();
 		$is_user_suspended = get_user_suspended_status($user_id, $course_id);
 
@@ -120,8 +118,6 @@ error_log('button :: '.print_r($button, 1));
 		if ($is_user_suspended) {
 			$button = str_replace( "Access Course", "Suspended", $button );
 		}
-
-error_log('button 111 :: '.print_r($button, 1));
 
 
 		return $button;

@@ -1228,8 +1228,6 @@ class EBUserManager
                     );
                
 
-error_log('EMAIL 2222 ::: ');
-
                 do_action('eb_mdl_enrollment_trigger', $args);
 			}
 
@@ -1276,13 +1274,11 @@ error_log('EMAIL 2222 ::: ');
 		$cur_user = get_current_user_id();
 		$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
 
-error_log('stmt :: '.print_r($stmt, 1));
 
 
 		$enroll_data = $wpdb->get_results($stmt);
 
 
-error_log('enroll_data :: '.print_r($enroll_data, 1));
 
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
@@ -1290,12 +1286,10 @@ error_log('enroll_data :: '.print_r($enroll_data, 1));
 		//Added for the bulk purchase plugin expiration functionality
 		$enroll_data = apply_filters("eb_user_list_on_course_expiration", $enroll_data);
 
-error_log('enroll_data 111:: '.print_r($enroll_data, 1));
 
 
 		foreach ($enroll_data as $course_enroll_data) {
 
-error_log('foreach');
 
 			$course_options = get_post_meta($course_enroll_data->course_id, 'eb_course_options', true);
 
@@ -1306,23 +1300,19 @@ error_log('foreach');
 			);
 			// get expiration action.
 			if (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'suspend') {
-error_log('foreach 111');
 
 
 				$args['suspend'] = 1;
 			} elseif (isset($course_options['course_expiry_action']) && $course_options['course_expiry_action'] == 'do-nothing') {
 				
-error_log('foreach 222');
 
 				continue;
 			} else {
-error_log('foreach 333');
 
 
 				$args['unenroll'] = 1;
 			}
 
-error_log('ARGS :: '.print_r($args, 1));
 
 
 			// $enrollMentManager->updateUserCourseEnrollment($args);
@@ -1334,13 +1324,9 @@ error_log('ARGS :: '.print_r($args, 1));
 	public function moodle_link_unlink_user()
 	{
 
-error_log('moodle_link_unlink_user');
 
 		$responce=array("code"=>"failed");
 		if (isset($_POST['user_id']) && isset($_POST['link_user']) && isset($_POST['admin_nonce']) && wp_verify_nonce($_POST['admin_nonce'], 'eb_admin_nonce')) {
-
-error_log('moodle_link_unlink_user INNNN ::: ');
-
 
 			$user_object = get_userdata($_POST['user_id']);
 			if ($_POST['link_user']) {

@@ -23,9 +23,6 @@ class Eb_Theme_Compatibility
 	public function eb_content_start_theme_compatibility($wrapper_args)
 	{
 
-
-error_log('eb_content_start_theme_compatibility');
-
 		$template = get_option('template');
 
 		switch ($template) {
@@ -53,8 +50,6 @@ error_log('eb_content_start_theme_compatibility');
 	public function eb_content_end_theme_compatibility($wrapper_args)
 	{
 
-		error_log('eb_content_end_theme_compatibility');
-
 		$template = get_option('template');
 
 		switch ($template) {
@@ -76,8 +71,6 @@ error_log('eb_content_start_theme_compatibility');
 
 	public function eb_sidebar_start_theme_compatibility($wrapper_args)
 	{
-
-		error_log('eb_sidebar_start_theme_compatibility');
 
 		$template = get_option('template');
 
@@ -106,8 +99,6 @@ error_log('eb_content_start_theme_compatibility');
 
 	public function eb_sidebar_end_theme_compatibility($wrapper_args)
 	{
-
-		error_log('eb_sidebar_end_theme_compatibility');
 
 		$template = get_option('template');
 
