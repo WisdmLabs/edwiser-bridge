@@ -204,23 +204,19 @@ class Eb_Enrollment_Manager
             );
         } elseif ($args['unenroll'] == 1) {
 
-error_log('UNENROLL ::: ');
 
             foreach ($args['courses'] as $key => $course_id) {
 
-error_log('FOREACH :: ');
 
                 //Get User Course access Count.
                 $act_cnt = $this->get_user_course_access_count($args['user_id'], $course_id);
 
-error_log('act_cnt :: '.print_r($act_cnt, 1));
 
                 //decrease the count value
                 // $act_cnt = $act_cnt - 1;
 
                 if ($act_cnt == 1 && !$args['complete_unenroll']) {
 
-error_log('UNENROLLING :: ');
 
                     //update decreased count value
                     // $this->updateUserCourseAccessCount($args['user_id'], $course_id, $act_cnt);
@@ -228,7 +224,6 @@ error_log('UNENROLLING :: ');
                     $response['success'] = 1;
                 } elseif ($act_cnt <= 0 || $args['complete_unenroll']) {
 
-error_log('UNENROLLING 1111:: ');
 
 
                     //delete row if count equals zero

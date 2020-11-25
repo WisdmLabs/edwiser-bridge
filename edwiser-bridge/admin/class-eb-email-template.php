@@ -561,9 +561,6 @@ class EBAdminEmailTemplate
 	public function sendEmail($mailTo, $args, $tmplData)
 	{
 
-error_log('debug_backtrace :: '.print_r(debug_backtrace(), 1));
-
-
 		$fromEmail = $this->get_from_email();
 		$from_name = $this->get_from_name();
 		$subject = $this->check_is_empty($tmplData, "subject");
@@ -659,9 +656,6 @@ error_log('debug_backtrace :: '.print_r(debug_backtrace(), 1));
 		if (isset($args["headers"])) {
 	        $headers[] = $args["headers"];
 		}
-
-
-error_log('HEADERS :: '.print_r($headers, 1));
 
 
 		$mail = wp_mail($mailTo, $subject, $tmplContent, $headers);

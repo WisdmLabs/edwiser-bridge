@@ -44,7 +44,6 @@ class Eb_External_Api_Endpoint
         $data = unserialize($data);
         $response_data = array();
 
-error_log('external_api_endpoint_def :: '.print_r($data, 1));
 
         if (isset($_POST["action"]) && !empty($_POST["action"])) {
             switch ($_POST["action"]) {
@@ -170,8 +169,6 @@ error_log('external_api_endpoint_def :: '.print_r($data, 1));
                         do_action("eb_mdl_un_enrollment_trigger", $args);
                     } else {
 
-error_log('EMAIL 1111 :::');
-
                         do_action('eb_mdl_enrollment_trigger', $args);
                     }
                 }
@@ -189,7 +186,6 @@ error_log('EMAIL 1111 :::');
     public function eb_trigger_user_creation($data)
     {
 
-error_log('eb_trigger_user_creation :: ');
 
         if (isset($data['user_name']) && isset($data['email'])) {
             $role = default_registration_role();
@@ -205,8 +201,6 @@ error_log('eb_trigger_user_creation :: ');
                 $password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
                 // $user_update_array['user_pass'] = $password;
             }
-error_log('eb_trigger_user_creation  11111:: ');
-
 
 
             $wpUserId = $this->create_only_wp_user($data["user_name"], $data["email"], $data["first_name"], $data['last_name'], $role, $password);
@@ -257,8 +251,6 @@ error_log('eb_trigger_user_creation  11111:: ');
     public function create_only_wp_user($username, $email, $firstname, $lastname, $role = "", $password = '')
     {
 
-error_log('eb_trigger_user_creation  22222 :: ');
-
 
         if (email_exists($email)) {
             return new \WP_Error(
@@ -305,9 +297,6 @@ error_log('eb_trigger_user_creation  22222 :: ');
                 'role' => $role,
             )
         );
-
-error_log('eb_trigger_user_creation  4444:: '.print_r($wp_user_data, 1));
-
 
 
         $user_id = wp_insert_user($wp_user_data);

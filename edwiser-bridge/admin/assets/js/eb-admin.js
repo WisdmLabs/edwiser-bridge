@@ -588,6 +588,39 @@
      * Email template ajax request handler.
      */
     $(document).ready(function () {
+
+
+        // $("#eb_usage_tracking").attr('readonly', true);
+        $('#eb_usage_tracking').click(function (e) {
+            if ($(this).is(':checked')) {
+                $('#dialog-tnc').dialog({
+                    minWidth: 500,
+                    maxHeight: 450,
+                    width: $(window).width() * 0.7,
+                    modal: true,
+                    closeOnEscape: true,
+                    draggable: false,
+                    title: "Edwiser Bridge Usage Tracking Terms and Conditions",
+                    buttons: {
+                        Accept: function () {
+                            $(this).dialog("close");
+                        },
+                        Dicline: function () {
+                            $(this).dialog("close");
+                            $("#eb_usage_tracking").prop('checked', false);
+                        }
+                    },
+                    create: function (event, ui) {
+                        $(event.target).parent().css('position', 'fixed');
+                    }
+                });
+            }
+        });
+
+
+
+
+
         $(".eb-emailtmpl-list-item").click(function (e) {
             e.preventDefault();
             var tmplId = this.id;
