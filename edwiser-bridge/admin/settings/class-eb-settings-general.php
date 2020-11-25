@@ -281,13 +281,13 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'autoload' => false,
 					),
 					array(
+                        'type' => 'cust_html',
+                        'html' => $this->getPopupCode()
+                    ),
+					array(
 						'type' => 'sectionend',
 						'id'   => 'general_options',
 					),
-					array(
-                        'type' => 'cust_html',
-                        'html'=>$this->getPopupCode()
-                    ),
 
 				)
 			);
