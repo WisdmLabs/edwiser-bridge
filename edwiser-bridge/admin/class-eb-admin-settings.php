@@ -229,7 +229,7 @@ if (!class_exists('EbAdminSettings')) {
 		 */
 		public static function outputFields($options)
 		{
-			$this->output_fields($options);
+			self::output_fields($options);
 		}
 
 
@@ -713,7 +713,7 @@ if (!class_exists('EbAdminSettings')) {
 		 */
 		public static function saveFields($options)
 		{
-			return $this->save_fields($options);
+			return self::save_fields($options);
 		}
 
 
