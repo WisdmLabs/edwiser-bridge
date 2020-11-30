@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * EDW Product Settings
  *
  * @link       https://edwiser.org
@@ -13,6 +10,8 @@ namespace app\wisdmlabs\edwiserBridge;
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
+namespace app\wisdmlabs\edwiserBridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -22,8 +21,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 	/**
 	 * Eb_Settings_Synchronization.
 	 */
-	class Eb_Settings_Synchronization extends EBSettingsPage
-	{
+	class Eb_Settings_Synchronization extends EBSettingsPage {
 
 		/**
 		 * Constructor.
@@ -89,7 +87,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get_settings( $current_section = '' ){	
+		public function get_settings( $current_section = '' ) {	
 			if ( 'user_data' == $current_section ) {
 				$settings = apply_filters(
 					'eb_user_synchronization_settings',

@@ -1,51 +1,60 @@
 <?php
+/**
+ * Link Unlink user.
+ *
+ * @link       https://edwiser.org
+ * @since      1.0.0
+ *
+ * @package    Edwiser Bridge
+ * @subpackage Edwiser Bridge/admin
+ * @author     WisdmLabs <support@wisdmlabs.com>
+ */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /**
- * class which will handle linking and unlinking of the wordpress users with moodle on the toggle switch provided on users page
+ * Class which will handle linking and unlinking of the wordpress users with moodle on the toggle switch provided on users page
  */
-class Eb_Moodle_Link_Unlink
-{
+class Eb_Moodle_Link_Unlink {
 	/**
-	 * calling function to add column and its content on filter
+	 * Calling function to add column and its content on filter
 	 */
-	public function __construct()
-	{
-		add_filter('manage_users_columns', array($this,'adding_moodle_account_column'));
-		add_filter('manage_users_custom_column', array($this, 'show_content'), 10, 3);
+	public function __construct() {
+		add_filter( 'manage_users_columns', array( $this, 'adding_moodle_account_column' ) );
+		add_filter( 'manage_users_custom_column', array( $this, 'show_content' ), 10, 3 );
 	}
 
 	/**
-	 * Adding Moodle account column in users page
-	 * @param  [array] $column array of all column from users.php page
+	 * Adding Moodle account column in users page.
+	 *
+	 * @param  [array] $column array of all column from users.php page.
 	 * @return [array]         returning array by adding our column in it
 	 */
-	public function adding_moodle_account_column($column)
-	{
-		   $column['moodle_Account'] = sprintf(__('Moodle Account', 'eb-textdomain'));
-		  return $column;
+	public function adding_moodle_account_column( $column ) {
+		$column['moodle_Account'] = sprintf( __( 'Moodle Account', 'eb-textdomain' ) );
+		return $column;
 	}
 
 	/**
-	 * Adding toggle switch in the moodle account column
-	 * @param  [string] $val         value which will be added in column
-	 * @param  [array] $column_name array of all column names
-	 * @param  [integer] $user_id     id of the user
-	 * @return [string]              returning data needed to add in column
+	 * Adding toggle switch in the moodle account column.
+	 *
+	 * @param  [string]  $val         value which will be added in column.
+	 * @param  [array]   $column_name  array of all column names.
+	 * @param  [integer] $user_id     id of the user.
+	 * @return [string]              returning data needed to add in column.
 	 */
-	public function show_content($val, $column_name, $user_id)
-	{
-		$link = get_user_meta($user_id, "moodle_user_id", true);
-		$checked="block";
-		$unchecked="none";
-		if (trim($link) == "") {
-			$checked="none";
-			$unchecked="block";
+	public function show_content( $val, $column_name, $user_id ) {
+		$link      = get_user_meta( $user_id, 'moodle_user_id', true );
+		$checked   = 'block';
+		$unchecked = 'none';
+		if ( trim( $link ) == '' ) {
+			$checked   = 'none';
+			$unchecked = 'block';
 		}
-		if ($column_name == "moodle_Account") {
-			$val='<div id="'.$user_id.'" class="wdm-wpcwn-type">
-						<label class="link-unlink" id="'.$user_id.'-link" title="Link user with Moodle account" class="link-unlink link" style="display:'.$unchecked.';">'.sprintf(__('Link User', 'eb-textdomain')).'</label>
-						<label class="link-unlink" id="'.$user_id.'-unlink" title="Unlink user with moodle account." class="link-unlink unlink" style="display:'.$checked.';">'.sprintf(__('Unlink User', 'eb-textdomain')).'</label>
+		if ( 'moodle_Account' == $column_name ) {
+			$val='<div id="' . $user_id . '" class="wdm-wpcwn-type">
+						<label class="link-unlink" id="' . $user_id . '-link" title="Link user with Moodle account" class="link-unlink link" style="display:' . $unchecked . ';">' . sprintf( esc_html__( 'Link User', 'eb-textdomain' ) ) . '</label>
+						<label class="link-unlink" id="' . $user_id . '-unlink" title="Unlink user with moodle account." class="link-unlink unlink" style="display:' . $checked . ';">' . sprintf( esc_html__( 'Unlink User', 'eb-textdomain' ) ) . '</label>
 					  </div>
 				  ';
 		}

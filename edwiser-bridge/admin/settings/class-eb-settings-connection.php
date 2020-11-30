@@ -1,7 +1,5 @@
 <?php
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * EDW Connection Settings
  *
  * @link       https://edwiser.org
@@ -11,6 +9,8 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
+namespace app\wisdmlabs\edwiserBridge;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -77,43 +77,43 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 					),
 
 					array(
-						'title' => __('Moodle URL', 'eb-textdomain'),
-						'desc' => __(
+						'title'             => __( 'Moodle URL', 'eb-textdomain' ),
+						'desc'              => __(
 							'Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)',
 							'eb-textdomain'
 						),
-						'id' => 'eb_url',
-						'css' => 'min-width:350px;',
-						'default' => '',
-						'type' => 'url',
-						'desc_tip' => true,
-						'custom_attributes' => array('required' => 'required'),
+						'id'                => 'eb_url',
+						'css'               => 'min-width:350px;',
+						'default'           => '',
+						'type'              => 'url',
+						'desc_tip'          => true,
+						'custom_attributes' => array( 'required' => 'required' ),
 					),
 
 					array(
-						'title' => __('Moodle Access Token', 'eb-textdomain'),
-						'desc' => __('Moodle access token.', 'eb-textdomain'),
-						'id' => 'eb_access_token',
-						'css' => 'min-width:350px;',
-						'default' => '',
-						'type' => 'text',
-						'desc_tip' => true,
-						'custom_attributes' => array('required' => 'required'),
+						'title'             => __( 'Moodle Access Token', 'eb-textdomain' ),
+						'desc'              => __( 'Moodle access token.', 'eb-textdomain' ),
+						'id'                => 'eb_access_token',
+						'css'               => 'min-width:350px;',
+						'default'           => '',
+						'type'              => 'text',
+						'desc_tip'          => true,
+						'custom_attributes' => array( 'required' => 'required' ),
 					),
 
 					array(
-						'title' => __('', 'eb-textdomain'),
-						'desc' => __('', 'eb-textdomain'),
-						'id' => 'eb_test_connection_button',
-						'default' => __('Test Connection', 'eb-textdomain'),
-						'type' => 'button',
+						'title'    => '',
+						'desc'     => '',
+						'id'       => 'eb_test_connection_button',
+						'default'  => __( 'Test Connection', 'eb-textdomain' ),
+						'type'     => 'button',
 						'desc_tip' => false,
-						'class' => 'button secondary',
+						'class'    => 'button secondary',
 					),
 
 					array(
 						'type' => 'sectionend',
-						'id' => 'connection_options',
+						'id'   => 'connection_options',
 					),
 				)
 			);

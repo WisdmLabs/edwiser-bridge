@@ -12,25 +12,26 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
 
 /**
  * EBAdminEmailTemplate Class
  */
-class EBAdminEmailTemplate
-{
+class EBAdminEmailTemplate {
 
-	public function __construct()
-	{
-		add_filter('mce_external_plugins', array($this, 'add_mce_plugin'));
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		add_filter( 'mce_external_plugins', array( $this, 'add_mce_plugin' ) );
 		/**
 		 * Filter for the email template list and email temaplte constant.
 		 */
-		add_filter("eb_email_templates_list", array($this, "eb_add_email_list"), 10, 1);
-		add_filter("eb_email_template_constant", array($this, "email_template_constant"), 10, 1);
-		add_filter('wp_mail_from_name', array($this, "wp_sender_name"), 99, 1);
+		add_filter( 'eb_email_templates_list', array( $this, 'eb_add_email_list' ), 10, 1 );
+		add_filter( 'eb_email_template_constant', array( $this, 'email_template_constant' ), 10, 1 );
+		add_filter( 'wp_mail_from_name', array( $this, 'wp_sender_name' ), 99, 1 );
 	}
 
 	/**
@@ -42,107 +43,101 @@ class EBAdminEmailTemplate
 	 * @param type $emailList array of the email template list
 	 * @return array of the email tempalte list
 	 */
-	public function eb_add_email_list($emailList)
-	{
-		$emailList["eb_emailtmpl_create_user"] = __("New User Account Details", 'eb-textdomain');
-		$emailList["eb_emailtmpl_linked_existing_wp_user"] = __("Link WP user account to moodle", 'eb-textdomain');
-		$emailList["eb_emailtmpl_linked_existing_wp_new_moodle_user"] = __("Create new moodle account", 'eb-textdomain');
-		$emailList["eb_emailtmpl_order_completed"] = __("Course Order Completion", 'eb-textdomain');
-		$emailList["eb_emailtmpl_course_access_expir"] = __("Course access expired", 'eb-textdomain');
+	public function eb_add_email_list( $email_list ) {
+		$email_list['eb_emailtmpl_create_user']                         = esc_html__( 'New User Account Details', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_linked_existing_wp_user']             = esc_html__( 'Link WP user account to moodle', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_linked_existing_wp_new_moodle_user']  = esc_html__( 'Create new moodle account', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_order_completed']                     = esc_html__( 'Course Order Completion', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_course_access_expir']                 = esc_html__( 'Course access expired', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_refund_completion_notifier_to_user']  = esc_html__( 'Refund Success mail to customer', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_refund_completion_notifier_to_admin'] = esc_html__( 'Refund Success mail to admin or specified email', 'eb-textdomain' );
 
-		$emailList["eb_emailtmpl_refund_completion_notifier_to_user"] = __("Refund Success mail to customer", 'eb-textdomain');
-		$emailList["eb_emailtmpl_refund_completion_notifier_to_admin"] = __("Refund Success mail to admin or specified email", 'eb-textdomain');
+		/**
+		 *   Two way synch.
+		 */
 
-
-/*******  Two way synch ********/
-
-		$emailList["eb_emailtmpl_mdl_enrollment_trigger"] = __("Moodle Course Enrollment", 'eb-textdomain');
-		$emailList["eb_emailtmpl_mdl_un_enrollment_trigger"] = __("Moodle Course Un-Enrollment", 'eb-textdomain');
-		$emailList["eb_emailtmpl_mdl_user_deletion_trigger"] = __("User Account Deleted", 'eb-textdomain');
-
-/******************/
-
-
-		return $emailList;
+		$email_list['eb_emailtmpl_mdl_enrollment_trigger']    = esc_html__( 'Moodle Course Enrollment', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_mdl_un_enrollment_trigger'] = esc_html__( 'Moodle Course Un-Enrollment', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_mdl_user_deletion_trigger'] = esc_html__( 'User Account Deleted', 'eb-textdomain' );
+		return $email_list;
 	}
 
 	/**
 	 * handles the manage email temaplte page output
 	 */
-	public function outPut()
-	{
-		if (isset($_POST["eb-mail-tpl-submit"]) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes") {
+	public function outPut() {
+		if ( isset( $_POST["eb-mail-tpl-submit"] ) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes" ) {
 			$this->save();
 		}
 		$from_name = $this->get_from_name();
 		$tmpl_list = array();
-		$tmpl_list = apply_filters('eb_email_templates_list', $tmpl_list);
+		$tmpl_list = apply_filters( 'eb_email_templates_list', $tmpl_list );
 		$section   = array();
-		$const_sec = apply_filters('eb_email_template_constant', $section);
+		$const_sec = apply_filters( 'eb_email_template_constant', $section );
 		$checked   = array();
-		$notif_on  = "";
+		$notif_on  = '';
 
 
-		if (isset($_GET["curr_tmpl"])) {
-			$tmpl_key  = $_GET["curr_tmpl"];
-			$tmpl_name = $tmpl_list[$_GET["curr_tmpl"]];
-			$notif_on  = $this->is_not_if_enabled($_GET["curr_tmpl"]);
-			$bcc_email = $this->get_bcc_email($_GET["curr_tmpl"]);
+		if ( isset( $_GET['curr_tmpl'] ) ) {
+			$tmpl_key  = sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) );
+			$tmpl_name = $tmpl_list[ sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) ) ];
+			$notif_on  = $this->is_not_if_enabled( sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) ) );
+			$bcc_email = $this->get_bcc_email( sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) ) );
 		} else {
-			$tmpl_key  = key($tmpl_list);
-			$tmpl_name = current($tmpl_list);
-			$notif_on  = $this->is_not_if_enabled($tmpl_key);
-			$bcc_email  = $this->get_bcc_email($tmpl_key);
+			$tmpl_key  = key( $tmpl_list );
+			$tmpl_name = current( $tmpl_list );
+			$notif_on  = $this->is_not_if_enabled( $tmpl_key );
+			$bcc_email = $this->get_bcc_email( $tmpl_key );
 		}
 
-		$tmplData = $this->get_email_template($tmpl_key);
-		$tmplContent = apply_filters("eb_email_template_data", $tmplData);
+		$tmpl_data   = $this->get_email_template( $tmpl_key );
+		$tmplContent = apply_filters( 'eb_email_template_data', $tmpl_data );
 		?>
 		<div class="wrap">
-			<h1 class="wp-heading-inline eb-emailtemp-head"><?php _e("Manage Email Templates", "eb-textdomain"); ?></h1>
+			<h1 class="wp-heading-inline eb-emailtemp-head"><?php esc_html_e( 'Manage Email Templates', 'eb-textdomain' ); ?></h1>
 			<div class="eb-email-template-wrap">
 				<div class="eb-template-edit-form">
-					<h3 id="eb-email-template-name"><?php echo $tmpl_name; ?></h3>
+					<h3 id="eb-email-template-name"><?php echo esc_html( $tmpl_name ); ?></h3>
 					<form name="manage-email-template" method="POST">
 						<input type="hidden" name="eb_tmpl_name" id="eb_emailtmpl_name"
-							   value="<?php echo $tmpl_key; ?>"/>
+								value="<?php echo esc_html( $tmpl_key ); ?>"/>
 								<?php
-								wp_nonce_field("eb_emailtmpl_sec", "eb_emailtmpl_nonce");
+								wp_nonce_field( 'eb_emailtmpl_sec', 'eb_emailtmpl_nonce' );
 								?>
 						<table>
 							<tr>
-								<td class="eb-email-lable"><?php _e("From Name", "eb-textdomain"); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'From Name', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo $from_name; ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="<?php _e('Enter from name', 'eb-textdomain'); ?>"/>
+									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo esc_html( $from_name ); ?>" class="eb-email-input" title="<?php _e("Enter name here to use as the form name in email sent from site using Edwisaer plugins", "eb-textdomain"); ?>" placeholder="<?php _e('Enter from name', 'eb-textdomain'); ?>"/>
 								</td>
 							</tr>
 
 							<tr>
-								<td class="eb-email-lable"><?php _e("Subject", "eb-textdomain"); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'Subject', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php _e("Enter the subject for the current email template. Current template will use the entered subject to send email from the site", "eb-textdomain"); ?>" placeholder="<?php _e('Enter email subject', 'eb-textdomain'); ?>"/>
+									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain' ; ?>"/>
 								</td>
 							</tr>
 
 							<tr>
-								<td class="eb-email-lable"><?php _e("Send email notification to the user?", "eb-textdomain"); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'Send email notification to the user?', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked($notif_on, "ON"); ?> class="eb-email-input" title="<?php _e("Check the option to notify the user using selected template on action", "eb-textdomain"); ?>" />
+									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked( $notif_on, 'ON' ); ?> class="eb-email-input" title="<?php esc_html_e( 'Check the option to notify the user using selected template on action', 'eb-textdomain' ); ?>" />
 								</td>
 							</tr>
 
 
-					        <tr>
-					            <td class="eb-email-lable">
-					                <?php _e("Additional Email Adress For BCC in Mail", "eb-extension"); ?>
-					            </td>
-					            <td>
-					                <input type="text" value="<?= $bcc_email ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
-					            </td>
-					        </tr>
-					        <?php
+							<tr>
+								<td class="eb-email-lable">
+									<?php esc_html_e( 'Additional Email Adress For BCC in Mail', 'eb-extension' ); ?>
+								</td>
+								<td>
+									<input type="text" value="<?php echo esc_html( $bcc_email ); ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
+								</td>
+							</tr>
+							<?php
 
-							do_action("eb_manage_email_template_before_text_editor", $tmpl_key);
+							do_action( 'eb_manage_email_template_before_text_editor', $tmpl_key );
 
 							?>
 
@@ -151,35 +146,35 @@ class EBAdminEmailTemplate
 							<tr>
 								<td colspan="2" class="eb-template-edit-cell">
 									<?php
-									$this->get_editor($tmplContent['content']);
+									$this->get_editor( $tmplContent['content'] );
 									?>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
-									<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'eb-textdomain'); ?>" name="eb_save_tmpl" title="<?php _e("Save changes", "eb-textdomain"); ?>"/>
-									<input type="button" class="button-primary" value="<?php _e("Restore template content", "eb-textdomain"); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
-									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo $tmpl_key; ?>" />
-									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo $tmplContent['subject']; ?>" />
+									<input type="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'eb-textdomain' ); ?>" name="eb_save_tmpl" title="<?php esc_html_e( 'Save changes', 'eb-textdomain' ); ?>"/>
+									<input type="button" class="button-primary" value="<?php esc_html_e( 'Restore template content', 'eb-textdomain' ); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
+									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo esc_html( $tmpl_key ); ?>" />
+									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo esc_attr( $tmplContent['subject'] ); ?>" />
 								</td>
 							</tr>
 						</table>
 					</form>
 					<div class="eb-email-testmail-wrap">
-						<h3><?php _e("Send a test email of the selected template", "eb-textdomain"); ?></h3>
+						<h3><?php esc_html_e( 'Send a test email of the selected template', 'eb-textdomain' ); ?></h3>
 						<div class="eb-email-temp-test-mail-wrap">
-							<label class="eb-email-lable"><?php _e("To", "eb-textdomain"); ?> : </label>
-							<?php wp_nonce_field("eb_send_testmail_sec", "eb_send_testmail_sec_filed"); ?>
-							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php _e("Type an email address here and then click Send Test to generate a test email using current selected template", "eb-textdomain"); ?>." placeholder="<?php _e('Enter email address', 'eb-textdomain'); ?>"/>
-							<input type="button" class="button-primary" value="<?php _e("Send Test", "eb-textdomain"); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php _e("Send sample email with current selected template", "eb-textdomain"); ?>"/>
+							<label class="eb-email-lable"><?php esc_html_e( 'To', 'eb-textdomain' ); ?> : </label>
+							<?php wp_nonce_field( 'eb_send_testmail_sec', 'eb_send_testmail_sec_filed' ); ?>
+							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'eb-textdomain' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'eb-textdomain' ); ?>"/>
+							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'eb-textdomain' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'eb-textdomain' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php __('Sorry, unable to load the image', 'eb-textdomain') ?>" src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
+								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
 						</div>
-						<span class="eb-email-note"><strong><?php _e("Note", "eb-textdomain"); ?>:-</strong> <?php _e("Some of the constants in these emails would be replaced by demo content", "eb-textdomain"); ?>.</span>
+						<span class="eb-email-note"><strong><?php esc_html_e( 'Note', 'eb-textdomain' ); ?>:-</strong> <?php esc_html_e( 'Some of the constants in these emails would be replaced by demo content', 'eb-textdomain' ); ?>.</span>
 
 					</div>
 				</div>
@@ -188,8 +183,8 @@ class EBAdminEmailTemplate
 						<h3><?php _e("Email Templates", "eb-textdomain"); ?></h3>
 						<ul id="eb_email_templates_list">
 							<?php
-							foreach ($tmpl_list as $tmplId => $tmpl_name) {
-								if ($tmpl_key == $tmplId) {
+							foreach ( $tmpl_list as $tmplId => $tmpl_name ) {
+								if ( $tmpl_key == $tmplId ) {
 									echo "<li id='$tmplId' class='eb-emailtmpl-list-item eb-emailtmpl-active'>$tmpl_name</li>";
 								} else {
 									echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmpl_name</li>";
@@ -199,7 +194,7 @@ class EBAdminEmailTemplate
 						</ul>
 					</div>
 					<div class="eb-email-templates-const-wrap">
-						<h3><?php _e("Template Constants", "eb-textdomain"); ?></h3>
+						<h3><?php esc_html_e( 'Template Constants', 'eb-textdomain' ); ?></h3>
 						<div class="eb-emiltemp-const-wrap">
 							<?php
 							foreach ($const_sec as $secName => $tmplConst) {
@@ -592,7 +587,7 @@ class EBAdminEmailTemplate
 
 		//CUSTOMIZATION CHANGES
 		if (isset($args["headers"])) {
-	        $headers[] = $args["headers"];
+			$headers[] = $args["headers"];
 		}
 
 
@@ -654,7 +649,7 @@ class EBAdminEmailTemplate
 
 		//CUSTOMIZATION CHANGES
 		if (isset($args["headers"])) {
-	        $headers[] = $args["headers"];
+			$headers[] = $args["headers"];
 		}
 
 

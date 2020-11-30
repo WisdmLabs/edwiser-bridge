@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * EDW Licensing Management
  *
  * @link       https://edwiser.org
@@ -12,6 +9,9 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
+namespace app\wisdmlabs\edwiserBridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -21,9 +21,13 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 	/**
 	 * Eb_Settings_Licensing.
 	 */
-	class Eb_Settings_Licensing extends EBSettingsPage
-	{
+	class Eb_Settings_Licensing extends EBSettingsPage {
 
+		/**
+		 * Addon licensing.
+		 *
+		 * @var text $addon_licensing addon licensing
+		 */
 		public $addon_licensing;
 
 		/**
@@ -31,8 +35,8 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 */
 		public function __construct() {
 			$this->addon_licensing = array( 'test' );
-			$this->_id   = 'licensing';
-			$this->label = __( 'Licenses', 'eb-textdomain' );
+			$this->_id             = 'licensing';
+			$this->label           = __( 'Licenses', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -58,7 +62,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * Get settings array.
 		 *
 		 * @since  1.0.0
-		 *
+		 * @param text $current_section current section.
 		 * @return array
 		 */
 		public function get_settings( $current_section = '' ) {
@@ -77,7 +81,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				)
 			);
 
-			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section);
+			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
 		}
 	}
 

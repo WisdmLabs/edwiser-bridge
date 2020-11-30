@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * EDW PayPal settings page
  *
  * @link       https://edwiser.org
@@ -13,6 +10,8 @@ namespace app\wisdmlabs\edwiserBridge;
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
+namespace app\wisdmlabs\edwiserBridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -22,8 +21,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 	/**
 	 * Eb_Settings_PayPal.
 	 */
-	class Eb_Settings_PayPal extends EBSettingsPage
-	{
+	class Eb_Settings_PayPal extends EBSettingsPage {
 
 		/**
 		 * Constructor.
@@ -66,7 +64,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 		 * Get settings array.
 		 *
 		 * @since  1.0.0
-		 *
+		 * @param text $current_section current section.
 		 * @return array
 		 */
 		public function get_settings( $current_section = '' ) {
@@ -97,20 +95,20 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'type'     => 'select',
 						'desc_tip' => true,
 						'options'  => array(
-							'USD' => __('U.S. Dollar (USD)', 'eb-textdomain'),
-							'CAD' => __('Canadian Dollar (CAD)', 'eb-textdomain'),
-							'NZD' => __('New Zealand Dollar (NZD)', 'eb-textdomain'),
-							'HKD' => __('Hong Kong Dollar (HKD)', 'eb-textdomain'),
-							'EUR' => __('Euro (EUR)', 'eb-textdomain'),
-							'JPY' => __('Japanese Yen (JPY)', 'eb-textdomain'),
-							'MXN' => __('Mexican Peso (MXN)', 'eb-textdomain'),
-							'CHF' => __('Swiss Franc (CHF)', 'eb-textdomain'),
-							'GBP' => __('Pound Sterling (GBP)', 'eb-textdomain'),
-							'AUD' => __('Australian Dollar (AUD)', 'eb-textdomain'),
-							'PLN' => __('Polish Zloty (PLN)', 'eb-textdomain'),
-							'DKK' => __('Danish Krone (DKK)', 'eb-textdomain'),
-							'SGD' => __('Singapore Dollar (SGD)', 'eb-textdomain'),
-					),
+							'USD' => __( 'U.S. Dollar (USD)', 'eb-textdomain' ),
+							'CAD' => __( 'Canadian Dollar (CAD)', 'eb-textdomain' ),
+							'NZD' => __( 'New Zealand Dollar (NZD)', 'eb-textdomain' ),
+							'HKD' => __( 'Hong Kong Dollar (HKD)', 'eb-textdomain' ),
+							'EUR' => __( 'Euro (EUR)', 'eb-textdomain' ),
+							'JPY' => __( 'Japanese Yen (JPY)', 'eb-textdomain' ),
+							'MXN' => __( 'Mexican Peso (MXN)', 'eb-textdomain' ),
+							'CHF' => __( 'Swiss Franc (CHF)', 'eb-textdomain' ),
+							'GBP' => __( 'Pound Sterling (GBP)', 'eb-textdomain' ),
+							'AUD' => __( 'Australian Dollar (AUD)', 'eb-textdomain' ),
+							'PLN' => __( 'Polish Zloty (PLN)', 'eb-textdomain' ),
+							'DKK' => __( 'Danish Krone (DKK)', 'eb-textdomain' ),
+							'SGD' => __( 'Singapore Dollar (SGD)', 'eb-textdomain' ),
+						),
 					),
 					array(
 						'title'             => __( 'PayPal Country', 'eb-textdomain' ),
@@ -207,7 +205,6 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 					),
 				)
 			);
-			//}
 
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
 		}

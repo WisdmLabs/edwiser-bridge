@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * Edwiser Bridge user help page
  *
  * @link       https://edwiser.org
@@ -12,6 +9,8 @@ namespace app\wisdmlabs\edwiserBridge;
  * @subpackage Edwiser Bridge/admin
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
+namespace app\wisdmlabs\edwiserBridge;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -28,12 +27,10 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 		 * Constructor.
 		 */
 		public function __construct() {
-			$this->_id = 'get-help';
+			$this->_id   = 'get-help';
 			$this->label = __( 'Get Help', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-			//add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
-			//add_action( 'eb_settings_save_' . $this->_id, array( $this, 'save' ) );
 			add_action( 'admin_action_eb_help', array( $this, 'helpSubscribeHandler' ) );
 		}
 
@@ -63,9 +60,9 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 
 			// verify nonce.
 			if ( ! isset( $_POST['subscribe_nonce_field'] ) ||
-					! wp_verify_nonce( $_POST['subscribe_nonce_field'], 'subscribe_nonce' )
+					! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' )
 			) {
-				_e( 'Sorry, there is a problem!', 'eb-textdomain' );
+				esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
 				exit;
 			} else {
 				// process subscription.
@@ -80,7 +77,7 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 				);
 
 				$message = sprintf(
-					__( "Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s ", 'eb-textdomain' ),
+					esc_html__( "Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s ", 'eb-textdomain' ),
 					site_url(),
 					$admin_email
 				);
