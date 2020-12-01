@@ -103,12 +103,12 @@ class Eb_Admin_Menus {
 		global $submenu_file, $current_screen, $pagenow;
 
 		// Set the submenu as active/current while anywhere in Custom Post Type ( courses, orders ).
-		if ( 'eb_course' == $current_screen->post_type || 'eb_order' == $current_screen->post_type ) {
-			if ( 'post.php' == $pagenow ) {
+		if ( 'eb_course' === $current_screen->post_type || 'eb_order' === $current_screen->post_type ) {
+			if ( 'post.php' === $pagenow ) {
 				$submenu_file = 'edit.php?post_type=' . $current_screen->post_type;
 			}
 
-			if ( 'edit-tags.php' == $pagenow ) {
+			if ( 'edit-tags.php' === $pagenow ) {
 				$submenu_file = 'edit-tags.php?taxonomy=eb_course_cat&post_type=' . $current_screen->post_type;
 			}
 			$parent_file = 'edwiserbridge_lms';

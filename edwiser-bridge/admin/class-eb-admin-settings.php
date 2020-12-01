@@ -166,9 +166,11 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$current_section = sanitize_title( wp_unslash( $_REQUEST['section'] ) );
 			}
 
-			// Save settings if data has been posted.
-			if ( ! empty( $_POST ) ) {
-				self::save();
+			if ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
+				// Save settings if data has been posted.
+				if ( ! empty( $_POST ) ) {
+					self::save();
+				}
 			}
 
 			// Add any posted messages.
@@ -288,7 +290,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 				// Description handling.
 				$field_description = self::get_field_description( $value );
-				extract( $field_description );
+				$description       = $field_description['description'];
+				$tooltip_html      = $field_description['tooltip_html'];
 
 				// Switch based on type.
 				switch ( $value['type'] ) {
@@ -739,7 +742,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 */
 		public static function save_fields( $options ) {
 			global $current_tab;
-
+			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
+				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
+			}
 			if ( empty( $_POST ) ) {
 				return false;
 			}
@@ -758,7 +763,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					parse_str( $value['id'], $option_name_array );
 
 					$option_name  = current( array_keys( $option_name_array ) );
-					$setting_name = key( $option_name_array[$option_name] );
+					$setting_name = key( $option_name_array[ $option_name ] );
 					$option_value = null;
 					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
 						$option_value = sanitize_text_field( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) );
@@ -768,7 +773,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$setting_name = '';
 					$option_value = null;
 					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = sanitize_text_field( wp_unslash( $_POST[ $value[ 'id' ] ] ) );
+						$option_value = sanitize_text_field( wp_unslash( $_POST[ $value['id'] ] ) );
 					}
 				}
 
@@ -842,7 +847,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 * @since  1.0.0
 		 *
 		 * @param array $value The form field value array.
-		 * @returns array The description and tip as a 2 element array
+		 * @returns array The description and tip as a 2 element array.
 		 */
 		public static function get_field_description( $value ) {
 			$description  = '';
