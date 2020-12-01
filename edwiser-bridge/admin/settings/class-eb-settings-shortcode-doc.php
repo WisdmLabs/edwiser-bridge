@@ -73,32 +73,130 @@ if ( ! class_exists( 'Eb_Settings_Shortcode_Doc' ) ) {
 				<div class="eb-shortcode-doc">
 					<h4>[eb_courses]</h4>
 					<div class="eb-shortcode-doc-desc">
-						<p><?php esc_html_e( 'This shortcode shows the list of the edwiser bridge courses. You can use this shortcode on any page. This shortcode can take following parameters:', 'eb-textdomain' ) ?></p>
+						<p><?php esc_html_e( 'This shortcode shows the list of the edwiser bridge courses. You can use this shortcode on any page. This shortcode can take following parameters:', 'eb-textdomain' ); ?></p>
 						<ul>
-							<li><span class="eb_shortcode-doc-para">order</span>: <?php printf( esc_html__( "Sets order of courses. Possible values: DESC, ASC. Example: %s shows courses in ascending order.", 'eb-textdomain' ), '<strong>[eb_courses order="ASC"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">per_page</span>: <?php printf( esc_html__( "Sets number of courses per page. Example: %s", 'eb-textdomain' ), '<strong>[eb_courses per_page="10"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">categories</span>: <?php printf( esc_html__( "Shows courses from spesified category slugs. Example: %s", 'eb-textdomain' ), '<strong>[eb_courses categories="basic,moderated"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">cat_per_page</span>: <?php printf( esc_html__( "Sets number of categorys groups shown per page Example: %s", 'eb-textdomain' ), '<strong>[eb_courses cat_per_page="3"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">group_by_cat</span>: <?php printf( esc_html__( "This shows the courses grouped by the categorys. Possible values:yes,no. Example: %s", 'eb-textdomain' ), '<strong>[eb_courses group_by_cat="yes"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">horizontally_scroll</span>: <?php printf( esc_html__( "This will shows the courses in one row with horizontal scroll. Possible values:yes,no. Example: %s", 'eb-textdomain' ), '<strong>[eb_courses horizontally_scroll="yes"]</strong>' ); ?></li>
+							<li>
+								<span class="eb_shortcode-doc-para">order</span>: 
+								<?php
+
+									/*
+									* translators: shortcode description example.
+									*/
+									printf( esc_html__( 'Sets order of courses. Possible values: DESC, ASC. Example: %s shows courses in ascending order.', 'eb-textdomain' ), '<strong>[eb_courses order="ASC"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">per_page</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'Sets number of courses per page. Example: %s', 'eb-textdomain' ), '<strong>[eb_courses per_page="10"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">categories</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'Shows courses from spesified category slugs. Example: %s', 'eb-textdomain' ), '<strong>[eb_courses categories="basic,moderated"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">cat_per_page</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'Sets number of categorys groups shown per page Example: %s', 'eb-textdomain' ), '<strong>[eb_courses cat_per_page="3"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">group_by_cat</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This shows the courses grouped by the categorys. Possible values:yes,no. Example: %s', 'eb-textdomain' ), '<strong>[eb_courses group_by_cat="yes"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">horizontally_scroll</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This will shows the courses in one row with horizontal scroll. Possible values:yes,no. Example: %s', 'eb-textdomain' ), '<strong>[eb_courses horizontally_scroll="yes"]</strong>' );
+								?>
+							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="eb-shortcode-doc">
 					<h4>[eb_course]</h4>
 					<div class="eb-shortcode-doc-desc">
-						<p><?php printf( esc_html__( "This shortcode shows single course page.This shortcode takes course id as a parameter. Example: %s", "eb-textdomain" ), '[eb_course id="10"]' ); ?></p>
+						<p>
+						<?php
+
+						/*
+						 * translators: shortcode description example.
+						 */
+						printf( esc_html__( 'This shortcode shows single course page.This shortcode takes course id as a parameter. Example: %s', 'eb-textdomain' ), '[eb_course id="10"]' );
+						?>
+						</p>
 					</div>
 				</div>
 				<div class="eb-shortcode-doc">
 					<h4>[eb_my_courses]</h4>
 					<div class="eb-shortcode-doc-desc">
-						<p><?php esc_html_e( "This shortcode shows the users enrolled courses list and the courses from the enrolled courses categorys where user is not enrolled as the recommended courses. This shortcode can take following parameters.", 'eb-textdomain' ); ?></p>
+						<p><?php esc_html_e( 'This shortcode shows the users enrolled courses list and the courses from the enrolled courses categorys where user is not enrolled as the recommended courses. This shortcode can take following parameters.', 'eb-textdomain' ); ?></p>
 						<ul>
-							<li><span class="eb_shortcode-doc-para">my_courses_wrapper_title</span>:<?php printf( esc_html__( "This will sets the title for the courses wrapper Example: %s", 'eb-textdomain' ), '<strong>[eb_my_courses my_courses_wrapper_title="My Courses"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">recommended_courses_wrapper_title</span>:<?php printf( esc_html__( "This will sets the title for the courses wrapper Example: %s", 'eb-textdomain' ), '<strong>[eb_my_courses recommended_courses_wrapper_title="Recommended courses"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">number_of_recommended_courses</span>:<?php printf( esc_html__( "This will sets the quntity to show in the recommended courses Example: %s", 'eb-textdomain' ), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>' ); ?></li>
-							<li><span class="eb_shortcode-doc-para">my_courses_progress</span>:<?php printf( esc_html__( "This will show the course progress if it is set 1 and will hide course progress if set to 0 and if the parameter is not set", 'eb-textdomain' ), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>' ); ?></li>
+							<li>
+								<span class="eb_shortcode-doc-para">my_courses_wrapper_title</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This will sets the title for the courses wrapper Example: %s', 'eb-textdomain' ), '<strong>[eb_my_courses my_courses_wrapper_title="My Courses"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">recommended_courses_wrapper_title</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This will sets the title for the courses wrapper Example: %s', 'eb-textdomain' ), '<strong>[eb_my_courses recommended_courses_wrapper_title="Recommended courses"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">number_of_recommended_courses</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This will sets the quntity to show in the recommended courses Example: %s', 'eb-textdomain' ), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>' );
+								?>
+							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">my_courses_progress</span>:
+								<?php
+
+								/*
+								* translators: shortcode description example.
+								*/
+								printf( esc_html__( 'This will show the course progress if it is set 1 and will hide course progress if set to 0 and if the parameter is not set', 'eb-textdomain' ), '<strong>[eb_my_courses number_of_recommended_courses="4"]</strong>' );
+								?>
+							</li>
 						</ul>
 					</div>
 				</div>

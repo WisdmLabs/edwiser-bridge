@@ -85,10 +85,11 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
+		 * @param string $current_section name of the current section.
 		 * @return array
 		 */
-		public function get_settings( $current_section = '' ) {	
-			if ( 'user_data' == $current_section ) {
+		public function get_settings( $current_section = '' ) {
+			if ( 'user_data' === $current_section ) {
 				$settings = apply_filters(
 					'eb_user_synchronization_settings',
 					array(
@@ -101,7 +102,6 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title'           => __( 'Synchronization Options', 'eb-textdomain' ),
 							'desc'            => __( 'Update user\'s course enrollment status', 'eb-textdomain' ),
 							'id'              => 'eb_synchronize_user_courses',
-							//'custom_attributes' => array( 'disabled' => 'disabled' ),
 							'default'         => 'no',
 							'type'            => 'checkbox',
 							'checkboxgroup'   => 'start',
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 						),
 
 						array(
-							'desc'            => __('Keep synchronized courses as draft', 'eb-textdomain'),
+							'desc'            => __( 'Keep synchronized courses as draft', 'eb-textdomain' ),
 							'id'              => 'eb_synchronize_draft',
 							'default'         => 'yes',
 							'type'            => 'checkbox',

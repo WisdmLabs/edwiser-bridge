@@ -48,7 +48,6 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @since  1.0.0
 		 */
 		public function output() {
-			//global $current_section;
 			// Hide the save button.
 			$GLOBALS['hide_save_button'] = true;
 			include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-licensing.php';

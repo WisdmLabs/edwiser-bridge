@@ -178,7 +178,6 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'css'      => 'min-width:350px;',
 						'default'  => '',
 						'type'     => 'text',
-						// 'show_if_checked' => 'option',
 						'autoload' => false,
 					),
 					array(
@@ -187,7 +186,6 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'css'      => 'min-width:350px;',
 						'default'  => '',
 						'type'     => 'password',
-						// 'show_if_checked' => 'option',
 						'autoload' => false,
 					),
 					array(
@@ -196,7 +194,6 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'css'      => 'min-width:350px;',
 						'default'  => '',
 						'type'     => 'text',
-						// 'show_if_checked' => 'option',
 						'autoload' => false,
 					),
 					array(

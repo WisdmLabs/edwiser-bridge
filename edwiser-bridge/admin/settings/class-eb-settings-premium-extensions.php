@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Settings_Remui' ) ) :
+if ( ! class_exists( 'Eb_Settings_Premium_Extensions' ) ) :
 
 	/**
-	 * Eb_Settings_Remui.
+	 * SettingsPremiumExtensions.
 	 */
-	class Eb_Settings_Remui extends EBSettingsPage {
+	class Eb_Settings_Premium_Extensions extends EBSettingsPage {
 
 		/**
 		 * Constructor.
@@ -121,7 +121,7 @@ if ( ! class_exists( 'Eb_Settings_Remui' ) ) :
 										</li>
 										<li>
 										<?php
-											_esc_html_ee( 'Seamless selling with 160+ Payment gateways', 'eb-textdomain' );
+											esc_html_e( 'Seamless selling with 160+ Payment gateways', 'eb-textdomain' );
 										?>
 										</li>
 									</ul>
@@ -217,4 +217,4 @@ if ( ! class_exists( 'Eb_Settings_Remui' ) ) :
 
 endif;
 
-return new Eb_Settings_Remui();
+return new Eb_Settings_Premium_Extensions();

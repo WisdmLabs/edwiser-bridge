@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
+if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 
 	/**
-	 * Eb_Settings_Get_Help.
+	 * Eb_Settings_Help.
 	 */
-	class Eb_Settings_Get_Help extends EBSettingsPage {
+	class Eb_Settings_Help extends EBSettingsPage {
 
 		/**
 		 * Constructor.
@@ -40,7 +40,6 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 		 * @since  1.0.0
 		 */
 		public function output() {
-			//global $current_section;
 			// Hide the save button.
 			$GLOBALS['hide_save_button'] = true;
 		}
@@ -77,15 +76,14 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 				);
 
 				$message = sprintf(
-					esc_html__( "Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s ", 'eb-textdomain' ),
+
+					/*
+					 * translators: dispays the subuscription message.
+					 */
+					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: %1$s \n Customer Email: %2$s ', 'eb-textdomain' ),
 					site_url(),
 					$admin_email
 				);
-
-				// $message = "Edwiser subscription user details: \n";
-				// $message .= "\nCustomer Website:\n".site_url();
-				// $message .= "\n\nCustomer Email: \n";
-				// $message .= $admin_email;
 
 				$sent = wp_mail( $plugin_author_email, $subject, $message );
 
@@ -94,11 +92,11 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 				}
 			}
 
-			wp_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
+			wp_safe_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
 			exit;
 		}
 	}
 
 endif;
 
-return new Eb_Settings_Get_Help();
+return new Eb_Settings_Help();

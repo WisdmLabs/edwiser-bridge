@@ -43,7 +43,16 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		 * @return array
 		 */
 		public function get_settings() {
-			$settings = apply_filters(
+			/*
+			* translators: the user account page url will go here
+			*/
+			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+
+			/*
+			* translators: My Courses page setting description.
+			*/
+			$redirect_desc = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$settings      = apply_filters(
 				'eb_general_settings',
 				array(
 					array(
@@ -62,10 +71,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'title'    => __( 'User Account Page', 'eb-textdomain' ),
-						'desc'     => '<br/>' . sprintf(
-							__( 'Select user account page here. Default page is %s ', 'eb-textdomain' ),
-							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
-						),
+						'desc'     => '<br/>' . $user_acc_desc,
 						'id'       => 'eb_useraccount_page_id',
 						'type'     => 'single_select_page',
 						'default'  => '',
@@ -84,7 +90,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'select',
 						'default'  => __( 'Select Role', 'eb-textdomain' ),
 						'css'      => 'min-width:300px;',
-						'options'     => get_all_wp_roles(),
+						'options'  => get_all_wp_roles(),
 						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
 					),
 					array(
@@ -99,7 +105,11 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'Redirect to My Courses', 'eb-textdomain' ),
 						'desc'     => sprintf(
-							__( 'Redirect user to the My Courses page on %s from the %s page.', 'eb-textdomain' ),
+
+							/*
+							* translators: My Courses page setting description.
+							*/
+							__( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ),
 							'<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>',
 							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
 						),
@@ -112,6 +122,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'My Courses Page', 'eb-textdomain' ),
 						'desc'     => '<br/>' . sprintf(
+
+							/*
+							* translators: My Courses page setting description.
+							*/
 							__( 'Select my courses page here. Default page is %s ', 'eb-textdomain' ),
 							'<a href="' . esc_url( site_url( '/eb-my-courses' ) ) . '">' . __( 'My Courses', 'eb-textdomain' ) . '</a>'
 						),
@@ -120,7 +134,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'default'  => '',
 						'css'      => 'min-width:300px;',
 						'args'     => array(
-							'show_option_none'  => __( 'Select a page', "eb-textdomain" ),
+							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
 							'option_none_value' => '',
 						),
 						'desc_tip' => __( "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.", 'eb-textdomain' ),
@@ -152,7 +166,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
-					array( 'type' => 'sectionend', 'id' => 'general_options' ),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'general_options',
+					),
 					array(
 						'title' => __( 'Privacy Policy', 'eb-textdomain' ),
 						'type'  => 'title',
@@ -179,7 +196,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'css'      => 'min-width:300px; min-height: 110px;',
 						'desc_tip' => true,
 					),
-					array('type' => 'sectionend', 'id' => 'general_privacy_policy'),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'general_privacy_policy',
+					),
 					array(
 						'title' => __( 'Recommended Courses Settings', 'eb-textdomain' ),
 						'type'  => 'title',
