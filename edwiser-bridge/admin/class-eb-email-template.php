@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Edwiser Bridge Email template page
  *
@@ -36,12 +37,12 @@ class EBAdminEmailTemplate {
 
 	/**
 	 * Provides the functionality to prepare the email temaplte list to display
-	 * in the manage email temaplte page
+	 * in the manage email temaplte page.
 	 *
-	 * This is the callback for the eb_email_templates_list
+	 * This is the callback for the eb_email_templates_list.
 	 *
-	 * @param type $emailList array of the email template list
-	 * @return array of the email tempalte list
+	 * @param array $email_list array of the email template list.
+	 * @return array of the email tempalte list.
 	 */
 	public function eb_add_email_list( $email_list ) {
 		$email_list['eb_emailtmpl_create_user']                         = esc_html__( 'New User Account Details', 'eb-textdomain' );
@@ -63,7 +64,7 @@ class EBAdminEmailTemplate {
 	}
 
 	/**
-	 * handles the manage email temaplte page output
+	 * Handles the manage email temaplte page output
 	 */
 	public function outPut() {
 		if ( isset( $_POST["eb-mail-tpl-submit"] ) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes" ) {
@@ -115,7 +116,7 @@ class EBAdminEmailTemplate {
 							<tr>
 								<td class="eb-email-lable"><?php esc_html_e( 'Subject', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain' ; ?>"/>
+									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain'); ?>"/>
 								</td>
 							</tr>
 

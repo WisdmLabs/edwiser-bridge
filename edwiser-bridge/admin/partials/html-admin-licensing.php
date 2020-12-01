@@ -2,6 +2,7 @@
 /**
  * Partial: Page - Extensions.
  *
+ * @package    Edwiser Bridge
  * @var object
  */
 
@@ -9,13 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-//Get Setting Messages.
+/**
+ * Get Setting Messages.
+ */
 $setting_messages = '';
 $setting_messages = apply_filters( 'eb_setting_messages', $setting_messages );
 if ( ! empty( $setting_messages ) ) {
 	echo esc_html( $setting_messages );
 }
-//Get Licensing Information.
+/**
+ * Get Licensing Information.
+*/
 
 /*
  *
@@ -63,5 +68,8 @@ if ( ! empty( $licensing_info ) ) {
 	</div>
 	<?php
 } else {
-	printf( __( '%1s You do not have any extensions activated. %2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3s here%4s.%5s', 'eb-textdomain'), '<div class="update-nag"><strong>', '</strong>', '<a href="https://edwiser.org/bridge/extensions/" target="_blank">', '</a>', '</div>' );
+	/*
+	 * translators: string plugin name.
+	 */
+	printf( esc_html( __( '%1$1s You do not have any extensions activated. %2$2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3$3s here%4$4s.%5$5s', 'eb-textdomain' ) ), '<div class="update-nag"><strong>', '</strong>', '<a href="https://edwiser.org/bridge/extensions/" target="_blank">', '</a>', '</div>' );
 }

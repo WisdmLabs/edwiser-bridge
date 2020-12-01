@@ -211,7 +211,15 @@ class Eb_Welcome_Screen {
 
 		<h1><?php printf( esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' ), esc_html( $version ) ); ?></h1>
 
-		<span class="eb-version-badge"><?php printf( esc_html__( 'Version %s', 'eb-textdomain' ), esc_html( $version ) ); ?></span>
+		<span class="eb-version-badge">
+		<?php
+
+		/*
+		 * translators: Version number.
+		 */
+		printf( esc_html__( 'Version %s', 'eb-textdomain' ), esc_html( $version ) );
+		?>
+		</span>
 
 		<?php
 	}
@@ -233,9 +241,9 @@ class Eb_Welcome_Screen {
 					?>
 				</p>
 
-				 <p class="eb_welcome_mdl_dwnld_btn_wrap">
-					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> <?= __('Download Moodle Plugin', 'eb-textdomain') ?> </a>
-				 </p>
+				<p class="eb_welcome_mdl_dwnld_btn_wrap">
+					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
+				</p>
 
 				<div class="changelog prompt-subscribe-wrap">
 					<h1 style="text-align:center; margin:0; font-size:30px;">
@@ -257,13 +265,13 @@ class Eb_Welcome_Screen {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if ( isset( $_GET['subscribed'] ) && 1 == $_GET['subscribed'] ) {
+					if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
 						?>
 						<div class="success-message">
 							<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
 						</div>
 						<?php
-					} elseif ( isset( $_GET['subscribed'] ) && 0 == $_GET['subscribed'] ) {
+					} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
 						?>
 						<div class="error-message">
 							<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
@@ -302,11 +310,11 @@ class Eb_Welcome_Screen {
 			return;
 		}
 
-		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' == $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
+		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
 
-		wp_redirect( admin_url( '?page=eb-about' ) );
+		wp_safe_redirect( admin_url( '?page=eb-about' ) );
 		exit;
 	}
 
@@ -337,7 +345,7 @@ class Eb_Welcome_Screen {
 				__( 'Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain' )
 			);
 
-			$message = __( 'Edwiser Bridge subscription user details:', 'eb-textdomain' ) . " \n";
+			$message  = __( 'Edwiser Bridge subscription user details:', 'eb-textdomain' ) . " \n";
 			$message .= "\n" . __( 'Customer Website:', 'eb-textdomain' ) . "\n" . site_url();
 			$message .= "\n\n" . __( 'Customer Email:', 'eb-textdomain' ) . " \n";
 			$message .= $admin_email;
@@ -349,7 +357,7 @@ class Eb_Welcome_Screen {
 			}
 		}
 
-		wp_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
+		wp_sfae_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
 		exit;
 	}
 }

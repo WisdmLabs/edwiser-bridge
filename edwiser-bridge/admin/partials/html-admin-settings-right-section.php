@@ -2,6 +2,7 @@
 /**
  * Partial: Page - right section.
  *
+ * @package    Edwiser Bridge
  */
 
 $documentation = '';

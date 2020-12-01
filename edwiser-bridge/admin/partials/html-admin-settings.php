@@ -1,18 +1,20 @@
 <?php
 /**
  * Admin View: Settings.
+ *
+ *  @package    Edwiser Bridge
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-$tab = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : '';
+$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : '';
 ?>
 <div class="wrap edw">
 	<?php
 	do_action( 'eb_settings_header' );
-	if ( 'licensing' != $tab ) {
+	if ( 'licensing' !== $tabname ) {
 		?>
 		<form method="post" id="mainform" action="" enctype="multipart/form-data">
 		<?php
@@ -23,7 +25,7 @@ $tab = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['t
 			<?php
 			foreach ( $tabs as $name => $label ) {
 				echo '<a href="' . esc_url( admin_url( 'admin.php?page=eb-settings&tab=' . $name ) ) .
-				'" class="nav-tab ' . ( $current_tab == $name ? 'nav-tab-active' : '' ) . '">'
+				'" class="nav-tab ' . ( $current_tab === $name ? 'nav-tab-active' : '' ) . '">'
 				. esc_html( $label ) .
 				'</a>';
 			}
@@ -50,13 +52,13 @@ $tab = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['t
 
 
 			<div class="eb_setting_right_sidebar_info">
-			<?php include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings-right-section.php'; ?>
+			<?php require_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings-right-section.php'; ?>
 			</div>
 
 
 		</div>
 		<?php
-		if ( 'licensing' != $tab ) {
+		if ( 'licensing' !== $tabname ) {
 			?>
 		</form>
 			<hr/>

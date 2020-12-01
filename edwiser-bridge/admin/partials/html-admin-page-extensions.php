@@ -2,8 +2,10 @@
 /**
  * Partial: Page - Extensions.
  *
+ * @package    Edwiser Bridge
  * @var object
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -23,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<ul class="extensions">
 			<?php
 			$extensions = $extensions->popular;
-			$i = 0;
+			$i          = 0;
 			foreach ( $extensions as $extension ) {
 				if ( $i > 7 ) {
 					break;
@@ -52,14 +54,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<p>
 			<?php
-			printf(
-				esc_html__(
-					'Our list of extensions for Edwiser Bridge can be found here:
-			<a href="%s" target="_blank">Edwiser Bridge Extensions</a>',
-					'eb-textdomain'
-				),
-				'https://edwiser.org/bridge/extensions/'
-			);
+
+			/*
+			 * translators: Edwiser bridge extensions page link.
+			 */
+			printf( esc_html__( 'Our list of extensions for Edwiser Bridge can be found here: <a href="%s" target="_blank">Edwiser Bridge Extensions</a>', 'eb-textdomain' ), 'https://edwiser.org/bridge/extensions/' );
 			?>
 		</p>
 		<?php
