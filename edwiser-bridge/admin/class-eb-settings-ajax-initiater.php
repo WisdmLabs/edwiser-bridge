@@ -12,6 +12,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Ajax initiater.
+ */
 class Eb_Settings_Ajax_Initiater {
 
 	/**
@@ -48,8 +51,6 @@ class Eb_Settings_Ajax_Initiater {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 *
-	 * @return
 	 */
 	public function course_synchronization_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -75,8 +76,6 @@ class Eb_Settings_Ajax_Initiater {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 *
-	 * @return
 	 */
 	public function user_data_synchronization_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -102,8 +101,6 @@ class Eb_Settings_Ajax_Initiater {
 	 *
 	 * @since    1.4.1
 	 * @access   public
-	 *
-	 * @return
 	 */
 	public function users_link_to_moodle_synchronization() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -133,8 +130,6 @@ class Eb_Settings_Ajax_Initiater {
 	 *
 	 * @since    1.0.0
 	 * @access   public
-	 *
-	 * @return boolean true on success else false
 	 */
 	public function connection_test_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -153,7 +148,7 @@ class Eb_Settings_Ajax_Initiater {
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
 
-		if ( $response['success'] == 0 ) {
+		if ( 0 == $response['success'] ) {
 			$response['response_message'] .= esc_html__( ' : to know more about this error', 'eb-textdomain' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a>';
 		}
 

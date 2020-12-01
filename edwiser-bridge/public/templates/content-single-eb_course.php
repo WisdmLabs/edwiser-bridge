@@ -126,9 +126,9 @@ if (isset($course_options['course_expirey']) && $course_options['course_expirey'
 						<?php
 						echo ob_get_clean();
 					}
-					echo Eb_Payment_Manager::takeCourseButton($post->ID);
+					echo Eb_Payment_Manager::take_course_button($post->ID);
 				} else {
-					echo Eb_Payment_Manager::accessCourseButton($post->ID);
+					echo Eb_Payment_Manager::access_course_button($post->ID);
 				}
 
 				if (count($categories)) {
@@ -161,9 +161,9 @@ if (isset($course_options['course_expirey']) && $course_options['course_expirey'
 			the_content();
 
 			if (!$has_access || !is_user_logged_in()) {
-				echo Eb_Payment_Manager::takeCourseButton($post->ID);
+				echo Eb_Payment_Manager::take_course_button($post->ID);
 			} else {
-				echo Eb_Payment_Manager::accessCourseButton($post->ID);
+				echo Eb_Payment_Manager::access_course_button($post->ID);
 			}
 		}
 		?>

@@ -937,9 +937,9 @@ class EdwiserBridge
 
 		// hooks related to payment management
 		$payment_mgr = new Eb_Payment_Manager($this->get_plugin_name(), $this->get_version());
-		$this->loader->eb_add_action('generate_rewrite_rules', $payment_mgr, 'paypalRewriteRules');
-		$this->loader->eb_add_filter('query_vars', $payment_mgr, 'addQueryVars');
-		$this->loader->eb_add_action('parse_request', $payment_mgr, 'parseIpnRequest');
+		$this->loader->eb_add_action('generate_rewrite_rules', $payment_mgr, 'paypal_rewrite_rules');
+		$this->loader->eb_add_filter('query_vars', $payment_mgr, 'add_query_vars');
+		$this->loader->eb_add_action('parse_request', $payment_mgr, 'parse_ipn_request');
 
 		/*
 		 * In case a course is permanentaly deleted from moodle course list,

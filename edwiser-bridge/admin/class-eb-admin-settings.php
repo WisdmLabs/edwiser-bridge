@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * EDW Admin Settings Class.
  *
  * Adapted from code in woocommerce 2.3

@@ -49,7 +49,7 @@ class Eb_Admin_Menus {
 
 		// add menu separator.
 		if ( current_user_can( 'manage_options' ) ) {
-			$menu[53.5] = array( '', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms' );
+			$menu[ 53.5 ] = array( '', 'read', 'separator-edwiserbridge_lms', '', 'wp-menu-separator edwiserbridge_lms' );
 		}
 
 		add_menu_page(
@@ -82,8 +82,8 @@ class Eb_Admin_Menus {
 		);
 
 		foreach ( $add_submenu as $add_submenu_item ) {
-			if ( current_user_can( $add_submenu_item["cap"] ) ) {
-				$submenu['edwiserbridge_lms'][$location++] = array(
+			if ( current_user_can( $add_submenu_item['cap'] ) ) {
+				$submenu['edwiserbridge_lms'][ $location++ ] = array(
 					$add_submenu_item['name'],
 					$add_submenu_item['cap'],
 					$add_submenu_item['link'],
@@ -103,12 +103,12 @@ class Eb_Admin_Menus {
 		global $submenu_file, $current_screen, $pagenow;
 
 		// Set the submenu as active/current while anywhere in Custom Post Type ( courses, orders ).
-		if ( $current_screen->post_type == 'eb_course' || $current_screen->post_type == 'eb_order' ) {
-			if ( $pagenow == 'post.php' ) {
+		if ( 'eb_course' == $current_screen->post_type || 'eb_order' == $current_screen->post_type ) {
+			if ( 'post.php' == $pagenow ) {
 				$submenu_file = 'edit.php?post_type=' . $current_screen->post_type;
 			}
 
-			if ( $pagenow == 'edit-tags.php' ) {
+			if ( 'edit-tags.php' == $pagenow ) {
 				$submenu_file = 'edit-tags.php?taxonomy=eb_course_cat&post_type=' . $current_screen->post_type;
 			}
 			$parent_file = 'edwiserbridge_lms';
@@ -198,7 +198,7 @@ class Eb_Admin_Menus {
 	}
 
 	/**
-	 * open plugin help link in new tab.
+	 * Open plugin help link in new tab.
 	 *
 	 * @since  1.0.0
 	 */
