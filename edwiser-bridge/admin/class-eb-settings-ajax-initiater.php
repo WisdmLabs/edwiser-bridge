@@ -43,7 +43,7 @@ class Eb_Settings_Ajax_Initiater {
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 	}
 
 	/**
@@ -62,12 +62,10 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 
-		// get sync options.
-		$sync_options = json_decode( sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ), true );
-
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
 		// start working on request.
 		$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
-		echo json_encode( $response );
+		echo wp_json_encode( $response );
 		die();
 	}
 
@@ -87,13 +85,13 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 		// Added offset for user get limit.
-		$offset = $_POST['offset'];
-		// get sync options.
-		$sync_options = json_decode( sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ), true );
+		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
+
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
 
 		$response = edwiser_bridge_instance()->user_manager()->user_course_synchronization_handler( $sync_options, false, $offset );
 
-		echo json_encode( $response );
+		echo wp_json_encode( $response );
 		die();
 	}
 	/**
@@ -112,19 +110,19 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 		// Added offset for user get limit.
-		$offset = $_POST['offset'];
+		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
 		// get sync options.
-		$sync_options = json_decode( sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ), true );
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
 
-		//$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
+		// $response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
 		$response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler( $sync_options, $offset );
 
-		echo json_encode( $response );
+		echo wp_json_encode( $response );
 		die();
 	}
 
 	/**
-	 * Test connection between wordpress and moodle.
+	 * Test connection between WordPress and moodle.
 	 *
 	 * Calls connection_test_helper() from EBConnectionHelper class.
 	 *
@@ -142,17 +140,17 @@ class Eb_Settings_Ajax_Initiater {
 		}
 
 		// start working on request.
-		$url   = sanitize_text_field( wp_unslash( $_POST['url'] ) );
-		$token = sanitize_text_field( wp_unslash( $_POST['token'] ) );
+		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
 
-		if ( 0 == $response['success'] ) {
+		if ( 0 === $response['success'] ) {
 			$response['response_message'] .= esc_html__( ' : to know more about this error', 'eb-textdomain' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a>';
 		}
 
-		echo json_encode( $response );
+		echo wp_json_encode( $response );
 		die();
 	}
 }

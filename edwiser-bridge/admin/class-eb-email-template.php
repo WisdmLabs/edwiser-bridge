@@ -67,7 +67,8 @@ class EBAdminEmailTemplate {
 	 * Handles the manage email temaplte page output
 	 */
 	public function outPut() {
-		if ( isset( $_POST["eb-mail-tpl-submit"] ) && $_POST["eb-mail-tpl-submit"] == "eb-mail-tpl-save-changes" ) {
+		$sub_action = isset( $_POST['eb-mail-tpl-submit'] ) ? sanitize_text_field( wp_unslash( $_POST['eb-mail-tpl-submit'] ) ) : 0;
+		if ( 'eb-mail-tpl-save-changes' === $sub_action ) {
 			$this->save();
 		}
 		$from_name = $this->get_from_name();
@@ -198,10 +199,10 @@ class EBAdminEmailTemplate {
 						<h3><?php esc_html_e( 'Template Constants', 'eb-textdomain' ); ?></h3>
 						<div class="eb-emiltemp-const-wrap">
 							<?php
-							foreach ($const_sec as $secName => $tmplConst) {
+							foreach ( $const_sec as $secName => $tmplConst ) {
 								echo "<div class='eb-emailtmpl-const-sec'>";
 								echo "<h3>$secName</h3>";
-								foreach ($tmplConst as $const => $desc) {
+								foreach ( $tmplConst as $const => $desc ) {
 									echo '<div class="eb-mail-templat-const"><span>' . $const . '</span>' . $desc . '</div>';
 								}
 								echo "</div>";

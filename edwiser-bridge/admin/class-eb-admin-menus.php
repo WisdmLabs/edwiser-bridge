@@ -236,7 +236,7 @@ class Eb_Admin_Menus {
 	 * Initialize the extensions page.
 	 */
 	public function extensions_page() {
-		Eb_Admin_Extensions::output();
+		Eb_Extensions::output();
 	}
 
 	/**

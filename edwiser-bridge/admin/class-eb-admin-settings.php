@@ -36,7 +36,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @var array $errors errors.
 		 */
-		private static $errors   = array();
+		private static $errors = array();
 
 		/**
 		 * Messages.
@@ -101,7 +101,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param string $text
+		 * @param string $text message text.
 		 */
 		public static function add_message( $text ) {
 			self::$messages[] = $text;
@@ -112,7 +112,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param string $text
+		 * @param string $text Error message.
 		 */
 		public static function add_error( $text ) {
 			self::$errors[] = $text;
@@ -122,8 +122,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 * Output messages + errors.
 		 *
 		 * @since  1.0.0
-		 *
-		 * @return string
 		 */
 		public static function show_messages() {
 			if ( count( self::$errors ) > 0 ) {
@@ -195,9 +193,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param string $option_name field name for which value to be fetched
-		 * @param string $current_tab tab in which the above field resides
-		 * @param string $default     default value to be returned in case field value not found
+		 * @param string $option_name field name for which value to be fetched.
+		 * @param string $current_tab tab in which the above field resides.
+		 * @param string $default     default value to be returned in case field value not found.
 		 *
 		 * @return option value
 		 */
@@ -224,14 +222,14 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 		/**
 		 * DEPRECATED FUNCTION
-		 * 
+		 *
 		 * Output admin fields.
 		 *
 		 * Loops though the edw options array and outputs each field.
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param array $options Opens array to output
+		 * @param array $options Opens array to output.
 		 */
 		public static function outputFields( $options ) {
 			self::output_fields( $options );
@@ -246,10 +244,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @since  1.0.0
 		 *
-		 * @param array $options Opens array to output
+		 * @param array $options Opens array to output.
 		 */
-		public static function output_fields( $options )
-		{
+		public static function output_fields( $options ) {
 			global $current_tab;
 
 			foreach ( $options as $value ) {
@@ -333,7 +330,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						$type         = $value['type'];
 						$option_value = self::get_option( $value['id'], $current_tab, $value['default'] );
 
-						if ( $value['type'] == 'color' ) {
+						if ( 'color' === $value['type'] ) {
 							$type            = 'text';
 							$value['class'] .= 'colorpick';
 							$description    .= '<div id="colorPickerDiv_' . esc_attr( $value['id'] ) . '"
@@ -393,7 +390,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 					// Button input.
 					case 'button':
-						$type = $value['type'];
+						$type         = $value['type'];
 						$option_value = $value['default'];
 						?>
 						<tr valign="top">
@@ -431,7 +428,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									name="
 									<?php
 									echo esc_attr( $value['id'] );
-									if ( 'multiselect' == $value['type'] ) {
+									if ( 'multiselect' === $value['type'] ) {
 										echo '[]';
 									}
 									?>
@@ -440,14 +437,13 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									style="<?php echo esc_attr( $value['css'] ); ?>"
 									class="<?php echo esc_attr( $value['class'] ); ?>"
 									<?php echo esc_html( implode( ' ', $custom_attributes ) ); ?>
-									<?php echo ( 'multiselect' == $value['type'] ) ? 'multiple="multiple"' : ''; ?>>
+									<?php echo ( 'multiselect' === $value['type'] ) ? 'multiple="multiple"' : ''; ?>>
 										<?php
 										if ( isset( $value['default'] ) && ! empty( $value['default'] ) ) {
 											?>
 											<option value=""> <?php echo esc_attr( $value['default'] ); ?></option>
 											<?php
 										}
-
 
 										foreach ( $value['options'] as $key => $val ) {
 											?>
@@ -458,7 +454,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 											"
 												<?php
 												if ( is_array( $option_value ) ) {
-													selected( in_array( $key, $option_value ), true );
+													selected( in_array( $key, $option_value, true ), true );
 												} else {
 													selected( $option_value, $key );
 												}
@@ -519,7 +515,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 					// Checkbox input.
 					case 'checkbox':
-						$option_value = self::get_option( $value['id'], $current_tab, $value['default'] );
+						$option_value    = self::get_option( $value['id'], $current_tab, $value['default'] );
 						$visbility_class = array();
 
 						if ( ! isset( $value['hide_if_checked'] ) ) {
@@ -528,17 +524,17 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						if ( ! isset( $value['show_if_checked'] ) ) {
 							$value['show_if_checked'] = false;
 						}
-						if ( 'yes' == $value['hide_if_checked'] || 'yes' == $value['show_if_checked'] ) {
+						if ( 'yes' === $value['hide_if_checked'] || 'yes' === $value['show_if_checked'] ) {
 							$visbility_class[] = 'wdm_hidden_option';
 						}
-						if ( 'option' == $value['hide_if_checked'] ) {
+						if ( 'option' === $value['hide_if_checked'] ) {
 							$visbility_class[] = 'hide_options_if_checked';
 						}
-						if ( 'option' == $value['show_if_checked'] ) {
+						if ( 'option' === $value['show_if_checked'] ) {
 							$visbility_class[] = 'show_options_if_checked';
 						}
 
-						if ( ! isset( $value['checkboxgroup'] ) || 'start' == $value['checkboxgroup'] ) {
+						if ( ! isset( $value['checkboxgroup'] ) || 'start' === $value['checkboxgroup'] ) {
 							?>
 							<tr valign="top" class="<?php echo esc_attr( implode( ' ', $visbility_class ) ); ?>">
 								<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
@@ -547,26 +543,26 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									<fieldset>
 									<?php } else { ?>
 										<fieldset class="<?php echo esc_attr( implode( ' ', $visbility_class ) ); ?>">
-										<?php } if ( ! empty($value['title'] ) ) {
-											?>
+										<?php } if ( ! empty( $value['title'] ) ) { ?>
 											<legend class="screen-reader-text">
 												<span>
-													<?php echo esc_html( $value['title'] ) ?>
+													<?php echo esc_html( $value['title'] ); ?>
 												</span>
 											</legend>
 										<?php } ?>
-										<label for="<?php echo $value['id']; ?>">
+										<label for="<?php echo esc_attr( $value['id'] ); ?>">
 											<input
 												name="<?php echo esc_attr( $value['id'] ); ?>"
 												id="<?php echo esc_attr( $value['id'] ); ?>"
 												type="checkbox"
 												value="1"
 												<?php checked( $option_value, 'yes' ); ?>
-												<?php echo implode( ' ', $custom_attributes ); ?> /> <?php echo esc_html( $description ); ?>
+												<?php echo implode( ' ', $custom_attributes ); ?> />
+												<?php echo esc_html( $description ); ?>
 										</label>
 										<?php echo esc_html( $tooltip_html ); ?>
 										<?php
-										if ( ! isset( $value['checkboxgroup'] ) || 'end' == $value['checkboxgroup']) {
+										if ( ! isset( $value['checkboxgroup'] ) || 'end' === $value['checkboxgroup'] ) {
 											?>
 										</fieldset>
 								</td>
@@ -582,14 +578,14 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					// Single page selects.
 					case 'single_select_page':
 						$args = array(
-							'name' => $value['id'],
-							'id' => $value['id'],
-							'sort_column' => 'menu_order',
-							'sort_order' => 'ASC',
+							'name'             => $value['id'],
+							'id'               => $value['id'],
+							'sort_column'      => 'menu_order',
+							'sort_order'       => 'ASC',
 							'show_option_none' => ' ',
-							'class' => $value['class'],
-							'echo' => false,
-							'selected' => absint( self::get_option( $value['id'], $current_tab ) ),
+							'class'            => $value['class'],
+							'echo'             => false,
+							'selected'         => absint( self::get_option( $value['id'], $current_tab ) ),
 						);
 
 						if ( isset( $value['args'] ) ) {
@@ -602,10 +598,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<?php
-								echo str_replace(
-									' id=', " data-placeholder='" . __('Select a page', 'eb-textdomain')."'
-									 style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages($args)
-								);
+								echo esc_html( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ) );
 								echo esc_html( $description );
 								?>
 							</td>
@@ -631,7 +624,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						}
 						?>
 						<tr valign="top" class="single_select_page">
-							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ) ?>
+							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
 								<?php echo esc_html( $tooltip_html ); ?>
 							</th>
 							<td class="forminp">
@@ -653,7 +646,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						$selected_val = self::get_option( $value['id'], $current_tab );
 						$selected_val = trim( $selected_val );
 						$selected_val = empty( $selected_val ) ? '4' : $selected_val;
-						$args = array(
+						$args         = array(
 							'name'             => $value['id'],
 							'id'               => $value['id'],
 							'sort_column'      => 'menu_order',
@@ -696,7 +689,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							<tr>
 								<td>
 									<?php
-									echo $value['html'];
+									echo esc_html( $value['html'] );
 									?>
 								</td>
 							</tr>
@@ -724,8 +717,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * @return bool
 		 */
-		public static function saveFields( $options )
-		{
+		public static function saveFields( $options ) {
 			return self::save_fields( $options );
 		}
 
@@ -775,7 +767,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
-					if ( isset( $_POST[ $value[ 'id' ] ] ) ) {
+					if ( isset( $_POST[ $value['id'] ] ) ) {
 						$option_value = sanitize_text_field( wp_unslash( $_POST[ $value[ 'id' ] ] ) );
 					}
 				}
@@ -815,7 +807,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					// Check if option is an array.
 					if ( $option_name && $setting_name ) {
 						// Get old option value.
-						if ( ! isset( $update_options[$option_name] ) ) {
+						if ( ! isset( $update_options[ $option_name ] ) ) {
 							$update_options[ $option_name ] = get_option( $option_name, array() );
 						}
 
@@ -827,7 +819,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 						// Single value.
 					} else {
-						$update_options[$option_name] = $option_value;
+						$update_options[ $option_name ] = $option_value;
 					}
 				}
 
@@ -859,17 +851,17 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			if ( true === $value['desc_tip'] ) {
 				$tooltip_html = $value['desc'];
 			} elseif ( ! empty( $value['desc_tip'] ) ) {
-				$description = $value['desc'];
+				$description  = $value['desc'];
 				$tooltip_html = $value['desc_tip'];
 			} elseif ( ! empty( $value['desc'] ) ) {
 				$description = $value['desc'];
 			}
 
-			if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ) ) ) {
+			if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ), true ) ) {
 				$description = '<p style="margin-top:0">' . wp_kses_post( $description ) . '</p>';
-			} elseif ( $description && in_array( $value['type'], array( 'checkbox' ) ) ) {
+			} elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
 				$description = wp_kses_post( $description );
-			} elseif ( in_array( $value[ 'type' ], array( 'button' ) ) ) {
+			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
 				$description = '<span class="load-response">
 									<img src="' . EB_PLUGIN_URL . 'images/loader.gif" height="20" width="20" />
 								</span>
@@ -894,13 +886,13 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$description = '<span class="description">' . wp_kses_post( $description ) . '</span>';
 			}
 
-			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ) ) ) {
+			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
 				$tooltip_html = '<p class="description">' . $tooltip_html . '</p>';
-			} elseif ( $tooltip_html && in_array( $value['type'], array( 'button' ) ) ) {
+			} elseif ( $tooltip_html && in_array( $value['type'], array( 'button' ), true ) ) {
 				$tooltip_html = '';
 			} elseif ( $tooltip_html ) {
 				$tooltip_html = '<img class="help_tip"
-									data-tip="'.esc_attr($tooltip_html).'"
+									data-tip="' . esc_attr( $tooltip_html ) . '"
 									src="' . EB_PLUGIN_URL . 'images/help.png"
 									height="20"
 									width="20" />';

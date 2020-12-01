@@ -64,6 +64,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 *
 		 * @since  1.0.0
 		 *
+		 * @param text $current_section name of the section.
 		 * @return array
 		 */
 		public function get_settings( $current_section = '' ) {

@@ -21,14 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Eb_Admin_Extensions Class
  */
-class Eb_Admin_Extensions {
+class Eb_Extensions {
 
 	/**
 	 * Handle extensions page output.
 	 */
 	public static function output() {
-		$file_path  = plugin_dir_path( __DIR__ ) . '/admin/assets/edwiserbridge-extensions.json';
-		$extensions = json_decode( file_get_contents( $file_path ) );
-		include_once( 'partials/html-admin-page-extensions.php' );
+		$file_path  = plugin_dir_url( __DIR__ ) . '/admin/assets/edwiserbridge-extensions.json';
+		$ext_data   = wp_remote_retrieve_body( wp_remote_get( $file_path ) );
+		$extensions = json_decode( $ext_data );
+		include_once 'partials/html-admin-page-extensions.php';
 	}
 }

@@ -45,8 +45,7 @@ class Eb_Admin {
 	 * @param string $plugin_name The name of this plugin.
 	 * @param string $version     The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version )
-	{
+	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
@@ -148,7 +147,10 @@ class Eb_Admin {
 			false
 		);
 
-
+		/*
+		 * translators: Link to open the unlink users list.
+		 */
+		$msg_unlink_user = printf( esc_html__( '%s to see list of unlinked users.', 'eb-textdomain' ), '<a href="#">' . esc_html__( '  Click', 'eb-textdomain' ) . '</a>' );
 		wp_localize_script(
 			$this->plugin_name,
 			'eb_admin_js_object',
@@ -163,7 +165,7 @@ class Eb_Admin {
 				'msg_con_prob'                    => esc_html__( 'There is a problem while connecting to moodle server.', 'eb-textdomain' ),
 				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'eb-textdomain' ),
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'eb-textdomain' ),
-				'msg_unlink_users_list'           => esc_html__( "<a href='#'>" . esc_html__( '  Click', 'eb-textdomain' ) . '</a>' . esc_html__( ' to see list of unlinked users.', 'eb-textdomain' ) ),
+				'msg_unlink_users_list'           => $msg_unlink_user,
 				'msg_user_link_to_moodle_success' => esc_html__( 'User\'s linked to moodle successfully.', 'eb-textdomain' ),
 				'msg_mail_delivery_fail'          => esc_html__( 'Mail delivery failed.', 'eb-textdomain' ),
 				'msg_test_mail_sent_to'           => esc_html__( 'Test mail sent to ', 'eb-textdomain' ),
@@ -172,8 +174,8 @@ class Eb_Admin {
 				'msg_tpl_not_found'               => esc_html__( 'Template not found', 'eb-textdomain' ),
 				'msg_link_user'                   => esc_html__( 'Linked ', 'eb-textdomain' ),
 				'msg_unlink_user'                 => esc_html__( 'Unlinked ', 'eb-textdomain' ),
-				'msg_error_unlink_user'           => '<div>' . esc_html__( 'Sorry, unable to link user', 'eb-textdomain' ) . '<ol><li>' . esc_html__( 'Check if first name and last name of the user is empty.', 'eb-textdomain' ) . '</li><li>' . esc_html__( 'Please test Moodle connection.', 'eb-textdomain' ) . '</li></ol>' . esc_html__( 'To know more about this error please', 'eb-textdomain' ) . "<a target='_blank' href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin'>" . esc_html__( ' click here', 'eb-textdomain') . '</a></div>',
-				'msg_error_link_user'             => '<div>' . esc_html__( 'Sorry, unable to link user', 'eb-textdomain' ) . '<ol><li>' . esc_html__( 'Check if first name and last name of the user is empty.', 'eb-textdomain' ) . ' </li><li>' . esc_html__( 'Please test Moodle connection.', 'eb-textdomain' ) . '</li></ol>' . esc_html__( 'To know more about this error please ', 'eb-textdomain' ) . "<a target='_blank' href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin'>" . esc_html__( ' click here', 'eb-textdomain') . '</a></div>',
+				'msg_error_unlink_user'           => '<div>' . esc_html__( 'Sorry, unable to link user', 'eb-textdomain' ) . '<ol><li>' . esc_html__( 'Check if first name and last name of the user is empty.', 'eb-textdomain' ) . '</li><li>' . esc_html__( 'Please test Moodle connection.', 'eb-textdomain' ) . '</li></ol>' . esc_html__( 'To know more about this error please', 'eb-textdomain' ) . "<a target='_blank' href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a></div>',
+				'msg_error_link_user'             => '<div>' . esc_html__( 'Sorry, unable to link user', 'eb-textdomain' ) . '<ol><li>' . esc_html__( 'Check if first name and last name of the user is empty.', 'eb-textdomain' ) . ' </li><li>' . esc_html__( 'Please test Moodle connection.', 'eb-textdomain' ) . '</li></ol>' . esc_html__( 'To know more about this error please ', 'eb-textdomain' ) . "<a target='_blank' href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a></div>',
 				'msg_error_moodle_link'           => esc_html__( 'Sorry, unable to link to the moodle', 'eb-textdomain' ),
 				'msg_confirm_refund'              => esc_html__( 'Do you want to refund for the order id: #', 'eb-textdomain' ),
 				'eb_order_refund_nonce'           => wp_create_nonce( 'eb_order_refund_nons_field' ),
