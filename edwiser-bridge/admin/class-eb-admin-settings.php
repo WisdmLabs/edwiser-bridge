@@ -210,7 +210,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			} elseif ( ! is_null( $option_value ) ) {
 				$option_value = stripslashes( $option_value );
 			}
-
 			return null === $option_value ? $default : $option_value;
 		}
 
@@ -220,6 +219,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * Output admin fields.
 		 *
+		 * @deprecated since 2.0.1 use output_fields( $options ) insted.
 		 * Loops though the edw options array and outputs each field.
 		 *
 		 * @since  1.0.0
@@ -290,9 +290,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				switch ( $value['type'] ) {
 					// Section Titles.
 					case 'title':
-						if ( ! isset( $value['class'] ) ) {
-							$value['class'] = '';
-						}
 						if ( ! empty( $value['title'] ) ) {
 							echo "<h3 class='" . $value['class'] . "'>" . esc_html( $value['title'] ) . '</h3>';
 						}
@@ -707,6 +704,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 *
 		 * Loops though the edw options array and outputs each field.
 		 *
+		 * @deprecated since 2.0.1 use save_fields( $options ) insted.
 		 * @since  1.0.0
 		 *
 		 * @param array $options Opens array to output.
