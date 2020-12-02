@@ -30,11 +30,11 @@
  * @package  Edwiser Bridge
  */
 
-define( 'TWPW_NAME', 'Enhanced Paypal Shortcodes' );    // Name of the Plugin.
-define( 'TWPW_VERSION', '0.5a' );            // Current version of the Plugin.
-define( 'ALT_ADD', 'Add to cart (Paypal)' );    // alternate text for "Add to cart" image.
-define( 'ALT_VIEW', 'View Paypal cart' );        // alternate text for "View cart" image.
-define( 'ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscribe" image.
+define( 'EB_WPW_NAME', 'Enhanced Paypal Shortcodes' );    // Name of the Plugin.
+define( 'EB_TWPW_VERSION', '0.5a' );            // Current version of the Plugin.
+define( 'EB_ALT_ADD', 'Add to cart (Paypal)' );    // alternate text for "Add to cart" image.
+define( 'EB_ALT_VIEW', 'View Paypal cart' );        // alternate text for "View cart" image.
+define( 'EB_ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscribe" image.
 
 
 /**
@@ -287,13 +287,13 @@ define( 'ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscri
 *  All formatting options work on three button types.
  */
 
-if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
+if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 	/**
 	 * Enhanced_paypal_shortcode.
 	 *
 	 * @param array $atts atts.
 	 */
-	function enhanced_paypal_shortcode( $atts ) {
+	function eb_enhanced_paypal_shortcode( $atts ) {
 		$atts = shortcode_atts(
 			array(
 				'type'         => '',
@@ -350,7 +350,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 			case 'paynow':
 				$code = '
 			<div style="';
-				check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
+				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
 				if ( $atts['divwidth'] > 0 ) {
 					$code .= 'width: ' . $atts['divwidth'] . ';';
@@ -383,7 +383,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				$pixel_url  = 'https://www.paypal.com/en_US/i/scr/pixel.gif';
 				$button_url = 'https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
 
-				if ( 1 == $atts['sandbox'] ) {
+				if ( 1 === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 					$pixel_url  = 'https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif';
 					$button_url = 'https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
@@ -400,21 +400,21 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 			<input type="hidden" name="amount" value="' . $atts['amount'] . '">';
 
 				// Add Quantity.
-				if ( 'ask' == $atts['qty'] ) {
+				if ( 'ask' === $atts['qty'] ) {
 					$code .= '<input type="hidden" name="undefined_quantity" value="1">';
 				} else {
 					$code .= '<input type="hidden" name="quantity" value="' . $atts['qty'] . '">';
 				}
 
 				// Add Shipping.
-				check_array_value(
+				eb_check_array_value(
 					$atts['shipping'],
 					$code,
 					'<input type="hidden" name="shipping" value="' . $atts['shipping'] . '">'
 				);
 
 				// Add Shipping2 - additional items shipping.
-				check_array_value(
+				eb_check_array_value(
 					$atts['shipping2'],
 					$code,
 					'<input type="hidden" name="shipping2" value="' . $atts['shipping2'] . '">'
@@ -423,14 +423,14 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0"
-					name="submit" alt="' . ALT_ADD . '"';
+					name="submit" alt="' . EB_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
 					$code .= ' class="ppalbtn">';
 				} else {
 					$code .= '<input type="hidden" src="' . $button_url . '" border="0" name="submit"
-					alt="' . ALT_ADD . '" class="ppalbtn">';
+					alt="' . EB_ALT_ADD . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
 				class="wdm-btn eb-paid-course" id="eb_course_payment_button">';
@@ -451,58 +451,58 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				}
 
 				// Add language code.
-				check_array_value( $atts['lc'], $code, '<input type="hidden" name="lc" value="' . $atts['lc'] . '">' );
+				eb_check_array_value( $atts['lc'], $code, '<input type="hidden" name="lc" value="' . $atts['lc'] . '">' );
 
 				// Checkout Page Variables.
 				// Add return to merchant text.
-				check_array_value( $atts['cbt'], $code, '<input type="hidden" name="cbt" value="' . $atts['cbt'] . '">' );
+				eb_check_array_value( $atts['cbt'], $code, '<input type="hidden" name="cbt" value="' . $atts['cbt'] . '">' );
 
 				// Add Cancel Return URL.
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelreturn'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelreturn'] . '">'
 				);
 
 				// Add Special Instructions.
-				check_array_value(
+				eb_check_array_value(
 					$atts['cn'],
 					$code,
 					'<input type="hidden" name="cn" value="' . $atts['cn'] . '">'
 				);
 
 				// Add Page Style.
-				check_array_value(
+				eb_check_array_value(
 					$atts['pagestyle'],
 					$code,
 					'<input type="hidden" name="page_style" value="' . $atts['pagestyle'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl2'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl2'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['returnurl'],
 					$code,
 					'<input type="hidden" name="return" value="' . $atts['returnurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelurl'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['custom'],
 					$code,
 					'<input type="hidden" name="custom" value="' . $atts['custom'] . '">'
@@ -518,7 +518,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 			case 'subscribe':
 				$code = '
 			<div style="';
-				check_array_value( $atts['textalignte'], $code, 'text-align: ' . $atts['textalign'] . ';' );
+				eb_check_array_value( $atts['textalignte'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
 				if ( $atts['divwidth'] > 0 ) {
 					$code .= 'width: ' . $atts['divwidth'] . ';';
@@ -552,7 +552,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= 'margin-bottom: 10px;';
 				}
 				$paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-				if ( 1 == $atts['sandbox'] ) {
+				if ( 1 === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 				}
 				$code .= '"><form name="subscribewithpaypal" action="' . $paypal_url . '" method="post">
@@ -563,7 +563,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0"
-					name="submit" alt="' . ALT_ADD . '"';
+					name="submit" alt="' . EB_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
@@ -576,31 +576,31 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) .
 						'" class="wdm-btn eb-paid-course" id="eb_course_payment_button ">';
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['email'],
 					$code,
 					'<input type="hidden" name="business" value="' . $atts['email'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['currencycode'],
 					$code,
 					'<input type="hidden" name="currency_code" value="' . $atts['currencycode'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['itemno'],
 					$code,
 					'<input type="hidden" name="item_number" value="' . $atts['itemno'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['name'],
 					$code,
 					'<input type="hidden" name="item_name" value="' . $atts['name'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['amount'],
 					$code,
 					'<input type="hidden" name="amount" value="' . $atts['amount'] . '">'
@@ -621,7 +621,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" name="p1" value="' . $atts['p1'] . '">';
 				}
 
-				check_array_value( $atts['t1'], $code, '<input type="hidden" name="t1" value="' . $atts['t1'] . '">' );
+				eb_check_array_value( $atts['t1'], $code, '<input type="hidden" name="t1" value="' . $atts['t1'] . '">' );
 
 				/* Trial 2 settings */
 				if ( $atts['a2'] > -1 ) {
@@ -632,7 +632,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" name="p2" value="' . $atts['p2'] . '">';
 				}
 
-				check_array_value( $atts['t2'], $code, '<input type="hidden" name="t2" value="' . $atts['t2'] . '">' );
+				eb_check_array_value( $atts['t2'], $code, '<input type="hidden" name="t2" value="' . $atts['t2'] . '">' );
 
 				/* Ongoing subscription */
 				if ( $atts['a3'] > 0 ) {
@@ -643,10 +643,10 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" name="p3" value="' . $atts['p3'] . '">';
 				}
 
-				check_array_value( $atts['t3'], $code, '<input type="hidden" name="t3" value="' . $atts['t3'] . '">' );
+				eb_check_array_value( $atts['t3'], $code, '<input type="hidden" name="t3" value="' . $atts['t3'] . '">' );
 
 				// SRC - are payments recurring? 0 = No, 1 = Yes.
-				if ( 0 == $atts['src'] ) {
+				if ( 0 === $atts['src'] ) {
 					$code .= '<input type="hidden" name="src" value="0">';
 				} else {
 					$code .= '<input type="hidden" name="src" value="1">';
@@ -658,7 +658,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				}
 
 				// SRA - re-attempt if fail?  0 = No, 1 = Yes.
-				if ( 0 == $atts['sra'] ) {
+				if ( 0 === $atts['sra'] ) {
 					$code .= '<input type="hidden" name="sra" value="0">';
 				} else {
 					$code .= '<input type="hidden" name="sra" value="1">';
@@ -668,59 +668,59 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" name="rm" value="' . $atts['rm'] . '">';
 				}
 
-				check_array_value( $atts['lc'], $code, '<input type="hidden" name="lc" value="' . $atts['lc'] . '">' );
+				eb_check_array_value( $atts['lc'], $code, '<input type="hidden" name="lc" value="' . $atts['lc'] . '">' );
 
-				check_array_value( $atts['cbt'], $code, '<input type="hidden" name="cbt" value="' . $atts['cbt'] . '">' );
+				eb_check_array_value( $atts['cbt'], $code, '<input type="hidden" name="cbt" value="' . $atts['cbt'] . '">' );
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['modify'],
 					$code,
 					'<input type="hidden" name="modify" value="' . $atts['modify'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelreturn'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelreturn'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['cn'],
 					$code,
 					'<input type="hidden" name="cn" value="' . $atts['cn'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['pagestyle'],
 					$code,
 					'<input type="hidden" name="page_style" value="' . $atts['pagestyle'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl2'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl2'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['returnurl'],
 					$code,
 					'<input type="hidden" name="return" value="' . $atts['returnurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelurl'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['scriptcode'],
 					$code,
 					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
@@ -730,7 +730,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				break;
 			case 'hosted':
 				$code = '<div style="';
-				check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
+				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
 				if ( $atts['divwidth'] > 0 ) {
 					$code .= 'width: ' . $atts['divwidth'] . ';';
@@ -772,7 +772,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0" name="submit"
-					alt="' . ALT_ADD . '"';
+					alt="' . EB_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
@@ -791,7 +791,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				break;
 			case 'addtocart':
 				$code = '<div style="';
-				check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
+				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
 				if ( $atts['divwidth'] > 0 ) {
 					$code .= 'width: ' . $atts['divwidth'] . ';';
@@ -861,72 +861,72 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" name="quantity" value="' . $atts['qty'] . '">';
 				}
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['shipping'],
 					$code,
 					'<input type="hidden" name="shipping" value="' . $atts['shipping'] . '">'
 				);
 
 				// Add Shipping2 - additional items shipping.
-				check_array_value(
+				eb_check_array_value(
 					$atts['shipping2'],
 					$code,
 					'<input type="hidden" name="shipping2" value="' . $atts['shipping2'] . '">'
 				);
 
 				// Add return to merchant text.
-				check_array_value(
+				eb_check_array_value(
 					$atts['cbt'],
 					$code,
 					'<input type="hidden" name="cbt" value="' . $atts['cbt'] . '">'
 				);
 
 				// Add Cancel Return URL.
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelreturn'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelreturn'] . '">'
 				);
 
 				// Add Special Instructions.
-				check_array_value(
+				eb_check_array_value(
 					$atts['cn'],
 					$code,
 					'<input type="hidden" name="cn" value="' . $atts['cn'] . '">'
 				);
 
 				// Add Page Style.
-				check_array_value(
+				eb_check_array_value(
 					$atts['pagestyle'],
 					$code,
 					'<input type="hidden" name="page_style" value="' . $atts['pagestyle'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['notifyurl2'],
 					$code,
 					'<input type="hidden" name="notify_url" value="' . $atts['notifyurl2'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['returnurl'],
 					$code,
 					'<input type="hidden" name="return" value="' . $atts['returnurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['cancelurl'],
 					$code,
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				check_array_value(
+				eb_check_array_value(
 					$atts['scriptcode'],
 					$code,
 					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
@@ -935,14 +935,14 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0" name="submit"
-					alt="' . ALT_ADD . '"';
+					alt="' . EB_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
 					$code .= ' class="ppalbtn">';
 				} else {
 					$code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
-					border="0" name="submit" alt="' . ALT_ADD . '" class="ppalbtn">';
+					border="0" name="submit" alt="' . EB_ALT_ADD . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb-paid-course"
 				id="eb_course_payment_button">';
@@ -963,7 +963,7 @@ if ( ! function_exists( 'enhanced_paypal_shortcode' ) ) {
 	}
 }
 
-add_shortcode( 'paypal', 'enhanced_paypal_shortcode' );
+add_shortcode( 'paypal', 'eb_enhanced_paypal_shortcode' );
 
 /**
  * Check array value.
@@ -972,7 +972,7 @@ add_shortcode( 'paypal', 'enhanced_paypal_shortcode' );
  * @param array $code code.
  * @param array $value value.
  */
-function check_array_value( $prop, &$code, $value ) {
+function eb_check_array_value( $prop, &$code, $value ) {
 	if ( $prop ) {
 		$code .= $value;
 	}

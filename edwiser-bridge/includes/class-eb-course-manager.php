@@ -571,7 +571,7 @@ class Eb_Course_Manager {
 		global $wpdb;
 
 		// sort category response by id in incremental order.
-		usort( $category_response, 'usort_numeric_callback' );
+		usort( $category_response, 'eb_usort_numeric_callback' );
 
 		foreach ( $category_response as $category ) {
 			$cat_name_clean = preg_replace( '/\s*/', '', $category->name );

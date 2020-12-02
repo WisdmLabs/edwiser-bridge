@@ -1,25 +1,26 @@
 <?php
-
 /**
  * Shortcode eb_course
  *
  * @link       https://edwiser.org
  * @since      1.2.0
- *
+ * @package    Edwiser bridge
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * COurse.
+ */
 class Eb_Shortcode_Course {
-
 
 	/**
 	 * Get the shortcode content.
 	 *
 	 * @since  1.2.0
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 *
 	 * @return string
 	 */
@@ -32,20 +33,19 @@ class Eb_Shortcode_Course {
 	 *
 	 * @since  1.2.0
 	 *
-	 * @param array $atts
+	 * @param array $atts attas.
 	 */
 	public static function output( $atts ) {
-		extract(
-			$atts = shortcode_atts(
-				apply_filters(
-					'eb_output_course_defaults',
-					array(
-						'id' => '',
-					)
-				),
-				$atts
-			)
+		$atts = shortcode_atts(
+			apply_filters(
+				'eb_output_course_defaults',
+				array(
+					'id' => '',
+				)
+			),
+			$atts
 		);
+		// extract( $atts );
 
 		// Course id required.
 		if ( ! isset( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {

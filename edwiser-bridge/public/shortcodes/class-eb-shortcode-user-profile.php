@@ -1,16 +1,19 @@
 <?php
-
 /**
  * The file that defines the user profile shortcode.
  *
  * @link       https://edwiser.org
  * @since      1.0.2
  * @deprecated 1.2.0 Use shortcode eb_user_account
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Profile.
+ */
 class Eb_Shortcode_User_Profile {
 
 
@@ -19,7 +22,7 @@ class Eb_Shortcode_User_Profile {
 	 *
 	 * @since  1.0.2
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 *
 	 * @return string
 	 */
@@ -32,7 +35,7 @@ class Eb_Shortcode_User_Profile {
 	 *
 	 * @since  1.0.2
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 */
 	public static function output( $atts ) {
 		if ( ! is_user_logged_in() ) {
@@ -42,7 +45,7 @@ class Eb_Shortcode_User_Profile {
 			);
 			$template_loader->wp_get_template( 'account/form-login.php' );
 		} else {
-			self::userProfile( $atts );
+			self::user_profile( $atts );
 		}
 	}
 
@@ -51,9 +54,9 @@ class Eb_Shortcode_User_Profile {
 	 *
 	 * @since  1.0.2
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 */
-	public static function userProfile( $atts ) {
+	public static function user_profile( $atts ) {
 		extract(
 			shortcode_atts(
 				array(
@@ -80,10 +83,10 @@ class Eb_Shortcode_User_Profile {
 			'posts_per_page' => -1,
 		);
 
-		// fetch courses
+		// fetch courses.
 		$courses = get_posts( $course_args );
 
-		// remove course from array in which user is not enrolled
+		// remove course from array in which user is not enrolled.
 		foreach ( $courses as $key => $course ) {
 			$has_access = edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course->ID );
 
@@ -92,12 +95,12 @@ class Eb_Shortcode_User_Profile {
 			}
 		}
 		if ( is_array( $courses ) ) {
-			$courses = array_values( $courses ); // reset array keys
+			$courses = array_values( $courses ); // reset array keys.
 		} else {
 			$courses = array();
 		}
 
-		// load profile template
+		// load profile template.
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
@@ -114,6 +117,9 @@ class Eb_Shortcode_User_Profile {
 		);
 	}
 
+	/**
+	 * Save.
+	 */
 	public static function save_account_details() {
 		if ( self::is_update_user_profile() ) {
 			$user         = new \stdClass();
@@ -132,7 +138,7 @@ class Eb_Shortcode_User_Profile {
 				} else {
 					// Profile updated on Moodle successfully.
 					if ( self::update_moodle_profile( $posted_data ) ) {
-						self::update_WordPress_profile( $posted_data );
+						self::update_wordpress_profile( $posted_data );
 
 						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'eb-textdomain' ) . '</p>';
 
@@ -145,8 +151,11 @@ class Eb_Shortcode_User_Profile {
 		}
 	}
 
+	/**
+	 * Update.
+	 */
 	public static function is_update_user_profile() {
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) ) {
 			return false;
 		}
 
@@ -157,6 +166,9 @@ class Eb_Shortcode_User_Profile {
 		return true;
 	}
 
+	/**
+	 * Get .
+	 */
 	public static function get_posted_data() {
 		$posted_data = array();
 
@@ -173,10 +185,16 @@ class Eb_Shortcode_User_Profile {
 		return $posted_data;
 	}
 
+	/**
+	 * FIeld.
+	 *
+	 * @param text $fieldname fieldname.
+	 * @param text $sanitize sanitize.
+	 */
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
 		$val = '';
 		if ( isset( $_POST[ $fieldname ] ) && ! empty( $_POST[ $fieldname ] ) ) {
-			$val = $_POST[ $fieldname ];
+			$val = sanitize_text_field( wp_unslash( $_POST[ $fieldname ] ) );
 			if ( $sanitize ) {
 				$val = sanitize_text_field( $val );
 			}
@@ -185,6 +203,11 @@ class Eb_Shortcode_User_Profile {
 		return $val;
 	}
 
+	/**
+	 * Error.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
 	public static function get_errors( $posted_data ) {
 		$user         = new \stdClass();
 		$user->ID     = (int) get_current_user_id();
@@ -225,6 +248,11 @@ class Eb_Shortcode_User_Profile {
 		return $errors;
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
 	public static function update_moodle_profile( $posted_data ) {
 		$user     = new \stdClass();
 		$user->ID = (int) get_current_user_id();
@@ -259,7 +287,12 @@ class Eb_Shortcode_User_Profile {
 		return false;
 	}
 
-	public static function update_WordPress_profile( $posted_data ) {
+	/**
+	 * Profile.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
+	public static function update_wordpress_profile( $posted_data ) {
 		$user     = new \stdClass();
 		$user->ID = (int) get_current_user_id();
 

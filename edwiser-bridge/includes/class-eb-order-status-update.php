@@ -187,7 +187,7 @@ class Eb_Order_Status {
 			'amt'      => $refund_amt,
 			'by'       => $cur_user->user_login,
 			'time'     => current_time(),
-			'currency' => get_current_paypal_currency_symb(),
+			'currency' => eb_get_current_paypal_currency_symb(),
 		);
 		if ( is_array( $refunds ) ) {
 			$refunds[] = $refund;

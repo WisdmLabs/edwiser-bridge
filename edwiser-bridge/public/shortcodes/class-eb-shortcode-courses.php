@@ -4,11 +4,15 @@
  *
  * @link       https://edwiser.org
  * @since      1.2.0
- *
+ * @package    Edwiser Bridge
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Courses.
+ */
 class Eb_Shortcode_Courses {
 
 
@@ -17,7 +21,7 @@ class Eb_Shortcode_Courses {
 	 *
 	 * @since  1.2.0
 	 *
-	 * @param array $atts
+	 * @param array $atts atta.
 	 *
 	 * @return string
 	 */
@@ -30,25 +34,24 @@ class Eb_Shortcode_Courses {
 	 *
 	 * @since  1.2.0
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 */
 	public static function output( $atts ) {
-		extract(
-			$atts = shortcode_atts(
-				apply_filters(
-					'eb_shortcode_courses_defaults',
-					array(
-						'categories'          => '',
-						'order'               => 'DESC',
-						'group_by_cat'        => 'no',
-						'cat_per_page'        => '4', // -1 for all in one row
-						'horizontally_scroll' => 'no',
-						'per_page'            => 10,
-					)
-				),
-				$atts
-			)
+		$atts = shortcode_atts(
+			apply_filters(
+				'eb_shortcode_courses_defaults',
+				array(
+					'categories'          => '',
+					'order'               => 'DESC',
+					'group_by_cat'        => 'no',
+					'cat_per_page'        => '4', // -1 for all in one row
+					'horizontally_scroll' => 'no',
+					'per_page'            => 10,
+				)
+			),
+			$atts
 		);
+		// extract( $atts );
 
 		$args = array(
 			'post_type'      => 'eb_course',
@@ -97,7 +100,7 @@ class Eb_Shortcode_Courses {
 			$cat_cnt  = count( $disp_cat );
 			$page     = 1;
 			if ( isset( $_GET['eb-cat-page-no'] ) ) {
-				$page = $_GET['eb-cat-page-no'];
+				$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
 			}
 			$cat_start              = $page * (int) $atts['cat_per_page'] - (int) $atts['cat_per_page'];
 			$cnt                    = 0;
@@ -109,7 +112,7 @@ class Eb_Shortcode_Courses {
 				}
 				?>
 				<div class='eb-cat-parent'>
-					<h3 class="eb-cat-title"><?php echo $category->name; ?></h3>
+					<h3 class="eb-cat-title"><?php echo esc_html( $category->name ); ?></h3>
 					<?php
 					$args['tax_query'] = array(
 						array(
@@ -143,7 +146,7 @@ class Eb_Shortcode_Courses {
 	/**
 	 * It will  check which categorys need to show in the shortcode output
 	 *
-	 * @param array $input_cat Array of the category slugs to display courses from those categorys only
+	 * @param array $input_cat Array of the category slugs to display courses from those categorys only.
 	 * @return array returns array of the categorys object
 	 */
 	public function showCatView( $input_cat ) {
@@ -168,10 +171,10 @@ class Eb_Shortcode_Courses {
 	/**
 	 * Genrates the pagination for the category view
 	 *
-	 * @param int $cat_cnt total category count
-	 * @param int $per_page Categorys to display on each page
-	 * @param int $current_page current page number shown in output
-	 * @return HTML returns the html output for the pagination
+	 * @param int $cat_cnt total category count.
+	 * @param int $per_page Categorys to display on each page.
+	 * @param int $current_page current page number shown in output.
+	 * @return HTML returns the html output for the pagination.
 	 */
 	public function catPagination( $cat_cnt, $per_page, $current_page = 1 ) {
 		/**
@@ -184,14 +187,14 @@ class Eb_Shortcode_Courses {
 		ob_start();
 		?>
 		<nav class="navigation pagination" role="navigation">
-			<h2 class="screen-reader-text"><?php _e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
+			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
 			<div class="nav-links">
 				<?php
 				$page = 1;
 				if ( 1 !== $current_page ) {
 					?>
-					<a class="prev page-numbers" href="<?php echo add_query_arg( array( 'eb-cat-page-no' => $current_page - 1 ), get_permalink() ); ?>">
-						<?php _e( '&larr;', 'eb-textdomain' ); ?>
+					<a class="prev page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $current_page - 1 ), get_permalink() ) ); ?>">
+						<?php esc_html_e( '&larr;', 'eb-textdomain' ); ?>
 					</a>
 					<?php
 				}
@@ -201,14 +204,14 @@ class Eb_Shortcode_Courses {
 						?>
 						<span class="page-numbers current">
 							<span class="meta-nav screen-reader-text">Page </span>
-							<?php echo $page; ?>
+							<?php echo esc_html( $page ); ?>
 						</span>
 						<?php
 						$page_id_css .= ' current';
 					} else {
 						?>
-						<a class="page-numbers" href="<?php echo add_query_arg( array( 'eb-cat-page-no' => $page ), get_permalink() ); ?>">
-							<?php echo $page; ?>
+						<a class="page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $page ), get_permalink() ) ); ?>">
+							<?php echo esc_html( $page ); ?>
 						</a>
 						<?php
 					}
@@ -216,8 +219,8 @@ class Eb_Shortcode_Courses {
 				}
 				if ( $current_page < $page - 1 ) {
 					?>
-					<a class="next page-numbers" href="<?php echo add_query_arg( array( 'eb-cat-page-no' => $current_page <= 1 ? 2 : $current_page + 1 ), get_permalink() ); ?>">
-						<?php _e( '&rarr;', 'eb-textdomain' ); ?>
+					<a class="next page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $current_page <= 1 ? 2 : $current_page + 1 ), get_permalink() ) ); ?>">
+						<?php esc_html_e( '&rarr;', 'eb-textdomain' ); ?>
 					</a>
 					<?php
 				}
@@ -231,7 +234,7 @@ class Eb_Shortcode_Courses {
 	/**
 	 * This will print the courses list.
 	 *
-	 * @param Array   $args Get courses posts selection parameters
+	 * @param Array   $args Get courses posts selection parameters.
 	 * @param boolean $group_by_cat group the courses by categorys or not.
 	 */
 	public function genCoursesGridView( $args, $group_by_cat ) {
@@ -241,7 +244,7 @@ class Eb_Shortcode_Courses {
 		}
 		$custom_query = new \WP_Query( $args );
 
-		// Pagination fix
+		// Pagination fix.
 		$temp_query = isset( $wp_query ) ? $wp_query : null;
 		$wp_query   = null;
 		$wp_query   = $custom_query;
@@ -251,7 +254,7 @@ class Eb_Shortcode_Courses {
 			edwiser_bridge_instance()->get_version()
 		);
 		?>
-		<div class="<?php echo $scroll_class; ?>">
+		<div class="<?php echo esc_html( $scroll_class ); ?>">
 			<?php if ( $group_by_cat ) { ?>
 				<span class="fa fa-angle-left eb-scroll-left" id="eb-scroll-left"></span>
 			<?php } ?>
@@ -275,7 +278,7 @@ class Eb_Shortcode_Courses {
 					'max_num_pages' => $custom_query->max_num_pages,
 				)
 			);
-			// Reset main query object
+			// Reset main query object.
 			$wp_query = null;
 			$wp_query = $temp_query;
 			do_action( 'eb_after_course_archive' );

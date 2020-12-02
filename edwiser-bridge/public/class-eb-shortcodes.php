@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the shortcodes used in plugin.
  *
@@ -13,14 +12,16 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Shortcode.
+ */
 class Eb_Shortcodes {
-
 
 	/**
 	 * Init shortcodes
 	 */
 	public static function init() {
-		// Define shortcodes
+		// Define shortcodes.
 		$shortcodes = array(
 			'eb_user_account' => __CLASS__ . '::user_account',
 			'eb_user_profile' => __CLASS__ . '::user_profile', // Deprecated. Use shortcode eb_user_account.
@@ -38,8 +39,9 @@ class Eb_Shortcodes {
 	 * Shortcode Wrapper
 	 *
 	 * @since  1.0.0
-	 * @param mixed $function
-	 * @param array $atts     (default: array())
+	 * @param mixed $function fun.
+	 * @param array $atts     (default: array()).
+	 * @param array $wrapper     wrapper.
 	 * @return string
 	 */
 	public static function shortcode_wrapper(
@@ -57,18 +59,18 @@ class Eb_Shortcodes {
 		$before = empty( $wrapper['before'] ) ? '<div class="' . esc_attr( $wrapper['class'] ) . '">' : $wrapper['before'];
 		$after  = empty( $wrapper['after'] ) ? '</div>' : $wrapper['after'];
 
-		echo $before;
+		echo esc_html( $before );
 		call_user_func( $function, $atts );
-		echo $after;
+		echo esc_html( $after );
 
 		return ob_get_clean();
 	}
 
 	/**
-	 * user account shortcode.
+	 * User account shortcode.
 	 *
 	 * @since  1.0.0
-	 * @param mixed $atts
+	 * @param mixed $atts atts.
 	 * @return string
 	 */
 	public static function user_account( $atts ) {
@@ -76,11 +78,11 @@ class Eb_Shortcodes {
 	}
 
 	/**
-	 * user profile shortcode, display user details & courses on one page.
+	 * User profile shortcode, display user details & courses on one page.
 	 *
 	 * @since  1.0.2
 	 * @deprecated 1.2.0 Use shortcode eb_user_account
-	 * @param mixed $atts
+	 * @param mixed $atts atts.
 	 * @return string
 	 */
 	public static function user_profile( $atts ) {
@@ -88,10 +90,10 @@ class Eb_Shortcodes {
 	}
 
 	/**
-	 * courses shortcode, display courses.
+	 * Courses shortcode, display courses.
 	 *
 	 * @since  1.2.0
-	 * @param mixed $atts
+	 * @param mixed $atts atts.
 	 * @return courses
 	 */
 	public static function courses( $atts ) {
@@ -99,10 +101,10 @@ class Eb_Shortcodes {
 	}
 
 	/**
-	 * course shortcode, displays single course.
+	 * Course shortcode, displays single course.
 	 *
 	 * @since  1.2.0
-	 * @param mixed $atts
+	 * @param mixed $atts atts.
 	 * @return course
 	 */
 	public static function course( $atts ) {
@@ -110,10 +112,10 @@ class Eb_Shortcodes {
 	}
 
 	/**
-	 * eb_my_courses shortcode, shows courses belonging to a user.
+	 * Eb_my_courses shortcode, shows courses belonging to a user.
 	 *
 	 * @since  1.2.0
-	 * @param mixed $atts
+	 * @param mixed $atts atts.
 	 * @return courses
 	 */
 	public static function my_courses( $atts ) {

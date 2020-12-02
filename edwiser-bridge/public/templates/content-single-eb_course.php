@@ -69,9 +69,9 @@ $terms      = wp_get_post_terms(
 ); // @codingStandardsIgnoreLine.
 
 if ( is_array( $terms ) ) {
-	foreach ( $terms as $term ) {
-		$lnk          = get_term_link( $term->term_id, 'eb_course_cat' );
-		$categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . $term->name . '</a>';
+	foreach ( $terms as $eb_term ) {
+		$lnk          = get_term_link( $eb_term->term_id, 'eb_course_cat' );
+		$categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . $eb_term->name . '</a>';
 	}
 }
 
@@ -111,7 +111,7 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			if ( has_post_thumbnail() ) {
 				the_post_thumbnail( 'course_single' );
 			} else {
-				echo '<img src="' . EB_PLUGIN_URL . 'images/no-image.jpg" />';
+				echo '<img src="' . esc_html( EB_PLUGIN_URL ) . 'images/no-image.jpg" />';
 			}
 			?>
 		</div>
@@ -125,23 +125,23 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 						?>
 						<div class="
 						<?php
-						echo 'wdm-price' . $course_price_type;
+						echo 'wdm-price' . esc_html( $course_price_type );
 						?>
 						">
-									<?php echo '<h3>' . $course_price_formatted . '</h3>'; ?>
+									<?php echo '<h3>' . esc_html( $course_price_formatted ) . '</h3>'; ?>
 						</div>
 						<?php
-						echo ob_get_clean();
+						echo esc_html( ob_get_clean() );
 					}
-					echo Eb_Payment_Manager::take_course_button( $post->ID );
+					echo esc_html( Eb_Payment_Manager::take_course_button( $post->ID ) );
 				} else {
-					echo Eb_Payment_Manager::access_course_button( $post->ID );
+					echo esc_html( Eb_Payment_Manager::access_course_button( $post->ID ) );
 				}
 
 				if ( count( $categories ) ) {
 					?>
 					<div  class="eb-cat-wrapper">
-						<span><strong><?php _e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo implode( ', ', $categories ); ?></span>
+						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo esc_html( implode( ', ', $categories ) ); ?></span>
 					</div>                  
 					<?php
 				}
@@ -166,14 +166,14 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 				<?php
 		} else {
 			?>
-			<h2><?php _e( 'Course Overview', 'eb-textdomain' ); ?></h2>
+			<h2><?php esc_html_e( 'Course Overview', 'eb-textdomain' ); ?></h2>
 			<?php
 			the_content();
 
 			if ( ! $has_access || ! is_user_logged_in() ) {
-				echo Eb_Payment_Manager::take_course_button( $post->ID );
+				echo esc_html( Eb_Payment_Manager::take_course_button( $post->ID ) );
 			} else {
-				echo Eb_Payment_Manager::access_course_button( $post->ID );
+				echo esc_html( Eb_Payment_Manager::access_course_button( $post->ID ) );
 			}
 		}
 		?>

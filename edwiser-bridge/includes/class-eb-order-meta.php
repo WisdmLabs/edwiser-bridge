@@ -63,7 +63,7 @@ class Eb_Order_Meta {
 			esc_html_e( 'Refund not available for this order', 'eb-textdomain' );
 			return;
 		}
-		$currency       = get_current_paypal_currency_symb();
+		$currency       = eb_get_current_paypal_currency_symb();
 		$price          = $this->get_course_price( $post->ID );
 		$refunds        = $this->get_orders_all_refund( $post->ID );
 		$refunded_amt   = get_total_refund_amt( $refunds );

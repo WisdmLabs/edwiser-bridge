@@ -59,7 +59,7 @@ class EbTemplateLoader {
 	 * overrides in /theme/edw/ by default
 	 *
 	 * @since 1.0.0
-	 * @param mixed $template
+	 * @param mixed $template temp.
 	 * @return string
 	 */
 	public function template_loader( $template ) {
@@ -93,8 +93,8 @@ class EbTemplateLoader {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param mixed  $slug
-	 * @param string $name (default: '')
+	 * @param mixed  $slug slug.
+	 * @param string $name (default: '').
 	 * @return void
 	 */
 	public function wpGetTemplatePart( $slug, $name = '' ) { // @codingStandardsIgnoreLine.
@@ -109,29 +109,29 @@ class EbTemplateLoader {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param mixed  $slug
-	 * @param string $name (default: '')
+	 * @param mixed  $slug slug.
+	 * @param string $name (default: '').
 	 * @return void
 	 */
 	public function wp_get_template_part( $slug, $name = '' ) {
 		$template = '';
 
-		// Look in yourtheme/edw/slug-name.php
+		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
 			$template = locate_template( array( "{$slug}-{$name}.php", EB_TEMPLATE_PATH . "{$slug}-{$name}.php" ) );
 		}
 
-		// Get default slug-name.php
+		// Get default slug-name.php.
 		if ( ! $template && $name && file_exists( EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php" ) ) {
 			$template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
 		}
 
-		// If template file doesn't exist, look in yourtheme/edw/slug.php
+		// If template file doesn't exist, look in yourtheme/edw/slug.php.
 		if ( ! $template ) {
 			$template = locate_template( array( "{$slug}.php", EB_TEMPLATE_PATH . "{$slug}.php" ) );
 		}
 
-		// Allow 3rd party plugin filter template file from their plugin
+		// Allow 3rd party plugin filter template file from their plugin.
 		if ( ( ! $template ) || $template ) {
 			$template = apply_filters( 'eb_get_template_part', $template, $slug, $name );
 		}
@@ -149,10 +149,10 @@ class EbTemplateLoader {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param string $template_name
-	 * @param array  $args          (default: array())
-	 * @param string $template_path (default: '')
-	 * @param string $default_path  (default: '')
+	 * @param string $template_name nsme.
+	 * @param array  $args          (default: array()).
+	 * @param string $template_path (default: '').
+	 * @param string $default_path  (default: '').
 	 * @return void
 	 */
 	public function wpGetTemplate( $template_name, $args = array(), $template_path = '', $default_path = '' ) { // @codingStandardsIgnoreLine.
@@ -166,10 +166,10 @@ class EbTemplateLoader {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param string $template_name
-	 * @param array  $args          (default: array())
-	 * @param string $template_path (default: '')
-	 * @param string $default_path  (default: '')
+	 * @param string $template_name name.
+	 * @param array  $args          (default: array()).
+	 * @param string $template_path (default: '').
+	 * @param string $default_path  (default: '').
 	 * @return void
 	 */
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
@@ -181,11 +181,11 @@ class EbTemplateLoader {
 
 		if ( ! file_exists( $located ) ) {
 			/* Translators 1: file path */
-			_doing_it_wrong( __FUNCTION__, sprintf( __( '%$1s does not exist.', 'eb-textdomain' ), '<code>' . $located . '</code>' ), '2.1' );
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . $located . '</code>' ), '2.1' );
 			return;
 		}
 
-		// Allow 3rd party plugin filter template file from their plugin
+		// Allow 3rd party plugin filter template file from their plugin.
 		$located = apply_filters( 'eb_get_template', $located, $template_name, $args, $template_path, $default_path );
 
 		do_action( 'eb_before_template_part', $template_name, $template_path, $located, $args );
@@ -206,9 +206,9 @@ class EbTemplateLoader {
 	 *
 	 * @since  1.0.0
 	 * @access public
-	 * @param string $template_name
-	 * @param string $template_path (default: '')
-	 * @param string $default_path  (default: '')
+	 * @param string $template_name name.
+	 * @param string $template_path (default: '').
+	 * @param string $default_path  (default: '').
 	 * @return string
 	 */
 	public function wp_locate_template( $template_name, $template_path = '', $default_path = '' ) {
@@ -220,7 +220,7 @@ class EbTemplateLoader {
 			$default_path = EB_PLUGIN_DIR . 'public/templates/';
 		}
 
-		// Look within passed path within the theme - this is priority
+		// Look within passed path within the theme - this is priority.
 		$template = locate_template(
 			array(
 				trailingslashit( $template_path ) . $template_name,
@@ -228,12 +228,12 @@ class EbTemplateLoader {
 			)
 		);
 
-		// Get default template
+		// Get default template.
 		if ( ! $template ) {
 			$template = $default_path . $template_name;
 		}
 
-		// Return what we found
+		// Return what we found.
 		return apply_filters( 'eb_locate_template', $template, $template_name, $template_path );
 	}
 }

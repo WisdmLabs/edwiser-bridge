@@ -1,9 +1,12 @@
 <?php
 /**
  * New User Account Email Template.
+ *
+ * @package Edwiser Bridge.
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 ?>
 
@@ -12,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 		/* Tanslators 1: first_name */
-		printf( __( 'Hi %$1s', 'eb-textdomain' ), $args['first_name'] );
+		printf( esc_html__( 'Hi %$1s', 'eb-textdomain' ), esc_html( $args['first_name'] ) );
 	?>
 </p>
 
 <p>
 	<?php
 	printf(
-		__(
+		esc_html__(
 			'A learning account is linked to your profile.
         Use credentials given below while accessing your courses.',
 			'eb-textdomain'
@@ -31,14 +34,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 		/* Tanslators 1: username */
-		printf( __( 'Username: <strong>%$1s</strong>', 'eb-textdomain' ), $args['username'] );
+		printf( esc_html__( 'Username: <strong>%$1s</strong>', 'eb-textdomain' ), esc_html( $args['username'] ) );
 	?>
 </p>
 
 <p>
 	<?php
 		/* Tanslators 1: password */
-		printf( __( 'Password: <strong>%$1s</strong>', 'eb-textdomain' ), $args['password'] );
+		printf( esc_html__( 'Password: <strong>%$1s</strong>', 'eb-textdomain' ), esc_html( $args['password'] ) );
 	?>
 </p>
 
@@ -46,11 +49,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	/* Tanslators 1: course url */
 	printf(
-		__(
+		esc_html__(
 			'To purchase and access more courses click here: <a href="%$1s">Courses</a>.',
 			'eb-textdomain'
 		),
-		site_url( '/courses' )
+		esc_html( wp_site_url( '/courses' ) )
 	);
 	?>
 </p>

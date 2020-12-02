@@ -314,7 +314,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$order_id           = get_arr_value( $args, 'eb_order_id', false );
 			if ( $order_id ) {
 				$order_data         = get_post_meta( $order_id, 'eb_order_options', true );
-				$amt_paid_for_order = get_current_paypal_currency_symb() . get_arr_value( $order_data, 'amount_paid', '0.00' );
+				$amt_paid_for_order = eb_get_current_paypal_currency_symb() . get_arr_value( $order_data, 'amount_paid', '0.00' );
 			}
 			return $amt_paid_for_order;
 		}

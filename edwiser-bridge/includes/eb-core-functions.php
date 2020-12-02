@@ -182,7 +182,7 @@ function wdm_eb_user_redirect_url( $query_str = '' ) {
 	 * courses page is enabled in settings
 	 */
 	if ( isset( $eb_settings['eb_enable_my_courses'] ) && $eb_settings['eb_enable_my_courses'] == 'yes' ) {
-		$usr_ac_page_url = get_my_courses_page( $eb_settings );
+		$usr_ac_page_url = eb_get_my_courses_page( $eb_settings );
 	}
 
 	// Extract query string into local $_GET array.
@@ -198,7 +198,7 @@ function wdm_eb_user_redirect_url( $query_str = '' ) {
  *
  * @param text $eb_settings settings.
  */
-function get_my_courses_page( $eb_settings ) {
+function eb_get_my_courses_page( $eb_settings ) {
 	$usr_ac_page_url = site_url( '/user-account' );
 	if ( isset( $eb_settings['eb_my_courses_page_id'] ) ) {
 		$usr_ac_page_url = get_permalink( $eb_settings['eb_my_courses_page_id'] );
@@ -213,7 +213,7 @@ function get_my_courses_page( $eb_settings ) {
  * @param text $element1 element1.
  * @param text $element2 element2.
  */
-function usort_numeric_callback( $element1, $element2 ) {
+function eb_usort_numeric_callback( $element1, $element2 ) {
 	return $element1->id - $element2->id;
 }
 
@@ -223,7 +223,7 @@ function usort_numeric_callback( $element1, $element2 ) {
  * @param text $the_tag the_tag.
  * @since 1.2.0
  */
-function get_shortcode_page_content( $the_tag = '' ) {
+function eb_get_shortcode_page_content( $the_tag = '' ) {
 	// Shortcodes and their attributes.
 	$shortcodes = array(
 		'eb_my_courses' => array(
@@ -268,7 +268,7 @@ function get_shortcode_page_content( $the_tag = '' ) {
  *
  * @return mixed returns the currency in string format or symbol
  */
-function get_current_paypal_currency_symb() {
+function eb_get_current_paypal_currency_symb() {
 	$payment_options = get_option( 'eb_paypal' );
 	$currency        = $payment_options['eb_paypal_currency'];
 	if ( isset( $payment_options['eb_paypal_currency'] ) && 'USD' === $payment_options['eb_paypal_currency'] ) {

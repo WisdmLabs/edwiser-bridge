@@ -1,10 +1,12 @@
 <?php
-
 /**
  * Primary wrapper end HTML content.
+ *
+ * @package Edwiser Bridge.
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 $template = get_option( 'template' );
@@ -21,7 +23,6 @@ switch ( $template ) {
 		break;
 	case 'twentyfourteen':
 		echo '</div></div></div>';
-		// get_sidebar('content');
 		break;
 	case 'twentyfifteen':
 		echo '</div></div>';
@@ -33,7 +34,7 @@ switch ( $template ) {
 		echo '</main></div>';
 		echo '</div>';
 		break;
-		// divi
+		// divi.
 	case 'Divi':
 		echo '</div></div>';
 		// Ending one div which started in wrapper-content-start template.
@@ -43,13 +44,11 @@ switch ( $template ) {
 	case 'flatsome':
 		echo '</div></div>';
 		// Ending one div which started in wrapper-content-start template.
-		// echo '</div>';
 		break;
 
 	default:
-		// Divi container
+		// Divi container.
 		echo '</div></div>';
 		// Ending one div which started in wrapper-content-start template.
-		// echo '</div>';
 		break;
 }

@@ -2,8 +2,10 @@
 /**
  * Email Header.
  *
+ * @package Edwiser bridge.
  * @author  Wisdmlbas
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
@@ -61,22 +63,22 @@ $header_content_h1  = '
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title><?php echo get_bloginfo( 'name' ); ?></title>
+		<title><?php echo esc_html( get_bloginfo( 'name' ) ); ?></title>
 	</head>
 	<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-		<div style="<?php echo $wrapper; ?>">
+		<div style="<?php echo esc_html( $wrapper ); ?>">
 			<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
 				<tr><td align="center" valign="top">
 						<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container"
-							style="<?php echo $template_container; ?>">
+							style="<?php echo esc_html( $template_container ); ?>">
 							<tr><td align="center" valign="top">
 									<!-- Header -->
 									<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header"
-										style="<?php echo $template_header; ?>">
+										style="<?php echo esc_html( $template_header ); ?>">
 										<tr>
 											<td>
-												<h1 style="<?php echo $header_content_h1; ?>">
-													<?php echo $header; ?></h1>
+												<h1 style="<?php echo esc_html( $header_content_h1 ); ?>">
+													<?php echo esc_html( $header ); ?></h1>
 											</td>
 										</tr>
 									</table>
@@ -87,9 +89,9 @@ $header_content_h1  = '
 									<!-- Body -->
 									<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
 										<tr>
-											<td valign="top" style="<?php echo $body_content; ?>">
+											<td valign="top" style="<?php echo esc_html( $body_content ); ?>">
 												<!-- Content -->
 												<table border="0" cellpadding="20" cellspacing="0" width="100%">
 													<tr>
 														<td valign="top">
-															<div style="<?php echo $body_content_inner; ?>">
+															<div style="<?php echo esc_html( $body_content_inner ); ?>">

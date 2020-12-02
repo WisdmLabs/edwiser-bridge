@@ -1,7 +1,19 @@
+<?php
+/**
+ * User account.
+ *
+ * @link       https://edwiser.org
+ * @since      1.0.2
+ * @deprecated 1.2.0 Use shortcode eb_user_account
+ * @package    Edwiser Bridge.
+ * @author     WisdmLabs <support@wisdmlabs.com>
+ */
+
+?>
 
 <section class="eb-user-info eb-edit-user-wrapper">
 	<aside class="eb-user-picture">
-		<?php echo $user_avatar; ?>
+		<?php echo esc_html( $user_avatar ); ?>
 	</aside>
 	<div class="eb-user-data">
 		<?php
@@ -11,7 +23,7 @@
 		<div>
 			<?php
 			$user_info = get_userdata( get_current_user_id() );
-			echo $user_info->description;
+			echo esc_html( $user_info->description );
 			?>
 		</div>
 	</div>

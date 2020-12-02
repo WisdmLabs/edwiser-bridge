@@ -4,11 +4,15 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Account.
+ */
 class Eb_Shortcode_User_Account {
 
 	/**
@@ -16,7 +20,7 @@ class Eb_Shortcode_User_Account {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 *
 	 * @return string
 	 */
@@ -27,8 +31,6 @@ class Eb_Shortcode_User_Account {
 	 * Output the shortcode.
 	 *
 	 * @since  1.0.0
-	 *
-	 * @param array $atts
 	 */
 	public static function getInstance() {
 		return new Eb_Shortcode_User_Account();
@@ -51,10 +53,9 @@ class Eb_Shortcode_User_Account {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param array $atts
+	 * @param array $atts atts.
 	 */
 	private static function user_account( $atts ) {
-
 		extract(
 			shortcode_atts(
 				array(
@@ -77,10 +78,10 @@ class Eb_Shortcode_User_Account {
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 		);
-		// fetch courses
+		// fetch courses.
 		$courses = get_posts( $course_args );
 
-		// remove course from array in which user is not enrolled
+		// remove course from array in which user is not enrolled.
 		foreach ( $courses as $key => $course ) {
 			$has_access = edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course->ID );
 			if ( ! $has_access ) {
@@ -88,12 +89,12 @@ class Eb_Shortcode_User_Account {
 			}
 		}
 		if ( is_array( $courses ) ) {
-			$courses = array_values( $courses ); // reset array keys
+			$courses = array_values( $courses ); // reset array keys.
 		} else {
 			$courses = array();
 		}
 		// Course Purchase History.
-		$user_orders         = array(); // users completed orders
+		$user_orders         = array(); // users completed orders.
 		$order_count         = 15;
 				$user_orders = self::get_user_orders( $user_id );
 		$template_loader     = new EbTemplateLoader(
@@ -104,11 +105,9 @@ class Eb_Shortcode_User_Account {
 		$template_loader->wp_get_template(
 			'account/user-account.php',
 			array(
-				// CPH
 				'current_user'     => get_user_by( 'id', get_current_user_id() ),
 				'user_orders'      => $user_orders,
 				'order_count'      => $order_count,
-				// User profile
 				'user_avatar'      => $user_avatar,
 				'user'             => $user,
 				'user_meta'        => $user_meta,
@@ -118,27 +117,30 @@ class Eb_Shortcode_User_Account {
 		);
 	}
 
+	/**
+	 * Get user orders.
+	 *
+	 * @param text $user_id user_id.
+	 */
 	public static function get_user_orders( $user_id ) {
 		$user_orders = array();
 		// $user_id;
 		// get all completed orders of a user
 		$args           = array(
 			'posts_per_page' => -1,
-			// 'author'         =>  $user_id,
 			'meta_key'       => '',
 			'post_type'      => 'eb_order',
 			'post_status'    => 'publish',
 			'fields'         => 'ids',
 			'order'          => 'ASC',
 		);
-		$overall_orders = get_posts( $args ); // get all orders from db
+		$overall_orders = get_posts( $args ); // get all orders from db.
 		foreach ( $overall_orders as $order_id ) {
 			$order_detail = get_post_meta( $order_id, 'eb_order_options', true );
 
 			if ( ! empty( $order_detail ) && $order_detail['buyer_id'] === $user_id ) {
 				$user_orders[] = array(
-					// 'order_id'      => $order_id,
-					'eb_order_id'   => $order_id, // cahnged 1.4.7 Order Id
+					'eb_order_id'   => $order_id, // cahnged 1.4.7 Order Id.
 					'ordered_item'  => $order_detail['course_id'],
 					'billing_email' => isset( $order_detail['billing_email'] ) ? $order_detail['billing_email'] : '-',
 					'currency'      => isset( $order_detail['currency'] ) ? $order_detail['currency'] : '$',
@@ -151,6 +153,9 @@ class Eb_Shortcode_User_Account {
 		return apply_filters( 'eb_user_orders', $user_orders );
 	}
 
+	/**
+	 * Account details.
+	 */
 	public static function save_account_details() {
 		if ( self::is_update_user_profile() ) {
 			$user         = new \stdClass();
@@ -167,7 +172,7 @@ class Eb_Shortcode_User_Account {
 				} else {
 					// Profile updated on Moodle successfully.
 					if ( self::update_moodle_profile( $posted_data ) ) {
-						self::update_WordPress_profile( $posted_data );
+						self::update_wordpress_profile( $posted_data );
 						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'eb-textdomain' ) . '</p>';
 						do_action( 'eb_save_account_details', $user->ID );
 					} else {
@@ -178,8 +183,11 @@ class Eb_Shortcode_User_Account {
 		}
 	}
 
+	/**
+	 * Update user profile.
+	 */
 	public static function is_update_user_profile() {
-		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) ) {
 			return false;
 		}
 		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'eb-update-user' ) ) {
@@ -188,9 +196,11 @@ class Eb_Shortcode_User_Account {
 		return true;
 	}
 
+	/**
+	 * Post data.
+	 */
 	public static function get_posted_data() {
-		$posted_data = array();
-		// $posted_data['username']    = self::get_posted_field('username');
+		$posted_data                = array();
 		$posted_data['first_name']  = self::get_posted_field( 'first_name' );
 		$posted_data['last_name']   = self::get_posted_field( 'last_name' );
 		$posted_data['nickname']    = self::get_posted_field( 'nickname' );
@@ -204,10 +214,16 @@ class Eb_Shortcode_User_Account {
 		return $posted_data;
 	}
 
+	/**
+	 * Field.
+	 *
+	 * @param text $fieldname fieldname.
+	 * @param text $sanitize sanitize.
+	 */
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
 		$val = '';
 		if ( isset( $_POST[ $fieldname ] ) && ! empty( $_POST[ $fieldname ] ) ) {
-			$val = $_POST[ $fieldname ];
+			$val = sanitize_text_field( wp_unslash( $_POST[ $fieldname ] ) );
 			if ( $sanitize ) {
 				$val = sanitize_text_field( $val );
 			}
@@ -215,6 +231,11 @@ class Eb_Shortcode_User_Account {
 		return $val;
 	}
 
+	/**
+	 * Errors.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
 	public static function get_errors( $posted_data ) {
 		$user            = new \stdClass();
 		$user->ID        = (int) get_current_user_id();
@@ -240,7 +261,7 @@ class Eb_Shortcode_User_Account {
 
 		if ( ! is_email( $email ) ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( __( '%$1s is invalid email.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( esc_html__( '%$1s is invalid email.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
 		} elseif ( email_exists( $email ) && $email !== $current_user->user_email ) {
 				/* Translators 1: email */
 			$errors[] = sprintf( __( '%$1s is already exists.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
@@ -260,6 +281,11 @@ class Eb_Shortcode_User_Account {
 		return $errors;
 	}
 
+	/**
+	 * Moodle profile.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
 	public static function update_moodle_profile( $posted_data ) {
 		$user     = new \stdClass();
 		$user->ID = (int) get_current_user_id();
@@ -289,7 +315,12 @@ class Eb_Shortcode_User_Account {
 		return false;
 	}
 
-	public static function update_WordPress_profile( $posted_data ) {
+	/**
+	 * Profile.
+	 *
+	 * @param text $posted_data posted_data.
+	 */
+	public static function update_wordpress_profile( $posted_data ) {
 		$user     = new \stdClass();
 		$user->ID = (int) get_current_user_id();
 		// Update WP profile.
@@ -309,6 +340,9 @@ class Eb_Shortcode_User_Account {
 		wp_update_user( $args );
 	}
 
+	/**
+	 * Navigation.
+	 */
 	public function get_user_account_navigation_items() {
 		return apply_filters(
 			'eb_user_account_labels',
@@ -337,6 +371,18 @@ class Eb_Shortcode_User_Account {
 		);
 	}
 
+	/**
+	 * Content.
+	 *
+	 * @param text $eb_active_link eb_active_link.
+	 * @param text $user_orders user_orders.
+	 * @param text $order_count order_count.
+	 * @param text $user_avatar user_avatar.
+	 * @param text $user user.
+	 * @param text $user_meta user_meta.
+	 * @param text $enrolled_courses enrolled_courses.
+	 * @param text $template_loader template_loader.
+	 */
 	public function get_user_account_content( $eb_active_link, $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader ) {
 		switch ( $eb_active_link ) {
 			case '':
@@ -389,7 +435,7 @@ class Eb_Shortcode_User_Account {
 
 				break;
 			default:
-				do_action( 'eb_user_account_label_content', $_GET['eb-active-link'] );
+				do_action( 'eb_user_account_label_content', isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : '' );
 				break;
 		}
 	}

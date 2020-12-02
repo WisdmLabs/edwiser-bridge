@@ -1,29 +1,29 @@
 <?php
-
 /**
  * Handles frontend form submissions.
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Theme compat.
+ */
 class Eb_Theme_Compatibility {
 
-
-	public function __construct() {
-	}
-
-
+	/**
+	 * Cpmati.
+	 *
+	 * @param text $wrapper_args wrapper_args.
+	 */
 	public function eb_content_start_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
 
 		switch ( $template ) {
-
-				// Divi
 			case 'Divi':
 				echo '<div id="content-area" class="clearfix"> <div id="left-area">';
 				break;
@@ -39,39 +39,37 @@ class Eb_Theme_Compatibility {
 
 	}
 
-
-
-
+	/**
+	 * Compati.
+	 *
+	 * @param text $wrapper_args wrapper_args.
+	 */
 	public function eb_content_end_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
 
 		switch ( $template ) {
-				// Divi
+				// Divi.
 			case 'Divi':
 				echo '</div>';
 				break;
 			default:
-				// Divi container
+				// Divi container.
 				echo '</div>';
 				break;
 		}
 
 	}
 
-
-
-
+	/**
+	 * Compati.
+	 *
+	 * @param text $wrapper_args wrapper_args.
+	 */
 	public function eb_sidebar_start_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
 
 		switch ( $template ) {
-
-				// Divi
-			/*
-			case 'Divi':
-				echo '<div class="large-3 col">';
-				break;*/
-
+				// Divi.
 			case 'flatsome':
 				echo '<div class="large-3 col">';
 				break;
@@ -83,16 +81,16 @@ class Eb_Theme_Compatibility {
 
 	}
 
-
-
-
-
+	/**
+	 * Compati.
+	 *
+	 * @param text $wrapper_args wrapper_args.
+	 */
 	public function eb_sidebar_end_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
 
 		switch ( $template ) {
-
-				// Divi
+				// Divi.
 			case 'Divi':
 				echo '</div>';
 				break;
@@ -107,10 +105,4 @@ class Eb_Theme_Compatibility {
 		}
 
 	}
-
-
-
-
-
-
 }
