@@ -16,8 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $setting_messages = '';
 $setting_messages = apply_filters( 'eb_setting_messages', $setting_messages );
 if ( ! empty( $setting_messages ) ) {
-	echo esc_html( $setting_messages );
+	echo wp_kses_post( $setting_messages );
 }
+
+$allowed_tags = get_allowed_html_tags();
+
 /**
  * Get Licensing Information.
 */
@@ -39,19 +42,19 @@ if ( ! empty( $licensing_info ) ) {
 					<div class="eb_table_row">
 
 						<div class="eb_table_cell_1">
-							<?php echo $single['plugin_name']; ?>
+							<?php echo wp_kses_post( $single['plugin_name'] ); ?>
 						</div>
 
 						<div class="eb_table_cell_2">
-							<?php echo $single['license_key']; ?>
+							<?php echo wp_kses( $single['license_key'], $allowed_tags ); ?>
 						</div>
 
 						<div class="eb_table_cell_3">
-							<?php echo $single['license_status']; ?>
+							<?php echo wp_kses( $single['license_status'], $allowed_tags ); ?>
 						</div>
 
 						<div class="eb_table_cell_4">
-							<?php echo $single['activate_license']; ?>
+							<?php echo wp_kses( $single['activate_license'], $allowed_tags ); ?>
 						</div>
 
 					</div>

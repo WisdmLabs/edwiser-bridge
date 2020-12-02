@@ -542,7 +542,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 												type="checkbox"
 												value="1"
 												<?php checked( $option_value, 'yes' ); ?>
-												<?php echo implode( ' ', $custom_attributes ); ?> />
+												<?php echo esc_html( implode( ' ', $custom_attributes ) ); ?> />
 												<?php echo wp_kses_post( $description ); ?>
 										</label>
 										<?php echo wp_kses_post( $tooltip_html ); ?>
@@ -583,7 +583,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<?php
-								echo ( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ) );
+								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), get_allowed_html_tags() );
 								echo wp_kses_post( $description );
 								?>
 							</td>
@@ -674,7 +674,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							<tr>
 								<td>
 									<?php
-									echo $value['html'];
+									echo wp_kses_post( $value['html'] );
 									?>
 								</td>
 							</tr>
