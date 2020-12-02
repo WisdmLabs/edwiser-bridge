@@ -236,7 +236,7 @@ class Eb_Activator {
 		$pages = apply_filters(
 			'eb_create_default_pages',
 			array(
-				'thankyou'   => array(
+				'thankyou'    => array(
 					'name'       => esc_html_x( 'thank-you-for-purchase', 'Page slug', 'eb-textdomain' ),
 					'title'      => esc_html_x( 'Thank You for Purchase', 'Page title', 'eb-textdomain' ),
 					'content'    => esc_html__( 'Thanks for purchasing the course, your order will be processed shortly.', 'eb-textdomain' ),
@@ -309,7 +309,7 @@ class Eb_Activator {
 	 * @param text $value value.
 	 */
 	private static function update_template_data( $key, $value ) {
-		if ( get_option( $key ) == false ) {
+		if ( get_option( $key ) === false ) {
 			update_option( $key, $value );
 		}
 	}
@@ -323,7 +323,7 @@ class Eb_Activator {
 	private static function update_allow_mail_send_data( $key, $value ) {
 		$data = get_option( $key );
 
-		if ( false == $data ) {
+		if ( false === $data ) {
 			update_option( $key, $value );
 		}
 	}

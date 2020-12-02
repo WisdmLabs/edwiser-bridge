@@ -159,7 +159,7 @@ class Eb_Order_Manager {
 		$plugin_post_types = new Eb_Post_Types( $this->plugin_name, $this->version );
 		$previous_status   = $plugin_post_types->get_post_options( $order_id, 'order_status', 'eb_order' );
 
-		if ( ! $previous_status || $previous_status != $order_status ) {
+		if ( ! $previous_status || $previous_status !== $order_status ) {
 			edwiser_bridge_instance()->logger()->add( 'order', 'Updating order status...' ); // add order log.
 
 			$order_options = get_post_meta( $order_id, 'eb_order_options', true );
@@ -168,7 +168,7 @@ class Eb_Order_Manager {
 			 * Unenroll the user if the order is get marked as pending or failed form the compleated.
 			 */
 
-			if ( isset( $order_options['order_status'] ) && 'completed' == $order_options['order_status'] && 'completed' != $order_status ) {
+			if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
 				$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 				$ord_detail         = get_post_meta( $order_id, 'eb_order_options', true );
 				$args               = array(
@@ -286,7 +286,7 @@ class Eb_Order_Manager {
 		$course_meta = get_post_meta( $course_id, 'eb_course_options', true );
 		$price       = '0.00';
 		$course_type = get_arr_value( $course_meta, 'course_price_type', false );
-		if ( $course_type && 'paid' == $course_type ) {
+		if ( $course_type && 'paid' === $course_type ) {
 			$price = get_arr_value( $course_meta, 'course_price', '0.00' );
 		}
 		return $price;
@@ -340,7 +340,7 @@ class Eb_Order_Manager {
 				 * Update post meta if the sandbox is enabled for each order if the sandbox is enabled.
 				 */
 				$options = get_option( 'eb_paypal' );
-				if ( isset( $options['eb_paypal_sandbox'] ) && $options['eb_paypal_sandbox'] == 'yes' ) {
+				if ( isset( $options['eb_paypal_sandbox'] ) && 'yes' === $options['eb_paypal_sandbox'] ) {
 					update_post_meta( $order_id, 'eb_paypal_sandbox', 'yes' );
 				}
 
@@ -351,7 +351,7 @@ class Eb_Order_Manager {
 		}
 
 		// response.
-		$response = json_encode(
+		$response = wp_json_encode(
 			array(
 				'success'  => $success,
 				'order_id' => $order_id,
@@ -389,7 +389,7 @@ class Eb_Order_Manager {
 		}
 
 		// return if post type is not eb_course.
-		if ( 'eb_course' != $course->post_type || empty( $buyer_id ) ) {
+		if ( 'eb_course' !== $course->post_type || empty( $buyer_id ) ) {
 			return;
 		}
 

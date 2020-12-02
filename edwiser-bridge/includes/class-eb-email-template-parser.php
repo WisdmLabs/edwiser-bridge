@@ -43,7 +43,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-			$eb_instance        = EdwiserBridge::instance();
+			$eb_instance       = EdwiserBridge::instance();
 			$this->plugin_name = $eb_instance->get_plugin_name();
 			$this->version     = $eb_instance->get_version();
 		}

@@ -52,30 +52,36 @@ class EB_Usage_Tracking {
 
 			$url = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
 			// call api endpoint with data.
-			$ch = curl_init();
+			// $ch = curl_init();
 
-			// set the url, number of POST vars, POST data.
-			curl_setopt( $ch, CURLOPT_URL, $url );
-			curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
-			curl_setopt( $ch, CURLOPT_POSTFIELDS, $analytics_data );
-			curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			curl_setopt(
-				$ch,
-				CURLOPT_HTTPHEADER,
-				array(
-					'Content-Type: application/json',
-					'Content-Length: ' . strlen( $analytics_data ),
-				)
-			);
+			// // set the url, number of POST vars, POST data.
+			// curl_setopt( $ch, CURLOPT_URL, $url );
+			// curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
+			// curl_setopt( $ch, CURLOPT_POSTFIELDS, $analytics_data );
+			// curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+			// curl_setopt(
+			// 	$ch,
+			// 	CURLOPT_HTTPHEADER,
+			// 	array(
+			// 		'Content-Type: application/json',
+			// 		'Content-Length: ' . strlen( $analytics_data ),
+			// 	)
+			// );
 
-			// execute post.
-			$result = curl_exec( $ch );
-
-			if ( $result ) {
-				$result_arr = json_decode( $result, 1 );
-			}
+			// // execute post.
+			// $result = curl_exec( $ch );
 			// close connection.
-			curl_close( $ch );
+			// curl_close( $ch );
+
+			$request_args = array(
+				'body'    => $analytics_data,
+				'timeout' => 100,
+			);
+			$result = wp_remote_post( $url, $request_args );
+
+			if ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+				$result_arr = wp_json_decode( $result, 1 );
+			}
 		}
 	}
 

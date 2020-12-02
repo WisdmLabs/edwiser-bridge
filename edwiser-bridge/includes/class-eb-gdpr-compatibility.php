@@ -64,7 +64,7 @@ class Eb_Gdpr_Compatiblity {
 				'item_id'     => 'eb_user_meta',
 				'data'        => array(
 					array(
-						'name' => esc_html__( 'Enrollment data', 'eb-textdomain' ),
+						'name'  => esc_html__( 'Enrollment data', 'eb-textdomain' ),
 						'value' => esc_html__( 'Not Available (Not linked to the Moodle LMS site)', 'eb-textdomain' ),
 					),
 				),
@@ -85,10 +85,9 @@ class Eb_Gdpr_Compatiblity {
 	public function get_enrolled_courses( $user_id ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
-		$query = $wpdb->prepare( 'SELECT `course_id` FROM ' . $table_name . ' WHERE user_id = %d', $user_id );
 
 		$enrolled_course = array();
-		$result = $wpdb->get_results( $query );
+		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -107,10 +106,9 @@ class Eb_Gdpr_Compatiblity {
 	public function get_enrolled_courses_with_date( $user_id ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
-		$query = $wpdb->prepare( 'SELECT `course_id`, `time` FROM ' . $table_name . ' WHERE user_id = %d', $user_id );
 
 		$enrolled_course = array();
-		$result = $wpdb->get_results( $query );
+		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d', $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -168,8 +166,7 @@ class Eb_Gdpr_Compatiblity {
 				array_push( $msg, esc_html__( 'Deleted Courses related data from the Moodle site', 'eb-textdomain' ) );
 			}
 
-			$query = $wpdb->prepare( 'DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user->ID );
-			$wpdb->get_results( $query );
+			$wpdb->get_results( $wpdb->prepare( 'DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user->ID ) );
 			array_push( $msg, esc_html__( 'Deleted Courses related data from the WordPress site', 'eb-textdomain' ) );
 			delete_user_meta( $user->ID, 'moodle_user_id' );
 			array_push( $msg, esc_html__( 'Deleted Moodle user ID', 'eb-textdomain' ) );
@@ -216,7 +213,7 @@ class Eb_Gdpr_Compatiblity {
 		$sections = array( esc_html__( 'User Account Creation', 'eb-textdomain' ) => $this->eb_user_account_creation_policy() );
 
 		$sections[ esc_html__( 'Payments', 'eb-textdomain' ) ] = $this->eb_payment_policy();
-		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		$active_plugins                                        = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
 		if ( in_array( 'edwiser-bridge-sso/sso.php', $active_plugins ) ) {
 			$sections[ esc_html__( 'User’s Simultaneous login and logout', 'eb-textdomain' ) ] = $this->eb_sso_policy();
 		}

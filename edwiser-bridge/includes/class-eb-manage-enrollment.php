@@ -172,7 +172,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			}
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-			// $stmt       = "select user_id,course_id from $enroll_tbl where id in('" . implode( "','", $users ) . "')";
 			$results    = $wpdb->get_results( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in('%s')", implode( "','", $users ) ), ARRAY_A );
 			$cnt        = 0;
 			foreach ( $results as $rec ) {
@@ -185,7 +184,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<strong>
-							<?php esc_html_e( sprintf( '%s users has been unenrolled successfully.', $cnt ), 'eb-textdomain' ); ?>
+							<?php sprintf( '%s ', $cnt ) . esc_html_e( 'users has been unenrolled successfully.', 'eb-textdomain' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">

@@ -180,7 +180,7 @@ class Eb_Order_Meta {
 				$currency  = get_arr_value( $refund, 'currency' );
 				?>
 				<li>
-					<div class="eb-order-refund-hist-stmt"><?php esc_html__( 'Refunded by', 'eb-textdomain' ) . printf( '%1$s on %2$s', esc_html( $refund_by ), esc_html( date( 'F j, Y, g:i a', $time ) ) ); ?></div>
+					<div class="eb-order-refund-hist-stmt"><?php esc_html__( 'Refunded by', 'eb-textdomain' ) . printf( '%1$s on %2$s', esc_html( $refund_by ), esc_html( gmdate( 'F j, Y, g:i a', $time ) ) ); ?></div>
 					<div class="eb-order-refund-hist-amt"><?php echo esc_html( "$currency$amt" ); ?></div>
 				</li>
 				<?php
@@ -350,7 +350,7 @@ class Eb_Order_Meta {
 		foreach ( $users as $user ) {
 			if ( $user_id ) {
 				$selected = '';
-				if ( $user_id == $user->ID ) {
+				if ( $user_id === $user->ID ) {
 					$selected = 'selected';
 				}
 				$html .= '<option value="' . $user->ID . '" ' . $selected . '> ' . $user->user_login . '</option>';
@@ -381,7 +381,7 @@ class Eb_Order_Meta {
 		foreach ( $courses as $course ) {
 			if ( $course_id ) {
 				$selected = '';
-				if ( $course_id == $course->ID ) {
+				if ( $course_id === $course->ID ) {
 					$selected = 'selected';
 				}
 				$html .= '<option value="' . $course->ID . '" ' . $selected . '> ' . $course->post_title . '</option>';

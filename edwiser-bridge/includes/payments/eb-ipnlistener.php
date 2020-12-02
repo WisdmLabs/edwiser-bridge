@@ -164,16 +164,15 @@ class Eb_Ipn_Listener {
 		// $this->response = curl_exec( $_ch );
 		// $this->response_status = strval( curl_getinfo( $_ch, CURLINFO_HTTP_CODE ) );
 
-		$request_args = array(
-			'body'    => $encoded_data,
-			'timeout' => 100,
-		);
 		// if ( false === $this->response || '0' == $this->response_status ) {
 		// 	$errno = curl_errno( $_ch );
 		// 	$errstr = curl_error( $_ch );
 		// 	throw new \Exception( "cURL error: [$errno] $errstr" );
 		// }
-
+		$request_args = array(
+			'body'    => $encoded_data,
+			'timeout' => 100,
+		);
 		$response = wp_remote_post( $uri, $request_args );
 
 		if ( is_wp_error( $response ) ) {

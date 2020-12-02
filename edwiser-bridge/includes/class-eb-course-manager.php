@@ -121,21 +121,21 @@ class Eb_Course_Manager {
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 
-		if ( 1 == $connected['success'] ) {
+		if ( 1 === $connected['success'] ) {
 			/*
 			 * sync Moodle course categories to WordPress conditionally.
 			 * executes only if user chooses to sync categories.
 			 */
-			if ( isset( $sync_options['eb_synchronize_categories'] ) && 1 == $sync_options['eb_synchronize_categories'] ) {
+			if ( isset( $sync_options['eb_synchronize_categories'] ) && 1 === $sync_options['eb_synchronize_categories'] ) {
 				$moodle_category_resp = $this->get_moodle_course_categories(); // get categories from moodle.
 
 				// creating categories based on recieved data.
-				if ( 1 == $moodle_category_resp['success'] ) {
-					$this->create_course_categories_on_WordPress( $moodle_category_resp['response_data'] );
+				if ( 1 === $moodle_category_resp['success'] ) {
+					$this->create_course_categories_on_wordpress( $moodle_category_resp['response_data'] );
 				}
 
 				// push category response in array.
-				$response_array['category_success'] = $moodle_category_resp['success'];
+				$response_array['category_success']          = $moodle_category_resp['success'];
 				$response_array['category_response_message'] = $moodle_category_resp['response_message'];
 			}
 
@@ -144,15 +144,15 @@ class Eb_Course_Manager {
 			 */
 			$moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle.
 
-			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 == $sync_options['eb_synchronize_previous'] )) {
+			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 === $sync_options['eb_synchronize_previous'] )) {
 				// creating courses based on recieved data.
-				if ( 1 == $moodle_course_resp['success'] ) {
+				if ( 1 === $moodle_course_resp['success'] ) {
 					foreach ( $moodle_course_resp['response_data'] as $course_data ) {
 						/*
 						 * moodle always returns moodle frontpage as first course,
 						 * below step is to avoid the frontpage to be added as a course.
 						 */
-						if ( 1 == $course_data->id ) {
+						if ( 1 === $course_data->id ) {
 							continue;
 						}
 
@@ -238,7 +238,7 @@ class Eb_Course_Manager {
 			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // add course log.
 		} elseif ( empty( $moodle_user_id ) ) {
 			$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
-			$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
+			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
 
 			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // add course log.
 		}
@@ -259,7 +259,7 @@ class Eb_Course_Manager {
 	 * @return array stores moodle web service response.
 	 */
 	public function getMoodleCourseCategories( $webservice_function = null ) {
-		if ( $webservice_function == null ) {
+		if ( $webservice_function === null ) {
 			$webservice_function = 'core_course_get_categories';
 		}
 
@@ -279,7 +279,7 @@ class Eb_Course_Manager {
 	 * @return array stores moodle web service response.
 	 */
 	public function get_moodle_course_categories( $webservice_function = null ) {
-		if ( null == $webservice_function ) {
+		if ( null === $webservice_function ) {
 			$webservice_function = 'core_course_get_categories';
 		}
 
@@ -316,10 +316,13 @@ class Eb_Course_Manager {
 
 		// get id of course on WordPress based on id on moodle $course_id =.
 		$course_id = $wpdb->get_var(
-			"SELECT post_id
-			FROM {$wpdb->prefix}postmeta
-			WHERE meta_key = 'moodle_course_id'
-			AND meta_value = '" . $course_id_on_moodle . "'"
+			$wpdb->prepare(
+				"SELECT post_id
+				FROM {$wpdb->prefix}postmeta
+				WHERE meta_key = 'moodle_course_id'
+				AND meta_value = %s",
+				$course_id_on_moodle
+			)
 		);
 
 		return $course_id;
@@ -383,13 +386,13 @@ class Eb_Course_Manager {
 		$wp_course_id = wp_insert_post( $course_args ); // create a course on WordPress.
 
 		$term_id = $wpdb->get_var(
-			"SELECT term_id
-			FROM {$wpdb->prefix}termmeta
-			WHERE meta_key = 'eb_moodle_cat_id'
-			AND meta_value = " . $course_data->categoryid
+			$wpdb->preapre(
+				"SELECT term_id FROM {$wpdb->prefix}termmeta WHERE meta_key = 'eb_moodle_cat_id' AND meta_value = %d",
+				$course_data->categoryid
+			)
 		);
 
-		// set course terms
+		// set course terms.
 		if ( $term_id > 0 ) {
 			wp_set_post_terms( $wp_course_id, $term_id, 'eb_course_cat' );
 		}
@@ -415,14 +418,14 @@ class Eb_Course_Manager {
 	 * Create course on WordPress.
 	 *
 	 * @param array $course_data course data recieved from initiate_course_sync_process().
-	 *
+	 * @param text  $sync_options sync_options.
 	 * @return int returns id of course
 	 */
 	public function create_course_on_WordPress( $course_data, $sync_options = array() ) {
 		global $wpdb;
 
 		$status = ( isset( $sync_options['eb_synchronize_draft'] ) &&
-				1 == $sync_options['eb_synchronize_draft'] ) ? 'draft' : 'publish'; // manage course status.
+				1 === $sync_options['eb_synchronize_draft'] ) ? 'draft' : 'publish'; // manage course status.
 
 		$course_args = array(
 			'post_title'   => $course_data->fullname,
@@ -434,10 +437,13 @@ class Eb_Course_Manager {
 		$wp_course_id = wp_insert_post( $course_args ); // create a course on WordPress.
 
 		$term_id = $wpdb->get_var(
-			"SELECT term_id
-			FROM {$wpdb->prefix}termmeta
-			WHERE meta_key = 'eb_moodle_cat_id'
-			AND meta_value = " . $course_data->categoryid
+			$wpdb->prepare(
+				"SELECT term_id
+				FROM {$wpdb->prefix}termmeta
+				WHERE meta_key = 'eb_moodle_cat_id'
+				AND meta_value = %d",
+				$course_data->categoryid
+			)
 		);
 
 		// set course terms.
@@ -499,10 +505,13 @@ class Eb_Course_Manager {
 		wp_update_post( $course_args );
 
 		$term_id = $wpdb->get_var(
-			"SELECT term_id
-			FROM {$wpdb->prefix}termmeta
-			WHERE meta_key = 'eb_moodle_cat_id'
-			AND meta_value = " . $course_data->categoryid
+			$wpdb->prepare(
+				"SELECT term_id
+				FROM {$wpdb->prefix}termmeta
+				WHERE meta_key = 'eb_moodle_cat_id'
+				AND meta_value = %d",
+				$course_data->categoryid
+			)
 		);
 
 		// set course terms.
@@ -547,7 +556,7 @@ class Eb_Course_Manager {
 	 * @param array $category_response accepts categories fetched from moodle.
 	 */
 	public function createCourseCategoriesOnWordPress( $category_response ) {
-		$this->create_course_categories_on_WordPress( $category_response );
+		$this->create_course_categories_on_wordpress( $category_response );
 	}
 
 
@@ -558,7 +567,7 @@ class Eb_Course_Manager {
 	 *
 	 * @param array $category_response accepts categories fetched from moodle.
 	 */
-	public function create_course_categories_on_WordPress( $category_response ) {
+	public function create_course_categories_on_wordpress( $category_response ) {
 		global $wpdb;
 
 		// sort category response by id in incremental order.
@@ -573,10 +582,13 @@ class Eb_Course_Manager {
 				// get parent term if exists.
 
 				$parent_term = $wpdb->get_var(
-					"SELECT term_id
-					FROM {$wpdb->prefix}termmeta
-					WHERE meta_key = 'eb_moodle_cat_id'
-					AND meta_value = " . $category->parent
+					$wpdb->prepare(
+						"SELECT term_id
+						FROM {$wpdb->prefix}termmeta
+						WHERE meta_key = 'eb_moodle_cat_id'
+						AND meta_value = %d",
+						$category->parent
+					)
 				);
 
 				if ( $parent_term && ! term_exists( $cat_name_lower, 'eb_course_cat', $parent_term ) ) {
@@ -599,7 +611,7 @@ class Eb_Course_Manager {
 						$category->name,
 						'eb_course_cat',
 						array(
-							'slug' => $cat_name_lower,
+							'slug'        => $cat_name_lower,
 							'description' => $category->description,
 						)
 					);
@@ -657,16 +669,16 @@ class Eb_Course_Manager {
 	 * @param array $post_id id of a column.
 	 */
 	public function add_course_price_type_column_content( $column_name, $post_id ) {
-		if ( 'course_type' == $column_name ) {
-			$status = Eb_Post_Types::get_post_options( $post_id, 'course_price_type', 'eb_course' );
+		if ( 'course_type' === $column_name ) {
+			$status  = Eb_Post_Types::get_post_options( $post_id, 'course_price_type', 'eb_course' );
 			$options = array(
 				'free'   => esc_html__( 'Free', 'eb-textdomain' ),
 				'paid'   => esc_html__( 'Paid', 'eb-textdomain' ),
 				'closed' => esc_html__( 'Closed', 'eb-textdomain' ),
 			);
 			echo esc_html( isset( $options[ $status ] ) ? $options[ $status ] : ucfirst( $status ) );
-		} elseif ( 'mdl_course_id' == $column_name ) {
-			$mdl_course_id = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
+		} elseif ( 'mdl_course_id' === $column_name ) {
+			$mdl_course_id      = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
 			$mdl_course_deleted = Eb_Post_Types::get_post_options( $post_id, 'mdl_course_deleted', 'eb_course' );
 
 			echo esc_html( ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'eb-textdomain' ) . '<span>' : $mdl_course_id );

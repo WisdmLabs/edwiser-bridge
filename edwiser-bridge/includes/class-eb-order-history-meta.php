@@ -86,7 +86,7 @@ class Eb_Order_History_Meta {
 				<?php echo esc_html( $note ); ?>
 			</div>
 			<div class="eb-sso-hist-by">
-				<?php esc_html__( 'added by  ', 'eb-textdomain' ) . printf( '%1$s on %2$s.', esc_html( $updated_by ), date( 'F j, Y, g:i a', $updated_on = get_arr_value( $ord_hist, 'time' ) ) ); ?>
+				<?php esc_html__( 'added by  ', 'eb-textdomain' ) . printf( '%1$s on %2$s.', esc_html( $updated_by ), esc_html( gmdate( 'F j, Y, g:i a', $updated_on = get_arr_value( $ord_hist, 'time' ) ) ) ); ?>
 			</div>
 		</li>
 		<?php

@@ -33,8 +33,8 @@ class Eb_Admin_Notice_Handler {
 		$request_url = $eb_moodle_url . '/webservice/rest/server.php?wstoken=';
 
 		$moodle_function = 'eb_get_course_progress';
-		$request_url .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
-		$response = wp_remote_post( $request_url );
+		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
+		$response        = wp_remote_post( $request_url );
 
 		if ( is_wp_error( $response ) ) {
 			return 0;
@@ -42,7 +42,7 @@ class Eb_Admin_Notice_Handler {
 				wp_remote_retrieve_response_code( $response ) == 303 ) {
 			$body = wp_json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( 'accessexception' == $body->errorcode ) {
+			if ( 'accessexception' === $body->errorcode ) {
 				return 0;
 			}
 		} else {
@@ -61,7 +61,9 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_update_moodle_plugin_notice() {
 		$redirection = '?eb-update-notice-dismissed';
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$redirection = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) . sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) );
+			$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
+			$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
+			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
 			$redirection .= '&eb-update-notice-dismissed';
 		}
 
@@ -120,9 +122,12 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice() {
-		$redirection = '?eb-discount-notice-dismissed';
+		$redirection  = '?eb-discount-notice-dismissed';
+		$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
+		$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
+
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) . sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) );
+			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
 			$redirection .= '&eb-discount-notice-dismissed';
 		}
 
@@ -140,7 +145,7 @@ class Eb_Admin_Notice_Handler {
 								</div>
 							</div>
 							<div>
-								<a class="eb_admin_discount_offer_btn" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=WordPress&utm_medium=notif&utm_campaign=inbridge"  target="_blank">'.__("Avail Offer Now!", "eb-textdomain").'</a>
+								<a class="eb_admin_discount_offer_btn" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=WordPress&utm_medium=notif&utm_campaign=inbridge"  target="_blank">' . esc_html__( 'Avail Offer Now!', 'eb-textdomain' ) . '</a>
 							</div>
 						</div>
 						<div class="eb_admin_discount_dismiss_notice_message">
@@ -177,18 +182,20 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_feedback_notice() {
 		$redirection = '?eb-feedback-notice-dismissed';
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
+			$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
+			$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
 
-			$redirection = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) . sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) );
+			$redirection = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
 			$redirection .= '&eb-feedback-notice-dismissed';
 		}
 
-		$user_id = get_current_user_id();
+		$user_id           = get_current_user_id();
 		$feedback_usermeta = get_user_meta( $user_id, 'eb_feedback_notice_dismissed', true );
-		if ( 'eb_admin_feedback_notice' != get_transient( 'edwiser_bridge_admin_feedback_notice' ) ) {
-			if ( ( ! $feedback_usermeta || 'remind_me_later' != $feedback_usermeta ) && 'dismiss_permanantly' != $feedback_usermeta ) {
+		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) ) {
+			if ( ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
 				echo '  <div class="notice eb_admin_feedback_notice_message_cont">
 							<div class="eb_admin_feedback_notice_message">'
-								.__('Enjoying Edwiser bridge, Please  ', 'eb-textdomain').'
+								. esc_html__( 'Enjoying Edwiser bridge, Please  ', 'eb-textdomain' ) . '
 								<a href="https://WordPress.org/plugins/edwiser-bridge/">'
 									. esc_html__( ' click here ', 'eb-textdomain' ) .
 								'</a>'

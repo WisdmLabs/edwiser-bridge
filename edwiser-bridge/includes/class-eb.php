@@ -44,6 +44,7 @@ class EdwiserBridge {
 
 	/**
 	 * Instance.
+	 *
 	 * @var EDW The single instance of the class
 	 *
 	 * @since 1.0.0
@@ -559,7 +560,7 @@ class EdwiserBridge {
 	 * @since    1.0.0
 	 */
 	private function define_admin_hooks() {
-		 $plugin_admin = new Eb_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Eb_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles' );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts' );
 
@@ -990,7 +991,6 @@ class EdwiserBridge {
 	private function define_public_hooks() {
 		$plugin_public   = new Eb_Public( $this->get_plugin_name(), $this->get_version() );
 		$template_loader = new EbTemplateLoader( $this->get_plugin_name(), $this->get_version() );
-
 
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_styles' );
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_scripts' );

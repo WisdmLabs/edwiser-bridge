@@ -20,8 +20,8 @@ class Eb_Course_Progress {
 	 */
 	public function get_course_progress() {
 
-		$user = wp_get_current_user();
-		$user_id = $user->ID;
+		$user        = wp_get_current_user();
+		$user_id     = $user->ID;
 		$mdl_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
 
 		if ( $mdl_user_id ) {
@@ -38,7 +38,7 @@ class Eb_Course_Progress {
 
 			if ( isset( $response['success'] ) && $response['success'] ) {
 				foreach ( $response['response_data'] as $value ) {
-					$course_id = get_wp_course_id_from_moodle_course_id( $value->course_id );
+					$course_id                           = get_wp_course_id_from_moodle_course_id( $value->course_id );
 					$course_progress_array[ $course_id ] = $value->completion;
 				}
 			}

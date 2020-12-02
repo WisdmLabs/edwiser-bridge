@@ -105,7 +105,7 @@ function wdm_update_page_id( $option_value, $option_key, $_id, &$eb_general_sett
 
 /**
  * Add messages.
- * 
+ *
  * @param text $message message.
  */
 function wdm_add_notices( $message ) {
@@ -147,7 +147,7 @@ function wdm_user_account_url( $query_str = '' ) {
 
 	// Extract query string into local $_GET array.
 	$get = array();
-	parse_str( parse_url( $query_str, PHP_URL_QUERY ), $get );
+	parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
 	$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
 
 	return $usr_ac_page_url;
@@ -177,7 +177,7 @@ function wdm_eb_user_redirect_url( $query_str = '' ) {
 		$usr_ac_page_id  = $eb_settings['eb_useraccount_page_id'];
 		$usr_ac_page_url = get_permalink( $usr_ac_page_id );
 	}
-	/*
+	/**
 	 * Sets $usr_ac_page_url to my course page if the redirection to the my
 	 * courses page is enabled in settings
 	 */
@@ -187,7 +187,7 @@ function wdm_eb_user_redirect_url( $query_str = '' ) {
 
 	// Extract query string into local $_GET array.
 	$get = array();
-	parse_str( parse_url( $query_str, PHP_URL_QUERY ), $get );
+	parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
 	$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
 
 	return $usr_ac_page_url;
@@ -271,7 +271,7 @@ function get_shortcode_page_content( $the_tag = '' ) {
 function get_current_paypal_currency_symb() {
 	$payment_options = get_option( 'eb_paypal' );
 	$currency        = $payment_options['eb_paypal_currency'];
-	if ( isset( $payment_options['eb_paypal_currency'] ) && $payment_options['eb_paypal_currency'] == 'USD' ) {
+	if ( isset( $payment_options['eb_paypal_currency'] ) && 'USD' === $payment_options['eb_paypal_currency'] ) {
 		$currency = '$';
 	}
 	$currency = apply_filters( 'eb_paypal_get_currancy_symbol', $currency );
@@ -311,7 +311,7 @@ function update_order_hist_meta( $order_id, $updated_by, $note ) {
 	}
 	$new_hist = array(
 		'by'   => $updated_by,
-		'time' => current_time( 'timestamp' ),
+		'time' => current_time(),
 		'note' => $note,
 	);
 
@@ -378,11 +378,11 @@ function get_all_wp_roles() {
 /**
  * FUnction accptes moodle user id and returns WordPress user id and if not exists then false
  *
- * @return text $mdl_user_id mdl_user_id.
+ * @param text $mdl_user_id mdl_user_id.
  */
 function get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 	global $wpdb;
-	$result = $wpdb->get_var( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value={$mdl_user_id} AND meta_key = 'moodle_user_id'" );
+	$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) );
 	return $result;
 }
 
@@ -393,11 +393,11 @@ function get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 /**
  * FUnction accptes moodle course id and returns WordPress course id and if not exists then false
  *
- * @return text $mdl_course_id mdl_course_id.
+ * @param text $mdl_course_id mdl_course_id.
  */
 function get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 	global $wpdb;
-	$result = $wpdb->get_var( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$mdl_course_id} AND meta_key = 'moodle_course_id'" );
+	$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) );
 	return $result;
 }
 
@@ -463,11 +463,11 @@ function eb_get_all_web_service_functions() {
 
 	foreach ( $extensions as $extension => $functions ) {
 		if ( is_plugin_active( $extension ) ) {
-			if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' == $extension ) {
-				$bpVersion = get_option( 'eb_bp_plugin_version' );
-				if ( version_compare( '2.0.0', $bpVersion ) <= 0 ) {
+			if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
+				$bp_version = get_option( 'eb_bp_plugin_version' );
+				if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
 					array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
-				} elseif ( version_compare( '2.1.0', $bpVersion ) == 0 ) {
+				} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
 					array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
 				}
 			}
@@ -512,10 +512,14 @@ function get_user_suspended_status( $user_id, $course_id ) {
 
 	// check if user has access to course.
 	$suspended = $wpdb->get_var(
-		"SELECT suspended
-        FROM {$wpdb->prefix}moodle_enrollment
-        WHERE course_id={$course_id}
-        AND user_id={$user_id};"
+		$wpdb->prepare(
+			"SELECT suspended
+			FROM {$wpdb->prefix}moodle_enrollment
+			WHERE course_id=%d
+			AND user_id=;",
+			$course_id,
+			$user_id
+		)
 	);
 
 	return $suspended;
@@ -527,47 +531,9 @@ function get_user_suspended_status( $user_id, $course_id ) {
  * Moodle url.
  */
 function get_moodle_url() {
-	 $url = get_option( 'eb_connection' );
+	$url = get_option( 'eb_connection' );
 	if ( $url ) {
 		return $url['eb_url'];
 	}
 	return 'MOODLE_URL';
-}
-/**
- * Returns the list of the tags allowed in the wp_kses function.
- */
-function get_allowed_html_tags() {
-	$allowed_tags           = wp_kses_allowed_html( 'post' );
-	$allowed_tags['iframe'] = array(
-		'src'             => array(),
-		'height'          => array(),
-		'width'           => array(),
-		'frameborder'     => array(),
-		'allowfullscreen' => array(),
-	);
-	$allowed_tags['input']  = array(
-		'class' => array(),
-		'id'    => array(),
-		'name'  => array(),
-		'value' => array(),
-		'type'  => array(),
-	);
-	$allowed_tags['select'] = array(
-		'class'  => array(),
-		'id'     => array(),
-		'name'   => array(),
-		'value'  => array(),
-		'type'   => array(),
-		'style'  => array(),
-		'data-*' => true,
-	);
-	$allowed_tags['option'] = array(
-		'class'    => array(),
-		'value'    => array(),
-		'selected' => array(),
-	);
-	$allowed_tags['style']  = array(
-		'types' => array(),
-	);
-	return $allowed_tags;
 }

@@ -236,7 +236,7 @@ class Eb_Post_Types {
 		$post;
 		// get fields for a specific post type.
 
-		if ( 'eb_recommended_course_options' == $args['id'] ) {
+		if ( 'eb_recommended_course_options' === $args['id'] ) {
 			$fields = $this->populate_metabox_fields( $args['id'] );
 		} else {
 			$fields = $this->populate_metabox_fields( $args['args']['post_type'] );
@@ -244,7 +244,7 @@ class Eb_Post_Types {
 
 		$css_class = '';
 		echo '<div>';
-		if ( 'eb_order' == $args['args']['post_type'] ) {
+		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$css_class = 'eb-wdm-order-meta';
 			echo '<strong>';
 			echo esc_html__( 'Order ', 'eb-textdomain' ) . esc_html( printf( '#%s Details', get_the_id() ) );
@@ -265,7 +265,7 @@ class Eb_Post_Types {
 			$this->render_metabox_fields( $field_args );
 		}
 		// display content before order options, only if post type is moodle order.
-		if ( 'eb_order' == $args['args']['post_type'] ) {
+		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$order_meta = new Eb_Order_Meta( $this->plugin_name, $this->version );
 			$order_meta->get_order_details( get_the_id() );
 		}
@@ -422,7 +422,6 @@ class Eb_Post_Types {
 		$post_type   = $args['post_type'];
 		$html        = '';
 		$option_name = $post_type . '_options[' . $field_id . ']';
-		// $option      = $this->getPostOptions( $post_id, $field_id );
 		$option = self::get_post_options( $post_id, $field_id, $post_type );
 
 		$data = '';
@@ -483,7 +482,7 @@ class Eb_Post_Types {
 				break;
 			case 'checkbox':
 				$checked = '';
-				if ( $option && 'yes' == $option ) {
+				if ( $option && 'yes' === $option ) {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field_id );
@@ -519,7 +518,7 @@ class Eb_Post_Types {
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field_id ) . '">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false );
@@ -715,7 +714,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			10 => sprintf(
-				'%1$s' . esc_html__( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . esc_html__( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s' . '</a>',
+				'%1$s' . esc_html__( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . esc_html__( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s </a>',
 				$singular,
 				esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
 				strtolower( $singular )
