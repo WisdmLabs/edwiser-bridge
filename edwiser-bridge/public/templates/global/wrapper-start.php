@@ -16,19 +16,19 @@ $template = get_option('template');
 
 switch ($template) {
     case 'twentyeleven':
-        echo '<section id="primary" style="'.$parentcss.'"><div id="content" role="main">';
+        echo '<section id="primary" style="'.$parentcss.'"><div id='content' role="main">';
         break;
     case 'twentytwelve':
         echo '<div id="primary" class="site-content" style="'
-        .$parentcss.'"><div id="content" role="main" class="twentytwelve">';
+        .$parentcss.'"><div id='content' role="main" class="twentytwelve">';
         break;
     case 'twentythirteen':
         echo '<div id="primary" class="site-content" style="'
-        .$parentcss.'"><div id="content" role="main" class="entry-content twentythirteen">';
+        .$parentcss.'"><div id='content' role="main" class="entry-content twentythirteen">';
         break;
     case 'twentyfourteen':
         echo '<div id="primary" class="content-area" style="'
-        .$parentcss.'"><div id="content" role="main" class="site-content twentyfourteen"><div class="tfwc">';
+        .$parentcss.'"><div id='content' role="main" class="site-content twentyfourteen"><div class="tfwc">';
         break;
     case 'twentyfifteen':
         echo '<div id="primary" role="main" class="content-area twentyfifteen" style="'
@@ -54,12 +54,12 @@ switch ($template) {
         break;
 
     case 'flatsome':
-        echo '<div id="content" style="padding:30px 0px;"'
+        echo '<div id='content' style="padding:30px 0px;"'
         .$parentcss.'"><div class="row row-large row-divided">';
         break;
 
     default:
         echo '<div id="container" class="eb-primary" style="'
-        .$parentcss.'"><div id="content" role="main">';
+        .$parentcss.'"><div id='content' role="main">';
         break;
 }

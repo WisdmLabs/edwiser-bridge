@@ -4,13 +4,13 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Order_History_Meta
-{
+class Eb_Order_History_Meta {
 
 	private $plugin_name;
 	private $version;
@@ -27,10 +27,9 @@ class Eb_Order_History_Meta
 	 * @since 1.3.0
 	 * @global WP_Post object $post current post variable defined by WP.
 	 */
-	public function add_order_status_history_meta()
-	{
+	public function add_order_status_history_meta() {
 		global $post;
-		$order_hist = get_post_meta($post->ID, "eb_order_status_history", true);
+		$order_hist = get_post_meta($post->ID, 'eb_order_status_history', true);
 		?>
 		<div>
 			<?php

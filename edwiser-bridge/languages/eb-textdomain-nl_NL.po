@@ -269,7 +269,7 @@ msgid "Enter from name"
 msgstr ""
 
 #: admin/class-eb-email-template.php:118
-msgid "Subject"
+msgid 'subject'
 msgstr ""
 
 #: admin/class-eb-email-template.php:120

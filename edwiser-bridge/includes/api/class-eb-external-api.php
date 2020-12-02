@@ -9,19 +9,21 @@
  */
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Esternal API.
+ */
 class Eb_External_Api_Endpoint {
 
 	/**
-	 * This method registers the webservice endpointr
-	 * @return [type] [description]
+	 * This method registers the webservice endpointr.
 	 */
 	public function api_registration() {
 		register_rest_route(
 			'edwiser-bridge',
 			'/wisdmlabs/',
 			array(
-				'methods' => \WP_REST_Server::EDITABLE,
-				'callback' => array( $this, 'external_api_endpoint_def' ),
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => array( $this, 'external_api_endpoint_def' ),
 				'permission_callback' => '__return_true',
 			)
 		);
@@ -30,11 +32,11 @@ class Eb_External_Api_Endpoint {
 
 	/**
 	 * This function parse the request coming from
-	 * @param  [type] $data request Data
-	 * @return [type]       error or success message
+	 *
+	 * @param  text $data request Data.
 	 */
 	public function external_api_endpoint_def( $data ) {
-		$data          = sanitize_text_field( wp_unslash( $_POST['data'] ) );
+		$data          = isset( $_POST['data'] ) ? sanitize_text_field( wp_unslash( $_POST['data'] ) ) : '';
 		$data          = unserialize( $data );
 		$response_data = array();
 
@@ -80,8 +82,8 @@ class Eb_External_Api_Endpoint {
 
 	/**
 	 * Function to test connection for the request from Moodle.
-	 * @param  [type] $data [description]
-	 * @return [type]       [description]
+	 *
+	 * @param  data $data data.
 	 */
 	protected function eb_test_connection( $data ) {
 		$status = 0;
@@ -96,25 +98,29 @@ class Eb_External_Api_Endpoint {
 				$status = 1;
 			}
 		}
-		return array( 'status' => $status, 'msg' => $msg );
+		return array(
+			'status' => $status,
+			'msg' => $msg
+		);
 	}
 
 
 	/**
 	 * Function to enroll or unenroll from the course for the request coming from Moodle
-	 * @param  [type] $data     [description]
-	 * @param  [type] $unEnroll [description]
+	 *
+	 * @param  [type] $data     data.
+	 * @param  [type] $un_enroll un_enroll.
 	 * @return [type]           [description]
 	 */
-	protected function eb_course_enrollment( $data, $unEnroll ) {
+	protected function eb_course_enrollment( $data, $un_enroll ) {
 		if ( isset( $data['user_id'] ) && isset( $data['course_id'] ) ) {
 			$mdl_course_id = $data['course_id'];
 			$wp_course_id  = get_wp_course_id_from_moodle_course_id( $data['course_id'] );
 
 			if ( $wp_course_id ) {
-				$mdl_user_id = $data["user_id"];
-				$wp_user_id  = get_wp_user_id_from_moodle_id( $data["user_id"] );
-				if ( ! $wp_user_id && empty( $wp_user_id ) && $unEnroll == 0 ) {
+				$mdl_user_id = $data['user_id'];
+				$wp_user_id  = get_wp_user_id_from_moodle_id( $data['user_id'] );
+				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
 					$role = default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
@@ -126,8 +132,8 @@ class Eb_External_Api_Endpoint {
 					$args = array(
 						'user_id'  => $wp_user_id,
 						'role_id'  => 5,
-						'courses'  => array($wp_course_id),
-						'unenroll' => $unEnroll,
+						'courses'  => array( $wp_course_id ),
+						'unenroll' => $un_enroll,
 						'suspend'  => 0,
 					);
 
@@ -138,9 +144,8 @@ class Eb_External_Api_Endpoint {
 						return;
 					}
 
-
 					$args['complete_unenroll'] = 0;
-					if ($unEnroll) {
+					if ( $un_enroll ) {
 						$args['complete_unenroll'] = 1;
 					}
 
@@ -153,7 +158,7 @@ class Eb_External_Api_Endpoint {
 						'last_name'  => $user->last_name,
 						'course_id'  => $wp_course_id,
 					);
-					if ( $unEnroll ) {
+					if ( $un_enroll ) {
 						do_action( 'eb_mdl_un_enrollment_trigger', $args );
 					} else {
 
@@ -169,8 +174,7 @@ class Eb_External_Api_Endpoint {
 	/**
 	 * Function to create user for the user creation request coming from Moodle.
 	 *
-	 * @param  [type] $data [description]
-	 * @return [type]       [description]
+	 * @param text $data data.
 	 */
 	public function eb_trigger_user_creation( $data ) {
 		if ( isset( $data['user_name'] ) && isset( $data['email'] ) ) {
@@ -181,11 +185,10 @@ class Eb_External_Api_Endpoint {
 
 				$enc_method = 'AES-128-CTR';
 				// $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
-				$enc_iv = '1234567891011121'; 
+				$enc_iv = '1234567891011121';
 
 				$enc_key  = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
 				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
-				// $user_update_array['user_pass'] = $password;
 			}
 
 			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $password );
@@ -199,8 +202,7 @@ class Eb_External_Api_Endpoint {
 	/**
 	 * Function to delete user for the user deletion request coming from Moodle.
 	 *
-	 * @param  [type] $data [description]
-	 * @return [type]       [description]
+	 * @param  text $data data.
 	 */
 	public function eb_trigger_user_delete( $data ) {
 		require_once( ABSPATH . 'wp-admin/includes/user.php' );
@@ -226,19 +228,19 @@ class Eb_External_Api_Endpoint {
 
 	/**
 	 * Functinality to create only wordpress user.
-	 * @param  [type] $username  username
-	 * @param  [type] $email     email
-	 * @param  [type] $firstname firstname
-	 * @param  [type] $lastname  lastname
-	 * @param  string $role      default role
-	 * @return [type]            success or error message
+	 *
+	 * @param  text   $username  username.
+	 * @param  text   $email     email.
+	 * @param  text   $firstname firstname.
+	 * @param  text   $lastname  lastname.
+	 * @param  text   $role  role.
+	 * @param  string $password    password.
 	 */
-	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = "", $password = '' ) {
-
+	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $password = '' ) {
 		if ( email_exists( $email ) ) {
 			return new \WP_Error(
 				'registration-error',
-				__('An account is already registered with your email address. Please login.', 'eb-textdomain'),
+				esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
 				'eb_email_exists'
 			);
 		}
@@ -265,7 +267,7 @@ class Eb_External_Api_Endpoint {
 		}
 
 		// Added after 1.3.4.
-		if ( $role == '' ) {
+		if ( '' == $role) {
 			$role = get_option( 'default_role' );
 		}
 
@@ -284,11 +286,11 @@ class Eb_External_Api_Endpoint {
 		if ( is_wp_error( $user_id ) ) {
 			return new \WP_Error(
 				'registration-error',
-				'<strong>'.__('ERROR', 'eb-textdomain').'</strong>: '.
-					__(
-						'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-						'eb-textdomain'
-					)
+				'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
+				esc_html__(
+					'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
+					'eb-textdomain'
+				)
 			);
 		}
 
@@ -308,7 +310,11 @@ class Eb_External_Api_Endpoint {
 	}
 
 
-
+	/**
+	 * Trigger Delete.
+	 *
+	 * @param text $data data.
+	 */
 	public function eb_trigger_course_delete( $data ) {
 
 		if ( isset( $data['course_id'] ) ) {
@@ -328,7 +334,11 @@ class Eb_External_Api_Endpoint {
 	}
 
 
-
+	/**
+	 * User update.
+	 *
+	 * @param text $data data.
+	 */
 	public function eb_trigger_user_update( $data ) {
 
 		// get WP User id if present then process.
@@ -344,14 +354,14 @@ class Eb_External_Api_Endpoint {
 
 			// if password is present then decode with key.
 
-			if ( isset( $data['password'] ) && !empty( $data['password'] ) ) {
+			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
 				// $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
-				$enc_iv = '1234567891011121'; 
+				$enc_iv = '1234567891011121';
 
-				$enc_key  = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
-				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$enc_key                        = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
+				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 				$user_update_array['user_pass'] = $password;
 			}
 

@@ -30,7 +30,7 @@ class Eb_Paypal_Refund_Manager {
 	 *
 	 * @var string plugin version.
 	 */
-	private $version     = null;
+	private $version = null;
 
 	/**
 	 * Constructor.
@@ -56,9 +56,9 @@ class Eb_Paypal_Refund_Manager {
 	public function refund( $status, $order_id, $refund_type = 'Full', $amount = null, $reason = '' ) {
 		$success     = 1;
 		$sandbox     = get_post_meta( $order_id, 'eb_paypal_sandbox', 1 );
-		$pay_pal_url = "https://api-3t.paypal.com/nvp";
+		$pay_pal_url = 'https://api-3t.paypal.com/nvp';
 		if ( isset( $sandbox ) && ! empty( $sandbox ) && 'yes' == $sandbox ) {
-			$pay_pal_url = "https://api-3t.sandbox.paypal.com/nvp";
+			$pay_pal_url = 'https://api-3t.sandbox.paypal.com/nvp';
 		}
 		$request_data = $this->get_refund_request_data( $order_id, $refund_type, $amount, $reason );
 		if ( $request_data['status'] ) {
@@ -67,7 +67,7 @@ class Eb_Paypal_Refund_Manager {
 				'body'        => $request_data['data'],
 				'timeout'     => 500,
 				'httpversion' => '1.1',
-				'headers'     => array( 'content-type' => 'application/json')
+				'headers'     => array( 'content-type' => 'application/json' ),
 			);
 			edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Sending Refund request to PayPal. Request data is : " . serialize( $req_args ) );
 			$response = wp_safe_remote_post( $pay_pal_url, $req_args );
@@ -80,13 +80,13 @@ class Eb_Paypal_Refund_Manager {
 					$status['msg'] = esc_html__( 'No Response from PayPal', 'eb-textdomain' );
 				}
 				parse_str( $response['body'], $response );
-				edwiser_bridge_instance()->logger()->add( 'refund', "PayPal refund responce: " . serialize( $response ) );
+				edwiser_bridge_instance()->logger()->add( 'refund', 'PayPal refund responce: ' . serialize( $response ) );
 			} catch ( Exception $ex ) {
 				edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Exception: " . serialize( $ex ) );
 			}
 			$resp_status = get_arr_value( $response, 'ACK', false );
 			if ( 'Success' == $resp_status ) {
-				$status['msg'] = esc_html__( sprintf( "Refund for amount %s against the order #%s has been initiated successfully. Transaction id: %s", get_arr_value( $response, 'GROSSREFUNDAMT' ), $order_id, get_arr_value( $response, 'REFUNDTRANSACTIONID' ) ) );
+				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( " %s against the order #%s has been initiated successfully. Transaction id: %s", get_arr_value( $response, 'GROSSREFUNDAMT' ), $order_id, get_arr_value( $response, 'REFUNDTRANSACTIONID' ) );
 			} else if ( 'Failure' == $resp_status ) {
 				$success       = 0;
 				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . get_arr_value( $response, 'L_LONGMESSAGE0', '' );

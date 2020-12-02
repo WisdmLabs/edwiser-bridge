@@ -1,22 +1,19 @@
 <?php
-
 /**
  * Allows log files to be written to for debugging purposes.
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Logger
-{
-	/**
-	 * @var array Stores open file _handles.
-	 */
-	//private $handles;
+/**
+ * Eb logger.
+ */
+class Eb_Logger {
 
 	/**
 	 * The ID of this plugin.
@@ -37,6 +34,8 @@ class Eb_Logger
 	private $version;
 
 	/**
+	 * Instance.
+	 *
 	 * @var EB_Course_Manager The single instance of the class
 	 *
 	 * @since 1.0.0
@@ -51,14 +50,15 @@ class Eb_Logger
 	 * @since 1.0.0
 	 * @static
 	 *
+	 * @param text $plugin_name plugin_name.
+	 * @param text $version version.
 	 * @see Eb_Logger()
 	 *
 	 * @return Eb_Logger - Main instance
 	 */
-	public static function instance($plugin_name, $version)
-	{
-		if (is_null(self::$instance)) {
-			self::$instance = new self($plugin_name, $version);
+	public static function instance( $plugin_name, $version ) {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $plugin_name, $version );
 		}
 
 		return self::$instance;
@@ -69,9 +69,8 @@ class Eb_Logger
 	 *
 	 * @since   1.0.0
 	 */
-	public function __clone()
-	{
-		_doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'eb-textdomain'), '1.0.0');
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
 	}
 
 	/**
@@ -79,48 +78,46 @@ class Eb_Logger
 	 *
 	 * @since   1.0.0
 	 */
-	public function __wakeup()
-	{
-		_doing_it_wrong(__FUNCTION__, __('Cheatin&#8217; huh?', 'eb-textdomain'), '1.0.0');
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
 	}
 
 	/**
 	 * Constructor for the logger.
+	 *
+	 * @param text $plugin_name plugin_name.
+	 * @param text $version version.
 	 */
-	public function __construct($plugin_name, $version)
-	{
+	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
-
-		$this->_handles = array();
+		$this->version     = $version;
+		$this->_handles    = array();
 	}
 
 	/**
 	 * Destructor.
 	 */
-	public function __destruct()
-	{
-		foreach ($this->_handles as $handle) {
-			@fclose(escapeshellarg($handle));
+	public function __destruct() {
+		foreach ( $this->_handles as $handle ) {
+			@fclose( escapeshellarg( $handle ) );
 		}
 	}
 
 	/**
 	 * Open log file for writing.
 	 *
-	 * @param mixed $handle
+	 * @param mixed $handle handle.
 	 *
 	 * @return bool success
 	 */
-	private function open($handle)
-	{
-		if (isset($this->_handles[$handle])) {
+	private function open( $handle ) {
+		if ( isset( $this->_handles[ $handle ] ) ) {
 			return true;
 		}
 
-		$this->_handles[$handle] = @fopen(wdm_log_file_path($handle), 'a');
+		$this->_handles[ $handle ] = @fopen( wdm_log_file_path( $handle ), 'a' );
 
-		if ($this->_handles[$handle]) {
+		if ( $this->_handles[ $handle ] ) {
 			return true;
 		}
 
@@ -130,26 +127,24 @@ class Eb_Logger
 	/**
 	 * Add a log entry to chosen file.
 	 *
-	 * @param string $handle
-	 * @param string $message
+	 * @param string $handle handle.
+	 * @param string $message message.
 	 */
-	public function add($handle, $message)
-	{
-		if ($this->open($handle) && is_resource($this->_handles[$handle])) {
-			$time = date_i18n('m-d-Y @ H:i:s -'); // Grab Time
-			@fwrite($this->_handles[$handle], $time.' '.$message."\n");
+	public function add( $handle, $message ) {
+		if ( $this->open( $handle ) && is_resource( $this->_handles[ $handle ] ) ) {
+			$time = date_i18n( 'm-d-Y @ H:i:s -' ); // Grab Time.
+			@fwrite( $this->_handles[ $handle ], $time . ' ' . $message . "\n" );
 		}
 	}
 
 	/**
 	 * Clear entries from chosen file.
 	 *
-	 * @param mixed $handle
+	 * @param mixed $handle handle.
 	 */
-	public function clear($handle)
-	{
-		if ($this->open($handle) && is_resource($this->_handles[$handle])) {
-			@ftruncate($this->_handles[$handle], 0);
+	public function clear( $handle ) {
+		if ( $this->open( $handle ) && is_resource( $this->_handles[ $handle ] ) ) {
+			@ftruncate( $this->_handles[ $handle ], 0 );
 		}
 	}
 }

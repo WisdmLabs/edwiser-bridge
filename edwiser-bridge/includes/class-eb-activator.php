@@ -6,66 +6,74 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Activator
-{
+/**
+ * Activator.
+ */
+class Eb_Activator {
 
 	/**
-	 * network_wide tells if the plugin was activated for the entire network or just for single site.
+	 * Network_wide tells if the plugin was activated for the entire network or just for single site.
+	 *
+	 * @var string network_wide.
 	 * @since    1.1.1
 	 */
 	private static $network_wide = false;
 
 	/**
-	 * activation function.
+	 * Activation function.
+	 *
+	 * @param string $network_wide network_wide.
 	 * @since    1.0.0
 	 */
-	public static function activate($network_wide)
-	{
+	public static function activate( $network_wide ) {
 		/**
-		 * deactivates legacy extensions
+		 * Deactivates legacy extensions.
 		 */
 		self::$network_wide = $network_wide;
 
 		self::deactivate_legacy_extensions();
 
-		// create database tables & Pages
+		// create database tables & Pages.
 		self::check_single_or_multi_site();
 
-		// create required files & directories
+		// create required files & directories.
 		self::create_files();
 
-		// redirect to welcome screen
-		set_transient('_eb_activation_redirect', 1, 30);
-		set_transient("edwiser_bridge_admin_feedback_notice", "eb_admin_feedback_notice", 60*60*24*15);
+		// redirect to welcome screen.
+		set_transient( '_eb_activation_redirect', 1, 30 );
+		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );
 	}
 
 	/**
-	 * deactivates legacy extensions
+	 * Deactivates legacy extensions.
 	 *
 	 * @since 1.1
 	 */
-	public static function deactivate_legacy_extensions()
-	{
-		// prepare extensions array
+	public static function deactivate_legacy_extensions() {
+		// prepare extensions array.
 		$extensions = array(
-			'selective_sync'          => array('selective-synchronization/selective-synchronization.php', '1.0.0'),
-			'woocommerce_integration' => array('woocommerce-integration/bridge-woocommerce.php', '1.0.4'),
-			'single_signon'           => array('edwiser-bridge-sso/sso.php', '1.0.0')
+			'selective_sync'          => array( 'selective-synchronization/selective-synchronization.php', '1.0.0' ),
+			'woocommerce_integration' => array( 'woocommerce-integration/bridge-woocommerce.php', '1.0.4' ),
+			'single_signon'           => array(
+				'edwiser-bridge-sso/sso.php',
+				'1.0.0',
+			),
 		);
 
-		// deactive legacy extensions
-		foreach ($extensions as $extension) {
-			if (is_plugin_active($extension[0])) {
-				$plugin_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $extension[0]);
+		// deactive legacy extensions.
+		foreach ( $extensions as $extension ) {
+			if ( is_plugin_active( $extension[0] ) ) {
+				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
 
-				if (isset($plugin_data['Version'])) {
-					if (version_compare($plugin_data['Version'], $extension[1]) <= 0) {
-						deactivate_plugins($extension[0]);
+				if ( isset( $plugin_data['Version'] ) ) {
+					if ( version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
+						deactivate_plugins( $extension[0] );
 					}
 				}
 			}
@@ -73,23 +81,20 @@ class Eb_Activator
 	}
 
 	/**
-	 * checks if the plugin is activated on a SIngle site or Network wide
+	 * Checks if the plugin is activated on a SIngle site or Network wide.
 	 *
 	 * @since    1.1.1
 	 */
-	public static function check_single_or_multi_site()
-	{
+	public static function check_single_or_multi_site() {
 		global $wpdb;
 
-		if (is_multisite()) {
-			// print_r(is_plugin_active_for_network('edwiser-bridge/edwiser-bridge.php')); die();
+		if ( is_multisite() ) {
 
-			if (self::$network_wide) {
-				$all_sites = wp_get_sites();
+			if ( self::$network_wide ) {
+				$all_sites = get_sites();
 
-
-				foreach ($all_sites as $blog) {
-					switch_to_blog($blog['blog_id']);
+				foreach ( $all_sites as $blog ) {
+					switch_to_blog( $blog['blog_id'] );
 
 					self::create_moodle_db_tables();
 					self::create_pages();
@@ -97,7 +102,7 @@ class Eb_Activator
 					restore_current_blog();
 				}
 			} else {
-				switch_to_blog($wpdb->blogid);
+				switch_to_blog( $wpdb->blogid );
 				self::create_moodle_db_tables();
 				self::create_pages();
 				self::create_default_email_tempaltes();
@@ -115,8 +120,7 @@ class Eb_Activator
 	 *
 	 * @since  1.0.0
 	 */
-	public static function create_moodle_db_tables()
-	{
+	public static function create_moodle_db_tables() {
 		global $wpdb;
 
 		$charset_collate     = $wpdb->get_charset_collate();
@@ -134,43 +138,56 @@ class Eb_Activator
 		) $charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		dbDelta($enrollment_table);
+		dbDelta( $enrollment_table );
 		self::alter_table();
 	}
 
-	public static function alter_table()
-	{
+	/**
+	 * Alter table.
+	 */
+	public static function alter_table() {
 		global $wpdb;
 		$enrollment_tbl_name = $wpdb->prefix . 'moodle_enrollment';
 		$new_col             = array(
-			"expire_time" => array("type" => "datetime", "default" => "0000-00-00 00:00:00"),
-			"act_cnt"     => array("type" => "int(5)", "default" => "1"),
-			"suspended"   => array("type" => "int(5)", "default" => "0"),
+			'expire_time' => array(
+				'type'    => 'datetime',
+				'default' => '0000-00-00 00:00:00',
+			),
+			'act_cnt'     => array(
+				'type'    => 'int(5)',
+				'default' => '1',
+			),
+			'suspended'   => array(
+				'type'    => 'int(5)',
+				'default' => '0',
+			),
 		);
-		foreach ($new_col as $col => $val) {
-			$query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
-			$exists = $wpdb->query($query);
+		foreach ( $new_col as $col => $val ) {
+			// $query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
+			// $exists = $wpdb->query( $query );
+
+			$wpdb->query( $wpdb->prepare( 'SHOW COLUMNS FROM %s LIKE %s;', $enrollment_tbl_name, $col ) );
+
 			/**
 			 * Alter table if the expire_time column is not exisit in the plugin.
 			 */
-			if (!$exists) {
-				//$dType      = $val['type'];
+			if ( ! $exists ) {
 				$default_val = $val['default'];
 				$type        = $val['type'];
-				$query       = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` $type DEFAULT '$default_val' NOT NULL);";
-				$wpdb->query($query);
+				// $query       = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` $type DEFAULT '$default_val' NOT NULL);";
+				$wpdb->query( $wpdb->prepare( 'ALTER TABLE %s ADD COLUMN (%s DEFAULT %s NOT NULL);', $enrollment_tbl_name, $type, $default_val ) );
 			}
 		}
 	}
 
 	/**
-	 * handles addtion of new blog
+	 * Handles addtion of new blog.
 	 *
+	 * @param text $blog_id blog_id.
 	 * @since  1.1.1
 	 */
-	public static function handle_new_blog($blog_id)
-	{
-		switch_to_blog($blog_id);
+	public static function handle_new_blog( $blog_id ) {
+		switch_to_blog( $blog_id );
 		self::create_moodle_db_tables();
 		self::create_pages();
 		restore_current_blog();
@@ -181,9 +198,8 @@ class Eb_Activator
 	 *
 	 * @since  1.0.0
 	 */
-	private static function create_files()
-	{
-		// Install files and folders for uploading files and prevent hotlinking
+	private static function create_files() {
+		// Install files and folders for uploading files and prevent hotlinking.
 		$upload_dir = wp_upload_dir();
 
 		$files = array(
@@ -194,12 +210,12 @@ class Eb_Activator
 			),
 		);
 
-		foreach ($files as $file) {
-			if (wp_mkdir_p($file['base']) && !file_exists(trailingslashit($file['base']) . $file['file'])) {
-				$file_handle = @fopen(trailingslashit($file['base']) . $file['file'], 'w');
-				if ($file_handle) {
-					fwrite($file_handle, $file['content']);
-					fclose($file_handle);
+		foreach ( $files as $file ) {
+			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
+				$file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' );
+				if ( $file_handle ) {
+					fwrite( $file_handle, $file['content'] );
+					fclose( $file_handle );
 				}
 			}
 		}
@@ -212,8 +228,7 @@ class Eb_Activator
 	 *
 	 *  @since  1.0.0
 	 */
-	public static function create_pages()
-	{
+	public static function create_pages() {
 		include_once 'eb-core-functions.php';
 
 		$page_content = get_shortcode_page_content();
@@ -221,97 +236,95 @@ class Eb_Activator
 		$pages = apply_filters(
 			'eb_create_default_pages',
 			array(
-			'thankyou'    => array(
-				'name'       => _x('thank-you-for-purchase', 'Page slug', 'eb-textdomain'),
-				'title'      => _x('Thank You for Purchase', 'Page title', 'eb-textdomain'),
-				'content'    => __('Thanks for purchasing the course, your order will be processed shortly.', 'eb-textdomain'),
-				'option_key' => '',
-			),
-			'useraccount' => array(
-				'name'       => _x('user-account', 'Page slug', 'eb-textdomain'),
-				'title'      => _x('User Account', 'Page title', 'eb-textdomain'),
-				'content'    => '[' . apply_filters('eb_user_account_shortcode_tag', 'eb_user_account') . ']',
-				'option_key' => 'eb_useraccount_page_id',
-			),
-			'mycourses'   => array(
-				'name'       => _x('eb-my-courses', 'Page slug', 'eb-textdomain'),
-				'title'      => _x('My Courses', 'Page title', 'eb-textdomain'),
-				'content'    => $page_content['eb_my_courses'],
-				'option_key' => 'eb_my_courses_page_id',
-			),
-			'courses'     => array(
-				'name'       => _x('eb-courses', 'Page slug', 'eb-textdomain'),
-				'title'      => _x('Courses', 'Page title', 'eb-textdomain'),
-				'content'    => $page_content['eb_courses'],
-				'option_key' => '',
-			),
-				)
+				'thankyou'   => array(
+					'name'       => esc_html_x( 'thank-you-for-purchase', 'Page slug', 'eb-textdomain' ),
+					'title'      => esc_html_x( 'Thank You for Purchase', 'Page title', 'eb-textdomain' ),
+					'content'    => esc_html__( 'Thanks for purchasing the course, your order will be processed shortly.', 'eb-textdomain' ),
+					'option_key' => '',
+				),
+				'useraccount' => array(
+					'name'       => esc_html_x( 'user-account', 'Page slug', 'eb-textdomain' ),
+					'title'      => esc_html_x( 'User Account', 'Page title', 'eb-textdomain' ),
+					'content'    => '[' . apply_filters( 'eb_user_account_shortcode_tag', 'eb_user_account' ) . ']',
+					'option_key' => 'eb_useraccount_page_id',
+				),
+				'mycourses'   => array(
+					'name'       => esc_html_x( 'eb-my-courses', 'Page slug', 'eb-textdomain' ),
+					'title'      => esc_html_x( 'My Courses', 'Page title', 'eb-textdomain' ),
+					'content'    => $page_content['eb_my_courses'],
+					'option_key' => 'eb_my_courses_page_id',
+				),
+				'courses'     => array(
+					'name'       => esc_html_x( 'eb-courses', 'Page slug', 'eb-textdomain' ),
+					'title'      => esc_html_x( 'Courses', 'Page title', 'eb-textdomain' ),
+					'content'    => $page_content['eb_courses'],
+					'option_key' => '',
+				),
+			)
 		);
 
-		foreach ($pages as $key => $page) {
+		foreach ( $pages as $key => $page ) {
 			$key;
-			wdm_create_page(esc_sql($page['name']), $page['option_key'], $page['title'], $page['content']);
+			wdm_create_page( esc_sql( $page['name'] ), $page['option_key'], $page['title'], $page['content'] );
 		}
 	}
 
-	public static function create_default_email_tempaltes()
-	{
+	/**
+	 * Default email tempalate.
+	 */
+	public static function create_default_email_tempaltes() {
 		$default_tmpl = new Eb_Default_Email_Template();
-		self::update_template_data("eb_emailtmpl_create_user", $default_tmpl->new_user_acoount("eb_emailtmpl_create_user"));
+		self::update_template_data( 'eb_emailtmpl_create_user', $default_tmpl->new_user_acoount( 'eb_emailtmpl_create_user' ) );
 
-		self::update_template_data("eb_emailtmpl_refund_completion_notifier_to_user", $default_tmpl->notify_user_on_order_refund("eb_emailtmpl_refund_completion_notifier_to_user"));
-		self::update_template_data("eb_emailtmpl_refund_completion_notifier_to_admin", $default_tmpl->notify_admin_on_order_refund("eb_emailtmpl_refund_completion_notifier_to_admin"));
+		self::update_template_data( 'eb_emailtmpl_refund_completion_notifier_to_user', $default_tmpl->notify_user_on_order_refund( 'eb_emailtmpl_refund_completion_notifier_to_user' ) );
+		self::update_template_data( 'eb_emailtmpl_refund_completion_notifier_to_admin', $default_tmpl->notify_admin_on_order_refund( 'eb_emailtmpl_refund_completion_notifier_to_admin' ) );
 
-		self::update_template_data("eb_emailtmpl_linked_existing_wp_user", $default_tmpl->link_wp_moodle_account("eb_emailtmpl_linked_existing_wp_user"));
-		self::update_template_data("eb_emailtmpl_linked_existing_wp_new_moodle_user", $default_tmpl->link_new_moodle_account("eb_emailtmpl_linked_existing_wp_new_moodle_user"));
-		self::update_template_data("eb_emailtmpl_order_completed", $default_tmpl->order_complete("eb_emailtmpl_order_completed"));
-		self::update_template_data("eb_emailtmpl_course_access_expir", $default_tmpl->course_access_expired("eb_emailtmpl_course_access_expir"));
+		self::update_template_data( 'eb_emailtmpl_linked_existing_wp_user', $default_tmpl->link_wp_moodle_account( 'eb_emailtmpl_linked_existing_wp_user' ) );
+		self::update_template_data( 'eb_emailtmpl_linked_existing_wp_new_moodle_user', $default_tmpl->link_new_moodle_account( 'eb_emailtmpl_linked_existing_wp_new_moodle_user' ) );
+		self::update_template_data( 'eb_emailtmpl_order_completed', $default_tmpl->order_complete( 'eb_emailtmpl_order_completed' ) );
+		self::update_template_data( 'eb_emailtmpl_course_access_expir', $default_tmpl->course_access_expired( 'eb_emailtmpl_course_access_expir' ) );
 
+		self::update_template_data( 'eb_emailtmpl_mdl_enrollment_trigger', $default_tmpl->moodle_enrollment_trigger( 'eb_emailtmpl_mdl_enrollment_trigger' ) );
+		self::update_template_data( 'eb_emailtmpl_mdl_un_enrollment_trigger', $default_tmpl->moodle_unenrollment_trigger( 'eb_emailtmpl_mdl_un_enrollment_trigger' ) );
+		self::update_template_data( 'eb_emailtmpl_mdl_user_deletion_trigger', $default_tmpl->user_deletion_trigger( 'eb_emailtmpl_mdl_user_deletion_trigger' ) );
 
+		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow', 'ON' );
 
-/******  Two way synch Moodle triggered emails   ******/
+		self::update_allow_mail_send_data( 'eb_emailtmpl_create_user_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_linked_existing_wp_user_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_order_completed_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_course_access_expir_notify_allow', 'ON' );
 
-		self::update_template_data("eb_emailtmpl_mdl_enrollment_trigger", $default_tmpl->moodle_enrollment_trigger("eb_emailtmpl_mdl_enrollment_trigger"));
-		self::update_template_data("eb_emailtmpl_mdl_un_enrollment_trigger", $default_tmpl->moodle_unenrollment_trigger("eb_emailtmpl_mdl_un_enrollment_trigger"));
-		self::update_template_data("eb_emailtmpl_mdl_user_deletion_trigger", $default_tmpl->user_deletion_trigger("eb_emailtmpl_mdl_user_deletion_trigger"));
-
-/************************************/
-
-
-
-
-
-		self::update_allow_mail_send_data("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow", "ON");
-
-		self::update_allow_mail_send_data("eb_emailtmpl_create_user_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_linked_existing_wp_user_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_order_completed_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_course_access_expir_notify_allow", "ON");
-
-
-
-/******  Two way synch Moodle triggered emails   ******/
-
-		self::update_allow_mail_send_data("eb_emailtmpl_mdl_enrollment_trigger_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow", "ON");
-		self::update_allow_mail_send_data("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow", "ON");
+		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow', 'ON' );
 	}
 
-	private static function update_template_data($key, $value)
-	{
-		if (get_option($key) == false) {
-			update_option($key, $value);
+	/**
+	 * Upate template.
+	 *
+	 * @param text $key key.
+	 * @param text $value value.
+	 */
+	private static function update_template_data( $key, $value ) {
+		if ( get_option( $key ) == false ) {
+			update_option( $key, $value );
 		}
 	}
 
-	private static function update_allow_mail_send_data($key, $value)
-	{
-		$data = get_option($key);
+	/**
+	 * Update allow send email data.
+	 *
+	 * @param text $key key.
+	 * @param text $value value.
+	 */
+	private static function update_allow_mail_send_data( $key, $value ) {
+		$data = get_option( $key );
 
-		if ($data == false) {
-			update_option($key, $value);
+		if ( false == $data ) {
+			update_option( $key, $value );
 		}
 	}
 }

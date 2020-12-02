@@ -4,12 +4,15 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
+/**
+ * Connection helper.
+ */
 class EBConnectionHelper {
 
 	/**
@@ -31,6 +34,8 @@ class EBConnectionHelper {
 	private $version;
 
 	/**
+	 * Instance.
+	 *
 	 * @var EBConnectionHelper The single instance of the class
 	 *
 	 * @since 1.0.0
@@ -46,7 +51,8 @@ class EBConnectionHelper {
 	 * @static
 	 *
 	 * @see EBConnectionHelper()
-	 *
+	 * @param text $plugin_name plugin_name.
+	 * @param text $version version.
 	 * @return EBConnectionHelper - Main instance
 	 */
 	public static function instance( $plugin_name, $version ) {
@@ -141,9 +147,8 @@ class EBConnectionHelper {
 		$webservice_function = 'core_course_get_courses';
 
 		$request_url  = $url . '/webservice/rest/server.php?wstoken=';
-		$request_url  .= $token . '&wsfunction=';
-		$request_url  .= $webservice_function . '&moodlewsrestformat=json';
-		// $response = wp_remote_post( $request_url, $request_args );
+		$request_url .= $token . '&wsfunction=';
+		$request_url .= $webservice_function . '&moodlewsrestformat=json';
 		$request_args = array(
 			'timeout' => 100,
 		);
@@ -172,9 +177,10 @@ class EBConnectionHelper {
 			$response_message = esc_html__( 'Please check Moodle URL !', 'eb-textdomain' );
 		}
 
-		//edwiserBridgeInstance()->logger()->add( 'user', "\n Moodle response: ".serialize($response_data) );
-
-		return array( 'success' => $success, 'response_message' => $response_message );
+		return array(
+			'success' => $success,
+			'response_message' => $response_message,
+		);
 	}
 
 
@@ -182,6 +188,9 @@ class EBConnectionHelper {
 
 	/**
 	 * This is called on the test connection.
+	 *
+	 * @param text $url url.
+	 * @param text $token token.
 	 */
 	public function check_service_access( $url, $token ) {
 		$success          = 1;
@@ -202,36 +211,29 @@ class EBConnectionHelper {
 									<div>
 										';
 
-
-
-
-		$webservice_functions  = eb_get_all_web_service_functions();
+		$webservice_functions    = eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
 		foreach ( $webservice_functions as $webservice_function ) {
-			$request_url   = $url . '/webservice/rest/server.php?wstoken=';
-			$request_url  .= $token . '&wsfunction=';
-			$request_url  .= $webservice_function . '&moodlewsrestformat=json';
-			// $response = wp_remote_post( $request_url, $request_args );
-			$request_args  = array( "timeout" => 100 );
-			$response      = wp_remote_post( $request_url, $request_args );
+			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
+			$request_url .= $token . '&wsfunction=';
+			$request_url .= $webservice_function . '&moodlewsrestformat=json';
+			$request_args = array( 'timeout' => 100 );
+			$response     = wp_remote_post( $request_url, $request_args );
 
 			if ( wp_remote_retrieve_response_code( $response ) == 200 ||
 					wp_remote_retrieve_response_code( $response ) == 303 ) {
 				$body = json_decode( wp_remote_retrieve_body( $response ) );
 				if ( ! empty( $body->exception ) ) {
-					// $responseMessage = $body->message;
 
 					// check if the error response is moodle_access_exception.
 					// reasons are function missing, not authorised user or pluginis not activated.
 					if ( isset( $body->errorcode ) && 'accessexception' == $body->errorcode ) {
 						$success = 0;
 						array_push( $missing_web_service_fns, $webservice_function );
-						// $responseMessage .= '<span>'. $webserviceFunction .'</span> , ';
 					}
 				}
 			}
 		}
-
 
 		if ( count( $missing_web_service_fns ) > 0 ) {
 			$response_message .= implode( ' , ', $missing_web_service_fns );
@@ -246,7 +248,10 @@ class EBConnectionHelper {
 			$response_message .= '</div>';
 		}
 
-		return array( 'success' => $success, 'response_message' => $response_message );
+		return array(
+			'success'          => $success,
+			'response_message' => $response_message,
+		);
 	}
 
 
@@ -262,7 +267,7 @@ class EBConnectionHelper {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param string $webservice_function accepts webservice function as an argument
+	 * @param string $webservice_function accepts webservice function as an argument.
 	 *
 	 * @return array returns response to caller function
 	 */
@@ -281,7 +286,7 @@ class EBConnectionHelper {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param string $webservice_function accepts webservice function as an argument
+	 * @param string $webservice_function accepts webservice function as an argument.
 	 *
 	 * @return array returns response to caller function
 	 */
@@ -290,10 +295,9 @@ class EBConnectionHelper {
 		$response_message = 'success';
 		$response_data    = array();
 
-		$request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
 		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		// $response = wp_remote_post( $request_url, $request_args );
 		$request_args = array( 'timeout' => 100 );
 		$response     = wp_remote_post( $request_url, $request_args );
 
@@ -305,7 +309,6 @@ class EBConnectionHelper {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
 				$success          = 0;
-				//.' - '.isset( $body->debuginfo )?$body->debuginfo:''
 				$response_message = $body->message;
 			} else {
 				$success       = 1;
@@ -324,8 +327,6 @@ class EBConnectionHelper {
 	}
 
 
-
-
 	/**
 	 * Helper function, recieves request to fetch data from moodle.
 	 * accepts a paramtere for webservice function to be called on moodle.
@@ -334,7 +335,7 @@ class EBConnectionHelper {
 	 *
 	 * @since  1.0.0
 	 *
-	 * @param string $webservice_function accepts webservice function as an argument
+	 * @param string $webservice_function accepts webservice function as an argument.
 	 *
 	 * @return array returns response to caller function
 	 */
@@ -343,7 +344,7 @@ class EBConnectionHelper {
 		$response_message = 'success';
 		$response_data    = array();
 
-		$request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
 		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array(
@@ -382,15 +383,25 @@ class EBConnectionHelper {
 	}
 
 
-
-
-
+	/**
+	 * Helper function, recieves request to fetch data from moodle.
+	 * accepts a paramtere for webservice function to be called on moodle.
+	 *
+	 * Fetches data from moodle and returns response.
+	 *
+	 * @since  1.0.0
+	 *
+	 * @param string $webservice_function accepts webservice function as an argument.
+	 * @param string $request_data accepts webservice function as an argument.
+	 *
+	 * @return array returns response to caller function
+	 */
 	public function connect_moodle_with_args_helper( $webservice_function, $request_data ) {
 		$success          = 1;
 		$response_message = 'success';
 		$response_data    = array();
 
-		$request_url = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
 		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array(

@@ -284,7 +284,7 @@ msgid "Enter from name"
 msgstr "Geben Sie 'aus' Name ein "
 
 #: admin/class-eb-email-template.php:118
-msgid "Subject"
+msgid 'subject'
 msgstr "Betreff"
 
 #: admin/class-eb-email-template.php:120

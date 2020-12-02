@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation.
  *
@@ -7,23 +6,25 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Deactivator
-{
+/**
+ * Deactivator.
+ */
+class Eb_Deactivator {
 
-    /**
-     * Short Description. (use period).
-     *
-     * Long Description.
-     *
-     * @since    1.0.0
-     */
-    public static function deactivate()
-    {
-    }
+	/**
+	 * Short Description. (use period).
+	 *
+	 * Long Description.
+	 *
+	 * @since    1.0.0
+	 */
+	public static function deactivate() {
+		// All deactivate dependency will come here.
+	}
 }
