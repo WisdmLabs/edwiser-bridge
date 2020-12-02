@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Edwiser Bridge Email template page
  *
@@ -67,10 +66,12 @@ class EBAdminEmailTemplate {
 	/**
 	 * Handles the manage email temaplte page output
 	 */
-	public function outPut() {
+	public function output() {
 		$sub_action = isset( $_POST['eb-mail-tpl-submit'] ) ? sanitize_text_field( wp_unslash( $_POST['eb-mail-tpl-submit'] ) ) : 0;
-		if ( 'eb-mail-tpl-save-changes' === $sub_action ) {
-			$this->save();
+		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) ) {
+			if ( 'eb-mail-tpl-save-changes' === $sub_action ) {
+				$this->save();
+			}
 		}
 		$from_name = $this->get_from_name();
 		$tmpl_list = array();
@@ -92,8 +93,8 @@ class EBAdminEmailTemplate {
 			$bcc_email = $this->get_bcc_email( $tmpl_key );
 		}
 
-		$tmpl_data   = $this->get_email_template( $tmpl_key );
-		$tmplContent = apply_filters( 'eb_email_template_data', $tmpl_data );
+		$tmpl_data    = $this->get_email_template( $tmpl_key );
+		$tmpl_content = apply_filters( 'eb_email_template_data', $tmpl_data );
 		?>
 		<div class="wrap">
 			<h1 class="wp-heading-inline eb-emailtemp-head"><?php esc_html_e( 'Manage Email Templates', 'eb-textdomain' ); ?></h1>
@@ -110,14 +111,14 @@ class EBAdminEmailTemplate {
 							<tr>
 								<td class="eb-email-lable"><?php esc_html_e( 'From Name', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo esc_html( $from_name ); ?>" class="eb-email-input" title="<?php _e( 'Enter name here to use as the form name in email sent from site using Edwisaer plugins', 'eb-textdomain' ); ?>" placeholder="<?php _e( 'Enter from name', 'eb-textdomain' ); ?>"/>
+									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo esc_html( $from_name ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter name here to use as the form name in email sent from site using Edwisaer plugins', 'eb-textdomain' ); ?>" placeholder="<?php esc_attr_e( 'Enter from name', 'eb-textdomain' ); ?>"/>
 								</td>
 							</tr>
 
 							<tr>
 								<td class="eb-email-lable"><?php esc_html_e( 'Subject', 'eb-textdomain' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo $tmplContent['subject']; ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain' ); ?>"/>
+									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo esc_attr( $tmpl_content['subject'] ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain' ); ?>"/>
 								</td>
 							</tr>
 
@@ -131,7 +132,7 @@ class EBAdminEmailTemplate {
 
 							<tr>
 								<td class="eb-email-lable">
-									<?php esc_html_e( 'Additional Email Adress For BCC in Mail', 'eb-extension' ); ?>
+									<?php esc_html_e( 'BCC in email', 'eb-extension' ); ?>
 								</td>
 								<td>
 									<input type="text" value="<?php echo esc_html( $bcc_email ); ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
@@ -148,7 +149,7 @@ class EBAdminEmailTemplate {
 							<tr>
 								<td colspan="2" class="eb-template-edit-cell">
 			<?php
-			$this->get_editor( $tmplContent['content'] );
+			$this->get_editor( $tmpl_content['content'] );
 			?>
 								</td>
 							</tr>
@@ -158,7 +159,7 @@ class EBAdminEmailTemplate {
 									<input type="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'eb-textdomain' ); ?>" name="eb_save_tmpl" title="<?php esc_html_e( 'Save changes', 'eb-textdomain' ); ?>"/>
 									<input type="button" class="button-primary" value="<?php esc_html_e( 'Restore template content', 'eb-textdomain' ); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
 									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo esc_html( $tmpl_key ); ?>" />
-									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo esc_attr( $tmplContent['subject'] ); ?>" />
+									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo esc_attr( $tmpl_content['subject'] ); ?>" />
 								</td>
 							</tr>
 						</table>
@@ -167,11 +168,11 @@ class EBAdminEmailTemplate {
 						<h3><?php esc_html_e( 'Send a test email of the selected template', 'eb-textdomain' ); ?></h3>
 						<div class="eb-email-temp-test-mail-wrap">
 							<label class="eb-email-lable"><?php esc_html_e( 'To', 'eb-textdomain' ); ?> : </label>
-		    				<?php wp_nonce_field( 'eb_send_testmail_sec', 'eb_send_testmail_sec_filed' ); ?>
+							<?php wp_nonce_field( 'eb_send_testmail_sec', 'eb_send_testmail_sec_filed' ); ?>
 							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'eb-textdomain' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'eb-textdomain' ); ?>"/>
 							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'eb-textdomain' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'eb-textdomain' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo EB_PLUGIN_URL . '/images/loader.gif'; ?>" height="20" width="20">
+								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( EB_PLUGIN_URL . '/images/loader.gif' ); ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
@@ -182,30 +183,37 @@ class EBAdminEmailTemplate {
 				</div>
 				<div class="eb-edit-email-template-aside">
 					<div class="eb-email-templates-list">
-						<h3><?php _e( 'Email Templates', 'eb-textdomain' ); ?></h3>
+						<h3><?php esc_attr_e( 'Email Templates', 'eb-textdomain' ); ?></h3>
 						<ul id="eb_email_templates_list">
-		    <?php
-			foreach ( $tmpl_list as $tmplId => $tmpl_name ) {
-				if ( $tmpl_key === $tmplId ) {
-					echo "<li id='$tmplId' class='eb-emailtmpl-list-item eb-emailtmpl-active'>$tmpl_name</li>";
-				} else {
-					echo "<li id='$tmplId' class='eb-emailtmpl-list-item'>$tmpl_name</li>";
+				<?php
+				foreach ( $tmpl_list as $tmpl_id => $tmpl_name ) {
+					$tml_list_class = 'eb-emailtmpl-list-item';
+					if ( $tmpl_key === $tmpl_id ) {
+						$tml_list_class = 'eb-emailtmpl-list-item eb-emailtmpl-active';
+					}
+					?>
+					<li id='<?php echo esc_attr( $tmpl_id ); ?>' class='<?php echo esc_attr( $tml_list_class ); ?>'><?php echo esc_attr( $tmpl_name ); ?></li>
+					<?php
 				}
-			}
-			?>
+				?>
 						</ul>
 					</div>
 					<div class="eb-email-templates-const-wrap">
 						<h3><?php esc_html_e( 'Template Constants', 'eb-textdomain' ); ?></h3>
 						<div class="eb-emiltemp-const-wrap">
 		<?php
-		foreach ( $const_sec as $secName => $tmplConst ) {
-			echo "<div class='eb-emailtmpl-const-sec'>";
-			echo "<h3>$secName</h3>";
-			foreach ( $tmplConst as $const => $desc ) {
-				echo '<div class="eb-mail-templat-const"><span>' . $const . '</span>' . $desc . '</div>';
-			}
-			echo '</div>';
+		foreach ( $const_sec as $sec_name => $tmpl_const ) {
+			?>
+			<div class='eb-emailtmpl-const-sec'>
+				<h3><?php echo esc_attr( $sec_name ); ?></h3>
+				<?php foreach ( $tmpl_const as $const => $desc ) { ?>
+					<div class="eb-mail-templat-const">
+						<span><?php echo esc_attr( $const ); ?></span>
+						<?php echo esc_attr( $desc ); ?>
+					</div>
+				<?php } ?>
+			</div>
+			<?php
 		}
 		?>
 						</div>
@@ -278,12 +286,11 @@ class EBAdminEmailTemplate {
 	 * callback for the action wdm_eb_get_email_template
 	 */
 	public function get_template_data_ajax_callBack() {
-
 		$data = array();
-		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( $_POST['admin_nonce'], 'eb_admin_nonce' ) ) {
-			$tmpl_data    = get_option( $_POST['tmpl_name'] );
-			$notify_allow = get_option( $_POST['tmpl_name'] . '_notify_allow' );
-			$bcc_email    = get_option( $_POST['tmpl_name'] . '_bcc_email' );
+		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
+			$tmpl_data    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) );
+			$notify_allow = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_notify_allow' );
+			$bcc_email    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_bcc_email' );
 
 			if ( ! $bcc_email ) {
 				$bcc_email = '';
@@ -442,13 +449,14 @@ class EBAdminEmailTemplate {
 	 * Provides the functionality to save the email temaplte content into the database
 	 */
 	private function save() {
-		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( $_POST['eb_emailtmpl_nonce'], 'eb_emailtmpl_sec' ) ) {
+		$message = '';
+		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) ) {
 			$from_name    = $this->check_is_empty( $_POST, 'eb_email_from_name' );
 			$subject      = $this->check_is_empty( $_POST, 'eb_email_subject' );
 			$tmpl_contetn = $this->check_is_empty( $_POST, 'eb_emailtmpl_editor' );
 			$tmpl_name    = $this->check_is_empty( $_POST, 'eb_tmpl_name' );
 			$notify_allow = $this->check_is_empty( $_POST, 'eb_email_notification_on' );
-			$notify_allow = $notify_allow === 'ON' ? $notify_allow : 'OFF';
+			$notify_allow = 'ON' === $notify_allow ? $notify_allow : 'OFF';
 			$bcc_email    = $this->check_is_empty( $_POST, 'eb_bcc_email' );
 
 			$data = array(
@@ -460,10 +468,9 @@ class EBAdminEmailTemplate {
 			$this->set_notify_allow( $tmpl_name, $notify_allow );
 			$this->set_template_data( $tmpl_name, $data );
 			$this->set_bcc_email_address( $tmpl_name, $bcc_email );
-
-			echo self::get_notice_html( esc_html__( 'Changes saved successfully!', 'eb-textdomain' ) );
+			$message = self::get_notice_html( __( 'Changes saved successfully!', 'eb-textdomain' ) );
 		} else {
-			echo self::get_notice_html( esc_html__( 'Due to the security issue changes are not saved, Try to re-update it.', 'eb-textdomain' ), 'error' );
+			$message = self::get_notice_html( __( 'Due to the security issue changes are not saved, Try to re-update it.', 'eb-textdomain' ), 'error' );
 		}
 	}
 
@@ -487,8 +494,9 @@ class EBAdminEmailTemplate {
 	/**
 	 * DEPRECATED FUNCTION.
 	 *
-	 * Provides teh functioanlityto get the email tempalte constant
+	 * Provides teh functioanlityto get the email tempalte constant.
 	 *
+	 * @deprecated since 2.0.1 use get_email_tmpl_content($tmpl_name) insted.
 	 * @param  string $tmpl_name template key.
 	 * @return string returns the template content associated with the template
 	 * kay othrewise emapty string
@@ -544,8 +552,9 @@ class EBAdminEmailTemplate {
 	/**
 	 * DEPRECATED FUNCTION.
 	 *
-	 * Provides the funcationlity to send the email temaplte
+	 * Provides the funcationlity to send the email temaplte.
 	 *
+	 * @deprecated since 2.0.1 use send_emial( $mail_to, $args, $tmpl_data ) insted.
 	 * @param  text  $mail_to   email id to send the email id.
 	 * @param  array $args      the default email argument.
 	 * @param  html  $tmpl_data email template contetn.
@@ -621,11 +630,23 @@ class EBAdminEmailTemplate {
 	/**
 	 * Functioanlity to fetch the from email from database.
 	 *
+	 * @deprecated since 2.0.1 use wpb_sender_email( $email ) insted
 	 * @param string $email start the email send process.
 	 *
 	 * @return string returns from email.
 	 */
 	public function wpbSenderEmail( $email ) {
+		return $this->wpb_sender_email( $emial );
+	}
+
+	/**
+	 * Functioanlity to fetch the from email from database.
+	 *
+	 * @param string $email start the email send process.
+	 *
+	 * @return string returns from email.
+	 */
+	public function wpb_sender_email( $email ) {
 		return $this->get_from_email();
 	}
 
@@ -642,23 +663,20 @@ class EBAdminEmailTemplate {
 	/**
 	 * Prepares the email tempalte content
 	 *
-	 * @param  string  $msg the html formated message.
+	 * @param  string  $msg the message to display.
 	 * @param  string  $type type of the message.
 	 * @param  boolean $dismissible is the message dismissible.
-	 * @return type
 	 */
 	public static function get_notice_html( $msg, $type = 'success', $dismissible = true ) {
 		$classes = 'notice notice-' . $type;
 		if ( $dismissible ) {
 			$classes .= ' is-dismissible';
 		}
-		ob_start();
 		?>
-		<div class="<?php echo $classes; ?>">
-			<p><?php echo $msg; ?></p>
+		<div class="<?php echo esc_attr( $classes ); ?>">
+			<p><?php echo esc_html( $msg ); ?></p>
 		</div>
 		<?php
-		return ob_get_clean();
 	}
 
 	/**

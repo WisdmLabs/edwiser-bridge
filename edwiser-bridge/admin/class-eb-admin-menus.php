@@ -243,7 +243,7 @@ class Eb_Admin_Menus {
 	 */
 	public function email_template_page() {
 		$email_tmpl = new EBAdminEmailTemplate();
-		$email_tmpl->outPut();
+		$email_tmpl->output();
 	}
 }
 return new Eb_Admin_Menus();

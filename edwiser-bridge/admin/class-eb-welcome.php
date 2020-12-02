@@ -265,7 +265,7 @@ class Eb_Welcome {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if ( isset( $_POST['subscribe_nonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce'] ) ), 'name_of_my_action' ) ) {
+					if ( isset( $_POST['subscribe_nonce_field'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
 						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
 							?>
 							<div class="success-message">
@@ -306,7 +306,7 @@ class Eb_Welcome {
 
 		// Delete transient used for redirection.
 		delete_transient( '_eb_activation_redirect' );
-		if ( ! isset( $_POST['subscribe_nonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce'] ) ), 'name_of_my_action' ) ) {
+		if ( ! isset( $_POST['subscribe_nonce_field'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
 			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 		}
 		// Return if activating from network, or bulk.
