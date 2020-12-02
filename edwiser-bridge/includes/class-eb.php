@@ -648,12 +648,12 @@ class EdwiserBridge {
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_get_email_template',
 			$email_tmpl_editor,
-			'get_template_data_ajax_callBack'
+			'get_template_data_ajax_call_back'
 		);
 		$this->loader->eb_add_action(
 			'wp_ajax_nopriv_wdm_eb_get_email_template',
 			$email_tmpl_editor,
-			'get_template_data_ajax_callBack'
+			'get_template_data_ajax_call_back'
 		);
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_send_test_email',

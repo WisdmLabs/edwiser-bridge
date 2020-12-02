@@ -285,7 +285,7 @@ class EBAdminEmailTemplate {
 	 * Ajax callback to get the template content
 	 * callback for the action wdm_eb_get_email_template
 	 */
-	public function get_template_data_ajax_callBack() {
+	public function get_template_data_ajax_call_back() {
 		$data = array();
 		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 			$tmpl_data    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) );
