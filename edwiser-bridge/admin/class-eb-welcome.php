@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * EB_Welcome_Screen class.
+ * EB_Welcome class.
  */
-class Eb_Welcome_Screen {
+class Eb_Welcome {
 
 	/**
 	 * Hook in tabs.
@@ -265,18 +265,20 @@ class Eb_Welcome_Screen {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
-						?>
-						<div class="success-message">
-							<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
-						</div>
-						<?php
-					} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
-						?>
-						<div class="error-message">
-							<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
-						</div>
-						<?php
+					if ( isset( $_POST['subscribe_nonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce'] ) ), 'name_of_my_action' ) ) {
+						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
+							?>
+							<div class="success-message">
+								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
+							</div>
+							<?php
+						} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
+							?>
+							<div class="error-message">
+								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
+							</div>
+							<?php
+						}
 					}
 					?>
 				</div>
@@ -304,7 +306,9 @@ class Eb_Welcome_Screen {
 
 		// Delete transient used for redirection.
 		delete_transient( '_eb_activation_redirect' );
-
+		if ( ! isset( $_POST['subscribe_nonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce'] ) ), 'name_of_my_action' ) ) {
+			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
+		}
 		// Return if activating from network, or bulk.
 		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
 			return;
@@ -362,4 +366,4 @@ class Eb_Welcome_Screen {
 	}
 }
 
-new Eb_Welcome_Screen();
+new Eb_Welcome();

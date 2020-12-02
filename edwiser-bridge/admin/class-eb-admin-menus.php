@@ -78,7 +78,7 @@ class Eb_Admin_Menus {
 				'name' => __( 'Orders', 'eb-textdomain' ),
 				'cap'  => 'manage_options',
 				'link' => 'edit.php?post_type=eb_order',
-			)
+			),
 		);
 
 		foreach ( $add_submenu as $add_submenu_item ) {
@@ -90,7 +90,6 @@ class Eb_Admin_Menus {
 				);
 			}
 		}
-
 	}
 
 	/**
@@ -176,7 +175,7 @@ class Eb_Admin_Menus {
 			$submenu['edwiserbridge_lms'][] = array(
 				'<div id="helpmenu">' . __( 'Help', 'eb-textdomain' ) . '</div>',
 				'manage_options',
-				'https://edwiser.org/bridge/documentation/'
+				'https://edwiser.org/bridge/documentation/',
 			);
 		}
 	}

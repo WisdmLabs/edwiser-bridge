@@ -114,7 +114,6 @@ class Eb_Settings_Ajax_Initiater {
 		// get sync options.
 		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
 
-		// $response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
 		$response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler( $sync_options, $offset );
 
 		echo wp_json_encode( $response );

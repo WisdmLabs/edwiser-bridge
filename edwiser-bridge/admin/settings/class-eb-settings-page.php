@@ -49,6 +49,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		/**
 		 * Add this page to settings
 		 *
+		 * @deprecated somce 2.0.0 use add_settings_page().
 		 * @param text $pages pages.
 		 * @since  1.0.0
 		 */
@@ -65,7 +66,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @param text $pages pages.
 		 * @since  1.0.0
 		 */
-		public function add_settings_page( $pages ){
+		public function add_settings_page( $pages ) {
 			$pages[ $this->_id ] = $this->label;
 			return $pages;
 		}
@@ -78,19 +79,22 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function get_settings() {
-			return apply_filters( 'eb_getSettings_' . $this->_id, array() );
+			$settings = apply_filters( 'eb_get_settings_' . $this->_id, array() );
+			$settings = apply_filters_deprecated( 'eb_getSettings_' . $this->_id, array(), '2.0.1', 'eb_get_settings_' . $this->_id );
+			return $settings;
 		}
 
 		/**
 		 * Deprecated Function
 		 *
+		 * @deprecated since 2.0.0 use get_settings()
 		 * Get settings array
 		 *
 		 * @since  1.0.0
 		 * @return array
 		 */
 		public function getSettings() {
-			return apply_filters( 'eb_getSettings_' . $this->_id, array() );
+			return apply_filters_deprecated( 'eb_getSettings_' . $this->_id, array(), '2.0.1', 'eb_get_settings_' . $this->_id );
 		}
 
 		/**
@@ -100,7 +104,15 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function get_sections() {
-			return apply_filters( 'eb_getSections_' . $this->_id, array() );
+			$sections = apply_filters( 'eb_get_sections_' . $this->_id, array() );
+
+			/**
+			 * The filter name was not in the wp standerd compatible.
+			 *
+			 * @deprecated since  2.0.0 use eb_get_sections_' . $this->_id
+			 */
+			$sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, array(), '2.0.1', 'eb_get_sections_' . $this->_id );
+			return $sections;
 		}
 
 
@@ -108,13 +120,14 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		/**
 		 * Deprecated Function
 		 *
+		 * @deprecated since 2.0.0 use get_sections()
 		 * Get sections
 		 *
 		 * @since  1.0.0
 		 * @return array
 		 */
 		public function getSections() {
-			return apply_filters( 'eb_getSections_' . $this->_id, array() );
+			return apply_filters_deprecated( 'eb_getSections_' . $this->_id, array(), '2.0.1', 'eb_get_sections_' . $this->_id );
 		}
 
 
@@ -152,7 +165,9 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 
 
 		/**
-		 * Deprecated Function
+		 * Deprecated Function.
+		 *
+		 * @deprecated 2.0.0 Use output_sections().
 		 *
 		 * Output sections
 		 *

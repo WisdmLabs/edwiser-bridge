@@ -49,7 +49,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 				'user_data' => __( 'Users', 'eb-textdomain' ),
 			);
 
-			return apply_filters( 'eb_getSections_' . $this->_id, $sections );
+			return apply_filters( 'eb_get_settings_' . $this->_id, $sections );
 		}
 
 		/**

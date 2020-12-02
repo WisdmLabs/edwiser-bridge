@@ -155,18 +155,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			self::get_settings_pages();
 
 			// Get current tab/section.
-			$current_tab = '';
-			if ( empty( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) ) {
-				$current_tab = 'general';
-			} else {
-				$current_tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
-			}
-			$current_section = '';
-			if ( ! empty( $_REQUEST['section'] ) ) {
-				$current_section = sanitize_title( wp_unslash( $_REQUEST['section'] ) );
-			}
+			$current_tab     = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
+			$current_section = isset( $_REQUEST['section'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['section'] ) ) : '';
 
-			if ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
+			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) ) {
 				// Save settings if data has been posted.
 				if ( ! empty( $_POST ) ) {
 					self::save();
@@ -174,11 +166,11 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			}
 
 			// Add any posted messages.
-			if ( ! empty( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) ) ) {
+			if ( isset( $_GET['wp_error'] ) && ! empty( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) ) ) {
 				self::add_error( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) );
 			}
 
-			if ( ! empty( $_GET['wp_message'] ) ) {
+			if ( isset( $_GET['wp_message'] ) && ! empty( $_GET['wp_message'] ) ) {
 				self::add_message( sanitize_text_field( wp_unslash( $_GET['wp_message'] ) ) );
 			}
 
@@ -187,6 +179,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			// Get tabs for the settings page.
 			$tabs = apply_filters( 'eb_settings_tabs_array', array() );
 
+			$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
 			include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings.php';
 		}
 
