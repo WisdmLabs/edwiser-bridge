@@ -382,11 +382,11 @@ msgid "The link to the my courses page."
 msgstr ""
 
 #: admin/class-eb-email-template.php:307
-msgid "The wordpress user account page link."
+msgid "The WordPress user account page link."
 msgstr ""
 
 #: admin/class-eb-email-template.php:308
-msgid "The wordpress login page link."
+msgid "The WordPress login page link."
 msgstr ""
 
 #: admin/class-eb-email-template.php:309
@@ -722,7 +722,7 @@ msgstr ""
 #: admin/settings/class-eb-settings-general.php:179
 msgid ""
 "Erase associated Moodle data from Moodle site on erase personal data of "
-"wordpress site"
+"WordPress site"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:186
@@ -1033,7 +1033,7 @@ msgid "Selective Synchronisation"
 msgstr ""
 
 #: admin/settings/class-eb-settings-premium-extensions.php:183
-msgid "SYNC COURSES BETWEEN WORDPRESS AND MOODLE"
+msgid "SYNC COURSES BETWEEN WordPress AND MOODLE"
 msgstr ""
 
 #: admin/settings/class-eb-settings-premium-extensions.php:187
@@ -1593,7 +1593,7 @@ msgid "Deleted Courses related data from the Moodle site"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:193
-msgid "Deleted Courses related data from the wordpress site"
+msgid "Deleted Courses related data from the WordPress site"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:195

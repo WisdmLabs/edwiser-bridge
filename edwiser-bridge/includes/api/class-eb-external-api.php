@@ -4,9 +4,10 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
 /**
@@ -93,14 +94,14 @@ class Eb_External_Api_Endpoint {
 			$settings = maybe_unserialize( get_option( 'eb_connection' ) );
 			if ( ! isset( $settings['eb_access_token'] ) ) {
 				$msg = 'Please save connection settings on Worpdress';
-			} elseif ( $settings['eb_access_token'] == $data['token']) {
+			} elseif ( $settings['eb_access_token'] === $data['token'] ) {
 				$msg    = 'Test connection successful';
 				$status = 1;
 			}
 		}
 		return array(
 			'status' => $status,
-			'msg' => $msg
+			'msg'    => $msg,
 		);
 	}
 
@@ -205,12 +206,12 @@ class Eb_External_Api_Endpoint {
 	 * @param  text $data data.
 	 */
 	public function eb_trigger_user_delete( $data ) {
-		require_once( ABSPATH . 'wp-admin/includes/user.php' );
+		iclude( ABSPATH . 'wp-admin/includes/user.php' );
 		if ( isset( $data['user_id'] ) ) {
 			$wp_user_id = get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {
-				$user = get_user_by( 'ID', $wp_user_id );
-				$args = array(
+				$user    = get_user_by( 'ID', $wp_user_id );
+				$args    = array(
 					'user_email' => $user->user_email,
 					'username'   => $user->user_login,
 					'first_name' => $user->first_name,
@@ -227,7 +228,7 @@ class Eb_External_Api_Endpoint {
 
 
 	/**
-	 * Functinality to create only wordpress user.
+	 * Functinality to create only WordPress user.
 	 *
 	 * @param  text   $username  username.
 	 * @param  text   $email     email.
@@ -267,7 +268,7 @@ class Eb_External_Api_Endpoint {
 		}
 
 		// Added after 1.3.4.
-		if ( '' == $role) {
+		if ( '' === $role ) {
 			$role = get_option( 'default_role' );
 		}
 
@@ -357,8 +358,7 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
-				$enc_iv = '1234567891011121';
+				$enc_iv     = '1234567891011121';
 
 				$enc_key                        = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
 				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );

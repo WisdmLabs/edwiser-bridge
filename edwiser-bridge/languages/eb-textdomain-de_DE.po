@@ -406,11 +406,11 @@ msgid "The link to the my courses page."
 msgstr "Der Link zur Seite \"Meine Kurse\"."
 
 #: admin/class-eb-email-template.php:307
-msgid "The wordpress user account page link."
+msgid "The WordPress user account page link."
 msgstr "Der WordPress Benutzerkonto Seite Link. "
 
 #: admin/class-eb-email-template.php:308
-msgid "The wordpress login page link."
+msgid "The WordPress login page link."
 msgstr "Der WordPress Anmeldung Seite Link. "
 
 #: admin/class-eb-email-template.php:309
@@ -771,7 +771,7 @@ msgstr "Löschen Sie zugehörige Moodle-Daten von der Moodle-Site"
 #: admin/settings/class-eb-settings-general.php:179
 msgid ""
 "Erase associated Moodle data from Moodle site on erase personal data of "
-"wordpress site"
+"WordPress site"
 msgstr ""
 "Löschen Sie zugehörige Moodle-Daten von der Moodle-Site, indem Sie die "
 "persönlichen Daten der WordPress-Site löschen"
@@ -1136,8 +1136,8 @@ msgid "Selective Synchronisation"
 msgstr "Selektive Synchronisation"
 
 #: admin/settings/class-eb-settings-premium-extensions.php:183
-msgid "SYNC COURSES BETWEEN WORDPRESS AND MOODLE"
-msgstr "SYNC-KURSE ZWISCHEN WORDPRESS UND MOODLE"
+msgid "SYNC COURSES BETWEEN WordPress AND MOODLE"
+msgstr "SYNC-KURSE ZWISCHEN WordPress UND MOODLE"
 
 #: admin/settings/class-eb-settings-premium-extensions.php:187
 msgid ""
@@ -1753,8 +1753,8 @@ msgid "Deleted Courses related data from the Moodle site"
 msgstr "Gelöschte kursbezogene Daten von der Moodle-Site"
 
 #: includes/class-eb-gdpr-compatibility.php:193
-msgid "Deleted Courses related data from the wordpress site"
-msgstr "Deleted Courses related data from the wordpress site"
+msgid "Deleted Courses related data from the WordPress site"
+msgstr "Deleted Courses related data from the WordPress site"
 
 #: includes/class-eb-gdpr-compatibility.php:195
 msgid "Deleted Moodle user ID"

@@ -157,8 +157,8 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
-		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ||
-				wp_remote_retrieve_response_code( $response ) == 303) {
+		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
+				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
 				$success          = 0;
@@ -178,7 +178,7 @@ class EBConnectionHelper {
 		}
 
 		return array(
-			'success' => $success,
+			'success'          => $success,
 			'response_message' => $response_message,
 		);
 	}
@@ -200,7 +200,7 @@ class EBConnectionHelper {
 								<div>
 									<div>
 										<ol>
-											<li>' . esc_html__( 'Function is not added to the web service', 'eb-textdomain' ).'</li>
+											<li>' . esc_html__( 'Function is not added to the web service', 'eb-textdomain' ) . '</li>
 											<li>' . esc_html__( 'Authorised user don\'t have enough capabilities i.e he is not admin', 'eb-textdomain' ) . '</li>
 											<li>' . esc_html__( 'Edwiser Moodle extensions are not installed or have the lower version', 'eb-textdomain' ) . '</li>
 										</ol>
@@ -227,7 +227,7 @@ class EBConnectionHelper {
 
 					// check if the error response is moodle_access_exception.
 					// reasons are function missing, not authorised user or pluginis not activated.
-					if ( isset( $body->errorcode ) && 'accessexception' == $body->errorcode ) {
+					if ( isset( $body->errorcode ) && 'accessexception' === $body->errorcode ) {
 						$success = 0;
 						array_push( $missing_web_service_fns, $webservice_function );
 					}
@@ -304,8 +304,8 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
-		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ||
-				wp_remote_retrieve_response_code( $response ) == 303) {
+		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
+				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
 				$success          = 0;
@@ -336,6 +336,7 @@ class EBConnectionHelper {
 	 * @since  1.0.0
 	 *
 	 * @param string $webservice_function accepts webservice function as an argument.
+	 * @param string $request_data request_data.
 	 *
 	 * @return array returns response to caller function
 	 */
@@ -357,7 +358,7 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
-		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
 				$success = 0;
@@ -414,7 +415,7 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
-		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
 				$success = 0;

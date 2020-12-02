@@ -11,8 +11,8 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Shortcode_Course
-{
+class Eb_Shortcode_Course {
+
 
 	/**
 	 * Get the shortcode content.
@@ -23,9 +23,8 @@ class Eb_Shortcode_Course
 	 *
 	 * @return string
 	 */
-	public static function get($atts)
-	{
-		return Eb_Shortcodes::shortcode_wrapper(array(__CLASS__, 'output'), $atts);
+	public static function get( $atts ) {
+		return Eb_Shortcodes::shortcode_wrapper( array( __CLASS__, 'output' ), $atts );
 	}
 
 	/**
@@ -35,41 +34,48 @@ class Eb_Shortcode_Course
 	 *
 	 * @param array $atts
 	 */
-	public static function output($atts)
-	{
-		extract($atts = shortcode_atts(apply_filters('eb_output_course_defaults', array(
-			'id' => ''
-				)), $atts));
+	public static function output( $atts ) {
+		extract(
+			$atts = shortcode_atts(
+				apply_filters(
+					'eb_output_course_defaults',
+					array(
+						'id' => '',
+					)
+				),
+				$atts
+			)
+		);
 
-		//Course id required.
-		if (!isset($atts['id']) || !is_numeric($atts['id'])) {
+		// Course id required.
+		if ( ! isset( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
 			return;
 		}
 
-		$atts['post_type'] = 'eb_course';
+		$atts['post_type']   = 'eb_course';
 		$atts['post_status'] = 'publish';
-		$atts['p'] = $atts['id'];
+		$atts['p']           = $atts['id'];
 
-		$courses = new \WP_Query($atts);
+		$courses = new \WP_Query( $atts );
 
-		//Course not found.
-		if ($courses->post_count !== 1) {
+		// Course not found.
+		if ( 1 !== $courses->post_count ) {
 			return;
 		}
 
-		//Show single course.
-		do_action('eb_before_single_course');
-		while ($courses->have_posts()) :
+		// Show single course.
+		do_action( 'eb_before_single_course' );
+		while ( $courses->have_posts() ) :
 			$courses->the_post();
 
 			$template_loader = new EbTemplateLoader(
 				edwiser_bridge_instance()->get_plugin_name(),
 				edwiser_bridge_instance()->get_version()
 			);
-			$template_loader->wp_get_template_part('content-single', 'eb_course');
+			$template_loader->wp_get_template_part( 'content-single', 'eb_course' );
 
 			$courses->comments_template();
 		endwhile;
-		do_action('eb_after_single_course');
+		do_action( 'eb_after_single_course' );
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 /**
  * Code included from the Enhanced Paypal Shortcodes plugin.
- * http://thewpwarrior.com/wordpress-plugin-enhanced-paypal-shortcodes/
- * Use shortcodes to easily embed a fully functional paypal button on your Wordpress website.
+ * http://thewpwarrior.com/WordPress-plugin-enhanced-paypal-shortcodes/
+ * Use shortcodes to easily embed a fully functional paypal button on your WordPress website.
  * Can be used for Buy Now and Subscription buttons.
  * <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DXBKBP7Q5FSGC"
  * target="_blank">Make a Donation</a>.

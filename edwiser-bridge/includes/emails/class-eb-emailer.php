@@ -112,8 +112,8 @@ class Eb_Emailer {
 	 */
 	public function send_course_access_expire_email( $args ) {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_course_access_expir' );
-		$allow_notify   = get_option( 'eb_emailtmpl_course_access_expir_notify_allow' );
-		if ( $email_tmpl_data && 'ON' == $allow_notify ) {
+		$allow_notify    = get_option( 'eb_emailtmpl_course_access_expir_notify_allow' );
+		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
 
 			// CUSTOMIZATION HOOKS.
@@ -130,8 +130,8 @@ class Eb_Emailer {
 	 */
 	public function send_existing_wp_user_new_moodle_account_email( $args ) {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
-		$allow_notify   = get_option( 'eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow' );
-		if ( $email_tmpl_data && 'ON' == $allow_notify ) {
+		$allow_notify    = get_option( 'eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow' );
+		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
 
 			// CUSTOMIZATION HOOKS.
@@ -157,12 +157,12 @@ class Eb_Emailer {
 
 		$eb_general = get_option( 'eb_general' );
 		if ( $eb_general ) {
-			$send_email_to_admin           = get_arr_value( $eb_general, 'eb_refund_mail_to_admin', false );
-			$specified_email_for_refund    = get_arr_value( $eb_general, 'eb_refund_mail', false );
+			$send_email_to_admin        = get_arr_value( $eb_general, 'eb_refund_mail_to_admin', false );
+			$specified_email_for_refund = get_arr_value( $eb_general, 'eb_refund_mail', false );
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow' );
-		if ( false != $allow_notify && 'ON' == $allow_notify ) {
+		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
 			if ( $user_email_tmpl_data ) {
 				$user               = get_user_by( 'id', get_arr_value( $args, 'buyer_id' ), '' );
 				$args['first_name'] = $user->first_name;
@@ -177,15 +177,15 @@ class Eb_Emailer {
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow' );
-		if ( false != $allow_notify && 'ON' == $allow_notify ) {
-			if ( isset( $send_email_to_admin ) && ! empty( $send_email_to_admin ) && 'yes' == $send_email_to_admin ) {
+		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
+			if ( isset( $send_email_to_admin ) && ! empty( $send_email_to_admin ) && 'yes' === $send_email_to_admin ) {
 				$user_args = array(
 					'role' => 'Administrator',
 				);
-				$result   = get_users( $user_args );
+				$result    = get_users( $user_args );
 
 				foreach ( $result as $value ) {
-					$admin_user = get_user_by( 'id', $value->data->ID, '' );
+					$admin_user         = get_user_by( 'id', $value->data->ID, '' );
 					$args['first_name'] = $admin_user->first_name;
 					$args['last_name']  = $admin_user->last_name;
 					$args['username']   = $admin_user->user_login;
@@ -228,7 +228,7 @@ class Eb_Emailer {
 		$args            = apply_filters( 'eb_args_data', $args );
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
 		$allow_notify    = get_option( 'eb_emailtmpl_create_user_notify_allow' );
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 		if ( $email_tmpl_data ) {
@@ -245,7 +245,6 @@ class Eb_Emailer {
 
 		// Prepare arguments array for email.
 		$args           = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
-
 		$email_subject  = apply_filters( 'eb_new_user_email_subject', esc_html__( 'New User Account Details', 'eb-textdomain' ) );
 		$args['header'] = $email_subject; // send email subject as header in email template.
 		$email_content  = $this->get_content_html( $args );
@@ -261,10 +260,10 @@ class Eb_Emailer {
 	}
 
 	/**
-	 * Sends an email with moodle account credentials to existing wordpress users.
+	 * Sends an email with moodle account credentials to existing WordPress users.
 	 *
 	 * Called using 'eb_linked_moodle_to_existing_user' hook on user login.
-	 * for users who already have a wordpress account.
+	 * for users who already have a WordPress account.
 	 *
 	 * @param array $args user details array.
 	 *
@@ -278,12 +277,12 @@ class Eb_Emailer {
 
 		$allow_notify = get_option( 'eb_emailtmpl_linked_existing_wp_user_notify_allow' );
 
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
-			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_user' );
+			$args           = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_user' );
 
 			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
@@ -296,7 +295,7 @@ class Eb_Emailer {
 		// prepare arguments array for email.
 		$args = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
 
-		$email_subject = apply_filters(
+		$email_subject  = apply_filters(
 			'eb_existing_wp_user_email_subject',
 			esc_html__( 'Your Learning Account Credentials', 'eb-textdomain' )
 		);
@@ -343,7 +342,6 @@ class Eb_Emailer {
 		$args = apply_filters(
 			'eb_filter_email_parameters',
 			array(
-				// 'order_id' => $order_id,
 				'eb_order_id' => $order_id, // changed 1.4.7.
 				'course_id'   => $order_detail['course_id'],
 				'user_email'  => $buyer_detail->user_email,
@@ -360,7 +358,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
 
 		$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 		if ( $email_tmpl_data ) {
@@ -374,7 +372,7 @@ class Eb_Emailer {
 		/**
 		 * Using Default
 		 */
-		$email_subject = apply_filters(
+		$email_subject  = apply_filters(
 			'eb_order_completion_email_subject',
 			esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
 		);
@@ -409,7 +407,7 @@ class Eb_Emailer {
 		$args            = apply_filters( 'eb_args_data', $args );
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow' );
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 
@@ -449,7 +447,7 @@ class Eb_Emailer {
 		$args            = apply_filters( 'eb_args_data', $args );
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow' );
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 		if ( $email_tmpl_data ) {
@@ -489,7 +487,7 @@ class Eb_Emailer {
 		$args            = apply_filters( 'eb_args_data', $args );
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow' );
-		if ( false == $allow_notify || 'ON' != $allow_notify ) {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
 		if ( $email_tmpl_data ) {

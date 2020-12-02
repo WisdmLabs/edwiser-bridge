@@ -86,7 +86,7 @@ class Eb_Ipn_Listener {
 	 *
 	 * @var string post uri.
 	 */
-	private $post_uri  = '';
+	private $post_uri = '';
 
 	/**
 	 * Post uri.
@@ -144,34 +144,45 @@ class Eb_Ipn_Listener {
 			$this->post_uri = $uri;
 		}
 
-		$_ch = curl_init();
+		// $_ch = curl_init();
 
-		curl_setopt( $_ch, CURLOPT_URL, $uri );
-		curl_setopt( $_ch, CURLOPT_POST, true );
-		curl_setopt( $_ch, CURLOPT_POSTFIELDS, $encoded_data );
-		curl_setopt( $_ch, CURLOPT_FOLLOWLOCATION, $this->follow_location );
-		curl_setopt( $_ch, CURLOPT_TIMEOUT, $this->timeout );
-		curl_setopt( $_ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt( $_ch, CURLOPT_HEADER, true );
-		curl_setopt( $_ch, CURLOPT_HTTPHEADER, array( 'Connection: Close', 'User-Agent: eb' ) );
+		// curl_setopt( $_ch, CURLOPT_URL, $uri );
+		// curl_setopt( $_ch, CURLOPT_POST, true );
+		// curl_setopt( $_ch, CURLOPT_POSTFIELDS, $encoded_data );
+		// curl_setopt( $_ch, CURLOPT_FOLLOWLOCATION, $this->follow_location );
+		// curl_setopt( $_ch, CURLOPT_TIMEOUT, $this->timeout );
+		// curl_setopt( $_ch, CURLOPT_RETURNTRANSFER, true );
+		// curl_setopt( $_ch, CURLOPT_HEADER, true );
+		// curl_setopt( $_ch, CURLOPT_HTTPHEADER, array( 'Connection: Close', 'User-Agent: eb' ) );
 
-		if ( $this->force_ssl_v3 ) {
-			curl_setopt( $_ch, CURLOPT_SSLVERSION, 3 );
-		} elseif ( defined( 'WP_MOODLE_FORCE_SSL_VERSION' ) ) {
-			curl_setopt( $_ch, CURLOPT_SSLVERSION, WP_MOODLE_FORCE_SSL_VERSION );
-		}
+		// if ( $this->force_ssl_v3 ) {
+		// 	curl_setopt( $_ch, CURLOPT_SSLVERSION, 3 );
+		// } elseif ( defined( 'WP_MOODLE_FORCE_SSL_VERSION' ) ) {
+		// 	curl_setopt( $_ch, CURLOPT_SSLVERSION, WP_MOODLE_FORCE_SSL_VERSION );
+		// }
 
-		$this->response = curl_exec( $_ch );
-		$this->response_status = strval( curl_getinfo( $_ch, CURLINFO_HTTP_CODE ) );
+		// $this->response = curl_exec( $_ch );
+		// $this->response_status = strval( curl_getinfo( $_ch, CURLINFO_HTTP_CODE ) );
 
+		$request_args = array(
+			'body'    => $encoded_data,
+			'timeout' => 100,
+		);
+		// if ( false === $this->response || '0' == $this->response_status ) {
+		// 	$errno = curl_errno( $_ch );
+		// 	$errstr = curl_error( $_ch );
+		// 	throw new \Exception( "cURL error: [$errno] $errstr" );
+		// }
 
+		$response = wp_remote_post( $uri, $request_args );
 
-
-
-		if ( false === $this->response || '0' == $this->response_status ) {
-			$errno = curl_errno( $_ch );
-			$errstr = curl_error( $_ch );
+		if ( is_wp_error( $response ) ) {
+			$errstr = $response->get_error_message();
 			throw new \Exception( "cURL error: [$errno] $errstr" );
+		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+			$this->response = json_decode( wp_remote_retrieve_body( $response ) );
+		} else {
+			throw new \Exception( 'cURL error: Failed to retrieve response.' );
 		}
 	}
 

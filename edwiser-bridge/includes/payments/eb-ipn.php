@@ -17,7 +17,7 @@ edwiser_bridge_instance()->logger()->add( 'payment', print_r( $_REQUEST, true ) 
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Listener Loading...' );
 
-include 'eb-ipnlistener.php';
+require 'eb-ipnlistener.php';
 $listener = new Eb_Ipn_Listener();
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Listener Loaded' );
@@ -42,7 +42,7 @@ edwiser_bridge_instance()->logger()->add( 'payment', 'Payment Settings Loaded.' 
 
 $listener->use_sandbox = false;
 
-if ( 'yes' == $paypal_sandbox ) {
+if ( 'yes' === $paypal_sandbox ) {
 	$listener->use_sandbox = true;
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Sandbox Enabled.' );
 }
@@ -90,7 +90,7 @@ if ( $verified ) {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email == $seller_email ) ? 'YES' : 'NO' ) );
 
 	if ( $post_receiver_email != $seller_email ) {
-		if ( '' != $your_notification_email_address ) {
+		if ( '' !== $your_notification_email_address ) {
 			wp_mail(
 				$your_notification_email_address,
 				'Warning: IPN with invalid receiver email!',
@@ -108,7 +108,7 @@ if ( $verified ) {
 		'payment',
 		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' == $post_payment_status ) ? 'YES' : 'NO' )
 	);
-	if ( 'Completed' == $post_payment_status ) {
+	if ( 'Completed' === $post_payment_status ) {
 		edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Completed! Moving Ahead.' );
 		// a customer has purchased from this website.
 		// email used by buyer to purchase course.
@@ -137,7 +137,7 @@ if ( $verified ) {
 
 		$post_mc_currency = isset( $_REQUEST['mc_currency'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_currency'] ) ) : '';
 
-		if ( $post_mc_currency != $paypal_currency ) {
+		if ( $post_mc_currency !== $paypal_currency ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'WARNING ! Paypal currency is modified by the purchaser, course access not given. Exiting!!!'
@@ -185,7 +185,7 @@ if ( $verified ) {
 		// verify order.
 		// get order details.
 		$order_buyer_id = Eb_Post_Types::get_post_options( $order_id, 'buyer_id', 'eb_order' );
-		if ( $buyer_id != $order_buyer_id ) {
+		if ( $buyer_id !== $order_buyer_id ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Buyer ID [' . $buyer_id . '] passed back by Paypal. But actual order has a different buyer id in DB.
@@ -195,7 +195,7 @@ if ( $verified ) {
 		}
 
 		$order_course_id = Eb_Post_Types::get_post_options( $order_id, 'course_id', 'eb_order' );
-		if ( $course_id != $order_course_id ) {
+		if ( $course_id !== $order_course_id ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Item ID [' . $course_id . '] passed back by Paypal. But actual order has a different item id in DB.
@@ -226,15 +226,15 @@ if ( $verified ) {
 			edwiser_bridge_instance()->logger()->add( 'payment', 'Order status set to Complete: ' . $order_id );
 			$note = array(
 				'type' => 'PayPal IPN',
-				'msg'  => esc_html__( 'IPN has been recived for the order id #', 'eb-textdomain' ) . $order_id . esc_html__( 'payment status: ', 'eb-textdomain' ) . $post_payment_status . esc_html__(' Transaction id: ', 'eb-textdomain') . $post_txn_id . '. ',
+				'msg'  => esc_html__( 'IPN has been recived for the order id #', 'eb-textdomain' ) . $order_id . esc_html__( 'payment status: ', 'eb-textdomain' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'eb-textdomain' ) . $post_txn_id . '. ',
 			);
 			update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
 		}
-	} elseif ( 'Refunded' == $post_payment_status ) {
+	} elseif ( 'Refunded' === $post_payment_status ) {
 		$custom_data = wp_json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
 		edwiser_bridge_instance()->logger()->add( 'refund', print_r( $custom_data, 1 ) );
 		$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
-		$note = array(
+		$note     = array(
 			'type' => 'PayPal IPN',
 			'msg'  => esc_html__( 'IPN has been recived, for the refund of amount ', 'eb-textdomain' ) . abs( $post_mc_gross ) . esc_html__( '. Payment status: ', 'eb-textdomain' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'eb-textdomain' ) . $post_txn_id . '.',
 		);
@@ -251,8 +251,8 @@ if ( $verified ) {
 	}
 
 	edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Processing Completed Successfully.' );
-	$notify_on_valid = '' != $notify_on_valid_ipn ? $notify_on_valid_ipn : '0';
-	if ( '1' == $notify_on_valid ) {
+	$notify_on_valid = '' !== $notify_on_valid_ipn ? $notify_on_valid_ipn : '0';
+	if ( '1' === $notify_on_valid ) {
 		wp_mail( $your_notification_email_address, 'Verified IPN', $listener->get_text_report() );
 	}
 } else {
