@@ -291,10 +291,14 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					// Section Titles.
 					case 'title':
 						if ( ! empty( $value['title'] ) ) {
-							echo "<h3 class='" . $value['class'] . "'>" . esc_html( $value['title'] ) . '</h3>';
+							?>
+							<h3 class="<?php echo esc_attr( $value['class'] ); ?>">
+								<?php echo esc_html( $value['title'] ); ?>
+							</h3>
+							<?php
 						}
 						if ( ! empty( $value['desc'] ) ) {
-							echo wpautop( wptexturize( wp_kses_post( $value['desc'] ) ) );
+							echo wp_kses_post( $value['desc'] );
 						}
 						echo '<table class="form-table">' . "\n\n";
 						if ( ! empty( $value['id'] ) ) {
@@ -304,7 +308,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 					// Section Ends.
 					case 'sectionend':
-						if ( ! empty( $value['id'] ) ) {
+						if ( false === empty( $value['id'] ) ) {
 							do_action( 'eb_settings_' . sanitize_title( $value['id'] ) . '_end' );
 						}
 						echo '</table>';
@@ -336,7 +340,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 								<label for="<?php echo esc_attr( $value['id'] ); ?>">
 									<?php echo esc_html( $value['title'] ); ?>
 								</label>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 								<input
@@ -349,7 +353,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									placeholder="<?php echo esc_attr( $value['placeholder'] ); ?>"
 									<?php echo esc_html( implode( ' ', $custom_attributes ) ); ?>
 									/>
-									<?php echo esc_html( $description ); ?>
+									<?php echo wp_kses_post( $description ); ?>
 							</td>
 						</tr>
 						<?php
@@ -364,10 +368,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 								<label for="<?php echo esc_attr( $value['id'] ); ?>">
 									<?php echo esc_html( $value['title'] ); ?>
 								</label>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>">
-								<?php echo esc_html( $description ); ?>
+								<?php echo wp_kses_post( $description ); ?>
 
 								<textarea
 									name="<?php echo esc_attr( $value['id'] ); ?>"
@@ -397,8 +401,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									style="<?php echo esc_attr( $value['css'] ); ?>"
 									value="<?php echo esc_attr( $option_value ); ?>"
 									class="<?php echo esc_attr( $value['class'] ); ?>"
-									<?php echo esc_html( implode( ' ', $custom_attributes ) ); ?> />
-									<?php echo esc_html( $description ); ?>
+									<?php echo wp_kses_post( implode( ' ', $custom_attributes ) ); ?> />
+									<?php echo wp_kses_post( $description ); ?>
 							</td>
 						</tr>
 						<?php
@@ -414,7 +418,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 								<label for="<?php echo esc_attr( $value['id'] ); ?>">
 									<?php echo esc_html( $value['title'] ); ?>
 								</label>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>">
 								<select
@@ -459,7 +463,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 										}
 										?>
 								</select>
-								<?php echo esc_html( $description ); ?>
+								<?php echo wp_kses_post( $description ); ?>
 							</td>
 						</tr>
 						<?php
@@ -474,11 +478,11 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 								<label for="<?php echo esc_attr( $value['id'] ); ?>">
 									<?php echo esc_html( $value['title'] ); ?>
 								</label>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
 								<fieldset>
-									<?php echo esc_html( $description ); ?>
+									<?php echo wp_kses_post( $description ); ?>
 									<ul>
 										<?php
 										foreach ( $value['options'] as $key => $val ) {
@@ -551,9 +555,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 												value="1"
 												<?php checked( $option_value, 'yes' ); ?>
 												<?php echo implode( ' ', $custom_attributes ); ?> />
-												<?php echo esc_html( $description ); ?>
+												<?php echo wp_kses_post( $description ); ?>
 										</label>
-										<?php echo esc_html( $tooltip_html ); ?>
+										<?php echo wp_kses_post( $tooltip_html ); ?>
 										<?php
 										if ( ! isset( $value['checkboxgroup'] ) || 'end' === $value['checkboxgroup'] ) {
 											?>
@@ -587,12 +591,12 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						?>
 						<tr valign="top" class="single_select_page">
 							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp">
 								<?php
-								echo esc_html( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ) );
-								echo esc_html( $description );
+								echo ( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ) );
+								echo wp_kses_post( $description );
 								?>
 							</td>
 						</tr>
@@ -618,7 +622,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						?>
 						<tr valign="top" class="single_select_page">
 							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp">
 								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
@@ -656,7 +660,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						?>
 						<tr valign="top" class="single_select_page">
 							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
-								<?php echo esc_html( $tooltip_html ); ?>
+								<?php echo wp_kses_post( $tooltip_html ); ?>
 							</th>
 							<td class="forminp">
 								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
@@ -682,7 +686,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							<tr>
 								<td>
 									<?php
-									echo esc_html( $value['html'] );
+									echo $value['html'];
 									?>
 								</td>
 							</tr>
@@ -695,7 +699,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				}
 			}
 		}
-
 
 		/**
 		 * DEPRECATED FUNCTION
@@ -714,11 +717,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		public static function saveFields( $options ) {
 			return self::save_fields( $options );
 		}
-
-
-
-
-
 
 		/**
 		 * Save admin fields.
@@ -898,6 +896,101 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				'description'  => $description,
 				'tooltip_html' => $tooltip_html,
 			);
+		}
+
+		/**
+		 * Helper function to get the formated description and tip HTML for a
+		 * given form field. Plugins can call this when implementing their own custom
+		 * settings types.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @param array $value The form field value array.
+		 * @returns array The description and tip as a 2 element array.
+		 */
+		public static function get_field_desc( $value ) {
+			$description  = '';
+			$tooltip_html = '';
+
+			if ( true === $value['desc_tip'] ) {
+				$tooltip_html = $value['desc'];
+			} elseif ( ! empty( $value['desc_tip'] ) ) {
+				$description  = $value['desc'];
+				$tooltip_html = $value['desc_tip'];
+			} elseif ( ! empty( $value['desc'] ) ) {
+				$description = $value['desc'];
+			}
+
+			if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ), true ) ) {
+				?>
+				<p style="margin-top:0"><?php echo esc_attr( $description ); ?></p>
+				<?php
+			} elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+				echo wp_kses_post( $description );
+			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
+				?>
+				<span class="load-response">
+					<img src="<?php echo esc_url( EB_PLUGIN_URL . 'images/loader.gif' ); ?>" height="20" width="20" />
+				</span>
+				<span class="response-box"></span>
+				<span class="linkresponse-box"></span>
+					<div id="unlinkerrorid-modal" class="unlinkerror-modal">
+						<div class="unlinkerror-modal-content">
+							<span class="unlinkerror-modal-close">&times;</span>
+							<table class="unlink-table">
+								<thead>
+								<tr>
+									<th><?php esc_html_e( 'User ID', 'eb-textdomain' ); ?></th>
+									<th><?php esc_html_e( 'Name', 'eb-textdomain' ); ?></th>
+								</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				<?php
+			} elseif ( $description ) {
+				?>
+				<span class="description"><?php echo wp_kses_post( $description ); ?></span>
+				<?php
+			}
+		}
+
+		/**
+		 * Helper function to get the formated description and tip HTML for a
+		 * given form field. Plugins can call this when implementing their own custom
+		 * settings types.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @param array $value The form field value array.
+		 * @returns array The description and tip as a 2 element array.
+		 */
+		public static function get_field_tool_tip( $value ) {
+			$description  = '';
+			$tooltip_html = '';
+
+			if ( true === $value['desc_tip'] ) {
+				$tooltip_html = $value['desc'];
+			} elseif ( ! empty( $value['desc_tip'] ) ) {
+				$description  = $value['desc'];
+				$tooltip_html = $value['desc_tip'];
+			} elseif ( ! empty( $value['desc'] ) ) {
+				$description = $value['desc'];
+			}
+
+			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+				?>
+				<p class="description"><?php echo wp_kses_post( $tooltip_html ); ?></p>
+				<?php
+			} elseif ( $tooltip_html && in_array( $value['type'], array( 'button' ), true ) ) {
+				$tooltip_html = '';
+			} elseif ( $tooltip_html ) {
+				?>
+				<img class="help_tip" data-tip="<?php wp_kses_post( $tooltip_html ); ?>" src="<?php echo esc_url( EB_PLUGIN_URL . 'images/help.png' ); ?>" height="20" width="20" />
+				<?php
+			}
 		}
 	}
 }
