@@ -97,7 +97,7 @@ function wdm_create_page( $slug, $option_key = '', $page_title = '', $page_conte
  * @param string $eb_general_settings eb_general_settings.
  */
 function wdm_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
-	if ( $option_value == '' && trim( $option_key ) != '' ) {
+	if ( '' === $option_value && '' !== trim( $option_key ) ) {
 		$eb_general_settings[ $option_key ] = $_id;
 		update_option( 'eb_general', $eb_general_settings );
 	}
@@ -181,7 +181,7 @@ function wdm_eb_user_redirect_url( $query_str = '' ) {
 	 * Sets $usr_ac_page_url to my course page if the redirection to the my
 	 * courses page is enabled in settings
 	 */
-	if ( isset( $eb_settings['eb_enable_my_courses'] ) && $eb_settings['eb_enable_my_courses'] == 'yes' ) {
+	if ( isset( $eb_settings['eb_enable_my_courses'] ) && 'yes' === $eb_settings['eb_enable_my_courses'] ) {
 		$usr_ac_page_url = eb_get_my_courses_page( $eb_settings );
 	}
 
@@ -351,7 +351,7 @@ function get_all_eb_sourses( $post_id = 0 ) {
 	);
 
 	if ( $post_id ) {
-		$key = array_search( $post_id, $posts );
+		$key = array_search( $post_id, $posts, true );
 		if ( false !== $key ) {
 			unset( $posts[ $key ] );
 		}
@@ -506,7 +506,7 @@ function get_user_suspended_status( $user_id, $course_id ) {
 	global $wpdb;
 	$suspended = 0;
 
-	if ( '' == $user_id || '' == $course_id ) {
+	if ( '' === $user_id || '' === $course_id ) {
 		return $suspended;
 	}
 
@@ -516,7 +516,7 @@ function get_user_suspended_status( $user_id, $course_id ) {
 			"SELECT suspended
 			FROM {$wpdb->prefix}moodle_enrollment
 			WHERE course_id=%d
-			AND user_id=;",
+			AND user_id=%d;",
 			$course_id,
 			$user_id
 		)

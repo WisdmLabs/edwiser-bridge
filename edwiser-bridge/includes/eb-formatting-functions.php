@@ -1,6 +1,7 @@
 <?php
 /**
  * Formatting FUnctions.
+ *
  * @link       https://edwiser.org
  * @since      1.0.0
  *
@@ -36,6 +37,7 @@ function wp_sanitize_tooltip( $var ) {
  *
  * Clean variables.
  *
+ * @deprecated since 2.0.1 use wp_clean() insted
  * @param string $var var.
  *
  * @return string

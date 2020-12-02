@@ -399,7 +399,7 @@ class EdwiserBridge {
 	 * Get User Manager class.
 	 *
 	 * @since    1.0.0
-	 *
+	 * @deprecated since 2.0.1 use user_manager() insted.
 	 * @return EBUserManager
 	 */
 	public function userManager() {
@@ -425,6 +425,7 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
+	 * @deprecated since 2.0.1 use course_manager() insted.
 	 * @return Eb_Course_Manager
 	 */
 	public function courseManager() {
@@ -451,6 +452,7 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
+	 * @deprecated since 2.0.1 use enrollment_manager() insted.
 	 * @return Eb_Enrollment_Manager
 	 */
 	public function enrollmentManager() {
@@ -478,6 +480,7 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
+	 * @deprecated since 2.0.1 use order_manager() insted.
 	 * @return Eb_Order_Manager
 	 */
 	public function orderManager() {
@@ -503,6 +506,7 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
+	 * @deprecated since 2.0.1 use connection_helper() insted.
 	 * @return EBConnectionHelper
 	 */
 	public function connectionHelper() {
@@ -544,7 +548,7 @@ class EdwiserBridge {
 
 		$this->define_system_hooks();
 
-		$this->defineEmailHooks();
+		$this->define_email_hooks();
 
 		if ( is_admin() ) {
 			$this->define_admin_hooks();
@@ -1017,7 +1021,7 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 */
-	private function defineEmailHooks() {
+	private function define_email_hooks() {
 		$plugin_emailer = new Eb_Emailer( $this->get_plugin_name(), $this->get_version() );
 
 		// send emails on various system events as specified.
@@ -1122,6 +1126,7 @@ class EdwiserBridge {
 	 *
 	 * @since     1.0.0
 	 *
+	 * @deprecated since 2.0.1 use get_plugin_name() insted.
 	 * @return string The name of the plugin.
 	 */
 	public function getPluginName() {
@@ -1148,6 +1153,7 @@ class EdwiserBridge {
 	 *
 	 * @since     1.0.0
 	 *
+	 * @deprecated since 2.0.1 use get_loader() insted.
 	 * @return Eb_Loader Orchestrates the hooks of the plugin.
 	 */
 	public function getLoader() {
@@ -1173,6 +1179,7 @@ class EdwiserBridge {
 	 *
 	 * @since     1.0.0
 	 *
+	 * @deprecated since 2.0.1 use get_version() insted.
 	 * @return string The version number of the plugin.
 	 */
 	public function getVersion() {
@@ -1198,13 +1205,12 @@ class EdwiserBridge {
  * Returns the main instance of EDW to prevent the need to use globals.
  *
  * @since  1.0.0
- *
+ * @deprecated since 2.0.1 use edwiser_bridge_instance() insted.
  * @return EDW
  */
 function edwiserBridgeInstance() {
 	return EdwiserBridge::instance();
 }
-
 
 /**
  * Returns the main instance of EDW to prevent the need to use globals.
@@ -1216,4 +1222,3 @@ function edwiserBridgeInstance() {
 function edwiser_bridge_instance() {
 	return EdwiserBridge::instance();
 }
-

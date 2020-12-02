@@ -289,7 +289,7 @@ class EBUserManager {
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array
 		$link_users_count                      = 0;
 		if ( 1 === $connected['success'] ) {
-			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && $sync_options['eb_link_users_to_moodle'] == 1 ) ) {
+			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && 1 === $sync_options['eb_link_users_to_moodle'] ) ) {
 				// query to get list of users who have not linked to moodle with limit.
 				$unlinked_users = $wpdb->get_results(
 					$wpdb->prepare(
@@ -469,7 +469,7 @@ class EBUserManager {
 		// check if a user exists on moodle with same email.
 		$moodle_user = $this->get_moodle_user( $wp_user_data['user_email'] );
 
-		if ( isset( $moodle_user['user_exists'] ) && $moodle_user['user_exists'] == 1 && is_object( $moodle_user['user_data'] ) ) {
+		if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] && is_object( $moodle_user['user_data'] ) ) {
 			update_user_meta( $user_id, 'moodle_user_id', $moodle_user['user_data']->id );
 
 			// sync courses of an individual user when an existing moodle user is linked with a WordPress account.
@@ -731,7 +731,7 @@ class EBUserManager {
 					'user_created' => 1,
 					'user_data'    => $response['response_data'][0],
 				);
-			} elseif ( $response['success'] == 0 ) {
+			} elseif ( 0 === $response['success'] ) {
 				$user = array(
 					'user_created' => 0,
 					'user_data'    => $response['response_message'],
@@ -804,7 +804,7 @@ class EBUserManager {
 			 */
 			$moodle_user = $this->get_moodle_user( $user->user_email );
 
-			if ( isset( $moodle_user['user_exists'] ) && $moodle_user['user_exists'] == 1 && is_object( $moodle_user['user_data'] ) ) {
+			if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] && is_object( $moodle_user['user_data'] ) ) {
 				update_user_meta( $user->ID, 'moodle_user_id', $moodle_user['user_data']->id );
 				$linked = 1;
 
@@ -837,7 +837,7 @@ class EBUserManager {
 				);
 
 				$moodle_user = $this->create_moodle_user( $user_data );
-				if ( isset( $moodle_user['user_created'] ) && $moodle_user['user_created'] == 1 && is_object( $moodle_user['user_data'] ) ) {
+				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
 					update_user_meta( $user->ID, 'moodle_user_id', $moodle_user['user_data']->id );
 					$created = 1;
 					$linked  = 1;
@@ -985,7 +985,7 @@ class EBUserManager {
 					esc_html__( '%s Users Unlinked.', 'eb-textdomain' ),
 					number_format_i18n( $_REQUEST['unlinked'] )
 				);
-			} elseif ( isset( $_REQUEST['linked'] ) && $_REQUEST['linked'] == 1 ) {
+			} elseif ( isset( $_REQUEST['linked'] ) && 1 === $_REQUEST['linked'] ) {
 				$message = sprintf( esc_html__( '%s User Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['linked'] ) && $_REQUEST['linked'] > 1 ) {
 				$message = sprintf( esc_html__( '%s Users Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
@@ -1261,10 +1261,10 @@ class EBUserManager {
 				'courses' => array( $course_enroll_data->course_id ),
 			);
 			// get expiration action.
-			if ( isset( $course_options['course_expiry_action'] ) && $course_options['course_expiry_action'] == 'suspend' ) {
+			if ( isset( $course_options['course_expiry_action'] ) && 'suspend' === $course_options['course_expiry_action'] ) {
 
 				$args['suspend'] = 1;
-			} elseif ( isset( $course_options['course_expiry_action'] ) && $course_options['course_expiry_action'] == 'do-nothing' ) {
+			} elseif ( isset( $course_options['course_expiry_action'] ) && 'do-nothing' === $course_options['course_expiry_action'] ) {
 
 				continue;
 			} else {

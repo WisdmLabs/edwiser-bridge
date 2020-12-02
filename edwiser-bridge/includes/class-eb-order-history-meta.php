@@ -156,7 +156,7 @@ class Eb_Order_History_Meta {
 		$refund_note       = get_arr_value( $note, 'refund_note' );
 		$refund_is_uneroll = get_arr_value( $note, 'refund_uneroll_users' );
 		$unenroll_msg      = '';
-		if ( 'ON' == $refund_is_uneroll ) {
+		if ( 'ON' === $refund_is_uneroll ) {
 			$unenroll_msg = esc_html__( ' Also the user is unenrolled from associated course.', 'eb-textdomain' );
 		}
 		$hist_note = esc_html( $refund_note ) . sprintf( '%s', $unenroll_msg );

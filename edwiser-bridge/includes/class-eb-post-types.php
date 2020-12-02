@@ -104,7 +104,7 @@ class Eb_Post_Types {
 							'name'               => __( 'Edwiser Bridge', 'eb-textdomain' ),
 							'singular_name'      => __( 'Edwiser Bridge', 'eb-textdomain' ),
 							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
-							'all_items'          => __( 'Courses', 'Admin menu name', 'eb-textdomain' ),
+							'all_items'          => __( 'Courses', 'eb-textdomain' ),
 							'add_new'            => __( 'Add Course', 'eb-textdomain' ),
 							'add_new_item'       => __( 'Add New Course', 'eb-textdomain' ),
 							'edit'               => __( 'Edit', 'eb-textdomain' ),
@@ -425,7 +425,7 @@ class Eb_Post_Types {
 		$post_type   = $args['post_type'];
 		$html        = '';
 		$option_name = $post_type . '_options[' . $field_id . ']';
-		$option = self::get_post_options( $post_id, $field_id, $post_type );
+		$option      = self::get_post_options( $post_id, $field_id, $post_type );
 
 		$data = '';
 		if ( $option ) {
@@ -496,7 +496,7 @@ class Eb_Post_Types {
 			case 'checkbox_multi':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( in_array( $k, $data ) ) {
+					if ( in_array( $k, $data, true ) ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field_id . '_' . $k );
@@ -507,7 +507,7 @@ class Eb_Post_Types {
 			case 'radio':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field_id . '_' . $k );
@@ -534,7 +534,7 @@ class Eb_Post_Types {
 				$html .= '" multiple="multiple">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( in_array( $k, $data ) ) {
+					if ( in_array( $k, $data, true ) ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false );
@@ -587,10 +587,10 @@ class Eb_Post_Types {
 		// get current post type.
 		$post_type = get_post_type( $post_id );
 
-		if ( ! in_array( $post_type, array( 'eb_course', 'eb_order' ) ) ) {
+		if ( ! in_array( $post_type, array( 'eb_course', 'eb_order' ), true ) ) {
 			return;
 		} else {
-			if ( 'eb_course' == $post_type ) {
+			if ( 'eb_course' === $post_type ) {
 				$fields = $this->populate_metabox_fields( $post_type );
 				$fields = array_merge( $this->populate_metabox_fields( 'eb_recommended_course_options' ), $fields );
 			}
@@ -630,8 +630,6 @@ class Eb_Post_Types {
 							$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
 							break;
 						default:
-							// $option_value = isset( $post_options[ $key ] ) ?
-							// wp_unslash( $post_options[ $key ] ) : null;
 							break;
 					}
 

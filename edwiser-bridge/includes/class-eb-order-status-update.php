@@ -159,7 +159,7 @@ class Eb_Order_Status {
 			'refund_note'           => get_arr_value( $data, 'note' ),
 			'refund_unenroll_users' => get_arr_value( $data, 'unenroll_users', false ),
 		);
-		if ( get_arr_value( $msg, 'refund_unenroll_users' ) == 'ON' ) {
+		if ( 'ON' === get_arr_value( $msg, 'refund_unenroll_users' ) ) {
 			$this->unenroll_user_from_courses( $order_id );
 		}
 		$msg  = apply_filters( 'eb_order_history_save_refund_status_msg', $msg );
@@ -230,7 +230,7 @@ class Eb_Order_Status {
 
 		if ( $resp ) {
 			$cur_user = wp_get_current_user();
-			$note    = array(
+			$note     = array(
 				'type' => 'enrollment_susspend',
 				'msg'  => __( 'User enrollment has been suspended on order refund request.', 'eb-textdomain' ),
 			);

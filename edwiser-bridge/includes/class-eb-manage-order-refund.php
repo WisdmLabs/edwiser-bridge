@@ -89,7 +89,7 @@ class Eb_Manage_Order_Refund {
 		$refunds    = $order->get_orders_all_refund( $order_id );
 		$paid_amt   = get_arr_value( $order_data, 'amount_paid' );
 
-		if ( empty( $refunds ) && $paid_amt == $amt ) {
+		if ( empty( $refunds ) && $amt === $paid_amt ) {
 			$type = 'Full';
 		}
 
