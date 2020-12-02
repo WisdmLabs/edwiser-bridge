@@ -68,7 +68,7 @@ class Eb_Post_Types {
 					'labels'       => array(
 						'name'              => __( 'Course Categories', 'eb-textdomain' ),
 						'singular_name'     => __( 'Course Category', 'eb-textdomain' ),
-						'menu_name'         => _x( 'Categories', 'Admin menu name', 'eb-textdomain' ),
+						'menu_name'         => _x( 'Course Categories', 'Admin menu name', 'eb-textdomain' ),
 						'search_items'      => __( 'Search Course Categories', 'eb-textdomain' ),
 						'all_items'         => __( 'All Course Categories', 'eb-textdomain' ),
 						'parent_item'       => __( 'Parent Course Categories', 'eb-textdomain' ),
@@ -80,6 +80,7 @@ class Eb_Post_Types {
 					),
 					'show_ui'      => true,
 					'query_var'    => true,
+					'hierarchical' => true,
 					'rewrite'      => array( 'slug' => 'eb_category' ),
 				)
 			)
@@ -100,9 +101,10 @@ class Eb_Post_Types {
 					'eb_register_post_type_courses',
 					array(
 						'labels'            => array(
-							'name'               => __( 'Moodle Courses', 'eb-textdomain' ),
-							'singular_name'      => __( 'Moodle Course', 'eb-textdomain' ),
-							'menu_name'          => _x( 'Moodle Courses', 'Admin menu name', 'eb-textdomain' ),
+							'name'               => __( 'Edwiser Bridge', 'eb-textdomain' ),
+							'singular_name'      => __( 'Edwiser Bridge', 'eb-textdomain' ),
+							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
+							'all_items'          => __( 'Courses', 'Admin menu name', 'eb-textdomain' ),
 							'add_new'            => __( 'Add Course', 'eb-textdomain' ),
 							'add_new_item'       => __( 'Add New Course', 'eb-textdomain' ),
 							'edit'               => __( 'Edit', 'eb-textdomain' ),
@@ -125,10 +127,11 @@ class Eb_Post_Types {
 						),
 						'map_meta_cap'      => true,
 						'show_ui'           => true,
-						'show_in_menu'      => false,
-						'menu_position'     => 80,
+						'show_in_menu'      => true,
+						'menu_icon'         => 'dashicons-book-alt',
+						'menu_position'     => 54,
 						'hierarchical'      => false, // Hierarchical causes memory issues - WP loads all records!
-						'rewrite'           => array( 'slug' => 'courses' ),
+						'rewrite'           => array( 'slug' => 'eb_courses' ),
 						'query_var'         => true,
 						'supports'          => array( 'title', 'editor', 'thumbnail', 'comments' ),
 						'has_archive'       => true,
