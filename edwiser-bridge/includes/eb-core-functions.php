@@ -533,3 +533,41 @@ function get_moodle_url() {
 	}
 	return 'MOODLE_URL';
 }
+/**
+ * Returns the list of the tags allowed in the wp_kses function.
+ */
+function get_allowed_html_tags() {
+	$allowed_tags           = wp_kses_allowed_html( 'post' );
+	$allowed_tags['iframe'] = array(
+		'src'             => array(),
+		'height'          => array(),
+		'width'           => array(),
+		'frameborder'     => array(),
+		'allowfullscreen' => array(),
+	);
+	$allowed_tags['input']  = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	$allowed_tags['select'] = array(
+		'class'  => array(),
+		'id'     => array(),
+		'name'   => array(),
+		'value'  => array(),
+		'type'   => array(),
+		'style'  => array(),
+		'data-*' => true,
+	);
+	$allowed_tags['option'] = array(
+		'class'    => array(),
+		'value'    => array(),
+		'selected' => array(),
+	);
+	$allowed_tags['style']  = array(
+		'types' => array(),
+	);
+	return $allowed_tags;
+}
