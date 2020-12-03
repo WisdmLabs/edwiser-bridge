@@ -116,6 +116,7 @@ class EBConnectionHelper {
 	 *
 	 * @since     1.0.0
 	 *
+	 * @deprecated since 2.0.1 use connection_test_helper( $url, $token ) insted.
 	 * @param string $url   moodle URL.
 	 * @param string $token moodle access token.
 	 *
@@ -265,6 +266,7 @@ class EBConnectionHelper {
 	 *
 	 * fetches data from moodle and returns response.
 	 *
+	 * @deprecated since 20.1 use connect_moodle_helper( $webservice_function ) insted.
 	 * @since  1.0.0
 	 *
 	 * @param string $webservice_function accepts webservice function as an argument.
@@ -333,6 +335,7 @@ class EBConnectionHelper {
 	 *
 	 * Fetches data from moodle and returns response.
 	 *
+	 * @deprecated since 2.0.1 use connect_moodle_with_args_helper( $webservice_function, $request_data ) insted.
 	 * @since  1.0.0
 	 *
 	 * @param string $webservice_function accepts webservice function as an argument.
@@ -341,46 +344,7 @@ class EBConnectionHelper {
 	 * @return array returns response to caller function
 	 */
 	public function connectMoodleWithArgsHelper( $webservice_function, $request_data ) {
-		$success          = 1;
-		$response_message = 'success';
-		$response_data    = array();
-
-		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
-
-		$request_args = array(
-			'body'    => $request_data,
-			'timeout' => 100,
-		);
-
-		$response = wp_remote_post( $request_url, $request_args );
-
-		if ( is_wp_error( $response ) ) {
-			$success          = 0;
-			$response_message = $response->get_error_message();
-		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
-			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( ! empty( $body->exception ) ) {
-				$success = 0;
-				if ( isset( $body->debuginfo ) ) {
-					$response_message = $body->message . ' - ' . $body->debuginfo;
-				} else {
-					$response_message = $body->message;
-				}
-			} else {
-				$success       = 1;
-				$response_data = $body;
-			}
-		} else {
-			$success          = 0;
-			$response_message = esc_html__( 'Please check Moodle URL !', 'eb-textdomain' );
-		}
-
-		return array(
-			'success'          => $success,
-			'response_message' => $response_message,
-			'response_data'    => $response_data,
-		);
+		return $this->connect_moodle_with_args_helper( $webservice_function, $request_data );
 	}
 
 
