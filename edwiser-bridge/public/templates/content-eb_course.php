@@ -55,11 +55,11 @@ $has_access   = $enroll_manag->user_has_course_access( $user_id, $post->ID );
 if ( $has_access ) {
 	$course_class = 'has-access';
 	/* Tanslators 1: title */
-	$h_title = sprintf( esc_html__( 'Click to access %$1s course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
+	$h_title = sprintf( esc_html__( 'Click to access', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
 } else {
 	$course_class = 'no-access';
 	/* Tanslators 1: title */
-	$h_title = sprintf( esc_html__( 'Click to read more about %$1s course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
+	$h_title = sprintf( esc_html__( 'Click to read more about', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
 }
 
 $course_id = $eb_post_id;
@@ -136,8 +136,8 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 				}
 				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses ) {
 					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
-						echo '<div class="wdm-price ' . esc_html( $course_price_type ) . '">';
-						echo esc_html( $course_price_formatted );
+						echo '<div class="wdm-price ' . wp_kses_post( $course_price_type ) . '">';
+						echo wp_kses_post( $course_price_formatted );
 						echo '</div>';
 					}
 				}
@@ -150,7 +150,6 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 					echo esc_html( $progress_btn_div );
 					echo '</div>';
 				}
-
 
 				echo '</div>'; // wdm-caption.
 

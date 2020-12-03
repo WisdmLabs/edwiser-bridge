@@ -42,7 +42,7 @@ if ( ! class_exists( 'Eb_Settings_Shortcode_Doc' ) ) {
 		public function output() {
 			$GLOBALS['hide_save_button'] = true;
 			do_action( 'eb_befor_shortcode_doc' );
-			echo esc_html( $this->get_documentation() );
+			echo wp_kses_post( $this->get_documentation() );
 			do_action( 'eb_after_shortcode_doc' );
 		}
 

@@ -86,7 +86,7 @@ class Eb_Shortcode_Courses {
 		 * Check is horizintal scroll spesified in shortcoe and set value
 		 */
 		if ( isset( $atts['horizontally_scroll'] ) && 'yes' === $atts['horizontally_scroll'] ) {
-			$scroll_horizontal       = true;
+			$scroll_horizontal      = true;
 			$args['posts_per_page'] = -1;
 		}
 

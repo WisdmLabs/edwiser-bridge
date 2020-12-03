@@ -186,7 +186,7 @@ class Eb_Enrollment_Manager {
 					'courseid' => $moodle_course_id,
 				);
 				if ( 'enrol_manual_enrol_users' === $webservice_function && '0000-00-00 00:00:00' !== $expire_date ) {
-					$enrolments[ $wp_course_id ]['timestart'] = strtotime( gmdate()( 'Y-m-d H:i:s' ) );
+					$enrolments[ $wp_course_id ]['timestart'] = strtotime( gmdate( 'Y-m-d H:i:s' ) );
 					$enrolments[ $wp_course_id ]['timeend']   = strtotime( $expire_date );
 				}
 
@@ -722,15 +722,12 @@ class Eb_Enrollment_Manager {
 
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
 
-		if ( $result === $user_id ) {
+		if ( trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
 		}
 
 		return $has_access;
 	}
-
-
-
 
 	/**
 	 * Used to check if a user has access to a course.
@@ -752,7 +749,7 @@ class Eb_Enrollment_Manager {
 
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
 
-		if ( $result === $user_id ) {
+		if ( trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
 		}
 
@@ -781,7 +778,7 @@ class Eb_Enrollment_Manager {
 
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
 
-		if ( $result === $user_id ) {
+		if ( trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
 		}
 

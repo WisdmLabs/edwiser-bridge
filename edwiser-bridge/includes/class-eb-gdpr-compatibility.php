@@ -45,7 +45,7 @@ class Eb_Gdpr_Compatiblity {
 
 		$export_items = array();
 		if ( $moodle_user_id ) {
-			$export_items[]   = array(
+			$export_items[] = array(
 				'group_id'    => 'eb_user_meta',
 				'group_label' => esc_html__( 'User enrollment data', 'eb-textdomain' ),
 				'item_id'     => 'eb_user_meta',
@@ -87,7 +87,7 @@ class Eb_Gdpr_Compatiblity {
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
 		$enrolled_course = array();
-		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -108,7 +108,7 @@ class Eb_Gdpr_Compatiblity {
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
 		$enrolled_course = array();
-		$result = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d', $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d', $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {

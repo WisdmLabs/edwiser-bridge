@@ -220,8 +220,8 @@ class EBConnectionHelper {
 			$request_args = array( 'timeout' => 100 );
 			$response     = wp_remote_post( $request_url, $request_args );
 
-			if ( wp_remote_retrieve_response_code( $response ) == 200 ||
-					wp_remote_retrieve_response_code( $response ) == 303 ) {
+			if ( 200 === wp_remote_retrieve_response_code( $response ) ||
+			303 === wp_remote_retrieve_response_code( $response ) ) {
 				$body = json_decode( wp_remote_retrieve_body( $response ) );
 				if ( ! empty( $body->exception ) ) {
 

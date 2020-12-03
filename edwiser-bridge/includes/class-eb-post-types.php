@@ -131,7 +131,7 @@ class Eb_Post_Types {
 						'menu_icon'         => 'dashicons-book-alt',
 						'menu_position'     => 54,
 						'hierarchical'      => false, // Hierarchical causes memory issues - WP loads all records!
-						'rewrite'           => array( 'slug' => 'eb_courses' ),
+						'rewrite'           => array( 'slug' => 'courses' ),
 						'query_var'         => true,
 						'supports'          => array( 'title', 'editor', 'thumbnail', 'comments' ),
 						'has_archive'       => true,
@@ -296,7 +296,7 @@ class Eb_Post_Types {
 		$args_array = array(
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
-					'label'       => esc_html__( 'Moodle Course ID', 'eb-textdomain' ),
+					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
 					'description' => '',
 					'type'        => 'text',
 					'placeholder' => '',
@@ -305,57 +305,57 @@ class Eb_Post_Types {
 					'note'        => isset( $deletion_status ) && ! empty( $deletion_status ) ? '<span style="color:red;">' . __( 'This course is deleted on Moodle', 'eb-textdomain' ) . '</span>' : '',
 				),
 				'course_price_type'        => array(
-					'label'       => esc_html__( 'Course Price Type', 'eb-textdomain' ),
-					'description' => esc_html__( 'Is it free to join or one time purchase?', 'eb-textdomain' ),
+					'label'       => __( 'Course Price Type', 'eb-textdomain' ),
+					'description' => __( 'Is it free to join or one time purchase?', 'eb-textdomain' ),
 					'type'        => 'select',
 					'options'     => array(
-						'free'   => esc_html__( 'Free', 'eb-textdomain' ),
-						'paid'   => esc_html__( 'Paid', 'eb-textdomain' ),
-						'closed' => esc_html__( 'Closed', 'eb-textdomain' ),
+						'free'   => __( 'Free', 'eb-textdomain' ),
+						'paid'   => __( 'Paid', 'eb-textdomain' ),
+						'closed' => __( 'Closed', 'eb-textdomain' ),
 					),
 					'default'     => array( 'free' ),
 				),
 				'course_price'             => array(
-					'label'       => esc_html__( 'Course Price', 'eb-textdomain' ),
-					'description' => esc_html__( 'Course price in currency as defined in settings.', 'eb-textdomain' ),
+					'label'       => __( 'Course Price', 'eb-textdomain' ),
+					'description' => __( 'Course price in currency as defined in settings.', 'eb-textdomain' ),
 					'type'        => 'text',
-					'placeholder' => esc_html__( 'Enter course price', 'eb-textdomain' ),
+					'placeholder' => __( 'Enter course price', 'eb-textdomain' ),
 					'default'     => '',
 				),
 				'course_closed_url'        => array(
-					'label'       => esc_html__( 'Optional URL', 'eb-textdomain' ),
-					'description' => esc_html__( 'Optional url to redirect user on click of take this course button.', 'eb-textdomain' ),
+					'label'       => __( 'Optional URL', 'eb-textdomain' ),
+					'description' => __( 'Optional url to redirect user on click of take this course button.', 'eb-textdomain' ),
 					'type'        => 'text',
-					'placeholder' => esc_html__( 'Optional URL', 'eb-textdomain' ),
+					'placeholder' => __( 'Optional URL', 'eb-textdomain' ),
 					'default'     => '',
 				),
 				'course_expirey'           => array(
-					'label'       => esc_html__( 'Expire Access', 'eb-textdomain' ),
-					'description' => esc_html__( 'Leave this field unchecked if access never expires.', 'eb-textdomain' ),
+					'label'       => __( 'Expire Access', 'eb-textdomain' ),
+					'description' => __( 'Leave this field unchecked if access never expires.', 'eb-textdomain' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'course_expiry_action'     => array(
-					'label'       => esc_html__( 'On Course Expiration', 'eb-textdomain' ),
-					'description' => esc_html__( 'Select an action to perform on course access expiration.', 'eb-textdomain' ),
+					'label'       => __( 'On Course Expiration', 'eb-textdomain' ),
+					'description' => __( 'Select an action to perform on course access expiration.', 'eb-textdomain' ),
 					'type'        => 'select',
 					'options'     => array(
-						'unenroll'   => esc_html__( 'Unenroll', 'eb-textdomain' ),
-						'suspend'    => esc_html__( 'Suspend', 'eb-textdomain' ),
-						'do-nothing' => esc_html__( 'Do nothing', 'eb-textdomain' ),
+						'unenroll'   => __( 'Unenroll', 'eb-textdomain' ),
+						'suspend'    => __( 'Suspend', 'eb-textdomain' ),
+						'do-nothing' => __( 'Do nothing', 'eb-textdomain' ),
 					),
 					'default'     => array( 'unenroll' ),
 				),
 				'num_days_course_access'   => array(
-					'label'       => esc_html__( 'Expire Access After (days)', 'eb-textdomain' ),
-					'description' => esc_html__( 'Number of days the course is accessible', 'eb-textdomain' ),
+					'label'       => __( 'Expire Access After (days)', 'eb-textdomain' ),
+					'description' => __( 'Number of days the course is accessible', 'eb-textdomain' ),
 					'type'        => 'text',
 					'default'     => '',
 				),
 				'course_short_description' => array(
-					'label'       => esc_html__( 'Short Description', 'eb-textdomain' ),
-					'description' => esc_html__( 'Short description of course.', 'eb-textdomain' ),
+					'label'       => __( 'Short Description', 'eb-textdomain' ),
+					'description' => __( 'Short description of course.', 'eb-textdomain' ),
 					'type'        => 'textarea',
 					'placeholder' => '',
 					'default'     => '',
@@ -363,22 +363,22 @@ class Eb_Post_Types {
 			),
 			'eb_recommended_course_options' => array(
 				'enable_recmnd_courses'               => array(
-					'label'       => esc_html__( 'Show Recommended Courses', 'eb-textdomain' ),
-					'description' => esc_html__( 'Show recommended courses on single course page.', 'eb-textdomain' ),
+					'label'       => __( 'Show Recommended Courses', 'eb-textdomain' ),
+					'description' => __( 'Show recommended courses on single course page.', 'eb-textdomain' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'show_default_recmnd_course'          => array(
-					'label'       => esc_html__( 'Show Category Wise Recommended Courses', 'eb-textdomain' ),
-					'description' => esc_html__( 'Show category wise selected recommended courses on single course page.', 'eb-textdomain' ),
+					'label'       => __( 'Show Category Wise Recommended Courses', 'eb-textdomain' ),
+					'description' => __( 'Show category wise selected recommended courses on single course page.', 'eb-textdomain' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'enable_recmnd_courses_single_course' => array(
-					'label'       => esc_html__( 'Select Courses', 'eb-textdomain' ),
-					'description' => esc_html__( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ),
+					'label'       => __( 'Select Courses', 'eb-textdomain' ),
+					'description' => __( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ),
 					'type'        => 'select_multi',
 					'options'     => isset( $post->ID ) ? get_all_eb_sourses( $post->ID ) : array(),
 					'default'     => array( 'pending' ),
@@ -386,14 +386,14 @@ class Eb_Post_Types {
 			),
 			'eb_order'                      => array(
 				'order_status' => array(
-					'label'       => esc_html__( 'Order Status', 'eb-textdomain' ),
-					'description' => esc_html__( 'Status of Order', 'eb-textdomain' ),
+					'label'       => __( 'Order Status', 'eb-textdomain' ),
+					'description' => __( 'Status of Order', 'eb-textdomain' ),
 					'type'        => 'select',
 					'options'     => array(
-						'pending'   => esc_html__( 'Pending', 'eb-textdomain' ),
-						'completed' => esc_html__( 'Completed', 'eb-textdomain' ),
-						'failed'    => esc_html__( 'Failed', 'eb-textdomain' ),
-						'refunded'  => esc_html__( 'Refunded', 'eb-textdomain' ),
+						'pending'   => __( 'Pending', 'eb-textdomain' ),
+						'completed' => __( 'Completed', 'eb-textdomain' ),
+						'failed'    => __( 'Failed', 'eb-textdomain' ),
+						'refunded'  => __( 'Refunded', 'eb-textdomain' ),
 					),
 					'default'     => array( 'pending' ),
 				),
@@ -445,53 +445,53 @@ class Eb_Post_Types {
 		if ( isset( $field['attr'] ) ) {
 			$attr = $field['attr'];
 		}
+		?>
+		<div id='<?php echo esc_html( $post_type . '_' . $field_id ); ?>' class='field-input-box'>
+			<span class='eb-option-label'>
+				<label class='field-label'><?php echo esc_html( $label ); ?></label>
+			</span>
 
-		$html .= "<div id='{$post_type}_{$field_id}' class='field-input-box'>";
-		$html .= "<span class='eb-option-label'>
-					<label class='field-label'>{$label}</label>
-				  </span>";
+			<span class='eb-option-input'>
+				<div class='eb-option-div'>
 
-		$html .= "<span class='eb-option-input'>
-				  <div class='eb-option-div'>";
-
+		<?php
 		switch ( $field['type'] ) {
 			case 'title':
-				$html .= '<h2 id="' . esc_attr( $field_id ) . '" />' . $field['label'] . '</h2>';
+				?>
+				<h2 id=" <?php esc_attr( $field_id ); ?>" /> <?php echo esc_attr( $field['label'] ); ?></h2>
+				<?php
 				break;
 			case 'label':
-				$html .= '<span id="' . esc_attr( $field_id ) . '" /><b>' . $data . '</b></span>' . "\n";
+				?>
+				<span id="<?php echo esc_attr( $field_id ); ?>" /><b> <?php echo esc_html( $data ); ?></b></span>
+				<?php
 				break;
 			case 'text':
 			case 'password':
 			case 'number':
 			case 'date':
-				$html .= '<input id="' . esc_attr( $field_id );
-				$html .= '" type="' . $field['type'];
-				$html .= '" name="' . esc_attr( $option_name );
-				$html .= '" placeholder="' . esc_attr( $field['placeholder'] );
-				$html .= '" value="' . $data . '" ' . $attr . '/>' . "\n";
+				?>
+				<input id="<?php echo esc_attr( $field_id ); ?>" type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $option_name ); ?>" placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>" value="<?php echo esc_html( $data ); ?>" <?php echo esc_html( $attr ); ?>/>
+				<?php
 				break;
 			case 'text_secret':
-				$html .= '<input id="' . esc_attr( $field_id );
-				$html .= '" type="text" name="' . esc_attr( $option_name );
-				$html .= '" placeholder="' . esc_attr( $field['placeholder'] );
-				$html .= '" value=""/>' . "\n";
+				?>
+				<input id="<?php echo esc_attr( $field_id ); ?>" type="text" name="<?php echo esc_attr( $option_name ); ?>" placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>" value=""/>
+				<?php
 				break;
 			case 'textarea':
-				$html .= '<textarea id="' . esc_attr( $field_id );
-				$html .= '" rows="5" cols="50" name="' . esc_attr( $option_name );
-				$html .= '" placeholder="' . esc_attr( $field['placeholder'] ) . '">';
-				$html .= $data . '</textarea>' . "\n";
+				?>
+				'<textarea id="<?php echo esc_attr( $field_id ); ?>" rows="5" cols="50" name="<?php echo esc_attr( $option_name ); ?>" placeholder="<?php echo esc_attr( $field['placeholder'] ); ?>"> <?php echo esc_html( $data ); ?></textarea>
+				<?php
 				break;
 			case 'checkbox':
 				$checked = '';
 				if ( $option && 'yes' === $option ) {
 					$checked = 'checked="checked"';
 				}
-				$html .= '<input id="' . esc_attr( $field_id );
-				$html .= '" type="' . $field['type'];
-				$html .= '" name="' . esc_attr( $option_name );
-				$html .= '" ' . $checked . '/>' . "\n";
+				?>
+				<input id="<?php echo esc_attr( $field_id ); ?>" type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $option_name ); ?>" <?php echo esc_html( $checked ); ?>/>
+				<?php
 				break;
 			case 'checkbox_multi':
 				foreach ( $field['options'] as $k => $v ) {
@@ -499,9 +499,9 @@ class Eb_Post_Types {
 					if ( in_array( $k, $data, true ) ) {
 						$checked = true;
 					}
-					$html .= '<label for="' . esc_attr( $field_id . '_' . $k );
-					$html .= ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k );
-					$html .= '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
+					?>
+					<label for="<?php echo esc_attr( $field_id . '_' . $k ); ?>' name="<?php echo esc_attr( $option_name ); ?>[]" value="<?php echo esc_attr( $k ); ?>" id="<?php echo esc_attr( $field['id'] . '_' . $k ); ?>" /> <?php echo esc_html( $v ); ?></label>
+					<?php
 				}
 				break;
 			case 'radio':
@@ -510,59 +510,64 @@ class Eb_Post_Types {
 					if ( $k === $data ) {
 						$checked = true;
 					}
-					$html .= '<label for="' . esc_attr( $field_id . '_' . $k );
-					$html .= '"><input type="radio" ' . checked( $checked, true, false );
-					$html .= ' name="' . esc_attr( $option_name );
-					$html .= '" value="' . esc_attr( $k );
-					$html .= '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
+					?>
+					<label for="<?php echo esc_attr( $field_id . '_' . $k ); ?>"><input type="radio" <?php echo checked( $checked, true, false ); ?> name="<?php echo esc_attr( $option_name ); ?>" value="<?php echo esc_attr( $k ); ?>" id="<?php echo esc_attr( $field['id'] . '_' . $k ); ?>" /> <?php echo esc_html( $v ); ?></label> 
+					<?php
 				}
 				break;
 			case 'select':
-				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field_id ) . '">';
+				?>
+				<select name=" <?php echo esc_attr( $option_name ); ?>" id="<?php echo esc_attr( $field_id ); ?>">
+				<?php
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
 					if ( $k === $data ) {
 						$selected = true;
 					}
-					$html .= '<option ' . selected( $selected, true, false );
-					$html .= ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
+					?>
+					<option <?php echo selected( $selected, true, false ); ?> value="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $v ); ?></option>
+					<?php
 				}
-				$html .= '</select> ';
+				?>
+				</select>
+				<?php
 				break;
 			case 'select_multi':
-				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field_id );
-				$html .= '" multiple="multiple">';
+				?>
+				<select name="<?php echo esc_attr( $option_name ); ?>[]" id="<?php echo esc_attr( $field_id ); ?>" multiple="multiple">
+				<?php
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
 					if ( in_array( $k, $data, true ) ) {
 						$selected = true;
 					}
-					$html .= '<option ' . selected( $selected, true, false );
-					$html .= ' value="' . esc_attr( $k ) . '" />' . $v . '</label> ';
+					?>
+					<option <?php echo selected( $selected, true, false ); ?> value="<?php echo esc_attr( $k ); ?>" /><?php echo esc_html( $v ); ?></label>
+					<?php
 				}
-				$html .= '</select> ';
+				?>
+				</select>
+				<?php
 				break;
 		}
 
 		switch ( $field['type'] ) {
 			case 'textarea':
 			case 'select_multi':
-				$html .= '<em><p class="description-label ' . esc_attr( $field_id );
-				$html .= '">' . $field['description'] . '</p></em>';
+				?>
+				<em><p class="description-label <?php esc_attr( $field_id ); ?> "><?php echo esc_attr( $field['description'] ); ?></p></em>
+				<?php
 				break;
 			default:
-				$html .= '<span class="description-label ' . esc_attr( $field_id );
-				$html .= '"><img class="help-tip" src="' . EB_PLUGIN_URL . 'images/question.png" data-tip="';
-				$html .= $field['description'] . '" /></span>';
-
-				// Adding note after input.
-				$html .= isset( $field['note'] ) ? $field['note'] : '';
-
+				?>
+				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( EB_PLUGIN_URL ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
+				<?php echo esc_html( isset( $field['note'] ) ? $field['note'] : '' ); ?>
+				<?php
 				break;
 		}
-
-		$html .= '</div></span></div>';
-		echo esc_html( $html );
+		?>
+		</div></span></div>
+		<?php
 	}
 
 	/**
@@ -673,19 +678,19 @@ class Eb_Post_Types {
 
 		$messages[ $post_type ] = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => sprintf( '%1$s', esc_attr( $singular ) ) .
-				esc_html__( ' updated.', 'eb-textdomain' ) . '<a href="' . sprintf( '%2$s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . esc_html__( ' View', 'eb-textdomain' ) .
+			1  => sprintf( '%s', esc_attr( $singular ) ) .
+				__( ' updated.', 'eb-textdomain' ) . '<a href="' . sprintf( '%s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . __( ' View', 'eb-textdomain' ) .
 				sprintf(
-					'%3$s</a>',
+					'%s</a>',
 					strtolower( $singular )
 				),
-			2  => esc_html__( 'Custom field updated.', 'eb-textdomain' ),
-			3  => esc_html__( 'Custom field deleted.', 'eb-textdomain' ),
-			4  => sprintf( '%s ', esc_attr( $singular ) ) . esc_html__( 'updated.', 'eb-textdomain' ),
+			2  => __( 'Custom field updated.', 'eb-textdomain' ),
+			3  => __( 'Custom field deleted.', 'eb-textdomain' ),
+			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'eb-textdomain' ),
 			5  => isset( $_GET['revision'] ) ? sprintf(
 				'%s ',
 				wp_post_revision_title( (int) $_GET['revision'], false )
-			) . esc_html__( 'restored to revision from ', 'eb-textdomain' ) . sprintf(
+			) . __( 'restored to revision from ', 'eb-textdomain' ) . sprintf(
 				'%s ',
 				esc_attr( $singular )
 			) : false,
@@ -695,7 +700,7 @@ class Eb_Post_Types {
 				esc_url( get_permalink( $post_ID ) ),
 				strtolower( $singular )
 			),
-			7  => sprintf( '%s ', esc_attr( $singular ) ) . esc_html__( 'saved.', 'eb-textdomain' ),
+			7  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'saved.', 'eb-textdomain' ),
 			8  => sprintf(
 				'%1$s submitted. <a href="%2$s" target="_blank">Preview %3$s</a>',
 				$singular,
@@ -703,10 +708,10 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			9  => sprintf(
-				'%1$s' . esc_html__( 'scheduled for: <strong> ', 'eb-textdomain' ) . '%2$s' . esc_html__( '</strong>. <a href="', 'eb-textdomain' ) . '%3$s' . esc_html__( '" target="_blank">Preview ', 'eb-textdomain' ) . '%4$s</a>',
+				'%1$s' . __( 'scheduled for: <strong> ', 'eb-textdomain' ) . '%2$s' . __( '</strong>. <a href="', 'eb-textdomain' ) . '%3$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%4$s</a>',
 				$singular,
 				date_i18n(
-					esc_html__( 'M j, Y @ G:i' ),
+					__( 'M j, Y @ G:i' ),
 					strtotime( $post->post_date )
 				),
 				esc_url(
@@ -715,7 +720,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			10 => sprintf(
-				'%1$s' . esc_html__( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . esc_html__( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s </a>',
+				'%1$s' . __( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s </a>',
 				$singular,
 				esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
 				strtolower( $singular )

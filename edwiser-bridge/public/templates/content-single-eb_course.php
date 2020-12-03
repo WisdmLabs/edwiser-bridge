@@ -71,7 +71,7 @@ $terms      = wp_get_post_terms(
 if ( is_array( $terms ) ) {
 	foreach ( $terms as $eb_term ) {
 		$lnk          = get_term_link( $eb_term->term_id, 'eb_course_cat' );
-		$categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . $eb_term->name . '</a>';
+		$categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . esc_html( $eb_term->name ) . '</a>';
 	}
 }
 
@@ -121,27 +121,23 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			if ( ! is_search() ) {
 				if ( ! $has_access || ! is_user_logged_in() ) {
 					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
-						ob_start();
+						// ob_start();
 						?>
-						<div class="
-						<?php
-						echo 'wdm-price' . esc_html( $course_price_type );
-						?>
-						">
+						<div class="<?php echo 'wdm-price' . esc_html( $course_price_type ); ?>">
 									<?php echo '<h3>' . esc_html( $course_price_formatted ) . '</h3>'; ?>
 						</div>
 						<?php
-						echo esc_html( ob_get_clean() );
+						// echo esc_html( ob_get_clean() );
 					}
-					echo esc_html( Eb_Payment_Manager::take_course_button( $post->ID ) );
+					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 				} else {
-					echo esc_html( Eb_Payment_Manager::access_course_button( $post->ID ) );
+					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 				}
 
 				if ( count( $categories ) ) {
 					?>
 					<div  class="eb-cat-wrapper">
-						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo esc_html( implode( ', ', $categories ) ); ?></span>
+						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo wp_kses( implode( ', ', $categories ), eb_sinlge_course_get_allowed_html_tags() ); ?></span>
 					</div>                  
 					<?php
 				}
@@ -171,9 +167,9 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			the_content();
 
 			if ( ! $has_access || ! is_user_logged_in() ) {
-				echo esc_html( Eb_Payment_Manager::take_course_button( $post->ID ) );
+				echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 			} else {
-				echo esc_html( Eb_Payment_Manager::access_course_button( $post->ID ) );
+				echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 			}
 		}
 		?>

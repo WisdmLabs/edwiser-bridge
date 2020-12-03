@@ -288,7 +288,7 @@ class Eb_Payment_Manager {
 
 				$paypal_button = '';
 				if ( ! empty( $paypal_email ) ) {
-					$paypal_button = wptexturize(
+					$paypal_button  = wptexturize(
 						do_shortcode(
 							"[paypal type='paynow'
 							amount='{$course_price}'

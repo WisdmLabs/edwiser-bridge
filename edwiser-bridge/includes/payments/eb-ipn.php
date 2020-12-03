@@ -89,7 +89,7 @@ if ( $verified ) {
 
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email == $seller_email ) ? 'YES' : 'NO' ) );
 
-	if ( $post_receiver_email != $seller_email ) {
+	if ( $post_receiver_email !== $seller_email ) {
 		if ( '' !== $your_notification_email_address ) {
 			wp_mail(
 				$your_notification_email_address,
@@ -106,7 +106,7 @@ if ( $verified ) {
 
 	edwiser_bridge_instance()->logger()->add(
 		'payment',
-		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' == $post_payment_status ) ? 'YES' : 'NO' )
+		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' === $post_payment_status ) ? 'YES' : 'NO' )
 	);
 	if ( 'Completed' === $post_payment_status ) {
 		edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Completed! Moving Ahead.' );

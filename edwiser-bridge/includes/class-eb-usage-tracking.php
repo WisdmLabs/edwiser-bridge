@@ -77,7 +77,7 @@ class EB_Usage_Tracking {
 				'body'    => $analytics_data,
 				'timeout' => 100,
 			);
-			$result = wp_remote_post( $url, $request_args );
+			$result       = wp_remote_post( $url, $request_args );
 
 			if ( wp_remote_retrieve_response_code( $response ) == 200 ) {
 				$result_arr = wp_json_decode( $result, 1 );

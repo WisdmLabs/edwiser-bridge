@@ -311,7 +311,8 @@ function update_order_hist_meta( $order_id, $updated_by, $note ) {
 	}
 	$new_hist = array(
 		'by'   => $updated_by,
-		'time' => current_time(),
+		// 'time' => current_time( 'timestamp' ),
+		'time' => gmdate(),
 		'note' => $note,
 	);
 
@@ -575,3 +576,50 @@ function get_allowed_html_tags() {
 	);
 	return $allowed_tags;
 }
+
+
+
+
+
+
+/**
+ * Returns the list of the tags allowed in the wp_kses function.
+ */
+function eb_sinlge_course_get_allowed_html_tags() {
+	$allowed_tags           = wp_kses_allowed_html( 'post' );
+	$allowed_tags['form']   = array(
+		'method'             => array(),
+	);
+	$allowed_tags['input']  = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	$allowed_tags['select'] = array(
+		'class'  => array(),
+		'id'     => array(),
+		'name'   => array(),
+		'value'  => array(),
+		'type'   => array(),
+		'style'  => array(),
+		'data-*' => true,
+	);
+	$allowed_tags['option'] = array(
+		'class'    => array(),
+		'value'    => array(),
+		'selected' => array(),
+	);
+	$allowed_tags['script'] = array(
+		'src' => array(),
+		'type' => array(),
+	);
+	$allowed_tags['a']      = array(
+		'href' => array(),
+		'target' => array(),
+	);
+	return $allowed_tags;
+}
+
+

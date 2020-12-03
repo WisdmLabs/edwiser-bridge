@@ -279,7 +279,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$disabled = 'disabled';
 			if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) {
 				$disabled = '';
-				$to = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+				$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
 			}
 
 			if ( 'top' == $which ) {

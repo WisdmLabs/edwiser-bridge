@@ -22,7 +22,7 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function check_if_moodle_plugin_installed() {
 		$connection_options = get_option( 'eb_connection' );
-		$eb_moodle_url = '';
+		$eb_moodle_url      = '';
 		if ( isset( $connection_options['eb_url'] ) ) {
 			$eb_moodle_url = $connection_options['eb_url'];
 		}
@@ -61,8 +61,8 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_update_moodle_plugin_notice() {
 		$redirection = '?eb-update-notice-dismissed';
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
-			$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
+			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
 			$redirection .= '&eb-update-notice-dismissed';
 		}
@@ -123,8 +123,8 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function eb_admin_discount_notice() {
 		$redirection  = '?eb-discount-notice-dismissed';
-		$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
-		$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
+		$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+		$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
 			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
@@ -182,10 +182,10 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_feedback_notice() {
 		$redirection = '?eb-feedback-notice-dismissed';
 		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$request_host = isset( $_SERVER[ HTTP_HOST ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ HTTP_HOST ] ) ) : '';
-			$request_uri  = isset( $_SERVER[ REQUEST_URI ] ) ? sanitize_text_field( wp_unslash( $_SERVER[ REQUEST_URI ] ) ) : '';
+			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
-			$redirection = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
+			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
 			$redirection .= '&eb-feedback-notice-dismissed';
 		}
 

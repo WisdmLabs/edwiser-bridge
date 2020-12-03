@@ -100,7 +100,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 				$constant['{FIRST_NAME}'] = $args['first_name'];
 				$constant['{LAST_NAME}']  = $args['last_name'];
 			} elseif ( is_user_logged_in() ) {
-				$cur_user                  = wp_get_current_user();
+				$cur_user                 = wp_get_current_user();
 				$constant['{USER_NAME}']  = $cur_user->user_login;
 				$constant['{FIRST_NAME}'] = $cur_user->first_name;
 				$constant['{LAST_NAME}']  = $cur_user->last_name;

@@ -576,7 +576,7 @@ class Eb_Course_Manager {
 		foreach ( $category_response as $category ) {
 			$cat_name_clean = preg_replace( '/\s*/', '', $category->name );
 			$cat_name_lower = strtolower( $cat_name_clean );
-			$parent = ( 0 == $category->parent ? 0 : $category->parent );
+			$parent         = ( 0 == $category->parent ? 0 : $category->parent );
 
 			if ( $parent > 0 ) {
 				// get parent term if exists.

@@ -137,10 +137,10 @@ class Eb_Ipn_Listener {
 	 */
 	protected function curl_post( $encoded_data ) {
 		if ( $this->use_ssl ) {
-			$uri = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
+			$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
 			$this->post_uri = $uri;
 		} else {
-			$uri = 'http://' . $this->get_paypal_host() . '/cgi-bin/webscr';
+			$uri            = 'http://' . $this->get_paypal_host() . '/cgi-bin/webscr';
 			$this->post_uri = $uri;
 		}
 
@@ -173,7 +173,7 @@ class Eb_Ipn_Listener {
 			'body'    => $encoded_data,
 			'timeout' => 100,
 		);
-		$response = wp_remote_post( $uri, $request_args );
+		$response     = wp_remote_post( $uri, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$errstr = $response->get_error_message();
@@ -214,7 +214,7 @@ class Eb_Ipn_Listener {
 			throw new \Exception( "fsockopen error: [$errno] $errstr" );
 		}
 
-		$header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
+		$header  = "POST /cgi-bin/webscr HTTP/1.0\r\n";
 		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 		$header .= 'Content-Length: ' . strlen( $encoded_data ) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";

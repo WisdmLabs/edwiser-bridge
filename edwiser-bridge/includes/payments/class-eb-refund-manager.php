@@ -87,7 +87,7 @@ class Eb_Paypal_Refund_Manager {
 			$resp_status = get_arr_value( $response, 'ACK', false );
 			if ( 'Success' === $resp_status ) {
 				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', get_arr_value( $response, 'GROSSREFUNDAMT' ), $order_id, get_arr_value( $response, 'REFUNDTRANSACTIONID' ) );
-			} else if ( 'Failure' === $resp_status ) {
+			} elseif ( 'Failure' === $resp_status ) {
 				$success       = 0;
 				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . get_arr_value( $response, 'L_LONGMESSAGE0', '' );
 			}

@@ -563,7 +563,7 @@ class EBUserManager {
 
 		edwiser_bridge_instance()->logger()->add( 'user', 'Checking if username exists....' ); // add to user log
 
-		$username = sanitize_user( $username ); // get sanitized username
+		$username            = sanitize_user( $username ); // get sanitized username
 		$webservice_function = 'core_user_get_users_by_field';
 
 		// prepare request data array.

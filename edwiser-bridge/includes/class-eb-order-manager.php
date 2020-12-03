@@ -474,7 +474,7 @@ class Eb_Order_Manager {
 			if ( '' === $buyer_name ) {
 				$buyer_name = $buyer->user_login;
 			}
-			echo esc_html( "<a href='" . get_edit_user_link( $order_buyer_id ) . "'>" . $buyer_name . '</a>' );
+			echo "<a href='" . esc_html( get_edit_user_link( $order_buyer_id ) ) . "'>" . esc_html( $buyer_name ) . '</a>';
 		}
 	}
 }

@@ -122,7 +122,7 @@ class Eb_External_Api_Endpoint {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = get_wp_user_id_from_moodle_id( $data['user_id'] );
 				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
-					$role = default_registration_role();
+					$role       = default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
 				}
