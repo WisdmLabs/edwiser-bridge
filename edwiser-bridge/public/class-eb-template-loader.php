@@ -14,7 +14,7 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-/*
+/**
  * Class EbTemplateLoader.
  */
 class EbTemplateLoader {
@@ -173,9 +173,9 @@ class EbTemplateLoader {
 	 * @return void
 	 */
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-		if ( $args && is_array( $args ) ) {
-			extract( $args );
-		}
+		// if ( $args && is_array( $args ) ) {
+		// 	extract( $args );
+		// }
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
 

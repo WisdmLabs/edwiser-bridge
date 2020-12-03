@@ -57,16 +57,8 @@ class Eb_Shortcode_User_Profile {
 	 * @param array $atts atts.
 	 */
 	public static function user_profile( $atts ) {
-		extract(
-			shortcode_atts(
-				array(
-					'user_id' => isset( $atts['user_id'] ) ? $atts['user_id'] : '',
-				),
-				$atts
-			)
-		);
 
-		if ( '' !== $user_id ) {
+		if ( isset( $atts['user_id'] ) && '' !== $atts['user_id'] ) {
 			$user      = get_user_by( 'id', $user_id );
 			$user_meta = get_user_meta( $user_id );
 		} else {
@@ -159,7 +151,7 @@ class Eb_Shortcode_User_Profile {
 			return false;
 		}
 
-		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'eb-update-user' ) ) {
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			return false;
 		}
 
@@ -193,6 +185,10 @@ class Eb_Shortcode_User_Profile {
 	 */
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
 		$val = '';
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+			return false;
+		}
+
 		if ( isset( $_POST[ $fieldname ] ) && ! empty( $_POST[ $fieldname ] ) ) {
 			$val = sanitize_text_field( wp_unslash( $_POST[ $fieldname ] ) );
 			if ( $sanitize ) {

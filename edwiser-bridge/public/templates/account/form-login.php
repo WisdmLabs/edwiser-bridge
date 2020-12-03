@@ -12,6 +12,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+$eb_action = false;
+$username  = false;
+
+if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
+	$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
+	$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
+}
+
 
 // check if registration enabled.
 $general_settings    = get_option( 'eb_general' );
@@ -21,8 +29,6 @@ do_action( 'eb_before_customer_login_form' );
 <div id="user_login">
 	<?php
 	wdm_show_notices();
-	$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
-	$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
 	if ( ! $eb_action || 'eb_register' !== $eb_action ) {
 		?>
 		<h2>
@@ -56,7 +62,6 @@ do_action( 'eb_before_customer_login_form' );
 				<?php
 				do_action( 'eb_login_form' );
 				?>
-							   
 				<p class="form-row">
 					<?php
 					wp_nonce_field( 'eb-login' );

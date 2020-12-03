@@ -30,12 +30,22 @@ class Eb_Shortcode_User_Account {
 	/**
 	 * Output the shortcode.
 	 *
+	 * @deprecated
+	 *
 	 * @since  1.0.0
 	 */
 	public static function getInstance() {
 		return new Eb_Shortcode_User_Account();
 	}
 
+	/**
+	 * Output the shortcode.
+	 *
+	 * @deprecated
+	 *
+	 * @param text $atts atts.
+	 * @since  1.0.0
+	 */
 	public static function output( $atts ) {
 		if ( ! is_user_logged_in() ) {
 			$template_loader = new EbTemplateLoader(
@@ -56,16 +66,10 @@ class Eb_Shortcode_User_Account {
 	 * @param array $atts atts.
 	 */
 	private static function user_account( $atts ) {
-		extract(
-			shortcode_atts(
-				array(
-					'user_id' => isset( $atts['user_id'] ) ? $atts['user_id'] : '',
-				),
-				$atts
-			)
-		);
-		if ( '' !== $user_id ) {
-			$user      = get_user_by( 'id', $user_id );
+
+		if ( isset( $atts['user_id'] ) && '' !== $atts['user_id'] ) {
+			$user      = get_user_by( 'id', $atts['user_id'] );
+			$user_id   = $atts['user_id'];
 			$user_meta = get_user_meta( $user_id );
 		} else {
 			$user      = wp_get_current_user();
@@ -190,7 +194,7 @@ class Eb_Shortcode_User_Account {
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) ) {
 			return false;
 		}
-		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'eb-update-user' ) ) {
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			return false;
 		}
 		return true;
@@ -222,6 +226,11 @@ class Eb_Shortcode_User_Account {
 	 */
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
 		$val = '';
+
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+			return false;
+		}
+
 		if ( isset( $_POST[ $fieldname ] ) && ! empty( $_POST[ $fieldname ] ) ) {
 			$val = sanitize_text_field( wp_unslash( $_POST[ $fieldname ] ) );
 			if ( $sanitize ) {
@@ -435,7 +444,7 @@ class Eb_Shortcode_User_Account {
 
 				break;
 			default:
-				do_action( 'eb_user_account_label_content', isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : '' );
+				do_action( 'eb_user_account_label_content', sanitize_text_field( wp_unslash( $eb_active_link ) ) );
 				break;
 		}
 	}

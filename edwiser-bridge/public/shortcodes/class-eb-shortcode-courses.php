@@ -51,7 +51,6 @@ class Eb_Shortcode_Courses {
 			),
 			$atts
 		);
-		// extract( $atts );
 
 		$args = array(
 			'post_type'      => 'eb_course',
@@ -99,9 +98,13 @@ class Eb_Shortcode_Courses {
 			$disp_cat = $curr_class->showCatView( $input_cat );
 			$cat_cnt  = count( $disp_cat );
 			$page     = 1;
-			if ( isset( $_GET['eb-cat-page-no'] ) ) {
-				$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
+
+			if ( isset( $_GET['key'] ) && ! empty( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) ) {
+				if ( isset( $_GET['eb-cat-page-no'] ) ) {
+					$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
+				}
 			}
+
 			$cat_start              = $page * (int) $atts['cat_per_page'] - (int) $atts['cat_per_page'];
 			$cnt                    = 0;
 			$args['posts_per_page'] = -1;
@@ -127,6 +130,7 @@ class Eb_Shortcode_Courses {
 				</div>
 				<?php
 			}
+
 			$curr_class->catPagination( $cat_cnt, $atts['cat_per_page'], $page );
 		} else {
 			if ( ! $scroll_horizontal ) {
@@ -146,6 +150,7 @@ class Eb_Shortcode_Courses {
 	/**
 	 * It will  check which categorys need to show in the shortcode output
 	 *
+	 * @deprecated
 	 * @param array $input_cat Array of the category slugs to display courses from those categorys only.
 	 * @return array returns array of the categorys object
 	 */
@@ -172,6 +177,7 @@ class Eb_Shortcode_Courses {
 	 * Genrates the pagination for the category view
 	 *
 	 * @param int $cat_cnt total category count.
+	 * @deprecated
 	 * @param int $per_page Categorys to display on each page.
 	 * @param int $current_page current page number shown in output.
 	 * @return HTML returns the html output for the pagination.
@@ -184,48 +190,89 @@ class Eb_Shortcode_Courses {
 		if ( $cat_cnt <= $per_page ) {
 			return;
 		}
+		$nonce = wp_create_nonce( 'eb_pagination' );
+
 		ob_start();
 		?>
 		<nav class="navigation pagination" role="navigation">
 			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
-			<div class="nav-links">
-				<?php
-				$page = 1;
-				if ( 1 !== $current_page ) {
-					?>
-					<a class="prev page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $current_page - 1 ), get_permalink() ) ); ?>">
-						<?php esc_html_e( '&larr;', 'eb-textdomain' ); ?>
-					</a>
+			<form style="display:none;">
+				<input type="hidden" name="eb_pagnation_nonce" value="<?php esc_html( wp_create_nonce( 'eb_pagnation_nonce' ) ); ?>"> 
+				<div class="nav-links">
 					<?php
-				}
-				for ( $cnt = 1; $cnt <= $cat_cnt; $cnt += (int) $per_page ) {
-					$page_id_css = 'page-numbers';
-					if ( $page === $current_page ) {
+					$page = 1;
+					if ( 1 !== $current_page ) {
 						?>
-						<span class="page-numbers current">
-							<span class="meta-nav screen-reader-text">Page </span>
-							<?php echo esc_html( $page ); ?>
-						</span>
+						<a class="prev page-numbers" href="
 						<?php
-						$page_id_css .= ' current';
-					} else {
+						echo esc_html(
+							add_query_arg(
+								array(
+									'eb-cat-page-no' => $current_page - 1,
+									'key'            => $nonce,
+								),
+								get_permalink()
+							)
+						);
 						?>
-						<a class="page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $page ), get_permalink() ) ); ?>">
-							<?php echo esc_html( $page ); ?>
+						">
+							<?php esc_html_e( '&larr;', 'eb-textdomain' ); ?>
 						</a>
 						<?php
 					}
-					$page++;
-				}
-				if ( $current_page < $page - 1 ) {
+					for ( $cnt = 1; $cnt <= $cat_cnt; $cnt += (int) $per_page ) {
+						$page_id_css = 'page-numbers';
+						if ( $page === $current_page ) {
+							?>
+							<span class="page-numbers current">
+								<span class="meta-nav screen-reader-text">Page </span>
+								<?php echo esc_html( $page ); ?>
+							</span>
+							<?php
+							$page_id_css .= ' current';
+						} else {
+							?>
+							<a class="page-numbers" href="
+							<?php
+							echo esc_html(
+								add_query_arg(
+									array(
+										'eb-cat-page-no' => $page,
+										'key'            => $nonce,
+									),
+									get_permalink()
+								)
+							);
+							?>
+							">
+								<?php echo esc_html( $page ); ?>
+							</a>
+							<?php
+						}
+						$page++;
+					}
+					if ( $current_page < $page - 1 ) {
+						?>
+						<a class="next page-numbers" href="
+						<?php
+						echo esc_html(
+							add_query_arg(
+								array(
+									'eb-cat-page-no' => $current_page <= 1 ? 2 : $current_page + 1,
+									'key'            => $nonce,
+								),
+								get_permalink()
+							)
+						);
+						?>
+						">
+							<?php esc_html_e( '&rarr;', 'eb-textdomain' ); ?>
+						</a>
+						<?php
+					}
 					?>
-					<a class="next page-numbers" href="<?php echo esc_html( add_query_arg( array( 'eb-cat-page-no' => $current_page <= 1 ? 2 : $current_page + 1 ), get_permalink() ) ); ?>">
-						<?php esc_html_e( '&rarr;', 'eb-textdomain' ); ?>
-					</a>
-					<?php
-				}
-				?>
-			</div>
+				</div>
+			</form>
 		</nav>
 		<?php
 		ob_get_flush();
@@ -234,6 +281,7 @@ class Eb_Shortcode_Courses {
 	/**
 	 * This will print the courses list.
 	 *
+	 * @deprecated
 	 * @param Array   $args Get courses posts selection parameters.
 	 * @param boolean $group_by_cat group the courses by categorys or not.
 	 */

@@ -50,7 +50,6 @@ class Eb_Shortcode_My_Courses {
 			),
 			$atts
 		);
-		// extract($atts);
 		$current_class = new Eb_Shortcode_My_Courses();
 
 		do_action( 'eb_before_my_courses_wrapper' );

@@ -13,6 +13,11 @@
 <div class="eb-user-profile" >
 
 <?php
+
+if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+	return false;
+}
+
 if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_unslash( $_GET['eb_action'] ) ) ) {
 	$template_loader->wp_get_template(
 		'account/edit-user-profile.php',

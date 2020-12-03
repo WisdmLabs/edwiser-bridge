@@ -88,16 +88,19 @@ class Eb_Frontend_Form_Handler {
 	 */
 	private static function calc_redirect() {
 		$redirect = '';
-		if ( ! empty( $_GET['redirect_to'] ) ) {
-			$redirect = isset( $_GET['redirect_to'] ) ? sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) : '';
-		} else {
-			$redirect = wdm_eb_user_redirect_url();
-		}
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 
-		if ( self::auto_enroll() ) {
-			$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
+			if ( ! empty( $_GET['redirect_to'] ) ) {
+				$redirect = isset( $_GET['redirect_to'] ) ? sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) : '';
+			} else {
+				$redirect = wdm_eb_user_redirect_url();
+			}
+
+			if ( self::auto_enroll() ) {
+				$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
+			}
+			return $redirect;
 		}
-		return $redirect;
 	}
 
 	/**
@@ -244,10 +247,12 @@ class Eb_Frontend_Form_Handler {
 	 * Enroll.
 	 */
 	private static function auto_enroll() {
-		if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-			return true;
-		} else {
-			return false;
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
+			if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 }

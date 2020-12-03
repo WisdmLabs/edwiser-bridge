@@ -45,7 +45,6 @@ class Eb_Shortcode_Course {
 			),
 			$atts
 		);
-		// extract( $atts );
 
 		// Course id required.
 		if ( ! isset( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
