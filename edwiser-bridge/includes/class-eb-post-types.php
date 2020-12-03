@@ -272,6 +272,7 @@ class Eb_Post_Types {
 			$order_meta = new Eb_Order_Meta( $this->plugin_name, $this->version );
 			$order_meta->get_order_details( get_the_id() );
 		}
+		wp_nonce_field( 'eb_post_meta_nonce', 'eb_post_meta_nonce' );
 		echo '</div>';
 		do_action( 'eb_post_add_meta', $args );
 		echo '</div>';
@@ -600,6 +601,9 @@ class Eb_Post_Types {
 				$fields = array_merge( $this->populate_metabox_fields( 'eb_recommended_course_options' ), $fields );
 			}
 			$post_options = array();
+			if ( ! isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
+				die( 'Nonce verification fialed.' );
+			}
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
 				$post_options = sanitize_text_field( wp_unslash( $_POST[ $post_type . '_options' ] ) );
 			}
