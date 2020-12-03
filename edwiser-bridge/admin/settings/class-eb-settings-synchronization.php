@@ -48,14 +48,8 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 				''          => __( 'Courses', 'eb-textdomain' ),
 				'user_data' => __( 'Users', 'eb-textdomain' ),
 			);
-
-			$sections = apply_filters( 'eb_get_sections_' . $this->_id, $sections );
-
-			/*
-			 * @deprecated since 2.0.1 use eb_get_sections insted.
-			 */
-			$sections = apply_filters_deprecated( 'eb_getSections' . $this->_id, $sections, '2.0.1', 'eb_get_sections' );
-			return $sections;
+			apply_filters_deprecated( 'eb_getSections' . $this->_id, $sections, '2.0.1', 'eb_get_sections' );
+			return apply_filters( 'eb_get_sections_' . $this->_id, $sections );
 		}
 
 		/**

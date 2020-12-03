@@ -79,9 +79,8 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function get_settings() {
-			$settings = apply_filters( 'eb_get_settings_' . $this->_id, array() );
-			$settings = apply_filters_deprecated( 'eb_getSettings_' . $this->_id, array(), '2.0.1', 'eb_get_settings_' . $this->_id );
-			return $settings;
+			apply_filters_deprecated( 'eb_getSettings_' . $this->_id, array(), '2.0.1', 'eb_get_settings_' . $this->_id );
+			return apply_filters( 'eb_get_settings_' . $this->_id, array() );
 		}
 
 		/**
@@ -94,7 +93,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function getSettings() {
-			return apply_filters_deprecated( 'eb_getSettings_' . $this->_id, array(), '2.0.1', 'eb_get_settings_' . $this->_id );
+			return $this->get_settings();
 		}
 
 		/**
