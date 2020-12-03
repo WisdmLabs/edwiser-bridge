@@ -114,7 +114,9 @@ class Eb_Order_Manager {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
 		}
-
+		if ( ! isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
+			die( 'Nonce verification fialed.' );
+		}
 		$post_options = isset( $_POST['eb_order_options'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_options'] ) ) : array();
 
 		if ( empty( $post_options ) ) {

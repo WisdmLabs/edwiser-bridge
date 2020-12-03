@@ -149,7 +149,7 @@ class Eb_Gdpr_Compatiblity {
 		$enrolled_courses   = $this->get_enrolled_courses( $user->ID );
 		$unenrolled         = 0;
 		if ( $enrolled_courses && ! empty( $enrolled_courses ) ) {
-			if ( isset( $general_settings['eb_erase_moodle_data'] ) && 'yes' == $general_settings['eb_erase_moodle_data'] ) {
+			if ( isset( $general_settings['eb_erase_moodle_data'] ) && 'yes' === $general_settings['eb_erase_moodle_data'] ) {
 
 				$course_key = array_keys( $enrolled_courses );
 				foreach ( $course_key as $value ) {
@@ -214,11 +214,12 @@ class Eb_Gdpr_Compatiblity {
 
 		$sections[ esc_html__( 'Payments', 'eb-textdomain' ) ] = $this->eb_payment_policy();
 		$active_plugins                                        = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-		if ( in_array( 'edwiser-bridge-sso/sso.php', $active_plugins ) ) {
+		if ( in_array( 'edwiser-bridge-sso/sso.php', $active_plugins, true ) ) {
 			$sections[ esc_html__( 'User’s Simultaneous login and logout', 'eb-textdomain' ) ] = $this->eb_sso_policy();
 		}
 
-		$sections = apply_filters( 'eb-policy-sections', $sections );
+		$sections = apply_filters_deprecated( 'eb-policy-sections', $sections, '2.0.1', 'eb_policy_sections' );
+		$sections = apply_filters( 'eb_policy_sections', $sections );
 		$html     = "<div class= 'wp-suggested-text'>
 					<div>
 						<h2>" . esc_html__( 'Edwiser', 'eb-textdomain' ) . '</h2>
@@ -257,7 +258,7 @@ class Eb_Gdpr_Compatiblity {
 						</ul>
 					</p>';
 
-		if ( in_array( 'woocommerce-integration/bridge-woocommerce.php', $active_plugins ) ) {
+		if ( in_array( 'woocommerce-integration/bridge-woocommerce.php', $active_plugins, true ) ) {
 			$content .= '<p>
 							' . esc_html__( 'We collect user information whenever you submit a checkout form on woocommerce store. When you submit woocommerce checkout form, we will use following information to create the user account on the Moodle site:', 'eb-textdomain' ) . '
 
@@ -277,7 +278,8 @@ class Eb_Gdpr_Compatiblity {
 						</p>';
 		}
 
-		$content = apply_filters( 'eb-privacy-policy-user-section', $content );
+		$content = apply_filters_deprecated( 'eb-privacy-policy-user-section', $content, '2.0.1', 'eb_privacy_policy_user_section' );
+		$content = apply_filters( 'eb_privacy_policy_user_section', $content );
 		return $content;
 	}
 
@@ -294,8 +296,8 @@ class Eb_Gdpr_Compatiblity {
 					<p>
 						' . esc_html__( 'For more details you could read our Privacy Policy and Terms and Conditions for better understanding of our product and services.', 'eb-textdomain' ) . '
 					</p>';
-
-		$content = apply_filters( 'eb-privacy-policy-payments-section', $content );
+		$content = apply_filters_deprecated( 'eb-privacy-policy-payments-section', $content, '2.0.1', 'eb_privacy_policy_payments_section' );
+		$content = apply_filters( 'eb_privacy_policy_payments_section', $content );
 		return $content;
 	}
 
@@ -306,7 +308,8 @@ class Eb_Gdpr_Compatiblity {
 		$content = '<p>
 						We allow user to login on WordPress as well as Moodle site simultaneously if the user is linked to the Moodle site. We use Moodle user id of the user for logging into the Moodle site and vice versa. All this login and logout actions performed using very secured encoding method in PHP which is through PHP Mcrypt extension.
 					</p>';
-		$content = apply_filters( 'eb-privacy-policy-sso-section', $content );
+		$content = apply_filters_deprecated( 'eb-privacy-policy-sso-section', $content, '2.0.1', 'eb_privacy_policy_sso_section' );
+		$content = apply_filters( 'eb_privacy_policy_sso_section', $content );
 		return $content;
 	}
 }

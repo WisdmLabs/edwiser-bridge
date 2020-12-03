@@ -52,6 +52,7 @@ class Eb_Loader {
 	/**
 	 * Add a new action to the collection to be registered with WordPress.
 	 *
+	 * @deprecated since 2.0.1 use addAction( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) insted.
 	 * @since    1.0.0
 	 * @param string $hook          The name of the WordPress action that is being registered.
 	 * @param object $component     A reference to the instance of the object on which the action is defined.
@@ -60,6 +61,20 @@ class Eb_Loader {
 	 * @param int    $accepted_args The number of arguments that should be passed to the $callback.
 	 */
 	public function addAction( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+		$this->add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 );
+	}
+
+	/**
+	 * Add a new action to the collection to be registered with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @param string $hook          The name of the WordPress action that is being registered.
+	 * @param object $component     A reference to the instance of the object on which the action is defined.
+	 * @param string $callback      The name of the function definition on the $component.
+	 * @param int    $priority      The priority at which the function should be fired.
+	 * @param int    $accepted_args The number of arguments that should be passed to the $callback.
+	 */
+	public function add_action( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->actions = $this->add( $this->actions, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
@@ -81,6 +96,7 @@ class Eb_Loader {
 	/**
 	 * Add a new filter to the collection to be registered with WordPress.
 	 *
+	 * @deprecated since 2.0.1 use add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) insted
 	 * @since    1.0.0
 	 * @param string $hook      The name of the WordPress filter that is being registered.
 	 * @param object $component A reference to the instance of the object on which the filter is defined.
@@ -89,6 +105,20 @@ class Eb_Loader {
 	 * @param int    $accepted_args    The number of arguments that should be passed to the $callback.
 	 */
 	public function addFilter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
+		$this->add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 );
+	}
+
+	/**
+	 * Add a new filter to the collection to be registered with WordPress.
+	 *
+	 * @since    1.0.0
+	 * @param string $hook      The name of the WordPress filter that is being registered.
+	 * @param object $component A reference to the instance of the object on which the filter is defined.
+	 * @param string $callback  The name of the function definition on the $component.
+	 * @param int    $priority         The priority at which the function should be fired.
+	 * @param int    $accepted_args    The number of arguments that should be passed to the $callback.
+	 */
+	public function add_filter( $hook, $component, $callback, $priority = 10, $accepted_args = 1 ) {
 		$this->filters = $this->add( $this->filters, $hook, $component, $callback, $priority, $accepted_args );
 	}
 
