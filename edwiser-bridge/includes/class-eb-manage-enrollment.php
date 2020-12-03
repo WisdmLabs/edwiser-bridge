@@ -150,6 +150,9 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * @param type $action bulk action.
 		 */
 		private function handle_bulk_action( $action ) {
+			if ( ! isset( $_POST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				die( 'Busted.' );
+			}
 			switch ( $action ) {
 				case 'unenroll':
 					$this->multiple_unenroll_by_rec_id( $_POST );

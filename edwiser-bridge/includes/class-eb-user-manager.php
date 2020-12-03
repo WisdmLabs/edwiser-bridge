@@ -1052,7 +1052,7 @@ class EBUserManager {
 	 * @param string $pass new password entered by user.
 	 */
 	public function password_reset( $user, $pass ) {
-		$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id
+		$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true ); // get moodle user id.
 
 		if ( ! is_numeric( $moodle_user_id ) ) {
 			return;
@@ -1237,7 +1237,7 @@ class EBUserManager {
 		// removing user's records from enrollment table.
 		$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'user_id' => $user_id ), array( '%d' ) );
 
-		edwiser_bridge_instance()->logger()->add( 'user', "Enrollment records of user ID: {$user_id} are deleted." );  // add user log
+		edwiser_bridge_instance()->logger()->add( 'user', "Enrollment records of user ID: {$user_id} are deleted." );  // add user log.
 	}
 
 	/**
@@ -1248,7 +1248,7 @@ class EBUserManager {
 		$cur_user = get_current_user_id();
 		$stmt     = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
 
-		$enroll_data = $wpdb->get_results( $stmt );
+		$enroll_data = $wpdb->get_results( $wpdb->prepare( $stmt ) );
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 
@@ -1285,7 +1285,7 @@ class EBUserManager {
 	 */
 	public function moodle_link_unlink_user() {
 		$responce = array( 'code' => 'failed' );
-		if ( isset( $_POST['user_id'] ) && isset( $_POST['link_user'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( $_POST['admin_nonce'], 'eb_admin_nonce' ) ) {
+		if ( isset( $_POST['user_id'] ) && isset( $_POST['link_user'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 			$user_object = get_userdata( sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) );
 			if ( sanitize_text_field( wp_unslash( $_POST['link_user'] ) ) ) {

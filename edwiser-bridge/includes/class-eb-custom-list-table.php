@@ -66,17 +66,16 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		public function bpGetTable( $post_data, $search_text ) {
 			global $wpdb;
 			$tbl_records = array();
-			$stmt        = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}moodle_enrollment" );
 
 			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) ) {
-				$stmt .= " WHERE  time>'" . sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) . "' ";
+				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) ) );
 			}
 
 			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) && isset( $post_data['enrollment_to_date'] ) && ! empty( $post_data['enrollment_to_date'] ) ) {
-				$stmt .= " AND time<'" . sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) . "' ";
+				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s  AND time< %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ), sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) ) );
 			}
 
-			$results = $wpdb->get_results( $stmt );
 			foreach ( $results as $result ) {
 
 				$row                  = array();

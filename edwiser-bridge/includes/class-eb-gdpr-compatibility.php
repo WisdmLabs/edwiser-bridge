@@ -141,7 +141,6 @@ class Eb_Gdpr_Compatiblity {
 	 */
 	public function eb_plugin_data_eraser( $email ) {
 		global $wpdb;
-		// $page = $page;
 		$general_settings   = get_option( 'eb_general' );
 		$user               = get_user_by( 'email', $email );
 		$msg                = array();
