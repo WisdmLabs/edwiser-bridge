@@ -162,21 +162,38 @@ class Eb_Activator {
 				'default' => '0',
 			),
 		);
-		foreach ( $new_col as $col => $val ) {
-			// $query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
-			// $exists = $wpdb->query( $query );
 
-			$wpdb->query( $wpdb->prepare( 'SHOW COLUMNS FROM %s LIKE %s;', $enrollment_tbl_name, $col ) );
-
-			/**
-			 * Alter table if the expire_time column is not exisit in the plugin.
-			 */
-			if ( ! $exists ) {
-				$default_val = $val['default'];
-				$type        = $val['type'];
-				$wpdb->query( $wpdb->prepare( 'ALTER TABLE %s ADD COLUMN (%s DEFAULT %s NOT NULL);', $enrollment_tbl_name, $type, $default_val ) );
-			}
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'expire_time';" ) ) {
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);" );
 		}
+
+
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'act_cnt';" ) ) {
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`act_cnt` int(5) DEFAULT 1 NOT NULL);" );
+		}
+
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'suspended';" ) ) {
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`suspended` int(5) DEFAULT 0 NOT NULL);" );
+		}
+
+
+
+
+
+
+		// foreach ( $new_col as $col => $val ) {
+		// 	$query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
+		// 	$exists = $wpdb->query( $query );
+
+		// 	/**
+		// 	 * Alter table if the expire_time column is not exisit in the plugin.
+		// 	 */
+		// 	if ( ! $exists ) {
+		// 		$default_val = $val['default'];
+		// 		$type        = $val['type'];
+		// 		$wpdb->query( $wpdb->prepare( 'ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (%s DEFAULT %s NOT NULL);', $type, $default_val ) );
+		// 	}
+		// }
 	}
 
 	/**
