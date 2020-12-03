@@ -285,8 +285,9 @@ class EBUserManager {
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$link_users_count                      = 0;
+
 		if ( 1 === $connected['success'] ) {
-			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && 1 === $sync_options['eb_link_users_to_moodle'] ) ) {
+			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && '1' === $sync_options['eb_link_users_to_moodle'] ) ) {
 				// query to get list of users who have not linked to moodle with limit.
 				$unlinked_users = $wpdb->get_results(
 					$wpdb->prepare(
@@ -299,6 +300,7 @@ class EBUserManager {
 					),
 					ARRAY_A
 				);
+
 				if ( ! empty( $unlinked_users ) ) {
 					foreach ( $unlinked_users as $key => $value ) {
 						$user_object = get_userdata( $value['user_id'] );
@@ -318,6 +320,7 @@ class EBUserManager {
 					FROM {$wpdb->base_prefix}usermeta
 					WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)"
 				);
+
 				$users_count = $users_count[0]->users_count;
 			}
 			// these properties are used to track, how many user's have linked.
