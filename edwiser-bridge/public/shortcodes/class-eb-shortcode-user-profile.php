@@ -38,6 +38,9 @@ class Eb_Shortcode_User_Profile {
 	 * @param array $atts atts.
 	 */
 	public static function output( $atts ) {
+
+error_log('OUTPUT :: '.print_r($atts, 1));
+
 		if ( ! is_user_logged_in() ) {
 			$template_loader = new EbTemplateLoader(
 				edwiser_bridge_instance()->get_plugin_name(),

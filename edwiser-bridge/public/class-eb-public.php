@@ -197,6 +197,15 @@ class Eb_Public {
 			$this->version,
 			false
 		);
+
+		// Paypal Scripts.
+		wp_register_script(
+			'eb_paypal_dynamic_script',
+			EB_PLUGIN_URL . 'public/assets/js/datatable.js',
+			array( 'jquery' ),
+			$this->version,
+			false
+		);
 	}
 
 

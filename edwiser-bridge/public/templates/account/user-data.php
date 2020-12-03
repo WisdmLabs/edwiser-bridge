@@ -13,12 +13,25 @@
 
 <section class="eb-user-info eb-edit-user-wrapper">
 	<aside class="eb-user-picture">
-		<?php echo esc_html( $user_avatar ); ?>
+		<?php
+		echo wp_kses(
+			$user_avatar,
+			array(
+				'img' => array(
+					'src'    => array(),
+					'class'  => array(),
+					'srcset' => array(),
+					'width'  => array(),
+					'height' => array(),
+				),
+			)
+		);
+		?>
 	</aside>
 	<div class="eb-user-data">
 		<?php
 		/* translators 1: display name 2: display name 3: a tag opening string 4: a tag closing */
-		printf( esc_attr__( 'Hello <strong>%$1s</strong> (not <strong>%$2s</strong>? %$3sSign out%$4s)', 'eb-textdomain' ), esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
+		printf( esc_html__( 'Hello ', 'eb-textdomain' ) . '<strong>%s</strong>' . esc_html__( ' (not ', 'eb-textdomain' ) . '<strong>%s</strong>' . esc_html__( '? ', 'eb-textdomain' ) . '%s ' . esc_html__( 'Sign out', 'eb-textdomain' ) . '%s)', esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
 		?>
 		<div>
 			<?php

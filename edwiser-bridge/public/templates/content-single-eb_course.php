@@ -121,13 +121,11 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			if ( ! is_search() ) {
 				if ( ! $has_access || ! is_user_logged_in() ) {
 					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
-						// ob_start();
 						?>
 						<div class="<?php echo 'wdm-price' . esc_html( $course_price_type ); ?>">
 									<?php echo '<h3>' . esc_html( $course_price_formatted ) . '</h3>'; ?>
 						</div>
 						<?php
-						// echo esc_html( ob_get_clean() );
 					}
 					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 				} else {

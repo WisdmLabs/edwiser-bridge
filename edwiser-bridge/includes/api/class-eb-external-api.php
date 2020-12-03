@@ -34,15 +34,15 @@ class Eb_External_Api_Endpoint {
 	/**
 	 * This function parse the request coming from
 	 *
-	 * @param  text $data request Data.
+	 * @param  text $request_data request Data.
 	 */
-	public function external_api_endpoint_def( $data ) {
-		$data          = isset( $_POST['data'] ) ? sanitize_text_field( wp_unslash( $_POST['data'] ) ) : '';
+	public function external_api_endpoint_def( $request_data ) {
+		$data          = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
 		$data          = unserialize( $data );
 		$response_data = array();
 
-		if ( isset( $_POST['action'] ) && ! empty( $_POST['action'] ) ) {
-			$action = sanitize_text_field( wp_unslash( $_POST['action'] ) );
+		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) ) {
+			$action = sanitize_text_field( wp_unslash( $request_data['action'] ) );
 
 			switch ( $action ) {
 				case 'test_connection':
@@ -121,7 +121,7 @@ class Eb_External_Api_Endpoint {
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = get_wp_user_id_from_moodle_id( $data['user_id'] );
-				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
+				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
 					$role       = default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
@@ -185,8 +185,7 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($enc_method));
-				$enc_iv = '1234567891011121';
+				$enc_iv     = '1234567891011121';
 
 				$enc_key  = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
 				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );

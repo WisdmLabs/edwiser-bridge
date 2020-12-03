@@ -50,10 +50,6 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 			);
 
 			$sections = apply_filters( 'eb_get_sections_' . $this->_id, $sections );
-
-			/*
-			 * @deprecated since 2.0.1 use eb_get_sections insted.
-			 */
 			$sections = apply_filters_deprecated( 'eb_getSections' . $this->_id, $sections, '2.0.1', 'eb_get_sections' );
 			return $sections;
 		}
@@ -198,6 +194,11 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 					)
 				);
 			}
+
+			error_log(':: ' . print_r($this->_id, 1));
+			error_log(':: ' . print_r($settings, 1));
+			error_log(':: ' . print_r($current_section, 1));
+
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
 		}
 	}
