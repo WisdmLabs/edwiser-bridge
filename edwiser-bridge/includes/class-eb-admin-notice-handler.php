@@ -38,8 +38,8 @@ class Eb_Admin_Notice_Handler {
 
 		if ( is_wp_error( $response ) ) {
 			return 0;
-		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ||
-				wp_remote_retrieve_response_code( $response ) == 303 ) {
+		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
+				300 === wp_remote_retrieve_response_code( $response ) ) {
 			$body = wp_json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( 'accessexception' === $body->errorcode ) {
@@ -105,6 +105,7 @@ class Eb_Admin_Notice_Handler {
 	 * NOT USED FUNCTION
 	 * handle notice dismiss
 	 *
+	 * @deprecated since 2.0.1 discontinued.
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice_dismiss_handler() {

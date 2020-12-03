@@ -47,6 +47,20 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$this->plugin_name = $eb_instance->get_plugin_name();
 			$this->version     = $eb_instance->get_version();
 		}
+		/**
+		 * Provides the functionality to parse the email temaplte raw content.
+		 *
+		 * Provides the filters to parse the template content.
+		 *
+		 * @deprecated since 2.0.1 use out_put( $args, $tmpl_content ) insted.
+		 * @param array $args default arguments to replace the email template constants.
+		 * @param HTML  $tmpl_content html content to prepare the email content.
+		 *
+		 * @return html returns the email template content
+		 */
+		public function outPut( $args, $tmpl_content ) {
+			return $this->out_put( $args, $tmpl_content );
+		}
 
 		/**
 		 * Provides the functionality to parse the email temaplte raw content.
@@ -58,7 +72,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 *
 		 * @return html returns the email template content
 		 */
-		public function outPut( $args, $tmpl_content ) {
+		public function out_put( $args, $tmpl_content ) {
 			$tmpl_content = apply_filters(
 				'eb_emailtmpl_content_before',
 				array(

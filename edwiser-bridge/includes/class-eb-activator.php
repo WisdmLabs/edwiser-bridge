@@ -174,7 +174,6 @@ class Eb_Activator {
 			if ( ! $exists ) {
 				$default_val = $val['default'];
 				$type        = $val['type'];
-				// $query       = "ALTER TABLE `$enrollment_tbl_name` ADD COLUMN (`$col` $type DEFAULT '$default_val' NOT NULL);";
 				$wpdb->query( $wpdb->prepare( 'ALTER TABLE %s ADD COLUMN (%s DEFAULT %s NOT NULL);', $enrollment_tbl_name, $type, $default_val ) );
 			}
 		}

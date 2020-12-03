@@ -161,12 +161,12 @@ class Eb_Course_Manager {
 
 						// creates new course or updates previously synced course conditionally.
 						if ( ! is_numeric( $existing_course_id ) ) {
-							$course_id         = $this->create_course_on_WordPress( $course_data, $sync_options );
+							$course_id         = $this->create_course_on_wordpress( $course_data, $sync_options );
 							$courses_created[] = $course_id; // push course id in courses created array.
 						} elseif ( is_numeric( $existing_course_id ) &&
 								isset( $sync_options['eb_synchronize_previous'] ) &&
-								$sync_options['eb_synchronize_previous'] == 1 ) {
-								$course_id     = $this->update_course_on_WordPress(
+								1 === $sync_options['eb_synchronize_previous'] ) {
+								$course_id     = $this->update_course_on_wordpress(
 									$existing_course_id,
 									$course_data,
 									$sync_options
@@ -205,6 +205,7 @@ class Eb_Course_Manager {
 	 *
 	 * Uses connect_moodle_helper() and connect_moodle_with_args_helper()
 	 *
+	 * @deprecated since 2.0.1 use get_moodle_courses( $moodle_user_id ) insted.
 	 * @param int $moodle_user_id  moodle user_id of a WordPress user passed to connection helper.
 	 *
 	 * @return array stores moodle web service response.
@@ -254,19 +255,13 @@ class Eb_Course_Manager {
 	 * Fetches the courses categories from moodle.
 	 * uses connect_moodle_helper().
 	 *
+	 * @deprecated since 2.0.1 use get_moodle_course_categories( $webservice_function = null )  insted.
 	 * @param string $webservice_function the webservice function passed to connection helper.
 	 *
 	 * @return array stores moodle web service response.
 	 */
 	public function getMoodleCourseCategories( $webservice_function = null ) {
-		if ( $webservice_function === null ) {
-			$webservice_function = 'core_course_get_categories';
-		}
-
-		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
-		edwiser_bridge_instance()->logger()->add( 'course', serialize( $response ) );
-
-		return $response;
+		return $this->get_moodle_course_categories( $webservice_function );
 	}
 
 
@@ -295,6 +290,7 @@ class Eb_Course_Manager {
 	 *
 	 * Checks if a course is previously synced from moodle.
 	 *
+	 * @deprecated since 2.0.1 use is_course_presynced( $course_id_on_moodle ) insted.
 	 * @param int $course_id_on_moodle the id of course as on moodle.
 	 *
 	 * @return bool returns respective course id on WordPress if exist else returns null
@@ -332,12 +328,13 @@ class Eb_Course_Manager {
 	/**
 	 * Return the moodle id of a course using its WordPress id.
 	 *
+	 * @deprecated since 2.0.1 use get_moodle_course_id( $course_id_on_wp ) insted.
 	 * @param int $course_id_on_wp the id of course synced on WordPress.
 	 *
 	 * @return int returns respective course id on moodle
 	 */
 	public function getMoodleCourseId( $course_id_on_wp ) {
-		return get_post_meta( $course_id_on_wp, 'moodle_course_id', true );
+		return $this->get_moodle_course_id( $course_id_on_wp );
 	}
 
 	/**
@@ -362,55 +359,17 @@ class Eb_Course_Manager {
 		return array( $course_id_on_wp => get_post_meta( $course_id_on_wp, 'moodle_course_id', true ) );
 	}
 
-
 	/**
 	 * Create course on WordPress.
 	 *
+	 * @deprecated since 2.0.1 use create_course_on_wordpress( $course_data, $sync_options = array() ) insted.
 	 * @param array $course_data course data recieved from initiate_course_sync_process().
+	 * @param array $sync_options course sync options.
 	 *
 	 * @return int returns id of course
 	 */
 	public function createCourseOnWordPress( $course_data, $sync_options = array() ) {
-		global $wpdb;
-
-		$status = ( isset( $sync_options['eb_synchronize_draft'] ) &&
-				1 == $sync_options['eb_synchronize_draft'] ) ? 'draft' : 'publish'; // manage course status.
-
-		$course_args = array(
-			'post_title'   => $course_data->fullname,
-			'post_content' => $course_data->summary,
-			'post_status'  => $status,
-			'post_type'    => 'eb_course',
-		);
-
-		$wp_course_id = wp_insert_post( $course_args ); // create a course on WordPress.
-
-		$term_id = $wpdb->get_var(
-			$wpdb->preapre(
-				"SELECT term_id FROM {$wpdb->prefix}termmeta WHERE meta_key = 'eb_moodle_cat_id' AND meta_value = %d",
-				$course_data->categoryid
-			)
-		);
-
-		// set course terms.
-		if ( $term_id > 0 ) {
-			wp_set_post_terms( $wp_course_id, $term_id, 'eb_course_cat' );
-		}
-
-		// add course id on moodle in corse meta on WP.
-		$eb_course_options = array( 'moodle_course_id' => $course_data->id );
-		add_post_meta( $wp_course_id, 'moodle_course_id', $course_data->id );
-		add_post_meta( $wp_course_id, 'eb_course_options', $eb_course_options );
-
-		/*
-		 * execute your own action on course creation on WorPress
-		 * we are passing newly created course id as well as its respective moodle id in arguments
-		 *
-		 * sync_options are also passed as it can be used in a custom action on hook.
-		 */
-		do_action( 'eb_course_created_wp', $wp_course_id, $course_data, $sync_options );
-
-		return $wp_course_id;
+		return $this->create_course_on_wordpress( $course_data, $sync_options );
 	}
 
 
@@ -421,7 +380,7 @@ class Eb_Course_Manager {
 	 * @param text  $sync_options sync_options.
 	 * @return int returns id of course
 	 */
-	public function create_course_on_WordPress( $course_data, $sync_options = array() ) {
+	public function create_course_on_wordpress( $course_data, $sync_options = array() ) {
 		global $wpdb;
 
 		$status = ( isset( $sync_options['eb_synchronize_draft'] ) &&
@@ -473,6 +432,7 @@ class Eb_Course_Manager {
 	 *
 	 * Update previous synced course on WordPress.
 	 *
+	 * @deprecated since 2.0.1 use update_course_on_wordpress( $wp_course_id, $course_data, $sync_options ) insted.
 	 * @param int   $wp_course_id existing id of course on WordPress.
 	 * @param array $course_data  course data recieved from initiate_course_sync_process().
 	 * @param array $sync_options  sync_options.
@@ -480,7 +440,7 @@ class Eb_Course_Manager {
 	 * @return int returns id of course
 	 */
 	public function updateCourseOnWordPress( $wp_course_id, $course_data, $sync_options ) {
-		return $this->update_course_on_WordPress( $wp_course_id, $course_data, $sync_options );
+		return $this->update_course_on_wordpress( $wp_course_id, $course_data, $sync_options );
 	}
 
 
@@ -493,7 +453,7 @@ class Eb_Course_Manager {
 	 *
 	 * @return int returns id of course
 	 */
-	public function update_course_on_WordPress( $wp_course_id, $course_data, $sync_options ) {
+	public function update_course_on_wordpress( $wp_course_id, $course_data, $sync_options ) {
 		global $wpdb;
 		$course_args = array(
 			'ID'           => $wp_course_id,
@@ -541,7 +501,7 @@ class Eb_Course_Manager {
 	public function delete_enrollment_records_on_course_deletion( $course_id ) {
 		global $wpdb;
 
-		if ( 'eb_course' == get_post_type( $course_id ) ) {
+		if ( 'eb_course' === get_post_type( $course_id ) ) {
 			// removing course from enrollment table.
 			$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'course_id' => $course_id ), array( '%d' ) );
 		}
@@ -553,6 +513,7 @@ class Eb_Course_Manager {
 	 * Uses the response recieved from get_eb_course_categories() function.
 	 * craetes terms of eb_course_cat taxonomy.
 	 *
+	 * @deprecated since 2.0.1 use create_course_categories_on_wordpress( $category_response ) insted
 	 * @param array $category_response accepts categories fetched from moodle.
 	 */
 	public function createCourseCategoriesOnWordPress( $category_response ) {
@@ -576,7 +537,7 @@ class Eb_Course_Manager {
 		foreach ( $category_response as $category ) {
 			$cat_name_clean = preg_replace( '/\s*/', '', $category->name );
 			$cat_name_lower = strtolower( $cat_name_clean );
-			$parent         = ( 0 == $category->parent ? 0 : $category->parent );
+			$parent         = ( 0 === $category->parent ? 0 : $category->parent );
 
 			if ( $parent > 0 ) {
 				// get parent term if exists.

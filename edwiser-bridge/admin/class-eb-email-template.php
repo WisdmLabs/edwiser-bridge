@@ -586,7 +586,7 @@ class EBAdminEmailTemplate {
 		 * Call the email template parser
 		 */
 		$email_tmpl_parser = new Eb_Email_Tmpl_Parser();
-		$tmpl_content      = $email_tmpl_parser->outPut( $args, $tmpl_content );
+		$tmpl_content      = $email_tmpl_parser->out_put( $args, $tmpl_content );
 
 		/**
 		 * Email send start

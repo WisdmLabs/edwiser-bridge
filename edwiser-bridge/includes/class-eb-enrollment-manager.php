@@ -103,6 +103,7 @@ class Eb_Enrollment_Manager {
 	 * Used to enroll user to course(s)
 	 * Enrolls user to course on moodle on course purchase as well as update enrollment data on WordPress.
 	 *
+	 * @deprecated since 2.0.1 use update_user_course_enrollment( $args, $role_id ) insted.
 	 * @param array $args arguments array.
 	 * @param bool  $role_id false.
 	 *
@@ -178,7 +179,7 @@ class Eb_Enrollment_Manager {
 		// prepare course array.
 		foreach ( $moodle_courses as $wp_course_id => $moodle_course_id ) {
 			// first we check if a moodle course id exists.
-			if ( '' != $moodle_course_id ) {
+			if ( '' !== $moodle_course_id ) {
 				$expire_date                 = $this->calc_course_acess_expiry_date( $wp_course_id );
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
@@ -192,7 +193,7 @@ class Eb_Enrollment_Manager {
 
 				// we only add suspend parameter when we are enrolling or suspending a user.
 				// in case user is being unenrolled, no suspend parameter is expected in webservice function.
-				if ( $args['unenroll'] == 0 ) {
+				if ( 0 === $args['unenroll'] ) {
 					$enrolments[ $wp_course_id ]['suspend'] = $args['suspend'];
 				}
 			}
@@ -302,108 +303,14 @@ class Eb_Enrollment_Manager {
 	 * or unenrolled from moodle.
 	 *
 	 * @since  1.0.0
-	 * @m
 	 *
+	 * @deprecated since 2.0.1 use update_enrollment_record_wordpress($args, $role_id) insted
 	 * @param array $args arguments array.
 	 * @param array $role_id role_id array.
 	 */
 	public function updateEnrollmentRecordWordPress( $args, $role_id = '5' ) {
-		global $wpdb;
-
-		// default args.
-		$defaults = array(
-			'user_id'           => 0,
-			'role_id'           => $role_id,
-			'courses'           => array(),
-			'unenroll'          => 0,
-			'suspend'           => 0,
-			'complete_unenroll' => 0,
-		);
-
-		/**
-		 * Parse incoming $args into an array and merge it with $defaults.
-		 */
-		$args = wp_parse_args( $args, $defaults );
-
-		$role_id = $args['role_id']; // the role id 5 denotes student role on moodle.
-		// add enrollment record in DB conditionally.
-		// We are using user's WordPress ID and course's WordPress ID while saving record in enrollment table.
-		if ( 0 === $args['unenroll'] && 0 === $args['suspend'] ) {
-			foreach ( $args['courses'] as $key => $course_id ) {
-
-				// Get User Course Access Count.
-				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );
-
-				// If not enrolled to any of the coursers.
-				if ( edwiser_bridge_instance()->course_manager()->get_moodle_course_id( $course_id ) != '' &&
-						! $this->user_has_course_access( $args['user_id'], $course_id ) ) {
-					// Set timezone.
-					// New code for time.
-					$current_date_time_obj = current_datetime();
-					$current_date          = $current_date_time_obj->format( 'Y-m-d H:i:s' );
-
-					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
-
-					$wpdb->insert(
-						$wpdb->prefix . 'moodle_enrollment',
-						array(
-							'user_id'     => $args['user_id'],
-							'course_id'   => $course_id,
-							'role_id'     => $role_id,
-							'time'        => $current_date,
-							'expire_time' => $expire_date,
-							'act_cnt'     => 1,
-						),
-						array(
-							'%d',
-							'%d',
-							'%d',
-							'%s',
-							'%s',
-							'%d',
-						)
-					);
-
-				} elseif ( $this->user_has_course_access( $args['user_id'], $course_id ) && false != $act_cnt ) {
-					// increase the count value.
-					$act_cnt = $act_cnt++;
-					// update increased count value.
-					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt );
-
-				}
-			}
-
-			// Trigger Email.
-
-		} elseif ( 1 !== $args['unenroll'] ) {
-			foreach ( $args['courses'] as $key => $course_id ) {
-				// Get User Course Access Count.
-				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );
-				// decrease the count value.
-				$act_cnt = $act_cnt--;
-
-				if ( 0 != $act_cnt && ! $args['complete_unenroll'] ) {
-					// update decreased count value.
-					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt );
-
-				} elseif ( 0 === $act_cnt || $args['complete_unenroll'] ) {
-					// delete row if count equals zero.
-					$this->delete_user_enrollment_record( $args['user_id'], $course_id );
-				}
-			}
-
-			// Trigger email.
-		} else {
-			// Handle suspend action.
-			// update only DB column suspended as 1.
-			$this->update_user_course_suspend_status( $args['user_id'], $course_id );
-		}
+		$this->update_enrollment_record_wordpress( $args, $role_id );
 	}
-
-
-
-
-
 
 	/**
 	 * We have to update our enrollment table on WordPress everytime a user is enrolled
@@ -471,7 +378,7 @@ class Eb_Enrollment_Manager {
 						)
 					);
 
-				} elseif ( $this->user_has_cours_access( $args['user_id'], $course_id ) && $act_cnt != false ) {
+				} elseif ( $this->user_has_cours_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
 					// increase the count value.
 					$act_cnt = $act_cnt++;
 					// update increased count value.
@@ -512,29 +419,13 @@ class Eb_Enrollment_Manager {
 	 *
 	 * @since  1.2.5
 	 *
+	 * @deprecated since 2.0.1 use update_user_course_access_count( $user_id, $course_id, $count ) insted.
 	 * @param int $user_id   WordPress user id of a user.
 	 * @param int $course_id WordPress course id of a course.
 	 * @param int $count WordPress course id of a course.
 	 */
 	public function updateUserCourseAccessCount( $user_id, $course_id, $count ) {
-		global $wpdb;
-		$wpdb->update(
-			$wpdb->prefix . 'moodle_enrollment',
-			array(
-				'act_cnt' => $count,  // increase OR decrease count value.
-			),
-			array(
-				'user_id'   => $user_id,
-				'course_id' => $course_id,
-			),
-			array(
-				'%d',
-			),
-			array(
-				'%d',
-				'%d',
-			)
-		);
+		$this->update_user_course_access_count( $user_id, $course_id, $count );
 	}
 
 
@@ -611,7 +502,7 @@ class Eb_Enrollment_Manager {
 	public function calc_course_acess_expiry_date( $course_id ) {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
-		if ( isset( $course_meta['course_expirey'] ) && 'yes' == $course_meta['course_expirey'] ) {
+		if ( isset( $course_meta['course_expirey'] ) && 'yes' === $course_meta['course_expirey'] ) {
 			$expiry_date_time = date( 'Y-m-d H:i:s', strtotime( '+' . $course_meta['num_days_course_access'] . ' days' ) );
 		}
 		return $expiry_date_time;
@@ -669,37 +560,12 @@ class Eb_Enrollment_Manager {
 	 *
 	 * @since  1.0.0
 	 *
+	 * @deprecated since 2.0.1 use delete_user_enrollment_record( $user_id, $course_id )  insted.
 	 * @param int $user_id   WordPress user id of a user.
 	 * @param int $course_id WordPress course id of a course.
 	 */
 	public function deleteUserEnrollmentRecord( $user_id, $course_id ) {
-		global $wpdb;
-
-		// removing user enrolled courses from plugin db.
-		$deleted = $wpdb->delete(
-			$wpdb->prefix . 'moodle_enrollment',
-			array(
-				'user_id'   => $user_id,
-				'course_id' => $course_id,
-			),
-			array(
-				'%d',
-				'%d',
-			)
-		);
-
-		if ( $deleted ) {
-			$user = get_userdata( $user_id );
-			$args = array(
-				'username'   => $user->user_login,
-				'first_name' => $user->user_firstname,
-				'last_name'  => $user->user_lastname,
-				'user_email' => $user->user_email,
-				'course_id'  => $course_id,
-			);
-			do_action( 'eb_course_access_expire_alert', $args );
-			edwiser_bridge_instance()->logger()->add( 'user', "Unenrolled user: {$user_id} from course {$course_id}" );  // add user log.
-		}
+		$this->delete_user_enrollment_record( $user_id, $course_id );
 	}
 
 
@@ -734,26 +600,14 @@ class Eb_Enrollment_Manager {
 	 *
 	 * @since  1.0.0
 	 *
+	 * @deprecated since 2.0.1 use user_has_course_access( $user_id, $course_id ); insted.
 	 * @param int $user_id   WordPress user id of a user.
 	 * @param int $course_id WordPress course id of a course.
 	 *
 	 * @return bool true / false
 	 */
 	public function userHasCourseAccess( $user_id, $course_id ) {
-		global $wpdb;
-		$has_access = false;
-
-		if ( '' === $user_id || '' === $course_id ) {
-			return $has_access;
-		}
-
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
-
-		if ( trim( $result ) === trim( $user_id ) ) {
-			$has_access = true;
-		}
-
-		return $has_access;
+		return $this->user_has_course_access( $user_id, $course_id );
 	}
 
 

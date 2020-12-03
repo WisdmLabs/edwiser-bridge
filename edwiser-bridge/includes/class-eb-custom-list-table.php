@@ -88,7 +88,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$row['ID']            = $result->id;
 				$row['rId']           = $result->id;
 				$row['course_id']     = $result->course_id;
-				// $tbl_records[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $search_text);
 
 				$tbl_records[] = apply_filters( 'eb_manage_student_enrollment_each_row', $row, $result, $search_text );
 
@@ -282,7 +281,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
 			}
 
-			if ( 'top' == $which ) {
+			if ( 'top' === $which ) {
 				echo '<span class="eb_manage_enroll_custom_nav_wrap">' . esc_html__( 'From : ', 'eb-textdomain' ) . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="' . esc_html( $from ) . '"> ' . esc_html__( 'To : ', 'eb-textdomain' ) . ' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="' . esc_html( $to ) . '" ' . esc_html( $disabled ) . '> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="' . esc_html__( 'Search', 'eb-textdomain' ) . '"/> </span>';
 			}
 
