@@ -48,31 +48,9 @@ class EB_Usage_Tracking {
 		if ( $consent ) {
 			$result_arr = array();
 
-			$analytics_data = json_encode( $this->prepare_usage_analytics() );
+			$analytics_data = wp_json_encode( $this->prepare_usage_analytics() );
 
 			$url = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
-			// call api endpoint with data.
-			// $ch = curl_init();
-
-			// // set the url, number of POST vars, POST data.
-			// curl_setopt( $ch, CURLOPT_URL, $url );
-			// curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
-			// curl_setopt( $ch, CURLOPT_POSTFIELDS, $analytics_data );
-			// curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-			// curl_setopt(
-			// $ch,
-			// CURLOPT_HTTPHEADER,
-			// array(
-			// 'Content-Type: application/json',
-			// 'Content-Length: ' . strlen( $analytics_data ),
-			// )
-			// );
-
-			// // execute post.
-			// $result = curl_exec( $ch );
-			// close connection.
-			// curl_close( $ch );
-
 			$request_args = array(
 				'body'    => $analytics_data,
 				'timeout' => 100,
@@ -91,7 +69,7 @@ class EB_Usage_Tracking {
 	private function prepare_usage_analytics() {
 
 		global $wp_version;
-
+		$server_ip = ( isset( $_SERVER['REMOTE_ADDR'] ) && null !== $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 		// Suppressing all the errors here, just in case the setting does not exists, to avoid many if statements.
 		$analytics_data = array(
 			'siteurl'           => $this->detect_site_type() . preg_replace( '#^https?://#', '', rtrim( @get_site_url(), '/' ) ), // replace protocol and trailing slash.
@@ -107,8 +85,8 @@ class EB_Usage_Tracking {
 			'system_settings'   => array(
 				'multiste' => is_multisite() ? 1 : 0,
 			),
-			'server_ip'         => null != @$_SERVER['REMOTE_ADDR'] ? sanitize_text_field( wp_unslash( @$_SERVER['REMOTE_ADDR'] ) ) : '',
-			'web_server'        => null != @$_SERVER['SERVER_SOFTWARE'] ? sanitize_text_field( wp_unslash( @$_SERVER['SERVER_SOFTWARE'] ) ) : '',
+			'server_ip'         => $server_ip,
+			'web_server'        => ( isset( $_SERVER['SERVER_SOFTWARE'] ) && null !== $_SERVER['SERVER_SOFTWARE'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_SOFTWARE'] ) ) : '',
 			'php_version'       => phpversion(),
 			'php_settings'      => array(
 				'memory_limit'        => ini_get( 'memory_limit' ),
@@ -222,7 +200,7 @@ class EB_Usage_Tracking {
 		);
 
 		// Check if site is running on localhost or not.
-		if ( in_array( $_SERVER['REMOTE_ADDR'], $whitelist ) ) {
+		if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $whitelist, true ) ) {
 			$is_local = 'localsite--';
 		}
 		return $is_local;

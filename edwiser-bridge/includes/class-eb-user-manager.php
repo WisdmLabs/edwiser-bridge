@@ -98,8 +98,6 @@ class EBUserManager {
 	public function set_user_auth_cookie( $user_id ) {
 		global $current_user;
 
-		// $current_user = get_user_by( 'id', $user_id );
-
 		wp_set_auth_cookie( $user_id, true );
 	}
 
@@ -166,13 +164,13 @@ class EBUserManager {
 				$key;
 				// sync users courses only if checkbox is checked.
 				if ( isset( $sync_options['eb_synchronize_user_courses'] ) &&
-						$sync_options['eb_synchronize_user_courses'] == 1 ) {
+						1 === $sync_options['eb_synchronize_user_courses'] ) {
 					// get user's enrolled courses from moodle.
 					$moodle_user_courses = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $value['moodle_user_id'] );
 
 					$enrolled_courses = array(); // push user's all enrolled courses id in array.
 					// enrol user to courses based on recieved data.
-					if ( $moodle_user_courses['success'] == 1 ) {
+					if ( 1 === $moodle_user_courses['success'] ) {
 						foreach ( $moodle_user_courses['response_data'] as $course_data ) {
 							// get WordPress id of course.
 							$existing_course_id = edwiser_bridge_instance()->course_manager()->is_course_presynced( $course_data->id );
@@ -285,7 +283,7 @@ class EBUserManager {
 		// checking if moodle connection is working properly.
 		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EB_ACCESS_URL, EB_ACCESS_TOKEN );
 
-		$response_array['connection_response'] = $connected['success']; // add connection response in response array
+		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$link_users_count                      = 0;
 		if ( 1 === $connected['success'] ) {
 			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && 1 === $sync_options['eb_link_users_to_moodle'] ) ) {
@@ -344,6 +342,7 @@ class EBUserManager {
 	 *
 	 * Called by users_link_to_moodle_synchronization() from class Eb_Settings_Ajax_Initiater
 	 *
+	 * @deprecated since 2.0.1 use user_link_to_moodle_handler( $sync_options, $offset ) insted.
 	 * @param array $sync_options    user sync options.
 	 * @param int   $offset LIMIT query offset for getting the resluts in chunk.
 	 *
@@ -363,6 +362,7 @@ class EBUserManager {
 	 *
 	 * Create a new WordPress user.
 	 *
+	 * @deprecated since 2.0.1 use create_wordpress_user( $email, $firstname, $lastname, $role ) insted.
 	 * @param string $email email.
 	 * @param string $firstname firstname name.
 	 * @param string $lastname lastname.
@@ -399,13 +399,14 @@ class EBUserManager {
 				'eb_email_exists'
 			);
 		}
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
+			if ( empty( $firstname ) ) {
+				$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
+			}
 
-		if ( empty( $firstname ) ) {
-			$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-		}
-
-		if ( empty( $lastname ) ) {
-			$lastname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
+			if ( empty( $lastname ) ) {
+				$lastname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
+			}
 		}
 
 		$username = sanitize_user( current( explode( '@', $email ) ), true );
@@ -539,6 +540,7 @@ class EBUserManager {
 	 * Will be used to check if a username is available on moodle
 	 * Used while creating a moodle account for a user.
 	 *
+	 * @deprecated since 2.0.1 use is_moodle_username_available( $username ) insted.
 	 * @param string $username username to be checked.
 	 *
 	 * @return bool returns true / false  [ return false in case of connection failure ]
@@ -560,9 +562,9 @@ class EBUserManager {
 	 */
 	public function is_moodle_username_available( $username ) {
 
-		edwiser_bridge_instance()->logger()->add( 'user', 'Checking if username exists....' ); // add to user log
+		edwiser_bridge_instance()->logger()->add( 'user', 'Checking if username exists....' ); // add to user log.
 
-		$username            = sanitize_user( $username ); // get sanitized username
+		$username            = sanitize_user( $username ); // get sanitized username.
 		$webservice_function = 'core_user_get_users_by_field';
 
 		// prepare request data array.
@@ -642,6 +644,7 @@ class EBUserManager {
 	 * Create a new user on moodle with user data passed to it.
 	 * update an existing user whose moodle id is passed to the function.
 	 *
+	 * @deprecated since 2.0.1 use create_moodle_user( $user_data, $update ) insted.
 	 * @param array $user_data the user data used to create a new account or update existing one.
 	 * @param int   $update set update = 1 if you want to update an existing user on moodle.
 	 *
@@ -765,6 +768,7 @@ class EBUserManager {
 	 * Checks if a moodle account is already linked, or create account on moodle and links to WordPress.
 	 * Can also be executed on wp_login hook.
 	 *
+	 * @deprecated since 2.0.1 use link_moodle_user( $user ) insted.
 	 * a do_action is added that can be used to execute custom action if a new user is created on moodle
 	 * and linked to WordPress.
 	 *
