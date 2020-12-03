@@ -41,11 +41,11 @@ class Eb_Shortcode_My_Courses {
 			apply_filters(
 				'eb_shortcode_my_courses_defaults',
 				array(
-					'user_id'                       => get_current_user_id(),
-					'my_courses_wrapper_title'      => '',
+					'user_id'                           => get_current_user_id(),
+					'my_courses_wrapper_title'          => '',
 					'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'eb-textdomain' ),
-					'number_of_recommended_courses' => 7,
-					'my_courses_progress'           => '0',
+					'number_of_recommended_courses'     => 7,
+					'my_courses_progress'               => '0',
 				)
 			),
 			$atts

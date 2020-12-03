@@ -508,13 +508,9 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="custom" value="' . $atts['custom'] . '">'
 				);
 
-				// if ( $atts['scriptcode'] ) {
-				// 	$code .= '<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>';
-				// }
-
-				wp_add_inline_script( 'eb_paypal_dynamic_script', $atts['scriptcode'] );
-				wp_enqueue_script( 'eb_paypal_dynamic_script' );
-
+				if ( $atts['scriptcode'] ) {
+					$code .= '<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>';
+				}
 				$code .= '</form>';
 
 				$code .= '</div>';
@@ -724,14 +720,11 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				// eb_check_array_value(
-				// 	$atts['scriptcode'],
-				// 	$code,
-				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				// );
-
-				wp_add_inline_script( 'eb_paypal_dynamic_script', $atts['scriptcode'] );
-				wp_enqueue_script( 'eb_paypal_dynamic_script' );
+				eb_check_array_value(
+					$atts['scriptcode'],
+					$code,
+					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
+				);
 
 				$code .= '</form></div>';
 				break;
@@ -835,7 +828,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 			<input type="hidden" name="cmd" value="_cart">
 			<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
 			<input type="hidden" name="add" value="1">';
-				if ( 1 === trim( $atts['display'] ) ) {
+				if ( $atts['display'] == 1 ) {
 					$code .= '<input type="hidden" name="display" value="1">';
 				}
 				$code .= '<input type="hidden" name="business" value="' . $atts['email'] . '">
@@ -862,7 +855,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				}
 
 				// Add Quantity.
-				if ( 'ask' === $atts['qty'] ) {
+				if ( $atts['qty'] == 'ask' ) {
 					$code .= '<input type="hidden" name="undefined_quantity" value="1">';
 				} else {
 					$code .= '<input type="hidden" name="quantity" value="' . $atts['qty'] . '">';
@@ -933,14 +926,11 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				// eb_check_array_value(
-				// 	$atts['scriptcode'],
-				// 	$code,
-				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				// );
-
-				wp_add_inline_script( 'eb_paypal_dynamic_script', $atts['scriptcode'] );
-				wp_enqueue_script( 'eb_paypal_dynamic_script' );
+				eb_check_array_value(
+					$atts['scriptcode'],
+					$code,
+					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
+				);
 
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {

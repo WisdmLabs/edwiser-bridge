@@ -144,7 +144,7 @@ class Eb_Course_Manager {
 			 */
 			$moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle.
 
-			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 === $sync_options['eb_synchronize_previous'] )) {
+			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 === $sync_options['eb_synchronize_previous'] ) ) {
 				// creating courses based on recieved data.
 				if ( 1 === $moodle_course_resp['success'] ) {
 					foreach ( $moodle_course_resp['response_data'] as $course_data ) {

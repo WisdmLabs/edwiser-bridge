@@ -588,7 +588,7 @@ function get_allowed_html_tags() {
 function eb_sinlge_course_get_allowed_html_tags() {
 	$allowed_tags           = wp_kses_allowed_html( 'post' );
 	$allowed_tags['form']   = array(
-		'method'             => array(),
+		'method' => array(),
 	);
 	$allowed_tags['input']  = array(
 		'class' => array(),
@@ -612,11 +612,11 @@ function eb_sinlge_course_get_allowed_html_tags() {
 		'selected' => array(),
 	);
 	$allowed_tags['script'] = array(
-		'src' => array(),
+		'src'  => array(),
 		'type' => array(),
 	);
 	$allowed_tags['a']      = array(
-		'href' => array(),
+		'href'   => array(),
 		'target' => array(),
 	);
 	return $allowed_tags;

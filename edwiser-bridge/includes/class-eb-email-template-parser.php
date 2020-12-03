@@ -62,7 +62,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$tmpl_content = apply_filters(
 				'eb_emailtmpl_content_before',
 				array(
-					'args' => $args,
+					'args'    => $args,
 					'content' => $tmpl_content,
 				)
 			);

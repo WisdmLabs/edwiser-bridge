@@ -60,12 +60,12 @@ class EB_Usage_Tracking {
 			// curl_setopt( $ch, CURLOPT_POSTFIELDS, $analytics_data );
 			// curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 			// curl_setopt(
-			// 	$ch,
-			// 	CURLOPT_HTTPHEADER,
-			// 	array(
-			// 		'Content-Type: application/json',
-			// 		'Content-Length: ' . strlen( $analytics_data ),
-			// 	)
+			// $ch,
+			// CURLOPT_HTTPHEADER,
+			// array(
+			// 'Content-Type: application/json',
+			// 'Content-Length: ' . strlen( $analytics_data ),
+			// )
 			// );
 
 			// // execute post.

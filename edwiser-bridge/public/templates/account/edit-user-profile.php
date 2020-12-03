@@ -11,27 +11,14 @@
 
 global $current_user, $wp_roles;
 
-$username = $current_user->user_login;
-
-if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
-	$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : $current_user->first_name;
-	$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : $current_user->last_name;
-	$nickname    = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : $current_user->nickname;
-	$email       = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : $current_user->user_email;
-	$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : $current_user->description;
-	$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : $current_user->city;
-	$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : $current_user->country;
-} else {
-	$first_name  = $current_user->first_name;
-	$last_name   = $current_user->last_name;
-	$nickname    = $current_user->nickname;
-	$email       = $current_user->user_email;
-	$description = $current_user->description;
-	$city        = $current_user->city;
-	$country     = $current_user->country;
-}
-
-
+$username    = $current_user->user_login;
+$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : $current_user->first_name;
+$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : $current_user->last_name;
+$nickname    = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : $current_user->nickname;
+$email       = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : $current_user->user_email;
+$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : $current_user->description;
+$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : $current_user->city;
+$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : $current_user->country;
 ?>
 
 <section class="eb-user-info eb-edit-user-wrapper">

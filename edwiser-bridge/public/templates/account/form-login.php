@@ -17,19 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 $general_settings    = get_option( 'eb_general' );
 $enable_registration = get_arr_value( $general_settings, 'eb_enable_registration', '' );
 do_action( 'eb_before_customer_login_form' );
-
-$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
-$username  = false;
-
-if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
-	$username = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
-}
-
 ?>
 <div id="user_login">
 	<?php
 	wdm_show_notices();
-
+	$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
+	$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
 	if ( ! $eb_action || 'eb_register' !== $eb_action ) {
 		?>
 		<h2>
@@ -113,16 +106,9 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 
 	<?php
 	if ( $eb_action && 'eb_register' === $_GET['action'] && 'yes' === $enable_registration ) {
-
-		$fname = '';
-		$lname = '';
-		$email = '';
-		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
-			$fname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-			$lname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
-		}
-
+		$fname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
+		$lname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
+		$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 		?>
 		<h2>
 			<?php

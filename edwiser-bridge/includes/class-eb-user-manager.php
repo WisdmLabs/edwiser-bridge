@@ -52,7 +52,6 @@ class EBUserManager {
 	 *
 	 * @param string $plugin_name The name of this plugin.
 	 * @param string $version     The version of this plugin.
-	 *
 	 */
 	public static function instance( $plugin_name, $version ) {
 		if ( is_null( self::$instance ) ) {
