@@ -63,6 +63,8 @@ class Eb_Settings_Ajax_Initiater {
 		}
 
 		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
+
 		// start working on request.
 		$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
 		echo wp_json_encode( $response );
@@ -88,6 +90,8 @@ class Eb_Settings_Ajax_Initiater {
 		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
 
 		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
+
 
 		$response = edwiser_bridge_instance()->user_manager()->user_course_synchronization_handler( $sync_options, false, $offset );
 
@@ -113,6 +117,8 @@ class Eb_Settings_Ajax_Initiater {
 		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
 		// get sync options.
 		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
+		
 
 		$response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler( $sync_options, $offset );
 
