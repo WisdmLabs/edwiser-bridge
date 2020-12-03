@@ -605,7 +605,7 @@ class Eb_Post_Types {
 				die( 'Nonce verification fialed.' );
 			}
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-				$post_options = sanitize_text_field( wp_unslash( $_POST[ $post_type . '_options' ] ) );
+				$post_options = wp_unslash( $_POST[ $post_type . '_options' ] );
 			}
 			if ( ! empty( $post_options ) ) {
 				foreach ( $fields as $key => $values ) {
@@ -615,7 +615,7 @@ class Eb_Post_Types {
 						$option_value = wp_unslash( $post_options[ $key ] );
 					}
 					// format the values.
-					switch ( sanitize_title( $values['type'] ) ) {
+					switch ( $values['type'] ) {
 						case 'checkbox':
 							if ( is_null( $option_value ) ) {
 								$option_value = 'no';

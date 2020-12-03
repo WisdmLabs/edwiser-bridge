@@ -218,16 +218,16 @@ class Eb_Gdpr_Compatiblity {
 		}
 		$sections = apply_filters( 'eb_policy_sections', $sections );
 		apply_filters_deprecated( 'eb-policy-sections', array( $sections ), '2.0.1', 'eb_policy_sections' );
-		$html     = "<div class= 'wp-suggested-text'>
-					<div>
-						<h2>" . esc_html__( 'Edwiser', 'eb-textdomain' ) . '</h2>
-						<p>
-							' . esc_html__( 'This sample language includes the basics of what personal data our site is using to integrate our site with the Moodle LMS site.', 'eb-textdomain' ) . '
-						</p>
-						<p>
-							' . esc_html__( 'We collect information about you and process them for the following purposes.', 'eb-textdomain' ) . '
-						</p>
-					</div>';
+		$html = "<div class= 'wp-suggested-text'>
+				<div>
+					<h2>" . esc_html__( 'Edwiser', 'eb-textdomain' ) . '</h2>
+					<p>
+						' . esc_html__( 'This sample language includes the basics of what personal data our site is using to integrate our site with the Moodle LMS site.', 'eb-textdomain' ) . '
+					</p>
+					<p>
+						' . esc_html__( 'We collect information about you and process them for the following purposes.', 'eb-textdomain' ) . '
+					</p>
+				</div>';
 		foreach ( $sections as $key => $value ) {
 			$html .= '<div>
 						<h2>
@@ -274,7 +274,7 @@ class Eb_Gdpr_Compatiblity {
 							</ul>
 						</p>';
 		}
-		 apply_filters( 'eb_privacy_policy_user_section', $content );
+		apply_filters( 'eb_privacy_policy_user_section', $content );
 		return apply_filters_deprecated( 'eb-privacy-policy-user-section', array( $content ), '2.0.1', 'eb_privacy_policy_user_section' );
 	}
 
