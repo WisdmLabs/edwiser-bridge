@@ -103,15 +103,8 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function get_sections() {
-			$sections = apply_filters( 'eb_get_sections_' . $this->_id, array() );
-
-			/**
-			 * The filter name was not in the wp standerd compatible.
-			 *
-			 * @deprecated since  2.0.0 use eb_get_sections_' . $this->_id
-			 */
-			$sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, array(), '2.0.1', 'eb_get_sections_' . $this->_id );
-			return $sections;
+			apply_filters( 'eb_get_sections_' . $this->_id, array() );
+			return apply_filters_deprecated( 'eb_getSections_' . $this->_id, array( array() ), '2.0.1', 'eb_get_sections_' . $this->_id );
 		}
 
 
@@ -126,7 +119,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @return array
 		 */
 		public function getSections() {
-			return apply_filters_deprecated( 'eb_getSections_' . $this->_id, array(), '2.0.1', 'eb_get_sections_' . $this->_id );
+			return $this->get_sections();
 		}
 
 

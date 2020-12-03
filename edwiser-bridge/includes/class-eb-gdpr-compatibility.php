@@ -217,7 +217,7 @@ class Eb_Gdpr_Compatiblity {
 			$sections[ esc_html__( 'User’s Simultaneous login and logout', 'eb-textdomain' ) ] = $this->eb_sso_policy();
 		}
 		$sections = apply_filters( 'eb_policy_sections', $sections );
-		apply_filters_deprecated( 'eb-policy-sections', $sections, '2.0.1', 'eb_policy_sections' );
+		apply_filters_deprecated( 'eb-policy-sections', array( $sections ), '2.0.1', 'eb_policy_sections' );
 		$html     = "<div class= 'wp-suggested-text'>
 					<div>
 						<h2>" . esc_html__( 'Edwiser', 'eb-textdomain' ) . '</h2>
@@ -274,9 +274,8 @@ class Eb_Gdpr_Compatiblity {
 							</ul>
 						</p>';
 		}
-
-		apply_filters_deprecated( 'eb-privacy-policy-user-section', $content, '2.0.1', 'eb_privacy_policy_user_section' );
-		return apply_filters( 'eb_privacy_policy_user_section', $content );
+		 apply_filters( 'eb_privacy_policy_user_section', $content );
+		return apply_filters_deprecated( 'eb-privacy-policy-user-section', array( $content ), '2.0.1', 'eb_privacy_policy_user_section' );
 	}
 
 	/**
@@ -292,8 +291,8 @@ class Eb_Gdpr_Compatiblity {
 					<p>
 						' . esc_html__( 'For more details you could read our Privacy Policy and Terms and Conditions for better understanding of our product and services.', 'eb-textdomain' ) . '
 					</p>';
-		apply_filters_deprecated( 'eb-privacy-policy-payments-section', $content, '2.0.1', 'eb_privacy_policy_payments_section' );
-		return apply_filters( 'eb_privacy_policy_payments_section', $content );
+		apply_filters( 'eb_privacy_policy_payments_section', $content );
+		return apply_filters_deprecated( 'eb-privacy-policy-payments-section', array( $content ), '2.0.1', 'eb_privacy_policy_payments_section' );
 	}
 
 	/**
@@ -303,7 +302,7 @@ class Eb_Gdpr_Compatiblity {
 		$content = '<p>
 						We allow user to login on WordPress as well as Moodle site simultaneously if the user is linked to the Moodle site. We use Moodle user id of the user for logging into the Moodle site and vice versa. All this login and logout actions performed using very secured encoding method in PHP which is through PHP Mcrypt extension.
 					</p>';
-		apply_filters_deprecated( 'eb-privacy-policy-sso-section', $content, '2.0.1', 'eb_privacy_policy_sso_section' );
-		return apply_filters( 'eb_privacy_policy_sso_section', $content );
+		apply_filters( 'eb_privacy_policy_sso_section', $content );
+		return apply_filters_deprecated( 'eb-privacy-policy-sso-section', array( $content ), '2.0.1', 'eb_privacy_policy_sso_section' );
 	}
 }
