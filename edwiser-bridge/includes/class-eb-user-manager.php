@@ -925,28 +925,21 @@ class EBUserManager {
 		// get the action.
 		$wp_user_table = _get_list_table( 'WP_Users_List_Table' );
 		$action        = $wp_user_table->current_action();
-		$sendback      = '';
+		// $sendback      = '';
 		// perform our unlink action.
 		if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
 			die( 'busted ' );
 		}
 
-error_log('HERERE :::');
-
 		switch ( $action ) {
 			case 'link_moodle':
 				$linked = 0;
-error_log('HERERE ::: 1111');
 
 				// get all selected users.
-				$users         = isset( $_REQUEST['users'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['users'] ) ) : array();
+				$users         = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ): array();
 				$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
-				
 
-				
 				if ( is_array( $users ) ) {
-error_log();
-
 					foreach ( $users as $user ) {
 						$user_object = get_userdata( $user );
 						if ( $this->link_moodle_user( $user_object ) ) {
@@ -957,18 +950,14 @@ error_log();
 					// build the redirect url.
 					$sendback = add_query_arg( array( 'linked' => $linked ), $request_refer );
 
-					error_log('HERERE ::: 2222');
-
-
 				}
 
 				break;
 			case 'unlink_moodle':
 				$unlinked = 0;
-error_log('HERERE ::: 3333');
 
 				// get all selected users.
-				$users = isset( $_REQUEST['users'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['users'] ) ) : array();
+				$users = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ): array();
 
 				if ( is_array( $users ) ) {
 					foreach ( $users as $user ) {
@@ -1005,7 +994,7 @@ error_log('HERERE ::: 3333');
 
 		if ( 'users.php' === $pagenow ) {
 			if ( isset( $_REQUEST['unlinked'] ) && 1 === $_REQUEST['unlinked'] ) {
-				$message = sprintf( esc_html__( '%s User Unlinked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) );
+				$message = sprintf( '%s' . esc_html__( ' User Unlinked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['unlinked'] ) && $_REQUEST['unlinked'] > 1 ) {
 				$message = sprintf(
 					'%s' . esc_html__( ' Users Unlinked.', 'eb-textdomain' ),
@@ -1051,7 +1040,7 @@ error_log('HERERE ::: 3333');
 		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
 
 		if ( ! is_numeric( $moodle_user_id ) ) {
-			edwiser_bridge_instance()->logger()->add( 'user', 'A moodle user id is not associated.... Exiting!!!' ); // add user log
+			edwiser_bridge_instance()->logger()->add( 'user', 'A moodle user id is not associated.... Exiting!!!' ); // add user log.
 			return;
 		}
 
@@ -1066,7 +1055,7 @@ error_log('HERERE ::: 3333');
 
 		$moodle_user = $this->create_moodle_user( $user_data, 1 );
 		if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
-			edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating password..... Exiting!!!' ); // add user log
+			edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating password..... Exiting!!!' ); // add user log.
 		}
 	}
 
@@ -1095,7 +1084,7 @@ error_log('HERERE ::: 3333');
 
 			$moodle_user = $this->create_moodle_user( $user_data, 1 );
 			if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
-				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in resetting password..... Exiting!!!' ); // add user log
+				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in resetting password..... Exiting!!!' ); // add user log.
 			}
 		}
 	}
@@ -1275,7 +1264,7 @@ error_log('HERERE ::: 3333');
 		$cur_user = get_current_user_id();
 		$stmt     = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
 
-		$enroll_data = $wpdb->get_results( $wpdb->prepare( $stmt ) );
+		$enroll_data = $wpdb->get_results( $stmt );
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 

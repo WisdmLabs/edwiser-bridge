@@ -108,11 +108,13 @@ class Eb_Shortcode_My_Courses {
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
+
 		echo '<div class="eb-my-courses-wrapper">';
 		if ( ! empty( $atts['my_courses_wrapper_title'] ) ) {
 			?><h2 class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></h2>
 			<?php
 		}
+
 		do_action( 'eb_before_my_courses' );
 		if ( ! is_user_logged_in() ) {
 			?>
@@ -120,13 +122,14 @@ class Eb_Shortcode_My_Courses {
 				<?php
 				/* Translators 1: My account url */
 				printf(
-					esc_html__( 'You are not logged in. %$1ss to login.', 'eb-textdomain' ),
+					esc_html__( 'You are not logged in. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to login.', 'eb-textdomain' ),
 					"<a href='" . esc_url( site_url( '/user-account' ) ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
 				);
 				?>
 			</p>
 			<?php
 		} elseif ( count( $my_courses ) ) {
+
 			// My Courses.
 			$args = array(
 				'post_type'           => 'eb_course',
@@ -155,6 +158,7 @@ class Eb_Shortcode_My_Courses {
 			}
 			echo '</div>';
 		} else {
+
 			$eb_general_settings = get_option( 'eb_general' );
 			if ( isset( $eb_general_settings['eb_my_course_link'] ) && ! empty( $eb_general_settings['eb_my_course_link'] ) ) {
 				$link = $eb_general_settings['eb_my_course_link'];

@@ -173,15 +173,15 @@ class EbTemplateLoader {
 	 * @return void
 	 */
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
-		// if ( $args && is_array( $args ) ) {
-		// 	extract( $args );
-		// }
+		if ( $args && is_array( $args ) ) {
+			extract( $args );
+		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
 
 		if ( ! file_exists( $located ) ) {
 			/* Translators 1: file path */
-			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . $located . '</code>' ), '2.1' );
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
 			return;
 		}
 

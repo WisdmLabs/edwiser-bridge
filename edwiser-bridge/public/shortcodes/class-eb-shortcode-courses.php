@@ -51,6 +51,7 @@ class Eb_Shortcode_Courses {
 			),
 			$atts
 		);
+		extract( $atts );
 
 		$args = array(
 			'post_type'      => 'eb_course',
@@ -184,24 +185,27 @@ class Eb_Shortcode_Courses {
 	 */
 	public function catPagination( $cat_cnt, $per_page, $current_page = 1 ) {
 		/**
-		 * Check is the cat is less than per_page ammount
+		 * Check is the cat is less than perpage ammount
 		 * If yes then don't show pagination.
 		 */
+
 		if ( $cat_cnt <= $per_page ) {
 			return;
 		}
+
 		$nonce = wp_create_nonce( 'eb_pagination' );
 
 		ob_start();
 		?>
 		<nav class="navigation pagination" role="navigation">
 			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
-			<form style="display:none;">
+			<form>
 				<input type="hidden" name="eb_pagnation_nonce" value="<?php esc_html( wp_create_nonce( 'eb_pagnation_nonce' ) ); ?>"> 
 				<div class="nav-links">
 					<?php
 					$page = 1;
 					if ( 1 !== $current_page ) {
+
 						?>
 						<a class="prev page-numbers" href="
 						<?php
@@ -221,6 +225,7 @@ class Eb_Shortcode_Courses {
 						<?php
 					}
 					for ( $cnt = 1; $cnt <= $cat_cnt; $cnt += (int) $per_page ) {
+
 						$page_id_css = 'page-numbers';
 						if ( $page === $current_page ) {
 							?>
@@ -252,6 +257,7 @@ class Eb_Shortcode_Courses {
 						$page++;
 					}
 					if ( $current_page < $page - 1 ) {
+
 						?>
 						<a class="next page-numbers" href="
 						<?php

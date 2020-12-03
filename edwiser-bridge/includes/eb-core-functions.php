@@ -619,6 +619,14 @@ function eb_sinlge_course_get_allowed_html_tags() {
 		'href'   => array(),
 		'target' => array(),
 	);
+	$allowed_tags['img']    = array(
+		'src'     => array(),
+		'width'   => array(),
+		'alt'     => array(),
+		'class'   => array(),
+		'height'  => array(),
+		'loading' => array(),
+	);
 	return $allowed_tags;
 }
 

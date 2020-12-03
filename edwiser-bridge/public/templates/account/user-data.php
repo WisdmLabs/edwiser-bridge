@@ -13,12 +13,12 @@
 
 <section class="eb-user-info eb-edit-user-wrapper">
 	<aside class="eb-user-picture">
-		<?php echo esc_html( $user_avatar ); ?>
+		<?php echo wp_kses( $user_avatar, eb_sinlge_course_get_allowed_html_tags() ); ?>
 	</aside>
 	<div class="eb-user-data">
 		<?php
 		/* translators 1: display name 2: display name 3: a tag opening string 4: a tag closing */
-		printf( esc_attr__( 'Hello <strong>%$1s</strong> (not <strong>%$2s</strong>? %$3sSign out%$4s)', 'eb-textdomain' ), esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
+		printf( esc_attr__( 'Hello', 'eb-textdomain' ) . ' <strong>%s</strong> (not <strong>%s</strong>? %s ' . esc_attr__( 'Sign out ', 'eb-textdomain' ) . '%s)', esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
 		?>
 		<div>
 			<?php

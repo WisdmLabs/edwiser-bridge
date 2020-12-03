@@ -141,7 +141,7 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 				}
 				?>
 				<div  class="eb-validity-wrapper">
-					<expiry_date_time; ?>
+					<?php echo wp_kses( $expiry_date_time, eb_sinlge_course_get_allowed_html_tags() ); ?>
 				</div>
 				<?php
 			}

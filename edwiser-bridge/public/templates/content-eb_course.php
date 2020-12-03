@@ -37,7 +37,7 @@ if ( is_numeric( $course_price ) ) {
 		$course_price_formatted = $currency . ' ' . $course_price;
 	}
 
-	if ( 0 === $currency ) {
+	if ( '0' === $course_price ) {
 		$course_price_formatted = esc_html__( 'Free', 'eb-textdomain' );
 	}
 }
@@ -77,7 +77,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 
 		// Before showing progress check for the suspended course.
 		$progress_data = $course_progress_manager->get_course_progress();
-		$course_id     = array_keys( $progress_data );
+		$course_ids     = array_keys( $progress_data );
 		// Function to get suspended status info.
 		$is_user_suspended = get_user_suspended_status( $user_id, $course_id );
 
@@ -85,7 +85,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 			// User course is suspended.
 			$progress_class   = 'suspended';
 			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>" . esc_html__( 'SUSPENDED', 'eb-textdomain' ) . '</div>';
-		} elseif ( in_array( get_the_ID(), $course_id ) ) {// @codingStandardsIgnoreLine.
+		} elseif ( in_array( get_the_ID(), $course_ids ) ) {// @codingStandardsIgnoreLine.
 			// User course is not suspended then show these buttons.
 			if ( 0 === $progress_data[ get_the_ID() ] ) {
 				$progress_class   = 'start';
@@ -134,10 +134,11 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 				if ( ! empty( $short_description ) ) {
 					echo '<p class="entry-content">' . esc_html( $short_description ) . '</p>';
 				}
+
 				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses ) {
 					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
 						echo '<div class="wdm-price ' . wp_kses_post( $course_price_type ) . '">';
-						echo wp_kses_post( $course_price_formatted );
+						echo wp_kses_post( $course_price_formatted, eb_sinlge_course_get_allowed_html_tags() );
 						echo '</div>';
 					}
 				}
@@ -147,7 +148,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 					if ( 'resume' === $progress_class ) {
 						echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:" . esc_html( round( $progress_width ) ) . "%' ></div></div>";
 					}
-					echo esc_html( $progress_btn_div );
+					echo wp_kses( $progress_btn_div, eb_sinlge_course_get_allowed_html_tags() );
 					echo '</div>';
 				}
 

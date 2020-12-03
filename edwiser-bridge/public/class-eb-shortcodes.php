@@ -55,13 +55,9 @@ class Eb_Shortcodes {
 	) {
 
 		ob_start();
-
-		$before = empty( $wrapper['before'] ) ? '<div class="' . esc_attr( $wrapper['class'] ) . '">' : $wrapper['before'];
-		$after  = empty( $wrapper['after'] ) ? '</div>' : $wrapper['after'];
-
-		echo esc_html( $before );
+		echo empty( $wrapper['before'] ) ? '<div class="' . esc_attr( $wrapper['class'] ) . '">' : esc_attr( $wrapper['before'] );
 		call_user_func( $function, $atts );
-		echo esc_html( $after );
+		echo empty( $wrapper['after'] ) ? '</div>' : esc_attr( $wrapper['after'] );
 
 		return ob_get_clean();
 	}
