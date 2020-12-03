@@ -197,6 +197,14 @@ class Eb_Public {
 			$this->version,
 			false
 		);
+
+		wp_register_script(
+			'eb_paypal_js',
+			EB_PLUGIN_URL . 'public/assets/js/eb-paypal.js',
+			array( 'jquery' ),
+			$this->version,
+			false
+		);
 	}
 
 

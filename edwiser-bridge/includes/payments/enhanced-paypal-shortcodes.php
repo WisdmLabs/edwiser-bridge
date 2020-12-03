@@ -508,9 +508,13 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="custom" value="' . $atts['custom'] . '">'
 				);
 
-				if ( $atts['scriptcode'] ) {
-					$code .= '<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>';
-				}
+				// if ( $atts['scriptcode'] ) {
+				// 	$code .= '<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>';
+				// }
+
+				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
+				wp_enqueue_script( 'eb_paypal_js' );
+
 				$code .= '</form>';
 
 				$code .= '</div>';
@@ -720,11 +724,14 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				eb_check_array_value(
-					$atts['scriptcode'],
-					$code,
-					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				);
+				// eb_check_array_value(
+				// 	$atts['scriptcode'],
+				// 	$code,
+				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
+				// );
+				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
+				wp_enqueue_script( 'eb_paypal_js' );
+
 
 				$code .= '</form></div>';
 				break;
@@ -926,11 +933,15 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				eb_check_array_value(
-					$atts['scriptcode'],
-					$code,
-					'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				);
+				// eb_check_array_value(
+				// 	$atts['scriptcode'],
+				// 	$code,
+				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
+				// );
+
+				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
+				wp_enqueue_script( 'eb_paypal_js' );
+
 
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {

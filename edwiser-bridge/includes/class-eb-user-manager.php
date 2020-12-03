@@ -922,16 +922,28 @@ class EBUserManager {
 		// get the action.
 		$wp_user_table = _get_list_table( 'WP_Users_List_Table' );
 		$action        = $wp_user_table->current_action();
-
+		$sendback      = '';
 		// perform our unlink action.
+		if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
+			die( 'busted ' );
+		}
+
+error_log('HERERE :::');
+
 		switch ( $action ) {
 			case 'link_moodle':
 				$linked = 0;
+error_log('HERERE ::: 1111');
 
 				// get all selected users.
 				$users         = isset( $_REQUEST['users'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['users'] ) ) : array();
 				$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+				
+
+				
 				if ( is_array( $users ) ) {
+error_log();
+
 					foreach ( $users as $user ) {
 						$user_object = get_userdata( $user );
 						if ( $this->link_moodle_user( $user_object ) ) {
@@ -941,11 +953,16 @@ class EBUserManager {
 
 					// build the redirect url.
 					$sendback = add_query_arg( array( 'linked' => $linked ), $request_refer );
+
+					error_log('HERERE ::: 2222');
+
+
 				}
 
 				break;
 			case 'unlink_moodle':
 				$unlinked = 0;
+error_log('HERERE ::: 3333');
 
 				// get all selected users.
 				$users = isset( $_REQUEST['users'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['users'] ) ) : array();
@@ -979,19 +996,22 @@ class EBUserManager {
 	 */
 	public function link_user_bulk_actions_notices() {
 		global $pagenow;
+		if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
+			die( 'busted ' );
+		}
 
 		if ( 'users.php' === $pagenow ) {
 			if ( isset( $_REQUEST['unlinked'] ) && 1 === $_REQUEST['unlinked'] ) {
 				$message = sprintf( esc_html__( '%s User Unlinked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['unlinked'] ) && $_REQUEST['unlinked'] > 1 ) {
 				$message = sprintf(
-					esc_html__( '%s Users Unlinked.', 'eb-textdomain' ),
-					number_format_i18n( $_REQUEST['unlinked'] )
+					'%s' . esc_html__( ' Users Unlinked.', 'eb-textdomain' ),
+					number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) )
 				);
 			} elseif ( isset( $_REQUEST['linked'] ) && 1 === $_REQUEST['linked'] ) {
-				$message = sprintf( esc_html__( '%s User Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
+				$message = sprintf( '%s' . esc_html__( 'User Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['linked'] ) && $_REQUEST['linked'] > 1 ) {
-				$message = sprintf( esc_html__( '%s Users Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
+				$message = sprintf( '%s ' . esc_html__( 'Users Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
 			}
 
 			if ( isset( $message ) ) {
@@ -1008,6 +1028,10 @@ class EBUserManager {
 	 * @param int $user_id user id of the profile being updated.
 	 */
 	public function password_update( $user_id ) {
+
+		// if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
+		// 	die( 'busted ' );
+		// }
 
 		// Get new password entered by user.
 		// Works for WordPress profile & woocommerce my account edit profile page.

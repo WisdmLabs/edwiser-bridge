@@ -346,13 +346,7 @@ class Eb_Ipn_Listener {
 
 		if ( null === $post_data ) {
 			// use raw POST data.
-
-			if ( ! empty( $_POST ) ) {
-				$this->post_data = $_POST;
-				$encoded_data   .= '&' . file_get_contents( 'php://input' );
-			} else {
-				throw new \Exception( 'No POST data found.' );
-			}
+			throw new \Exception( 'No POST data found.' );
 		} else {
 			// use provided data array.
 			$this->post_data = $post_data;

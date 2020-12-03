@@ -357,7 +357,7 @@ class Eb_Order_Manager {
 			array(
 				'success'  => $success,
 				'order_id' => $order_id,
-				'nonce'    => wp_create_nonce( 'eb_paypal_none' ),
+				'nonce'    => wp_create_nonce( 'eb_paypal_nonce' ),
 			)
 		);
 		echo esc_html( $response );

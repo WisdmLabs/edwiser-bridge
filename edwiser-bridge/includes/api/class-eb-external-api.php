@@ -34,15 +34,15 @@ class Eb_External_Api_Endpoint {
 	/**
 	 * This function parse the request coming from
 	 *
-	 * @param  text $data request Data.
+	 * @param  text $request_data request Data.
 	 */
-	public function external_api_endpoint_def( $data ) {
-		$data          = isset( $_POST['data'] ) ? sanitize_text_field( wp_unslash( $_POST['data'] ) ) : '';
+	public function external_api_endpoint_def( $request_data ) {
+		$data          = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
 		$data          = unserialize( $data );
 		$response_data = array();
 
-		if ( isset( $_POST['action'] ) && ! empty( $_POST['action'] ) ) {
-			$action = sanitize_text_field( wp_unslash( $_POST['action'] ) );
+		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) ) {
+			$action = sanitize_text_field( wp_unslash( $request_data['action'] ) );
 
 			switch ( $action ) {
 				case 'test_connection':
