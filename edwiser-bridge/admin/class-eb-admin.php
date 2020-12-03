@@ -150,7 +150,7 @@ class Eb_Admin {
 		/*
 		 * translators: Link to open the unlink users list.
 		 */
-		$msg_unlink_user = printf( esc_html__( '%s to see list of unlinked users.', 'eb-textdomain' ), '<a href="#">' . esc_html__( '  Click', 'eb-textdomain' ) . '</a>' );
+		$msg_unlink_user = sprintf( esc_html__( '%s to see list of unlinked users.', 'eb-textdomain' ), '<a href="#">' . esc_html__( '  Click', 'eb-textdomain' ) . '</a>' );
 		wp_localize_script(
 			$this->plugin_name,
 			'eb_admin_js_object',
