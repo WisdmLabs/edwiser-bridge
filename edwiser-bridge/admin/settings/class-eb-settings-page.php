@@ -132,7 +132,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 */
 		public function output_sections() {
 			global $current_section;
-			$sections = $this->get_sections();
+			$sections = $this->getSections();
 			if ( empty( $sections ) ) {
 				return;
 			}
