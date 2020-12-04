@@ -1,71 +1,76 @@
 <?php
+/**
+ * Common functions.
+ *
+ * @link       https://edwiser.org
+ * @since      1.0.0
+ * @package    Edwiser Bridge
+ * @author     WisdmLabs <support@wisdmlabs.com>
+ */
 
 /**
  * Get a log file path.
  *
  * @since 1.0.0
  *
- * @param string $handle name
+ * @param string $handle name.
  *
  * @return string the log file path
  */
-function wdm_log_file_path($handle)
-{
-	return trailingslashit(EB_LOG_DIR).$handle.'-'.sanitize_file_name(wp_hash($handle)).'.log';
+function wdm_log_file_path( $handle ) {
+	return trailingslashit( EB_LOG_DIR ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
 }
 
 /**
  * Create a page and store the ID in an option.
  *
- * @param mixed  $slug         Slug for the new page
- * @param string $option_key   Option name to store the page's ID
- * @param string $page_title   (default: '') Title for the new page
- * @param string $page_content (default: '') Content for the new page
- * @param int    $post_parent  (default: 0) Parent for the new page
+ * @param mixed  $slug         Slug for the new page.
+ * @param string $option_key   Option name to store the page's ID.
+ * @param string $page_title   (default: '') Title for the new page.
+ * @param string $page_content (default: '') Content for the new page.
  *
  * @return int page ID
  */
-function wdm_create_page($slug, $option_key = '', $page_title = '', $page_content = '')
-{
+function wdm_create_page( $slug, $option_key = '', $page_title = '', $page_content = '' ) {
 	global $wpdb;
 
-	// get all settings of settings general tab
+	// get all settings of settings general tab.
 	$eb_general_settings = array();
-	$eb_general_settings = get_option('eb_general', array());
+	$eb_general_settings = get_option( 'eb_general', array() );
 
 	$option_value = 0;
-	if (trim($option_key) != '') {
-		if (isset($eb_general_settings[$option_key])) {
-			$option_value = $eb_general_settings[$option_key];
+	if ( '' !== trim( $option_key ) ) {
+		if ( isset( $eb_general_settings[ $option_key ] ) ) {
+			$option_value = $eb_general_settings[ $option_key ];
 		}
 	}
 
-	if ($option_value > 0 && get_post($option_value)) {
+	if ( $option_value > 0 && get_post( $option_value ) ) {
 		return -1;
 	}
 
-	if (strlen($page_content) > 0) {
-		// Search for an existing page with the specified page content (typically a shortcode)
+	if ( strlen( $page_content ) > 0 ) {
+		// Search for an existing page with the specified page content (typically a shortcode).
 		$page_found_id = $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT ID FROM '.$wpdb->posts."
+				'SELECT ID FROM ' . $wpdb->posts . "
 				WHERE post_type='page' AND post_content LIKE %s LIMIT 1;",
 				"%{$page_content}%"
 			)
 		);
 	} else {
-		// Search for an existing page with the specified page slug
+		// Search for an existing page with the specified page slug.
 		$page_found_id = $wpdb->get_var(
 			$wpdb->prepare(
-				'SELECT ID FROM '.$wpdb->posts."
+				'SELECT ID FROM ' . $wpdb->posts . "
 				WHERE post_type='page' AND post_name = %s LIMIT 1;",
 				$slug
 			)
 		);
 	}
 
-	if ($page_found_id) {
-		wdm_update_page_id($option_value, $option_key, $page_found_id, $eb_general_settings);
+	if ( $page_found_id ) {
+		wdm_update_page_id( $option_value, $option_key, $page_found_id, $eb_general_settings );
 		return $page_found_id;
 	}
 
@@ -78,80 +83,72 @@ function wdm_create_page($slug, $option_key = '', $page_title = '', $page_conten
 		'post_content'   => $page_content,
 		'comment_status' => 'closed',
 	);
-	$page_id   = wp_insert_post($page_data);
-	wdm_update_page_id($option_value, $option_key, $page_id, $eb_general_settings);
+	$page_id   = wp_insert_post( $page_data );
+	wdm_update_page_id( $option_value, $option_key, $page_id, $eb_general_settings );
 	return $page_id;
 }
 
-function wdm_update_page_id($option_value, $option_key, $_id, &$eb_general_settings)
-{
-	if ($option_value == '' && trim($option_key) != '') {
-		$eb_general_settings[$option_key] = $_id;
-		update_option('eb_general', $eb_general_settings);
+/**
+ * Create a page and store the ID in an option.
+ *
+ * @param mixed  $option_value   option_value.
+ * @param string $option_key   Option name to store the page's ID.
+ * @param string $_id   _id.
+ * @param string $eb_general_settings eb_general_settings.
+ */
+function wdm_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
+	if ( '' === $option_value && '' !== trim( $option_key ) ) {
+		$eb_general_settings[ $option_key ] = $_id;
+		update_option( 'eb_general', $eb_general_settings );
 	}
 }
 
-// add messages
-function wdm_add_notices($message)
-{
-	define('USER_FORM_MESSAGE', $message);
+/**
+ * Add messages.
+ *
+ * @param text $message message.
+ */
+function wdm_add_notices( $message ) {
+	define( 'USER_FORM_MESSAGE', $message );
 }
 
-// display messages
-function wdm_show_notices()
-{
-	//display form messages
-	if (defined('USER_FORM_MESSAGE')) {
+/**
+ * Display messages.
+ */
+function wdm_show_notices() {
+	// display form messages.
+	if ( defined( 'USER_FORM_MESSAGE' ) ) {
 		echo "<div class='wdm-flash-error'>";
-		echo '<span>' . USER_FORM_MESSAGE . '</span><br />';
+		echo '<span>' . wp_kses( USER_FORM_MESSAGE, eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
 		echo '</div>';
 	}
 }
 
-/*
-  //Old wdmUserAccountUrl() removed because of permalink issue.
-  function wdmUserAccountUrl($arg = '')
-  {
-  $eb_general_settings = get_option('eb_general');
-  $user_account_page_id = '';
-  if (isset($eb_general_settings['eb_useraccount_page_id'])) {
-  $user_account_page_id = $eb_general_settings['eb_useraccount_page_id'];
-  }
-
-  if (!is_numeric($user_account_page_id)) {
-  $link = site_url('/user-account').$arg;
-  } else {
-  $link = get_permalink($user_account_page_id).$arg;
-  }
-
-  return $link;
-  }
- */
 
 /**
  * Remodified wdmUserAccountUrl() to return user account url.
  *
+ * @param text $query_str query_str.
  * @since 1.2.0
  */
-function wdm_user_account_url($query_str = '')
-{
+function wdm_user_account_url( $query_str = '' ) {
 	$usr_ac_page_id = null;
-	$eb_settings    = get_option('eb_general');
+	$eb_settings    = get_option( 'eb_general' );
 
-	if (isset($eb_settings['eb_useraccount_page_id'])) {
+	if ( isset( $eb_settings['eb_useraccount_page_id'] ) ) {
 		$usr_ac_page_id = $eb_settings['eb_useraccount_page_id'];
 	}
 
-	$usr_ac_page_url = get_permalink($usr_ac_page_id);
+	$usr_ac_page_url = get_permalink( $usr_ac_page_id );
 
-	if (!$usr_ac_page_url) {
-		$usr_ac_page_url = site_url('/user-account');
+	if ( ! $usr_ac_page_url ) {
+		$usr_ac_page_url = site_url( '/user-account' );
 	}
 
-	//Extract query string into local $_GET array.
-	$get             = array();
-	parse_str(parse_url($query_str, PHP_URL_QUERY), $get);
-	$usr_ac_page_url = add_query_arg($get, $usr_ac_page_url);
+	// Extract query string into local $_GET array.
+	$get = array();
+	parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
+	$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
 
 	return $usr_ac_page_url;
 }
@@ -162,74 +159,79 @@ function wdm_user_account_url($query_str = '')
  * @return URL Returns the my courses page url if the flag is true otherwise
  *             returns the default $usr_ac_page_url.
  *
+ * @param text $query_str query_str.
  * @since 1.2.0
  */
-function wdm_eb_user_redirect_url($queryStr = '')
-{
-	$usrAcPageId = null;
-	/*
-	 * Set default user account page url
-	 */
-//    $usrAcPageUrl = site_url('/user-account');
+function wdm_eb_user_redirect_url( $query_str = '' ) {
+	$usr_ac_page_id = null;
 
 	/*
 	 * Get the Edwiser Bridge genral settings.
 	 */
-	$ebSettings = get_option('eb_general');
+	$eb_settings = get_option( 'eb_general' );
 
 	/*
 	 * Set the login redirect url to the user account page.
 	 */
-	if (isset($ebSettings['eb_useraccount_page_id'])) {
-		$usrAcPageId  = $ebSettings['eb_useraccount_page_id'];
-		$usrAcPageUrl = get_permalink($usrAcPageId);
+	if ( isset( $eb_settings['eb_useraccount_page_id'] ) ) {
+		$usr_ac_page_id  = $eb_settings['eb_useraccount_page_id'];
+		$usr_ac_page_url = get_permalink( $usr_ac_page_id );
 	}
-	/*
-	 * Sets $usrAcPageUrl to my course page if the redirection to the my
+	/**
+	 * Sets $usr_ac_page_url to my course page if the redirection to the my
 	 * courses page is enabled in settings
 	 */
-	if (isset($ebSettings['eb_enable_my_courses']) && $ebSettings['eb_enable_my_courses'] == 'yes') {
-		$usrAcPageUrl = get_my_courses_page($ebSettings);
+	if ( isset( $eb_settings['eb_enable_my_courses'] ) && 'yes' === $eb_settings['eb_enable_my_courses'] ) {
+		$usr_ac_page_url = eb_get_my_courses_page( $eb_settings );
 	}
 
-	//Extract query string into local $_GET array.
-	$get          = array();
-	parse_str(parse_url($queryStr, PHP_URL_QUERY), $get);
-	$usrAcPageUrl = add_query_arg($get, $usrAcPageUrl);
+	// Extract query string into local $_GET array.
+	$get = array();
+	parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
+	$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
 
-	return $usrAcPageUrl;
+	return $usr_ac_page_url;
 }
 
-function get_my_courses_page($ebSettings)
-{
-	$usrAcPageUrl = site_url('/user-account');
-	if (isset($ebSettings['eb_my_courses_page_id'])) {
-		$usrAcPageUrl = get_permalink($ebSettings['eb_my_courses_page_id']);
+/**
+ * My course page.
+ *
+ * @param text $eb_settings settings.
+ */
+function eb_get_my_courses_page( $eb_settings ) {
+	$usr_ac_page_url = site_url( '/user-account' );
+	if ( isset( $eb_settings['eb_my_courses_page_id'] ) ) {
+		$usr_ac_page_url = get_permalink( $eb_settings['eb_my_courses_page_id'] );
 	}
-	return $usrAcPageUrl;
+	return $usr_ac_page_url;
 }
 
-// used as a callback for usort() to sort a numeric array
-function usort_numeric_callback($element1, $element2)
-{
+
+/**
+ * Used as a callback for usort() to sort a numeric array.
+ *
+ * @param text $element1 element1.
+ * @param text $element2 element2.
+ */
+function eb_usort_numeric_callback( $element1, $element2 ) {
 	return $element1->id - $element2->id;
 }
 
 /**
  * Function returns shortcode pages content.
  *
+ * @param text $the_tag the_tag.
  * @since 1.2.0
  */
-function get_shortcode_page_content($the_tag = '')
-{
-	//Shortcodes and their attributes.
+function eb_get_shortcode_page_content( $the_tag = '' ) {
+	// Shortcodes and their attributes.
 	$shortcodes = array(
 		'eb_my_courses' => array(
 			'user_id'                           => '',
-			'my_courses_wrapper_title'          => __('My Courses', 'eb-textdomain'),
-			'recommended_courses_wrapper_title' => __('Recommended Courses', 'eb-textdomain'),
+			'my_courses_wrapper_title'          => __( 'My Courses', 'eb-textdomain' ),
+			'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'eb-textdomain' ),
 			'number_of_recommended_courses'     => 4,
-			'my_courses_progress'               => 1
+			'my_courses_progress'               => 1,
 		),
 		'eb_course'     => array(
 			'id' => '',
@@ -245,19 +247,19 @@ function get_shortcode_page_content($the_tag = '')
 	);
 
 	$page_content = array();
-	foreach ($shortcodes as $tag => $args) {
+	foreach ( $shortcodes as $tag => $args ) {
 		$buffer = '[' . $tag . ' ';
-		foreach ($args as $attr => $value) {
+		foreach ( $args as $attr => $value ) {
 			$buffer .= $attr . '="' . $value . '" ';
 		}
-		$buffer             .= ']';
-		$page_content[$tag] = $buffer;
+		$buffer              .= ']';
+		$page_content[ $tag ] = $buffer;
 	}
 
-	if (empty($the_tag)) {
+	if ( empty( $the_tag ) ) {
 		return $page_content;
-	} elseif (isset($page_content[$the_tag])) {
-		return $page_content[$the_tag];
+	} elseif ( isset( $page_content[ $the_tag ] ) ) {
+		return $page_content[ $the_tag ];
 	}
 }
 
@@ -266,14 +268,13 @@ function get_shortcode_page_content($the_tag = '')
  *
  * @return mixed returns the currency in string format or symbol
  */
-function get_current_paypal_currency_symb()
-{
-	$payment_options = get_option('eb_paypal');
+function eb_get_current_paypal_currency_symb() {
+	$payment_options = get_option( 'eb_paypal' );
 	$currency        = $payment_options['eb_paypal_currency'];
-	if (isset($payment_options['eb_paypal_currency']) && $payment_options['eb_paypal_currency'] == 'USD') {
+	if ( isset( $payment_options['eb_paypal_currency'] ) && 'USD' === $payment_options['eb_paypal_currency'] ) {
 		$currency = '$';
 	}
-	$currency = apply_filters('eb_paypal_get_currancy_symbol', $currency);
+	$currency = apply_filters( 'eb_paypal_get_currancy_symbol', $currency );
 
 	return $currency;
 }
@@ -288,88 +289,108 @@ function get_current_paypal_currency_symb()
  *
  * @return returns array value.
  */
-function get_arr_value($arr, $key, $value = '')
-{
-	if (isset($arr[$key]) && !empty($arr[$key])) {
-		$value = $arr[$key];
-	}
+if ( ! function_exists( 'get_arr_value' )) {
+	function get_arr_value( $arr, $key, $value = '' ) {
+		if ( isset( $arr[ $key ] ) && ! empty( $arr[ $key ] ) ) {
+			$value = $arr[ $key ];
+		}
 
-	return $value;
+		return $value;
+	}
 }
 
-function update_order_hist_meta($orderId, $updatedBy, $note)
-{
-	$history = get_post_meta($orderId, 'eb_order_status_history', true);
-	if (!is_array($history)) {
-		$history = array();
-	}
-	$newHist = array(
-		'by'   => $updatedBy,
-		'time' => current_time('timestamp'),
-		'note' => $note,
-	);
+/**
+ * Meta.
+ *
+ * @param string $order_id  order_id .
+ * @param string $updated_by  updated_by .
+ * @param string $note  note .
+ */
+if ( ! function_exists( 'update_order_hist_meta' )) {
+	function update_order_hist_meta( $order_id, $updated_by, $note ) {
+		$history = get_post_meta( $order_id, 'eb_order_status_history', true );
+		if ( ! is_array( $history ) ) {
+			$history = array();
+		}
+		$new_hist = array(
+			'by'   => $updated_by,
+			'time' => current_time( 'timestamp' ),
+			// 'time' => gmdate(),
+			'note' => $note,
+		);
 
-	array_unshift($history, $newHist);
-	$history = apply_filters('eb_order_history', $history, $newHist, $orderId);
-	update_post_meta($orderId, 'eb_order_status_history', $history);
-	do_action('eb_after_order_refund_meta_save', $orderId, $history);
+		array_unshift( $history, $new_hist );
+		$history = apply_filters( 'eb_order_history', $history, $new_hist, $order_id );
+		update_post_meta( $order_id, 'eb_order_status_history', $history );
+		do_action( 'eb_after_order_refund_meta_save', $order_id, $history );
+	}
 }
 
-function get_total_refund_amt($refunds)
-{
-	$totalRefund = (float) "0.00";
-	foreach ($refunds as $refund) {
-		$refundAmt   = get_arr_value($refund, "amt", "0.00");
-		$totalRefund += (float) $refundAmt;
-	}
+/**
+ * Refund amt.
+ *
+ * @param text $refunds refunds.
+ */
+if ( ! function_exists( 'get_total_refund_amt' )) {
+	function get_total_refund_amt( $refunds ) {
+		$total_refund = (float) '0.00';
+		foreach ( $refunds as $refund ) {
+			$refund_amt    = get_arr_value( $refund, 'amt', '0.00' );
+			$total_refund += (float) $refund_amt;
+		}
 
-	return $totalRefund;
+		return $total_refund;
+	}
 }
 
-
-function get_all_eb_sourses($postId = 0)
-{
+/**
+ * All eb courses.
+ *
+ * @param text $post_id post_id.
+ */
+function get_all_eb_sourses( $post_id = 0 ) {
 	$posts = get_posts(
 		array(
 			'posts_per_page' => -1,
-			'fields' => 'ids',
-			'post_type' => 'eb_course'
+			'fields'         => 'ids',
+			'post_type'      => 'eb_course',
 		)
 	);
 
-	if ($postId) {
-		$key = array_search($postId, $posts);
-		if ($key !== false) {
-			unset($posts[$key]);
+	if ( $post_id ) {
+		$key = array_search( $post_id, $posts, true );
+		if ( false !== $key ) {
+			unset( $posts[ $key ] );
 		}
 	}
 
-	$postsWithTitle = array();
-	foreach ($posts as $value) {
-		$postsWithTitle[$value] = get_the_title($value);
+	$posts_with_title = array();
+	foreach ( $posts as $value ) {
+		$posts_with_title[ $value ] = get_the_title( $value );
 	}
-	return $postsWithTitle;
+
+	return $posts_with_title;
 }
 
-
-function get_all_wp_roles()
-{
+/**
+ * WP roles
+ */
+function eb_get_all_wp_roles() {
 	global $wp_roles;
 	$all_roles = $wp_roles->get_names();
-	// $all_roles[] = __("Select Role", "eb-textdomain");
 	return $all_roles;
 }
 
 
 
 /**
- * FUnction accptes moodle user id and returns wordpress user id and if not exists then false
- * @return [type] [description]
+ * FUnction accptes moodle user id and returns WordPress user id and if not exists then false
+ *
+ * @param text $mdl_user_id mdl_user_id.
  */
-function get_wp_user_id_from_moodle_id($mdlUserId)
-{
+function get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 	global $wpdb;
-	$result = $wpdb->get_var("SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value={$mdlUserId} AND meta_key = 'moodle_user_id'");
+	$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) );
 	return $result;
 }
 
@@ -378,13 +399,13 @@ function get_wp_user_id_from_moodle_id($mdlUserId)
 
 
 /**
- * FUnction accptes moodle course id and returns wordpress course id and if not exists then false
- * @return [type] [description]
+ * FUnction accptes moodle course id and returns WordPress course id and if not exists then false
+ *
+ * @param text $mdl_course_id mdl_course_id.
  */
-function get_wp_course_id_from_moodle_course_id($mdlCourseId)
-{
+function get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 	global $wpdb;
-	$result = $wpdb->get_var("SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value={$mdlCourseId} AND meta_key = 'moodle_course_id'");
+	$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) );
 	return $result;
 }
 
@@ -392,36 +413,22 @@ function get_wp_course_id_from_moodle_course_id($mdlCourseId)
 
 /**
  * Default role set to the user on registration from user-account page
+ *
  * @return [type] [description]
  */
-function default_registration_role()
-{
-	$role = "";
-	$ebOptions = get_option("eb_general");
-	if (isset($ebOptions["eb_default_role"]) && !empty($ebOptions["eb_default_role"])) {
-		$role = apply_filters("eb_registration_role", $ebOptions["eb_default_role"]);
+function eb_default_registration_role() {
+	$role       = '';
+	$eb_options = get_option( 'eb_general' );
+	if ( isset( $eb_options['eb_default_role'] ) && ! empty( $eb_options['eb_default_role'] ) ) {
+		$role = apply_filters( 'eb_registration_role', $eb_options['eb_default_role'] );
 	}
 	return $role;
 }
 
-
-
 /**
- * Remove this method and add standard processing.
- * This is added due to the error Avoid using static access to class
- * This doesn't allow the class to call other class statically
+ * Web functions.
  */
-/*function ebReturnEnrollmentManagerObj($pluginName, $version)
-{
-	return Eb_Enrollment_Manager::instance($pluginName, $version);
-}
-*/
-
-
-
-function eb_get_all_web_service_functions()
-{
-	// $activePlugins = get_option('active_plugins');
+function eb_get_all_web_service_functions() {
 	$extensions = apply_filters(
 		'eb_extensions_web_service_functions',
 		array(
@@ -438,15 +445,15 @@ function eb_get_all_web_service_functions()
 			),
 			'woocommerce-integration/bridge-woocommerce.php' => array(),
 			'edwiser-bridge-sso/sso.php' => array(
-				'wdm_sso_verify_token'
+				'wdm_sso_verify_token',
 			),
 			'selective-synchronization/selective-synchronization.php' => array(
-				'eb_get_users'
-			)
+				'eb_get_users',
+			),
 		)
 	);
 
-	$edwiserBridgeFns = apply_filters(
+	$edwiser_bridge_fns = apply_filters(
 		'eb_web_service_functions',
 		array(
 			'core_user_get_users_by_field',
@@ -458,75 +465,196 @@ function eb_get_all_web_service_functions()
 			'core_enrol_get_users_courses',
 			'eb_test_connection',
 			'eb_get_site_data',
-			'eb_get_course_progress'
+			'eb_get_course_progress',
 		)
 	);
 
-	foreach ($extensions as $extension => $functions) {
-		if (is_plugin_active($extension)) {
-			if ('edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' == $extension) {
-				$bpVersion = get_option('eb_bp_plugin_version');
-				if (version_compare('2.0.0', $bpVersion) <= 0) {
-					array_merge($functions, array('wdm_manage_cohort_enrollment'));
-				} elseif (version_compare('2.1.0', $bpVersion) == 0) {
-					array_merge($functions, array('eb_manage_cohort_enrollment'));
+	foreach ( $extensions as $extension => $functions ) {
+		if ( is_plugin_active( $extension ) ) {
+			if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
+				$bp_version = get_option( 'eb_bp_plugin_version' );
+				if ( version_compare( '2.0.1', $bp_version ) <= 0 ) {
+					array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
+				} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
+					array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
 				}
 			}
 
-			$edwiserBridgeFns = array_merge($edwiserBridgeFns, $functions);
+			$edwiser_bridge_fns = array_merge( $edwiser_bridge_fns, $functions );
 		}
 	}
 
-	return apply_filters('eb_total_web_service_functions', $edwiserBridgeFns);
+	return apply_filters( 'eb_total_web_service_functions', $edwiser_bridge_fns );
 }
+
+/**
+ * Status.
+ *
+ * @param text $user_id user_id.
+ * @param text $course_id course_id.
+ */
+function get_user_suspended_status( $user_id, $course_id ) {
+	global $wpdb;
+	$suspended = 0;
+
+	if ( '' === $user_id || '' === $course_id ) {
+		return $suspended;
+	}
+
+	// check if user has access to course.
+	$suspended = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT suspended
+			FROM {$wpdb->prefix}moodle_enrollment
+			WHERE course_id=%d
+			AND user_id=%d;",
+			$course_id,
+			$user_id
+		)
+	);
+
+	return $suspended;
+
+}
+
+
+/**
+ * Moodle url.
+ */
+function get_moodle_url() {
+	$url = get_option( 'eb_connection' );
+	if ( $url ) {
+		return $url['eb_url'];
+	}
+	return 'MOODLE_URL';
+}
+/**
+ * Returns the list of the tags allowed in the wp_kses function.
+ */
+function get_allowed_html_tags() {
+	$allowed_tags           = wp_kses_allowed_html( 'post' );
+	$allowed_tags['iframe'] = array(
+		'src'             => array(),
+		'height'          => array(),
+		'width'           => array(),
+		'frameborder'     => array(),
+		'allowfullscreen' => array(),
+	);
+	$allowed_tags['input']  = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	$allowed_tags['select'] = array(
+		'class'  => array(),
+		'id'     => array(),
+		'name'   => array(),
+		'value'  => array(),
+		'type'   => array(),
+		'style'  => array(),
+		'data-*' => true,
+	);
+	$allowed_tags['option'] = array(
+		'class'    => array(),
+		'value'    => array(),
+		'selected' => array(),
+	);
+	$allowed_tags['style']  = array(
+		'types' => array(),
+	);
+	$allowed_tags['span']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+
+	);
+	$allowed_tags['h4']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+	);
+	return $allowed_tags;
+}
+
+
+
 
 
 
 /**
-* The function will check if the array key exist or not and dose the arrya key associated a non empty value 
-* @param array  associative array.
-* @param string array key to get the value.
-* @returns arrays value associated with the key if exist and not empty. Otherwise retrurns false.
-*/
-function check_value_set($dataarray, $key){
-	$value = false;
-	if(is_array($dataarray) && array_key_exists($key,$dataarray) && $dataarray[$key]){
-		$value=empty($dataarray[$key]) ? false : $dataarray[$key];
-	}
-	return $value;
-}
+ * Returns the list of the tags allowed in the wp_kses function.
+ */
+function eb_sinlge_course_get_allowed_html_tags() {
+	$allowed_tags           = wp_kses_allowed_html( 'post' );
+	$allowed_tags['form']   = array(
+		'method' => array(),
+		'target' => array(),
+		'action' => array(),
+	);
+	$allowed_tags['input']  = array(
+		'class' => array(),
+		'id'    => array(),
+		'name'  => array(),
+		'value' => array(),
+		'type'  => array(),
+	);
+	$allowed_tags['select'] = array(
+		'class'  => array(),
+		'id'     => array(),
+		'name'   => array(),
+		'value'  => array(),
+		'type'   => array(),
+		'style'  => array(),
+		'data-*' => true,
+	);
+	$allowed_tags['option'] = array(
+		'class'    => array(),
+		'value'    => array(),
+		'selected' => array(),
+	);
+	$allowed_tags['script'] = array(
+		'src'  => array(),
+		'type' => array(),
+	);
+	$allowed_tags['a']      = array(
+		'href'   => array(),
+		'target' => array(),
+		'class'  => array(),
+		'id'     => array(),
+	);
+	$allowed_tags['img']    = array(
+		'src'     => array(),
+		'width'   => array(),
+		'alt'     => array(),
+		'class'   => array(),
+		'height'  => array(),
+		'loading' => array(),
+	);
 
+	$allowed_tags['span']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
 
-function get_user_suspended_status($user_id, $course_id) {
-    global $wpdb;
-    $suspended = 0;
+	);
 
-    if ($user_id == '' || $course_id == '') {
-        return $suspended;
-    }
+	$allowed_tags['h4']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
 
-    //check if user has access to course
-    $suspended = $wpdb->get_var(
-        "SELECT suspended
-        FROM {$wpdb->prefix}moodle_enrollment
-        WHERE course_id={$course_id}
-        AND user_id={$user_id};"
-    );
+	);
 
-    return $suspended;
+	$allowed_tags['h2']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
 
+	);
 
-}
-
-
-
-function get_moodle_url()
-{
-	$url = get_option("eb_connection");
-	if ($url) {
-		return $url["eb_url"];
-	}
-	return "MOODLE_URL";
+	return $allowed_tags;
 }
 
 

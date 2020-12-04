@@ -23,10 +23,10 @@ Edwiser Bridge provides the necessary platform for you to sell your Moodle cours
 
 In order to extend its functionality and create a complete automated eCommerce solution to sell your Moodle, you got to include following plugins in your WordPress site,
 
-* <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - WooCommerce Integration extension </a>
-* <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
-* <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
-* <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
+* <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - WooCommerce Integration extension </a>
+* <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
+* <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
+* <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
 * <a href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
@@ -70,7 +70,7 @@ If you wish to sell an add-on product along with your Moodle course.
 When you want to provide a seamless access between your Course Shopfront and  Moodle LMS.
 If you sell your courses to companies.    
 
-= <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-WooCommerce Integration extension </a> =
+= <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-WooCommerce Integration extension </a> =
 This provides integration with WooCommerce - popular eCommerce solution in WordPress,
 It helps you to sell your Moodle courses through more than 160+ payment gateways,
 You can also sell a physical product or an add-on product along with your Moodle courses,
@@ -78,12 +78,12 @@ Courses could be sold through subscriptions with ready integration with WooComme
 Ability to set variation to courses and sell them through your store,
 Ability to bundle multiple courses as a single product or multiple products under a single product, 
 
-= <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Bulk Purchase extension </a> =
+= <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Bulk Purchase extension </a> =
 When coupled with WooCommerce Integration extension your course buyers could then purchase multiple courses at once,
 Course Buyers could also enrol multiple students in the purchased course,
 Cohorts are created for each purchase done by the course buyer,
 
-= <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Single Sign extension </a> =
+= <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Single Sign extension </a> =
 This extension provides a seamless connection between Course Front and LMS.
 
 
@@ -91,19 +91,19 @@ This extension provides a seamless connection between Course Front and LMS.
 
 = Additional Edwiser products that provides improves your Moodle experience - =
 
-= <a href="https://edwiser.org/remui/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser RemUI </a> =
+= <a href="https://edwiser.org/remui/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser RemUI </a> =
 
 The Best theme for Moodle that is built to provide superior user experience in Moodle. It also provides enhanced functionality to ease the process of course creation and navigation.
 
-= <a href="https://edwiser.org/forms/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Forms </a> =
+= <a href="https://edwiser.org/forms/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Forms </a> =
 
 An easy to use tool that lets you create any form in Moodle using drag and drop interface. Contact form, Survey form, Feedback form or registration form any form that you need can now be developed within few minutes.
 
-= <a href="https://edwiser.org/site-monitor/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Site Monitor </a> =
+= <a href="https://edwiser.org/site-monitor/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Site Monitor </a> =
 
 A free plugin that helps you manage your Moodle site performance right from Admin Dashboard of Moodle. It provides essential site information like CPU Status, Memory Usage etc. 
 
-= <a href="https://edwiser.org/course-formats/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Course Formats </a> =
+= <a href="https://edwiser.org/course-formats/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Course Formats </a> =
 
 A free plugin that provides you two distinct course formats for your Moodle courses if you wish to improve learning and course engagement among students.
 
@@ -123,7 +123,7 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * On successful installation click the 'Activate Plugin' link to activate the plugin.
 
  =  Manual Installation  =
-* Download the Edwiser Bridge plugin from wordpress.org.
+* Download the Edwiser Bridge plugin from WordPress.org.
 * Now unzip and upload the folder using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
@@ -212,13 +212,16 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 2.0.1 =
+* Tweak - Added security checks.
+
  = 2.0.0 =
 * Feature - Theme compatibility with Divi.
 * Feature - Theme compatibility with Flatsome.
 * Feature - Added Bcc field in the email template.
 * Feature - First name, last name and password synchronization when user profile is updated.
-* Feature - Course deletion synchronized on Wordpress site when course is deleted from Moodle.
-* Tweek - New enrollment status that is Suspend is added on the wordpress side.
+* Feature - Course deletion synchronized on WordPress site when course is deleted from Moodle.
+* Tweek - New enrollment status that is Suspend is added on the WordPress side.
 * Tweek - Added date sorting in the Manage Enrollment page.
 * Tweek - Triggered email for backend user enrollment in course.
 * Tweek - Course progress functionality  added on the My Courses tab of the User account page.
@@ -226,7 +229,7 @@ Also check our knowledge base for more queries
 * Tweek - UI Improvements for course cards on all pages..
 
 
- = 1.4.8 =
+ = 1.4.9 =
 * Fix - Added permission callback in register_rest_route to fix the notice genrated in the wp 5.5 and above.
 
 
@@ -235,7 +238,7 @@ Also check our knowledge base for more queries
 * Tweek - Added common function to check the array value.
 
 = 1.4.7 =
-* Tweak - Compatibility with Wordpress 5.5 and Woocommerce Integration 2.0.1 .
+* Tweak - Compatibility with WordPress 5.5 and Woocommerce Integration 2.0.1 .
 
 = 1.4.6 =
 * Fix - Solved admin js console issue causing error while test connection.
@@ -245,7 +248,7 @@ Also check our knowledge base for more queries
 * Feature - Settings and connection summary page will be shown on the Moodle.
 * Tweak - Admin user unenrollment from edit user page and manage enrollment page will unenroll user from course irrespective of thr enrollment method and the enrollment count.
 * Tweak - Modified Moodle service creation process.
-* Fix - Unenrolment from Moodle use to decrease only Wordpress enrollment count now it will make enrollment count as 0.
+* Fix - Unenrolment from Moodle use to decrease only WordPress enrollment count now it will make enrollment count as 0.
 
 
 = 1.4.4 =
@@ -257,8 +260,8 @@ Also check our knowledge base for more queries
 * Feature - Added functionality to add missing functions on linking the existing web-service.
 * Tweak - Added functionality to show all non added Moodle web service functions on test connection functionality.
 * Tweak - Added buttons on settings page for help and rating.
-* Fix - While synchronizing courses if all checkboxes are not ticked then nothing was happening fixed this issue and now courses gets created in Wordpress with a status as published.
-* Fix - Wordpress enrollment record timezone was not same as the Wordpress timezone so fixed it.
+* Fix - While synchronizing courses if all checkboxes are not ticked then nothing was happening fixed this issue and now courses gets created in WordPress with a status as published.
+* Fix - WordPress enrollment record timezone was not same as the WordPress timezone so fixed it.
 
 
 = 1.4.2 =
@@ -297,7 +300,7 @@ Also check our knowledge base for more queries
 * Feature - Added optional terms and conditions on user account page depending on the backend setting.
 * Tweak- Added user meta data related to the edwiser-bridge while exporting the users data.
 * Tweak- Added functionality to remove user meta data related to the edwiser-bridge while erasing the users data.
-* Tweak- Added privacy policy data on the wordpress privacy policy page.
+* Tweak- Added privacy policy data on the WordPress privacy policy page.
 
 
 = 1.3.2 =

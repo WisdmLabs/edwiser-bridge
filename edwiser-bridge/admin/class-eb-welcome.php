@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * Welcome screen after plugin activation
  *
  * Shows a plugin overview and functionality list.
@@ -17,47 +14,46 @@ namespace app\wisdmlabs\edwiserBridge;
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
-if (!defined('ABSPATH')) {
-	exit; // Exit if accessed directly
+namespace app\wisdmlabs\edwiserBridge;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
 
 /**
- * EB_Welcome_Screen class.
+ * EB_Welcome class.
  */
-class Eb_Welcome_Screen
-{
+class Eb_Welcome {
 
 	/**
 	 * Hook in tabs.
 	 */
-	public function __construct()
-	{
-		add_action('admin_menu', array($this, 'admin_menus'));
-		add_action('admin_head', array($this, 'admin_head'));
-		add_action('admin_init', array($this, 'welcome_handler'));
-		add_action('admin_action_eb_subscribe', array($this, 'subscribe_handler'));
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'admin_init', array( $this, 'welcome_handler' ) );
+		add_action( 'admin_action_eb_subscribe', array( $this, 'subscribe_handler' ) );
 	}
 
 	/**
 	 * Add admin menus/screens.
 	 */
-	public function admin_menus()
-	{
-		if (empty($_GET['page'])) {
+	public function admin_menus() {
+		if ( empty( $_GET['page'] ) ) {
 			return;
 		}
 
-		$welcome_page_name = __('About Edwiser Bridge', 'eb-textdomain');
-		$welcome_page_title = __('Welcome to Edwiser Bridge', 'eb-textdomain');
+		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'eb-textdomain' );
+		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' );
 
-		switch ($_GET['page']) {
+		switch ( $_GET['page'] ) {
 			case 'eb-about':
 				add_dashboard_page(
 					$welcome_page_title,
 					$welcome_page_name,
 					'manage_options',
 					'eb-about',
-					array($this, 'welcome_screen')
+					array( $this, 'welcome_screen' )
 				);
 				break;
 		}
@@ -68,9 +64,8 @@ class Eb_Welcome_Screen
 	 *
 	 * @since  1.0.0
 	 */
-	public function admin_head()
-	{
-		remove_submenu_page('index.php', 'eb-about'); ?>
+	public function admin_head() {
+		remove_submenu_page( 'index.php', 'eb-about' ); ?>
 
 		<style type="text/css">
 			/*<![CDATA[*/
@@ -205,18 +200,26 @@ class Eb_Welcome_Screen
 	/**
 	 * Intro text shown on all about pages.
 	 */
-	private function intro()
-	{
+	private function intro() {
 
-		// Flush rewrite rules after plugin install or update
+		// Flush rewrite rules after plugin install or update.
 		flush_rewrite_rules();
 
-		// get plugin version
-		$version = edwiser_bridge_instance()->get_version(); ?>
+		// get plugin version.
+		$version = edwiser_bridge_instance()->get_version();
+		?>
 
-		<h1><?php printf(__('Welcome to Edwiser Bridge', 'eb-textdomain'), $version); ?></h1>
+		<h1><?php printf( esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' ), esc_html( $version ) ); ?></h1>
 
-		<span class="eb-version-badge"><?php printf(__('Version %s', 'eb-textdomain'), $version); ?></span>
+		<span class="eb-version-badge">
+		<?php
+
+		/*
+		 * translators: Version number.
+		 */
+		printf( esc_html__( 'Version %s', 'eb-textdomain' ), esc_html( $version ) );
+		?>
+		</span>
 
 		<?php
 	}
@@ -224,8 +227,7 @@ class Eb_Welcome_Screen
 	/**
 	 * Output the about screen.
 	 */
-	public function welcome_screen()
-	{
+	public function welcome_screen() {
 		?>
 
 		<div class="wrap about-wrap eb-about-wrap">
@@ -235,51 +237,56 @@ class Eb_Welcome_Screen
 			<div class="changelog">
 				<p class="about-description">
 					<?php
-					_e('Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain'); ?>
+					esc_html_e( 'Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain' );
+					?>
 				</p>
 
-				 <p class="eb_welcome_mdl_dwnld_btn_wrap">
-					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> <?= __('Download Moodle Plugin', 'eb-textdomain') ?> </a>
-				 </p>
+				<p class="eb_welcome_mdl_dwnld_btn_wrap">
+					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
+				</p>
 
 				<div class="changelog prompt-subscribe-wrap">
 					<h1 style="text-align:center; margin:0; font-size:30px;">
-						<?php _e('Get the latest updates on Edwiser Bridge in Your Inbox!', 'eb-textdomain'); ?>
+						<?php esc_html_e( 'Get the latest updates on Edwiser Bridge in Your Inbox!', 'eb-textdomain' ); ?>
 					</h1>
-					<form method="post" action="<?php echo admin_url('admin.php'); ?>" class="prompt-subscribe-form">
+					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" class="prompt-subscribe-form">
 						<h4>
-							<?php _e('Stay updated with the latest features in Edwiser Bridge
-							and receive early-bird discounts on upcoming premium add ons.', 'eb-textdomain'); ?>
+							<?php
+							esc_html_e( 'Stay updated with the latest features in Edwiser Bridge and receive early-bird discounts on upcoming premium add ons.', 'eb-textdomain' );
+							?>
 						</h4>
 						<br/>
 						<input
 							type="email"
 							name="eb_sub_admin_email"
-							placeholder="<?php _e('Please enter your email address', 'eb-textdomain'); ?>" value="" />
+							placeholder="<?php esc_html_e( 'Please enter your email address', 'eb-textdomain' ); ?>" value="" />
 						<input type="hidden" name="action" value="eb_subscribe" />
-						<?php wp_nonce_field('subscribe_nonce', 'subscribe_nonce_field'); ?>
-						<input type="submit" class="subscribe-submit" value="<?php _e('Subscribe', 'eb-textdomain'); ?>" />
+						<?php wp_nonce_field( 'subscribe_nonce', 'subscribe_nonce_field' ); ?>
+						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if (isset($_GET['subscribed']) && $_GET['subscribed'] == 1) {
-						?>
-						<div class="success-message">
-							<span><?php _e('Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain'); ?></span>
-						</div>
-						<?php
-					} elseif (isset($_GET['subscribed']) && $_GET['subscribed'] == 0) {
-						?>
-						<div class="error-message">
-							<span><?php _e('An error occurred in subscription process, please try again.', 'eb-textdomain'); ?></span>
-						</div>
-						<?php
-					} ?>
+					if ( isset( $_POST['subscribe_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
+						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
+							?>
+							<div class="success-message">
+								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
+							</div>
+							<?php
+						} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
+							?>
+							<div class="error-message">
+								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
+							</div>
+							<?php
+						}
+					}
+					?>
 				</div>
 			</div>
 
 			<div class="eb-actions">
-				<a href="<?php echo admin_url('admin.php?page=eb-settings'); ?>" class="button button-primary"><?php _e('Skip to Settings', 'eb-textdomain'); ?></a>
-				<a href="<?php echo'https://edwiser.org/bridge/documentation/'; ?>" target="_blank" class="docs button button-primary"><?php _e('Docs', 'eb-textdomain'); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=eb-settings' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Skip to Settings', 'eb-textdomain' ); ?></a>
+				<a href="<?php echo esc_url( 'https://edwiser.org/bridge/documentation/' ); ?>" target="_blank" class="docs button button-primary"><?php esc_html_e( 'Docs', 'eb-textdomain' ); ?></a>
 			</div>
 		</div>
 		<?php
@@ -290,73 +297,74 @@ class Eb_Welcome_Screen
 	 *
 	 * @since  1.0.0
 	 */
-	public function welcome_handler()
-	{
+	public function welcome_handler() {
 
-		// return if no activation redirect transient is set
-		if (!get_transient('_eb_activation_redirect')) {
+		// Return if no activation redirect transient is set.
+		if ( ! get_transient( '_eb_activation_redirect' ) ) {
 			return;
 		}
 
-		// Delete transient used for redirection
-		delete_transient('_eb_activation_redirect');
-
-		// return if activating from network, or bulk
-		if (is_network_admin() || isset($_GET['activate-multi'])) {
+		// Delete transient used for redirection.
+		delete_transient( '_eb_activation_redirect' );
+		if ( isset( $_POST['subscribe_nonce_field'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
+			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
+		}
+		// Return if activating from network, or bulk.
+		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
 			return;
 		}
 
-		if ((isset($_GET['action']) && 'upgrade-plugin' == $_GET['action']) || (!empty($_GET['page']) && $_GET['page'] === 'eb-about')) {
+		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
 
-		wp_redirect(admin_url('?page=eb-about'));
+		wp_safe_redirect( admin_url( '?page=eb-about' ) );
 		exit;
 	}
 
 	/**
-	 * user subscribe to updates & notifications form handler
+	 * User subscribe to updates & notifications form handler.
 	 * sends an email to plugin owner on form submit.
 	 *
 	 * We get user's email for providing plugin addons and update notifications.
 	 *
 	 * @since  1.0.0
 	 */
-	public function subscribe_handler()
-	{
+	public function subscribe_handler() {
 		$subscribed = 0;
 
-		// verify nonce
-		if (!isset($_POST['subscribe_nonce_field']) || !wp_verify_nonce($_POST['subscribe_nonce_field'], 'subscribe_nonce')) {
-			_e('Sorry, there is a problem!', 'eb-textdomain');
+
+		// verify nonce.
+		if ( isset( $_POST['subscribe_nonce_field'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
+			esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
 			exit;
 		} else {
-			// process subscription
-			$support_email = 'support@wisdmlabs.com'; // support email
+			// process subscription.
+			$support_email = 'support@wisdmlabs.com'; // support email.
 
-			$admin_email = filter_input(INPUT_POST, 'eb_sub_admin_email', FILTER_VALIDATE_EMAIL);
+			$admin_email = filter_input( INPUT_POST, 'eb_sub_admin_email', FILTER_VALIDATE_EMAIL );
 
-			// prepare email content
+			// prepare email content.
 			$subject = apply_filters(
 				'eb_plugin_subscription_email_subject',
-				__('Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain')
+				__( 'Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain' )
 			);
 
-			$message = __("Edwiser Bridge subscription user details:", 'eb-textdomain') ." \n";
-			$message .= "\n" . __("Customer Website:", 'eb-textdomain') . "\n". site_url();
-			$message .= "\n\n" . __("Customer Email:", 'eb-textdomain') . " \n";
+			$message  = __( 'Edwiser Bridge subscription user details:', 'eb-textdomain' ) . " \n";
+			$message .= "\n" . __( 'Customer Website:', 'eb-textdomain' ) . "\n" . site_url();
+			$message .= "\n\n" . __( 'Customer Email:', 'eb-textdomain' ) . " \n";
 			$message .= $admin_email;
 
-			$sent = wp_mail($support_email, $subject, $message);
+			$sent = wp_mail( $support_email, $subject, $message );
 
-			if ($sent) {
+			if ( $sent ) {
 				$subscribed = 1;
 			}
 		}
 
-		wp_redirect(admin_url('/?page=eb-about&subscribed='.$subscribed));
+		wp_safe_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
 		exit;
 	}
 }
 
-new Eb_Welcome_Screen();
+new Eb_Welcome();

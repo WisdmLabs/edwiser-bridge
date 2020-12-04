@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This class contains functionality to handle actions of custom buttons implemented in settings page
  *
@@ -13,155 +12,148 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Settings_Ajax_Initiater
-{
+/**
+ * Ajax initiater.
+ */
+class Eb_Settings_Ajax_Initiater {
 
-    /**
-     * The ID of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
-     */
-    private $plugin_name;
+	/**
+	 * The ID of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_name    The ID of this plugin.
+	 */
+	private $plugin_name;
 
-    /**
-     * The version of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
-     */
-    private $version;
+	/**
+	 * The version of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $version    The current version of this plugin.
+	 */
+	private $version;
 
-    public function __construct($plugin_name, $version)
-    {
-        $this->plugin_name = $plugin_name;
-        $this->version = $version;
-    }
+	/**
+	 * Contsructor.
+	 *
+	 * @param text $plugin_name plugin_name.
+	 * @param text $version version.
+	 */
+	public function __construct( $plugin_name, $version ) {
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
+	}
 
-    /**
-     * initiate course synchronization process
-     *
-     * @since    1.0.0
-     * @access   public
-     *
-     * @return
-     */
-    public function course_synchronization_initiater()
-    {
-        if (!isset($_POST['_wpnonce_field'])) {
-            die('Busted!');
-        }
+	/**
+	 * Initiate course synchronization process.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
+	public function course_synchronization_initiater() {
+		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
+			die( 'Busted!' );
+		}
 
-        // verifying generated nonce we created earlier
-        if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
-            die('Busted!');
-        }
+		// verifying generated nonce we created earlier.
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
 
-        // get sync options
-        $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
 
-        // start working on request
-        $response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler($sync_options);
-        echo json_encode($response);
-        die();
-    }
+		// start working on request.
+		$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+		echo wp_json_encode( $response );
+		die();
+	}
 
-    /**
-     * initiate user data synchronization process
-     *
-     * @since    1.0.0
-     * @access   public
-     *
-     * @return
-     */
-    public function user_data_synchronization_initiater()
-    {
-        if (!isset($_POST['_wpnonce_field'])) {
-            die('Busted!');
-        }
+	/**
+	 * Initiate user data synchronization process.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
+	public function user_data_synchronization_initiater() {
+		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
+			die( 'Busted!' );
+		}
 
-        // verifying generated nonce we created earlier
-        if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
-            die('Busted!');
-        }
-        // Added offset for user get limit.
-        $offset = $_POST['offset'];
-        // get sync options
-        $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
+		// verifying generated nonce we created earlier.
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		// Added offset for user get limit.
+		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
 
-        //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        // $response = edwiserBridgeInstance()->userManager()->userCourseSynchronizationHandler($sync_options, false, $offset);
-        $response = edwiser_bridge_instance()->user_manager()->user_course_synchronization_handler($sync_options, false, $offset);
-        
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
 
-        echo json_encode($response);
-        die();
-    }
-    /**
-     * initiate user link to moodle synchronization process
-     *
-     * @since    1.4.1
-     * @access   public
-     *
-     * @return
-     */
-    public function users_link_to_moodle_synchronization()
-    {
-        if (!isset($_POST['_wpnonce_field'])) {
-            die('Busted!');
-        }
+		$response = edwiser_bridge_instance()->user_manager()->user_course_synchronization_handler( $sync_options, false, $offset );
 
-        // verifying generated nonce we created earlier
-        if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
-            die('Busted!');
-        }
-        // Added offset for user get limit.
-        $offset = $_POST['offset'];
-        // get sync options
-        $sync_options = json_decode(stripslashes($_POST['sync_options']), true);
+		echo wp_json_encode( $response );
+		die();
+	}
+	/**
+	 * Initiate user link to moodle synchronization process.
+	 *
+	 * @since    1.4.1
+	 * @access   public
+	 */
+	public function users_link_to_moodle_synchronization() {
+		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
+			die( 'Busted!' );
+		}
 
-        //$response = edwiserBridgeInstance()->userManager()->user_course_synchronization_handler( $sync_user_courses );
-        $response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler($sync_options, $offset);
+		// verifying generated nonce we created earlier.
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		// Added offset for user get limit.
+		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
+		// get sync options.
+		$sync_options = isset( $_POST['sync_options'] ) ? sanitize_text_field( wp_unslash( $_POST['sync_options'] ) ) : array();
+		$sync_options = (array) json_decode( $sync_options );
 
-        echo json_encode($response);
-        die();
-    }
+		$response = edwiser_bridge_instance()->user_manager()->user_link_to_moodle_handler( $sync_options, $offset );
 
-    /**
-     * Test connection between wordpress and moodle
-     *
-     * Calls connection_test_helper() from EBConnectionHelper class
-     *
-     * @since    1.0.0
-     * @access   public
-     *
-     * @return boolean true on success else false
-     */
-    public function connection_test_initiater()
-    {
-        if (!isset($_POST['_wpnonce_field'])) {
-            die('Busted!');
-        }
+		echo wp_json_encode( $response );
+		die();
+	}
 
-        // verifying generated nonce we created earlier
-        if (!wp_verify_nonce($_POST['_wpnonce_field'], 'check_sync_action')) {
-            die('Busted!');
-        }
+	/**
+	 * Test connection between WordPress and moodle.
+	 *
+	 * Calls connection_test_helper() from EBConnectionHelper class.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
+	public function connection_test_initiater() {
+		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
+			die( 'Busted!' );
+		}
 
-        //start working on request
-        $url = $_POST['url'];
-        $token = $_POST['token'];
+		// verifying generated nonce we created earlier.
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
 
-        $connection_helper = new EBConnectionHelper($this->plugin_name, $this->version);
-        $response = $connection_helper->connection_test_helper($url, $token);
+		// start working on request.
+		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
-        if ($response["success"] == 0) {
-            $response["response_message"] .= __(" : to know more about this error", "eb-textdomain"). "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" .__(" click here", "eb-textdomain"). "</a>";
-        }
+		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
+		$response          = $connection_helper->connection_test_helper( $url, $token );
 
-        echo json_encode($response);
-        die();
-    }
+		if ( 0 === $response['success'] ) {
+			$response['response_message'] .= esc_html__( ' : to know more about this error', 'eb-textdomain' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a>';
+		}
+
+		echo wp_json_encode( $response );
+		die();
+	}
 }

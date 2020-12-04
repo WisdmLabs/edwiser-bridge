@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality.
  *
@@ -8,14 +7,16 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_I18n
-{
+/**
+ * I18n.
+ */
+class Eb_I18n {
 
 	/**
 	 * The domain specified for this plugin.
@@ -31,12 +32,11 @@ class Eb_I18n
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain()
-	{
+	public function load_plugin_textdomain() {
 		load_plugin_textdomain(
 			$this->domain,
 			false,
-			dirname(dirname(plugin_basename(__FILE__))).'/languages/'
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
 	}
 
@@ -47,8 +47,7 @@ class Eb_I18n
 	 *
 	 * @param string $domain The domain that represents the locale of this plugin.
 	 */
-	public function set_domain($domain)
-	{
+	public function set_domain( $domain ) {
 		$this->domain = $domain;
 	}
 }

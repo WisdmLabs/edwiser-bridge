@@ -1,5 +1,4 @@
 <?php
-
 /**
  *  PayPal IPN Listener
  *
@@ -17,8 +16,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Ipn_Listener
-{
+/**
+ * Ipn Listner.
+ */
+class Eb_Ipn_Listener {
 
 	/**
 	 *  If true, the recommended cURL PHP library is used to send the post back
@@ -69,58 +70,121 @@ class Eb_Ipn_Listener
 	 */
 	public $timeout = 30;
 
+	/**
+	 * Post data.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string post data.
+	 */
 	private $post_data = array();
+
+	/**
+	 * Post uri.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string post uri.
+	 */
 	private $post_uri = '';
+
+	/**
+	 * Post uri.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string post uri.
+	 */
 	private $response_status = '';
+
+	/**
+	 * Response.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string response.
+	 */
 	private $response = '';
 
+	/**
+	 * PAYPAL HOST.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string PAYPAL HOST.
+	 */
 	const PAYPAL_HOST = 'www.paypal.com';
+
+	/**
+	 * Plugin name.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string plugin name.
+	 */
 	const SANDBOX_HOST = 'www.sandbox.paypal.com';
 
 	/**
 	 *  Post Back Using cURL
 	 *
 	 *  Sends the post back to PayPal using the cURL library. Called by
-	 *  the processIpn() method if the use_curl property is true. Throws an
+	 *  the process_ipn() method if the use_curl property is true. Throws an
 	 *  exception if the post fails. Populates the response, response_status,
 	 *  and post_uri properties on success.
 	 *
-	 *  @param  string  The post data as a URL encoded string
+	 *  @param  string $encoded_data The post data as a URL encoded string.
+	 *  @throws \Exception Exception.
 	 */
-	protected function curlPost($encoded_data)
-	{
-		if ($this->use_ssl) {
-			$uri = 'https://'.$this->getPaypalHost().'/cgi-bin/webscr';
+	protected function curl_post( $encoded_data ) {
+		if ( $this->use_ssl ) {
+			$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
 			$this->post_uri = $uri;
 		} else {
-			$uri = 'http://'.$this->getPaypalHost().'/cgi-bin/webscr';
+			$uri            = 'http://' . $this->get_paypal_host() . '/cgi-bin/webscr';
 			$this->post_uri = $uri;
 		}
 
-		$_ch = curl_init();
+/*		$request_args = array(
+			'body'        => $encoded_data,
+			'timeout'     => 60,
+			'httpversion' => '1.1',
+			'compress'    => false,
+			'decompress'  => false,
+			'user-agent'  => 'eb',
+		);
 
-		curl_setopt($_ch, CURLOPT_URL, $uri);
-		curl_setopt($_ch, CURLOPT_POST, true);
-		curl_setopt($_ch, CURLOPT_POSTFIELDS, $encoded_data);
-		curl_setopt($_ch, CURLOPT_FOLLOWLOCATION, $this->follow_location);
-		curl_setopt($_ch, CURLOPT_TIMEOUT, $this->timeout);
-		curl_setopt($_ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($_ch, CURLOPT_HEADER, true);
-		curl_setopt($_ch, CURLOPT_HTTPHEADER, array('Connection: Close', 'User-Agent: eb'));
 
-		if ($this->force_ssl_v3) {
-			curl_setopt($_ch, CURLOPT_SSLVERSION, 3);
-		} elseif (defined("WP_MOODLE_FORCE_SSL_VERSION")) {
-			curl_setopt($_ch, CURLOPT_SSLVERSION, WP_MOODLE_FORCE_SSL_VERSION);
-		}
+		$response              = wp_remote_post( $uri, $request_args );*/
 
-		$this->response = curl_exec($_ch);
-		$this->response_status = strval(curl_getinfo($_ch, CURLINFO_HTTP_CODE));
 
-		if ($this->response === false || $this->response_status == '0') {
-			$errno = curl_errno($_ch);
-			$errstr = curl_error($_ch);
-			throw new \Exception("cURL error: [$errno] $errstr");
+		$validate_ipn        = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+		$validate_ipn['cmd'] = '_notify-validate';
+
+
+		// Send back post vars to paypal.
+		$params = array(
+			'body'        => $validate_ipn,
+			'timeout'     => 60,
+			'httpversion' => '1.1',
+			'compress'    => false,
+			'decompress'  => false,
+			'user-agent'  => 'eb',
+		);
+
+		// Post back to get a response.
+		$response = wp_safe_remote_post( $uri, $params );
+
+
+        $this->response_status = strval( wp_remote_retrieve_response_code( $response ) );
+		$this->response        = $response['body'];
+
+		if ( is_wp_error( $response ) ) {
+			$errstr = $response->get_error_message();
+			throw new \Exception( "cURL error: [$errno] $errstr" );
+		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
+			// $this->response = json_decode( wp_remote_retrieve_body( $response ) );
+		} else {
+			throw new \Exception( 'cURL error: Failed to retrieve response.' );
 		}
 	}
 
@@ -128,57 +192,60 @@ class Eb_Ipn_Listener
 	 *  Post Back Using fsockopen()
 	 *
 	 *  Sends the post back to PayPal using the fsockopen() function. Called by
-	 *  the processIpn() method if the use_curl property is false. Throws an
+	 *  the process_ipn() method if the use_curl property is false. Throws an
 	 *  exception if the post fails. Populates the response, response_status,
 	 *  and post_uri properties on success.
 	 *
-	 *  @param  string  The post data as a URL encoded string
+	 *  @param  string $encoded_data The post data as a URL encoded string.
+	 *  @throws \Exception Exception.
 	 */
-	protected function fsockPost($encoded_data)
-	{
-		if ($this->use_ssl) {
-			$uri = 'ssl://'.$this->getPaypalHost();
-			$port = '443';
-			$this->post_uri = $uri.'/cgi-bin/webscr';
+	protected function fsock_post( $encoded_data ) {
+		if ( $this->use_ssl ) {
+			$uri            = 'ssl://' . $this->get_paypal_host();
+			$port           = '443';
+			$this->post_uri = $uri . '/cgi-bin/webscr';
 		} else {
-			$uri = $this->getPaypalHost(); //no "http://" in call to fsockopen()
-			$port = '80';
-			$this->post_uri = 'http://'.$uri.'/cgi-bin/webscr';
+			$uri            = $this->get_paypal_host(); // no "http://" in call to fsockopen().
+			$port           = '80';
+			$this->post_uri = 'http://' . $uri . '/cgi-bin/webscr';
 		}
 
-		$_fp = fsockopen($uri, $port, $errno, $errstr, $this->timeout);
+		$_fp = fsockopen( $uri, $port, $errno, $errstr, $this->timeout );
 
-		if (!$_fp) {
-			//fsockopen error
-			throw new \Exception("fsockopen error: [$errno] $errstr");
+		if ( ! $_fp ) {
+			// fsockopen error.
+			throw new \Exception( "fsockopen error: [$errno] $errstr" );
 		}
 
-		$header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
+		$header  = "POST /cgi-bin/webscr HTTP/1.0\r\n";
 		$header .= "Content-Type: application/x-www-form-urlencoded\r\n";
-		$header .= "Content-Length: ".strlen($encoded_data)."\r\n";
+		$header .= 'Content-Length: ' . strlen( $encoded_data ) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";
 
-		fputs($_fp, $header.$encoded_data."\r\n\r\n");
+		fputs( $_fp, $header . $encoded_data . "\r\n\r\n" );
 
-		while (!feof($_fp)) {
-			if (empty($this->response)) {
-				//extract HTTP status from first line
-				$this->response .= $status = fgets($_fp, 1024);
-				$this->response_status = trim(substr($status, 9, 4));
+		while ( ! feof( $_fp ) ) {
+			if ( empty( $this->response ) ) {
+				// extract HTTP status from first line.
+				$status                = fgets( $_fp, 1024 );
+				$this->response       .= $status;
+				$this->response_status = trim( substr( $status, 9, 4 ) );
 			} else {
-				$this->response .= fgets($_fp, 1024);
+				$this->response .= fgets( $_fp, 1024 );
 			}
 		}
 
-		fclose($_fp);
+		fclose( $_fp );
 	}
 
-	private function getPaypalHost()
-	{
-		if ($this->use_sandbox) {
-			return Eb_Ipn_Listener::SANDBOX_HOST;
+	/**
+	 * Get paypal host.
+	 */
+	private function get_paypal_host() {
+		if ( $this->use_sandbox ) {
+			return self::SANDBOX_HOST;
 		} else {
-			return Eb_Ipn_Listener::PAYPAL_HOST;
+			return self::PAYPAL_HOST;
 		}
 	}
 
@@ -191,8 +258,7 @@ class Eb_Ipn_Listener
 	 *
 	 *  @return string
 	 */
-	public function getPostUri()
-	{
+	public function get_post_uri() {
 		return $this->post_uri;
 	}
 
@@ -204,8 +270,7 @@ class Eb_Ipn_Listener
 	 *
 	 *  @return string
 	 */
-	public function getResponse()
-	{
+	public function get_response() {
 		return $this->response;
 	}
 
@@ -217,8 +282,7 @@ class Eb_Ipn_Listener
 	 *
 	 *  @return string
 	 */
-	public function getResponseStatus()
-	{
+	public function get_response_status() {
 		return $this->response_status;
 	}
 
@@ -231,42 +295,41 @@ class Eb_Ipn_Listener
 	 *
 	 *  @return string
 	 */
-	public function getTextReport()
-	{
-		$textReport = '';
+	public function get_text_report() {
+		$text_report = '';
 
-		//date and POST url
-		for ($i = 0; $i < 80; $i++) {
-			$textReport .= '-';
+		// date and POST url.
+		for ( $i = 0; $i < 80; $i++ ) {
+			$text_report .= '-';
 		}
-		$textReport .= "\n[".date('m/d/Y g:i A').'] - '.$this->getPostUri();
-		if ($this->use_curl) {
-			$textReport .= " (curl)\n";
+		$text_report .= "\n[" . gmdate( 'm/d/Y g:i A' ) . '] - ' . $this->get_post_uri();
+		if ( $this->use_curl ) {
+			$text_report .= " (curl)\n";
 		} else {
-			$textReport .= " (fsockopen)\n";
+			$text_report .= " (fsockopen)\n";
 		}
 
-		//POST vars
-		for ($i = 0; $i < 80; $i++) {
-			$textReport .= '-';
+		// POST vars.
+		for ( $i = 0; $i < 80; $i++ ) {
+			$text_report .= '-';
 		}
-		$textReport .= "\n";
+		$text_report .= "\n";
 
-		$textReport .= "PAYMENT VERIFICATION EMAIL \n";
+		$text_report .= "PAYMENT VERIFICATION EMAIL \n";
 
-		//POST vars
-		for ($i = 0; $i < 80; $i++) {
-			$textReport .= '-';
+		// POST vars.
+		for ( $i = 0; $i < 80; $i++ ) {
+			$text_report .= '-';
 		}
-		$textReport .= "\n";
+		$text_report .= "\n";
 
-		foreach ($this->post_data as $key => $value) {
-			$value = maybe_serialize($value);
-			$textReport .= str_pad($key, 25)."$value\n";
+		foreach ( $this->post_data as $key => $value ) {
+			$value        = maybe_serialize( $value );
+			$text_report .= str_pad( $key, 25 ) . "$value\n";
 		}
-		$textReport .= "\n\n";
+		$text_report .= "\n\n";
 
-		return $textReport;
+		return $text_report;
 	}
 
 	/**
@@ -277,47 +340,53 @@ class Eb_Ipn_Listener
 	 *  back as "VERIFIED", false if the response came back "INVALID", and
 	 *  throws an exception if there is an error.
 	 *
-	 *  @param array
-	 *
+	 *  @param array $post_data post_data.
+	 *  @throws \Exception Exception.
 	 *  @return boolean
 	 */
-	public function processIpn($post_data = null)
-	{
-		$encoded_data = 'cmd=_notify-validate';
+	public function process_ipn( $post_data = null ) {
+		// $encoded_data = 'cmd=_notify-validate';
+		$encoded_data = array('cmd' => '=_notify-validate');
+		/*	$validate_ipn        = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+		$validate_ipn['cmd'] = '_notify-validate';*/
 
-		if ($post_data === null) {
-			//use raw POST data
-			if (!empty($_POST)) {
-				$this->post_data = $_POST;
-				$encoded_data .= '&'.file_get_contents('php://input');
-			} else {
-				throw new \Exception("No POST data found.");
-			}
+		if ( null == $post_data ) {
+
+			// use raw POST data.
+			throw new \Exception( 'No POST data found.' );
 		} else {
-			//use provided data array
+
+			// use provided data array.
 			$this->post_data = $post_data;
-
-			foreach ($this->post_data as $key => $value) {
-				$encoded_data .= "&$key=".urlencode($value);
-			}
+			$encoded_data        = wp_unslash( $_POST );
+			/*foreach ( $this->post_data as $key => $value ) {
+				$encoded_data = wp_unslash( $value );
+			}*/
 		}
 
-		if ($this->use_curl) {
-			$this->curlPost($encoded_data);
+		if ( $this->use_curl ) {
+
+			$this->curl_post( $encoded_data );
 		} else {
-			$this->fsockPost($encoded_data);
+
+			$this->fsock_post( $encoded_data );
 		}
 
-		if (strpos($this->response_status, '200') === false) {
-			throw new \Exception("Invalid response status: ".$this->response_status);
+		if ( $this->response_status == false ) {
+
+			throw new \Exception( 'Invalid response status: ' . $this->response_status );
 		}
 
-		if (strpos($this->response, "VERIFIED") !== false) {
+
+		if ( strpos( $this->response, 'VERIFIED' ) !== false ) {
+
 			return true;
-		} elseif (strpos($this->response, "INVALID") !== false) {
+		} elseif ( strpos( $this->response, 'INVALID' ) !== false ) {
+
 			return false;
 		} else {
-			throw new \Exception("Unexpected response from PayPal.");
+
+			throw new \Exception( 'Unexpected response from PayPal.' );
 		}
 	}
 
@@ -326,13 +395,16 @@ class Eb_Ipn_Listener
 	 *
 	 *  Throws an exception and sets a HTTP 405 response header if the request
 	 *  method was not POST.
+	 *
+	 *  @throws \Exception Exception.
 	 */
-	public function requirePostMethod()
-	{
-		//require POST requests
-		if ($_SERVER['REQUEST_METHOD'] && $_SERVER['REQUEST_METHOD'] != 'POST') {
-			header('Allow: POST', true, 405);
-			throw new \Exception("Invalid HTTP request method.");
+	public function require_post_method() {
+		// require POST requests.
+		$post_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? wp_unslash( $_SERVER['REQUEST_METHOD'] ) : '';
+
+		if ( !$post_request_method ) {
+			header( 'Allow: POST', true, 405 );
+			throw new \Exception( 'Invalid HTTP request method.' );
 		}
 	}
 }

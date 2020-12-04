@@ -1,119 +1,132 @@
 <?php
+/**
+ * This class is responsible to shopw manage enrollment table.
+ *
+ * @link       https://edwiser.org
+ * @since      1.4
+ * @package    Edwiser Bridge
+ * @author     WisdmLabs <support@wisdmlabs.com>
+ */
 
 namespace app\wisdmlabs\edwiserBridge;
 
-if (!class_exists('\WP_List_Table')) {
-	require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
+if ( ! class_exists( '\WP_List_Table' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
+if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
-	class Eb_Custom_List_Table extends \WP_List_Table
-	{
+	/**
+	 * Custom list table.
+	 */
+	class Eb_Custom_List_Table extends \WP_List_Table {
 
-		protected $bpColumns;
+		/**
+		 * Bp_columns.
+		 *
+		 * @since    1.0.0
+		 *
+		 * @var string bp_columns.
+		 */
+		protected $bp_columns;
 
-		public function __construct()
-		{
+		/**
+		 * Constructor.
+		 */
+		public function __construct() {
 			// Set parent defaults.
-			parent::__construct(array(
-				'singular' => 'enrollment',
-				'plural' => 'enrollments',
-				'ajax' => true,
-			));
+			parent::__construct(
+				array(
+					'singular' => 'enrollment',
+					'plural'   => 'enrollments',
+					'ajax'     => true,
+				)
+			);
 
 			// Columns.
-			$this->bpColumns = apply_filters('edwiser_add_colomn_to_manage_enrollment', array(
-				'cb' => '<input type="checkbox" />',
-				'rId' => _x('Record ID', 'Column label', 'eb-textdomain'),
-				'user' => __('User', 'eb-textdomain'),
-				'course' => __('Course', 'eb-textdomain'),
-				'enrolled_date' => __('Enrolled Date', 'eb-textdomain'),
-				'manage' => __('Manage', 'eb-textdomain'),
-			));
+			$this->bp_columns = apply_filters(
+				'edwiser_add_colomn_to_manage_enrollment',
+				array(
+					'cb'            => '<input type="checkbox" />',
+					'rId'           => esc_html_x( 'Record ID', 'Column label', 'eb-textdomain' ),
+					'user'          => esc_html__( 'User', 'eb-textdomain' ),
+					'course'        => esc_html__( 'Course', 'eb-textdomain' ),
+					'enrolled_date' => esc_html__( 'Enrolled Date', 'eb-textdomain' ),
+					'manage'        => esc_html__( 'Manage', 'eb-textdomain' ),
+				)
+			);
 		}
 
-		public function bpGetTable($searchText)
-		{
+		/**
+		 * Get table.
+		 *
+		 * @param text $post_data post_data.
+		 * @param text $search_text text.
+		 */
+		public function bpGetTable( $post_data, $search_text ) {
 			global $wpdb;
-			$tblRecords = array();
-			$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+			$tbl_records = array();
+			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}moodle_enrollment" );
 
-
-			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && !wp_verify_nonce( $_REQUEST['eb-manage-user-enrol'], 'eb-manage-user-enrol' ) ) {
-				return;
+			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) ) {
+				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) ) );
 			}
-			
 
-			if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
-                $stmt .= " WHERE  time>'".$_REQUEST['enrollment_from_date']."' ";
-            }
+			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) && isset( $post_data['enrollment_to_date'] ) && ! empty( $post_data['enrollment_to_date'] ) ) {
+				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s  AND time< %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ), sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) ) );
+			}
 
-            if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date']) && isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
-                $stmt .= " AND time<'".$_REQUEST['enrollment_to_date']."' ";
-            }
+			foreach ( $results as $result ) {
 
-
-
-			/*if (!empty($searchText)) {
-				$user_info = get_userdata($result->user_id);
-				if (strpos($user_info->user_login, $searchText) === false && strpos(get_the_title($result->course_id), $searchText) === false) {
-					continue;
-				}
-			}*/
-
-			$results = $wpdb->get_results($stmt);
-			foreach ($results as $result) {
-
-				$row = array();
-				$row['user_id'] = $result->user_id;
-				$row['user'] = $this->getUserProfileURL($result->user_id) ;
-				$row['course'] = '<a href="' . esc_url(get_permalink($result->course_id)) . '">' . get_the_title($result->course_id) . '</a>';
+				$row                  = array();
+				$row['user_id']       = $result->user_id;
+				$row['user']          = $this->getUserProfileURL( $result->user_id );
+				$row['course']        = '<a href="' . esc_url( get_permalink( $result->course_id ) ) . '">' . get_the_title( $result->course_id ) . '</a>';
 				$row['enrolled_date'] = $result->time;
-				$row['manage'] = true;
-				$row['ID'] = $result->id;
-				$row['rId'] = $result->id;
-				$row['course_id'] = $result->course_id;
-				// $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $searchText);
+				$row['manage']        = true;
+				$row['ID']            = $result->id;
+				$row['rId']           = $result->id;
+				$row['course_id']     = $result->course_id;
 
-                $tblRecords[] = apply_filters('eb_manage_student_enrollment_each_row', $row, $result, $searchText);
+				$tbl_records[] = apply_filters( 'eb_manage_student_enrollment_each_row', $row, $result, $search_text );
 
 			}
 
-
-			return apply_filters("eb_manage_student_enrollment_table_data", $tblRecords);
+			return apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
 		}
 
 		/**
 		 * Returns the user profile link.
-		 * @param type $userId
-		 * @param type $with_a
-		 * @param type $default
+		 *
+		 * @param type $user_id user_id.
 		 * @return type
 		 */
-		private function getUserProfileURL($userId)
-		{
-			$userName = "";
-			$user_info = get_userdata($userId);
-			if ($user_info) {
-				$edit_link = get_edit_user_link($userId);
-				$userName = '<a href="' . esc_url($edit_link) . '">' . $user_info->user_login . '</a>';
+		private function getUserProfileURL( $user_id ) {
+			$user_name = '';
+			$user_info = get_userdata( $user_id );
+			if ( $user_info ) {
+				$edit_link = get_edit_user_link( $user_id );
+				$user_name = '<a href="' . esc_url( $edit_link ) . '">' . $user_info->user_login . '</a>';
 			}
-			return $userName;
+			return $user_name;
 		}
 
-		public function get_columns()
-		{
-			return $this->bpColumns;
+		/**
+		 * Get columns.
+		 */
+		public function get_columns() {
+			return $this->bp_columns;
 		}
 
-		protected function get_sortable_columns()
-		{
+		/**
+		 * Get sortable columns
+		 */
+		protected function get_sortable_columns() {
 			$sortable_columns = array(
-				'rId' => array('rId', false),
-				'course' => array('course', false),
-				'user' => array('user', false),
-				'enrolled_date' => array('enrolled_date', false),
+				'rId'           => array( 'rId', false ),
+				'course'        => array( 'course', false ),
+				'user'          => array( 'user', false ),
+				'enrolled_date' => array( 'enrolled_date', false ),
 			);
 			return $sortable_columns;
 		}
@@ -141,14 +154,9 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 * @param string $column_name The name/slug of the column to be processed.
 		 * @return string Text or HTML to be placed inside the column <td>.
 		 */
-		protected function column_default($item, $column_name)
-		{
-			/*switch ($column_name) {
-				default:
-					return $item[$column_name];
-			}*/
-			// from 1.3.5
-			return $item[$column_name];
+		protected function column_default( $item, $column_name ) {
+			// from 1.3.5.
+			return $item[ $column_name ];
 		}
 
 		/**
@@ -161,10 +169,11 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 * @param object $item A singular item (one full row's worth of data).
 		 * @return string Text to be placed inside the column <td>.
 		 */
-		protected function column_cb($item)
-		{
+		protected function column_cb( $item ) {
 			return sprintf(
-					'<input type="checkbox" name="%1$s[]" value="%2$s" />', $this->_args['singular'], $item['ID']
+				'<input type="checkbox" name="%1$s[]" value="%2$s" />',
+				$this->_args['singular'],
+				$item['ID']
 			);
 		}
 
@@ -185,18 +194,21 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 * @param object $item A singular item (one full row's worth of data).
 		 * @return string Text to be placed inside the column <td>.
 		 */
-		protected function column_rId($item)
-		{
-			return sprintf('%1$s', $item['rId']);
+		protected function column_rId( $item ) {
+			return sprintf( '%1$s', $item['rId'] );
 		}
 
-		protected function column_manage($item)
-		{
-			$outPut="---";
-			if ($item['manage']) {
-				$outPut=apply_filters('edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="' . $item['course_id'] . '">' . __('Unenroll', 'eb-textdomain') . '</a>');
+		/**
+		 * Column maneg.
+		 *
+		 * @param text $item item.
+		 */
+		protected function column_manage( $item ) {
+			$output = '---';
+			if ( $item['manage'] ) {
+				$output = apply_filters( 'edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="' . $item['course_id'] . '">' . esc_html__( 'Unenroll', 'eb-textdomain' ) . '</a>' );
 			}
-			return $outPut;
+			return $output;
 		}
 
 		/**
@@ -216,10 +228,9 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 *
 		 * @return array An associative array containing all the bulk actions.
 		 */
-		protected function get_bulk_actions()
-		{
+		protected function get_bulk_actions() {
 			$actions = array(
-				'unenroll' => _x('Bulk Unenroll', 'Unenrolles the selected students from the courses', 'eb-textdomain'),
+				'unenroll' => esc_html_x( 'Bulk Unenroll', 'Unenrolles the selected students from the courses', 'eb-textdomain' ),
 			);
 			return $actions;
 		}
@@ -231,17 +242,17 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 * For this example package, we will handle it in the class to keep things
 		 * clean and organized.
 		 *
+		 * @param text $post_data post_data.
 		 * @see $this->prepare_items()
 		 */
-		protected function process_bulk_action()
-		{
+		protected function process_bulk_action( $post_data ) {
 			// Detect when a bulk action is being triggered.
-			if ('unenroll' === $this->current_action()) {
-				if (isset($_POST["enrollment"]) && is_array($_POST["enrollment"]) && count($_POST["enrollment"])) {
-					$this->unerollUser($_POST["enrollment"]);
+			if ( 'unenroll' === $this->current_action() ) {
+				if ( isset( $post_data['enrollment'] ) && is_array( $post_data['enrollment'] ) && count( $post_data['enrollment'] ) ) {
+					$this->unerollUser( sanitize_text_field( wp_unslash( $post_data['enrollment'] ) ) );
 				} else {
 					echo '<div class="notice notice-error is-dismissible">';
-					echo '<p>' . __("No records selected to unenroll student, Please select the records to unenroll", 'eb-textdomain') . '</p>';
+					echo '<p>' . esc_html__( 'No records selected to unenroll student, Please select the records to unenroll', 'eb-textdomain' ) . '</p>';
 					echo '</div>';
 				}
 			}
@@ -250,31 +261,30 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 
 
 
-		// Mike reed changes
-        public function extra_tablenav($which) {
+		/**
+		 * Extra table nav.
+		 *
+		 * @param text $which which.
+		 */
+		public function extra_tablenav( $which ) {
 
-            $from = '';
-            $to   = '';
+			$from = '';
+			$to   = '';
 
-            if (isset($_REQUEST['enrollment_from_date']) && !empty($_REQUEST['enrollment_from_date'])) {
-                $from = $_REQUEST['enrollment_from_date'];
-            }
-            $disabled = 'disabled';
-            if (isset($_REQUEST['enrollment_to_date']) && !empty($_REQUEST['enrollment_to_date'])) {
-                $disabled = '';
-                $to = $_REQUEST['enrollment_to_date'];
-            }
+			if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) {
+				$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
+			}
+			$disabled = 'disabled';
+			if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) {
+				$disabled = '';
+				$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+			}
 
-            if ($which == "top") {
-                echo '<span class="eb_manage_enroll_custom_nav_wrap">' . __('From : ') . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="'.__('Search').'"/> </span>';
+			if ( 'top' === $which ) {
+				echo '<span class="eb_manage_enroll_custom_nav_wrap">' . esc_html__( 'From : ', 'eb-textdomain' ) . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="' . esc_html( $from ) . '"> ' . esc_html__( 'To : ', 'eb-textdomain' ) . ' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="' . esc_html( $to ) . '" ' . esc_html( $disabled ) . '> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="' . esc_html__( 'Search', 'eb-textdomain' ) . '"/> </span>';
+			}
 
-                // WITH EXPORT BUTTON
-                /*echo __('From : ') . '<input type="date" id="enrollment_from_date" name="enrollment_from_date" value="'. $from .'"> '. __('To : ').' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="'. $to .'" '. $disabled .'> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" value="'.__('Search').'"/>
-                <input type="hidden" name="eb_manage_enroll_export" id="eb_manage_enroll_export"/>
-                <input type="submit" class="button primary-button" value="export" name="eb_enrollment_export" id="eb_enrollment_export" >';*/
-            }
-
-        }
+		}
 
 
 
@@ -296,8 +306,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 * @uses $this->get_pagenum()
 		 * @uses $this->set_pagination_args()
 		 */
-		function prepare_items()
-		{
+		public function prepare_items() {
 			/*
 			 * First, lets decide how many records per page to show
 			 */
@@ -310,8 +319,8 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			 * can be defined in another method (as we've done here) before being
 			 * used to build the value for our _column_headers property.
 			 */
-			$columns = $this->get_columns();
-			$hidden = array();
+			$columns  = $this->get_columns();
+			$hidden   = array();
 			$sortable = $this->get_sortable_columns();
 
 			/*
@@ -320,21 +329,25 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			 * three other arrays. One for all columns, one for hidden columns, and one
 			 * for sortable columns.
 			 */
-			$this->_column_headers = array($columns, $hidden, $sortable);
+			$this->_column_headers = array( $columns, $hidden, $sortable );
 
 			/**
 			 * Optional. You can handle your bulk actions however you see fit. In this
 			 * case, we'll handle them within our package just to keep things clean.
 			 */
-			$this->process_bulk_action();
 
-			$searchText = "";
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				return;
+			}
+			$this->process_bulk_action( $_POST );
 
-			if (isset($_REQUEST['s']) && !empty($_REQUEST['s'])) {
-				$searchText = $_REQUEST['s'];
+			$search_text = '';
+
+			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
+				$search_text = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
 			}
 
-			$data = $this->bpGetTable($searchText);
+			$data = $this->bpGetTable( $_REQUEST, $search_text );
 
 			/*
 			 * This checks for sorting input and sorts the data in our array of dummy
@@ -347,7 +360,7 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			 * sorting technique would be unnecessary. In other words: remove this when
 			 * you implement your own query.
 			 */
-			usort($data, array($this, 'usort_reorder'));
+			usort( $data, array( $this, 'usort_reorder' ) );
 
 			/*
 			 * REQUIRED for pagination. Let's figure out what page the user is currently
@@ -362,14 +375,14 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			 * without filtering. We'll need this later, so you should always include it
 			 * in your own package classes.
 			 */
-			$total_items = count($data);
+			$total_items = count( $data );
 
 			/*
 			 * The WP_List_Table class does not handle pagination for us, so we need
 			 * to ensure that the data is trimmed to only the current page. We can use
 			 * array_slice() to do that.
 			 */
-			$data = array_slice($data, ( ( $current_page - 1 ) * $per_page), $per_page);
+			$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
 			/*
 			 * REQUIRED. Now we can add our *sorted* data to the items property, where
@@ -380,11 +393,13 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 			/**
 			 * REQUIRED. We also have to register our pagination options & calculations.
 			 */
-			$this->set_pagination_args(array(
-				'total_items' => $total_items, // WE have to calculate the total number of items.
-				'per_page' => $per_page, // WE have to determine how many items to show on a page.
-				'total_pages' => ceil($total_items / $per_page), // WE have to calculate the total number of pages.
-			));
+			$this->set_pagination_args(
+				array(
+					'total_items' => $total_items, // WE have to calculate the total number of items.
+					'per_page'    => $per_page, // WE have to determine how many items to show on a page.
+					'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
+				)
+			);
 		}
 
 		/**
@@ -395,14 +410,13 @@ if (!class_exists('\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table')) {
 		 *
 		 * @return int
 		 */
-		protected function usort_reorder($first, $second)
-		{
+		protected function usort_reorder( $first, $second ) {
 			// If no sort, default to title.
-			$orderby = !empty($_REQUEST['orderby']) ? wp_unslash($_REQUEST['orderby']) : 'rId'; // WPCS: Input var ok.
+			$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'rId'; // WPCS: Input var ok.
 			// If no order, default to asc.
-			$order = !empty($_REQUEST['order']) ? wp_unslash($_REQUEST['order']) : 'asc'; // WPCS: Input var ok.
+			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc'; // WPCS: Input var ok.
 			// Determine sort order.
-			$result = strcmp($first[$orderby], $second[$orderby]);
+			$result = strcmp( $first[ $orderby ], $second[ $orderby ] );
 
 			return ( 'asc' === $order ) ? $result : - $result;
 		}

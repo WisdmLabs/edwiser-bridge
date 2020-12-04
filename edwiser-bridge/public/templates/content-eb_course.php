@@ -1,170 +1,163 @@
 <?php
 /**
  * The template for displaying course archive content.
+ *
+ * @package Edwiser Bridge.
  */
-//Variables
+
+// Variables.
 global $post;
-$post_id = $post->ID;
+$eb_post_id = $post->ID;
 
 
-// get currency
-$payment_options = get_option('eb_paypal');
-$currency = isset($payment_options['eb_paypal_currency']) ? $payment_options['eb_paypal_currency'] : 'USD';
+// get currency.
+$payment_options = get_option( 'eb_paypal' );
+$currency        = isset( $payment_options['eb_paypal_currency'] ) ? $payment_options['eb_paypal_currency'] : 'USD';
 
 $course_price_type = 'free';
-$course_price = '0';
+$course_price      = '0';
 $short_description = '';
 
-$course_options = get_post_meta($post_id, 'eb_course_options', true);
-if (is_array($course_options)) {
-	$course_price_type = (isset($course_options['course_price_type'])) ? $course_options['course_price_type'] : 'free';
-	$course_price = (isset($course_options['course_price']) &&
-			is_numeric($course_options['course_price'])) ?
+$course_options = get_post_meta( $eb_post_id, 'eb_course_options', true );
+if ( is_array( $course_options ) ) {
+	$course_price_type = ( isset( $course_options['course_price_type'] ) ) ? $course_options['course_price_type'] : 'free';
+	$course_price      = ( isset( $course_options['course_price'] ) &&
+			is_numeric( $course_options['course_price'] ) ) ?
 			$course_options['course_price'] : '0';
-	$course_closed_url = (isset($course_options['course_closed_url'])) ?
+	$course_closed_url = ( isset( $course_options['course_closed_url'] ) ) ?
 			$course_options['course_closed_url'] : '#';
-	$short_description = (isset($course_options['course_short_description'])) ?
+	$short_description = ( isset( $course_options['course_short_description'] ) ) ?
 			$course_options['course_short_description'] : '';
 }
 
-if (is_numeric($course_price)) {
-	if ($currency == 'USD') {
-		$course_price_formatted = '$'.$course_price;
+if ( is_numeric( $course_price ) ) {
+	if ( 'USD' === $currency ) {
+		$course_price_formatted = '$' . $course_price;
 	} else {
-		$course_price_formatted = $currency.' '.$course_price;
+		$course_price_formatted = $currency . ' ' . $course_price;
 	}
 
-	if ($course_price == 0) {
-		$course_price_formatted = __('Free', 'eb-textdomain');
+	if ( '0' === $course_price ) {
+		$course_price_formatted = esc_html__( 'Free', 'eb-textdomain' );
 	}
 }
 
 $course_class = null;
 $user_id      = get_current_user_id();
-$logged_in    = !empty($user_id);
-$enrollManag  = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
-$has_access   = $enrollManag->user_has_course_access($user_id, $post->ID);
+$logged_in    = ! empty( $user_id );
+$enroll_manag = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
+$has_access   = $enroll_manag->user_has_course_access( $user_id, $post->ID );
 
 /*
- * To add class according to user access
+ * To add class according to user access.
  *
  */
-if ($has_access) {
+if ( $has_access ) {
 	$course_class = 'has-access';
-	$h_title = __(sprintf('Click to access %s course', get_the_title(get_the_ID())), 'eb-textdomain');
+	/* Tanslators 1: title */
+	$h_title = sprintf( esc_html__( 'Click to access', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
 } else {
 	$course_class = 'no-access';
-	$h_title = __(sprintf('Click to read more about %s course', get_the_title(get_the_ID())), 'eb-textdomain');
+	/* Tanslators 1: title */
+	$h_title = sprintf( esc_html__( 'Click to read more about', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
 }
 
+$course_id = $eb_post_id;
 
+// Shortcode eb_my_courses.
+if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
+	$course_class  .= ' eb_my_course_article';
+	$course_mang    = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
+	$mdl_course_id  = $course_mang->get_moodle_course_id( $course_id );
+	$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true );
 
+	if ( $moodle_user_id && isset( $attr['my_courses_progress'] ) && $attr['my_courses_progress'] ) {
 
-$course_id = $post_id;
-//Shortcode eb_my_courses.
-
-
-if (isset($is_eb_my_courses) && $is_eb_my_courses && isset($attr)) {
-	$course_class .= ' eb_my_course_article';
-	$course_mang = app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
-	$mdl_course_id = $course_mang->get_moodle_course_id($course_id);
-	$moodle_user_id = get_user_meta($user_id, 'moodle_user_id', true);
-
-/*******   two way synch  *******/
-
-	if ($moodle_user_id && isset($attr["my_courses_progress"]) && $attr["my_courses_progress"]) {
-		$showProgress = 1;
+		$show_progress           = 1;
 		$course_progress_manager = new app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
 
 		// Before showing progress check for the suspended course.
-
 		$progress_data = $course_progress_manager->get_course_progress();
-		$courseId = array_keys($progress_data);
+		$course_ids     = array_keys( $progress_data );
 		// Function to get suspended status info.
-		$is_user_suspended = get_user_suspended_status($user_id, $course_id);
+		$is_user_suspended = get_user_suspended_status( $user_id, $course_id );
 
-		if ($is_user_suspended) {
+		if ( $is_user_suspended ) {
 			// User course is suspended.
-			$progress_class = "suspended";
-			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>".__("SUSPENDED", "eb-textdomain")."</div>";
-		} elseif (in_array(get_the_ID(), $courseId)) {
+			$progress_class   = 'suspended';
+			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>" . esc_html__( 'SUSPENDED', 'eb-textdomain' ) . '</div>';
+		} elseif ( in_array( get_the_ID(), $course_ids ) ) {// @codingStandardsIgnoreLine.
 			// User course is not suspended then show these buttons.
-			if ($progress_data[get_the_ID()] == 0) {
-				$progress_class = "start";
-				$progress_btn_div = "<div class='eb-course-action-btn-start'>".__("START", "eb-textdomain")."</div>";
-			} elseif ($progress_data[get_the_ID()] > 0 && $progress_data[get_the_ID()] < 100) {
-				$progress_class = "resume";
-				$progressWidth = $progress_data[get_the_ID()];
-				$progress_btn_div = "<div class='eb-course-action-btn-resume'>".__("RESUME", "eb-textdomain")."</div>";
+			if ( '0' === $progress_data[ get_the_ID() ] ) {
+				$progress_class   = 'start';
+				$progress_btn_div = "<div class='eb-course-action-btn-start'>" . esc_html__( 'START', 'eb-textdomain' ) . '</div>';
+			} elseif ( $progress_data[ get_the_ID() ] > 0 && $progress_data[ get_the_ID() ] < 100 ) {
+				$progress_class   = 'resume';
+				$progress_width   = $progress_data[ get_the_ID() ];
+				$progress_btn_div = "<div class='eb-course-action-btn-resume'>" . esc_html__( 'RESUME', 'eb-textdomain' ) . '</div>';
 			} else {
-				$progress_class = "completed";
-				$progress_btn_div = "<div class='eb-course-action-btn-completed'>".__("COMPLETED", "eb-textdomain")."</div>";
+				$progress_class   = 'completed';
+				$progress_btn_div = "<div class='eb-course-action-btn-completed'>" . esc_html__( 'COMPLETED', 'eb-textdomain' ) . '</div>';
 			}
 		}
 	}
-/**********************/
 
-
-	if ($moodle_user_id != '' && function_exists("ebsso\generateMoodleUrl")) {
-		$query = array(
-			'moodle_user_id' => $moodle_user_id, //moodle user id
+	if ( '' !== $moodle_user_id && function_exists( 'ebsso\generateMoodleUrl' ) ) {
+		$query      = array(
+			'moodle_user_id'   => $moodle_user_id, // moodle user id.
 			'moodle_course_id' => $mdl_course_id,
 		);
-		$course_url = \ebsso\generateMoodleUrl($query);
+		$course_url = \ebsso\generateMoodleUrl( $query );
 	} else {
-		$course_url = EB_ACCESS_URL.'/course/view.php?id='.$mdl_course_id;
+		$course_url = EB_ACCESS_URL . '/course/view.php?id=' . $mdl_course_id;
 	}
 } else {
 	$is_eb_my_courses = false;
-	$course_url = get_permalink();
+	$course_url       = get_permalink();
 }
 ?>
-<article id="<?php echo 'post-'.get_the_ID(); ?>" <?php post_class('wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap '.$course_class); ?> title="<?php echo $h_title; ?>">
-<div class="eb-grid-container">
-	<div class="wdm-course-grid">
-		<a href="<?php echo esc_url($course_url); ?>" rel="bookmark" class="wdm-course-thumbnail">
-			<?php
-			echo '<div class="wdm-course-image">';
-			if (has_post_thumbnail()) {
-				the_post_thumbnail('course_archive');
-			} else {
-				echo '<img src="'.EB_PLUGIN_URL.'images/no-image.jpg"/>';
-			}
-			echo '</div>';
-			echo '<div class="wdm-caption">';
-			echo '<h4 class="">';
-			the_title();
-			echo '</h4>';
-			if (!empty($short_description)) {
-				echo '<p class="entry-content">'.$short_description.'</p>';
-			}
-			if ($post->post_type == 'eb_course' && !$is_eb_my_courses) {
-				if ($course_price_type == 'paid' || $course_price_type == 'free') {
-					echo '<div class="wdm-price '.$course_price_type.'">';
-					echo $course_price_formatted;
+<article id="<?php echo 'post-' . get_the_ID(); ?>" <?php post_class( 'wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap ' . $course_class ); ?> title="<?php echo esc_html( $h_title ); ?>">
+	<div class="eb-grid-container">
+		<div class="wdm-course-grid">
+			<a href="<?php echo esc_url( $course_url ); ?>" rel="bookmark" class="wdm-course-thumbnail">
+				<?php
+				echo '<div class="wdm-course-image">';
+				if ( has_post_thumbnail() ) {
+					the_post_thumbnail( 'course_archive' );
+				} else {
+					echo '<img src="' . esc_html( EB_PLUGIN_URL ) . 'images/no-image.jpg"/>';
+				}
+				echo '</div>';
+				echo '<div class="wdm-caption">';
+				echo '<h4 class="">';
+				the_title();
+				echo '</h4>';
+				if ( ! empty( $short_description ) ) {
+					echo '<p class="entry-content">' . esc_html( $short_description ) . '</p>';
+				}
+
+				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses ) {
+					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
+						echo '<div class="wdm-price ' . wp_kses_post( $course_price_type ) . '">';
+						echo wp_kses_post( $course_price_formatted, eb_sinlge_course_get_allowed_html_tags() );
+						echo '</div>';
+					}
+				}
+
+				if ( isset( $show_progress ) && 1 === $show_progress ) {
+					echo "<div class='eb-course-action-cont'>";
+					if ( 'resume' === $progress_class ) {
+						echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:" . esc_html( round( $progress_width ) ) . "%' ></div></div>";
+					}
+					echo wp_kses( $progress_btn_div, eb_sinlge_course_get_allowed_html_tags() );
 					echo '</div>';
 				}
-			}
 
-			if (isset($showProgress) && $showProgress == 1) {
-				echo "<div class='eb-course-action-cont'>";
-				if ($progress_class == "resume") {
-					echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:".round($progressWidth)."%' ></div></div>";
-				}
-				echo $progress_btn_div;
-				echo "</div>";
-			}
+				echo '</div>'; // wdm-caption.
 
-
-			echo '</div>'; //wdm-caption
-
-			?>
-		</a>
+				?>
+			</a>
+		</div>
 	</div>
-</div>
-
-
-
-
 	<!-- .wdm-course-grid -->
 </article><!-- #post -->

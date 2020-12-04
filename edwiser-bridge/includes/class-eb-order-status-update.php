@@ -4,13 +4,17 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge.
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
+
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Order_Status
-{
+/**
+ * Order status.
+ */
+class Eb_Order_Status {
+
 
 	/**
 	 * The ID of this plugin.
@@ -30,39 +34,43 @@ class Eb_Order_Status
 	 */
 	private $version;
 
-	public function __construct($pluginName, $version)
-	{
-		$this->plugin_name = $pluginName;
+	/**
+	 * Contsructor.
+	 *
+	 * @param text $plugin_name plugin_name.
+	 * @param text $version version.
+	 */
+	public function __construct( $plugin_name, $version ) {
+		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
 
 	/**
 	 * Function initiates the refund it is ajax callback for the eb order refund refund.
+	 *
 	 * @since 1.3.0
-	 * @param type $requestData
 	 */
-	public function init_eb_order_refund()
-	{
-		check_ajax_referer("eb_order_refund_nons_field", "order_nonce");
-		$order_id = get_arr_value($_POST, "eb_order_id");
+	public function init_eb_order_refund() {
+		check_ajax_referer( 'eb_order_refund_nons_field', 'order_nonce' );
+		$order_id = get_arr_value( $_POST, 'eb_order_id' );
 
-		$refund_manager = new Eb_Manage_Order_Refund($this->plugin_name, $this->version);
+		$refund_manager = new Eb_Manage_Order_Refund( $this->plugin_name, $this->version );
 		$refund_data    = array(
-			"amt"            => get_arr_value($_POST, "eb_ord_refund_amt"),
-			"note"           => get_arr_value($_POST, "eb_order_refund_note", ""),
-			"unenroll_users" => get_arr_value($_POST, "eb_order_meta_unenroll_user", "NO"),
+			'amt'            => get_arr_value( $_POST, 'eb_ord_refund_amt' ),
+			'note'           => get_arr_value( $_POST, 'eb_order_refund_note', '' ),
+			'unenroll_users' => get_arr_value( $_POST, 'eb_order_meta_unenroll_user', 'NO' ),
 		);
-		$refund        = $refund_manager->init_refund($order_id, $refund_data);
-		$refund_status  = get_arr_value($refund, "status", false);
-		$refund_msg     = get_arr_value($refund, "msg", "");
-		if ($refund_status) {
-			$refund_data["note"] = $refund_msg;
-			$note                = $this->get_order_refund_status_msg($order_id, $refund_data);
-			$this->save_order_status_history($order_id, $note);
-			do_action("eb_order_refund_init_success", $order_id, $note);
-			wp_send_json_success($refund_msg);
+		$refund         = $refund_manager->init_refund( $order_id, $refund_data );
+		$refund_status  = get_arr_value( $refund, 'status', false );
+		$refund_msg     = get_arr_value( $refund, 'msg', '' );
+		if ( $refund_status ) {
+			$refund_data['note'] = $refund_msg;
+			$note                = $this->get_order_refund_status_msg( $order_id, $refund_data );
+			$this->save_order_status_history( $order_id, $note );
+			do_action( 'eb_order_refund_init_success', $order_id, $note );
+			wp_send_json_success( $refund_msg );
 		} else {
-			wp_send_json_error($refund_msg);
+			wp_send_json_error( $refund_msg );
 		}
 	}
 
@@ -70,60 +78,64 @@ class Eb_Order_Status
 	 * Callback function to save the order status history data.
 	 *
 	 * @since 1.3.0
-	 * @param numer $orderId current updated order id.
-	 * @return number order id
+	 * @param int $order_id current updated order id.
 	 */
-	public function save_status_update_meta($order_id)
-	{
-		if (!current_user_can('edit_post', $order_id)) {
+	public function save_status_update_meta( $order_id ) {
+		if ( ! current_user_can( 'edit_post', $order_id ) ) {
 			return $order_id;
 		}
-		$nonce = get_arr_value($_POST, 'eb_order_meta_nons');
-		if (!wp_verify_nonce($nonce, "eb_order_history_meta_nons")) {
+
+		$nonce = isset( $_POST['eb_order_meta_nons'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_meta_nons'] ) ) : '';
+
+		if ( ! wp_verify_nonce( $nonce, 'eb_order_history_meta_nons' ) ) {
 			return $order_id;
 		}
-		$note = $this->get_status_update_note($order_id, $_POST);
-		$this->save_order_status_history($order_id, $note);
+		$note = $this->get_status_update_note( $order_id, $_POST );
+		$this->save_order_status_history( $order_id, $note );
 	}
 
-	public function save_new_order_place_note($order_id)
-	{
-		$ord_detail = get_post_meta($order_id, 'eb_order_options', true);
-		$course_id  = get_arr_value($ord_detail, "course_id");
-		$msg       = sprintf(__("New order has been placed for the <strong>%s</strong> course.", "eb-textdomain"), get_the_title($course_id));
-		$msg       = apply_filters("eb_order_history_save_status_new_order_msg", $msg);
-		$note      = array(
-			"type" => "new_order",
-			"msg"  => $msg,
+	/**
+	 * New order place note.
+	 *
+	 * @since 1.3.0
+	 * @param int $order_id current updated order id.
+	 */
+	public function save_new_order_place_note( $order_id ) {
+		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
+		$course_id  = get_arr_value( $ord_detail, 'course_id' );
+		$msg        = esc_html__( 'New order has been placed for the ', 'eb-textdomain' ) . '<strong>' . sprintf( '%s', get_the_title( $course_id ) ) . '</strong>' . esc_html__( ' course.', 'eb-textdomain' );
+		$msg        = apply_filters( 'eb_order_history_save_status_new_order_msg', $msg );
+		$note       = array(
+			'type' => 'new_order',
+			'msg'  => $msg,
 		);
-		$this->save_order_status_history($order_id, $note);
+		$this->save_order_status_history( $order_id, $note );
 	}
 
 	/**
 	 * Function provides the functionality to create the notes formated array
 	 *
 	 * @since 1.3.0
-	 * @param number $orderId current eb_order post id.
+	 * @param int   $order_id current eb_order post id.
 	 * @param array $data order update meta.
 	 * @return array returns an array of the new status note
 	 */
-	private function get_status_update_note($order_id, $data)
-	{
-		$ord_detail = get_post_meta($order_id, 'eb_order_options', true);
-		$order_data = get_arr_value($data, 'eb_order_options', false);
-		if ($order_data == false) {
+	private function get_status_update_note( $order_id, $data ) {
+		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
+		$order_data = get_arr_value( $data, 'eb_order_options', false );
+		if ( false === $order_data ) {
 			return;
 		}
-		$old_status = get_arr_value($ord_detail, "order_status", false);
-		$new_status = get_arr_value($order_data, "order_status", false);
-		$msg       = array(
-			"old_status" => $old_status,
-			"new_status" => $new_status,
+		$old_status = get_arr_value( $ord_detail, 'order_status', false );
+		$new_status = get_arr_value( $order_data, 'order_status', false );
+		$msg        = array(
+			'old_status' => $old_status,
+			'new_status' => $new_status,
 		);
-		$msg       = apply_filters("eb_order_history_save_status_change_msg", $msg);
-		$note      = array(
-			"type" => "status_update",
-			"msg"  => $msg,
+		$msg        = apply_filters( 'eb_order_history_save_status_change_msg', $msg );
+		$note       = array(
+			'type' => 'status_update',
+			'msg'  => $msg,
 		);
 		return $note;
 	}
@@ -134,50 +146,55 @@ class Eb_Order_Status
 	 * "refund_note"=>"",
 	 * "refund_unenroll_users"=>"",
 	 * )
+	 *
 	 * @since 1.3.0
-	 * @param number $orderId current eb_order post id.
-	 * @param array $data order update meta.
+	 * @param number $order_id current eb_order post id.
+	 * @param array  $data order update meta.
 	 * @return array returns an array of the refund status data
 	 */
-	private function get_order_refund_status_msg($order_id, $data)
-	{
-		$refund_amt = get_arr_value($data, 'amt');
-		$msg       = array(
-			"amt"=>$refund_amt,
-			"refund_note"           => get_arr_value($data, 'note'),
-			"refund_unenroll_users" => get_arr_value($data, 'unenroll_users', false),
+	private function get_order_refund_status_msg( $order_id, $data ) {
+		$refund_amt = get_arr_value( $data, 'amt' );
+		$msg        = array(
+			'amt'                   => $refund_amt,
+			'refund_note'           => get_arr_value( $data, 'note' ),
+			'refund_unenroll_users' => get_arr_value( $data, 'unenroll_users', false ),
 		);
-		if (get_arr_value($msg, "refund_unenroll_users")=="ON") {
-			$this->unenroll_user_from_courses($order_id);
+		if ( 'ON' === get_arr_value( $msg, 'refund_unenroll_users' ) ) {
+			$this->unenroll_user_from_courses( $order_id );
 		}
-		$msg  = apply_filters("eb_order_history_save_refund_status_msg", $msg);
+		$msg  = apply_filters( 'eb_order_history_save_refund_status_msg', $msg );
 		$note = array(
-			"type" => "refund",
-			"msg"  => $msg
+			'type' => 'refund',
+			'msg'  => $msg,
 		);
-		$this->save_order_refund_amt($order_id, $refund_amt);
+		$this->save_order_refund_amt( $order_id, $refund_amt );
 		return $note;
 	}
 
 
 
-
-	private function save_order_refund_amt($order_id, $refund_amt)
-	{
+	/**
+	 * Save refund amount.
+	 *
+	 * @since 1.3.0
+	 * @param number $order_id order id.
+	 * @param array  $refund_amt refund_amt.
+	 */
+	private function save_order_refund_amt( $order_id, $refund_amt ) {
 		$cur_user = wp_get_current_user();
-		$refunds = get_post_meta($order_id, "eb_order_refund_hist", true);
-		$refund  = array(
-			"amt"      => $refund_amt,
-			"by"       => $cur_user->user_login,
-			"time"     => current_time("timestamp"),
-			"currency" => get_current_paypal_currency_symb(),
+		$refunds  = get_post_meta( $order_id, 'eb_order_refund_hist', true );
+		$refund   = array(
+			'amt'      => $refund_amt,
+			'by'       => $cur_user->user_login,
+			'time'     => current_time("timestamp"),
+			'currency' => eb_get_current_paypal_currency_symb(),
 		);
-		if (is_array($refunds)) {
+		if ( is_array( $refunds ) ) {
 			$refunds[] = $refund;
 		} else {
-			$refunds = array($refund);
+			$refunds = array( $refund );
 		}
-		update_post_meta($order_id, "eb_order_refund_hist", $refunds);
+		update_post_meta( $order_id, 'eb_order_refund_hist', $refunds );
 	}
 
 	/**
@@ -185,35 +202,39 @@ class Eb_Order_Status
 	 * at first position. and save the value into the database.
 	 *
 	 * @since 1.3.0
-	 * @param type $orderId
+	 * @param int $order_id order_id.
+	 * @param int $note note.
 	 */
-	private function save_order_status_history($order_id, $note)
-	{
-		$curUser = wp_get_current_user();
-		update_order_hist_meta($order_id, $curUser->user_login, $note);
+	private function save_order_status_history( $order_id, $note ) {
+		$cur_user = wp_get_current_user();
+		update_order_hist_meta( $order_id, $cur_user->user_login, $note );
 	}
 
-	private function unenroll_user_from_courses($order_id)
-	{
-		$order_details   = get_post_meta($order_id, "eb_order_options", true);
-		$course_id       = get_arr_value($order_details, "course_id", "");
-		$user_wp_id       = get_arr_value($order_details, "buyer_id", "");
-		$enrollment_mang = Eb_Enrollment_Manager::instance($this->plugin_name, $this->version);
-		$args           = array(
+	/**
+	 * Order id.
+	 *
+	 * @since 1.3.0
+	 * @param int $order_id order_id.
+	 */
+	private function unenroll_user_from_courses( $order_id ) {
+		$order_details   = get_post_meta( $order_id, 'eb_order_options', true );
+		$course_id       = get_arr_value( $order_details, 'course_id', '' );
+		$user_wp_id      = get_arr_value( $order_details, 'buyer_id', '' );
+		$enrollment_mang = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
+		$args            = array(
 			'user_id' => $user_wp_id,
-			'courses' => array($course_id),
+			'courses' => array( $course_id ),
 			'suspend' => 1,
 		);
-		// $resp           = $enrollmentMang->updateUserCourseEnrollment($args);
-		$resp           = $enrollment_mang->update_user_course_enrollment($args);
-		
-		if ($resp) {
-			$curUser = wp_get_current_user();
-			$note    = array(
-				"type" => "enrollment_susspend",
-				"msg"  => __("User enrollment has been suspended on order refund request.", "eb-textdomain")
+		$resp            = $enrollment_mang->update_user_course_enrollment( $args );
+
+		if ( $resp ) {
+			$cur_user = wp_get_current_user();
+			$note     = array(
+				'type' => 'enrollment_susspend',
+				'msg'  => __( 'User enrollment has been suspended on order refund request.', 'eb-textdomain' ),
 			);
-			update_order_hist_meta($order_id, $curUser->user_login, $note);
+			update_order_hist_meta( $order_id, $cur_user->user_login, $note );
 		}
 		return $resp;
 	}

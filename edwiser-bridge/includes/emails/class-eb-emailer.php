@@ -1,19 +1,26 @@
 <?php
-
 /**
  * This class defines all code necessary to send emails on course purchase.
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- *
+ * @package    Edwiser Bridge
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
 
-class Eb_Emailer
-{
-
+/**
+ * Eb Mailer.
+ */
+class Eb_Emailer {
+	/**
+	 * Template name.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string template_name.
+	 */
 	private $template_name;
 
 	/**
@@ -33,11 +40,23 @@ class Eb_Emailer
 	 * @var string The current version of this plugin.
 	 */
 	private $version;
-	//template loader object
+
+	/**
+	 * Template loader object.
+	 *
+	 * @since    1.0.0
+	 *
+	 * @var string template loader object.
+	 */
 	private $plugin_template_loader;
 
-	public function __construct($plugin_name, $version)
-	{
+	/**
+	 * Constructor.
+	 *
+	 * @param text $plugin_name plugin name.
+	 * @param text $version Version.
+	 */
+	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
@@ -46,168 +65,144 @@ class Eb_Emailer
 		 */
 		require_once EB_PLUGIN_DIR . 'public/class-eb-template-loader.php';
 
-		$this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
+		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
 	}
 
 	/**
-	 * runs on each email template to add email header and css styling.
+	 * Runs on each email template to add email header and css styling.
 	 *
-	 * @param string $header email heading
+	 * @param string $header email heading.
 	 */
-	public function get_email_header($header)
-	{
+	public function get_email_header( $header ) {
 		$this->template_name = 'emails/email-header.php';
-		echo $this->get_content_html(array('header' => $header), $this->plugin_template_loader);
+		echo esc_html( $this->get_content_html( array( 'header' => $header ), $this->plugin_template_loader ) );
 	}
 
 	/**
-	 * runs on each email template to add email footer content.
+	 * Runs on each email template to add email footer content.
 	 */
-	public function get_email_footer()
-	{
+	public function get_email_footer() {
 		$this->template_name = 'emails/email-footer.php';
-		echo $this->get_content_html('', $this->plugin_template_loader);
+		echo esc_html( $this->get_content_html( '', $this->plugin_template_loader ) );
 	}
 
 
+	/**
+	 * Bcc field.
+	 *
+	 * @param string $args args.
+	 * @param string $email_option_key email option key.
+	 */
+	public function set_bcc_field_in_email_header( $args, $email_option_key ) {
+		$header = get_option( $email_option_key . '_bcc_email' );
 
-    public function set_bcc_field_in_email_header($args, $email_option_key)
-    {
-
-
-        $header = get_option($email_option_key."_bcc_email");
-
-        $args["headers"] = "";
-        if ($header) {
-            $args["headers"] = "Bcc: ".$header;
-        }
-
-
-        return $args;
-
-
-
-        /*$args          = apply_filters("eb_args_data", $args);
-        $emailTmplData = ExtendedEBAdminEmailTemplate::getEmailTmplContent("eb_emailtmpl_create_user");
-        $allowNotify   = get_option("eb_emailtmpl_create_user_notify_allow");
-        if ($allowNotify == false || $allowNotify != "ON") {
-            return;
-        }
-        if ($emailTmplData) {
-            $emailTmplObj = new ExtendedEBAdminEmailTemplate();
-            return $emailTmplObj->sendEmail($args['user_email'], $args, $emailTmplData);
-        }*/
-
-
-        /**
-         * Using Default
-         */
-        /*$this->template_name = 'emails/user-new-account.php';
-
-        // prepare arguments array for email
-        $args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
-
-        $email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
-        $args['header'] = $email_subject; // send email subject as header in email template
-        $email_content  = $this->getContentHtml($args);
-        $email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
-
-        //send email
-        $sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);*/
-    }
-
-
-
-	public function send_course_access_expire_email($args)
-	{
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_course_access_expir");
-		$allowNotify   = get_option("eb_emailtmpl_course_access_expir_notify_allow");
-		if ($emailTmplData && $allowNotify == "ON") {
-			$emailTmplObj = new EBAdminEmailTemplate();
-
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_course_access_expir");
-
-
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+		$args['headers'] = '';
+		if ( $header ) {
+			$args['headers'] = 'Bcc: ' . $header;
 		}
+
+		return $args;
 	}
 
-	public function send_existing_wp_user_new_moodle_account_email($args)
-	{
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_linked_existing_wp_new_moodle_user");
-		$allowNotify   = get_option("eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow");
-		if ($emailTmplData && $allowNotify == "ON") {
-			$emailTmplObj = new EBAdminEmailTemplate();
 
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_new_moodle_user");
+	/**
+	 * Send_course_access_expire_email.
+	 *
+	 * @param text $args Args.
+	 */
+	public function send_course_access_expire_email( $args ) {
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_course_access_expir' );
+		$allow_notify    = get_option( 'eb_emailtmpl_course_access_expir_notify_allow' );
+		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_course_access_expir' );
+
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 	}
 
 	/**
-	 * send succes refund email to user and admin.
+	 * Send existing mail.
+	 *
+	 * @param text $args Args.
+	 */
+	public function send_existing_wp_user_new_moodle_account_email( $args ) {
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
+		$allow_notify    = get_option( 'eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow' );
+		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
+
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
+		}
+	}
+
+	/**
+	 * Send succes refund email to user and admin.
+	 *
+	 * @param text $args Args.
 	 * @return [type] [description]
 	 */
-	public function refund_completion_email($args)
-	{
+	public function refund_completion_email( $args ) {
 
-		$args               = apply_filters("eb_args_data", $args);
-		$userEmailTmplData  = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_refund_completion_notifier_to_user");
-		$adminEmailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_refund_completion_notifier_to_admin");
+		$args                  = apply_filters( 'eb_args_data', $args );
+		$user_email_tmpl_data  = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_user' );
+		$admin_email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_admin' );
 
-		$emailTmplObj = new EBAdminEmailTemplate();
+		$email_tmpl_obj = new EBAdminEmailTemplate();
 
-		$ebGeneral = get_option('eb_general');
-		if ($ebGeneral) {
-			$sendEmailToAdmin        = get_arr_value($ebGeneral, 'eb_refund_mail_to_admin', false);
-			$specifiedEmailForRefund = get_arr_value($ebGeneral, 'eb_refund_mail', false);
+		$eb_general = get_option( 'eb_general' );
+		if ( $eb_general ) {
+			$send_email_to_admin        = get_arr_value( $eb_general, 'eb_refund_mail_to_admin', false );
+			$specified_email_for_refund = get_arr_value( $eb_general, 'eb_refund_mail', false );
 		}
 
-		$allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_user_notify_allow");
-		if ($allowNotify != false && $allowNotify == "ON") {
-			if ($userEmailTmplData) {
-				$user= get_user_by("id", get_arr_value($args, "buyer_id"), "");
+		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow' );
+		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
+			if ( $user_email_tmpl_data ) {
+				$user               = get_user_by( 'id', get_arr_value( $args, 'buyer_id' ), '' );
 				$args['first_name'] = $user->first_name;
-				$args['last_name'] = $user->last_name;
-				$args['username'] = $user->user_login;
+				$args['last_name']  = $user->last_name;
+				$args['username']   = $user->user_login;
 
-				//CUSTOMIZATION HOOKS
-                $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_user");
+				// CUSTOMIZATION HOOKS.
+				$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_user' );
 
-				$emailTmplObj->send_email($user->user_email, $args, $userEmailTmplData);
+				$email_tmpl_obj->send_email( $user->user_email, $args, $user_email_tmpl_data );
 			}
 		}
 
-		$allowNotify = get_option("eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow");
-		if ($allowNotify != false && $allowNotify == "ON") {
-			if (isset($sendEmailToAdmin) && !empty($sendEmailToAdmin) &&  "yes" == $sendEmailToAdmin) {
-				$userArgs = array(
+		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow' );
+		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
+			if ( isset( $send_email_to_admin ) && ! empty( $send_email_to_admin ) && 'yes' === $send_email_to_admin ) {
+				$user_args = array(
 					'role' => 'Administrator',
 				);
-				$result   = get_users($userArgs);
+				$result    = get_users( $user_args );
 
-				foreach ($result as $value) {
-					$adminUser = get_user_by("id", $value->data->ID, "");
-					$args['first_name'] = $adminUser->first_name;
-					$args['last_name'] = $adminUser->last_name;
-					$args['username'] = $adminUser->user_login;
-					
-					//CUSTOMIZATION HOOKS
-            		$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_admin");
+				foreach ( $result as $value ) {
+					$admin_user         = get_user_by( 'id', $value->data->ID, '' );
+					$args['first_name'] = $admin_user->first_name;
+					$args['last_name']  = $admin_user->last_name;
+					$args['username']   = $admin_user->user_login;
 
-					$emailTmplObj->send_email($value->data->user_email, $args, $adminEmailTmplData);
+					// CUSTOMIZATION HOOKS.
+					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_admin' );
+
+					$email_tmpl_obj->send_email( $value->data->user_email, $args, $admin_email_tmpl_data );
 				}
 			}
 
-			if (isset($specifiedEmailForRefund) && !empty($specifiedEmailForRefund)) {
+			if ( isset( $specified_email_for_refund ) && ! empty( $specified_email_for_refund ) ) {
 
-				 //CUSTOMIZATION HOOKS
-            	$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_refund_completion_notifier_to_admin");
+				// CUSTOMIZATION HOOKS.
+				$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_admin' );
 
-				$emailTmplObj->send_email($specifiedEmailForRefund, $args, $adminEmailTmplData);
+				$email_tmpl_obj->send_email( $specified_email_for_refund, $args, $admin_email_tmpl_data );
 			}
 		}
 
@@ -219,105 +214,100 @@ class Eb_Emailer
 	/**
 	 * Sends a new user registration email notification.
 	 *
-	 * called using 'eb_created_user' hook after user registration.
+	 * Called using 'eb_created_user' hook after user registration.
 	 *
-	 * @param array $args user details array
+	 * @param array $args user details array.
 	 *
 	 * @return bool
 	 */
-	public function send_new_user_email($args)
-	{
+	public function send_new_user_email( $args ) {
 
 		/**
 		 * Using Email template Editor
 		 */
-		$args          = apply_filters("eb_args_data", $args);
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_create_user");
-		$allowNotify   = get_option("eb_emailtmpl_create_user_notify_allow");
-		if ($allowNotify == false || $allowNotify != "ON") {
+		$args            = apply_filters( 'eb_args_data', $args );
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
+		$allow_notify    = get_option( 'eb_emailtmpl_create_user_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-			//CUSTOMIZATION HOOKS
-        	$args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_create_user");
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_create_user' );
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 		/**
 		 * Using Default
 		 */
 		$this->template_name = 'emails/user-new-account.php';
 
-		// prepare arguments array for email
-		$args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+		// Prepare arguments array for email.
+		$args           = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
+		$email_subject  = apply_filters( 'eb_new_user_email_subject', esc_html__( 'New User Account Details', 'eb-textdomain' ) );
+		$args['header'] = $email_subject; // send email subject as header in email template.
+		$email_content  = $this->get_content_html( $args );
+		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
 
-		$email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content  = $this->get_content_html($args);
-		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+		// CUSTOMIZATION HOOKS.
+		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_create_user' );
 
-
-		//CUSTOMIZATION HOOKS
-        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_create_user");
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+		// send email.
+		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
 
 		return $sent;
 	}
 
 	/**
-	 * Sends an email with moodle account credentials to existing wordpress users.
+	 * Sends an email with moodle account credentials to existing WordPress users.
 	 *
-	 * called using 'eb_linked_moodle_to_existing_user' hook on user login.
-	 * for users who already have a wordpress account.
+	 * Called using 'eb_linked_moodle_to_existing_user' hook on user login.
+	 * for users who already have a WordPress account.
 	 *
-	 * @param array $args user details array
+	 * @param array $args user details array.
 	 *
 	 * @return bool
 	 */
-	public function send_existing_user_moodle_account_email($args)
-	{
+	public function send_existing_user_moodle_account_email( $args ) {
 		/**
 		 * Using Email template Editor
 		 */
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_linked_existing_wp_user");
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_user' );
 
-		$allowNotify = get_option("eb_emailtmpl_linked_existing_wp_user_notify_allow");
+		$allow_notify = get_option( 'eb_emailtmpl_linked_existing_wp_user_notify_allow' );
 
-		if ($allowNotify == false || $allowNotify != "ON") {
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_user");
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$args           = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_user' );
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 		/**
 		 * Using Default
 		 */
 		$this->template_name          = 'emails/user-existing-wp-account.php';
-		$this->plugin_template_loader = new EbTemplateLoader($this->plugin_name, $this->version);
+		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
 
-		// prepare arguments array for email
-		$args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
+		// prepare arguments array for email.
+		$args = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
 
-		$email_subject = apply_filters(
+		$email_subject  = apply_filters(
 			'eb_existing_wp_user_email_subject',
-			__('Your Learning Account Credentials', 'eb-textdomain')
+			esc_html__( 'Your Learning Account Credentials', 'eb-textdomain' )
 		);
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content  = $this->get_content_html($args);
-		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+		$args['header'] = $email_subject; // send email subject as header in email template.
+		$email_content  = $this->get_content_html( $args );
+		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
 
-		//Customization Hook
-        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_linked_existing_wp_user");
+		// Customization Hook.
+		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_user' );
 
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+		// send email.
+		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
 
 		return $sent;
 	}
@@ -326,138 +316,111 @@ class Eb_Emailer
 	 * Sends an email on successful course purchase ( Order Completion )
 	 * called using 'eb_order_status_completed' hook on order completion.
 	 *
-	 * @param array $args order id
+	 * @param array $order_id order id.
 	 *
 	 * @return bool
 	 */
-	public function send_order_completion_email($order_id)
-	{
-		//global $wpdb;
+	public function send_order_completion_email( $order_id ) {
 
-		$order_detail = get_post_meta($order_id, 'eb_order_options', true); //get order details
+		$order_detail = get_post_meta( $order_id, 'eb_order_options', true ); // get order details.
 
-		// return if there is a problem in order details
-		if (!$this->check_order_details($order_detail)) {
+		// return if there is a problem in order details.
+		if ( ! $this->check_order_details( $order_detail ) ) {
 			return;
 		}
 
-		$buyer_detail = get_userdata($order_detail['buyer_id']); //get buyer details
-		$args         = array(); // arguments array for email
+		$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
+		$args         = array(); // arguments array for email.
 
-		$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email
+		$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
 		$this->plugin_template_loader = new EbTemplateLoader(
 			$this->plugin_name,
 			$this->version
-		); //template loader object
+		); // template loader object.
 
-		// prepare arguments array for email
+		// prepare arguments array for email.
 		$args = apply_filters(
 			'eb_filter_email_parameters',
 			array(
-			// 'order_id' => $order_id,
-			'eb_order_id' => $order_id, // changed 1.4.7
-			'course_id' => $order_detail['course_id'],
-			'user_email' => $buyer_detail->user_email,
-			'username' => $buyer_detail->user_login,
-			'first_name' => isset($buyer_detail->first_name) ? $buyer_detail->first_name : '',
-			'last_name' => isset($buyer_detail->last_name) ? $buyer_detail->last_name : '',
-				),
+				'eb_order_id' => $order_id, // changed 1.4.7.
+				'course_id'   => $order_detail['course_id'],
+				'user_email'  => $buyer_detail->user_email,
+				'username'    => $buyer_detail->user_login,
+				'first_name'  => isset( $buyer_detail->first_name ) ? $buyer_detail->first_name : '',
+				'last_name'   => isset( $buyer_detail->last_name ) ? $buyer_detail->last_name : '',
+			),
 			$this->template_name
 		);
 
 		/**
 		 * Using Email template Editor
 		 */
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_order_completed");
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
 
-		$allowNotify = get_option("eb_emailtmpl_order_completed_notify_allow");
-		if ($allowNotify == false || $allowNotify != "ON") {
+		$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_order_completed");
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 
 		/**
 		 * Using Default
 		 */
-		$email_subject = apply_filters(
+		$email_subject  = apply_filters(
 			'eb_order_completion_email_subject',
-			__('Your order completed successfully.', 'eb-textdomain')
+			esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
 		);
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content = $this->get_content_html($args);
-		$email_headers = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
+		$args['header'] = $email_subject; // send email subject as header in email template.
+		$email_content  = $this->get_content_html( $args );
+		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
 
-		//CUSTOMIZATION HOOKS
-        $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_order_completed");
+		// CUSTOMIZATION HOOKS.
+		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
 
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
+		// send email.
+		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
 
 		return $sent;
 	}
 
 
-
-
-/*********   Two way synch    **********/
-
-
-
 	/**
 	 * Sends email notification when Enrollment triggered on Moodle.
 	 *
-	 * called using 'eb_created_user' hook after user registration.
+	 * Called using 'eb_created_user' hook after user registration.
 	 *
-	 * @param array $args user details array
+	 * @param array $args user details array.
 	 *
 	 * @return bool
 	 */
-	public function send_mdl_triggered_enrollment_email($args)
-	{
+	public function send_mdl_triggered_enrollment_email( $args ) {
 		/**
 		 * Using Email template Editor
 		 */
 
-
-		$args          = apply_filters("eb_args_data", $args);
-
-
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_enrollment_trigger");
-		$allowNotify   = get_option("eb_emailtmpl_mdl_enrollment_trigger_notify_allow");
-		if ($allowNotify == false || $allowNotify != "ON") {
+		$args            = apply_filters( 'eb_args_data', $args );
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
+		$allow_notify    = get_option( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_enrollment_trigger");
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_enrollment_trigger' );
+
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 		/**
 		 * Using Default
 		 */
-		/*$this->template_name = 'emails/user-new-account.php';
-
-		// prepare arguments array for email
-		$args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
-
-		$email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content  = $this->getContentHtml($args);
-		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
-
-		return $sent;*/
 	}
 
 
@@ -470,51 +433,34 @@ class Eb_Emailer
 	/**
 	 * Sends email notification when Un Enrollment triggered on Moodle.
 	 *
-	 * called using 'eb_created_user' hook after user registration.
+	 * Called using 'eb_created_user' hook after user registration.
 	 *
-	 * @param array $args user details array
+	 * @param array $args user details array.
 	 *
 	 * @return bool
 	 */
-	public function send_mdl_triggered_unenrollment_email($args)
-	{
+	public function send_mdl_triggered_unenrollment_email( $args ) {
 		/**
 		 * Using Email template Editor
 		 */
 
-/// write appropriate filter name
-
-
-		$args          = apply_filters("eb_args_data", $args);
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_un_enrollment_trigger");
-		$allowNotify   = get_option("eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow");
-		if ($allowNotify == false || $allowNotify != "ON") {
+		$args            = apply_filters( 'eb_args_data', $args );
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
+		$allow_notify    = get_option( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_un_enrollment_trigger");
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
+
 		/**
 		 * Using Default
 		 */
-		/*$this->template_name = 'emails/user-new-account.php';
-
-		// prepare arguments array for email
-		$args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
-
-		$email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content  = $this->getContentHtml($args);
-		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
-
-		return $sent;*/
 	}
 
 
@@ -527,89 +473,71 @@ class Eb_Emailer
 	/**
 	 * Sends email notification when User Deletion triggered on Moodle.
 	 *
-	 * called using 'eb_created_user' hook after user registration.
+	 * Called using 'eb_created_user' hook after user registration.
 	 *
-	 * @param array $args user details array
+	 * @param array $args user details array.
 	 *
 	 * @return bool
 	 */
-	public function send_mdl_triggered_user_deletion_email($args)
-	{
+	public function send_mdl_triggered_user_deletion_email( $args ) {
 		/**
 		 * Using Email template Editor
 		 */
 
-/// write appropriate filter name
-
-
-
-		$args          = apply_filters("eb_args_data", $args);
-		$emailTmplData = EBAdminEmailTemplate::get_email_tmpl_content("eb_emailtmpl_mdl_user_deletion_trigger");
-		$allowNotify   = get_option("eb_emailtmpl_mdl_user_deletion_trigger_notify_allow");
-		if ($allowNotify == false || $allowNotify != "ON") {
+		$args            = apply_filters( 'eb_args_data', $args );
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
+		$allow_notify    = get_option( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return;
 		}
-		if ($emailTmplData) {
-			$emailTmplObj = new EBAdminEmailTemplate();
-			//CUSTOMIZATION HOOKS
-            $args = apply_filters("eb_email_custom_args", $args, "eb_emailtmpl_mdl_user_deletion_trigger");
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_user_deletion_trigger' );
 
-			return $emailTmplObj->send_email($args['user_email'], $args, $emailTmplData);
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 		}
 		/**
 		 * Using Default
 		 */
-		/*$this->template_name = 'emails/user-new-account.php';
-
-		// prepare arguments array for email
-		$args = apply_filters('eb_filter_email_parameters', $args, $this->template_name);
-
-		$email_subject  = apply_filters('eb_new_user_email_subject', __('New User Account Details', 'eb-textdomain'));
-		$args['header'] = $email_subject; // send email subject as header in email template
-		$email_content  = $this->getContentHtml($args);
-		$email_headers  = apply_filters('eb_email_headers', array('Content-Type: text/html; charset=UTF-8'));
-
-		//send email
-		$sent = $this->mailer($args['user_email'], $email_subject, $email_content, $email_headers);
-
-		return $sent;*/
 	}
 
-
-
-
-
-
-
-
-
-/***********************************/
-
-
-	private function check_order_details($order_detail)
-	{
-		if (!isset($order_detail['order_status']) || !isset($order_detail['buyer_id']) || !isset($order_detail['course_id'])) {
+	/**
+	 * Order details.
+	 *
+	 * @param array $order_detail order_detail array.
+	 */
+	private function check_order_details( $order_detail ) {
+		if ( ! isset( $order_detail['order_status'] ) || ! isset( $order_detail['buyer_id'] ) || ! isset( $order_detail['course_id'] ) ) {
 			return false;
 		}
 		return true;
 	}
 
-	// custom mailer
-	public function mailer($_to, $email_subject, $email_content, $email_headers = '')
-	{
 
-		// inject CSS rules for text and image alignment
+	/**
+	 * Custom mailer.
+	 *
+	 * @param array $_to to mail.
+	 * @param array $email_subject Email subject.
+	 * @param array $email_content email content.
+	 * @param array $email_headers email headers.
+	 */
+	public function mailer( $_to, $email_subject, $email_content, $email_headers = '' ) {
+
+		// inject CSS rules for text and image alignment.
 		$email_css     = $this->mailer_css();
 		$email_content = $email_css . $email_content;
 
-		$sent = wp_mail($_to, $email_subject, $email_content, $email_headers);
+		$sent = wp_mail( $_to, $email_subject, $email_content, $email_headers );
 
 		return $sent;
 	}
 
-	// custom css to be added in emails
-	public function mailer_css()
-	{
+	/**
+	 * Custom css to be added in emails.
+	 */
+	public function mailer_css() {
 		$css = '<style type="text/css"> .alignleft {float: left;margin: 5px 20px 5px 0;}
 			.alignright {float: right;margin: 5px 0 5px 20px;}
 			.aligncenter {display: block;margin: 5px auto;}img.alignnone {margin: 5px 0;}
@@ -628,15 +556,15 @@ class Eb_Emailer
 	}
 
 	/**
-	 * getContentHtml function
+	 * Get Content Html function.
 	 * returns the template content.
 	 *
+	 * @param array $args email content.
 	 * @return string
 	 */
-	public function get_content_html($args)
-	{
+	public function get_content_html( $args ) {
 		ob_start();
-		$this->plugin_template_loader->wp_get_template($this->template_name, $args);
+		$this->plugin_template_loader->wp_get_template( $this->template_name, $args );
 
 		return ob_get_clean();
 	}

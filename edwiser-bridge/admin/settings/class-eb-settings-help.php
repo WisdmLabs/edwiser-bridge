@@ -1,8 +1,5 @@
 <?php
-
-namespace app\wisdmlabs\edwiserBridge;
-
-/*
+/**
  * Edwiser Bridge user help page
  *
  * @link       https://edwiser.org
@@ -13,27 +10,27 @@ namespace app\wisdmlabs\edwiserBridge;
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
+namespace app\wisdmlabs\edwiserBridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
+if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 
 	/**
-	 * Eb_Settings_Get_Help.
+	 * Eb_Settings_Help.
 	 */
-	class Eb_Settings_Get_Help extends EBSettingsPage {
+	class Eb_Settings_Help extends EBSettingsPage {
 
 		/**
 		 * Constructor.
 		 */
 		public function __construct() {
-			$this->_id = 'get-help';
+			$this->_id   = 'get-help';
 			$this->label = __( 'Get Help', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
-			//add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
-			//add_action( 'eb_settings_save_' . $this->_id, array( $this, 'save' ) );
 			add_action( 'admin_action_eb_help', array( $this, 'helpSubscribeHandler' ) );
 		}
 
@@ -43,7 +40,6 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 		 * @since  1.0.0
 		 */
 		public function output() {
-			//global $current_section;
 			// Hide the save button.
 			$GLOBALS['hide_save_button'] = true;
 		}
@@ -63,9 +59,9 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 
 			// verify nonce.
 			if ( ! isset( $_POST['subscribe_nonce_field'] ) ||
-					! wp_verify_nonce( $_POST['subscribe_nonce_field'], 'subscribe_nonce' )
+					! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' )
 			) {
-				_e( 'Sorry, there is a problem!', 'eb-textdomain' );
+				esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
 				exit;
 			} else {
 				// process subscription.
@@ -80,15 +76,14 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 				);
 
 				$message = sprintf(
-					__( "Edwiser subscription user details: \n\nCustomer Website: %s \nCustomer Email: %s ", 'eb-textdomain' ),
+
+					/*
+					 * translators: dispays the subuscription message.
+					 */
+					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: %1$s \n Customer Email: %2$s ', 'eb-textdomain' ),
 					site_url(),
 					$admin_email
 				);
-
-				// $message = "Edwiser subscription user details: \n";
-				// $message .= "\nCustomer Website:\n".site_url();
-				// $message .= "\n\nCustomer Email: \n";
-				// $message .= $admin_email;
 
 				$sent = wp_mail( $plugin_author_email, $subject, $message );
 
@@ -97,11 +92,11 @@ if ( ! class_exists( 'Eb_Settings_Get_Help' ) ) :
 				}
 			}
 
-			wp_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
+			wp_safe_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
 			exit;
 		}
 	}
 
 endif;
 
-return new Eb_Settings_Get_Help();
+return new Eb_Settings_Help();
