@@ -684,7 +684,7 @@ class Eb_Post_Types {
 		$messages[ $post_type ] = array(
 			0  => '', // Unused. Messages start at index 1.
 			1  => sprintf( '%s', esc_attr( $singular ) ) .
-				__( ' updated.', 'eb-textdomain' ) . '<a href="' . sprintf( '%s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . __( ' View', 'eb-textdomain' ) .
+				__( ' updated.', 'eb-textdomain' ) . '<a href="' . sprintf( '%s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . __( ' View ', 'eb-textdomain' ) .
 				sprintf(
 					'%s</a>',
 					strtolower( $singular )
