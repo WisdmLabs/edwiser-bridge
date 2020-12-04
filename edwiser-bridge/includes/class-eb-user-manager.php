@@ -310,7 +310,7 @@ class EBUserManager {
 							$user                                = get_userdata( $value['user_id'] );
 							$response_array['user_with_error'][] = '<tr><td>' . $value['user_id'] . '</td><td> ' . $user->user_login . '</td></tr>';
 						} else {
-							$link_users_count++;
+							++$link_users_count;
 						}
 					}
 				}

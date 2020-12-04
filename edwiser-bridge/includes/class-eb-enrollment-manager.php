@@ -122,6 +122,7 @@ class Eb_Enrollment_Manager {
 	 * @param bool  $role_id false.
 	 */
 	public function update_user_course_enrollment( $args, $role_id = '5' ) {
+
 		$defaults = array(
 			'user_id'           => 0,
 			'role_id'           => $role_id,
@@ -241,6 +242,8 @@ class Eb_Enrollment_Manager {
 
 		// update enrollment details on WordPress enrollment table.
 		if ( isset( $response['success'] ) && $response['success'] ) {
+
+
 			// define args.
 			$args = array(
 				'user_id'           => $args['user_id'],
@@ -251,6 +254,7 @@ class Eb_Enrollment_Manager {
 				'complete_unenroll' => $args['complete_unenroll'],
 
 			);
+
 			$this->update_enrollment_record_wordpress( $args );
 		}
 
@@ -382,18 +386,19 @@ class Eb_Enrollment_Manager {
 
 				} elseif ( $this->user_has_cours_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
 					// increase the count value.
-					$act_cnt = $act_cnt++;
+					$act_cnt = ++$act_cnt;
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt );
 				}
 			}
 			// Trigger Email.
-		} elseif ( 1 === $args['unenroll'] ) {
+		} elseif ( 1 == $args['unenroll'] ) {
 			foreach ( $args['courses'] as $key => $course_id ) {
 				// Get User Course Access Count.
 				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );
+
 				// decrease the count value.
-				$act_cnt = $act_cnt--;
+				$act_cnt = --$act_cnt;
 
 				if ( $act_cnt <= 0 || $args['complete_unenroll'] ) {
 					// delete row if count equals zero.

@@ -502,7 +502,7 @@ class EBAdminEmailTemplate {
 	 * kay othrewise emapty string
 	 */
 	public static function getEmailTmplContent( $tmpl_name ) {
-		return $this->get_email_tmpl_content( $tmpl_name );
+		return self::get_email_tmpl_content( $tmpl_name );
 	}
 
 

@@ -174,8 +174,7 @@ class Eb_Order_Manager {
 			/**
 			 * Unenroll the user if the order is get marked as pending or failed form the compleated.
 			 */
-
-			if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
+		if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
 				$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 				$ord_detail         = get_post_meta( $order_id, 'eb_order_options', true );
 				$args               = array(
@@ -185,6 +184,7 @@ class Eb_Order_Manager {
 					'unenroll' => 1,
 					'suspend'  => 0,
 				);
+
 				$enrollment_manager->update_user_course_enrollment( $args );
 
 			}
