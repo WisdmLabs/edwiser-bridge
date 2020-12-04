@@ -1183,6 +1183,9 @@ class EBUserManager {
 	 */
 	public function update_courses_on_profile_update( $user_id ) {
 
+
+error_log('update_courses_on_profile_update ::');
+
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
@@ -1211,6 +1214,9 @@ class EBUserManager {
 					'complete_unenroll' => 0,
 				);
 
+error_log('update_courses_on_profile_update 1111::');
+
+
 				// enroll user to course.
 				edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
 
@@ -1233,6 +1239,7 @@ class EBUserManager {
 					'unenroll'          => 1,
 					'complete_unenroll' => 1,
 				);
+error_log('update_courses_on_profile_update 222 ::');
 
 				// enroll user to course.
 				edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );

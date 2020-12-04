@@ -127,6 +127,7 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 						</div>
 						<?php
 					}
+
 					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );
 				} else {
 					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), eb_sinlge_course_get_allowed_html_tags() );

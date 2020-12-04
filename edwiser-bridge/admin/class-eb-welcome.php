@@ -265,9 +265,6 @@ class Eb_Welcome {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-
-error_log('POST 111 :: '.print_r($_POST, 1));
-
 					if ( isset( $_POST['subscribe_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
 						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
 							?>
@@ -335,8 +332,6 @@ error_log('POST 111 :: '.print_r($_POST, 1));
 	 */
 	public function subscribe_handler() {
 		$subscribed = 0;
-
-error_log('POST 111 :: '.print_r($_POST, 1));
 
 
 		// verify nonce.

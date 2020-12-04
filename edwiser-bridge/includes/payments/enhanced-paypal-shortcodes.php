@@ -348,6 +348,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 
 		switch ( $atts['type'] ) {
 			case 'paynow':
+
 				$code = '
 			<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
@@ -520,6 +521,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$code .= '</div>';
 				break;
 			case 'subscribe':
+
 				$code = '
 			<div style="';
 				eb_check_array_value( $atts['textalignte'], $code, 'text-align: ' . $atts['textalign'] . ';' );
@@ -559,6 +561,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				if ( 1 === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 				}
+
 				$code .= '"><form name="subscribewithpaypal" action="' . $paypal_url . '" method="post">
 			<input type="hidden" name="cmd" value="_xclick-subscriptions" />
 
@@ -736,6 +739,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$code .= '</form></div>';
 				break;
 			case 'hosted':
+
 				$code = '<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
@@ -770,7 +774,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= 'margin-bottom: 10px;';
 				}
-
 				$code .= '"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="hosted_button_id" value="' . $atts['buttonid'] . '">
@@ -797,6 +800,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 		   </form></div>';
 				break;
 			case 'addtocart':
+
 				$code = '<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
@@ -831,6 +835,8 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= 'margin-bottom: 10px;';
 				}
+
+
 				$code .= '"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_cart">
 			<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
@@ -962,6 +968,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					height="1" class="ppalholder">
 		   </form></div>';
 		}
+
 
 		return apply_filters(
 			'eb_paypal_payment_button',

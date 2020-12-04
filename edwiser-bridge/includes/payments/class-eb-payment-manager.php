@@ -274,6 +274,7 @@ class Eb_Payment_Manager {
 
 				return $closed_button;
 			} elseif ( 'free' === $course_price_type || ( 'paid' === $course_price_type && empty( $course_price ) ) ) { // free course button.
+
 				$free_button = '<div class="eb_join_button"><form method="post">
 								<input type="hidden" value="' . $course->ID . '" name="course_id">
 								<input type="submit"
@@ -317,6 +318,7 @@ class Eb_Payment_Manager {
 						return '<div class="eb_join_button">' . $payment_buttons . '</div>';
 					}
 				} else {
+
 					$not_purchasable = apply_filters(
 						'eb_course_not_purchasable_notice',
 						esc_html__( 'Course Not Available', 'eb-textdomain' )

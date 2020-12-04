@@ -122,11 +122,14 @@ class Eb_Course_Manager {
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 
 		if ( 1 === $connected['success'] ) {
+
 			/*
 			 * sync Moodle course categories to WordPress conditionally.
 			 * executes only if user chooses to sync categories.
 			 */
 			if ( isset( $sync_options['eb_synchronize_categories'] ) && 1 === $sync_options['eb_synchronize_categories'] ) {
+
+
 				$moodle_category_resp = $this->get_moodle_course_categories(); // get categories from moodle.
 
 				// creating categories based on recieved data.
@@ -145,6 +148,7 @@ class Eb_Course_Manager {
 			$moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle.
 
 			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 === $sync_options['eb_synchronize_previous'] ) ) {
+
 				// creating courses based on recieved data.
 				if ( 1 === $moodle_course_resp['success'] ) {
 					foreach ( $moodle_course_resp['response_data'] as $course_data ) {
@@ -161,19 +165,24 @@ class Eb_Course_Manager {
 
 						// creates new course or updates previously synced course conditionally.
 						if ( ! is_numeric( $existing_course_id ) ) {
+
 							$course_id         = $this->create_course_on_wordpress( $course_data, $sync_options );
 							$courses_created[] = $course_id; // push course id in courses created array.
 						} elseif ( is_numeric( $existing_course_id ) &&
 								isset( $sync_options['eb_synchronize_previous'] ) &&
 								1 === $sync_options['eb_synchronize_previous'] ) {
+
 								$course_id     = $this->update_course_on_wordpress(
 									$existing_course_id,
 									$course_data,
 									$sync_options
 								);
 							$courses_updated[] = $course_id; // push course id in courses updated array.
+
 						}
 					}
+
+
 				}
 				$response_array['course_success'] = $moodle_course_resp['success'];
 				// push course response in array.

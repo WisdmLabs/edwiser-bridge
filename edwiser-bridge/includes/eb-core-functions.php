@@ -589,6 +589,8 @@ function eb_sinlge_course_get_allowed_html_tags() {
 	$allowed_tags           = wp_kses_allowed_html( 'post' );
 	$allowed_tags['form']   = array(
 		'method' => array(),
+		'target' => array(),
+		'action' => array(),
 	);
 	$allowed_tags['input']  = array(
 		'class' => array(),
