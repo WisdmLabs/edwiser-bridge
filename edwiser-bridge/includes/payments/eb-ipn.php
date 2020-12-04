@@ -10,14 +10,14 @@ namespace app\wisdmlabs\edwiserBridge;
 // NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
 // You cannot rely on setting up some details here and then using them in your success page.
 
-
 // Verify Nonce.
-$custom_data = isset( $_REQUEST['custom'] ) ? wp_json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) ) : '';
-$_POST['eb_paypal_nonce'] = $custom_data->eb_nonce;
+$custom_data = isset( $_REQUEST['custom'] ) ? json_decode( wp_unslash( $_REQUEST['custom'] ) ) : '';
+// $_POST['eb_paypal_nonce'] = $custom_data->eb_nonce;
 
 if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
-	die( 'busted' );
+	return;
 }
+
 // create an object of logger class.
 edwiser_bridge_instance()->logger()->add( 'payment', "\n" );
 
@@ -56,11 +56,16 @@ if ( 'yes' === $paypal_sandbox ) {
 }
 
 try {
+
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Checking Post Method.' );
+
 	$listener->require_post_method();
+
 	$verified = $listener->process_ipn( $_POST );
+
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Post method check completed.' );
 } catch ( \Exception $e ) {
+
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Found Exception: ' . $e->getMessage() . ' Exiting....' );
 	exit( 0 );
 }
@@ -77,6 +82,7 @@ $notify_on_valid_ipn = 1;
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'Payment Verified? : ' . ( ( $verified ) ? 'YES' : 'NO' ) );
 /* The process_ipn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
+
 
 if ( $verified ) {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Verfied! Moving Ahead.' );
@@ -95,10 +101,10 @@ if ( $verified ) {
 	// You can't cancel that here.
 	$post_receiver_email = isset( $_POST['receiver_email'] ) ? sanitize_text_field( wp_unslash( $_POST['receiver_email'] ) ) : '';
 
-	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email === $seller_email ) ? 'YES' : 'NO' ) );
+	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email == $seller_email ) ? 'YES' : 'NO' ) );
 
-	if ( $post_receiver_email !== $seller_email ) {
-		if ( '' !== $your_notification_email_address ) {
+	if ( $post_receiver_email != $seller_email ) {
+		if ( '' != $your_notification_email_address ) {
 			wp_mail(
 				$your_notification_email_address,
 				'Warning: IPN with invalid receiver email!',
@@ -110,13 +116,16 @@ if ( $verified ) {
 		}
 	}
 
-	$post_payment_status = isset( $_POST['payment_status'] ) ? sanitize_text_field( wp_unslash( $_POST['payment_status'] ) ) : '';
+	$post_payment_status = isset( $_POST['payment_status'] ) ? wp_unslash( $_POST['payment_status'] ): '';
+
 
 	edwiser_bridge_instance()->logger()->add(
 		'payment',
-		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' === $post_payment_status ) ? 'YES' : 'NO' )
+		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' == $post_payment_status ) ? 'YES' : 'NO' )
 	);
-	if ( 'Completed' === $post_payment_status ) {
+
+	if ( 'Completed' == $post_payment_status ) {
+
 		edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Completed! Moving Ahead.' );
 		// a customer has purchased from this website.
 		// email used by buyer to purchase course.
@@ -131,9 +140,9 @@ if ( $verified ) {
 		// verify course price.
 		$course_price = Eb_Post_Types::get_post_options( $course_id, 'course_price', 'eb_course' );
 
-		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_gross'] ) ) : '';
+		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? wp_unslash( $_REQUEST['mc_gross'] ) : '';
 
-		if ( $post_mc_gross === $course_price ) {
+		if ( $post_mc_gross == $course_price ) {
 			edwiser_bridge_instance()->logger()->add( 'payment', 'Course price is varified. Let\'s continue...' );
 		} else {
 			edwiser_bridge_instance()->logger()->add(
@@ -145,7 +154,7 @@ if ( $verified ) {
 
 		$post_mc_currency = isset( $_REQUEST['mc_currency'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_currency'] ) ) : '';
 
-		if ( $post_mc_currency !== $paypal_currency ) {
+		if ( $post_mc_currency != $paypal_currency ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'WARNING ! Paypal currency is modified by the purchaser, course access not given. Exiting!!!'
@@ -158,7 +167,6 @@ if ( $verified ) {
 			edwiser_bridge_instance()->logger()->add( 'payment', sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
 
 			// decode json data.
-			$custom_data = wp_json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
 			edwiser_bridge_instance()->logger()->add( 'payment', print_r( $custom_data, 1 ) );
 			$buyer_id = isset( $custom_data->buyer_id ) ? $custom_data->buyer_id : '';
 			$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
@@ -193,7 +201,7 @@ if ( $verified ) {
 		// verify order.
 		// get order details.
 		$order_buyer_id = Eb_Post_Types::get_post_options( $order_id, 'buyer_id', 'eb_order' );
-		if ( $buyer_id !== $order_buyer_id ) {
+		if ( $buyer_id != $order_buyer_id ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Buyer ID [' . $buyer_id . '] passed back by Paypal. But actual order has a different buyer id in DB.
@@ -203,7 +211,7 @@ if ( $verified ) {
 		}
 
 		$order_course_id = Eb_Post_Types::get_post_options( $order_id, 'course_id', 'eb_order' );
-		if ( $course_id !== $order_course_id ) {
+		if ( $course_id != $order_course_id ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Item ID [' . $course_id . '] passed back by Paypal. But actual order has a different item id in DB.
@@ -223,7 +231,7 @@ if ( $verified ) {
 		update_post_meta( $order_id, 'eb_order_options', $order_options );
 
 		// since 1.2.4.
-		$post_txn_id = isset( $_REQUEST['txn_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['txn_id'] ) ) : '';
+		$post_txn_id = isset( $_REQUEST['txn_id'] ) ? wp_unslash( $_REQUEST['txn_id'] ) : '';
 		if ( $post_txn_id ) {
 			update_post_meta( $order_id, 'eb_transaction_id', $post_txn_id );
 		}
@@ -238,8 +246,11 @@ if ( $verified ) {
 			);
 			update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
 		}
-	} elseif ( 'Refunded' === $post_payment_status ) {
-		$custom_data = wp_json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
+	} elseif ( 'Refunded' == $post_payment_status ) {
+
+		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? wp_unslash( $_REQUEST['mc_gross'] ) : '';
+		$post_txn_id = isset( $_REQUEST['txn_id'] ) ? wp_unslash( $_REQUEST['txn_id'] ) : '';
+		
 		edwiser_bridge_instance()->logger()->add( 'refund', print_r( $custom_data, 1 ) );
 		$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 		$note     = array(
@@ -255,12 +266,13 @@ if ( $verified ) {
 			'refund_amount'   => abs( empty( $post_mc_gross ) ? '0.00' : $post_mc_gross ),
 			'refunded_status' => empty( $post_payment_status ) ? 'Unknown' : $post_payment_status,
 		);
+
 		do_action( 'eb_refund_completion', $args );
 	}
 
 	edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Processing Completed Successfully.' );
-	$notify_on_valid = '' !== $notify_on_valid_ipn ? $notify_on_valid_ipn : '0';
-	if ( '1' === $notify_on_valid ) {
+	$notify_on_valid = '' != $notify_on_valid_ipn ? $notify_on_valid_ipn : '0';
+	if ( '1' == $notify_on_valid ) {
 		wp_mail( $your_notification_email_address, 'Verified IPN', $listener->get_text_report() );
 	}
 } else {

@@ -40,7 +40,7 @@ class Eb_Admin_Notice_Handler {
 			return 0;
 		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
 				300 === wp_remote_retrieve_response_code( $response ) ) {
-			$body = wp_json_decode( wp_remote_retrieve_body( $response ) );
+			$body = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( 'accessexception' === $body->errorcode ) {
 				return 0;

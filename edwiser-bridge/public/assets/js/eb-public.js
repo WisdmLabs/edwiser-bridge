@@ -55,7 +55,7 @@
 					//create custom data encoded in json
 					custom_data['buyer_id'] = parseInt(buyer_id);
 					custom_data['order_id'] = parseInt(response.order_id);
-					custom_data['eb_nonce'] = response.nonce;
+					// custom_data['eb_nonce'] = response.nonce;
 
 
 					$("input[name='custom']").val(JSON.stringify(custom_data));

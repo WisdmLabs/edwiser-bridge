@@ -119,7 +119,7 @@ function wdm_show_notices() {
 	// display form messages.
 	if ( defined( 'USER_FORM_MESSAGE' ) ) {
 		echo "<div class='wdm-flash-error'>";
-		echo '<span>' . esc_html( USER_FORM_MESSAGE ) . '</span><br />';
+		echo '<span>' . wp_kses( USER_FORM_MESSAGE, eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
 		echo '</div>';
 	}
 }

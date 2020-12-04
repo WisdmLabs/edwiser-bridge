@@ -144,17 +144,45 @@ class Eb_Ipn_Listener {
 			$this->post_uri = $uri;
 		}
 
-		$request_args = array(
-			'body'    => $encoded_data,
-			'timeout' => 100,
+/*		$request_args = array(
+			'body'        => $encoded_data,
+			'timeout'     => 60,
+			'httpversion' => '1.1',
+			'compress'    => false,
+			'decompress'  => false,
+			'user-agent'  => 'eb',
 		);
-		$response     = wp_remote_post( $uri, $request_args );
+
+
+		$response              = wp_remote_post( $uri, $request_args );*/
+
+
+		$validate_ipn        = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+		$validate_ipn['cmd'] = '_notify-validate';
+
+
+		// Send back post vars to paypal.
+		$params = array(
+			'body'        => $validate_ipn,
+			'timeout'     => 60,
+			'httpversion' => '1.1',
+			'compress'    => false,
+			'decompress'  => false,
+			'user-agent'  => 'eb',
+		);
+
+		// Post back to get a response.
+		$response = wp_safe_remote_post( $uri, $params );
+
+
+        $this->response_status = strval( wp_remote_retrieve_response_code( $response ) );
+		$this->response        = $response['body'];
 
 		if ( is_wp_error( $response ) ) {
 			$errstr = $response->get_error_message();
 			throw new \Exception( "cURL error: [$errno] $errstr" );
 		} elseif ( wp_remote_retrieve_response_code( $response ) == 200 ) {
-			$this->response = json_decode( wp_remote_retrieve_body( $response ) );
+			// $this->response = json_decode( wp_remote_retrieve_body( $response ) );
 		} else {
 			throw new \Exception( 'cURL error: Failed to retrieve response.' );
 		}
@@ -317,35 +345,47 @@ class Eb_Ipn_Listener {
 	 *  @return boolean
 	 */
 	public function process_ipn( $post_data = null ) {
-		$encoded_data = 'cmd=_notify-validate';
+		// $encoded_data = 'cmd=_notify-validate';
+		$encoded_data = array('cmd' => '=_notify-validate');
+		/*	$validate_ipn        = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+		$validate_ipn['cmd'] = '_notify-validate';*/
 
-		if ( null === $post_data ) {
+		if ( null == $post_data ) {
+
 			// use raw POST data.
 			throw new \Exception( 'No POST data found.' );
 		} else {
+
 			// use provided data array.
 			$this->post_data = $post_data;
-
-			foreach ( $this->post_data as $key => $value ) {
-				$encoded_data .= "&$key=" . urlencode( $value );
-			}
+			$encoded_data        = wp_unslash( $_POST );
+			/*foreach ( $this->post_data as $key => $value ) {
+				$encoded_data = wp_unslash( $value );
+			}*/
 		}
 
 		if ( $this->use_curl ) {
+
 			$this->curl_post( $encoded_data );
 		} else {
+
 			$this->fsock_post( $encoded_data );
 		}
 
-		if ( strpos( $this->response_status, '200' ) === false ) {
+		if ( $this->response_status == false ) {
+
 			throw new \Exception( 'Invalid response status: ' . $this->response_status );
 		}
 
+
 		if ( strpos( $this->response, 'VERIFIED' ) !== false ) {
+
 			return true;
 		} elseif ( strpos( $this->response, 'INVALID' ) !== false ) {
+
 			return false;
 		} else {
+
 			throw new \Exception( 'Unexpected response from PayPal.' );
 		}
 	}
@@ -360,9 +400,9 @@ class Eb_Ipn_Listener {
 	 */
 	public function require_post_method() {
 		// require POST requests.
-		$post_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) : '';
+		$post_request_method = isset( $_SERVER['REQUEST_METHOD'] ) ? wp_unslash( $_SERVER['REQUEST_METHOD'] ) : '';
 
-		if ( $post_request_method ) {
+		if ( !$post_request_method ) {
 			header( 'Allow: POST', true, 405 );
 			throw new \Exception( 'Invalid HTTP request method.' );
 		}

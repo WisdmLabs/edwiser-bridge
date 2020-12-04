@@ -361,7 +361,7 @@ class Eb_Order_Manager {
 		}
 
 		// response.
-		$response = wp_json_encode(
+		$response = json_encode(
 			array(
 				'success'  => $success,
 				'order_id' => $order_id,
@@ -369,7 +369,7 @@ class Eb_Order_Manager {
 			)
 		);
 
-		echo esc_html( $response );
+		echo $response;
 		die();
 	}
 
