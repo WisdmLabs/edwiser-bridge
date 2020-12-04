@@ -102,7 +102,7 @@ class Eb_Post_Types {
 					array(
 						'labels'            => array(
 							'name'               => __( 'Edwiser Bridge', 'eb-textdomain' ),
-							'singular_name'      => __( 'Edwiser Bridge', 'eb-textdomain' ),
+							'singular_name'      => __( 'Moodle Course', 'eb-textdomain' ),
 							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
 							'all_items'          => __( 'Courses', 'eb-textdomain' ),
 							'add_new'            => __( 'Add Course', 'eb-textdomain' ),
@@ -539,7 +539,7 @@ class Eb_Post_Types {
 				<?php
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( in_array( $k, $data, true ) ) {
+					if ( in_array( $k, $data) ) {
 						$selected = true;
 					}
 					?>

@@ -362,6 +362,7 @@ function get_all_eb_sourses( $post_id = 0 ) {
 	foreach ( $posts as $value ) {
 		$posts_with_title[ $value ] = get_the_title( $value );
 	}
+
 	return $posts_with_title;
 }
 
