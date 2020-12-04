@@ -127,13 +127,13 @@ class Eb_Course_Manager {
 			 * sync Moodle course categories to WordPress conditionally.
 			 * executes only if user chooses to sync categories.
 			 */
-			if ( isset( $sync_options['eb_synchronize_categories'] ) && 1 === $sync_options['eb_synchronize_categories'] ) {
-
+			if ( isset( $sync_options['eb_synchronize_categories'] ) && '1' === $sync_options['eb_synchronize_categories'] ) {
 
 				$moodle_category_resp = $this->get_moodle_course_categories(); // get categories from moodle.
 
 				// creating categories based on recieved data.
 				if ( 1 === $moodle_category_resp['success'] ) {
+
 					$this->create_course_categories_on_wordpress( $moodle_category_resp['response_data'] );
 				}
 
@@ -147,7 +147,7 @@ class Eb_Course_Manager {
 			 */
 			$moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle.
 
-			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && 1 === $sync_options['eb_synchronize_previous'] ) ) {
+			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && '1' === $sync_options['eb_synchronize_previous'] ) ) {
 
 				// creating courses based on recieved data.
 				if ( 1 === $moodle_course_resp['success'] ) {
@@ -170,7 +170,7 @@ class Eb_Course_Manager {
 							$courses_created[] = $course_id; // push course id in courses created array.
 						} elseif ( is_numeric( $existing_course_id ) &&
 								isset( $sync_options['eb_synchronize_previous'] ) &&
-								1 === $sync_options['eb_synchronize_previous'] ) {
+								'1' === $sync_options['eb_synchronize_previous'] ) {
 
 								$course_id     = $this->update_course_on_wordpress(
 									$existing_course_id,
@@ -393,7 +393,7 @@ class Eb_Course_Manager {
 		global $wpdb;
 
 		$status = ( isset( $sync_options['eb_synchronize_draft'] ) &&
-				1 === $sync_options['eb_synchronize_draft'] ) ? 'draft' : 'publish'; // manage course status.
+				'1' === $sync_options['eb_synchronize_draft'] ) ? 'draft' : 'publish'; // manage course status.
 
 		$course_args = array(
 			'post_title'   => $course_data->fullname,
@@ -651,7 +651,7 @@ class Eb_Course_Manager {
 			$mdl_course_id      = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
 			$mdl_course_deleted = Eb_Post_Types::get_post_options( $post_id, 'mdl_course_deleted', 'eb_course' );
 
-			echo esc_html( ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'eb-textdomain' ) . '<span>' : $mdl_course_id );
+			echo ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'eb-textdomain' ) . '<span>' : esc_html( $mdl_course_id );
 		}
 
 		do_action( 'eb_course_table_content', $column_name, $post_id );

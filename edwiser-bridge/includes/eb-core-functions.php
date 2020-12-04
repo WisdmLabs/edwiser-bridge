@@ -574,6 +574,17 @@ function get_allowed_html_tags() {
 	$allowed_tags['style']  = array(
 		'types' => array(),
 	);
+	$allowed_tags['span']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+
+	);
+	$allowed_tags['h4']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+	);
 	return $allowed_tags;
 }
 
@@ -620,6 +631,8 @@ function eb_sinlge_course_get_allowed_html_tags() {
 	$allowed_tags['a']      = array(
 		'href'   => array(),
 		'target' => array(),
+		'class'  => array(),
+		'id'     => array(),
 	);
 	$allowed_tags['img']    = array(
 		'src'     => array(),
@@ -629,6 +642,28 @@ function eb_sinlge_course_get_allowed_html_tags() {
 		'height'  => array(),
 		'loading' => array(),
 	);
+
+	$allowed_tags['span']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+
+	);
+
+	$allowed_tags['h4']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+
+	);
+
+	$allowed_tags['h2']  = array(
+		'style' => array(),
+		'id'    => array(),
+		'class' => array(),
+
+	);
+
 	return $allowed_tags;
 }
 

@@ -384,7 +384,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$pixel_url  = 'https://www.paypal.com/en_US/i/scr/pixel.gif';
 				$button_url = 'https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
 
-				if ( 1 === $atts['sandbox'] ) {
+				if ( '1' === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 					$pixel_url  = 'https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif';
 					$button_url = 'https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';

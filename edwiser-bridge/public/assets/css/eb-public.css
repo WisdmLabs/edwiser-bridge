@@ -365,7 +365,7 @@ p.read-more{
 	text-transform: uppercase;
 	text-align: center;
 }
-#wdm-btn {    
+#wdm-btn, #eb_course_payment_button {
 	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;

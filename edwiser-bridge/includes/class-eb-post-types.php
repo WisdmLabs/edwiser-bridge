@@ -562,7 +562,7 @@ class Eb_Post_Types {
 			default:
 				?>
 				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( EB_PLUGIN_URL ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
-				<?php echo esc_html( isset( $field['note'] ) ? $field['note'] : '' ); ?>
+				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;
 		}
@@ -605,7 +605,6 @@ class Eb_Post_Types {
 				die( 'Busted' );
 			}
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-				// $post_options = sanitize_text_field( wp_unslash( $_POST[ $post_type . '_options' ] ) );.
 				$post_options = wp_unslash( $_POST[ $post_type . '_options' ] );
 			}
 			if ( ! empty( $post_options ) ) {

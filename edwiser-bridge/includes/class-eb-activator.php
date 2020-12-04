@@ -167,7 +167,6 @@ class Eb_Activator {
 			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);" );
 		}
 
-
 		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'act_cnt';" ) ) {
 			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`act_cnt` int(5) DEFAULT 1 NOT NULL);" );
 		}
@@ -175,25 +174,6 @@ class Eb_Activator {
 		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'suspended';" ) ) {
 			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`suspended` int(5) DEFAULT 0 NOT NULL);" );
 		}
-
-
-
-
-
-
-		// foreach ( $new_col as $col => $val ) {
-		// 	$query  = "SHOW COLUMNS FROM `$enrollment_tbl_name` LIKE '$col';";
-		// 	$exists = $wpdb->query( $query );
-
-		// 	/**
-		// 	 * Alter table if the expire_time column is not exisit in the plugin.
-		// 	 */
-		// 	if ( ! $exists ) {
-		// 		$default_val = $val['default'];
-		// 		$type        = $val['type'];
-		// 		$wpdb->query( $wpdb->prepare( 'ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (%s DEFAULT %s NOT NULL);', $type, $default_val ) );
-		// 	}
-		// }
 	}
 
 	/**
