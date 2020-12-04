@@ -151,7 +151,7 @@ class Eb_Frontend_Form_Handler {
 				// added afyter.
 				$role = eb_default_registration_role();
 
-				$new_user = $user_manager->create_WordPress_user( sanitize_email( $email ), $firstname, $lastname, $role );
+				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role );
 
 				if ( is_wp_error( $new_user ) ) {
 					throw new \Exception( $new_user->get_error_message() );

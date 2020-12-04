@@ -373,7 +373,7 @@ class EBUserManager {
 	 *
 	 * @return int|WP_Error on failure, Int (user ID) on success
 	 */
-	public function createWordPressUser( $email, $firstname, $lastname, $role = '' ) {
+	public function createWordpressUser( $email, $firstname, $lastname, $role = '' ) {
 		return $this->create_wordpress_user( $email, $firstname, $lastname, $role );
 	}
 

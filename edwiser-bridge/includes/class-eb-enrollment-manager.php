@@ -310,7 +310,7 @@ class Eb_Enrollment_Manager {
 	 * @param array $args arguments array.
 	 * @param array $role_id role_id array.
 	 */
-	public function updateEnrollmentRecordWordPress( $args, $role_id = '5' ) {
+	public function updateEnrollmentRecordWordpress( $args, $role_id = '5' ) {
 		$this->update_enrollment_record_wordpress( $args, $role_id );
 	}
 

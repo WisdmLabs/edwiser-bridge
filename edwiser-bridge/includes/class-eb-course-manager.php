@@ -374,7 +374,7 @@ class Eb_Course_Manager {
 	 *
 	 * @return int returns id of course
 	 */
-	public function createCourseOnWordPress( $course_data, $sync_options = array() ) {
+	public function createCourseOnWordpress( $course_data, $sync_options = array() ) {
 		return $this->create_course_on_wordpress( $course_data, $sync_options );
 	}
 
@@ -522,7 +522,7 @@ class Eb_Course_Manager {
 	 * @deprecated since 2.0.1 use create_course_categories_on_wordpress( $category_response ) insted
 	 * @param array $category_response accepts categories fetched from moodle.
 	 */
-	public function createCourseCategoriesOnWordPress( $category_response ) {
+	public function createCourseCategoriesOnWordpress( $category_response ) {
 		$this->create_course_categories_on_wordpress( $category_response );
 	}
 
