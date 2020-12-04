@@ -289,12 +289,14 @@ function eb_get_current_paypal_currency_symb() {
  *
  * @return returns array value.
  */
-function get_arr_value( $arr, $key, $value = '' ) {
-	if ( isset( $arr[ $key ] ) && ! empty( $arr[ $key ] ) ) {
-		$value = $arr[ $key ];
-	}
+if ( ! function_exists( 'get_arr_value' )) {
+	function get_arr_value( $arr, $key, $value = '' ) {
+		if ( isset( $arr[ $key ] ) && ! empty( $arr[ $key ] ) ) {
+			$value = $arr[ $key ];
+		}
 
-	return $value;
+		return $value;
+	}
 }
 
 /**
@@ -304,22 +306,24 @@ function get_arr_value( $arr, $key, $value = '' ) {
  * @param string $updated_by  updated_by .
  * @param string $note  note .
  */
-function update_order_hist_meta( $order_id, $updated_by, $note ) {
-	$history = get_post_meta( $order_id, 'eb_order_status_history', true );
-	if ( ! is_array( $history ) ) {
-		$history = array();
-	}
-	$new_hist = array(
-		'by'   => $updated_by,
-		'time' => current_time( 'timestamp' ),
-		// 'time' => gmdate(),
-		'note' => $note,
-	);
+if ( ! function_exists( 'update_order_hist_meta' )) {
+	function update_order_hist_meta( $order_id, $updated_by, $note ) {
+		$history = get_post_meta( $order_id, 'eb_order_status_history', true );
+		if ( ! is_array( $history ) ) {
+			$history = array();
+		}
+		$new_hist = array(
+			'by'   => $updated_by,
+			'time' => current_time( 'timestamp' ),
+			// 'time' => gmdate(),
+			'note' => $note,
+		);
 
-	array_unshift( $history, $new_hist );
-	$history = apply_filters( 'eb_order_history', $history, $new_hist, $order_id );
-	update_post_meta( $order_id, 'eb_order_status_history', $history );
-	do_action( 'eb_after_order_refund_meta_save', $order_id, $history );
+		array_unshift( $history, $new_hist );
+		$history = apply_filters( 'eb_order_history', $history, $new_hist, $order_id );
+		update_post_meta( $order_id, 'eb_order_status_history', $history );
+		do_action( 'eb_after_order_refund_meta_save', $order_id, $history );
+	}
 }
 
 /**
@@ -327,14 +331,16 @@ function update_order_hist_meta( $order_id, $updated_by, $note ) {
  *
  * @param text $refunds refunds.
  */
-function get_total_refund_amt( $refunds ) {
-	$total_refund = (float) '0.00';
-	foreach ( $refunds as $refund ) {
-		$refund_amt    = get_arr_value( $refund, 'amt', '0.00' );
-		$total_refund += (float) $refund_amt;
-	}
+if ( ! function_exists( 'get_total_refund_amt' )) {
+	function get_total_refund_amt( $refunds ) {
+		$total_refund = (float) '0.00';
+		foreach ( $refunds as $refund ) {
+			$refund_amt    = get_arr_value( $refund, 'amt', '0.00' );
+			$total_refund += (float) $refund_amt;
+		}
 
-	return $total_refund;
+		return $total_refund;
+	}
 }
 
 /**
@@ -369,7 +375,7 @@ function get_all_eb_sourses( $post_id = 0 ) {
 /**
  * WP roles
  */
-function get_all_wp_roles() {
+function eb_get_all_wp_roles() {
 	global $wp_roles;
 	$all_roles = $wp_roles->get_names();
 	return $all_roles;
@@ -410,7 +416,7 @@ function get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
  *
  * @return [type] [description]
  */
-function default_registration_role() {
+function eb_default_registration_role() {
 	$role       = '';
 	$eb_options = get_option( 'eb_general' );
 	if ( isset( $eb_options['eb_default_role'] ) && ! empty( $eb_options['eb_default_role'] ) ) {
@@ -479,23 +485,6 @@ function eb_get_all_web_service_functions() {
 	}
 
 	return apply_filters( 'eb_total_web_service_functions', $edwiser_bridge_fns );
-}
-
-
-
-/**
- * The function will check if the array key exist or not and dose the arrya key associated a non empty value
- *
- * @param array  $dataarray associative array.
- * @param string $key array key to get the value.
- * @returns arrays value associated with the key if exist and not empty. Otherwise retrurns false.
- */
-function check_value_set( $dataarray, $key ) {
-	$value = false;
-	if ( is_array( $dataarray ) && array_key_exists( $key, $dataarray ) && $dataarray[ $key ] ) {
-		$value = empty( $dataarray[ $key ] ) ? false : $dataarray[ $key ];
-	}
-	return $value;
 }
 
 /**

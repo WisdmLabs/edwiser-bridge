@@ -149,7 +149,7 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				// added afyter.
-				$role = default_registration_role();
+				$role = eb_default_registration_role();
 
 				$new_user = $user_manager->create_WordPress_user( sanitize_email( $email ), $firstname, $lastname, $role );
 
