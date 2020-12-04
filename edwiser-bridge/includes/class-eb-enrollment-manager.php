@@ -212,12 +212,13 @@ class Eb_Enrollment_Manager {
 		} elseif ( 1 === $args['unenroll'] ) {
 
 			foreach ( $args['courses'] as $key => $course_id ) {
+
 				// Get User Course access Count.
 				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );
 
 				// decrease the count value.
 
-				if ( $act_cnt <= 1 || ! $args['complete_unenroll'] ) {
+				if ( $act_cnt <= 1 || $args['complete_unenroll'] ) {
 
 					// update decreased count value.
 					$request_data = array( 'enrolments' => $enrolments );
@@ -225,7 +226,7 @@ class Eb_Enrollment_Manager {
 						$webservice_function,
 						$request_data
 					);
-				} elseif ( $act_cnt > 1 &&  !$args['complete_unenroll'] ) {
+				} elseif ( $act_cnt > 1 && ! $args['complete_unenroll'] ) {
 
 					// delete row if count equals zero.
 

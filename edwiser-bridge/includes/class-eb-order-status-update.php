@@ -103,7 +103,7 @@ class Eb_Order_Status {
 	public function save_new_order_place_note( $order_id ) {
 		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
 		$course_id  = get_arr_value( $ord_detail, 'course_id' );
-		$msg        = esc_html__( 'New order has been placed for the ', 'eb-textdomain' ) . sprintf( '<strong>%s</strong>', get_the_title( $course_id ) ) . esc_html__( ' course.', 'eb-textdomain' );
+		$msg        = esc_html__( 'New order has been placed for the ', 'eb-textdomain' ) . '<strong>' . sprintf( '%s', get_the_title( $course_id ) ) . '</strong>' . esc_html__( ' course.', 'eb-textdomain' );
 		$msg        = apply_filters( 'eb_order_history_save_status_new_order_msg', $msg );
 		$note       = array(
 			'type' => 'new_order',

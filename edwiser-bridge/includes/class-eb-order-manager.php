@@ -111,19 +111,24 @@ class Eb_Order_Manager {
 	 * @param int $order_id id of an order.
 	 */
 	public function update_order_status_on_order_save( $order_id ) {
+
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
 		}
-		if ( ! isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
+
+		if ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
 			die( 'Nonce verification fialed.' );
 		}
-		$post_options = isset( $_POST['eb_order_options'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_options'] ) ) : array();
+
+		$post_options = isset( $_POST['eb_order_options'] ) ? wp_unslash( $_POST['eb_order_options'] ) : array();
 
 		if ( empty( $post_options ) ) {
 			return false;
 		}
 
+
 		if ( ! empty( $post_options ) && isset( $post_options['order_status'] ) ) {
+
 			$this->update_order_status( $order_id, $post_options['order_status'], $post_options );
 		}
 
@@ -335,6 +340,7 @@ class Eb_Order_Manager {
 			);
 
 			if ( ! is_wp_error( $order_id_created ) ) {
+
 				$success  = 1;
 				$order_id = $order_id_created;
 
@@ -343,10 +349,12 @@ class Eb_Order_Manager {
 				 */
 				$options = get_option( 'eb_paypal' );
 				if ( isset( $options['eb_paypal_sandbox'] ) && 'yes' === $options['eb_paypal_sandbox'] ) {
+
 					update_post_meta( $order_id, 'eb_paypal_sandbox', 'yes' );
 				}
 
 				if ( isset( $options['eb_paypal_currency'] ) && ! empty( $options['eb_paypal_currency'] ) ) {
+
 					update_post_meta( $order_id, 'eb_paypal_currency', $options['eb_paypal_currency'] );
 				}
 			}
@@ -360,6 +368,7 @@ class Eb_Order_Manager {
 				'nonce'    => wp_create_nonce( 'eb_paypal_nonce' ),
 			)
 		);
+
 		echo esc_html( $response );
 		die();
 	}

@@ -58,7 +58,7 @@ if ( 'yes' === $paypal_sandbox ) {
 try {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Checking Post Method.' );
 	$listener->require_post_method();
-	$verified = $listener->process_ipn($_POST);
+	$verified = $listener->process_ipn( $_POST );
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Post method check completed.' );
 } catch ( \Exception $e ) {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Found Exception: ' . $e->getMessage() . ' Exiting....' );

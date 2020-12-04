@@ -98,10 +98,10 @@ class Eb_Shortcode_User_Account {
 			$courses = array();
 		}
 		// Course Purchase History.
-		$user_orders         = array(); // users completed orders.
-		$order_count         = 15;
-				$user_orders = self::get_user_orders( $user_id );
-		$template_loader     = new EbTemplateLoader(
+		$user_orders     = array(); // users completed orders.
+		$order_count     = 15;
+		$user_orders     = self::get_user_orders( $user_id );
+		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
@@ -139,10 +139,11 @@ class Eb_Shortcode_User_Account {
 			'order'          => 'ASC',
 		);
 		$overall_orders = get_posts( $args ); // get all orders from db.
+
 		foreach ( $overall_orders as $order_id ) {
 			$order_detail = get_post_meta( $order_id, 'eb_order_options', true );
 
-			if ( ! empty( $order_detail ) && $order_detail['buyer_id'] === $user_id ) {
+			if ( ! empty( $order_detail ) && trim( $order_detail['buyer_id'] ) === trim( $user_id ) ) {
 				$user_orders[] = array(
 					'eb_order_id'   => $order_id, // cahnged 1.4.7 Order Id.
 					'ordered_item'  => $order_detail['course_id'],

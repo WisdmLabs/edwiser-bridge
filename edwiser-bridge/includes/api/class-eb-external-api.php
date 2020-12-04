@@ -38,8 +38,8 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function external_api_endpoint_def( $request_data ) {
 
-		$data          = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
-		$data          = unserialize( $data );
+		$data = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
+		$data = unserialize( $data );
 
 		$response_data = array();
 
@@ -208,7 +208,7 @@ class Eb_External_Api_Endpoint {
 	 * @param  text $data data.
 	 */
 	public function eb_trigger_user_delete( $data ) {
-		require_once( ABSPATH.'wp-admin/includes/user.php' );
+		require_once( ABSPATH . 'wp-admin/includes/user.php' );
 		if ( isset( $data['user_id'] ) ) {
 			$wp_user_id = get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {

@@ -348,7 +348,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 
 		switch ( $atts['type'] ) {
 			case 'paynow':
-
 				$code = '
 			<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
@@ -509,10 +508,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="custom" value="' . $atts['custom'] . '">'
 				);
 
-				// if ( $atts['scriptcode'] ) {
-				// 	$code .= '<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>';
-				// }
-
 				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
 				wp_enqueue_script( 'eb_paypal_js' );
 
@@ -521,7 +516,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$code .= '</div>';
 				break;
 			case 'subscribe':
-
 				$code = '
 			<div style="';
 				eb_check_array_value( $atts['textalignte'], $code, 'text-align: ' . $atts['textalign'] . ';' );
@@ -727,19 +721,12 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				// eb_check_array_value(
-				// 	$atts['scriptcode'],
-				// 	$code,
-				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				// );
 				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
 				wp_enqueue_script( 'eb_paypal_js' );
-
 
 				$code .= '</form></div>';
 				break;
 			case 'hosted':
-
 				$code = '<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
@@ -800,7 +787,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 		   </form></div>';
 				break;
 			case 'addtocart':
-
 				$code = '<div style="';
 				eb_check_array_value( $atts['textalign'], $code, 'text-align: ' . $atts['textalign'] . ';' );
 
@@ -835,7 +821,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= 'margin-bottom: 10px;';
 				}
-
 
 				$code .= '"><form target="paypal" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_cart">
@@ -939,15 +924,8 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					'<input type="hidden" name="cancel_return" value="' . $atts['cancelurl'] . '">'
 				);
 
-				// eb_check_array_value(
-				// 	$atts['scriptcode'],
-				// 	$code,
-				// 	'<script src="' . $atts['scriptcode'] . '" type="text/javascript"></script>'
-				// );
-
 				wp_add_inline_script( 'eb_paypal_js', $atts['scriptcode'] );
 				wp_enqueue_script( 'eb_paypal_js' );
-
 
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {
@@ -968,7 +946,6 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					height="1" class="ppalholder">
 		   </form></div>';
 		}
-
 
 		return apply_filters(
 			'eb_paypal_payment_button',

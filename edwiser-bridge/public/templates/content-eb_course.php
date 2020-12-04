@@ -72,6 +72,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 	$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true );
 
 	if ( $moodle_user_id && isset( $attr['my_courses_progress'] ) && $attr['my_courses_progress'] ) {
+
 		$show_progress           = 1;
 		$course_progress_manager = new app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
 
@@ -87,7 +88,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>" . esc_html__( 'SUSPENDED', 'eb-textdomain' ) . '</div>';
 		} elseif ( in_array( get_the_ID(), $course_ids ) ) {// @codingStandardsIgnoreLine.
 			// User course is not suspended then show these buttons.
-			if ( 0 === $progress_data[ get_the_ID() ] ) {
+			if ( '0' === $progress_data[ get_the_ID() ] ) {
 				$progress_class   = 'start';
 				$progress_btn_div = "<div class='eb-course-action-btn-start'>" . esc_html__( 'START', 'eb-textdomain' ) . '</div>';
 			} elseif ( $progress_data[ get_the_ID() ] > 0 && $progress_data[ get_the_ID() ] < 100 ) {

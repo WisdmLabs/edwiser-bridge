@@ -311,8 +311,8 @@ function update_order_hist_meta( $order_id, $updated_by, $note ) {
 	}
 	$new_hist = array(
 		'by'   => $updated_by,
-		// 'time' => current_time( 'timestamp' ),
-		'time' => gmdate(),
+		'time' => current_time( 'timestamp' ),
+		// 'time' => gmdate(),
 		'note' => $note,
 	);
 

@@ -152,7 +152,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		private function handle_bulk_action( $action ) {
 			if ( isset( $_POST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
 				$post_data = array();
-			} else{
+			} else {
 				$post_data = $_POST;
 			}
 			switch ( $action ) {
@@ -175,12 +175,17 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			if ( ! isset( $data['enrollment'] ) ) {
 				return;
 			}
+
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-			$results    = $wpdb->get_results( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ), ARRAY_A );
+
+			$results    = $wpdb->get_results( stripslashes( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ) ), ARRAY_A );
 			$cnt        = 0;
+
 			foreach ( $results as $rec ) {
+
 				if ( $this->unenroll_user( $rec['course_id'], $rec['user_id'] ) ) {
+
 					$cnt++;
 				}
 			}
