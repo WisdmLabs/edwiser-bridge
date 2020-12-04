@@ -1045,13 +1045,13 @@ class EdwiserBridge {
 			10
 		); // email on new user registration.
 		$this->loader->eb_add_action(
-			'eb_linked_to_existing_WordPress_user',
+			'eb_linked_to_existing_wordpress_user',
 			$plugin_emailer,
 			'send_existing_user_moodle_account_email',
 			10
 		); // email on moodle user link to existing WordPress user.
 		$this->loader->eb_add_action(
-			'eb_linked_to_existing_WordPress_to_new_user',
+			'eb_linked_to_existing_wordpress_to_new_user',
 			$plugin_emailer,
 			'send_existing_wp_user_new_moodle_account_email',
 			10
