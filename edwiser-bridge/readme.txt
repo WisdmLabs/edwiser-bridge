@@ -212,6 +212,9 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 2.0.1 =
+* Tweak - Added security checks.
+
  = 2.0.0 =
 * Feature - Theme compatibility with Divi.
 * Feature - Theme compatibility with Flatsome.
@@ -226,7 +229,7 @@ Also check our knowledge base for more queries
 * Tweek - UI Improvements for course cards on all pages..
 
 
- = 1.4.8 =
+ = 1.4.9 =
 * Fix - Added permission callback in register_rest_route to fix the notice genrated in the wp 5.5 and above.
 
 
