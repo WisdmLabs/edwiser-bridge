@@ -936,7 +936,7 @@ class EBUserManager {
 				$linked = 0;
 
 				// get all selected users.
-				$users         = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ): array();
+				$users         = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ) : array();
 				$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
 
 				if ( is_array( $users ) ) {
@@ -957,7 +957,7 @@ class EBUserManager {
 				$unlinked = 0;
 
 				// get all selected users.
-				$users = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ): array();
+				$users = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ) : array();
 
 				if ( is_array( $users ) ) {
 					foreach ( $users as $user ) {
@@ -1022,7 +1022,7 @@ class EBUserManager {
 	public function password_update( $user_id ) {
 
 		// if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
-		// 	die( 'busted ' );
+		// die( 'busted ' );
 		// }
 
 		// Get new password entered by user.

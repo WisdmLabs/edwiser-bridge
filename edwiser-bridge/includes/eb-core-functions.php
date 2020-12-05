@@ -279,17 +279,17 @@ function eb_get_current_paypal_currency_symb() {
 	return $currency;
 }
 
-/**
- * Function provides the functionality to check that  is the array key value is present in array or not
- * otherwise returns the default value.
- *
- * @param array  $arr   array to check the value present or not.
- * @param string $key   array key to check the value.
- * @param mixed  $value default value to return by default empty string.
- *
- * @return returns array value.
- */
-if ( ! function_exists( 'get_arr_value' )) {
+if ( ! function_exists( 'get_arr_value' ) ) {
+	/**
+	 * Function provides the functionality to check that  is the array key value is present in array or not
+	 * otherwise returns the default value.
+	 *
+	 * @param array  $arr   array to check the value present or not.
+	 * @param string $key   array key to check the value.
+	 * @param mixed  $value default value to return by default empty string.
+	 *
+	 * @return returns array value.
+	 */
 	function get_arr_value( $arr, $key, $value = '' ) {
 		if ( isset( $arr[ $key ] ) && ! empty( $arr[ $key ] ) ) {
 			$value = $arr[ $key ];
@@ -299,14 +299,14 @@ if ( ! function_exists( 'get_arr_value' )) {
 	}
 }
 
-/**
- * Meta.
- *
- * @param string $order_id  order_id .
- * @param string $updated_by  updated_by .
- * @param string $note  note .
- */
-if ( ! function_exists( 'update_order_hist_meta' )) {
+if ( ! function_exists( 'update_order_hist_meta' ) ) {
+	/**
+	 * Meta.
+	 *
+	 * @param string $order_id  order_id .
+	 * @param string $updated_by  updated_by .
+	 * @param string $note  note .
+	 */
 	function update_order_hist_meta( $order_id, $updated_by, $note ) {
 		$history = get_post_meta( $order_id, 'eb_order_status_history', true );
 		if ( ! is_array( $history ) ) {
@@ -326,12 +326,13 @@ if ( ! function_exists( 'update_order_hist_meta' )) {
 	}
 }
 
-/**
- * Refund amt.
- *
- * @param text $refunds refunds.
- */
-if ( ! function_exists( 'get_total_refund_amt' )) {
+
+if ( ! function_exists( 'get_total_refund_amt' ) ) {
+	/**
+	 * Refund amt.
+	 *
+	 * @param text $refunds refunds.
+	 */
 	function get_total_refund_amt( $refunds ) {
 		$total_refund = (float) '0.00';
 		foreach ( $refunds as $refund ) {
@@ -564,24 +565,19 @@ function get_allowed_html_tags() {
 	$allowed_tags['style']  = array(
 		'types' => array(),
 	);
-	$allowed_tags['span']  = array(
+	$allowed_tags['span']   = array(
 		'style' => array(),
 		'id'    => array(),
 		'class' => array(),
 
 	);
-	$allowed_tags['h4']  = array(
+	$allowed_tags['h4'] = array(
 		'style' => array(),
 		'id'    => array(),
 		'class' => array(),
 	);
 	return $allowed_tags;
 }
-
-
-
-
-
 
 /**
  * Returns the list of the tags allowed in the wp_kses function.
@@ -632,28 +628,24 @@ function eb_sinlge_course_get_allowed_html_tags() {
 		'height'  => array(),
 		'loading' => array(),
 	);
-
-	$allowed_tags['span']  = array(
+	$allowed_tags['span']   = array(
 		'style' => array(),
 		'id'    => array(),
 		'class' => array(),
 
 	);
-
-	$allowed_tags['h4']  = array(
+	$allowed_tags['h4'] = array(
 		'style' => array(),
 		'id'    => array(),
 		'class' => array(),
 
 	);
-
-	$allowed_tags['h2']  = array(
+	$allowed_tags['h2'] = array(
 		'style' => array(),
 		'id'    => array(),
 		'class' => array(),
 
 	);
-
 	return $allowed_tags;
 }
 
