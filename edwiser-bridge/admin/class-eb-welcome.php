@@ -39,7 +39,7 @@ class Eb_Welcome {
 	 * Add admin menus/screens.
 	 */
 	public function admin_menus() {
-		if ( empty( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ) {
+		if ( ! isset( $_GET['page'] ) || empty( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ) {
 			return;
 		}
 

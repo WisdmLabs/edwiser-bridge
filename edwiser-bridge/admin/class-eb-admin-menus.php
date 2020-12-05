@@ -106,14 +106,14 @@ class Eb_Admin_Menus {
 	 * @since 1.0.0
 	 */
 	public function help_menu() {
-		global $submenu;
-		if ( current_user_can( 'manage_options' ) ) {
-			$submenu['edit.php?post_type=eb_course'][] = array(
-				'<div id="helpmenu">' . __( 'Help', 'eb-textdomain' ) . '</div>',
-				'manage_options',
-				'https://edwiser.org/bridge/documentation/',
-			);
-		}
+		add_submenu_page(
+			'edit.php?post_type=eb_course',
+			__( 'Help', 'eb-textdomain' ),
+			__( 'Help', 'eb-textdomain' ),
+			'manage_options',
+			'https://edwiser.org/bridge/documentation/',
+			__return_null()
+		);
 	}
 
 	/**
