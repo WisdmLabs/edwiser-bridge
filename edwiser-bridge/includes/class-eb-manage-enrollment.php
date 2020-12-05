@@ -110,7 +110,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
-			$post_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
+			$post_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			?>
 			<div class="eb-manage-user-enrol-wrap">
 
@@ -178,8 +178,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-
-			$results    = $wpdb->get_results( stripslashes( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ) ), ARRAY_A );
+			$results    = $wpdb->get_results( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ), ARRAY_A );
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {

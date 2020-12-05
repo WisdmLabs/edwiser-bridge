@@ -195,7 +195,7 @@ class EdwiserBridge {
 		/**
 		 * The core class to manage debug log on the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/api/class-eb-external-api.php';
+		require_once EB_PLUGIN_DIR . 'includes/api/class-eb-external-api-endpoint.php';
 
 		/**
 		 * The core class to manage debug log on the plugin.
@@ -313,7 +313,7 @@ class EdwiserBridge {
 		/**
 		*The class used to add Moodle account column on users page frontend
 		*/
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-moodle-linkunlink.php';
+		require_once EB_PLUGIN_DIR . 'admin/class-eb-moodle-link-unlink.php';
 		require_once EB_PLUGIN_DIR . 'includes/class-eb-custom-list-table.php';
 		require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-enrollment.php';
 
@@ -337,7 +337,7 @@ class EdwiserBridge {
 		 * Add order meta boxes.
 		 */
 		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-meta.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-status-update.php';
+		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-status.php';
 		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-history-meta.php';
 		require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-order-refund.php';
 	}

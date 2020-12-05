@@ -30,11 +30,26 @@
  * @package  Edwiser Bridge
  */
 
-define( 'EB_WPW_NAME', 'Enhanced Paypal Shortcodes' );    // Name of the Plugin.
-define( 'EB_TWPW_VERSION', '0.5a' );            // Current version of the Plugin.
-define( 'EB_ALT_ADD', 'Add to cart (Paypal)' );    // alternate text for "Add to cart" image.
-define( 'EB_ALT_VIEW', 'View Paypal cart' );        // alternate text for "View cart" image.
-define( 'EB_ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscribe" image.
+if ( ! defined( 'EDWISER_WPW_NAME' ) ) {
+	define( 'EDWISER_WPW_NAME', 'Enhanced Paypal Shortcodes' );    // Name of the Plugin.
+}
+
+if ( ! defined( 'EDWISER_TWPW_VERSION' ) ) {
+	define( 'EDWISER_TWPW_VERSION', '0.5a' );            // Current version of the Plugin.
+}
+
+if ( ! defined( 'EDWISER_ALT_ADD' ) ) {
+	define( 'EDWISER_ALT_ADD', 'Add to cart (Paypal)' );            // Current version of the Plugin.
+}
+
+if ( ! defined( 'EDWISER_ALT_VIEW' ) ) {
+	define( 'EDWISER_ALT_VIEW', 'View Paypal cart' );        // alternate text for "View cart" image.
+}
+
+if ( ! defined( 'EDWISER_ALT_SUBS' ) ) {
+	define( 'EDWISER_ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscribe" image.
+}
+
 
 
 /**
@@ -423,14 +438,14 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0"
-					name="submit" alt="' . EB_ALT_ADD . '"';
+					name="submit" alt="' . EDWISER_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
 					$code .= ' class="ppalbtn">';
 				} else {
 					$code .= '<input type="hidden" src="' . $button_url . '" border="0" name="submit"
-					alt="' . EB_ALT_ADD . '" class="ppalbtn">';
+					alt="' . EDWISER_ALT_ADD . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
 				class="wdm-btn eb-paid-course" id="eb_course_payment_button">';
@@ -564,7 +579,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0"
-					name="submit" alt="' . EB_ALT_ADD . '"';
+					name="submit" alt="' . EDWISER_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
@@ -769,7 +784,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0" name="submit"
-					alt="' . EB_ALT_ADD . '"';
+					alt="' . EDWISER_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
@@ -826,7 +841,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 			<input type="hidden" name="cmd" value="_cart">
 			<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
 			<input type="hidden" name="add" value="1">';
-				if ( $atts['display'] == 1 ) {
+				if ( 1 == $atts['display'] ) {
 					$code .= '<input type="hidden" name="display" value="1">';
 				}
 				$code .= '<input type="hidden" name="business" value="' . $atts['email'] . '">
@@ -844,8 +859,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				}
 
 				if ( $atts['nonote'] > -1 ) {
-					$code .= '
-			<input type="hidden" name="no_note" value="' . $atts['nonote'] . '" />';
+					$code .= '<input type="hidden" name="no_note" value="' . $atts['nonote'] . '" />';
 				}
 
 				if ( $atts['rm'] > -1 ) {
@@ -853,7 +867,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				}
 
 				// Add Quantity.
-				if ( $atts['qty'] == 'ask' ) {
+				if ( 'ask' == $atts['qty'] ) {
 					$code .= '<input type="hidden" name="undefined_quantity" value="1">';
 				} else {
 					$code .= '<input type="hidden" name="quantity" value="' . $atts['qty'] . '">';
@@ -930,14 +944,14 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				// Define Image to Use.
 				if ( $atts['imageurl'] ) {
 					$code .= '<input type="hidden" src="' . $atts['imageurl'] . '" border="0" name="submit"
-					alt="' . EB_ALT_ADD . '"';
+					alt="' . EDWISER_ALT_ADD . '"';
 					if ( $atts['imagewidth'] ) {
 						$code .= ' width="' . $atts['imagewidth'] . '"';
 					}
 					$code .= ' class="ppalbtn">';
 				} else {
 					$code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
-					border="0" name="submit" alt="' . EB_ALT_ADD . '" class="ppalbtn">';
+					border="0" name="submit" alt="' . EDWISER_ALT_ADD . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb-paid-course"
 				id="eb_course_payment_button">';

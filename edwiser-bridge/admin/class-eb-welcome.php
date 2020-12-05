@@ -39,8 +39,12 @@ class Eb_Welcome {
 	 * Add admin menus/screens.
 	 */
 	public function admin_menus() {
-		if ( empty( $_GET['page'] ) ) {
+		if ( ! isset( $_GET['page'] ) || empty( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ) {
 			return;
+		}
+
+		if ( isset( $_GET['edw-wc-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
+			die( 'Busted, retry.' );
 		}
 
 		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'eb-textdomain' );
@@ -317,8 +321,8 @@ class Eb_Welcome {
 		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
-
-		wp_safe_redirect( admin_url( '?page=eb-about' ) );
+		$wc_url = wp_nonce_url( admin_url( '/?page=eb-about&subscribed=' . $subscribed ), 'edw-wc-nonce', 'edw-wc-nonce' );
+		wp_safe_redirect( $wc_url );
 		exit;
 	}
 
@@ -332,7 +336,6 @@ class Eb_Welcome {
 	 */
 	public function subscribe_handler() {
 		$subscribed = 0;
-
 
 		// verify nonce.
 		if ( isset( $_POST['subscribe_nonce_field'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
@@ -361,8 +364,8 @@ class Eb_Welcome {
 				$subscribed = 1;
 			}
 		}
-
-		wp_safe_redirect( admin_url( '/?page=eb-about&subscribed=' . $subscribed ) );
+		$wc_url = wp_nonce_url( admin_url( '/?page=eb-about&subscribed=' . $subscribed ), 'edw-wc-nonce', 'edw-wc-nonce' );
+		wp_safe_redirect( $wc_url );
 		exit;
 	}
 }

@@ -105,11 +105,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'Redirect to My Courses', 'eb-textdomain' ),
 						'desc'     => sprintf(
-
-							/*
-							* translators: My Courses page setting description.
+							/**
+							* Translators: My Courses page setting description.
 							*/
-							__( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ),
+							__( 'Redirect user to the My Courses page on ', 'eb-textdomain' ) . '%s' . __( ' from the ', 'eb-textdomain' ) . '%s' . __( ' page.', 'eb-textdomain' ),
 							'<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>',
 							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
 						),
@@ -122,11 +121,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'My Courses Page', 'eb-textdomain' ),
 						'desc'     => '<br/>' . sprintf(
-
-							/*
-							* translators: My Courses page setting description.
+							/**
+							* Translators: My Courses page setting description.
 							*/
-							__( 'Select my courses page here. Default page is %s ', 'eb-textdomain' ),
+							__( 'Select my courses page here. Default page is', 'eb-textdomain' ) . ' %s ',
 							'<a href="' . esc_url( site_url( '/eb-my-courses' ) ) . '">' . __( 'My Courses', 'eb-textdomain' ) . '</a>'
 						),
 						'id'       => 'eb_my_courses_page_id',
