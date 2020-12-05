@@ -412,6 +412,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					case 'select':
 					case 'multiselect':
 						$option_value = self::get_option( $value['id'], $current_tab, $value['default'] );
+
 						$option_name  = ( 'multiselect' === $value['type'] ) ? esc_attr( $value['id'] ) . '[]' : esc_attr( $value['id'] );
 						?>
 						<tr valign="top">
@@ -441,7 +442,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 										<option value="<?php echo esc_attr( $key ); ?>"
 												<?php
 												if ( is_array( $option_value ) ) {
-													selected( in_array( $key, $option_value, true ), true );
+													selected( in_array( $key, $option_value ), true );
 												} else {
 													selected( $option_value, $key );
 												}
@@ -731,6 +732,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 			// Loop options and get values to save.
 			foreach ( $options as $value ) {
+
 				if ( ! isset( $value['id'] ) || ! isset( $value['type'] ) ) {
 					continue;
 				}
@@ -742,15 +744,18 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$option_name  = current( array_keys( $option_name_array ) );
 					$setting_name = key( $option_name_array[ $option_name ] );
 					$option_value = null;
+
 					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = sanitize_text_field( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) );
+						$option_value = edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				} else {
+
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
+
 					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = sanitize_text_field( wp_unslash( $_POST[ $value['id'] ] ) );
+						$option_value = edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				}
 
