@@ -144,7 +144,6 @@ class Eb_Ipn_Listener {
 			$this->post_uri = $uri;
 		}
 
-		// $validate_ipn        = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
 		$encoded_data['cmd'] = '_notify-validate';
 
 		// Send back post vars to paypal.
@@ -332,7 +331,6 @@ class Eb_Ipn_Listener {
 	 *  @return boolean
 	 */
 	public function process_ipn( $post_data = null ) {
-		// $encoded_data = 'cmd=_notify-validate';
 		$encoded_data = array( 'cmd' => '=_notify-validate' );
 
 		if ( null == $post_data ) {
@@ -341,7 +339,6 @@ class Eb_Ipn_Listener {
 		} else {
 			// use provided data array.
 			$this->post_data = $post_data;
-			// $encoded_data    = wp_unslash( $_POST );
 			$encoded_data    = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
 
 		}

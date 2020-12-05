@@ -120,7 +120,7 @@ class Eb_Order_Manager {
 			die( 'Nonce verification fialed.' );
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? wp_unslash( $_POST['eb_order_options'] ) : array();
+		$post_options = isset( $_POST['eb_order_options'] ) ? edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( empty( $post_options ) ) {
 			return false;

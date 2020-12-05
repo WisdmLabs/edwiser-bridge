@@ -49,13 +49,12 @@ class EB_Usage_Tracking {
 			$result_arr = array();
 
 			$analytics_data = wp_json_encode( $this->prepare_usage_analytics() );
-
-			$url = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
-			$request_args = array(
+			$url            = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
+			$request_args   = array(
 				'body'    => $analytics_data,
 				'timeout' => 100,
 			);
-			$result       = wp_remote_post( $url, $request_args );
+			$result         = wp_remote_post( $url, $request_args );
 
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$result_arr = json_decode( $result, 1 );
@@ -72,7 +71,7 @@ class EB_Usage_Tracking {
 		$server_ip = ( isset( $_SERVER['REMOTE_ADDR'] ) && null !== $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 		// Suppressing all the errors here, just in case the setting does not exists, to avoid many if statements.
 		$analytics_data = array(
-			'siteurl'           => $this->detect_site_type() . preg_replace( '#^https?://#', '', rtrim( @get_site_url(), '/' ) ), // replace protocol and trailing slash.
+			'siteurl'           => $this->detect_site_type() . preg_replace( '#^https?://#', '', rtrim( get_site_url(), '/' ) ), // replace protocol and trailing slash.
 			'product_name'      => 'Edwiser Bridge',
 			'product_settings'  => $this->get_plugin_settings( 'edwiser_bridge' ), // all settings in json, of current product which you are tracking.
 			'active_theme'      => get_option( 'stylesheet' ),

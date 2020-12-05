@@ -931,12 +931,13 @@ class EBUserManager {
 			return;
 		}
 
+		$users = isset( $_REQUEST['users'] ) ? edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+
 		switch ( $action ) {
 			case 'link_moodle':
 				$linked = 0;
 
 				// get all selected users.
-				$users         = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ) : array();
 				$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
 
 				if ( is_array( $users ) ) {
@@ -957,7 +958,6 @@ class EBUserManager {
 				$unlinked = 0;
 
 				// get all selected users.
-				$users = isset( $_REQUEST['users'] ) ? wp_unslash( $_REQUEST['users'] ) : array();
 
 				if ( is_array( $users ) ) {
 					foreach ( $users as $user ) {
@@ -1021,16 +1021,12 @@ class EBUserManager {
 	 */
 	public function password_update( $user_id ) {
 
-		// if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
-		// die( 'busted ' );
-		// }
-
 		// Get new password entered by user.
 		// Works for WordPress profile & woocommerce my account edit profile page.
-		if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) {
-			$new_password = sanitize_text_field( wp_unslash( $_POST['password_1'] ) );
-		} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) {
-			$new_password = sanitize_text_field( wp_unslash( $_POST['pass1'] ) );
+		if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+			$new_password = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+		} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+			$new_password = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 		} else {
 			return;
 		}
@@ -1194,13 +1190,13 @@ class EBUserManager {
 
 		if ( is_numeric( $moodle_user_id ) ) {
 			$enroll_course = '';
-			if ( isset( $_POST['enroll_course'] ) ) {
-				$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) );
+			if ( isset( $_POST['enroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+				$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			}
 
 			$unenroll_course = '';
-			if ( isset( $_POST['unenroll_course'] ) ) {
-				$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) );
+			if ( isset( $_POST['unenroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+				$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			}
 
 			if ( is_numeric( $enroll_course ) ) {
@@ -1262,9 +1258,8 @@ class EBUserManager {
 	public function unenroll_on_course_access_expire() {
 		global $wpdb, $post;
 		$cur_user = get_current_user_id();
-		$stmt     = "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<NOW();";
 
-		$enroll_data = $wpdb->get_results( $stmt );
+		$enroll_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<%s;", gmdate( 'Y-m-d H:i:s' ) ) );
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 

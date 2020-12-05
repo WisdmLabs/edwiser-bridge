@@ -48,7 +48,14 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 				''          => __( 'Courses', 'eb-textdomain' ),
 				'user_data' => __( 'Users', 'eb-textdomain' ),
 			);
-			return apply_filters( 'eb_getSections_' . $this->_id, $sections );
+
+			$new_sections = apply_filters( 'eb_get_sections_' . $this->_id, $sections );
+			$sections     = array_merge( $sections, $new_sections );
+
+			$new_sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, $sections, '5.5', 'eb_get_sections_' . $this->_id );
+			$sections     = array_merge( $sections, $new_sections );
+
+			return $sections;
 		}
 
 		/**

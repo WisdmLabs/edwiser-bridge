@@ -76,11 +76,10 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 				);
 
 				$message = sprintf(
-
-					/*
-					 * translators: dispays the subuscription message.
+					/**
+					 * Translators: dispays the subuscription message.
 					 */
-					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: %1$s \n Customer Email: %2$s ', 'eb-textdomain' ),
+					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: ', 'eb-textdomain' ) . '%s ' . esc_html__( '\n Customer Email:', 'eb-textdomain' ) . ' %s ',
 					site_url(),
 					$admin_email
 				);

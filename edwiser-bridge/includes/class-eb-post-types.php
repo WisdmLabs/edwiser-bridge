@@ -604,8 +604,9 @@ class Eb_Post_Types {
 			if ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
 				die( 'Busted' );
 			}
+
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-				$post_options = wp_unslash( $_POST[ $post_type . '_options' ] );
+				$post_options = edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			}
 			if ( ! empty( $post_options ) ) {
 				foreach ( $fields as $key => $values ) {
@@ -692,9 +693,9 @@ class Eb_Post_Types {
 			2  => __( 'Custom field updated.', 'eb-textdomain' ),
 			3  => __( 'Custom field deleted.', 'eb-textdomain' ),
 			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'eb-textdomain' ),
-			5  => isset( $_GET['revision'] ) ? sprintf(
+			5  => isset( $_GET['revision'] ) ? sprintf( // WPCS: input var ok, CSRF ok, sanitization ok.
 				'%s ',
-				wp_post_revision_title( (int) $_GET['revision'], false )
+				wp_post_revision_title( (int) $_GET['revision'], false ) // WPCS: input var ok, CSRF ok, sanitization ok.
 			) . __( 'restored to revision from ', 'eb-textdomain' ) . sprintf(
 				'%s ',
 				esc_attr( $singular )
