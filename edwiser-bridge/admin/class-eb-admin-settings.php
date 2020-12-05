@@ -441,7 +441,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 										<option value="<?php echo esc_attr( $key ); ?>"
 												<?php
 												if ( is_array( $option_value ) ) {
-													selected( in_array( $key, $option_value ), true );
+													selected( in_array( $key, $option_value, true ), true );
 												} else {
 													selected( $option_value, $key );
 												}
@@ -743,14 +743,14 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$setting_name = key( $option_name_array[ $option_name ] );
 					$option_value = null;
 					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = wp_unslash( $_POST[ $option_name ][ $setting_name ] );
+						$option_value = sanitize_text_field( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) );
 					}
 				} else {
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
 					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = wp_unslash( $_POST[ $value['id'] ] );
+						$option_value = sanitize_text_field( wp_unslash( $_POST[ $value['id'] ] ) );
 					}
 				}
 
