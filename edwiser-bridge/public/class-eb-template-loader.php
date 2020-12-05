@@ -91,18 +91,16 @@ class EbTemplateLoader {
 	 *
 	 * Get template part (for templates like the shop-loop).
 	 *
+	 * @deprecated since 2.0.1 use wp_get_template_part( $slug, $name )
 	 * @since  1.0.0
 	 * @access public
 	 * @param mixed  $slug slug.
 	 * @param string $name (default: '').
 	 * @return void
 	 */
-	public function wpGetTemplatePart( $slug, $name = '' ) { // @codingStandardsIgnoreLine.
+	public function wpGetTemplatePart( $slug, $name = '' ) {
 		$this->wp_get_template_part( $slug, $name );
 	}
-
-
-
 
 	/**
 	 * Get template part (for templates like the shop-loop).
@@ -147,6 +145,7 @@ class EbTemplateLoader {
 	 *
 	 * Get other templates.
 	 *
+	 * @deprecated since 2.0.1 use wp_get_template( $template_name, $args, $template_path, $default_path ) insted.
 	 * @since  1.0.0
 	 * @access public
 	 * @param string $template_name nsme.
@@ -155,11 +154,9 @@ class EbTemplateLoader {
 	 * @param string $default_path  (default: '').
 	 * @return void
 	 */
-	public function wpGetTemplate( $template_name, $args = array(), $template_path = '', $default_path = '' ) { // @codingStandardsIgnoreLine.
+	public function wpGetTemplate( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		$this->wp_get_template( $template_name, $args, $template_path, $default_path );
 	}
-
-
 
 	/**
 	 * Get other templates.
