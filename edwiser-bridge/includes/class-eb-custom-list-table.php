@@ -66,7 +66,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		public function bpGetTable( $post_data, $search_text ) {
 			global $wpdb;
 			$tbl_records = array();
-			$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}moodle_enrollment" );
+			$results     = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}moodle_enrollment" );
 
 			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) ) {
 				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) ) );
@@ -270,12 +270,15 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			$from = '';
 			$to   = '';
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				return;
+			}
 
-			if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) {
+			if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) { // WPCS: CSRF ok, input var ok.
 				$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
 			}
 			$disabled = 'disabled';
-			if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) {
+			if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) { // WPCS: CSRF ok, input var ok.
 				$disabled = '';
 				$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
 			}
@@ -412,9 +415,9 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 */
 		protected function usort_reorder( $first, $second ) {
 			// If no sort, default to title.
-			$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'rId'; // WPCS: Input var ok.
+			$orderby = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'rId'; // WPCS: CSRF ok, input var ok.
 			// If no order, default to asc.
-			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc'; // WPCS: Input var ok.
+			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc'; // WPCS: CSRF ok, input var ok.
 			// Determine sort order.
 			$result = strcmp( $first[ $orderby ], $second[ $orderby ] );
 

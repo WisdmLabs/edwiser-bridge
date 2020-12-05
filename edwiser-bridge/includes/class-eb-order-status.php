@@ -52,17 +52,18 @@ class Eb_Order_Status {
 	 */
 	public function init_eb_order_refund() {
 		check_ajax_referer( 'eb_order_refund_nons_field', 'order_nonce' );
-		$order_id = get_arr_value( $_POST, 'eb_order_id' );
+		$order_id = isset( $_POST['eb_order_id'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_id'] ) ) : '';
 
 		$refund_manager = new Eb_Manage_Order_Refund( $this->plugin_name, $this->version );
 		$refund_data    = array(
-			'amt'            => get_arr_value( $_POST, 'eb_ord_refund_amt' ),
-			'note'           => get_arr_value( $_POST, 'eb_order_refund_note', '' ),
-			'unenroll_users' => get_arr_value( $_POST, 'eb_order_meta_unenroll_user', 'NO' ),
+			'amt'            => isset( $_POST['eb_ord_refund_amt'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_ord_refund_amt'] ) ) : '',
+			'note'           => isset( $_POST['eb_order_refund_note'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_refund_note'] ) ) : '',
+			'unenroll_users' => isset( $_POST['eb_order_meta_unenroll_user'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_meta_unenroll_user'] ) ) : 'NO',
+
 		);
-		$refund         = $refund_manager->init_refund( $order_id, $refund_data );
-		$refund_status  = get_arr_value( $refund, 'status', false );
-		$refund_msg     = get_arr_value( $refund, 'msg', '' );
+		$refund        = $refund_manager->init_refund( $order_id, $refund_data );
+		$refund_status = get_arr_value( $refund, 'status', false );
+		$refund_msg    = get_arr_value( $refund, 'msg', '' );
 		if ( $refund_status ) {
 			$refund_data['note'] = $refund_msg;
 			$note                = $this->get_order_refund_status_msg( $order_id, $refund_data );
@@ -186,7 +187,7 @@ class Eb_Order_Status {
 		$refund   = array(
 			'amt'      => $refund_amt,
 			'by'       => $cur_user->user_login,
-			'time'     => current_time("timestamp"),
+			'time'     => current_time( 'timestamp' ),
 			'currency' => eb_get_current_paypal_currency_symb(),
 		);
 		if ( is_array( $refunds ) ) {

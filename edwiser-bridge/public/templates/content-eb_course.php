@@ -78,7 +78,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 
 		// Before showing progress check for the suspended course.
 		$progress_data = $course_progress_manager->get_course_progress();
-		$course_ids     = array_keys( $progress_data );
+		$course_ids    = array_keys( $progress_data );
 		// Function to get suspended status info.
 		$is_user_suspended = get_user_suspended_status( $user_id, $course_id );
 

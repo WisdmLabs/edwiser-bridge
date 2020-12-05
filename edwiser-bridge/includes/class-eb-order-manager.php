@@ -120,12 +120,11 @@ class Eb_Order_Manager {
 			die( 'Nonce verification fialed.' );
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? wp_unslash( $_POST['eb_order_options'] ) : array();
+		$post_options = isset( $_POST['eb_order_options'] ) ? edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( empty( $post_options ) ) {
 			return false;
 		}
-
 
 		if ( ! empty( $post_options ) && isset( $post_options['order_status'] ) ) {
 
@@ -174,7 +173,7 @@ class Eb_Order_Manager {
 			/**
 			 * Unenroll the user if the order is get marked as pending or failed form the compleated.
 			 */
-		if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
+			if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
 				$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 				$ord_detail         = get_post_meta( $order_id, 'eb_order_options', true );
 				$args               = array(
@@ -361,15 +360,13 @@ class Eb_Order_Manager {
 		}
 
 		// response.
-		$response = json_encode(
-			array(
-				'success'  => $success,
-				'order_id' => $order_id,
-				'nonce'    => wp_create_nonce( 'eb_paypal_nonce' ),
-			)
+		$response = array(
+			'success'  => $success,
+			'order_id' => $order_id,
+			'nonce'    => wp_create_nonce( 'eb_paypal_nonce' ),
 		);
 
-		echo $response;
+		wp_send_json( $response );
 		die();
 	}
 
