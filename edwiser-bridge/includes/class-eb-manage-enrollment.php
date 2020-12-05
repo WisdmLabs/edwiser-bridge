@@ -178,8 +178,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-
-			$results    = $wpdb->get_results( stripslashes( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ) ), ARRAY_A );
+			$results    = $wpdb->get_results( $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) ), ARRAY_A );
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {

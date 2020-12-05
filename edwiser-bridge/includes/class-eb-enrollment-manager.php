@@ -242,8 +242,6 @@ class Eb_Enrollment_Manager {
 
 		// update enrollment details on WordPress enrollment table.
 		if ( isset( $response['success'] ) && $response['success'] ) {
-
-
 			// define args.
 			$args = array(
 				'user_id'           => $args['user_id'],
@@ -510,7 +508,7 @@ class Eb_Enrollment_Manager {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
 		if ( isset( $course_meta['course_expirey'] ) && 'yes' === $course_meta['course_expirey'] ) {
-			$expiry_date_time = date( 'Y-m-d H:i:s', strtotime( '+' . $course_meta['num_days_course_access'] . ' days' ) );
+			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $course_meta['num_days_course_access'] . ' days' ) );
 		}
 		return $expiry_date_time;
 	}
