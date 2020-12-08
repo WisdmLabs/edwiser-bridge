@@ -217,9 +217,7 @@ class EbTemplateLoader {
 		}
 
 		if ( ! $default_path ) {
-			$default_path = EB_PLUGIN_DIR . 'public/templates/';
-       		$default_path = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/';
-
+			$default_path = EDWISER_PLUGIN_DIR . 'public/templates/';
 		}
 
 		// Look within passed path within the theme - this is priority.

@@ -187,7 +187,8 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				$enc_iv     = '1234567891011121';
+				// $enc_iv     = '1234567891011121';
+                $enc_iv = substr(hash('sha256', EDWISER_ACCESS_TOKEN), 0, 16);
 
 				$enc_key  = openssl_digest( EDWISER_ACCESS_TOKEN, 'SHA256', true );
 				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
@@ -359,7 +360,9 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				$enc_iv     = '1234567891011121';
+				// $enc_iv     = '1234567891011121';
+                $enc_iv = substr(hash('sha256', EDWISER_ACCESS_TOKEN), 0, 16);
+
 
 				$enc_key                        = openssl_digest( EDWISER_ACCESS_TOKEN, 'SHA256', true );
 				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );

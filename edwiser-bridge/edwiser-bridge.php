@@ -193,28 +193,3 @@ function run_edwiser_bridge() {
 run_edwiser_bridge(); // start plugin execution.
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/api/class-eb-external-api-endpoint.php';
-
-
-
-
-error_log('EDWISER_BRIDGE_VERSION ::: '.print_r(EDWISER_BRIDGE_VERSION, 1));
-error_log('EDWISER_TEMPLATE_PATH ::: '.print_r(EDWISER_TEMPLATE_PATH, 1));
-error_log('EDWISER_ACCESS_TOKEN ::: '.print_r(EDWISER_ACCESS_TOKEN, 1));
-
-// error_log('EB_PLUGIN_DIR ::: '.print_r(EB_PLUGIN_DIR, 1));
-
-
-
-
-
-error_log('EDWISER_PLUGIN_URL ::: ---- '.print_r(EDWISER_PLUGIN_URL, 1));
-
-
-
-
-
-
-
-error_log('EDWISER_ACCESS_URL ::: '.print_r(EDWISER_ACCESS_URL, 1));
-
-
