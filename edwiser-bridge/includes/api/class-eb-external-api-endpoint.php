@@ -187,7 +187,6 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				//remove hardcoded hash
 				$enc_iv     = '1234567891011121';
 
 				$enc_key  = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );
@@ -360,7 +359,6 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				//remove hardcoded hash
 				$enc_iv     = '1234567891011121';
 
 				$enc_key                        = openssl_digest( EB_ACCESS_TOKEN, 'SHA256', true );

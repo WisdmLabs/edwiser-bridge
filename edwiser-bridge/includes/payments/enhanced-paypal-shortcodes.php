@@ -867,7 +867,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				}
 
 				// Add Quantity.
-				if ( 'ask' === $atts['qty'] ) {
+				if ( 'ask' == $atts['qty'] ) {
 					$code .= '<input type="hidden" name="undefined_quantity" value="1">';
 				} else {
 					$code .= '<input type="hidden" name="quantity" value="' . $atts['qty'] . '">';
