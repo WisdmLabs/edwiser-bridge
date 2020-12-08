@@ -70,7 +70,7 @@ class Eb_Public {
 		 */
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
-			EB_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+			EDWISER_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
 			array(),
 			$this->version,
 			'all'
@@ -78,21 +78,21 @@ class Eb_Public {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			EB_PLUGIN_URL . 'public/assets/css/eb-public.css',
+			EDWISER_PLUGIN_URL . 'public/assets/css/eb-public.css',
 			array( $this->plugin_name . '_font_awesome' ),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'wdmdatatablecss',
-			EB_PLUGIN_URL . 'public/assets/css/datatable.css',
+			EDWISER_PLUGIN_URL . 'public/assets/css/datatable.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'eb-public-jquery-ui-css',
-			EB_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
+			EDWISER_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
 			array(),
 			$this->version,
 			'all'
@@ -121,14 +121,14 @@ class Eb_Public {
 		wp_enqueue_script( 'jquery-ui-dialog' );
 		wp_enqueue_script(
 			$this->plugin_name,
-			EB_PLUGIN_URL . 'public/assets/js/eb-public.js',
+			EDWISER_PLUGIN_URL . 'public/assets/js/eb-public.js',
 			array( 'jquery', 'jquery-ui-dialog' ),
 			$this->version,
 			false
 		);
 		wp_register_script(
 			$this->plugin_name . '-edit-user-profile',
-			EB_PLUGIN_URL . 'public/assets/js/edit-user-profile.js',
+			EDWISER_PLUGIN_URL . 'public/assets/js/edit-user-profile.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -143,7 +143,7 @@ class Eb_Public {
 
 		wp_enqueue_script(
 			$this->plugin_name . '-ui-block',
-			EB_PLUGIN_URL . 'public/assets/js/jquery-blockui-min.js',
+			EDWISER_PLUGIN_URL . 'public/assets/js/jquery-blockui-min.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -192,7 +192,7 @@ class Eb_Public {
 		// datatable js for user order table.
 		wp_enqueue_script(
 			'wdmdatatablejs',
-			EB_PLUGIN_URL . 'public/assets/js/datatable.js',
+			EDWISER_PLUGIN_URL . 'public/assets/js/datatable.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -200,7 +200,7 @@ class Eb_Public {
 
 		wp_register_script(
 			'eb_paypal_js',
-			EB_PLUGIN_URL . 'public/assets/js/eb-paypal.js',
+			EDWISER_PLUGIN_URL . 'public/assets/js/eb-paypal.js',
 			array( 'jquery' ),
 			$this->version,
 			false

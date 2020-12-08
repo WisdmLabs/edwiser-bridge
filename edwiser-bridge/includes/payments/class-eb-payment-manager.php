@@ -81,7 +81,7 @@ class Eb_Payment_Manager {
 		if ( '' === $moodle_course_id ) {
 			return;
 		} else {
-			$access_course_url = EB_ACCESS_URL . '/course/view.php?id=' . $moodle_course_id;
+			$access_course_url = EDWISER_ACCESS_URL . '/course/view.php?id=' . $moodle_course_id;
 		}
 
 		if ( empty( $access_course_url ) ) {

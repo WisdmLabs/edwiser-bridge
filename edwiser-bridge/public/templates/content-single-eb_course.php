@@ -111,7 +111,7 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			if ( has_post_thumbnail() ) {
 				the_post_thumbnail( 'course_single' );
 			} else {
-				echo '<img src="' . esc_html( EB_PLUGIN_URL ) . 'images/no-image.jpg" />';
+				echo '<img src="' . esc_html( EDWISER_PLUGIN_URL ) . 'images/no-image.jpg" />';
 			}
 			?>
 		</div>

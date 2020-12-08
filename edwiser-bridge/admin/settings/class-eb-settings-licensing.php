@@ -50,7 +50,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		public function output() {
 			// Hide the save button.
 			$GLOBALS['hide_save_button'] = true;
-			include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-licensing.php';
+			// include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-licensing.php';
+           	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-licensing.php';
+
 		}
 
 

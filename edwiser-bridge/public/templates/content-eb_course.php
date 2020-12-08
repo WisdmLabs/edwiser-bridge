@@ -109,7 +109,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 		);
 		$course_url = \ebsso\generateMoodleUrl( $query );
 	} else {
-		$course_url = EB_ACCESS_URL . '/course/view.php?id=' . $mdl_course_id;
+		$course_url = EDWISER_ACCESS_URL . '/course/view.php?id=' . $mdl_course_id;
 	}
 } else {
 	$is_eb_my_courses = false;
@@ -125,7 +125,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail( 'course_archive' );
 				} else {
-					echo '<img src="' . esc_html( EB_PLUGIN_URL ) . 'images/no-image.jpg"/>';
+					echo '<img src="' . esc_html( EDWISER_PLUGIN_URL ) . 'images/no-image.jpg"/>';
 				}
 				echo '</div>';
 				echo '<div class="wdm-caption">';

@@ -30,27 +30,9 @@
  * @package  Edwiser Bridge
  */
 
-if ( ! defined( 'EDWISER_WPW_NAME' ) ) {
-	define( 'EDWISER_WPW_NAME', 'Enhanced Paypal Shortcodes' );    // Name of the Plugin.
-}
-
-if ( ! defined( 'EDWISER_TWPW_VERSION' ) ) {
-	define( 'EDWISER_TWPW_VERSION', '0.5a' );            // Current version of the Plugin.
-}
-
 if ( ! defined( 'EDWISER_ALT_ADD' ) ) {
 	define( 'EDWISER_ALT_ADD', 'Add to cart (Paypal)' );            // Current version of the Plugin.
 }
-
-if ( ! defined( 'EDWISER_ALT_VIEW' ) ) {
-	define( 'EDWISER_ALT_VIEW', 'View Paypal cart' );        // alternate text for "View cart" image.
-}
-
-if ( ! defined( 'EDWISER_ALT_SUBS' ) ) {
-	define( 'EDWISER_ALT_SUBS', 'Subscribe Now (Paypal)' );   // alternate text for "Subscribe" image.
-}
-
-
 
 /**
 * Parameters for Shortcode for all Paypal buttons

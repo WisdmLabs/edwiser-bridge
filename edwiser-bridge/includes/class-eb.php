@@ -150,13 +150,13 @@ class EdwiserBridge {
 		/**
 		 * Define plugin constants.
 		 */
-		$this->check_constant_defined( 'EB_VERSION', $this->version );
-		$this->check_constant_defined( 'EB_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EB_PLUGIN_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EB_TEMPLATE_PATH', 'edwiserBridge/' );
-		$this->check_constant_defined( 'EB_ACCESS_TOKEN', $eb_moodle_token );
-		$this->check_constant_defined( 'EB_ACCESS_URL', $eb_moodle_url );
-		$this->check_constant_defined( 'EB_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/' );
+		$this->check_constant_defined( 'EDWISER_BRIDGE_VERSION', $this->version );
+		$this->check_constant_defined( 'EDWISER_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ) );
+		// $this->check_constant_defined( 'EB_PLUGIN_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
+		$this->check_constant_defined( 'EDWISER_TEMPLATE_PATH', 'edwiserBridge/' );
+		$this->check_constant_defined( 'EDWISER_ACCESS_TOKEN', $eb_moodle_token );
+		$this->check_constant_defined( 'EDWISER_ACCESS_URL', $eb_moodle_url );
+		$this->check_constant_defined( 'EDWISER_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/' );
 	}
 
 	/**
@@ -190,103 +190,145 @@ class EdwiserBridge {
 		/*
 		 * Usage tracking file.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-usage-tracking.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-usage-tracking.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-usage-tracking.php';
+
 
 		/**
 		 * The core class to manage debug log on the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/api/class-eb-external-api-endpoint.php';
+		// require_once EB_PLUGIN_DIR . 'includes/api/class-eb-external-api-endpoint.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/api/class-eb-external-api-endpoint.php';
+
 
 		/**
 		 * The core class to manage debug log on the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-logger.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-logger.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-logger.php';
+
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-loader.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-loader.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-loader.php';
+
 
 		/**
 		 * The class responsible for managing emails sent to user on purchase.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/emails/class-eb-emailer.php';
+		// require_once EB_PLUGIN_DIR . 'includes/emails/class-eb-emailer.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/emails/class-eb-emailer.php';
 
 		/**
 		 * The class responsible for defining post types and meta boxes
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-post-types.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-post-types.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-post-types.php';
 
 		/**
 		 * The class responsible for defining course synchronization & management functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-course-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-course-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-course-manager.php';
+
 
 		/**
 		 * The class responsible for defining order management functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-order-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-order-manager.php';
+
 
 		/**
 		 * The class responsible for defining user management functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-user-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-user-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-user-manager.php';
+
 
 		/**
 		 * The class responsible for defining enrollment management functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-enrollment-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-enrollment-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-enrollment-manager.php';
+
 
 		/**
 		 * The class responsible for defining connection management functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/api/class-eb-connection-helper.php';
+		// require_once EB_PLUGIN_DIR . 'includes/api/class-eb-connection-helper.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/api/class-eb-connection-helper.php';
+
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-i18n.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-i18n.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-i18n.php';
+
 
 		/**
 		 * The core class to manage payments on the site.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/payments/class-eb-payment-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/payments/class-eb-payment-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/payments/class-eb-payment-manager.php';
+
 
 		/*
 		 * loading refund dependencies.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/payments/class-eb-refund-manager.php';
+		// require_once EB_PLUGIN_DIR . 'includes/payments/class-eb-refund-manager.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/payments/class-eb-refund-manager.php';
+
 
 		// core functions.
-		require_once EB_PLUGIN_DIR . 'includes/eb-core-functions.php';
-		require_once EB_PLUGIN_DIR . 'includes/eb-formatting-functions.php';
+		// require_once EB_PLUGIN_DIR . 'includes/eb-core-functions.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/eb-core-functions.php';
+
+		// require_once EB_PLUGIN_DIR . 'includes/eb-formatting-functions.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/eb-formatting-functions.php';
+
 
 		// To handle addition of new blog (for multisite installations).
 
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-activator.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-activator.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-activator.php';
+
 
 		// To handel the email template modification.
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-email-template.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-email-template-parser.php';
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-email-template.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-email-template.php';
 
-		include_once EB_PLUGIN_DIR . 'includes/class-eb-default-email-templates.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-email-template-parser.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-email-template-parser.php';
+
+
+		// include_once EB_PLUGIN_DIR . 'includes/class-eb-default-email-templates.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-default-email-templates.php';
+
 
 		// handles theme compatibility.
-		require_once EB_PLUGIN_DIR . 'public/class-eb-theme-compatibility.php';
+		// require_once EB_PLUGIN_DIR . 'public/class-eb-theme-compatibility.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-theme-compatibility.php';
+
 
 		/*
 		 * loading refund dependencies.
 		 * @since      1.3.3
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-gdpr-compatibility.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-gdpr-compatibility.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-gdpr-compatibility.php';
+
 
 		$this->loader = new Eb_Loader();
 	}
@@ -301,27 +343,42 @@ class EdwiserBridge {
 		 *Class responsible to show admin notices
 		 */
 
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-admin-notice-handler.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-admin-notice-handler.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-admin-notice-handler.php';
+
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-admin.php';
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-welcome.php';
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-extensions.php';
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-admin.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-admin.php';
+
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-welcome.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-welcome.php';
+		
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-extensions.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-extensions.php';
 
 		/**
 		*The class used to add Moodle account column on users page frontend
 		*/
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-moodle-link-unlink.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-custom-list-table.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-enrollment.php';
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-moodle-link-unlink.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-moodle-link-unlink.php';
+
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-custom-list-table.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-custom-list-table.php';
+
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-enrollment.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-manage-enrollment.php';
 
 		/**
 		 * The core classes that initiates settings module.
 		 */
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-admin-menus.php';
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-admin-settings.php';
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-admin-menus.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-admin-menus.php';
+
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-admin-settings.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-admin-settings.php';
 
 		/**
 		 * The core class to handle custom events events on settings page.
@@ -331,15 +388,24 @@ class EdwiserBridge {
 		 * Test Connection
 		 * Courses & User Data Synchronization
 		 */
-		require_once EB_PLUGIN_DIR . 'admin/class-eb-settings-ajax-initiater.php';
+		// require_once EB_PLUGIN_DIR . 'admin/class-eb-settings-ajax-initiater.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/class-eb-settings-ajax-initiater.php';
 
 		/**
 		 * Add order meta boxes.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-meta.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-status.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-order-history-meta.php';
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-order-refund.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-order-meta.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-order-meta.php';
+
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-order-status.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-order-status.php';
+		
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-order-history-meta.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-order-history-meta.php';
+		
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-order-refund.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-manage-order-refund.php';
+
 	}
 
 	/**
@@ -352,28 +418,47 @@ class EdwiserBridge {
 		 * inlcuding course progress file
 		 * @since 1.4
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-course-progress.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-course-progress.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-course-progress.php';
+
 
 		/**
 		 * The classes responsible for defining and handling all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once EB_PLUGIN_DIR . 'public/class-eb-public.php';
+		// require_once EB_PLUGIN_DIR . 'public/class-eb-public.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-public.php';
+
 		/**
 		 * Tha classes responsible for defining shortcodes.
 		 */
-		require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-enrollment.php';
-		require_once EB_PLUGIN_DIR . 'public/class-eb-shortcodes.php';
-		require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-user-account.php';
-		require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-user-profile.php';
-		require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-courses.php';
-		require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-course.php';
-		require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-my-courses.php';
+		// require_once EB_PLUGIN_DIR . 'includes/class-eb-manage-enrollment.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/includes/class-eb-manage-enrollment.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/class-eb-shortcodes.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-shortcodes.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-user-account.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/shortcodes/class-eb-shortcode-user-account.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-user-profile.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/shortcodes/class-eb-shortcode-user-profile.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-courses.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/shortcodes/class-eb-shortcode-courses.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-course.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/shortcodes/class-eb-shortcode-course.php';
+
+		// require_once EB_PLUGIN_DIR . 'public/shortcodes/class-eb-shortcode-my-courses.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/shortcodes/class-eb-shortcode-my-courses.php';
+
 
 		/**
 		 * The class responsible for handling frontend forms, specifically login & registration forms.
 		 */
-		require_once EB_PLUGIN_DIR . 'public/class-eb-frontend-form-handler.php';
+		// require_once EB_PLUGIN_DIR . 'public/class-eb-frontend-form-handler.php';
+       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-frontend-form-handler.php';
 
 	}
 
