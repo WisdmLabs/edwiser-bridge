@@ -31,14 +31,6 @@ if ( ! defined( 'WPINC' ) ) {
  * This action is documented in includes/class-eb-activator.php.
  */
 
-if ( ! defined( 'EB_BASE_FILE_NAME' ) ) {
-	define( 'EB_BASE_FILE_NAME', basename( __FILE__ ) );
-}
-
-if ( ! defined( 'EB_PLUGIN_NAME' ) ) {
-	define( 'EB_PLUGIN_NAME', basename( dirname( __FILE__ ) ) );
-}
-
 /**
  * Activate.
  *

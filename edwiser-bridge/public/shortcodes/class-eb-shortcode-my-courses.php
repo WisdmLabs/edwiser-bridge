@@ -37,7 +37,7 @@ class Eb_Shortcode_My_Courses {
 	 * @param array $atts atts.
 	 */
 	public static function output( $atts ) {
-		$atts = shortcode_atts(
+		$atts          = shortcode_atts(
 			apply_filters(
 				'eb_shortcode_my_courses_defaults',
 				array(
