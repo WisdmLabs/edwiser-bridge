@@ -627,7 +627,7 @@ class EdwiserBridge {
 			'eb_admin_notice_dismiss_handler'
 		);
 
-		$hook = 'in_plugin_update_message-' . EB_PLUGIN_NAME . '/' . EB_BASE_FILE_NAME;
+		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
 			$hook,
 			$admin_notice_handler,
