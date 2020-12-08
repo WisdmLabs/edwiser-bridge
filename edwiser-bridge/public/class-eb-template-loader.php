@@ -68,17 +68,18 @@ class EbTemplateLoader {
 		if ( is_single() && get_post_type() === 'eb_course' ) {
 			$file   = 'single-eb_course.php';
 			$find[] = $file;
-			$find[] = EB_TEMPLATE_PATH . $file;
+			$find[] = EDWISER_TEMPLATE_PATH . $file;
 		} elseif ( is_post_type_archive( 'eb_course' ) ) {
 			$file   = 'archive-eb_course.php';
 			$find[] = $file;
-			$find[] = EB_TEMPLATE_PATH . $file;
+			$find[] = EDWISER_TEMPLATE_PATH . $file;
 		}
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
 			if ( ! $template ) {
-				$template = EB_PLUGIN_DIR . 'public/templates/' . $file;
+				// $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
+       			$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
 			}
 		}
 
@@ -116,17 +117,19 @@ class EbTemplateLoader {
 
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
-			$template = locate_template( array( "{$slug}-{$name}.php", EB_TEMPLATE_PATH . "{$slug}-{$name}.php" ) );
+			$template = locate_template( array( "{$slug}-{$name}.php", EDWISER_TEMPLATE_PATH . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php.
-		if ( ! $template && $name && file_exists( EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php" ) ) {
-			$template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
+		// if ( ! $template && $name && file_exists( EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php" ) ) {
+		if ( ! $template && $name && file_exists( ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php" ) ) {
+			// $template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
+       		$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
 		}
 
 		// If template file doesn't exist, look in yourtheme/edw/slug.php.
 		if ( ! $template ) {
-			$template = locate_template( array( "{$slug}.php", EB_TEMPLATE_PATH . "{$slug}.php" ) );
+			$template = locate_template( array( "{$slug}.php", EDWISER_TEMPLATE_PATH . "{$slug}.php" ) );
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
@@ -210,11 +213,11 @@ class EbTemplateLoader {
 	 */
 	public function wp_locate_template( $template_name, $template_path = '', $default_path = '' ) {
 		if ( ! $template_path ) {
-			$template_path = EB_TEMPLATE_PATH;
+			$template_path = EDWISER_TEMPLATE_PATH;
 		}
 
 		if ( ! $default_path ) {
-			$default_path = EB_PLUGIN_DIR . 'public/templates/';
+			$default_path = EDWISER_PLUGIN_DIR . 'public/templates/';
 		}
 
 		// Look within passed path within the theme - this is priority.

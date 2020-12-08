@@ -193,4 +193,3 @@ function run_edwiser_bridge() {
 run_edwiser_bridge(); // start plugin execution.
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/api/class-eb-external-api-endpoint.php';
-

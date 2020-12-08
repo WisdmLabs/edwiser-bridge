@@ -70,7 +70,7 @@ class Eb_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
-			EB_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+			EDWISER_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
 			array(),
 			$this->version,
 			'all'
@@ -78,21 +78,21 @@ class Eb_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			EB_PLUGIN_URL . 'admin/assets/css/eb-admin.css',
+			EDWISER_PLUGIN_URL . 'admin/assets/css/eb-admin.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'jquery-tiptip-css',
-			EB_PLUGIN_URL . 'admin/assets/css/tipTip.css',
+			EDWISER_PLUGIN_URL . 'admin/assets/css/tipTip.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'eb-select2-css',
-			EB_PLUGIN_URL . 'admin/assets/css/select2.css',
+			EDWISER_PLUGIN_URL . 'admin/assets/css/select2.css',
 			array(),
 			$this->version,
 			'all'
@@ -100,7 +100,7 @@ class Eb_Admin {
 
 		wp_enqueue_style(
 			'eb-jquery-ui-css',
-			EB_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
+			EDWISER_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
 			array(),
 			$this->version,
 			'all'
@@ -133,7 +133,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			EB_PLUGIN_URL . 'admin/assets/js/eb-admin.js',
+			EDWISER_PLUGIN_URL . 'admin/assets/js/eb-admin.js',
 			array( 'jquery', 'jquery-ui-dialog', 'jquery-ui-accordion' ),
 			$this->version,
 			false
@@ -141,7 +141,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			'eb-select2-js',
-			EB_PLUGIN_URL . 'admin/assets/js/select2.full.js',
+			EDWISER_PLUGIN_URL . 'admin/assets/js/select2.full.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -156,7 +156,7 @@ class Eb_Admin {
 			'eb_admin_js_object',
 			array(
 				'unsaved_warning'                 => esc_html__( 'Please save the changes.', 'eb-textdomain' ),
-				'plugin_url'                      => EB_PLUGIN_URL,
+				'plugin_url'                      => EDWISER_PLUGIN_URL,
 				'ajaxurl'                         => admin_url( 'admin-ajax.php' ),
 				'nonce'                           => $sync_nonce,
 				'admin_nonce'                     => $admin_nonce,
@@ -187,7 +187,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			'jquery-tiptip-js',
-			EB_PLUGIN_URL . 'admin/assets/js/jquery.tipTip.minified.js',
+			EDWISER_PLUGIN_URL . 'admin/assets/js/jquery.tipTip.minified.js',
 			array( 'jquery' ),
 			$this->version,
 			false

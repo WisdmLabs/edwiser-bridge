@@ -250,7 +250,7 @@ class Eb_Gdpr_Compatiblity {
 					<p>
 						' . esc_html__( 'When you purchase from us through courses page, we’ll ask you to provide information including your first name, last name and email and creates username and password for the user. We’ll use this information for purposes, such as, to:', 'eb-textdomain' ) . '
 						<ul>
-							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . EB_ACCESS_URL . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
+							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . EDWISER_ACCESS_URL . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
 							<li>' . esc_html__( 'Enroll the same user into the course.', 'eb-textdomain' ) . '</li>
 						</ul>
 					</p>';

@@ -19,7 +19,7 @@ if ( ! function_exists( 'wdm_log_file_path' ) ) {
 	 * @return string the log file path
 	 */
 	function wdm_log_file_path( $handle ) {
-		return trailingslashit( EB_LOG_DIR ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
+		return trailingslashit( EDWISER_LOG_DIR ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
 	}
 }
 

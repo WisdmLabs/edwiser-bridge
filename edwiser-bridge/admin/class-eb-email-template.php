@@ -172,7 +172,7 @@ class EBAdminEmailTemplate {
 							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'eb-textdomain' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'eb-textdomain' ); ?>"/>
 							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'eb-textdomain' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'eb-textdomain' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( EB_PLUGIN_URL . '/images/loader.gif' ); ?>" height="20" width="20">
+								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( EDWISER_PLUGIN_URL . '/images/loader.gif' ); ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
