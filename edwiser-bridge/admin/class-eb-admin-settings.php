@@ -180,7 +180,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$tabs = apply_filters( 'eb_settings_tabs_array', array() );
 
 			$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
-			include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings.php';
+			// include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings.php';
+            require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings.php';
+			
 		}
 
 		/**
@@ -850,7 +852,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$description = wp_kses_post( $description );
 			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
 				$description = '<span class="load-response">
-									<img src="' . EB_PLUGIN_URL . 'images/loader.gif" height="20" width="20" />
+									<img src="' . EDWISER_PLUGIN_URL . 'images/loader.gif" height="20" width="20" />
 								</span>
 								<span class="response-box"></span>
 								<span class="linkresponse-box"></span>
@@ -880,7 +882,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			} elseif ( $tooltip_html ) {
 				$tooltip_html = '<img class="help_tip"
 									data-tip="' . esc_attr( $tooltip_html ) . '"
-									src="' . EB_PLUGIN_URL . 'images/help.png"
+									src="' . EDWISER_PLUGIN_URL . 'images/help.png"
 									height="20"
 									width="20" />';
 			}
@@ -923,7 +925,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
 				?>
 				<span class="load-response">
-					<img src="<?php echo esc_url( EB_PLUGIN_URL . 'images/loader.gif' ); ?>" height="20" width="20" />
+					<img src="<?php echo esc_url( EDWISER_PLUGIN_URL . 'images/loader.gif' ); ?>" height="20" width="20" />
 				</span>
 				<span class="response-box"></span>
 				<span class="linkresponse-box"></span>
@@ -981,7 +983,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$tooltip_html = '';
 			} elseif ( $tooltip_html ) {
 				?>
-				<img class="help_tip" data-tip="<?php wp_kses_post( $tooltip_html ); ?>" src="<?php echo esc_url( EB_PLUGIN_URL . 'images/help.png' ); ?>" height="20" width="20" />
+				<img class="help_tip" data-tip="<?php wp_kses_post( $tooltip_html ); ?>" src="<?php echo esc_url( EDWISER_PLUGIN_URL . 'images/help.png' ); ?>" height="20" width="20" />
 				<?php
 			}
 		}

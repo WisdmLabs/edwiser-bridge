@@ -561,7 +561,7 @@ class Eb_Post_Types {
 				break;
 			default:
 				?>
-				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( EB_PLUGIN_URL ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
+				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( EDWISER_PLUGIN_URL ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
 				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;

@@ -117,7 +117,7 @@ class Eb_Course_Manager {
 		$courses_created      = array(); // store newely created course ids ( WordPress course ids ).
 
 		// checking if moodle connection is working properly.
-		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EB_ACCESS_URL, EB_ACCESS_TOKEN );
+		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EDWISER_ACCESS_URL, EDWISER_ACCESS_TOKEN );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 

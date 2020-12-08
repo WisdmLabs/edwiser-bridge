@@ -297,8 +297,8 @@ class EBConnectionHelper {
 		$response_message = 'success';
 		$response_data    = array();
 
-		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array( 'timeout' => 100 );
 		$response     = wp_remote_post( $request_url, $request_args );
@@ -366,8 +366,8 @@ class EBConnectionHelper {
 		$response_message = 'success';
 		$response_data    = array();
 
-		$request_url  = EB_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EB_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
+		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array(
 			'body'    => $request_data,

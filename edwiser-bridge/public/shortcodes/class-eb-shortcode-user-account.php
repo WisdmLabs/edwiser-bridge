@@ -316,7 +316,7 @@ class Eb_Shortcode_User_Account {
 			if ( isset( $posted_data['new_psw'] ) && ! empty( $posted_data['new_psw'] ) ) {
 				$user_data['password'] = $posted_data['new_psw'];
 			}
-			$user_manager = new EBUserManager( 'edwiserbridge', EB_VERSION );
+			$user_manager = new EBUserManager( 'edwiserbridge', EDWISER_BRIDGE_VERSION );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {
 				return true;
