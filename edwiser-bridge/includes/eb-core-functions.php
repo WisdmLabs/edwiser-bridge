@@ -502,7 +502,7 @@ if ( ! function_exists( 'eb_get_all_web_service_functions' ) ) {
 			if ( is_plugin_active( $extension ) ) {
 				if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
 					$bp_version = get_option( 'eb_bp_plugin_version' );
-					if ( version_compare( '2.0.1', $bp_version ) <= 0 ) {
+					if ( version_compare( '2.0.2', $bp_version ) <= 0 ) {
 						array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
 						array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
@@ -707,7 +707,7 @@ if ( ! function_exists( 'edwiser_sanitize_array' ) ) {
 				}
 			}
 		} else {
-			$sanitized_array = sanitize_text_field( wp_unslash( $sanitized_array ) );
+			$sanitized_array = sanitize_text_field( wp_unslash( $array_data ) );
 		}
 
 		return $sanitized_array;

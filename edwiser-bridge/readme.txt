@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
-Tested up to: 5.5.0
+Tested up to: 5.5.3
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -211,6 +211,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.0.2 =
+* Tweak - Solved connection settings save issue.
 
 = 2.0.1 =
 * Tweak - Added security checks.
