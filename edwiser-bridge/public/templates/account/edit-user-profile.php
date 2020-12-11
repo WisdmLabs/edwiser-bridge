@@ -43,7 +43,7 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 		<?php
 	} else {
 		if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
-			echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], eb_sinlge_course_get_allowed_html_tags() );
+			echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], wdm_eb_sinlge_course_get_allowed_html_tags() );
 			unset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] );
 		}
 		?>

@@ -244,13 +244,15 @@ class Eb_Gdpr_Compatiblity {
 	 */
 	public function eb_user_account_creation_policy() {
 		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		$eb_access_url  = wdm_edwiser_bridge_plugin_get_access_url();
+
 		$content        = '<p>
 						' . esc_html__( 'We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle.', 'eb-textdomain' ) . '
 					</p>
 					<p>
 						' . esc_html__( 'When you purchase from us through courses page, we’ll ask you to provide information including your first name, last name and email and creates username and password for the user. We’ll use this information for purposes, such as, to:', 'eb-textdomain' ) . '
 						<ul>
-							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . EDWISER_ACCESS_URL . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
+							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . $eb_access_url . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
 							<li>' . esc_html__( 'Enroll the same user into the course.', 'eb-textdomain' ) . '</li>
 						</ul>
 					</p>';

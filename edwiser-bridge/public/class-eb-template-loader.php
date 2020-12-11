@@ -63,23 +63,24 @@ class EbTemplateLoader {
 	 * @return string
 	 */
 	public function template_loader( $template ) {
-		$file = '';
+		$file          = '';
+		$eb_templ_path = wdm_edwiser_bridge_plugin_template_path();
 
 		if ( is_single() && get_post_type() === 'eb_course' ) {
 			$file   = 'single-eb_course.php';
 			$find[] = $file;
-			$find[] = EDWISER_TEMPLATE_PATH . $file;
+			$find[] = $eb_templ_path . $file;
 		} elseif ( is_post_type_archive( 'eb_course' ) ) {
 			$file   = 'archive-eb_course.php';
 			$find[] = $file;
-			$find[] = EDWISER_TEMPLATE_PATH . $file;
+			$find[] = $eb_templ_path . $file;
 		}
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
 			if ( ! $template ) {
 				// $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
-       			$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
+				$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
 			}
 		}
 
@@ -113,23 +114,22 @@ class EbTemplateLoader {
 	 * @return void
 	 */
 	public function wp_get_template_part( $slug, $name = '' ) {
-		$template = '';
+		$template      = '';
+		$eb_templ_path = wdm_edwiser_bridge_plugin_template_path();
 
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
-			$template = locate_template( array( "{$slug}-{$name}.php", EDWISER_TEMPLATE_PATH . "{$slug}-{$name}.php" ) );
+			$template = locate_template( array( "{$slug}-{$name}.php", $eb_templ_path . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php.
-		// if ( ! $template && $name && file_exists( EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php" ) ) {
 		if ( ! $template && $name && file_exists( ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php" ) ) {
-			// $template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
-       		$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
+			$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
 		}
 
 		// If template file doesn't exist, look in yourtheme/edw/slug.php.
 		if ( ! $template ) {
-			$template = locate_template( array( "{$slug}.php", EDWISER_TEMPLATE_PATH . "{$slug}.php" ) );
+			$template = locate_template( array( "{$slug}.php", $eb_templ_path . "{$slug}.php" ) );
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
@@ -212,12 +212,15 @@ class EbTemplateLoader {
 	 * @return string
 	 */
 	public function wp_locate_template( $template_name, $template_path = '', $default_path = '' ) {
+		$eb_plugin_dir        = wdm_edwiser_bridge_plugin_dir();
+		$eb_plugin_templ_path = wdm_edwiser_bridge_plugin_template_path();
+
 		if ( ! $template_path ) {
-			$template_path = EDWISER_TEMPLATE_PATH;
+			$template_path = $eb_plugin_templ_path;
 		}
 
 		if ( ! $default_path ) {
-			$default_path = EDWISER_PLUGIN_DIR . 'public/templates/';
+			$default_path = $eb_plugin_dir . 'public/templates/';
 		}
 
 		// Look within passed path within the theme - this is priority.

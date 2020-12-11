@@ -212,7 +212,7 @@ class EBConnectionHelper {
 									<div>
 										';
 
-		$webservice_functions    = eb_get_all_web_service_functions();
+		$webservice_functions    = wdm_eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -296,9 +296,11 @@ class EBConnectionHelper {
 		$success          = 1;
 		$response_message = 'success';
 		$response_data    = array();
+		$eb_access_token  = wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url    = wdm_edwiser_bridge_plugin_get_access_url();
 
-		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
+		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array( 'timeout' => 100 );
 		$response     = wp_remote_post( $request_url, $request_args );
@@ -365,9 +367,11 @@ class EBConnectionHelper {
 		$success          = 1;
 		$response_message = 'success';
 		$response_data    = array();
+		$eb_access_token  = wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url    = wdm_edwiser_bridge_plugin_get_access_url();
 
-		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
+		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array(
 			'body'    => $request_data,

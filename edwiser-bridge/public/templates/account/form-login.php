@@ -25,12 +25,12 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 
 // check if registration enabled.
 $general_settings    = get_option( 'eb_general' );
-$enable_registration = get_arr_value( $general_settings, 'eb_enable_registration', '' );
+$enable_registration = wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
 do_action( 'eb_before_customer_login_form' );
 ?>
 <div id="user_login">
 	<?php
-	wdm_show_notices();
+	wdm_eb_login_reg_show_notices();
 	if ( ! $eb_action || 'eb_register' !== $eb_action ) {
 		?>
 		<h2>
@@ -95,7 +95,7 @@ do_action( 'eb_before_customer_login_form' );
 					?>
 					<p class="register-link form-row">
 
-						<a href='<?php echo esc_url( wdm_user_account_url( '?action=eb_register' . $arg_list ) ); ?>'>
+						<a href='<?php echo esc_url( wdm_eb_user_account_url( '?action=eb_register' . $arg_list ) ); ?>'>
 							<?php
 							esc_html_e( 'Don\'t have an Account?', 'eb-textdomain' );
 							?>
@@ -208,7 +208,7 @@ do_action( 'eb_before_customer_login_form' );
 				}
 				?>
 				<p class="login-link">
-					<a href='<?php echo esc_url( wdm_user_account_url( $redirect_to ) ); ?>'>
+					<a href='<?php echo esc_url( wdm_eb_user_account_url( $redirect_to ) ); ?>'>
 						<?php
 						esc_html_e( 'Already have an account?', 'eb-textdomain' );
 						?>

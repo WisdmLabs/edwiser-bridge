@@ -115,7 +115,7 @@ class Eb_Logger {
 			return true;
 		}
 
-		$this->_handles[ $handle ] = @fopen( wdm_log_file_path( $handle ), 'a' );
+		$this->_handles[ $handle ] = @fopen( wdm_eb_log_file_path( $handle ), 'a' );
 
 		if ( $this->_handles[ $handle ] ) {
 			return true;

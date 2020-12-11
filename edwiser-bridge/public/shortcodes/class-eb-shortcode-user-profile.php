@@ -272,7 +272,9 @@ class Eb_Shortcode_User_Profile {
 				$user_data['password'] = $posted_data['pass_1'];
 			}
 			$user_data    = apply_filters( 'eb_update_moodle_profile_data', $user_data );
-			$user_manager = new EBUserManager( 'edwiserbridge', EDWISER_BRIDGE_VERSION );
+
+			$version      = wdm_edwiser_bridge_version();
+			$user_manager = new EBUserManager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {

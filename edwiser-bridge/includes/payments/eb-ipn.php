@@ -244,7 +244,7 @@ if ( $verified ) {
 				'type' => 'PayPal IPN',
 				'msg'  => esc_html__( 'IPN has been recived for the order id #', 'eb-textdomain' ) . $order_id . esc_html__( 'payment status: ', 'eb-textdomain' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'eb-textdomain' ) . $post_txn_id . '. ',
 			);
-			update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
+			wdm_eb_update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
 		}
 	} elseif ( 'Refunded' == $post_payment_status ) {
 		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_gross'] ) ) : '';
@@ -256,7 +256,7 @@ if ( $verified ) {
 			'type' => 'PayPal IPN',
 			'msg'  => esc_html__( 'IPN has been recived, for the refund of amount ', 'eb-textdomain' ) . abs( $post_mc_gross ) . esc_html__( '. Payment status: ', 'eb-textdomain' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'eb-textdomain' ) . $post_txn_id . '.',
 		);
-		update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
+		wdm_eb_update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
 
 		$args = array(
 			'eb_order_id'     => $custom_data->order_id, // changed 1.4.7.

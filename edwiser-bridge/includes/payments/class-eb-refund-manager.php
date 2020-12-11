@@ -84,12 +84,12 @@ class Eb_Paypal_Refund_Manager {
 			} catch ( Exception $ex ) {
 				edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Exception: " . serialize( $ex ) );
 			}
-			$resp_status = get_arr_value( $response, 'ACK', false );
+			$resp_status = wdm_eb_get_value_from_array( $response, 'ACK', false );
 			if ( 'Success' === $resp_status ) {
-				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', get_arr_value( $response, 'GROSSREFUNDAMT' ), $order_id, get_arr_value( $response, 'REFUNDTRANSACTIONID' ) );
+				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', wdm_eb_get_value_from_array( $response, 'GROSSREFUNDAMT' ), $order_id, wdm_eb_get_value_from_array( $response, 'REFUNDTRANSACTIONID' ) );
 			} elseif ( 'Failure' === $resp_status ) {
 				$success       = 0;
-				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . get_arr_value( $response, 'L_LONGMESSAGE0', '' );
+				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . wdm_eb_get_value_from_array( $response, 'L_LONGMESSAGE0', '' );
 			}
 		} else {
 			$success       = 0;
@@ -151,9 +151,9 @@ class Eb_Paypal_Refund_Manager {
 	private function get_paypal_api_details() {
 		$api_details  = get_option( 'eb_paypal' );
 		$pay_pal_data = array(
-			'username' => get_arr_value( $api_details, 'eb_api_username', '' ),
-			'password' => get_arr_value( $api_details, 'eb_api_password', '' ),
-			'sign'     => get_arr_value( $api_details, 'eb_api_signature', '' ),
+			'username' => wdm_eb_get_value_from_array( $api_details, 'eb_api_username', '' ),
+			'password' => wdm_eb_get_value_from_array( $api_details, 'eb_api_password', '' ),
+			'sign'     => wdm_eb_get_value_from_array( $api_details, 'eb_api_signature', '' ),
 		);
 		return $pay_pal_data;
 	}

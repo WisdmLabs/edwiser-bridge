@@ -123,7 +123,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$constant['{SITE_URL}']               = "<a href='" . get_bloginfo( 'url' ) . "'>" . get_bloginfo( 'name' ) . '</a>';
 			$constant['{COURSES_PAGE_LINK}']      = "<a href='" . site_url( '/courses' ) . "'>" . esc_html__( 'Courses', 'eb-textdomain' ) . '</a>';
 			$constant['{MY_COURSES_PAGE_LINK}']   = $this->get_my_courses_page_link();
-			$constant['{USER_ACCOUNT_PAGE_LINK}'] = "<a href='" . wdm_user_account_url() . "'>" . esc_html__( 'User Account', 'eb-textdomain' ) . '</a>';
+			$constant['{USER_ACCOUNT_PAGE_LINK}'] = "<a href='" . wdm_eb_user_account_url() . "'>" . esc_html__( 'User Account', 'eb-textdomain' ) . '</a>';
 			$constant['{WP_LOGIN_PAGE_LINK}']     = "<a href='" . $this->get_login_page_url() . "'>" . esc_html__( 'Login Page', 'eb-textdomain' ) . '</a>';
 			$constant['{MOODLE_URL}']             = "<a href='" . $this->get_moodle_url() . "'>" . esc_html__( 'Moodle Site', 'eb-textdomain' ) . '</a>';
 			$constant['{COURSE_NAME}']            = $this->get_course_name( $args );
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		private function get_refund_amount( $args ) {
 			$refund_amt = 'CURRENT_REFUND_AMOUNT';
 			if ( isset( $args['refund_amount'] ) ) {
-				$refund_amt = get_arr_value( $args, 'refund_amount', '0.00' );
+				$refund_amt = wdm_eb_get_value_from_array( $args, 'refund_amount', '0.00' );
 			}
 			return $refund_amt;
 		}
@@ -245,7 +245,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 * @return string returns the order id.
 		 */
 		private function get_order_id( $args ) {
-			return '#' . get_arr_value( $args, 'eb_order_id', 'ORDER ID' ); // chnaged 1.4.7.
+			return '#' . wdm_eb_get_value_from_array( $args, 'eb_order_id', 'ORDER ID' ); // chnaged 1.4.7.
 		}
 
 		/**
@@ -256,7 +256,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 */
 		private function get_customer_details( $args ) {
 			$customer_details = 'CUSTOMER_DETAILS';
-			$order_id         = get_arr_value( $args, 'eb_order_id', false ); // chnaged 1.4.7.
+			$order_id         = wdm_eb_get_value_from_array( $args, 'eb_order_id', false ); // chnaged 1.4.7.
 			if ( $order_id ) {
 				$order_data    = get_post_meta( $order_id, 'eb_order_options', true );
 				$buyer_details = isset( $order_data['buyer_id'] ) ? get_userdata( $order_data['buyer_id'] ) : '';
@@ -289,10 +289,10 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 */
 		private function get_order_ass_items( $args ) {
 			$order_items = 'ORDER_ITEM';
-			$order_id    = get_arr_value( $args, 'eb_order_id', false ); // chnaged 1.4.7.
+			$order_id    = wdm_eb_get_value_from_array( $args, 'eb_order_id', false ); // chnaged 1.4.7.
 			if ( $order_id ) {
 				$order_data = get_post_meta( $order_id, 'eb_order_options', true );
-				$course_ids = get_arr_value( $order_data, 'course_id', array() );
+				$course_ids = wdm_eb_get_value_from_array( $order_data, 'course_id', array() );
 				if ( ! is_array( $course_ids ) ) {
 					$course_ids = (array) $course_ids;
 				}
@@ -325,10 +325,10 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 */
 		private function get_amount_paid_for_order( $args ) {
 			$amt_paid_for_order = 'TOTAL_AMOUNT_PAID';
-			$order_id           = get_arr_value( $args, 'eb_order_id', false );
+			$order_id           = wdm_eb_get_value_from_array( $args, 'eb_order_id', false );
 			if ( $order_id ) {
 				$order_data         = get_post_meta( $order_id, 'eb_order_options', true );
-				$amt_paid_for_order = eb_get_current_paypal_currency_symb() . get_arr_value( $order_data, 'amount_paid', '0.00' );
+				$amt_paid_for_order = wdm_eb_get_current_paypal_currency_symb() . wdm_eb_get_value_from_array( $order_data, 'amount_paid', '0.00' );
 			}
 			return $amt_paid_for_order;
 		}
@@ -341,13 +341,13 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 */
 		private function get_total_refunded_amt( $args ) {
 			$amt_paid_for_order = 'TOTAL_REFUNDED_AMOUNT';
-			$order_id           = get_arr_value( $args, 'eb_order_id', false );
+			$order_id           = wdm_eb_get_value_from_array( $args, 'eb_order_id', false );
 			if ( $order_id ) {
 				$refunds = get_post_meta( $order_id, 'eb_order_refund_hist', true );
 				if ( ! is_array( $refunds ) ) {
 					$refunds = array();
 				}
-				$amt_paid_for_order = get_total_refund_amt( $refunds );
+				$amt_paid_for_order = wdm_eb_get_total_refund_amt( $refunds );
 			}
 			return $amt_paid_for_order;
 		}
@@ -358,7 +358,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 * @param type $args args.
 		 */
 		private function get_refund_status( $args ) {
-			return get_arr_value( $args, 'refunded_status', 'ORDER_REFUND_STATUS' );
+			return wdm_eb_get_value_from_array( $args, 'refunded_status', 'ORDER_REFUND_STATUS' );
 		}
 	}
 }

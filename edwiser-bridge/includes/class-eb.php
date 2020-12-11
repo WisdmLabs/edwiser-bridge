@@ -110,53 +110,9 @@ class EdwiserBridge {
 	public function __construct() {
 		$this->plugin_name = 'edwiserbridge';
 		$this->version     = '2.0.2';
-		$this->define_constants();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_plugin_hooks();
-	}
-
-	/**
-	 * Check COnstant defined.
-	 *
-	 * @param text $key key.
-	 * @param text $value value.
-	 */
-	private function check_constant_defined( $key, $value ) {
-		if ( ! defined( $key ) ) {
-			define( $key, $value );
-		}
-	}
-
-	/**
-	 * Setup plugin constants.
-	 *
-	 * @since 1.0.0
-	 */
-	private function define_constants() {
-		$upload_dir = wp_upload_dir();
-
-		// get connection settings.
-		$connection_options = get_option( 'eb_connection' );
-
-		$eb_moodle_url = '';
-		if ( isset( $connection_options['eb_url'] ) ) {
-			$eb_moodle_url = $connection_options['eb_url'];
-		}
-		$eb_moodle_token = '';
-		if ( isset( $connection_options['eb_access_token'] ) ) {
-			$eb_moodle_token = $connection_options['eb_access_token'];
-		}
-		/**
-		 * Define plugin constants.
-		 */
-		$this->check_constant_defined( 'EDWISER_BRIDGE_VERSION', $this->version );
-		$this->check_constant_defined( 'EDWISER_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EDWISER_PLUGIN_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EDWISER_TEMPLATE_PATH', 'edwiserBridge/' );
-		$this->check_constant_defined( 'EDWISER_ACCESS_TOKEN', $eb_moodle_token );
-		$this->check_constant_defined( 'EDWISER_ACCESS_URL', $eb_moodle_url );
-		$this->check_constant_defined( 'EDWISER_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/' );
 	}
 
 	/**

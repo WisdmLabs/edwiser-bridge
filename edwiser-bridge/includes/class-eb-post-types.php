@@ -381,7 +381,7 @@ class Eb_Post_Types {
 					'label'       => __( 'Select Courses', 'eb-textdomain' ),
 					'description' => __( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ),
 					'type'        => 'select_multi',
-					'options'     => isset( $post->ID ) ? get_all_eb_sourses( $post->ID ) : array(),
+					'options'     => isset( $post->ID ) ? wdm_eb_get_all_eb_sourses( $post->ID ) : array(),
 					'default'     => array( 'pending' ),
 				),
 			),
@@ -420,13 +420,14 @@ class Eb_Post_Types {
 	 * @param array $args Field data.
 	 */
 	public function render_metabox_fields( $args ) {
-		$post_id     = get_the_id();
-		$field_id    = $args['field_id'];
-		$field       = $args['field'];
-		$post_type   = $args['post_type'];
-		$html        = '';
-		$option_name = $post_type . '_options[' . $field_id . ']';
-		$option      = self::get_post_options( $post_id, $field_id, $post_type );
+		$post_id       = get_the_id();
+		$field_id      = $args['field_id'];
+		$field         = $args['field'];
+		$post_type     = $args['post_type'];
+		$html          = '';
+		$option_name   = $post_type . '_options[' . $field_id . ']';
+		$option        = self::get_post_options( $post_id, $field_id, $post_type );
+		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
 
 		$data = '';
 		if ( $option ) {
@@ -561,8 +562,8 @@ class Eb_Post_Types {
 				break;
 			default:
 				?>
-				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( EDWISER_PLUGIN_URL ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
-				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
+				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( $eb_plugin_url ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
+				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], wdm_eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;
 		}
@@ -606,7 +607,7 @@ class Eb_Post_Types {
 			}
 
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-				$post_options = edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				$post_options = wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			}
 			if ( ! empty( $post_options ) ) {
 				foreach ( $fields as $key => $values ) {
@@ -634,7 +635,7 @@ class Eb_Post_Types {
 						case 'select':
 						case 'password':
 						case 'radio':
-							$option_value = wp_clean( $option_value );
+							$option_value = wdm_edwiser_bridge_wp_clean( $option_value );
 							break;
 						case 'select_multi':
 						case 'checkbox_multi':

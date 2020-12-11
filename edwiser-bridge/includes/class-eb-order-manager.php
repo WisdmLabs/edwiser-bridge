@@ -120,7 +120,7 @@ class Eb_Order_Manager {
 			die( 'Nonce verification fialed.' );
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$post_options = isset( $_POST['eb_order_options'] ) ? wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( empty( $post_options ) ) {
 			return false;
@@ -291,9 +291,9 @@ class Eb_Order_Manager {
 	private function get_course_price( $course_id ) {
 		$course_meta = get_post_meta( $course_id, 'eb_course_options', true );
 		$price       = '0.00';
-		$course_type = get_arr_value( $course_meta, 'course_price_type', false );
+		$course_type = wdm_eb_get_value_from_array( $course_meta, 'course_price_type', false );
 		if ( $course_type && 'paid' === $course_type ) {
-			$price = get_arr_value( $course_meta, 'course_price', '0.00' );
+			$price = wdm_eb_get_value_from_array( $course_meta, 'course_price', '0.00' );
 		}
 		return $price;
 	}

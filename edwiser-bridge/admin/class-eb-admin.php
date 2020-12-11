@@ -65,12 +65,13 @@ class Eb_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
 
 		wp_enqueue_style( 'dashicons' );
 
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
-			EDWISER_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+			$eb_plugin_url . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
 			array(),
 			$this->version,
 			'all'
@@ -78,21 +79,21 @@ class Eb_Admin {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			EDWISER_PLUGIN_URL . 'admin/assets/css/eb-admin.css',
+			$eb_plugin_url . 'admin/assets/css/eb-admin.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'jquery-tiptip-css',
-			EDWISER_PLUGIN_URL . 'admin/assets/css/tipTip.css',
+			$eb_plugin_url . 'admin/assets/css/tipTip.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'eb-select2-css',
-			EDWISER_PLUGIN_URL . 'admin/assets/css/select2.css',
+			$eb_plugin_url . 'admin/assets/css/select2.css',
 			array(),
 			$this->version,
 			'all'
@@ -100,7 +101,7 @@ class Eb_Admin {
 
 		wp_enqueue_style(
 			'eb-jquery-ui-css',
-			EDWISER_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
+			$eb_plugin_url . 'admin/assets/css/jquery-ui.css',
 			array(),
 			$this->version,
 			'all'
@@ -123,8 +124,9 @@ class Eb_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$sync_nonce  = wp_create_nonce( 'check_sync_action' );
-		$admin_nonce = wp_create_nonce( 'eb_admin_nonce' );
+		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$sync_nonce    = wp_create_nonce( 'check_sync_action' );
+		$admin_nonce   = wp_create_nonce( 'eb_admin_nonce' );
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-dialog' );
@@ -133,7 +135,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			EDWISER_PLUGIN_URL . 'admin/assets/js/eb-admin.js',
+			$eb_plugin_url . 'admin/assets/js/eb-admin.js',
 			array( 'jquery', 'jquery-ui-dialog', 'jquery-ui-accordion' ),
 			$this->version,
 			false
@@ -141,7 +143,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			'eb-select2-js',
-			EDWISER_PLUGIN_URL . 'admin/assets/js/select2.full.js',
+			$eb_plugin_url . 'admin/assets/js/select2.full.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -156,7 +158,7 @@ class Eb_Admin {
 			'eb_admin_js_object',
 			array(
 				'unsaved_warning'                 => esc_html__( 'Please save the changes.', 'eb-textdomain' ),
-				'plugin_url'                      => EDWISER_PLUGIN_URL,
+				'plugin_url'                      => $eb_plugin_url,
 				'ajaxurl'                         => admin_url( 'admin-ajax.php' ),
 				'nonce'                           => $sync_nonce,
 				'admin_nonce'                     => $admin_nonce,
@@ -187,7 +189,7 @@ class Eb_Admin {
 
 		wp_enqueue_script(
 			'jquery-tiptip-js',
-			EDWISER_PLUGIN_URL . 'admin/assets/js/jquery.tipTip.minified.js',
+			$eb_plugin_url . 'admin/assets/js/jquery.tipTip.minified.js',
 			array( 'jquery' ),
 			$this->version,
 			false

@@ -118,7 +118,9 @@ class EBUserManager {
 	public function user_course_synchronization_handler( $sync_options = array(), $user_id_to_sync = '', $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EDWISER_ACCESS_URL, EDWISER_ACCESS_TOKEN );
+		$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$wp_users_count                        = 1;
@@ -281,7 +283,9 @@ class EBUserManager {
 	public function user_link_to_moodle_handler( $sync_options = array(), $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EDWISER_ACCESS_URL, EDWISER_ACCESS_TOKEN );
+		$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$link_users_count                      = 0;
@@ -493,8 +497,11 @@ class EBUserManager {
 				'lang'      => $language,
 			);
 
+			$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
+			$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+
 			// create a moodle user with above details.
-			if ( '' !== EDWISER_ACCESS_TOKEN && '' !== EDWISER_ACCESS_URL ) {
+			if ( '' !== $eb_access_token && '' !== $eb_access_url ) {
 				$moodle_user = $this->create_moodle_user( $user_data );
 				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
 					update_user_meta( $user_id, 'moodle_user_id', $moodle_user['user_data']->id );
@@ -931,7 +938,7 @@ class EBUserManager {
 			return;
 		}
 
-		$users = isset( $_REQUEST['users'] ) ? edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$users = isset( $_REQUEST['users'] ) ? wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		switch ( $action ) {
 			case 'link_moodle':

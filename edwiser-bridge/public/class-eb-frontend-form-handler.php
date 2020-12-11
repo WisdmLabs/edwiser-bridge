@@ -78,7 +78,7 @@ class Eb_Frontend_Form_Handler {
 					exit;
 				}
 			} catch ( \Exception $e ) {
-				wdm_add_notices( $e->getMessage() );
+				wdm_eb_login_reg_add_notices( $e->getMessage() );
 			}
 		}
 	}
@@ -149,7 +149,7 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				// added afyter.
-				$role = eb_default_registration_role();
+				$role = wdm_eb_default_registration_role();
 
 				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role );
 
@@ -172,7 +172,7 @@ class Eb_Frontend_Form_Handler {
 				wp_safe_redirect( apply_filters( 'eb_registration_redirect', $redirect, $new_user ) );
 				exit;
 			} catch ( \Exception $e ) {
-				wdm_add_notices( $e->getMessage() );
+				wdm_eb_login_reg_add_notices( $e->getMessage() );
 			}
 		}
 	}

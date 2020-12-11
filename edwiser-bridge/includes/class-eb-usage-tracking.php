@@ -42,7 +42,7 @@ class EB_Usage_Tracking {
 		// check consent to send tracking data.
 		$eb_general = get_option( 'eb_general' );
 		if ( $eb_general ) {
-			$consent = get_arr_value( $eb_general, 'eb_usage_tracking', false );
+			$consent = wdm_eb_get_value_from_array( $eb_general, 'eb_usage_tracking', false );
 		}
 
 		if ( $consent ) {
