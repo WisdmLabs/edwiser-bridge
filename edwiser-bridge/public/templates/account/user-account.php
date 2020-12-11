@@ -39,7 +39,7 @@
 					}
 					?>
 					<nav class="<?php echo esc_html( $css_class ); ?>">
-						<a href="<?php echo esc_url( add_query_arg( 'eb-active-link', $nav_href, get_permalink() ) ); ?>"><?php _e( $nav_item, 'eb-textdomain' ); // @codingStandardsIgnoreLine. ?></a>
+						<a href="<?php echo esc_url( add_query_arg( 'eb-active-link', $nav_href, get_permalink() ) ); ?>"><?php esc_html_e( $nav_item, 'eb-textdomain' ); // @codingStandardsIgnoreLine. ?></a>
 					</nav>
 					<?php
 				}

@@ -36,7 +36,7 @@ if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_u
 			<?php echo esc_html( $user_avatar ); ?>
 		</aside>
 		<div class="eb-user-data">
-			<?php echo '<div>' . @$user->first_name . ' ' . @$user->last_name . '</div>'; // @codingStandardsIgnoreLine. ?>
+			<?php echo '<div>' . esc_html( $user->first_name ) . ' ' . esc_html( $user->last_name ) . '</div>'; // @codingStandardsIgnoreLine. ?>
 			<?php echo '<div>' . esc_html( $user->user_email ) . '</div>'; ?>
 		</div>
 
