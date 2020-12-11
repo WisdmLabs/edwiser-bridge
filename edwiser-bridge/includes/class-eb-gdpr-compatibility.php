@@ -14,7 +14,7 @@ namespace app\wisdmlabs\edwiserBridge;
 /**
  * Class responsible to create plugin GDPR compatible.
  */
-class Eb_Gdpr_Compatiblity {
+class Eb_Gdpr_Compatibility {
 
 	/**
 	 * Functionality to add data to the WordPress data exporter function.

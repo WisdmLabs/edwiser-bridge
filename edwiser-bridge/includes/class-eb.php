@@ -682,7 +682,7 @@ class EdwiserBridge {
 			'reset_email_template_content'
 		);
 
-		$gdpr_compatible = new Eb_Gdpr_Compatiblity();
+		$gdpr_compatible = new Eb_Gdpr_Compatibility();
 		/**
 		 * Used to add eb personal while exporting personal data.
 		 *
