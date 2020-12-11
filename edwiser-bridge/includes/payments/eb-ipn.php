@@ -20,7 +20,7 @@ if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( 
 // create an object of logger class.
 edwiser_bridge_instance()->logger()->add( 'payment', "\n" );
 
-edwiser_bridge_instance()->logger()->add( 'payment', print_r( $_REQUEST, true ) );
+edwiser_bridge_instance()->logger()->add( 'payment', $_REQUEST );
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Listener Loading...' );
 
@@ -100,10 +100,10 @@ if ( $verified ) {
 	// You can't cancel that here.
 	$post_receiver_email = isset( $_POST['receiver_email'] ) ? sanitize_text_field( wp_unslash( $_POST['receiver_email'] ) ) : '';
 
-	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email == $seller_email ) ? 'YES' : 'NO' ) );
+	edwiser_bridge_instance()->logger()->add( 'payment', 'Receiver Email: ' . $post_receiver_email . 'Valid Receiver Email? :' . ( ( $post_receiver_email === $seller_email ) ? 'YES' : 'NO' ) );
 
-	if ( $post_receiver_email != $seller_email ) {
-		if ( '' != $your_notification_email_address ) {
+	if ( $post_receiver_email !== $seller_email ) {
+		if ( ! empty( $your_notification_email_address ) ) {
 			wp_mail(
 				$your_notification_email_address,
 				'Warning: IPN with invalid receiver email!',
@@ -119,10 +119,10 @@ if ( $verified ) {
 
 	edwiser_bridge_instance()->logger()->add(
 		'payment',
-		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' == $post_payment_status ) ? 'YES' : 'NO' )
+		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' === $post_payment_status ) ? 'YES' : 'NO' )
 	);
 
-	if ( 'Completed' == $post_payment_status ) {
+	if ( 'Completed' === $post_payment_status ) {
 
 		edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Completed! Moving Ahead.' );
 		// a customer has purchased from this website.
@@ -141,7 +141,7 @@ if ( $verified ) {
 
 		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_gross'] ) ) : '';
 
-		if ( $post_mc_gross == $course_price ) {
+		if ( round( trim( $post_mc_gross ) ) === round( trim( $course_price ) ) ) {
 			edwiser_bridge_instance()->logger()->add( 'payment', 'Course price is varified. Let\'s continue...' );
 		} else {
 			edwiser_bridge_instance()->logger()->add(
@@ -153,7 +153,7 @@ if ( $verified ) {
 
 		$post_mc_currency = isset( $_REQUEST['mc_currency'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_currency'] ) ) : '';
 
-		if ( $post_mc_currency != $paypal_currency ) {
+		if ( $post_mc_currency !== $paypal_currency ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'WARNING ! Paypal currency is modified by the purchaser, course access not given. Exiting!!!'
@@ -166,7 +166,7 @@ if ( $verified ) {
 			edwiser_bridge_instance()->logger()->add( 'payment', sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
 
 			// decode json data.
-			edwiser_bridge_instance()->logger()->add( 'payment', print_r( $custom_data, 1 ) );
+			edwiser_bridge_instance()->logger()->add( 'payment', $custom_data );
 			$buyer_id = isset( $custom_data->buyer_id ) ? $custom_data->buyer_id : '';
 			$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 
@@ -200,7 +200,7 @@ if ( $verified ) {
 		// verify order.
 		// get order details.
 		$order_buyer_id = Eb_Post_Types::get_post_options( $order_id, 'buyer_id', 'eb_order' );
-		if ( $buyer_id != $order_buyer_id ) {
+		if ( trim( $buyer_id ) !== trim( $order_buyer_id ) ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Buyer ID [' . $buyer_id . '] passed back by Paypal. But actual order has a different buyer id in DB.
@@ -210,7 +210,7 @@ if ( $verified ) {
 		}
 
 		$order_course_id = Eb_Post_Types::get_post_options( $order_id, 'course_id', 'eb_order' );
-		if ( $course_id != $order_course_id ) {
+		if ( trim( $course_id ) !== trim( $order_course_id ) ) {
 			edwiser_bridge_instance()->logger()->add(
 				'payment',
 				'Item ID [' . $course_id . '] passed back by Paypal. But actual order has a different item id in DB.
@@ -246,11 +246,11 @@ if ( $verified ) {
 			);
 			\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'eb-textdomain' ), $note );
 		}
-	} elseif ( 'Refunded' == $post_payment_status ) {
+	} elseif ( 'Refunded' === $post_payment_status ) {
 		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_gross'] ) ) : '';
 
 		$post_txn_id = isset( $_REQUEST['txn_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['txn_id'] ) ) : '';
-		edwiser_bridge_instance()->logger()->add( 'refund', print_r( $custom_data, 1 ) );
+		edwiser_bridge_instance()->logger()->add( 'refund', $custom_data );
 		$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 		$note     = array(
 			'type' => 'PayPal IPN',
@@ -270,8 +270,8 @@ if ( $verified ) {
 	}
 
 	edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Processing Completed Successfully.' );
-	$notify_on_valid = ( '' != $notify_on_valid_ipn ) ? $notify_on_valid_ipn : '0';
-	if ( '1' == $notify_on_valid ) {
+	$notify_on_valid = ! empty( $notify_on_valid_ipn ) ? $notify_on_valid_ipn : '0';
+	if ( trim( '1' ) === trim( $notify_on_valid ) ) {
 		wp_mail( $your_notification_email_address, 'Verified IPN', $listener->get_text_report() );
 	}
 } else {

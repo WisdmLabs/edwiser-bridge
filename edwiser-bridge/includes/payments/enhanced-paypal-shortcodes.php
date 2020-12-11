@@ -821,7 +821,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 			<input type="hidden" name="cmd" value="_cart">
 			<input type="hidden" name="bn" value="PP-ShopCartBF:btn_cart_LG.gif:NonHosted">
 			<input type="hidden" name="add" value="1">';
-				if ( 1 == $atts['display'] ) {
+				if ( 1 === trim( $atts['display'] ) ) {
 					$code .= '<input type="hidden" name="display" value="1">';
 				}
 				$code .= '<input type="hidden" name="business" value="' . $atts['email'] . '">

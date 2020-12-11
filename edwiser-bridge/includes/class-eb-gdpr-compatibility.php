@@ -197,7 +197,7 @@ class Eb_Gdpr_Compatiblity {
 	 * Get all privacy policy related data.
 	 */
 	public function eb_privacy_policy_page_data() {
-		$content = apply_filters( 'eb-privacy-policy-content', $this->eb_privacy_policy_content() );
+		$content = apply_filters( 'eb_privacy_policy_content', $this->eb_privacy_policy_content() );
 
 		if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
 			wp_add_privacy_policy_content( 'Edwiser Bridge', $content );

@@ -443,7 +443,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 										<option value="<?php echo esc_attr( $key ); ?>"
 												<?php
 												if ( is_array( $option_value ) ) {
-													selected( in_array( $key, $option_value ), true );
+													selected( in_array( trim( $key ), $option_value, true ), true );
 												} else {
 													selected( $option_value, $key );
 												}

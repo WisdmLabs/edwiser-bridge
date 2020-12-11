@@ -222,7 +222,7 @@ class EBUserManager {
 					$notenrolled_courses = array();
 
 					foreach ( $old_enrolled_courses as $existing_course ) {
-						if ( ! in_array( $existing_course['course_id'], $enrolled_courses ) ) {
+						if ( ! in_array( trim( $existing_course['course_id'] ), $enrolled_courses, true ) ) {
 							$notenrolled_courses[] = $existing_course['course_id'];
 						}
 					}

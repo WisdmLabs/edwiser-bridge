@@ -540,7 +540,7 @@ class Eb_Post_Types {
 				<?php
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( in_array( $k, $data ) ) {
+					if ( in_array( trim( $k ), $data, true ) ) {
 						$selected = true;
 					}
 					?>

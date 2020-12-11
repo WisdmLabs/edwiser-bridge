@@ -123,7 +123,7 @@ class Eb_External_Api_Endpoint {
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
-				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
+				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
 					$role       = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
@@ -143,7 +143,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( in_array( $wp_course_id, $user_enrollment_meta ) ) {
+					if ( in_array( trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
 						return;
 					}
 
@@ -187,8 +187,7 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv     = '1234567891011121';
-				$enc_iv = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key  = openssl_digest( $eb_access_token, 'SHA256', true );
 				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
@@ -361,8 +360,7 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv     = '1234567891011121';
-				$enc_iv = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
 				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
