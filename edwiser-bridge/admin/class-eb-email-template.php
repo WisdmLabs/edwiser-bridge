@@ -144,9 +144,6 @@ class EBAdminEmailTemplate {
 								do_action( 'eb_manage_email_template_before_text_editor', $tmpl_key );
 
 							?>
-
-
-
 							<tr>
 								<td colspan="2" class="eb-template-edit-cell">
 			<?php
