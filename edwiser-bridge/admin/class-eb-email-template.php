@@ -285,9 +285,10 @@ class EBAdminEmailTemplate {
 	public function get_template_data_ajax_call_back() {
 		$data = array();
 		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
-			$tmpl_data    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) );
-			$notify_allow = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_notify_allow' );
-			$bcc_email    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_bcc_email' );
+			$tmpl_name    = sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) );
+			$tmpl_data    = get_option( $tmpl_name );
+			$notify_allow = get_option( $tmpl_name . '_notify_allow' );
+			$bcc_email    = get_option( $tmpl_name . '_bcc_email' );
 
 			if ( ! $bcc_email ) {
 				$bcc_email = '';
