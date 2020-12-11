@@ -236,7 +236,11 @@ class Eb_Payment_Manager {
 
 			return $closed_button;
 		} elseif ( ! is_user_logged_in() ) {
-			$login_url    = \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( '?redirect_to=' . get_permalink( $course_id ) . '&is_enroll=true' );
+			$url_args     = array(
+				'redirect_to' => get_permalink( $course_id ),
+				'is_enroll'   => 'true',
+			);
+			$login_url    = \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $url_args );
 			$login_button = '<div class="eb_join_button">
 			<a class="wdm-btn" href="' . $login_url . '" id="wdm-btn">' .
 			esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';

@@ -143,10 +143,10 @@ if ( ! function_exists( 'wdm_eb_user_account_url' ) ) {
 	/**
 	 * Remodified wdmUserAccountUrl() to return user account url.
 	 *
-	 * @param text $query_str query_str.
+	 * @param text $args query_string arguments array.
 	 * @since 1.2.0
 	 */
-	function wdm_eb_user_account_url( $query_str = '' ) {
+	function wdm_eb_user_account_url( $args = array() ) {
 		$usr_ac_page_id = null;
 		$eb_settings    = get_option( 'eb_general' );
 
@@ -159,11 +159,7 @@ if ( ! function_exists( 'wdm_eb_user_account_url' ) ) {
 		if ( ! $usr_ac_page_url ) {
 			$usr_ac_page_url = site_url( '/user-account' );
 		}
-
-		// Extract query string into local $_GET array.
-		$get = array();
-		parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
-		$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		$usr_ac_page_url = add_query_arg( $args, $usr_ac_page_url );
 
 		return $usr_ac_page_url;
 	}

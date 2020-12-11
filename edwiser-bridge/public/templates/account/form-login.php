@@ -83,18 +83,18 @@ do_action( 'eb_before_customer_login_form' );
 				</p>
 				<?php
 				if ( 'yes' === $enable_registration ) {
-					$arg_list = '';
+					$arg_list = array( 'action' => 'eb_register' );
 					if ( ! empty( $_GET['redirect_to'] ) ) {
-						$arg_list = '&redirect_to=' . sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
+						$arg_list = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
 					}
 
 					if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-						$arg_list .= '&is_enroll=' . sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) );
+						$arg_list = array( 'is_enroll' => sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) ) );
 					}
 					?>
 					<p class="register-link form-row">
 
-						<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( '?action=eb_register' . $arg_list ) ); ?>'>
+						<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $arg_list ) ); ?>'>
 							<?php
 							esc_html_e( 'Don\'t have an Account?', 'eb-textdomain' );
 							?>
@@ -200,10 +200,9 @@ do_action( 'eb_before_customer_login_form' );
 				</p>
 
 				<?php
+				$redirect_to = array();
 				if ( ! empty( $_GET['redirect_to'] ) ) {
-					$redirect_to = '?redirect_to=' . sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
-				} else {
-					$redirect_to = '';
+					$redirect_to = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
 				}
 				?>
 				<p class="login-link">

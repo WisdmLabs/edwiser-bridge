@@ -695,7 +695,7 @@ class Eb_Post_Types {
 			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'eb-textdomain' ),
 			5  => isset( $_GET['revision'] ) ? sprintf( // WPCS: input var ok, CSRF ok, sanitization ok.
 				'%s ',
-				wp_post_revision_title( (int) $_GET['revision'], false ) // WPCS: input var ok, CSRF ok, sanitization ok.
+				wp_post_revision_title( filter_input( INPUT_GET, 'revision', FILTER_SANITIZE_NUMBER_INT ), false )
 			) . __( 'restored to revision from ', 'eb-textdomain' ) . sprintf(
 				'%s ',
 				esc_attr( $singular )
