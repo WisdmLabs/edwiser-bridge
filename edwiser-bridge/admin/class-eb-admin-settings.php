@@ -585,7 +585,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<?php
-								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), wdm_eb_get_allowed_html_tags() );
+								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 								echo wp_kses_post( $description );
 								?>
 							</td>
@@ -747,7 +747,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$option_value = null;
 
 					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				} else {
 
@@ -756,7 +756,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$option_value = null;
 
 					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = wdm_eb_edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				}
 
@@ -835,7 +835,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		public static function get_field_description( $value ) {
 			$description   = '';
 			$tooltip_html  = '';
-			$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 			if ( true === $value['desc_tip'] ) {
 				$tooltip_html = $value['desc'];
@@ -906,7 +906,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		public static function get_field_desc( $value ) {
 			$description   = '';
 			$tooltip_html  = '';
-			$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 			if ( true === $value['desc_tip'] ) {
 				$tooltip_html = $value['desc'];
@@ -966,7 +966,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		public static function get_field_tool_tip( $value ) {
 			$description   = '';
 			$tooltip_html  = '';
-			$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 			if ( true === $value['desc_tip'] ) {
 				$tooltip_html = $value['desc'];
 			} elseif ( ! empty( $value['desc_tip'] ) ) {

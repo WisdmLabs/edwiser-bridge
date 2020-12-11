@@ -244,7 +244,7 @@ class Eb_Gdpr_Compatiblity {
 	 */
 	public function eb_user_account_creation_policy() {
 		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-		$eb_access_url  = wdm_edwiser_bridge_plugin_get_access_url();
+		$eb_access_url  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
 		$content        = '<p>
 						' . esc_html__( 'We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle.', 'eb-textdomain' ) . '

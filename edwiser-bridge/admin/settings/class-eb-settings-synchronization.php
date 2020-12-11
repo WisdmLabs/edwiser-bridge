@@ -54,7 +54,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 				$sections     = array_merge( $sections, $new_sections );
 			}
 
-			$new_sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, $sections, '5.5', 'eb_get_sections_' . $this->_id );
+			$new_sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, array($sections), '5.5', 'eb_get_sections_' . $this->_id );
 			if ( is_array( $new_sections ) ) {
 				$sections     = array_merge( $sections, $new_sections );
 			}

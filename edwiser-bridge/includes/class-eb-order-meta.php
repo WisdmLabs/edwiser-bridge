@@ -63,10 +63,10 @@ class Eb_Order_Meta {
 			esc_html_e( 'Refund not available for this order', 'eb-textdomain' );
 			return;
 		}
-		$currency       = wdm_eb_get_current_paypal_currency_symb();
+		$currency       = \app\wisdmlabs\edwiserBridge\wdm_eb_get_current_paypal_currency_symb();
 		$price          = $this->get_course_price( $post->ID );
 		$refunds        = $this->get_orders_all_refund( $post->ID );
-		$refunded_amt   = wdm_eb_get_total_refund_amt( $refunds );
+		$refunded_amt   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_total_refund_amt( $refunds );
 		$avl_refund_amt = $price - $refunded_amt;
 		?>
 		<div class="eb-order-refund-data">
@@ -147,7 +147,7 @@ class Eb_Order_Meta {
 	 */
 	private function get_course_price( $order_id ) {
 		$order_data = get_post_meta( $order_id, 'eb_order_options', true );
-		$price      = wdm_eb_get_value_from_array( $order_data, 'price', '0.00' );
+		$price      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_data, 'price', '0.00' );
 		return (float) $price;
 	}
 
@@ -174,10 +174,10 @@ class Eb_Order_Meta {
 		<ul class="eb-order-refund-hist-cont">
 			<?php
 			foreach ( $refunds as $refund ) {
-				$refund_by = wdm_eb_get_value_from_array( $refund, 'by' );
-				$time      = wdm_eb_get_value_from_array( $refund, 'time' );
-				$amt       = wdm_eb_get_value_from_array( $refund, 'amt' );
-				$currency  = wdm_eb_get_value_from_array( $refund, 'currency' );
+				$refund_by = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'by' );
+				$time      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'time' );
+				$amt       = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'amt' );
+				$currency  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'currency' );
 				?>
 				<li>
 					<div class="eb-order-refund-hist-stmt"><?php esc_html__( 'Refunded by', 'eb-textdomain' ) . printf( '%1$s on %2$s', esc_html( $refund_by ), esc_html( gmdate( 'F j, Y, g:i a', $time ) ) ); ?></div>

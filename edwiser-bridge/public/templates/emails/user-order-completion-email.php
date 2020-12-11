@@ -47,7 +47,7 @@ defined( 'ABSPATH' ) || exit;
 			'You can access your account here: <a href="%$1s">User Account</a>.',
 			'eb-textdomain'
 		),
-		esc_html( wdm_eb_user_account_url() )
+		esc_html( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() )
 	);
 	?>
 </p>

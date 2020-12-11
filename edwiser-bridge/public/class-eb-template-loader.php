@@ -64,7 +64,7 @@ class EbTemplateLoader {
 	 */
 	public function template_loader( $template ) {
 		$file          = '';
-		$eb_templ_path = wdm_edwiser_bridge_plugin_template_path();
+		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 
 		if ( is_single() && get_post_type() === 'eb_course' ) {
 			$file   = 'single-eb_course.php';
@@ -115,7 +115,7 @@ class EbTemplateLoader {
 	 */
 	public function wp_get_template_part( $slug, $name = '' ) {
 		$template      = '';
-		$eb_templ_path = wdm_edwiser_bridge_plugin_template_path();
+		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
@@ -212,8 +212,8 @@ class EbTemplateLoader {
 	 * @return string
 	 */
 	public function wp_locate_template( $template_name, $template_path = '', $default_path = '' ) {
-		$eb_plugin_dir        = wdm_edwiser_bridge_plugin_dir();
-		$eb_plugin_templ_path = wdm_edwiser_bridge_plugin_template_path();
+		$eb_plugin_dir        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_dir();
+		$eb_plugin_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 
 		if ( ! $template_path ) {
 			$template_path = $eb_plugin_templ_path;

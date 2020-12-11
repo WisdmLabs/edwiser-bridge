@@ -50,8 +50,8 @@ class Eb_Manage_Order_Refund {
 	 * @param int $refund_data refund_data.
 	 */
 	public function init_refund( $order_id, $refund_data ) {
-		$amt           = wdm_eb_get_value_from_array( $refund_data, 'amt' );
-		$note          = wdm_eb_get_value_from_array( $refund_data, 'note' );
+		$amt           = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund_data, 'amt' );
+		$note          = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund_data, 'note' );
 		$refund_status = array(
 			'amt'    => $amt,
 			'status' => false,
@@ -65,8 +65,8 @@ class Eb_Manage_Order_Refund {
 			$order        = new Eb_Order_Meta( $this->plugin_name, $this->version );
 			$order_data   = get_post_meta( $order_id, 'eb_order_options', true );
 			$refunds      = $order->get_orders_all_refund( $order_id );
-			$paid_amt     = wdm_eb_get_value_from_array( $order_data, 'amount_paid' );
-			$total_refund = wdm_eb_get_total_refund_amt( $refunds );
+			$paid_amt     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_data, 'amount_paid' );
+			$total_refund = \app\wisdmlabs\edwiserBridge\wdm_eb_get_total_refund_amt( $refunds );
 
 			if ( $paid_amt <= $total_refund + $amt ) {
 				edwiser_bridge_instance()->order_manager()->update_order_status( $order_id, 'refunded' );
@@ -87,7 +87,7 @@ class Eb_Manage_Order_Refund {
 		$order_data = get_post_meta( $order_id, 'eb_order_options', true );
 		$order      = new Eb_Order_Meta( $this->plugin_name, $this->version );
 		$refunds    = $order->get_orders_all_refund( $order_id );
-		$paid_amt   = wdm_eb_get_value_from_array( $order_data, 'amount_paid' );
+		$paid_amt   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_data, 'amount_paid' );
 
 		if ( empty( $refunds ) && $amt === $paid_amt ) {
 			$type = 'Full';

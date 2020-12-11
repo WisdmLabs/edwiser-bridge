@@ -68,7 +68,7 @@ class Eb_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
@@ -118,7 +118,7 @@ class Eb_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 		$nonce         = wp_create_nonce( 'public_js_nonce' );
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-dialog' );

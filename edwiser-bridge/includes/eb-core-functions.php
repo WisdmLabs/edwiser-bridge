@@ -8,6 +8,9 @@
  * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
+namespace app\wisdmlabs\edwiserBridge;
+
+
 if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.
@@ -132,7 +135,7 @@ if ( ! function_exists( 'wdm_eb_login_reg_show_notices' ) ) {
 		// display form messages.
 		if ( defined( 'WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE' ) ) {
 			echo "<div class='wdm-flash-error'>";
-			echo '<span>' . wp_kses( WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE, wdm_eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
+			echo '<span>' . wp_kses( WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
 			echo '</div>';
 		}
 	}
@@ -550,11 +553,11 @@ if ( ! function_exists( 'wdm_eb_get_user_suspended_status' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_moodle_url' ) ) {
+if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 	/**
 	 * Moodle url.
 	 */
-	function get_moodle_url() {
+	function wdm_eb_get_moodle_url() {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
 			return $url['eb_url'];

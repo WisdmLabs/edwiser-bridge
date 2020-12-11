@@ -118,8 +118,8 @@ class EBUserManager {
 	public function user_course_synchronization_handler( $sync_options = array(), $user_id_to_sync = '', $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
-		$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
@@ -283,8 +283,8 @@ class EBUserManager {
 	public function user_link_to_moodle_handler( $sync_options = array(), $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
-		$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
@@ -497,8 +497,8 @@ class EBUserManager {
 				'lang'      => $language,
 			);
 
-			$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
-			$eb_access_url   = wdm_edwiser_bridge_plugin_get_access_url();
+			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+			$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
 			// create a moodle user with above details.
 			if ( '' !== $eb_access_token && '' !== $eb_access_url ) {
@@ -938,7 +938,7 @@ class EBUserManager {
 			return;
 		}
 
-		$users = isset( $_REQUEST['users'] ) ? wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$users = isset( $_REQUEST['users'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		switch ( $action ) {
 			case 'link_moodle':

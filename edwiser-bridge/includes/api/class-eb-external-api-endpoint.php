@@ -118,13 +118,13 @@ class Eb_External_Api_Endpoint {
 	protected function eb_course_enrollment( $data, $un_enroll ) {
 		if ( isset( $data['user_id'] ) && isset( $data['course_id'] ) ) {
 			$mdl_course_id = $data['course_id'];
-			$wp_course_id  = wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			$wp_course_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
 
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
-				$wp_user_id  = wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
-					$role       = wdm_eb_default_registration_role();
+					$role       = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
 				}
@@ -181,8 +181,8 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function eb_trigger_user_creation( $data ) {
 		if ( isset( $data['user_name'] ) && isset( $data['email'] ) ) {
-			$role            = wdm_eb_default_registration_role();
-			$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
+			$role            = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
+			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 			$password        = '';
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
@@ -210,7 +210,7 @@ class Eb_External_Api_Endpoint {
 	public function eb_trigger_user_delete( $data ) {
 		require_once( ABSPATH . 'wp-admin/includes/user.php' );
 		if ( isset( $data['user_id'] ) ) {
-			$wp_user_id = wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+			$wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {
 				$user    = get_user_by( 'ID', $wp_user_id );
 				$args    = array(
@@ -322,7 +322,7 @@ class Eb_External_Api_Endpoint {
 
 		if ( isset( $data['course_id'] ) ) {
 			// get WP course id from moodle course id.
-			$wp_course_id = wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			$wp_course_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
 
 			if ( $wp_course_id ) {
 				// Update course meta to delete.
@@ -345,8 +345,8 @@ class Eb_External_Api_Endpoint {
 	public function eb_trigger_user_update( $data ) {
 
 		// get WP User id if present then process.
-		$wp_user_id      = wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
-		$eb_access_token = wdm_edwiser_bridge_plugin_get_access_token();
+		$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 
 		if ( ! empty( $wp_user_id ) ) {
 			// get fields.

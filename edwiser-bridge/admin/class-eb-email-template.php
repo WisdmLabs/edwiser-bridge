@@ -80,7 +80,7 @@ class EBAdminEmailTemplate {
 		$const_sec     = apply_filters( 'eb_email_template_constant', $section );
 		$checked       = array();
 		$notif_on      = '';
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		if ( isset( $_GET['curr_tmpl'] ) ) {
 			$tmpl_key  = sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) );

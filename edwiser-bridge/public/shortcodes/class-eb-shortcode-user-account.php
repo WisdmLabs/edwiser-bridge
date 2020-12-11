@@ -317,7 +317,7 @@ class Eb_Shortcode_User_Account {
 				$user_data['password'] = $posted_data['new_psw'];
 			}
 
-			$version      = wdm_edwiser_bridge_version();
+			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
 			$user_manager = new EBUserManager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {

@@ -47,7 +47,7 @@
 					}
 					$row .= '</ul>';
 					?>
-					<td><?php echo wp_kses( $row, wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></td>
+					<td><?php echo wp_kses( $row, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></td>
 					<td><?php echo esc_html( $eb_order['date'] ); ?> </td>
 					<td><?php esc_html_e( ucfirst( $eb_order['status'] ), 'eb-textdomain' ); // @codingStandardsIgnoreLine.?></td>
 				</tr>

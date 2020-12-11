@@ -302,6 +302,7 @@ class Eb_Welcome {
 	 * @since  1.0.0
 	 */
 	public function welcome_handler() {
+		$subscribed = 0;
 
 		// Return if no activation redirect transient is set.
 		if ( ! get_transient( '_eb_activation_redirect' ) ) {

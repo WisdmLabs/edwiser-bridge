@@ -76,9 +76,9 @@ class Eb_Order_History_Meta {
 	 * @param type $ord_hist array of the order history element.
 	 */
 	private function get_history_tag( $ord_hist ) {
-		$updated_by = wdm_eb_get_value_from_array( $ord_hist, 'by' );
-		$updated_on = wdm_eb_get_value_from_array( $ord_hist, 'time' );
-		$note_data  = wdm_eb_get_value_from_array( $ord_hist, 'note', array() );
+		$updated_by = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_hist, 'by' );
+		$updated_on = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_hist, 'time' );
+		$note_data  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_hist, 'note', array() );
 		$note       = $this->create_note_msg( $note_data );
 		?>
 		<li>
@@ -98,8 +98,8 @@ class Eb_Order_History_Meta {
 	 * @param type $note_data note_data.
 	 */
 	private function create_note_msg( $note_data ) {
-		$type = wdm_eb_get_value_from_array( $note_data, 'type', '' );
-		$msg  = wdm_eb_get_value_from_array( $note_data, 'msg', '' );
+		$type = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note_data, 'type', '' );
+		$msg  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note_data, 'msg', '' );
 		$note = '';
 		switch ( $type ) {
 			case 'status_update':
@@ -125,8 +125,8 @@ class Eb_Order_History_Meta {
 	 * @param type $note note.
 	 */
 	private function get_status_update_msg( $note ) {
-		$old_status   = wdm_eb_get_value_from_array( $note, 'old_status' );
-		$new_status   = wdm_eb_get_value_from_array( $note, 'new_status' );
+		$old_status   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'old_status' );
+		$new_status   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'new_status' );
 		$const_status = array(
 			'pending'   => __( 'Pending', 'eb-textdomain' ),
 			'completed' => __( 'Completed', 'eb-textdomain' ),
@@ -136,8 +136,8 @@ class Eb_Order_History_Meta {
 
 		$user = get_userdata( get_current_user_id() );
 
-		$stat_old   = wdm_eb_get_value_from_array( $const_status, $old_status );
-		$stat_new   = wdm_eb_get_value_from_array( $const_status, $new_status );
+		$stat_old   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $old_status );
+		$stat_new   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $new_status );
 		$note_state = esc_html__( 'Order status changed from ', 'eb-textdomain' ) . sprintf( '%1$s to %2$s.', $stat_old, $stat_new );
 
 		if ( empty( $old_status ) ) {
@@ -153,8 +153,8 @@ class Eb_Order_History_Meta {
 	 * @param type $note note.
 	 */
 	private function get_refund_note_msg( $note ) {
-		$refund_note       = wdm_eb_get_value_from_array( $note, 'refund_note' );
-		$refund_is_uneroll = wdm_eb_get_value_from_array( $note, 'refund_uneroll_users' );
+		$refund_note       = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'refund_note' );
+		$refund_is_uneroll = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'refund_uneroll_users' );
 		$unenroll_msg      = '';
 		if ( 'ON' === $refund_is_uneroll ) {
 			$unenroll_msg = esc_html__( ' Also the user is unenrolled from associated course.', 'eb-textdomain' );

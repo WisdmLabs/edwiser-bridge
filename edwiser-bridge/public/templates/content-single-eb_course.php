@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 // Variables.
 global $post;
 $post_id       = $post->ID; // @codingStandardsIgnoreLine.
-$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 // get currency.
 $payment_options = get_option( 'eb_paypal' );
@@ -129,21 +129,21 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 						<?php
 					}
 
-					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), wdm_eb_sinlge_course_get_allowed_html_tags() );
+					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 				} else {
-					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), wdm_eb_sinlge_course_get_allowed_html_tags() );
+					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 				}
 
 				if ( count( $categories ) ) {
 					?>
 					<div  class="eb-cat-wrapper">
-						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo wp_kses( implode( ', ', $categories ), wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></span>
+						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo wp_kses( implode( ', ', $categories ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></span>
 					</div>                  
 					<?php
 				}
 				?>
 				<div  class="eb-validity-wrapper">
-					<?php echo wp_kses( $expiry_date_time, wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
+					<?php echo wp_kses( $expiry_date_time, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
 				</div>
 				<?php
 			}
@@ -167,9 +167,9 @@ if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['co
 			the_content();
 
 			if ( ! $has_access || ! is_user_logged_in() ) {
-				echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), wdm_eb_sinlge_course_get_allowed_html_tags() );
+				echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 			} else {
-				echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), wdm_eb_sinlge_course_get_allowed_html_tags() );
+				echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 			}
 		}
 		?>

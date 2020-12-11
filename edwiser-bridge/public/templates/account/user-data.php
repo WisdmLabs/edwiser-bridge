@@ -13,7 +13,7 @@
 
 <section class="eb-user-info eb-edit-user-wrapper">
 	<aside class="eb-user-picture">
-		<?php echo wp_kses( $user_avatar, wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
+		<?php echo wp_kses( $user_avatar, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
 	</aside>
 	<div class="eb-user-data">
 		<?php

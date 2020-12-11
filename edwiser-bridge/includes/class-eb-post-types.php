@@ -381,7 +381,7 @@ class Eb_Post_Types {
 					'label'       => __( 'Select Courses', 'eb-textdomain' ),
 					'description' => __( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ),
 					'type'        => 'select_multi',
-					'options'     => isset( $post->ID ) ? wdm_eb_get_all_eb_sourses( $post->ID ) : array(),
+					'options'     => isset( $post->ID ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_eb_sourses( $post->ID ) : array(),
 					'default'     => array( 'pending' ),
 				),
 			),
@@ -427,7 +427,7 @@ class Eb_Post_Types {
 		$html          = '';
 		$option_name   = $post_type . '_options[' . $field_id . ']';
 		$option        = self::get_post_options( $post_id, $field_id, $post_type );
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		$data = '';
 		if ( $option ) {
@@ -563,7 +563,7 @@ class Eb_Post_Types {
 			default:
 				?>
 				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( $eb_plugin_url ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
-				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], wdm_eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
+				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;
 		}
@@ -607,7 +607,7 @@ class Eb_Post_Types {
 			}
 
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-				$post_options = wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				$post_options = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			}
 			if ( ! empty( $post_options ) ) {
 				foreach ( $fields as $key => $values ) {

@@ -65,7 +65,7 @@ class Eb_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		wp_enqueue_style( 'dashicons' );
 
@@ -124,7 +124,7 @@ class Eb_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 		$sync_nonce    = wp_create_nonce( 'check_sync_action' );
 		$admin_nonce   = wp_create_nonce( 'eb_admin_nonce' );
 		wp_enqueue_script( 'jquery' );

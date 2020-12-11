@@ -273,7 +273,7 @@ class Eb_Shortcode_User_Profile {
 			}
 			$user_data    = apply_filters( 'eb_update_moodle_profile_data', $user_data );
 
-			$version      = wdm_edwiser_bridge_version();
+			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
 			$user_manager = new EBUserManager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 

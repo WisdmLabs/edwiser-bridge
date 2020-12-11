@@ -8,7 +8,7 @@
 // Variables.
 global $post;
 $eb_post_id    = $post->ID;
-$eb_plugin_url = wdm_edwiser_bridge_plugin_url();
+$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 // get currency.
 $payment_options = get_option( 'eb_paypal' );
@@ -80,7 +80,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 		$progress_data = $course_progress_manager->get_course_progress();
 		$course_ids    = array_keys( $progress_data );
 		// Function to get suspended status info.
-		$is_user_suspended = wdm_eb_get_user_suspended_status( $user_id, $course_id );
+		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 
 		if ( $is_user_suspended ) {
 			// User course is suspended.
@@ -109,7 +109,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 		);
 		$course_url = \ebsso\generateMoodleUrl( $query );
 	} else {
-		$eb_access_url = wdm_edwiser_bridge_plugin_get_access_url();
+		$eb_access_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 		$course_url    = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
 	}
 } else {
@@ -140,7 +140,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses ) {
 					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
 						echo '<div class="wdm-price ' . wp_kses_post( $course_price_type ) . '">';
-						echo wp_kses_post( $course_price_formatted, wdm_eb_sinlge_course_get_allowed_html_tags() );
+						echo wp_kses_post( $course_price_formatted, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 						echo '</div>';
 					}
 				}
@@ -150,7 +150,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 					if ( 'resume' === $progress_class ) {
 						echo "<div class='eb-course-action-progress-cont'>  <div class='eb-course-action-progress' style='width:" . esc_html( round( $progress_width ) ) . "%' ></div></div>";
 					}
-					echo wp_kses( $progress_btn_div, wdm_eb_sinlge_course_get_allowed_html_tags() );
+					echo wp_kses( $progress_btn_div, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 					echo '</div>';
 				}
 
