@@ -271,7 +271,7 @@ class Eb_Shortcode_User_Profile {
 			if ( isset( $posted_data['pass_1'] ) && ! empty( $posted_data['pass_1'] ) ) {
 				$user_data['password'] = $posted_data['pass_1'];
 			}
-			$user_data    = apply_filters( 'eb_update_moodle_profile_data', $user_data );
+			$user_data = apply_filters( 'eb_update_moodle_profile_data', $user_data );
 
 			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
 			$user_manager = new EBUserManager( 'edwiserbridge', $version );

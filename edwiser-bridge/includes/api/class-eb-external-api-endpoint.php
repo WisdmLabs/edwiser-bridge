@@ -188,7 +188,7 @@ class Eb_External_Api_Endpoint {
 
 				$enc_method = 'AES-128-CTR';
 				// $enc_iv     = '1234567891011121';
-                $enc_iv = substr(hash('sha256', $eb_access_token), 0, 16);
+				$enc_iv = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key  = openssl_digest( $eb_access_token, 'SHA256', true );
 				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
@@ -208,7 +208,7 @@ class Eb_External_Api_Endpoint {
 	 * @param  text $data data.
 	 */
 	public function eb_trigger_user_delete( $data ) {
-		require_once( ABSPATH . 'wp-admin/includes/user.php' );
+		require_once ABSPATH . 'wp-admin/includes/user.php';
 		if ( isset( $data['user_id'] ) ) {
 			$wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {
@@ -362,8 +362,7 @@ class Eb_External_Api_Endpoint {
 
 				$enc_method = 'AES-128-CTR';
 				// $enc_iv     = '1234567891011121';
-                $enc_iv = substr(hash('sha256', $eb_access_token), 0, 16);
-
+				$enc_iv = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
 				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );

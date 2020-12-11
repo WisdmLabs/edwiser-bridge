@@ -10,7 +10,6 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-
 if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.

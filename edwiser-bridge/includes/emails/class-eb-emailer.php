@@ -63,8 +63,7 @@ class Eb_Emailer {
 		/**
 		 * Class responsible for loading templates.
 		 */
-		// require_once EB_PLUGIN_DIR . 'public/class-eb-template-loader.php';
-       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
+		require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
 
 		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
 	}
