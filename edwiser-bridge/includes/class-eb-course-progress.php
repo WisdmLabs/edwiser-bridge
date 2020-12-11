@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.4
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;

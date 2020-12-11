@@ -12,7 +12,6 @@
  * version of the plugin.
  *
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;

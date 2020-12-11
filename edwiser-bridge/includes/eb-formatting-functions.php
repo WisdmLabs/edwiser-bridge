@@ -6,7 +6,6 @@
  * @since      1.0.0
  *
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 if ( ! function_exists( 'wpClean' ) ) {

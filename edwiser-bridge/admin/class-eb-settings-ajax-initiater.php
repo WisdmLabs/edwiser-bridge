@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -21,7 +20,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
@@ -30,7 +28,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -50,7 +47,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * Initiate course synchronization process.
 	 *
 	 * @since    1.0.0
-	 * @access   public
 	 */
 	public function course_synchronization_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -75,7 +71,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * Initiate user data synchronization process.
 	 *
 	 * @since    1.0.0
-	 * @access   public
 	 */
 	public function user_data_synchronization_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -101,7 +96,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * Initiate user link to moodle synchronization process.
 	 *
 	 * @since    1.4.1
-	 * @access   public
 	 */
 	public function users_link_to_moodle_synchronization() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
@@ -130,7 +124,6 @@ class Eb_Settings_Ajax_Initiater {
 	 * Calls connection_test_helper() from EBConnectionHelper class.
 	 *
 	 * @since    1.0.0
-	 * @access   public
 	 */
 	public function connection_test_initiater() {
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {

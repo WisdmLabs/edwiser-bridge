@@ -9,7 +9,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/public
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -24,7 +23,6 @@ class EbTemplateLoader {
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
@@ -33,7 +31,6 @@ class EbTemplateLoader {
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -95,7 +92,6 @@ class EbTemplateLoader {
 	 *
 	 * @deprecated since 2.0.1 use wp_get_template_part( $slug, $name )
 	 * @since  1.0.0
-	 * @access public
 	 * @param mixed  $slug slug.
 	 * @param string $name (default: '').
 	 * @return void
@@ -108,7 +104,6 @@ class EbTemplateLoader {
 	 * Get template part (for templates like the shop-loop).
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param mixed  $slug slug.
 	 * @param string $name (default: '').
 	 * @return void
@@ -150,7 +145,6 @@ class EbTemplateLoader {
 	 *
 	 * @deprecated since 2.0.1 use wp_get_template( $template_name, $args, $template_path, $default_path ) insted.
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name nsme.
 	 * @param array  $args          (default: array()).
 	 * @param string $template_path (default: '').
@@ -165,7 +159,6 @@ class EbTemplateLoader {
 	 * Get other templates.
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name name.
 	 * @param array  $args          (default: array()).
 	 * @param string $template_path (default: '').
@@ -205,7 +198,6 @@ class EbTemplateLoader {
 	 *  $default_path / $template_name
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name name.
 	 * @param string $template_path (default: '').
 	 * @param string $default_path  (default: '').

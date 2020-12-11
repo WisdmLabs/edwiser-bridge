@@ -4,7 +4,6 @@
  *
  * This template can be overridden by copying it to yourtheme/edwiser-bridge/
  *
- * @author      WisdmLabs
  * @version     1.2.0
  * @package     eb_course
  */
