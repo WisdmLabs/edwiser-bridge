@@ -50,7 +50,28 @@ class Eb_Shortcode_Courses {
 			),
 			$atts
 		);
-		extract( $atts );
+
+		// extract( $atts );
+		if ( isset( $atts['categories'] ) ) {
+				$categories = $atts['categories'];
+		}
+		if ( isset( $atts['order'] ) ) {
+				$order = $atts['order'];
+		}
+		if ( isset( $atts['group_by_cat'] ) ) {
+				$group_by_cat = $atts['group_by_cat'];
+		}
+		if ( isset( $atts['cat_per_page'] ) ) {
+				$cat_per_page = $atts['cat_per_page'];
+		}
+		if ( isset( $atts['horizontally_scroll'] ) ) {
+				$horizontally_scroll = $atts['horizontally_scroll'];
+		}
+		if ( isset( $atts['per_page'] ) ) {
+				$per_page = $atts['per_page'];
+		}
+
+
 
 		$args = array(
 			'post_type'      => 'eb_course',

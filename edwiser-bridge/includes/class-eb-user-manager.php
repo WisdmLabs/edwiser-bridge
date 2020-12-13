@@ -1027,37 +1027,40 @@ class EBUserManager {
 	 */
 	public function password_update( $user_id ) {
 
-		// Get new password entered by user.
-		// Works for WordPress profile & woocommerce my account edit profile page.
-		if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-			$new_password = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
-		} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-			$new_password = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
-		} else {
-			return;
-		}
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 
-		edwiser_bridge_instance()->logger()->add( 'user', 'Password update initiated..... ' ); // add user log.
+			// Get new password entered by user.
+			// Works for WordPress profile & woocommerce my account edit profile page.
+			if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+				$new_password = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+			} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+				$new_password = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+			} else {
+				return;
+			}
 
-		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
+			edwiser_bridge_instance()->logger()->add( 'user', 'Password update initiated..... ' ); // add user log.
 
-		if ( ! is_numeric( $moodle_user_id ) ) {
-			edwiser_bridge_instance()->logger()->add( 'user', 'A moodle user id is not associated.... Exiting!!!' ); // add user log.
-			return;
-		}
+			$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
 
-		if ( empty( $new_password ) ) {
-			return; // stop further execution of function if password was not entered.
-		}
+			if ( ! is_numeric( $moodle_user_id ) ) {
+				edwiser_bridge_instance()->logger()->add( 'user', 'A moodle user id is not associated.... Exiting!!!' ); // add user log.
+				return;
+			}
 
-		$user_data = array(
-			'id'       => $moodle_user_id, // moodle user id.
-			'password' => $new_password,
-		);
+			if ( empty( $new_password ) ) {
+				return; // stop further execution of function if password was not entered.
+			}
 
-		$moodle_user = $this->create_moodle_user( $user_data, 1 );
-		if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
-			edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating password..... Exiting!!!' ); // add user log.
+			$user_data = array(
+				'id'       => $moodle_user_id, // moodle user id.
+				'password' => $new_password,
+			);
+
+			$moodle_user = $this->create_moodle_user( $user_data, 1 );
+			if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
+				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating password..... Exiting!!!' ); // add user log.
+			}
 		}
 	}
 
@@ -1118,6 +1121,10 @@ class EBUserManager {
 			?>
 			<table class="form-table">
 				<tr>
+					<?php
+					wp_nonce_field( 'eb_mdl_course_enrollment', 'eb_mdl_course_enrollment' );
+					?>
+
 					<th><h3><?php esc_html_e( 'Enrolled Courses', 'eb-textdomain' ); ?></h3></th>
 					<td>
 						<ol>
@@ -1189,58 +1196,60 @@ class EBUserManager {
 			return false;
 		}
 
-		$user = get_userdata( $user_id );
+		if ( isset( $_POST['eb_mdl_course_enrollment'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_mdl_course_enrollment'] ) ), 'eb_mdl_course_enrollment' ) ) {
 
-		// check if a moodle user account is already linked.
-		$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
+			$user = get_userdata( $user_id );
 
-		if ( is_numeric( $moodle_user_id ) ) {
-			$enroll_course = '';
-			if ( isset( $_POST['enroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
-			}
+			// check if a moodle user account is already linked.
+			$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
 
-			$unenroll_course = '';
-			if ( isset( $_POST['unenroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
-			}
+			if ( is_numeric( $moodle_user_id ) ) {
+				$enroll_course = '';
+				if ( isset( $_POST['enroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+					$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				}
 
-			if ( is_numeric( $enroll_course ) ) {
-				// define args.
-				$args = array(
-					'user_id'           => $user->ID,
-					'courses'           => array( $enroll_course ),
-					'complete_unenroll' => 0,
-				);
+				$unenroll_course = '';
+				if ( isset( $_POST['unenroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
+					$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				}
 
-				// enroll user to course.
-				edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
+				if ( is_numeric( $enroll_course ) ) {
+					// define args.
+					$args = array(
+						'user_id'           => $user->ID,
+						'courses'           => array( $enroll_course ),
+						'complete_unenroll' => 0,
+					);
 
-				$args = array(
-					'user_email' => $user->user_email,
-					'username'   => $user->user_login,
-					'first_name' => $user->first_name,
-					'last_name'  => $user->last_name,
-					'course_id'  => $enroll_course,
-				);
+					// enroll user to course.
+					edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
 
-				do_action( 'eb_mdl_enrollment_trigger', $args );
-			}
+					$args = array(
+						'user_email' => $user->user_email,
+						'username'   => $user->user_login,
+						'first_name' => $user->first_name,
+						'last_name'  => $user->last_name,
+						'course_id'  => $enroll_course,
+					);
 
-			if ( is_numeric( $unenroll_course ) ) {
-				// define args.
-				$args = array(
-					'user_id'           => $user->ID,
-					'courses'           => array( $unenroll_course ),
-					'unenroll'          => 1,
-					'complete_unenroll' => 1,
-				);
+					do_action( 'eb_mdl_enrollment_trigger', $args );
+				}
 
-				// enroll user to course.
-				edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
+				if ( is_numeric( $unenroll_course ) ) {
+					// define args.
+					$args = array(
+						'user_id'           => $user->ID,
+						'courses'           => array( $unenroll_course ),
+						'unenroll'          => 1,
+						'complete_unenroll' => 1,
+					);
+
+					// enroll user to course.
+					edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
+				}
 			}
 		}
-
 		return true;
 	}
 
