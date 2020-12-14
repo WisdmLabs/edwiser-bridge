@@ -20,3 +20,4 @@ if ( isset( $eb_general_option['eb_my_courses_page_id'] ) && ! empty( $eb_genera
 	// echo the default shortcode.
 	echo do_shortcode( '[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4" ]' );
 }
+
