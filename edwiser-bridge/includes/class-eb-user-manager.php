@@ -933,7 +933,7 @@ class EBUserManager {
 		$action        = $wp_user_table->current_action();
 		// $sendback      = '';
 		// perform our unlink action.
-		if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) ) {
 			return;
 		}
 
@@ -1031,10 +1031,10 @@ class EBUserManager {
 
 			// Get new password entered by user.
 			// Works for WordPress profile & woocommerce my account edit profile page.
-			if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$new_p = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
-			} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$new_p = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+			if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) {
+				$new_p = sanitize_text_field( wp_unslash( $_POST['password_1'] ) );
+			} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) {
+				$new_p = sanitize_text_field( wp_unslash( $_POST['pass1'] ) );
 			} else {
 				return;
 			}
@@ -1205,13 +1205,13 @@ class EBUserManager {
 
 			if ( is_numeric( $moodle_user_id ) ) {
 				$enroll_course = '';
-				if ( isset( $_POST['enroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-					$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				if ( isset( $_POST['enroll_course'] ) ) {
+					$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) );
 				}
 
 				$unenroll_course = '';
-				if ( isset( $_POST['unenroll_course'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-					$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				if ( isset( $_POST['unenroll_course'] ) ) {
+					$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) );
 				}
 
 				if ( is_numeric( $enroll_course ) ) {

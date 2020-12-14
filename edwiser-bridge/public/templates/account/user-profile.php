@@ -13,7 +13,7 @@
 
 <?php
 
-if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+if ( ! isset( $_GET['eb_user_account_nav_nonce'] ) || ( isset( $_GET['eb_user_account_nav_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['eb_user_account_nav_nonce'] ) ), 'eb_user_account_nav_nonce' ) ) ) {
 	return false;
 }
 
