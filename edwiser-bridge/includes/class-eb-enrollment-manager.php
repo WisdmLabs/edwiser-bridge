@@ -389,7 +389,7 @@ class Eb_Enrollment_Manager {
 				}
 			}
 			// Trigger Email.
-		} elseif ( 1 === trim( $args['unenroll'] ) ) {
+		} elseif ( 1 === (int) trim( $args['unenroll'] ) ) {
 			foreach ( $args['courses'] as $key => $course_id ) {
 				// Get User Course Access Count.
 				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );

@@ -616,10 +616,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							<td class="forminp">
 								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
 									<option selected><?php esc_html_e( '- Select a sidebar -', 'eb-textdomain' ); ?></option>
-									<?php
-									$sidebars = $GLOBALS['wp_registered_sidebars'];
-									foreach ( $sidebars as $sidebar ) {
-										?>
+									<?php foreach ( $GLOBALS['wp_registered_sidebars'] as $sidebar ) { ?>
 										<option value="<?php echo esc_attr( $sidebar['id'] ); ?>" <?php selected( $args['selected'], $sidebar['id'] ); ?>>
 											<?php echo esc_attr( $sidebar['name'] ); ?>
 										</option>
