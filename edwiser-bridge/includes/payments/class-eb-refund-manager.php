@@ -178,19 +178,11 @@ class Eb_Paypal_Refund_Manager {
 	private function get_currency_code( $order_id ) {
 		$currency_code = get_post_meta( $order_id, 'eb_paypal_currency', 1 );
 		if ( ! $currency_code && empty( $currency_code ) ) {
-			$default_options = array(
-				'eb_paypal_email'        => '',
-				'eb_paypal_currency'     => '',
-				'eb_paypal_country_code' => '',
-				'eb_paypal_cancel_url'   => '',
-				'eb_paypal_return_url'   => '',
-				'eb_paypal_notify_url'   => '',
-				'eb_paypal_sandbox'      => '',
-				'eb_api_username'        => '',
-				'eb_api_password'        => '',
-				'eb_api_signature'       => '',
-			);
-			$option          = unserialize( get_option( 'eb_paypal' ), $default_options );
+			if ( version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
+				$option = unserialize( get_option( 'eb_paypal' ), array( 'allowed_classes' => false ) );
+			} else {
+				$option = unserialize( get_option( 'eb_paypal' ) );
+			}
 			return $option['eb_paypal_currency'];
 		}
 		return $currency_code;
