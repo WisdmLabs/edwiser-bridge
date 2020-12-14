@@ -50,8 +50,6 @@ class Eb_Shortcode_Courses {
 			),
 			$atts
 		);
-
-		// extract( $atts );
 		if ( isset( $atts['categories'] ) ) {
 				$categories = $atts['categories'];
 		}
@@ -70,8 +68,6 @@ class Eb_Shortcode_Courses {
 		if ( isset( $atts['per_page'] ) ) {
 				$per_page = $atts['per_page'];
 		}
-
-
 
 		$args = array(
 			'post_type'      => 'eb_course',

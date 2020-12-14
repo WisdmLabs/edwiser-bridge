@@ -749,7 +749,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				} else {
-
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;

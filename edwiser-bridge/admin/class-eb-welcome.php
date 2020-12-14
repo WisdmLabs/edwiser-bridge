@@ -216,7 +216,6 @@ class Eb_Welcome {
 
 		<span class="eb-version-badge">
 		<?php
-
 		/*
 		 * translators: Version number.
 		 */

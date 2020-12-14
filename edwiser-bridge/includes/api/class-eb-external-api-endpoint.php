@@ -182,17 +182,16 @@ class Eb_External_Api_Endpoint {
 		if ( isset( $data['user_name'] ) && isset( $data['email'] ) ) {
 			$role            = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
-			$password        = '';
+			$user_p          = '';
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
 				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
-
-				$enc_key  = openssl_digest( $eb_access_token, 'SHA256', true );
-				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$enc_key    = openssl_digest( $eb_access_token, 'SHA256', true );
+				$user_p     = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 			}
 
-			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $password );
+			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p );
 			if ( $wp_user_id ) {
 				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
 			}
@@ -235,9 +234,9 @@ class Eb_External_Api_Endpoint {
 	 * @param  text   $firstname firstname.
 	 * @param  text   $lastname  lastname.
 	 * @param  text   $role  role.
-	 * @param  string $password    password.
+	 * @param  string $user_p    password.
 	 */
-	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $password = '' ) {
+	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
 		if ( email_exists( $email ) ) {
 			return new \WP_Error(
 				'registration-error',
@@ -255,9 +254,9 @@ class Eb_External_Api_Endpoint {
 			++$append;
 		}
 
-		if ( empty( $password ) ) {
+		if ( empty( $user_p ) ) {
 			// Handle password creation.
-			$password = wp_generate_password();
+			$user_p = wp_generate_password();
 		}
 
 		// WP Validation.
@@ -276,7 +275,7 @@ class Eb_External_Api_Endpoint {
 			'eb_new_user_data',
 			array(
 				'user_login' => $username,
-				'user_pass'  => $password,
+				'user_pass'  => $user_p,
 				'user_email' => $email,
 				'role'       => $role,
 			)
@@ -304,7 +303,7 @@ class Eb_External_Api_Endpoint {
 			'username'   => $username,
 			'first_name' => $firstname,
 			'last_name'  => $lastname,
-			'password'   => $password,
+			'password'   => $user_p,
 		);
 		do_action( 'eb_created_user', $args );
 		return $user_id;
@@ -362,8 +361,8 @@ class Eb_External_Api_Endpoint {
 				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
-				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
-				$user_update_array['user_pass'] = $password;
+				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$user_update_array['user_pass'] = $user_p;
 			}
 
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );

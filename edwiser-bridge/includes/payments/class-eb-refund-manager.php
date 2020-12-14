@@ -190,7 +190,7 @@ class Eb_Paypal_Refund_Manager {
 	 * @param int $currency currency.
 	 */
 	private function currency_has_decimals( $currency ) {
-		if ( in_array( $currency, array( 'HUF', 'JPY', 'TWD' ), 1 ) ) {
+		if ( in_array( $currency, array( 'HUF', 'JPY', 'TWD' ), true ) ) {
 			return false;
 		}
 		return true;

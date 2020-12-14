@@ -427,7 +427,7 @@ class EBUserManager {
 		}
 
 		// Handle password creation.
-		$password = wp_generate_password();
+		$user_p = wp_generate_password();
 		// $password_generated = true;
 		// WP Validation
 		$validation_errors = new \WP_Error();
@@ -449,7 +449,7 @@ class EBUserManager {
 			'eb_new_user_data',
 			array(
 				'user_login' => $username,
-				'user_pass'  => $password,
+				'user_pass'  => $user_p,
 				'user_email' => $email,
 				'role'       => $role,
 			)
@@ -488,7 +488,7 @@ class EBUserManager {
 			}
 			$user_data = array(
 				'username'  => $username,
-				'password'  => $password,
+				'password'  => $user_p,
 				'firstname' => $firstname,
 				'lastname'  => $lastname,
 				'email'     => $email,
@@ -513,7 +513,7 @@ class EBUserManager {
 			'username'   => $username,
 			'first_name' => $firstname,
 			'last_name'  => $lastname,
-			'password'   => $password,
+			'password'   => $user_p,
 		);
 		do_action( 'eb_created_user', $args );
 
@@ -531,7 +531,7 @@ class EBUserManager {
 				'username'   => $moodle_user['user_data']->username,
 				'first_name' => $firstname,
 				'last_name'  => $lastname,
-				'password'   => $password,
+				'password'   => $user_p,
 			);
 			// create a new action hook with user details as argument.
 			do_action( 'eb_linked_to_existing_wordpress_user', $args );
@@ -836,11 +836,11 @@ class EBUserManager {
 				}
 
 				// generate random password for moodle account, as user is already registered on WordPress.
-				$password = apply_filters( 'eb_filter_moodle_password', wp_generate_password() );
+				$user_p = apply_filters( 'eb_filter_moodle_password', wp_generate_password() );
 
 				$user_data = array(
 					'username'  => $user->user_login,
-					'password'  => $password,
+					'password'  => $user_p,
 					'firstname' => $user->first_name,
 					'lastname'  => $user->last_name,
 					'email'     => $user->user_email,
@@ -1001,14 +1001,14 @@ class EBUserManager {
 		if ( 'users.php' === $pagenow ) {
 			if ( isset( $_REQUEST['unlinked'] ) && 1 === $_REQUEST['unlinked'] ) {
 				$message = sprintf( '%s' . esc_html__( ' User Unlinked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) );
-			} elseif ( isset( $_REQUEST['unlinked'] ) && $_REQUEST['unlinked'] > 1 ) {
+			} elseif ( isset( $_REQUEST['unlinked'] ) && (int) $_REQUEST['unlinked'] > 1 ) {
 				$message = sprintf(
 					'%s' . esc_html__( ' Users Unlinked.', 'eb-textdomain' ),
 					number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) )
 				);
 			} elseif ( isset( $_REQUEST['linked'] ) && 1 === $_REQUEST['linked'] ) {
 				$message = sprintf( '%s' . esc_html__( 'User Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
-			} elseif ( isset( $_REQUEST['linked'] ) && $_REQUEST['linked'] > 1 ) {
+			} elseif ( isset( $_REQUEST['linked'] ) && (int) $_REQUEST['linked'] > 1 ) {
 				$message = sprintf( '%s ' . esc_html__( 'Users Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
 			}
 
@@ -1032,9 +1032,9 @@ class EBUserManager {
 			// Get new password entered by user.
 			// Works for WordPress profile & woocommerce my account edit profile page.
 			if ( isset( $_POST['password_1'] ) && ! empty( $_POST['password_1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$new_password = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				$new_p = sanitize_text_field( wp_unslash( $_POST['password_1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			} elseif ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) { // WPCS: input var ok, CSRF ok, sanitization ok.
-				$new_password = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+				$new_p = sanitize_text_field( wp_unslash( $_POST['pass1'] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 			} else {
 				return;
 			}
@@ -1048,13 +1048,13 @@ class EBUserManager {
 				return;
 			}
 
-			if ( empty( $new_password ) ) {
+			if ( empty( $new_p ) ) {
 				return; // stop further execution of function if password was not entered.
 			}
 
 			$user_data = array(
 				'id'       => $moodle_user_id, // moodle user id.
-				'password' => $new_password,
+				'password' => $new_p,
 			);
 
 			$moodle_user = $this->create_moodle_user( $user_data, 1 );
@@ -1080,11 +1080,11 @@ class EBUserManager {
 		}
 
 		if ( isset( $pass ) && ! empty( $pass ) ) {
-			$new_password = $pass; // get new password entered by user.
+			$new_p = $pass; // get new password entered by user.
 
 			$user_data = array(
 				'id'       => $moodle_user_id,
-				'password' => $new_password,
+				'password' => $new_p,
 			);
 
 			$moodle_user = $this->create_moodle_user( $user_data, 1 );
