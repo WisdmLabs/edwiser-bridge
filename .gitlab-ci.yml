@@ -12,7 +12,7 @@ cache:
 sonarqube-check:
   stage: test
   script:
-    - sonar-scanner -X -Dsonar.qualitygate.wait=true -Dsonar.projectKey=Edwiser_Bridge
+    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=Edwiser_Bridge
   allow_failure: true
   only:
   - merge_requests
