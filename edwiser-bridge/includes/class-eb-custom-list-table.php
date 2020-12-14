@@ -76,10 +76,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			}
 
 			foreach ( $results as $result ) {
-
+				$profile_url          = $this->getUserProfileURL( $result->user_id );
 				$row                  = array();
 				$row['user_id']       = $result->user_id;
-				$row['user']          = $this->getUserProfileURL( $result->user_id );
+				$row['user']          = $profile_url;
 				$row['course']        = '<a href="' . esc_url( get_permalink( $result->course_id ) ) . '">' . get_the_title( $result->course_id ) . '</a>';
 				$row['enrolled_date'] = $result->time;
 				$row['manage']        = true;
@@ -88,9 +88,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$row['course_id']     = $result->course_id;
 
 				$tbl_records[] = apply_filters( 'eb_manage_student_enrollment_each_row', $row, $result, $search_text );
-
 			}
-
 			return apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
 		}
 
