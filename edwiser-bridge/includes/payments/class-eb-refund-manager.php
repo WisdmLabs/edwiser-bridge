@@ -128,7 +128,7 @@ class Eb_Paypal_Refund_Manager {
 				'VERSION'       => '84.0',
 				'SIGNATURE'     => $api_details['sign'],
 				'USER'          => $api_details['username'],
-				'PWD'           => $api_details['password'],
+				'PWD'           => $api_details['pwd'],
 				'METHOD'        => 'RefundTransaction',
 				'TRANSACTIONID' => $txn_id,
 				'NOTE'          => $reason,
@@ -151,7 +151,7 @@ class Eb_Paypal_Refund_Manager {
 		$api_details  = get_option( 'eb_paypal' );
 		$pay_pal_data = array(
 			'username' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_username', '' ),
-			'password' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_password', '' ),
+			'pwd'      => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_password', '' ),
 			'sign'     => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_signature', '' ),
 		);
 		return $pay_pal_data;

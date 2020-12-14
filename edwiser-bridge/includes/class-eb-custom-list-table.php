@@ -269,17 +269,20 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			$from = '';
 			$to   = '';
-			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
-				return;
-			}
-
-			if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) { // WPCS: CSRF ok, input var ok.
-				$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
-			}
 			$disabled = 'disabled';
-			if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) { // WPCS: CSRF ok, input var ok.
-				$disabled = '';
-				$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+
+error_log('POST :: '.print_r($_REQUEST, 1));
+
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+error_log('22222');
+
+				if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) { // WPCS: CSRF ok, input var ok.
+					$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
+				}
+				if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) { // WPCS: CSRF ok, input var ok.
+					$disabled = '';
+					$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+				}
 			}
 
 			if ( 'top' === $which ) {
