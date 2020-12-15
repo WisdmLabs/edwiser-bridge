@@ -500,7 +500,7 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 			if ( is_plugin_active( $extension ) ) {
 				if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
 					$bp_version = get_option( 'eb_bp_plugin_version' );
-					if ( version_compare( '2.0.2', $bp_version ) <= 0 ) {
+					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
 						array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
 						array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
@@ -721,7 +721,7 @@ if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 	 * Gwt edwiser Bridge versio.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.0.2';
+		return '2.0.3';
 	}
 }
 

@@ -49,6 +49,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function course_synchronization_initiater() {
+
 		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
 			die( 'Busted!' );
 		}
@@ -63,6 +64,7 @@ class Eb_Settings_Ajax_Initiater {
 
 		// start working on request.
 		$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+
 		echo wp_json_encode( $response );
 		die();
 	}

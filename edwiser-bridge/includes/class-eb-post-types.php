@@ -583,7 +583,6 @@ class Eb_Post_Types {
 	 */
 	public function handle_post_options_save( $post_id ) {
 		$fields = array();
-
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return false;
 		}
@@ -603,7 +602,7 @@ class Eb_Post_Types {
 			$post_options = array();
 
 			if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
-				die( 'Busted' );
+				return;
 			}
 
 			if ( isset( $_POST[ $post_type . '_options' ] ) ) {

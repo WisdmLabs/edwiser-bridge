@@ -30,8 +30,6 @@
  * @package  Edwiser Bridge
  */
 
-$edwiser_bridge_alt_add = 'Add to cart (Paypal)';
-
 /**
 * Parameters for Shortcode for all Paypal buttons
 * type = paynow, subscribe, addtocart or hosted
@@ -289,6 +287,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 	 * @param array $atts atts.
 	 */
 	function eb_enhanced_paypal_shortcode( $atts ) {
+		$edwiser_bridge_alt_add = 'Add to cart (Paypal)';
 		$atts = shortcode_atts(
 			array(
 				'type'         => '',

@@ -98,7 +98,9 @@ class Eb_Logger {
 	 */
 	public function __destruct() {
 		foreach ( $this->_handles as $handle ) {
-			fclose( escapeshellarg( $handle ) );
+			if ( is_string($handle) ) {
+				fclose( escapeshellarg( $handle ) );
+			}
 		}
 	}
 

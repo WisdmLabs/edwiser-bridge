@@ -108,7 +108,6 @@ class Eb_Course_Manager {
 	 */
 	public function course_synchronization_handler( $sync_options = array() ) {
 		edwiser_bridge_instance()->logger()->add( 'user', 'Initiating course & category sync process....' ); // add course log.
-
 		$moodle_course_resp   = array(); // contains course response from moodle.
 		$moodle_category_resp = array(); // contains category response from moodle.
 		$response_array       = array(); // contains response message to be displayed to user.
@@ -123,6 +122,7 @@ class Eb_Course_Manager {
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 
 		if ( 1 === $connected['success'] ) {
+
 			/*
 			 * Sync Moodle course categories to WordPress conditionally.
 			 * Executes only if user chooses to sync categories.
@@ -165,13 +165,11 @@ class Eb_Course_Manager {
 
 						// creates new course or updates previously synced course conditionally.
 						if ( ! is_numeric( $existing_course_id ) ) {
-
 							$course_id         = $this->create_course_on_wordpress( $course_data, $sync_options );
 							$courses_created[] = $course_id; // push course id in courses created array.
 						} elseif ( is_numeric( $existing_course_id ) &&
 								isset( $sync_options['eb_synchronize_previous'] ) &&
 								'1' === $sync_options['eb_synchronize_previous'] ) {
-
 								$course_id     = $this->update_course_on_wordpress(
 									$existing_course_id,
 									$course_data,
@@ -462,6 +460,7 @@ class Eb_Course_Manager {
 	 */
 	public function update_course_on_wordpress( $wp_course_id, $course_data, $sync_options ) {
 		global $wpdb;
+
 		$course_args = array(
 			'ID'           => $wp_course_id,
 			'post_title'   => $course_data->fullname,

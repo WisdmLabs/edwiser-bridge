@@ -112,11 +112,11 @@ class Eb_Order_Manager {
 	public function update_order_status_on_order_save( $order_id ) {
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return false;
+			return $order_id;
 		}
 
 		if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
-			die( 'Nonce verification fialed.' );
+			return $order_id;
 		}
 
 		$post_options = isset( $_POST['eb_order_options'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
@@ -315,7 +315,6 @@ class Eb_Order_Manager {
 
 		$success  = 0;
 		$order_id = 0;
-
 		$buyer_id = '';
 		if ( isset( $_POST['buyer_id'] ) ) {
 			$buyer_id = sanitize_text_field( wp_unslash( $_POST['buyer_id'] ) );
@@ -326,10 +325,8 @@ class Eb_Order_Manager {
 		}
 
 		if ( empty( $buyer_id ) || empty( $course_id ) ) {
-
 			$success = 0;
 		} else {
-
 			$order_id_created = $this->create_new_order(
 				array(
 					'buyer_id'  => $buyer_id,
