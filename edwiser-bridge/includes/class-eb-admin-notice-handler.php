@@ -7,7 +7,6 @@
  * @link       https://edwiser.org
  * @since      1.3.4
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -59,13 +58,7 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_update_moodle_plugin_notice() {
-		$redirection = '?eb-update-notice-dismissed';
-		if ( isset( $_GET ) && ! empty( $_GET ) ) { // WPCS: CSRF ok, input var ok.
-			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-update-notice-dismissed';
-		}
+		$redirection = add_query_arg( 'eb-update-notice-dismissed', true );
 
 		if ( ! get_option( 'eb_update_notice_dismissed' ) ) {
 			if ( $this->check_if_moodle_plugin_installed() ) {
@@ -109,8 +102,8 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice_dismiss_handler() {
-		$user_id = get_current_user_id();
-		if ( isset( $_GET['eb-discount-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
+		if ( true === filter_input( INPUT_GET, 'eb-discount-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
 			add_user_meta( $user_id, 'eb_discount_notice_dismissed', 'true', true );
 		}
 	}
@@ -123,14 +116,7 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice() {
-		$redirection  = '?eb-discount-notice-dismissed';
-		$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-		$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-
-		if ( isset( $_GET ) && ! empty( $_GET ) ) { // WPCS: CSRF ok, input var ok.
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-discount-notice-dismissed';
-		}
+		$redirection = add_query_arg( 'eb-discount-notice-dismissed', true );
 
 		$user_id = get_current_user_id();
 		if ( ! get_user_meta( $user_id, 'eb_discount_notice_dismissed' ) ) {
@@ -166,7 +152,7 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_update_notice_dismiss_handler() {
-		if ( isset( $_GET['eb-update-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
+		if ( true === filter_input( INPUT_GET, 'eb-update-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
 			update_option( 'eb_update_notice_dismissed', 'true', true );
 		}
 	}
@@ -181,15 +167,7 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_feedback_notice() {
-		$redirection = '?eb-feedback-notice-dismissed';
-		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-feedback-notice-dismissed';
-		}
-
+		$redirection       = add_query_arg( 'eb-feedback-notice-dismissed', true );
 		$user_id           = get_current_user_id();
 		$feedback_usermeta = get_user_meta( $user_id, 'eb_feedback_notice_dismissed', true );
 		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) ) {
@@ -229,9 +207,9 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_notice_dismiss_handler() {
-		$user_id = get_current_user_id();
-		if ( isset( $_GET['eb-feedback-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
-			add_user_meta( $user_id, 'eb_feedback_notice_dismissed', sanitize_text_field( wp_unslash( $_GET['eb-feedback-notice-dismissed'] ) ), true ); // WPCS: CSRF ok, input var ok.
+		if ( true === filter_input( INPUT_GET, 'eb-feedback-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			add_user_meta( $user_id, 'eb_feedback_notice_dismissed', filter_input( INPUT_GET, 'eb-feedback-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
 		}
 	}
 

@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -77,11 +76,12 @@ class Eb_Payment_Manager {
 		$moodle_course_id  = edwiser_bridge_instance()->course_manager()->get_moodle_course_id( $course_id );
 		$access_course_url = '';
 		$access_button     = '';
+		$eb_access_url     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
 		if ( '' === $moodle_course_id ) {
 			return;
 		} else {
-			$access_course_url = EDWISER_ACCESS_URL . '/course/view.php?id=' . $moodle_course_id;
+			$access_course_url = $eb_access_url . '/course/view.php?id=' . $moodle_course_id;
 		}
 
 		if ( empty( $access_course_url ) ) {
@@ -104,7 +104,7 @@ class Eb_Payment_Manager {
 		$button = apply_filters( 'eb_course_access_button', $access_button, $access_params );
 
 		$user_id           = get_current_user_id();
-		$is_user_suspended = get_user_suspended_status( $user_id, $course_id );
+		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 
 		if ( $is_user_suspended ) {
 			$button = str_replace( 'Access Course', 'Suspended', $button );
@@ -236,7 +236,11 @@ class Eb_Payment_Manager {
 
 			return $closed_button;
 		} elseif ( ! is_user_logged_in() ) {
-			$login_url    = wdm_user_account_url( '?redirect_to=' . get_permalink( $course_id ) . '&is_enroll=true' );
+			$url_args     = array(
+				'redirect_to' => get_permalink( $course_id ),
+				'is_enroll'   => 'true',
+			);
+			$login_url    = \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $url_args );
 			$login_button = '<div class="eb_join_button">
 			<a class="wdm-btn" href="' . $login_url . '" id="wdm-btn">' .
 			esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';

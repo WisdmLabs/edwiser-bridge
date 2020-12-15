@@ -165,7 +165,7 @@ class Eb_Ipn_Listener {
 		if ( is_wp_error( $response ) ) {
 			$errstr = $response->get_error_message();
 			throw new \Exception( "cURL error: [$errno] $errstr" );
-		} elseif ( 200 == wp_remote_retrieve_response_code( $response ) ) {
+		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 			// Set responce here.
 			$this->response = $response['body'];
 
@@ -333,7 +333,7 @@ class Eb_Ipn_Listener {
 	public function process_ipn( $post_data = null ) {
 		$encoded_data = array( 'cmd' => '=_notify-validate' );
 
-		if ( null == $post_data ) {
+		if ( null === $post_data ) {
 			// use raw POST data.
 			throw new \Exception( 'No POST data found.' );
 		} else {
@@ -351,7 +351,7 @@ class Eb_Ipn_Listener {
 			$this->fsock_post( $encoded_data );
 		}
 
-		if ( false == $this->response_status ) {
+		if ( false === $this->response_status ) {
 
 			throw new \Exception( 'Invalid response status: ' . $this->response_status );
 		}

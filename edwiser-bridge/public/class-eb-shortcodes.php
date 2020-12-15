@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/public
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;

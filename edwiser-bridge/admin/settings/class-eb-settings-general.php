@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -90,7 +89,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'select',
 						'default'  => __( 'Select Role', 'eb-textdomain' ),
 						'css'      => 'min-width:300px;',
-						'options'  => eb_get_all_wp_roles(),
+						'options'  => \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_wp_roles(),
 						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
 					),
 					array(
@@ -226,7 +225,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'id'       => 'eb_recmnd_courses',
 						'type'     => 'multiselect',
 						'default'  => '',
-						'options'  => get_all_eb_sourses(),
+						'options'  => \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_eb_sourses(),
 						'desc_tip' => '',
 					),
 					array(

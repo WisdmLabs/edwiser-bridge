@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -99,7 +98,7 @@ class Eb_Logger {
 	 */
 	public function __destruct() {
 		foreach ( $this->_handles as $handle ) {
-			@fclose( escapeshellarg( $handle ) );
+			fclose( escapeshellarg( $handle ) );
 		}
 	}
 
@@ -115,7 +114,7 @@ class Eb_Logger {
 			return true;
 		}
 
-		$this->_handles[ $handle ] = @fopen( wdm_log_file_path( $handle ), 'a' );
+		$this->_handles[ $handle ] = fopen( \app\wisdmlabs\edwiserBridge\wdm_eb_log_file_path( $handle ), 'a' );
 
 		if ( $this->_handles[ $handle ] ) {
 			return true;
@@ -133,7 +132,7 @@ class Eb_Logger {
 	public function add( $handle, $message ) {
 		if ( $this->open( $handle ) && is_resource( $this->_handles[ $handle ] ) ) {
 			$time = date_i18n( 'm-d-Y @ H:i:s -' ); // Grab Time.
-			@fwrite( $this->_handles[ $handle ], $time . ' ' . $message . "\n" );
+			fwrite( $this->_handles[ $handle ], $time . ' ' . $message . "\n" );
 		}
 	}
 
@@ -144,7 +143,7 @@ class Eb_Logger {
 	 */
 	public function clear( $handle ) {
 		if ( $this->open( $handle ) && is_resource( $this->_handles[ $handle ] ) ) {
-			@ftruncate( $this->_handles[ $handle ], 0 );
+			ftruncate( $this->_handles[ $handle ], 0 );
 		}
 	}
 }

@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -59,7 +58,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			return $pages;
 		}
 
-
 		/**
 		 * Add this page to settings
 		 *
@@ -70,7 +68,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			$pages[ $this->_id ] = $this->label;
 			return $pages;
 		}
-
 
 		/**
 		 * Get settings array
@@ -107,8 +104,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			return apply_filters_deprecated( 'eb_getSections_' . $this->_id, array( array() ), '2.0.1', 'eb_get_sections_' . $this->_id );
 		}
 
-
-
 		/**
 		 * Deprecated Function
 		 *
@@ -121,9 +116,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		public function getSections() {
 			return $this->get_sections();
 		}
-
-
-
 
 		/**
 		 * Output sections
@@ -154,7 +146,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 
 			echo '</ul><br class="clear" />';
 		}
-
 
 		/**
 		 * Deprecated Function.
@@ -189,7 +180,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 
 			echo '</ul><br class="clear" />';
 		}
-
 
 		/**
 		 * Output the settings

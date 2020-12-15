@@ -10,7 +10,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/public
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -25,7 +24,6 @@ class Eb_Public {
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
@@ -34,7 +32,6 @@ class Eb_Public {
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -68,9 +65,11 @@ class Eb_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
-			EDWISER_PLUGIN_URL . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
+			$eb_plugin_url . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',
 			array(),
 			$this->version,
 			'all'
@@ -78,21 +77,21 @@ class Eb_Public {
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			EDWISER_PLUGIN_URL . 'public/assets/css/eb-public.css',
+			$eb_plugin_url . 'public/assets/css/eb-public.css',
 			array( $this->plugin_name . '_font_awesome' ),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'wdmdatatablecss',
-			EDWISER_PLUGIN_URL . 'public/assets/css/datatable.css',
+			$eb_plugin_url . 'public/assets/css/datatable.css',
 			array(),
 			$this->version,
 			'all'
 		);
 		wp_enqueue_style(
 			'eb-public-jquery-ui-css',
-			EDWISER_PLUGIN_URL . 'admin/assets/css/jquery-ui.css',
+			$eb_plugin_url . 'admin/assets/css/jquery-ui.css',
 			array(),
 			$this->version,
 			'all'
@@ -116,19 +115,20 @@ class Eb_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		$nonce = wp_create_nonce( 'public_js_nonce' );
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+		$nonce         = wp_create_nonce( 'public_js_nonce' );
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-dialog' );
 		wp_enqueue_script(
 			$this->plugin_name,
-			EDWISER_PLUGIN_URL . 'public/assets/js/eb-public.js',
+			$eb_plugin_url . 'public/assets/js/eb-public.js',
 			array( 'jquery', 'jquery-ui-dialog' ),
 			$this->version,
 			false
 		);
 		wp_register_script(
 			$this->plugin_name . '-edit-user-profile',
-			EDWISER_PLUGIN_URL . 'public/assets/js/edit-user-profile.js',
+			$eb_plugin_url . 'public/assets/js/edit-user-profile.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -143,7 +143,7 @@ class Eb_Public {
 
 		wp_enqueue_script(
 			$this->plugin_name . '-ui-block',
-			EDWISER_PLUGIN_URL . 'public/assets/js/jquery-blockui-min.js',
+			$eb_plugin_url . 'public/assets/js/jquery-blockui-min.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -192,7 +192,7 @@ class Eb_Public {
 		// datatable js for user order table.
 		wp_enqueue_script(
 			'wdmdatatablejs',
-			EDWISER_PLUGIN_URL . 'public/assets/js/datatable.js',
+			$eb_plugin_url . 'public/assets/js/datatable.js',
 			array( 'jquery' ),
 			$this->version,
 			false
@@ -200,7 +200,7 @@ class Eb_Public {
 
 		wp_register_script(
 			'eb_paypal_js',
-			EDWISER_PLUGIN_URL . 'public/assets/js/eb-paypal.js',
+			$eb_plugin_url . 'public/assets/js/eb-paypal.js',
 			array( 'jquery' ),
 			$this->version,
 			false

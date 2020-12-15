@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -116,11 +115,11 @@ class Eb_Order_Manager {
 			return false;
 		}
 
-		if ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
+		if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
 			die( 'Nonce verification fialed.' );
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$post_options = isset( $_POST['eb_order_options'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( empty( $post_options ) ) {
 			return false;
@@ -291,9 +290,9 @@ class Eb_Order_Manager {
 	private function get_course_price( $course_id ) {
 		$course_meta = get_post_meta( $course_id, 'eb_course_options', true );
 		$price       = '0.00';
-		$course_type = get_arr_value( $course_meta, 'course_price_type', false );
+		$course_type = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $course_meta, 'course_price_type', false );
 		if ( $course_type && 'paid' === $course_type ) {
-			$price = get_arr_value( $course_meta, 'course_price', '0.00' );
+			$price = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $course_meta, 'course_price', '0.00' );
 		}
 		return $price;
 	}

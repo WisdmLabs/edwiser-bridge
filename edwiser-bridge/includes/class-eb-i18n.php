@@ -8,7 +8,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;

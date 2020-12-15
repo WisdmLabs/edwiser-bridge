@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -212,7 +211,7 @@ class EBConnectionHelper {
 									<div>
 										';
 
-		$webservice_functions    = eb_get_all_web_service_functions();
+		$webservice_functions    = \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -244,7 +243,7 @@ class EBConnectionHelper {
 									</div>';
 			// Add new message here.
 
-			$response_message .= esc_html__( 'You can check added webservice here ', 'eb-textdomain' ) . '<a href="' . get_moodle_url() . '/admin/settings.php?section=externalservices">' . get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'eb-textdomain' ) . '<a href="' . get_moodle_url() . 'local/edwiserbridge/edwiserbridge.php?tab=service">' . get_moodle_url() . 'local/edwiserbridge/edwiserbridge.php?tab=service</a>';
+			$response_message .= esc_html__( 'You can check added webservice here ', 'eb-textdomain' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'eb-textdomain' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . 'local/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . 'local/edwiserbridge/edwiserbridge.php?tab=service</a>';
 
 			$response_message .= '</div>';
 		}
@@ -296,9 +295,11 @@ class EBConnectionHelper {
 		$success          = 1;
 		$response_message = 'success';
 		$response_data    = array();
+		$eb_access_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
-		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
+		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array( 'timeout' => 100 );
 		$response     = wp_remote_post( $request_url, $request_args );
@@ -365,9 +366,11 @@ class EBConnectionHelper {
 		$success          = 1;
 		$response_message = 'success';
 		$response_data    = array();
+		$eb_access_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
-		$request_url  = EDWISER_ACCESS_URL . '/webservice/rest/server.php?wstoken=';
-		$request_url .= EDWISER_ACCESS_TOKEN . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
+		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
+		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array(
 			'body'    => $request_data,

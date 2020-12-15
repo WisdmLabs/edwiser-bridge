@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -39,8 +38,11 @@ class Eb_External_Api_Endpoint {
 	public function external_api_endpoint_def( $request_data ) {
 
 		$data = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
-		$data = unserialize( $data );
-
+		if ( version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
+			$data          = unserialize( $data, array( 'allowed_classes' => false ) );
+		} else {
+			$data          = unserialize( $data );
+		}
 		$response_data = array();
 
 		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) ) {
@@ -118,13 +120,13 @@ class Eb_External_Api_Endpoint {
 	protected function eb_course_enrollment( $data, $un_enroll ) {
 		if ( isset( $data['user_id'] ) && isset( $data['course_id'] ) ) {
 			$mdl_course_id = $data['course_id'];
-			$wp_course_id  = get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			$wp_course_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
 
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
-				$wp_user_id  = get_wp_user_id_from_moodle_id( $data['user_id'] );
-				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 == $un_enroll ) {
-					$role       = eb_default_registration_role();
+				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
+					$role       = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
 				}
@@ -143,7 +145,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( in_array( $wp_course_id, $user_enrollment_meta ) ) {
+					if ( is_array( $user_enrollment_meta ) && in_array( trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
 						return;
 					}
 
@@ -181,20 +183,18 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function eb_trigger_user_creation( $data ) {
 		if ( isset( $data['user_name'] ) && isset( $data['email'] ) ) {
-			$role = eb_default_registration_role();
-
-			$password = '';
+			$role            = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
+			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+			$user_p          = '';
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv     = '1234567891011121';
-                $enc_iv = substr(hash('sha256', EDWISER_ACCESS_TOKEN), 0, 16);
-
-				$enc_key  = openssl_digest( EDWISER_ACCESS_TOKEN, 'SHA256', true );
-				$password = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+				$enc_key    = openssl_digest( $eb_access_token, 'SHA256', true );
+				$user_p     = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 			}
 
-			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $password );
+			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p );
 			if ( $wp_user_id ) {
 				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
 			}
@@ -208,9 +208,9 @@ class Eb_External_Api_Endpoint {
 	 * @param  text $data data.
 	 */
 	public function eb_trigger_user_delete( $data ) {
-		require_once( ABSPATH . 'wp-admin/includes/user.php' );
+		require_once ABSPATH . 'wp-admin/includes/user.php';
 		if ( isset( $data['user_id'] ) ) {
-			$wp_user_id = get_wp_user_id_from_moodle_id( $data['user_id'] );
+			$wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {
 				$user    = get_user_by( 'ID', $wp_user_id );
 				$args    = array(
@@ -237,9 +237,9 @@ class Eb_External_Api_Endpoint {
 	 * @param  text   $firstname firstname.
 	 * @param  text   $lastname  lastname.
 	 * @param  text   $role  role.
-	 * @param  string $password    password.
+	 * @param  string $user_p    password.
 	 */
-	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $password = '' ) {
+	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
 		if ( email_exists( $email ) ) {
 			return new \WP_Error(
 				'registration-error',
@@ -257,9 +257,9 @@ class Eb_External_Api_Endpoint {
 			++$append;
 		}
 
-		if ( empty( $password ) ) {
+		if ( empty( $user_p ) ) {
 			// Handle password creation.
-			$password = wp_generate_password();
+			$user_p = wp_generate_password();
 		}
 
 		// WP Validation.
@@ -278,7 +278,7 @@ class Eb_External_Api_Endpoint {
 			'eb_new_user_data',
 			array(
 				'user_login' => $username,
-				'user_pass'  => $password,
+				'user_pass'  => $user_p,
 				'user_email' => $email,
 				'role'       => $role,
 			)
@@ -306,7 +306,7 @@ class Eb_External_Api_Endpoint {
 			'username'   => $username,
 			'first_name' => $firstname,
 			'last_name'  => $lastname,
-			'password'   => $password,
+			'password'   => $user_p,
 		);
 		do_action( 'eb_created_user', $args );
 		return $user_id;
@@ -322,7 +322,7 @@ class Eb_External_Api_Endpoint {
 
 		if ( isset( $data['course_id'] ) ) {
 			// get WP course id from moodle course id.
-			$wp_course_id = get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			$wp_course_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
 
 			if ( $wp_course_id ) {
 				// Update course meta to delete.
@@ -345,7 +345,8 @@ class Eb_External_Api_Endpoint {
 	public function eb_trigger_user_update( $data ) {
 
 		// get WP User id if present then process.
-		$wp_user_id = get_wp_user_id_from_moodle_id( $data['user_id'] );
+		$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 
 		if ( ! empty( $wp_user_id ) ) {
 			// get fields.
@@ -360,13 +361,11 @@ class Eb_External_Api_Endpoint {
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
 				$enc_method = 'AES-128-CTR';
-				// $enc_iv     = '1234567891011121';
-                $enc_iv = substr(hash('sha256', EDWISER_ACCESS_TOKEN), 0, 16);
+				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
-
-				$enc_key                        = openssl_digest( EDWISER_ACCESS_TOKEN, 'SHA256', true );
-				$password                       = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
-				$user_update_array['user_pass'] = $password;
+				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
+				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$user_update_array['user_pass'] = $user_p;
 			}
 
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );

@@ -6,7 +6,6 @@
  * @since      1.0.2
  * @deprecated 1.2.0 Use shortcode eb_user_account
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 ?>
@@ -33,13 +32,15 @@
 				foreach ( $labels as $label ) {
 					$nav_item  = isset( $label['label'] ) ? $label['label'] : '';
 					$nav_href  = isset( $label['href'] ) ? $label['href'] : '';
+					$tab_url   = add_query_arg( 'eb-active-link', $nav_href, get_permalink() );
+					$tab_url   = add_query_arg( 'eb_user_account_nav_nonce', wp_create_nonce( 'eb_user_account_nav_nonce' ), $tab_url );
 					$css_class = 'eb-user-account-navigation-link';
 					if ( isset( $_GET['eb-active-link'] ) && sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) === $nav_href ) { // WPCS: input var okay, CSRF ok.
 						$css_class .= ' eb-active-profile-nav';
 					}
 					?>
 					<nav class="<?php echo esc_html( $css_class ); ?>">
-						<a href="<?php echo esc_url( add_query_arg( 'eb-active-link', $nav_href, get_permalink() ) ); ?>"><?php _e( $nav_item, 'eb-textdomain' ); // @codingStandardsIgnoreLine. ?></a>
+						<a href="<?php echo esc_url( $tab_url ); ?>"><?php esc_html_e( $nav_item, 'eb-textdomain' ); // @codingStandardsIgnoreLine. ?></a>
 					</nav>
 					<?php
 				}

@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -115,9 +114,11 @@ class Eb_Course_Manager {
 		$response_array       = array(); // contains response message to be displayed to user.
 		$courses_updated      = array(); // store updated course ids ( WordPress course ids ).
 		$courses_created      = array(); // store newely created course ids ( WordPress course ids ).
+		$eb_access_token      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$eb_access_url        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
 		// checking if moodle connection is working properly.
-		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( EDWISER_ACCESS_URL, EDWISER_ACCESS_TOKEN );
+		$connected = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 
@@ -538,7 +539,7 @@ class Eb_Course_Manager {
 		global $wpdb;
 
 		// sort category response by id in incremental order.
-		usort( $category_response, 'eb_usort_numeric_callback' );
+		usort( $category_response, '\app\wisdmlabs\edwiserBridge\wdm_eb_usort_numeric_callback' );
 
 		foreach ( $category_response as $category ) {
 			$cat_name_clean = preg_replace( '/\s*/', '', $category->name );

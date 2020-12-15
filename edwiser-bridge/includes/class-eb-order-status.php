@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -62,8 +61,8 @@ class Eb_Order_Status {
 
 		);
 		$refund        = $refund_manager->init_refund( $order_id, $refund_data );
-		$refund_status = get_arr_value( $refund, 'status', false );
-		$refund_msg    = get_arr_value( $refund, 'msg', '' );
+		$refund_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'status', false );
+		$refund_msg    = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'msg', '' );
 		if ( $refund_status ) {
 			$refund_data['note'] = $refund_msg;
 			$note                = $this->get_order_refund_status_msg( $order_id, $refund_data );
@@ -103,7 +102,7 @@ class Eb_Order_Status {
 	 */
 	public function save_new_order_place_note( $order_id ) {
 		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
-		$course_id  = get_arr_value( $ord_detail, 'course_id' );
+		$course_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_detail, 'course_id' );
 		$msg        = esc_html__( 'New order has been placed for the ', 'eb-textdomain' ) . '<strong>' . sprintf( '%s', get_the_title( $course_id ) ) . '</strong>' . esc_html__( ' course.', 'eb-textdomain' );
 		$msg        = apply_filters( 'eb_order_history_save_status_new_order_msg', $msg );
 		$note       = array(
@@ -123,12 +122,12 @@ class Eb_Order_Status {
 	 */
 	private function get_status_update_note( $order_id, $data ) {
 		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
-		$order_data = get_arr_value( $data, 'eb_order_options', false );
+		$order_data = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $data, 'eb_order_options', false );
 		if ( false === $order_data ) {
 			return;
 		}
-		$old_status = get_arr_value( $ord_detail, 'order_status', false );
-		$new_status = get_arr_value( $order_data, 'order_status', false );
+		$old_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_detail, 'order_status', false );
+		$new_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_data, 'order_status', false );
 		$msg        = array(
 			'old_status' => $old_status,
 			'new_status' => $new_status,
@@ -154,13 +153,13 @@ class Eb_Order_Status {
 	 * @return array returns an array of the refund status data
 	 */
 	private function get_order_refund_status_msg( $order_id, $data ) {
-		$refund_amt = get_arr_value( $data, 'amt' );
+		$refund_amt = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $data, 'amt' );
 		$msg        = array(
 			'amt'                   => $refund_amt,
-			'refund_note'           => get_arr_value( $data, 'note' ),
-			'refund_unenroll_users' => get_arr_value( $data, 'unenroll_users', false ),
+			'refund_note'           => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $data, 'note' ),
+			'refund_unenroll_users' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $data, 'unenroll_users', false ),
 		);
-		if ( 'ON' === get_arr_value( $msg, 'refund_unenroll_users' ) ) {
+		if ( 'ON' === \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $msg, 'refund_unenroll_users' ) ) {
 			$this->unenroll_user_from_courses( $order_id );
 		}
 		$msg  = apply_filters( 'eb_order_history_save_refund_status_msg', $msg );
@@ -188,7 +187,7 @@ class Eb_Order_Status {
 			'amt'      => $refund_amt,
 			'by'       => $cur_user->user_login,
 			'time'     => current_time( 'timestamp' ),
-			'currency' => eb_get_current_paypal_currency_symb(),
+			'currency' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_current_paypal_currency_symb(),
 		);
 		if ( is_array( $refunds ) ) {
 			$refunds[] = $refund;
@@ -208,7 +207,7 @@ class Eb_Order_Status {
 	 */
 	private function save_order_status_history( $order_id, $note ) {
 		$cur_user = wp_get_current_user();
-		update_order_hist_meta( $order_id, $cur_user->user_login, $note );
+		\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, $cur_user->user_login, $note );
 	}
 
 	/**
@@ -219,8 +218,8 @@ class Eb_Order_Status {
 	 */
 	private function unenroll_user_from_courses( $order_id ) {
 		$order_details   = get_post_meta( $order_id, 'eb_order_options', true );
-		$course_id       = get_arr_value( $order_details, 'course_id', '' );
-		$user_wp_id      = get_arr_value( $order_details, 'buyer_id', '' );
+		$course_id       = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_details, 'course_id', '' );
+		$user_wp_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_details, 'buyer_id', '' );
 		$enrollment_mang = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 		$args            = array(
 			'user_id' => $user_wp_id,
@@ -235,7 +234,7 @@ class Eb_Order_Status {
 				'type' => 'enrollment_susspend',
 				'msg'  => __( 'User enrollment has been suspended on order refund request.', 'eb-textdomain' ),
 			);
-			update_order_hist_meta( $order_id, $cur_user->user_login, $note );
+			\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, $cur_user->user_login, $note );
 		}
 		return $resp;
 	}

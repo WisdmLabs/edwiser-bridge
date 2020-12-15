@@ -9,7 +9,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/public
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -24,7 +23,6 @@ class EbTemplateLoader {
 	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
@@ -33,7 +31,6 @@ class EbTemplateLoader {
 	 * The version of this plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
 	private $version;
@@ -63,23 +60,24 @@ class EbTemplateLoader {
 	 * @return string
 	 */
 	public function template_loader( $template ) {
-		$file = '';
+		$file          = '';
+		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 
 		if ( is_single() && get_post_type() === 'eb_course' ) {
 			$file   = 'single-eb_course.php';
 			$find[] = $file;
-			$find[] = EDWISER_TEMPLATE_PATH . $file;
+			$find[] = $eb_templ_path . $file;
 		} elseif ( is_post_type_archive( 'eb_course' ) ) {
 			$file   = 'archive-eb_course.php';
 			$find[] = $file;
-			$find[] = EDWISER_TEMPLATE_PATH . $file;
+			$find[] = $eb_templ_path . $file;
 		}
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
 			if ( ! $template ) {
 				// $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
-       			$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
+				$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
 			}
 		}
 
@@ -94,7 +92,6 @@ class EbTemplateLoader {
 	 *
 	 * @deprecated since 2.0.1 use wp_get_template_part( $slug, $name )
 	 * @since  1.0.0
-	 * @access public
 	 * @param mixed  $slug slug.
 	 * @param string $name (default: '').
 	 * @return void
@@ -107,29 +104,27 @@ class EbTemplateLoader {
 	 * Get template part (for templates like the shop-loop).
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param mixed  $slug slug.
 	 * @param string $name (default: '').
 	 * @return void
 	 */
 	public function wp_get_template_part( $slug, $name = '' ) {
-		$template = '';
+		$template      = '';
+		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
-			$template = locate_template( array( "{$slug}-{$name}.php", EDWISER_TEMPLATE_PATH . "{$slug}-{$name}.php" ) );
+			$template = locate_template( array( "{$slug}-{$name}.php", $eb_templ_path . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php.
-		// if ( ! $template && $name && file_exists( EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php" ) ) {
 		if ( ! $template && $name && file_exists( ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php" ) ) {
-			// $template = EB_PLUGIN_DIR . "public/templates/{$slug}-{$name}.php";
-       		$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
+			$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
 		}
 
 		// If template file doesn't exist, look in yourtheme/edw/slug.php.
 		if ( ! $template ) {
-			$template = locate_template( array( "{$slug}.php", EDWISER_TEMPLATE_PATH . "{$slug}.php" ) );
+			$template = locate_template( array( "{$slug}.php", $eb_templ_path . "{$slug}.php" ) );
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
@@ -150,7 +145,6 @@ class EbTemplateLoader {
 	 *
 	 * @deprecated since 2.0.1 use wp_get_template( $template_name, $args, $template_path, $default_path ) insted.
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name nsme.
 	 * @param array  $args          (default: array()).
 	 * @param string $template_path (default: '').
@@ -165,7 +159,6 @@ class EbTemplateLoader {
 	 * Get other templates.
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name name.
 	 * @param array  $args          (default: array()).
 	 * @param string $template_path (default: '').
@@ -173,8 +166,47 @@ class EbTemplateLoader {
 	 * @return void
 	 */
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
+		// Declare variables here.
 		if ( $args && is_array( $args ) ) {
-			extract( $args );
+			// extract( $args );
+			// Eb-courses page.
+			if ( isset( $args['max_num_pages'] ) ) {
+				$max_num_pages = $args['max_num_pages'];
+			}
+
+			// Eb-my courses page.
+			if ( isset( $args['is_eb_my_courses'] ) ) {
+				$is_eb_my_courses = $args['is_eb_my_courses'];
+			}
+			if ( isset( $args['attr'] ) ) {
+				$attr = $args['attr'];
+			}
+
+			// User-account page.
+			if ( isset( $args['current_user'] ) ) {
+				$current_user = $args['current_user'];
+			}
+			if ( isset( $args['user_orders'] ) ) {
+				$user_orders = $args['user_orders'];
+			}
+			if ( isset( $args['order_count'] ) ) {
+				$order_count = $args['order_count'];
+			}
+			if ( isset( $args['user_avatar'] ) ) {
+				$user_avatar = $args['user_avatar'];
+			}
+			if ( isset( $args['user'] ) ) {
+				$user = $args['user'];
+			}
+			if ( isset( $args['enrolled_courses'] ) ) {
+				$enrolled_courses = $args['enrolled_courses'];
+			}
+			if ( isset( $args['template_loader'] ) ) {
+				$template_loader = $args['template_loader'];
+			}
+			if ( isset( $args['user_meta'] ) ) {
+				$user_meta = $args['user_meta'];
+			}
 		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
@@ -205,19 +237,21 @@ class EbTemplateLoader {
 	 *  $default_path / $template_name
 	 *
 	 * @since  1.0.0
-	 * @access public
 	 * @param string $template_name name.
 	 * @param string $template_path (default: '').
 	 * @param string $default_path  (default: '').
 	 * @return string
 	 */
 	public function wp_locate_template( $template_name, $template_path = '', $default_path = '' ) {
+		$eb_plugin_dir        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_dir();
+		$eb_plugin_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
+
 		if ( ! $template_path ) {
-			$template_path = EDWISER_TEMPLATE_PATH;
+			$template_path = $eb_plugin_templ_path;
 		}
 
 		if ( ! $default_path ) {
-			$default_path = EDWISER_PLUGIN_DIR . 'public/templates/';
+			$default_path = $eb_plugin_dir . 'public/templates/';
 		}
 
 		// Look within passed path within the theme - this is priority.

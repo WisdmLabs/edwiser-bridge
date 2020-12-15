@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -63,8 +62,7 @@ class Eb_Emailer {
 		/**
 		 * Class responsible for loading templates.
 		 */
-		// require_once EB_PLUGIN_DIR . 'public/class-eb-template-loader.php';
-       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
+		require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
 
 		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
 	}
@@ -158,14 +156,14 @@ class Eb_Emailer {
 
 		$eb_general = get_option( 'eb_general' );
 		if ( $eb_general ) {
-			$send_email_to_admin        = get_arr_value( $eb_general, 'eb_refund_mail_to_admin', false );
-			$specified_email_for_refund = get_arr_value( $eb_general, 'eb_refund_mail', false );
+			$send_email_to_admin        = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $eb_general, 'eb_refund_mail_to_admin', false );
+			$specified_email_for_refund = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $eb_general, 'eb_refund_mail', false );
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow' );
 		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
 			if ( $user_email_tmpl_data ) {
-				$user               = get_user_by( 'id', get_arr_value( $args, 'buyer_id' ), '' );
+				$user               = get_user_by( 'id', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $args, 'buyer_id' ), '' );
 				$args['first_name'] = $user->first_name;
 				$args['last_name']  = $user->last_name;
 				$args['username']   = $user->user_login;

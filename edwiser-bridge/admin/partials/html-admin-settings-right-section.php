@@ -45,9 +45,6 @@ foreach ( $extensions_details as $key => $value ) {
 						</li>';
 	}
 }
-
-
-
 ?>
 
 <div>

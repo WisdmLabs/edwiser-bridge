@@ -6,7 +6,6 @@
  * @since      1.0.2
  * @deprecated 1.2.0 Use shortcode eb_user_account
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 ?>
@@ -47,7 +46,7 @@
 					}
 					$row .= '</ul>';
 					?>
-					<td><?php echo wp_kses( $row, eb_sinlge_course_get_allowed_html_tags() ); ?></td>
+					<td><?php echo wp_kses( $row, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></td>
 					<td><?php echo esc_html( $eb_order['date'] ); ?> </td>
 					<td><?php esc_html_e( ucfirst( $eb_order['status'] ), 'eb-textdomain' ); // @codingStandardsIgnoreLine.?></td>
 				</tr>

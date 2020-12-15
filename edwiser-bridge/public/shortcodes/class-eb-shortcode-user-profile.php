@@ -6,7 +6,6 @@
  * @since      1.0.2
  * @deprecated 1.2.0 Use shortcode eb_user_account
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -162,23 +161,37 @@ class Eb_Shortcode_User_Profile {
 	 * Get .
 	 */
 	public static function get_posted_data() {
-		$posted_data = array();
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+			return false;
+		}
 
-		$posted_data['username']    = self::get_posted_field( 'username' );
-		$posted_data['first_name']  = self::get_posted_field( 'first_name' );
-		$posted_data['last_name']   = self::get_posted_field( 'last_name' );
-		$posted_data['nickname']    = self::get_posted_field( 'nickname' );
-		$posted_data['email']       = self::get_posted_field( 'email' );
-		$posted_data['pass_1']      = self::get_posted_field( 'pass_1', false );
-		$posted_data['description'] = self::get_posted_field( 'description' );
-		$posted_data['country']     = self::get_posted_field( 'country' );
-		$posted_data['city']        = self::get_posted_field( 'city' );
+		$username    = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
+		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
+		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$pass_1      = isset( $_POST['pass_1'] ) ? sanitize_email( wp_unslash( $_POST['pass_1'] ) ) : '';
+		$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
+		$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
+		$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
+		$posted_data = array(
+			'username'    => $username,
+			'first_name'  => $first_name,
+			'last_name'   => $last_name,
+			'nickname'    => $nickname,
+			'email'       => $email,
+			'pass_1'      => $pass_1,
+			'description' => $description,
+			'country'     => $country,
+			'city'        => $city,
+		);
 
 		return $posted_data;
 	}
 
 	/**
 	 * FIeld.
+	 *
+	 * @deprecated since 2.0.2
 	 *
 	 * @param text $fieldname fieldname.
 	 * @param text $sanitize sanitize.
@@ -271,8 +284,10 @@ class Eb_Shortcode_User_Profile {
 			if ( isset( $posted_data['pass_1'] ) && ! empty( $posted_data['pass_1'] ) ) {
 				$user_data['password'] = $posted_data['pass_1'];
 			}
-			$user_data    = apply_filters( 'eb_update_moodle_profile_data', $user_data );
-			$user_manager = new EBUserManager( 'edwiserbridge', EDWISER_BRIDGE_VERSION );
+			$user_data = apply_filters( 'eb_update_moodle_profile_data', $user_data );
+
+			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
+			$user_manager = new EBUserManager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {

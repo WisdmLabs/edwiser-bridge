@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 
 			/*
-			 * translators: Edwiser bridge extensions page link.
+			 * Translators: Edwiser bridge extensions page link.
 			 */
 			printf( esc_html__( 'Our list of extensions for Edwiser Bridge can be found here: <a href="%s" target="_blank">Edwiser Bridge Extensions</a>', 'eb-textdomain' ), 'https://edwiser.org/bridge/extensions/' );
 			?>
