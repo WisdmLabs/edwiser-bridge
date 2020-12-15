@@ -221,7 +221,6 @@ class Eb_Shortcode_User_Account {
 		$posted_data = array(
 			'first_name'  => $first_name,
 			'last_name'   => $last_name,
-			'nickname'    => $nickname,
 			'email'       => $email,
 			'curr_psw'    => $curr_psw,
 			'new_psw'     => $new_psw,
