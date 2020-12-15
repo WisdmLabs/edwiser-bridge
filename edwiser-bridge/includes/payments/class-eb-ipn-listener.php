@@ -164,7 +164,7 @@ class Eb_Ipn_Listener {
 
 		if ( is_wp_error( $response ) ) {
 			$errstr = $response->get_error_message();
-			throw new \Exception( "cURL error: [$errno] $errstr" );
+			throw new \Exception( "cURL error: $errstr" );
 		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 			// Set responce here.
 			$this->response = $response['body'];

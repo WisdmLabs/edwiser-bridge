@@ -221,12 +221,6 @@ class Eb_Admin_Notice_Handler {
 	 * @param text $new_plugin_meta_data new_plugin_meta_data.
 	 */
 	public function eb_show_inline_plugin_update_notification( $curr_plugin_meta_data, $new_plugin_meta_data ) {
-		// check "upgrade_notice".
-
-		// added this just for commit purpose.
-		$curr_plugin_meta_data = $curr_plugin_meta_data;
-		$new_plugin_meta_data  = $new_plugin_meta_data;
-
 		ob_start();
 		?>
 			<p>
@@ -239,5 +233,8 @@ class Eb_Admin_Notice_Handler {
 
 		<?php
 		echo esc_html( ob_get_clean() );
+		// added this just for commit purpose.
+		unset( $curr_plugin_meta_data );
+		unset( $new_plugin_meta_data );
 	}
 }

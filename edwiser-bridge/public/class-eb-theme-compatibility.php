@@ -45,17 +45,7 @@ class Eb_Theme_Compatibility {
 	 */
 	public function eb_content_end_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
-
-		switch ( $template ) {
-				// Divi.
-			case 'Divi':
-				echo '</div>';
-				break;
-			default:
-				// Divi container.
-				echo '</div>';
-				break;
-		}
+		echo '</div>';
 
 	}
 
@@ -87,21 +77,7 @@ class Eb_Theme_Compatibility {
 	 */
 	public function eb_sidebar_end_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
-
-		switch ( $template ) {
-				// Divi.
-			case 'Divi':
-				echo '</div>';
-				break;
-
-			case 'flatsome':
-				echo '</div>';
-				break;
-
-			default:
-				echo '</div>';
-				break;
-		}
+		echo '</div>'
 
 	}
 }
