@@ -96,6 +96,10 @@
     opacity: 0;
 }*/
 
+#eb_course_enable_recmnd_courses_single_course .select2{
+  width: 50% !important;
+}
+
 .eb-premium-general-title {
   padding-bottom: 2%;
   line-height: 1;
