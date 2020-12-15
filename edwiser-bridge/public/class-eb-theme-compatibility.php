@@ -77,7 +77,6 @@ class Eb_Theme_Compatibility {
 	 */
 	public function eb_sidebar_end_theme_compatibility( $wrapper_args ) {
 		$template = get_option( 'template' );
-		echo '</div>'
-
+		echo '</div>';
 	}
 }

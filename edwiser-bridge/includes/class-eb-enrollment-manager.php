@@ -381,7 +381,7 @@ class Eb_Enrollment_Manager {
 						)
 					);
 
-				} elseif ( $this->user_has_cours_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
+				} elseif ( $this->user_has_course_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
 					// increase the count value.
 					$act_cnt = ++$act_cnt;
 					// update increased count value.
@@ -572,32 +572,6 @@ class Eb_Enrollment_Manager {
 		$this->delete_user_enrollment_record( $user_id, $course_id );
 	}
 
-
-
-	/**
-	 * Used to check if a user has access to a course.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @param int $user_id   WordPress user id of a user.
-	 * @param int $course_id WordPress course id of a course.
-	 */
-	public function user_has_cours_access( $user_id, $course_id ) {
-		global $wpdb;
-		$has_access = false;
-
-		if ( '' === $user_id || '' === $course_id ) {
-			return $has_access;
-		}
-
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
-
-		if ( trim( $result ) === trim( $user_id ) ) {
-			$has_access = true;
-		}
-
-		return $has_access;
-	}
 
 	/**
 	 * Used to check if a user has access to a course.

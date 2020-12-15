@@ -20,6 +20,7 @@ class Eb_Admin_Notice_Handler {
 	 * Check if installed.
 	 */
 	public function check_if_moodle_plugin_installed() {
+		$plugin_installed = 1;
 		$connection_options = get_option( 'eb_connection' );
 		$eb_moodle_url      = '';
 		if ( isset( $connection_options['eb_url'] ) ) {
@@ -36,19 +37,19 @@ class Eb_Admin_Notice_Handler {
 		$response        = wp_remote_post( $request_url );
 
 		if ( is_wp_error( $response ) ) {
-			return 0;
+			$plugin_installed = 0;
 		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
 				300 === wp_remote_retrieve_response_code( $response ) ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( 'accessexception' === $body->errorcode ) {
-				return 0;
+				$plugin_installed = 0;
 			}
 		} else {
-			return 0;
+			$plugin_installed = 0;
 		}
 
-		return 1;
+		return $plugin_installed;
 	}
 
 
@@ -170,8 +171,7 @@ class Eb_Admin_Notice_Handler {
 		$redirection       = add_query_arg( 'eb-feedback-notice-dismissed', true );
 		$user_id           = get_current_user_id();
 		$feedback_usermeta = get_user_meta( $user_id, 'eb_feedback_notice_dismissed', true );
-		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) ) {
-			if ( ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
+		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) && ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
 				echo '  <div class="notice eb_admin_feedback_notice_message_cont">
 							<div class="eb_admin_feedback_notice_message">'
 								. esc_html__( 'Enjoying Edwiser bridge, Please  ', 'eb-textdomain' ) . '
@@ -196,7 +196,6 @@ class Eb_Admin_Notice_Handler {
 								<span class="dashicons dashicons-dismiss"></span>
 							</div>
 						</div>';
-			}
 		}
 	}
 

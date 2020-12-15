@@ -290,7 +290,7 @@ class EBUserManager {
 		$link_users_count                      = 0;
 
 		if ( 1 === $connected['success'] ) {
-			if ( ( isset( $sync_options['eb_link_users_to_moodle'] ) && '1' === $sync_options['eb_link_users_to_moodle'] ) ) {
+			if ( isset( $sync_options['eb_link_users_to_moodle'] && '1' === $sync_options['eb_link_users_to_moodle'] ) ) {
 				// query to get list of users who have not linked to moodle with limit.
 				$unlinked_users = $wpdb->get_results(
 					$wpdb->prepare(
@@ -428,7 +428,6 @@ class EBUserManager {
 
 		// Handle password creation.
 		$user_p = wp_generate_password();
-		// $password_generated = true;
 		// WP Validation
 		$validation_errors = new \WP_Error();
 
@@ -931,7 +930,6 @@ class EBUserManager {
 		// get the action.
 		$wp_user_table = _get_list_table( 'WP_Users_List_Table' );
 		$action        = $wp_user_table->current_action();
-		// $sendback      = '';
 		// perform our unlink action.
 		if ( ! isset( $_GET['_wpnonce'] ) || ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) ) {
 			return;

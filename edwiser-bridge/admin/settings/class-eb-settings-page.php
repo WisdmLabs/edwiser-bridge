@@ -53,9 +53,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @since  1.0.0
 		 */
 		public function addSettingsPage( $pages ) {
-
-			$pages[ $this->_id ] = $this->label;
-			return $pages;
+			$this->add_settings_page( $page );
 		}
 
 		/**
@@ -157,28 +155,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @since  1.0.0
 		 */
 		public function outputSections() {
-			global $current_section;
-			$sections = $this->getSections();
-			if ( empty( $sections ) ) {
-				return;
-			}
-
-			echo '<ul class="subsubsub">';
-
-			$array_keys = array_keys( $sections );
-
-			foreach ( $sections as $id => $label ) {
-				echo '<li>';
-				echo '<a href="' .
-				esc_url(
-					admin_url(
-						'admin.php?page=eb-settings&tab=' . $this->_id . '&section=' . sanitize_title( $id )
-					)
-				) . '" class="' . ( $current_section === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a> ';
-				echo esc_html( ( end( $array_keys ) === $id ? '' : '|' ) ) . ' </li>';
-			}
-
-			echo '</ul><br class="clear" />';
+			$this->output_sections();
 		}
 
 		/**

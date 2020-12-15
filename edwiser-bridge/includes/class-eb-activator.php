@@ -70,10 +70,8 @@ class Eb_Activator {
 			if ( is_plugin_active( $extension[0] ) ) {
 				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
 
-				if ( isset( $plugin_data['Version'] ) ) {
-					if ( version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
+				if ( isset( $plugin_data['Version'] ) && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
 						deactivate_plugins( $extension[0] );
-					}
 				}
 			}
 		}
