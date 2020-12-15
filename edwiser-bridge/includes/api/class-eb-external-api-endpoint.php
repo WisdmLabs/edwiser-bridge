@@ -38,7 +38,11 @@ class Eb_External_Api_Endpoint {
 	public function external_api_endpoint_def( $request_data ) {
 
 		$data = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
-
+		if ( version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
+			$data          = unserialize( $data, array( 'allowed_classes' => false ) );
+		} else {
+			$data          = unserialize( $data );
+		}
 		$response_data = array();
 
 		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) ) {
@@ -46,41 +50,30 @@ class Eb_External_Api_Endpoint {
 
 			switch ( $action ) {
 				case 'test_connection':
-					$data          = unserialize( $data, array( 'token' ) );
 					$response_data = $this->eb_test_connection( $data );
 					break;
 
 				case 'course_enrollment':
-					$data          = unserialize( $data, array( 'user_id', 'course_id', 'user_name', 'first_name', 'last_name', 'email' ) );
 					$response_data = $this->eb_course_enrollment( $data, 0 );
 					break;
 
 				case 'course_un_enrollment':
-					error_log('data::'.print_r($data, 1));
-
-					$data          = unserialize( $data, array( 'user_id', 'course_id', 'user_name', 'first_name', 'last_name', 'email' ) );
-					
-					error_log('data::'.print_r($data, 1));
 					$response_data = $this->eb_course_enrollment( $data, 1 );
 					break;
 
 				case 'user_creation':
-					$data          = unserialize( $data, array( 'user_id', 'user_name', 'first_name', 'last_name', 'email', 'password', 'enc_iv' ) );
 					$response_data = $this->eb_trigger_user_creation( $data );
 					break;
 
 				case 'user_deletion':
-					$data          = unserialize( $data, array( 'user_id' ) );
 					$response_data = $this->eb_trigger_user_delete( $data );
 					break;
 
 				case 'user_updated':
-					$data          = unserialize( $data, array( 'user_id', 'first_name', 'last_name', 'email', 'country', 'city', 'phone', 'password', 'enc_iv' ) );
 					$response_data = $this->eb_trigger_user_update( $data );
 					break;
 
 				case 'course_deleted':
-					$data          = unserialize( $data, array( 'course_id' ) );
 					$response_data = $this->eb_trigger_course_delete( $data );
 					break;
 
