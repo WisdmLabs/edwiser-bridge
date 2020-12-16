@@ -125,9 +125,18 @@ class Eb_External_Api_Endpoint {
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+
 				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
-					$role       = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
-					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
+					$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
+
+					// Check if user is available with same email address.
+					$eb_user = get_user_by( 'email', $data['email'] );
+
+					if ( $eb_user && isset( $eb_user->ID ) ) {
+						$wp_user_id = $eb_user->ID;
+					} else {
+						$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
+					}
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
 				}
 
@@ -145,7 +154,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( is_array( $user_enrollment_meta ) && in_array( trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
+					if ( is_array( $user_enrollment_meta ) && in_array( (int) trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
 						return;
 					}
 
