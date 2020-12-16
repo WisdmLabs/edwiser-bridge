@@ -153,7 +153,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( is_array( $user_enrollment_meta ) && in_array( (int) trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
+					if ( is_array( $user_enrollment_meta ) && in_array( $wp_course_id, $user_enrollment_meta ) ) {
 						return;
 					}
 

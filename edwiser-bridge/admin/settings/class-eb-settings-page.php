@@ -53,7 +53,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @since  1.0.0
 		 */
 		public function addSettingsPage( $pages ) {
-			$this->add_settings_page( $pages );
+			return $this->add_settings_page( $pages );
 		}
 
 		/**
