@@ -161,18 +161,16 @@ class Eb_Emailer {
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow' );
-		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
-			if ( $user_email_tmpl_data ) {
-				$user               = get_user_by( 'id', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $args, 'buyer_id' ), '' );
-				$args['first_name'] = $user->first_name;
-				$args['last_name']  = $user->last_name;
-				$args['username']   = $user->user_login;
+		if ( false !== $allow_notify && 'ON' === $allow_notify && $user_email_tmpl_data ) {
+			$user               = get_user_by( 'id', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $args, 'buyer_id' ), '' );
+			$args['first_name'] = $user->first_name;
+			$args['last_name']  = $user->last_name;
+			$args['username']   = $user->user_login;
 
-				// CUSTOMIZATION HOOKS.
-				$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_user' );
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_user' );
 
-				$email_tmpl_obj->send_email( $user->user_email, $args, $user_email_tmpl_data );
-			}
+			$email_tmpl_obj->send_email( $user->user_email, $args, $user_email_tmpl_data );
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow' );
@@ -228,7 +226,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
 		$allow_notify    = get_option( 'eb_emailtmpl_create_user_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -277,7 +275,7 @@ class Eb_Emailer {
 		$allow_notify = get_option( 'eb_emailtmpl_linked_existing_wp_user_notify_allow' );
 
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -325,7 +323,7 @@ class Eb_Emailer {
 
 		// return if there is a problem in order details.
 		if ( ! $this->check_order_details( $order_detail ) ) {
-			return;
+			return false;
 		}
 
 		$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
@@ -358,7 +356,7 @@ class Eb_Emailer {
 
 		$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -407,7 +405,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 
 		if ( $email_tmpl_data ) {
@@ -447,7 +445,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -487,7 +485,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -507,10 +505,11 @@ class Eb_Emailer {
 	 * @param array $order_detail order_detail array.
 	 */
 	private function check_order_details( $order_detail ) {
+		$check_order_detials = false;
 		if ( ! isset( $order_detail['order_status'] ) || ! isset( $order_detail['buyer_id'] ) || ! isset( $order_detail['course_id'] ) ) {
-			return false;
+			$check_order_detials = false;
 		}
-		return true;
+		return $check_order_detials;
 	}
 
 

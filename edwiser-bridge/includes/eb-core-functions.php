@@ -45,10 +45,8 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 		$eb_general_settings = get_option( 'eb_general', array() );
 
 		$option_value = 0;
-		if ( '' !== trim( $option_key ) ) {
-			if ( isset( $eb_general_settings[ $option_key ] ) ) {
+		if ( '' !== trim( $option_key ) && isset( $eb_general_settings[ $option_key ] ) ) {
 				$option_value = $eb_general_settings[ $option_key ];
-			}
 		}
 
 		if ( $option_value > 0 && get_post( $option_value ) ) {

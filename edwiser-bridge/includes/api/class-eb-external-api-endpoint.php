@@ -125,7 +125,6 @@ class Eb_External_Api_Endpoint {
 			if ( $wp_course_id ) {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
-
 				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
 					$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 

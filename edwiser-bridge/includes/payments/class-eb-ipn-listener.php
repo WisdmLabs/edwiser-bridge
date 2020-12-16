@@ -157,17 +157,17 @@ class Eb_Ipn_Listener {
 		);
 
 		// Post back to get a response.
-		$response = wp_safe_remote_post( $uri, $params );
+		$resp = wp_safe_remote_post( $uri, $params );
 
 		$this->response_status = strval( wp_remote_retrieve_response_code( $response ) );
-		$this->response        = $response['body'];
+		$this->response        = $resp['body'];
 
-		if ( is_wp_error( $response ) ) {
-			$errstr = $response->get_error_message();
+		if ( is_wp_error( $resp ) ) {
+			$errstr = $resp->get_error_message();
 			throw new \Exception( "cURL error: $errstr" );
-		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ) {
+		} elseif ( 200 === wp_remote_retrieve_response_code( $resp ) ) {
 			// Set responce here.
-			$this->response = $response['body'];
+			$this->response = $resp['body'];
 
 		} else {
 			throw new \Exception( 'cURL error: Failed to retrieve response.' );
