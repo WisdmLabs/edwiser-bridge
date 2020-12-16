@@ -248,76 +248,85 @@ class Eb_External_Api_Endpoint {
 	 * @param  string $user_p    password.
 	 */
 	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
+		$uc_status = new \WP_Error(
+			'registration-error',
+			esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
+			'eb_email_exists'
+		);
 		if ( email_exists( $email ) ) {
-			return new \WP_Error(
+			$uc_status = new \WP_Error(
 				'registration-error',
 				esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
 				'eb_email_exists'
 			);
+		} else {
+
+			// Ensure username is unique.
+			$append     = 1;
+			$o_username = $username;
+
+			while ( username_exists( $username ) ) {
+				$username = $o_username . $append;
+				++$append;
+			}
+
+			if ( empty( $user_p ) ) {
+				// Handle password creation.
+				$user_p = wp_generate_password();
+			}
+
+			// WP Validation.
+			$validation_errors = new \WP_Error();
+
+			if ( $validation_errors->get_error_code() ) {
+				$uc_status = $validation_errors;
+			} else {
+
+				// Added after 1.3.4.
+				if ( '' === $role ) {
+					$role = get_option( 'default_role' );
+				}
+
+				$wp_user_data = apply_filters(
+					'eb_new_user_data',
+					array(
+						'user_login' => $username,
+						'user_pass'  => $user_p,
+						'user_email' => $email,
+						'role'       => $role,
+					)
+				);
+
+				$user_id = wp_insert_user( $wp_user_data );
+
+				if ( is_wp_error( $user_id ) ) {
+					$uc_status = new \WP_Error(
+						'registration-error',
+						'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
+						esc_html__(
+							'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
+							'eb-textdomain'
+						)
+					);
+				} else {
+
+					// update firstname, lastname.
+					update_user_meta( $user_id, 'first_name', $firstname );
+					update_user_meta( $user_id, 'last_name', $lastname );
+
+					$args = array(
+						'user_email' => $email,
+						'username'   => $username,
+						'first_name' => $firstname,
+						'last_name'  => $lastname,
+						'password'   => $user_p,
+					);
+					do_action( 'eb_created_user', $args );
+					$uc_status = $user_id;
+				}
+			}
 		}
-
-		// Ensure username is unique.
-		$append     = 1;
-		$o_username = $username;
-
-		while ( username_exists( $username ) ) {
-			$username = $o_username . $append;
-			++$append;
-		}
-
-		if ( empty( $user_p ) ) {
-			// Handle password creation.
-			$user_p = wp_generate_password();
-		}
-
-		// WP Validation.
-		$validation_errors = new \WP_Error();
-
-		if ( $validation_errors->get_error_code() ) {
-			return $validation_errors;
-		}
-
-		// Added after 1.3.4.
-		if ( '' === $role ) {
-			$role = get_option( 'default_role' );
-		}
-
-		$wp_user_data = apply_filters(
-			'eb_new_user_data',
-			array(
-				'user_login' => $username,
-				'user_pass'  => $user_p,
-				'user_email' => $email,
-				'role'       => $role,
-			)
-		);
-
-		$user_id = wp_insert_user( $wp_user_data );
-
-		if ( is_wp_error( $user_id ) ) {
-			return new \WP_Error(
-				'registration-error',
-				'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
-				esc_html__(
-					'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-					'eb-textdomain'
-				)
-			);
-		}
-
-		// update firstname, lastname.
-		update_user_meta( $user_id, 'first_name', $firstname );
-		update_user_meta( $user_id, 'last_name', $lastname );
-
-		$args = array(
-			'user_email' => $email,
-			'username'   => $username,
-			'first_name' => $firstname,
-			'last_name'  => $lastname,
-			'password'   => $user_p,
-		);
-		do_action( 'eb_created_user', $args );
-		return $user_id;
+		return $uc_status;
 	}
 
 

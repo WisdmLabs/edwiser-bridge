@@ -151,7 +151,7 @@ class Eb_Enrollment_Manager {
 
 		// exit if no associated moodle user found.
 		if ( ! is_numeric( $moodle_user_id ) ) {
-			return;
+			return false;
 		}
 
 		// get moodle course id of each course.

@@ -320,70 +320,67 @@ class Eb_Emailer {
 	public function send_order_completion_email( $order_id ) {
 
 		$order_detail = get_post_meta( $order_id, 'eb_order_options', true ); // get order details.
-
+		$is_mailed = false;
 		// return if there is a problem in order details.
-		if ( ! $this->check_order_details( $order_detail ) ) {
-			return false;
+		if ( $this->check_order_details( $order_detail ) ) {
+			$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
+			$args         = array(); // arguments array for email.
+
+			$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
+			$this->plugin_template_loader = new EbTemplateLoader(
+				$this->plugin_name,
+				$this->version
+			); // template loader object.
+
+			// prepare arguments array for email.
+			$args = apply_filters(
+				'eb_filter_email_parameters',
+				array(
+					'eb_order_id' => $order_id, // changed 1.4.7.
+					'course_id'   => $order_detail['course_id'],
+					'user_email'  => $buyer_detail->user_email,
+					'username'    => $buyer_detail->user_login,
+					'first_name'  => isset( $buyer_detail->first_name ) ? $buyer_detail->first_name : '',
+					'last_name'   => isset( $buyer_detail->last_name ) ? $buyer_detail->last_name : '',
+				),
+				$this->template_name
+			);
+
+			/**
+			 * Using Email template Editor
+			 */
+			$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
+
+			$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
+			if ( true === $allow_notify || 'ON' === $allow_notify ) {
+				if ( $email_tmpl_data ) {
+					$email_tmpl_obj = new EBAdminEmailTemplate();
+					// CUSTOMIZATION HOOKS.
+					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
+
+					$is_mailed = $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
+				} else {
+
+					/**
+					 * Using Default
+					 */
+					$email_subject  = apply_filters(
+						'eb_order_completion_email_subject',
+						esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
+					);
+					$args['header'] = $email_subject; // send email subject as header in email template.
+					$email_content  = $this->get_content_html( $args );
+					$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
+
+					// CUSTOMIZATION HOOKS.
+					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
+
+					// send email.
+					$is_mailed = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
+				}
+			}
 		}
-
-		$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
-		$args         = array(); // arguments array for email.
-
-		$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
-		$this->plugin_template_loader = new EbTemplateLoader(
-			$this->plugin_name,
-			$this->version
-		); // template loader object.
-
-		// prepare arguments array for email.
-		$args = apply_filters(
-			'eb_filter_email_parameters',
-			array(
-				'eb_order_id' => $order_id, // changed 1.4.7.
-				'course_id'   => $order_detail['course_id'],
-				'user_email'  => $buyer_detail->user_email,
-				'username'    => $buyer_detail->user_login,
-				'first_name'  => isset( $buyer_detail->first_name ) ? $buyer_detail->first_name : '',
-				'last_name'   => isset( $buyer_detail->last_name ) ? $buyer_detail->last_name : '',
-			),
-			$this->template_name
-		);
-
-		/**
-		 * Using Email template Editor
-		 */
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
-
-		$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
-		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return false;
-		}
-		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
-			// CUSTOMIZATION HOOKS.
-			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
-
-			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
-		}
-
-		/**
-		 * Using Default
-		 */
-		$email_subject  = apply_filters(
-			'eb_order_completion_email_subject',
-			esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
-		);
-		$args['header'] = $email_subject; // send email subject as header in email template.
-		$email_content  = $this->get_content_html( $args );
-		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
-
-		// CUSTOMIZATION HOOKS.
-		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
-
-		// send email.
-		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
-
-		return $sent;
+		return $is_mailed;
 	}
 
 
