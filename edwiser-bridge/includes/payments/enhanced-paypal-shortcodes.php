@@ -377,7 +377,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$pixel_url  = 'https://www.paypal.com/en_US/i/scr/pixel.gif';
 				$button_url = 'https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
 
-				if ( '1' === $atts['sandbox'] ) {
+				if ( 'yes' === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 					$pixel_url  = 'https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif';
 					$button_url = 'https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
@@ -546,7 +546,8 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					$code .= 'margin-bottom: 10px;';
 				}
 				$paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-				if ( 1 === $atts['sandbox'] ) {
+
+				if ( 'yes' === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 				}
 
@@ -755,6 +756,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= 'margin-bottom: 10px;';
 				}
+
 				$code .= '"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="hosted_button_id" value="' . $atts['buttonid'] . '">
