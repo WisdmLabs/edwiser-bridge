@@ -20,7 +20,7 @@ class Eb_Admin_Notice_Handler {
 	 * Check if installed.
 	 */
 	public function check_if_moodle_plugin_installed() {
-		$plugin_installed = 1;
+		$plugin_installed   = 1;
 		$connection_options = get_option( 'eb_connection' );
 		$eb_moodle_url      = '';
 		if ( isset( $connection_options['eb_url'] ) ) {

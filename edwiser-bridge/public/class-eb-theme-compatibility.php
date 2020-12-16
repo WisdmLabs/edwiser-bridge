@@ -35,7 +35,7 @@ class Eb_Theme_Compatibility {
 				echo '<div>';
 				break;
 		}
-
+		unset( $wrapper_args );
 	}
 
 	/**

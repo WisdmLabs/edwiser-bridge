@@ -127,8 +127,7 @@ class Eb_Shortcode_User_Account {
 	 */
 	public static function get_user_orders( $user_id ) {
 		$user_orders = array();
-		// $user_id;
-		// get all completed orders of a user
+		// get all completed orders of a user.
 		$args           = array(
 			'posts_per_page' => -1,
 			'meta_key'       => '',

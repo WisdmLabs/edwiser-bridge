@@ -24,7 +24,8 @@
 			)
 		);
 	} else {
-		$labels = $eb_shortcode_obj->get_user_account_navigation_items();
+		$labels      = $eb_shortcode_obj->get_user_account_navigation_items();
+		$active_link = isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : ''; // WPCS: input var okay, CSRF ok.
 		?>
 		<div class="eb-user-account-navigation">
 			<div>
@@ -35,7 +36,7 @@
 					$tab_url   = add_query_arg( 'eb-active-link', $nav_href, get_permalink() );
 					$tab_url   = add_query_arg( 'eb_user_account_nav_nonce', wp_create_nonce( 'eb_user_account_nav_nonce' ), $tab_url );
 					$css_class = 'eb-user-account-navigation-link';
-					if ( isset( $_GET['eb-active-link'] ) && sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) === $nav_href ) { // WPCS: input var okay, CSRF ok.
+					if ( $active_link === $nav_href ) {
 						$css_class .= ' eb-active-profile-nav';
 					}
 					?>
@@ -49,8 +50,8 @@
 		</div>
 		<div class="eb-user-account-content">
 			<?php
-			if ( isset( $_GET['eb-active-link'] ) ) { // WPCS: input var okay, CSRF ok.
-				$eb_shortcode_obj->get_user_account_content( sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ), $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader ); // WPCS: input var okay, CSRF ok.
+			if ( '' !== $active_link ) {
+				$eb_shortcode_obj->get_user_account_content( $active_link, $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader ); // WPCS: input var okay, CSRF ok.
 			} else {
 				$template_loader->wp_get_template(
 					'account/user-data.php',

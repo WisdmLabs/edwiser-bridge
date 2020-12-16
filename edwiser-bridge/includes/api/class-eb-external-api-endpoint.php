@@ -39,9 +39,9 @@ class Eb_External_Api_Endpoint {
 
 		$data = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
 		if ( version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
-			$data          = unserialize( $data, array( 'allowed_classes' => false ) );
+			$data = unserialize( $data, array( 'allowed_classes' => false ) );
 		} else {
-			$data          = unserialize( $data );
+			$data = unserialize( $data );
 		}
 		$response_data = array();
 

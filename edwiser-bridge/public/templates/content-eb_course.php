@@ -137,12 +137,10 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 					echo '<p class="entry-content">' . esc_html( $short_description ) . '</p>';
 				}
 
-				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses ) {
-					if ( 'paid' === $course_price_type || 'free' === $course_price_type ) {
+				if ( 'eb_course' === $post->post_type && ! $is_eb_my_courses && ( 'paid' === $course_price_type || 'free' === $course_price_type ) ) {
 						echo '<div class="wdm-price ' . wp_kses_post( $course_price_type ) . '">';
 						echo wp_kses_post( $course_price_formatted, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 						echo '</div>';
-					}
 				}
 
 				if ( isset( $show_progress ) && 1 === $show_progress ) {
