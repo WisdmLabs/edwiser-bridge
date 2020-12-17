@@ -426,7 +426,7 @@ class EBUserManager {
 
 				// Handle password creation.
 				$user_p = wp_generate_password();
-				// WP Validation
+				// WP Validation.
 				$validation_errors = new \WP_Error();
 
 				do_action( 'eb_register_post', $username, $email, $validation_errors );

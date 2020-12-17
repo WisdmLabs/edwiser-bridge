@@ -104,7 +104,7 @@ if ( ! function_exists( 'wdm_eb_update_page_id' ) ) {
 	 * @param string $eb_general_settings eb_general_settings.
 	 */
 	function wdm_eb_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
-		if ( !empty( $option_key ) ) {
+		if ( ! empty( $option_key ) ) {
 			$eb_general_settings[ $option_key ] = $_id;
 			update_option( 'eb_general', $eb_general_settings );
 		}
@@ -333,7 +333,7 @@ if ( ! function_exists( 'wdm_eb_update_order_hist_meta' ) ) {
 		}
 		$new_hist = array(
 			'by'   => $updated_by,
-			'time' => current_time( 'timestamp' ),
+			'time' => current_time( 'Y-m-d' ),
 			'note' => $note,
 		);
 

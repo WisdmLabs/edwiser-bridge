@@ -123,7 +123,7 @@ class Eb_Order_Status {
 	private function get_status_update_note( $order_id, $data ) {
 		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
 		$order_data = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $data, 'eb_order_options', false );
-		$note = array();
+		$note       = array();
 		if ( false !== $order_data ) {
 			$old_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_detail, 'order_status', false );
 			$new_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $order_data, 'order_status', false );
@@ -186,7 +186,7 @@ class Eb_Order_Status {
 		$refund   = array(
 			'amt'      => $refund_amt,
 			'by'       => $cur_user->user_login,
-			'time'     => current_time( 'timestamp' ),
+			'time'     => current_time( 'Y-m-d' ),
 			'currency' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_current_paypal_currency_symb(),
 		);
 		if ( is_array( $refunds ) ) {

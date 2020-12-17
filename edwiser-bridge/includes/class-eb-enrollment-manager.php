@@ -356,9 +356,7 @@ class Eb_Enrollment_Manager {
 					// Set timezone.
 
 					// New code for time.
-					$current_date_time_obj = current_datetime();
-					$current_date          = $current_date_time_obj->format( 'Y-m-d H:i:s' );
-					$expire_date           = $this->calc_course_acess_expiry_date( $course_id );
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
 
 					$wpdb->insert(
 						$wpdb->prefix . 'moodle_enrollment',
@@ -366,7 +364,7 @@ class Eb_Enrollment_Manager {
 							'user_id'     => $args['user_id'],
 							'course_id'   => $course_id,
 							'role_id'     => $role_id,
-							'time'        => $current_date,
+							'time'        => gmdate( 'Y-m-d H:i:s' ),
 							'expire_time' => $expire_date,
 							'act_cnt'     => 1,
 						),
