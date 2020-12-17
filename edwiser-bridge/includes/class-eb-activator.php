@@ -91,8 +91,8 @@ class Eb_Activator {
 				$all_sites = get_sites();
 
 				foreach ( $all_sites as $blog ) {
-					switch_to_blog( $blog['blog_id'] );
-
+					$blog_id = is_array( $blog ) ? $blog['blog_id'] : $blog->blog_id;
+					switch_to_blog( $blog_id );
 					self::create_moodle_db_tables();
 					self::create_pages();
 					self::create_default_email_tempaltes();
