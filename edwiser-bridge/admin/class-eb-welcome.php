@@ -320,7 +320,7 @@ class Eb_Welcome {
 		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
-		$wc_url = admin_url( '/?page=eb-about&subscribed=' . $subscribed ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+		$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
 
 		wp_safe_redirect( $wc_url );
 		exit;
