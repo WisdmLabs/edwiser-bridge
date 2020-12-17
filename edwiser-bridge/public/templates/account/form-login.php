@@ -12,8 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-
-if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
+if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 	return;
 }
 
@@ -28,7 +27,9 @@ do_action( 'eb_before_customer_login_form' );
 ?>
 <div id="user_login">
 	<?php
+
 	\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
+
 	if ( ! $eb_action || 'eb_register' !== $eb_action ) {
 		?>
 		<h2>
