@@ -971,7 +971,7 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_scripts' );
 
 		// Template loader hooks.
-		$this->loader->eb_add_filter( 'template_include', $template_loader, 'template_loader' );
+		$this->loader->eb_add_filter( 'template_include', $template_loader, 'template_loader', 10 );
 
 		// Initiate our shortcodes class on init hook.
 		$this->loader->eb_add_action( 'init', 'app\wisdmlabs\edwiserBridge\Eb_Shortcodes', 'init' );

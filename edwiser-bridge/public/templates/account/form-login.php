@@ -23,6 +23,7 @@ $username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_PO
 // check if registration enabled.
 $general_settings    = get_option( 'eb_general' );
 $enable_registration = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
+
 do_action( 'eb_before_customer_login_form' );
 ?>
 <div id="user_login">

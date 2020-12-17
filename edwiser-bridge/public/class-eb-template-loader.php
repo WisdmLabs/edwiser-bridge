@@ -75,11 +75,11 @@ class EbTemplateLoader {
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
+
 			if ( ! $template ) {
-				$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
+				$template = ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
 			}
 		}
-
 		return $template;
 	}
 
