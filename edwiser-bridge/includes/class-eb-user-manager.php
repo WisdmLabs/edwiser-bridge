@@ -723,6 +723,7 @@ class EBUserManager {
 		}
 		// prepare request data.
 		$request_data = array( 'users' => $users );
+
 		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
 			$webservice_function,
 			$request_data

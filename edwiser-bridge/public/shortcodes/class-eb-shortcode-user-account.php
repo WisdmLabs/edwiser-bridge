@@ -211,9 +211,9 @@ class Eb_Shortcode_User_Account {
 		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
 		$nick_name   = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : '';
 		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_email( wp_unslash( $_POST['curr_psw'] ) ) : '';
-		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_email( wp_unslash( $_POST['new_psw'] ) ) : '';
-		$confirm_psw = isset( $_POST['confirm_psw'] ) ? sanitize_email( wp_unslash( $_POST['confirm_psw'] ) ) : '';
+		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['curr_psw'] ) ) : '';
+		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['new_psw'] ) ) : '';
+		$confirm_psw = isset( $_POST['confirm_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['confirm_psw'] ) ) : '';
 		$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
 		$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
 		$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
@@ -329,12 +329,14 @@ class Eb_Shortcode_User_Account {
 				'country'       => $posted_data['country'] ? $posted_data['country'] : '',
 				'description'   => $posted_data['description'],
 			);
+
 			if ( isset( $posted_data['new_psw'] ) && ! empty( $posted_data['new_psw'] ) ) {
 				$user_data['password'] = $posted_data['new_psw'];
 			}
 
 			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
 			$user_manager = new EBUserManager( 'edwiserbridge', $version );
+
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {
 				return true;
