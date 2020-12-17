@@ -158,8 +158,6 @@ if ( ! function_exists( 'wdm_eb_user_account_url' ) ) {
 			$usr_ac_page_url = site_url( '/user-account' );
 		}
 
-		$usr_ac_page_url = add_query_arg( array( 'action' => 'eb_register' ), $usr_ac_page_url );
-
 		$usr_ac_page_url = add_query_arg( $args, $usr_ac_page_url );
 
 		return $usr_ac_page_url;

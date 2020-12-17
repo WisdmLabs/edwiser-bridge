@@ -90,6 +90,9 @@ do_action( 'eb_before_customer_login_form' );
 					if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
 						$arg_list = array( 'is_enroll' => sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) ) );
 					}
+
+					$arg_list['action'] = 'eb_register';
+
 					?>
 					<p class="register-link form-row">
 

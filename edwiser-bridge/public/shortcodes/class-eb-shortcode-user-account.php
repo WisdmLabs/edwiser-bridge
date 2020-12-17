@@ -209,6 +209,7 @@ class Eb_Shortcode_User_Account {
 
 		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
 		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+		$nick_name   = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : '';
 		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_email( wp_unslash( $_POST['curr_psw'] ) ) : '';
 		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_email( wp_unslash( $_POST['new_psw'] ) ) : '';
@@ -220,6 +221,7 @@ class Eb_Shortcode_User_Account {
 		$posted_data = array(
 			'first_name'  => $first_name,
 			'last_name'   => $last_name,
+			'nickname'    => $nick_name,
 			'email'       => $email,
 			'curr_psw'    => $curr_psw,
 			'new_psw'     => $new_psw,
