@@ -582,7 +582,7 @@ class Eb_Post_Types {
 	 * @return bool returns true
 	 */
 	public function handle_post_options_save( $post_id ) {
-		$fields = array();
+		$fields      = array();
 		$save_status = true;
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			$save_status = false;

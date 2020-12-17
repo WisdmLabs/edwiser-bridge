@@ -212,7 +212,7 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 = 2.0.3 =
-* Tweak - Added security checks and removed use of extract function.
+* Tweak - Removed defines and Added security checks.
 
 = 2.0.2 =
 * Tweak - Solved connection settings save issue.
