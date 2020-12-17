@@ -205,6 +205,9 @@ class EbTemplateLoader {
 			if ( isset( $args['user_meta'] ) ) {
 				$user_meta = $args['user_meta'];
 			}
+			if ( isset( $args['product_id'] ) ) {
+				$product_id = $args['product_id'];
+			}
 		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );

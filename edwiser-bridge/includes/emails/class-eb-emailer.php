@@ -318,11 +318,12 @@ class Eb_Emailer {
 	 * @return bool
 	 */
 	public function send_order_completion_email( $order_id ) {
-
 		$order_detail = get_post_meta( $order_id, 'eb_order_options', true ); // get order details.
-		$is_mailed = false;
+		$is_mailed    = false;
+
 		// return if there is a problem in order details.
 		if ( $this->check_order_details( $order_detail ) ) {
+
 			$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
 			$args         = array(); // arguments array for email.
 
@@ -360,7 +361,6 @@ class Eb_Emailer {
 
 					$is_mailed = $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
 				} else {
-
 					/**
 					 * Using Default
 					 */
@@ -502,7 +502,8 @@ class Eb_Emailer {
 	 * @param array $order_detail order_detail array.
 	 */
 	private function check_order_details( $order_detail ) {
-		$check_order_detials = false;
+		$check_order_detials = true;
+
 		if ( ! isset( $order_detail['order_status'] ) || ! isset( $order_detail['buyer_id'] ) || ! isset( $order_detail['course_id'] ) ) {
 			$check_order_detials = false;
 		}

@@ -121,7 +121,6 @@ class Eb_Enrollment_Manager {
 	 * @param bool  $role_id false.
 	 */
 	public function update_user_course_enrollment( $args, $role_id = '5' ) {
-
 		$defaults = array(
 			'user_id'           => 0,
 			'role_id'           => $role_id,

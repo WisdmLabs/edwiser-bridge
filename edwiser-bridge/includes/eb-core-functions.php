@@ -104,7 +104,7 @@ if ( ! function_exists( 'wdm_eb_update_page_id' ) ) {
 	 * @param string $eb_general_settings eb_general_settings.
 	 */
 	function wdm_eb_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
-		if ( '' === $option_value && '' !== trim( $option_key ) ) {
+		if ( !empty( $option_key ) ) {
 			$eb_general_settings[ $option_key ] = $_id;
 			update_option( 'eb_general', $eb_general_settings );
 		}
