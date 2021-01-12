@@ -44,7 +44,5 @@ class Eb_Course_Progress {
 			update_user_meta( $user_id, 'moodle_course_progress', serialize( $course_progress_array ) );
 			return $course_progress_array;
 		}
-			// }
-		// }
 	}
 }

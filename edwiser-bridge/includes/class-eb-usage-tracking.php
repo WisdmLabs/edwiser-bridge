@@ -185,6 +185,7 @@ class EB_Usage_Tracking {
 		if ( is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
 			$settings['woo_int']['general'] = get_option( 'eb_woo_int_settings' );
 		}
+		unset( $plugin );
 
 		return $settings;
 	}

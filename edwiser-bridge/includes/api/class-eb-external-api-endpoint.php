@@ -29,7 +29,8 @@ class Eb_External_Api_Endpoint {
 		);
 	}
 
-	/**
+
+/**
 	 * Functionality to validate the secret key from Moodle with WP.
 	 *
 	 * @param  text $request_data request Data.
@@ -136,8 +137,16 @@ class Eb_External_Api_Endpoint {
 				$mdl_user_id = $data['user_id'];
 				$wp_user_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 				if ( ! $wp_user_id && empty( $wp_user_id ) && 0 === $un_enroll ) {
-					$role       = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
-					$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
+					$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
+
+					// Check if user is available with same email address.
+					$eb_user = get_user_by( 'email', $data['email'] );
+
+					if ( $eb_user && isset( $eb_user->ID ) ) {
+						$wp_user_id = $eb_user->ID;
+					} else {
+						$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
+					}
 					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
 				}
 
@@ -155,7 +164,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( is_array( $user_enrollment_meta ) && in_array( trim( $wp_course_id ), $user_enrollment_meta, true ) ) {
+					if ( is_array( $user_enrollment_meta ) && in_array( $wp_course_id, $user_enrollment_meta ) ) {
 						return;
 					}
 
@@ -250,76 +259,85 @@ class Eb_External_Api_Endpoint {
 	 * @param  string $user_p    password.
 	 */
 	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
+		$uc_status = new \WP_Error(
+			'registration-error',
+			esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
+			'eb_email_exists'
+		);
 		if ( email_exists( $email ) ) {
-			return new \WP_Error(
+			$uc_status = new \WP_Error(
 				'registration-error',
 				esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
 				'eb_email_exists'
 			);
+		} else {
+
+			// Ensure username is unique.
+			$append     = 1;
+			$o_username = $username;
+
+			while ( username_exists( $username ) ) {
+				$username = $o_username . $append;
+				++$append;
+			}
+
+			if ( empty( $user_p ) ) {
+				// Handle password creation.
+				$user_p = wp_generate_password();
+			}
+
+			// WP Validation.
+			$validation_errors = new \WP_Error();
+
+			if ( $validation_errors->get_error_code() ) {
+				$uc_status = $validation_errors;
+			} else {
+
+				// Added after 1.3.4.
+				if ( '' === $role ) {
+					$role = get_option( 'default_role' );
+				}
+
+				$wp_user_data = apply_filters(
+					'eb_new_user_data',
+					array(
+						'user_login' => $username,
+						'user_pass'  => $user_p,
+						'user_email' => $email,
+						'role'       => $role,
+					)
+				);
+
+				$user_id = wp_insert_user( $wp_user_data );
+
+				if ( is_wp_error( $user_id ) ) {
+					$uc_status = new \WP_Error(
+						'registration-error',
+						'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
+						esc_html__(
+							'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
+							'eb-textdomain'
+						)
+					);
+				} else {
+
+					// update firstname, lastname.
+					update_user_meta( $user_id, 'first_name', $firstname );
+					update_user_meta( $user_id, 'last_name', $lastname );
+
+					$args = array(
+						'user_email' => $email,
+						'username'   => $username,
+						'first_name' => $firstname,
+						'last_name'  => $lastname,
+						'password'   => $user_p,
+					);
+					do_action( 'eb_created_user', $args );
+					$uc_status = $user_id;
+				}
+			}
 		}
-
-		// Ensure username is unique.
-		$append     = 1;
-		$o_username = $username;
-
-		while ( username_exists( $username ) ) {
-			$username = $o_username . $append;
-			++$append;
-		}
-
-		if ( empty( $user_p ) ) {
-			// Handle password creation.
-			$user_p = wp_generate_password();
-		}
-
-		// WP Validation.
-		$validation_errors = new \WP_Error();
-
-		if ( $validation_errors->get_error_code() ) {
-			return $validation_errors;
-		}
-
-		// Added after 1.3.4.
-		if ( '' === $role ) {
-			$role = get_option( 'default_role' );
-		}
-
-		$wp_user_data = apply_filters(
-			'eb_new_user_data',
-			array(
-				'user_login' => $username,
-				'user_pass'  => $user_p,
-				'user_email' => $email,
-				'role'       => $role,
-			)
-		);
-
-		$user_id = wp_insert_user( $wp_user_data );
-
-		if ( is_wp_error( $user_id ) ) {
-			return new \WP_Error(
-				'registration-error',
-				'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
-				esc_html__(
-					'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-					'eb-textdomain'
-				)
-			);
-		}
-
-		// update firstname, lastname.
-		update_user_meta( $user_id, 'first_name', $firstname );
-		update_user_meta( $user_id, 'last_name', $lastname );
-
-		$args = array(
-			'user_email' => $email,
-			'username'   => $username,
-			'first_name' => $firstname,
-			'last_name'  => $lastname,
-			'password'   => $user_p,
-		);
-		do_action( 'eb_created_user', $args );
-		return $user_id;
+		return $uc_status;
 	}
 
 
@@ -353,36 +371,35 @@ class Eb_External_Api_Endpoint {
 	 * @param text $data data.
 	 */
 	public function eb_trigger_user_update( $data ) {
-		if ( isset( $data['user_id'] ) && ! empty( $data['user_id'] ) ) {
-			// get WP User id if present then process.
-			$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
-			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 
-			if ( ! empty( $wp_user_id ) ) {
-				// get fields.
-				$user_update_array = array(
-					'ID'         => $wp_user_id,
-					'first_name' => $data['first_name'],
-					'last_name'  => $data['last_name'],
-				);
+		// get WP User id if present then process.
+		$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 
-				// if password is present then decode with key.
+		if ( ! empty( $wp_user_id ) ) {
+			// get fields.
+			$user_update_array = array(
+				'ID'         => $wp_user_id,
+				'first_name' => $data['first_name'],
+				'last_name'  => $data['last_name'],
+			);
 
-				if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
+			// if password is present then decode with key.
 
-					$enc_method = 'AES-128-CTR';
-					$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
-					$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
-					$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
-					$user_update_array['user_pass'] = $user_p;
-				}
+				$enc_method = 'AES-128-CTR';
+				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
-				$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );
-
-				// Update password and fields.
-				wp_update_user( $user_update_array );
+				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
+				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$user_update_array['user_pass'] = $user_p;
 			}
+
+			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );
+
+			// Update password and fields.
+			wp_update_user( $user_update_array );
 		}
 	}
 }

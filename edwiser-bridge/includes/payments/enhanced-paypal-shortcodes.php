@@ -31,253 +31,253 @@
  */
 
 /**
-* Parameters for Shortcode for all Paypal buttons
-* type = paynow, subscribe, addtocart or hosted
+ * Parameters for Shortcode for all Paypal buttons
+ * type = paynow, subscribe, addtocart or hosted
 
-*  For Hosted Buttons:
-*  buttonid = the button id number from your paypal code
+ *  For Hosted Buttons:
+ *  buttonid = the button id number from your paypal code
 
-*  For All Button Types:
-*  imageurl = The location of the image for the button.
-*  Use full web address for the image - e.g http://domainname.com/mybuynowbutton.jpg.
-*  Default is https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif
+ *  For All Button Types:
+ *  imageurl = The location of the image for the button.
+ *  Use full web address for the image - e.g http://domainname.com/mybuynowbutton.jpg.
+ *  Default is https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif
 
-*  imagewidth = the width of the paypal image
+ *  imagewidth = the width of the paypal image
 
-*  For PayNow, Subscribe and Add To Cart Buttons:
+ *  For PayNow, Subscribe and Add To Cart Buttons:
 
-*  email = the email address of the paypal account
+ *  email = the email address of the paypal account
 
-*  itemno = A unique identifier for your product / service
+ *  itemno = A unique identifier for your product / service
 
-*  name = Description of product / service
+ *  name = Description of product / service
 
-*  noshipping = Prompt for Shipping address
-*  0 is prompt, but don't require
-*  1 is don't prompt
-*  2 is prompt and require the shipping address
-*  defaults to 0
+ *  noshipping = Prompt for Shipping address
+ *  0 is prompt, but don't require
+ *  1 is don't prompt
+ *  2 is prompt and require the shipping address
+ *  defaults to 0
 
-*  nonote = Prompt payers to include a note (Paynow buttons only)
-*  0 is show the note box and prompt the user
-*  1 is hide the note box and do not prompt the user
-*  defaults to 0
+ *  nonote = Prompt payers to include a note (Paynow buttons only)
+ *  0 is show the note box and prompt the user
+ *  1 is hide the note box and do not prompt the user
+ *  defaults to 0
 
-*  currencycode = The currency for the transaction
-*  Australian Dollar AUD
-*  Canadian Dollar CAD
-*  Czech Koruna CZK
-*  Danish Krone DKK
-*  Euro EUR
-*  Hong Kong Dollar HKD
-*  Hungarian Forint HUF
-*  Israeli New Sheqel ILS
-*  Japanese Yen JPY
-*  Mexican Peso MXN
-*  Norwegian Krone NOK
-*  New Zealand Dollar NZD
-*  Polish Zloty PLN
-*  Pound Sterling GBP
-*  Singapore Dollar SGD
-*  Swedish Krona SEK
-*  Swiss Franc CHF
-*  U.S. Dollar USD
-*  Default is USD
+ *  currencycode = The currency for the transaction
+ *  Australian Dollar AUD
+ *  Canadian Dollar CAD
+ *  Czech Koruna CZK
+ *  Danish Krone DKK
+ *  Euro EUR
+ *  Hong Kong Dollar HKD
+ *  Hungarian Forint HUF
+ *  Israeli New Sheqel ILS
+ *  Japanese Yen JPY
+ *  Mexican Peso MXN
+ *  Norwegian Krone NOK
+ *  New Zealand Dollar NZD
+ *  Polish Zloty PLN
+ *  Pound Sterling GBP
+ *  Singapore Dollar SGD
+ *  Swedish Krona SEK
+ *  Swiss Franc CHF
+ *  U.S. Dollar USD
+ *  Default is USD
 
-*  rm = The return method. This will only work if returnurl is also set.
-*  This variable is often required by membership type software
-*  0 – all shopping cart transactions use the GET method
-*  1 – the payer’s browser is redirected to the return URL by the GET method,
-*  and no transaction variables are sent
-*  2 – the payer’s browser is redirected to the return URL by the POST method,
-*  and all transaction variables are also posted
-*  The default is 0.
+ *  rm = The return method. This will only work if returnurl is also set.
+ *  This variable is often required by membership type software
+ *  0 – all shopping cart transactions use the GET method
+ *  1 – the payer’s browser is redirected to the return URL by the GET method,
+ *  and no transaction variables are sent
+ *  2 – the payer’s browser is redirected to the return URL by the POST method,
+ *  and all transaction variables are also posted
+ *  The default is 0.
 
-*  notifyurl = The URL to send payment advice too. Often required for IPN or other notifications
-*  If this parameter is not used, no notifyurl value is added to the button
+ *  notifyurl = The URL to send payment advice too. Often required for IPN or other notifications
+ *  If this parameter is not used, no notifyurl value is added to the button
 
-*  returnurl = The URL to which the payer’s browser is redirected after completing the payment;
-*  for example, a URL on your site that displays a “Thank you for your payment” page.
-*  Default – The browser is redirected to a PayPal web page.
+ *  returnurl = The URL to which the payer’s browser is redirected after completing the payment;
+ *  for example, a URL on your site that displays a “Thank you for your payment” page.
+ *  Default – The browser is redirected to a PayPal web page.
 
-*  cancelurl = The URL to which the payer’s browser is redirected
-*  if the purchaser cancels the payment transaction before completing the process
+ *  cancelurl = The URL to which the payer’s browser is redirected
+ *  if the purchaser cancels the payment transaction before completing the process
 
-*  scriptcode = the link to any script code that you may need to include.
-*  e.g For Jrox JAM, some script code is added to the paypal buttons. Usage /foldername/scriptcode.php
-*  If this parameter is not used, no notifyurl value is added to the button
+ *  scriptcode = the link to any script code that you may need to include.
+ *  e.g For Jrox JAM, some script code is added to the paypal buttons. Usage /foldername/scriptcode.php
+ *  If this parameter is not used, no notifyurl value is added to the button
 
-*  pagestyle = The custom payment page style for checkout pages. Allowable values:
-*  paypal – use the PayPal page style
-*  primary – use the page style that you marked as primary in your account profile
-*  page_style_name – use the custom payment page style from your account profile that has the specified name
-*  The default is primary if you added a custom payment page style to your account profile.
-*  Otherwise, the default is paypal.
+ *  pagestyle = The custom payment page style for checkout pages. Allowable values:
+ *  paypal – use the PayPal page style
+ *  primary – use the page style that you marked as primary in your account profile
+ *  page_style_name – use the custom payment page style from your account profile that has the specified name
+ *  The default is primary if you added a custom payment page style to your account profile.
+ *  Otherwise, the default is paypal.
 
-*  cbt = Sets the text for the Return to Merchant button on the PayPal Payment Complete page.
-*  For Business accounts, the return button displays your business name in place of
-*  the word “Merchant” by default. For Donate buttons,
-*  the text reads “Return to donations coordinator” by default.
-*  NOTE: The returnurl variable must also be set.
+ *  cbt = Sets the text for the Return to Merchant button on the PayPal Payment Complete page.
+ *  For Business accounts, the return button displays your business name in place of
+ *  the word “Merchant” by default. For Donate buttons,
+ *  the text reads “Return to donations coordinator” by default.
+ *  NOTE: The returnurl variable must also be set.
 
-*  cn = Label that appears above the note field on the Check Out page.
-*  This value is not saved and will not appear in any of your notifications.
-*  If omitted, the default label above the note field is "Add special instructions to merchant."
-*  The cn variable is not valid with Subscribe buttons or if you include nonote="1".
+ *  cn = Label that appears above the note field on the Check Out page.
+ *  This value is not saved and will not appear in any of your notifications.
+ *  If omitted, the default label above the note field is "Add special instructions to merchant."
+ *  The cn variable is not valid with Subscribe buttons or if you include nonote="1".
 
-*  lc = Sets the payer’s language for the billing information/log-in page only.
-*  The default is US. For allowable values visit:
-*  https://cms.paypal.com/au/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_countrycodes
+ *  lc = Sets the payer’s language for the billing information/log-in page only.
+ *  The default is US. For allowable values visit:
+ *  https://cms.paypal.com/au/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_html_countrycodes
 
 
-*  Paynow & Add To Cart Button only parameters
+ *  Paynow & Add To Cart Button only parameters
 
-*  amount = the amount to charge (for Paynow & Add To Cart buttons only)
+ *  amount = the amount to charge (for Paynow & Add To Cart buttons only)
 
-*  shipping = the amount of shipping to charge per item
+ *  shipping = the amount of shipping to charge per item
 
-*  shipping2 = the amount of shipping to charge for each extra item purchased.
+ *  shipping2 = the amount of shipping to charge for each extra item purchased.
 
-*  Subscribe Button only parameters
+ *  Subscribe Button only parameters
 
-*  Trial Period 1:
-*  a1 = The value to charge for the first trial period
-*  p1 = The duration of the first trial.
-*  t1 = The units of duration.
+ *  Trial Period 1:
+ *  a1 = The value to charge for the first trial period
+ *  p1 = The duration of the first trial.
+ *  t1 = The units of duration.
 
-*  D for Days, allowable entries for p1: 1 to 90
-*  W for Weeks, allowable entries for p1: 1 to 52
-*  M for Months, allowable entries for p1: 1 to 24
-*  Y for Years, allowable entries for p1: 1 to 5
+ *  D for Days, allowable entries for p1: 1 to 90
+ *  W for Weeks, allowable entries for p1: 1 to 52
+ *  M for Months, allowable entries for p1: 1 to 24
+ *  Y for Years, allowable entries for p1: 1 to 5
 
-*  Trial Period 2:
-*  a2 = The value to charge for the second trial period
-*  p2 = The duration of the second trial.
-*  t2 = The units of duration.
+ *  Trial Period 2:
+ *  a2 = The value to charge for the second trial period
+ *  p2 = The duration of the second trial.
+ *  t2 = The units of duration.
 
-*  D for Days, allowable entries for p2: 1 to 90
-*  W for Weeks, allowable entries for p2: 1 to 52
-*  M for Months, allowable entries for p2: 1 to 24
-*  Y for Years, allowable entries for p2: 1 to 5
+ *  D for Days, allowable entries for p2: 1 to 90
+ *  W for Weeks, allowable entries for p2: 1 to 52
+ *  M for Months, allowable entries for p2: 1 to 24
+ *  Y for Years, allowable entries for p2: 1 to 5
 
-*  The full subscription Payment:
-*  a3 = The value to charge
-*  p3 = The duration between charging
-*  t3 = The units of duration.
+ *  The full subscription Payment:
+ *  a3 = The value to charge
+ *  p3 = The duration between charging
+ *  t3 = The units of duration.
 
-*  D for Days, allowable entries for p3: 1 to 90
-*  W for Weeks, allowable entries for p3: 1 to 52
-*  M for Months, allowable entries for p3: 1 to 24
-*  Y for Years, allowable entries for p3: 1 to 5
+ *  D for Days, allowable entries for p3: 1 to 90
+ *  W for Weeks, allowable entries for p3: 1 to 52
+ *  M for Months, allowable entries for p3: 1 to 24
+ *  Y for Years, allowable entries for p3: 1 to 5
 
-*  src = Recurring payments. Subscription payments recur unless subscribers cancel their subscriptions
-*  before the end of the current billing cycle or you limit the number of times that payments
-*  recur with the value that you specify for srt.
-*  Allowable values:
-*  0 – subscription payments do not recur
-*  1 – subscription payments recur
-*  The default is 0.
+ *  src = Recurring payments. Subscription payments recur unless subscribers cancel their subscriptions
+ *  before the end of the current billing cycle or you limit the number of times that payments
+ *  recur with the value that you specify for srt.
+ *  Allowable values:
+ *  0 – subscription payments do not recur
+ *  1 – subscription payments recur
+ *  The default is 0.
 
-*  srt = Recurring times. Number of times that subscription payments recur.
-*  Specify an integer above 1. Valid only if you specify src="1".
-*  Allowable values:an integer above 1.
+ *  srt = Recurring times. Number of times that subscription payments recur.
+ *  Specify an integer above 1. Valid only if you specify src="1".
+ *  Allowable values:an integer above 1.
 
-*  sra = Reattempt on failure. If a recurring payment fails,
-*  PayPal attempts to collect the payment two more times before canceling the subscription.
-*  Allowable values:
-*  0 – do not reattempt failed recurring payments
-*  1 – reattempt failed recurring payments before canceling
-*  The default is 0
+ *  sra = Reattempt on failure. If a recurring payment fails,
+ *  PayPal attempts to collect the payment two more times before canceling the subscription.
+ *  Allowable values:
+ *  0 – do not reattempt failed recurring payments
+ *  1 – reattempt failed recurring payments before canceling
+ *  The default is 0
 
-*  modify - Modification behavior. Allowable values:
-*  0 – allows subscribers to only create new subscriptions
-*  1 – allows subscribers to modify their current subscriptions or sign up for new ones
-*  2 – allows subscribers to only modify their current subscriptions
-*  The default value is 0
+ *  modify - Modification behavior. Allowable values:
+ *  0 – allows subscribers to only create new subscriptions
+ *  1 – allows subscribers to modify their current subscriptions or sign up for new ones
+ *  2 – allows subscribers to only modify their current subscriptions
+ *  The default value is 0
 
-*  Add To Cart
+ *  Add To Cart
 
-*  display = Display the contents of the PayPal Shopping Cart to the buyer.
-*  If set, the shopping cart will be displayed after an item is added.
-*  If not set, the item will be added to the cart only.
+ *  display = Display the contents of the PayPal Shopping Cart to the buyer.
+ *  If set, the shopping cart will be displayed after an item is added.
+ *  If not set, the item will be added to the cart only.
 
-*  Formatting
-*  The plugin will wrap the paypal button in a <div> tag.  The formatting options available are:
-*  divwidth = the width of the div.  This should be at least the width of the image.
-*  Default - 100%
+ *  Formatting
+ *  The plugin will wrap the paypal button in a <div> tag.  The formatting options available are:
+ *  divwidth = the width of the div.  This should be at least the width of the image.
+ *  Default - 100%
 
-*  textalign = the alignment of the image / text within the div
-*  Allowable values:
-*  left - text is left justified
-*  right - text is right justified
-*  center - text is centered
-*  No default, taken from page format
+ *  textalign = the alignment of the image / text within the div
+ *  Allowable values:
+ *  left - text is left justified
+ *  right - text is right justified
+ *  center - text is centered
+ *  No default, taken from page format
 
-*  float = position of the div on the page
-*  left - the div 'floats' on the left
-*  right - the div 'floats' on the right
-*  Default - if this value is missing, the div is centered on the page
+ *  float = position of the div on the page
+ *  left - the div 'floats' on the left
+ *  right - the div 'floats' on the right
+ *  Default - if this value is missing, the div is centered on the page
 
-*  marginleft = the amount of space between the div and the text to the left of the div
-*  (particularly good to use when using float=right)
-*  Default - if this value is missing, the page format is used
+ *  marginleft = the amount of space between the div and the text to the left of the div
+ *  (particularly good to use when using float=right)
+ *  Default - if this value is missing, the page format is used
 
-*  marginright = the amount of space between the div and the text to the right of the div
-*  (particularly good to use when using float=left)
-*  Default - if this value is missing, the page format is used
+ *  marginright = the amount of space between the div and the text to the right of the div
+ *  (particularly good to use when using float=left)
+ *  Default - if this value is missing, the page format is used
 
-*  margintop = the amount of space to the line above the div
-*  Default = 10px;
+ *  margintop = the amount of space to the line above the div
+ *  Default = 10px;
 
-*  marginbottom = the amount of space to the line below the div
-*  Default = 10px;
+ *  marginbottom = the amount of space to the line below the div
+ *  Default = 10px;
 
-*  Button Formatting:
+ *  Button Formatting:
 
-*  Image Classes:
-*  The shortcode will add a 'placeholder' Paypal image that is 1px wide by 1px tall into the button.
-*  The code adds a class of "ppalholder" to this image.
-*  This will allow site owners to add the class to their theme styles and
-*  remove any borders that cause the image to be 'visible'.
+ *  Image Classes:
+ *  The shortcode will add a 'placeholder' Paypal image that is 1px wide by 1px tall into the button.
+ *  The code adds a class of "ppalholder" to this image.
+ *  This will allow site owners to add the class to their theme styles and
+ *  remove any borders that cause the image to be 'visible'.
 
-*  Class added to Buy Now, Add To Cart, Hosted or Subscribe button
-*  The code will add the class "ppalbtn" to the actual image embedded
-*  on the page to allow for more formatting choices.
+ *  Class added to Buy Now, Add To Cart, Hosted or Subscribe button
+ *  The code will add the class "ppalbtn" to the actual image embedded
+ *  on the page to allow for more formatting choices.
 
-*  Sample Usage:
+ *  Sample Usage:
 
-*  Buy Now Button:
-*  [paypal type="paynow" amount="12.99" email="payments@arvoreentreasures.com"
-*  itemno="12345657" name="Description" noshipping="1" nonote="1" qty="1" shipping="4.00" shipping2="1.00"
-*  currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" rm="2"
-*  notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px"
-*  pagestyle="paypal" lc="AU" cbt="Complete Your Purchase"]
+ *  Buy Now Button:
+ *  [paypal type="paynow" amount="12.99" email="payments@arvoreentreasures.com"
+ *  itemno="12345657" name="Description" noshipping="1" nonote="1" qty="1" shipping="4.00" shipping2="1.00"
+ *  currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif" rm="2"
+ *  notifyurl="http://notifyurl.com" returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px"
+ *  pagestyle="paypal" lc="AU" cbt="Complete Your Purchase"]
 
-*  Subscribe Button with 2 trial periods and recurring Monthly payments.
-*  [paypal type="subscribe" email="payments@arvoreentreasures.com" itemno="12345657"
-*  name="Description" noshipping="1" currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"
-*  a1="1" p1="7" t1="D" a2="3" p2="1" t3="M" a3="47" p3="1" t3="M" rm="2" notifyurl="http://notifyurl.com"
-*  returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px" pagestyle="paypal"
-*  lc="AU" cbt="Complete Your Purchase"]
+ *  Subscribe Button with 2 trial periods and recurring Monthly payments.
+ *  [paypal type="subscribe" email="payments@arvoreentreasures.com" itemno="12345657"
+ *  name="Description" noshipping="1" currencycode="USD" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"
+ *  a1="1" p1="7" t1="D" a2="3" p2="1" t3="M" a3="47" p3="1" t3="M" rm="2" notifyurl="http://notifyurl.com"
+ *  returnurl="http://returnurl.com" scriptcode="scriptcode" imagewidth="100px" pagestyle="paypal"
+ *  lc="AU" cbt="Complete Your Purchase"]
 
-*  Hosted Button
-*  [paypal type="hosted" buttonid="1234456" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"]
+ *  Hosted Button
+ *  [paypal type="hosted" buttonid="1234456" imageurl="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"]
 
-*  Add To Cart Button
-*  [paypal type="addtocart" amount="1.99" email="payments@arvoreentreasures.com" itemno="12345657"
-*  name="Description" noshipping="1" nonote="1" currencycode="USD"
-*  imageurl="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif" rm="2" notifyurl="http://notifyurl.com"
-*  returnurl="http://returnurl.com" scriptcode="scriptcode" cbt="Return to Me"
-*  cancelreturn="http://shoppingcartcancelurl.com" lc="AU" qty="4" shipping="3.00" shipping2="1.50"
-*  pagestyle="paypal"]
+ *  Add To Cart Button
+ *  [paypal type="addtocart" amount="1.99" email="payments@arvoreentreasures.com" itemno="12345657"
+ *  name="Description" noshipping="1" nonote="1" currencycode="USD"
+ *  imageurl="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif" rm="2" notifyurl="http://notifyurl.com"
+ *  returnurl="http://returnurl.com" scriptcode="scriptcode" cbt="Return to Me"
+ *  cancelreturn="http://shoppingcartcancelurl.com" lc="AU" qty="4" shipping="3.00" shipping2="1.50"
+ *  pagestyle="paypal"]
 
-*  Adding formatting to Hosted Button
-*  To use your own custom image hosted on your site, that is 200px wide,
-*  center the button in the line and leave 20px space above and 10px space below:
-*  [paypal type="hosted" buttonid="1234456" imageurl="http://yourdomainname.com/images/buynow.jpg"
-*  imagewidth="200px" divwidth="200px" margintop="20px" marginbottom="10px"]
+ *  Adding formatting to Hosted Button
+ *  To use your own custom image hosted on your site, that is 200px wide,
+ *  center the button in the line and leave 20px space above and 10px space below:
+ *  [paypal type="hosted" buttonid="1234456" imageurl="http://yourdomainname.com/images/buynow.jpg"
+ *  imagewidth="200px" divwidth="200px" margintop="20px" marginbottom="10px"]
 
-*  All formatting options work on three button types.
+ *  All formatting options work on three button types.
  */
 
 if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
@@ -288,7 +288,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 	 */
 	function eb_enhanced_paypal_shortcode( $atts ) {
 		$edwiser_bridge_alt_add = 'Add to cart (Paypal)';
-		$atts = shortcode_atts(
+		$atts                   = shortcode_atts(
 			array(
 				'type'         => '',
 				'textalign'    => '',
@@ -377,7 +377,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				$pixel_url  = 'https://www.paypal.com/en_US/i/scr/pixel.gif';
 				$button_url = 'https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
 
-				if ( '1' === $atts['sandbox'] ) {
+				if ( 'yes' === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 					$pixel_url  = 'https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif';
 					$button_url = 'https://www.sandbox.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif';
@@ -546,7 +546,8 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					$code .= 'margin-bottom: 10px;';
 				}
 				$paypal_url = 'https://www.paypal.com/cgi-bin/webscr';
-				if ( 1 === $atts['sandbox'] ) {
+
+				if ( 'yes' === $atts['sandbox'] ) {
 					$paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
 				}
 
@@ -755,6 +756,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= 'margin-bottom: 10px;';
 				}
+
 				$code .= '"><form name="" action="https://www.paypal.com/cgi-bin/webscr" method="post">
 			<input type="hidden" name="cmd" value="_s-xclick">
 			<input type="hidden" name="hosted_button_id" value="' . $atts['buttonid'] . '">

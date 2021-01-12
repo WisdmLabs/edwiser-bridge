@@ -267,14 +267,14 @@ class Eb_Welcome {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if ( isset( $_POST['subscribe_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
+					if ( isset( $_GET['edw-wc-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
+						if ( isset( $_GET['subscribed'] ) && sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="success-message">
 								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
 							</div>
 							<?php
-						} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
+						} elseif ( isset( $_GET['subscribed'] ) && ! sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="error-message">
 								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
@@ -320,7 +320,7 @@ class Eb_Welcome {
 		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
-		$wc_url = admin_url( '/?page=eb-about&subscribed=' . $subscribed ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+		$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
 
 		wp_safe_redirect( $wc_url );
 		exit;

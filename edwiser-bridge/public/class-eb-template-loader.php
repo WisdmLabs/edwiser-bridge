@@ -75,12 +75,11 @@ class EbTemplateLoader {
 
 		if ( $file ) {
 			$template = locate_template( array_unique( $find ) );
+
 			if ( ! $template ) {
-				// $template = EB_PLUGIN_DIR . 'public/templates/' . $file;
-				$template = require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
+				$template = ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
 			}
 		}
-
 		return $template;
 	}
 
@@ -168,7 +167,6 @@ class EbTemplateLoader {
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		// Declare variables here.
 		if ( $args && is_array( $args ) ) {
-			// extract( $args );
 			// Eb-courses page.
 			if ( isset( $args['max_num_pages'] ) ) {
 				$max_num_pages = $args['max_num_pages'];
@@ -206,6 +204,9 @@ class EbTemplateLoader {
 			}
 			if ( isset( $args['user_meta'] ) ) {
 				$user_meta = $args['user_meta'];
+			}
+			if ( isset( $args['product_id'] ) ) {
+				$product_id = $args['product_id'];
 			}
 		}
 

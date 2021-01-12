@@ -45,10 +45,8 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 		$eb_general_settings = get_option( 'eb_general', array() );
 
 		$option_value = 0;
-		if ( '' !== trim( $option_key ) ) {
-			if ( isset( $eb_general_settings[ $option_key ] ) ) {
+		if ( '' !== trim( $option_key ) && isset( $eb_general_settings[ $option_key ] ) ) {
 				$option_value = $eb_general_settings[ $option_key ];
-			}
 		}
 
 		if ( $option_value > 0 && get_post( $option_value ) ) {
@@ -106,7 +104,7 @@ if ( ! function_exists( 'wdm_eb_update_page_id' ) ) {
 	 * @param string $eb_general_settings eb_general_settings.
 	 */
 	function wdm_eb_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
-		if ( '' === $option_value && '' !== trim( $option_key ) ) {
+		if ( ! empty( $option_key ) ) {
 			$eb_general_settings[ $option_key ] = $_id;
 			update_option( 'eb_general', $eb_general_settings );
 		}
@@ -159,6 +157,7 @@ if ( ! function_exists( 'wdm_eb_user_account_url' ) ) {
 		if ( ! $usr_ac_page_url ) {
 			$usr_ac_page_url = site_url( '/user-account' );
 		}
+
 		$usr_ac_page_url = add_query_arg( $args, $usr_ac_page_url );
 
 		return $usr_ac_page_url;
@@ -335,7 +334,7 @@ if ( ! function_exists( 'wdm_eb_update_order_hist_meta' ) ) {
 		}
 		$new_hist = array(
 			'by'   => $updated_by,
-			'time' => current_time( 'timestamp' ),
+			'time' => current_time( 'Y-m-d' ),
 			'note' => $note,
 		);
 
@@ -501,9 +500,9 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 				if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
 					$bp_version = get_option( 'eb_bp_plugin_version' );
 					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
-						array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
-						array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
 					}
 				}
 

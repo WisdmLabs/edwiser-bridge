@@ -122,7 +122,6 @@ class Eb_Course_Manager {
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 
 		if ( 1 === $connected['success'] ) {
-
 			/*
 			 * Sync Moodle course categories to WordPress conditionally.
 			 * Executes only if user chooses to sync categories.
