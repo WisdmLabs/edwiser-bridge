@@ -104,11 +104,11 @@ class Eb_External_Api_Endpoint {
 		$status = 0;
 		$msg    = 'Invalid token please check token';
 
-		if ( isset( $data['token'] ) ) {
+		if ( isset( $data['secret_key'] ) ) {
 			$settings = maybe_unserialize( get_option( 'eb_connection' ) );
 			if ( ! isset( $settings['eb_access_token'] ) ) {
 				$msg = 'Please save connection settings on Worpdress';
-			} elseif ( $settings['eb_access_token'] === $data['token'] ) {
+			} elseif ( $settings['eb_access_token'] === $data['secret_key'] ) {
 				$msg    = 'Test connection successful';
 				$status = 1;
 			}
