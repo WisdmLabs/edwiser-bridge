@@ -36,16 +36,12 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function eb_validate_api_key($request_data)
 	{
-		$wp_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
-
-error_log(' wp_token ::: '.print_r($wp_token, 1));
-error_log(' request data ::: '.print_r($request_data['secret_key'], 1));
-
-
+		$wp_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		$valid_key = 0;
 		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token == $request_data['secret_key'] ) {
-			return 1;
+			$valid_key = 1;
 		}
-		return 0;
+		return $valid_key;
 	}
 
 
@@ -56,17 +52,11 @@ error_log(' request data ::: '.print_r($request_data['secret_key'], 1));
 	 * @param  text $request_data request Data.
 	 */
 	public function external_api_endpoint_def( $request_data ) {
-
-error_log('request_data :: '.print_r($request_data, 1));
-error_log('VALID :: '.print_r($this->eb_validate_api_key( $request_data ), 1));
-
 		$response_data = array();
 
 		// CHeck if key is valid.
 		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) && $this->eb_validate_api_key( $request_data ) ) {
 			$action = sanitize_text_field( wp_unslash( $request_data['action'] ) );
-
-error_log('IN CASE :: ');
 
 			switch ( $action ) {
 				case 'test_connection':
