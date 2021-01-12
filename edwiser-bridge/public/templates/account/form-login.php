@@ -85,12 +85,13 @@ do_action( 'eb_before_customer_login_form' );
 				if ( 'yes' === $enable_registration ) {
 					$arg_list = array( 'action' => 'eb_register' );
 					if ( ! empty( $_GET['redirect_to'] ) ) {
-						$arg_list = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
+						$arg_list['redirect_to'] = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
 					}
 
 					if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-						$arg_list = array( 'is_enroll' => sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) ) );
+						$arg_list['is_enroll'] = sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) );
 					}
+
 					?>
 					<p class="register-link form-row">
 
