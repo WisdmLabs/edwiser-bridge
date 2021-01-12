@@ -29,6 +29,26 @@ class Eb_External_Api_Endpoint {
 		);
 	}
 
+	/**
+	 * Functionality to validate the secret key from Moodle with WP.
+	 *
+	 * @param  text $request_data request Data.
+	 */
+	public function eb_validate_api_key($request_data)
+	{
+		$wp_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+
+error_log(' wp_token ::: '.print_r($wp_token, 1));
+error_log(' request data ::: '.print_r($request_data['secret_key'], 1));
+
+
+		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token == $request_data['secret_key'] ) {
+			return 1;
+		}
+		return 0;
+	}
+
+
 
 	/**
 	 * This function parse the request coming from
@@ -37,44 +57,44 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function external_api_endpoint_def( $request_data ) {
 
-		$data = isset( $request_data['data'] ) ? sanitize_text_field( wp_unslash( $request_data['data'] ) ) : '';
-		if ( version_compare( PHP_VERSION, '7.0.0', '>=' ) ) {
-			$data          = unserialize( $data, array( 'allowed_classes' => false ) );
-		} else {
-			$data          = unserialize( $data );
-		}
+error_log('request_data :: '.print_r($request_data, 1));
+error_log('VALID :: '.print_r($this->eb_validate_api_key( $request_data ), 1));
+
 		$response_data = array();
 
-		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) ) {
+		// CHeck if key is valid.
+		if ( isset( $request_data['action'] ) && ! empty( $request_data['action'] ) && $this->eb_validate_api_key( $request_data ) ) {
 			$action = sanitize_text_field( wp_unslash( $request_data['action'] ) );
+
+error_log('IN CASE :: ');
 
 			switch ( $action ) {
 				case 'test_connection':
-					$response_data = $this->eb_test_connection( $data );
+					$response_data = $this->eb_test_connection( $request_data );
 					break;
 
 				case 'course_enrollment':
-					$response_data = $this->eb_course_enrollment( $data, 0 );
+					$response_data = $this->eb_course_enrollment( $request_data, 0 );
 					break;
 
 				case 'course_un_enrollment':
-					$response_data = $this->eb_course_enrollment( $data, 1 );
+					$response_data = $this->eb_course_enrollment( $request_data, 1 );
 					break;
 
 				case 'user_creation':
-					$response_data = $this->eb_trigger_user_creation( $data );
+					$response_data = $this->eb_trigger_user_creation( $request_data );
 					break;
 
 				case 'user_deletion':
-					$response_data = $this->eb_trigger_user_delete( $data );
+					$response_data = $this->eb_trigger_user_delete( $request_data );
 					break;
 
 				case 'user_updated':
-					$response_data = $this->eb_trigger_user_update( $data );
+					$response_data = $this->eb_trigger_user_update( $request_data );
 					break;
 
 				case 'course_deleted':
-					$response_data = $this->eb_trigger_course_delete( $data );
+					$response_data = $this->eb_trigger_course_delete( $request_data );
 					break;
 
 				default:
@@ -343,35 +363,36 @@ class Eb_External_Api_Endpoint {
 	 * @param text $data data.
 	 */
 	public function eb_trigger_user_update( $data ) {
+		if ( isset( $data['user_id'] ) && ! empty( $data['user_id'] ) ) {
+			// get WP User id if present then process.
+			$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+			$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 
-		// get WP User id if present then process.
-		$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
-		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+			if ( ! empty( $wp_user_id ) ) {
+				// get fields.
+				$user_update_array = array(
+					'ID'         => $wp_user_id,
+					'first_name' => $data['first_name'],
+					'last_name'  => $data['last_name'],
+				);
 
-		if ( ! empty( $wp_user_id ) ) {
-			// get fields.
-			$user_update_array = array(
-				'ID'         => $wp_user_id,
-				'first_name' => $data['first_name'],
-				'last_name'  => $data['last_name'],
-			);
+				// if password is present then decode with key.
 
-			// if password is present then decode with key.
+				if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
 
-			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
+					$enc_method = 'AES-128-CTR';
+					$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
-				$enc_method = 'AES-128-CTR';
-				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+					$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
+					$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+					$user_update_array['user_pass'] = $user_p;
+				}
 
-				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
-				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
-				$user_update_array['user_pass'] = $user_p;
+				$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );
+
+				// Update password and fields.
+				wp_update_user( $user_update_array );
 			}
-
-			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );
-
-			// Update password and fields.
-			wp_update_user( $user_update_array );
 		}
 	}
 }
