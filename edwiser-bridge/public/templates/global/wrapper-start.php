@@ -43,6 +43,11 @@ switch ( $template ) {
 		echo '<div class="wrap"><div id="primary" class="content-area twentyseventeen" style="'
 		. esc_html( $parentcss ) . '"><main id="main" class="site-main" role="main">';
 		break;
+		// flatsome.
+	case 'twentyseventeen':
+		echo '<div class="wrap"><div id="primary" class="content-area twentyseventeen" style="'
+		. esc_html( $parentcss ) . '"><main id="main" class="site-main" role="main">';
+		break;
 		// Divi.
 	case 'Divi':
 		echo '<div id="main-content" style="'

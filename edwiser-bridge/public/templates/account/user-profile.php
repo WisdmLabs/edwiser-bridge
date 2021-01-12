@@ -12,8 +12,8 @@
 <div class="eb-user-profile" >
 
 <?php
-$nonce_name = 'eb_user_account_nav_nonce';
-if ( isset( $_GET[ $nonce_name ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
+
+if ( ! isset( $_GET['eb_user_account_nav_nonce'] ) || ( isset( $_GET['eb_user_account_nav_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['eb_user_account_nav_nonce'] ) ), 'eb_user_account_nav_nonce' ) ) ) {
 	return false;
 }
 
@@ -35,8 +35,8 @@ if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_u
 			<?php echo esc_html( $user_avatar ); ?>
 		</aside>
 		<div class="eb-user-data">
-			<div><?php echo esc_html( $user->first_name ) . ' ' . esc_html( $user->last_name ); ?></div>
-			<div><?php esc_html( $user->user_email ); ?></div>
+			<?php echo '<div>' . esc_html( $user->first_name ) . ' ' . esc_html( $user->last_name ) . '</div>'; // @codingStandardsIgnoreLine. ?>
+			<?php echo '<div>' . esc_html( $user->user_email ) . '</div>'; ?>
 		</div>
 
 		<div class="eb-edit-profile" >

@@ -89,7 +89,7 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 					$subscribed = 1;
 				}
 			}
-			$wc_url = admin_url( '/?page=eb-about&subscribed=' . $subscribed ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+			$wc_url = admin_url( '/?page=eb-about&subscribed=' . $subscribed ) . '&edw-wc-nonce=' . wp_create_nonce('edw-wc-nonce');
 
 			wp_safe_redirect( $wc_url );
 			exit;

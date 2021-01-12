@@ -67,8 +67,10 @@ class EBAdminEmailTemplate {
 	 */
 	public function output() {
 		$sub_action = isset( $_POST['eb-mail-tpl-submit'] ) ? sanitize_text_field( wp_unslash( $_POST['eb-mail-tpl-submit'] ) ) : 0;
-		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) && 'eb-mail-tpl-save-changes' === $sub_action ) {
-			$this->save();
+		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) ) {
+			if ( 'eb-mail-tpl-save-changes' === $sub_action ) {
+				$this->save();
+			}
 		}
 		$from_name     = $this->get_from_name();
 		$tmpl_list     = array();
@@ -632,7 +634,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email.
 	 */
 	public function wpbSenderEmail( $email ) {
-		return $this->wpb_sender_email( $email );
+		return $this->wpb_sender_email( $emial );
 	}
 
 	/**
@@ -643,7 +645,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email.
 	 */
 	public function wpb_sender_email( $email ) {
-		return $this->get_from_email( $email );
+		return $this->get_from_email();
 	}
 
 	/**
@@ -653,7 +655,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email
 	 */
 	public function wp_sender_name( $name ) {
-		return $this->get_from_name( $name );
+		return $this->get_from_name();
 	}
 
 	/**

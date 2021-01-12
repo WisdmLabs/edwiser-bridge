@@ -70,8 +70,10 @@ class Eb_Activator {
 			if ( is_plugin_active( $extension[0] ) ) {
 				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
 
-				if ( isset( $plugin_data['Version'] ) && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
+				if ( isset( $plugin_data['Version'] ) ) {
+					if ( version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
 						deactivate_plugins( $extension[0] );
+					}
 				}
 			}
 		}
@@ -91,8 +93,8 @@ class Eb_Activator {
 				$all_sites = get_sites();
 
 				foreach ( $all_sites as $blog ) {
-					$blog_id = is_array( $blog ) ? $blog['blog_id'] : $blog->blog_id;
-					switch_to_blog( $blog_id );
+					switch_to_blog( $blog['blog_id'] );
+
 					self::create_moodle_db_tables();
 					self::create_pages();
 					self::create_default_email_tempaltes();

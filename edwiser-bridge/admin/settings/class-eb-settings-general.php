@@ -268,7 +268,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'title'    => __( 'Allow Usage Tracking', 'eb-textdomain' ),
 						'desc'     => sprintf( __( 'This will help us in building more useful functionalities for you.', 'eb-textdomain' ) ),
 						'id'       => 'eb_usage_tracking',
-						'default'  => 'no',
+						'default'  => 'yes',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),

@@ -54,6 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 		<p>
 			<?php
+
 			/*
 			 * Translators: Edwiser bridge extensions page link.
 			 */

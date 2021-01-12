@@ -157,9 +157,11 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$current_tab     = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
 			$current_section = isset( $_REQUEST['section'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['section'] ) ) : '';
 
-			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) && ! empty( $_POST ) ) {
+			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) ) {
 				// Save settings if data has been posted.
-				self::save();
+				if ( ! empty( $_POST ) ) {
+					self::save();
+				}
 			}
 
 			// Add any posted messages.
@@ -890,6 +892,102 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				'description'  => $description,
 				'tooltip_html' => $tooltip_html,
 			);
+		}
+
+		/**
+		 * Helper function to get the formated description and tip HTML for a
+		 * given form field. Plugins can call this when implementing their own custom
+		 * settings types.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @param array $value The form field value array.
+		 * @returns array The description and tip as a 2 element array.
+		 */
+		public static function get_field_desc( $value ) {
+			$description   = '';
+			$tooltip_html  = '';
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+
+			if ( true === $value['desc_tip'] ) {
+				$tooltip_html = $value['desc'];
+			} elseif ( ! empty( $value['desc_tip'] ) ) {
+				$description  = $value['desc'];
+				$tooltip_html = $value['desc_tip'];
+			} elseif ( ! empty( $value['desc'] ) ) {
+				$description = $value['desc'];
+			}
+
+			if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ), true ) ) {
+				?>
+				<p style="margin-top:0"><?php echo esc_attr( $description ); ?></p>
+				<?php
+			} elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+				echo wp_kses_post( $description );
+			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
+				?>
+				<span class="load-response">
+					<img src="<?php echo esc_url( $eb_plugin_url . 'images/loader.gif' ); ?>" height="20" width="20" />
+				</span>
+				<span class="response-box"></span>
+				<span class="linkresponse-box"></span>
+					<div id="unlinkerrorid-modal" class="unlinkerror-modal">
+						<div class="unlinkerror-modal-content">
+							<span class="unlinkerror-modal-close">&times;</span>
+							<table class="unlink-table">
+								<thead>
+								<tr>
+									<th><?php esc_html_e( 'User ID', 'eb-textdomain' ); ?></th>
+									<th><?php esc_html_e( 'Name', 'eb-textdomain' ); ?></th>
+								</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				<?php
+			} elseif ( $description ) {
+				?>
+				<span class="description"><?php echo wp_kses_post( $description ); ?></span>
+				<?php
+			}
+		}
+
+		/**
+		 * Helper function to get the formated description and tip HTML for a
+		 * given form field. Plugins can call this when implementing their own custom
+		 * settings types.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @param array $value The form field value array.
+		 * @returns array The description and tip as a 2 element array.
+		 */
+		public static function get_field_tool_tip( $value ) {
+			$description   = '';
+			$tooltip_html  = '';
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+			if ( true === $value['desc_tip'] ) {
+				$tooltip_html = $value['desc'];
+			} elseif ( ! empty( $value['desc_tip'] ) ) {
+				$description  = $value['desc'];
+				$tooltip_html = $value['desc_tip'];
+			} elseif ( ! empty( $value['desc'] ) ) {
+				$description = $value['desc'];
+			}
+
+			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
+				?>
+				<p class="description"><?php echo wp_kses_post( $tooltip_html ); ?></p>
+				<?php
+			} elseif ( $tooltip_html && in_array( $value['type'], array( 'button' ), true ) ) {
+				$tooltip_html = '';
+			} elseif ( $tooltip_html ) {
+				?>
+				<img class="help_tip" data-tip="<?php wp_kses_post( $tooltip_html ); ?>" src="<?php echo esc_url( $eb_plugin_url . 'images/help.png' ); ?>" height="20" width="20" />
+				<?php
+			}
 		}
 	}
 }

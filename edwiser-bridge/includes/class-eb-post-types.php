@@ -582,86 +582,88 @@ class Eb_Post_Types {
 	 * @return bool returns true
 	 */
 	public function handle_post_options_save( $post_id ) {
-		$fields      = array();
-		$save_status = true;
+		$fields = array();
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			$save_status = false;
+			return false;
+		}
+
+		// Options to update will be stored here.
+		$update_post_options = array();
+		// get current post type.
+		$post_type = get_post_type( $post_id );
+
+		if ( ! in_array( $post_type, array( 'eb_course', 'eb_order' ), true ) ) {
+			return;
 		} else {
+			if ( 'eb_course' === $post_type ) {
+				$fields = $this->populate_metabox_fields( $post_type );
+				$fields = array_merge( $this->populate_metabox_fields( 'eb_recommended_course_options' ), $fields );
+			}
+			$post_options = array();
 
-			// Options to update will be stored here.
-			$update_post_options = array();
-			// get current post type.
-			$post_type = get_post_type( $post_id );
+			if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
+				return;
+			}
 
-			if ( in_array( $post_type, array( 'eb_course', 'eb_order' ), true ) ) {
-				if ( 'eb_course' === $post_type ) {
-					$fields = $this->populate_metabox_fields( $post_type );
-					$fields = array_merge( $this->populate_metabox_fields( 'eb_recommended_course_options' ), $fields );
+			if ( isset( $_POST[ $post_type . '_options' ] ) ) {
+				$post_options = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+			}
+			if ( ! empty( $post_options ) ) {
+				foreach ( $fields as $key => $values ) {
+					$option_name  = $key;
+					$option_value = null;
+					if ( isset( $post_options[ $key ] ) ) {
+						$option_value = wp_unslash( $post_options[ $key ] );
+					}
+					// format the values.
+					// switch ( sanitize_title( $values['type'] ) ) {.
+					switch ( $values['type'] ) {
+						case 'checkbox':
+							if ( is_null( $option_value ) ) {
+								$option_value = 'no';
+							} else {
+								$option_value = 'yes';
+							}
+							break;
+						case 'textarea':
+							$option_value = wp_kses_post( trim( $option_value ) );
+							break;
+						case 'text':
+						case 'text_secret':
+						case 'number':
+						case 'select':
+						case 'password':
+						case 'radio':
+							$option_value = wdm_edwiser_bridge_wp_clean( $option_value );
+							break;
+						case 'select_multi':
+						case 'checkbox_multi':
+							$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
+							break;
+						default:
+							break;
+					}
+
+					if ( ! is_null( $option_value ) ) {
+						$update_post_options[ $option_name ] = $option_value;
+					}
 				}
-				$post_options = array();
 
-				if ( isset( $_POST['eb_post_meta_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
-					if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-						$post_options = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
-					}
-					if ( ! empty( $post_options ) ) {
-						foreach ( $fields as $key => $values ) {
-							$option_name  = $key;
-							$option_value = null;
-							if ( isset( $post_options[ $key ] ) ) {
-								$option_value = wp_unslash( $post_options[ $key ] );
-							}
-							// format the values.
-							// switch ( sanitize_title( $values['type'] ) ) {.
-							switch ( $values['type'] ) {
-								case 'checkbox':
-									if ( is_null( $option_value ) ) {
-										$option_value = 'no';
-									} else {
-										$option_value = 'yes';
-									}
-									break;
-								case 'textarea':
-									$option_value = wp_kses_post( trim( $option_value ) );
-									break;
-								case 'text':
-								case 'text_secret':
-								case 'number':
-								case 'select':
-								case 'password':
-								case 'radio':
-									$option_value = wdm_edwiser_bridge_wp_clean( $option_value );
-									break;
-								case 'select_multi':
-								case 'checkbox_multi':
-									$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
-									break;
-								default:
-									break;
-							}
-
-							if ( ! is_null( $option_value ) ) {
-								$update_post_options[ $option_name ] = $option_value;
-							}
-						}
-
-						if ( is_array( $update_post_options ) ) {
-							/*
-							* merge previous values in array with new values retrieved
-							* replace old values with new values and save as option
-							*
-							* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
-							*/
-							$previous = get_post_meta( $post_id, $post_type . '_options', true );
-							$merged   = array_merge( $previous, $update_post_options );
-							update_post_meta( $post_id, $post_type . '_options', $merged );
-						}
-					}
+				if ( is_array( $update_post_options ) ) {
+					/*
+					 * merge previous values in array with new values retrieved
+					 * replace old values with new values and save as option
+					 *
+					 * To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
+					 */
+					$previous = get_post_meta( $post_id, $post_type . '_options', true );
+					$merged   = array_merge( $previous, $update_post_options );
+					update_post_meta( $post_id, $post_type . '_options', $merged );
 				}
 			}
 		}
 
-		return $save_status;
+		return true;
 	}
 
 	/**

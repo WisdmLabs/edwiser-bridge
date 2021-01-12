@@ -378,29 +378,40 @@ class Eb_Order_Manager {
 	 */
 	public function enroll_to_course_on_order_complete( $order_id ) {
 		// get order options.
-		$order_options   = get_post_meta( $order_id, 'eb_order_options', true );
-		$course_enrolled = false;
-		if ( isset( $order_options['buyer_id'] ) || isset( $order_options['course_id'] ) ) {
-			$buyer_id  = $order_options['buyer_id'];
-			$course_id = $order_options['course_id'];
+		$order_options = get_post_meta( $order_id, 'eb_order_options', true );
 
-			if ( is_numeric( $course_id ) ) {
-				$course = get_post( $course_id );
-				if ( 'eb_course' === $course->post_type || empty( $buyer_id ) ) {
-					$buyer = get_userdata( $buyer_id );
-
-					// link existing moodle account or create a new one.
-					edwiser_bridge_instance()->user_manager()->link_moodle_user( $buyer );
-
-					// define args.
-					$args = array(
-						'user_id' => $buyer_id,
-						'courses' => array( $course_id ),
-					);
-					$course_enrolled = edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args ); // enroll user to course.
-				}
-			}
+		if ( ! isset( $order_options['buyer_id'] ) || ! isset( $order_options['course_id'] ) ) {
+			return;
 		}
+
+		$buyer_id  = $order_options['buyer_id'];
+		$course_id = $order_options['course_id'];
+
+		if ( is_numeric( $course_id ) ) {
+			$course = get_post( $course_id );
+		} else {
+			return;
+		}
+
+		// return if post type is not eb_course.
+		if ( 'eb_course' !== $course->post_type || empty( $buyer_id ) ) {
+			return;
+		}
+
+		// get current user object.
+		$buyer = get_userdata( $buyer_id );
+
+		// link existing moodle account or create a new one.
+		edwiser_bridge_instance()->user_manager()->link_moodle_user( $buyer );
+
+		// define args.
+		$args = array(
+			'user_id' => $buyer_id,
+			'courses' => array( $course_id ),
+		);
+
+		$course_enrolled = edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args ); // enroll user to course.
+
 		return $course_enrolled;
 	}
 

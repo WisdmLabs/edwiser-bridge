@@ -127,7 +127,8 @@ class Eb_Shortcode_User_Account {
 	 */
 	public static function get_user_orders( $user_id ) {
 		$user_orders = array();
-		// get all completed orders of a user.
+		// $user_id;
+		// get all completed orders of a user
 		$args           = array(
 			'posts_per_page' => -1,
 			'meta_key'       => '',
@@ -209,11 +210,10 @@ class Eb_Shortcode_User_Account {
 
 		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
 		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
-		$nick_name   = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : '';
 		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['curr_psw'] ) ) : '';
-		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['new_psw'] ) ) : '';
-		$confirm_psw = isset( $_POST['confirm_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['confirm_psw'] ) ) : '';
+		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_email( wp_unslash( $_POST['curr_psw'] ) ) : '';
+		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_email( wp_unslash( $_POST['new_psw'] ) ) : '';
+		$confirm_psw = isset( $_POST['confirm_psw'] ) ? sanitize_email( wp_unslash( $_POST['confirm_psw'] ) ) : '';
 		$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
 		$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
 		$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
@@ -221,7 +221,6 @@ class Eb_Shortcode_User_Account {
 		$posted_data = array(
 			'first_name'  => $first_name,
 			'last_name'   => $last_name,
-			'nickname'    => $nick_name,
 			'email'       => $email,
 			'curr_psw'    => $curr_psw,
 			'new_psw'     => $new_psw,
@@ -329,7 +328,6 @@ class Eb_Shortcode_User_Account {
 				'country'       => $posted_data['country'] ? $posted_data['country'] : '',
 				'description'   => $posted_data['description'],
 			);
-
 			if ( isset( $posted_data['new_psw'] ) && ! empty( $posted_data['new_psw'] ) ) {
 				$user_data['password'] = $posted_data['new_psw'];
 			}

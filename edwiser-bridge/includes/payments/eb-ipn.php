@@ -20,7 +20,7 @@ if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( 
 // create an object of logger class.
 edwiser_bridge_instance()->logger()->add( 'payment', "\n" );
 
-edwiser_bridge_instance()->logger()->add( 'payment', wp_json_encode( $_REQUEST ) );
+edwiser_bridge_instance()->logger()->add( 'payment', $_REQUEST );
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'IPN Listener Loading...' );
 
@@ -55,6 +55,7 @@ if ( 'yes' === $paypal_sandbox ) {
 }
 
 try {
+
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Checking Post Method.' );
 
 	$listener->require_post_method();
@@ -162,11 +163,10 @@ if ( $verified ) {
 
 		// verify user id & order id.
 		if ( ! empty( $_REQUEST['custom'] ) ) {
-
 			edwiser_bridge_instance()->logger()->add( 'payment', sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) );
 
 			// decode json data.
-			edwiser_bridge_instance()->logger()->add( 'payment', wp_json_encode( $custom_data ) );
+			edwiser_bridge_instance()->logger()->add( 'payment', $custom_data );
 			$buyer_id = isset( $custom_data->buyer_id ) ? $custom_data->buyer_id : '';
 			$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 
@@ -250,7 +250,7 @@ if ( $verified ) {
 		$post_mc_gross = isset( $_REQUEST['mc_gross'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['mc_gross'] ) ) : '';
 
 		$post_txn_id = isset( $_REQUEST['txn_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['txn_id'] ) ) : '';
-		edwiser_bridge_instance()->logger()->add( 'refund', wp_json_encode( $custom_data ) );
+		edwiser_bridge_instance()->logger()->add( 'refund', $custom_data );
 		$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 		$note     = array(
 			'type' => 'PayPal IPN',

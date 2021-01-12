@@ -161,27 +161,30 @@ class Eb_Shortcode_User_Profile {
 	 * Get .
 	 */
 	public static function get_posted_data() {
-		$posted_data = array();
-		if ( ( ! empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] ) && ( ! empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) ) {
-			$username    = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
-			$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
-			$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
-			$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-			$pass_1      = isset( $_POST['pass_1'] ) ? sanitize_email( wp_unslash( $_POST['pass_1'] ) ) : '';
-			$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
-			$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
-			$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
-			$posted_data = array(
-				'username'    => $username,
-				'first_name'  => $first_name,
-				'last_name'   => $last_name,
-				'email'       => $email,
-				'pass_1'      => $pass_1,
-				'description' => $description,
-				'country'     => $country,
-				'city'        => $city,
-			);
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+			return false;
 		}
+
+		$username    = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
+		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
+		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$pass_1      = isset( $_POST['pass_1'] ) ? sanitize_email( wp_unslash( $_POST['pass_1'] ) ) : '';
+		$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
+		$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
+		$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
+		$posted_data = array(
+			'username'    => $username,
+			'first_name'  => $first_name,
+			'last_name'   => $last_name,
+			'nickname'    => $nickname,
+			'email'       => $email,
+			'pass_1'      => $pass_1,
+			'description' => $description,
+			'country'     => $country,
+			'city'        => $city,
+		);
+
 		return $posted_data;
 	}
 

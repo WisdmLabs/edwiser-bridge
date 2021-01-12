@@ -59,10 +59,12 @@ class Eb_Shortcode_My_Courses {
 
 		$eb_general_setings = get_option( 'eb_general' );
 
-		if ( isset( $eb_general_setings['eb_enable_recmnd_courses'] ) && 'yes' === $eb_general_setings['eb_enable_recmnd_courses'] && is_numeric( $atts['number_of_recommended_courses'] ) && $atts['number_of_recommended_courses'] > 0 ) {
-			$rec_cats = $current_class->get_recommended_categories( $my_courses );
-			if ( count( $rec_cats ) || ( isset( $eb_general_setings['eb_recmnd_courses'] ) && count( $eb_general_setings['eb_recmnd_courses'] ) ) ) {
-				$current_class->show_recommended_courses( $rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts );
+		if ( isset( $eb_general_setings['eb_enable_recmnd_courses'] ) && 'yes' === $eb_general_setings['eb_enable_recmnd_courses'] ) {
+			if ( is_numeric( $atts['number_of_recommended_courses'] ) && $atts['number_of_recommended_courses'] > 0 ) {
+				$rec_cats = $current_class->get_recommended_categories( $my_courses );
+				if ( count( $rec_cats ) || ( isset( $eb_general_setings['eb_recmnd_courses'] ) && count( $eb_general_setings['eb_recmnd_courses'] ) ) ) {
+					$current_class->show_recommended_courses( $rec_cats, $my_courses, $atts['number_of_recommended_courses'], $atts );
+				}
 			}
 		}
 	}

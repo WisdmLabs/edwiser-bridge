@@ -15,6 +15,18 @@ switch ( $template ) {
 	case 'twentyeleven':
 		echo '</div></section>';
 		break;
+	case 'twentytwelve':
+		echo '</div></div>';
+		break;
+	case 'twentythirteen':
+		echo '</div></div>';
+		break;
+	case 'twentyfourteen':
+		echo '</div></div></div>';
+		break;
+	case 'twentyfifteen':
+		echo '</div></div>';
+		break;
 	case 'twentysixteen':
 		echo '</main></div>';
 		break;
@@ -23,10 +35,17 @@ switch ( $template ) {
 		echo '</div>';
 		break;
 		// divi.
-	case 'twentyfourteen':
 	case 'Divi':
-		echo '</div></div></div>';
+		echo '</div></div>';
+		// Ending one div which started in wrapper-content-start template.
+		echo '</div>';
 		break;
+
+	case 'flatsome':
+		echo '</div></div>';
+		// Ending one div which started in wrapper-content-start template.
+		break;
+
 	default:
 		// Divi container.
 		echo '</div></div>';

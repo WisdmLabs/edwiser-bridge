@@ -223,9 +223,14 @@ class EBConnectionHelper {
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ||
 			303 === wp_remote_retrieve_response_code( $response ) ) {
 				$body = json_decode( wp_remote_retrieve_body( $response ) );
-				if ( ! empty( $body->exception ) && isset( $body->errorcode ) && 'accessexception' === $body->errorcode ) {
+				if ( ! empty( $body->exception ) ) {
+
+					// check if the error response is moodle_access_exception.
+					// reasons are function missing, not authorised user or pluginis not activated.
+					if ( isset( $body->errorcode ) && 'accessexception' === $body->errorcode ) {
 						$success = 0;
 						array_push( $missing_web_service_fns, $webservice_function );
+					}
 				}
 			}
 		}
