@@ -104,7 +104,7 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_update_moodle_plugin_notice() {
 		$redirection = add_query_arg( 'eb-update-notice-dismissed', true );
 
-		if ( ! get_option( 'eb_update_notice_dismissed' ) ) {
+		if ( ! get_option( 'eb_mdl_plugin_update_notice_dismissed' ) ) {
 			if ( ! $this->check_if_moodle_plugin_installed() ) {
 				echo '  <div class="notice  eb_admin_update_notice_message_cont">
 							<div class="eb_admin_update_notice_message">
@@ -158,7 +158,7 @@ class Eb_Admin_Notice_Handler {
 							</div>
 						</div>';
 			} else {
-				update_option( 'eb_update_notice_dismissed', 'true', true );
+				update_option( 'eb_mdl_plugin_update_notice_dismissed', 'true', true );
 			}
 		}
 	}
@@ -224,7 +224,7 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function eb_admin_update_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-update-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
-			update_option( 'eb_update_notice_dismissed', 'true', true );
+			update_option( 'eb_mdl_plugin_update_notice_dismissed', 'true', true );
 		}
 	}
 

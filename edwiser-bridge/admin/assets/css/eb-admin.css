@@ -96,6 +96,14 @@
     opacity: 0;
 }*/
 
+
+
+.eb-form-content-wrap span.select2.select2-container.select2-container--default{
+    width: 40% !important;
+}
+
+
+
 #eb_course_enable_recmnd_courses_single_course .select2{
   width: 50% !important;
 }
@@ -883,7 +891,7 @@ a.browse-all:hover {
   text-shadow: none;
   display: inline-block;
   margin-left: 20px;
-  position: absolute;
+  /*position: absolute;*/
 }
 
 @media screen and (max-width: 640) {
