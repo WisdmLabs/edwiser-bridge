@@ -9,7 +9,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -158,11 +157,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$current_tab     = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
 			$current_section = isset( $_REQUEST['section'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['section'] ) ) : '';
 
-			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) ) {
+			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) && ! empty( $_POST ) ) {
 				// Save settings if data has been posted.
-				if ( ! empty( $_POST ) ) {
-					self::save();
-				}
+				self::save();
 			}
 
 			// Add any posted messages.
@@ -180,9 +177,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$tabs = apply_filters( 'eb_settings_tabs_array', array() );
 
 			$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
-			// include_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings.php';
-            require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings.php';
-			
+			require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings.php';
+
 		}
 
 		/**
@@ -415,7 +411,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					case 'multiselect':
 						$option_value = self::get_option( $value['id'], $current_tab, $value['default'] );
 
-						$option_name  = ( 'multiselect' === $value['type'] ) ? esc_attr( $value['id'] ) . '[]' : esc_attr( $value['id'] );
+						$option_name = ( 'multiselect' === $value['type'] ) ? esc_attr( $value['id'] ) . '[]' : esc_attr( $value['id'] );
 						?>
 						<tr valign="top">
 							<th scope="row" class="titledesc">
@@ -444,7 +440,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 										<option value="<?php echo esc_attr( $key ); ?>"
 												<?php
 												if ( is_array( $option_value ) ) {
-													selected( in_array( $key, $option_value ), true );
+													selected( in_array( trim( $key ), $option_value, true ), true );
 												} else {
 													selected( $option_value, $key );
 												}
@@ -586,7 +582,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<?php
-								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), get_allowed_html_tags() );
+								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 								echo wp_kses_post( $description );
 								?>
 							</td>
@@ -618,7 +614,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							<td class="forminp">
 								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
 									<option selected><?php esc_html_e( '- Select a sidebar -', 'eb-textdomain' ); ?></option>
-									<?php foreach ( $GLOBALS['wp_registered_sidebars'] as $sidebar ) { ?>
+									<?php
+									$sidebars = $GLOBALS['wp_registered_sidebars'];
+									foreach ( $sidebars as $sidebar ) {
+										?>
 										<option value="<?php echo esc_attr( $sidebar['id'] ); ?>" <?php selected( $args['selected'], $sidebar['id'] ); ?>>
 											<?php echo esc_attr( $sidebar['name'] ); ?>
 										</option>
@@ -748,16 +747,15 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$option_value = null;
 
 					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				} else {
-
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
 
 					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
 					}
 				}
 
@@ -782,7 +780,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					case 'password':
 					case 'single_select_page':
 					case 'radio':
-						$option_value = wp_clean( $option_value );
+						$option_value = wdm_edwiser_bridge_wp_clean( $option_value );
 						break;
 					case 'multiselect':
 						$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
@@ -834,8 +832,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 * @returns array The description and tip as a 2 element array.
 		 */
 		public static function get_field_description( $value ) {
-			$description  = '';
-			$tooltip_html = '';
+			$description   = '';
+			$tooltip_html  = '';
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 			if ( true === $value['desc_tip'] ) {
 				$tooltip_html = $value['desc'];
@@ -852,7 +851,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$description = wp_kses_post( $description );
 			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
 				$description = '<span class="load-response">
-									<img src="' . EDWISER_PLUGIN_URL . 'images/loader.gif" height="20" width="20" />
+									<img src="' . $eb_plugin_url . 'images/loader.gif" height="20" width="20" />
 								</span>
 								<span class="response-box"></span>
 								<span class="linkresponse-box"></span>
@@ -882,7 +881,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			} elseif ( $tooltip_html ) {
 				$tooltip_html = '<img class="help_tip"
 									data-tip="' . esc_attr( $tooltip_html ) . '"
-									src="' . EDWISER_PLUGIN_URL . 'images/help.png"
+									src="' . $eb_plugin_url . 'images/help.png"
 									height="20"
 									width="20" />';
 			}
@@ -891,101 +890,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				'description'  => $description,
 				'tooltip_html' => $tooltip_html,
 			);
-		}
-
-		/**
-		 * Helper function to get the formated description and tip HTML for a
-		 * given form field. Plugins can call this when implementing their own custom
-		 * settings types.
-		 *
-		 * @since  1.0.0
-		 *
-		 * @param array $value The form field value array.
-		 * @returns array The description and tip as a 2 element array.
-		 */
-		public static function get_field_desc( $value ) {
-			$description  = '';
-			$tooltip_html = '';
-
-			if ( true === $value['desc_tip'] ) {
-				$tooltip_html = $value['desc'];
-			} elseif ( ! empty( $value['desc_tip'] ) ) {
-				$description  = $value['desc'];
-				$tooltip_html = $value['desc_tip'];
-			} elseif ( ! empty( $value['desc'] ) ) {
-				$description = $value['desc'];
-			}
-
-			if ( $description && in_array( $value['type'], array( 'textarea', 'radio' ), true ) ) {
-				?>
-				<p style="margin-top:0"><?php echo esc_attr( $description ); ?></p>
-				<?php
-			} elseif ( $description && in_array( $value['type'], array( 'checkbox' ), true ) ) {
-				echo wp_kses_post( $description );
-			} elseif ( in_array( $value['type'], array( 'button' ), true ) ) {
-				?>
-				<span class="load-response">
-					<img src="<?php echo esc_url( EDWISER_PLUGIN_URL . 'images/loader.gif' ); ?>" height="20" width="20" />
-				</span>
-				<span class="response-box"></span>
-				<span class="linkresponse-box"></span>
-					<div id="unlinkerrorid-modal" class="unlinkerror-modal">
-						<div class="unlinkerror-modal-content">
-							<span class="unlinkerror-modal-close">&times;</span>
-							<table class="unlink-table">
-								<thead>
-								<tr>
-									<th><?php esc_html_e( 'User ID', 'eb-textdomain' ); ?></th>
-									<th><?php esc_html_e( 'Name', 'eb-textdomain' ); ?></th>
-								</tr>
-								</thead>
-								<tbody>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				<?php
-			} elseif ( $description ) {
-				?>
-				<span class="description"><?php echo wp_kses_post( $description ); ?></span>
-				<?php
-			}
-		}
-
-		/**
-		 * Helper function to get the formated description and tip HTML for a
-		 * given form field. Plugins can call this when implementing their own custom
-		 * settings types.
-		 *
-		 * @since  1.0.0
-		 *
-		 * @param array $value The form field value array.
-		 * @returns array The description and tip as a 2 element array.
-		 */
-		public static function get_field_tool_tip( $value ) {
-			$description  = '';
-			$tooltip_html = '';
-
-			if ( true === $value['desc_tip'] ) {
-				$tooltip_html = $value['desc'];
-			} elseif ( ! empty( $value['desc_tip'] ) ) {
-				$description  = $value['desc'];
-				$tooltip_html = $value['desc_tip'];
-			} elseif ( ! empty( $value['desc'] ) ) {
-				$description = $value['desc'];
-			}
-
-			if ( $tooltip_html && in_array( $value['type'], array( 'checkbox' ), true ) ) {
-				?>
-				<p class="description"><?php echo wp_kses_post( $tooltip_html ); ?></p>
-				<?php
-			} elseif ( $tooltip_html && in_array( $value['type'], array( 'button' ), true ) ) {
-				$tooltip_html = '';
-			} elseif ( $tooltip_html ) {
-				?>
-				<img class="help_tip" data-tip="<?php wp_kses_post( $tooltip_html ); ?>" src="<?php echo esc_url( EDWISER_PLUGIN_URL . 'images/help.png' ); ?>" height="20" width="20" />
-				<?php
-			}
 		}
 	}
 }

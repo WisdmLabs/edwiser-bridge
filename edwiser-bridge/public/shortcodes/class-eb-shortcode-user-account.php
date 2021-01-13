@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -128,8 +127,7 @@ class Eb_Shortcode_User_Account {
 	 */
 	public static function get_user_orders( $user_id ) {
 		$user_orders = array();
-		// $user_id;
-		// get all completed orders of a user
+		// get all completed orders of a user.
 		$args           = array(
 			'posts_per_page' => -1,
 			'meta_key'       => '',
@@ -205,24 +203,42 @@ class Eb_Shortcode_User_Account {
 	 * Post data.
 	 */
 	public static function get_posted_data() {
-		$posted_data                = array();
-		$posted_data['first_name']  = self::get_posted_field( 'first_name' );
-		$posted_data['last_name']   = self::get_posted_field( 'last_name' );
-		$posted_data['nickname']    = self::get_posted_field( 'nickname' );
-		$posted_data['email']       = self::get_posted_field( 'email' );
-		$posted_data['curr_psw']    = self::get_posted_field( 'curr_psw', false );
-		$posted_data['new_psw']     = self::get_posted_field( 'new_psw', false );
-		$posted_data['confirm_psw'] = self::get_posted_field( 'confirm_psw', false );
-		$posted_data['description'] = self::get_posted_field( 'description' );
-		$posted_data['country']     = self::get_posted_field( 'country' );
-		$posted_data['city']        = self::get_posted_field( 'city' );
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+			return false;
+		}
+
+		$first_name  = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
+		$last_name   = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+		$nick_name   = isset( $_POST['nickname'] ) ? sanitize_text_field( wp_unslash( $_POST['nickname'] ) ) : '';
+		$email       = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$curr_psw    = isset( $_POST['curr_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['curr_psw'] ) ) : '';
+		$new_psw     = isset( $_POST['new_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['new_psw'] ) ) : '';
+		$confirm_psw = isset( $_POST['confirm_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['confirm_psw'] ) ) : '';
+		$description = isset( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
+		$country     = isset( $_POST['country'] ) ? sanitize_text_field( wp_unslash( $_POST['country'] ) ) : '';
+		$city        = isset( $_POST['city'] ) ? sanitize_text_field( wp_unslash( $_POST['city'] ) ) : '';
+
+		$posted_data = array(
+			'first_name'  => $first_name,
+			'last_name'   => $last_name,
+			'nickname'    => $nick_name,
+			'email'       => $email,
+			'curr_psw'    => $curr_psw,
+			'new_psw'     => $new_psw,
+			'confirm_psw' => $confirm_psw,
+			'description' => $description,
+			'country'     => $country,
+			'city'        => $city,
+		);
 		return $posted_data;
 	}
 
 	/**
 	 * Field.
 	 *
-	 * @param text $fieldname fieldname.
+	 * @deprecated since 2.0.2
+	 *
+	 *  @param text $fieldname fieldname.
 	 * @param text $sanitize sanitize.
 	 */
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
@@ -313,10 +329,13 @@ class Eb_Shortcode_User_Account {
 				'country'       => $posted_data['country'] ? $posted_data['country'] : '',
 				'description'   => $posted_data['description'],
 			);
+
 			if ( isset( $posted_data['new_psw'] ) && ! empty( $posted_data['new_psw'] ) ) {
 				$user_data['password'] = $posted_data['new_psw'];
 			}
-			$user_manager = new EBUserManager( 'edwiserbridge', EDWISER_BRIDGE_VERSION );
+
+			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
+			$user_manager = new EBUserManager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {
 				return true;

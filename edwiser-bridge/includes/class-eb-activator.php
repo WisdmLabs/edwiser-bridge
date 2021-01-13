@@ -7,7 +7,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -71,10 +70,8 @@ class Eb_Activator {
 			if ( is_plugin_active( $extension[0] ) ) {
 				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
 
-				if ( isset( $plugin_data['Version'] ) ) {
-					if ( version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
+				if ( isset( $plugin_data['Version'] ) && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
 						deactivate_plugins( $extension[0] );
-					}
 				}
 			}
 		}
@@ -94,8 +91,8 @@ class Eb_Activator {
 				$all_sites = get_sites();
 
 				foreach ( $all_sites as $blog ) {
-					switch_to_blog( $blog['blog_id'] );
-
+					$blog_id = is_array( $blog ) ? $blog['blog_id'] : $blog->blog_id;
+					switch_to_blog( $blog_id );
 					self::create_moodle_db_tables();
 					self::create_pages();
 					self::create_default_email_tempaltes();
@@ -208,7 +205,7 @@ class Eb_Activator {
 
 		foreach ( $files as $file ) {
 			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
-				$file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' );
+				$file_handle = fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' );
 				if ( $file_handle ) {
 					fwrite( $file_handle, $file['content'] );
 					fclose( $file_handle );
@@ -227,7 +224,7 @@ class Eb_Activator {
 	public static function create_pages() {
 		include_once 'eb-core-functions.php';
 
-		$page_content = eb_get_shortcode_page_content();
+		$page_content = \app\wisdmlabs\edwiserBridge\wdm_eb_get_shortcode_page_content();
 
 		$pages = apply_filters(
 			'eb_create_default_pages',
@@ -261,7 +258,7 @@ class Eb_Activator {
 
 		foreach ( $pages as $key => $page ) {
 			$key;
-			wdm_create_page( esc_sql( $page['name'] ), $page['option_key'], $page['title'], $page['content'] );
+			\app\wisdmlabs\edwiserBridge\wdm_eb_create_page( esc_sql( $page['name'] ), $page['option_key'], $page['title'], $page['content'] );
 		}
 	}
 

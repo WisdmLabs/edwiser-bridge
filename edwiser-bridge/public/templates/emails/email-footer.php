@@ -3,7 +3,6 @@
  * Email Footer.
  *
  * @package Edwiser Bridge
- * @author  Wisdmlbas
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

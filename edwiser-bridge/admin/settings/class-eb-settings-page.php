@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -54,11 +53,8 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @since  1.0.0
 		 */
 		public function addSettingsPage( $pages ) {
-
-			$pages[ $this->_id ] = $this->label;
-			return $pages;
+			return $this->add_settings_page( $pages );
 		}
-
 
 		/**
 		 * Add this page to settings
@@ -70,7 +66,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			$pages[ $this->_id ] = $this->label;
 			return $pages;
 		}
-
 
 		/**
 		 * Get settings array
@@ -107,8 +102,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			return apply_filters_deprecated( 'eb_getSections_' . $this->_id, array( array() ), '2.0.1', 'eb_get_sections_' . $this->_id );
 		}
 
-
-
 		/**
 		 * Deprecated Function
 		 *
@@ -121,9 +114,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		public function getSections() {
 			return $this->get_sections();
 		}
-
-
-
 
 		/**
 		 * Output sections
@@ -155,7 +145,6 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			echo '</ul><br class="clear" />';
 		}
 
-
 		/**
 		 * Deprecated Function.
 		 *
@@ -166,30 +155,8 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 * @since  1.0.0
 		 */
 		public function outputSections() {
-			global $current_section;
-			$sections = $this->getSections();
-			if ( empty( $sections ) ) {
-				return;
-			}
-
-			echo '<ul class="subsubsub">';
-
-			$array_keys = array_keys( $sections );
-
-			foreach ( $sections as $id => $label ) {
-				echo '<li>';
-				echo '<a href="' .
-				esc_url(
-					admin_url(
-						'admin.php?page=eb-settings&tab=' . $this->_id . '&section=' . sanitize_title( $id )
-					)
-				) . '" class="' . ( $current_section === $id ? 'current' : '' ) . '">' . esc_html( $label ) . '</a> ';
-				echo esc_html( ( end( $array_keys ) === $id ? '' : '|' ) ) . ' </li>';
-			}
-
-			echo '</ul><br class="clear" />';
+			$this->output_sections();
 		}
-
 
 		/**
 		 * Output the settings

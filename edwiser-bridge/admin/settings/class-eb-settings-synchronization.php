@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -50,10 +49,14 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 			);
 
 			$new_sections = apply_filters( 'eb_get_sections_' . $this->_id, $sections );
-			$sections     = array_merge( $sections, $new_sections );
+			if ( is_array( $new_sections ) ) {
+				$sections = array_merge( $sections, $new_sections );
+			}
 
-			$new_sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, $sections, '5.5', 'eb_get_sections_' . $this->_id );
-			$sections     = array_merge( $sections, $new_sections );
+			$new_sections = apply_filters_deprecated( 'eb_getSections_' . $this->_id, array( $sections ), '5.5', 'eb_get_sections_' . $this->_id );
+			if ( is_array( $new_sections ) ) {
+				$sections = array_merge( $sections, $new_sections );
+			}
 
 			return $sections;
 		}

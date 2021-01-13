@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.2.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -51,7 +50,24 @@ class Eb_Shortcode_Courses {
 			),
 			$atts
 		);
-		extract( $atts );
+		if ( isset( $atts['categories'] ) ) {
+				$categories = $atts['categories'];
+		}
+		if ( isset( $atts['order'] ) ) {
+				$order = $atts['order'];
+		}
+		if ( isset( $atts['group_by_cat'] ) ) {
+				$group_by_cat = $atts['group_by_cat'];
+		}
+		if ( isset( $atts['cat_per_page'] ) ) {
+				$cat_per_page = $atts['cat_per_page'];
+		}
+		if ( isset( $atts['horizontally_scroll'] ) ) {
+				$horizontally_scroll = $atts['horizontally_scroll'];
+		}
+		if ( isset( $atts['per_page'] ) ) {
+				$per_page = $atts['per_page'];
+		}
 
 		$args = array(
 			'post_type'      => 'eb_course',
@@ -100,10 +116,8 @@ class Eb_Shortcode_Courses {
 			$cat_cnt  = count( $disp_cat );
 			$page     = 1;
 
-			if ( isset( $_GET['key'] ) && ! empty( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) ) {
-				if ( isset( $_GET['eb-cat-page-no'] ) ) {
+			if ( isset( $_GET['key'] ) && ! empty( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) && isset( $_GET['eb-cat-page-no'] ) ) {
 					$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
-				}
 			}
 
 			$cat_start              = $page * (int) $atts['cat_per_page'] - (int) $atts['cat_per_page'];
@@ -299,9 +313,7 @@ class Eb_Shortcode_Courses {
 		$custom_query = new \WP_Query( $args );
 
 		// Pagination fix.
-		$temp_query = isset( $wp_query ) ? $wp_query : null;
-		$wp_query   = null;
-		$wp_query   = $custom_query;
+		$wp_query = $custom_query;
 
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
@@ -332,9 +344,6 @@ class Eb_Shortcode_Courses {
 					'max_num_pages' => $custom_query->max_num_pages,
 				)
 			);
-			// Reset main query object.
-			$wp_query = null;
-			$wp_query = $temp_query;
 			do_action( 'eb_after_course_archive' );
 			if ( $group_by_cat ) {
 				?>

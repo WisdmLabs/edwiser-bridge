@@ -7,7 +7,6 @@
  * @link       https://edwiser.org
  * @since      1.3.3
  * @package    EWdwisr Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -15,7 +14,7 @@ namespace app\wisdmlabs\edwiserBridge;
 /**
  * Class responsible to create plugin GDPR compatible.
  */
-class Eb_Gdpr_Compatiblity {
+class Eb_Gdpr_Compatibility {
 
 	/**
 	 * Functionality to add data to the WordPress data exporter function.
@@ -197,7 +196,7 @@ class Eb_Gdpr_Compatiblity {
 	 * Get all privacy policy related data.
 	 */
 	public function eb_privacy_policy_page_data() {
-		$content = apply_filters( 'eb-privacy-policy-content', $this->eb_privacy_policy_content() );
+		$content = apply_filters( 'eb_privacy_policy_content', $this->eb_privacy_policy_content() );
 
 		if ( function_exists( 'wp_add_privacy_policy_content' ) ) {
 			wp_add_privacy_policy_content( 'Edwiser Bridge', $content );
@@ -244,13 +243,15 @@ class Eb_Gdpr_Compatiblity {
 	 */
 	public function eb_user_account_creation_policy() {
 		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-		$content        = '<p>
+		$eb_access_url  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
+
+		$content = '<p>
 						' . esc_html__( 'We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle.', 'eb-textdomain' ) . '
 					</p>
 					<p>
 						' . esc_html__( 'When you purchase from us through courses page, we’ll ask you to provide information including your first name, last name and email and creates username and password for the user. We’ll use this information for purposes, such as, to:', 'eb-textdomain' ) . '
 						<ul>
-							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . EDWISER_ACCESS_URL . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
+							<li>' . esc_html__( 'Create a user on the ', 'eb-textdomain' ) . '<a href = ' . $eb_access_url . '>' . esc_html__( 'Moodle site', 'eb-textdomain' ) . '</a></li>
 							<li>' . esc_html__( 'Enroll the same user into the course.', 'eb-textdomain' ) . '</li>
 						</ul>
 					</p>';

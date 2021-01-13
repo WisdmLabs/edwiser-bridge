@@ -19,7 +19,7 @@ if ( ! empty( $setting_messages ) ) {
 	echo wp_kses_post( $setting_messages );
 }
 
-$allowed_tags = get_allowed_html_tags();
+$allowed_tags = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
 /**
  * Get Licensing Information.

@@ -7,7 +7,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -68,18 +67,17 @@ class EBAdminEmailTemplate {
 	 */
 	public function output() {
 		$sub_action = isset( $_POST['eb-mail-tpl-submit'] ) ? sanitize_text_field( wp_unslash( $_POST['eb-mail-tpl-submit'] ) ) : 0;
-		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) ) {
-			if ( 'eb-mail-tpl-save-changes' === $sub_action ) {
-				$this->save();
-			}
+		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) && 'eb-mail-tpl-save-changes' === $sub_action ) {
+			$this->save();
 		}
-		$from_name = $this->get_from_name();
-		$tmpl_list = array();
-		$tmpl_list = apply_filters( 'eb_email_templates_list', $tmpl_list );
-		$section   = array();
-		$const_sec = apply_filters( 'eb_email_template_constant', $section );
-		$checked   = array();
-		$notif_on  = '';
+		$from_name     = $this->get_from_name();
+		$tmpl_list     = array();
+		$tmpl_list     = apply_filters( 'eb_email_templates_list', $tmpl_list );
+		$section       = array();
+		$const_sec     = apply_filters( 'eb_email_template_constant', $section );
+		$checked       = array();
+		$notif_on      = '';
+		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		if ( isset( $_GET['curr_tmpl'] ) ) {
 			$tmpl_key  = sanitize_text_field( wp_unslash( $_GET['curr_tmpl'] ) );
@@ -143,9 +141,6 @@ class EBAdminEmailTemplate {
 								do_action( 'eb_manage_email_template_before_text_editor', $tmpl_key );
 
 							?>
-
-
-
 							<tr>
 								<td colspan="2" class="eb-template-edit-cell">
 			<?php
@@ -172,7 +167,7 @@ class EBAdminEmailTemplate {
 							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'eb-textdomain' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'eb-textdomain' ); ?>"/>
 							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'eb-textdomain' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'eb-textdomain' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( EDWISER_PLUGIN_URL . '/images/loader.gif' ); ?>" height="20" width="20">
+								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( $eb_plugin_url . '/images/loader.gif' ); ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
@@ -288,9 +283,10 @@ class EBAdminEmailTemplate {
 	public function get_template_data_ajax_call_back() {
 		$data = array();
 		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
-			$tmpl_data    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) );
-			$notify_allow = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_notify_allow' );
-			$bcc_email    = get_option( sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) ) . '_bcc_email' );
+			$tmpl_name    = sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) );
+			$tmpl_data    = get_option( $tmpl_name );
+			$notify_allow = get_option( $tmpl_name . '_notify_allow' );
+			$bcc_email    = get_option( $tmpl_name . '_bcc_email' );
 
 			if ( ! $bcc_email ) {
 				$bcc_email = '';
@@ -636,7 +632,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email.
 	 */
 	public function wpbSenderEmail( $email ) {
-		return $this->wpb_sender_email( $emial );
+		return $this->wpb_sender_email( $email );
 	}
 
 	/**
@@ -647,7 +643,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email.
 	 */
 	public function wpb_sender_email( $email ) {
-		return $this->get_from_email();
+		return $this->get_from_email( $email );
 	}
 
 	/**
@@ -657,7 +653,7 @@ class EBAdminEmailTemplate {
 	 * @return string returns from email
 	 */
 	public function wp_sender_name( $name ) {
-		return $this->get_from_name();
+		return $this->get_from_name( $name );
 	}
 
 	/**

@@ -12,7 +12,6 @@
  * version of the plugin.
  *
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -109,54 +108,10 @@ class EdwiserBridge {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'edwiserbridge';
-		$this->version     = '2.0.1';
-		$this->define_constants();
+		$this->version     = '2.0.4';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_plugin_hooks();
-	}
-
-	/**
-	 * Check COnstant defined.
-	 *
-	 * @param text $key key.
-	 * @param text $value value.
-	 */
-	private function check_constant_defined( $key, $value ) {
-		if ( ! defined( $key ) ) {
-			define( $key, $value );
-		}
-	}
-
-	/**
-	 * Setup plugin constants.
-	 *
-	 * @since 1.0.0
-	 */
-	private function define_constants() {
-		$upload_dir = wp_upload_dir();
-
-		// get connection settings.
-		$connection_options = get_option( 'eb_connection' );
-
-		$eb_moodle_url = '';
-		if ( isset( $connection_options['eb_url'] ) ) {
-			$eb_moodle_url = $connection_options['eb_url'];
-		}
-		$eb_moodle_token = '';
-		if ( isset( $connection_options['eb_access_token'] ) ) {
-			$eb_moodle_token = $connection_options['eb_access_token'];
-		}
-		/**
-		 * Define plugin constants.
-		 */
-		$this->check_constant_defined( 'EDWISER_BRIDGE_VERSION', $this->version );
-		$this->check_constant_defined( 'EDWISER_PLUGIN_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EDWISER_PLUGIN_DIR', plugin_dir_path( dirname( __FILE__ ) ) );
-		$this->check_constant_defined( 'EDWISER_TEMPLATE_PATH', 'edwiserBridge/' );
-		$this->check_constant_defined( 'EDWISER_ACCESS_TOKEN', $eb_moodle_token );
-		$this->check_constant_defined( 'EDWISER_ACCESS_URL', $eb_moodle_url );
-		$this->check_constant_defined( 'EDWISER_LOG_DIR', $upload_dir['basedir'] . '/eb-logs/' );
 	}
 
 	/**
@@ -727,7 +682,7 @@ class EdwiserBridge {
 			'reset_email_template_content'
 		);
 
-		$gdpr_compatible = new Eb_Gdpr_Compatiblity();
+		$gdpr_compatible = new Eb_Gdpr_Compatibility();
 		/**
 		 * Used to add eb personal while exporting personal data.
 		 *
@@ -1016,7 +971,7 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_scripts' );
 
 		// Template loader hooks.
-		$this->loader->eb_add_filter( 'template_include', $template_loader, 'template_loader' );
+		$this->loader->eb_add_filter( 'template_include', $template_loader, 'template_loader', 10 );
 
 		// Initiate our shortcodes class on init hook.
 		$this->loader->eb_add_action( 'init', 'app\wisdmlabs\edwiserBridge\Eb_Shortcodes', 'init' );

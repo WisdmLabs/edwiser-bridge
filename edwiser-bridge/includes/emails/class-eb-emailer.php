@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -63,8 +62,7 @@ class Eb_Emailer {
 		/**
 		 * Class responsible for loading templates.
 		 */
-		// require_once EB_PLUGIN_DIR . 'public/class-eb-template-loader.php';
-       	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
+		require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/public/class-eb-template-loader.php';
 
 		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
 	}
@@ -158,23 +156,21 @@ class Eb_Emailer {
 
 		$eb_general = get_option( 'eb_general' );
 		if ( $eb_general ) {
-			$send_email_to_admin        = get_arr_value( $eb_general, 'eb_refund_mail_to_admin', false );
-			$specified_email_for_refund = get_arr_value( $eb_general, 'eb_refund_mail', false );
+			$send_email_to_admin        = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $eb_general, 'eb_refund_mail_to_admin', false );
+			$specified_email_for_refund = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $eb_general, 'eb_refund_mail', false );
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow' );
-		if ( false !== $allow_notify && 'ON' === $allow_notify ) {
-			if ( $user_email_tmpl_data ) {
-				$user               = get_user_by( 'id', get_arr_value( $args, 'buyer_id' ), '' );
-				$args['first_name'] = $user->first_name;
-				$args['last_name']  = $user->last_name;
-				$args['username']   = $user->user_login;
+		if ( false !== $allow_notify && 'ON' === $allow_notify && $user_email_tmpl_data ) {
+			$user               = get_user_by( 'id', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $args, 'buyer_id' ), '' );
+			$args['first_name'] = $user->first_name;
+			$args['last_name']  = $user->last_name;
+			$args['username']   = $user->user_login;
 
-				// CUSTOMIZATION HOOKS.
-				$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_user' );
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_refund_completion_notifier_to_user' );
 
-				$email_tmpl_obj->send_email( $user->user_email, $args, $user_email_tmpl_data );
-			}
+			$email_tmpl_obj->send_email( $user->user_email, $args, $user_email_tmpl_data );
 		}
 
 		$allow_notify = get_option( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow' );
@@ -230,7 +226,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
 		$allow_notify    = get_option( 'eb_emailtmpl_create_user_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -279,7 +275,7 @@ class Eb_Emailer {
 		$allow_notify = get_option( 'eb_emailtmpl_linked_existing_wp_user_notify_allow' );
 
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -322,72 +318,69 @@ class Eb_Emailer {
 	 * @return bool
 	 */
 	public function send_order_completion_email( $order_id ) {
-
 		$order_detail = get_post_meta( $order_id, 'eb_order_options', true ); // get order details.
+		$is_mailed    = false;
 
 		// return if there is a problem in order details.
-		if ( ! $this->check_order_details( $order_detail ) ) {
-			return;
+		if ( $this->check_order_details( $order_detail ) ) {
+
+			$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
+			$args         = array(); // arguments array for email.
+
+			$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
+			$this->plugin_template_loader = new EbTemplateLoader(
+				$this->plugin_name,
+				$this->version
+			); // template loader object.
+
+			// prepare arguments array for email.
+			$args = apply_filters(
+				'eb_filter_email_parameters',
+				array(
+					'eb_order_id' => $order_id, // changed 1.4.7.
+					'course_id'   => $order_detail['course_id'],
+					'user_email'  => $buyer_detail->user_email,
+					'username'    => $buyer_detail->user_login,
+					'first_name'  => isset( $buyer_detail->first_name ) ? $buyer_detail->first_name : '',
+					'last_name'   => isset( $buyer_detail->last_name ) ? $buyer_detail->last_name : '',
+				),
+				$this->template_name
+			);
+
+			/**
+			 * Using Email template Editor
+			 */
+			$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
+
+			$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
+			if ( true === $allow_notify || 'ON' === $allow_notify ) {
+				if ( $email_tmpl_data ) {
+					$email_tmpl_obj = new EBAdminEmailTemplate();
+					// CUSTOMIZATION HOOKS.
+					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
+
+					$is_mailed = $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
+				} else {
+					/**
+					 * Using Default
+					 */
+					$email_subject  = apply_filters(
+						'eb_order_completion_email_subject',
+						esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
+					);
+					$args['header'] = $email_subject; // send email subject as header in email template.
+					$email_content  = $this->get_content_html( $args );
+					$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
+
+					// CUSTOMIZATION HOOKS.
+					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
+
+					// send email.
+					$is_mailed = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
+				}
+			}
 		}
-
-		$buyer_detail = get_userdata( $order_detail['buyer_id'] ); // get buyer details.
-		$args         = array(); // arguments array for email.
-
-		$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
-		$this->plugin_template_loader = new EbTemplateLoader(
-			$this->plugin_name,
-			$this->version
-		); // template loader object.
-
-		// prepare arguments array for email.
-		$args = apply_filters(
-			'eb_filter_email_parameters',
-			array(
-				'eb_order_id' => $order_id, // changed 1.4.7.
-				'course_id'   => $order_detail['course_id'],
-				'user_email'  => $buyer_detail->user_email,
-				'username'    => $buyer_detail->user_login,
-				'first_name'  => isset( $buyer_detail->first_name ) ? $buyer_detail->first_name : '',
-				'last_name'   => isset( $buyer_detail->last_name ) ? $buyer_detail->last_name : '',
-			),
-			$this->template_name
-		);
-
-		/**
-		 * Using Email template Editor
-		 */
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
-
-		$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
-		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
-		}
-		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
-			// CUSTOMIZATION HOOKS.
-			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
-
-			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
-		}
-
-		/**
-		 * Using Default
-		 */
-		$email_subject  = apply_filters(
-			'eb_order_completion_email_subject',
-			esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
-		);
-		$args['header'] = $email_subject; // send email subject as header in email template.
-		$email_content  = $this->get_content_html( $args );
-		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
-
-		// CUSTOMIZATION HOOKS.
-		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
-
-		// send email.
-		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
-
-		return $sent;
+		return $is_mailed;
 	}
 
 
@@ -409,7 +402,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 
 		if ( $email_tmpl_data ) {
@@ -449,7 +442,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -489,7 +482,7 @@ class Eb_Emailer {
 		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
-			return;
+			return false;
 		}
 		if ( $email_tmpl_data ) {
 			$email_tmpl_obj = new EBAdminEmailTemplate();
@@ -509,10 +502,12 @@ class Eb_Emailer {
 	 * @param array $order_detail order_detail array.
 	 */
 	private function check_order_details( $order_detail ) {
+		$check_order_detials = true;
+
 		if ( ! isset( $order_detail['order_status'] ) || ! isset( $order_detail['buyer_id'] ) || ! isset( $order_detail['course_id'] ) ) {
-			return false;
+			$check_order_detials = false;
 		}
-		return true;
+		return $check_order_detials;
 	}
 
 

@@ -38,7 +38,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				do_action( 'eb_sections_' . $current_tab );
 				do_action( 'eb_settings_' . $current_tab );
 				?>
-
 				<p class="submit">
 					<?php if ( ! isset( $GLOBALS['hide_save_button'] ) ) : ?>
 						<input name="save" class="button-primary" type="submit"
@@ -52,12 +51,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="eb_setting_right_sidebar_info">
 			<?php
-				// require_once EB_PLUGIN_DIR . 'admin/partials/html-admin-settings-right-section.php';
-            	require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings-right-section.php';
+				require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings-right-section.php';
 			?>
 			</div>
-
-
 		</div>
 		<?php
 		if ( 'licensing' !== $tabname ) {

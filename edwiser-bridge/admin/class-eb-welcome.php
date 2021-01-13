@@ -11,7 +11,6 @@
  *
  * @package    Edwiser Bridge
  * @subpackage Edwiser Bridge/admin
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -39,12 +38,12 @@ class Eb_Welcome {
 	 * Add admin menus/screens.
 	 */
 	public function admin_menus() {
-		if ( ! isset( $_GET['page'] ) || empty( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ) {
+		if ( ! isset( $_GET['edw-wc-nonce'] ) || ( isset( $_GET['edw-wc-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) ) {
 			return;
 		}
 
-		if ( isset( $_GET['edw-wc-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
-			die( 'Busted, retry.' );
+		if ( ! isset( $_GET['page'] ) || empty( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) ) {
+			return;
 		}
 
 		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'eb-textdomain' );
@@ -217,7 +216,6 @@ class Eb_Welcome {
 
 		<span class="eb-version-badge">
 		<?php
-
 		/*
 		 * translators: Version number.
 		 */
@@ -246,7 +244,7 @@ class Eb_Welcome {
 				</p>
 
 				<p class="eb_welcome_mdl_dwnld_btn_wrap">
-					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
+					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
 				</p>
 
 				<div class="changelog prompt-subscribe-wrap">
@@ -269,14 +267,14 @@ class Eb_Welcome {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
-					if ( isset( $_POST['subscribe_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-						if ( isset( $_GET['subscribed'] ) && 1 === $_GET['subscribed'] ) {
+					if ( isset( $_GET['edw-wc-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
+						if ( isset( $_GET['subscribed'] ) && sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="success-message">
 								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
 							</div>
 							<?php
-						} elseif ( isset( $_GET['subscribed'] ) && 0 === $_GET['subscribed'] ) {
+						} elseif ( isset( $_GET['subscribed'] ) && ! sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="error-message">
 								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
@@ -302,6 +300,7 @@ class Eb_Welcome {
 	 * @since  1.0.0
 	 */
 	public function welcome_handler() {
+		$subscribed = 0;
 
 		// Return if no activation redirect transient is set.
 		if ( ! get_transient( '_eb_activation_redirect' ) ) {
@@ -321,7 +320,8 @@ class Eb_Welcome {
 		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
 			return;
 		}
-		$wc_url = wp_nonce_url( admin_url( '/?page=eb-about&subscribed=' . $subscribed ), 'edw-wc-nonce', 'edw-wc-nonce' );
+		$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+
 		wp_safe_redirect( $wc_url );
 		exit;
 	}
@@ -364,7 +364,8 @@ class Eb_Welcome {
 				$subscribed = 1;
 			}
 		}
-		$wc_url = wp_nonce_url( admin_url( '/?page=eb-about&subscribed=' . $subscribed ), 'edw-wc-nonce', 'edw-wc-nonce' );
+		$wc_url = admin_url( '/?page=eb-about&subscribed=' . $subscribed ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+
 		wp_safe_redirect( $wc_url );
 		exit;
 	}

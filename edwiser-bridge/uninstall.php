@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Fired when the plugin is uninstalled.
  *
@@ -6,4 +7,4 @@
  *
  * @link       https://edwiser.org
  * @since      1.0.0
- */
+ * /

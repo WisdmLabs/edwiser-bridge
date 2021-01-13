@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
 Requires at least: 4.4
-Tested up to: 5.5.0
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -211,6 +211,16 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.0.4 =
+* Fix - Added security fixes for WordPress API  (Issue report credits: Nick Blundell <nickb@appcheck-ng.com>).
+
+
+= 2.0.3 =
+* Tweak - Removed defines and Added security checks.
+
+= 2.0.2 =
+* Tweak - Solved connection settings save issue.
 
 = 2.0.1 =
 * Tweak - Added security checks.

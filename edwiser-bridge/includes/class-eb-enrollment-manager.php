@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -122,7 +121,6 @@ class Eb_Enrollment_Manager {
 	 * @param bool  $role_id false.
 	 */
 	public function update_user_course_enrollment( $args, $role_id = '5' ) {
-
 		$defaults = array(
 			'user_id'           => 0,
 			'role_id'           => $role_id,
@@ -152,7 +150,7 @@ class Eb_Enrollment_Manager {
 
 		// exit if no associated moodle user found.
 		if ( ! is_numeric( $moodle_user_id ) ) {
-			return;
+			return false;
 		}
 
 		// get moodle course id of each course.
@@ -358,9 +356,7 @@ class Eb_Enrollment_Manager {
 					// Set timezone.
 
 					// New code for time.
-					$current_date_time_obj = current_datetime();
-					$current_date          = $current_date_time_obj->format( 'Y-m-d H:i:s' );
-					$expire_date           = $this->calc_course_acess_expiry_date( $course_id );
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
 
 					$wpdb->insert(
 						$wpdb->prefix . 'moodle_enrollment',
@@ -368,7 +364,7 @@ class Eb_Enrollment_Manager {
 							'user_id'     => $args['user_id'],
 							'course_id'   => $course_id,
 							'role_id'     => $role_id,
-							'time'        => $current_date,
+							'time'        => gmdate( 'Y-m-d H:i:s' ),
 							'expire_time' => $expire_date,
 							'act_cnt'     => 1,
 						),
@@ -382,7 +378,7 @@ class Eb_Enrollment_Manager {
 						)
 					);
 
-				} elseif ( $this->user_has_cours_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
+				} elseif ( $this->user_has_course_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
 					// increase the count value.
 					$act_cnt = ++$act_cnt;
 					// update increased count value.
@@ -390,7 +386,7 @@ class Eb_Enrollment_Manager {
 				}
 			}
 			// Trigger Email.
-		} elseif ( 1 == $args['unenroll'] ) {
+		} elseif ( 1 === (int) trim( $args['unenroll'] ) ) {
 			foreach ( $args['courses'] as $key => $course_id ) {
 				// Get User Course Access Count.
 				$act_cnt = $this->get_user_course_access_count( $args['user_id'], $course_id );
@@ -573,32 +569,6 @@ class Eb_Enrollment_Manager {
 		$this->delete_user_enrollment_record( $user_id, $course_id );
 	}
 
-
-
-	/**
-	 * Used to check if a user has access to a course.
-	 *
-	 * @since  1.0.0
-	 *
-	 * @param int $user_id   WordPress user id of a user.
-	 * @param int $course_id WordPress course id of a course.
-	 */
-	public function user_has_cours_access( $user_id, $course_id ) {
-		global $wpdb;
-		$has_access = false;
-
-		if ( '' === $user_id || '' === $course_id ) {
-			return $has_access;
-		}
-
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
-
-		if ( trim( $result ) === trim( $user_id ) ) {
-			$has_access = true;
-		}
-
-		return $has_access;
-	}
 
 	/**
 	 * Used to check if a user has access to a course.

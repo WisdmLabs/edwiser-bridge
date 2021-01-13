@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.4
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -38,14 +37,12 @@ class Eb_Course_Progress {
 
 			if ( isset( $response['success'] ) && $response['success'] ) {
 				foreach ( $response['response_data'] as $value ) {
-					$course_id                           = get_wp_course_id_from_moodle_course_id( $value->course_id );
+					$course_id                           = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $value->course_id );
 					$course_progress_array[ $course_id ] = $value->completion;
 				}
 			}
 			update_user_meta( $user_id, 'moodle_course_progress', serialize( $course_progress_array ) );
 			return $course_progress_array;
 		}
-			// }
-		// }
 	}
 }

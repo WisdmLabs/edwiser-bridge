@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.2.1
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -84,12 +83,12 @@ class Eb_Paypal_Refund_Manager {
 			} catch ( Exception $ex ) {
 				edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Exception: " . serialize( $ex ) );
 			}
-			$resp_status = get_arr_value( $response, 'ACK', false );
+			$resp_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'ACK', false );
 			if ( 'Success' === $resp_status ) {
-				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', get_arr_value( $response, 'GROSSREFUNDAMT' ), $order_id, get_arr_value( $response, 'REFUNDTRANSACTIONID' ) );
+				$status['msg'] = esc_html__( 'Refund for amount', 'eb-textdomain' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'GROSSREFUNDAMT' ), $order_id, \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'REFUNDTRANSACTIONID' ) );
 			} elseif ( 'Failure' === $resp_status ) {
 				$success       = 0;
-				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . get_arr_value( $response, 'L_LONGMESSAGE0', '' );
+				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'eb-textdomain' ) . '</strong>' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'L_LONGMESSAGE0', '' );
 			}
 		} else {
 			$success       = 0;
@@ -129,7 +128,7 @@ class Eb_Paypal_Refund_Manager {
 				'VERSION'       => '84.0',
 				'SIGNATURE'     => $api_details['sign'],
 				'USER'          => $api_details['username'],
-				'PWD'           => $api_details['password'],
+				'PWD'           => $api_details['pwd'],
 				'METHOD'        => 'RefundTransaction',
 				'TRANSACTIONID' => $txn_id,
 				'NOTE'          => $reason,
@@ -151,9 +150,9 @@ class Eb_Paypal_Refund_Manager {
 	private function get_paypal_api_details() {
 		$api_details  = get_option( 'eb_paypal' );
 		$pay_pal_data = array(
-			'username' => get_arr_value( $api_details, 'eb_api_username', '' ),
-			'password' => get_arr_value( $api_details, 'eb_api_password', '' ),
-			'sign'     => get_arr_value( $api_details, 'eb_api_signature', '' ),
+			'username' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_username', '' ),
+			'pwd'      => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_password', '' ),
+			'sign'     => \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $api_details, 'eb_api_signature', '' ),
 		);
 		return $pay_pal_data;
 	}
@@ -179,7 +178,19 @@ class Eb_Paypal_Refund_Manager {
 	private function get_currency_code( $order_id ) {
 		$currency_code = get_post_meta( $order_id, 'eb_paypal_currency', 1 );
 		if ( ! $currency_code && empty( $currency_code ) ) {
-			$option = unserialize( get_option( 'eb_paypal' ) );
+			$default_options = array(
+				'eb_paypal_email'        => '',
+				'eb_paypal_currency'     => '',
+				'eb_paypal_country_code' => '',
+				'eb_paypal_cancel_url'   => '',
+				'eb_paypal_return_url'   => '',
+				'eb_paypal_notify_url'   => '',
+				'eb_paypal_sandbox'      => '',
+				'eb_api_username'        => '',
+				'eb_api_password'        => '',
+				'eb_api_signature'       => '',
+			);
+			$option          = unserialize( get_option( 'eb_paypal' ), $default_options );
 			return $option['eb_paypal_currency'];
 		}
 		return $currency_code;
@@ -191,7 +202,7 @@ class Eb_Paypal_Refund_Manager {
 	 * @param int $currency currency.
 	 */
 	private function currency_has_decimals( $currency ) {
-		if ( in_array( $currency, array( 'HUF', 'JPY', 'TWD' ) ) ) {
+		if ( in_array( $currency, array( 'HUF', 'JPY', 'TWD' ), true ) ) {
 			return false;
 		}
 		return true;

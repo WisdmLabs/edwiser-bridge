@@ -7,7 +7,6 @@
  * @link       https://edwiser.org
  * @since      1.3.4
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -21,6 +20,7 @@ class Eb_Admin_Notice_Handler {
 	 * Check if installed.
 	 */
 	public function check_if_moodle_plugin_installed() {
+		$plugin_installed   = 1;
 		$connection_options = get_option( 'eb_connection' );
 		$eb_moodle_url      = '';
 		if ( isset( $connection_options['eb_url'] ) ) {
@@ -37,20 +37,63 @@ class Eb_Admin_Notice_Handler {
 		$response        = wp_remote_post( $request_url );
 
 		if ( is_wp_error( $response ) ) {
-			return 0;
+			$plugin_installed = 0;
 		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
 				300 === wp_remote_retrieve_response_code( $response ) ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( 'accessexception' === $body->errorcode ) {
-				return 0;
+				$plugin_installed = 0;
 			}
 		} else {
-			return 0;
+			$plugin_installed = 0;
 		}
 
-		return 1;
+		return $plugin_installed;
 	}
+
+
+	public function eb_get_mdl_plugin_info() {
+
+		$connection_options = get_option( 'eb_connection' );
+		$eb_moodle_url      = '';
+		if ( isset( $connection_options['eb_url'] ) ) {
+			$eb_moodle_url = $connection_options['eb_url'];
+		}
+		$eb_moodle_token = '';
+		if ( isset( $connection_options['eb_access_token'] ) ) {
+			$eb_moodle_token = $connection_options['eb_access_token'];
+		}
+		$request_url = $eb_moodle_url . '/webservice/rest/server.php?wstoken=';
+
+		$moodle_function = 'eb_get_edwiser_plugins_info';
+		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
+		$request_args = array(
+			'body'    => array(),
+			'timeout' => 100,
+		);
+		$response        = wp_remote_post( $request_url, $request_args );
+
+		$status = 0;
+
+		if ( is_wp_error( $response ) ) {
+			return $status;
+		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
+				300 === wp_remote_retrieve_response_code( $response ) ) {
+			$body = json_decode( wp_remote_retrieve_body( $response ) );
+
+			if ( isset( $body->plugin_name ) && isset( $body->version ) && version_compare( '2.0.4', $body->version ) == 0) {
+				$status = 1;
+			}
+
+		} else {
+			$status = 0;
+		}
+
+		return $status;
+
+	}
+
 
 
 	/**
@@ -59,43 +102,64 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_update_moodle_plugin_notice() {
-		$redirection = '?eb-update-notice-dismissed';
-		if ( isset( $_GET ) && ! empty( $_GET ) ) { // WPCS: CSRF ok, input var ok.
-			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-update-notice-dismissed';
-		}
+		$redirection = add_query_arg( 'eb-update-notice-dismissed', true );
 
-		if ( ! get_option( 'eb_update_notice_dismissed' ) ) {
-			if ( $this->check_if_moodle_plugin_installed() ) {
-				update_option( 'eb_update_notice_dismissed', 'true', true );
+		if ( ! get_option( 'eb_mdl_plugin_update_notice_dismissed' ) ) {
+			if ( ! $this->check_if_moodle_plugin_installed() ) {
+				echo '  <div class="notice  eb_admin_update_notice_message_cont">
+							<div class="eb_admin_update_notice_message">
+
+								<div class="eb_update_notice_content">
+									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
+									<a href="https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
+
+										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
+										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'eb-textdomain' ) . '</a>.
+								</div>
+								
+								<div class="eb_update_notice_dismiss_wrap">
+									<span style="padding-left: 5px;">
+										<a href="' . esc_html( $redirection ) . '">
+											' . esc_html__( ' Dismiss notice', 'eb-textdomain' ) . '
+										</a>
+									</span>
+								</div>
+
+							</div>
+							<div class="eb_admin_update_dismiss_notice_message">
+									<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
+							</div>
+						</div>';
+			} elseif ( ! $this->eb_get_mdl_plugin_info() ) {
+				echo '  <div class="notice  eb_admin_update_notice_message_cont">
+							<div class="eb_admin_update_notice_message">
+
+								<div class="eb_update_notice_content">
+									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
+									<a href="https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
+
+										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
+										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'eb-textdomain' ) . '</a>.
+								</div>
+								
+								<div class="eb_update_notice_dismiss_wrap">
+									<span style="padding-left: 5px;">
+										<a href="' . esc_html( $redirection ) . '">
+											' . esc_html__( ' Dismiss notice', 'eb-textdomain' ) . '
+										</a>
+									</span>
+								</div>
+
+							</div>
+							<div class="eb_admin_update_dismiss_notice_message">
+									<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
+							</div>
+						</div>';
+			} else {
+				update_option( 'eb_mdl_plugin_update_notice_dismissed', 'true', true );
 			}
-			echo '  <div class="notice  eb_admin_update_notice_message_cont">
-						<div class="eb_admin_update_notice_message">
-
-							<div class="eb_update_notice_content">
-								' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, <b>please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.</b>', 'eb-textdomain' ) . '
-								<a href="https://edwiser.org/wp-content/uploads/edd/2020/11/edwiserbridgemoodle_2.0.0.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
-								' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
-
-									' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'eb-textdomain' ) . '</a>.
-							</div>
-							
-							<div class="eb_update_notice_dismiss_wrap">
-								<span style="padding-left: 5px;">
-									<a href="' . esc_html( $redirection ) . '">
-										' . esc_html__( ' Dismiss notice', 'eb-textdomain' ) . '
-									</a>
-								</span>
-							</div>
-
-						</div>
-						<div class="eb_admin_update_dismiss_notice_message">
-								<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
-						</div>
-					</div>';
 		}
 	}
 
@@ -109,8 +173,8 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice_dismiss_handler() {
-		$user_id = get_current_user_id();
-		if ( isset( $_GET['eb-discount-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
+		if ( true === filter_input( INPUT_GET, 'eb-discount-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
 			add_user_meta( $user_id, 'eb_discount_notice_dismissed', 'true', true );
 		}
 	}
@@ -123,14 +187,7 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_discount_notice() {
-		$redirection  = '?eb-discount-notice-dismissed';
-		$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-		$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-
-		if ( isset( $_GET ) && ! empty( $_GET ) ) { // WPCS: CSRF ok, input var ok.
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-discount-notice-dismissed';
-		}
+		$redirection = add_query_arg( 'eb-discount-notice-dismissed', true );
 
 		$user_id = get_current_user_id();
 		if ( ! get_user_meta( $user_id, 'eb_discount_notice_dismissed' ) ) {
@@ -166,8 +223,8 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_update_notice_dismiss_handler() {
-		if ( isset( $_GET['eb-update-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
-			update_option( 'eb_update_notice_dismissed', 'true', true );
+		if ( true === filter_input( INPUT_GET, 'eb-update-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			update_option( 'eb_mdl_plugin_update_notice_dismissed', 'true', true );
 		}
 	}
 
@@ -181,19 +238,10 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_feedback_notice() {
-		$redirection = '?eb-feedback-notice-dismissed';
-		if ( isset( $_GET ) && ! empty( $_GET ) ) {
-			$request_host = isset( $_SERVER['HTTP_HOST'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-			$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-
-			$redirection  = ( isset( $_SERVER['HTTPS'] ) ? 'https' : 'http' ) . '://' . $request_host . $request_uri;
-			$redirection .= '&eb-feedback-notice-dismissed';
-		}
-
+		$redirection       = add_query_arg( 'eb-feedback-notice-dismissed', true );
 		$user_id           = get_current_user_id();
 		$feedback_usermeta = get_user_meta( $user_id, 'eb_feedback_notice_dismissed', true );
-		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) ) {
-			if ( ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
+		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) && ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
 				echo '  <div class="notice eb_admin_feedback_notice_message_cont">
 							<div class="eb_admin_feedback_notice_message">'
 								. esc_html__( 'Enjoying Edwiser bridge, Please  ', 'eb-textdomain' ) . '
@@ -218,7 +266,6 @@ class Eb_Admin_Notice_Handler {
 								<span class="dashicons dashicons-dismiss"></span>
 							</div>
 						</div>';
-			}
 		}
 	}
 
@@ -229,9 +276,9 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_notice_dismiss_handler() {
-		$user_id = get_current_user_id();
-		if ( isset( $_GET['eb-feedback-notice-dismissed'] ) ) { // WPCS: CSRF ok, input var ok.
-			add_user_meta( $user_id, 'eb_feedback_notice_dismissed', sanitize_text_field( wp_unslash( $_GET['eb-feedback-notice-dismissed'] ) ), true ); // WPCS: CSRF ok, input var ok.
+		if ( true === filter_input( INPUT_GET, 'eb-feedback-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			add_user_meta( $user_id, 'eb_feedback_notice_dismissed', filter_input( INPUT_GET, 'eb-feedback-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
 		}
 	}
 
@@ -243,12 +290,6 @@ class Eb_Admin_Notice_Handler {
 	 * @param text $new_plugin_meta_data new_plugin_meta_data.
 	 */
 	public function eb_show_inline_plugin_update_notification( $curr_plugin_meta_data, $new_plugin_meta_data ) {
-		// check "upgrade_notice".
-
-		// added this just for commit purpose.
-		$curr_plugin_meta_data = $curr_plugin_meta_data;
-		$new_plugin_meta_data  = $new_plugin_meta_data;
-
 		ob_start();
 		?>
 			<p>
@@ -261,5 +302,8 @@ class Eb_Admin_Notice_Handler {
 
 		<?php
 		echo esc_html( ob_get_clean() );
+		// added this just for commit purpose.
+		unset( $curr_plugin_meta_data );
+		unset( $new_plugin_meta_data );
 	}
 }

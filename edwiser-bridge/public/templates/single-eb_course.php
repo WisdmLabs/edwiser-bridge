@@ -49,7 +49,6 @@ get_header();
 
 $template_loader->wp_get_template( 'global/wrapper-start.php', $wrapper_args );
 
-
 /*
  * -------------------------------------
  * CONTENT START
@@ -57,7 +56,6 @@ $template_loader->wp_get_template( 'global/wrapper-start.php', $wrapper_args );
  **/
 
 do_action( 'eb_before_single_course' );
-
 
 $eb_shrtcode_wrapper = new Eb_Shortcode_My_Courses();
 

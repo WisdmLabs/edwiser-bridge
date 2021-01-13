@@ -5,10 +5,11 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
-if ( ! function_exists( 'wdm_log_file_path' ) ) {
+namespace app\wisdmlabs\edwiserBridge;
+
+if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.
 	 *
@@ -18,13 +19,14 @@ if ( ! function_exists( 'wdm_log_file_path' ) ) {
 	 *
 	 * @return string the log file path
 	 */
-	function wdm_log_file_path( $handle ) {
-		return trailingslashit( EDWISER_LOG_DIR ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
+	function wdm_eb_log_file_path( $handle ) {
+		$eb_log_dir_path = wdm_edwiser_bridge_plugin_log_dir();
+		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
 	}
 }
 
 
-if ( ! function_exists( 'wdm_create_page' ) ) {
+if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 	/**
 	 * Create a page and store the ID in an option.
 	 *
@@ -35,7 +37,7 @@ if ( ! function_exists( 'wdm_create_page' ) ) {
 	 *
 	 * @return int page ID
 	 */
-	function wdm_create_page( $slug, $option_key = '', $page_title = '', $page_content = '' ) {
+	function wdm_eb_create_page( $slug, $option_key = '', $page_title = '', $page_content = '' ) {
 		global $wpdb;
 
 		// get all settings of settings general tab.
@@ -43,10 +45,8 @@ if ( ! function_exists( 'wdm_create_page' ) ) {
 		$eb_general_settings = get_option( 'eb_general', array() );
 
 		$option_value = 0;
-		if ( '' !== trim( $option_key ) ) {
-			if ( isset( $eb_general_settings[ $option_key ] ) ) {
+		if ( '' !== trim( $option_key ) && isset( $eb_general_settings[ $option_key ] ) ) {
 				$option_value = $eb_general_settings[ $option_key ];
-			}
 		}
 
 		if ( $option_value > 0 && get_post( $option_value ) ) {
@@ -74,7 +74,7 @@ if ( ! function_exists( 'wdm_create_page' ) ) {
 		}
 
 		if ( $page_found_id ) {
-			wdm_update_page_id( $option_value, $option_key, $page_found_id, $eb_general_settings );
+			wdm_eb_update_page_id( $option_value, $option_key, $page_found_id, $eb_general_settings );
 			return $page_found_id;
 		}
 
@@ -88,13 +88,13 @@ if ( ! function_exists( 'wdm_create_page' ) ) {
 			'comment_status' => 'closed',
 		);
 		$page_id   = wp_insert_post( $page_data );
-		wdm_update_page_id( $option_value, $option_key, $page_id, $eb_general_settings );
+		wdm_eb_update_page_id( $option_value, $option_key, $page_id, $eb_general_settings );
 		return $page_id;
 	}
 }
 
 
-if ( ! function_exists( 'wdm_update_page_id' ) ) {
+if ( ! function_exists( 'wdm_eb_update_page_id' ) ) {
 	/**
 	 * Create a page and store the ID in an option.
 	 *
@@ -103,48 +103,48 @@ if ( ! function_exists( 'wdm_update_page_id' ) ) {
 	 * @param string $_id   _id.
 	 * @param string $eb_general_settings eb_general_settings.
 	 */
-	function wdm_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
-		if ( '' === $option_value && '' !== trim( $option_key ) ) {
+	function wdm_eb_update_page_id( $option_value, $option_key, $_id, &$eb_general_settings ) {
+		if ( ! empty( $option_key ) ) {
 			$eb_general_settings[ $option_key ] = $_id;
 			update_option( 'eb_general', $eb_general_settings );
 		}
 	}
 }
 
-if ( ! function_exists( 'wdm_add_notices' ) ) {
+if ( ! function_exists( 'wdm_eb_login_reg_add_notices' ) ) {
 	/**
 	 * Add messages.
 	 *
 	 * @param text $message message.
 	 */
-	function wdm_add_notices( $message ) {
-		define( 'USER_FORM_MESSAGE', $message );
+	function wdm_eb_login_reg_add_notices( $message ) {
+		define( 'WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE', $message );
 	}
 }
 
 
-if ( ! function_exists( 'wdm_show_notices' ) ) {
+if ( ! function_exists( 'wdm_eb_login_reg_show_notices' ) ) {
 	/**
 	 * Display messages.
 	 */
-	function wdm_show_notices() {
+	function wdm_eb_login_reg_show_notices() {
 		// display form messages.
-		if ( defined( 'USER_FORM_MESSAGE' ) ) {
+		if ( defined( 'WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE' ) ) {
 			echo "<div class='wdm-flash-error'>";
-			echo '<span>' . wp_kses( USER_FORM_MESSAGE, eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
+			echo '<span>' . wp_kses( WDM_EDWISER_BRIDGE_USER_FORM_MESSAGE, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ) . '</span><br />';
 			echo '</div>';
 		}
 	}
 }
 
-if ( ! function_exists( 'wdm_user_account_url' ) ) {
+if ( ! function_exists( 'wdm_eb_user_account_url' ) ) {
 	/**
 	 * Remodified wdmUserAccountUrl() to return user account url.
 	 *
-	 * @param text $query_str query_str.
+	 * @param text $args query_string arguments array.
 	 * @since 1.2.0
 	 */
-	function wdm_user_account_url( $query_str = '' ) {
+	function wdm_eb_user_account_url( $args = array() ) {
 		$usr_ac_page_id = null;
 		$eb_settings    = get_option( 'eb_general' );
 
@@ -158,10 +158,7 @@ if ( ! function_exists( 'wdm_user_account_url' ) ) {
 			$usr_ac_page_url = site_url( '/user-account' );
 		}
 
-		// Extract query string into local $_GET array.
-		$get = array();
-		parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
-		$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		$usr_ac_page_url = add_query_arg( $args, $usr_ac_page_url );
 
 		return $usr_ac_page_url;
 	}
@@ -197,7 +194,7 @@ if ( ! function_exists( 'wdm_eb_user_redirect_url' ) ) {
 		 * courses page is enabled in settings
 		 */
 		if ( isset( $eb_settings['eb_enable_my_courses'] ) && 'yes' === $eb_settings['eb_enable_my_courses'] ) {
-			$usr_ac_page_url = eb_get_my_courses_page( $eb_settings );
+			$usr_ac_page_url = wdm_eb_get_my_courses_page( $eb_settings );
 		}
 
 		// Extract query string into local $_GET array.
@@ -209,13 +206,13 @@ if ( ! function_exists( 'wdm_eb_user_redirect_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eb_get_my_courses_page' ) ) {
+if ( ! function_exists( 'wdm_eb_get_my_courses_page' ) ) {
 	/**
 	 * My course page.
 	 *
 	 * @param text $eb_settings settings.
 	 */
-	function eb_get_my_courses_page( $eb_settings ) {
+	function wdm_eb_get_my_courses_page( $eb_settings ) {
 		$usr_ac_page_url = site_url( '/user-account' );
 		if ( isset( $eb_settings['eb_my_courses_page_id'] ) ) {
 			$usr_ac_page_url = get_permalink( $eb_settings['eb_my_courses_page_id'] );
@@ -224,26 +221,26 @@ if ( ! function_exists( 'eb_get_my_courses_page' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eb_usort_numeric_callback' ) ) {
+if ( ! function_exists( 'wdm_eb_usort_numeric_callback' ) ) {
 	/**
 	 * Used as a callback for usort() to sort a numeric array.
 	 *
 	 * @param text $element1 element1.
 	 * @param text $element2 element2.
 	 */
-	function eb_usort_numeric_callback( $element1, $element2 ) {
+	function wdm_eb_usort_numeric_callback( $element1, $element2 ) {
 		return $element1->id - $element2->id;
 	}
 }
 
-if ( ! function_exists( 'eb_get_shortcode_page_content' ) ) {
+if ( ! function_exists( 'wdm_eb_get_shortcode_page_content' ) ) {
 	/**
 	 * Function returns shortcode pages content.
 	 *
 	 * @param text $the_tag the_tag.
 	 * @since 1.2.0
 	 */
-	function eb_get_shortcode_page_content( $the_tag = '' ) {
+	function wdm_eb_get_shortcode_page_content( $the_tag = '' ) {
 		// Shortcodes and their attributes.
 		$shortcodes = array(
 			'eb_my_courses' => array(
@@ -284,13 +281,13 @@ if ( ! function_exists( 'eb_get_shortcode_page_content' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eb_get_current_paypal_currency_symb' ) ) {
+if ( ! function_exists( 'wdm_eb_get_current_paypal_currency_symb' ) ) {
 	/**
 	 * Provides the functionality to get the current PayPal currency symbol.
 	 *
 	 * @return mixed returns the currency in string format or symbol
 	 */
-	function eb_get_current_paypal_currency_symb() {
+	function wdm_eb_get_current_paypal_currency_symb() {
 		$payment_options = get_option( 'eb_paypal' );
 		$currency        = $payment_options['eb_paypal_currency'];
 		if ( isset( $payment_options['eb_paypal_currency'] ) && 'USD' === $payment_options['eb_paypal_currency'] ) {
@@ -302,7 +299,7 @@ if ( ! function_exists( 'eb_get_current_paypal_currency_symb' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_arr_value' ) ) {
+if ( ! function_exists( 'wdm_eb_get_value_from_array' ) ) {
 	/**
 	 * Function provides the functionality to check that  is the array key value is present in array or not
 	 * otherwise returns the default value.
@@ -313,7 +310,7 @@ if ( ! function_exists( 'get_arr_value' ) ) {
 	 *
 	 * @return returns array value.
 	 */
-	function get_arr_value( $arr, $key, $value = '' ) {
+	function wdm_eb_get_value_from_array( $arr, $key, $value = '' ) {
 		if ( isset( $arr[ $key ] ) && ! empty( $arr[ $key ] ) ) {
 			$value = $arr[ $key ];
 		}
@@ -322,7 +319,7 @@ if ( ! function_exists( 'get_arr_value' ) ) {
 	}
 }
 
-if ( ! function_exists( 'update_order_hist_meta' ) ) {
+if ( ! function_exists( 'wdm_eb_update_order_hist_meta' ) ) {
 	/**
 	 * Meta.
 	 *
@@ -330,14 +327,14 @@ if ( ! function_exists( 'update_order_hist_meta' ) ) {
 	 * @param string $updated_by  updated_by .
 	 * @param string $note  note .
 	 */
-	function update_order_hist_meta( $order_id, $updated_by, $note ) {
+	function wdm_eb_update_order_hist_meta( $order_id, $updated_by, $note ) {
 		$history = get_post_meta( $order_id, 'eb_order_status_history', true );
 		if ( ! is_array( $history ) ) {
 			$history = array();
 		}
 		$new_hist = array(
 			'by'   => $updated_by,
-			'time' => current_time( 'timestamp' ),
+			'time' => current_time( 'Y-m-d' ),
 			'note' => $note,
 		);
 
@@ -349,16 +346,16 @@ if ( ! function_exists( 'update_order_hist_meta' ) ) {
 }
 
 
-if ( ! function_exists( 'get_total_refund_amt' ) ) {
+if ( ! function_exists( 'wdm_eb_get_total_refund_amt' ) ) {
 	/**
 	 * Refund amt.
 	 *
 	 * @param text $refunds refunds.
 	 */
-	function get_total_refund_amt( $refunds ) {
+	function wdm_eb_get_total_refund_amt( $refunds ) {
 		$total_refund = (float) '0.00';
 		foreach ( $refunds as $refund ) {
-			$refund_amt    = get_arr_value( $refund, 'amt', '0.00' );
+			$refund_amt    = wdm_eb_get_value_from_array( $refund, 'amt', '0.00' );
 			$total_refund += (float) $refund_amt;
 		}
 
@@ -367,13 +364,13 @@ if ( ! function_exists( 'get_total_refund_amt' ) ) {
 }
 
 
-if ( ! function_exists( 'get_all_eb_sourses' ) ) {
+if ( ! function_exists( 'wdm_eb_get_all_eb_sourses' ) ) {
 	/**
 	 * All eb courses.
 	 *
 	 * @param text $post_id post_id.
 	 */
-	function get_all_eb_sourses( $post_id = 0 ) {
+	function wdm_eb_get_all_eb_sourses( $post_id = 0 ) {
 		$posts = get_posts(
 			array(
 				'posts_per_page' => -1,
@@ -399,24 +396,24 @@ if ( ! function_exists( 'get_all_eb_sourses' ) ) {
 }
 
 
-if ( ! function_exists( 'eb_get_all_wp_roles' ) ) {
+if ( ! function_exists( 'wdm_eb_get_all_wp_roles' ) ) {
 	/**
 	 * WP roles
 	 */
-	function eb_get_all_wp_roles() {
+	function wdm_eb_get_all_wp_roles() {
 		global $wp_roles;
 		$all_roles = $wp_roles->get_names();
 		return $all_roles;
 	}
 }
 
-if ( ! function_exists( 'get_wp_user_id_from_moodle_id' ) ) {
+if ( ! function_exists( 'wdm_eb_get_wp_user_id_from_moodle_id' ) ) {
 	/**
 	 * FUnction accptes moodle user id and returns WordPress user id and if not exists then false
 	 *
 	 * @param text $mdl_user_id mdl_user_id.
 	 */
-	function get_wp_user_id_from_moodle_id( $mdl_user_id ) {
+	function wdm_eb_get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 		global $wpdb;
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) );
 		return $result;
@@ -424,26 +421,26 @@ if ( ! function_exists( 'get_wp_user_id_from_moodle_id' ) ) {
 }
 
 
-if ( ! function_exists( 'get_wp_course_id_from_moodle_course_id' ) ) {
+if ( ! function_exists( 'wdm_eb_get_wp_course_id_from_moodle_course_id' ) ) {
 	/**
 	 * FUnction accptes moodle course id and returns WordPress course id and if not exists then false
 	 *
 	 * @param text $mdl_course_id mdl_course_id.
 	 */
-	function get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
+	function wdm_eb_get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 		global $wpdb;
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) );
 		return $result;
 	}
 }
 
-if ( ! function_exists( 'eb_default_registration_role' ) ) {
+if ( ! function_exists( 'wdm_eb_default_registration_role' ) ) {
 	/**
 	 * Default role set to the user on registration from user-account page
 	 *
 	 * @return [type] [description]
 	 */
-	function eb_default_registration_role() {
+	function wdm_eb_default_registration_role() {
 		$role       = '';
 		$eb_options = get_option( 'eb_general' );
 		if ( isset( $eb_options['eb_default_role'] ) && ! empty( $eb_options['eb_default_role'] ) ) {
@@ -453,11 +450,11 @@ if ( ! function_exists( 'eb_default_registration_role' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eb_get_all_web_service_functions' ) ) {
+if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 	/**
 	 * Web functions.
 	 */
-	function eb_get_all_web_service_functions() {
+	function wdm_eb_get_all_web_service_functions() {
 		$extensions = apply_filters(
 			'eb_extensions_web_service_functions',
 			array(
@@ -495,6 +492,7 @@ if ( ! function_exists( 'eb_get_all_web_service_functions' ) ) {
 				'eb_test_connection',
 				'eb_get_site_data',
 				'eb_get_course_progress',
+				'eb_get_edwiser_plugins_info',
 			)
 		);
 
@@ -502,10 +500,10 @@ if ( ! function_exists( 'eb_get_all_web_service_functions' ) ) {
 			if ( is_plugin_active( $extension ) ) {
 				if ( 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php' === $extension ) {
 					$bp_version = get_option( 'eb_bp_plugin_version' );
-					if ( version_compare( '2.0.1', $bp_version ) <= 0 ) {
-						array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
+					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
+						$functions = array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
-						array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
 					}
 				}
 
@@ -518,14 +516,14 @@ if ( ! function_exists( 'eb_get_all_web_service_functions' ) ) {
 }
 
 
-if ( ! function_exists( 'get_user_suspended_status' ) ) {
+if ( ! function_exists( 'wdm_eb_get_user_suspended_status' ) ) {
 	/**
 	 * Status.
 	 *
 	 * @param text $user_id user_id.
 	 * @param text $course_id course_id.
 	 */
-	function get_user_suspended_status( $user_id, $course_id ) {
+	function wdm_eb_get_user_suspended_status( $user_id, $course_id ) {
 		global $wpdb;
 		$suspended = 0;
 
@@ -549,11 +547,11 @@ if ( ! function_exists( 'get_user_suspended_status' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_moodle_url' ) ) {
+if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 	/**
 	 * Moodle url.
 	 */
-	function get_moodle_url() {
+	function wdm_eb_get_moodle_url() {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
 			return $url['eb_url'];
@@ -563,11 +561,11 @@ if ( ! function_exists( 'get_moodle_url' ) ) {
 }
 
 
-if ( ! function_exists( 'get_allowed_html_tags' ) ) {
+if ( ! function_exists( 'wdm_eb_get_allowed_html_tags' ) ) {
 	/**
 	 * Returns the list of the tags allowed in the wp_kses function.
 	 */
-	function get_allowed_html_tags() {
+	function wdm_eb_get_allowed_html_tags() {
 		$allowed_tags           = wp_kses_allowed_html( 'post' );
 		$allowed_tags['iframe'] = array(
 			'src'             => array(),
@@ -615,11 +613,11 @@ if ( ! function_exists( 'get_allowed_html_tags' ) ) {
 	}
 }
 
-if ( ! function_exists( 'eb_sinlge_course_get_allowed_html_tags' ) ) {
+if ( ! function_exists( 'wdm_eb_sinlge_course_get_allowed_html_tags' ) ) {
 	/**
 	 * Returns the list of the tags allowed in the wp_kses function.
 	 */
-	function eb_sinlge_course_get_allowed_html_tags() {
+	function wdm_eb_sinlge_course_get_allowed_html_tags() {
 		$allowed_tags           = wp_kses_allowed_html( 'post' );
 		$allowed_tags['form']   = array(
 			'method' => array(),
@@ -687,13 +685,13 @@ if ( ! function_exists( 'eb_sinlge_course_get_allowed_html_tags' ) ) {
 	}
 }
 
-if ( ! function_exists( 'edwiser_sanitize_array' ) ) {
+if ( ! function_exists( 'wdm_eb_edwiser_sanitize_array' ) ) {
 	/**
 	 * Sanitize array.
 	 *
 	 * @param array $array_data array_data.
 	 */
-	function edwiser_sanitize_array( $array_data ) {
+	function wdm_eb_edwiser_sanitize_array( $array_data ) {
 		$sanitized_array = array();
 		if ( is_array( $array_data ) ) {
 			foreach ( $array_data as $key => $data ) {
@@ -707,9 +705,111 @@ if ( ! function_exists( 'edwiser_sanitize_array' ) ) {
 				}
 			}
 		} else {
-			$sanitized_array = sanitize_text_field( wp_unslash( $sanitized_array ) );
+			$sanitized_array = sanitize_text_field( wp_unslash( $array_data ) );
 		}
 
 		return $sanitized_array;
 	}
 }
+
+
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge versio.
+	 */
+	function wdm_edwiser_bridge_version() {
+		return '2.0.4';
+	}
+}
+
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_url' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_url() {
+		return plugin_dir_url( dirname( __FILE__ ) );
+	}
+}
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_dir' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_dir() {
+		return plugin_dir_path( dirname( __FILE__ ) );
+	}
+}
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_template_path' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_template_path() {
+		return 'edwiserBridge/';
+	}
+}
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_token' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_get_access_token() {
+
+		$connection_options = get_option( 'eb_connection' );
+
+		$eb_moodle_token = '';
+		if ( isset( $connection_options['eb_access_token'] ) ) {
+			$eb_moodle_token = $connection_options['eb_access_token'];
+		}
+
+		return $eb_moodle_token;
+	}
+}
+
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_url' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_get_access_url() {
+
+		$connection_options = get_option( 'eb_connection' );
+
+		$eb_moodle_url = '';
+		if ( isset( $connection_options['eb_url'] ) ) {
+			$eb_moodle_url = $connection_options['eb_url'];
+		}
+
+		return $eb_moodle_url;
+	}
+}
+
+
+if ( ! function_exists( 'wdm_edwiser_bridge_plugin_log_dir' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_plugin_log_dir() {
+
+		$upload_dir = wp_upload_dir();
+
+		return $upload_dir['basedir'] . '/eb-logs/';
+	}
+}
+
+

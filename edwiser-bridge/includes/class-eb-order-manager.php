@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -113,14 +112,14 @@ class Eb_Order_Manager {
 	public function update_order_status_on_order_save( $order_id ) {
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return false;
+			return $order_id;
 		}
 
-		if ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
-			die( 'Nonce verification fialed.' );
+		if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
+			return $order_id;
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$post_options = isset( $_POST['eb_order_options'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( empty( $post_options ) ) {
 			return false;
@@ -291,9 +290,9 @@ class Eb_Order_Manager {
 	private function get_course_price( $course_id ) {
 		$course_meta = get_post_meta( $course_id, 'eb_course_options', true );
 		$price       = '0.00';
-		$course_type = get_arr_value( $course_meta, 'course_price_type', false );
+		$course_type = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $course_meta, 'course_price_type', false );
 		if ( $course_type && 'paid' === $course_type ) {
-			$price = get_arr_value( $course_meta, 'course_price', '0.00' );
+			$price = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $course_meta, 'course_price', '0.00' );
 		}
 		return $price;
 	}
@@ -316,7 +315,6 @@ class Eb_Order_Manager {
 
 		$success  = 0;
 		$order_id = 0;
-
 		$buyer_id = '';
 		if ( isset( $_POST['buyer_id'] ) ) {
 			$buyer_id = sanitize_text_field( wp_unslash( $_POST['buyer_id'] ) );
@@ -327,10 +325,8 @@ class Eb_Order_Manager {
 		}
 
 		if ( empty( $buyer_id ) || empty( $course_id ) ) {
-
 			$success = 0;
 		} else {
-
 			$order_id_created = $this->create_new_order(
 				array(
 					'buyer_id'  => $buyer_id,
@@ -382,40 +378,29 @@ class Eb_Order_Manager {
 	 */
 	public function enroll_to_course_on_order_complete( $order_id ) {
 		// get order options.
-		$order_options = get_post_meta( $order_id, 'eb_order_options', true );
+		$order_options   = get_post_meta( $order_id, 'eb_order_options', true );
+		$course_enrolled = false;
+		if ( isset( $order_options['buyer_id'] ) || isset( $order_options['course_id'] ) ) {
+			$buyer_id  = $order_options['buyer_id'];
+			$course_id = $order_options['course_id'];
 
-		if ( ! isset( $order_options['buyer_id'] ) || ! isset( $order_options['course_id'] ) ) {
-			return;
+			if ( is_numeric( $course_id ) ) {
+				$course = get_post( $course_id );
+				if ( 'eb_course' === $course->post_type || empty( $buyer_id ) ) {
+					$buyer = get_userdata( $buyer_id );
+
+					// link existing moodle account or create a new one.
+					edwiser_bridge_instance()->user_manager()->link_moodle_user( $buyer );
+
+					// define args.
+					$args = array(
+						'user_id' => $buyer_id,
+						'courses' => array( $course_id ),
+					);
+					$course_enrolled = edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args ); // enroll user to course.
+				}
+			}
 		}
-
-		$buyer_id  = $order_options['buyer_id'];
-		$course_id = $order_options['course_id'];
-
-		if ( is_numeric( $course_id ) ) {
-			$course = get_post( $course_id );
-		} else {
-			return;
-		}
-
-		// return if post type is not eb_course.
-		if ( 'eb_course' !== $course->post_type || empty( $buyer_id ) ) {
-			return;
-		}
-
-		// get current user object.
-		$buyer = get_userdata( $buyer_id );
-
-		// link existing moodle account or create a new one.
-		edwiser_bridge_instance()->user_manager()->link_moodle_user( $buyer );
-
-		// define args.
-		$args = array(
-			'user_id' => $buyer_id,
-			'courses' => array( $course_id ),
-		);
-
-		$course_enrolled = edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args ); // enroll user to course.
-
 		return $course_enrolled;
 	}
 

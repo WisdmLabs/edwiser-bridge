@@ -6,15 +6,14 @@
  * @since      1.0.2
  * @deprecated 1.2.0 Use shortcode eb_user_account
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 ?>
 <div class="eb-user-profile" >
 
 <?php
-
-if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+$nonce_name = 'eb_user_account_nav_nonce';
+if ( isset( $_GET[ $nonce_name ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
 	return false;
 }
 
@@ -36,8 +35,8 @@ if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_u
 			<?php echo esc_html( $user_avatar ); ?>
 		</aside>
 		<div class="eb-user-data">
-			<?php echo '<div>' . @$user->first_name . ' ' . @$user->last_name . '</div>'; // @codingStandardsIgnoreLine. ?>
-			<?php echo '<div>' . esc_html( $user->user_email ) . '</div>'; ?>
+			<div><?php echo esc_html( $user->first_name ) . ' ' . esc_html( $user->last_name ); ?></div>
+			<div><?php esc_html( $user->user_email ); ?></div>
 		</div>
 
 		<div class="eb-edit-profile" >

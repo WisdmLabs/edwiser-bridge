@@ -5,7 +5,6 @@
  * @link       https://edwiser.org
  * @since      1.0.0
  * @package    Edwiser Bridge.
- * @author     WisdmLabs <support@wisdmlabs.com>
  */
 
 namespace app\wisdmlabs\edwiserBridge;
@@ -78,7 +77,7 @@ class Eb_Frontend_Form_Handler {
 					exit;
 				}
 			} catch ( \Exception $e ) {
-				wdm_add_notices( $e->getMessage() );
+				\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_add_notices( $e->getMessage() );
 			}
 		}
 	}
@@ -93,7 +92,7 @@ class Eb_Frontend_Form_Handler {
 			if ( ! empty( $_GET['redirect_to'] ) ) {
 				$redirect = isset( $_GET['redirect_to'] ) ? sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) : '';
 			} else {
-				$redirect = wdm_eb_user_redirect_url();
+				$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
 			}
 
 			if ( self::auto_enroll() ) {
@@ -149,7 +148,7 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				// added afyter.
-				$role = eb_default_registration_role();
+				$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 
 				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role );
 
@@ -164,7 +163,7 @@ class Eb_Frontend_Form_Handler {
 				if ( ! empty( $_GET['redirect_to'] ) ) {
 					$redirect = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
 				} else {
-					$redirect = wdm_eb_user_redirect_url();
+					$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
 				}
 				if ( self::auto_enroll() ) {
 					$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
@@ -172,7 +171,7 @@ class Eb_Frontend_Form_Handler {
 				wp_safe_redirect( apply_filters( 'eb_registration_redirect', $redirect, $new_user ) );
 				exit;
 			} catch ( \Exception $e ) {
-				wdm_add_notices( $e->getMessage() );
+				\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_add_notices( $e->getMessage() );
 			}
 		}
 	}
