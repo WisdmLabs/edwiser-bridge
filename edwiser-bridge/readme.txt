@@ -213,7 +213,7 @@ Also check our knowledge base for more queries
  ==  Changelog  ==
 
 = 2.0.4 =
-* Tweak - Added security fixes for WordPress API used in 2 way synchronization.
+* Fix - Added security fixes for WordPress API  (Issue report credits: Nick Blundell <nickb@appcheck-ng.com>).
 
 
 = 2.0.3 =
