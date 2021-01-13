@@ -38,9 +38,9 @@ class Eb_External_Api_Endpoint {
 	public function eb_validate_api_key($request_data)
 	{
 		$wp_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
-		$valid_key = 0;
-		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token == $request_data['secret_key'] ) {
-			$valid_key = 1;
+		$valid_key = false;
+		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token === $request_data['secret_key'] ) {
+			$valid_key = true;
 		}
 		return $valid_key;
 	}
