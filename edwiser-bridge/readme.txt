@@ -1,7 +1,7 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
-Requires at least: 4.4
+Requires at least: 4.6
 Tested up to: 5.6
 Stable tag: trunk
 License: GPLv3
