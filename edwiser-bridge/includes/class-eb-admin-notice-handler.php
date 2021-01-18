@@ -301,7 +301,8 @@ class Eb_Admin_Notice_Handler {
 			</p>
 
 		<?php
-		echo esc_html( ob_get_clean() );
+		echo wp_kses( ob_get_clean(), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+		
 		// added this just for commit purpose.
 		unset( $curr_plugin_meta_data );
 		unset( $new_plugin_meta_data );
