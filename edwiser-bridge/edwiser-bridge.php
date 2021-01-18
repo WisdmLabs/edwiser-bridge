@@ -166,7 +166,7 @@ add_action( 'admin_init', 'app\wisdmlabs\edwiserBridge\process_upgrade' );
  * Upgrade.
  */
 function process_upgrade() {
-	$new_version     = '2.0.4';
+	$new_version     = '2.0.5';
 	$current_version = get_option( 'eb_current_version' );
 	if ( false === $current_version || $current_version !== $new_version ) {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-eb-activator.php';
