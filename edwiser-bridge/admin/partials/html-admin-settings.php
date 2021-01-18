@@ -51,7 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="eb_setting_right_sidebar_info">
 			<?php
-				require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings-right-section.php';
+				$plugin_path = plugin_dir_path( __DIR__ );
+				require_once $plugin_path . '../admin/partials/html-admin-settings-right-section.php';
 			?>
 			</div>
 		</div>

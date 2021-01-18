@@ -213,6 +213,9 @@ Also check our knowledge base for more queries
  ==  Changelog  ==
 
 = 2.0.4 =
+* Tweak - Modified plugin files include way minimized use of ABSPATH constant.
+
+= 2.0.4 =
 * Fix - Added security fixes for WordPress API  (Issue report credits: Nick Blundell <nickb@appcheck-ng.com>).
 
 
