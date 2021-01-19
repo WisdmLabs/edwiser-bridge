@@ -77,7 +77,7 @@ class EbTemplateLoader {
 			$template = locate_template( array_unique( $find ) );
 
 			if ( ! $template ) {
-				$template = ABSPATH . 'wp-content/plugins/edwiser-bridge/public/templates/' . $file;
+				$template = plugin_dir_path( __DIR__ ) . 'public/templates/' . $file;
 			}
 		}
 		return $template;
@@ -110,15 +110,15 @@ class EbTemplateLoader {
 	public function wp_get_template_part( $slug, $name = '' ) {
 		$template      = '';
 		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
-
+		$plugin_path   = plugin_dir_path( __DIR__ );
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
 			$template = locate_template( array( "{$slug}-{$name}.php", $eb_templ_path . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php.
-		if ( ! $template && $name && file_exists( ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php" ) ) {
-			$template = ABSPATH . "wp-content/plugins/edwiser-bridge/public/templates/{$slug}-{$name}.php";
+		if ( ! $template && $name && file_exists( $plugin_path . "public/templates/{$slug}-{$name}.php" ) ) {
+			$template = $plugin_path . "public/templates/{$slug}-{$name}.php";
 		}
 
 		// If template file doesn't exist, look in yourtheme/edw/slug.php.

@@ -177,8 +177,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$tabs = apply_filters( 'eb_settings_tabs_array', array() );
 
 			$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
-			require_once ABSPATH . 'wp-content/plugins/edwiser-bridge/admin/partials/html-admin-settings.php';
 
+			$plugin_path = plugin_dir_path( __DIR__ );
+
+			require_once $plugin_path . 'admin/partials/html-admin-settings.php';
 		}
 
 		/**
