@@ -159,7 +159,7 @@ class Eb_Ipn_Listener {
 		// Post back to get a response.
 		$resp = wp_safe_remote_post( $uri, $params );
 
-		$this->response_status = strval( wp_remote_retrieve_response_code( $response ) );
+		$this->response_status = strval( wp_remote_retrieve_response_code( $resp ) );
 		$this->response        = $resp['body'];
 
 		if ( is_wp_error( $resp ) ) {
