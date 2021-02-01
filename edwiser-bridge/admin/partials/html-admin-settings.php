@@ -51,8 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="eb_setting_right_sidebar_info">
 			<?php
-				$plugin_path = plugin_dir_path( __DIR__ );
-				require_once $plugin_path . '../admin/partials/html-admin-settings-right-section.php';
+				require_once plugin_dir_path( __DIR__ ) . '../admin/partials/html-admin-settings-right-section.php';
 			?>
 			</div>
 		</div>

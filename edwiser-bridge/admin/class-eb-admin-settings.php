@@ -178,9 +178,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 			$tabname = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
 
-			$plugin_path = plugin_dir_path( __DIR__ );
-
-			require_once $plugin_path . 'admin/partials/html-admin-settings.php';
+			require_once plugin_dir_path( __DIR__ ) . 'admin/partials/html-admin-settings.php';
 		}
 
 		/**
