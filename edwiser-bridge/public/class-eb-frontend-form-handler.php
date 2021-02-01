@@ -206,7 +206,7 @@ class Eb_Frontend_Form_Handler {
 
 		$user_id = get_current_user_id();
 		if ( empty( $user_id ) ) {
-			$login_url = site_url( '/user-account?redirect_to=' . get_permalink( $course_id ) );
+			$login_url = site_url( '/user-account?is_enroll=true&redirect_to=' . get_permalink( $course_id ) );
 			wp_safe_redirect( $login_url );
 			exit;
 		}

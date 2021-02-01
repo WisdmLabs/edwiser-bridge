@@ -225,88 +225,89 @@ class Eb_Payment_Manager {
 					esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 
 					$take_course_button = apply_filters( 'eb_course_login_button', $take_course_button, $login_url );
-				}
-
-				// get current user id.
-				$user_id = get_current_user_id();
-
-				/*
-				* Handle take course button in case user already has course access or course access is in suspended state.
-				*/
-				if ( edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course_id ) ) {
-					return '';
-				}
-
-				if ( ! empty( $course_price_type ) ) {
-					if ( 'closed' === $course_price_type ) { // closed course button.
-						if ( empty( $closed_button_url ) ) {
-							$take_course_button = '';
-						} else {
-							if ( ! strpos( $closed_button_url, '://' ) ) {
-								$closed_button_url = 'http://' . $closed_button_url;
-							}
-							$take_course_button = '<div class="eb_join_button">
-							<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
-							esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
-						}
-						$closed_params      = array(
-							'closed_button_url' => $closed_button_url,
-							'post'              => $course,
-						);
-						$take_course_button = apply_filters( 'eb_course_closed_button', $take_course_button, $closed_params );
-					} elseif ( 'free' === $course_price_type || ( 'paid' === $course_price_type && empty( $course_price ) ) ) { // free course button.
-
-						$take_course_button = '<div class="eb_join_button"><form method="post">
-										<input type="hidden" value="' . $course->ID . '" name="course_id">
-										<input type="submit"
-										value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
-										name="course_join" class="wdm-btn" id="wdm-btn">
-							
-										' . wp_nonce_field( 'eb_course_payment_nonce', 'eb_course_payment_nonce' ) . '
-									</form></div>';
-						$take_course_button = apply_filters( 'eb_course_free_button', $take_course_button, $course->ID );
-					} elseif ( ! empty( $course_price ) && 'paid' === $course_price_type ) { // paid course button.
-						require_once 'enhanced-paypal-shortcodes.php';
-
-						$paypal_button = '';
-						if ( ! empty( $paypal_email ) ) {
-							$paypal_button  = wptexturize(
-								do_shortcode(
-									"[paypal type='paynow'
-									amount='{$course_price}'
-									sandbox='{$paypal_sandbox}'
-									email='{$paypal_email}'
-									itemno='{$course->ID}'
-									name='{$course->post_title}'
-									noshipping='1' nonote='1'
-									qty='1' currencycode='{$paypal_currency}'
-									rm='2' notifyurl='{$paypal_notifyurl}'
-									returnurl='{$paypal_returnurl}'
-									scriptcode='scriptcode' imagewidth='100px'
-									pagestyle='paypal' lc='{$paypal_country}'
-									cbt='" . esc_html__( 'Complete Your Purchase', 'eb-textdomain' ) .
-											"' custom='" . $user_id . "']"
-								)
-							);
-							$payment_params = array(
-								'price' => $course_price,
-								'post'  => $course,
-							);
-
-							$payment_buttons = apply_filters( 'eb_course_payment_button', $paypal_button, $payment_params );
-
-							if ( ! empty( $payment_buttons ) ) {
-								$take_course_button = '<div class="eb_join_button">' . $payment_buttons . '</div>';
-							}
-						}
-					}
 				} else {
-					$not_purchasable    = apply_filters(
-						'eb_course_not_purchasable_notice',
-						esc_html__( 'Course Not Available', 'eb-textdomain' )
-					);
-					$take_course_button = '<div class="eb_join_button course-not-available"><p>' . $not_purchasable . '</p></div>';
+					// get current user id.
+					$user_id = get_current_user_id();
+
+					/*
+					* Handle take course button in case user already has course access or course access is in suspended state.
+					*/
+					if ( edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course_id ) ) {
+						return '';
+					}
+
+					if ( ! empty( $course_price_type ) ) {
+						if ( 'closed' === $course_price_type ) { // closed course button.
+							if ( empty( $closed_button_url ) ) {
+								$take_course_button = '';
+							} else {
+								if ( ! strpos( $closed_button_url, '://' ) ) {
+									$closed_button_url = 'http://' . $closed_button_url;
+								}
+								$take_course_button = '<div class="eb_join_button">
+								<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
+								esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
+							}
+							$closed_params      = array(
+								'closed_button_url' => $closed_button_url,
+								'post'              => $course,
+							);
+							$take_course_button = apply_filters( 'eb_course_closed_button', $take_course_button, $closed_params );
+						} elseif ( 'free' === $course_price_type || ( 'paid' === $course_price_type && empty( $course_price ) ) ) { // free course button.
+
+							$take_course_button = '<div class="eb_join_button"><form method="post">
+											<input type="hidden" value="' . $course->ID . '" name="course_id">
+											<input type="submit"
+											value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
+											name="course_join" class="wdm-btn" id="wdm-btn">
+								
+											' . wp_nonce_field( 'eb_course_payment_nonce', 'eb_course_payment_nonce' ) . '
+										</form></div>';
+							$take_course_button = apply_filters( 'eb_course_free_button', $take_course_button, $course->ID );
+						} elseif ( ! empty( $course_price ) && 'paid' === $course_price_type ) { // paid course button.
+							require_once 'enhanced-paypal-shortcodes.php';
+
+							$paypal_button = '';
+							if ( ! empty( $paypal_email ) ) {
+								$paypal_button  = wptexturize(
+									do_shortcode(
+										"[paypal type='paynow'
+										amount='{$course_price}'
+										sandbox='{$paypal_sandbox}'
+										email='{$paypal_email}'
+										itemno='{$course->ID}'
+										name='{$course->post_title}'
+										noshipping='1' nonote='1'
+										qty='1' currencycode='{$paypal_currency}'
+										rm='2' notifyurl='{$paypal_notifyurl}'
+										returnurl='{$paypal_returnurl}'
+										scriptcode='scriptcode' imagewidth='100px'
+										pagestyle='paypal' lc='{$paypal_country}'
+										cbt='" . esc_html__( 'Complete Your Purchase', 'eb-textdomain' ) .
+												"' custom='" . $user_id . "']"
+									)
+								);
+								$payment_params = array(
+									'price' => $course_price,
+									'post'  => $course,
+								);
+
+								$payment_buttons = apply_filters( 'eb_course_payment_button', $paypal_button, $payment_params );
+
+								if ( ! empty( $payment_buttons ) ) {
+									$take_course_button = '<div class="eb_join_button">' . $payment_buttons . '</div>';
+								}
+							}
+						}
+					} else {
+						$not_purchasable    = apply_filters(
+							'eb_course_not_purchasable_notice',
+							esc_html__( 'Course Not Available', 'eb-textdomain' )
+						);
+						$take_course_button = '<div class="eb_join_button course-not-available"><p>' . $not_purchasable . '</p></div>';
+					}
 				}
+
 			}
 		}
 		return $take_course_button;
