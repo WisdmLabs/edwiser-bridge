@@ -212,6 +212,10 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 2.0.6 =
+* Fix - Fixed paid product redirection issue.
+* Tweak - Added compatibility to SSO plugin.
+
 = 2.0.5 =
 * Tweak - Modified plugin files include way minimized use of ABSPATH constant.
 
