@@ -48,7 +48,21 @@ foreach ( $extensions_details as $key => $value ) {
 ?>
 
 <div>
-	<div class="eb_settings_pop_btn_wrap">
+	<div class="eb_settings_pop_btn_wrap">	
+		<div class='eb-set-as'>
+			<h3>Edwiser Bridge </br>complete eCommerce Suite</h3>
+			<div class="eb-set-as-desc">
+			<p>Automate your course selling experience with Edwiser Bridge bundle.</p>
+				<ul>
+					<li>4 Noteworthy Course Selling Extensions.</li>
+					<li>Power of WooCommerce</li>
+					<li>165+ Payment Gateways Unlocked</li>
+					<li>10x eLearning Profits</li>
+				</ul>
+				<a href="https://edwiser.org/bridge/extensions/edwiser-bundle/">Check out Edwiser Bridge Bundle</a>
+				<p>Rated <span class="dashicons dashicons-star-filled"></span>4.5</br>Trusted By <i>4000+</i> happy customers.</p>
+			</div>
+		</div>
 		<div class="eb_settings_help_btn_wrap">
 			<button class='eb_open_btn'> <?php echo esc_html__( 'Get Help', 'eb-textdomain' ); ?></button>
 		</div>
@@ -71,14 +85,10 @@ foreach ( $extensions_details as $key => $value ) {
 					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'Documentation', 'eb-teh3xtdomain' ); ?></h4>
 					<div>
 						<ol>
-
 							<li>
 								<a href="https://edwiser.org/bridge/documentation/" target="_blank"> <?php echo esc_html__( 'Edwiser Bridge', 'eb-textdomain' ); ?></a>
 							</li>
-
-
-						<?php echo esc_attr( $documentation ); ?>
-
+						<?php echo wp_kses_post( $documentation ); ?>
 						</ol>
 					</div>
 
@@ -90,33 +100,10 @@ foreach ( $extensions_details as $key => $value ) {
 
 					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'Contact Us', 'eb-textdomain' ); ?></h4>
 					<div>
-						<a href="https://edwiser.org/bridge/" target="_blank"> <?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?>  </a> <?php echo esc_html__( 'to chat with us', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.org/bridge/" target="_blank"> <?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?>  </a> <?php echo esc_html__( 'to chat with us.', 'eb-textdomain' ); ?>
 					</div>
 				</div>
 			</div>
-
-
-			<!-- <div class="eb_setting_rate_pop_up">
-				<div>
-					<span class="closebtn">×</span>
-				</div>
-				<h4 class="eb_setting_help_h4"><?php echo esc_html__( 'Rate And Review', 'eb-textdomain' ); ?></h4>
-				<div>
-					<a href="https://wordpress.org/support/plugin/edwiser-bridge/reviews/"> <?php echo esc_html__( 'Click here', 'eb-textdomain' ); ?> </a>
-					<?php echo esc_html__( ' to rate us', 'eb-textdomain' ); ?>
-				</div>
-			</div> -->
-
-
-			<!-- <div>
-				<h3 class="eb-setting-sidebar-h3"> Other Products </h3>
-				<div>
-					<div> LINK 1 </div>
-					<div> LINK 2 </div>
-					<div> LINK 3 </div>
-				</div>
-			</div> -->
-
 		</div>
 	</div>
 </div>

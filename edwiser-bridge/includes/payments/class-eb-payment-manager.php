@@ -307,7 +307,6 @@ class Eb_Payment_Manager {
 						$take_course_button = '<div class="eb_join_button course-not-available"><p>' . $not_purchasable . '</p></div>';
 					}
 				}
-
 			}
 		}
 		return $take_course_button;

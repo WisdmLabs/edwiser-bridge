@@ -388,10 +388,11 @@ class EBUserManager {
 	 * @param string $firstname firstname name.
 	 * @param string $lastname lastname.
 	 * @param string $role role.
+	 * @param string $user_p user account password.
 	 *
 	 * @return int|WP_Error on failure, Int (user ID) on success
 	 */
-	public function create_wordpress_user( $email, $firstname, $lastname, $role = '' ) {
+	public function create_wordpress_user( $email, $firstname, $lastname, $role = '', $user_p = '' ) {
 		$uc_status = '';
 		// Check the e-mail address.
 		if ( ! empty( $email ) || is_email( $email ) ) {
@@ -425,7 +426,9 @@ class EBUserManager {
 				}
 
 				// Handle password creation.
-				$user_p = wp_generate_password();
+				if ( empty( $user_p ) ) {
+					$user_p = wp_generate_password();
+				}
 				// WP Validation.
 				$validation_errors = new \WP_Error();
 

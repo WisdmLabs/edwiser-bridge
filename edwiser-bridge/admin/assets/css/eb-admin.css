@@ -96,15 +96,12 @@
     opacity: 0;
 }*/
 
-
-
-.eb-form-content-wrap span.select2.select2-container.select2-container--default{
-    width: 40% !important;
+.eb-form-content-wrap
+  span.select2.select2-container.select2-container--default {
+  width: 40% !important;
 }
 
-
-
-#eb_course_enable_recmnd_courses_single_course .select2{
+#eb_course_enable_recmnd_courses_single_course .select2 {
   width: 50% !important;
 }
 
@@ -166,14 +163,7 @@
 .eb-premium-discount span {
   overflow: hidden;
   white-space: nowrap;
-  /* text-align: center; */
-  /* transform: translateZ(0px); */
-  /* position: absolute; */
   width: 144px;
-  /* height: 42px; */
-  /* line-height: 42px; */
-  /* top: 0px; */
-  /* left: 0px; */
   user-select: none;
   font-family: Lato;
   font-weight: normal;
@@ -325,19 +315,6 @@
 .eb-premium-selective-synch-info-wrapper {
   padding-top: 5%;
 }
-
-/*.eb-premium-disc {
-    transition: all 3s;
-    text-align: center;
-}
-
-.eb-premium-disc div:hover{
-    background: linear-gradient(#dd6133 5%, #f66f3d 100%) #f66f3d;
-    box-shadow: #db6134 0px 10px 14px -7px;
-}
-
-*/
-
 .eb-premium-exte-list {
   list-style-type: none;
 }
@@ -351,11 +328,6 @@
 
 /******   Manage enrollment table css   ******/
 
-.eb_manage_enroll_custom_nav_wrap {
-  /*float: right;
-    display: flex;*/
-}
-
 .eb_manage_enroll_custom_nav_wrap > span {
   padding-right: 30px;
 }
@@ -364,27 +336,10 @@
 
 /*****************  sidebar css  ****************/
 
-/*.eb-setting-right-sidebar-accordion{
-    padding-top: 1em;
-}
-
-.eb-setting-right-sidebar-info .eb-setting-right-sidebar-accordion .eb-setting-sidebar-h3{
-    margin: 0px 0 0 0;
-    border-top: solid 1px #8080803b;
-    border-radius: 1px;
-    padding: 10px 5px 10px 5px;
-    font-weight: 600;
-}
-
-.eb-setting-sidebar-h3.ui-state-active{
-    border: 1px solid #2e9aa6;
-    background: #2e9aa6;
-    color: #fff;
-}*/
-
 .eb-form-content-wrap .form-content {
-  min-width: 85%;
-  width: 85%;
+  min-width: 70%;
+  width: 70%;
+  margin-right: 0.5rem;
 }
 
 .eb_setting_right_sidebar_info {
@@ -418,12 +373,6 @@
 }
 
 .eb_open_btn {
-  /*vertical-align:top;*/
-  /*transform:rotate(270deg);*/
-  /*-ms-transform:rotate(270deg);*/ /* IE 9 */
-  /*-moz-transform:rotate(270deg);*/ /* Firefox */
-  /*-webkit-transform:rotate(270deg);*/ /* Safari and Chrome */
-  /*-o-transform:rotate(270deg);*/ /* Opera */
   font-size: 13px;
   cursor: pointer;
   background-color: #2e9aa6;
@@ -433,6 +382,7 @@
   border: none;
   margin-top: 10px;
   width: 70%;
+  max-width: 100px;
 }
 
 .eb_open_btn:hover {
@@ -461,27 +411,9 @@
 .eb-setting-help-accordion a {
   text-decoration: none;
 }
-
-.eb_settings_rate_btn_wrap,
-.eb_settings_help_btn_wrap {
-  /*position: absolute;*/
-  /*border-radius: 20px;*/
-  /*padding: 1px 5px;*/
-  /*right: -15px;*/
-}
-
 .eb_settings_pop_btn_wrap {
   text-align: right;
 }
-
-/*.eb_settings_help_btn_wrap{
-    top: 40px;
-}
-
-.eb_settings_rate_btn_wrap{
-    top: 150px;
-}*/
-
 .eb_settings_pop_btn_wrap {
   position: relative;
 }
@@ -522,66 +454,9 @@
 }
 
 /**********************/
-
-/*.eb-premium-interest{
-    text-align: center;
-    padding-top: 5%;
-    color: #2e9aa5;
-}*/
-
-/*.eb-premium-interest div:first-child, .eb-premium-interest div:nth-child(2){
-    font-size: 2.5em;
-    margin-top: 5%;
-}*/
-
-/*.eb-premium-interest div{
-    margin-top: 3%;
-}*/
-
 .eb-premium-container {
-  padding: 2% 15%;
+  padding: 1rem;
 }
-
-/*.eb-premium-discount div{
-    color: white;
-    padding: 8px 5px;
-    background-color: #f86935;
-    border-color: #f86935;
-    cursor: pointer;
-    border-style: unset;
-    background: linear-gradient(#f66f3d 5%, #dd6133 100%) #F86934;
-    text-shadow: #8f8e8e 0px 1px 0px;
-}*/
-
-/*.eb-premium-discount div:hover{
-    background: linear-gradient(#dd6133 5%, #f66f3d 100%) #f66f3d;
-}*/
-
-/*.eb-premium-disc{
-    color: white;
-    padding: 15px 15px;
-    background-color: #f86935;
-    border-color: #f86935;
-    cursor: pointer;
-    font-size: 1.3em;
-    font-weight: 700;
-    line-height: 25px;
-    border-style: unset;
-    box-shadow: #f86935 0px 10px 14px -7px;
-    background: linear-gradient(#f66f3d 5%, #dd6133 100%) #F86934;
-    text-shadow: #8f8e8e 0px 1px 0px;
-}*/
-
-/*.eb-premium-discount{
-    margin: auto;
-    text-align: center;
-    padding: 2% 2%;
-    width: 20%;
-    font-size: 1.3em;
-    font-weight: 700;
-    line-height: 25px;
-    color: white;
-}*/
 
 .eb-premium-top {
   margin: 3% 2% 0% 2%;
@@ -597,14 +472,6 @@
   padding: 1% 8%;
   margin-bottom: 20px;
 }
-/*
-.eb-premium-woo-int-title, .eb-premium-sso-title, .eb-premium-selective-synch-title{
-    margin: 3% 0%;
-    text-align: center;
-    font-weight: 700;
-    font-size: large;
-}
-*/
 .eb-premium-woo-int-info,
 .eb-premium-selective-synch-info {
   font-size: 16px;
@@ -627,12 +494,6 @@
   width: 60%;
   max-height: 550px;
 }
-
-/*.eb-premium-sso-img img{
-    width: 100%;
-    height: 100%;
-}*/
-
 .eb-premium-sso-info {
   margin: auto auto;
   padding-left: 10px;
@@ -642,10 +503,6 @@
   color: #606060;
   line-height: 1.8;
 }
-
-/*.eb-premium-selective-synch-img, .eb-premium-selective-synch-img img, .eb-premium-discount-right img{
-    width: 100%;
-}*/
 
 .eb-premium-discount-left {
   float: left;
@@ -658,27 +515,9 @@
   display: none;
 }
 
-/*.eb-premium-extension-woo-int, .eb-premium-extension-selective-synch{
-    background-color: #80808014;
-    box-shadow: 0px 1px 5px #80808047;
-    padding: 5px 10px 20px 5px;
-}
-*/
 .eb-premium-discount:hover .eb-premium-discount-right {
   display: block;
 }
-
-/*.eb-premium-disc{
-}*/
-
-/***********************/
-/*.eb-premium-selective-synch-img, .eb-premium-woo-int-img{
-    width: 60%;
-}*/
-
-/*.eb-premium-selective-synch-img img, .eb-premium-woo-int-img img{
-    width: 100%;
-}*/
 
 .eb-premium-woo-int-info,
 .eb-premium-selective-synch-info {
@@ -725,10 +564,6 @@
   width: 96%;
   float: left;
 }
-
-.eb_admin_discount_notice_message {
-}
-
 .eb_update_notice_dismiss_wrap {
   text-align: right;
   width: 15%;
@@ -794,33 +629,9 @@
   opacity: 0.7 !important;
 }
 
-/*.eb_terms_button_agree{
-    border: 1px solid #0b5d9e !important;
-    background-color: #0a65ae !important;
-    color: white !important;
-    margin: 0.2em .4em .2em 0 !important;
-    padding: 8px 13px !important;
-    font-weight: 400;
-    font-size: 1.1em !important;
-}*/
-
 .ui-dialog-buttonpane {
   padding-bottom: 0px !important;
 }
-
-/*.eb_terms_button_disagree{
-    margin: 0.2em .4em .2em 0;
-    padding: 8px 13px !important;
-    background-color: #d8d9d9 !important;
-    font-weight: 400;
-    font-size: 1.1em !important;
-}*/
-
-/*.eb_terms_button_disagree:hover{
-    border: 1px solid #0000003d;
-}
-*/
-
 .eb_extensions_wrap .extensions li {
   float: left;
   margin: 0 1em 1em 0 !important;
@@ -920,14 +731,6 @@ a.browse-all:hover {
   color: green;
   background-image: url("../../../images/success.png");
 }
-/*
-.alert-success::before {
-
-    display: block;
-    width: 20;
-    height: 10;
-    content:url('../../../images/success.png');
-}*/
 
 /* iris color picker css*/
 
@@ -1030,11 +833,6 @@ span.eb-option-input {
   padding: 0 10px 0 10px;
 }
 
-/*span.eb-option-input .eb-option-div input{
-        width:50%;
-        height:35px;
-        padding-right:15px;
-}*/
 span.eb-option-input .eb-option-div select {
   width: 25%;
   height: 35px;
@@ -1427,8 +1225,6 @@ span.eb-option-input .eb-option-div select {
 .eb-order-refund-unenroll td:nth-child(2) {
   padding-left: 3em;
 }
-.eb-order-refund-unenroll input[type="checkbox"] {
-}
 .eb-order-refund-hist-amt,
 .eb-ord-cost,
 .eb-ord-avlb-refund-amt,
@@ -1549,28 +1345,13 @@ span.eb-option-input .eb-option-div select {
 }
 
 .eb_admin_discount_offer_btn {
-  /*background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);
-    text-decoration: none;
-    color: white;
-    background-color: #2196F3;
-    padding: 10px;
-    transition: 0.5s;
-    border-radius: 3px;
-    font-weight: 700;
-    box-shadow: 1px 2px 3px #8080808c;*/
-
   text-decoration: none;
-  /*background-image: linear-gradient(to right, #314755 0%, #26a0da 51%, #314755 100%);*/
-  /*background-image: linear-gradient(to right, #275470 0%, #26a0da 51%, #314755 100%);*/
-  /*background-image: linear-gradient(to left, #135158 0%, #2e9aa6 51%, #135158 100%);*/
-  /* margin: 10px; */
   background-image: linear-gradient(
     to right,
     #d3251f 0%,
     #6c090c 51%,
     #d3251f 100%
   );
-  /* margin: 10px; */
   padding: 10px;
   text-align: center;
   text-transform: uppercase;
@@ -1682,3 +1463,103 @@ span.eb-option-input .eb-option-div select {
 #dialog-tnc {
   display: none;
 }
+
+/* Add section style Start. */
+.eb-set-as {
+  align-items: left;
+  text-align: center;
+  background-color: white;
+  margin-top: 0.5rem;
+}
+.eb-set-as > h3 {
+  background-color: #535353;
+  color: white;
+  padding: 1rem;
+  margin: 0;
+}
+.eb-set-as-desc {
+  padding: 0.1rem 1rem;
+}
+.eb-set-as-desc > ul {
+  list-style: disc;
+  margin: 1rem;
+  text-align: left;
+}
+.eb-set-as-desc > a {
+  background: #f45e3d;
+  color: white;
+  display: inline;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+.eb-set-as-desc > p > i {
+  color: #f45e3d;
+  font-weight: 600;
+}
+.eb-set-as-desc > p > .dashicons-star-filled {
+  font-size: 14px;
+  color: #ffb900;
+}
+/* Add section style End. */
+
+/*Dummy setting style start*/
+.eb-dummy-settings {
+  position: relative;
+}
+.eb-dummy-settings img {
+  max-width: 100%;
+}
+.eb-dummy-settings:hover .eb-dummy-set-wrap {
+  opacity: 1;
+}
+.eb-dummy-set-cta > h3 {
+  color: white;
+}
+.eb-dummy-set-cta {
+  display: block;
+}
+.eb-dummy-set-wrap {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 80%);
+  vertical-align: middle;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a[href*="tab=sso-dummy"].nav-tab,
+a[href*="tab=woo_int_dummy"].nav-tab,
+a[href*="tab=sel_sync_dummy"].nav-tab {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+a[href*="tab=sso-dummy"].nav-tab::after,
+a[href*="tab=woo_int_dummy"].nav-tab::after,
+a[href*="tab=sel_sync_dummy"].nav-tab::after {
+  background-color: red;
+  content: "Pro";
+  color: white;
+  color: white;
+  font-weight: bolder;
+  padding: 5px 15px 0px 0px;
+  font-size: 10px;
+  position: absolute;
+  right: -20px;
+  top: -7px;
+  transform: rotate(45deg);
+  padding-left: 20px;
+}
+/*Dummy setting style end*/

@@ -153,7 +153,6 @@ class EBConnectionHelper {
 			'timeout' => 100,
 		);
 		$response     = wp_remote_post( $request_url, $request_args );
-
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
