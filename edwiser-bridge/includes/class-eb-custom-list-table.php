@@ -336,18 +336,21 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 * case, we'll handle them within our package just to keep things clean.
 			 */
 
-			if ( ! isset( $_REQUEST['eb-manage-user-enrol'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
-				return;
-			}
 			$this->process_bulk_action( $_POST );
 
-			$search_text = '';
+			if ( ! isset( $_REQUEST['eb-manage-user-enrol'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				$data = $this->bpGetTable( array(), '' );
+			} else {
 
-			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
-				$search_text = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
+				$search_text = '';
+
+				if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
+					$search_text = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
+				}
+
+				$data = $this->bpGetTable( $_REQUEST, $search_text );
 			}
 
-			$data = $this->bpGetTable( $_REQUEST, $search_text );
 
 			/*
 			 * This checks for sorting input and sorts the data in our array of dummy
