@@ -13,7 +13,7 @@ namespace app\wisdmlabs\edwiserBridge;
 // Verify Nonce.
 $custom_data = isset( $_REQUEST['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) ) : ''; // WPCS: CSRF ok, input var ok.
 
-if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
+if ( ! isset( $custom_data->eb_nonce ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
 	return;
 }
 

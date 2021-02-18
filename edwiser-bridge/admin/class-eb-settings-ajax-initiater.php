@@ -50,12 +50,8 @@ class Eb_Settings_Ajax_Initiater {
 	 */
 	public function course_synchronization_initiater() {
 
-		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
-			die( 'Busted!' );
-		}
-
 		// verifying generated nonce we created earlier.
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 
@@ -75,12 +71,9 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function user_data_synchronization_initiater() {
-		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
-			die( 'Busted!' );
-		}
 
 		// verifying generated nonce we created earlier.
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 		// Added offset for user get limit.
@@ -100,12 +93,9 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.4.1
 	 */
 	public function users_link_to_moodle_synchronization() {
-		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
-			die( 'Busted!' );
-		}
 
 		// verifying generated nonce we created earlier.
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 		// Added offset for user get limit.
@@ -128,12 +118,9 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function connection_test_initiater() {
-		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
-			die( 'Busted!' );
-		}
 
 		// verifying generated nonce we created earlier.
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 

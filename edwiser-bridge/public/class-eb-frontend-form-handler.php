@@ -21,6 +21,7 @@ class Eb_Frontend_Form_Handler {
 	 * @throws \Exception Exception.
 	 */
 	public static function process_login() {
+		// Proceed only if nonce is verified.
 		if ( ! empty( $_POST['wdm_login'] ) &&
 				! empty( $_POST['_wpnonce'] ) &&
 				wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
@@ -87,6 +88,7 @@ class Eb_Frontend_Form_Handler {
 	 */
 	private static function calc_redirect() {
 		$redirect = '';
+		// Proceed only if nonce is verified.
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 
 			if ( ! empty( $_GET['redirect_to'] ) ) {
@@ -115,6 +117,7 @@ class Eb_Frontend_Form_Handler {
 			}
 		}
 
+		// Proceed only if nonce is verified.
 		if ( ! empty( $_POST['register'] ) &&
 				isset( $_POST['_wpnonce'] ) &&
 				wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {

@@ -85,6 +85,7 @@ class Eb_Order_Status {
 			return $order_id;
 		}
 
+		// Taking nonce field in a new 
 		$nonce = isset( $_POST['eb_order_meta_nons'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_meta_nons'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'eb_order_history_meta_nons' ) ) {

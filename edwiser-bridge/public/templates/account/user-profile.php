@@ -13,7 +13,9 @@
 
 <?php
 $nonce_name = 'eb_user_account_nav_nonce';
-if ( isset( $_GET[ $nonce_name ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
+
+// Return only if nonce is not set.
+if ( ! isset( $_GET[ $nonce_name ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
 	return false;
 }
 
