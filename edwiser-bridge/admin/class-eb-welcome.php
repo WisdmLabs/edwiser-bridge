@@ -311,9 +311,7 @@ class Eb_Welcome {
 		if ( isset( $_GET['activate'] ) && sanitize_text_field( wp_unslash( $_GET['activate'] ) ) ) { // WPCS: CSRF ok, input var ok.
 			// Delete transient used for redirection.
 			delete_transient( '_eb_activation_redirect' );
-			/*if ( ! isset( $_POST['subscribe_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
-			}*/
+
 			// Return if activating from network, or bulk.
 			if ( is_network_admin() ) {
 				return;

@@ -133,14 +133,12 @@ class EdwiserBridge {
 
 		$plugin_path = plugin_dir_path( __DIR__ );
 
-
 		// load admin & public facing files conditionally.
 		if ( is_admin() ) {
 			$this->admin_dependencies();
 		} else {
 			$this->frontend_dependencies();
 		}
-
 
 		/*
 		* Adding this function because of is_plugin_active function not found error is given
@@ -151,7 +149,6 @@ class EdwiserBridge {
 		 * Usage tracking file.
 		 */
 		require_once $plugin_path . 'includes/class-eb-usage-tracking.php';
-
 
 		/**
 		 * The core class to manage debug log on the plugin.

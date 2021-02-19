@@ -179,7 +179,7 @@ class Eb_Order_Meta {
 				$currency  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $refund, 'currency' );
 				?>
 				<li>
-					<div class="eb-order-refund-hist-stmt"><?php esc_html__( 'Refunded by', 'eb-textdomain' ) . printf( '%s ', esc_html( $refund_by ) ) . printf( ' on %s ', $time ); ?></div>
+					<div class="eb-order-refund-hist-stmt"><?php esc_html__( 'Refunded by', 'eb-textdomain' ) . printf( '%s ', esc_html( $refund_by ) ) . printf( ' on %s ', esc_attr( $time ) ); ?></div>
 					<div class="eb-order-refund-hist-amt"><?php echo esc_html( "$currency$amt" ); ?></div>
 				</li>
 				<?php
