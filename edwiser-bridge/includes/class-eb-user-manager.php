@@ -930,7 +930,7 @@ class EBUserManager {
 		$action        = $wp_user_table->current_action();
 
 		// perform our unlink action.
-		if ( ! isset( $_GET['_wpnonce'] ) || ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
 			return;
 		}
 
@@ -1010,7 +1010,7 @@ class EBUserManager {
 	public function link_user_bulk_actions_notices() {
 		global $pagenow;
 
-		if ( ! isset( $_REQUEST['eb_bulk_user_nonce'] ) || ( isset( $_REQUEST['eb_bulk_user_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_bulk_user_nonce'] ) ), 'eb_bulk_users_nonce' ) ) ) {
+		if ( ! isset( $_REQUEST['eb_bulk_user_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_bulk_user_nonce'] ) ), 'eb_bulk_users_nonce' ) ) {
 			return;
 		}
 

@@ -116,7 +116,7 @@ class Eb_Shortcode_Courses {
 			$cat_cnt  = count( $disp_cat );
 			$page     = 1;
 
-			if ( isset( $_GET['key'] ) && ! empty( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) && isset( $_GET['eb-cat-page-no'] ) ) {
+			if ( isset( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) && isset( $_GET['eb-cat-page-no'] ) ) {
 					$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
 			}
 
