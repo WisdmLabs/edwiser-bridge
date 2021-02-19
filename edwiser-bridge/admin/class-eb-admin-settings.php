@@ -163,6 +163,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				self::save();
 			}
 
+			// Show deault data if nonce is not verified.
 			// Add any posted messages.
 			if ( isset( $_GET['wp_error'] ) && ! empty( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) ) ) {
 				self::add_error( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) );

@@ -73,6 +73,7 @@ class EBAdminEmailTemplate {
 			$this->save();
 		}
 
+		// Even if nonce is not verified show the default data.
 		$from_name     = $this->get_from_name();
 		$tmpl_list     = array();
 		$tmpl_list     = apply_filters( 'eb_email_templates_list', $tmpl_list );

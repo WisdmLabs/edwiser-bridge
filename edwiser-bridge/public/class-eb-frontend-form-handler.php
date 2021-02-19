@@ -22,9 +22,7 @@ class Eb_Frontend_Form_Handler {
 	 */
 	public static function process_login() {
 		// Proceed only if nonce is verified.
-		if ( ! empty( $_POST['wdm_login'] ) &&
-				! empty( $_POST['_wpnonce'] ) &&
-				wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
+		if ( ! empty( $_POST['wdm_login'] ) && isset( $_POST['_wpnonce'] ) && ! empty( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 			try {
 				$creds = array();
 

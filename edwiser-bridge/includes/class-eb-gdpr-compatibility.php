@@ -86,7 +86,7 @@ class Eb_Gdpr_Compatibility {
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
 		$enrolled_course = array();
-		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$table_name}  WHERE user_id = %d', $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( "SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d", $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -106,11 +106,8 @@ class Eb_Gdpr_Compatibility {
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
-error_log('Table name  ::: '.print_r($table_name, 1));
-error_log(' DATA ::: '.print_r($wpdb->prepare( 'SELECT `course_id` FROM {$table_name} WHERE user_id = %d', $table_name, $user_id ), 1));
-
 		$enrolled_course = array();
-		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$table_name} WHERE user_id = %d', $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( "SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d", $user_id ) );
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -167,7 +164,7 @@ error_log(' DATA ::: '.print_r($wpdb->prepare( 'SELECT `course_id` FROM {$table_
 				array_push( $msg, esc_html__( 'Deleted Courses related data from the Moodle site', 'eb-textdomain' ) );
 			}
 
-			$wpdb->get_results( $wpdb->prepare( 'DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user->ID ) );
+			$wpdb->get_results( $wpdb->prepare( "DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d", $user->ID ) );
 			array_push( $msg, esc_html__( 'Deleted Courses related data from the WordPress site', 'eb-textdomain' ) );
 			delete_user_meta( $user->ID, 'moodle_user_id' );
 			array_push( $msg, esc_html__( 'Deleted Moodle user ID', 'eb-textdomain' ) );
