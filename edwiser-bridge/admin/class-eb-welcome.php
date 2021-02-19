@@ -38,7 +38,7 @@ class Eb_Welcome {
 	 * Add admin menus/screens.
 	 */
 	public function admin_menus() {
-		if ( ! isset( $_GET['edw-wc-nonce'] ) || ( isset( $_GET['edw-wc-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) ) {
+		if ( ! isset( $_GET['edw-wc-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
 			return;
 		}
 
