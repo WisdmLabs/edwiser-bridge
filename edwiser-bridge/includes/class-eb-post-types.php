@@ -653,6 +653,11 @@ class Eb_Post_Types {
 							* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
 							*/
 							$previous = get_post_meta( $post_id, $post_type . '_options', true );
+
+							/**
+							 * Check if the previous meta is an array if not then retrun empty array.
+							 */
+							$previous = is_array( $previous ) ? $previous : array();
 							$merged   = array_merge( $previous, $update_post_options );
 							update_post_meta( $post_id, $post_type . '_options', $merged );
 						}
