@@ -656,8 +656,10 @@ class Eb_Post_Types {
 							/**
 							 * Check if the previous meta is an array if not then retrun empty array.
 							 */
-							$previous = is_array( $previous ) ? $previous : array();
-							$merged   = array_merge( $previous, $update_post_options );
+							$previous      = is_array( $previous ) ? $previous : array();
+							$merged        = array_merge( $previous, $update_post_options );
+							$mdl_course_id = isset( $merged['moodle_course_id'] ) ? $merged['moodle_course_id'] : '';
+							update_post_meta( $post_id, 'moodle_course_id', $mdl_course_id );
 							update_post_meta( $post_id, $post_type . '_options', $merged );
 						}
 					}
