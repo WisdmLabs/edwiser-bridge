@@ -654,6 +654,7 @@ class Eb_Post_Types {
 							*/
 							$previous = get_post_meta( $post_id, $post_type . '_options', true );
 							$merged   = array_merge( $previous, $update_post_options );
+							
 							update_post_meta( $post_id, $post_type . '_options', $merged );
 						}
 					}
