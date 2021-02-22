@@ -394,7 +394,7 @@ class EBUserManager {
 	public function create_wordpress_user( $email, $firstname, $lastname, $role = '' ) {
 		$uc_status = '';
 		// Check the e-mail address.
-		if ( ! empty( $email ) || is_email( $email ) ) {
+		if ( ! empty( $email ) && is_email( $email ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
 			$uc_status = new \WP_Error( 'registration-error', esc_html__( 'Please provide a valid email address.', 'eb-textdomain' ) );
 			if ( email_exists( $email ) ) {
 				$uc_status = new \WP_Error(
@@ -403,14 +403,12 @@ class EBUserManager {
 					'eb_email_exists'
 				);
 			} else {
-				if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
-					if ( empty( $firstname ) ) {
-						$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-					}
+				if ( empty( $firstname ) ) {
+					$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
+				}
 
-					if ( empty( $lastname ) ) {
-						$lastname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-					}
+				if ( empty( $lastname ) ) {
+					$lastname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
 				}
 
 				$username = sanitize_user( current( explode( '@', $email ) ), true );
@@ -930,19 +928,23 @@ class EBUserManager {
 		// get the action.
 		$wp_user_table = _get_list_table( 'WP_Users_List_Table' );
 		$action        = $wp_user_table->current_action();
+
 		// perform our unlink action.
-		if ( ! isset( $_GET['_wpnonce'] ) || ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
 			return;
 		}
 
+		$eb_bulk_user_nonce = wp_create_nonce( 'eb_bulk_users_nonce' );
+
 		$users = isset( $_REQUEST['users'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+
+		// get all selected users.
+		$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+		$request_refer = strtok( $request_refer, '?' );
 
 		switch ( $action ) {
 			case 'link_moodle':
 				$linked = 0;
-
-				// get all selected users.
-				$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
 
 				if ( is_array( $users ) ) {
 					foreach ( $users as $user ) {
@@ -953,7 +955,13 @@ class EBUserManager {
 					}
 
 					// build the redirect url.
-					$sendback = add_query_arg( array( 'linked' => $linked ), $request_refer );
+					$sendback = add_query_arg(
+						array(
+							'linked'             => $linked,
+							'eb_bulk_user_nonce' => $eb_bulk_user_nonce,
+						),
+						$request_refer
+					);
 
 				}
 
@@ -962,7 +970,6 @@ class EBUserManager {
 				$unlinked = 0;
 
 				// get all selected users.
-
 				if ( is_array( $users ) ) {
 					foreach ( $users as $user ) {
 						$deleted = ( delete_user_meta( $user, 'moodle_user_id' ) );
@@ -973,7 +980,17 @@ class EBUserManager {
 					}
 
 					// build the redirect url.
-					$sendback = add_query_arg( array( 'unlinked' => $unlinked ), sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) );
+					$sendback = add_query_arg(
+						array(
+							'unlinked'           => $unlinked,
+							'eb_bulk_user_nonce' => $eb_bulk_user_nonce,
+						),
+						sanitize_text_field(
+							wp_unslash(
+								$request_refer
+							)
+						)
+					);
 				}
 
 				break;
@@ -992,19 +1009,20 @@ class EBUserManager {
 	 */
 	public function link_user_bulk_actions_notices() {
 		global $pagenow;
-		if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'bulk-users' ) ) {
+
+		if ( ! isset( $_REQUEST['eb_bulk_user_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_bulk_user_nonce'] ) ), 'eb_bulk_users_nonce' ) ) {
 			return;
 		}
 
 		if ( 'users.php' === $pagenow ) {
-			if ( isset( $_REQUEST['unlinked'] ) && 1 === $_REQUEST['unlinked'] ) {
+			if ( isset( $_REQUEST['unlinked'] ) && 1 === (int) trim( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) ) {
 				$message = sprintf( '%s' . esc_html__( ' User Unlinked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['unlinked'] ) && (int) $_REQUEST['unlinked'] > 1 ) {
 				$message = sprintf(
 					'%s' . esc_html__( ' Users Unlinked.', 'eb-textdomain' ),
 					number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['unlinked'] ) ) )
 				);
-			} elseif ( isset( $_REQUEST['linked'] ) && 1 === $_REQUEST['linked'] ) {
+			} elseif ( isset( $_REQUEST['linked'] ) && 1 === (int) trim( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) ) {
 				$message = sprintf( '%s' . esc_html__( 'User Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
 			} elseif ( isset( $_REQUEST['linked'] ) && (int) $_REQUEST['linked'] > 1 ) {
 				$message = sprintf( '%s ' . esc_html__( 'Users Linked.', 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $_REQUEST['linked'] ) ) ) );
@@ -1024,7 +1042,7 @@ class EBUserManager {
 	 * @param int $user_id user id of the profile being updated.
 	 */
 	public function password_update( $user_id ) {
-
+		// Proceed if nonce is verified.
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 
 			// Get new password entered by user.
@@ -1194,6 +1212,7 @@ class EBUserManager {
 			return false;
 		}
 
+		// Proceed if nonce is verified.
 		if ( isset( $_POST['eb_mdl_course_enrollment'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_mdl_course_enrollment'] ) ), 'eb_mdl_course_enrollment' ) ) {
 
 			$user = get_userdata( $user_id );
@@ -1270,8 +1289,7 @@ class EBUserManager {
 	 */
 	public function unenroll_on_course_access_expire() {
 		global $wpdb, $post;
-		$cur_user = get_current_user_id();
-
+		$cur_user    = get_current_user_id();
 		$enroll_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<%s;", gmdate( 'Y-m-d H:i:s' ) ) );
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
@@ -1309,6 +1327,8 @@ class EBUserManager {
 	 */
 	public function moodle_link_unlink_user() {
 		$responce = array( 'code' => 'failed' );
+
+		// Proceed if nonce is verified.
 		if ( isset( $_POST['user_id'] ) && isset( $_POST['link_user'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 			$user_object = get_userdata( sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) );

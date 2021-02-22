@@ -52,9 +52,11 @@ class Eb_Admin_Notice_Handler {
 		return $plugin_installed;
 	}
 
-
+	/**
+	 * Get Moodle plugin Info.
+	 * Currently only version is provided.
+	 */
 	public function eb_get_mdl_plugin_info() {
-
 		$connection_options = get_option( 'eb_connection' );
 		$eb_moodle_url      = '';
 		if ( isset( $connection_options['eb_url'] ) ) {
@@ -68,7 +70,7 @@ class Eb_Admin_Notice_Handler {
 
 		$moodle_function = 'eb_get_edwiser_plugins_info';
 		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
-		$request_args = array(
+		$request_args    = array(
 			'body'    => array(),
 			'timeout' => 100,
 		);
@@ -82,10 +84,9 @@ class Eb_Admin_Notice_Handler {
 				300 === wp_remote_retrieve_response_code( $response ) ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( isset( $body->plugin_name ) && isset( $body->version ) && version_compare( '2.0.4', $body->version ) == 0) {
+			if ( isset( $body->plugin_name ) && isset( $body->version ) && version_compare( '2.0.4', $body->version ) == 0 ) {
 				$status = 1;
 			}
-
 		} else {
 			$status = 0;
 		}

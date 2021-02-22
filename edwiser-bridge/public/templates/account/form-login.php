@@ -12,16 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
-	return;
+$eb_action = false;
+$username  = false;
+
+if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-login' ) ) {
+	$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
+	$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
 }
 
-$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
-$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
+
 
 // check if registration enabled.
 $general_settings    = get_option( 'eb_general' );
 $enable_registration = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
+$eb_login_nonce      = wp_create_nonce( 'eb-login' );
 
 do_action( 'eb_before_customer_login_form' );
 ?>
@@ -64,9 +68,8 @@ do_action( 'eb_before_customer_login_form' );
 				do_action( 'eb_login_form' );
 				?>
 				<p class="form-row">
-					<?php
-					wp_nonce_field( 'eb-login' );
-					?>
+					<input name="_wpnonce" type="hidden" id="eb_wpnonce" value="<?php echo esc_attr( $eb_login_nonce ); ?>" />
+
 					<label for="rememberme" class="inline">
 						<input name="rememberme" type="checkbox" id="rememberme" value="forever" />
 						<?php
@@ -92,7 +95,8 @@ do_action( 'eb_before_customer_login_form' );
 						$arg_list['is_enroll'] = sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) );
 					}
 
-					$arg_list['action'] = 'eb_register';
+					$arg_list['action']   = 'eb_register';
+					$arg_list['_wpnonce'] = esc_attr( $eb_login_nonce );
 
 					?>
 					<p class="register-link form-row">

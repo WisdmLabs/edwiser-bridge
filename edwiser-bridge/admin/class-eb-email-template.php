@@ -67,9 +67,13 @@ class EBAdminEmailTemplate {
 	 */
 	public function output() {
 		$sub_action = isset( $_POST['eb-mail-tpl-submit'] ) ? sanitize_text_field( wp_unslash( $_POST['eb-mail-tpl-submit'] ) ) : 0;
+
+		// Save fields only if nonce is verified.
 		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) && 'eb-mail-tpl-save-changes' === $sub_action ) {
 			$this->save();
 		}
+
+		// Even if nonce is not verified show the default data.
 		$from_name     = $this->get_from_name();
 		$tmpl_list     = array();
 		$tmpl_list     = apply_filters( 'eb_email_templates_list', $tmpl_list );
@@ -282,6 +286,8 @@ class EBAdminEmailTemplate {
 	 */
 	public function get_template_data_ajax_call_back() {
 		$data = array();
+
+		// Process only if nonce is verified.
 		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 			$tmpl_name    = sanitize_text_field( wp_unslash( $_POST['tmpl_name'] ) );
 			$tmpl_data    = get_option( $tmpl_name );
@@ -446,6 +452,7 @@ class EBAdminEmailTemplate {
 	 */
 	private function save() {
 		$message = '';
+		// Process saving only if the nonce is verified.
 		if ( isset( $_POST['eb_emailtmpl_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_emailtmpl_nonce'] ) ), 'eb_emailtmpl_sec' ) ) {
 			$from_name    = $this->check_is_empty( $_POST, 'eb_email_from_name' );
 			$subject      = $this->check_is_empty( $_POST, 'eb_email_subject' );
@@ -522,6 +529,7 @@ class EBAdminEmailTemplate {
 	 * Provides the functioanlity to send the test email
 	 */
 	public function send_test_email() {
+		// Send test mail only if nonce is verified.
 		if ( isset( $_POST['security'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'eb_send_testmail_sec' ) ) {
 			$mail_to = $this->check_is_empty( $_POST, 'mail_to' );
 			/**

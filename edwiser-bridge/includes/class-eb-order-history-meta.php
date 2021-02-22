@@ -82,10 +82,10 @@ class Eb_Order_History_Meta {
 		?>
 		<li>
 			<div class="eb-sso-hist-note">
-				<?php echo esc_html( $note ); ?>
+				<?php echo wp_kses_post( $note ); ?>
 			</div>
 			<div class="eb-sso-hist-by">
-				<?php esc_html__( 'added by  ', 'eb-textdomain' ) . printf( '%s on %s.', esc_html( $updated_by ), esc_html(  $updated_on ) ); ?>
+				<?php esc_html__( 'added by  ', 'eb-textdomain' ) . printf( '%s on %s.', esc_html( $updated_by ), esc_html( $updated_on ) ); ?>
 			</div>
 		</li>
 		<?php

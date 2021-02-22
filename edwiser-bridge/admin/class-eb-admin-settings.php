@@ -77,7 +77,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			global $current_tab;
 
 			$referer = '';
-			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
+			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
 
@@ -157,11 +157,13 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			$current_tab     = isset( $_REQUEST['tab'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general';
 			$current_section = isset( $_REQUEST['section'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['section'] ) ) : '';
 
-			if ( isset( $_REQUEST['_wpnonce'] ) && ( ! empty( $_REQUEST['_wpnonce'] ) || wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) && ! empty( $_POST ) ) {
+			// Save data only if nonce is verified.
+			if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) && ! empty( $_POST ) ) {
 				// Save settings if data has been posted.
 				self::save();
 			}
 
+			// Show deault data if nonce is not verified.
 			// Add any posted messages.
 			if ( isset( $_GET['wp_error'] ) && ! empty( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) ) ) {
 				self::add_error( sanitize_text_field( wp_unslash( $_GET['wp_error'] ) ) );
@@ -721,7 +723,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		 */
 		public static function save_fields( $options ) {
 			global $current_tab;
-			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
+			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
 			if ( empty( $_POST ) ) {
