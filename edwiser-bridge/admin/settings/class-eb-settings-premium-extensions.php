@@ -38,177 +38,135 @@ if ( ! class_exists( 'Eb_Settings_Premium_Extensions' ) ) :
 		 */
 		public function output() {
 			$GLOBALS['hide_save_button'] = 1;
+			$extensions                  = array(
+				array(
+					'title' => 'Edwiser Bundle',
+					'text'  => 'With Edwiser bundle, you get Edwiser Bridge extensions (WooCommerce Integration for $61, Single Sign On for $61, Selective Synchronization for $61, Bulk purchase for $61) adding up to $244 worth of extensions for only $108.',
+					'img'   => plugins_url( 'edwiser-bridge/admin/assets/images/icon-bundle.png' ),
+					'link'  => 'https://bit.ly/2NAJ7OW',
+				),
+				array(
+					'title' => 'Edwiser WooCommerce Integration',
+					'text'  => 'Use the power of WooCommerce to sell your Moodle courses from a WooCommerce store with the WooCommerce Integration Extension for Edwiser Bridge.',
+					'img'   => plugins_url( 'edwiser-bridge/admin/assets/images/icon-woo-int.png' ),
+					'link'  => 'https://bit.ly/2YWsjEj',
+				),
+				array(
+					'title' => 'Edwiser Single Sign On',
+					'text'  => 'The Single Sign On extension for Edwiser Bridge facilitates simultaneous login to your WordPress LMS and Moodle by entering login credentials only once.',
+					'img'   => plugins_url( 'edwiser-bridge/admin/assets/images/icon-sso.png' ),
+					'link'  => 'https://bit.ly/3tICgDx',
+				),
+				array(
+					'title' => 'Edwiser Selective Synchronization',
+					'text'  => 'Selectively synchronize Moodle courses or courses belonging to a particular category using the Selective Synchronization extension for Edwiser Bridge.',
+					'img'   => plugins_url( 'edwiser-bridge/admin/assets/images/icon-sel-syn.png' ),
+					'link'  => 'https://bit.ly/3tNRmrJ',
+				),
+				array(
+					'title' => 'Edwiser Bulk Purchase',
+					'text'  => 'The Bulk Purchase plugin lets you buy more than one Moodle course through WooCommerce at one go and enroll each student of your class.',
+					'img'   => plugins_url( 'edwiser-bridge/admin/assets/images/icon-bp.png' ),
+					'link'  => 'https://bit.ly/3pwnoF3',
+				),
+			);
 			?>
-				<div class="eb-premium-container">
-					<div class="eb-premium-top">
-						<div class="eb-premium-info">
-							<div class="eb-premium-general-title">
-								<?php
-									esc_html_e( 'A Comprehensive e-commerce solution for your Moodle.', 'eb-textdomain' );
-								?>
-							</div>
-							<div class="eb-premium-general-sub-title">
-								<div>
-								<?php
-									esc_html_e( 'With this solution, you get 4 extensions that automate your course selling process further!', 'eb-textdomain' );
-								?>
-								</div>
-							</div>
-							<div class="eb-premium-discount">
-								<a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=wordpress&utm_medium=cta1&utm_campaign=bridgeplugincta1"  target="_blank">
-									<span>
-									<?php
-										esc_html_e( 'Get Started!', 'eb-textdomain' );
-									?>
-									<i style="-webkit-transform: rotate(20deg); transform: rotate(180deg);" class="dashicons dashicons-admin-collapse"></i>
-									</span>
-								</a>
-							</div>
+			<style>
+				.ebpe-wrap{
+					font-family: 'Open Sans', sans-serif;
+				}
+				.eb-form-content-wrap{
+					display: block !important;
+				}
+				.ebpe-wrap {
+					display: flex;
+					flex-wrap: wrap;
+					list-style: none;
+					margin: auto;
+					padding: 0;
+					max-width: 1020px;
+				}
+				.ebpe-card-item {
+					display: flex;
+					padding: 1rem;
+					max-width: 300px;
+				}
+				.ebpe-card {
+					background-color: white;
+					border-radius: 0.25rem;
+					box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+					display: flex;
+					flex-direction: column;
+					overflow: hidden;
+					position: relative;
+				}
+				.ebpe-card:hover {
+					box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+				}
+				.ebpe-cc {
+					padding: 1rem;
+					display: flex;
+					flex-direction: column;
+					flex-grow: 1;
+					justify-content: space-between;
+				}
+				.ebpe-cimage {
+					background-color: #f7f7f7;
+					min-height: 200px;
+					display: flex;
+				}
+				.ebpe-cimage > img {
+					height: auto;
+					max-width: 100px;
+					margin: auto;
+					display: block;
+				}
+				.ebpe-ctitle {
+					font-size: 18px;
+					line-height: 1.2;
+					font-weight: 400;
+					margin: 0px;
+				}
+				.ebpe-ctext {
+					line-height: 1.5;
+					font-weight: 400;
+				}
+				.ebpe-cbtn {
+					color: #f87140;
+					padding: 7px 20px;
+					text-decoration: none;
+					background-color: white;
+					border-radius: 3px;
+					border: 1px solid #f87140;
+					display: block;
+					margin-left: auto;
+					margin-right: auto;
+					width: fit-content;
+					font-weight: 500;
+				}
+				.ebpe-cbtn:hover {
+					background-color: #f87140;
+					color: white;
+				}
+				</style>
+				<ul class='ebpe-wrap'>
+				<?php foreach ( $extensions as $extension ) { ?>
+					<li class='ebpe-card-item'>
+					<div class="ebpe-card">
+						<div class="ebpe-cimage">
+							<img src="<?php echo esc_attr( $extension['img'] ); ?>">
 						</div>
-						<div class="eb-premium-interest">
-							<div>
-								<?php
-								esc_html_e( 'Wish to explore more about this solution?', 'eb-textdomain' );
-								?>
+						<div class="ebpe-cc">
+							<div class='ebpe-txt-wrap'>
+								<h2 class="ebpe-ctitle"><?php echo esc_attr( $extension['title'] ); ?></h2>
+								<p class="ebpe-ctext"><?php echo esc_attr( $extension['text'] ); ?></p>
 							</div>
-							<div>
-								<?php
-								esc_html_e( 'Scroll down to know more!', 'eb-textdomain' );
-								?>
-							</div>
-							<div class="downArrow bounce">
-
-								<img width = "20" alt="<?php esc_html_e( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/arrow-down.png' ) ); ?>">
-
-							</div>
-						</div>
-					</div>
-					<div class="eb-premium-middle">
-						<div class="eb-premium-middle-title">
-							<?php
-								esc_html_e( 'Edwiser Bundle solution completely automates the process of selling moodle courses using WordPress:', 'eb-textdomain' );
-							?>
-						</div>
-						<div class="eb-premium-extensions eb-premium-extension-woo-int">
-							<div class="eb-premium-extensions-title">
-								<span>
-									<?php
-										esc_html_e( 'Automate your Course Selling Process', 'eb-textdomain' );
-									?>
-								</span>
-							</div>
-							<div class="eb-premium-woo-int-wrapper">
-								<div class="eb-premium-woo-int-img">
-									<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/commerce.png' ) ); ?>">
-								</div>
-								<div class="eb-premium-woo-int-info">
-									<ul class="eb-premium-exte-list">
-										<li>
-										<?php
-											esc_html_e( 'Sell Courses with a digital Shopfront', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Sell different types of products (ebook, merch, digests, etc) along with Moodle courses', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Sell Moodle courses as Subscriptions', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Seamless selling with 160+ Payment gateways', 'eb-textdomain' );
-										?>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<div class="eb-premium-extensions eb-premium-extension-sso">
-							<div class="eb-premium-extensions-title">
-								<span>
-									<?php
-										esc_html_e( 'Simplified User Management', 'eb-textdomain' );
-									?>
-								</span>
-							</div>
-							<div class="eb-premium-sso-info-wrapper">
-								<div class="eb-premium-sso-info">
-									<ul class="eb-premium-exte-list">
-										<li>
-										<?php
-											esc_html_e( 'Single Set of Login Credentials (Simultaneous Login to  WordPress & Moodle)', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Auto-enroll students to courses after purchase', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Auto-sync of course progress across both platforms', 'eb-textdomain' );
-										?>
-										</li>
-									</ul>
-								</div>
-								<div class="eb-premium-sso-img">
-									<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/candidate.png' ) ); ?>">
-								</div>
-							</div>
-						</div>
-
-						<div class="eb-premium-extensions eb-premium-extension-selective-synch">
-							<div class="eb-premium-extensions-title">
-								<span>
-									<?php
-										esc_html_e( 'Advanced Reporting & Account Management', 'eb-textdomain' );
-									?>
-								</span>
-							</div>
-							<div class="eb-premium-selective-synch-info-wrapper">
-								<div class="eb-premium-selective-synch-img">
-									<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/dictionary.png' ) ); ?>">
-								</div>
-								<div class="eb-premium-selective-synch-info">
-									<ul class="eb-premium-exte-list">
-										<li>
-										<?php
-											esc_html_e( 'Automated Invoicing for Purchases', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Get access to smart in-depth reports', 'eb-textdomain' );
-										?>
-										</li>
-										<li>
-										<?php
-											esc_html_e( 'Manage Orders of users easily', 'eb-textdomain' );
-										?>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="eb-premium-bottom">
-						<div class="eb-premium-disc">
-								<a href="https://edwiser.org/bridge/extensions/edwiser-bundle/?utm_source=wordpress&utm_medium=cta2&utm_campaign=bridgeplugincta2"  target="_blank">
-									<span>
-										<?php
-											esc_html_e( 'Get Edwiser Bundle Now!', 'eb-textdomain' );
-										?>
-										<i style="-webkit-transform: rotate(20deg); transform: rotate(180deg);" class="dashicons dashicons-admin-collapse"></i>
-									</span>
-								</a>
-							</div>
+							<a href="<?php echo esc_attr( $extension['link'] ); ?>" target="_blank" class="btn ebpe-cbtn">View Detials</a>
 						</div>
 					</div>
-				</div>
+					</li>
+				<?php } ?>
+				</ul>
 			<?php
 		}
 	}

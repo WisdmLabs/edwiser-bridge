@@ -49,7 +49,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 					<div class="eb-dummy-set-cta">
 						<h3><?php echo esc_html( $data['cta_msg'] ); ?></h3>
 						<p>Click below to know more.</p>
-						<a class="eb-go-pro-btn button" href="<?php echo esc_url( $data['go_to_url'] ); ?>"><?php echo esc_html( $data['btn_text'] ); ?></a>
+						<a class="eb-go-pro-btn" target="_blank" href="<?php echo esc_url( $data['go_to_url'] ); ?>"><?php echo esc_html( $data['btn_text'] ); ?></a>
 					</div>
 				</div>
 			</div>
@@ -75,8 +75,8 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 		public function __construct() {
 			$this->setting_data = array(
 				'img_alt_text' => __( 'Woo Integration setting image not found', 'eb-textdomain' ),
-				'img_name'     => 'woo_int_settings.png',
-				'go_to_url'    => 'https://edwiser.org/bridge/extensions/woocommerce-integration/',
+				'img_name'     => 'woo_int.png',
+				'go_to_url'    => 'https://bit.ly/2YWsjEj',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 				'cta_msg'      => __( 'This feature is available in WooCommerce Integration extension.', 'eb-textdomain' ),
 			);
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 					array_slice( $section, 1, null )
 				);
 			} else {
-				$result = array( 'product_data_dummy' => __( 'Products D', 'eb-textdomain' ) );
+				$result = array( 'product_data_dummy' => __( 'Products', 'eb-textdomain' ) );
 			}
 			return $result;
 		}
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 				$data     = array(
 					'img_alt_text' => __( 'Woo Integration setting not found', 'eb-textdomain' ),
 					'img_name'     => 'woo_int_prod_sync.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/woocommerce-integration/',
+					'go_to_url'    => 'https://bit.ly/2YWsjEj',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'      => __( 'This feature is available in WooCommerce Integration extension.', 'eb-textdomain' ),
 				);
@@ -200,9 +200,9 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 		 */
 		public function __construct() {
 			$this->setting_data = array(
-				'img_alt_text' => __( 'Single Sign On setting not found', 'eb-textdomain' ),
-				'img_name'     => 'woo_int_settings.png',
-				'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+				'img_alt_text' => __( 'Selective Sync setting not found', 'eb-textdomain' ),
+				'img_name'     => 'selective-synch.png',
+				'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 				'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
 			);
@@ -242,16 +242,16 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 			if ( 'users' === $current_section ) {
 				$this->setting_data = array(
 					'img_alt_text' => __( 'Selective Sync user synchronisation setting not found', 'eb-textdomain' ),
-					'img_name'     => 'woo_int_settings.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/selective-synchronization',
+					'img_name'     => 'selective_users.png',
+					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'     => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
 				);
 			} else {
 				$this->setting_data = array(
 					'img_alt_text' => __( 'Selective Sync Course synchronisation setting not found', 'eb-textdomain' ),
-					'img_name'     => 'woo_int_settings.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+					'img_name'     => 'selective_sync.png',
+					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'     => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
 				);
@@ -313,8 +313,8 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 		public function __construct() {
 			$this->setting_data = array(
 				'img_alt_text' => __( 'Single Sign On setting not found', 'eb-textdomain' ),
-				'img_name'     => 'woo_int_settings.png',
-				'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+				'img_name'     => 'sso.png',
+				'go_to_url'    => 'https://bit.ly/3tICgDx',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 				'cta_msg'     => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
 			);
@@ -353,24 +353,24 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 			if ( 'redirection' === $current_section ) {
 				$this->setting_data = array(
 					'img_alt_text' => __( 'Single Sign On setting not found', 'eb-textdomain' ),
-					'img_name'     => 'woo_int_settings.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+					'img_name'     => 'sso_redirection.png',
+					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
 				);
-			} elseif ( 'redirection' === $current_section ) {
+			} elseif ( 'social_login' === $current_section ) {
 				$this->setting_data = array(
 					'img_alt_text' => __( 'Single Sign On setting not found', 'eb-textdomain' ),
-					'img_name'     => 'woo_int_settings.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+					'img_name'     => 'sso_social.png',
+					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
 				);
 			} else {
 				$this->setting_data = array(
 					'img_alt_text' => __( 'Single Sign On setting not found', 'eb-textdomain' ),
-					'img_name'     => 'woo_int_settings.png',
-					'go_to_url'    => 'https://edwiser.org/bridge/extensions/single-sign-on/',
+					'img_name'     => 'sso.png',
+					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
 					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
 				);

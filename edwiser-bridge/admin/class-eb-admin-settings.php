@@ -53,7 +53,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 				// include the settings page class.
 				include_once 'settings/class-eb-settings-page.php';
-				include_once 'class-eb-admin-marketing-add.php';
 
 				$settings[]     = include 'settings/class-eb-settings-general.php';
 				$settings[]     = include 'settings/class-eb-settings-connection.php';
@@ -64,6 +63,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$settings[]     = include 'settings/class-eb-settings-licensing.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';
 				$settings[]     = include 'settings/class-eb-settings-premium-extensions.php';
+				$settings[]     = include 'settings/class-eb-settings-premium-fetures.php';
+
 			}
 
 			return self::$settings;
@@ -854,8 +855,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$description = '<span class="load-response">
 									<img src="' . $eb_plugin_url . 'images/loader.gif" height="20" width="20" />
 								</span>
-								<span class="response-box"></span>
 								<span class="linkresponse-box"></span>
+								<span class="response-box"></span>
 								<div id="unlinkerrorid-modal" class="unlinkerror-modal">
 								  <div class="unlinkerror-modal-content">
 									<span class="unlinkerror-modal-close">&times;</span>

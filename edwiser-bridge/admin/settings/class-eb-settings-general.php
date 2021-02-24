@@ -50,8 +50,10 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			/*
 			* translators: My Courses page setting description.
 			*/
-			$redirect_desc = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
-			$settings      = apply_filters(
+			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'eb-textdomain' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'eb-textdomain' ) . '</a>' );
+
+			$settings = apply_filters(
 				'eb_general_settings',
 				array(
 					array(
@@ -100,6 +102,14 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
 						'desc_tip' => true,
+					),
+					array(
+						'title'    => __( 'Show Courses Archive page', 'eb-textdomain' ),
+						'desc'     => $courses_arch_desc,
+						'id'       => 'eb_show_archive',
+						'default'  => 'yes',
+						'type'     => 'checkbox',
+						'autoload' => true,
 					),
 					array(
 						'title'    => __( 'Redirect to My Courses', 'eb-textdomain' ),

@@ -48,6 +48,9 @@ foreach ( $extensions_details as $key => $value ) {
 ?>
 
 <div>
+	<?php
+	if ( $show_banner ) {
+		?>
 	<div class="eb_settings_pop_btn_wrap">	
 		<div class='eb-set-as'>
 			<h3>Edwiser Bridge </br>complete eCommerce Suite</h3>
@@ -72,7 +75,7 @@ foreach ( $extensions_details as $key => $value ) {
 			</a>
 		</div>
 	</div>
-
+<?php }?>
 	<div class="eb_setting_pop_up_wrap">
 		<div class='eb-setting-right-sidebar'>
 
