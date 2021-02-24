@@ -274,8 +274,6 @@ class EdwiserBridge {
 
 		require_once $plugin_path . 'admin/class-eb-welcome.php';
 
-		require_once $plugin_path . 'admin/class-eb-extensions.php';
-
 		/**
 		*The class used to add Moodle account column on users page frontend
 		*/

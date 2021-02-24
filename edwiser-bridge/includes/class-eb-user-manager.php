@@ -398,9 +398,14 @@ class EBUserManager {
 		if ( ! empty( $email ) || is_email( $email ) ) {
 			$uc_status = new \WP_Error( 'registration-error', esc_html__( 'Please provide a valid email address.', 'eb-textdomain' ) );
 			if ( email_exists( $email ) ) {
-				$uc_status = new \WP_Error(
+				$redirect_to = array();
+				if ( ! empty( $_GET['redirect_to'] ) ) {
+					$redirect_to = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
+				}
+				$login_link = '<a href="' . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ) . '">Please login</a>';
+				$uc_status  = new \WP_Error(
 					'registration-error',
-					esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
+					sprintf( __( 'An account is already registered with your email address, %s.', 'eb-textdomain' ), $login_link ),
 					'eb_email_exists'
 				);
 			} else {
