@@ -102,7 +102,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		}
 
 		/**
-		 * Displays the manage email tempalte page output
+		 * Displays the manage user enrollment page output
 		 */
 		public function out_put() {
 			$list_table     = new Eb_Custom_List_Table();
@@ -110,6 +110,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
 			$post_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			?>
 			<div class="eb-manage-user-enrol-wrap">
 
@@ -129,6 +130,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				<div class="eb-notices" id="eb-notices"><!-- Add custom notices inside this. --></div>
 				<?php do_action( 'eb_before_manage_user_enrollment_table' ); ?>
 				<form id="eb-manage-user-enrollment-filter" method="post">
+				<p class='search-box'>
+					<input type="text" id="ebemt_search" name="ebemt_search" value="<?php echo esc_html( $search_text ); ?>">
+					<input type="submit" name="eb_manage_enroll_search" id="eb_manage_enroll_search" class="button action" value="<?php echo esc_html__( 'Search Courses', 'eb-textdomain' ); ?>"/>
+				</p>
 					<input type="hidden" name="page" value="<?php echo esc_html( $post_page ); ?>" />
 					<?php
 					wp_nonce_field( 'eb-manage-user-enrol', 'eb-manage-user-enrol' );

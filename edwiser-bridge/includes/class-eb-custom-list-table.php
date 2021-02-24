@@ -64,16 +64,29 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 */
 		public function bpGetTable( $post_data, $search_text ) {
 			global $wpdb;
+			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			$tbl_records = array();
-			$results     = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}moodle_enrollment" );
+			$stmt        = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
 
-			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) ) {
-				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) ) );
+			if ( ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
 			}
 
-			if ( isset( $post_data['enrollment_from_date'] ) && ! empty( $post_data['enrollment_from_date'] ) && isset( $post_data['enrollment_to_date'] ) && ! empty( $post_data['enrollment_to_date'] ) ) {
-				$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s  AND time< %s", sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ), sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) ) );
+			if ( ! empty( $from ) ) {
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", $from );
 			}
+
+			if ( ! empty( $from ) && ! empty( $to ) ) {
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s", $from, $to );
+			}
+
+			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s", '%' . $search_text . '%', $from, $to );
+			}
+
+			$results = $wpdb->get_results( $stmt );
 
 			foreach ( $results as $result ) {
 				$profile_url          = $this->getUserProfileURL( $result->user_id );
@@ -255,35 +268,25 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			}
 		}
 
-
-
-
 		/**
 		 * Extra table nav.
 		 *
 		 * @param text $which which.
 		 */
 		public function extra_tablenav( $which ) {
-
-			$from     = '';
-			$to       = '';
-			$disabled = 'disabled';
-
-			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
-
-				if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) { // WPCS: CSRF ok, input var ok.
-					$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
-				}
-				if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) { // WPCS: CSRF ok, input var ok.
-					$disabled = '';
-					$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
-				}
-			}
-
+			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			if ( 'top' === $which ) {
-				echo '<span class="eb_manage_enroll_custom_nav_wrap">' . esc_html__( 'From : ', 'eb-textdomain' ) . '<span><input type="date" id="enrollment_from_date" name="enrollment_from_date" value="' . esc_html( $from ) . '"> ' . esc_html__( 'To : ', 'eb-textdomain' ) . ' <input type="date" id="enrollment_to_date" name="enrollment_to_date" value="' . esc_html( $to ) . '" ' . esc_html( $disabled ) . '> <input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="' . esc_html__( 'Search', 'eb-textdomain' ) . '"/> </span>';
+				?>
+				<div class="alignleft actions bulkactions eb_manage_enroll_custom_nav_wrap">
+					<lable><?php echo esc_html__( 'From : ', 'eb-textdomain' ); ?></lable>
+					<input type="date" id="enrollment_from_date" name="enrollment_from_date" value="<?php echo esc_html( $from ); ?>">
+					<lable><?php echo esc_html__( 'To : ', 'eb-textdomain' ); ?></lable>
+					<input type="date" id="enrollment_to_date" name="enrollment_to_date" value="<?php echo esc_html( $to ); ?>">
+					<input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="<?php echo esc_html__( 'Filter', 'eb-textdomain' ); ?>"/>
+				</div>				
+				<?php
 			}
-
 		}
 
 
@@ -311,6 +314,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 * First, lets decide how many records per page to show
 			 */
 			$per_page = 20;
+
+			$options = array();
 
 			/*
 			 * REQUIRED. Now we need to define our column headers. This includes a complete
@@ -341,11 +346,9 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			}
 			$this->process_bulk_action( $_POST );
 
-			$search_text = '';
+			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : '';
 
-			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
-				$search_text = sanitize_text_field( wp_unslash( $_REQUEST['s'] ) );
-			}
+			$options['ebemt_search'] = $search_text;
 
 			$data = $this->bpGetTable( $_REQUEST, $search_text );
 
@@ -400,6 +403,14 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 					'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
 				)
 			);
+			if ( isset( $_REQUEST['enrollment_from_date'] ) ) {
+				$options['enrollment_from_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
+			}
+			if ( isset( $_REQUEST['enrollment_to_date'] ) ) {
+				$options['enrollment_to_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+			}
+			// Update the current URI with the new options.
+			$_SERVER['REQUEST_URI'] = add_query_arg( $options, $_SERVER['REQUEST_URI'] );
 		}
 
 		/**
