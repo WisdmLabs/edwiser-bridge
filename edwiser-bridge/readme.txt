@@ -211,6 +211,8 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.0.7 =
+* Fix - Fixed security issues related to the nonce.
 
 = 2.0.6 =
 * Fix - Fixed paid product redirection issue.

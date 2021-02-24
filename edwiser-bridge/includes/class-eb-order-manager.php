@@ -115,7 +115,7 @@ class Eb_Order_Manager {
 			return $order_id;
 		}
 
-		if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ( isset( $_POST['eb_post_meta_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) ) {
+		if ( ! isset( $_POST['eb_post_meta_nonce'] ) || ! isset( $_POST['eb_post_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
 			return $order_id;
 		}
 
@@ -304,12 +304,9 @@ class Eb_Order_Manager {
 	 * @since 1.0.0
 	 */
 	public function create_new_order_ajax_wrapper() {
-		if ( ! isset( $_POST['_wpnonce_field'] ) ) {
-			die( 'Busted!' );
-		}
 
 		// verifying generated nonce we created earlier.
-		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'public_js_nonce' ) ) {
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'public_js_nonce' ) ) {
 			die( 'Busted!' );
 		}
 

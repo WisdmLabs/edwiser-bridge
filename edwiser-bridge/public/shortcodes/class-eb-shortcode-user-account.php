@@ -193,7 +193,7 @@ class Eb_Shortcode_User_Account {
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== strtoupper( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) ) ) {
 			return false;
 		}
-		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			return false;
 		}
 		return true;
@@ -203,7 +203,7 @@ class Eb_Shortcode_User_Account {
 	 * Post data.
 	 */
 	public static function get_posted_data() {
-		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			return false;
 		}
 
@@ -244,7 +244,7 @@ class Eb_Shortcode_User_Account {
 	public static function get_posted_field( $fieldname, $sanitize = true ) {
 		$val = '';
 
-		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
+		if ( empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] || ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			return false;
 		}
 

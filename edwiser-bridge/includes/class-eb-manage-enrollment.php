@@ -89,7 +89,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		}
 
 		/**
-		 * COnstructor.
+		 * Constructor.
 		 *
 		 * @since 1.0.0
 		 *
@@ -154,7 +154,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * @param type $action bulk action.
 		 */
 		private function handle_bulk_action( $action ) {
-			if ( isset( $_POST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+			if ( ! isset( $_POST['eb-manage-user-enrol'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
 				$post_data = array();
 			} else {
 				$post_data = $_POST;

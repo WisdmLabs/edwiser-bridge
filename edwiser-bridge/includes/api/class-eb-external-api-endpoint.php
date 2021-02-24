@@ -30,13 +30,12 @@ class Eb_External_Api_Endpoint {
 	}
 
 
-/**
+	/**
 	 * Functionality to validate the secret key from Moodle with WP.
 	 *
 	 * @param  text $request_data request Data.
 	 */
-	public function eb_validate_api_key($request_data)
-	{
+	public function eb_validate_api_key( $request_data ) {
 		$wp_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$valid_key = false;
 		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token === $request_data['secret_key'] ) {

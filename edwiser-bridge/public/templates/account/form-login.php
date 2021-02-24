@@ -59,6 +59,7 @@ do_action( 'eb_before_customer_login_form' );
 				</p>
 				<p>
 					<input type="submit" class="eb-login-button button" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
+
 				</p>
 				<p class="lost_password form-row">
 					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password', 'eb-textdomain' ); ?></a>

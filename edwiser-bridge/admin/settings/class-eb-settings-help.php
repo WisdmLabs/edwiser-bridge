@@ -57,9 +57,7 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 		public function user_help_handler() {
 
 			// verify nonce.
-			if ( ! isset( $_POST['subscribe_nonce_field'] ) ||
-					! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' )
-			) {
+			if ( ! isset( $_POST['subscribe_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
 				esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
 				exit;
 			} else {

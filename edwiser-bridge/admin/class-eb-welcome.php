@@ -38,7 +38,7 @@ class Eb_Welcome {
 	 * Add admin menus/screens.
 	 */
 	public function admin_menus() {
-		if ( ! isset( $_GET['edw-wc-nonce'] ) || ( isset( $_GET['edw-wc-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) ) {
+		if ( ! isset( $_GET['edw-wc-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
 			return;
 		}
 
@@ -267,6 +267,7 @@ class Eb_Welcome {
 						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
 					</form>
 					<?php
+					// Proceed only if the nonce is verified.
 					if ( isset( $_GET['edw-wc-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['edw-wc-nonce'] ) ), 'edw-wc-nonce' ) ) {
 						if ( isset( $_GET['subscribed'] ) && sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
@@ -307,23 +308,21 @@ class Eb_Welcome {
 			return;
 		}
 
-		// Delete transient used for redirection.
-		delete_transient( '_eb_activation_redirect' );
-		if ( isset( $_POST['subscribe_nonce_field'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
-		}
-		// Return if activating from network, or bulk.
-		if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
-			return;
+		if ( isset( $_GET['activate'] ) && sanitize_text_field( wp_unslash( $_GET['activate'] ) ) ) { // WPCS: CSRF ok, input var ok.
+			// Delete transient used for redirection.
+			delete_transient( '_eb_activation_redirect' );
+
+			// Return if activating from network, or bulk.
+			if ( is_network_admin() ) {
+				return;
+			}
+
+			$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
+
+			wp_safe_redirect( $wc_url );
+			exit;
 		}
 
-		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) || ( ! empty( $_GET['page'] ) && 'eb-about' === $_GET['page'] ) ) {
-			return;
-		}
-		$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
-
-		wp_safe_redirect( $wc_url );
-		exit;
 	}
 
 	/**
@@ -338,7 +337,7 @@ class Eb_Welcome {
 		$subscribed = 0;
 
 		// verify nonce.
-		if ( isset( $_POST['subscribe_nonce_field'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
+		if ( ! isset( $_POST['subscribe_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
 			esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
 			exit;
 		} else {
