@@ -92,7 +92,11 @@ class Eb_Post_Types {
 	 */
 	public function register_post_types() {
 		do_action( 'eb_register_post_type' );
-
+		$settings = get_option( 'eb_general' );
+		$show_archive = true;
+		if ( isset( $settings['eb_show_archive'] ) && 'no' === $settings['eb_show_archive'] ){
+			$show_archive = false;
+		}
 		if ( ! post_type_exists( 'eb_course' ) ) {
 			register_post_type(
 				'eb_course',
@@ -133,7 +137,7 @@ class Eb_Post_Types {
 						'rewrite'           => array( 'slug' => 'courses' ),
 						'query_var'         => true,
 						'supports'          => array( 'title', 'editor', 'thumbnail', 'comments' ),
-						'has_archive'       => true,
+						'has_archive'       => $show_archive,
 						'show_in_nav_menus' => true,
 						'taxonomies'        => array( 'eb_course_cat' ),
 					)
@@ -653,11 +657,6 @@ class Eb_Post_Types {
 							* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
 							*/
 							$previous = get_post_meta( $post_id, $post_type . '_options', true );
-
-							/**
-							 * Check if the previous meta is an array if not then retrun empty array.
-							 */
-							$previous = is_array( $previous ) ? $previous : array();
 							$merged   = array_merge( $previous, $update_post_options );
 							update_post_meta( $post_id, $post_type . '_options', $merged );
 						}
