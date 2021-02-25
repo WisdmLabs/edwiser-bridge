@@ -785,7 +785,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						$option_value = wdm_edwiser_bridge_wp_clean( $option_value );
 						break;
 					case 'multiselect':
-						$option_value = array_filter( array_map( '\app\wisdmlabs\edwiserBridge\wpClean', (array) $option_value ) );
+						$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
 						break;
 					default:
 						do_action( 'eb_update_option_' . sanitize_title( $value['type'] ), $value );

@@ -637,7 +637,7 @@ class Eb_Post_Types {
 									break;
 								case 'select_multi':
 								case 'checkbox_multi':
-									$option_value = array_filter( array_map( '\app\wisdmlabs\edwiserBridge\wpCleanwpClean', (array) $option_value ) );
+									$option_value = array_filter( array_map( 'wpClean', (array) $option_value ) );
 									break;
 								default:
 									break;
