@@ -216,6 +216,7 @@ class Eb_Welcome {
 
 		<span class="eb-version-badge">
 		<?php
+
 		/*
 		 * translators: Version number.
 		 */
@@ -308,7 +309,7 @@ class Eb_Welcome {
 			return;
 		}
 
-		if ( isset( $_GET['activate'] ) && sanitize_text_field( wp_unslash( $_GET['activate'] ) ) ) { // WPCS: CSRF ok, input var ok.
+		if ( isset( $_GET['activate'] ) && sanitize_text_field( wp_unslash( $_GET['activate'] ) ) ) { // WPCS: CSRF ok, input var ok. This will run on the plugin activation so not checking nonce
 			// Delete transient used for redirection.
 			delete_transient( '_eb_activation_redirect' );
 
@@ -318,7 +319,6 @@ class Eb_Welcome {
 			}
 
 			$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
-
 			wp_safe_redirect( $wc_url );
 			exit;
 		}

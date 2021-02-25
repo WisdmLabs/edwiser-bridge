@@ -26,9 +26,9 @@ $count = isset( $eb_template['courses_per_row'] ) && is_numeric( $eb_template['c
 echo '<style type="text/css"> .eb-course-col{width:' . ( 100 / esc_html( $count ) ) . '%;}'
 . '.eb-course-col:nth-of-type(' . esc_html( $count ) . 'n+1){clear:left;}</style>';
 
-$template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
-	app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
-	app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_version()
+$template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
+	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
+	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_version()
 );
 
 

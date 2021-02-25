@@ -77,7 +77,7 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 	if ( $moodle_user_id && isset( $attr['my_courses_progress'] ) && $attr['my_courses_progress'] ) {
 
 		$show_progress           = 1;
-		$course_progress_manager = new app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
+		$course_progress_manager = new \app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
 
 		// Before showing progress check for the suspended course.
 		$progress_data = $course_progress_manager->get_course_progress();
