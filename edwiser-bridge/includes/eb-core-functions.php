@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.

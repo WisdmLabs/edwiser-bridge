@@ -7,6 +7,17 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+// Verify Nonce.
+$custom_data = isset( $_REQUEST['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) ) : ''; // WPCS: CSRF ok, input var ok.
+
+if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
+	return;
+}
+
 // NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
 // You cannot rely on setting up some details here and then using them in your success page.
 

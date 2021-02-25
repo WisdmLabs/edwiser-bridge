@@ -5,6 +5,9 @@
  * @package Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 // Variables.
 global $post;
 $eb_post_id    = $post->ID;
