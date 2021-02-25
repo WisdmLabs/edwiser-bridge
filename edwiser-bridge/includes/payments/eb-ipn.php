@@ -14,17 +14,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Verify Nonce.
 $custom_data = isset( $_REQUEST['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $_REQUEST['custom'] ) ) ) : ''; // WPCS: CSRF ok, input var ok.
 
-if ( isset( $custom_data->eb_nonce ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
+if ( ! isset( $custom_data->eb_nonce ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $custom_data->eb_nonce ) ), 'eb_paypal_nonce' ) ) {
 	return;
 }
 
 // NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
 // You cannot rely on setting up some details here and then using them in your success page.
 
-$request_data = $_REQUEST; // WPCS: CSRF ok, input var ok.
-$post_data    = $_POST; // WPCS: CSRF ok, input var ok.
+$request_data = $_REQUEST;
+$post_data    = $_POST;
 // Verify Nonce.
-$custom_data = isset( $request_data['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $request_data['custom'] ) ) ) : ''; // WPCS: CSRF ok, input var ok.
+$custom_data = isset( $request_data['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $request_data['custom'] ) ) ) : '';
 
 // create an object of logger class.
 edwiser_bridge_instance()->logger()->add( 'payment', "\n" );
