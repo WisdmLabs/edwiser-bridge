@@ -724,7 +724,7 @@ if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 	 * Gwt edwiser Bridge versio.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.0.7';
+		return '2.0.8';
 	}
 }
 

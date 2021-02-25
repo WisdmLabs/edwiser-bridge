@@ -211,6 +211,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.0.8 =
+* Fix - Fixed security issues added abspath check.
+
 = 2.0.7 =
 * Fix - Fixed security issues related to the nonce.
 
