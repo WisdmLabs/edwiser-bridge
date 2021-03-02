@@ -274,8 +274,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param text $which which.
 		 */
 		public function extra_tablenav( $which ) {
-			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
-			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$from = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$to   = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			if ( 'top' === $which ) {
 				?>
 				<div class="alignleft actions bulkactions eb_manage_enroll_custom_nav_wrap">

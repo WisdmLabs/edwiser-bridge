@@ -390,7 +390,7 @@ class Eb_Order_Manager {
 					edwiser_bridge_instance()->user_manager()->link_moodle_user( $buyer );
 
 					// define args.
-					$args = array(
+					$args            = array(
 						'user_id' => $buyer_id,
 						'courses' => array( $course_id ),
 					);

@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="<?php esc_attr( $css_class ); ?>">
 				<?php
 				require_once plugin_dir_path( __DIR__ ) . '../admin/partials/html-admin-settings-right-section.php';
-			?>
+				?>
 			</div>
 		</div>
 		<?php

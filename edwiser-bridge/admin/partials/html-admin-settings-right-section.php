@@ -75,7 +75,7 @@ foreach ( $extensions_details as $key => $value ) {
 			</a>
 		</div>
 	</div>
-<?php }?>
+<?php } ?>
 	<div class="eb_setting_pop_up_wrap">
 		<div class='eb-setting-right-sidebar'>
 

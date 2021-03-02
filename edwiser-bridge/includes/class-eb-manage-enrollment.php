@@ -109,7 +109,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
-			$post_page = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$post_page   = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok.
 			?>
 			<div class="eb-manage-user-enrol-wrap">

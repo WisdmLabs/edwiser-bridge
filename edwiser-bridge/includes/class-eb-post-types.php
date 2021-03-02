@@ -92,9 +92,9 @@ class Eb_Post_Types {
 	 */
 	public function register_post_types() {
 		do_action( 'eb_register_post_type' );
-		$settings = get_option( 'eb_general' );
+		$settings     = get_option( 'eb_general' );
 		$show_archive = true;
-		if ( isset( $settings['eb_show_archive'] ) && 'no' === $settings['eb_show_archive'] ){
+		if ( isset( $settings['eb_show_archive'] ) && 'no' === $settings['eb_show_archive'] ) {
 			$show_archive = false;
 		}
 		if ( ! post_type_exists( 'eb_course' ) ) {
@@ -143,6 +143,7 @@ class Eb_Post_Types {
 					)
 				)
 			);
+			flush_rewrite_rules( true );
 		}
 
 		if ( ! post_type_exists( 'eb_order' ) ) {

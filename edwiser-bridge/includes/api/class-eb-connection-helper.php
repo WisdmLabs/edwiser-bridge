@@ -153,14 +153,17 @@ class EBConnectionHelper {
 			'timeout' => 100,
 		);
 		$response     = wp_remote_post( $request_url, $request_args );
-
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( ! empty( $body->exception ) ) {
+			if ( null === $body ) {
+				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
+				$success          = 0;
+				$response_message = __( "Please check moodle web service configuration, Got invalid JSON,Check moodle web summary {$url_link}", 'eb-textdomain' );
+			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
 				$response_message = $body->message;
 			} else {

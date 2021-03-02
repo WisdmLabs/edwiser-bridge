@@ -245,7 +245,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_name'     => 'selective_users.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'     => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
 				);
 			} else {
 				$this->setting_data = array(
@@ -253,7 +253,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_name'     => 'selective_sync.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'     => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
 				);
 			}
 			$settings = apply_filters(
@@ -316,7 +316,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 				'img_name'     => 'sso.png',
 				'go_to_url'    => 'https://bit.ly/3tICgDx',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-				'cta_msg'     => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
+				'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
 			);
 			$this->_id          = 'sso-dummy';
 			$this->label        = __( 'Single Sign On', 'eb-textdomain' );
