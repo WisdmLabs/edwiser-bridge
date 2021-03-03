@@ -11,6 +11,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Class which will handle linking and unlinking of the WordPress users with moodle on the toggle switch provided on users page
  */

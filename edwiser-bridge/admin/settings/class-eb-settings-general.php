@@ -363,7 +363,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		public function save() {
 			$settings = $this->get_settings();
 			EbAdminSettings::save_fields( $settings );
-			// flush_rewrite_rules(true);
 		}
 	}
 endif;

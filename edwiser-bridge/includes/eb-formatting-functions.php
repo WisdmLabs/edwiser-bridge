@@ -8,6 +8,10 @@
  * @package    Edwiser Bridge
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! function_exists( 'wpClean' ) ) {
 	/**
 	 * DEPRECATED FUNCTION.

@@ -82,8 +82,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
 
-			if ( isset( $_POST['_wp_http_referer'] ) ) {
-				$referer = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
+			$postdata = $_POST;
+			if ( isset( $postdata['_wp_http_referer'] ) ) {
+				$referer = sanitize_text_field( wp_unslash( $postdata['_wp_http_referer'] ) );
 			}
 
 			// Trigger actions.
@@ -727,7 +728,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
-			if ( empty( $_POST ) ) {
+
+			$postdata = $_POST;
+
+			if ( empty( $postdata ) ) {
 				return false;
 			}
 
@@ -749,16 +753,16 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$setting_name = key( $option_name_array[ $option_name ] );
 					$option_value = null;
 
-					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+					if ( isset( $postdata[ $option_name ][ $setting_name ] ) ) {
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $postdata[ $option_name ][ $setting_name ] ) ) );
 					}
 				} else {
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
 
-					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+					if ( isset( $postdata[ $value['id'] ] ) ) {
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $postdata[ $value['id'] ] ) );
 					}
 				}
 

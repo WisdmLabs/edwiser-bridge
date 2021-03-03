@@ -11,6 +11,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Eb admin handler.
  */
@@ -84,7 +87,7 @@ class Eb_Admin_Notice_Handler {
 				300 === wp_remote_retrieve_response_code( $response ) ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 
-			if ( isset( $body->plugin_name ) && isset( $body->version ) && version_compare( '2.0.4', $body->version ) == 0 ) {
+			if ( isset( $body->plugin_name ) && isset( $body->version ) && 0 === version_compare( '2.0.4', $body->version ) ) {
 				$status = 1;
 			}
 		} else {
