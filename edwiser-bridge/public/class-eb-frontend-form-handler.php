@@ -164,17 +164,6 @@ class Eb_Frontend_Form_Handler {
 					edwiser_bridge_instance()->get_plugin_name(),
 					edwiser_bridge_instance()->get_version()
 				);
-
-				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role, $user_psw );
-
-				if ( is_wp_error( $new_user ) ) {
-					throw new \Exception( $new_user->get_error_message() );
-				}
-
-				// add role code here.
-
-				$user_manager->set_user_auth_cookie( $new_user );
-
 				if ( ! empty( $_GET['redirect_to'] ) ) {
 					$redirect = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
 				} else {
@@ -183,6 +172,15 @@ class Eb_Frontend_Form_Handler {
 				if ( self::auto_enroll() ) {
 					$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
 				}
+				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role, $user_psw, $redirect );
+
+				if ( is_wp_error( $new_user ) ) {
+					throw new \Exception( $new_user->get_error_message() );
+				}
+
+				// add role code here.
+
+				$user_manager->set_user_auth_cookie( $new_user );
 				wp_safe_redirect( apply_filters( 'eb_registration_redirect', $redirect, $new_user ) );
 				exit;
 			} catch ( \Exception $e ) {
