@@ -397,7 +397,13 @@ class EBUserManager {
 	public function create_wordpress_user( $email, $firstname, $lastname, $role = '' ) {
 		$uc_status = '';
 		// Check the e-mail address.
-		if ( ! empty( $email ) && is_email( $email ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
+
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
+			$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
+			$lastname  = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
+		}
+
+		if ( ! empty( $email ) && is_email( $email ) ) {
 			$uc_status = new \WP_Error( 'registration-error', esc_html__( 'Please provide a valid email address.', 'eb-textdomain' ) );
 			if ( email_exists( $email ) ) {
 				$uc_status = new \WP_Error(
@@ -406,14 +412,6 @@ class EBUserManager {
 					'eb_email_exists'
 				);
 			} else {
-				if ( empty( $firstname ) ) {
-					$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-				}
-
-				if ( empty( $lastname ) ) {
-					$lastname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-				}
-
 				$username = sanitize_user( current( explode( '@', $email ) ), true );
 
 				// Ensure username is unique.
