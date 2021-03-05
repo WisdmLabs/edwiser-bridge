@@ -604,24 +604,15 @@ class Eb_Course_Manager {
 	public function add_course_price_type_column( $columns ) {
 		$new_columns = array(); // new columns array.
 
-		foreach ( $columns as $k => $value ) {
-
-			if ( 'title' === $k ) {
-				$new_columns[ $k ] = esc_html__( 'Course Title', 'eb-textdomain' );
-			} else {
-				$new_columns[ $k ] = $value;
-			}
-
-			if ( 'title' === $k ) {
-				$new_columns['course_type'] = esc_html__( 'Course Type', 'eb-textdomain' );
-			}
-
-			if ( 'title' === $k ) {
+		foreach ( $columns as $key => $value ) {
+			if ( 'title' === $key ) {
+				$new_columns[ $key ]          = esc_html__( 'Course Title', 'eb-textdomain' );
 				$new_columns['mdl_course_id'] = esc_html__( 'Moodle Course Id', 'eb-textdomain' );
+				$new_columns['course_type']   = esc_html__( 'Course Type', 'eb-textdomain' );
+			} else {
+				$new_columns[ $key ] = $value;
 			}
-
 			$new_columns = apply_filters( 'eb_course_each_table_header', $new_columns );
-
 		}
 
 		$new_columns = apply_filters( 'eb_course_table_headers', $new_columns );
@@ -638,6 +629,7 @@ class Eb_Course_Manager {
 	 * @param array $post_id id of a column.
 	 */
 	public function add_course_price_type_column_content( $column_name, $post_id ) {
+
 		if ( 'course_type' === $column_name ) {
 			$status  = Eb_Post_Types::get_post_options( $post_id, 'course_price_type', 'eb_course' );
 			$options = array(
@@ -645,6 +637,7 @@ class Eb_Course_Manager {
 				'paid'   => esc_html__( 'Paid', 'eb-textdomain' ),
 				'closed' => esc_html__( 'Closed', 'eb-textdomain' ),
 			);
+			$status = $status ? $status : 'free';
 			echo esc_html( isset( $options[ $status ] ) ? $options[ $status ] : ucfirst( $status ) );
 		} elseif ( 'mdl_course_id' === $column_name ) {
 			$mdl_course_id      = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
@@ -654,5 +647,21 @@ class Eb_Course_Manager {
 		}
 
 		do_action( 'eb_course_table_content', $column_name, $post_id );
+	}
+
+	/**
+	 * Adds the view moodle course link in courses list table for admin.
+	 *
+	 * @param array  $actions An array of row action links. .
+	 * @param object $post post object.
+	 */
+	public function view_moodle_course_link( $actions, $post ) {
+		if ( 'eb_course' === $post->post_type ) {
+			$eb_access_url          = wdm_edwiser_bridge_plugin_get_access_url();
+			$mdl_course_id          = $this->get_moodle_course_id( $post->ID );
+			$course_url             = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
+			$actions['moodle_link'] = "<a href='{$course_url}' title='' target='_blank' rel='permalink'>" . __( 'View on Moodle', 'eb-textdomain' ) . "</a>";
+		}
+		return $actions;
 	}
 }

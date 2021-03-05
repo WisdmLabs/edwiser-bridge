@@ -899,6 +899,13 @@ class EdwiserBridge {
 			10,
 			2
 		);
+		$this->loader->eb_add_action(
+			'post_row_actions',
+			$this->course_manager(),
+			'view_moodle_course_link',
+			10,
+			2
+		);
 
 		// handles addtion of new blog.
 
