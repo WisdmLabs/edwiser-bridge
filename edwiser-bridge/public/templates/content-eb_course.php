@@ -65,7 +65,9 @@ if ( $has_access ) {
 	$h_title = sprintf( esc_html__( 'Click to read more about', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
 }
 
-$course_id = $eb_post_id;
+$course_id        = $eb_post_id;
+$progress_class   = '';
+$progress_btn_div = '';
 
 // Shortcode eb_my_courses.
 if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
@@ -89,14 +91,14 @@ if ( isset( $is_eb_my_courses ) && $is_eb_my_courses && isset( $attr ) ) {
 			// User course is suspended.
 			$progress_class   = 'suspended';
 			$progress_btn_div = "<div class='eb-course-action-btn-suspended'>" . esc_html__( 'SUSPENDED', 'eb-textdomain' ) . '</div>';
-		} elseif ( in_array( get_the_ID(), $course_ids ) ) {// @codingStandardsIgnoreLine.
+		} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
 			// User course is not suspended then show these buttons.
-			if ( '0' === $progress_data[ get_the_ID() ] ) {
+			if ( 0 === $progress_data[ $course_id ] ) {
 				$progress_class   = 'start';
 				$progress_btn_div = "<div class='eb-course-action-btn-start'>" . esc_html__( 'START', 'eb-textdomain' ) . '</div>';
-			} elseif ( $progress_data[ get_the_ID() ] > 0 && $progress_data[ get_the_ID() ] < 100 ) {
+			} elseif ( $progress_data[ $course_id ] > 0 && $progress_data[ $course_id ] < 100 ) {
 				$progress_class   = 'resume';
-				$progress_width   = $progress_data[ get_the_ID() ];
+				$progress_width   = $progress_data[ $course_id ];
 				$progress_btn_div = "<div class='eb-course-action-btn-resume'>" . esc_html__( 'RESUME', 'eb-textdomain' ) . '</div>';
 			} else {
 				$progress_class   = 'completed';

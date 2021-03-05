@@ -229,10 +229,10 @@ class Eb_Shortcode_My_Courses {
 			do_action( 'eb_before_recommended_courses' );
 			echo '<div class="eb-rec-courses">';
 
-			while ( $courses->have_posts() ) :
+			while ( $courses->have_posts() ) {
 				$courses->the_post();
 				$template_loader->wp_get_template_part( 'content', 'eb_course' );
-			endwhile;
+			}
 			do_action( 'eb_after_recommended_courses' );
 			echo '</div> </div>';
 			$eb_course     = get_post_type_object( 'eb_course' );
