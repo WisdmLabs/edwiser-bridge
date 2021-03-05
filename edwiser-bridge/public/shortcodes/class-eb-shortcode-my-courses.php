@@ -143,8 +143,21 @@ class Eb_Shortcode_My_Courses {
 
 			echo "<div class='eb-my-course'>";
 			if ( $courses->have_posts() ) {
+				$course_progress_manager = new \app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
+				$progress_data           = $course_progress_manager->get_course_progress();
+				$user_id                 = get_current_user_id();
+				$mdl_uid                 = get_user_meta( $user_id, 'moodle_user_id', true );
+
+				$atts['show_progress'] = true;
 				while ( $courses->have_posts() ) :
 					$courses->the_post();
+
+					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
+						$atts['progress_btn_div'] = $this->get_course_progress( get_the_ID(), $progress_data, $user_id );
+					} else {
+						$atts['progress_btn_div'] = '';
+					}
+
 					$template_loader->wp_get_template(
 						'content-eb_course.php',
 						array(
@@ -179,6 +192,50 @@ class Eb_Shortcode_My_Courses {
 		}
 		do_action( 'eb_after_my_courses' );
 		echo '</div>';
+	}
+
+	/**
+	 * Return teh course progress div.
+	 *
+	 * @param int   $course_id The course id to calculate the progress.
+	 * @param array $progress_data The progress data.
+	 * @param int   $user_id currentuser id.
+	 */
+	private function get_course_progress( $course_id, $progress_data, $user_id ) {
+		$course_ids        = array_keys( $progress_data );
+		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
+		$progress          = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
+		ob_start();
+		?>
+		<div class='eb-course-action-cont'>
+			<?php
+			if ( $is_user_suspended ) {
+				$progress_class = 'eb-course-action-btn-suspended';
+				$btn_text       = __( 'SUSPENDED', 'eb-textdomain' );
+			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
+				if ( 0 === $progress ) {
+					$progress_class = 'eb-course-action-btn-start';
+					$btn_text       = __( 'START', 'eb-textdomain' );
+				} elseif ( $progress > 0 && $progress < 100 ) {
+					$progress_class = 'eb-course-action-btn-resume';
+					$btn_text       = __( 'RESUME', 'eb-textdomain' );
+					?>
+					<div class='eb-course-action-progress-cont'>
+						<div class='eb-course-action-progress' style='width:<?php echo esc_attr( round( $progress ) ); ?>%' ></div>
+					</div>
+					<?php
+				} else {
+					$progress_class = 'eb-course-action-btn-completed';
+					$btn_text       = __( 'COMPLETED', 'eb-textdomain' );
+				}
+			}
+			?>
+			<div class='<?php echo esc_attr( $progress_class ); ?>'>
+				<?php echo esc_attr( $btn_text ); ?>
+			</div>
+		</div>
+		<?php
+		return ob_get_clean();
 	}
 
 	/**
