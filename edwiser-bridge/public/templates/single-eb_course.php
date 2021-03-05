@@ -14,6 +14,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 $wrapper_args = array();
 
 $eb_template = get_option( 'eb_template' );

@@ -216,6 +216,7 @@ class Eb_Welcome {
 
 		<span class="eb-version-badge">
 		<?php
+
 		/*
 		 * translators: Version number.
 		 */
@@ -301,28 +302,18 @@ class Eb_Welcome {
 	 * @since  1.0.0
 	 */
 	public function welcome_handler() {
-		$subscribed = 0;
-
-		// Return if no activation redirect transient is set.
-		if ( ! get_transient( '_eb_activation_redirect' ) ) {
+		// Return if no activation redirect transient is set. Or not network admin.
+		if ( ! get_transient( '_eb_activation_redirect' ) || is_network_admin() ) {
 			return;
 		}
 
-		if ( isset( $_GET['activate'] ) && sanitize_text_field( wp_unslash( $_GET['activate'] ) ) ) { // WPCS: CSRF ok, input var ok.
+		if ( get_transient( '_eb_activation_redirect' ) ) {
 			// Delete transient used for redirection.
 			delete_transient( '_eb_activation_redirect' );
-
-			// Return if activating from network, or bulk.
-			if ( is_network_admin() ) {
-				return;
-			}
-
 			$wc_url = admin_url( '/?page=eb-about' ) . '&edw-wc-nonce=' . wp_create_nonce( 'edw-wc-nonce' );
-
 			wp_safe_redirect( $wc_url );
 			exit;
 		}
-
 	}
 
 	/**

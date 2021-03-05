@@ -9,6 +9,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! class_exists( '\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
@@ -264,17 +268,16 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param text $which which.
 		 */
 		public function extra_tablenav( $which ) {
+			if ( ! isset( $_REQUEST['eb-manage-user-enrol'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				$from     = '';
+				$to       = '';
+				$disabled = 'disabled';
+			} elseif ( isset( $_REQUEST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
 
-			$from     = '';
-			$to       = '';
-			$disabled = 'disabled';
-
-			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
-
-				if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) { // WPCS: CSRF ok, input var ok.
+				if ( isset( $_REQUEST['enrollment_from_date'] ) && ! empty( $_REQUEST['enrollment_from_date'] ) ) {
 					$from = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
 				}
-				if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) { // WPCS: CSRF ok, input var ok.
+				if ( isset( $_REQUEST['enrollment_to_date'] ) && ! empty( $_REQUEST['enrollment_to_date'] ) ) {
 					$disabled = '';
 					$to       = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
 				}
@@ -336,8 +339,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 * case, we'll handle them within our package just to keep things clean.
 			 */
 
-			$this->process_bulk_action( $_POST );
-
 			if ( ! isset( $_REQUEST['eb-manage-user-enrol'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
 				$data = $this->bpGetTable( array(), '' );
 			} else {
@@ -351,6 +352,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$data = $this->bpGetTable( $_REQUEST, $search_text );
 			}
 
+			$this->process_bulk_action( $_POST );
 
 			/*
 			 * This checks for sorting input and sorts the data in our array of dummy

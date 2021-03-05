@@ -8,6 +8,9 @@
  * @package    Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 ?>
 
 <div class="eb-cph-wrapper">

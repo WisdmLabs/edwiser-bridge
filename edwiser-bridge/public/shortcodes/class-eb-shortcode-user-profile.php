@@ -10,6 +10,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Profile.
  */
@@ -162,7 +165,6 @@ class Eb_Shortcode_User_Profile {
 	 */
 	public static function get_posted_data() {
 		$posted_data = array();
-		
 		// Proceed only if nonce is verified.
 		if ( ( ! empty( $_POST['action'] ) || 'eb-update-user' !== $_POST['action'] ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 			$username    = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';

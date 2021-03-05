@@ -10,7 +10,7 @@
  * Plugin Name:       Edwiser Bridge - WordPress Moodle LMS Integration
  * Plugin URI:        https://edwiser.org/bridge/
  * Description:       Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy option to import Moodle courses to WordPress and sell them using PayPal. The plugin also allows automatic registration of WordPress users on the Moodle website along with single login credentials for both the systems.
- * Version:           2.0.7
+ * Version:           2.0.8
  * Author:            WisdmLabs
  * Author URI:        https://edwiser.org
  * License:           GPL-2.0+
@@ -41,7 +41,7 @@ function activate_edwiser_bridge( $net_wide ) {
 	Eb_Activator::activate( $net_wide );
 }
 
-register_activation_hook( __FILE__, 'app\wisdmlabs\edwiserBridge\activate_edwiser_bridge' );
+register_activation_hook( __FILE__, '\app\wisdmlabs\edwiserBridge\activate_edwiser_bridge' );
 
 /**
  * The code that runs during plugin deactivation.
@@ -52,14 +52,14 @@ function deactivate_edwiser_bridge() {
 	Eb_Deactivator::deactivate();
 }
 
-register_deactivation_hook( __FILE__, 'app\wisdmlabs\edwiserBridge\deactivate_edwiser_bridge' );
+register_deactivation_hook( __FILE__, '\app\wisdmlabs\edwiserBridge\deactivate_edwiser_bridge' );
 
 /*
  * Applied to the list of links to display on the plugins page (beside the activate/deactivate links).
  *
  * A nes link is added that takes user to plugin settings.
  */
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'app\wisdmlabs\edwiserBridge\wdm_add_settings_action_link' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), '\app\wisdmlabs\edwiserBridge\wdm_add_settings_action_link' );
 
 /**
  * Action link.
@@ -77,7 +77,7 @@ function wdm_add_settings_action_link( $links ) {
 /*
  * Show row meta on the plugin screen, custom docs link added.
  */
-add_filter( 'plugin_row_meta', 'app\wisdmlabs\edwiserBridge\wdm_plugin_row_meta', 10, 2 );
+add_filter( 'plugin_row_meta', '\app\wisdmlabs\edwiserBridge\wdm_plugin_row_meta', 10, 2 );
 
 /**
  * Row meta.
@@ -107,7 +107,7 @@ function wdm_plugin_row_meta( $links, $file ) {
  *
  * @since 1.1
  */
-add_action( 'admin_init', 'app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions' );
+add_action( 'admin_init', '\app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions' );
 
 /**
  * Legacy.
@@ -126,7 +126,7 @@ function wdm_show_legacy_extensions() {
 			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
 
 			if ( $plugin_data['Version'] && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
-					add_action( 'admin_notices', 'app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions_notices' );
+					add_action( 'admin_notices', '\app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions_notices' );
 			}
 		}
 	}
@@ -160,7 +160,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-eb.php';
 /*
  * Executes on the plugin update.
  */
-add_action( 'admin_init', 'app\wisdmlabs\edwiserBridge\process_upgrade' );
+add_action( 'admin_init', '\app\wisdmlabs\edwiserBridge\process_upgrade' );
 
 /**
  * Upgrade.

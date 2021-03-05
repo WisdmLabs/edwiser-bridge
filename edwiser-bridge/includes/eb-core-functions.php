@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.
@@ -721,7 +724,7 @@ if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 	 * Gwt edwiser Bridge versio.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.0.7';
+		return '2.0.8';
 	}
 }
 

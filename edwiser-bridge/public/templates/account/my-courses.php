@@ -8,6 +8,9 @@
  * @package    Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 // get selected my courses page content.
 $eb_general_option = get_option( 'eb_general' );
 

@@ -8,6 +8,9 @@
  * @package    Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 ?>
 <div class="eb-user-profile" >
 	<?php
@@ -51,7 +54,7 @@
 		<div class="eb-user-account-content">
 			<?php
 			if ( '' !== $active_link ) {
-				$eb_shortcode_obj->get_user_account_content( $active_link, $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader ); // WPCS: input var okay, CSRF ok.
+				$eb_shortcode_obj->get_user_account_content( $active_link, $user_orders, $order_count, $user_avatar, $user, $user_meta, $enrolled_courses, $template_loader );
 			} else {
 				$template_loader->wp_get_template(
 					'account/user-data.php',

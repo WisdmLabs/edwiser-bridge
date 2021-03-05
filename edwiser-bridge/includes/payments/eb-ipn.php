@@ -7,13 +7,17 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 // NOTE: the IPN call is asynchronous and can arrive later than the browser is redirected to the success url by paypal
 // You cannot rely on setting up some details here and then using them in your success page.
 
+// NOte: Not checking nonce since the request is comming from paypal.
 $request_data = $_REQUEST; // WPCS: CSRF ok, input var ok.
 $post_data    = $_POST; // WPCS: CSRF ok, input var ok.
-// Verify Nonce.
-$custom_data = isset( $request_data['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $request_data['custom'] ) ) ) : ''; // WPCS: CSRF ok, input var ok.
+
 
 // create an object of logger class.
 edwiser_bridge_instance()->logger()->add( 'payment', "\n" );
@@ -51,7 +55,12 @@ if ( 'yes' === $paypal_sandbox ) {
 	$listener->use_sandbox = true;
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Sandbox Enabled.' );
 }
+// Initialize the verifcation by defualt to false.
+$verified = false;
 
+/**
+ * Start the responce verification.
+ */
 try {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Checking Post Method.' );
 
@@ -77,9 +86,10 @@ edwiser_bridge_instance()->logger()->add(
 $notify_on_valid_ipn = 1;
 
 edwiser_bridge_instance()->logger()->add( 'payment', 'Payment Verified? : ' . ( ( $verified ) ? 'YES' : 'NO' ) );
-/* The process_ipn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID". */
 
-
+/**
+* The process_ipn() method returned true if the IPN was "VERIFIED" and false if it was "INVALID".
+*/
 if ( $verified ) {
 	edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Verfied! Moving Ahead.' );
 	/** Once you have a verified IPN you need to do a few more checks on the POST
@@ -119,6 +129,8 @@ if ( $verified ) {
 		'Payment Status: ' . $post_payment_status . ' Completed? :' . ( ( 'Completed' === $post_payment_status ) ? 'YES' : 'NO' )
 	);
 
+	$custom_data = isset( $request_data['custom'] ) ? json_decode( sanitize_text_field( wp_unslash( $request_data['custom'] ) ) ) : '';
+
 	if ( 'Completed' === $post_payment_status ) {
 
 		edwiser_bridge_instance()->logger()->add( 'payment', 'Sure, Completed! Moving Ahead.' );
@@ -157,9 +169,8 @@ if ( $verified ) {
 			);
 			exit( 0 );
 		}
-
 		// verify user id & order id.
-		if ( ! empty( $request_data['custom'] ) ) {
+		if ( ! empty( $custom_data ) ) {
 
 			edwiser_bridge_instance()->logger()->add( 'payment', sanitize_text_field( wp_unslash( $request_data['custom'] ) ) );
 

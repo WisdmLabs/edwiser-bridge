@@ -8,6 +8,9 @@
  * @package    Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 ?>
 <div class="eb-user-profile" >
 
@@ -59,7 +62,7 @@ if ( ! empty( $enrolled_courses ) ) {
 		echo '<div class="eb-course-section course_' . esc_html( $course->ID ) . '">';
 		echo '<div>' . esc_html( ( $key++ ) ) . '. </div>';
 		echo '<div><a href="' . esc_html( get_the_permalink( $course->ID ) ) . '">' . esc_html( $course->post_title ) . '</a></div>';
-		echo esc_html( app\wisdmlabs\edwiserBridge\Eb_Payment_Manager::access_course_button( $course->ID ) );
+		echo esc_html( \app\wisdmlabs\edwiserBridge\Eb_Payment_Manager::access_course_button( $course->ID ) );
 		echo '</div>';
 	}
 } else {

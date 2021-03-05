@@ -280,6 +280,10 @@
  *  All formatting options work on three button types.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 	/**
 	 * Enhanced_paypal_shortcode.
