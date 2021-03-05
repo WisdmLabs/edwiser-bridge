@@ -211,6 +211,18 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.0.9 =
+* Feture - Added the password filed on user registration window.
+* Feture - Added link user account functionality if the account is created on moodle and exist on wordpress.
+* Feture - Added Setting to show hide course archive page in frontend.
+* Feture - Added search functionality on manage enrollment page.
+* Tweek - Added space before username in new user account email template.
+* Tweek - Improved the test connection error message.
+* Tweek - My Courses page was progress service call optimisation.
+* Fix - Paid order was showing HTML in notes.
+* Fix - Help popup was showing html on setting page.
+* Fix - User Linked success message style fix.
+
 = 2.0.8 =
 * Fix - Fixed security issues added abspath check.
 
