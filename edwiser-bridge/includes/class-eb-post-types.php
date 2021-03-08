@@ -305,10 +305,10 @@ class Eb_Post_Types {
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
 					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
-					'description' => '',
+					'description' => __( 'This filed is disabeld. Do not change the course id this will affect the course access for the existing enrollemnt.', 'eb-textdomain' ),
 					'type'        => 'text',
 					'placeholder' => '',
-					'attr'        => 'text',
+					'attr'        => 'readonly',
 					'default'     => '0',
 					'note'        => isset( $deletion_status ) && ! empty( $deletion_status ) ? '<span style="color:red;">' . __( 'This course is deleted on Moodle', 'eb-textdomain' ) . '</span>' : '',
 				),
