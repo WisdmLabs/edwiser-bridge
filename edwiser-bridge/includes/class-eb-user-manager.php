@@ -396,7 +396,7 @@ class EBUserManager {
 	 *
 	 * @return int|WP_Error on failure, Int (user ID) on success
 	 */
-	public function create_wordpress_user( $email, $firstname, $lastname, $role = '', $user_p = '', $redirect_to = "" ) {
+	public function create_wordpress_user( $email, $firstname, $lastname, $role = '', $user_p = '', $redirect_to = '' ) {
 		$uc_status = '';
 		// Check the e-mail address.
 		if ( ! empty( $email ) && is_email( $email ) ) {

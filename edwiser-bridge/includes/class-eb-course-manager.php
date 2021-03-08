@@ -637,7 +637,7 @@ class Eb_Course_Manager {
 				'paid'   => esc_html__( 'Paid', 'eb-textdomain' ),
 				'closed' => esc_html__( 'Closed', 'eb-textdomain' ),
 			);
-			$status = $status ? $status : 'free';
+			$status  = $status ? $status : 'free';
 			echo esc_html( isset( $options[ $status ] ) ? $options[ $status ] : ucfirst( $status ) );
 		} elseif ( 'mdl_course_id' === $column_name ) {
 			$mdl_course_id      = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
@@ -660,7 +660,7 @@ class Eb_Course_Manager {
 			$eb_access_url          = wdm_edwiser_bridge_plugin_get_access_url();
 			$mdl_course_id          = $this->get_moodle_course_id( $post->ID );
 			$course_url             = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
-			$actions['moodle_link'] = "<a href='{$course_url}' title='' target='_blank' rel='permalink'>" . __( 'View on Moodle', 'eb-textdomain' ) . "</a>";
+			$actions['moodle_link'] = "<a href='{$course_url}' title='' target='_blank' rel='permalink'>" . __( 'View on Moodle', 'eb-textdomain' ) . '</a>';
 		}
 		return $actions;
 	}
