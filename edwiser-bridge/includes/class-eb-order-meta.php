@@ -262,10 +262,10 @@ class Eb_Order_Meta {
 				<p>
 					<label><?php esc_html_e( 'Name: ', 'eb-textdomain' ); ?></label>
 					<!-- <input type="select" name="eb_order_options[eb_order_username]"> -->
-					<div>
+					<div class='eb_order_meta_s2'>
 						<select id="eb_order_username" name="eb_order_options[eb_order_username]" required>
 						<?php
-						echo esc_html( $this->get_all_users( $user_id ) );
+						 $this->get_all_users( $user_id );
 						?>
 						</select>
 					</div>
@@ -318,7 +318,7 @@ class Eb_Order_Meta {
 				<p>
 					<label><?php esc_html_e( 'Course Name: ', 'eb-textdomain' ); ?></label>
 					<!-- <input type="text" name="eb_order_options[eb_order_course]"> -->
-					<div>
+					<div class='eb_order_meta_s2'>
 						<select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
 						<?php
 						echo esc_html( $this->get_all_courses( $course_id ) );
@@ -345,32 +345,29 @@ class Eb_Order_Meta {
 	 * Function to get all users array.
 	 *
 	 * @param int $user_id user_id.
-	 * @return returns array of users
 	 */
 	public function get_all_users( $user_id = '' ) {
 		$users = get_users();
-		$html  = "<option value='' disabled selected> Select User</option>";
+		?>
+		<option value='' disabled selected> Select User</option>
+		<?php
+		$selected = '';
 		foreach ( $users as $user ) {
-			if ( $user_id ) {
-				$selected = '';
-				if ( $user_id === $user->ID ) {
-					$selected = 'selected';
-				}
-				$html .= '<option value="' . $user->ID . '" ' . $selected . '> ' . $user->user_login . '</option>';
-			} else {
-				$html .= '<option value="' . $user->ID . '" > ' . $user->user_login . '</option>';
+			if ( $user_id === $user->ID ) {
+				$selected = 'selected';
 			}
+			?>			
+			<option value="<?php echo esc_attr( $user->ID ) . ' ' . esc_attr( $selected ); ?>" >
+				<?php echo esc_attr( $user->user_login ); ?>
+			</option>
+			<?php
 		}
-
-		return $html;
 	}
 
 	/**
 	 * Function to get list of all courses
 	 *
 	 * @param int $course_id course_id.
-	 *
-	 * @return array of all courses with ID
 	 */
 	public function get_all_courses( $course_id = '' ) {
 		$course_args = array(
@@ -379,20 +376,19 @@ class Eb_Order_Meta {
 			'posts_per_page' => -1,
 		);
 		$courses     = get_posts( $course_args );
-		$html        = "<option value='' disabled selected> Select Course </option>";
-
+		?>
+		<option value='' disabled selected> Select Course </option>
+		<?php
 		foreach ( $courses as $course ) {
-			if ( $course_id ) {
-				$selected = '';
-				if ( $course_id === $course->ID ) {
-					$selected = 'selected';
-				}
-				$html .= '<option value="' . $course->ID . '" ' . $selected . '> ' . $course->post_title . '</option>';
-			} else {
-				$html .= '<option value="' . $course->ID . '" > ' . $course->post_title . '</option>';
+			$selected = '';
+			if ( $course_id === $course->ID ) {
+				$selected = 'selected';
 			}
+			?>
+			<option value="<?php echo esc_attr( $course->ID ) . ' ' . esc_attr( $selected ); ?>">
+				<?php echo esc_attr( $course->post_title ); ?>
+			</option>
+			<?php
 		}
-
-		return $html;
 	}
 }

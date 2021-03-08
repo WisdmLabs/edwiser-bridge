@@ -1293,4 +1293,7 @@ a[href*="page=eb-settings"].nav-tab {
   font-size: 13px;
   line-height: 1.5;
 }
+.eb_order_meta_s2 > .select2 {
+  max-width: 250px;
+}
 /*Dummy setting style end*/
