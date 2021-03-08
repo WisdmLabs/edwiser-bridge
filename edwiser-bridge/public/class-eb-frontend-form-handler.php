@@ -99,7 +99,7 @@ class Eb_Frontend_Form_Handler {
 				$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
 			}
 
-			if ( self::auto_enroll() ) {
+			if ( self::auto_enroll( $_GET ) ) {
 				$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
 			}
 			return $redirect;
@@ -169,7 +169,7 @@ class Eb_Frontend_Form_Handler {
 				} else {
 					$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
 				}
-				if ( self::auto_enroll() ) {
+				if ( self::auto_enroll( $_GET ) ) {
 					$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
 				}
 				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role, $user_psw, $redirect );
@@ -258,13 +258,11 @@ class Eb_Frontend_Form_Handler {
 	/**
 	 * Enroll.
 	 */
-	private static function auto_enroll() {
-		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
-			if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-				return true;
-			} else {
-				return false;
-			}
+	private static function auto_enroll( $data ) {
+		if ( isset( $data['is_enroll'] ) && 'true' === $data['is_enroll'] ) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
