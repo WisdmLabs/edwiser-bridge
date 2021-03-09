@@ -58,7 +58,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
 			);
 			foreach ( $extensions as $plugin_path ) {
-				if ( ! is_plugin_active( $plugin_path ) ) {
+				if ( is_plugin_active( $plugin_path ) ) {
+					$show_banner = false;
+				}else{
 					$show_banner = true;
 					break;
 				}

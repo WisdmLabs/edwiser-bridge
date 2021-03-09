@@ -28,7 +28,7 @@
 }
 
 .eb_setting_right_sidebar_info {
-  width: 30%;
+  max-width: 30%;
   min-width: 337px;
 }
 
@@ -1289,7 +1289,7 @@ a[href*="tab=pfetures"].nav-tab-active {
 }
 a[href*="page=eb-settings"].nav-tab {
   margin-left: 2px;
-  padding: 5px 9px;
+  padding: 9px;
   font-size: 13px;
   line-height: 1.5;
 }
