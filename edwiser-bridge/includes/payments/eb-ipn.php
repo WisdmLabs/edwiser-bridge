@@ -10,10 +10,12 @@ namespace app\wisdmlabs\edwiserBridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
 /**
  * This class will process the  IPN request.
  */
 class Eb_Ipn {
+
 	/**
 	 * Function will execute the PayPal ipn request.
 	 */
@@ -140,7 +142,7 @@ class Eb_Ipn {
 			);
 
 			if ( 'Completed' === $post_payment_status ) {
-				$this->process_completion_req( $request_data );
+				$this->process_completion_req( $request_data, $paypal_currency, $post_payment_status );
 			} elseif ( 'Refunded' === $post_payment_status ) {
 				$this->process_order_refund( $request_data, $post_payment_status );
 			}
@@ -162,9 +164,11 @@ class Eb_Ipn {
 	/**
 	 * Function will process the paypal new order request.
 	 *
-	 * @param array $request_data Paypal request data.
+	 * @param array  $request_data Paypal request data.
+	 * @param string $paypal_currency Curancy type.
+	 * @param string $post_payment_status PayPal payment status.
 	 */
-	private function process_completion_req( $request_data ) {
+	private function process_completion_req( $request_data, $paypal_currency, $post_payment_status ) {
 
 		$this->bridge_logger->add( 'payment', 'Sure, Completed! Moving Ahead.' );
 		// a customer has purchased from this website.
@@ -322,6 +326,4 @@ class Eb_Ipn {
 
 		do_action( 'eb_refund_completion', $args );
 	}
-
-
 }
