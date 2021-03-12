@@ -218,7 +218,7 @@ Also check our knowledge base for more queries
 * Feture - Added search functionality on manage enrollment page.
 * Tweek - Added space before username in new user account email template.
 * Tweek - Improved the test connection error message.
-* Tweek - My Courses page was progress service call optimisation.
+* Tweek - My Courses page progress service call optimisation.
 * Fix - Paid order was showing HTML in notes.
 * Fix - Help popup was showing html on setting page.
 * Fix - User Linked success message style fix.
