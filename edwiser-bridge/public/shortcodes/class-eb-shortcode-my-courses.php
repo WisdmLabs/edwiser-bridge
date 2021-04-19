@@ -123,7 +123,7 @@ class Eb_Shortcode_My_Courses {
 				/* Translators 1: My account url */
 				printf(
 					esc_html__( 'You are not logged in. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to login.', 'eb-textdomain' ),
-					"<a href='" . esc_url( site_url( '/user-account' ) ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					"<a href='" . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
 				);
 				?>
 			</p>
