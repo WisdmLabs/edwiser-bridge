@@ -211,6 +211,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.1.0 =
+* Fix - Solved My-courses page login link issue for non logged in users.
+
 = 2.0.9 =
 * Feture - Added the password filed on user registration window.
 * Feture - Added link user account functionality if the account is created on moodle and exist on wordpress.
