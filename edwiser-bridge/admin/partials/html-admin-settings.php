@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			foreach ( $extensions as $plugin_path ) {
 				if ( is_plugin_active( $plugin_path ) ) {
 					$show_banner = false;
-				}else{
+				} else {
 					$show_banner = true;
 					break;
 				}

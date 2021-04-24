@@ -560,13 +560,13 @@ span.eb-option-input .eb-option-div select {
 }
 
 .eb_table_cell_1 {
-  width: 15%;
+  width: 20%;
   font-weight: bold;
   font-size: 1.1em;
 }
 
 .eb_table_cell_2 {
-  width: 33%;
+  width: 35%;
 }
 
 .eb_table_cell_2 input {
@@ -578,7 +578,7 @@ span.eb-option-input .eb-option-div select {
 }
 
 .eb_table_cell_4 {
-  width: 35%;
+  width: 25%;
 }
 
 .eb_table:after {
@@ -1297,3 +1297,12 @@ a[href*="page=eb-settings"].nav-tab {
   max-width: 250px;
 }
 /*Dummy setting style end*/
+
+/*Licensing page styling start.*/
+.eb_lic_status {
+  color: red;
+}
+.eb_lic_Active {
+  color: green;
+}
+/*Licensing page styling end.*/
