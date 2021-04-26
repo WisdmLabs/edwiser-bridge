@@ -106,42 +106,50 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		/**
 		 * Function to get the license status.
 		 *
-		 * @param string $key_name License key option name.
-		 * @return string license status.
+		 * @param string $plugin_slug plugin slug name.
 		 */
-		private function get_license_status( $key_name ) {
-			$status = 'inactive';
-			return $status;
+		private function get_license_status( $plugin_slug ) {
+			$status_option = get_option( 'edd_' . $plugin_slug . '_license_status' );
+			$class         = '';
+			if ( false !== $status_option && 'valid' === $status_option ) {
+				$class  = 'active';
+				$status = __( 'Active', 'ebbp-textdomain' );
+			} elseif ( 'site_inactive' === $status_option ) {
+				$status = __( 'Not Active', 'ebbp-textdomain' );
+			} elseif ( 'expired' === $status_option && ( ! empty( $display ) || '' !== $display ) ) {
+				$status = __( 'Expired', 'ebbp-textdomain' );
+			} elseif ( 'expired' === $status_option ) {
+				$status = __( 'Expired', 'ebbp-textdomain' );
+			} elseif ( 'invalid' === $status_option ) {
+				$status = __( 'Invalid Key', 'ebbp-textdomain' );
+			} else {
+				$status = __( 'Not Active ', 'ebbp-textdomain' );
+			}
+			?>
+			<span class="eb_lic_status eb_lic_<?php echo esc_attr( $class ); ?>"><?php echo esc_attr( $status ); ?></span>
+			<?php
 		}
 
 		/**
 		 * Function to get the licensing form actions.
 		 *
-		 * @param string $key Plugin license key option name.
-		 * @param string $plugin Plugin file path.
+		 * @param array $plugin_slug Plugin slug.
 		 */
-		private function get_license_buttons( $key, $plugin ) {
+		private function get_license_buttons( $plugin_slug ) {
 			$action = '';
-			if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin ) ) {
+			$plugin = $this->products_data[ $plugin_slug ];
+			if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['path'] ) ) {
 				$action = 'install_plugin';
 				?>
 				<input class="button-primary" type="submit" name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'eb-textdomain' ); ?>">
 				<?php
-			} elseif ( ! is_plugin_active( $plugin ) ) {
+			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
 					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
-			} elseif ( 'inactive' === $this->get_license_status( $key ) ) {
-				$action = 'activate_license';
-				?>
-					<input class="button-primary" type="submit" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>">
-				<?php
 			} else {
-				$action = 'deactivate_license';
-				?>
-					<input class="button-primary" type="submit" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>">
-				<?php
+				$action = $this->get_license_status_button( $plugin_slug, $action );
 			}
 			?>
 			<input type="hidden" name="licence_action" value="<?php echo esc_attr( $action ); ?>">
@@ -149,17 +157,59 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		}
 
 		/**
+		 * Function to get the activation/deactivation button.
+		 *
+		 * @param string $plugin_slug plugin slug.
+		 * @param string $action name of the action.
+		 */
+		private function get_license_status_button( $plugin_slug, $action ) {
+			$renew_link = get_option( 'eb_' . $plugin_slug . '_product_site' );
+			$status     = get_option( 'edd_' . $plugin_slug . '_license_status' );
+			include_once plugin_dir_path( __FILE__ ) . 'eb-get-plugin-data.php';
+			$active_site = EbGetPluginData::get_site_list( $plugin_slug );
+
+			$display = '';
+			if ( ! empty( $active_site ) || '' !== $active_site ) {
+				$display = '<ul>' . $active_site . '</ul>';
+			}
+			if ( false !== $status && 'valid' === $status ) {
+				$action = 'deactivate_license';
+				?>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>"/>
+					<?php
+			} elseif ( 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) {
+				$action = 'activate_license';
+				?>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'ebbp-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<?php
+			} elseif ( 'expired' === $status ) {
+				$action = 'deactivate_license';
+				?>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'ebbp-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<?php
+			} else {
+				$action = 'activate_license';
+				?>
+					<input type="submit" class="button-primary" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'ebbp-textdomain' ); ?>"/>
+					<?php
+			}
+
+			return $action;
+		}
+
+		/**
 		 * Function handles the licensing form submission.
 		 */
 		private function license_form_submission_handler() {
 			$post_data = wp_unslash( $_POST );
-			error_log( print_r( $post_data, 1 ) );
 			$resp_data = array(
 				'msg'          => __( 'Security check failed.', 'eb-textdomain' ),
 				'notice_class' => 'notice-error',
 			);
 			$action    = isset( $post_data['action'] ) ? sanitize_text_field( $post_data['action'] ) : false;
-			if ( $action && isset( $post_data['activate_plugin'] ) && isset( $post_data[ $action ] ) && wp_verify_nonce( $post_data[ $action ], 'eb-licence-nonce' ) ) {
+			if ( $action && isset( $post_data['licence_action'] ) && isset( $post_data[ $action ] ) && wp_verify_nonce( $post_data[ $action ], 'eb-licence-nonce' ) ) {
 				switch ( $post_data['licence_action'] ) {
 					case 'activate_license':
 						$resp_data = $this->manage_license( $post_data, 'activate' );
@@ -174,13 +224,15 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 						$resp_data = array();
 						break;
 					default:
+						$resp_data['msg'] = __( 'Invalid action.', 'eb-textdomain' );
 						break;
 				}
 			}
+			$resp_data['msg'] = apply_filters( 'eb_setting_messages', $resp_data['msg'] );
 			if ( $action ) {
 				?>
 				<div class="notice <?php echo esc_attr( $resp_data['notice_class'] ); ?> is-dismissible">
-					<p><?php echo esc_attr( $resp_data['msg'] ); ?></p>
+					<p><?php echo $resp_data['msg']; ?></p>
 				</div>
 				<?php
 			}
@@ -193,16 +245,19 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param  string $action Name of the action like activate/deactivate.
 		 */
 		private function manage_license( $data, $action ) {
-			$resp        = array(
+			$resp = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
-			$plugin_data = $this->products_data[ $data['action'] ];
-
+			include_once plugin_dir_path( __FILE__ ) . 'eb-licensing-manager.php';
+			$plugin_data        = $this->products_data[ $data['action'] ];
+			$plugin_data['url'] = get_home_url();
+			$plugin_data['key'] = $data[ $plugin_data['key'] ];
+			$license_maanger    = new EbLicensingManger( $plugin_data );
 			if ( 'activate' === $action ) {
-				// To do.
+				$license_maanger->activate_license();
 			} else {
-				// To do.
+				$license_maanger->deactivate_license();
 			}
 			return $resp;
 		}

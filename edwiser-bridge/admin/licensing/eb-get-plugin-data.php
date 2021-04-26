@@ -102,7 +102,7 @@ if ( ! class_exists( 'EbGetPluginData' ) ) {
 		 *
 		 * @param string $plugin_slug current plugin's slug.
 		 */
-		public static function getSiteList( $plugin_slug ) {
+		public static function get_site_list( $plugin_slug ) {
 			$sites    = get_option( 'eb_' . $plugin_slug . '_license_key_sites' );
 			$max      = get_option( 'eb_' . $plugin_slug . '_license_max_site' );
 			$cur_site = get_site_url();
@@ -110,12 +110,10 @@ if ( ! class_exists( 'EbGetPluginData' ) ) {
 
 			$site_count  = 0;
 			$active_site = '';
-
-			if ( ! empty( $sites ) || '' !== $sites ) {
+			if ( $sites && '' !== $sites ) {
 				foreach ( $sites as $key ) {
 					foreach ( $key as $value ) {
 						$value = rtrim( $value, '/' );
-
 						if ( 0 !== strcasecmp( $value, $cur_site ) ) {
 							$active_site .= '<li>' . $value . '</li>';
 							++$site_count;

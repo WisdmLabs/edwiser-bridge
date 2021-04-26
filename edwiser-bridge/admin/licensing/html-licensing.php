@@ -15,29 +15,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="eb_table_body">
 		<?php
 		foreach ( $this->products_data as $single ) {
-			$lice_status = $this->get_license_status( $single['key'] );
 			?>
-			<form method="post" id="mainform" >
-				<div class="eb_table_row">
+			<div class="eb_table_row">
+				<form method="post" id="mainform" >
 					<div class="eb_table_cell_1">
 						<?php echo esc_attr( $single['item_name'] ); ?>
 					</div>
 
 					<div class="eb_table_cell_2">
-						<input class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value=<?php echo $this->get_licence_key( $single['key'] ); ?>>
+						<input class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value="<?php echo esc_attr( $this->get_licence_key( $single['key'] ) ); ?>"/>
 					</div>
 
 					<div class="eb_table_cell_3">
-						<span class="eb_lic_status eb_lic_<?php echo esc_attr( $lice_status ); ?>"><?php echo esc_attr( $lice_status ); ?><span>
+						<?php $this->get_license_status( $single['slug'] ); ?>
 					</div>
 
 					<div class="eb_table_cell_4">
-					<?php $this->get_license_buttons( $single['key'], $single['path'] ); ?>
+					<?php $this->get_license_buttons( $single['slug'] ); ?>
 					</div>
-					<input type="hidden" name="action" value="<?php echo esc_attr( $single['slug'] ); ?>">
-				</div>
-				<?php wp_nonce_field( 'eb-licence-nonce', $single['slug'] ); ?>
-			</form>
+					<input type="hidden" name="action" value="<?php echo esc_attr( $single['slug'] ); ?>"/>
+					<?php wp_nonce_field( 'eb-licence-nonce', $single['slug'] ); ?>
+				</form>
+			</div>
 			<?php
 		}
 		?>

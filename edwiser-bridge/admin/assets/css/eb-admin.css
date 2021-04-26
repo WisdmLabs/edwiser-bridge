@@ -1301,8 +1301,9 @@ a[href*="page=eb-settings"].nav-tab {
 /*Licensing page styling start.*/
 .eb_lic_status {
   color: red;
+  text-transform: capitalize;
 }
-.eb_lic_Active {
+.eb_lic_active {
   color: green;
 }
 /*Licensing page styling end.*/
