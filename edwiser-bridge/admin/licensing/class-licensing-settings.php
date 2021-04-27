@@ -255,6 +255,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 					if ( is_wp_error( $installed ) ) {
 						$resp['msg'] = $installed->get_error_messages();
 					} elseif ( $installed ) {
+						$this->manage_license( $plugin_data, 'activate' );
 						$resp['msg']          = __( 'Plugin installed and activated sucessfully.', 'eb-textdomain' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
@@ -318,6 +319,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				$resp['msg']          = $result->get_error_messages();
 				$resp['notice_class'] = 'notice-error';
 			} else {
+				$this->manage_license( $data, 'activate' );
 				$resp['msg']          = __( 'Plugin activated successfully.', 'eb-textdomain' );
 				$resp['notice_class'] = 'notice-success';
 			}
