@@ -167,7 +167,7 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 			);
 
 			$response = wp_remote_get(
-				add_query_arg( $api_params, self::store_url ),
+				add_query_arg( $api_params, self::$store_url ),
 				array(
 					'timeout'   => 15,
 					'sslverify' => false,

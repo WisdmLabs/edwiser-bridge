@@ -40,9 +40,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * Constructor.
 		 */
 		public function __construct() {
-			$this->addon_licensing = array( 'test' );
-			$this->_id             = 'licensing_sol';
-			$this->label           = __( 'Licenses Sol', 'eb-textdomain' );
+			$this->addon_licensing = array( 'licensing' );
+			$this->_id             = 'licensing';
+			$this->label           = __( 'Licenses', 'eb-textdomain' );
 			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
@@ -120,7 +120,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
-					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
+					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
 			} else {
 				$action = $this->get_license_status_button( $plugin_slug, $action );
@@ -204,16 +204,18 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 						break;
 				}
 			}
-			$plugin_error = apply_filters( 'eb_license_setting_messages', $resp_data['msg'] );
+			$plugin_error = '';
 			if ( $action && ! empty( $resp_data['msg'] ) ) {
+				ob_start();
 				?>
 				<div class="notice <?php echo esc_attr( $resp_data['notice_class'] ); ?> is-dismissible">
 					<p><?php echo esc_attr( $resp_data['msg'] ); ?></p>
 				</div>
 				<?php
-			} else {
-				echo wp_kses_post( $plugin_error );
+				$plugin_error = ob_get_clean();
 			}
+			$plugin_error = apply_filters( 'eb_license_setting_messages', $plugin_error );
+			echo wp_kses_post( $plugin_error );
 		}
 
 		/**
@@ -222,11 +224,11 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param  mixed $post_data Installation reuqest data.
 		 */
 		private function wdm_install_plugin( $post_data ) {
-			$resp = array(
+			$resp                      = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
-			$slug = $post_data['action'];
+			$slug                      = $post_data['action'];
 			$plugin_data               = $this->products_data[ $slug ];
 			$plugin_data['edd_action'] = 'get_version';
 			$plugin_data['license']    = $this->get_licence_key( $plugin_data['key'] );
@@ -250,7 +252,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				}
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
 					$installed = $this->install_plugin( $request->download_link );
-					if ( $installed ) {
+					if ( is_wp_error( $installed ) ) {
+						$resp['msg'] = $installed->get_error_messages();
+					} elseif ( $installed ) {
 						$resp['msg']          = __( 'Plugin installed and activated sucessfully.', 'eb-textdomain' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
