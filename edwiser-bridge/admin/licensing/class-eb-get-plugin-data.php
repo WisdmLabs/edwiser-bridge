@@ -10,11 +10,11 @@ namespace app\wisdmlabs\edwiserBridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'EbGetPluginData' ) ) {
+if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 	/**
 	 * Class to fetch the license data.
 	 */
-	class EbGetPluginData {
+	class Eb_Get_Plugin_Data {
 
 		/**
 		 * Responce data refarance.
@@ -26,18 +26,21 @@ if ( ! class_exists( 'EbGetPluginData' ) ) {
 		/**
 		 * Function to get license info from DB.
 		 *
-		 * @param array $plugin_data Array of the plugin information.
+		 * @param array $plugin_slug Plugin slug name.
 		 * @param bool  $cache cache value info.
 		 */
-		public static function getDataFromDb( $plugin_data, $cache = true ) {
+		public static function get_data_from_db( $plugin_slug, $cache = true ) {
 
 			if ( null !== self::$response_data && true === $cache ) {
 				return self::$response_data;
 			}
-
+			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
+			}
+			$plugin_data = Eb_Licensing_Manger::get_plugin_data( $plugin_slug );
 			$plugin_name = $plugin_data['plugin_name'];
 			$plugin_slug = $plugin_data['plugin_slug'];
-			$store_url   = $plugin_data['store_url'];
+			$store_url   = Eb_Licensing_Manger::$store_url;
 
 			$license_transient = get_transient( 'wdm_' . $plugin_slug . '_license_trans' );
 
@@ -79,20 +82,20 @@ if ( ! class_exists( 'EbGetPluginData' ) ) {
 						}
 					} else {
 						include_once plugin_dir_path( __FILE__ ) . 'class-eb-select-add-plugin-data-in-db.php';
-						$license_status = EBMUSelectAddPluginDataInDB::updateStatus( $license_data, $plugin_slug );
+						$license_status = Eb_Licensing_Manger::update_status( $license_data, $plugin_slug );
 					}
 
-					$active_site = self::getSiteList( $plugin_slug );
+					$active_site = self::get_site_list( $plugin_slug );
 
-					self::setResponseData( $license_status, $active_site, $plugin_slug, true );
+					self::set_response_data( $license_status, $active_site, $plugin_slug, true );
 
 					return self::$response_data;
 				}
 			} else {
 				$license_status = get_option( 'edd_' . $plugin_slug . '_license_status' );
-				$active_site    = self::getSiteList( $plugin_slug );
+				$active_site    = self::get_site_list( $plugin_slug );
 
-				self::setResponseData( $license_status, $active_site, $plugin_slug );
+				self::set_response_data( $license_status, $active_site, $plugin_slug );
 				return self::$response_data;
 			}
 		}
@@ -138,7 +141,7 @@ if ( ! class_exists( 'EbGetPluginData' ) ) {
 		 * @param string $plugin_slug  Plugin slug.
 		 * @param bool   $set_trans Should set transient or not.
 		 */
-		public static function setResponseData( $license_status, $active_site, $plugin_slug, $set_trans = false ) {
+		public static function set_response_data( $license_status, $active_site, $plugin_slug, $set_trans = false ) {
 
 			if ( 'valid' === $license_status ) {
 				self::$response_data = 'available';

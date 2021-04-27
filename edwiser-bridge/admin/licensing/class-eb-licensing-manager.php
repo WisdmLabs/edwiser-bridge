@@ -10,12 +10,12 @@ namespace app\wisdmlabs\edwiserBridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'EbLicensingManger' ) ) {
+if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 
 	/**
 	 * Class manages the plugin license data.
 	 */
-	class EbLicensingManger {
+	class Eb_Licensing_Manger {
 
 		/**
 		 * Short Name for plugin.
@@ -51,7 +51,7 @@ if ( ! class_exists( 'EbLicensingManger' ) ) {
 		 *
 		 * @var string  $store_url Stores the URL of store.
 		 */
-		public $store_url = 'https://edwiser.org/check-update';
+		public static $store_url = 'https://edwiser.org/check-update';
 
 		/**
 		 * Plugin author name.
@@ -79,7 +79,49 @@ if ( ! class_exists( 'EbLicensingManger' ) ) {
 			$this->plugin_version    = $plugin_data['current_version'];
 			$this->key               = $plugin_data['key'];
 
-			add_filter( 'eb_setting_messages', array( $this, 'license_messages' ), 15, 1 );
+			add_filter( 'eb_license_setting_messages', array( $this, 'license_messages' ), 15, 1 );
+		}
+
+		/**
+		 * Function returns the product licensing data.
+		 *
+		 * @param string $plugin_slug Plugin slug name to get the data.
+		 */
+		public static function get_plugin_data( $plugin_slug = false ) {
+			$products_data = array(
+				'single_sign_on'          => array(
+					'slug'            => 'single_sign_on',
+					'current_version' => '1.4.0',
+					'item_name'       => 'Edwiser Bridge Single Sign On',
+					'key'             => 'edd_single_sign_on_license_key',
+					'path'            => 'edwiser-bridge-sso/sso.php',
+				),
+				'woocommerce_integration' => array(
+					'slug'            => 'woocommerce_integration',
+					'current_version' => '2.1.5',
+					'item_name'       => 'WooCommerce Integration',
+					'key'             => 'edd_woocommerce_integration_license_key',
+					'path'            => 'woocommerce-integration/bridge-woocommerce.php',
+				),
+				'bulk-purchase'           => array(
+					'slug'            => 'bulk-purchase',
+					'current_version' => '2.3.5',
+					'item_name'       => 'Bulk Purchase',
+					'key'             => 'edd_bulk-purchase_license_key',
+					'path'            => 'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
+				),
+				'selective_sync'          => array(
+					'slug'            => 'selective_sync',
+					'current_version' => '2.1.2',
+					'item_name'       => 'Selective Synchronization',
+					'key'             => 'edd_selective_sync_license_key',
+					'path'            => 'selective-synchronization/selective-synchronization.php',
+				),
+			);
+			if ( $plugin_slug ) {
+				$products_data = $products_data[ $plugin_slug ];
+			}
+			return $products_data;
 		}
 
 		/**
@@ -121,10 +163,11 @@ if ( ! class_exists( 'EbLicensingManger' ) ) {
 				'license'         => $license_key,
 				'item_name'       => urlencode( $this->plugin_name ),
 				'current_version' => $this->plugin_version,
+				'url'             => get_home_url(),
 			);
 
 			$response = wp_remote_get(
-				add_query_arg( $api_params, $this->store_url ),
+				add_query_arg( $api_params, self::store_url ),
 				array(
 					'timeout'   => 15,
 					'sslverify' => false,
@@ -189,8 +232,8 @@ if ( ! class_exists( 'EbLicensingManger' ) ) {
 							$status                                   = 'failed';
 							$GLOBALS['wdm_license_activation_failed'] = true;
 						} elseif ( 'invalid' === $license_data->license && isset( $license_data->activations_left ) && '0' === $license_data->activations_left ) {
-							include_once plugin_dir_path( __FILE__ ) . 'eb-get-plugin-data.php';
-							$active_site = EbGetPluginData::getSiteList( $plugin_slug );
+							include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
+							$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
 							$status      = '' !== trim( $active_site ) ? 'no_activations_left' : $license_data->license;
 						}
 					}
@@ -311,10 +354,10 @@ if ( ! class_exists( 'EbLicensingManger' ) ) {
 		public function license_messages( $eb_lice_messages ) {
 			// Get License Status.
 			$status = get_option( 'edd_' . $this->plugin_slug . '_license_status' );
-			include_once plugin_dir_path( __FILE__ ) . 'eb-get-plugin-data.php';
+			include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
 			$status = $this->get_licenses_global_status( $status );
 
-			$active_site = EbGetPluginData::get_site_list( $this->plugin_slug );
+			$active_site = Eb_Get_Plugin_Data::get_site_list( $this->plugin_slug );
 
 			$display = '';
 

@@ -19,11 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @version 1.1
  */
-if ( ! class_exists( 'EbPluginUpdater' ) ) {
+if ( ! class_exists( 'Eb_Plugin_Updater' ) ) {
 	/**
 	 * Class to update the plugin.
 	 */
-	class EbPluginUpdater {
+	class Eb_Plugin_Updater {
 
 		/**
 		 * Plugin store url to get the plugin.
@@ -66,42 +66,24 @@ if ( ! class_exists( 'EbPluginUpdater' ) ) {
 		 * @uses plugin_basename()
 		 * @uses hook()
 		 *
-		 * @param string $api_url     The URL pointing to the custom API endpoint.
+		 * @param string $plugin_slug Plugin slug name.
 		 * @param string $plugin_file Path to the plugin file.
-		 * @param array  $api_data    Optional data to send with API calls.
+		 * @param string $current_version Plugin current version.
 		 */
-		public function __construct( $api_url, $plugin_file, $api_data = null ) {
-			$this->api_url  = trailingslashit( $api_url );
-			$this->api_data = urlencode_deep( $api_data );
+		public function __construct( $plugin_slug, $plugin_file, $current_version ) {
+			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
+			}
+			$plugin_data    = Eb_Licensing_Manger::get_plugin_data( $plugin_slug );
+			$this->api_url  = trailingslashit( Eb_Licensing_Manger::$store_url );
+			$this->api_data = urlencode_deep( $plugin_data );
 			$this->name     = plugin_basename( $plugin_file );
 			$this->slug     = basename( $plugin_file, '.php' );
-			$this->version  = $api_data['version'];
+			$this->version  = $current_version;
 
-			// Set up hooks.
-			$this->hook();
-		}
-
-		/**
-		 * Set up WordPress filters to hook into WP's update process.
-		 *
-		 * @uses add_filter()
-		 */
-		private function hook() {
-			add_filter(
-				'pre_set_site_transient_update_plugins',
-				array(
-					$this,
-					'preSetSiteTransientUpdatePluginsFilter',
-				)
-			);
-			add_filter(
-				'pre_set_transient_update_plugins',
-				array(
-					$this,
-					'preSetSiteTransientUpdatePluginsFilter',
-				)
-			);
-			add_filter( 'plugins_api', array( $this, 'pluginsApiFilter' ), 10, 3 );
+			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_site_transient_update' ) );
+			add_filter( 'pre_set_transient_update_plugins', array( $this, 'set_site_transient_update' ) );
+			add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3 );
 		}
 
 		/**
@@ -118,14 +100,14 @@ if ( ! class_exists( 'EbPluginUpdater' ) ) {
 		 *
 		 * @return array Modified update array with custom plugin data.
 		 */
-		public function preSetSiteTransientUpdatePluginsFilter( $_transient_data ) {
+		public function set_site_transient_update( $_transient_data ) {
 			if ( empty( $_transient_data ) ) {
 				return $_transient_data;
 			}
 
 			$to_send = array( 'slug' => $this->slug );
 
-			$api_response = $this->apiRequest( $to_send );
+			$api_response = $this->api_request( $to_send );
 
 			if ( false !== $api_response && is_object( $api_response ) && isset( $api_response->new_version ) ) {
 				if ( version_compare( $this->version, $api_response->new_version, '<' ) ) {
@@ -143,14 +125,14 @@ if ( ! class_exists( 'EbPluginUpdater' ) ) {
 		 * @param string $action action name.
 		 * @param object $args reuest args.
 		 */
-		public function pluginsApiFilter( $data, $action = '', $args = null ) {
+		public function plugins_api_filter( $data, $action = '', $args = null ) {
 			if ( ( 'plugin_information' !== $action ) || ! isset( $args->slug ) || ( $args->slug !== $this->slug ) ) {
 				return $data;
 			}
 
 			$to_send = array( 'slug' => $this->slug );
 
-			$api_resp = $this->apiRequest( $to_send );
+			$api_resp = $this->api_request( $to_send );
 			if ( false !== $api_resp ) {
 				$data = $api_resp;
 			}
@@ -163,7 +145,7 @@ if ( ! class_exists( 'EbPluginUpdater' ) ) {
 		 *
 		 * @param array $data Parameters for the API action.
 		 */
-		private function apiRequest( $data ) {
+		private function api_request( $data ) {
 			if ( null !== self::$resp_data ) {
 				return self::$resp_data;
 			}
@@ -182,7 +164,6 @@ if ( ! class_exists( 'EbPluginUpdater' ) ) {
 				'license'         => $data['license'],
 				'name'            => $data['item_name'],
 				'slug'            => $this->slug,
-				'author'          => $data['author'],
 				'current_version' => $this->version,
 			);
 
