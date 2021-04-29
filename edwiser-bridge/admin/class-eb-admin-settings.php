@@ -61,6 +61,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$settings[]     = include 'settings/class-eb-settings-dummy.php';
 				self::$settings = apply_filters( 'eb_get_settings_pages', $settings );
 				$settings[]     = include 'licensing/class-licensing-settings.php';
+				$settings[]     = include 'settings/class-eb-bridge-summary.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';
 				$settings[]     = include 'settings/class-eb-settings-premium-extensions.php';
 				$settings[]     = include 'settings/class-eb-settings-premium-fetures.php';

@@ -814,5 +814,47 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_log_dir' ) ) {
 		return $upload_dir['basedir'] . '/eb-logs/';
 	}
 }
+if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
+	/**
+	 * Function to get the current plugin version.
+	 *
+	 * @param string $path Plugin file path.
+	 */
+	function wdm_get_plugin_version( $path ) {
+		$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
+		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : '1.0.0';
+	}
+}
 
+if ( ! function_exists( 'wdm_request_edwiser' ) ) {
+	/**
+	 * Function to send the reuest to the edwiser site.
+	 *
+	 * @param  array $api_params request params data.
+	 * @return array array of the status and data.
+	 */
+	function wdm_request_edwiser( $api_params ) {
+		$store_url            = 'https://edwiser.org/check-update';
+		$api_params['author'] = 'WisdmLabs';
+		$resp_data            = array(
+			'status' => false,
+			'data'   => '',
+		);
+		$request              = wp_remote_get(
+			add_query_arg( $api_params, $store_url ),
+			array(
+				'timeout'   => 15,
+				'sslverify' => false,
+				'blocking'  => true,
+			)
+		);
 
+		if ( ! is_wp_error( $request ) ) {
+			$resp_data['data']   = json_decode( wp_remote_retrieve_body( $request ) );
+			$resp_data['status'] = wp_remote_retrieve_response_code( $request );
+		} else {
+			$resp_data['data'] = $request->get_error_messages();
+		}
+		return $resp_data;
+	}
+}

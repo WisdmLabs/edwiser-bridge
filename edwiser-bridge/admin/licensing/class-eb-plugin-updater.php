@@ -79,7 +79,7 @@ if ( ! class_exists( 'Eb_Plugin_Updater' ) ) {
 			$this->api_data = urlencode_deep( $plugin_data );
 			$this->name     = plugin_basename( $plugin_file );
 			$this->slug     = basename( $plugin_file, '.php' );
-			$this->version  = $current_version;
+			$this->version  = wdm_get_plugin_version( $plugin_data['path'] );
 
 			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_site_transient_update' ) );
 			add_filter( 'pre_set_transient_update_plugins', array( $this, 'set_site_transient_update' ) );
@@ -151,42 +151,29 @@ if ( ! class_exists( 'Eb_Plugin_Updater' ) ) {
 			}
 			$data = array_merge( $this->api_data, $data );
 
-			if ( $data['slug'] !== $this->slug ) {
+			if ( $data['slug'] !== $this->slug || empty( $data['license'] ) ) {
 				return;
 			}
 
-			if ( empty( $data['license'] ) ) {
-				return;
-			}
-
-			$api_params = array(
-				'edd_action'      => 'get_version',
-				'license'         => $data['license'],
-				'name'            => $data['item_name'],
-				'slug'            => $this->slug,
-				'current_version' => $this->version,
-			);
-
-			$request = wp_remote_get(
-				add_query_arg( $api_params, $this->api_url ),
+			$responce = wdm_request_edwiser(
 				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'blocking'  => true,
+					'edd_action'      => 'get_version',
+					'license'         => $data['license'],
+					'name'            => $data['item_name'],
+					'slug'            => $this->slug,
+					'current_version' => $this->version,
 				)
 			);
-
-			if ( ! is_wp_error( $request ) ) {
-				$request = json_decode( wp_remote_retrieve_body( $request ) );
-				if ( $request && isset( $request->sections ) ) {
-					$request->sections = maybe_unserialize( $request->sections );
+			if ( false !== $responce['status'] ) {
+				$data = $responce['data'];
+				if ( isset( $data->sections ) ) {
+					$data->sections = maybe_unserialize( $data->sections );
 				}
-				self::$resp_data = $request;
-				return $request;
+				self::$resp_data = $data;
 			} else {
 				self::$resp_data = false;
-				return false;
 			}
+			return self::$resp_data;
 		}
 	}
 }

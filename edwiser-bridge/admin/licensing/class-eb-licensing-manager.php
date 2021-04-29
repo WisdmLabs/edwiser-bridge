@@ -131,12 +131,11 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 			$license_key = trim( get_option( 'edd_' . $this->plugin_slug . '_license_key' ) );
 
 			if ( $license_key ) {
-				$license_data = $this->send_license_request( $license_key, 'deactivate_license' );
-				if ( ! $license_data['status'] ) {
-					return $license_data['data'];
+				$responce = $this->send_license_request( $license_key, 'deactivate_license' );
+				if ( false === $responce['status'] ) {
+					return $responce;
 				}
-				$license_data = $license_data['data'];
-
+				$license_data = $responce['data'];
 				if ( 'deactivated' === $license_data->license || 'failed' === $license_data->license ) {
 					update_option( 'edd_' . $this->plugin_slug . '_license_status', 'deactivated' );
 				}
@@ -154,38 +153,22 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 		 */
 		private function send_license_request( $license_key, $action = 'activate_license' ) {
 
-			$resp_data  = array(
-				'status' => false,
-				'data'   => '',
-			);
-			$api_params = array(
-				'edd_action'      => $action,
-				'license'         => $license_key,
-				'item_name'       => urlencode( $this->plugin_name ),
-				'current_version' => $this->plugin_version,
-				'url'             => get_home_url(),
-			);
-
-			$response = wp_remote_get(
-				add_query_arg( $api_params, self::$store_url ),
+			$resp_data = wdm_request_edwiser(
 				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'blocking'  => true,
+					'edd_action'      => $action,
+					'license'         => $license_key,
+					'item_name'       => urlencode( $this->plugin_name ),
+					'current_version' => $this->plugin_version,
+					'url'             => get_home_url(),
 				)
 			);
 
-			if ( is_wp_error( $response ) ) {
-				$resp_data['data'] = $response->get_error_messages();
-			}
-
-			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-			$is_data_avlb = $this->check_if_no_data( $license_data, wp_remote_retrieve_response_code( $response ) );
-			if ( $is_data_avlb ) {
-				$resp_data['data'] = __( 'No responce from server edwiser.org.', 'eb-textdomain' );
-			} else {
-				$resp_data['data']   = $license_data;
-				$resp_data['status'] = true;
+			if ( false !== $resp_data['status'] ) {
+				$is_data_avlb = $this->check_if_no_data( $resp_data['data'], $resp_data['status'] );
+				if ( $is_data_avlb ) {
+					$resp_data['data']   = __( 'No responce from server edwiser.org.', 'eb-textdomain' );
+					$resp_data['status'] = false;
+				}
 			}
 			return $resp_data;
 		}
@@ -253,11 +236,11 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 			if ( $license_key ) {
 				update_option( 'edd_' . $this->plugin_slug . '_license_key', $license_key );
 
-				$license_data = $this->send_license_request( $license_key );
-				if ( ! $license_data['status'] ) {
-					return $license_data['data'];
+				$responce = $this->send_license_request( $license_key );
+				if ( false === $responce['status'] ) {
+					return $responce;
 				}
-				$license_data = $license_data['data'];
+				$license_data = $responce['data'];
 				$expir_time   = $this->get_expiration_time( $license_data );
 
 				if ( isset( $license_data->expires ) && false !== $license_data->expires && 'lifetime' !== $license_data->expires && $expir_time <= time() && 0 !== $expir_time && ! isset( $license_data->error ) ) {

@@ -1307,3 +1307,39 @@ a[href*="page=eb-settings"].nav-tab {
   color: green;
 }
 /*Licensing page styling end.*/
+.wdm-table-status {
+  border-spacing: 0;
+  width: 100%;
+  clear: both;
+  margin: 0;
+  background: white;
+  border: 1px solid #ddd;
+  margin-top: 1rem;
+}
+.wdm-table-status th {
+  text-align: left;
+  background: white;
+  border-bottom: 1px solid;
+}
+.wdm-table-status h3 {
+  padding-left: 10px;
+  margin: 0.5rem 0;
+}
+.wdm-table-status td {
+  padding: 10px;
+}
+.wdm-table-status .eb-stat-tbl-label {
+  width: auto;
+}
+.wdm-table-status .eb-stat-tbl-help {
+  width: auto;
+}
+.wdm-table-status .eb-stat-tbl-label {
+  width: auto;
+}
+.wdm-table-status tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+.wdm-table-status th:hover {
+  background-color: #ddd;
+}

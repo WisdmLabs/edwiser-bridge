@@ -288,7 +288,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param  string $action Name of the action like activate/deactivate.
 		 */
 		private function manage_license( $data, $action ) {
-			$resp = array(
+			$resp               = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
