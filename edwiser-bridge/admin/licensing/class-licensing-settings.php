@@ -318,7 +318,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				$resp['msg']          = $result->get_error_messages();
 				$resp['notice_class'] = 'notice-error';
 			} else {
-				$this->manage_license( $data, 'activate' );
+				if ( 'valid' !== get_option( 'edd_' . $data['slug'] . '_license_status' ) ) {
+					$this->manage_license( $data, 'activate' );
+				}
 				$resp['msg']          = __( 'Plugin activated successfully.', 'eb-textdomain' );
 				$resp['notice_class'] = 'notice-success';
 			}

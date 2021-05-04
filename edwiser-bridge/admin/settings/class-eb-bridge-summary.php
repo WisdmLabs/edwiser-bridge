@@ -61,11 +61,23 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * @param string $plugin_path Plugin file path.
 		 */
 		private function get_edwiser_envirment( $plugin_path ) {
+			$response         = wp_remote_get( 'http://localhost/bridge-free-plugin-info.json' );
+			$free_plugin_data = array();
+			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
+				$responce = json_decode( wp_remote_retrieve_body( $response ) );
+				foreach ( $responce as $key => $value ) {
+					$free_plugin_data[ $key ] = array(
+						'name'    => $value->name,
+						'version' => $value->version,
+						'url'     => $value->url,
+					);
+				}
+			}
 			$data = array(
 				array(
 					'label' => __( 'Edwiser Bridge :', 'eb-textdomain' ),
 					'help'  => '',
-					'value' => wdm_get_plugin_version( 'edwiser-bridge/edwiser-bridge.php' ),
+					'value' => $this->show_plugin_version( $free_plugin_data['edwiser_bridge'], wdm_get_plugin_version( 'edwiser-bridge/edwiser-bridge.php' ) ),
 				),
 			);
 
@@ -86,17 +98,17 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 					array(
 						'label' => __( 'Moodle Edwiser Bridge :', 'eb-textdomain' ),
 						'help'  => '',
-						'value' => '',
+						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge'] ),
 					),
 					array(
 						'label' => __( 'Moodle Edwiser Single Sign On :', 'eb-textdomain' ),
 						'help'  => '',
-						'value' => '',
+						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_sso'] ),
 					),
 					array(
 						'label' => __( 'Moodle Edwiser Bulk Purchase :', 'eb-textdomain' ),
 						'help'  => '',
-						'value' => '',
+						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_bp'] ),
 					),
 				)
 			);
@@ -112,12 +124,45 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * @param string $plugin_path Plugin file path.
 		 */
 		private function get_plugin_version_info( $product, $plugin_path = false ) {
-			$version_info = '';
+			$version_info = false;
 			if ( $plugin_path ) {
 				$version_info = wdm_get_plugin_version( $plugin_path );
 			}
-			// $this->get_plugin_remote_version($product);
-			return $version_info;
+			$remote_data = $this->get_plugin_remote_version( $product );
+			return $this->show_plugin_version( $remote_data, $version_info );
+		}
+
+		/**
+		 * Function to display the curent plugin version and compair it with remote version of plugin and show appropriate message.
+		 *
+		 * @param array  $remote_data Remote plugin version detials.
+		 * @param string $version_info installed plugin version numbers.
+		 */
+		private function show_plugin_version( $remote_data, $version_info = false ) {
+			ob_start();
+			if ( ! $version_info ) {
+				?>
+				<?php esc_attr_e( 'Not Available',  'eb-textdomain' ); ?>
+				<span style='padding-left:1rem;'>
+				<?php echo esc_attr( $remote_data['version'] ); ?>
+				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'eb-textdomain' ); ?>'><?php esc_attr_e( 'Download Plugin', 'eb-textdomain' ); ?></a>
+				</span>
+				<?php
+			} elseif ( $remote_data['version'] && version_compare( $remote_data['version'], $version_info, '>' ) ) {
+				echo esc_attr( $version_info );
+				?>
+				<span style='padding-left:1rem;'>
+				<?php echo esc_attr( $remote_data['version'] ); ?>
+				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e('Download','eb-textdomain' ); ?></a>
+				</span>
+				<?php
+			} else {
+				echo esc_attr( $version_info );
+				?>
+				<span style='color:limegreen; padding-left:1rem;'><?php esc_attr_e( 'Latest version', 'eb-textdomain' ); ?></span>
+				<?php
+			}
+			return ob_get_clean();
 		}
 
 		/**
@@ -128,28 +173,30 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		private function get_plugin_remote_version( $data ) {
 			$remote_data = get_transient( 'eb_stats_' . $data['slug'] );
 			if ( ! $remote_data ) {
-				$l_key       = get_option( $data['key'], '' );
-				$remote_data = wdm_request_edwiser(
+				$l_key    = get_option( $data['key'], '' );
+				$responce = wdm_request_edwiser(
 					array(
 						'edd_action'      => 'get_version',
 						'name'            => $data['item_name'],
 						'slug'            => $data['slug'],
-						'current_version' => $data['version'],
+						'current_version' => $data['current_version'],
 						'license'         => $l_key,
 					)
 				);
-				if ( $remote_data['status'] && isset( $remote_data['data'] ) ) {
-					$data        = $remote_data['data'];
+				if ( 200 === $responce['status'] ) {
+					$data        = $responce['data'];
 					$remote_data = array(
-						'version'  => isset( $data['new_version'] ) ? $data['new_version'] : '',
-						'url'      => isset( $data['download_link'] ) ? $data['download_link'] : '',
-						'homepage' => isset( $data['url'] ) ? $data['url'] : '',
+						'version'  => isset( $data->new_version ) ? $data->new_version : '',
+						'url'      => isset( $data->download_link ) ? $data->download_link : '',
+						'homepage' => isset( $data->url ) ? $data->url : '',
 					);
-					set_transient( 'eb_stats_' . $data['slug'], $remote_data, 60 * 60 * 24 * 7 );
+					set_transient( 'eb_stats_' . $data->slug, $remote_data, 60 * 60 * 24 * 7 );
 				}
 			}
-			$path = ! empty( $remote_data['url'] ) ? $remote_data['url'] : $remote_data['homepage'];
-			return "(<a href='" . $remote_data['url'] . '>' . $remote_data['version'] . '</a>)';
+			return array(
+				'version' => isset( $remote_data['version'] ) ? $remote_data['version'] : false,
+				'url'     => ! empty( $remote_data['url'] ) ? $remote_data['url'] : $remote_data['homepage'],
+			);
 		}
 		/**
 		 * Function to get the edwiser bridge plugin configuration information.
