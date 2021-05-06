@@ -1029,12 +1029,15 @@
         $('.eb_settings_help_btn_wrap .eb_open_btn').click(function (event) {
             event.preventDefault();
             $(".eb_setting_help_pop_up").css('width', '250px');
+            $(".eb_setting_help_pop_up").css('right', '0px');
+
             // $("main").css('margin-left', '250px');
         });
 
 
         $('.eb_setting_help_pop_up .closebtn').click(function (event) {
             $(".eb_setting_help_pop_up").css('width', "0");
+            $(".eb_setting_help_pop_up").css('right', '-25px');
         });
     });
     /*JS for Order page end*/

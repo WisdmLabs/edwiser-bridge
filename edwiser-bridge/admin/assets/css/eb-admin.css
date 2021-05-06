@@ -103,7 +103,9 @@
 .eb_settings_pop_btn_wrap {
   position: relative;
 }
-
+/* .eb_settings_rate_btn_wrap {
+  width: 150px;
+} */
 .eb_settings_rate_btn_wrap a {
   color: white;
   text-decoration: none;

@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 			$css_class = $show_banner ? 'eb_setting_right_sidebar_info' : '';
 			?>
-			<div class="<?php echo esc_attr( $css_class ); ?>">
+			<div class="eb_setting_right_sidebar_info">
 				<?php
 				require_once plugin_dir_path( __DIR__ ) . '../admin/partials/html-admin-settings-right-section.php';
 				?>
