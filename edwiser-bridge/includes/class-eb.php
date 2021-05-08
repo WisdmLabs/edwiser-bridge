@@ -241,6 +241,10 @@ class EdwiserBridge {
 		// handles theme compatibility.
 		require_once $plugin_path . 'public/class-eb-theme-compatibility.php';
 
+		// Handles template dependency.
+		require_once $plugin_path . 'public/class-eb-template-functions.php';
+
+
 		/*
 		 * loading refund dependencies.
 		 * @since      1.3.3
@@ -969,6 +973,46 @@ class EdwiserBridge {
 			10,
 			2
 		);
+
+
+		// Template related Hooks.
+		$template_functions = new Eb_Template_Functions();
+
+		$this->loader->eb_add_filter(
+			'eb_content_course_before',
+			$template_functions,
+			'content_eb_course_tml_dependency',
+			10,
+			3
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_content_single_course_before',
+			$template_functions,
+			'content_single_eb_course_tml_dependency',
+			10,
+			1
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_course_archive_price',
+			$template_functions,
+			'eb_course_archive_price_tmpl',
+			10,
+			1
+		);
+
+
+		$this->loader->eb_add_filter(
+			'eb_my_course_archive_progress',
+			$template_functions,
+			'eb_my_course_archive_progress_tmpl',
+			10,
+			3
+		);
+
+
+
 	}
 
 	/**

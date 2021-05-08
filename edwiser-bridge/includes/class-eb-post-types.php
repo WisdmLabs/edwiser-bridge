@@ -107,8 +107,8 @@ class Eb_Post_Types {
 					'eb_register_post_type_courses',
 					array(
 						'labels'            => array(
-							'name'               => __( 'Edwiser Bridge', 'eb-textdomain' ),
-							'singular_name'      => __( 'Moodle Course', 'eb-textdomain' ),
+							'name'               => __( 'Course', 'eb-textdomain' ),
+							'singular_name'      => __( 'Courses', 'eb-textdomain' ),
 							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
 							'all_items'          => __( 'Courses', 'eb-textdomain' ),
 							'add_new'            => __( 'Add Course', 'eb-textdomain' ),

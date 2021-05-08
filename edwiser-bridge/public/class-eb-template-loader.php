@@ -103,6 +103,7 @@ class EbTemplateLoader {
 		$this->wp_get_template_part( $slug, $name );
 	}
 
+
 	/**
 	 * Get template part (for templates like the shop-loop).
 	 *
@@ -115,6 +116,7 @@ class EbTemplateLoader {
 		$template      = '';
 		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
 		$plugin_path   = plugin_dir_path( __DIR__ );
+
 		// Look in yourtheme/edw/slug-name.php.
 		if ( $name ) {
 			$template = locate_template( array( "{$slug}-{$name}.php", $eb_templ_path . "{$slug}-{$name}.php" ) );
@@ -214,13 +216,23 @@ class EbTemplateLoader {
 			}
 		}
 
+error_log(' 11111 ------');
+
+
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
+
+error_log(' 2222 ------');
+
 
 		if ( ! file_exists( $located ) ) {
 			/* Translators 1: file path */
 			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
 			return;
 		}
+
+error_log(' 3333 ------');
+
+
 
 		// Allow 3rd party plugin filter template file from their plugin.
 		$located = apply_filters( 'eb_get_template', $located, $template_name, $args, $template_path, $default_path );

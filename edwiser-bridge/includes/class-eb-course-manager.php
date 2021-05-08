@@ -570,7 +570,10 @@ class Eb_Course_Manager {
 							'description' => $category->description,
 						)
 					);
-					update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+
+					if ( ! is_wp_error( $created_term ) && is_array( $created_term ) ) {
+						update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+					}
 
 					// Save the moodle id of category in options.
 				}
@@ -584,7 +587,10 @@ class Eb_Course_Manager {
 							'description' => $category->description,
 						)
 					);
-					update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+
+					if ( ! is_wp_error( $created_term ) && is_array( $created_term ) ) {
+						update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+					}
 
 					// Save the moodle id of category in options.
 				}
