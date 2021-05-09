@@ -16,40 +16,25 @@ defined( 'ABSPATH' ) || exit;
 // Variables.
 global $post;
 
-
 /*
-eb_plugin_url
-has_access
-course_price_type
-course_price_formatted
-expiry_date_time
-categories
+ * Filter to get all the initial infoe i.e all initial variables which will be used while showing on single course page.
+ *
+ */
+$single_course_data = apply_filters( 'eb_content_single_course_before', $post->ID );
 
 
-*/
-
-$single_course_data = apply_filters('eb_content_single_course_before', $post->ID);
-
+error_log('single_course_data ::: '.print_r($single_course_data, 1));
 
 ?>
 
 <article id="course-<?php the_ID(); ?>" class="type-post hentry single-course" >
-	<h1 class="entry-title">
-		<?php
-		if ( is_single() ) {
-			the_title();
-		} else {
-			?>
-			<a href="
-			<?php
-			the_permalink();
-			?>
-			" rel="bookmark"><?php the_title(); ?></a>
-			<?php
-		}
-		?>
-	</h1>
+
+	
+
+	<!-- COurse details wrapper. -->
 	<div>
+
+		<!-- Course image wrapper -->
 		<div class="eb-course-img-wrapper">
 			<?php
 			if ( has_post_thumbnail() ) {
@@ -60,34 +45,73 @@ $single_course_data = apply_filters('eb_content_single_course_before', $post->ID
 			?>
 		</div>
 
+		<!-- Course summary wrapper -->
 		<div class="eb-course-summary">
 			<?php
-			if ( ! is_search() ) {
-				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() ) {
-					if ( 'paid' === $single_course_data['course_price_type'] || 'free' === $single_course_data['course_price_type'] ) {
-						?>
-						<div class="<?php echo 'wdm-price' . esc_html( $single_course_data['course_price_type'] ); ?>">
-									<?php echo '<h3>' . esc_html( $single_course_data['course_price_formatted'] ) . '</h3>'; ?>
-						</div>
-						<?php
-					}
 
-					echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-				} else {
-					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-				}
+			if ( ! is_search() ) {
 
 				if ( count( $single_course_data['categories'] ) ) {
 					?>
 					<div  class="eb-cat-wrapper">
-						<span><strong><?php esc_html_e( 'Categories: ', 'eb-textdomain' ); ?></strong><?php echo wp_kses( implode( ', ', $single_course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></span>
+						<span>
+							<strong>
+								<?php esc_html_e( 'CATEGORY: ', 'eb-textdomain' ); ?>
+							</strong>
+							<?php echo wp_kses( implode( ', ', $single_course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
+						</span>
 					</div>                  
 					<?php
 				}
+
 				?>
+
+				<!-- Entry title wrap -->
+				<h1 class="entry-title eb_single_course_title">
+					<?php
+					if ( is_single() ) {
+						the_title();
+					} else {
+						?>
+						<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+						<?php
+					}
+					?>
+				</h1>
+
+
 				<div  class="eb-validity-wrapper">
-					<?php echo wp_kses( $single_course_data['expiry_date_time'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
+					<div>
+						<span class="dashicons dashicons-clock"></span>
+					</div>
+					<div>
+						<?php echo wp_kses( $single_course_data['expiry_date_time'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
+					</div>
 				</div>
+
+				<?php
+
+
+				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() ) {
+					?>
+					<div class='eb_single_course_price_wrapper'>
+					<?php
+						// Add_action for price type and price div.
+						do_action( 'eb_course_archive_price', $single_course_data );
+
+						// Echo take this course Button.
+						echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+					?>
+					</div>
+					<?php
+				} else {
+					// Echo take access course button.
+					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+				}
+
+				
+				?>
+
 				<?php
 			}
 			?>
@@ -98,22 +122,16 @@ $single_course_data = apply_filters('eb_content_single_course_before', $post->ID
 		if ( is_search() ) {
 			?>
 			<div class="entry-summary">
-			<?php
-			the_excerpt();
-			?>
+				<?php
+				the_excerpt();
+				?>
 			</div>
 				<?php
 		} else {
 			?>
-			<h2><?php esc_html_e( 'Course Overview', 'eb-textdomain' ); ?></h2>
+			<div class='eb_h4'><?php esc_html_e( 'Course Overview', 'eb-textdomain' ); ?></div>
 			<?php
 			the_content();
-
-			if ( ! $single_course_data['has_access'] || ! is_user_logged_in() ) {
-				echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-			} else {
-				echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-			}
 		}
 		?>
 	</div>

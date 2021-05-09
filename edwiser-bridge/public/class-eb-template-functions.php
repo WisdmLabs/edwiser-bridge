@@ -18,7 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Eb_Template_Functions {
 
-
+	/**
+	 * This function called from content_eb-course template.
+	 * This function includes to load all required variables and their logical part.
+	 * 
+	 */
 	public function content_eb_course_tml_dependency( $post_id, $attr, $is_eb_my_courses )
 	{
 		global $post;
@@ -111,9 +115,11 @@ class Eb_Template_Functions {
 
 
 
-
-
-
+	/**
+	 * This function called from content-single-eb_course template.
+	 * This function includes to load all required variables and their logical part.
+	 * 
+	 */
 	public function content_single_eb_course_tml_dependency()
 	{
 		global $post;
@@ -174,21 +180,22 @@ class Eb_Template_Functions {
 		if ( is_array( $terms ) ) {
 			foreach ( $terms as $eb_term ) {
 				$lnk          = get_term_link( $eb_term->term_id, 'eb_course_cat' );
-				$categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . esc_html( $eb_term->name ) . '</a>';
+				// $categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . esc_html( $eb_term->name ) . '</a>';
+				$categories[] = esc_html( $eb_term->name );
 			}
 		}
 
 		/*
 		 * Check is course has expiry date
 		 */
-		if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['course_expirey'] ) {
+		if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['course_expirey'] && '' !== $course_options['num_days_course_access'] ) {
 			if ( is_user_logged_in() && $has_access ) {
-				$expiry_date_time = '<span><strong>' . Eb_Enrollment_Manager::access_remianing( $user_id, $post->ID ) . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</strong></span>';
+				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'eb-textdomain' ) . '</strong>' . Eb_Enrollment_Manager::access_remianing( $user_id, $post->ID ) . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</span>';
 			} else {
-				$expiry_date_time = '<span><strong>' . __( 'Includes  ', 'eb-textdomain' ) . ' ' . $course_options['num_days_course_access'] . __( ' days access', 'eb-textdomain' ) . '</strong> </span>';
+				$expiry_date_time = '<span><strong>' . __( 'Course Access:  ', 'eb-textdomain' ) . ' </strong>' . $course_options['num_days_course_access'] . __( ' days access', 'eb-textdomain' ) . ' </span>';
 			}
 		} else {
-			$expiry_date_time = '<span><strong>' . __( 'Includes lifetime access ', 'eb-textdomain' ) . '</strong></span>';
+			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
 		}
 
 
@@ -201,12 +208,15 @@ class Eb_Template_Functions {
 			'categories'             => $categories,
 		);
 
-
 	} 
 
 
 
-
+	/**
+	 * This function called from content_eb-course which gets called from archive page template.
+	 * This function loads the price related conetnt.
+	 * 
+	 */
 	public function eb_course_archive_price_tmpl( $course_data )
 	{
 		$template_loader = new EbTemplateLoader(
@@ -221,11 +231,13 @@ class Eb_Template_Functions {
 	}
 
 
-
+	/**
+	 * This function called from content-single-eb_course which gets called from single course page template.
+	 * This function loads the course progress reated data when the page is my-courses page.
+	 * 
+	 */
 	public function eb_my_course_archive_progress_tmpl( $course_data, $shortcode_attr )
 	{
-
-error_log('eb_my_course_archive_progress_tmpl ::: ');
 
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),

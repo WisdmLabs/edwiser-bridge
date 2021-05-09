@@ -11,26 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Variables.
 global $post;
 
-// Here are 2 conditions if normal course card or my-courses course card.
-// Need to differntiate it as now the structure of both cards is different.
-
-//total 14 variables are used
 /*
-$course_class
-$h_title
-$course_url
-$thumb_url
-$short_description
-$course_price_formatted
-*/
-
-// Adding filter for all variables.
-
+ * Filter to get all the initial infoe i.e all initial variables which will be used while showing each card of archive page. 
+ *
+ */
 $course_data = apply_filters( 'eb_content_course_before', $post->ID, $attr, $is_eb_my_courses );
-
-
-error_log('is_eb_my_courses ::: '.print_r($is_eb_my_courses, 1));
-error_log('course_data ::: '.print_r($course_data, 1));
 
 ?>
 
@@ -38,14 +23,13 @@ error_log('course_data ::: '.print_r($course_data, 1));
 	<div class="eb-grid-container">
 		<div class="wdm-course-grid">
 
-			<?php
+		<?php
 			// If the cards are for My courses then no need of link for whole card as we are providing button at the bottom.
 			if ( ! isset( $course_data['is_eb_my_courses'] ) || ( isset( $course_data['is_eb_my_courses'] ) && ! $course_data['is_eb_my_courses'] ) ) {
 
-error_log('IFFFFF :::: ');
-
 			?>
 				<a href="<?php echo esc_url( $course_data['course_url'] ); ?>" rel="bookmark" class="wdm-course-thumbnail">
+					<!-- Course card image container -->
 					<div class="wdm-course-image">
 						<img src="<?php echo esc_url( $course_data['thumb_url'] ); ?>"/>
 					</div>
@@ -87,17 +71,15 @@ error_log('IFFFFF :::: ');
 							do_action( 'eb_my_course_archive_progress', $course_data, $attr, $is_eb_my_courses );
 
 
-							if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
+							/*if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
 								echo wp_kses_post( $attr['progress_btn_div'] );
-							}
+							}*/
 							?>
 					</div>
 				</div>
 				<!-- </a> -->
 
-
 				<?php
-
 			}
 
 
