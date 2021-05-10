@@ -244,7 +244,6 @@ class EdwiserBridge {
 		// Handles template dependency.
 		require_once $plugin_path . 'public/class-eb-template-functions.php';
 
-
 		/*
 		 * loading refund dependencies.
 		 * @since      1.3.3
@@ -974,7 +973,6 @@ class EdwiserBridge {
 			2
 		);
 
-
 		// Template related Hooks.
 		$template_functions = new Eb_Template_Functions();
 
@@ -1002,7 +1000,6 @@ class EdwiserBridge {
 			1
 		);
 
-
 		$this->loader->eb_add_filter(
 			'eb_my_course_archive_progress',
 			$template_functions,
@@ -1010,8 +1007,6 @@ class EdwiserBridge {
 			10,
 			3
 		);
-
-
 
 	}
 

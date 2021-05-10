@@ -23,7 +23,7 @@ global $post;
 $single_course_data = apply_filters( 'eb_content_single_course_before', $post->ID );
 
 
-error_log('single_course_data ::: '.print_r($single_course_data, 1));
+error_log( 'single_course_data ::: ' . print_r( $single_course_data, 1 ) );
 
 ?>
 
@@ -109,7 +109,7 @@ error_log('single_course_data ::: '.print_r($single_course_data, 1));
 					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 				}
 
-				
+
 				?>
 
 				<?php

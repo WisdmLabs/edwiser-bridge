@@ -16,7 +16,7 @@ global $post;
 if ( 'eb_course' === $post->post_type && ( 'paid' === $args['course_price_type'] || 'free' === $args['course_price_type'] ) ) {
 	?>
 	<div class="wdm-price <?php echo wp_kses_post( $args['course_price_type'] ); ?>">
-		<?php 
+		<?php
 			echo wp_kses_post( $args['course_price_formatted'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 		?>
 	</div>

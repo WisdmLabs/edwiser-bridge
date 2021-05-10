@@ -193,6 +193,27 @@ class EbTemplateLoader {
 	}
 
 	/**
+	 * Function to get the template of the page.
+	 *
+	 * @param string $template_name Template file name.
+	 * @param string $template_path Template file path.
+	 * @param string $default_path Template file defualr path.
+	 */
+	public function eb_get_page_template( $template_name, $template_path = '', $default_path = '' ) {
+		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
+
+		if ( ! file_exists( $located ) ) {
+			/* Translators 1: file path */
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
+			return;
+		}
+
+		// Allow 3rd party plugin filter template file from their plugin.
+		$located = apply_filters( 'eb_get_template_file', $located, $template_name, $template_path, $default_path );
+		return $located;
+	}
+
+	/**
 	 * Locate a template and return the path for inclusion.
 	 *
 	 * This is the load order:

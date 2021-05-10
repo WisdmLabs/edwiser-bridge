@@ -53,20 +53,22 @@ class Eb_Shortcode_User_Account {
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
-		$tmpl            = 'account/form-login.php';
-		$tmpl_data       = self::get_login_page_data();
 		if ( is_user_logged_in() ) {
 			$tmpl_data                    = self::user_account( $atts );
 			$tmpl_data['template_loader'] = $template_loader;
 			$tmpl                         = 'account/user-account.php';
+			$template_loader->wp_get_template( $tmpl, $tmpl_data );
+		} else {
+			self::wdm_show_loagin_page( $template_loader );
 		}
-		$template_loader->wp_get_template( $tmpl, $tmpl_data );
 	}
 
 	/**
 	 * Functin preapres the data required for the login page.
+	 *
+	 * @param object $template_loader Template loader class object.
 	 */
-	private static function get_login_page_data() {
+	private static function wdm_show_loagin_page( $template_loader ) {
 		$general_settings    = get_option( 'eb_general' );
 		$enable_registration = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
 		$eb_action           = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
@@ -84,32 +86,23 @@ class Eb_Shortcode_User_Account {
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 			$username = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
 		}
-		$data = array(
-			'username' => $username,
-			'reg_link' => wdm_eb_user_account_url( $reg_link_args ),
-		);
-
+		$reg_link = wdm_eb_user_account_url( $reg_link_args );
 		if ( 'eb_register' === $eb_action ) {
-			$redirect_to = array();
-			if ( ! empty( $_GET['redirect_to'] ) ) {
-				$redirect_to = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
-			}
-			$data = array(
-				'fname'             => '',
-				'lname'             => '',
-				'email'             => '',
-				'eb_terms_and_cond' => isset( $general_settings['eb_enable_terms_and_cond'] ) && 'yes' === $general_settings['eb_enable_terms_and_cond'] && isset( $general_settings['eb_terms_and_cond'] ) ? $general_settings['eb_terms_and_cond'] : false,
-				'redirect_to'       => $redirect_to,
-			);
+			$redirect_to       = ! empty( $_GET['redirect_to'] ) ? array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) ) : array();
+			$fname             = '';
+			$lname             = '';
+			$email             = '';
+			$eb_terms_and_cond = isset( $general_settings['eb_enable_terms_and_cond'] ) && 'yes' === $general_settings['eb_enable_terms_and_cond'] && isset( $general_settings['eb_terms_and_cond'] ) ? $general_settings['eb_terms_and_cond'] : false;
 			if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
 				$data['fname'] = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
 				$data['lname'] = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
 				$data['email'] = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			}
 		}
-		$data['eb_action']           = $eb_action;
-		$data['enable_registration'] = $enable_registration;
-		return $data;
+		/**
+		 * Load the login page form.
+		 */
+		include $template_loader->eb_get_page_template( 'account/form-login.php' );
 	}
 
 	/**
