@@ -91,7 +91,7 @@ class Eb_Payment_Manager {
 					}
 
 					$access_button = '<div class="eb_join_button">
-					<a class="wdm-btn" href="' . $access_course_url . '" id="wdm-btn">' .
+					<a class="wdm-btn eb_secondary_btn" href="' . $access_course_url . '" id="wdm-btn">' .
 					esc_html__( 'Access Course', 'eb-textdomain' ) . '</a></div>';
 				}
 
@@ -212,7 +212,7 @@ class Eb_Payment_Manager {
 							$closed_button_url = 'http://' . $closed_button_url;
 						}
 						$take_course_button = '<div class="eb_join_button">
-						<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
+						<a class="wdm-btn eb_secondary_btn" href="' . $closed_button_url . '" id="wdm-btn">' .
 						esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 					}
 					$closed_params      = array(
@@ -227,7 +227,7 @@ class Eb_Payment_Manager {
 					);
 					$login_url          = \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $url_args );
 					$take_course_button = '<div class="eb_join_button">
-					<a class="wdm-btn" href="' . $login_url . '" id="wdm-btn">' .
+					<a class="wdm-btn eb_secondary_btn" href="' . $login_url . '" id="wdm-btn">' .
 					esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 
 					$take_course_button = apply_filters( 'eb_course_login_button', $take_course_button, $login_url );
@@ -251,7 +251,7 @@ class Eb_Payment_Manager {
 									$closed_button_url = 'http://' . $closed_button_url;
 								}
 								$take_course_button = '<div class="eb_join_button">
-								<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
+								<a class="wdm-btn eb_secondary_btn" href="' . $closed_button_url . '" id="wdm-btn">' .
 								esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 							}
 							$closed_params      = array(
@@ -265,7 +265,7 @@ class Eb_Payment_Manager {
 											<input type="hidden" value="' . $course->ID . '" name="course_id">
 											<input type="submit"
 											value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
-											name="course_join" class="wdm-btn" id="wdm-btn">
+											name="course_join" class="wdm-btn eb_secondary_btn" id="wdm-btn">
 								
 											' . wp_nonce_field( 'eb_course_payment_nonce', 'eb_course_payment_nonce' ) . '
 										</form></div>';
