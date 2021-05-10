@@ -11,23 +11,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-$wdm_login_nonce = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) : '';
-// check if registration enabled.
-$general_settings    = get_option( 'eb_general' );
-$enable_registration = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
-$eb_action           = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
-
 do_action( 'eb_before_customer_login_form' );
 ?>
 <div id="user_login">
 	<?php
 	\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
-
 	if ( 'eb_register' !== $eb_action ) {
-		$username = '';
-		if ( wp_verify_nonce( $wdm_login_nonce, 'eb-login' ) ) {
-			$username = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : '';
-		}
 		?>
 		<h2>
 			<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>
@@ -48,6 +37,7 @@ do_action( 'eb_before_customer_login_form' );
 						<span class="required">*</span>
 					</label>
 					<input class="input-text" type="password" placeholder="<?php esc_html_e( 'Enter password', 'eb-textdomain' ); ?>" name="wdm_password" id="wdm_password" />
+					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password', 'eb-textdomain' ); ?></a>
 				</p>
 				<?php do_action( 'eb_login_form' ); ?>
 				<p class="form-row">
@@ -59,25 +49,12 @@ do_action( 'eb_before_customer_login_form' );
 				</p>
 				<p>
 					<input type="submit" class="eb-login-button button" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
-
-				</p>
-				<p class="lost_password form-row">
-					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password', 'eb-textdomain' ); ?></a>
 				</p>
 				<?php
 				if ( 'yes' === $enable_registration ) {
-					$reg_link_args = array( 'action' => 'eb_register' );
-					if ( ! empty( $_GET['redirect_to'] ) ) {
-						$reg_link_args['redirect_to'] = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
-					}
-
-					if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-						$reg_link_args['is_enroll'] = sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) );
-					}
-
 					?>
 					<p class="register-link form-row">
-						<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $reg_link_args ) ); ?>'>
+						<a href='<?php echo esc_url( $reg_link ); ?>'>
 							<?php esc_html_e( 'Don\'t have an Account?', 'eb-textdomain' ); ?>
 						</a>
 					</p>
@@ -91,15 +68,7 @@ do_action( 'eb_before_customer_login_form' );
 	}
 	?>
 	<?php
-	if ( $eb_action && 'eb_register' === $_GET['action'] && 'yes' === $enable_registration ) {
-		$fname = '';
-		$lname = '';
-		$email = '';
-		if ( wp_verify_nonce( $wdm_login_nonce, 'eb-register' ) ) {
-			$fname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-			$lname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
-		}
+	if ( $eb_action && 'eb_register' === $eb_action && 'yes' === $enable_registration ) {
 		?>
 		<h2> <?php esc_html_e( 'Register', 'eb-textdomain' ); ?> </h2>
 		<div class="eb-user-reg-form">
@@ -143,7 +112,7 @@ do_action( 'eb_before_customer_login_form' );
 				</p>
 
 				<?php
-				if ( isset( $general_settings['eb_enable_terms_and_cond'] ) && 'yes' === $general_settings['eb_enable_terms_and_cond'] && isset( $general_settings['eb_terms_and_cond'] ) ) {
+				if ( $eb_terms_and_cond ) {
 					?>
 
 				<p class="form-row form-row-wide">
@@ -154,7 +123,7 @@ do_action( 'eb_before_customer_login_form' );
 
 				<div class="eb-user-account-terms">
 					<div id = "eb-user-account-terms-content" title="<?php esc_html_e( 'Terms and Conditions', 'eb-textdomain' ); ?>">
-						<?php echo esc_html( $general_settings['eb_terms_and_cond'] ); ?>
+						<?php echo esc_html( $eb_terms_and_cond ); ?>
 					</div>
 				</div>
 					<?php
@@ -179,13 +148,7 @@ do_action( 'eb_before_customer_login_form' );
 					<input type="submit" class="button" name="register" value="<?php esc_html_e( 'Register', 'eb-textdomain' ); ?>" />
 				</p>
 
-				<?php
-				$redirect_to = array();
-				if ( ! empty( $_GET['redirect_to'] ) ) {
-					$redirect_to = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
-				}
-				?>
-				<p class="login-link">
+								<p class="login-link">
 					<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ); ?>'>
 						<?php esc_html_e( 'Already have an account?', 'eb-textdomain' ); ?>
 					</a>

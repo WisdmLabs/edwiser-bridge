@@ -142,7 +142,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			ob_start();
 			if ( ! $version_info ) {
 				?>
-				<?php esc_attr_e( 'Not Available',  'eb-textdomain' ); ?>
+				<?php esc_attr_e( 'Not Available', 'eb-textdomain' ); ?>
 				<span style='padding-left:1rem;'>
 				<?php echo esc_attr( $remote_data['version'] ); ?>
 				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'eb-textdomain' ); ?>'><?php esc_attr_e( 'Download Plugin', 'eb-textdomain' ); ?></a>
@@ -153,7 +153,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 				?>
 				<span style='padding-left:1rem;'>
 				<?php echo esc_attr( $remote_data['version'] ); ?>
-				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e('Download','eb-textdomain' ); ?></a>
+				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e( 'Download', 'eb-textdomain' ); ?></a>
 				</span>
 				<?php
 			} else {

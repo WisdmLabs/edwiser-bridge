@@ -171,47 +171,7 @@ class EbTemplateLoader {
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		// Declare variables here.
 		if ( $args && is_array( $args ) ) {
-			// Eb-courses page.
-			if ( isset( $args['max_num_pages'] ) ) {
-				$max_num_pages = $args['max_num_pages'];
-			}
-
-			// Eb-my courses page.
-			if ( isset( $args['is_eb_my_courses'] ) ) {
-				$is_eb_my_courses = $args['is_eb_my_courses'];
-			}
-			if ( isset( $args['attr'] ) ) {
-				$attr = $args['attr'];
-			}
-
-			// User-account page.
-			if ( isset( $args['current_user'] ) ) {
-				$current_user = $args['current_user'];
-			}
-			if ( isset( $args['user_orders'] ) ) {
-				$user_orders = $args['user_orders'];
-			}
-			if ( isset( $args['order_count'] ) ) {
-				$order_count = $args['order_count'];
-			}
-			if ( isset( $args['user_avatar'] ) ) {
-				$user_avatar = $args['user_avatar'];
-			}
-			if ( isset( $args['user'] ) ) {
-				$user = $args['user'];
-			}
-			if ( isset( $args['enrolled_courses'] ) ) {
-				$enrolled_courses = $args['enrolled_courses'];
-			}
-			if ( isset( $args['template_loader'] ) ) {
-				$template_loader = $args['template_loader'];
-			}
-			if ( isset( $args['user_meta'] ) ) {
-				$user_meta = $args['user_meta'];
-			}
-			if ( isset( $args['product_id'] ) ) {
-				$product_id = $args['product_id'];
-			}
+			extract( $args );
 		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
