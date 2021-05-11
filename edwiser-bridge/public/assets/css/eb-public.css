@@ -514,9 +514,8 @@ div.course-not-available {
   font-weight: bold;
 }
 #eb-update-profile > fieldset {
-  margin: 2rem 0rem;
+  margin-bottom: 2.5rem;
   border: unset;
-  margin: unset;
   padding: unset;
 }
 .eb-profile-row-block {
