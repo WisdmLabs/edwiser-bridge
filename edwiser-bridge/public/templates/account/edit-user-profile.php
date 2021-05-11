@@ -61,12 +61,11 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 						<label for="last-name"><?php esc_html_e( 'Last Name', 'eb-textdomain' ); ?></label>
 						<input class="text-input" name="last_name" type="text" id="last_name" value="<?php echo esc_html( $last_name ); ?>" />
 					</p>
+					<p class="eb-profile-txt-field">
+						<label for="nickname"><?php esc_html_e( 'Nick Name', 'eb-textdomain' ); ?></label>
+						<input class="text-input" name="nickname" type="text" id="nickname" value="<?php echo esc_html( $nickname ); ?>" />
+					</p>
 				</div>
-				<p class="eb-profile-txt-field">
-					<label for="nickname"><?php esc_html_e( 'Nick Name', 'eb-textdomain' ); ?></label>
-					<input class="text-input" name="nickname" type="text" id="nickname" value="<?php echo esc_html( $nickname ); ?>" />
-				</p>
-
 				<p class="eb-profile-txt-field">
 					<label for="email"><?php esc_html_e( 'E-mail *', 'eb-textdomain' ); ?></label>
 					<input class="text-input" name="email" type="email" id="email" value="<?php echo esc_html( $email ); ?>" required />
@@ -102,21 +101,23 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 					<label for="eb_curr_psw"><?php esc_html_e( 'Current Password', 'eb-textdomain' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'eb-textdomain' ); ?></span></label>
 					<input class="text-input" name="curr_psw" type="password" id="eb_curr_psw" />                
 				</p>
-				<p class="eb-profile-password-field">
+				<div class="eb-profile-row-block">
+				<p class="eb-profile-txt-field">
 					<label for="eb_new_psw"><?php esc_html_e( 'New Password', 'eb-textdomain' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'eb-textdomain' ); ?></span></label>
 					<input class="text-input" name="new_psw" type="password" id="eb_new_psw" />
 				</p>
-				<p class="eb-profile-password-field">
-					<label for="eb_confirm_psw"><?php esc_html_e( 'Confirm Password', 'eb-textdomain' ); ?></label>
+				<p class="eb-profile-txt-field">
+					<label for="eb_confirm_psw"><?php esc_html_e( 'Confirm Password', 'eb-textdomain' ); ?><span class="eb-small"></span></label>
 					<input class="text-input" name="confirm_psw" type="password" id="eb_confirm_psw" />
 				</p>
+				</div>
 			</fieldset>
 			<?php
 			// action hook for plugin and extra fields.
 			do_action( 'eb_edit_user_profile', $current_user );
 			?>
 			<p class="eb-small">
-				<?php esc_html_e( 'Note: All fields will be updated on Moodle as well as on WordPress site.', 'eb-textdomain' ); ?>
+				<?php esc_html_e( 'NOTE: All fields will be updated on Moodle as well as on WordPress site.', 'eb-textdomain' ); ?>
 			</p>
 			<p class="eb-profile-form-submit">
 				<input name="updateuser" type="submit" id="updateuser" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'eb-textdomain' ); ?>" />

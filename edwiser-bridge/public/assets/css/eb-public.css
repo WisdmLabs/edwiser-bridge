@@ -514,20 +514,33 @@ div.course-not-available {
   font-weight: bold;
 }
 #eb-update-profile > fieldset {
-  margin: 1.5em;
+  margin: 2rem 0rem;
+  border: unset;
+  margin: unset;
+  padding: unset;
 }
 .eb-profile-row-block {
-  display: table-row;
+  display: flex;
+  justify-content: space-between;
 }
 .eb-profile-row-block .eb-profile-txt-field {
-  display: table-cell;
+  flex-grow: 1;
+  line-height: 1;
+}
+.eb-profile-txt-field > input {
+  line-height: 1;
+  margin-top: auto;
 }
 .eb-profile-form-submit .button-primary {
-  letter-spacing: 0.1em;
+  /* letter-spacing: 0.1em; */
+  float: right;
 }
 #eb-update-profile legend {
-  letter-spacing: 0.1em;
-  text-transform: capitalize;
+  /* letter-spacing: 0.1em; */
+  text-transform: uppercase;
+  padding: unset;
+  margin: unset;
+  color: #999999;
 }
 .eb-profile-txt-field select {
   background: transparent;
@@ -548,7 +561,7 @@ div.course-not-available {
 .eb-profile-txt-area-field label,
 .eb-profile-password-field label,
 .eb-profile-txt-field label {
-  letter-spacing: 0.1em;
+  /* letter-spacing: 0.1em; */
   margin-bottom: 10px;
 }
 .eb-profile-txt-field input[type="email"],
@@ -1010,6 +1023,13 @@ nav.eb-pagination ul li span.current {
 .eb-edit-user-wrapper {
   padding: 2%;
   padding-top: 0px;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 2rem;
+  padding-top: 0px;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 2rem;
 }
 
 .wdm-transaction-header h4 {
@@ -1034,6 +1054,9 @@ nav.eb-pagination ul li span.current {
 
 .eb-small {
   font-size: small;
+  display: block;
+  letter-spacing: unset;
+  color: #999999;
 }
 
 /* Edit user profile styling @ */
