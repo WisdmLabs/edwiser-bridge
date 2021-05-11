@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table class="wdm-table-status">
 	<thead>
 		<tr>
-			<th  colspan='5'><h3><?php echo esc_attr( $title ); ?></h3></th>
+			<th  colspan='5'><h3><?php echo wp_kses_post( $title ); ?></h3></th>
 		</tr>
 	</thead>
 	<tbody>

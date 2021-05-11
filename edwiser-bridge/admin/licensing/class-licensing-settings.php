@@ -118,10 +118,10 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 *
 		 * @param  mixed $slug Plugin slug.
 		 */
-		private function is_readonly_key($slug){
-			$status = get_option( 'edd_' . $slug . '_license_status' );
+		private function is_readonly_key( $slug ) {
+			$status   = get_option( 'edd_' . $slug . '_license_status' );
 			$readonly = '';
-			if ( 'valid' === $status || 'expired' === $status ){
+			if ( 'valid' === $status || 'expired' === $status ) {
 				$readonly = 'readonly="readonly"';
 			}
 			return $readonly;

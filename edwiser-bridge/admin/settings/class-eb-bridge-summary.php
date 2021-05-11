@@ -61,7 +61,11 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * @param string $plugin_path Plugin file path.
 		 */
 		private function get_edwiser_envirment( $plugin_path ) {
-			$response         = wp_remote_get( 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json' );
+			$response   = wp_remote_get( 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json' );
+			$fetch_data = false;
+			if ( isset( $_GET['fetch_data'] ) && 'true' === $_GET['fetch_data'] ) {
+				$fetch_data = true;
+			}
 			$free_plugin_data = array();
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$responce = json_decode( wp_remote_retrieve_body( $response ) );
@@ -89,10 +93,10 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 				$data[] = array(
 					'label' => $product['item_name'] . ' :',
 					'help'  => '',
-					'value' => $this->get_plugin_version_info( $product, $product['path'] ),
+					'value' => $this->get_plugin_version_info( $product, $product['path'], $fetch_data ),
 				);
 			}
-			$data = array_merge(
+			$data           = array_merge(
 				$data,
 				array(
 					array(
@@ -112,8 +116,9 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 					),
 				)
 			);
-
-			$title = __( 'Edwiser Bridge Information', 'eb-textdomain' );
+			$refresh_url    = admin_url( '/admin.php?page=eb-settings&tab=summary&fetch_data=true' );
+			$refresh_button = '<a class="wdm-stat-reload" title="' . __( 'Check update again', 'eb-textdomain' ) . '" href="' . $refresh_url . '"><span class="dashicons dashicons-update-alt"></span></a>';
+			$title          = __( 'Edwiser Bridge Information', 'eb-textdomain' ) . $refresh_button;
 			include $plugin_path . 'partials/html-bridge-summary.php';
 		}
 
@@ -122,13 +127,14 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 *
 		 * @param array  $product Array of the plugin data.
 		 * @param string $plugin_path Plugin file path.
+		 * @param bool   $fetch_data Should force to fetch the remote data.
 		 */
-		private function get_plugin_version_info( $product, $plugin_path = false ) {
+		private function get_plugin_version_info( $product, $plugin_path = false, $fetch_data = false ) {
 			$version_info = false;
 			if ( $plugin_path ) {
 				$version_info = wdm_get_plugin_version( $plugin_path );
 			}
-			$remote_data = $this->get_plugin_remote_version( $product );
+			$remote_data = $this->get_plugin_remote_version( $product, $fetch_data );
 			return $this->show_plugin_version( $remote_data, $version_info );
 		}
 
@@ -169,10 +175,11 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * Function to get the remote vesion of the product.
 		 *
 		 * @param array $data Array of the plugin information.
+		 * @param bool  $force_remote_data Should force to fetch the remote data.
 		 */
-		private function get_plugin_remote_version( $data ) {
+		private function get_plugin_remote_version( $data, $force_remote_data = false ) {
 			$remote_data = get_transient( 'eb_stats_' . $data['slug'] );
-			if ( ! $remote_data ) {
+			if ( ! $remote_data || $force_remote_data ) {
 				$l_key    = get_option( $data['key'], '' );
 				$responce = wdm_request_edwiser(
 					array(
@@ -188,7 +195,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 					$remote_data = array(
 						'version'  => isset( $data->new_version ) ? $data->new_version : '',
 						'url'      => isset( $data->download_link ) ? $data->download_link : '',
-						'homepage' => isset( $data->url ) ? $data->url : '',
+						'homepage' => isset( $data->homepage ) ? $data->homepage : '',
 					);
 					set_transient( 'eb_stats_' . $data->slug, $remote_data, 60 * 60 * 24 * 7 );
 				}

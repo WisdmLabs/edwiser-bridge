@@ -1345,3 +1345,7 @@ a[href*="page=eb-settings"].nav-tab {
 .wdm-table-status th:hover {
   background-color: #ddd;
 }
+.wdm-stat-reload {
+  text-decoration: none;
+  margin-left: 1rem;
+}
