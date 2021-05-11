@@ -46,6 +46,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
+			if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
+				include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
+			}
 			$this->products_data = Eb_Licensing_Manger::get_plugin_data();
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -85,8 +88,8 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		private function get_license_status( $plugin_slug ) {
 			$status_option = get_option( 'edd_' . $plugin_slug . '_license_status' );
 			$class         = '';
-			$active_site = Eb_Get_Plugin_Data::get_site_list( plugin_slug );
-			$display = '';
+			$active_site   = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
+			$display       = '';
 			if ( ! empty( $active_site ) || '' !== $active_site ) {
 				$display = '<ul>' . $active_site . '</ul>';
 			}
@@ -145,9 +148,6 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		private function get_license_status_button( $plugin_slug, $action ) {
 			$renew_link = get_option( 'eb_' . $plugin_slug . '_product_site' );
 			$status     = get_option( 'edd_' . $plugin_slug . '_license_status' );
-			if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
-				include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
-			}
 			$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
 
 			$display = '';
