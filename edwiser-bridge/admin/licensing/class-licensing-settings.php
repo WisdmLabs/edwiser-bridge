@@ -85,6 +85,12 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		private function get_license_status( $plugin_slug ) {
 			$status_option = get_option( 'edd_' . $plugin_slug . '_license_status' );
 			$class         = '';
+			$active_site = Eb_Get_Plugin_Data::get_site_list( plugin_slug );
+			$display = '';
+			if ( ! empty( $active_site ) || '' !== $active_site ) {
+				$display = '<ul>' . $active_site . '</ul>';
+			}
+
 			if ( false !== $status_option && 'valid' === $status_option ) {
 				$class  = 'active';
 				$status = __( 'Active', 'ebbp-textdomain' );
@@ -231,7 +237,10 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$slug                      = $post_data['action'];
 			$plugin_data               = $this->products_data[ $slug ];
 			$plugin_data['edd_action'] = 'get_version';
-			$plugin_data['license']    = $this->get_licence_key( $plugin_data['key'] );
+			$l_key_name                = $plugin_data['key'];
+			$l_key                     = trim( $post_data[ $l_key_name ] );
+			$plugin_data['license']    = $l_key;
+			update_option( $l_key_name, $l_key );
 			if ( empty( $plugin_data['license'] ) ) {
 				$resp['msg'] = __( 'Licens key can not be empty, Please enter the valid license key.', 'eb-textdomain' );
 				return $resp;
