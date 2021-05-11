@@ -123,8 +123,9 @@ function wdm_show_legacy_extensions() {
 	// legacy extensions.
 	foreach ( $extensions as $extension ) {
 		if ( is_plugin_active( $extension[0] ) ) {
-			$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
-
+			if ( file_exists( WP_PLUGIN_DIR . '/' . $extension[0] ) ) {
+				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
+			}
 			if ( $plugin_data['Version'] && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
 					add_action( 'admin_notices', '\app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions_notices' );
 			}

@@ -821,7 +821,10 @@ if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
 	 * @param string $path Plugin file path.
 	 */
 	function wdm_get_plugin_version( $path ) {
-		$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
+		$plugin_info = array();
+		if ( file_exists( WP_PLUGIN_DIR . '/' . $path ) ) {
+			$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
+		}
 		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : '1.0.0';
 	}
 }

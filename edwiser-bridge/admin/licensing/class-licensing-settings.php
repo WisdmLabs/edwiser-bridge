@@ -146,8 +146,8 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param string $action name of the action.
 		 */
 		private function get_license_status_button( $plugin_slug, $action ) {
-			$renew_link = get_option( 'eb_' . $plugin_slug . '_product_site' );
-			$status     = get_option( 'edd_' . $plugin_slug . '_license_status' );
+			$renew_link  = get_option( 'eb_' . $plugin_slug . '_product_site' );
+			$status      = get_option( 'edd_' . $plugin_slug . '_license_status' );
 			$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
 
 			$display = '';
