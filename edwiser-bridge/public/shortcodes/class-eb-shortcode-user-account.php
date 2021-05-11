@@ -54,13 +54,23 @@ class Eb_Shortcode_User_Account {
 			edwiser_bridge_instance()->get_version()
 		);
 		if ( is_user_logged_in() ) {
-			$tmpl_data                    = self::user_account( $atts );
-			$tmpl_data['template_loader'] = $template_loader;
-			$tmpl                         = 'account/user-account.php';
-			$template_loader->wp_get_template( $tmpl, $tmpl_data );
+			self::display_user_account_page( $template_loader, $atts );
 		} else {
 			self::wdm_show_loagin_page( $template_loader );
 		}
+	}
+
+	/**
+	 * Function to display the user account page.
+	 *
+	 * @param string $template_loader template loader object.
+	 * @param array  $atts Array of the shortcode atttributes.
+	 */
+	private static function display_user_account_page( $template_loader, $atts ) {
+		$tmpl_data        = self::user_account( $atts );
+		$eb_shortcode_obj = self::getInstance();
+		extract( $tmpl_data );
+		include $template_loader->eb_get_page_template( 'account/user-account.php' );
 	}
 
 	/**

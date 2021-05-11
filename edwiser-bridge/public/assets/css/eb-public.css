@@ -509,6 +509,10 @@ div.course-not-available {
 .eb-active-profile-nav a {
   color: currentColor;
 }
+.eb-active-profile-nav {
+  background-color: #f7f7f7;
+  font-weight: bold;
+}
 #eb-update-profile > fieldset {
   margin: 1.5em;
 }
@@ -557,13 +561,23 @@ div.course-not-available {
 .eb-user-account-navigation-link {
   list-style: none;
   list-style-type: none;
-  padding: 5px 2px;
-  border-bottom: 1px solid grey;
+  /* padding: 5px 2px; */
+  /* border-bottom: 1px solid grey; */
+}
+.eb-user-account-navigation-wrap {
+  border: 1px solid #dddddd;
+  position: sticky;
+  top: 5rem;
 }
 .eb-user-account-navigation-link > a {
   text-decoration: none;
   clear: both;
   box-shadow: unset;
+  display: block;
+  padding: 8px 15px;
+}
+.eb-user-account-navigation-link > a:hover {
+  background: #f7f7f7;
 }
 div#user_login label {
   display: block;
@@ -578,8 +592,9 @@ div#user_login label {
 /* user profile shortcode style */
 .eb-user-account-navigation {
   float: left;
-  width: 20%;
-  padding-right: 2%;
+  width: 30%;
+  /* padding-right: 2%; */
+  padding-right: 1rem;
 }
 .eb-user-account-content {
   float: right;
@@ -1164,7 +1179,7 @@ nav.eb-pagination ul li span.current {
   flex-direction: row;
   justify-content: flex-start;
   border: 1px solid #ddd;
-  background: whitesmoke;
+  background: #f7f7f7;
 }
 .wdm-eb-form-row-flex {
   display: flex;
