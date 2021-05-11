@@ -61,7 +61,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * @param string $plugin_path Plugin file path.
 		 */
 		private function get_edwiser_envirment( $plugin_path ) {
-			$response         = wp_remote_get( 'http://localhost/bridge-free-plugin-info.json' );
+			$response         = wp_remote_get( 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json' );
 			$free_plugin_data = array();
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$responce = json_decode( wp_remote_retrieve_body( $response ) );
