@@ -257,7 +257,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$plugin_data['license']    = $l_key;
 			update_option( $l_key_name, $l_key );
 			if ( empty( $plugin_data['license'] ) ) {
-				$resp['msg'] = __( 'Licens key can not be empty, Please enter the valid license key.', 'eb-textdomain' );
+				$resp['msg'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' );
 				return $resp;
 			}
 			$request = wp_remote_get(
