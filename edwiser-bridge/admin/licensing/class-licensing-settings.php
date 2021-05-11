@@ -114,6 +114,21 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		}
 
 		/**
+		 * Function will check license key status and mark the input as readonly.
+		 *
+		 * @param  mixed $slug Plugin slug.
+		 */
+		private function is_readonly_key($slug){
+			$status = get_option( 'edd_' . $slug . '_license_status' );
+			$readonly = '';
+			if ( 'valid' === $status || 'expired' === $status ){
+				$readonly = 'readonly="readonly"';
+			}
+			return $readonly;
+
+		}
+
+		/**
 		 * Function to get the licensing form actions.
 		 *
 		 * @param array $plugin_slug Plugin slug.
