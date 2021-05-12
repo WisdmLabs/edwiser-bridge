@@ -153,7 +153,7 @@ class Eb_Shortcode_My_Courses {
 					$courses->the_post();
 
 					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
-						$atts['progress_btn_div'] = $this->get_course_progress( get_the_ID(), $progress_data, $user_id );
+						$atts['progress_btn_div'] = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts );
 					} else {
 						$atts['progress_btn_div'] = '';
 					}
@@ -201,37 +201,54 @@ class Eb_Shortcode_My_Courses {
 	 * @param array $progress_data The progress data.
 	 * @param int   $user_id currentuser id.
 	 */
-	private function get_course_progress( $course_id, $progress_data, $user_id ) {
-		$course_ids        = array_keys( $progress_data );
-		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
-		$progress          = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
+	private function get_course_progress( $course_id, $progress_data, $user_id, $attr ) {
+		$course_ids         = array_keys( $progress_data );
+		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
+		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
+		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
 		ob_start();
 		?>
 		<div class='eb-course-action-cont'>
 			<?php
 			if ( $is_user_suspended ) {
 				$progress_class = 'eb-course-action-btn-suspended';
-				$btn_text       = __( 'SUSPENDED', 'eb-textdomain' );
+				$btn_text       = __( 'Suspended', 'eb-textdomain' );
 			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
 				if ( 0 === $progress ) {
 					$progress_class = 'eb-course-action-btn-start';
-					$btn_text       = __( 'START', 'eb-textdomain' );
+					$btn_text       = __( 'Start', 'eb-textdomain' );
+					$progress_meta_data = __( 'Not yet started', 'eb-textdomain' );
 				} elseif ( $progress > 0 && $progress < 100 ) {
 					$progress_class = 'eb-course-action-btn-resume';
-					$btn_text       = __( 'RESUME', 'eb-textdomain' );
+					$btn_text       = __( 'Resume', 'eb-textdomain' );
+					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'eb-textdomain' );
 					?>
-					<div class='eb-course-action-progress-cont'>
-						<div class='eb-course-action-progress' style='width:<?php echo esc_attr( round( $progress ) ); ?>%' ></div>
-					</div>
+					
 					<?php
 				} else {
 					$progress_class = 'eb-course-action-btn-completed';
-					$btn_text       = __( 'COMPLETED', 'eb-textdomain' );
+					$btn_text       = __( 'Completed', 'eb-textdomain' );
+					$progress_meta_data = esc_attr( round( $progress ) ) . __( '100% Completed', 'eb-textdomain' );
+
 				}
 			}
 			?>
-			<div class='<?php echo esc_attr( $progress_class ); ?>'>
-				<?php echo esc_attr( $btn_text ); ?>
+			<div class='eb-course-progres-wrap'>
+				
+				<div class='eb-course-action-progress-cont'>
+					<?php
+					if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
+					?>
+						<div class='eb-course-action-progress' style='width:<?php echo esc_attr( round( $progress ) ); ?>%' ></div>
+						<div class='eb-course-progress-status'> <?php echo esc_attr( $progress_meta_data ); ?> </div>
+					<?php
+					}
+					?>
+					<div class="<?php echo esc_attr( $progress_class ); ?>">
+						<?php echo esc_attr( $btn_text ); ?>
+					</div>
+				</div>
+
 			</div>
 		</div>
 		<?php

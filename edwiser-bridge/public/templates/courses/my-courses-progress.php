@@ -14,6 +14,7 @@ global $post;
 $shortcode_attr = $args['shortcode_attr'];
 
 
+
 if ( isset( $shortcode_attr['show_progress'] ) && $shortcode_attr['show_progress'] ) {
 	echo wp_kses_post( $shortcode_attr['progress_btn_div'] );
 }

@@ -21,15 +21,17 @@ class Eb_Template_Functions {
 	/**
 	 * This function called from content_eb-course template.
 	 * This function includes to load all required variables and their logical part.
+	 * 
 	 */
-	public function content_eb_course_tml_dependency( $post_id, $attr, $is_eb_my_courses ) {
+	public function content_eb_course_tml_dependency( $post_id, $attr, $is_eb_my_courses )
+	{
 		global $post;
 
 		/**
 		 * Default data initilization.
 		 * This data is part of the template, In case of template overriding this need to be reinitialize.
 		 */
-		$eb_post_id    = $post->ID;
+		$course_id    = $post->ID;
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		// get currency.
@@ -43,11 +45,10 @@ class Eb_Template_Functions {
 		$logged_in         = ! empty( $user_id );
 		$enroll_manag      = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
 		$has_access        = $enroll_manag->user_has_course_access( $user_id, $post->ID );
-		$course_options    = get_post_meta( $eb_post_id, 'eb_course_options', true );
+		$course_options    = get_post_meta( $course_id, 'eb_course_options', true );
 		/**
 		 * Leagacy data.
 		 */
-		$course_id = $eb_post_id;
 		$thumb_url = has_post_thumbnail() ? get_the_post_thumbnail_url() : $eb_plugin_url . 'images/no-image.jpg';
 
 		if ( is_array( $course_options ) ) {
@@ -61,6 +62,10 @@ class Eb_Template_Functions {
 			$currency_sym           = 'USD' === $currency ? '$' : $currency;
 			$course_price_formatted = '0' === $course_price ? __( 'Free', 'eb-textdomain' ) : $currency_sym . ' ' . $course_price;
 		}
+
+		// course associated Categories. 
+		$categories = \app\wisdmlabs\edwiserBridge\wdm_eb_course_terms( $post_id );
+
 
 		/*
 		 * To add class according to user access.
@@ -97,6 +102,7 @@ class Eb_Template_Functions {
 			$course_url       = get_permalink();
 		}
 
+
 		return array(
 			'course_class'           => $course_class,
 			'h_title'                => $h_title,
@@ -106,6 +112,7 @@ class Eb_Template_Functions {
 			'course_price_formatted' => $course_price_formatted,
 			'is_eb_my_courses'       => $is_eb_my_courses,
 			'course_price_type'      => $course_price_type,
+			'categories'             => $categories,
 		);
 	}
 
@@ -114,9 +121,11 @@ class Eb_Template_Functions {
 	/**
 	 * This function called from content-single-eb_course template.
 	 * This function includes to load all required variables and their logical part.
+	 * 
 	 */
-	public function content_single_eb_course_tml_dependency() {
-		 global $post;
+	public function content_single_eb_course_tml_dependency()
+	{
+		global $post;
 
 		$post_id       = $post->ID; // @codingStandardsIgnoreLine.
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
@@ -158,26 +167,7 @@ class Eb_Template_Functions {
 		$logged_in    = ! empty( $user_id );
 		$has_access   = edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $post->ID );
 
-		$course_id = $post_id;
-
-		$categories = array();
-		$terms      = wp_get_post_terms(
-			$course_id,
-			'eb_course_cat',
-			array(
-				'orderby' => 'name',
-				'order'   => 'ASC',
-				'fields'  => 'all',
-			)
-		); // @codingStandardsIgnoreLine.
-
-		if ( is_array( $terms ) ) {
-			foreach ( $terms as $eb_term ) {
-				$lnk = get_term_link( $eb_term->term_id, 'eb_course_cat' );
-				// $categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . esc_html( $eb_term->name ) . '</a>';
-				$categories[] = esc_html( $eb_term->name );
-			}
-		}
+		$categories = \app\wisdmlabs\edwiserBridge\wdm_eb_course_terms( $post_id );
 
 		/*
 		 * Check is course has expiry date
@@ -192,6 +182,7 @@ class Eb_Template_Functions {
 			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
 		}
 
+
 		return array(
 			'eb_plugin_url'          => $eb_plugin_url,
 			'has_access'             => $has_access,
@@ -201,15 +192,17 @@ class Eb_Template_Functions {
 			'categories'             => $categories,
 		);
 
-	}
+	} 
 
 
 
 	/**
 	 * This function called from content_eb-course which gets called from archive page template.
 	 * This function loads the price related conetnt.
+	 * 
 	 */
-	public function eb_course_archive_price_tmpl( $course_data ) {
+	public function eb_course_archive_price_tmpl( $course_data )
+	{
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
@@ -225,8 +218,11 @@ class Eb_Template_Functions {
 	/**
 	 * This function called from content-single-eb_course which gets called from single course page template.
 	 * This function loads the course progress reated data when the page is my-courses page.
+	 * 
 	 */
-	public function eb_my_course_archive_progress_tmpl( $course_data, $shortcode_attr ) {
+	public function eb_my_course_archive_progress_tmpl( $course_data, $shortcode_attr )
+	{
+
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
@@ -234,7 +230,7 @@ class Eb_Template_Functions {
 
 		$template_loader->wp_get_template(
 			'courses/my-courses-progress.php',
-			array(
+			array( 
 				'course_data'    => $course_data,
 				'shortcode_attr' => $shortcode_attr,
 			)

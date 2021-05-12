@@ -22,14 +22,9 @@ global $post;
  */
 $single_course_data = apply_filters( 'eb_content_single_course_before', $post->ID );
 
-
-error_log( 'single_course_data ::: ' . print_r( $single_course_data, 1 ) );
-
 ?>
 
 <article id="course-<?php the_ID(); ?>" class="type-post hentry single-course" >
-
-	
 
 	<!-- COurse details wrapper. -->
 	<div>
@@ -105,10 +100,16 @@ error_log( 'single_course_data ::: ' . print_r( $single_course_data, 1 ) );
 					</div>
 					<?php
 				} else {
-					// Echo take access course button.
-					echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-				}
+					?>
+					<div class='eb_single_course_price_wrapper'>
+						<?php
+						// Echo take access course button.
+						echo wp_kses( Eb_Payment_Manager::access_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 
+						?>
+					</div>
+					<?php
+				}
 
 				?>
 

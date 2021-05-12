@@ -133,7 +133,7 @@ class Eb_Shortcode_Courses {
 				}
 				?>
 				<div class='eb-cat-parent'>
-					<h3 class="eb-cat-title"><?php echo esc_html( $category->name ); ?></h3>
+					<span class="eb-cat-title"><?php echo esc_html( $category->name ); ?></span>
 					<?php
 					$args['tax_query'] = array(
 						array(
@@ -224,7 +224,7 @@ class Eb_Shortcode_Courses {
 					if ( 1 !== $current_page ) {
 
 						?>
-						<a class="prev page-numbers" href="
+						<a class="prev page-numbers eb_primary_btn" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
@@ -237,7 +237,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( '&larr;', 'eb-textdomain' ); ?>
+							<?php _e( '< Prev', 'eb-textdomain' ); /*esc_html_e( '&larr;', 'eb-textdomain' );*/ ?>
 						</a>
 						<?php
 					}
@@ -276,7 +276,7 @@ class Eb_Shortcode_Courses {
 					if ( $current_page < $page - 1 ) {
 
 						?>
-						<a class="next page-numbers" href="
+						<a class="next page-numbers eb_primary_btn" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
@@ -289,7 +289,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( '&rarr;', 'eb-textdomain' ); ?>
+							<?php _e( 'Next >', 'eb-textdomain' ); /*esc_html_e( '&rarr;', 'eb-textdomain' );*/ ?>
 						</a>
 						<?php
 					}
