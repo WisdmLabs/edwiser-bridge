@@ -153,9 +153,12 @@ class Eb_Shortcode_My_Courses {
 					$courses->the_post();
 
 					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
-						$atts['progress_btn_div'] = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts );
+						$course_prog_data         = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts );
+						$atts['progress_btn_div'] = $course_prog_data['html'];
+						$atts['completed']        = $course_prog_data['completed'];
 					} else {
 						$atts['progress_btn_div'] = '';
+						$atts['completed']        = 0;
 					}
 
 					$template_loader->wp_get_template(
@@ -206,6 +209,7 @@ class Eb_Shortcode_My_Courses {
 		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
 		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
+		$completed          = 0; 
 		ob_start();
 		?>
 		<div class='eb-course-action-cont'>
@@ -215,20 +219,21 @@ class Eb_Shortcode_My_Courses {
 				$btn_text       = __( 'Suspended', 'eb-textdomain' );
 			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
 				if ( 0 === $progress ) {
-					$progress_class = 'eb-course-action-btn-start';
-					$btn_text       = __( 'Start', 'eb-textdomain' );
+					$progress_class     = 'eb-course-action-btn-start';
+					$btn_text           = __( 'Start', 'eb-textdomain' );
 					$progress_meta_data = __( 'Not yet started', 'eb-textdomain' );
 				} elseif ( $progress > 0 && $progress < 100 ) {
-					$progress_class = 'eb-course-action-btn-resume';
-					$btn_text       = __( 'Resume', 'eb-textdomain' );
+					$progress_class     = 'eb-course-action-btn-resume';
+					$btn_text           = __( 'Resume', 'eb-textdomain' );
 					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'eb-textdomain' );
 					?>
 					
 					<?php
 				} else {
-					$progress_class = 'eb-course-action-btn-completed';
-					$btn_text       = __( 'Completed', 'eb-textdomain' );
-					$progress_meta_data = esc_attr( round( $progress ) ) . __( '100% Completed', 'eb-textdomain' );
+					$completed          = 1; 
+					$progress_class     = 'eb-course-action-btn-completed';
+					$btn_text           = __( 'View', 'eb-textdomain' );
+					$progress_meta_data = __( '100% Completed', 'eb-textdomain' );
 
 				}
 			}
@@ -252,7 +257,7 @@ class Eb_Shortcode_My_Courses {
 			</div>
 		</div>
 		<?php
-		return ob_get_clean();
+		return array( 'html' => ob_get_clean(), 'completed' => $completed );
 	}
 
 	/**

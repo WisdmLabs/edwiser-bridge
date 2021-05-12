@@ -73,6 +73,13 @@ error_log('course_data :: '.print_r($course_data, 1));
 				<div>
 
 					<div class="wdm-course-image">
+						<?php
+						if ( isset( $attr ) && isset( $attr[ 'completed' ] ) && $attr[ 'completed' ] ) {
+						?>
+						<span class="eb_courses_completed_tag"> <?php _e( 'Completed', 'eb_textdomain' ) ?> </span>
+						<?php
+						}
+						?>
 						<img src="<?php echo esc_url( $course_data['thumb_url'] ); ?>"/>
 					</div>
 
@@ -89,16 +96,7 @@ error_log('course_data :: '.print_r($course_data, 1));
 						</div>
 						
 							<?php
-
-							// Add_action for course progress and related buttons i.e resume, start and completed.
-							// do_action( 'eb_my_course_archive_progress', $course_data, $attr, $is_eb_my_courses );
-
 							echo wp_kses_post( $attr['progress_btn_div'] );
-
-
-							/*if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
-								echo wp_kses_post( $attr['progress_btn_div'] );
-							}*/
 							?>
 					</div>
 				</div>

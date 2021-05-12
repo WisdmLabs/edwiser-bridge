@@ -189,6 +189,25 @@
 
 /*sticky button styling*/
 
+.eb_courses_completed_tag{
+    position: absolute;
+    /* width: 80px; */
+    padding: 5px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    /* height: 20px; */
+    left: 10px;
+    top: 10px;
+    background: #1AB900;
+    border-radius: 3px;
+}
+
+
 .eb-course-action-btn-suspended, .eb-course-action-btn-start, .eb-course-action-btn-resume /*.eb-course-action-cont,*/, .eb-course-action-btn-completed {
   /*position: absolute;
 	width: 100%;
@@ -205,7 +224,13 @@
   font-weight: normal;
   font-size: 14px;
   text-align: center;
-  color: #ffffff;
+}
+
+.eb-course-action-btn-completed {
+    background: #FFFFFF;
+    border: 1px solid #1AB900;
+    box-sizing: border-box;
+    color: #1AB900;
 }
 
 .eb-course-action-btn-suspended {
@@ -215,7 +240,8 @@
 	color: white;
 	font-weight: 800;
 	background-color: #dfa700*/
-  background-color: #e7eb14;
+  background-color: #efbf0d;
+  color: #ffffff;
 }
 
 .eb-course-action-btn-start {
@@ -235,6 +261,7 @@
   /*New style*/
 
   background: #00a1a8;
+  color: #ffffff;
 }
 
 .eb-course-action-btn-resume {
@@ -246,16 +273,10 @@
 
   /*New style*/
   background: #f98012;
+  color: #ffffff;
 }
 
-.eb-course-action-btn-completed {
-  margin-top: 4px;
-  border: 1px solid #059b4f;
-  padding: 8px;
-  color: white;
-  font-weight: 800;
-  background-color: #059b4f;
-}
+
 
 .eb-course-action-progress-cont {
   line-height: 4px;
@@ -432,7 +453,7 @@
   text-decoration: none;
 }
 .wdm-course-image {
-  height: 44%;
+  height: 120px;
   overflow: hidden;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
@@ -447,7 +468,7 @@
 }
 .wdm-course-image img:hover {
   transform: scale(1.2, 1.2) translateZ(0px);
-  opacity: 0.7;
+  /*opacity: 0.5;*/
 }
 
 @media (max-width: 991px) {
