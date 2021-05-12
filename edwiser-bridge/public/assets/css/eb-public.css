@@ -611,6 +611,9 @@ div#user_login label {
 .eb-user-account-content {
   float: right;
   width: 75%;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  background: white;
 }
 .eb-user-profile {
   /*    border: 1px solid rgba(68, 68, 68, 0.21);
@@ -1019,17 +1022,6 @@ nav.eb-pagination ul li span.current {
 }
 
 /* @ Edit user profile styling */
-.eb-edit-user-wrapper {
-  padding: 2%;
-  padding-top: 0px;
-  border: 1px solid #ddd;
-  background: white;
-  padding: 2rem;
-  padding-top: 0px;
-  border: 1px solid #ddd;
-  background: white;
-  padding: 2rem;
-}
 
 .wdm-transaction-header h4 {
   margin-top: 2px !important;
