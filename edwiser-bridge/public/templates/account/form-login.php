@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 do_action( 'eb_before_customer_login_form' );
+\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
 ?>
 <div id="user_login" class='wdm-eb-user-login-form-wrap'>
 	<?php
-	\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
 	if ( 'eb_register' !== $eb_action ) {
 		?>
 		<div class="eb-wrap-login-form wdm-eb-login-form-sec-1">
