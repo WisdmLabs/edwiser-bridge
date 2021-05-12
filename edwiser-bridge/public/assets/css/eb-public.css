@@ -300,6 +300,7 @@
 .wdm-flash-error {
   margin: 5px 0 15px;
   background: none repeat scroll 0% 0% #fff;
+  border: 1px solid #ff7979;
   border-left: 6px solid #ff7979;
   padding: 10px;
   font-size: 16px;
@@ -308,6 +309,7 @@
 .wdm-flash-info {
   margin: 5px 0 15px;
   background: none repeat scroll 0% 0% #fff;
+  border: 1px solid #7ad03a;
   border-left: 6px solid #7ad03a;
   padding: 10px;
   font-size: 16px;
