@@ -23,7 +23,7 @@ error_log('course_data :: '.print_r($course_data, 1));
 
 ?>
 
-<article id="<?php echo 'post-' . get_the_ID(); ?>" <?php post_class( 'wdm-col-3-2-1 eb-course-col wdm-course-grid-wrap ' . $course_data['course_class'] ); ?> title="<?php echo esc_html( $course_data['h_title'] ); ?>">
+<div id="<?php echo 'post-' . get_the_ID(); ?>" <?php post_class( 'wdm-col-3-2-1 eb-course-card eb-course-col wdm-course-grid-wrap ' . $course_data['course_class'] ); ?> title="<?php echo esc_html( $course_data['h_title'] ); ?>">
 	<div class="eb-grid-container">
 		<div class="wdm-course-grid">
 
@@ -45,12 +45,10 @@ error_log('course_data :: '.print_r($course_data, 1));
 						?>
 						</div>
 
-						<div class='eb-course-card-title-wrap'>
-							<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
-						</div>
+						<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
 						
 						<div>
-							<p class="entry-content">
+							<p class="eb_short_desc">
 								<?php echo esc_html( $course_data['short_description'] ); ?> 
 							</p>
 						</div>
@@ -110,4 +108,4 @@ error_log('course_data :: '.print_r($course_data, 1));
 		</div>
 	</div>
 	<!-- .wdm-course-grid -->
-</article><!-- #post -->
+</div><!-- #post -->

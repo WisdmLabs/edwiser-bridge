@@ -63,17 +63,21 @@ get_header();
 		<h1 class="page-title"><?php esc_html_e( 'Courses', 'eb-textdomain' ); ?></h1>
 	<?php endif; ?>
 
+
 	<?php
 	if ( have_posts() ) {
 		?>
+		<div class="eb_course_cards_wrap">
+			<?php
+			// Start the Loop.
+			while ( have_posts() ) :
+				the_post();
+				$template_loader->wp_get_template_part( 'content', get_post_type() );
+				// End the loop.
+			endwhile;
+			?>
+		</div>
 		<?php
-		// Start the Loop.
-		while ( have_posts() ) :
-			the_post();
-			$template_loader->wp_get_template_part( 'content', get_post_type() );
-			// End the loop.
-		endwhile;
-
 		// Previous/next page navigation.
 		the_posts_pagination(
 			array(
@@ -86,23 +90,20 @@ get_header();
 	} else {
 		$template_loader->wp_get_template_part( 'content', 'none' );
 	}
-	?>
 
-	<?php
+	/*
+	 * Edwiser hook after content.
+	 * Used mainly for by default compatibility with some themes.
+	 */
 	do_action( 'eb_archive_after_content', $wrapper_args );
-	?>
 
-<!-- </div> -->
-
-	<?php
-
-	// Use this Hook to add sidebar container.
+	/*// Use this Hook to add sidebar container.
 	do_action( 'eb_archive_before_sidebar', $wrapper_args );
 
 	get_sidebar();
 
 	// Use this Hook to close sidebar containers.
-	do_action( 'eb_archive_after_sidebar', $wrapper_args );
+	do_action( 'eb_archive_after_sidebar', $wrapper_args );*/
 
 	/*
 	 * -------------------------------------

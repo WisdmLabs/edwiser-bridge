@@ -111,7 +111,7 @@ class Eb_Shortcode_My_Courses {
 
 		echo '<div class="eb-my-courses-wrapper">';
 		if ( ! empty( $atts['my_courses_wrapper_title'] ) ) {
-			?><h2 class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></h2>
+			?><span class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></span>
 			<?php
 		}
 
@@ -141,7 +141,7 @@ class Eb_Shortcode_My_Courses {
 
 			$courses = new \WP_Query( $args );
 
-			echo "<div class='eb-my-course'>";
+			echo "<div class='eb-my-course eb_course_cards_wrap'>";
 			if ( $courses->have_posts() ) {
 				$course_progress_manager = new \app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
 				$progress_data           = $course_progress_manager->get_course_progress();
