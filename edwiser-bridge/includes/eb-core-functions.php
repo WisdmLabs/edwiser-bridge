@@ -894,7 +894,6 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 
 		return $categories;
 	}
-
 }
 
 

@@ -21,14 +21,14 @@ do_action( 'eb_before_customer_login_form' );
 		<div class="eb-wrap-login-form wdm-eb-login-form-sec-1">
 			<form method="post" class="login">
 				<?php do_action( 'eb_login_form_start' ); ?>
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field">
 					<label for="wdm_username">
 						<?php esc_html_e( 'Username', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
 					</label>
 					<input type="text" class="input-text" placeholder="<?php esc_html_e( 'Enter user name', 'eb-textdomain' ); ?>" name="wdm_username" id="wdm_username" value="<?php echo esc_attr( $username ); ?>" />
 				</p>
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field">
 					<label for="wdm_password">
 						<?php esc_html_e( 'Password', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
@@ -45,7 +45,7 @@ do_action( 'eb_before_customer_login_form' );
 					</label>
 				</p>
 				<p>
-					<input type="submit" class="eb-login-button button button-primary" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
+					<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
 				</p>
 				<?php
 				do_action( 'eb_login_form_end' );
@@ -59,7 +59,7 @@ do_action( 'eb_before_customer_login_form' );
 					<p class="register-link form-row">
 						<?php esc_html_e( 'Don\'t have an Account? Register one!', 'eb-textdomain' ); ?>
 					</p>
-					<a class='button wdm-eb-login-btn-scondary' href='<?php echo esc_url( $reg_link ); ?>'>
+					<a class='button wdm-eb-login-btn-scondary roll-button et_pb_button et_pb_contact_submit' href='<?php echo esc_url( $reg_link ); ?>'>
 						<?php esc_html_e( 'Get Registered', 'eb-textdomain' ); ?>
 					</a>
 					<?php
@@ -75,7 +75,7 @@ do_action( 'eb_before_customer_login_form' );
 		<div class="eb-user-reg-form wdm-eb-login-form-sec-1">
 			<form method="post" class="register">
 				<?php do_action( 'eb_register_form_start' ); ?>
-				<div class="form-row-wide wdm-eb-form-row-flex">
+				<div class="form-row-wide eb-profile-txt-field  wdm-eb-form-row-flex">
 					<p class='form-row-first wdm-eb-form-row-first'>
 						<label for="reg_firstname">
 							<?php esc_html_e( 'First Name', 'eb-textdomain' ); ?>
@@ -92,14 +92,14 @@ do_action( 'eb_before_customer_login_form' );
 					</p>
 					</div>
 
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field ">
 					<label for="reg_email">
 						<?php esc_html_e( 'Email', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
 					</label>
 					<input type="email" class="input-text" name="email" id="reg_email" value="<?php echo esc_attr( $email ); ?>" required/>
 				</p>
-				<div class="form-row-wide wdm-eb-form-row-flex">
+				<div class="form-row-wide eb-profile-txt-field  wdm-eb-form-row-flex">
 					<p class="form-row-first wdm-eb-form-row-first">
 						<label for="reg_pass">
 							<?php esc_html_e( 'Password', 'eb-textdomain' ); ?>
@@ -119,7 +119,7 @@ do_action( 'eb_before_customer_login_form' );
 				if ( $eb_terms_and_cond ) {
 					?>
 
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field ">
 					<input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
 					<?php esc_html_e( 'I agree to the ', 'eb-textdomain' ); ?>
 					<span style="cursor: pointer;" id="eb_terms_cond_check"> <u><?php esc_html_e( 'Terms and Conditions', 'eb-textdomain' ); ?></u></span>
@@ -147,7 +147,7 @@ do_action( 'eb_before_customer_login_form' );
 
 				<p class="form-row">
 					<?php wp_nonce_field( 'eb-register' ); ?>
-					<input type="submit" class="eb-reg-button button button-primary" name="register" value="<?php esc_html_e( 'Register', 'eb-textdomain' ); ?>" />
+					<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'eb-textdomain' ); ?>" />
 				</p>
 				<?php do_action( 'eb_register_form_end' ); ?>
 			</form>
@@ -156,7 +156,7 @@ do_action( 'eb_before_customer_login_form' );
 			<p class="login-link">
 				<?php esc_html_e( 'Already have an account?', 'eb-textdomain' ); ?>
 			</p>
-			<a class='button wdm-eb-login-btn-scondary' href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ); ?>'>
+			<a class='button wdm-eb-login-btn-scondary roll-button et_pb_button et_pb_contact_submit' href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ); ?>'>
 				<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>
 			</a>
 		</div>
