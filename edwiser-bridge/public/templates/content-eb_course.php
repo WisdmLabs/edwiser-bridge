@@ -16,10 +16,8 @@ global $post;
  *
  */
 $attr             = isset( $attr ) ? $attr : array();
-$is_eb_my_courses = isset( $is_eb_my_courses ) ? $is_eb_my_courses : 0; 
+$is_eb_my_courses = isset( $is_eb_my_courses ) ? $is_eb_my_courses : 0;
 $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr, $is_eb_my_courses );
-
-error_log('course_data :: '.print_r($course_data, 1));
 
 ?>
 
@@ -46,13 +44,13 @@ error_log('course_data :: '.print_r($course_data, 1));
 						</div>
 
 						<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
-						
+
 						<div>
 							<p class="eb_short_desc">
 								<?php echo esc_html( $course_data['short_description'] ); ?> 
 							</p>
 						</div>
-						
+
 						<?php
 						// Add_action for price type and price div.
 						do_action( 'eb_course_archive_price', $course_data );
@@ -89,10 +87,8 @@ error_log('course_data :: '.print_r($course_data, 1));
 						</div>
 
 						<!-- <h4 class="eb-course-title"><?php the_title(); ?></h4> -->
-						<div class='eb-course-card-title-wrap'>
-							<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
-						</div>
-						
+						<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
+
 							<?php
 							echo wp_kses_post( $attr['progress_btn_div'] );
 							?>

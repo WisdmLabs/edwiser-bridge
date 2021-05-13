@@ -19,8 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 $wrapper_args = array();
 
 $eb_template = get_option( 'eb_general' );
+$attr        = isset( $attr ) ? $attr : array();
 
-$count = isset( $eb_template['courses_per_row'] ) && is_numeric( $eb_template['courses_per_row'] ) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
+$templet_fun = new \app\wisdmlabs\edwiserBridge\Eb_Template_Functions();
+$templet_fun->eb_course_posts();
+
+
+
+// $count = isset( $eb_template['courses_per_row'] ) && is_numeric( $eb_template['courses_per_row'] ) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
 
 // CSS to handle course grid.
 /*echo '<style type="text/css"> .eb-course-col{width:' . ( 100 / esc_html( $count ) ) . '%;}'
@@ -61,10 +67,10 @@ get_header();
 
 	<?php if ( apply_filters( 'eb_show_page_title', true ) ) : ?>
 		<h1 class="page-title"><?php esc_html_e( 'Courses', 'eb-textdomain' ); ?></h1>
-	<?php endif; ?>
+	<?php endif; 
 
+	do_action( 'eb_archive_before_course_cards', $attr );
 
-	<?php
 	if ( have_posts() ) {
 		?>
 		<div class="eb_course_cards_wrap">

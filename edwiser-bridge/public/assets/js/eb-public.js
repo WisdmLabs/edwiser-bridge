@@ -259,6 +259,19 @@
 
 
 
+		/*Submit filters form on the selction of filter*/
+		$('#eb_category_filter').on('change',function(event){
+			var form = $(this).closest('form');
+			$(form).attr('action', 'http://localhost/wp55/eb-courses-2');
+			$(form).trigger( 'submit' );
+		});
+
+		$('#eb_category_sort').on('change',function(event){
+			$(this).closest('form').trigger( 'submit' );
+		});
+
+
+
 		/*function getUrlParameter(sParam)
 		{
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),

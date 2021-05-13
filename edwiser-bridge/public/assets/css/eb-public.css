@@ -178,6 +178,44 @@
   top: 0px;
   /*transition: transform .2s ease-in-out;*/
 }
+/*Archive page filter and sorting*/
+
+.eb_filter_and_sorting{
+    display: flex;
+    padding: 1rem;
+    width: 100%;
+}
+
+.eb_archive_filter{
+    width: 50%;
+}
+.eb_archive_sort{
+  text-align: right;
+  width: 50%;
+}
+
+.eb_archive_filter select, .eb_archive_sort select{
+    background: #FFFFFF;
+    border: 1px solid rgba(68, 68, 68, 0.2);
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #666666;
+}
+
+.eb_archive_filter label, .eb_archive_sort label{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #444444;
+}
+
+
+
 
 .eb-primary {
   padding: 0px 20px;
@@ -486,9 +524,22 @@
 }
 
 @media (max-width: 991px) {
-  .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
-    width: 32%;
-  }
+    .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
+        width: 32%;
+    }
+    .eb_filter_and_sorting{
+        display: block;
+        padding: 1rem;
+        width: 100%;
+    }
+    .eb_archive_filter{
+        width: 100%;
+    }
+    .eb_archive_sort{
+        text-align: left;
+        padding-top: 10px; 
+        width: 100%;
+    }
 }
 
 @media (max-width: 767px) {
@@ -1233,7 +1284,7 @@ nav.eb-pagination ul li span.current {
 .wdm-col-3-2-1.hentry {
   display: flex;
   padding: 1rem;
-  width: 24%;
+  width: 25%;
   height: 330px;
   min-width: 230px;
   max-width: 300px;
@@ -1284,8 +1335,9 @@ nav.eb-pagination ul li span.current {
 * Start eb-courses page shortcode styling
 */
 .eb-cat-parent {
-  display: block;
-  position: relative;
+    margin-top: 15px;
+    display: block;
+    position: relative;
 }
 .eb-cat-courses-cont {
   display: inline-flex;
@@ -1372,14 +1424,15 @@ nav.eb-pagination ul li span.current {
   background: transparent;
 }
 .eb-cat-title {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-  /* identical to box height */
-  text-transform: uppercase;
-  color: #999999;
-  /*border-bottom: 1px solid;*/
+    padding-left: 15px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    text-transform: uppercase;
+    color: #999999;
+    /*border-bottom: 1px solid;*/
 }
 /**
 * End eb-courses page shortcode styling

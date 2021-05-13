@@ -1008,6 +1008,33 @@ class EdwiserBridge {
 			3
 		);
 
+		$this->loader->eb_add_filter(
+			'eb_course_page_filter_and_sorting',
+			$template_functions,
+			'eb_course_filters_and_sorting',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_courses_wp_query_args',
+			$template_functions,
+			'eb_get_course_sorting_data',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_courses_filter_args',
+			$template_functions,
+			'eb_get_course_filter_data',
+			10,
+			2
+		);
+
+		
+
+
 	}
 
 	/**

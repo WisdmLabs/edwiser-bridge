@@ -869,29 +869,36 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 	/**
 	 * Function to send the reuest to the edwiser site.
 	 *
-	 * @param  array $api_params request params data.
+	 * @param  array $course_id course id.
 	 * @return array array of the status and data.
 	 */
-	function wdm_eb_course_terms( $course_id ) {
+	function wdm_eb_course_terms( $course_id = '' ) {
 		$categories = array();
-		$terms      = wp_get_post_terms(
-			$course_id,
-			'eb_course_cat',
-			array(
-				'orderby' => 'name',
-				'order'   => 'ASC',
-				'fields'  => 'all',
-			)
-		); // @codingStandardsIgnoreLine.
+
+		if ( ! empty( $course_id ) ) {
+			$terms = wp_get_post_terms(
+				$course_id,
+				'eb_course_cat',
+				array(
+					'orderby' => 'name',
+					'order'   => 'ASC',
+					'fields'  => 'all',
+				)
+			); // @codingStandardsIgnoreLine.
+		} else {
+			$terms = get_terms(
+				array(
+					'taxonomy'   => 'eb_course_cat',
+					'hide_empty' => false,
+				)
+			);
+		}
 
 		if ( is_array( $terms ) ) {
 			foreach ( $terms as $eb_term ) {
-				// $lnk          = get_term_link( $eb_term->term_id, 'eb_course_cat' );
-				// $categories[] = '<a href="' . esc_url( $lnk ) . '" target="_blank">' . esc_html( $eb_term->name ) . '</a>';
-				$categories[] = esc_html( $eb_term->name );
+				$categories[ $eb_term->term_id ] = esc_html( $eb_term->name );
 			}
 		}
-
 		return $categories;
 	}
 }
