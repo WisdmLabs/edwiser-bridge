@@ -90,7 +90,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s", '%' . $search_text . '%', $from, $to );
 			}
 
-			$results = $wpdb->get_results( $stmt );
+			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
 
 			foreach ( $results as $result ) {
 				$profile_url          = $this->getUserProfileURL( $result->user_id );
@@ -414,7 +414,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$options['enrollment_to_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
 			}
 			// Update the current URI with the new options.
-			$_SERVER['REQUEST_URI'] = add_query_arg( $options, $_SERVER['REQUEST_URI'] );
+			$_SERVER['REQUEST_URI'] = add_query_arg( $options, $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine
 		}
 
 		/**

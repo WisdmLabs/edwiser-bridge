@@ -131,6 +131,16 @@ if ( ! class_exists( 'Eb_Settings_Shortcode_Doc' ) ) {
 								printf( esc_html__( 'This will shows the courses in one row with horizontal scroll. Possible values:yes,no. Example: ', 'eb-textdomain' ) . '%s', '<strong>[eb_courses horizontally_scroll="yes"]</strong>' );
 								?>
 							</li>
+							<li>
+								<span class="eb_shortcode-doc-para">show_filter</span>:
+								<?php
+
+								/**
+								 * Translators: shortcode description example.
+								 */
+								printf( esc_html__( 'This will show category wise filter and sorting section on page. Possible values:yes,no. Example: ', 'eb-textdomain' ) . '%s', '<strong>[eb_courses show_filter="yes"]</strong>' );
+								?>
+							</li>
 						</ul>
 					</div>
 				</div>

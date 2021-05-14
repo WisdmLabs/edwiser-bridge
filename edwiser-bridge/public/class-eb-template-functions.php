@@ -227,9 +227,10 @@ class Eb_Template_Functions {
 	 * This function called from archive-eb_course.php file.
 	 * Functionality to show filters and sorting on course archive page.
 	 *
-	 * @param array $shortcode_attr shortcode attr.
+	 * @param string $filter filter attr.
+	 * @param string $sorting sorting attr.
 	 */
-	public function eb_course_filters_and_sorting( $filter, $sorting ) {
+	public function eb_show_course_filters_and_sorting( $filter, $sorting ) {
 		$template_loader = new EbTemplateLoader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
@@ -242,9 +243,8 @@ class Eb_Template_Functions {
 		}
 
 		$template_loader->wp_get_template(
-			'courses/course-filters.php',
+			'course-filters.php',
 			array(
-				// 'shortcode_attr' => $shortcode_attr,
 				'sorting'    => $sorting,
 				'filter'     => $filter,
 				'categories' => $categories,
@@ -256,33 +256,36 @@ class Eb_Template_Functions {
 
 	/**
 	 * This functions sorts the wp query args according to the selected filter on eb_course page.
+	 *
+	 * @param string $args args attr.
+	 * @param string $sorting sorting attr.
 	 */
 	public function eb_get_course_sorting_data( $args, $sorting ) {
 		if ( is_array( $args ) ) {
 			switch ( $sorting ) {
 				case 'eb_archive_sort_a_z':
 					$args['orderby'] = 'title';
-		            $args['order']   = 'ASC';
+					$args['order']   = 'ASC';
 					break;
-				
+
 				case 'eb_archive_sort_z_a':
 					$args['orderby'] = 'title';
-		            $args['order']   = 'DESC';
+					$args['order']   = 'DESC';
 					break;
-				
+
 				case 'eb_archive_latest':
 					$args['orderby'] = 'date';
-		            $args['order']   = 'ASC';
+					$args['order']   = 'ASC';
 					break;
 
 				case 'eb_archive_oldest':
 					$args['orderby'] = 'date';
-		            $args['order']   = 'DESC';
+					$args['order']   = 'DESC';
 					break;
 
 				default:
 					$args['orderby'] = 'title';
-		            $args['order']   = 'ASC';
+					$args['order']   = 'ASC';
 					break;
 			}
 		}
@@ -292,11 +295,14 @@ class Eb_Template_Functions {
 
 
 	/**
-     * This function modifies the category data according to the selected filter on the eb_course page.
+	 * This function modifies the category data according to the selected filter on the eb_course page.
+	 *
+	 * @param string $cat Category.
+	 * @param string $filter filter attr.
 	 */
 	public function eb_get_course_filter_data( $cat, $filter ) {
 		/*
-		 * There are 3 types of filters 
+		 * There are 3 types of filters
 		 * 1. category wise
 		 * 2. Per category and
 		 * 3. all courses in this condition we won't modify any of the category filter data.
@@ -304,14 +310,10 @@ class Eb_Template_Functions {
 		if ( 'eb_archive_filter_categorywise' === $filter ) {
 			$cat = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
 		} elseif ( ! empty( $filter ) ) {
-			$cat = array();
+			$cat   = array();
 			$cat[] = get_term( $filter, 'eb_course_cat' );
 		}
 
 		return $cat;
 	}
-
-
-
-
 }

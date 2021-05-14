@@ -10,43 +10,13 @@
 
 #wdm-btn,
 #eb_course_payment_button {
-  /*text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    font-weight: 500;
-    background-color: #333 !important;
-    color: white;
-    cursor: pointer;
-    font-family: "Noto Sans", sans-serif;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    text-decoration: none!important;
-    letter-spacing: 0.1em;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s*/
 }
 
 .wdm-btn,
-#wdm-btn.wdm-btn,
-#eb_course_payment_button.wdm-btn {
-  /*text-align: center;
-    vertical-align: middle;
-    white-space: nowrap;
-    font-weight: 500;
-    color: #2ea3f2;
-    cursor: pointer;
-    font-family: "Noto Sans", sans-serif;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-    text-decoration: none!important;
-    letter-spacing: 0.1em;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s*/
-  /*new template styles*/
+.wdm-btn.eb_primary_btn,
+.eb_primary_btn {
   padding: 12px 35px;
   border-radius: 3px;
-  /*font-family: Roboto;*/
-  border: 1px solid #f98012;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -56,39 +26,27 @@
 }
 
 .wdm-btn:hover {
-  /*color: #0e7bc4;*/
-  /*text-decoration: none;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);*/
 }
 
 .wdm-btn:visited {
-  /*color:white;*/
 }
 
 .wdm-btn.eb_secondary_btn {
-  /*padding: 12px 35px;
-    border-radius: 3px;*/
   background: #ffffff;
   color: #f98012;
 }
 
-.eb_primary_btn, .wdm-btn.eb_primary_btn{
-    background: #F98012;
-    color: #FFFFFF;
-}
 
-.eb_primary_btn,
+
 .navigation.pagination div .prev.page-numbers,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn,
 .navigation.pagination div .next.page-numbers,
 .navigation.pagination div .next.page-numbers.eb_primary_btn {
-  background: #f98012;
   border-radius: 2px;
   padding: 10px 20px;
   font-style: normal;
   font-weight: normal;
   text-align: center;
-  color: #ffffff;
 }
 
 .navigation.pagination div .prev.page-numbers,
@@ -690,10 +648,6 @@ p.read-more {
   padding: 0.7em;
 }
 
-.eb_join_button input[type="submit"] {
-  letter-spacing: 0.1em;
-  padding: 0.5em;
-}
 
 
 /* for single course take course button css*/
@@ -1026,16 +980,10 @@ div#user_login label {
 /* eb-pagination styling start */
 
 .navigation.pagination div .page-numbers {
-  /*border-right: 1px solid #eee;*/
-  /* border-top: 1px solid #eee; */
-  /* border-bottom: 1px solid #eee; */
   padding: 7px 7px;
   margin: 0;
-  /* float: left; */
   display: inline;
   overflow: hidden;
-  /* background: #FFFFFF; */
-  /* border: 1px solid #E5E5E5; */
   box-sizing: border-box;
   border-radius: 3px;
   font-style: normal;
@@ -1043,7 +991,6 @@ div#user_login label {
   font-size: 14px;
   line-height: 16px;
   text-align: center;
-  color: #00a1a8;
 }
 
 .navigation.pagination {

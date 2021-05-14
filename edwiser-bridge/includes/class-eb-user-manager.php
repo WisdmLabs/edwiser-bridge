@@ -129,7 +129,7 @@ class EBUserManager {
 		if ( 1 === $connected['success'] ) {
 			// get all WordPress users having an associated moodle account.
 			if ( is_numeric( $user_id_to_sync ) ) {
-				$all_users = $wpdb->get_results(
+				$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
 					$wpdb->prepare(
 						"SELECT user_id, meta_value AS moodle_user_id
 						FROM {$wpdb->base_prefix}usermeta
@@ -141,7 +141,7 @@ class EBUserManager {
 			} else {
 				// query to get all WordPress users having an associated moodle account so that we can synchronize the course enrollment
 				// added limit for get users in chunk.
-				$all_users = $wpdb->get_results(
+				$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
 					$wpdb->prepare(
 						"SELECT user_id, meta_value AS moodle_user_id
 						FROM {$wpdb->base_prefix}usermeta
@@ -154,7 +154,7 @@ class EBUserManager {
 					ARRAY_A
 				);
 				// used to get all users count.
-				$users_count    = $wpdb->get_results(
+				$users_count    = $wpdb->get_results( // @codingStandardsIgnoreLine
 					"SELECT COUNT(user_id) AS users_count
 					FROM {$wpdb->base_prefix}usermeta
 					WHERE meta_key = 'moodle_user_id'
@@ -210,7 +210,7 @@ class EBUserManager {
 					/*
 					 * In this block we are unenrolling user course if a user is unenrolled from those course on moodle
 					 */
-					$old_enrolled_courses = $wpdb->get_results(
+					$old_enrolled_courses = $wpdb->get_results( // @codingStandardsIgnoreLine
 						$wpdb->prepare(
 							"SELECT course_id
 							FROM {$wpdb->prefix}moodle_enrollment
@@ -261,7 +261,7 @@ class EBUserManager {
 		} else {
 			edwiser_bridge_instance()->logger()->add(
 				'user',
-				'Connection problem in synchronization, Response:' . print_r( $connected, true )
+				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
 			); // add connection log.
 		}
 
@@ -295,7 +295,7 @@ class EBUserManager {
 		if ( 1 === $connected['success'] ) {
 			if ( isset( $sync_options['eb_link_users_to_moodle'] ) && '1' === $sync_options['eb_link_users_to_moodle'] ) {
 				// query to get list of users who have not linked to moodle with limit.
-				$unlinked_users = $wpdb->get_results(
+				$unlinked_users = $wpdb->get_results( // @codingStandardsIgnoreLine
 					$wpdb->prepare(
 						"SELECT DISTINCT(user_id)
 						FROM {$wpdb->base_prefix}usermeta
@@ -321,7 +321,7 @@ class EBUserManager {
 					}
 				}
 				// used to get all unlinked users count.
-				$users_count = $wpdb->get_results(
+				$users_count = $wpdb->get_results( // @codingStandardsIgnoreLine
 					"SELECT COUNT(DISTINCT(user_id)) as users_count
 					FROM {$wpdb->base_prefix}usermeta
 					WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)"
@@ -336,7 +336,7 @@ class EBUserManager {
 		} else {
 			edwiser_bridge_instance()->logger()->add(
 				'user',
-				'Connection problem in synchronization, Response:' . print_r( $connected, true )
+				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
 			); // add connection log.
 		}
 		return $response_array;
@@ -1277,7 +1277,7 @@ class EBUserManager {
 		global $wpdb;
 
 		// removing user's records from enrollment table.
-		$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'user_id' => $user_id ), array( '%d' ) );
+		$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'user_id' => $user_id ), array( '%d' ) ); // @codingStandardsIgnoreLine
 
 		edwiser_bridge_instance()->logger()->add( 'user', "Enrollment records of user ID: {$user_id} are deleted." );  // add user log.
 	}
@@ -1288,7 +1288,7 @@ class EBUserManager {
 	public function unenroll_on_course_access_expire() {
 		global $wpdb, $post;
 		$cur_user    = get_current_user_id();
-		$enroll_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<%s;", gmdate( 'Y-m-d H:i:s' ) ) );
+		$enroll_data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE  expire_time!='0000-00-00 00:00:00' AND expire_time<%s;", gmdate( 'Y-m-d H:i:s' ) ) ); // @codingStandardsIgnoreLine
 
 		$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
 

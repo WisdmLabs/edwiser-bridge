@@ -109,11 +109,6 @@ class Eb_Shortcode_My_Courses {
 			edwiser_bridge_instance()->get_version()
 		);
 
-
-
-
-
-
 		echo '<div class="eb-my-courses-wrapper">';
 		if ( ! empty( $atts['my_courses_wrapper_title'] ) ) {
 			?><span class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></span>
@@ -134,8 +129,6 @@ class Eb_Shortcode_My_Courses {
 			</p>
 			<?php
 		} elseif ( count( $my_courses ) ) {
-			
-
 			// My Courses.
 			$args = array(
 				'post_type'           => 'eb_course',
@@ -217,7 +210,7 @@ class Eb_Shortcode_My_Courses {
 		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
 		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
-		$completed          = 0; 
+		$completed          = 0;
 		$course_mang        = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
 		$mdl_course_id      = $course_mang->get_moodle_course_id( $course_id );
 		$course_url         = \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id );
@@ -237,11 +230,8 @@ class Eb_Shortcode_My_Courses {
 					$progress_class     = 'eb-course-action-btn-resume';
 					$btn_text           = __( 'Resume', 'eb-textdomain' );
 					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'eb-textdomain' );
-					?>
-					
-					<?php
 				} else {
-					$completed          = 1; 
+					$completed          = 1;
 					$progress_class     = 'eb-course-action-btn-completed';
 					$btn_text           = __( 'View', 'eb-textdomain' );
 					$progress_meta_data = __( '100% Completed', 'eb-textdomain' );
@@ -250,17 +240,17 @@ class Eb_Shortcode_My_Courses {
 			}
 			?>
 			<div class='eb-course-progres-wrap'>
-				
+
 				<div class='eb-course-action-progress-cont'>
 					<?php
 					if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
-					?>
+						?>
 						<div class='eb-course-action-progress' style='width:<?php echo esc_attr( round( $progress ) ); ?>%' ></div>
 						<div class='eb-course-progress-status'> <?php echo esc_attr( $progress_meta_data ); ?> </div>
-					<?php
+						<?php
 					}
 					?>
-					<a href="<?php echo esc_attr( $course_url ) ?>" class="<?php echo esc_attr( $progress_class ); ?>">
+					<a href="<?php echo esc_attr( $course_url ); ?>" class="<?php echo esc_attr( $progress_class ); ?>">
 						<?php echo esc_attr( $btn_text ); ?>
 					</a>
 				</div>
@@ -268,7 +258,10 @@ class Eb_Shortcode_My_Courses {
 			</div>
 		</div>
 		<?php
-		return array( 'html' => ob_get_clean(), 'completed' => $completed );
+		return array(
+			'html'      => ob_get_clean(),
+			'completed' => $completed,
+		);
 	}
 
 	/**
@@ -356,7 +349,7 @@ class Eb_Shortcode_My_Courses {
 				'post_type'      => 'eb_course',
 				'post_status'    => 'publish',
 				'posts_per_page' => $count,
-				'tax_query'      => array(
+				'tax_query'      => array( // @codingStandardsIgnoreLine
 					array(
 						'taxonomy' => 'eb_course_cat',
 						'field'    => 'slug',
@@ -392,7 +385,7 @@ class Eb_Shortcode_My_Courses {
 					'post_type'      => 'eb_course',
 					'post_status'    => 'publish',
 					'posts_per_page' => 4,
-					'tax_query'      => array(
+					'tax_query'      => array( // @codingStandardsIgnoreLine
 						array(
 							'taxonomy' => 'eb_course_cat',
 							'field'    => 'slug',

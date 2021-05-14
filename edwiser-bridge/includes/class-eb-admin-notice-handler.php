@@ -275,6 +275,45 @@ class Eb_Admin_Notice_Handler {
 
 
 	/**
+	 * Functionality to show admin dashboard template compatibility notice.
+	 * We will remove it in the next version.
+	 *
+	 * @since 1.3.1
+	 */
+	public function eb_admin_template_notice() {
+		// Notice dismiss handler code here.
+		if ( true === filter_input( INPUT_GET, 'eb_templ_compatibility_dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			add_user_meta( $user_id, 'eb_templ_compatibility_dismissed', filter_input( INPUT_GET, 'eb_templ_compatibility_dismissed', FILTER_VALIDATE_BOOLEAN ), true );
+		} else {
+			$redirection    = add_query_arg( 'eb_templ_compatibility_dismissed', true );
+			$user_id        = get_current_user_id();
+			$templ_usermeta = get_user_meta( $user_id, 'eb_templ_compatibility_dismissed', true );
+			if ( empty( $templ_usermeta ) || ! $templ_usermeta ) {
+				$msg = esc_html__( 'If you have overridden the standard Edwiser Bridge templates previously then please make sure that your templates are made compatible with the NEW Edwiser Bridge template. It may cause CSS breaks if not done. ', 'eb-textdomain' );
+
+				echo '<div class="notice notice-warning eb_template_notice_wrap"">
+						<div class="eb_template_notice">
+							' . esc_html__( 'If you have overridden the standard', 'eb-textdomain' ) . '
+							<b> Edwiser Bridge </b>' . esc_html__( 'templates previously then please make sure that your templates are made compatible with the ', 'eb-textdomain' ) . ' <b>NEW Edwiser Bridge</b>
+							' . esc_html__( 'template. It may cause CSS breaks if not done.', 'eb-textdomain' ) . '
+							<div class="">
+								' .  esc_html__( 'Please refer to', 'eb-textdomain' ) . '<a href="https://edwiser.org/blog/how-to-make-edwiser-bridge-compatible-with-your-theme/" target="_blank"> <b>' . esc_html__( ' this ', 'eb-textdomain' ) . '</b> </a>' . esc_html__( ' article for theme compatibility', 'eb-textdomain' ) . '
+							</div>
+						</div>
+						<div class="eb_admin_templ_dismiss_notice_message">
+							<a href="' . esc_html( $redirection ) . '">
+								<span class="dashicons dashicons-dismiss"></span> 
+							</a>
+						</div>
+					</div>';
+			}
+		}
+
+	}
+
+
+	/**
 	 * Handle notice dismiss
 	 *
 	 * @since 1.3.1
@@ -285,6 +324,10 @@ class Eb_Admin_Notice_Handler {
 			add_user_meta( $user_id, 'eb_feedback_notice_dismissed', filter_input( INPUT_GET, 'eb-feedback-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
 		}
 	}
+
+
+
+
 
 
 	/**

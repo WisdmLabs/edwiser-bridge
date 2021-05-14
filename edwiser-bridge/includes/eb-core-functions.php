@@ -58,7 +58,7 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 
 		if ( strlen( $page_content ) > 0 ) {
 			// Search for an existing page with the specified page content (typically a shortcode).
-			$page_found_id = $wpdb->get_var(
+			$page_found_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 				$wpdb->prepare(
 					'SELECT ID FROM ' . $wpdb->posts . "
 					WHERE post_type='page' AND post_content LIKE %s LIMIT 1;",
@@ -67,7 +67,7 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 			);
 		} else {
 			// Search for an existing page with the specified page slug.
-			$page_found_id = $wpdb->get_var(
+			$page_found_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 				$wpdb->prepare(
 					'SELECT ID FROM ' . $wpdb->posts . "
 					WHERE post_type='page' AND post_name = %s LIMIT 1;",
@@ -261,8 +261,9 @@ if ( ! function_exists( 'wdm_eb_get_shortcode_page_content' ) ) {
 				'order'               => 'DESC',
 				'per_page'            => 12,
 				'cat_per_page'        => 3,
-				'group_by_cat'        => 'yes',
-				'horizontally_scroll' => 'yes',
+				'group_by_cat'        => 'no',
+				'horizontally_scroll' => 'no',
+				'show_filter'         => 'yes',
 			),
 		);
 
@@ -418,7 +419,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_user_id_from_moodle_id' ) ) {
 	 */
 	function wdm_eb_get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) );
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -432,7 +433,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_course_id_from_moodle_course_id' ) ) {
 	 */
 	function wdm_eb_get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) );
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -535,7 +536,7 @@ if ( ! function_exists( 'wdm_eb_get_user_suspended_status' ) ) {
 		}
 
 		// check if user has access to course.
-		$suspended = $wpdb->get_var(
+		$suspended = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT suspended
 				FROM {$wpdb->prefix}moodle_enrollment
@@ -908,8 +909,9 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 	/**
 	 * Function to send the reuest to the edwiser site.
 	 *
-	 * @param  array $course_id course id.
-	 * @return array array of the status and data.
+	 * @param  array $moodle_user_id moodle_user id.
+	 * @param  array $mdl_course_id course id.
+	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id ) {
 		if ( '' !== $moodle_user_id && function_exists( 'ebsso\generateMoodleUrl' ) ) {

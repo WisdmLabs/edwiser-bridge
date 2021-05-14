@@ -225,6 +225,36 @@
   overflow: hidden;
 }
 
+
+/* Admin Notice CSS */
+
+
+.eb_template_notice_wrap{
+  display: flex;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+.eb_template_notice{
+  width: 85%;
+  padding: 12px;
+}
+
+.eb_template_notice > div{
+  width: 100%;
+  padding-top: 10px;
+}
+
+.eb_admin_templ_dismiss_notice_message{
+  text-align: right;
+  width: 15%;
+}
+
+.eb_admin_templ_dismiss_notice_message > a{
+  color: red;
+}
+
+
 .eb_admin_feedback_notice_message {
   float: left;
   font-size: 15px;

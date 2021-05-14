@@ -608,6 +608,12 @@ class EdwiserBridge {
 			'eb_admin_notice_dismiss_handler'
 		);
 
+		$this->loader->eb_add_action(
+			'admin_init',
+			$admin_notice_handler,
+			'eb_admin_template_notice'
+		);
+
 		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
 			$hook,
@@ -1009,9 +1015,9 @@ class EdwiserBridge {
 		);
 
 		$this->loader->eb_add_filter(
-			'eb_course_page_filter_and_sorting',
+			'eb_show_course_page_filter_and_sorting',
 			$template_functions,
-			'eb_course_filters_and_sorting',
+			'eb_show_course_filters_and_sorting',
 			10,
 			2
 		);
@@ -1031,10 +1037,6 @@ class EdwiserBridge {
 			10,
 			2
 		);
-
-		
-
-
 	}
 
 	/**

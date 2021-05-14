@@ -163,16 +163,16 @@ class Eb_Activator {
 			),
 		);
 
-		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'expire_time';" ) ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);" );
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'expire_time';" ) ) { // @codingStandardsIgnoreLine
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`expire_time` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL);" ); // @codingStandardsIgnoreLine
 		}
 
-		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'act_cnt';" ) ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`act_cnt` int(5) DEFAULT 1 NOT NULL);" );
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'act_cnt';" ) ) { // @codingStandardsIgnoreLine
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`act_cnt` int(5) DEFAULT 1 NOT NULL);" ); // @codingStandardsIgnoreLine
 		}
 
-		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'suspended';" ) ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`suspended` int(5) DEFAULT 0 NOT NULL);" );
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM `{$wpdb->prefix}moodle_enrollment` LIKE 'suspended';" ) ) { // @codingStandardsIgnoreLine
+			$wpdb->query( "ALTER TABLE {$wpdb->prefix}moodle_enrollment ADD COLUMN (`suspended` int(5) DEFAULT 0 NOT NULL);" ); // @codingStandardsIgnoreLine
 		}
 	}
 
@@ -208,10 +208,10 @@ class Eb_Activator {
 
 		foreach ( $files as $file ) {
 			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
-				$file_handle = fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' );
+				$file_handle = fopen( trailingslashit( $file['base'] ) . $file['file'], 'w' ); // @codingStandardsIgnoreLine
 				if ( $file_handle ) {
-					fwrite( $file_handle, $file['content'] );
-					fclose( $file_handle );
+					fwrite( $file_handle, $file['content'] ); // @codingStandardsIgnoreLine
+					fclose( $file_handle ); // @codingStandardsIgnoreLine
 				}
 			}
 		}

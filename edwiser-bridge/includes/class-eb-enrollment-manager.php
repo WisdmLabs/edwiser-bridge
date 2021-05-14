@@ -168,9 +168,9 @@ class Eb_Enrollment_Manager {
 			$moodle_courses[ key( $course ) ] = reset( $course );
 		}
 
-		edwiser_bridge_instance()->logger()->add( 'user', 'Course IDs: ' . serialize( $args['courses'] ) );
+		edwiser_bridge_instance()->logger()->add( 'user', 'Course IDs: ' . serialize( $args['courses'] ) ); // @codingStandardsIgnoreLine
 		// add user log.
-		edwiser_bridge_instance()->logger()->add( 'user', 'Respective moodle course IDs: ' . serialize( $moodle_courses ) );
+		edwiser_bridge_instance()->logger()->add( 'user', 'Respective moodle course IDs: ' . serialize( $moodle_courses ) ); // @codingStandardsIgnoreLine
 		// add user log.
 		edwiser_bridge_instance()->logger()->add( 'user', "\n" );
 
@@ -281,7 +281,7 @@ class Eb_Enrollment_Manager {
 
 		if ( isset( $args['complete_unenroll'] ) && ! $args['complete_unenroll'] ) {
 
-			$result = $wpdb->get_var( $wpdb->prepare( "SELECT act_cnt FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $wp_course_id, $args['user_id'] ) );
+			$result = $wpdb->get_var( $wpdb->prepare( "SELECT act_cnt FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $wp_course_id, $args['user_id'] ) ); // @codingStandardsIgnoreLine
 
 			if ( $result > 1 ) {
 				return 0;
@@ -362,7 +362,7 @@ class Eb_Enrollment_Manager {
 					// New code for time.
 					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
 
-					$wpdb->insert(
+					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
 						array(
 							'user_id'     => $args['user_id'],
@@ -448,7 +448,7 @@ class Eb_Enrollment_Manager {
 	 */
 	public function update_user_course_access_count( $user_id, $course_id, $count ) {
 		global $wpdb;
-		$wpdb->update(
+		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			array(
 				'act_cnt'   => $count,   // increase OR decrease count value.
@@ -479,7 +479,7 @@ class Eb_Enrollment_Manager {
 	 */
 	public function update_user_course_suspend_status( $user_id, $course_id ) {
 		global $wpdb;
-		$wpdb->update(
+		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			array(
 				'suspended' => 1,   // increase OR decrease count value.
@@ -528,7 +528,7 @@ class Eb_Enrollment_Manager {
 		global $wpdb;
 
 		// removing user enrolled courses from plugin db.
-		$deleted = $wpdb->delete(
+		$deleted = $wpdb->delete( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			array(
 				'user_id'   => $user_id,
@@ -609,7 +609,7 @@ class Eb_Enrollment_Manager {
 			return $has_access;
 		}
 
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ); // @codingStandardsIgnoreLine
 
 		if ( trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
@@ -637,7 +637,7 @@ class Eb_Enrollment_Manager {
 			return $act_cnt;
 		}
 
-		$act_cnt = $wpdb->get_var( $wpdb->prepare( "SELECT act_cnt FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
+		$act_cnt = $wpdb->get_var( $wpdb->prepare( "SELECT act_cnt FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ); // @codingStandardsIgnoreLine
 		return $act_cnt;
 	}
 
@@ -652,7 +652,7 @@ class Eb_Enrollment_Manager {
 	public static function access_remianing( $user_id, $course_id ) {
 		global $wpdb;
 		$curr_date   = new \DateTime( ( gmdate( 'Y-m-d H:i:s' ) ) );
-		$expire_date = new \DateTime( ( $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ) ) );
+		$expire_date = new \DateTime( ( $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ) ) ); // @codingStandardsIgnoreLine
 
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}

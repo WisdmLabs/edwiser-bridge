@@ -321,7 +321,7 @@ class Eb_Order_Meta {
 					<div class='eb_order_meta_s2'>
 						<select id="eb_order_course" name="eb_order_options[eb_order_course]" required>
 						<?php
-						echo $this->get_all_courses( $course_id );
+						echo $this->get_all_courses( $course_id ); // @codingStandardsIgnoreLine
 						?>
 						</select>
 
@@ -357,7 +357,7 @@ class Eb_Order_Meta {
 				$selected = 'selected';
 			}
 			?>
-						
+
 			<option value="<?php echo esc_attr( $user->ID ) . ' ' . esc_attr( $selected ); ?>" >
 				<?php echo esc_attr( $user->user_login ); ?>
 			</option>

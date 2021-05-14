@@ -195,7 +195,7 @@ class Eb_Course_Manager {
 		} else {
 			edwiser_bridge_instance()->logger()->add(
 				'course',
-				'Connection problem in synchronization, Response:' . print_r( $connected, true )
+				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
 			); // add connection log.
 		}
 
@@ -243,12 +243,13 @@ class Eb_Course_Manager {
 				$request_data
 			);
 
-			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // add course log.
+			// add course log.
+			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		} elseif ( empty( $moodle_user_id ) ) {
 			$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
 			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
-
-			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // add course log.
+			// add course log.
+			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		}
 
 		return $response;
@@ -286,7 +287,7 @@ class Eb_Course_Manager {
 		}
 
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
-		edwiser_bridge_instance()->logger()->add( 'course', serialize( $response ) );
+		edwiser_bridge_instance()->logger()->add( 'course', serialize( $response ) ); // @codingStandardsIgnoreLine
 
 		return $response;
 	}
@@ -318,7 +319,7 @@ class Eb_Course_Manager {
 		global $wpdb;
 
 		// get id of course on WordPress based on id on moodle $course_id =.
-		$course_id = $wpdb->get_var(
+		$course_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT post_id
 				FROM {$wpdb->prefix}postmeta
@@ -402,7 +403,7 @@ class Eb_Course_Manager {
 
 		$wp_course_id = wp_insert_post( $course_args ); // create a course on WordPress.
 
-		$term_id = $wpdb->get_var(
+		$term_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT term_id
 				FROM {$wpdb->prefix}termmeta
@@ -472,7 +473,7 @@ class Eb_Course_Manager {
 		// updater course on WordPress.
 		wp_update_post( $course_args );
 
-		$term_id = $wpdb->get_var(
+		$term_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT term_id
 				FROM {$wpdb->prefix}termmeta
@@ -511,7 +512,7 @@ class Eb_Course_Manager {
 
 		if ( 'eb_course' === get_post_type( $course_id ) ) {
 			// removing course from enrollment table.
-			$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'course_id' => $course_id ), array( '%d' ) );
+			$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'course_id' => $course_id ), array( '%d' ) ); // @codingStandardsIgnoreLine
 		}
 	}
 
@@ -550,7 +551,7 @@ class Eb_Course_Manager {
 			if ( $parent > 0 ) {
 				// get parent term if exists.
 
-				$parent_term = $wpdb->get_var(
+				$parent_term = $wpdb->get_var( // @codingStandardsIgnoreLine
 					$wpdb->prepare(
 						"SELECT term_id
 						FROM {$wpdb->prefix}termmeta

@@ -55,7 +55,9 @@ get_header();
 
 	<?php if ( apply_filters( 'eb_show_page_title', true ) ) : ?>
 		<h1 class="page-title"><?php esc_html_e( 'Courses', 'eb-textdomain' ); ?></h1>
-	<?php endif; 
+		<?php
+
+	endif;
 
 	do_action( 'eb_archive_before_course_cards', $attr );
 

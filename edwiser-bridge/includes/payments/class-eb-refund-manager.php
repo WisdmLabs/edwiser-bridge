@@ -72,7 +72,7 @@ class Eb_Paypal_Refund_Manager {
 				'httpversion' => '1.1',
 				'headers'     => array( 'content-type' => 'application/json' ),
 			);
-			edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Sending Refund request to PayPal. Request data is : " . serialize( $req_args ) );
+			edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Sending Refund request to PayPal. Request data is : " . serialize( $req_args ) ); // @codingStandardsIgnoreLine
 			$response = wp_safe_remote_post( $pay_pal_url, $req_args );
 			try {
 				if ( is_wp_error( $response ) ) {
@@ -83,9 +83,9 @@ class Eb_Paypal_Refund_Manager {
 					$status['msg'] = esc_html__( 'No Response from PayPal', 'eb-textdomain' );
 				}
 				parse_str( $response['body'], $response );
-				edwiser_bridge_instance()->logger()->add( 'refund', 'PayPal refund responce: ' . serialize( $response ) );
+				edwiser_bridge_instance()->logger()->add( 'refund', 'PayPal refund responce: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 			} catch ( Exception $ex ) {
-				edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Exception: " . serialize( $ex ) );
+				edwiser_bridge_instance()->logger()->add( 'refund', "Order: $order_id ,Exception: " . serialize( $ex ) ); // @codingStandardsIgnoreLine
 			}
 			$resp_status = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'ACK', false );
 			if ( 'Success' === $resp_status ) {
@@ -194,7 +194,7 @@ class Eb_Paypal_Refund_Manager {
 				'eb_api_password'        => '',
 				'eb_api_signature'       => '',
 			);
-			$option          = unserialize( get_option( 'eb_paypal' ), $default_options );
+			$option          = unserialize( get_option( 'eb_paypal' ), $default_options ); // @codingStandardsIgnoreLine
 			return $option['eb_paypal_currency'];
 		}
 		return $currency_code;

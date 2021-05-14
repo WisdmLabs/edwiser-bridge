@@ -69,7 +69,7 @@ class Eb_Shortcode_User_Account {
 	private static function display_user_account_page( $template_loader, $atts ) {
 		$tmpl_data        = self::user_account( $atts );
 		$eb_shortcode_obj = self::getInstance();
-		extract( $tmpl_data );
+		extract( $tmpl_data ); // @codingStandardsIgnoreLine
 		include $template_loader->eb_get_page_template( 'account/user-account.php' );
 	}
 
@@ -169,7 +169,7 @@ class Eb_Shortcode_User_Account {
 		// get all completed orders of a user.
 		$args           = array(
 			'posts_per_page' => -1,
-			'meta_key'       => '',
+			'meta_key'       => '', // @codingStandardsIgnoreLine
 			'post_type'      => 'eb_order',
 			'post_status'    => 'publish',
 			'fields'         => 'ids',

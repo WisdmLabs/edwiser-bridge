@@ -171,7 +171,7 @@ class EbTemplateLoader {
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		// Declare variables here.
 		if ( $args && is_array( $args ) ) {
-			extract( $args );
+			extract( $args ); // @codingStandardsIgnoreLine
 		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );

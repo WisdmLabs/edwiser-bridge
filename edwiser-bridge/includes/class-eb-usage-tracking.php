@@ -25,14 +25,11 @@ class EB_Usage_Tracking {
 	 * Functionalitity to call the usage tracking call back on every month
 	 */
 	public function usage_tracking_cron() {
-
 		if ( ! wp_next_scheduled( 'eb_monthly_usage_tracking' ) ) {
 			wp_schedule_event( time(), 'monthly', 'eb_monthly_usage_tracking' );
 
 		}
 	}
-
-
 
 	/**
 	 * Send usage analytics to Edwiser, only anonymous data is sent.
@@ -108,7 +105,7 @@ class EB_Usage_Tracking {
 	private function eb_get_course_count() {
 		global $wpdb;
 
-		$count = $wpdb->get_var(
+		$count = $wpdb->get_var( // @codingStandardsIgnoreLine
 			"SELECT count(*) count
 			FROM {$wpdb->prefix}posts
 			WHERE post_type = 'eb_course'"
@@ -123,7 +120,7 @@ class EB_Usage_Tracking {
 	private function eb_get_cat_count() {
 		global $wpdb;
 
-		$count = $wpdb->get_var(
+		$count = $wpdb->get_var( // @codingStandardsIgnoreLine
 			"SELECT count(*) count
 			FROM {$wpdb->prefix}term_taxonomy
 			WHERE taxonomy = 'eb_course_cat'"
@@ -138,7 +135,7 @@ class EB_Usage_Tracking {
 	private function eb_get_user_count() {
 		global $wpdb;
 
-		$count = $wpdb->get_var(
+		$count = $wpdb->get_var( // @codingStandardsIgnoreLine
 			"SELECT count(*) count
 			FROM {$wpdb->prefix}users"
 		);
