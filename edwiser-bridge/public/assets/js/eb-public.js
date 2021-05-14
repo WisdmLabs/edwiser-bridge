@@ -262,48 +262,12 @@
 		/*Submit filters form on the selction of filter*/
 		$('#eb_category_filter').on('change',function(event){
 			var form = $(this).closest('form');
-			$(form).attr('action', 'http://localhost/wp55/eb-courses-2');
 			$(form).trigger( 'submit' );
 		});
 
 		$('#eb_category_sort').on('change',function(event){
 			$(this).closest('form').trigger( 'submit' );
 		});
-
-
-
-		/*function getUrlParameter(sParam)
-		{
-			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-					sURLVariables = sPageURL.split('&'),
-					sParameterName,
-					i;
-
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];
-				}
-			}
-		};*/
-		/*if (getUrlParameter("auto_enroll") === "true") {
-			$.blockUI({
-				message: eb_public_js_object.msg_processing
-			});
-			var btn = document.getElementById('eb_course_payment_button');
-			if (btn == null) {
-				btn = document.getElementById('wdm-btn');
-				if (btn.text != eb_public_js_object.access_course) {
-					btn.click();
-				} else {
-					$.unblockUI();
-				}
-			} else {
-				btn.click();
-				placeOrder();
-			}
-		}*/
 
 		/**
 		 * Scroll left

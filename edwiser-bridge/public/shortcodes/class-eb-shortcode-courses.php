@@ -122,7 +122,7 @@ class Eb_Shortcode_Courses {
 		/**
 		 * Check is horizintal scroll spesified in shortcoe and set value
 		 */
-		if ( isset( $atts['horizontally_scroll'] ) && 'yes' === $atts['horizontally_scroll'] && 'eb_archive_filter_all' !== $filter ) {
+		if ( isset( $atts['horizontally_scroll'] ) && 'yes' === $atts['horizontally_scroll'] ) {
 			$scroll_horizontal      = true;
 			$args['posts_per_page'] = -1;
 		}
@@ -191,13 +191,8 @@ class Eb_Shortcode_Courses {
 				$args['posts_per_page'] = $atts['per_page'];
 				$args['paged']          = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 			}
-			?>
-			<div class='eb-cat-parent'>
-				<?php
-				$curr_class->genCoursesGridView( $args, $scroll_horizontal );
-				?>
-			</div>
-			<?php
+
+			$curr_class->genCoursesGridView( $args, $scroll_horizontal );
 		}
 	}
 
@@ -268,7 +263,7 @@ class Eb_Shortcode_Courses {
 					if ( 1 !== $current_page ) {
 
 						?>
-						<a class="prev page-numbers eb_primary_btn button ast-button" href="
+						<a class="prev page-numbers eb_primary_btn button" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
@@ -324,7 +319,7 @@ class Eb_Shortcode_Courses {
 					if ( $current_page < $page - 1 ) {
 
 						?>
-						<a class="next page-numbers eb_primary_btn button ast-button" href="
+						<a class="next page-numbers eb_primary_btn button" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
@@ -362,6 +357,10 @@ class Eb_Shortcode_Courses {
 		$scroll_class = 'sc-eb_courses-wrapper eb_course_cards_wrap';
 		if ( $group_by_cat ) {
 			$scroll_class = 'eb-cat-courses-cont sc-eb_courses-wrapper';
+		} else {
+			?>
+			<div class='eb-cat-parent'>
+			<?php
 		}
 		$custom_query = new \WP_Query( $args );
 
@@ -389,6 +388,14 @@ class Eb_Shortcode_Courses {
 				$template_loader->wp_get_template_part( 'content', 'none' );
 			}
 			wp_reset_postdata();
+
+			if ( ! $group_by_cat ) {
+				// CLosing category parent div.
+				?>
+				</div>
+				<?php
+			}
+
 			?>
 			<div style="clear:both"></div>
 			<?php

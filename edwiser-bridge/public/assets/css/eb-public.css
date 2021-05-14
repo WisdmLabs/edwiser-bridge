@@ -36,12 +36,15 @@
   color: #f98012;
 }
 
-
+.eb_primary_btn a{
+  color: white;
+}
 
 .navigation.pagination div .prev.page-numbers,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn,
 .navigation.pagination div .next.page-numbers,
-.navigation.pagination div .next.page-numbers.eb_primary_btn {
+.navigation.pagination div .next.page-numbers.eb_primary_btn,
+.next.page-numbers {
   border-radius: 2px;
   padding: 10px 20px;
   font-style: normal;
@@ -71,7 +74,6 @@
  ---------------------------------*/
 
 .eb_single_course_title {
-  /*font-family: Roboto;*/
   font-size: 30px;
   font-style: normal;
   font-weight: 400;
@@ -89,7 +91,6 @@
 .eb-course-card-title.eb-course-title,
 .eb-course-card-title {
   padding: 4px 0px;
-  /*font-family: Roboto;*/
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -259,13 +260,9 @@
 }
 
 .eb-course-action-btn-start {
-  background: #00a1a8;
-  color: #ffffff;
 }
 
 .eb-course-action-btn-start:hover{
-    background-color: #049399;
-    color: #ffffff;
 }
 
 .eb-course-action-btn-resume {
@@ -557,7 +554,6 @@
   /*top: 10;
     color: #5cb85c;
     text-align: center;*/
-  /*font-family: Roboto; */
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
@@ -574,7 +570,6 @@
 
 .eb_single_course_price_wrapper .wdm-price {
   text-align: center;
-  /*font-family: Roboto;*/
   font-style: normal;
   font-weight: bold;
   font-size: 26px;
@@ -625,7 +620,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     margin-bottom: 0px;*/
-  /*font-family: Roboto;*/
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -978,8 +972,7 @@ div#user_login label {
 
 
 /* eb-pagination styling start */
-
-.navigation.pagination div .page-numbers {
+.navigation.pagination div .page-numbers, .page-numbers {
   padding: 7px 7px;
   margin: 0;
   display: inline;
@@ -1002,13 +995,12 @@ div#user_login label {
 
 /*.navigation.pagination div .page-numbers:first-child,*/
 
-.navigation.pagination div .page-numbers.current {
+.navigation.pagination div .page-numbers.current, .page-numbers.current {
   /*border-left: 1px solid #eee;*/
   background: #e5e5e5;
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
   border-radius: 3px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -1026,22 +1018,21 @@ nav.eb-pagination ul {
   white-space: nowrap;
   padding: 0;
   clear: both;
-  /*border-left: 1px solid #eee;*/
   margin: 1px;
 }
 
 nav.eb-pagination ul li {
-  border-right: 1px solid #eee;
+  /*border-right: 1px solid #eee;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   padding: 0;
-  margin: 0;
+  margin: 0;*/
   float: left;
   display: inline;
   overflow: hidden;
 }
 
-nav.eb-pagination ul li a,
+/*nav.eb-pagination ul li a,
 nav.eb-pagination ul li span,
 nav.eb-pagination ul li a,
 nav.eb-pagination ul li span {
@@ -1064,7 +1055,7 @@ nav.eb-pagination ul li a:hover,
 nav.eb-pagination ul li span.current {
   background: #eee;
   color: #888;
-}
+}*/
 
 
 /* eb-pagination styling end */
@@ -1100,7 +1091,6 @@ nav.eb-pagination ul li span.current {
 
 .eb-course-desc-wrapper {
   clear: both;
-  /*font-family: Roboto;*/
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
@@ -1110,7 +1100,6 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-course-desc-wrapper .eb_h4 {
-  /*font-family: Roboto;*/
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
@@ -1120,9 +1109,7 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-validity-wrapper {
-  /*border-bottom: 1px solid #dddddd;*/
   padding: 10px 0px;
-  /*font-family: Roboto;*/
   font-style: normal;
   font-size: 14px;
   /*line-height: 20px;*/
@@ -1148,8 +1135,6 @@ nav.eb-pagination ul li span.current {
   padding: 0px 0px 10px 0px;
   /*position: absolute;
 	bottom: 0;*/
-
-  /*font-family: Roboto;*/
   font-style: normal;
   /*font-weight: bold;*/
   font-size: 12px;
@@ -1159,10 +1144,12 @@ nav.eb-pagination ul li span.current {
 }
 
 .wdm-course-grid .eb-cat-wrapper {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-style: normal;
   font-weight: normal;
   font-size: 11px;
-  /* line-height: 14px; */
   text-transform: uppercase;
   color: #999999;
   padding: 0px 0px 4px 0px;

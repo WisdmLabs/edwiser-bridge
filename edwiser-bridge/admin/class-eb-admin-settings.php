@@ -632,41 +632,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						</tr>
 						<?php
 						break;
-
-					// Single sidebar select.
-					case 'courses_per_row':
-						$selected_val = self::get_option( $value['id'], $current_tab );
-						$selected_val = trim( $selected_val );
-						$selected_val = empty( $selected_val ) ? '4' : $selected_val;
-						$args         = array(
-							'name'             => $value['id'],
-							'id'               => $value['id'],
-							'sort_column'      => 'menu_order',
-							'sort_order'       => 'ASC',
-							'show_option_none' => ' ',
-							'class'            => $value['class'],
-							'echo'             => false,
-							'selected'         => $selected_val,
-						);
-
-						if ( isset( $value['args'] ) ) {
-							$args = wp_parse_args( $value['args'], $args );
-						}
-						?>
-						<tr valign="top" class="single_select_page">
-							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
-								<?php echo wp_kses_post( $tooltip_html ); ?>
-							</th>
-							<td class="forminp">
-								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
-									<option <?php selected( $args['selected'], '2' ); ?>><?php esc_html_e( '2', 'eb-textdomain' ); ?></option>
-									<option <?php selected( $args['selected'], '3' ); ?>><?php esc_html_e( '3', 'eb-textdomain' ); ?></option>
-									<option <?php selected( $args['selected'], '4' ); ?>><?php esc_html_e( '4', 'eb-textdomain' ); ?></option>
-								</select>
-							</td>
-						</tr>
-						<?php
-						break;
 					case 'horizontal_line':
 						?>
 						<tr valign="top" class="single_select_page">

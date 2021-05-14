@@ -156,16 +156,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'desc_tip' => true,
 					),
 					array(
-						'title'    => __( 'Max number of courses in a row on the courses page', 'eb-textdomain' ),
-						'desc'     => '',
-						'id'       => 'courses_per_row',
-						'type'     => 'courses_per_row',
-						'default'  => '',
-						'css'      => '',
-						'desc_tip' =>
-						__( 'This setting will be applicable only on the `/courses` page template', 'eb-textdomain' ),
-					),
-					array(
 						'title'    => __( 'Erase associated Moodle data from Moodle site', 'eb-textdomain' ),
 						'desc'     => __( 'Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'eb-textdomain' ),
 						'id'       => 'eb_erase_moodle_data',

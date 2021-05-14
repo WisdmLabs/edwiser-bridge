@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label class="eb_archive_filter_lbl"> <?php echo esc_html_e( 'Filter Courses by Category:', 'eb_textdomain' ); ?> </label>
 		<select name="eb_category_filter" id="eb_category_filter" class="" >
 			<option value="eb_archive_filter_all" <?php selected( $filter, 'eb_archive_filter_all' ); ?>><?php echo esc_html_e( 'All', 'eb_textdomain' ); ?></option>
-			<option value="eb_archive_filter_categorywise" <?php selected( $filter, 'eb_archive_filter_categorywise' ); ?>><?php echo esc_html_e( 'Categorywise', 'eb_textdomain' ); ?></option>
 
 			<?php foreach ( $categories as $eb_cat_id => $eb_cat_name ) : ?>
 				<option value="<?php echo esc_attr( $eb_cat_id ); ?>" <?php selected( $filter, $eb_cat_id ); ?>><?php echo esc_html( $eb_cat_name ); ?></option>

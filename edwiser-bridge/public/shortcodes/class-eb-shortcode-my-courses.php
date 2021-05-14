@@ -223,7 +223,7 @@ class Eb_Shortcode_My_Courses {
 				$btn_text       = __( 'Suspended', 'eb-textdomain' );
 			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
 				if ( 0 === $progress ) {
-					$progress_class     = 'eb-course-action-btn-start';
+					$progress_class     = 'eb-course-action-btn-start button';
 					$btn_text           = __( 'Start', 'eb-textdomain' );
 					$progress_meta_data = __( 'Not yet started', 'eb-textdomain' );
 				} elseif ( $progress > 0 && $progress < 100 ) {

@@ -302,14 +302,11 @@ class Eb_Template_Functions {
 	 */
 	public function eb_get_course_filter_data( $cat, $filter ) {
 		/*
-		 * There are 3 types of filters
-		 * 1. category wise
-		 * 2. Per category and
-		 * 3. all courses in this condition we won't modify any of the category filter data.
+		 * There are 2 types of filters
+		 * 1. Per category and
+		 * 2. all courses in this condition we won't modify any of the category filter data.
 		 */
-		if ( 'eb_archive_filter_categorywise' === $filter ) {
-			$cat = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
-		} elseif ( ! empty( $filter ) ) {
+		if ( ! empty( $filter ) ) {
 			$cat   = array();
 			$cat[] = get_term( $filter, 'eb_course_cat' );
 		}
