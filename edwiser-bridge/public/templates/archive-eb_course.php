@@ -17,20 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $wrapper_args = array();
-
-$eb_template = get_option( 'eb_general' );
-$attr        = isset( $attr ) ? $attr : array();
-
-$templet_fun = new \app\wisdmlabs\edwiserBridge\Eb_Template_Functions();
-$templet_fun->eb_course_posts();
-
-
-
-// $count = isset( $eb_template['courses_per_row'] ) && is_numeric( $eb_template['courses_per_row'] ) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
-
-// CSS to handle course grid.
-/*echo '<style type="text/css"> .eb-course-col{width:' . ( 100 / esc_html( $count ) ) . '%;}'
-. '.eb-course-col:nth-of-type(' . esc_html( $count ) . 'n+1){clear:left;}</style>';*/
+$eb_template  = get_option( 'eb_general' );
+$attr         = isset( $attr ) ? $attr : array();
 
 $template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
@@ -103,13 +91,7 @@ get_header();
 	 */
 	do_action( 'eb_archive_after_content', $wrapper_args );
 
-	/*// Use this Hook to add sidebar container.
-	do_action( 'eb_archive_before_sidebar', $wrapper_args );
-
-	get_sidebar();
-
-	// Use this Hook to close sidebar containers.
-	do_action( 'eb_archive_after_sidebar', $wrapper_args );*/
+	// Here get_sidebar() method can be called for sidebar content.
 
 	/*
 	 * -------------------------------------

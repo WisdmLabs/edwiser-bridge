@@ -109,6 +109,11 @@ class Eb_Shortcode_My_Courses {
 			edwiser_bridge_instance()->get_version()
 		);
 
+
+
+
+
+
 		echo '<div class="eb-my-courses-wrapper">';
 		if ( ! empty( $atts['my_courses_wrapper_title'] ) ) {
 			?><span class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></span>
@@ -129,6 +134,7 @@ class Eb_Shortcode_My_Courses {
 			</p>
 			<?php
 		} elseif ( count( $my_courses ) ) {
+			
 
 			// My Courses.
 			$args = array(
@@ -153,7 +159,7 @@ class Eb_Shortcode_My_Courses {
 					$courses->the_post();
 
 					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
-						$course_prog_data         = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts );
+						$course_prog_data         = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts, $mdl_uid );
 						$atts['progress_btn_div'] = $course_prog_data['html'];
 						$atts['completed']        = $course_prog_data['completed'];
 					} else {
@@ -203,13 +209,18 @@ class Eb_Shortcode_My_Courses {
 	 * @param int   $course_id The course id to calculate the progress.
 	 * @param array $progress_data The progress data.
 	 * @param int   $user_id currentuser id.
+	 * @param array $attr attr attr.
+	 * @param int   $moodle_user_id moodle_user_id.
 	 */
-	private function get_course_progress( $course_id, $progress_data, $user_id, $attr ) {
+	private function get_course_progress( $course_id, $progress_data, $user_id, $attr, $moodle_user_id ) {
 		$course_ids         = array_keys( $progress_data );
 		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
 		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
 		$completed          = 0; 
+		$course_mang        = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
+		$mdl_course_id      = $course_mang->get_moodle_course_id( $course_id );
+		$course_url         = \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id );
 		ob_start();
 		?>
 		<div class='eb-course-action-cont'>
@@ -249,9 +260,9 @@ class Eb_Shortcode_My_Courses {
 					<?php
 					}
 					?>
-					<div class="<?php echo esc_attr( $progress_class ); ?>">
+					<a href="<?php echo esc_attr( $course_url ) ?>" class="<?php echo esc_attr( $progress_class ); ?>">
 						<?php echo esc_attr( $btn_text ); ?>
-					</div>
+					</a>
 				</div>
 
 			</div>

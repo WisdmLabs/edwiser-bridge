@@ -904,3 +904,25 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 }
 
 
+if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
+	/**
+	 * Function to send the reuest to the edwiser site.
+	 *
+	 * @param  array $course_id course id.
+	 * @return array array of the status and data.
+	 */
+	function wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id ) {
+		if ( '' !== $moodle_user_id && function_exists( 'ebsso\generateMoodleUrl' ) ) {
+			$query      = array(
+				'moodle_user_id'   => $moodle_user_id, // moodle user id.
+				'moodle_course_id' => $mdl_course_id,
+			);
+			$course_url = \ebsso\generateMoodleUrl( $query );
+		} else {
+			$eb_access_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
+			$course_url    = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
+		}
+
+		return $course_url;
+	}
+}

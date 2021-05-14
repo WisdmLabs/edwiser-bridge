@@ -3,6 +3,7 @@
  * included in this file.
  */
 
+
 /*-----------------------
  * All buttons related styles
  ------------------------*/
@@ -71,6 +72,11 @@
   color: #f98012;
 }
 
+.eb_primary_btn, .wdm-btn.eb_primary_btn{
+    background: #F98012;
+    color: #FFFFFF;
+}
+
 .eb_primary_btn,
 .navigation.pagination div .prev.page-numbers,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn,
@@ -117,6 +123,7 @@
   color: #00a1a8;
 }
 
+
 /*.eb-course-card-title-wrap {
   padding: 4px 0px;
 }*/
@@ -150,6 +157,7 @@
   text-transform: uppercase;
 }
 
+
 /*  REMOVE  */
 
 .eb-grid-container {
@@ -178,6 +186,9 @@
   top: 0px;
   /*transition: transform .2s ease-in-out;*/
 }
+
+
+
 /*Archive page filter and sorting*/
 
 .eb_filter_and_sorting{
@@ -221,9 +232,11 @@
   padding: 0px 20px;
 }
 
+
 /*.wdm-course-grid-wrap:hover .eb-course-action-cont{
 	transform: translate3d(0px, 0px, 0px);
 }*/
+
 
 /*sticky button styling*/
 
@@ -249,7 +262,6 @@
 .eb-course-action-btn-start,
 .eb-course-action-btn-resume
 /*.eb-course-action-cont,*/
-
 ,
 .eb-course-action-btn-completed {
   /*position: absolute;
@@ -275,48 +287,48 @@
   color: #1ab900;
 }
 
+.eb-course-action-btn-completed:hover{
+  color: #1ab900;
+}
+
 .eb-course-action-btn-suspended {
-  /*margin-top: 4px;
-    border: 1px solid #dfa700;
-    padding: 8px;
-    color: white;
-    font-weight: 800;
-    background-color: #dfa700*/
   background-color: #efbf0d;
   color: #ffffff;
 }
 
+.eb-course-action-btn-suspended:hover {
+  color: #ffffff;
+}
+
 .eb-course-action-btn-start {
-  /*New css*/
-  /*position: absolute;
-    width: 100%;
-    bottom: 0px;*/
-  /*margin-top: 4px;
-    border: 1px solid #1767ba;
-    padding: 8px;
-    color: white;
-    font-weight: 800;
-    background-color: #0068ba;*/
-  /*New style*/
   background: #00a1a8;
   color: #ffffff;
 }
 
+.eb-course-action-btn-start:hover{
+    background-color: #049399;
+    color: #ffffff;
+}
+
 .eb-course-action-btn-resume {
-  /*border: 1px solid #a57afa;
-    padding: 8px;
-    color: white;
-    font-weight: 800;
-    background-color: #a57afa;*/
-  /*New style*/
   background: #f98012;
   color: #ffffff;
+}
+
+.eb-course-action-btn-resume:hover{
+    background: #f98012;
+    color: #ffffff;
 }
 
 .eb-course-action-progress-cont {
   line-height: 4px;
   height: 4px;
   background: #e5e5e5;
+}
+
+.eb-course-action-progress-cont:hover{
+    background: #e5e5e5;
+    color: #ffffff;
 }
 
 .eb-course-progres-wrap {
@@ -340,7 +352,9 @@
   background-color: #1ab900;
 }
 
+
 /**********/
+
 
 /***  Theme compatibility *****/
 
@@ -351,6 +365,7 @@
 #primary.twentyseventeen {
   width: 100%;
 }
+
 
 /********/
 
@@ -375,6 +390,7 @@
 .eb-user-data div {
   padding-top: 3%;
 }
+
 
 /*
  * user account terms and conditions style
@@ -432,6 +448,7 @@
   border: 1px solid #0000003d;
 }
 
+
 /*
  * End
  */
@@ -440,13 +457,14 @@
   display: none;
 }
 
+
 /**
  * course archive template style
  */
 
 .eb-my-courses-wrapper .eb-my-course .hentry.wdm-col-3-2-1 {
   /*float: left;*/
-  margin: 1em 0em;
+  margin: 0 0 1em 0em;
   padding: 0 0.5em;
   display: flex;
 }
@@ -456,6 +474,7 @@
   margin: 1em 0em;
   padding: 0 0.5em;
 }
+
 
 /*.hentry.wdm-col-3-2-1:nth-of-type(4n + 1) {
 }*/
@@ -471,6 +490,7 @@
 .eb-rec-courses-wrapper .eb-course-col {
   /*width: 25%;*/
 }
+
 
 /*.sc-eb_courses-wrapper .eb-course-col:nth-of-type(4n + 1),
 .eb-my-courses-wrapper .eb-course-col:nth-of-type(4n + 1),
@@ -501,12 +521,17 @@
   border-top-left-radius: 3px;
 }
 
+.eb_my_course_article .wdm-course-grid{
+    cursor: default;
+}
+
 .wdm-course-image {
   height: 130px;
   overflow: hidden;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
+
 
 /*.wdm-course-image:hover{
 	background-color: black;
@@ -670,11 +695,13 @@ p.read-more {
   padding: 0.5em;
 }
 
+
 /* for single course take course button css*/
 
 div.eb_join_button {
   /*margin:10px 0 0 0;*/
 }
+
 
 /* for course archive take course button */
 
@@ -687,12 +714,14 @@ nav.navigation {
   clear: both;
 }
 
+
 /** single course template customization */
 
 article.single-course {
   /*padding:15px;*/
   padding: 60px 15px 15px 15px;
 }
+
 
 /* for course not available */
 
@@ -706,6 +735,7 @@ div.course-not-available {
     font-size: 1.1rem;
   }
 }
+
 
 /* user login and registration page styling */
 
@@ -758,6 +788,7 @@ div.course-not-available {
   background: white;
   border-bottom: 0;
 }
+
 .eb-profile-txt-field select {
   /* background: transparent; */
   line-height: 1.5;
@@ -765,9 +796,11 @@ div.course-not-available {
   /* padding: 0.5em; */
   width: 100%;
 }
+
 .eb-profile-txt-area-field input[type="text"] {
   height: 10em;
 }
+
 .eb-profile-txt-area-field,
 .eb-profile-password-field,
 .eb-profile-txt-field {
@@ -775,12 +808,14 @@ div.course-not-available {
   /* display: grid; */
   padding: 0 10px;
 }
+
 .eb-profile-txt-area-field label,
 .eb-profile-password-field label,
 .eb-profile-txt-field label {
   /* letter-spacing: 0.1em; */
   margin-bottom: 10px;
 }
+
 .eb-profile-txt-field input[type="email"],
 .eb-profile-txt-field input[type="text"],
 .eb-profile-txt-field input[type="password"] {
@@ -788,15 +823,18 @@ div.course-not-available {
   padding: 0.75em;
   height: auto;
 }
+
 .eb-user-account-navigation div {
   margin: 0px 3px;
 }
+
 .eb-user-account-navigation-link {
   list-style: none;
   list-style-type: none;
   /* padding: 5px 2px; */
   /* border-bottom: 1px solid grey; */
 }
+
 .eb-user-account-navigation-wrap {
   border: 1px solid #dddddd;
   position: sticky;
@@ -812,23 +850,28 @@ div.course-not-available {
 .eb-user-account-navigation-link > a:hover {
   background: #f7f7f7;
 }
+
 div#user_login label {
   display: block;
   /*width: 125px;*/
   letter-spacing: 0.1em;
 }
 
+
 /*.form-row{
 	margin: 0.5em;
 }*/
 
+
 /* user profile shortcode style */
+
 .eb-user-account-navigation {
   float: left;
   width: 30%;
   /* padding-right: 2%; */
   padding-right: 1rem;
 }
+
 .eb-user-account-content {
   float: right;
   width: 75%;
@@ -836,6 +879,7 @@ div#user_login label {
   border: 1px solid #ddd;
   background: white;
 }
+
 .eb-user-profile {
   /*    border: 1px solid rgba(68, 68, 68, 0.21);
 	*/
@@ -886,10 +930,12 @@ div#user_login label {
   /*float: right;*/
   letter-spacing: 0.1em;
 }
+
 .form-row,
 .input-text {
   width: -webkit-fill-available;
 }
+
 .eb-user-reg-form,
 .eb-wrap-login-form {
   border: 1px solid #dddddd;
@@ -976,6 +1022,7 @@ div#user_login label {
   font-size: 13px;
 }
 
+
 /* eb-pagination styling start */
 
 .navigation.pagination div .page-numbers {
@@ -1005,7 +1052,9 @@ div#user_login label {
   padding-top: 30px;
 }
 
+
 /*.navigation.pagination div .page-numbers:first-child,*/
+
 .navigation.pagination div .page-numbers.current {
   /*border-left: 1px solid #eee;*/
   background: #e5e5e5;
@@ -1033,6 +1082,7 @@ nav.eb-pagination ul {
   /*border-left: 1px solid #eee;*/
   margin: 1px;
 }
+
 nav.eb-pagination ul li {
   border-right: 1px solid #eee;
   border-top: 1px solid #eee;
@@ -1069,9 +1119,12 @@ nav.eb-pagination ul li span.current {
   color: #888;
 }
 
+
 /* eb-pagination styling end */
 
+
 /* Shortcode eb_courses wrapper */
+
 .sc-eb_courses-wrapper article {
   margin-bottom: 20px;
 }
@@ -1260,6 +1313,7 @@ nav.eb-pagination ul li span.current {
   padding-left: 5%;
 }
 
+
 /*.wdm-col-3-2-1.hentry.eb_my_course_article {
 
   height: 315px;
@@ -1281,9 +1335,13 @@ nav.eb-pagination ul li span.current {
   flex-wrap: wrap;
 }
 
+.eb-my-course.eb_course_cards_wrap{
+    margin-top: 15px;
+}
+
 .wdm-col-3-2-1.hentry {
   display: flex;
-  padding: 1rem;
+  padding: 0.5rem 1rem 1rem 1rem;
   width: 25%;
   height: 330px;
   min-width: 230px;
@@ -1294,6 +1352,7 @@ nav.eb-pagination ul li span.current {
   /*display: -webkit-box;*/
   /*display: flex;*/
 }
+
 
 /* @ Edit user profile styling */
 
@@ -1324,21 +1383,27 @@ nav.eb-pagination ul li span.current {
   color: #999999;
 }
 
+
 /* Edit user profile styling @ */
 
+
 /* Category Page */
+
 .eb_cat_title {
   padding-top: 5% !important;
 }
 
+
 /**
 * Start eb-courses page shortcode styling
 */
+
 .eb-cat-parent {
     margin-top: 15px;
     display: block;
     position: relative;
 }
+
 .eb-cat-courses-cont {
   display: inline-flex;
   overflow: auto;
@@ -1350,6 +1415,7 @@ nav.eb-pagination ul li span.current {
 .eb-cat-courses-cont .eb-scroll-right:hover {
   box-shadow: 1px 2px 10px 1px rgba(0, 0, 0, 0.3);
 }
+
 .eb-cat-courses-cont .eb-scroll-left,
 .eb-cat-courses-cont .eb-scroll-right {
   position: absolute;
@@ -1358,33 +1424,38 @@ nav.eb-pagination ul li span.current {
   height: auto;
   padding: 0.5em 0.8em;
   border: 0px;
-  background: rgba(255, 255, 255, 0.8);
-  color: black;
   font-size: 1.7em;
   box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
+  color: #F98012;
+  background: #FFFFFF;
+  border: 1px solid #999999;
+  box-sizing: border-box;
 }
+
 .eb-cat-courses-cont .eb-scroll-left {
   left: 0;
   border-radius: 1em;
 }
+
 .eb-cat-courses-cont .eb-scroll-right {
   right: 0;
   border-radius: 1em;
 }
+
 .eb-cat-courses-cont .eb-scroll-right:hover,
 .eb-cat-courses-cont .eb-scroll-right:active,
 .eb-cat-courses-cont .eb-scroll-right:focus,
 .eb-cat-courses-cont .eb-scroll-left:hover,
 .eb-cat-courses-cont .eb-scroll-left:active,
 .eb-cat-courses-cont .eb-scroll-left:focus {
-  border: 0px;
+  /*border: 0px;*/
   background: white;
-  color: black;
-  /*font-weight: bold;*/
 }
 
+
 /*Old Template compatibility*/
+
 
 /*.eb-cat-courses-cont > .eb-course-col {
   min-width: 27%;
@@ -1394,35 +1465,44 @@ nav.eb-pagination ul li span.current {
   width: 0px;
   height: 0px;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-thumb {
   background: #000000;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-thumb:hover {
   background: #000000;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-thumb:active {
   background: #000000;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-track {
   background: #eeeeee;
   border: 0px none #ffffff;
   border-radius: 13px;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-track:hover {
   background: #eeeeee;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-track:active {
   background: #eeeeee;
 }
+
 .eb-cat-courses-cont::-webkit-scrollbar-corner {
   background: transparent;
 }
+
 .eb-cat-title {
     padding-left: 15px;
     font-style: normal;
@@ -1434,6 +1514,8 @@ nav.eb-pagination ul li span.current {
     color: #999999;
     /*border-bottom: 1px solid;*/
 }
+
+
 /**
 * End eb-courses page shortcode styling
 */
@@ -1441,28 +1523,34 @@ nav.eb-pagination ul li span.current {
 .eb-ord-courses-list {
   list-style: none;
 }
+
 .eb-user-order-courses {
   list-style: none;
 }
 
+
 /**
 * New User Login form Style start.
 */
+
 .wdm-forgott-psw-link {
   display: block;
   text-align: right;
 }
+
 .eb-reg-button,
 .eb-login-button {
   display: block;
   margin-left: auto;
 }
+
 .wdm-eb-login-form-sec-2 {
   display: block;
   flex-grow: 1;
   padding: 2rem;
   max-width: 250px;
 }
+
 .wdm-eb-login-form-sec-1 {
   padding: 2rem;
   flex-grow: 1;
@@ -1489,15 +1577,18 @@ nav.eb-pagination ul li span.current {
   background: #f7f7f7;
   flex-wrap: wrap;
 }
+
 .wdm-eb-form-row-flex {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
 .wdm-eb-form-row-first {
   flex-grow: 1;
   /* padding-right: 0.5rem; */
 }
+
 .wdm-eb-form-row-last {
   flex-grow: 1;
   padding-left: 0.5rem;
@@ -1517,6 +1608,7 @@ nav.eb-pagination ul li span.current {
 /**
 * New User Login form Style end.
 */
+
 
 /*
  * Css which we will remove in next update

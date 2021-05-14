@@ -89,9 +89,9 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 						<!-- <h4 class="eb-course-title"><?php the_title(); ?></h4> -->
 						<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
 
-							<?php
-							echo wp_kses_post( $attr['progress_btn_div'] );
-							?>
+						<?php
+						echo wp_kses_post( $attr['progress_btn_div'] );
+						?>
 					</div>
 				</div>
 				<!-- </a> -->
