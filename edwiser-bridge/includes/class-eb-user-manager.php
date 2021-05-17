@@ -888,7 +888,7 @@ class EBUserManager {
 	public function link_user_bulk_actions() {
 		$current_screen = get_current_screen(); // get current screen object.
 		// enqueue js only if current screen is users.
-		if ( 'users' === $current_screen->base ) {
+		if ( isset( $current_screen->base ) && 'users' === $current_screen->base ) {
 			?>
 			<script type="text/javascript">
 				jQuery(document).ready(function () {

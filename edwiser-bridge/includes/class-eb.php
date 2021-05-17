@@ -609,7 +609,7 @@ class EdwiserBridge {
 		);
 
 		$this->loader->eb_add_action(
-			'admin_init',
+			'admin_notices',
 			$admin_notice_handler,
 			'eb_admin_template_notice'
 		);

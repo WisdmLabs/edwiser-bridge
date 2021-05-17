@@ -14,15 +14,16 @@
 .wdm-btn,
 .wdm-btn.eb_primary_btn,
 .eb_primary_btn {
-  padding: 12px 35px;
-  border-radius: 3px;
-  font-size: 16px;
+  /*padding: 12px 35px;*/
+  /*border-radius: 3px;*/
+  /*font-size: 16px;*/
   font-style: normal;
-  font-weight: 400;
-  line-height: 19px;
+  margin: 0px;
+  /*font-weight: 400;*/
+  /*line-height: 19px;*/
   letter-spacing: 0em;
   text-align: center;
-  vertical-align: bottom;
+  vertical-align: text-top;
 }
 
 .wdm-btn:hover {
@@ -625,9 +626,11 @@ p.read-more {
   text-align: center;
 }
 
-.eb_join_button > a {
+/*.eb_join_button > a {
   padding: 0.7em;
 }
+*/
+
 
 /* for single course take course button css*/
 
@@ -1293,9 +1296,8 @@ nav.eb-pagination ul li span.current {
 */
 
 .eb-cat-parent {
-  margin-top: 15px;
-  display: block;
-  position: relative;
+    display: block;
+    position: relative;
 }
 
 .eb-cat-courses-cont {

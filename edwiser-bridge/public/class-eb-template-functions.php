@@ -306,10 +306,12 @@ class Eb_Template_Functions {
 		 * 1. Per category and
 		 * 2. all courses in this condition we won't modify any of the category filter data.
 		 */
-		if ( ! empty( $filter ) ) {
+		if ( 'eb_archive_filter_all' === $filter ) {
+			$cat = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
+		} elseif ( ! empty( $filter ) ) {
 			$cat   = array();
 			$cat[] = get_term( $filter, 'eb_course_cat' );
-		}
+		} 
 
 		return $cat;
 	}
