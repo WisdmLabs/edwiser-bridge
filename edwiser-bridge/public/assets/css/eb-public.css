@@ -3,7 +3,6 @@
  * included in this file.
  */
 
-
 /*-----------------------
  * All buttons related styles
  ------------------------*/
@@ -37,7 +36,7 @@
   color: #f98012;
 }
 
-.eb_primary_btn a{
+.eb_primary_btn a {
   color: white;
 }
 
@@ -84,7 +83,6 @@
   color: #00a1a8;
 }
 
-
 /*.eb-course-card-title-wrap {
   padding: 4px 0px;
 }*/
@@ -117,7 +115,6 @@
   text-transform: uppercase;
 }
 
-
 /*  REMOVE  */
 
 .eb-grid-container {
@@ -147,42 +144,42 @@
   /*transition: transform .2s ease-in-out;*/
 }
 
-
-
 /*Archive page filter and sorting*/
 
-.eb_filter_and_sorting{
-    display: flex;
-    padding: 1rem;
-    width: 100%;
+.eb_filter_and_sorting {
+  display: flex;
+  padding: 1rem;
+  width: 100%;
 }
 
-.eb_archive_filter{
-    width: 50%;
+.eb_archive_filter {
+  width: 50%;
 }
-.eb_archive_sort{
+.eb_archive_sort {
   text-align: right;
   width: 50%;
 }
 
-.eb_archive_filter select, .eb_archive_sort select{
-    background: #FFFFFF;
-    border: 1px solid rgba(68, 68, 68, 0.2);
-    box-sizing: border-box;
-    border-radius: 5px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    color: #666666;
+.eb_archive_filter select,
+.eb_archive_sort select {
+  background: #ffffff;
+  border: 1px solid rgba(68, 68, 68, 0.2);
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #666666;
 }
 
-.eb_archive_filter label, .eb_archive_sort label{
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    color: #444444;
+.eb_archive_filter label,
+.eb_archive_sort label {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #444444;
 }
 
 .eb-primary {
@@ -242,7 +239,7 @@
   color: #1ab900;
 }
 
-.eb-course-action-btn-completed:hover{
+.eb-course-action-btn-completed:hover {
   color: #1ab900;
 }
 
@@ -256,11 +253,11 @@
 }
 
 .eb-course-action-btn-start {
-  background: #00A1A8;
+  background: #00a1a8;
   color: #ffffff;
 }
 
-.eb-course-action-btn-start:hover{
+.eb-course-action-btn-start:hover {
   color: #ffffff;
 }
 
@@ -269,9 +266,9 @@
   color: #ffffff;
 }
 
-.eb-course-action-btn-resume:hover{
-    background: #f98012;
-    color: #ffffff;
+.eb-course-action-btn-resume:hover {
+  background: #f98012;
+  color: #ffffff;
 }
 
 .eb-course-action-progress-cont {
@@ -280,9 +277,9 @@
   background: #e5e5e5;
 }
 
-.eb-course-action-progress-cont:hover{
-    background: #e5e5e5;
-    color: #ffffff;
+.eb-course-action-progress-cont:hover {
+  background: #e5e5e5;
+  color: #ffffff;
 }
 
 .eb-course-progres-wrap {
@@ -306,9 +303,7 @@
   background-color: #1ab900;
 }
 
-
 /**********/
-
 
 /***  Theme compatibility *****/
 
@@ -319,7 +314,6 @@
 #primary.twentyseventeen {
   width: 100%;
 }
-
 
 /********/
 
@@ -344,7 +338,6 @@
 .eb-user-data div {
   padding-top: 3%;
 }
-
 
 /*
  * user account terms and conditions style
@@ -402,7 +395,6 @@
   border: 1px solid #0000003d;
 }
 
-
 /*
  * End
  */
@@ -410,7 +402,6 @@
 .eb-user-account-terms {
   display: none;
 }
-
 
 /**
  * course archive template style
@@ -429,7 +420,6 @@
   padding: 0 0.5em;
 }
 
-
 /*.hentry.wdm-col-3-2-1:nth-of-type(4n + 1) {
 }*/
 
@@ -444,7 +434,6 @@
 .eb-rec-courses-wrapper .eb-course-col {
   /*width: 25%;*/
 }
-
 
 /*.sc-eb_courses-wrapper .eb-course-col:nth-of-type(4n + 1),
 .eb-my-courses-wrapper .eb-course-col:nth-of-type(4n + 1),
@@ -475,8 +464,8 @@
   border-top-left-radius: 3px;
 }
 
-.eb_my_course_article .wdm-course-grid{
-    cursor: default;
+.eb_my_course_article .wdm-course-grid {
+  cursor: default;
 }
 
 .wdm-course-image {
@@ -485,7 +474,6 @@
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
-
 
 /*.wdm-course-image:hover{
 	background-color: black;
@@ -503,22 +491,22 @@
 }
 
 @media (max-width: 991px) {
-    .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
-        width: 32%;
-    }
-    .eb_filter_and_sorting{
-        display: block;
-        padding: 1rem;
-        width: 100%;
-    }
-    .eb_archive_filter{
-        width: 100%;
-    }
-    .eb_archive_sort{
-        text-align: left;
-        padding-top: 10px; 
-        width: 100%;
-    }
+  .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
+    width: 32%;
+  }
+  .eb_filter_and_sorting {
+    display: block;
+    padding: 1rem;
+    width: 100%;
+  }
+  .eb_archive_filter {
+    width: 100%;
+  }
+  .eb_archive_sort {
+    text-align: left;
+    padding-top: 10px;
+    width: 100%;
+  }
 }
 
 @media (max-width: 767px) {
@@ -641,14 +629,11 @@ p.read-more {
   padding: 0.7em;
 }
 
-
-
 /* for single course take course button css*/
 
 div.eb_join_button {
   /*margin:10px 0 0 0;*/
 }
-
 
 /* for course archive take course button */
 
@@ -661,14 +646,12 @@ nav.navigation {
   clear: both;
 }
 
-
 /** single course template customization */
 
 article.single-course {
   /*padding:15px;*/
   padding: 60px 15px 15px 15px;
 }
-
 
 /* for course not available */
 
@@ -682,7 +665,6 @@ div.course-not-available {
     font-size: 1.1rem;
   }
 }
-
 
 /* user login and registration page styling */
 
@@ -816,6 +798,7 @@ div#user_login label {
   border: 1px solid #ddd;
   flex-grow: 1;
   background: white;
+  margin-left: 1rem;
 }
 
 .eb-user-profile {
@@ -827,6 +810,8 @@ div#user_login label {
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
+  max-width: 900px;
+  margin: auto;
 }
 
 .wdm-transaction-header h4 {
@@ -945,9 +930,9 @@ div#user_login label {
   font-size: 13px;
 }
 
-
 /* eb-pagination styling start */
-.navigation.pagination div .page-numbers, .page-numbers {
+.navigation.pagination div .page-numbers,
+.page-numbers {
   padding: 7px 7px;
   margin: 0;
   display: inline;
@@ -967,10 +952,10 @@ div#user_login label {
   padding-top: 30px;
 }
 
-
 /*.navigation.pagination div .page-numbers:first-child,*/
 
-.navigation.pagination div .page-numbers.current, .page-numbers.current {
+.navigation.pagination div .page-numbers.current,
+.page-numbers.current {
   /*border-left: 1px solid #eee;*/
   background: #e5e5e5;
   border: 1px solid #e5e5e5;
@@ -1032,9 +1017,7 @@ nav.eb-pagination ul li span.current {
   color: #888;
 }*/
 
-
 /* eb-pagination styling end */
-
 
 /* Shortcode eb_courses wrapper */
 
@@ -1160,6 +1143,13 @@ nav.eb-pagination ul li span.current {
   .eb-user-account-content {
     width: 100%;
   }
+  .eb-user-account-navigation {
+    position: inherit !important;
+    margin-bottom: 1rem;
+  }
+  .eb-user-account-content {
+    margin-left: 0;
+  }
 }
 
 .eb-rec-courses-wrapper {
@@ -1222,7 +1212,6 @@ nav.eb-pagination ul li span.current {
   padding-left: 5%;
 }
 
-
 /*.wdm-col-3-2-1.hentry.eb_my_course_article {
 
   height: 315px;
@@ -1244,8 +1233,8 @@ nav.eb-pagination ul li span.current {
   flex-wrap: wrap;
 }
 
-.eb-my-course.eb_course_cards_wrap{
-    margin-top: 15px;
+.eb-my-course.eb_course_cards_wrap {
+  margin-top: 15px;
 }
 
 .wdm-col-3-2-1.hentry {
@@ -1261,7 +1250,6 @@ nav.eb-pagination ul li span.current {
   /*display: -webkit-box;*/
   /*display: flex;*/
 }
-
 
 /* @ Edit user profile styling */
 
@@ -1292,9 +1280,7 @@ nav.eb-pagination ul li span.current {
   color: #999999;
 }
 
-
 /* Edit user profile styling @ */
-
 
 /* Category Page */
 
@@ -1302,14 +1288,14 @@ nav.eb-pagination ul li span.current {
   padding-top: 5% !important;
 }
 
-
 /**
 * Start eb-courses page shortcode styling
 */
 
 .eb-cat-parent {
-    display: block;
-    position: relative;
+  margin-top: 15px;
+  display: block;
+  position: relative;
 }
 
 .eb-cat-courses-cont {
@@ -1335,8 +1321,8 @@ nav.eb-pagination ul li span.current {
   font-size: 1.7em;
   box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  color: #F98012;
-  background: #FFFFFF;
+  color: #f98012;
+  background: #ffffff;
   border: 1px solid #999999;
   box-sizing: border-box;
 }
@@ -1361,9 +1347,7 @@ nav.eb-pagination ul li span.current {
   background: white;
 }
 
-
 /*Old Template compatibility*/
-
 
 /*.eb-cat-courses-cont > .eb-course-col {
   min-width: 27%;
@@ -1412,17 +1396,16 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-cat-title {
-    padding-left: 15px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 19px;
-    /* identical to box height */
-    text-transform: uppercase;
-    color: #999999;
-    /*border-bottom: 1px solid;*/
+  padding-left: 15px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  text-transform: uppercase;
+  color: #999999;
+  /*border-bottom: 1px solid;*/
 }
-
 
 /**
 * End eb-courses page shortcode styling
@@ -1435,7 +1418,6 @@ nav.eb-pagination ul li span.current {
 .eb-user-order-courses {
   list-style: none;
 }
-
 
 /**
 * New User Login form Style start.
@@ -1469,7 +1451,6 @@ nav.eb-pagination ul li span.current {
   background: white;
   max-width: 100%;
   width: 440px;
-  /* min-width: 70%; */
 }
 .wdm-eb-login-btn-scondary {
   display: block;
@@ -1484,6 +1465,8 @@ nav.eb-pagination ul li span.current {
   border: 1px solid #ddd;
   background: #f7f7f7;
   flex-wrap: wrap;
+  margin: 1rem auto;
+  max-width: 900px;
 }
 
 .wdm-eb-form-row-flex {
@@ -1512,6 +1495,17 @@ nav.eb-pagination ul li span.current {
 }
 .eb-profile-txt-field {
   padding-bottom: 25px;
+}
+.eb-user-account-navigation {
+  position: sticky;
+  top: 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-self: flex-start;
+  position: -webkit-sticky;
+  border: 1px solid #dddddd;
 }
 /**
 * New User Login form Style end.

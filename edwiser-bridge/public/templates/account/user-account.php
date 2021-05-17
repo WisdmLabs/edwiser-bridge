@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		$active_link = isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : ''; // WPCS: input var okay, CSRF ok.
 		?>
 		<div class="eb-user-account-navigation">
-			<div class='eb-user-account-navigation-wrap'>
+			<!-- <div class='eb-user-account-navigation-wrap'> -->
 				<?php
 				foreach ( $labels as $label ) {
 					$nav_item  = isset( $label['label'] ) ? $label['label'] : '';
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php
 				}
 				?>
-			</div>
+			<!-- </div> -->
 		</div>
 		<div class="eb-user-account-content">
 			<?php
