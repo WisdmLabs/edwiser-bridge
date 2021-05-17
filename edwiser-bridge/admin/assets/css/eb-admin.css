@@ -233,6 +233,7 @@
   display: flex;
   line-height: 22px;
   font-size: 14px;
+  background-color: #f6f6eb;
 }
 
 .eb_template_notice{

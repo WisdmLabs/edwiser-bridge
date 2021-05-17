@@ -23,6 +23,7 @@
   line-height: 19px;
   letter-spacing: 0em;
   text-align: center;
+  vertical-align: bottom;
 }
 
 .wdm-btn:hover {
@@ -255,9 +256,12 @@
 }
 
 .eb-course-action-btn-start {
+  background: #00A1A8;
+  color: #ffffff;
 }
 
 .eb-course-action-btn-start:hover{
+  color: #ffffff;
 }
 
 .eb-course-action-btn-resume {
@@ -568,10 +572,10 @@
   font-style: normal;
   font-weight: bold;
   font-size: 26px;
-  line-height: 30px;
   color: #444444;
-  margin: auto 0px;
   padding-right: 20px;
+  line-height: 19px;
+  margin: 12px 0px;
 }
 
 .wdm-course-grid h4 {
@@ -1304,7 +1308,6 @@ nav.eb-pagination ul li span.current {
 */
 
 .eb-cat-parent {
-    margin-top: 15px;
     display: block;
     position: relative;
 }

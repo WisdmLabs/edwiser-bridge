@@ -71,6 +71,9 @@ class Eb_Public {
 		 */
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
+		// Loading dasicons.
+		wp_enqueue_style('dashicons');
+
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
 			$eb_plugin_url . 'public/assets/css/font-awesome-4.4.0/css/font-awesome.min.css',

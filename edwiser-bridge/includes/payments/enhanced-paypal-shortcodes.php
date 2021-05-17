@@ -431,7 +431,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					alt="' . $edwiser_bridge_alt_add . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
-				class="wdm-btn eb_primary_btn eb-paid-course button" id="eb_course_payment_button">';
+				class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit" id="eb_course_payment_button">';
 
 				if ( $atts['noshipping'] > -1 ) {
 					$code .= '
@@ -574,7 +574,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					esc_html__( 'PayPal - The safer, easier way to pay online.', 'eb-textdomain' ) . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) .
-						'" class="wdm-btn eb_primary_btn eb-paid-course button" id="eb_course_payment_button ">';
+						'" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit" id="eb_course_payment_button ">';
 
 				eb_check_array_value(
 					$atts['email'],
@@ -779,7 +779,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					border="0" name="submit" alt="' .
 							esc_html__( 'PayPal - The safer, easier way to pay online.', 'eb-textdomain' ) . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn button eb-paid-course button"
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
 				id="eb_course_payment_button">';
 
 				$code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
@@ -938,7 +938,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
 					border="0" name="submit" alt="' . $edwiser_bridge_alt_add . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button"
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
 				id="eb_course_payment_button">';
 
 				$code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"

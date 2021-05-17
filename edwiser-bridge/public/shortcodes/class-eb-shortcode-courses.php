@@ -263,7 +263,7 @@ class Eb_Shortcode_Courses {
 					if ( 1 !== $current_page ) {
 
 						?>
-						<a class="prev page-numbers eb_primary_btn button" href="
+						<a class="prev page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
@@ -319,7 +319,7 @@ class Eb_Shortcode_Courses {
 					if ( $current_page < $page - 1 ) {
 
 						?>
-						<a class="next page-numbers eb_primary_btn button" href="
+						<a class="next page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
