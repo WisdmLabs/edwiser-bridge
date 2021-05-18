@@ -102,6 +102,10 @@ class Eb_Payment_Manager {
 
 				$button = apply_filters( 'eb_course_access_button', $access_button, $access_params );
 
+				// Compatibility with SSO plugin.
+				$button = str_replace('class="wdm-btn"', 'class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"', $button);
+
+
 				$user_id           = get_current_user_id();
 				$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 

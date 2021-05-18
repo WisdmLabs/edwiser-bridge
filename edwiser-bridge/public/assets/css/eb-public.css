@@ -3,9 +3,17 @@
  * included in this file.
  */
 
+
 /*-----------------------
  * All buttons related styles
  ------------------------*/
+
+/*Pagination buttons*/
+.page-numbers .wdm-btn.button{
+  padding: 10px 18px;
+  vertical-align: middle;
+}
+
 
 #wdm-btn,
 #eb_course_payment_button {
@@ -14,23 +22,13 @@
 .wdm-btn,
 .wdm-btn.eb_primary_btn,
 .eb_primary_btn {
-  /*padding: 12px 35px;*/
-  /*border-radius: 3px;*/
-  /*font-size: 16px;*/
   font-style: normal;
   margin: 0px;
-  /*font-weight: 400;*/
-  /*line-height: 19px;*/
   letter-spacing: 0em;
   text-align: center;
   vertical-align: text-top;
 }
 
-.wdm-btn:hover {
-}
-
-.wdm-btn:visited {
-}
 
 .wdm-btn.eb_secondary_btn {
   background: #ffffff;
@@ -84,6 +82,7 @@
   color: #00a1a8;
 }
 
+
 /*.eb-course-card-title-wrap {
   padding: 4px 0px;
 }*/
@@ -97,14 +96,14 @@
   line-height: 20px;
   color: #00a1a8;
   white-space: normal;
-  /* text-overflow: ellipsis; */
-  /* width: 100%; */
-  /* line-height: 1.5em; */
-  /* height: 3em; */
   overflow: hidden;
   line-height: 21px;
-  height: 43px;
+  height: 46px;
   text-align: left;
+}
+
+.eb-course-title{
+  height: 43px;
 }
 
 .eb-course-card-title::first-letter,
@@ -115,6 +114,7 @@
 .eb_single_course_title::first-letter {
   text-transform: uppercase;
 }
+
 
 /*  REMOVE  */
 
@@ -131,10 +131,6 @@
 }
 
 .eb-course-action-cont {
-  /*transition: transform .3s,-webkit-transform .3s;
-	-webkit-transform: translateY(42px);
-	transform: translateY(42px);*/
-  /*background-color: #9873cb4d;*/
   position: relative;
   height: 100px;
 }
@@ -142,11 +138,10 @@
 .eb-course-action-btn {
   position: relative;
   top: 0px;
-  /*transition: transform .2s ease-in-out;*/
 }
 
-/*Archive page filter and sorting*/
 
+/*Archive page filter and sorting*/
 .eb_filter_and_sorting {
   display: flex;
   padding: 1rem;
@@ -187,15 +182,11 @@
   padding: 0px 20px;
 }
 
-/*.wdm-course-grid-wrap:hover .eb-course-action-cont{
-	transform: translate3d(0px, 0px, 0px);
-}*/
 
 /*sticky button styling*/
 
 .eb_courses_completed_tag {
   position: absolute;
-  /* width: 80px; */
   padding: 5px;
   font-style: normal;
   font-weight: bold;
@@ -204,7 +195,6 @@
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
-  /* height: 20px; */
   left: 10px;
   top: 10px;
   background: #1ab900;
@@ -213,15 +203,9 @@
 
 .eb-course-action-btn-suspended,
 .eb-course-action-btn-start,
-.eb-course-action-btn-resume
-/*.eb-course-action-cont,*/
-,
+.eb-course-action-btn-resume,
 .eb-course-action-btn-completed {
-  /*position: absolute;
-    width: 100%;
-    bottom: 0px;*/
-  /*New style*/
-  bottom: 10px;
+  bottom: 0px;
   position: absolute;
   width: 100%;
   border-radius: 2px;
@@ -284,7 +268,7 @@
 }
 
 .eb-course-progres-wrap {
-  padding-top: 15px;
+  padding-top: 25px;
 }
 
 .eb-course-progress-status {
@@ -304,10 +288,11 @@
   background-color: #1ab900;
 }
 
+
 /**********/
 
-/***  Theme compatibility *****/
 
+/***  Theme compatibility *****/
 .eb-archive-container #primary.twentyseventeen {
   width: 100%;
 }
@@ -339,6 +324,7 @@
 .eb-user-data div {
   padding-top: 3%;
 }
+
 
 /*
  * user account terms and conditions style
@@ -396,6 +382,7 @@
   border: 1px solid #0000003d;
 }
 
+
 /*
  * End
  */
@@ -403,6 +390,7 @@
 .eb-user-account-terms {
   display: none;
 }
+
 
 /**
  * course archive template style
@@ -421,25 +409,14 @@
   padding: 0 0.5em;
 }
 
-/*.hentry.wdm-col-3-2-1:nth-of-type(4n + 1) {
-}*/
 
 .eb-my-course,
-.eb-rec-courses {
-  /*display: inline-flex;*/
-  /*border-top: 2px solid #333333;*/
-}
+.eb-rec-courses {}
 
 .sc-eb_courses-wrapper .eb-course-col,
 .eb-my-courses-wrapper .eb-course-col,
-.eb-rec-courses-wrapper .eb-course-col {
-  /*width: 25%;*/
-}
+.eb-rec-courses-wrapper .eb-course-col {}
 
-/*.sc-eb_courses-wrapper .eb-course-col:nth-of-type(4n + 1),
-.eb-my-courses-wrapper .eb-course-col:nth-of-type(4n + 1),
-.eb-rec-courses-wrapper .eb-course-col:nth-of-type(4n + 1) {
-}*/
 
 .wdm-course-grid:hover {
   z-index: 500;
@@ -476,9 +453,6 @@
   border-top-left-radius: 3px;
 }
 
-/*.wdm-course-image:hover{
-	background-color: black;
-}*/
 
 .wdm-course-image img {
   height: 100%;
@@ -512,9 +486,6 @@
 
 @media (max-width: 767px) {
   .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
-    /*clear: both;
-        float: none;
-        width: 100%;*/
     width: 46%;
   }
 }
@@ -532,16 +503,12 @@
   position: relative;
   border-radius: 3px;
   cursor: pointer;
-  /*box-shadow: 0px 1px 0px #d0d0d0;*/
   text-align: center;
   height: 100%;
   max-height: 330px;
 }
 
 .wdm-course-grid .wdm-price {
-  /*top: 10;
-    color: #5cb85c;
-    text-align: center;*/
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
@@ -570,10 +537,6 @@
 .wdm-course-grid h4 {
   overflow: hidden;
   text-overflow: ellipsis;
-  /* -webkit-line-clamp: 1; */
-  /* display: -webkit-box; */
-  /* -webkit-box-orient: vertical; */
-  /* float: left; */
   white-space: nowrap;
   width: 100%;
 }
@@ -597,17 +560,7 @@
 
 .wdm-caption .entry-content,
 .wdm-caption .eb_short_desc {
-  /*padding-top: 5px;*/
   margin-top: 10px;
-  /*padding: 0px 10px;
-    float: none !important;
-    width: auto !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    margin-bottom: 0px;*/
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -616,7 +569,7 @@
   white-space: normal;
   overflow: hidden;
   line-height: 20px;
-  height: 45px;
+  height: 44px;
   margin-bottom: 10px;
 }
 
@@ -626,17 +579,12 @@ p.read-more {
   text-align: center;
 }
 
-/*.eb_join_button > a {
-  padding: 0.7em;
-}
-*/
-
 
 /* for single course take course button css*/
 
 div.eb_join_button {
-  /*margin:10px 0 0 0;*/
 }
+
 
 /* for course archive take course button */
 
@@ -649,12 +597,13 @@ nav.navigation {
   clear: both;
 }
 
+
 /** single course template customization */
 
 article.single-course {
-  /*padding:15px;*/
   padding: 60px 15px 15px 15px;
 }
+
 
 /* for course not available */
 
@@ -668,6 +617,7 @@ div.course-not-available {
     font-size: 1.1rem;
   }
 }
+
 
 /* user login and registration page styling */
 
@@ -756,8 +706,6 @@ div.course-not-available {
 .eb-user-account-navigation-link {
   list-style: none;
   list-style-type: none;
-  /* padding: 5px 2px; */
-  /* border-bottom: 1px solid grey; */
 }
 
 .eb-user-account-navigation-wrap {
@@ -786,6 +734,8 @@ div#user_login label {
   display: block;
   letter-spacing: 0.1em;
 }
+
+
 
 /* user profile shortcode style */
 
@@ -933,6 +883,7 @@ div#user_login label {
   font-size: 13px;
 }
 
+
 /* eb-pagination styling start */
 .navigation.pagination div .page-numbers,
 .page-numbers {
@@ -954,6 +905,7 @@ div#user_login label {
   padding-bottom: 30px;
   padding-top: 30px;
 }
+
 
 /*.navigation.pagination div .page-numbers:first-child,*/
 
@@ -985,42 +937,13 @@ nav.eb-pagination ul {
 }
 
 nav.eb-pagination ul li {
-  /*border-right: 1px solid #eee;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  padding: 0;
-  margin: 0;*/
   float: left;
   display: inline;
   overflow: hidden;
 }
 
-/*nav.eb-pagination ul li a,
-nav.eb-pagination ul li span,
-nav.eb-pagination ul li a,
-nav.eb-pagination ul li span {
-  margin: 0;
-  text-decoration: none;
-  line-height: 1em;
-  font-size: 1em;
-  font-weight: 400;
-  padding: 0.5em;
-  min-width: 1em;
-  display: block;
-  border: 0;
-}
-
-nav.eb-pagination ul li a:focus,
-nav.eb-pagination ul li a:hover,
-nav.eb-pagination ul li span.current,
-nav.eb-pagination ul li a:focus,
-nav.eb-pagination ul li a:hover,
-nav.eb-pagination ul li span.current {
-  background: #eee;
-  color: #888;
-}*/
-
 /* eb-pagination styling end */
+
 
 /* Shortcode eb_courses wrapper */
 
@@ -1038,8 +961,6 @@ nav.eb-pagination ul li span.current {
   float: right;
   width: 52%;
   margin-bottom: 2em;
-  /*padding: 1em 0 0 0;*/
-  /*position: relative;*/
 }
 
 .eb-course-img-wrapper img {
@@ -1057,7 +978,6 @@ nav.eb-pagination ul li span.current {
   font-size: 16px;
   line-height: 22px;
   color: #444444;
-  /*border-top: 2px solid #1a1a1a;*/
 }
 
 .eb-course-desc-wrapper .eb_h4 {
@@ -1066,18 +986,14 @@ nav.eb-pagination ul li span.current {
   font-size: 18px;
   line-height: 21px;
   padding-bottom: 12px;
-  /* identical to box height */
 }
 
 .eb-validity-wrapper {
   padding: 10px 0px;
   font-style: normal;
   font-size: 14px;
-  /*line-height: 20px;*/
-  /* identical to box height, or 143% */
   display: flex;
   align-items: center;
-  /*color: #666666;*/
   color: #797979;
 }
 
@@ -1090,14 +1006,8 @@ nav.eb-pagination ul li span.current {
 }
 
 .eb-cat-wrapper {
-  /*margin-top: 20px;
-	border-bottom: 1px solid #dddddd;
-	border-top: 1px solid #dddddd;*/
   padding: 0px 0px 10px 0px;
-  /*position: absolute;
-	bottom: 0;*/
   font-style: normal;
-  /*font-weight: bold;*/
   font-size: 12px;
   line-height: 14px;
   text-transform: uppercase;
@@ -1215,6 +1125,7 @@ nav.eb-pagination ul li span.current {
   padding-left: 5%;
 }
 
+
 /*.wdm-col-3-2-1.hentry.eb_my_course_article {
 
   height: 315px;
@@ -1241,7 +1152,7 @@ nav.eb-pagination ul li span.current {
 }
 
 .wdm-col-3-2-1.hentry {
-  display: flex;
+  display: inline-flex;
   padding: 0.5rem 1rem 1rem 1rem;
   width: 25%;
   height: 330px;
@@ -1253,6 +1164,7 @@ nav.eb-pagination ul li span.current {
   /*display: -webkit-box;*/
   /*display: flex;*/
 }
+
 
 /* @ Edit user profile styling */
 
@@ -1283,13 +1195,16 @@ nav.eb-pagination ul li span.current {
   color: #999999;
 }
 
+
 /* Edit user profile styling @ */
+
 
 /* Category Page */
 
 .eb_cat_title {
   padding-top: 5% !important;
 }
+
 
 /**
 * Start eb-courses page shortcode styling
@@ -1349,7 +1264,9 @@ nav.eb-pagination ul li span.current {
   background: white;
 }
 
+
 /*Old Template compatibility*/
+
 
 /*.eb-cat-courses-cont > .eb-course-col {
   min-width: 27%;
@@ -1409,6 +1326,7 @@ nav.eb-pagination ul li span.current {
   /*border-bottom: 1px solid;*/
 }
 
+
 /**
 * End eb-courses page shortcode styling
 */
@@ -1420,6 +1338,7 @@ nav.eb-pagination ul li span.current {
 .eb-user-order-courses {
   list-style: none;
 }
+
 
 /**
 * New User Login form Style start.
@@ -1512,6 +1431,7 @@ nav.eb-pagination ul li span.current {
 /**
 * New User Login form Style end.
 */
+
 
 /*
  * Css which we will remove in next update

@@ -250,9 +250,9 @@ class Eb_Shortcode_My_Courses {
 						<?php
 					}
 					?>
-					<a href="<?php echo esc_attr( $course_url ); ?>" class="<?php echo esc_attr( $progress_class ); ?>">
+					<span  class="<?php echo esc_attr( $progress_class ); ?>">
 						<?php echo esc_attr( $btn_text ); ?>
-					</a>
+					</span>
 				</div>
 
 			</div>
