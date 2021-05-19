@@ -853,8 +853,28 @@
             width: 'auto'
         });
 
+        /**
+         * Functionality to show hide the get license key button on licensing page start.
+         */
+        $('.wdm_key_in').bind("change paste keyup propertychange", function () {
+            toggleLicenseButtons($(this));
+        });
+        $('.wdm_key_in').each(function () {
+            toggleLicenseButtons($(this));
+        });
 
-
+        function toggleLicenseButtons(element) {
+            if ($.trim(element.val()).length > 0) {
+                element.parent().parent().find('.get_license_key').hide();
+                element.parent().parent().find('.install_plugin').show();
+            } else {
+                element.parent().parent().find('.get_license_key').show();
+                element.parent().parent().find('.install_plugin').hide();
+            }
+        }
+        /**
+         * Functionality to show hide the get license key button on licensing page end.
+         */
         /*******************  END   *********************/
 
     });

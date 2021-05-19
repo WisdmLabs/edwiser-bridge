@@ -122,7 +122,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$status   = get_option( 'edd_' . $slug . '_license_status' );
 			$readonly = '';
 			if ( 'valid' === $status || 'expired' === $status ) {
-				$readonly = 'readonly="readonly"';
+				$readonly = 'readonly=readonly';
 			}
 			return $readonly;
 
@@ -139,7 +139,8 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['path'] ) ) {
 				$action = 'install_plugin';
 				?>
-				<input class="button-primary" type="submit" name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'eb-textdomain' ); ?>">
+				<a href="https://edwiser.org/bridge/#downloadfree" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+				<input class="button-primary install_plugin" type="submit"  name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'eb-textdomain' ); ?>">
 				<?php
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
@@ -230,7 +231,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				ob_start();
 				?>
 				<div class="notice <?php echo esc_attr( $resp_data['notice_class'] ); ?> is-dismissible">
-					<p><?php echo esc_attr( $resp_data['msg'] ); ?></p>
+					<p><?php echo wp_kses_post( $resp_data['msg'] ); ?></p>
 				</div>
 				<?php
 				$plugin_error = ob_get_clean();
@@ -257,7 +258,8 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$plugin_data['license']    = $l_key;
 			update_option( $l_key_name, $l_key );
 			if ( empty( $plugin_data['license'] ) ) {
-				$resp['msg'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' );
+				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
+				$resp['msg'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link  .__( ' to get the license key.', 'eb-textdomain' );
 				return $resp;
 			}
 			$request = wp_remote_get(

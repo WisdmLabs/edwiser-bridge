@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<div class="eb_table_cell_2">
-						<input class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value="<?php echo esc_attr( $this->get_licence_key( $single['key'] ) ) . '" ' . esc_attr( $this->is_readonly_key( $single['slug'] ) ); ?>" />
+						<input class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value="<?php echo esc_attr( $this->get_licence_key( $single['key'] ) ); ?>" <?php echo esc_attr( $this->is_readonly_key( $single['slug'] ) ); ?> />
 					</div>
 
 					<div class="eb_table_cell_3">
