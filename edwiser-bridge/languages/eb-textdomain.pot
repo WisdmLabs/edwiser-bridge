@@ -1464,7 +1464,16 @@ msgstr ""
 msgid "Link user's account to moodle"
 msgstr ""
 
+#: admin/settings/class-eb-settings-synchronization.php:132
+msgid ""
+"Note: Performing user synchronization will email all the users with their "
+"login credentials. To disable the same you may deactivate \"Link WP user "
+"account to moodle and Create new moodle account\" from Manage email "
+"templates."
+msgstr ""
+
 #: admin/settings/class-eb-settings-synchronization.php:134
+#: admin/settings/class-eb-settings-synchronization.php:190
 msgid "Start Synchronization"
 msgstr ""
 
@@ -2639,14 +2648,10 @@ msgid "saved."
 msgstr ""
 
 #: includes/class-eb-post-types.php:723
-msgid "scheduled for: <strong> "
+msgid "scheduled for:  "
 msgstr ""
 
-#: includes/class-eb-post-types.php:723
-msgid "</strong>. <a href=\""
-msgstr ""
-
-#: includes/class-eb-post-types.php:723
+#: includes/class-eb-post-types.php:723 includes/class-eb-post-types.php:735
 msgid "Preview "
 msgstr ""
 
@@ -2656,10 +2661,6 @@ msgstr ""
 
 #: includes/class-eb-post-types.php:735
 msgid " draft updated. "
-msgstr ""
-
-#: includes/class-eb-post-types.php:735
-msgid "Preview "
 msgstr ""
 
 #: includes/class-eb-user-manager.php:206

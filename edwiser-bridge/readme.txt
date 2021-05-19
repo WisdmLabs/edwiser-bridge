@@ -214,6 +214,11 @@ Also check our knowledge base for more queries
 
 = 2.1.0 =
 * Fix - Solved My-courses page login link issue for non logged in users.
+* Tweak - Modified course archive page, single course page, user-account page, eb_course shortcode page and my courses page templates.
+* Feature - Added course category wise filter and sorting functionality on course shortcode page.
+* Feature - Added stats page in Edwsier Bridge settings.
+* Feature - Added all Edwiser WordPress and Moodle extensions latest versions on stats page with Moodle plugins download link.
+* Feature - Added Edwiser Bridge configuration details like Moodle site details and course count on stats page.
 
 = 2.0.9 =
 * Feture - Added the password filed on user registration window.

@@ -129,7 +129,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 
 						array(
 							'title'    => '',
-							'desc'     => '',
+							'desc'     => __( 'Note: Performing user synchronization will email all the users with their login credentials. To disable the same you may deactivate "Link WP user account to moodle and Create new moodle account" from Manage email templates.', 'eb-textdomain' ),
 							'id'       => 'eb_synchronize_users_button',
 							'default'  => __( 'Start Synchronization', 'eb-textdomain' ),
 							'type'     => 'button',
@@ -187,7 +187,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title'    => '',
 							'desc'     => '',
 							'id'       => 'eb_synchronize_courses_button',
-							'default'  => 'Start Synchronization',
+							'default'  => __( 'Start Synchronization', 'eb-textdomain' ),
 							'type'     => 'button',
 							'desc_tip' => false,
 							'class'    => 'button secondary',
