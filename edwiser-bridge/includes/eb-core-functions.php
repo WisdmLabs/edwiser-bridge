@@ -826,7 +826,7 @@ if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
 		if ( file_exists( WP_PLUGIN_DIR . '/' . $path ) ) {
 			$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
 		}
-		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : '1.0.0';
+		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : __( 'Not Available', 'eb-textdomain' );
 	}
 }
 
