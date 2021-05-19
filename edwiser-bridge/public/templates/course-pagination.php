@@ -20,12 +20,6 @@ $end_pages    = range( $max_num_pages - $end_size + 1, $max_num_pages );
 $mid_pages    = range( $current_page - $mid_size, $current_page + $mid_size );
 $eb_pages     = array_intersect( range( 1, $max_num_pages ), array_merge( $start_pages, $end_pages, $mid_pages ) );
 $prev_page    = 0;
-
-
-$link = previous_post_link('%link');
-
-error_log('link ::: '.print_r($link, 1));
-
 ?>
 <nav class="eb-pagination">
 	<ul>

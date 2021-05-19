@@ -26,10 +26,15 @@ switch ( $template ) {
 	case 'twentyfourteen':
 	case 'Divi':
 		echo '</div></div></div>';
+		if ( is_archive() ) {
+			echo '</div>';
+		}
 		break;
 
 	case 'astra':
-		echo '';
+		if ( is_archive() ) {
+			echo '</div>';
+		}
 		break;
 
 	default:

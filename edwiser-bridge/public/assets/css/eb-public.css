@@ -10,7 +10,7 @@
 
 /*Pagination buttons*/
 .page-numbers .wdm-btn.button{
-  padding: 10px 18px;
+  padding: 10px 25px 10px 18px;
   vertical-align: middle;
 }
 
@@ -206,6 +206,10 @@
   padding: 0px 20px;
 }
 
+/*Divi theme compatibility*/
+.container.eb-primary::before{
+  display: none;
+}
 
 /*sticky button styling*/
 

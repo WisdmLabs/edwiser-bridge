@@ -24,6 +24,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: images\n"
 "X-Poedit-SearchPathExcluded-3: languages\n"
 
+
 #: admin/class-eb-admin-menus.php:45 admin/class-eb-admin-menus.php:46
 #: includes/class-eb-post-types.php:159
 #: public/shortcodes/class-eb-shortcode-user-account.php:429
@@ -57,8 +58,9 @@ msgid "Your settings have been saved."
 msgstr ""
 
 #: admin/class-eb-admin-settings.php:590
-#: admin/settings/class-eb-settings-general.php:81
-#: admin/settings/class-eb-settings-general.php:144
+#: admin/settings/class-eb-settings-general.php:82
+#: admin/settings/class-eb-settings-general.php:106
+#: admin/settings/class-eb-settings-general.php:158
 msgid "Select a page"
 msgstr ""
 
@@ -594,7 +596,7 @@ msgid "License Key for %s is deactivated"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:366
+#: admin/licensing/class-licensing-settings.php:368
 #: admin/settings/class-eb-bridge-summary.php:259
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
@@ -623,53 +625,68 @@ msgid "Not Active "
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:142
+msgid "Get License Key"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:143
 msgid "Install Plugin"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:147
+#: admin/licensing/class-licensing-settings.php:148
 msgid "Activate Plugin"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:175
-#: admin/licensing/class-licensing-settings.php:180
-#: admin/licensing/class-licensing-settings.php:186
+#: admin/licensing/class-licensing-settings.php:176
+#: admin/licensing/class-licensing-settings.php:181
+#: admin/licensing/class-licensing-settings.php:187
 msgid "Deactivate License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:181
-#: admin/licensing/class-licensing-settings.php:187
+#: admin/licensing/class-licensing-settings.php:182
+#: admin/licensing/class-licensing-settings.php:188
 msgid "Renew License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:192
+#: admin/licensing/class-licensing-settings.php:193
 msgid "Activate License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:205
+#: admin/licensing/class-licensing-settings.php:206
 msgid "Security check failed."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:224
+#: admin/licensing/class-licensing-settings.php:225
 msgid "Invalid action."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:260
+#: admin/licensing/class-licensing-settings.php:261
+#: includes/class-eb-email-template-parser.php:196
+#: public/shortcodes/class-eb-shortcode-my-courses.php:126
+#: public/shortcodes/class-eb-shortcode-my-courses.php:189
+msgid "Click here"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:262
 msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:283
+#: admin/licensing/class-licensing-settings.php:262
+msgid " to get the license key."
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:285
 msgid "Plugin installed and activated sucessfully."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:286
+#: admin/licensing/class-licensing-settings.php:288
 msgid "Plugin installation failed."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:289
+#: admin/licensing/class-licensing-settings.php:291
 msgid "Empty download link. Please contact edwiser support for more detials."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:348
+#: admin/licensing/class-licensing-settings.php:350
 msgid "Plugin activated successfully."
 msgstr ""
 
@@ -751,6 +768,7 @@ msgid "Edwiser Bridge Information"
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:151
+#: includes/eb-core-functions.php:829
 #: public/templates/account/user-orders.php:44
 msgid "Not Available"
 msgstr ""
@@ -891,7 +909,7 @@ msgid "Selective Sync Course synchronisation setting not found"
 msgstr ""
 
 #: admin/settings/class-eb-settings-dummy.php:280
-#: admin/settings/class-eb-settings-general.php:54
+#: admin/settings/class-eb-settings-general.php:55
 #: admin/settings/class-eb-settings-synchronization.php:47
 #: includes/class-eb-email-template-parser.php:123
 #: includes/class-eb-post-types.php:111 includes/class-eb-post-types.php:113
@@ -941,98 +959,112 @@ msgid "Select user account page here. Default page is %s "
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:48
-#: admin/settings/class-eb-settings-general.php:53
-#: admin/settings/class-eb-settings-general.php:122
+#: admin/settings/class-eb-settings-general.php:54
+#: admin/settings/class-eb-settings-general.php:136
 #: includes/class-eb-email-template-parser.php:125
 msgid "User Account"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:53
+#: admin/settings/class-eb-settings-general.php:49
+#, php-format
+msgid "Select courses page here. Default page is %s "
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:49
+#: admin/settings/class-eb-settings-general.php:99
+msgid "Courses page"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:54
 #, php-format
 msgid "Redirect user to the My Courses page on %1$s from the %2$s page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:53
-#: admin/settings/class-eb-settings-general.php:121
+#: admin/settings/class-eb-settings-general.php:54
+#: admin/settings/class-eb-settings-general.php:135
 msgid "Login / Registration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:54
+#: admin/settings/class-eb-settings-general.php:55
 msgid "Controlls whether to Show/Hide courses archive page. "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:60
+#: admin/settings/class-eb-settings-general.php:61
 msgid "General Options"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:66
+#: admin/settings/class-eb-settings-general.php:67
 msgid "Enable Registration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:67
+#: admin/settings/class-eb-settings-general.php:68
 msgid "Enable user registration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:74
+#: admin/settings/class-eb-settings-general.php:75
 msgid "User Account Page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:84
+#: admin/settings/class-eb-settings-general.php:85
 msgid ""
 "This sets the user account page, where user can see his/her purchase history."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:87
-#: admin/settings/class-eb-settings-general.php:92
+#: admin/settings/class-eb-settings-general.php:88
+#: admin/settings/class-eb-settings-general.php:93
 msgid "Select Role"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:89
-#: admin/settings/class-eb-settings-general.php:95
+#: admin/settings/class-eb-settings-general.php:90
+#: admin/settings/class-eb-settings-general.php:96
 msgid "Select default role for users on registration from User Account Page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:98
+#: admin/settings/class-eb-settings-general.php:109
+msgid "This sets the courses page, where user can see courses page."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:112
 msgid "Moodle Language Code"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:99
+#: admin/settings/class-eb-settings-general.php:113
 msgid "Enter language code which you get from moodle language settings."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:107
+#: admin/settings/class-eb-settings-general.php:121
 msgid "Show Courses Archive page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:115
+#: admin/settings/class-eb-settings-general.php:129
 msgid "Redirect to My Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:120
+#: admin/settings/class-eb-settings-general.php:134
 msgid "Redirect user to the My Courses page on "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:120
+#: admin/settings/class-eb-settings-general.php:134
 msgid " from the "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:120
+#: admin/settings/class-eb-settings-general.php:134
 msgid " page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:124
+#: admin/settings/class-eb-settings-general.php:138
 msgid "Redirect user to the My Courses page on login and registration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:131
+#: admin/settings/class-eb-settings-general.php:145
 msgid "My Courses Page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:136
+#: admin/settings/class-eb-settings-general.php:150
 msgid "Select my courses page here. Default page is"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:137
+#: admin/settings/class-eb-settings-general.php:151
 #: includes/class-eb-email-template-parser.php:171
 #: includes/eb-core-functions.php:251
 #: public/shortcodes/class-eb-shortcode-user-account.php:434
@@ -1040,122 +1072,122 @@ msgstr ""
 msgid "My Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:147
+#: admin/settings/class-eb-settings-general.php:161
 msgid ""
 "This sets 'My Courses' page, where the user can see all his purchased "
 "courses and access them directly. You have to use this shortcode "
 "[eb_my_courses] to create this page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:150
+#: admin/settings/class-eb-settings-general.php:164
 msgid "Empty My courses Page Redirect Link"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:151
+#: admin/settings/class-eb-settings-general.php:165
 msgid ""
 "Enter the link to where you want to redirect user from My Courses page when "
 "no course is enrolled if empty then will be redirected to the courses page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:159
+#: admin/settings/class-eb-settings-general.php:173
 msgid "Erase associated Moodle data from Moodle site"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:160
+#: admin/settings/class-eb-settings-general.php:174
 msgid ""
 "Erase associated Moodle data from Moodle site on erase personal data of "
 "wordpress site"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:171
+#: admin/settings/class-eb-settings-general.php:185
 msgid "Privacy Policy"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:177
+#: admin/settings/class-eb-settings-general.php:191
 msgid "Enable terms and conditions"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:178
+#: admin/settings/class-eb-settings-general.php:192
 msgid ""
 "Check this to use terms and conditions checkbox on the user-account page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:185
+#: admin/settings/class-eb-settings-general.php:199
 #: public/templates/account/form-login.php:125
 #: public/templates/account/form-login.php:129
 msgid "Terms and Conditions"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:187
+#: admin/settings/class-eb-settings-general.php:201
 msgid ""
 "Please enter the Terms and Conditions you want to show on user-account page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:201
+#: admin/settings/class-eb-settings-general.php:215
 msgid "Recommended Courses Settings"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:207
+#: admin/settings/class-eb-settings-general.php:221
 #: includes/class-eb-post-types.php:374
 msgid "Show Recommended Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:208
+#: admin/settings/class-eb-settings-general.php:222
 msgid "Show recommended courses on eb-my-courses page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:215
+#: admin/settings/class-eb-settings-general.php:229
 msgid "Show Default Recommended Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:216
+#: admin/settings/class-eb-settings-general.php:230
 msgid "Show category wise selected recommended courses on eb-my-courses page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:223
+#: admin/settings/class-eb-settings-general.php:237
 #: includes/class-eb-post-types.php:388
 msgid "Select Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:224
+#: admin/settings/class-eb-settings-general.php:238
 #: includes/class-eb-post-types.php:389
 msgid "Select courses to show in custom courses in recommended course section."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:236
+#: admin/settings/class-eb-settings-general.php:250
 msgid "Refund Notification Settings"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:242
+#: admin/settings/class-eb-settings-general.php:256
 msgid "Notify Admin"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:243
+#: admin/settings/class-eb-settings-general.php:257
 msgid "Notify admin users on refund."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:250
+#: admin/settings/class-eb-settings-general.php:264
 msgid "Notification Email"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:251
+#: admin/settings/class-eb-settings-general.php:265
 msgid "Email address to send refund notification."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:255
+#: admin/settings/class-eb-settings-general.php:269
 msgid ""
 "Specify email address to send refund notification, otherwise keep it blank."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:262
+#: admin/settings/class-eb-settings-general.php:276
 msgid "Usage Tracking"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:268
+#: admin/settings/class-eb-settings-general.php:282
 msgid "Allow Usage Tracking"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:269
+#: admin/settings/class-eb-settings-general.php:283
 msgid "This will help us in building more useful functionalities for you."
 msgstr ""
 
@@ -2006,12 +2038,6 @@ msgstr ""
 msgid "click here"
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:196
-#: public/shortcodes/class-eb-shortcode-my-courses.php:126
-#: public/shortcodes/class-eb-shortcode-my-courses.php:189
-msgid "Click here"
-msgstr ""
-
 #: includes/class-eb-email-template-parser.php:268
 #: includes/class-eb-order-meta.php:250 includes/class-eb-order-meta.php:263
 msgid "Name: "
@@ -2703,7 +2729,7 @@ msgstr ""
 
 #: includes/eb-core-functions.php:252
 #: public/shortcodes/class-eb-shortcode-my-courses.php:48
-#: public/shortcodes/class-eb-shortcode-my-courses.php:380
+#: public/shortcodes/class-eb-shortcode-my-courses.php:391
 msgid "Recommended Courses"
 msgstr ""
 
@@ -2880,6 +2906,8 @@ msgid "Last"
 msgstr ""
 
 #: public/class-eb-public.php:192
+#: public/shortcodes/class-eb-shortcode-courses.php:337
+#: public/templates/course-pagination.php:43
 msgid "Next"
 msgstr ""
 
@@ -2943,12 +2971,7 @@ msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-courses.php:281
 #: public/templates/course-pagination.php:27
-msgid "< Prev"
-msgstr ""
-
-#: public/shortcodes/class-eb-shortcode-courses.php:337
-#: public/templates/course-pagination.php:45
-msgid "Next >"
+msgid "Prev"
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:125
@@ -2999,7 +3022,7 @@ msgstr ""
 msgid "100% Completed"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:325
+#: public/shortcodes/class-eb-shortcode-my-courses.php:336
 msgid "View More &rarr;"
 msgstr ""
 
@@ -3320,3 +3343,5 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
+
+
