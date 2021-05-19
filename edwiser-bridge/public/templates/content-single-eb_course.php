@@ -48,7 +48,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 
 				if ( count( $single_course_data['categories'] ) ) {
 					?>
-					<div  class="eb-cat-wrapper">
+					<div  class="eb-cat-wrapper-new ">
 						<span>
 							<strong>
 								<?php esc_html_e( 'CATEGORY: ', 'eb-textdomain' ); ?>

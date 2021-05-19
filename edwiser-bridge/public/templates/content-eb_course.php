@@ -37,7 +37,7 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 				<div class="wdm-caption">
 
 					<!--  -->
-					<div  class="eb-cat-wrapper">
+					<div  class="eb-cat-wrapper-new ">
 					<?php
 						echo wp_kses( implode( ', ', $course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 					?>
@@ -65,8 +65,8 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 			// My courses page cards with progress and everything.
 			?>
 
-			<!-- <a href="<?php echo esc_url( $course_data['course_url'] ); ?>" rel="bookmark" class="wdm-course-thumbnail"> -->
-			<div>
+			<a href="<?php echo esc_url( $course_data['course_url'] ); ?>" rel="bookmark" class="wdm-course-thumbnail">
+			<!-- <div> -->
 
 				<div class="wdm-course-image">
 					<?php
@@ -80,21 +80,20 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 				</div>
 
 				<div class="wdm-caption">
-					<div  class="eb-cat-wrapper">
+					<div  class="eb-cat-wrapper-new ">
 						<?php
 							echo wp_kses( implode( ', ', $course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
 						?>
 					</div>
 
-					<!-- <h4 class="eb-course-title"><?php the_title(); ?></h4> -->
 					<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
 
 					<?php
 					echo wp_kses_post( $attr['progress_btn_div'] );
 					?>
 				</div>
-			</div>
-			<!-- </a> -->
+			<!-- </div> -->
+			</a>
 
 			<?php
 		}

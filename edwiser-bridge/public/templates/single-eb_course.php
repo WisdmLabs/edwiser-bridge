@@ -71,11 +71,10 @@ while ( have_posts() ) :
 	comments_template();
 endwhile;
 
+// End of the single course page.
 do_action( 'eb_after_single_course' );
 
-?>
 
-<?php
 
 
 // Use this Hook to add sidebar container.

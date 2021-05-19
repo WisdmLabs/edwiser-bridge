@@ -35,8 +35,16 @@ class Eb_Theme_Compatibility {
 				echo '<div class="large-9 col">';
 				break;
 
+			case 'astra':
+				echo '<div id="primary" class="content-area primary">';
+				break;
+
+			case 'storefront':
+				echo '<div id="primary" class="content-area">';
+				break;
+
 			default:
-				echo '<div>';
+				echo '<div class="content-area">';
 				break;
 		}
 		unset( $wrapper_args );
@@ -64,6 +72,10 @@ class Eb_Theme_Compatibility {
 				// Divi.
 			case 'flatsome':
 				echo '<div class="large-3 col">';
+				break;
+
+			case 'astra':
+				echo '<div class="widget-area secondary">';
 				break;
 
 			default:

@@ -931,13 +931,6 @@ class EdwiserBridge {
 
 		// Adding theme compatibility hooks here.
 		$theme_compatibility = new Eb_Theme_Compatibility();
-		$this->loader->eb_add_action(
-			'eb_archive_before_content',
-			$theme_compatibility,
-			'eb_content_start_theme_compatibility',
-			10,
-			2
-		);
 
 		$this->loader->eb_add_action(
 			'eb_archive_after_content',
