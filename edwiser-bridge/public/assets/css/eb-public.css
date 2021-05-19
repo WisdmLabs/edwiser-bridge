@@ -150,11 +150,14 @@
 }
 
 .eb_archive_filter {
+  display: inline-flex;
   width: 50%;
 }
 .eb_archive_sort {
+  display: inline-flex;
   text-align: right;
   width: 50%;
+  justify-content: flex-end;
 }
 
 .eb_archive_filter select,
@@ -178,6 +181,12 @@
   line-height: 19px;
   color: #444444;
 }
+
+#eb_category_sort, #eb_category_filter{
+  width: auto;
+  margin-left: 10px;
+}
+
 
 .eb-primary {
   padding: 0px 20px;
@@ -479,6 +488,7 @@
     width: 100%;
   }
   .eb_archive_sort {
+    display: block;
     text-align: left;
     padding-top: 10px;
     width: 100%;
