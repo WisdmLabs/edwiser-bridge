@@ -31,9 +31,9 @@ $prev_page    = 0;
 
 		foreach ( $eb_pages as $eb_page ) {
 			if ( $current_page === $eb_page ) {
-				echo '<li><span class=" page-numbers current" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</span></li>';
+				echo '<li><span class=" page-numbers eb-page-numbers current" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</span></li>';
 			} else {
-				echo '<li><a class="page-numbers" href="' . esc_html( get_pagenum_link( $eb_page ) ) . '" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</a></li>';
+				echo '<li><a class="page-numbers eb-page-numbers" href="' . esc_html( get_pagenum_link( $eb_page ) ) . '" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</a></li>';
 			}
 			$prev_page = $eb_page;
 		}

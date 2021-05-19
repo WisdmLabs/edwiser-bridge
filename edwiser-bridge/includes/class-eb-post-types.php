@@ -732,7 +732,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			10 => sprintf(
-				'%1$s' . __( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s </a>',
+				'%1$s' . __( ' draft updated. ', 'eb-textdomain' ) . '<a href="' . '%2$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%3$s </a>',
 				$singular,
 				esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
 				strtolower( $singular )

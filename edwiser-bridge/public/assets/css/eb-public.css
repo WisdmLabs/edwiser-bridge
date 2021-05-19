@@ -10,7 +10,7 @@
 
 /*Pagination buttons*/
 .page-numbers .wdm-btn.button{
-  padding: 10px 25px 10px 18px;
+  /*padding: 10px 25px 10px 18px;*/
   vertical-align: middle;
 }
 
@@ -47,7 +47,7 @@
 .prev.page-numbers,
 .page-numbers.eb_primary_btn {
   border-radius: 2px;
-  padding: 7px 20px;
+  /*padding: 7px 20px;*/
   font-style: normal;
   font-weight: normal;
   text-align: center;
@@ -61,7 +61,7 @@
 .navigation.pagination div .next.page-numbers.eb_primary_btn:hover,
 .next.page-numbers:hover,
 .prev.page-numbers:hover {
-  padding: 7px 20px;
+  /*padding: 7px 20px;*/
 }
 
 
@@ -451,7 +451,7 @@
   box-shadow: 1px 2px 5px #dee2e5;
 }
 
-.wdm-course-grid > a {
+.hentry .wdm-course-grid > a.wdm-course-thumbnail {
   text-decoration: none;
   display: block;
   overflow: hidden;
@@ -915,9 +915,8 @@ div#user_login label {
 
 
 /* eb-pagination styling start */
-.navigation.pagination div .page-numbers,
-.page-numbers {
-  padding: 7px 7px;
+.eb-page-numbers, .page-numbers {
+  padding: 10px;
   margin: 0;
   display: inline;
   overflow: hidden;

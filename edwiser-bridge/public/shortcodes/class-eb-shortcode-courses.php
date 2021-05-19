@@ -295,7 +295,7 @@ class Eb_Shortcode_Courses {
 							$page_id_css .= ' current';
 						} else {
 							?>
-							<a class="page-numbers" href="
+							<a class="page-numbers eb-page-numbers" href="
 							<?php
 							echo esc_html(
 								add_query_arg(
