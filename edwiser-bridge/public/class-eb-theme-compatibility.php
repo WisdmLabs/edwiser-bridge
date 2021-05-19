@@ -75,7 +75,7 @@ class Eb_Theme_Compatibility {
 				break;
 
 			case 'astra':
-				echo '<div class="widget-area secondary">';
+				echo '';
 				break;
 
 			default:
@@ -92,6 +92,9 @@ class Eb_Theme_Compatibility {
 	 * @param text $wrapper_args wrapper_args.
 	 */
 	public function eb_sidebar_end_theme_compatibility( $wrapper_args ) {
-		$this->eb_content_end_theme_compatibility( $wrapper_args );
+		$template = get_option( 'template' );
+		if ( 'astra' !== $template ) {
+			$this->eb_content_end_theme_compatibility( $wrapper_args );
+		}
 	}
 }

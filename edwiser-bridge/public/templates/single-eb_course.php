@@ -75,8 +75,6 @@ endwhile;
 do_action( 'eb_after_single_course' );
 
 
-
-
 // Use this Hook to add sidebar container.
 do_action( 'eb_archive_before_sidebar', $wrapper_args );
 

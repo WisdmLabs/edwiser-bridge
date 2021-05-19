@@ -318,8 +318,19 @@ class Eb_Shortcode_My_Courses {
 			}
 			do_action( 'eb_after_recommended_courses' );
 			echo '</div> </div>';
-			$eb_course     = get_post_type_object( 'eb_course' );
-			$view_more_url = site_url( $eb_course->rewrite['slug'] );
+
+			$eb_settings = get_option( 'eb_general' );
+
+			/*
+			* Set the login redirect url to the user account page.
+			*/
+			if ( isset( $eb_settings['eb_useraccount_page_id'] ) ) {
+				$courses_page_id = $eb_settings['eb_useraccount_page_id'];
+				$view_more_url   = get_permalink( $courses_page_id );
+			} else {
+				$eb_course     = get_post_type_object( 'eb_course' );
+				$view_more_url = site_url( $eb_course->rewrite['slug'] );
+			}
 			?>
 			<a href="<?php echo esc_html( $view_more_url ); ?>" class="wdm-btn eb-rec-courses-view-more">
 				<?php esc_html_e( 'View More &rarr;', 'eb-textdomain' ); ?>

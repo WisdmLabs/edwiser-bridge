@@ -1248,12 +1248,12 @@ nav.eb-pagination ul li {
 }
 
 .eb-cat-courses-cont .eb-scroll-left {
-  left: 0;
+  left: -25px;
   border-radius: 1em;
 }
 
 .eb-cat-courses-cont .eb-scroll-right {
-  right: 0;
+  right: -25px;
   border-radius: 1em;
 }
 
@@ -1443,9 +1443,12 @@ nav.eb-pagination ul li {
 .eb_my_course_article .entry-content {
   display: none;
 }
+
+
 .eb-cat-wrapper{
   margin-top: 20px;
   border-bottom: 1px solid #dddddd;
   border-top: 1px solid #dddddd;
   padding: 10px 0px;
 }
+

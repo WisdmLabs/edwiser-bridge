@@ -254,7 +254,7 @@ class Eb_Activator {
 					'name'       => esc_html_x( 'eb-courses', 'Page slug', 'eb-textdomain' ),
 					'title'      => esc_html_x( 'Courses', 'Page title', 'eb-textdomain' ),
 					'content'    => $page_content['eb_courses'],
-					'option_key' => '',
+					'option_key' => 'eb_courses_page_id',
 				),
 			)
 		);

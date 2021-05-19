@@ -27,6 +27,11 @@ switch ( $template ) {
 	case 'Divi':
 		echo '</div></div></div>';
 		break;
+
+	case 'astra':
+		echo '';
+		break;
+
 	default:
 		// Divi container.
 		echo '</div></div>';

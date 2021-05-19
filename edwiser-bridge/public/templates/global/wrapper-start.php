@@ -54,6 +54,10 @@ switch ( $template ) {
 		. esc_html( $parentcss ) . '"><div class="row row-large row-divided">';
 		break;
 
+	case 'astra':
+		echo '';
+		break;
+
 	default:
 		echo '<div id="container" class="eb-primary" style="'
 		. esc_html( $parentcss ) . '"><div id="content" role="main">';

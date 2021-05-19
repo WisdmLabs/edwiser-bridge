@@ -28,6 +28,7 @@ $prev_page    = 0;
 		<?php endif; ?>
 
 		<?php
+
 		foreach ( $eb_pages as $eb_page ) {
 			if ( $current_page === $eb_page ) {
 				echo '<li><span class=" page-numbers current" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</span></li>';

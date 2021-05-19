@@ -46,6 +46,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			* translators: the user account page url will go here
 			*/
 			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$courses_page_desc = sprintf( __( 'Select courses page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/eb_courses' ) ) . '">' . __( 'Courses page', 'eb-textdomain' ) . '</a>' );
 
 			/*
 			* translators: My Courses page setting description.
@@ -69,6 +70,19 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'default'  => 'no',
 						'type'     => 'checkbox',
 						'autoload' => false,
+					),
+					array(
+						'title'    => __( 'Courses page', 'eb-textdomain' ),
+						'desc'     => '<br/>' . $courses_page_desc,
+						'id'       => 'eb_courses_page_id',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'css'      => 'min-width:300px;',
+						'args'     => array(
+							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'option_none_value' => '',
+						),
+						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'eb-textdomain' ),
 					),
 					array(
 						'title'    => __( 'User Account Page', 'eb-textdomain' ),

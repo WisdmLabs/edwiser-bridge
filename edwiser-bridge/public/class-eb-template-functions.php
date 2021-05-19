@@ -311,7 +311,7 @@ class Eb_Template_Functions {
 		} elseif ( ! empty( $filter ) ) {
 			$cat   = array();
 			$cat[] = get_term( $filter, 'eb_course_cat' );
-		} 
+		}
 
 		return $cat;
 	}

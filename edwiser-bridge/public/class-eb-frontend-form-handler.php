@@ -257,6 +257,8 @@ class Eb_Frontend_Form_Handler {
 
 	/**
 	 * Enroll.
+	 *
+	 * @param string $data data.
 	 */
 	private static function auto_enroll( $data ) {
 		if ( isset( $data['is_enroll'] ) && 'true' === $data['is_enroll'] ) {
