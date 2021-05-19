@@ -278,7 +278,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( '< Prev', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Prev', 'eb-textdomain' ); ?>
 						</a>
 						<?php
 					}
@@ -334,7 +334,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( 'Next >', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Next', 'eb-textdomain' ); ?>
 						</a>
 						<?php
 					}

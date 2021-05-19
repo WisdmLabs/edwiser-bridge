@@ -72,19 +72,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Courses page', 'eb-textdomain' ),
-						'desc'     => '<br/>' . $courses_page_desc,
-						'id'       => 'eb_courses_page_id',
-						'type'     => 'single_select_page',
-						'default'  => '',
-						'css'      => 'min-width:300px;',
-						'args'     => array(
-							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
-							'option_none_value' => '',
-						),
-						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'eb-textdomain' ),
-					),
-					array(
 						'title'    => __( 'User Account Page', 'eb-textdomain' ),
 						'desc'     => '<br/>' . $user_acc_desc,
 						'id'       => 'eb_useraccount_page_id',
@@ -107,6 +94,19 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'css'      => 'min-width:300px;',
 						'options'  => \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_wp_roles(),
 						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
+					),
+					array(
+						'title'    => __( 'Courses page', 'eb-textdomain' ),
+						'desc'     => '<br/>' . $courses_page_desc,
+						'id'       => 'eb_courses_page_id',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'css'      => 'min-width:300px;',
+						'args'     => array(
+							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'option_none_value' => '',
+						),
+						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'eb-textdomain' ),
 					),
 					array(
 						'title'    => __( 'Moodle Language Code', 'eb-textdomain' ),

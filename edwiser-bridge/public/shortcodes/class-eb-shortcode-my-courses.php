@@ -324,8 +324,8 @@ class Eb_Shortcode_My_Courses {
 			/*
 			* Set the login redirect url to the user account page.
 			*/
-			if ( isset( $eb_settings['eb_useraccount_page_id'] ) ) {
-				$courses_page_id = $eb_settings['eb_useraccount_page_id'];
+			if ( isset( $eb_settings['eb_courses_page_id'] ) ) {
+				$courses_page_id = $eb_settings['eb_courses_page_id'];
 				$view_more_url   = get_permalink( $courses_page_id );
 			} else {
 				$eb_course     = get_post_type_object( 'eb_course' );

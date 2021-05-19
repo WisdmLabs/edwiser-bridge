@@ -1030,6 +1030,22 @@ class EdwiserBridge {
 			10,
 			2
 		);
+
+		$this->loader->eb_add_filter(
+			'next_posts_link_attributes',
+			$template_functions,
+			'posts_link_attributes',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'previous_posts_link_attributes',
+			$template_functions,
+			'posts_link_attributes',
+			10,
+			2
+		);
 	}
 
 	/**

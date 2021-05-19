@@ -20,11 +20,17 @@ $end_pages    = range( $max_num_pages - $end_size + 1, $max_num_pages );
 $mid_pages    = range( $current_page - $mid_size, $current_page + $mid_size );
 $eb_pages     = array_intersect( range( 1, $max_num_pages ), array_merge( $start_pages, $end_pages, $mid_pages ) );
 $prev_page    = 0;
+
+
+$link = previous_post_link('%link');
+
+error_log('link ::: '.print_r($link, 1));
+
 ?>
 <nav class="eb-pagination">
 	<ul>
 		<?php if ( $current_page && $current_page > 1 ) : ?>
-			<li class="prev page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" ><?php previous_posts_link( esc_html__( '< Prev', 'eb-textdomain' ) ); ?></li>
+			<li class="prev" ><?php previous_posts_link( esc_html__( 'Prev', 'eb-textdomain' ) ); ?></li>
 		<?php endif; ?>
 
 		<?php
@@ -40,7 +46,7 @@ $prev_page    = 0;
 		?>
 
 		<?php if ( $current_page && $current_page < $max_num_pages ) : ?>
-			<li class="next eb_primary_btn page-numbers button button button-primary et_pb_button et_pb_contact_submit"><?php next_posts_link( esc_html__( 'Next >', 'eb-textdomain' ), $max_num_pages ); ?></li>
+			<li class="next "><?php next_posts_link( esc_html__( 'Next', 'eb-textdomain' ), $max_num_pages ); ?></li>
 		<?php endif; ?>
 	</ul>
 </nav>

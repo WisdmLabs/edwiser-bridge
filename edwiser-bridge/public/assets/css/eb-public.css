@@ -44,13 +44,27 @@
 .navigation.pagination div .next.page-numbers,
 .navigation.pagination div .next.page-numbers.eb_primary_btn,
 .next.page-numbers,
-.prev.page-numbers {
+.prev.page-numbers,
+.page-numbers.eb_primary_btn {
   border-radius: 2px;
-  padding: 10px 20px;
+  padding: 7px 20px;
   font-style: normal;
   font-weight: normal;
   text-align: center;
+  font-size: 14px;
 }
+
+
+.navigation.pagination div .prev.page-numbers:hover,
+.navigation.pagination div .prev.page-numbers.eb_primary_btn:hover,
+.navigation.pagination div .next.page-numbers:hover,
+.navigation.pagination div .next.page-numbers.eb_primary_btn:hover,
+.next.page-numbers:hover,
+.prev.page-numbers:hover {
+  padding: 7px 20px;
+}
+
+
 
 .navigation.pagination div .prev.page-numbers,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn,
@@ -1258,12 +1272,12 @@ nav.eb-pagination ul li {
 }
 
 .eb-cat-courses-cont .eb-scroll-left {
-  left: -25px;
+  left: -20px;
   border-radius: 1em;
 }
 
 .eb-cat-courses-cont .eb-scroll-right {
-  right: -25px;
+  right: -20px;
   border-radius: 1em;
 }
 
