@@ -916,6 +916,7 @@ div#user_login label {
 
 /* eb-pagination styling start */
 .eb-page-numbers, .page-numbers {
+  vertical-align: middle;
   padding: 10px;
   margin: 0;
   display: inline;
