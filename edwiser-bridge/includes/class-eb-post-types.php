@@ -720,7 +720,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			9  => sprintf(
-				'%1$s' . __( 'scheduled for: <strong> ', 'eb-textdomain' ) . '%2$s' . __( '</strong>. <a href="', 'eb-textdomain' ) . '%3$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%4$s</a>',
+				'%1$s' . __( 'scheduled for:  ', 'eb-textdomain' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%4$s</a>',
 				$singular,
 				date_i18n(
 					__( 'M j, Y @ G:i' ),

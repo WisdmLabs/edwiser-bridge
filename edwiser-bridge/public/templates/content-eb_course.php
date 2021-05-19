@@ -72,7 +72,7 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 					<?php
 					if ( isset( $attr ) && isset( $attr['completed'] ) && $attr['completed'] ) {
 						?>
-						<span class="eb_courses_completed_tag"> <?php esc_html_e( 'Completed', 'eb_textdomain' ); ?> </span>
+						<span class="eb_courses_completed_tag"> <?php esc_html_e( 'Completed', 'eb-textdomain' ); ?> </span>
 						<?php
 					}
 					?>

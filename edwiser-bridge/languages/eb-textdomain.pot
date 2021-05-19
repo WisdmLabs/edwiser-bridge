@@ -1464,6 +1464,10 @@ msgstr ""
 msgid "Link user's account to moodle"
 msgstr ""
 
+#: admin/settings/class-eb-settings-synchronization.php:134
+msgid "Start Synchronization"
+msgstr ""
+
 #: admin/settings/class-eb-settings-synchronization.php:152
 msgid "Synchronize Courses"
 msgstr ""
@@ -2642,8 +2646,8 @@ msgstr ""
 msgid "</strong>. <a href=\""
 msgstr ""
 
-#: includes/class-eb-post-types.php:723 includes/class-eb-post-types.php:735
-msgid "\" target=\"_blank\">Preview "
+#: includes/class-eb-post-types.php:723
+msgid "Preview "
 msgstr ""
 
 #: includes/class-eb-post-types.php:726
@@ -2651,7 +2655,11 @@ msgid "M j, Y @ G:i"
 msgstr ""
 
 #: includes/class-eb-post-types.php:735
-msgid " draft updated. <a href=\""
+msgid " draft updated. "
+msgstr ""
+
+#: includes/class-eb-post-types.php:735
+msgid "Preview "
 msgstr ""
 
 #: includes/class-eb-user-manager.php:206
@@ -3318,7 +3326,7 @@ msgstr ""
 
 #: public/templates/emails/user-existing-wp-account.php:53
 msgid ""
-"To purchase and access more courses click here: <a href=\"%$1s\">Courses</a>."
+"To purchase and access more courses click here: Courses."
 msgstr ""
 
 #: public/templates/emails/user-new-account.php:27
@@ -3333,7 +3341,7 @@ msgstr ""
 
 #: public/templates/emails/user-new-account.php:54
 #: public/templates/emails/user-order-completion-email.php:47
-msgid "You can access your account here: <a href=\"%$1s\">User Account</a>."
+msgid "You can access your account here: User Account."
 msgstr ""
 
 #: public/templates/emails/user-order-completion-email.php:27
@@ -3343,5 +3351,6 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
+
 
 

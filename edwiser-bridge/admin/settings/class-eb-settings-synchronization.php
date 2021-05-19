@@ -131,7 +131,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title'    => '',
 							'desc'     => '',
 							'id'       => 'eb_synchronize_users_button',
-							'default'  => 'Start Synchronization',
+							'default'  => __( 'Start Synchronization', 'eb-textdomain' ),
 							'type'     => 'button',
 							'desc_tip' => false,
 							'class'    => 'button secondary',
