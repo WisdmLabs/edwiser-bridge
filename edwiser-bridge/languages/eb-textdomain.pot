@@ -1464,7 +1464,7 @@ msgstr ""
 msgid "Link user's account to moodle"
 msgstr ""
 
-#: admin/settings/class-eb-settings-synchronization.php:132
+#: admin/settings/class-eb-settings-synchronization.php:133
 msgid ""
 "Note: Performing user synchronization will email all the users with their "
 "login credentials. To disable the same you may deactivate \"Link WP user "
