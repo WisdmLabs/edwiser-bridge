@@ -298,7 +298,7 @@ class Eb_Admin_Notice_Handler {
 							<b> Edwiser Bridge </b>' . esc_html__( 'templates previously then please make sure that your templates are made compatible with the ', 'eb-textdomain' ) . ' <b>NEW Edwiser Bridge</b>
 							' . esc_html__( 'template. It may cause CSS breaks if not done.', 'eb-textdomain' ) . '
 							<div class="">
-								' .  esc_html__( 'Please refer to', 'eb-textdomain' ) . '<a href="https://edwiser.org/blog/how-to-make-edwiser-bridge-compatible-with-your-theme/" target="_blank"> <b>' . esc_html__( ' this ', 'eb-textdomain' ) . '</b> </a>' . esc_html__( ' article for theme compatibility', 'eb-textdomain' ) . '
+								' . esc_html__( 'Please refer to', 'eb-textdomain' ) . '<a href="https://edwiser.org/blog/how-to-make-edwiser-bridge-compatible-with-your-theme/" target="_blank"> <b>' . esc_html__( ' this ', 'eb-textdomain' ) . '</b> </a>' . esc_html__( ' article for theme compatibility', 'eb-textdomain' ) . '
 							</div>
 						</div>
 						<div class="eb_admin_templ_dismiss_notice_message">

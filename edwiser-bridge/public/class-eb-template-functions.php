@@ -321,7 +321,7 @@ class Eb_Template_Functions {
 	 * FUnction to add custom classes to the pagination links.
 	 */
 	public function posts_link_attributes() {
-	  return 'class="page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"';
+		return 'class="page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"';
 	}
 
 }

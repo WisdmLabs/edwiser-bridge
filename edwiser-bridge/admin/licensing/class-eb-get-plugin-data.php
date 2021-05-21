@@ -34,13 +34,13 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 			if ( null !== self::$response_data && true === $cache ) {
 				return self::$response_data;
 			}
-			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+			if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
-			$plugin_data = Eb_Licensing_Manger::get_plugin_data( $plugin_slug );
+			$plugin_data = Eb_Licensing_Manager::get_plugin_data( $plugin_slug );
 			$plugin_name = $plugin_data['plugin_name'];
 			$plugin_slug = $plugin_data['plugin_slug'];
-			$store_url   = Eb_Licensing_Manger::$store_url;
+			$store_url   = Eb_Licensing_Manager::$store_url;
 
 			$license_transient = get_transient( 'wdm_' . $plugin_slug . '_license_trans' );
 
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 						}
 					} else {
 						include_once plugin_dir_path( __FILE__ ) . 'class-eb-select-add-plugin-data-in-db.php';
-						$license_status = Eb_Licensing_Manger::update_status( $license_data, $plugin_slug );
+						$license_status = Eb_Licensing_Manager::update_status( $license_data, $plugin_slug );
 					}
 
 					$active_site = self::get_site_list( $plugin_slug );

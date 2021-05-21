@@ -10,12 +10,12 @@ namespace app\wisdmlabs\edwiserBridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 
 	/**
 	 * Class manages the plugin license data.
 	 */
-	class Eb_Licensing_Manger {
+	class Eb_Licensing_Manager {
 
 		/**
 		 * Short Name for plugin.
@@ -319,11 +319,11 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 		 * @param string $status License status.
 		 */
 		private function get_licenses_global_status( $status ) {
-			if ( isset( $GLOBALS['wdm_server_null_response'] ) && true === $GLOBALS['wdm_server_null_response'] ) {
+			if ( isset( $GLOBALS['wdm_server_null_response'] ) && true === $GLOBALS['wdm_server_null_response'] ) { // WPCS: CSRF ok, input var ok.
 				$status = 'server_did_not_respond';
-			} elseif ( isset( $GLOBALS['wdm_license_activation_failed'] ) && true === $GLOBALS['wdm_license_activation_failed'] ) {
+			} elseif ( isset( $GLOBALS['wdm_license_activation_failed'] ) && true === $GLOBALS['wdm_license_activation_failed'] ) { // WPCS: CSRF ok, input var ok.
 				$status = 'license_activation_failed';
-			} elseif ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) {
+			} elseif ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok.
 				$status = 'no_license_key_entered';
 			}
 			return $status;
@@ -345,11 +345,9 @@ if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
 			$display = '';
 
 			$display = $this->check_if_site_active( $active_site );
-			if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) &&
-					! isset( $_POST['eb_server_nr'] ) ) {
+			if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && ! isset( $_POST['eb_server_nr'] ) ) { // WPCS: CSRF ok, input var ok.
 				// Handle Submission of inputs on license page.
-				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) &&
-						empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) {
+				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok.
 					// If empty, show error message.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',

@@ -71,11 +71,11 @@ if ( ! class_exists( 'Eb_Plugin_Updater' ) ) {
 		 * @param string $current_version Plugin current version.
 		 */
 		public function __construct( $plugin_slug, $plugin_file, $current_version ) {
-			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+			if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
-			$plugin_data    = Eb_Licensing_Manger::get_plugin_data( $plugin_slug );
-			$this->api_url  = trailingslashit( Eb_Licensing_Manger::$store_url );
+			$plugin_data    = Eb_Licensing_Manager::get_plugin_data( $plugin_slug );
+			$this->api_url  = trailingslashit( Eb_Licensing_Manager::$store_url );
 			$this->api_data = urlencode_deep( $plugin_data );
 			$this->name     = plugin_basename( $plugin_file );
 			$this->slug     = basename( $plugin_file, '.php' );

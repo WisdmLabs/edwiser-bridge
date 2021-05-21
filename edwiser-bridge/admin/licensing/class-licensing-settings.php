@@ -43,13 +43,13 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$this->addon_licensing = array( 'licensing' );
 			$this->_id             = 'licensing';
 			$this->label           = __( 'Licenses', 'eb-textdomain' );
-			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+			if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
 			if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
 			}
-			$this->products_data = Eb_Licensing_Manger::get_plugin_data();
+			$this->products_data = Eb_Licensing_Manager::get_plugin_data();
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
 		}
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$GLOBALS['hide_save_button'] = true;
 			$setting_messages            = $this->license_form_submission_handler();
 			$plugin_path                 = plugin_dir_path( __DIR__ );
-			$store_url                   = Eb_Licensing_Manger::$store_url;
+			$store_url                   = Eb_Licensing_Manager::$store_url;
 			$author_name                 = 'WisdmLabs';
 			require_once $plugin_path . 'licensing/html-licensing.php';
 		}
@@ -246,11 +246,17 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param  mixed $post_data Installation reuqest data.
 		 */
 		private function wdm_install_plugin( $post_data ) {
-			$resp                      = array(
+			$resp            = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
-			$slug                      = $post_data['action'];
+			$slug            = $post_data['action'];
+			$chec_plugin_dep = $this->check_plugin_dependancy( $slug );
+			if ( false !== $chec_plugin_dep ) {
+				$resp['msg'] = $chec_plugin_dep;
+				return $resp;
+			}
+
 			$plugin_data               = $this->products_data[ $slug ];
 			$plugin_data['edd_action'] = 'get_version';
 			$l_key_name                = $plugin_data['key'];
@@ -259,11 +265,11 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			update_option( $l_key_name, $l_key );
 			if ( empty( $plugin_data['license'] ) ) {
 				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
-				$resp['msg'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link  .__( ' to get the license key.', 'eb-textdomain' );
+				$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
 				return $resp;
 			}
 			$request = wp_remote_get(
-				add_query_arg( $plugin_data, Eb_Licensing_Manger::$store_url ),
+				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
 				array(
 					'timeout'   => 15,
 					'sslverify' => false,
@@ -273,25 +279,43 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
-				if ( isset( $request->msg ) ) {
-					$resp['msg'] = $request->msg;
-				}
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
 					$installed = $this->install_plugin( $request->download_link );
 					if ( is_wp_error( $installed ) ) {
 						$resp['msg'] = $installed->get_error_messages();
 					} elseif ( $installed ) {
-						$this->manage_license( $post_data, 'activate' );
+						$status = get_option( 'edd_' . $slug . '_license_status' );
+						if ( 'valid' === $status || 'expired' === $status ) {
+							$this->manage_license( $post_data, 'activate' );
+						}
 						$resp['msg']          = __( 'Plugin installed and activated sucessfully.', 'eb-textdomain' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
 						$resp['msg'] = __( 'Plugin installation failed.', 'eb-textdomain' );
 					}
+				} elseif ( isset( $request->msg ) ) {
+					$resp['msg'] = $request->msg;
 				} else {
-					$resp['msg'] = __( 'Empty download link. Please contact edwiser support for more detials.', 'eb-textdomain' );
+					$resp['msg'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
 				}
 			}
 			return $resp;
+		}
+
+		/**
+		 * Function checks is the dependancy plugin is installed and active or not.
+		 *
+		 * @param  string $slug Plugin slug to check with.
+		 * @return mixed Returns the message if dependacy failes otherwise false.
+		 */
+		private function check_plugin_dependancy( $slug ) {
+			$msg = false;
+			if ( 'bulk-purchase' === $slug && ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
+				$msg = __( 'Please installed and activate Edwiser WooCommerce Integration plugin first', 'eb-textdomain' );
+			} elseif ( 'woocommerce_integration' === $slug && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+				$msg = __( 'Please installed and activate WooCommerce plugin first', 'eb-textdomain' );
+			}
+			return $msg;
 		}
 
 		/**
@@ -321,7 +345,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$plugin_data        = $this->products_data[ $data['action'] ];
 			$plugin_data['url'] = get_home_url();
 			$plugin_data['key'] = $data[ $plugin_data['key'] ];
-			$license_maanger    = new Eb_Licensing_Manger( $plugin_data );
+			$license_maanger    = new Eb_Licensing_Manager( $plugin_data );
 			if ( 'activate' === $action ) {
 				$license_maanger->activate_license();
 			} else {

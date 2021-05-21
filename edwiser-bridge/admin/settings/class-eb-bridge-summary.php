@@ -63,7 +63,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		private function get_edwiser_envirment( $plugin_path ) {
 			$response   = wp_remote_get( 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json' );
 			$fetch_data = false;
-			if ( isset( $_GET['fetch_data'] ) && 'true' === $_GET['fetch_data'] ) {
+			if ( isset( $_GET['fetch_data'] ) && 'true' === $_GET['fetch_data'] ) { // WPCS: CSRF ok, input var ok.
 				$fetch_data = true;
 			}
 			$free_plugin_data = array();
@@ -79,46 +79,63 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			}
 			$data = array(
 				array(
-					'label' => __( 'Edwiser Bridge :', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => $this->show_plugin_version( $free_plugin_data['edwiser_bridge'], wdm_get_plugin_version( 'edwiser-bridge/edwiser-bridge.php' ) ),
+					'<span class="eb-summary-lbl-heading">' . __( 'Wordpress Plugins', 'eb-textdomain' ) . '</span>',
+					'',
+					'',
+				),
+				array(
+					'<span class="eb-summary-lbl-text">' . __( 'Edwiser Bridge :', 'eb-textdomain' ) . '</span>',
+					$free_plugin_data['edwiser_bridge']['version'],
+					$this->show_plugin_version( $free_plugin_data['edwiser_bridge'], wdm_get_plugin_version( 'edwiser-bridge/edwiser-bridge.php' ) ),
 				),
 			);
-
-			if ( ! class_exists( 'Eb_Licensing_Manger' ) ) {
+			if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once $plugin_path . 'licensing/class-eb-licensing-manager.php';
 			}
-			$products_data = Eb_Licensing_Manger::get_plugin_data();
+			$products_data = Eb_Licensing_Manager::get_plugin_data();
+
 			foreach ( $products_data as $product ) {
-				$data[] = array(
-					'label' => $product['item_name'] . ' :',
-					'help'  => '',
-					'value' => $this->get_plugin_version_info( $product, $product['path'], $fetch_data ),
+				$version_info = wdm_get_plugin_version( $product['path'] );
+				$remote_data  = $this->get_plugin_remote_version( $product, $fetch_data );
+				$data[]       = array(
+					'<span class="eb-summary-lbl-text">' . $product['item_name'] . ' :</span>',
+					$version_info,
+					$this->show_plugin_version( $remote_data, $version_info ),
 				);
+
 			}
 			$data           = array_merge(
 				$data,
 				array(
 					array(
-						'label' => __( 'Moodle Edwiser Bridge :', 'eb-textdomain' ),
-						'help'  => '',
-						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge'] ),
+						'<span class="eb-summary-lbl-heading">' . __( 'Moodle Plugins', 'eb-textdomain' ) . '</span>',
+						'',
+						'',
 					),
 					array(
-						'label' => __( 'Moodle Edwiser Single Sign On :', 'eb-textdomain' ),
-						'help'  => '',
-						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_sso'] ),
+						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Bridge :', 'eb-textdomain' ) . '</span>',
+						'---',
+						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge'] ),
 					),
 					array(
-						'label' => __( 'Moodle Edwiser Bulk Purchase :', 'eb-textdomain' ),
-						'help'  => '',
-						'value' => $this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_bp'] ),
+						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Single Sign On :', 'eb-textdomain' ) . '</span>',
+						'---',
+						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_sso'] ),
+					),
+					array(
+						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Bulk Purchase :', 'eb-textdomain' ) . '</span>',
+						'---',
+						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_bp'] ),
 					),
 				)
 			);
 			$refresh_url    = admin_url( '/admin.php?page=eb-settings&tab=summary&fetch_data=true' );
 			$refresh_button = '<a class="wdm-stat-reload" title="' . __( 'Check update again', 'eb-textdomain' ) . '" href="' . $refresh_url . '"><span class="dashicons dashicons-update-alt"></span></a>';
-			$title          = __( 'Edwiser Bridge Information', 'eb-textdomain' ) . $refresh_button;
+			$headings       = array(
+				__( 'Edwiser Bridge Plugin Summary', 'eb-textdomain' ),
+				__( 'Installed', 'eb-textdomain' ),
+				__( 'Latest version', 'eb-textdomain' ) . $refresh_button,
+			);
 			include $plugin_path . 'partials/html-bridge-summary.php';
 		}
 
@@ -148,24 +165,19 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			ob_start();
 			if ( ! $version_info ) {
 				?>
-				<?php esc_attr_e( 'Not Available', 'eb-textdomain' ); ?>
-				<span style='padding-left:1rem;'>
 				<?php echo esc_attr( $remote_data['version'] ); ?>
-				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'eb-textdomain' ); ?>'><?php esc_attr_e( 'Download Plugin', 'eb-textdomain' ); ?></a>
-				</span>
+				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'eb-textdomain' ); ?>'><?php esc_attr_e( 'Download Plugin', 'eb-textdomain' ); ?></a>
 				<?php
 			} elseif ( $remote_data['version'] && version_compare( $remote_data['version'], $version_info, '>' ) ) {
-				echo esc_attr( $version_info );
 				?>
-				<span style='padding-left:1rem;'>
 				<?php echo esc_attr( $remote_data['version'] ); ?>
-				<a target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e( 'Download', 'eb-textdomain' ); ?></a>
-				</span>
+				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e( 'Download', 'eb-textdomain' ); ?></a>
 				<?php
 			} else {
-				echo esc_attr( $version_info );
 				?>
-				<span style='color:limegreen; padding-left:1rem;'><?php esc_attr_e( 'Latest version', 'eb-textdomain' ); ?></span>
+				<span style='color:limegreen;'>
+					<?php esc_attr_e( 'Latest version installed', 'eb-textdomain' ); ?>
+				</span>
 				<?php
 			}
 			return ob_get_clean();
@@ -214,33 +226,27 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			$course_count = \wp_count_posts( 'eb_course' );
 			$data         = array(
 				array(
-					'label' => __( 'Wordpress Site URL:', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => get_home_url(),
+					__( 'Wordpress Site URL:', 'eb-textdomain' ),
+					get_home_url(),
 				),
 				array(
-					'label' => __( 'Moodle Site URL:', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => wdm_edwiser_bridge_plugin_get_access_url(),
+					__( 'Moodle Site URL:', 'eb-textdomain' ),
+					wdm_edwiser_bridge_plugin_get_access_url(),
 				),
 				array(
-					'label' => __( 'Access Token:', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => wdm_edwiser_bridge_plugin_get_access_token(),
+					__( 'Access Token:', 'eb-textdomain' ),
+					wdm_edwiser_bridge_plugin_get_access_token(),
 				),
 				array(
-					'label' => __( 'Permalink Structure:', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => get_option( 'permalink_structure' ),
+					__( 'Permalink Structure:', 'eb-textdomain' ),
+					get_option( 'permalink_structure' ),
 				),
 				array(
-					'label' => __( 'Number of Courses:', 'eb-textdomain' ),
-					'help'  => '',
-					'value' => sprintf( __( 'Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)', 'eb-textdomain' ), $course_count->publish, $course_count->draft, $course_count->trash, $course_count->private ),
+					__( 'Number of Courses:', 'eb-textdomain' ),
+					sprintf( __( 'Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)', 'eb-textdomain' ), $course_count->publish, $course_count->draft, $course_count->trash, $course_count->private ),
 				),
 			);
-
-			$title = __( 'Server Envirment Information', 'eb-textdomain' );
+			$headings     = array( __( 'Server Envirment Information', 'eb-textdomain' ), '' );
 			include $plugin_path . 'partials/html-bridge-summary.php';
 		}
 

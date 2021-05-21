@@ -225,36 +225,33 @@
   overflow: hidden;
 }
 
-
 /* Admin Notice CSS */
 
-
-.eb_template_notice_wrap{
+.eb_template_notice_wrap {
   display: flex;
   line-height: 22px;
   font-size: 14px;
   background-color: #f6f6eb;
 }
 
-.eb_template_notice{
+.eb_template_notice {
   width: 85%;
   padding: 12px;
 }
 
-.eb_template_notice > div{
+.eb_template_notice > div {
   width: 100%;
   padding-top: 10px;
 }
 
-.eb_admin_templ_dismiss_notice_message{
+.eb_admin_templ_dismiss_notice_message {
   text-align: right;
   width: 15%;
 }
 
-.eb_admin_templ_dismiss_notice_message > a{
+.eb_admin_templ_dismiss_notice_message > a {
   color: red;
 }
-
 
 .eb_admin_feedback_notice_message {
   float: left;
@@ -1379,4 +1376,22 @@ a[href*="page=eb-settings"].nav-tab {
 .wdm-stat-reload {
   text-decoration: none;
   margin-left: 1rem;
+}
+.eb-summary-lbl-heading {
+  font-weight: 600;
+}
+.eb-summary-lbl-text {
+  padding-left: 1.5rem;
+}
+.eb-form-content-wrap .form-content .wrap {
+  background: #fff;
+  border: 1px solid #c3c4c7;
+  border-left-width: 4px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+  margin: 5px 15px 2px;
+  padding: 10px 12px;
+  border-left-color: #72aee6;
+}
+.eb-form-content-wrap .form-content .code {
+  display: none;
 }
