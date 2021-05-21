@@ -192,7 +192,9 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 		 * Updates license status in the database and returns status value.
 		 *
 		 * @param object $license_data License data returned from server.
-		 * @param  string $plugin_slug  Slug of the plugin. Format of the key in options table is 'edd_<$plugin_slug>_license_status'.
+		 * @param string $plugin_slug  Slug of the plugin. Format of the key in options table is 'edd_<$plugin_slug>_license_status'.
+		 *
+		 * @return string              Returns status of the license
 		 */
 		public static function update_status( $license_data, $plugin_slug ) {
 			$status = '';
@@ -204,27 +206,81 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					}
 				}
 
-				if ( isset( $license_data->error ) && ! empty( $license_data->error ) ) {
-					$status = 'disabled' === $license_data->error ? '' : $license_data->error;
-				}
+				// Is there any licensing related error?
 
-				if ( empty( $status ) ) {
-					if ( isset( $license_data->license ) ) {
-						$status = $license_data->license;
-						if ( 'failed' === $license_data->license ) {
-							$status                                   = 'failed';
-							$GLOBALS['wdm_license_activation_failed'] = true;
-						} elseif ( 'invalid' === $license_data->license && isset( $license_data->activations_left ) && '0' === $license_data->activations_left ) {
-							include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
-							$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
-							$status      = '' !== trim( $active_site ) ? 'no_activations_left' : $license_data->license;
-						}
-					}
+				$status = self::check_licensing_error( $license_data );
+
+				if ( ! empty( $status ) ) {
+					update_option( 'edd_' . $plugin_slug . '_license_status', $status );
+					return $status;
 				}
+				$status = 'invalid';
+				// Check license status retrieved from EDD.
+				$status = self::check_license_status( $license_data, $plugin_slug );
 			}
 
-			$status = empty( $status ) ? 'invalid' : $status;
+			$status = ( empty( $status ) ) ? 'invalid' : $status;
 			update_option( 'edd_' . $plugin_slug . '_license_status', $status );
+			return $status;
+		}
+
+		/**
+		 * Checks if there is any error in response.
+		 *
+		 * @param object $license_data License Data obtained from server.
+		 *
+		 * @return string empty if no error or else error.
+		 */
+		public static function check_licensing_error( $license_data ) {
+			$status = '';
+			if ( isset( $license_data->error ) && ! empty( $license_data->error ) ) {
+				switch ( $license_data->error ) {
+					case 'revoked':
+						$status = 'disabled';
+						break;
+					case 'expired':
+						$status = 'expired';
+						break;
+					case 'item_name_mismatch':
+						$status = 'item_name_mismatch';
+						break;
+					case 'no_activations_left':
+						$status = 'no_activations_left';
+						break;
+				}
+			}
+			return $status;
+		}
+
+		/**
+		 * Function to check the license status.
+		 *
+		 * @param array  $license_data License responce data.
+		 * @param string $plugin_slug Plugin Slug to check the license.
+		 */
+		public static function check_license_status( $license_data, $plugin_slug ) {
+			$status = 'invalid';
+			if ( isset( $license_data->license ) && ! empty( $license_data->license ) ) {
+				switch ( $license_data->license ) {
+					case 'invalid':
+						$status = 'invalid';
+						if ( isset( $license_data->activations_left ) && $license_data->activations_left == '0' ) {
+							include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
+							$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
+							if ( ! empty( $active_site ) || '' !== $active_site ) {
+								$status = 'no_activations_left';
+							}
+						}
+						break;
+					case 'failed':
+						$status                                   = 'failed';
+						$GLOBALS['wdm_license_activation_failed'] = true;
+						break;
+
+					default:
+						$status = $license_data->license;
+				}
+			}
 			return $status;
 		}
 
@@ -423,7 +479,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 		 * @param string $display should display the message or not .
 		 */
 		private function invalid_status_messages( $status, $display ) {
-			if ( 'invalid' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Invalid license key   and site.
+			if ( 'invalid' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Invalid license key and site.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),

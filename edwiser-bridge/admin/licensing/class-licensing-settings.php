@@ -96,17 +96,17 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 
 			if ( false !== $status_option && 'valid' === $status_option ) {
 				$class  = 'active';
-				$status = __( 'Active', 'ebbp-textdomain' );
+				$status = __( 'Active', 'eb-textdomain' );
 			} elseif ( 'site_inactive' === $status_option ) {
-				$status = __( 'Not Active', 'ebbp-textdomain' );
+				$status = __( 'Not Active', 'eb-textdomain' );
 			} elseif ( 'expired' === $status_option && ( ! empty( $display ) || '' !== $display ) ) {
-				$status = __( 'Expired', 'ebbp-textdomain' );
+				$status = __( 'Expired', 'eb-textdomain' );
 			} elseif ( 'expired' === $status_option ) {
-				$status = __( 'Expired', 'ebbp-textdomain' );
+				$status = __( 'Expired', 'eb-textdomain' );
 			} elseif ( 'invalid' === $status_option ) {
-				$status = __( 'Invalid Key', 'ebbp-textdomain' );
+				$status = __( 'Invalid Key', 'eb-textdomain' );
 			} else {
-				$status = __( 'Not Active ', 'ebbp-textdomain' );
+				$status = __( 'Not Active ', 'eb-textdomain' );
 			}
 			?>
 			<span class="eb_lic_status eb_lic_<?php echo esc_attr( $class ); ?>"><?php echo esc_attr( $status ); ?></span>
@@ -174,24 +174,24 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			if ( false !== $status && 'valid' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>"/>
 					<?php
 			} elseif ( 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) {
 				$action = 'activate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'ebbp-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'eb-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} elseif ( 'expired' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'ebbp-textdomain' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'ebbp-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'eb-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} else {
 				$action = 'activate_license';
 				?>
-					<input type="submit" class="button-primary" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'ebbp-textdomain' ); ?>"/>
+					<input type="submit" class="button-primary" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>"/>
 					<?php
 			}
 
@@ -312,9 +312,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		private function check_plugin_dependancy( $slug ) {
 			$msg = false;
 			if ( 'bulk-purchase' === $slug && ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
-				$msg = __( 'Please installed and activate Edwiser WooCommerce Integration plugin first', 'eb-textdomain' );
+				$msg = __( 'Please installed and activate Edwiser WooCommerce Integration plugin first.', 'eb-textdomain' );
 			} elseif ( 'woocommerce_integration' === $slug && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-				$msg = __( 'Please installed and activate WooCommerce plugin first', 'eb-textdomain' );
+				$msg = __( 'Please installed and activate WooCommerce plugin first.', 'eb-textdomain' );
 			}
 			return $msg;
 		}
@@ -346,11 +346,11 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$plugin_data        = $this->products_data[ $data['action'] ];
 			$plugin_data['url'] = get_home_url();
 			$plugin_data['key'] = $data[ $plugin_data['key'] ];
-			$license_maanger    = new Eb_Licensing_Manager( $plugin_data );
+			$license_manager    = new Eb_Licensing_Manager( $plugin_data );
 			if ( 'activate' === $action ) {
-				$license_maanger->activate_license();
+				$license_manager->activate_license();
 			} else {
-				$license_maanger->deactivate_license();
+				$license_manager->deactivate_license();
 			}
 			return $resp;
 		}
@@ -360,17 +360,22 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param array $data Request data.
 		 */
 		private function wdm_eb_activate_plugin( $data ) {
-			$resp   = array(
+			$resp            = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
+			$chec_plugin_dep = $this->check_plugin_dependancy( $data['action'] );
+			if ( false !== $chec_plugin_dep ) {
+				$resp['msg'] = $chec_plugin_dep;
+				return $resp;
+			}
 			$result = activate_plugin( $data['activate_plugin'] );
 			if ( is_wp_error( $result ) ) {
 				$resp['msg']          = $result->get_error_messages();
 				$resp['notice_class'] = 'notice-error';
 			} else {
 				if ( 'valid' !== get_option( 'edd_' . $data['action'] . '_license_status' ) ) {
-					$this->manage_license( $data, 'activate' );
+					$resp = $this->manage_license( $data, 'activate' );
 				}
 				$resp['msg']          = __( 'Plugin activated successfully.', 'eb-textdomain' );
 				$resp['notice_class'] = 'notice-success';

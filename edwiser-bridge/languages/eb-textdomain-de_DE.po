@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-02-01 09:51:00+00:00\n"
-"PO-Revision-Date: 2021-05-21 11:16+0000\n"
+"PO-Revision-Date: 2021-05-21 13:22+0000\n"
 "Last-Translator: root <krunal.kamble@wisdmlabs.com>\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -357,8 +357,16 @@ msgstr "Details des Kontos erfolgreich gespeichert. "
 msgid "Action failed. Please refresh the page and retry."
 msgstr "Fehler. Bitte aktualisieren Sie die Seite und versuchen Sie wieder. "
 
+#: admin/licensing/class-licensing-settings.php:194
+msgid "Activate License"
+msgstr ""
+
 #: admin/licensing/class-licensing-settings.php:149
 msgid "Activate Plugin"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:99
+msgid "Active"
 msgstr ""
 
 #: includes/class-eb-post-types.php:114
@@ -826,6 +834,12 @@ msgstr "Instrumententafel"
 msgid "Date: "
 msgstr "Date: "
 
+#: admin/licensing/class-licensing-settings.php:177
+#: admin/licensing/class-licensing-settings.php:182
+#: admin/licensing/class-licensing-settings.php:188
+msgid "Deactivate License"
+msgstr ""
+
 #: public/templates/course-filters.php:30
 msgid "Default A to Z"
 msgstr ""
@@ -1214,6 +1228,11 @@ msgstr "Zugang Auslauf "
 msgid "Expire Access After (days)"
 msgstr "Zugang läuft aus (tagen) "
 
+#: admin/licensing/class-licensing-settings.php:103
+#: admin/licensing/class-licensing-settings.php:105
+msgid "Expired"
+msgstr ""
+
 #: includes/class-eb-post-types.php:403
 #: includes/class-eb-order-history-meta.php:136
 #: includes/class-eb-order-manager.php:450
@@ -1425,6 +1444,10 @@ msgid "Invalid ajax request."
 msgstr ""
 "Ungültige ajax Anfrage.\n"
 
+#: admin/licensing/class-licensing-settings.php:107
+msgid "Invalid Key"
+msgstr ""
+
 #: includes/payments/eb-ipn.php:293
 msgid "IPN has been recived for the order id #"
 msgstr ""
@@ -1472,7 +1495,7 @@ msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:393
+#: admin/licensing/class-licensing-settings.php:398
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
 #: admin/settings/class-eb-bridge-summary.php:275
@@ -1746,6 +1769,14 @@ msgstr "Keine Antwort von PayPal"
 #: includes/class-eb-manage-enrollment.php:223
 msgid "No users has been unenrolled"
 msgstr "Es wurden keine Benutzer abgemeldet"
+
+#: admin/licensing/class-licensing-settings.php:101
+msgid "Not Active"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:109
+msgid "Not Active "
+msgstr ""
 
 #: public/templates/account/user-orders.php:44
 msgid "Not Available"
@@ -2098,11 +2129,11 @@ msgstr "Bitte füllen Sie alle Passwortfelder aus."
 
 #: admin/licensing/class-licensing-settings.php:315
 msgid ""
-"Please installed and activate Edwiser WooCommerce Integration plugin first"
+"Please installed and activate Edwiser WooCommerce Integration plugin first."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:317
-msgid "Please installed and activate WooCommerce plugin first"
+msgid "Please installed and activate WooCommerce plugin first."
 msgstr ""
 
 #: includes/class-eb-user-manager.php:403
@@ -2147,7 +2178,7 @@ msgstr ""
 msgid "Please wait processing request ...."
 msgstr "Bitte warten Sie die Bearbeitung Anfrage ...."
 
-#: admin/licensing/class-licensing-settings.php:375
+#: admin/licensing/class-licensing-settings.php:380
 msgid "Plugin activated successfully."
 msgstr ""
 
@@ -2335,6 +2366,11 @@ msgstr "Mich erinnern "
 
 #: includes/class-eb-admin-notice-handler.php:259
 msgid "Remind me Later!"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:183
+#: admin/licensing/class-licensing-settings.php:189
+msgid "Renew License"
 msgstr ""
 
 #: admin/class-eb-email-template.php:159

@@ -3,28 +3,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration 2.1.0 "
-"\n"
-"Report-Msgid-Bugs-To: https://WordPress.org/support/plugin/edwiser-bridge\n"
-"POT-Creation-Date: 2021-05-21 11:16+0000\n"
+"Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-21 13:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
 "Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: admin/assets\n"
-"X-Poedit-SearchPathExcluded-1: public/assets\n"
-"X-Poedit-SearchPathExcluded-2: images\n"
-"X-Poedit-SearchPathExcluded-3: languages\n"
+"X-Loco-Version: 2.5.2; wp-5.7.2\n"
+"X-Domain: eb-textdomain"
 
 #: admin/class-eb-admin.php:157
 msgid "  Click"
@@ -325,8 +317,16 @@ msgstr ""
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
+#: admin/licensing/class-licensing-settings.php:194
+msgid "Activate License"
+msgstr ""
+
 #: admin/licensing/class-licensing-settings.php:149
 msgid "Activate Plugin"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:99
+msgid "Active"
 msgstr ""
 
 #: includes/class-eb-post-types.php:114
@@ -775,6 +775,12 @@ msgstr ""
 msgid "Date: "
 msgstr ""
 
+#: admin/licensing/class-licensing-settings.php:177
+#: admin/licensing/class-licensing-settings.php:182
+#: admin/licensing/class-licensing-settings.php:188
+msgid "Deactivate License"
+msgstr ""
+
 #: public/templates/course-filters.php:30
 msgid "Default A to Z"
 msgstr ""
@@ -1127,6 +1133,11 @@ msgstr ""
 msgid "Expire Access After (days)"
 msgstr ""
 
+#: admin/licensing/class-licensing-settings.php:103
+#: admin/licensing/class-licensing-settings.php:105
+msgid "Expired"
+msgstr ""
+
 #: includes/class-eb-post-types.php:403
 #: includes/class-eb-order-history-meta.php:136
 #: includes/class-eb-order-manager.php:450
@@ -1326,6 +1337,10 @@ msgstr ""
 msgid "Invalid ajax request."
 msgstr ""
 
+#: admin/licensing/class-licensing-settings.php:107
+msgid "Invalid Key"
+msgstr ""
+
 #: includes/payments/eb-ipn.php:293
 msgid "IPN has been recived for the order id #"
 msgstr ""
@@ -1373,7 +1388,7 @@ msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:393
+#: admin/licensing/class-licensing-settings.php:398
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
 #: admin/settings/class-eb-bridge-summary.php:275
@@ -1632,6 +1647,14 @@ msgstr ""
 
 #: includes/class-eb-manage-enrollment.php:223
 msgid "No users has been unenrolled"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:101
+msgid "Not Active"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:109
+msgid "Not Active "
 msgstr ""
 
 #: public/templates/account/user-orders.php:44
@@ -1968,11 +1991,11 @@ msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:315
 msgid ""
-"Please installed and activate Edwiser WooCommerce Integration plugin first"
+"Please installed and activate Edwiser WooCommerce Integration plugin first."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:317
-msgid "Please installed and activate WooCommerce plugin first"
+msgid "Please installed and activate WooCommerce plugin first."
 msgstr ""
 
 #: includes/class-eb-user-manager.php:403
@@ -2015,7 +2038,7 @@ msgstr ""
 msgid "Please wait processing request ...."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:375
+#: admin/licensing/class-licensing-settings.php:380
 msgid "Plugin activated successfully."
 msgstr ""
 
@@ -2198,6 +2221,11 @@ msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:259
 msgid "Remind me Later!"
+msgstr ""
+
+#: admin/licensing/class-licensing-settings.php:183
+#: admin/licensing/class-licensing-settings.php:189
+msgid "Renew License"
 msgstr ""
 
 #: admin/class-eb-email-template.php:159
