@@ -168,15 +168,24 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 				<?php echo esc_attr( $remote_data['version'] ); ?>
 				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'eb-textdomain' ); ?>'><?php esc_attr_e( 'Download Plugin', 'eb-textdomain' ); ?></a>
 				<?php
-			} elseif ( $remote_data['version'] && version_compare( $remote_data['version'], $version_info, '>' ) ) {
-				?>
-				<?php echo esc_attr( $remote_data['version'] ); ?>
-				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e( 'Download', 'eb-textdomain' ); ?></a>
-				<?php
+			} elseif ( $remote_data['version'] ) {
+				if ( version_compare( $remote_data['version'], $version_info, '>' ) ) {
+					?>
+					<?php echo esc_attr( $remote_data['version'] ); ?>
+					<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'eb-textdomain' ); ?>'><?php echo esc_attr_e( 'Download', 'eb-textdomain' ); ?></a>
+					<?php
+				} elseif ( version_compare( $remote_data['version'], $version_info, '<=' ) ) {
+					?>
+					<span style='color:limegreen;'>
+						<?php esc_attr_e( 'Latest version installed', 'eb-textdomain' ); ?>
+					</span>
+					<?php
+				}
 			} else {
 				?>
-				<span style='color:limegreen;'>
-					<?php esc_attr_e( 'Latest version installed', 'eb-textdomain' ); ?>
+				<span>
+					<?php esc_attr_e( 'Not available', 'eb-textdomain' ); ?>
+					<abbr class="help" title="<?php esc_attr_e( 'You might have invalid license key. Enter the valid licese key or Remove the invalid license key to get the plugin latest version information.', 'eb-textdomain' ); ?>"><i class=" dashicons dashicons-editor-help"></i></abbr>
 				</span>
 				<?php
 			}
@@ -190,6 +199,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		 * @param bool  $force_remote_data Should force to fetch the remote data.
 		 */
 		private function get_plugin_remote_version( $data, $force_remote_data = false ) {
+			$plugin_slug = $data['slug'];
 			$remote_data = get_transient( 'eb_stats_' . $data['slug'] );
 			if ( ! $remote_data || $force_remote_data ) {
 				$l_key    = get_option( $data['key'], '' );
@@ -209,7 +219,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 						'url'      => isset( $data->download_link ) ? $data->download_link : '',
 						'homepage' => isset( $data->homepage ) ? $data->homepage : '',
 					);
-					set_transient( 'eb_stats_' . $data->slug, $remote_data, 60 * 60 * 24 * 7 );
+					set_transient( 'eb_stats_' . $plugin_slug, $remote_data, 60 * 60 * 24 * 7 );
 				}
 			}
 			return array(

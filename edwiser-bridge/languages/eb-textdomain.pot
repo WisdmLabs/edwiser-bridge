@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration 2.1.0 "
 "\n"
 "Report-Msgid-Bugs-To: https://WordPress.org/support/plugin/edwiser-bridge\n"
-"POT-Creation-Date: 2021-05-21 06:38+0000\n"
+"POT-Creation-Date: 2021-05-21 11:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -159,7 +159,7 @@ msgstr ""
 msgid " to download Moodle plugin."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:268
+#: admin/licensing/class-licensing-settings.php:269
 msgid " to get the license key."
 msgstr ""
 
@@ -307,7 +307,7 @@ msgstr ""
 msgid "Access Course"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:237
+#: admin/settings/class-eb-bridge-summary.php:247
 msgid "Access Token:"
 msgstr ""
 
@@ -325,7 +325,7 @@ msgstr ""
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:148
+#: admin/licensing/class-licensing-settings.php:149
 msgid "Activate Plugin"
 msgstr ""
 
@@ -514,7 +514,7 @@ msgstr ""
 #: includes/class-eb-email-template-parser.php:196
 #: public/shortcodes/class-eb-shortcode-my-courses.php:126
 #: public/shortcodes/class-eb-shortcode-my-courses.php:189
-#: admin/licensing/class-licensing-settings.php:267
+#: admin/licensing/class-licensing-settings.php:268
 msgid "Click here"
 msgstr ""
 
@@ -532,7 +532,7 @@ msgstr ""
 msgid "Click to access"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:174
+#: admin/settings/class-eb-bridge-summary.php:175
 msgid ""
 "Click to download the plugin file. Or you can update the from plugin page."
 msgstr ""
@@ -824,7 +824,7 @@ msgstr ""
 msgid "Don't have an Account? Register one!"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:174
+#: admin/settings/class-eb-bridge-summary.php:175
 msgid "Download"
 msgstr ""
 
@@ -969,7 +969,7 @@ msgstr ""
 msgid "Email: "
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:299
+#: admin/licensing/class-licensing-settings.php:300
 msgid ""
 "Empty download link. Please check your license key or contact edwiser "
 "support for more detials."
@@ -1232,6 +1232,7 @@ msgid "Get Help"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:142
+#: admin/licensing/class-licensing-settings.php:148
 msgid "Get License Key"
 msgstr ""
 
@@ -1317,7 +1318,7 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:225
+#: admin/licensing/class-licensing-settings.php:226
 msgid "Invalid action."
 msgstr ""
 
@@ -1359,7 +1360,7 @@ msgstr ""
 msgid "Latest version"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:179
+#: admin/settings/class-eb-bridge-summary.php:180
 msgid "Latest version installed"
 msgstr ""
 
@@ -1367,15 +1368,15 @@ msgstr ""
 msgid "Leave this field unchecked if access never expires."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:268
+#: admin/licensing/class-licensing-settings.php:269
 msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:392
+#: admin/licensing/class-licensing-settings.php:393
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
-#: admin/settings/class-eb-bridge-summary.php:265
+#: admin/settings/class-eb-bridge-summary.php:275
 msgid "Licenses"
 msgstr ""
 
@@ -1506,7 +1507,7 @@ msgstr ""
 msgid "Moodle site"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:233
+#: admin/settings/class-eb-bridge-summary.php:243
 msgid "Moodle Site URL:"
 msgstr ""
 
@@ -1638,6 +1639,7 @@ msgid "Not Available"
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:212
+#: admin/settings/class-eb-bridge-summary.php:187
 msgid "Not available"
 msgstr ""
 
@@ -1678,7 +1680,7 @@ msgstr ""
 msgid "Notify admin users on refund."
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:245
+#: admin/settings/class-eb-bridge-summary.php:255
 msgid "Number of Courses:"
 msgstr ""
 
@@ -1930,7 +1932,7 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:241
+#: admin/settings/class-eb-bridge-summary.php:251
 msgid "Permalink Structure:"
 msgstr ""
 
@@ -1964,12 +1966,12 @@ msgstr ""
 msgid "Please fill out all password fields."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:314
+#: admin/licensing/class-licensing-settings.php:315
 msgid ""
 "Please installed and activate Edwiser WooCommerce Integration plugin first"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:316
+#: admin/licensing/class-licensing-settings.php:317
 msgid "Please installed and activate WooCommerce plugin first"
 msgstr ""
 
@@ -2013,16 +2015,16 @@ msgstr ""
 msgid "Please wait processing request ...."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:374
+#: admin/licensing/class-licensing-settings.php:375
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:294
+#: admin/licensing/class-licensing-settings.php:295
 msgid "Plugin installation failed."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:291
-msgid "Plugin installed and activated sucessfully."
+#: admin/licensing/class-licensing-settings.php:292
+msgid "Plugin installed sucessfully."
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:169
@@ -2079,7 +2081,7 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:246
+#: admin/settings/class-eb-bridge-summary.php:256
 #, php-format
 msgid "Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)"
 msgstr ""
@@ -2261,7 +2263,7 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:206
+#: admin/licensing/class-licensing-settings.php:207
 msgid "Security check failed."
 msgstr ""
 
@@ -2348,7 +2350,7 @@ msgstr ""
 msgid "Send Test"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:249
+#: admin/settings/class-eb-bridge-summary.php:259
 msgid "Server Envirment Information"
 msgstr ""
 
@@ -3208,7 +3210,7 @@ msgstr ""
 msgid "Wordpress Plugins"
 msgstr ""
 
-#: admin/settings/class-eb-bridge-summary.php:229
+#: admin/settings/class-eb-bridge-summary.php:239
 msgid "Wordpress Site URL:"
 msgstr ""
 
@@ -3256,6 +3258,12 @@ msgstr ""
 msgid ""
 "You may use shortcodes to add information to any page/course/lesson/quiz. "
 "Here are built-in shortcodes for displaying relavent user information."
+msgstr ""
+
+#: admin/settings/class-eb-bridge-summary.php:188
+msgid ""
+"You might have invalid license key. Enter the valid licese key or Remove the "
+"invalid license key to get the plugin latest version information."
 msgstr ""
 
 #: public/templates/account/edit-user-profile.php:44

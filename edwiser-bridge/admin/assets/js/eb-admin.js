@@ -866,9 +866,11 @@
         function toggleLicenseButtons(element) {
             if ($.trim(element.val()).length > 0) {
                 element.parent().parent().find('.get_license_key').hide();
+                element.parent().parent().find('.eb-activate-plugin').show();
                 element.parent().parent().find('.install_plugin').show();
             } else {
                 element.parent().parent().find('.get_license_key').show();
+                element.parent().parent().find('.eb-activate-plugin').hide();
                 element.parent().parent().find('.install_plugin').hide();
             }
         }

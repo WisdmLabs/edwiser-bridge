@@ -145,6 +145,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
+					<a href="https://edwiser.org/bridge/#downloadfree" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
 					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
 			} else {
@@ -288,7 +289,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 						if ( 'valid' === $status || 'expired' === $status ) {
 							$this->manage_license( $post_data, 'activate' );
 						}
-						$resp['msg']          = __( 'Plugin installed and activated sucessfully.', 'eb-textdomain' );
+						$resp['msg']          = __( 'Plugin installed sucessfully.', 'eb-textdomain' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
 						$resp['msg'] = __( 'Plugin installation failed.', 'eb-textdomain' );

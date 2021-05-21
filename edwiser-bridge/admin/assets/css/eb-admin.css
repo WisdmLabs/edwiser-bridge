@@ -1395,3 +1395,19 @@ a[href*="page=eb-settings"].nav-tab {
 .eb-form-content-wrap .form-content .code {
   display: none;
 }
+abbr.help {
+  font-style: italic;
+  position: relative;
+}
+
+abbr.help:hover::after {
+  background: #e4e4e3;
+  border-radius: 4px;
+  bottom: 100%;
+  content: attr(title);
+  display: block;
+  padding: 1em;
+  position: absolute;
+  width: 280px;
+  z-index: 1;
+}
