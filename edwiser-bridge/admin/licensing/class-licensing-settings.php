@@ -139,13 +139,13 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['path'] ) ) {
 				$action = 'install_plugin';
 				?>
-				<a href="https://edwiser.org/bridge/#downloadfree" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+				<span class="button-primary get_license_key wdm_eb_get_key_popup_btn"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></span>
 				<input class="button-primary install_plugin" type="submit"  name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'eb-textdomain' ); ?>">
 				<?php
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
-					<a href="https://edwiser.org/bridge/#downloadfree" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
 					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
 			} else {
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} else {
 				$action = 'activate_license';
 				?>
-					<a href="https://edwiser.org/bridge/#downloadfree" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
 					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>"/>
 					<?php
 			}
