@@ -45,7 +45,11 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			/*
 			* translators: the user account page url will go here
 			*/
-			$user_acc_desc     = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+
+			/*
+			* translators: select courses page here
+			*/
 			$courses_page_desc = sprintf( __( 'Select courses page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/eb_courses' ) ) . '">' . __( 'Courses page', 'eb-textdomain' ) . '</a>' );
 
 			/*

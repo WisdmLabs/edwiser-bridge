@@ -584,7 +584,7 @@
      */
     $(document).ready(function () {
 
-
+        // Usage tracking confirmation box.
         // $("#eb_usage_tracking").attr('readonly', true);
         $('#eb_usage_tracking').click(function (e) {
             if ($(this).is(':checked')) {
@@ -611,6 +611,34 @@
                 });
             }
         });
+	$('.get_license_key').click(function (e) {
+            e.preventDefault();
+
+            $('#eb_get_license_key_dialog').dialog({
+                minWidth: 500,
+                maxHeight: 550,
+                width: $(window).width() * 0.4,
+                dialogClass: 'eb_get_license_key_dialog',
+                modal: true,
+                closeOnEscape: true,
+                draggable: false,
+                title: "Get License Key",
+                buttons: [
+                    {
+                        text: 'Close',
+                        class: "button",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ],
+                create: function (event, ui) {
+                    $(event.target).parent().css('position', 'fixed');
+                }
+            });
+        });
+
+
 
 
 

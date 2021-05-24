@@ -145,7 +145,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
-					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+					<button class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></button>
 					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
 			} else {
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} else {
 				$action = 'activate_license';
 				?>
-					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
+					<button class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></button>
 					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>"/>
 					<?php
 			}
@@ -407,6 +407,32 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				)
 			);
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
+		}
+
+		/**
+		 * Get license key button pop-up.
+		 */
+		public function eb_license_pop_up_data() {
+			?>
+			<div id="eb_get_license_key_dialog" style="display:none;">
+				<ul>
+					<li class="eb_get_license">
+						<?php esc_html_e( 'If you already own a license then click here', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Get License', 'eb-textdomain' ); ?> </a>
+					</li>
+
+					<li class="eb_buy_license">
+						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge Bundle then click here', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'eb-textdomain' ); ?> </a>
+					</li>
+
+					<li class="eb_upgrade_license">
+						<?php esc_html_e( 'If you already own one of the extensions, then click here to upgrade to Edwiser Bridge Bundle', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Upgrade License', 'eb-textdomain' ); ?> </a>
+					</li>
+				</ul>
+			</div>
+			<?php
 		}
 	}
 

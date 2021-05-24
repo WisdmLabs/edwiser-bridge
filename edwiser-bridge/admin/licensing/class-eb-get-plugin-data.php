@@ -51,7 +51,7 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 					$api_params = array(
 						'edd_action'      => 'check_license',
 						'license'         => $license_key,
-						'item_name'       => urlencode( $plugin_name ),
+						'item_name'       => urlencode( $plugin_name ), // @codingStandardsIgnoreLine
 						'current_version' => $plugin_data['plugin_version'],
 					);
 

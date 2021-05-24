@@ -52,7 +52,6 @@ foreach ( $extensions_details as $key => $value ) {
 ?>
 
 <div>
-	
 	<div class="eb_settings_pop_btn_wrap">	
 	<?php
 	if ( $show_banner ) {

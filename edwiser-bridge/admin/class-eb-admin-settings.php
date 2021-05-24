@@ -63,7 +63,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$settings[]     = include 'licensing/class-licensing-settings.php';
 				$settings[]     = include 'settings/class-eb-bridge-summary.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';
-				$settings[]     = include 'settings/class-eb-settings-premium-extensions.php';
 				$settings[]     = include 'settings/class-eb-settings-premium-fetures.php';
 			}
 

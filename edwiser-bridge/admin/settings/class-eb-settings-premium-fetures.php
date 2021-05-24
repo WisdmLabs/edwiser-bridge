@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 		 */
 		public function __construct() {
 			$this->_id   = 'pfetures';
-			$this->label = __( 'Premium Features', 'eb-textdomain' );
+			$this->label = __( 'Upgrade to Premium', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -120,14 +120,14 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 				.ebpg-fw {
 					display: flex;
 					flex-direction: row;
-					padding: 3rem 1.3rem;
+					padding: 3rem 0.5rem;
 				}
 				.ebpg-fw.tl {
 					flex-direction: row-reverse;
 					background-color: white;
 				}
 				.ebpf-fdetials {
-					margin: 0rem 2rem;
+					margin: auto 2rem;
 				}
 				.ebpf-fdetials > h2 {
 					font-size: 24px;

@@ -48,7 +48,11 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 				<div class="eb-dummy-set-wrap">
 					<div class="eb-dummy-set-cta">
 						<h3><?php echo esc_html( $data['cta_msg'] ); ?></h3>
-						<p>Click below to know more.</p>
+						<p><?php esc_html_e( 'I want to know more.' ); ?></p>
+						<div class="ebpf-st-arrow">
+							<span class="dashicons dashicons-arrow-down-alt2"></span>
+							<span class="dashicons dashicons-arrow-down-alt2"></span>
+						</div>
 						<a class="eb-go-pro-btn" target="_blank" href="<?php echo esc_url( $data['go_to_url'] ); ?>"><?php echo esc_html( $data['btn_text'] ); ?></a>
 					</div>
 				</div>
@@ -61,7 +65,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 	/**
 	 * Eb_Settings_Dummy_Woo_Int.
 	 */
-	class Eb_Settings_Dummy_Woo_Int extends EBSettingsPage {
+	class Eb_Settings_Dummy_Woo_Int extends EBSettingsPage { // @codingStandardsIgnoreLine
 
 		/**
 		 * Setting data.
@@ -78,7 +82,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 				'img_name'     => 'woo_int.png',
 				'go_to_url'    => 'https://bit.ly/2YWsjEj',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-				'cta_msg'      => __( 'This feature is available in WooCommerce Integration extension.', 'eb-textdomain' ),
+				'cta_msg'      => __( 'Sell Moodle Courses via 160+ Payment Gateways with WooCommerce.', 'eb-textdomain' ),
 			);
 
 			$this->_id   = 'woo_int_dummy';
@@ -129,7 +133,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 					'img_name'     => 'woo_int_prod_sync.png',
 					'go_to_url'    => 'https://bit.ly/2YWsjEj',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in WooCommerce Integration extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'Sell Moodle Courses via 160+ Payment Gateways with WooCommerce.', 'eb-textdomain' ),
 				);
 				$settings = apply_filters(
 					'bridge_woo_product_synchronization_settings',
@@ -187,7 +191,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 	/**
 	 * Eb_Settings_Dummy_Sel_Sync.
 	 */
-	class Eb_Settings_Dummy_Sel_Sync extends EBSettingsPage {
+	class Eb_Settings_Dummy_Sel_Sync extends EBSettingsPage { // @codingStandardsIgnoreLine
 		/**
 		 * Setting data.
 		 *
@@ -204,7 +208,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 				'img_name'     => 'selective-synch.png',
 				'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-				'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
+				'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'eb-textdomain' ),
 			);
 
 			$this->_id   = 'sel_sync_dummy';
@@ -245,7 +249,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_name'     => 'selective_users.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'eb-textdomain' ),
 				);
 			} else {
 				$this->setting_data = array(
@@ -253,7 +257,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_name'     => 'selective_sync.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in Selective synchronization extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'eb-textdomain' ),
 				);
 			}
 			$settings = apply_filters(
@@ -299,7 +303,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 	/**
 	 * Eb_Settings_Dummy_SSO.
 	 */
-	class Eb_Settings_Dummy_SSO extends EBSettingsPage {
+	class Eb_Settings_Dummy_SSO extends EBSettingsPage { // @codingStandardsIgnoreLine
 		/**
 		 * Setting data.
 		 *
@@ -316,7 +320,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 				'img_name'     => 'sso.png',
 				'go_to_url'    => 'https://bit.ly/3tICgDx',
 				'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-				'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
+				'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'eb-textdomain' ),
 			);
 			$this->_id          = 'sso-dummy';
 			$this->label        = __( 'Single Sign On', 'eb-textdomain' );
@@ -356,7 +360,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_name'     => 'sso_redirection.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'eb-textdomain' ),
 				);
 			} elseif ( 'social_login' === $current_section ) {
 				$this->setting_data = array(
@@ -364,7 +368,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_name'     => 'sso_social.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'eb-textdomain' ),
 				);
 			} else {
 				$this->setting_data = array(
@@ -372,7 +376,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_name'     => 'sso.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
 					'btn_text'     => __( 'View Details', 'eb-textdomain' ),
-					'cta_msg'      => __( 'This feature is available in Single Sign On extension.', 'eb-textdomain' ),
+					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'eb-textdomain' ),
 				);
 			}
 			$settings = apply_filters(

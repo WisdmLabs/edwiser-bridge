@@ -42,3 +42,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		?>
 	</div>
 </div>
+<?php
+// Dialog content.
+$this->eb_license_pop_up_data();

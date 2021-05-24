@@ -63,7 +63,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 		private function get_edwiser_envirment( $plugin_path ) {
 			$response   = wp_remote_get( 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json' );
 			$fetch_data = false;
-			if ( isset( $_GET['fetch_data'] ) && 'true' === $_GET['fetch_data'] ) { // WPCS: CSRF ok, input var ok.
+			if ( isset( $_GET['fetch_data'] ) && 'true' === $_GET['fetch_data'] ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 				$fetch_data = true;
 			}
 			$free_plugin_data = array();
@@ -253,7 +253,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 				),
 				array(
 					__( 'Number of Courses:', 'eb-textdomain' ),
-					sprintf( __( 'Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)', 'eb-textdomain' ), $course_count->publish, $course_count->draft, $course_count->trash, $course_count->private ),
+					sprintf( __( 'Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)', 'eb-textdomain' ), $course_count->publish, $course_count->draft, $course_count->trash, $course_count->private ), // @codingStandardsIgnoreLine
 				),
 			);
 			$headings     = array( __( 'Server Envirment Information', 'eb-textdomain' ), '' );

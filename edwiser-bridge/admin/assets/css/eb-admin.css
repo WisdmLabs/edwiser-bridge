@@ -49,6 +49,24 @@
   border: solid 1px #8080804d;
   box-shadow: 1px 2px 6px 3px #8080808a;
 }
+.user_sync_email_notice{
+  line-height: 22px;
+  padding-top: 5px;
+}
+
+.ebpf-st-arrow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+}
+
+.ebpf-st-arrow span{
+  height: auto;
+  line-height: 0.5;
+}
 
 .eb_setting_help_pop_up {
   height: auto;
@@ -1263,9 +1281,13 @@ span.eb-option-input .eb-option-div select {
 }
 .eb-dummy-set-cta > h3 {
   color: white;
+  font-size: 18px;
 }
 .eb-dummy-set-cta {
   display: block;
+}
+.eb-dummy-set-cta p{
+  font-size: 14px;
 }
 .eb-dummy-set-wrap {
   transition: 0.5s ease;
@@ -1335,6 +1357,31 @@ a[href*="page=eb-settings"].nav-tab {
 }
 .eb_lic_active {
   color: green;
+}
+/* Licensing dialog styling */
+.eb_get_license_key_dialog{
+  padding: 0px;
+}
+.eb_get_license_key_dialog .ui-dialog-titlebar, .eb_get_license_key_dialog.ui-dialog .ui-dialog-titlebar{
+  background-color: white;
+  border: 0px;
+  border-radius: 0px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #cecece;
+  font-size: 18px;
+}
+#eb_get_license_key_dialog{
+  padding: 10px 20px;
+  line-height: 20px;
+}
+.eb_get_license, .eb_buy_license, .eb_upgrade_license{
+  padding: 15px 0px;
+}
+
+#eb_get_license_key_dialog ul{
+  list-style-type: initial;
+  padding: 0px 20px;
+  font-size: 14px;
 }
 /*Licensing page styling end.*/
 .wdm-table-status {

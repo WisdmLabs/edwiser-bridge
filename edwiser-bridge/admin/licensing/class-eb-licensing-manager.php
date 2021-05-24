@@ -157,7 +157,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				array(
 					'edd_action'      => $action,
 					'license'         => $license_key,
-					'item_name'       => urlencode( $this->plugin_name ),
+					'item_name'       => urlencode( $this->plugin_name ), // @codingStandardsIgnoreLine
 					'current_version' => $this->plugin_version,
 					'url'             => get_home_url(),
 				)
@@ -264,7 +264,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				switch ( $license_data->license ) {
 					case 'invalid':
 						$status = 'invalid';
-						if ( isset( $license_data->activations_left ) && $license_data->activations_left == '0' ) {
+						if ( isset( $license_data->activations_left ) && $license_data->activations_left == '0' ) { // @codingStandardsIgnoreLine
 							include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
 							$active_site = Eb_Get_Plugin_Data::get_site_list( $plugin_slug );
 							if ( ! empty( $active_site ) || '' !== $active_site ) {
@@ -379,7 +379,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				$status = 'server_did_not_respond';
 			} elseif ( isset( $GLOBALS['wdm_license_activation_failed'] ) && true === $GLOBALS['wdm_license_activation_failed'] ) { // WPCS: CSRF ok, input var ok.
 				$status = 'license_activation_failed';
-			} elseif ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok.
+			} elseif ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 				$status = 'no_license_key_entered';
 			}
 			return $status;
@@ -401,14 +401,18 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 			$display = '';
 
 			$display = $this->check_if_site_active( $active_site );
-			if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && ! isset( $_POST['eb_server_nr'] ) ) { // WPCS: CSRF ok, input var ok.
+			if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && ! isset( $_POST['eb_server_nr'] ) ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 				// Handle Submission of inputs on license page.
-				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok.
+				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 					// If empty, show error message.
+					
+					/*
+					* translators: license key.
+					*/
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'Please enter license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'Please enter license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( 'server_did_not_respond' === $status ) {
@@ -429,35 +433,35 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s is activated.', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'License key for %s is activated.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'updated'
 					);
 				} elseif ( false !== $status && 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Expired license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s have been Expired. Please, Renew it. <br/>Your License Key is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'License key for %s have been Expired. Please, Renew it. <br/>Your License Key is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( false !== $status && 'expired' === $status ) { // Expired license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s have been Expired. Please, Renew it.', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'License key for %s have been Expired. Please, Renew it.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( false !== $status && 'disabled' === $status ) { // Disabled license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s is Disabled.', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'License key for %s is Disabled.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( 'no_activations_left' === $status ) { // Invalid license key   and site.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License Key for %1$s is already activated at : %2$s', 'ebbp-textdomain' ), $this->plugin_name, $display ),
+						sprintf( __( 'License Key for %1$s is already activated at : %2$s', 'ebbp-textdomain' ), $this->plugin_name, $display ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} else {
@@ -483,21 +487,21 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ),
+					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'invalid' === $status ) { // Invalid license key.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'Please enter valid license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ),
+					sprintf( __( 'Please enter valid license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'site_inactive' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Invalid license key   and site inactive.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ),
+					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'site_inactive' === $status ) { // Site is inactive.
@@ -511,7 +515,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is deactivated', 'ebbp-textdomain' ), $this->plugin_name ),
+					sprintf( __( 'License Key for %s is deactivated', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'updated'
 				);
 			}
