@@ -214,6 +214,8 @@ class Eb_Shortcode_My_Courses {
 		$course_mang        = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
 		$mdl_course_id      = $course_mang->get_moodle_course_id( $course_id );
 		$course_url         = \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id );
+		$progress_class     = 'eb-course-action-btn-start';
+		$btn_text           = __( 'Start', 'eb-textdomain' );
 		ob_start();
 		?>
 		<div class='eb-course-action-cont'>
@@ -235,7 +237,6 @@ class Eb_Shortcode_My_Courses {
 					$progress_class     = 'eb-course-action-btn-completed';
 					$btn_text           = __( 'View', 'eb-textdomain' );
 					$progress_meta_data = __( '100% Completed', 'eb-textdomain' );
-
 				}
 			}
 			?>
