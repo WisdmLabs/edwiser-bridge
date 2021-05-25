@@ -145,7 +145,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
-					<button class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></button>
+					<a href="https://edwiser.org/my-account/"  class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
 					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
 				<?php
 			} else {
@@ -191,7 +191,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			} else {
 				$action = 'activate_license';
 				?>
-					<button class="button-primary get_license_key" taget="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></button>
+					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
 					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>"/>
 					<?php
 			}

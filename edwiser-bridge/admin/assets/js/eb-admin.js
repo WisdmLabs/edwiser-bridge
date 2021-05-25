@@ -611,7 +611,7 @@
                 });
             }
         });
-	$('.get_license_key').click(function (e) {
+	$('.wdm_eb_get_key_popup_btn').click(function (e) {
             e.preventDefault();
 
             $('#eb_get_license_key_dialog').dialog({
