@@ -169,7 +169,10 @@ Take a look at the link below and follow the steps provided to configure your Mo
 21. Moodle Set-up wizard: Web Service Settings.
 22. Moodle Set-up wizard: WordPress Site Connection Settings.
 23. Moodle Set-up wizard: WordPress Site Connection Syncronisation settings.
-24. Moodle Set-up wizard: Settings Summary
+24. Moodle Set-up wizard: Settings Summary.
+25. Wordpress Edwiser Bridge Statistics.
+26. Wordpress User login page.
+27. Wordpress User registration page.
 
 
 
