@@ -120,13 +120,13 @@ class EBUserManager {
 	public function user_course_synchronization_handler( $sync_options = array(), $user_id_to_sync = '', $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+		/*$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
-		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
+		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );*/
 
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$wp_users_count                        = 1;
-		if ( 1 === $connected['success'] ) {
+		// if ( 1 === $connected['success'] ) {
 			// get all WordPress users having an associated moodle account.
 			if ( is_numeric( $user_id_to_sync ) ) {
 				$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
@@ -258,12 +258,12 @@ class EBUserManager {
 			 * we are passing all user ids for which sync is performed
 			 */
 			do_action( 'eb_user_synchronization_complete', $all_users, $sync_options );
-		} else {
+		/*} else {
 			edwiser_bridge_instance()->logger()->add(
 				'user',
 				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
 			); // add connection log.
-		}
+		}*/
 
 		return $response_array;
 	}

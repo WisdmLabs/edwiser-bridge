@@ -27,7 +27,7 @@ class Eb_Shortcodes {
 		// Define shortcodes.
 		$shortcodes = array(
 			'eb_user_account' => __CLASS__ . '::user_account',
-			'eb_user_profile' => __CLASS__ . '::user_profile', // Deprecated. Use shortcode eb_user_account.
+			// 'eb_user_profile' => __CLASS__ . '::user_profile', // Deprecated. Use shortcode eb_user_account.
 			'eb_courses'      => __CLASS__ . '::courses',
 			'eb_course'       => __CLASS__ . '::course',
 			'eb_my_courses'   => __CLASS__ . '::my_courses',
@@ -84,9 +84,9 @@ class Eb_Shortcodes {
 	 * @param mixed $atts atts.
 	 * @return string
 	 */
-	public static function user_profile( $atts ) {
+	/*public static function user_profile( $atts ) {
 		return self::shortcode_wrapper( array( '\app\wisdmlabs\edwiserBridge\Eb_Shortcode_User_Profile', 'output' ), $atts );
-	}
+	}*/
 
 	/**
 	 * Courses shortcode, display courses.

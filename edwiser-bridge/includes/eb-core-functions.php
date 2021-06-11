@@ -400,6 +400,30 @@ if ( ! function_exists( 'wdm_eb_get_all_eb_sourses' ) ) {
 }
 
 
+
+if ( ! function_exists( 'eb_get_user_enrolled_courses' ) ) {
+	/**
+	 * All eb courses.
+	 *
+	 * @param text $user_id user_id.
+	 */
+	function eb_get_user_enrolled_courses( $user_id ) {
+
+		global $wpdb;
+		$result = $wpdb->get_results( $wpdb->prepare( "SELECT course_id FROM {$wpdb->prefix}moodle_enrollment WHERE user_id=%d;", $user_id ) ); // @codingStandardsIgnoreLine
+		$courses = array();
+		foreach ($result as $key => $course) {
+			$courses[] = $course->course_id;
+		}
+
+		return $courses;
+	}
+
+}
+
+
+
+
 if ( ! function_exists( 'wdm_eb_get_all_wp_roles' ) ) {
 	/**
 	 * WP roles
@@ -561,6 +585,16 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 			return $url['eb_url'];
 		}
 		return 'MOODLE_URL';
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
+	/**
+	 * Moodle User role id default is 5.
+	 */
+	function eb_get_moodle_role_id() {
+		$eb_general_settings = get_option( 'eb_general' );
+		return isset( $eb_general_settings['eb_moodle_role_id'] ) && ! empty( $eb_general_settings['eb_moodle_role_id'] ) ? $eb_general_settings['eb_moodle_role_id'] : 5;
 	}
 }
 

@@ -137,8 +137,13 @@ class Eb_Shortcode_User_Account {
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 		);
+
+
+		/*
+		 * Need to optimize below code. which we are using to get my-courses.
+		 */
 		// fetch courses.
-		$courses = get_posts( $course_args );
+		/*$courses = get_posts( $course_args );
 
 		// remove course from array in which user is not enrolled.
 		foreach ( $courses as $key => $course ) {
@@ -146,8 +151,16 @@ class Eb_Shortcode_User_Account {
 			if ( ! $has_access ) {
 				unset( $courses[ $key ] );
 			}
-		}
-		$user_orders = self::get_user_orders( $user_id );
+		}*/
+
+		/*---------------*/
+
+		// $courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses( $user_id );
+		$courses = array();
+
+		// Commenting below line as we are loading user-orders everywhere.
+		// $user_orders = self::get_user_orders( $user_id );
+		$user_orders = array();
 		return array(
 			'current_user'     => get_user_by( 'id', get_current_user_id() ),
 			'user_orders'      => $user_orders,
@@ -477,6 +490,9 @@ class Eb_Shortcode_User_Account {
 
 				break;
 			case 'eb-orders':
+				// Getting user orders here.
+				$user_orders = self::get_user_orders( $user->ID );
+
 				$template_loader->wp_get_template(
 					'account/user-orders.php',
 					array(
