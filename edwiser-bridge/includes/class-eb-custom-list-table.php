@@ -65,32 +65,44 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 *
 		 * @param text $post_data post_data.
 		 * @param text $search_text text.
+		 * @param text $current_page current_page.
 		 */
-		public function bpGetTable( $post_data, $search_text ) {
+		public function bpGetTable( $post_data, $search_text, $current_page ) {
 			global $wpdb;
-			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok.
-			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
-			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$per_page    = 20;
+			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
 			$tbl_records = array();
-			$stmt        = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+			$offset      = ( $current_page - 1 ) * $per_page;
+
+			// $stmt        = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+			$stmt           = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment LIMIT %d OFFSET %d", $per_page, $offset );
 
 			if ( ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
+				// $stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset );
+
 			}
 
 			if ( ! empty( $from ) ) {
-				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", $from );
+				// $stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", $from );
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s LIMIT %d OFFSET %d", $from, $per_page, $offset );
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) ) {
-				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s", $from, $to );
+				// $stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s", $from, $to );
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s LIMIT %d OFFSET %d", $from, $to, $per_page, $offset );
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s", '%' . $search_text . '%', $from, $to );
+				// $stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s", '%' . $search_text . '%', $from, $to );
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset );
 			}
 
 			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
+
+error_log('results ::: '.print_r($results, 1));
 
 			foreach ( $results as $result ) {
 				$profile_url          = $this->getUserProfileURL( $result->user_id );
@@ -106,8 +118,50 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 				$tbl_records[] = apply_filters( 'eb_manage_student_enrollment_each_row', $row, $result, $search_text );
 			}
-			return apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
+
+			$table_data    = apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
+			$total_records = isset( $_REQUEST['eb_enrollment_total_records'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_enrollment_total_records'] ) ) : $this->eb_get_enrollment_total_record( $search_text, $from, $to ); // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+
+			// $total_records = $this->eb_get_enrollment_total_record( $search_text, $from, $to );
+			return array(
+				'total_records' => $total_records,
+				'data'          => $table_data,
+			);
 		}
+
+		/**
+		 * Returns the user profile link.
+		 *
+		 * @param string $search_text search_text.
+		 * @param string $from from date.
+		 * @param string $to to date.
+		 * @return type
+		 */
+		public function eb_get_enrollment_total_record( $search_text, $from, $to ) {
+			global $wpdb;
+			$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
+
+			if ( ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
+			}
+
+			if ( ! empty( $from ) ) {
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s ", $from );
+			}
+
+			if ( ! empty( $from ) && ! empty( $to ) ) {
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s ", $from, $to );
+			}
+
+			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s ", '%' . $search_text . '%', $from, $to );
+			}
+
+			$total_result_stmt = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
+			return count( $total_result_stmt );
+		}
+
+
 
 		/**
 		 * Returns the user profile link.
@@ -340,6 +394,13 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 */
 			$this->_column_headers = array( $columns, $hidden, $sortable );
 
+			/*
+			 * REQUIRED for pagination. Let's figure out what page the user is currently
+			 * looking at. We'll need this later, so you should always include it in
+			 * your own package classes.
+			 */
+			$current_page = $this->get_pagenum();
+
 			/**
 			 * Optional. You can handle your bulk actions however you see fit. In this
 			 * case, we'll handle them within our package just to keep things clean.
@@ -354,7 +415,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			$options['ebemt_search'] = $search_text;
 
-			$data = $this->bpGetTable( $_REQUEST, $search_text );
+			$table_data = $this->bpGetTable( $_REQUEST, $search_text, $current_page );
+			$data       = $table_data['data'];
 
 			/*
 			 * This checks for sorting input and sorts the data in our array of dummy
@@ -370,26 +432,19 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			usort( $data, array( $this, 'usort_reorder' ) );
 
 			/*
-			 * REQUIRED for pagination. Let's figure out what page the user is currently
-			 * looking at. We'll need this later, so you should always include it in
-			 * your own package classes.
-			 */
-			$current_page = $this->get_pagenum();
-
-			/*
 			 * REQUIRED for pagination. Let's check how many items are in our data array.
 			 * In real-world use, this would be the total number of items in your database,
 			 * without filtering. We'll need this later, so you should always include it
 			 * in your own package classes.
 			 */
-			$total_items = count( $data );
+			$total_items = $table_data['total_records'];
 
 			/*
 			 * The WP_List_Table class does not handle pagination for us, so we need
 			 * to ensure that the data is trimmed to only the current page. We can use
 			 * array_slice() to do that.
 			 */
-			$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+			// $data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
 			/*
 			 * REQUIRED. Now we can add our *sorted* data to the items property, where

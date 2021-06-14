@@ -399,17 +399,16 @@ if ( ! function_exists( 'wdm_eb_get_all_eb_sourses' ) ) {
 	}
 }
 
-
-
 if ( ! function_exists( 'eb_get_user_enrolled_courses' ) ) {
 	/**
 	 * All eb courses.
 	 *
 	 * @param text $user_id user_id.
 	 */
-	function eb_get_user_enrolled_courses( $user_id ) {
-
+	function eb_get_user_enrolled_courses( $user_id = null ) {
 		global $wpdb;
+		$user_id = ! is_numeric( $user_id ) ? get_current_user_id() : (int) $user_id;
+
 		$result = $wpdb->get_results( $wpdb->prepare( "SELECT course_id FROM {$wpdb->prefix}moodle_enrollment WHERE user_id=%d;", $user_id ) ); // @codingStandardsIgnoreLine
 		$courses = array();
 		foreach ($result as $key => $course) {
@@ -420,8 +419,6 @@ if ( ! function_exists( 'eb_get_user_enrolled_courses' ) ) {
 	}
 
 }
-
-
 
 
 if ( ! function_exists( 'wdm_eb_get_all_wp_roles' ) ) {
