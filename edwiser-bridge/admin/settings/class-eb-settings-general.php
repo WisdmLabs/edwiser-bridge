@@ -71,7 +71,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'title'    => __( 'Enable Registration', 'eb-textdomain' ),
-						'desc'     => __( 'Enable user registration', 'eb-textdomain' ),
+						'desc'     => __( 'Enable user registration on user-account page.', 'eb-textdomain' ),
 						'id'       => 'eb_enable_registration',
 						'default'  => 'no',
 						'type'     => 'checkbox',
@@ -93,7 +93,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'Select Role', 'eb-textdomain' ),
 						'desc'     => '<br/>' .
-							__( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
+							__( 'Select WordPress default user role for users on registration from User Account Page.', 'eb-textdomain' ),
 						'id'       => 'eb_default_role',
 						'type'     => 'select',
 						'default'  => __( 'Select Role', 'eb-textdomain' ),
@@ -150,7 +150,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 							'<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>',
 							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
 						),
-						__( 'Redirect user to the My Courses page on login and registration', 'eb-textdomain' ),
+						__( 'Redirect user to the My Courses page after login and registration', 'eb-textdomain' ),
 						'id'       => 'eb_enable_my_courses',
 						'default'  => 'no',
 						'type'     => 'checkbox',

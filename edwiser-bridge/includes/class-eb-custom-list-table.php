@@ -75,34 +75,25 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
 			$tbl_records = array();
 			$offset      = ( $current_page - 1 ) * $per_page;
-
-			// $stmt        = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
-			$stmt           = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment LIMIT %d OFFSET %d", $per_page, $offset );
+			$stmt        = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment LIMIT %d OFFSET %d", $per_page, $offset );
 
 			if ( ! empty( $search_text ) ) {
-				// $stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset );
-
 			}
 
 			if ( ! empty( $from ) ) {
-				// $stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s", $from );
 				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s LIMIT %d OFFSET %d", $from, $per_page, $offset );
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) ) {
-				// $stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s", $from, $to );
 				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s LIMIT %d OFFSET %d", $from, $to, $per_page, $offset );
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-				// $stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s", '%' . $search_text . '%', $from, $to );
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset );
 			}
 
 			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
-
-error_log('results ::: '.print_r($results, 1));
 
 			foreach ( $results as $result ) {
 				$profile_url          = $this->getUserProfileURL( $result->user_id );
@@ -121,8 +112,6 @@ error_log('results ::: '.print_r($results, 1));
 
 			$table_data    = apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
 			$total_records = isset( $_REQUEST['eb_enrollment_total_records'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_enrollment_total_records'] ) ) : $this->eb_get_enrollment_total_record( $search_text, $from, $to ); // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
-
-			// $total_records = $this->eb_get_enrollment_total_record( $search_text, $from, $to );
 			return array(
 				'total_records' => $total_records,
 				'data'          => $table_data,

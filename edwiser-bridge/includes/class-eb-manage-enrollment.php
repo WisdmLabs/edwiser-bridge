@@ -142,7 +142,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 					<input type="submit" name="eb_manage_enroll_search" id="eb_manage_enroll_search" class="button action" value="<?php echo esc_html__( 'Search Courses', 'eb-textdomain' ); ?>"/>
 				</p>
 					<input type="hidden" name="page" value="<?php echo esc_html( $post_page ); ?>" />
-					<input type="hidden" name="eb_enrollment_total_records" value="<?php echo esc_html( $post_page ); ?>" />
+					<input type="hidden" name="eb_enrollment_total_records" value="<?php echo esc_html( $eb_total_records ); ?>" />
 					<?php
 					wp_nonce_field( 'eb-manage-user-enrol', 'eb-manage-user-enrol' );
 

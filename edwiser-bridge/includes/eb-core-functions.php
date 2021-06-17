@@ -753,10 +753,10 @@ if ( ! function_exists( 'wdm_eb_edwiser_sanitize_array' ) ) {
 if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 
 	/**
-	 * Gwt edwiser Bridge versio.
+	 * Gwt edwiser Bridge version.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.1.0';
+		return '2.1.1';
 	}
 }
 
