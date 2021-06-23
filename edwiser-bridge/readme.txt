@@ -215,6 +215,11 @@ Also check our knowledge base for more queries
 
  ==  Changelog  ==
 
+= 2.1.1 =
+* Feature - Added option on WordPress Edwiser Bridge settings to add Moodle role id which is used while creating users on Moodle.
+* Tweak - Optimized user-account page functionality which further improved the page speed.
+* Tweak - Optimized My Courses page functionality which further improved the page speed.
+
 = 2.1.0 =
 * Fix - Solved My-courses page login link issue for non logged in users.
 * Tweak - Modified course archive page, single course page, user-account page, eb_course shortcode page and my courses page templates.

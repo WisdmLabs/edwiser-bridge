@@ -12,17 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 ?>
-
-aaaaaaaaaaaaaaaaa
 <div class="eb-user-profile" >
 
 <?php
 $nonce_name = 'eb_user_account_nav_nonce';
 
 // Return only if nonce is not set.
-/*if ( ! isset( $_GET[ $nonce_name ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
+if ( ! isset( $_GET[ $nonce_name ] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET[ $nonce_name ] ) ), $nonce_name ) ) {
 	return false;
-}*/
+}
 
 if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_unslash( $_GET['eb_action'] ) ) ) {
 	$template_loader->wp_get_template(

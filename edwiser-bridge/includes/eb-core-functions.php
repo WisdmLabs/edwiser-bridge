@@ -411,13 +411,12 @@ if ( ! function_exists( 'eb_get_user_enrolled_courses' ) ) {
 
 		$result = $wpdb->get_results( $wpdb->prepare( "SELECT course_id FROM {$wpdb->prefix}moodle_enrollment WHERE user_id=%d;", $user_id ) ); // @codingStandardsIgnoreLine
 		$courses = array();
-		foreach ($result as $key => $course) {
+		foreach ( $result as $key => $course ) {
 			$courses[] = $course->course_id;
 		}
 
 		return $courses;
 	}
-
 }
 
 

@@ -75,8 +75,9 @@ class Eb_Frontend_Form_Handler {
 				if ( is_wp_error( $user ) ) {
 					throw new \Exception( $user->get_error_message() );
 				} else {
-					$redirect = self::calc_redirect();
-					wp_safe_redirect( apply_filters( 'eb_login_redirect', $redirect, $user ) );
+					$redirect  = self::calc_redirect();
+					$redirect1 = apply_filters( 'eb_login_redirect', $redirect, $user );
+					wp_safe_redirect( $redirect1 );
 					exit;
 				}
 			} catch ( \Exception $e ) {

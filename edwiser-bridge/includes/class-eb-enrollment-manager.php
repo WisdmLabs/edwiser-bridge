@@ -330,7 +330,7 @@ class Eb_Enrollment_Manager {
 	 * @m
 	 *
 	 * @param array $args arguments array.
-	 * @param array $role_id role_id array.
+	 * @param array $role_id role_id the role id 5 denotes student role on moodle.
 	 */
 	public function update_enrollment_record_wordpress( $args, $role_id = '5' ) {
 		global $wpdb;
@@ -348,12 +348,9 @@ class Eb_Enrollment_Manager {
 		/**
 		 * Parse incoming $args into an array and merge it with $defaults.
 		 */
-		$args = wp_parse_args( $args, $defaults );
-
-		$role_id = $args['role_id']; // the role id 5 denotes student role on moodle
-
-		$new_role_id     = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
-		$role_id = ! empty( $new_role_id ) ? $new_role_id : $args['role_id'];
+		$args        = wp_parse_args( $args, $defaults );
+		$new_role_id = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
+		$role_id     = ! empty( $new_role_id ) ? $new_role_id : $args['role_id'];
 
 		// add enrollment record in DB conditionally
 		// We are using user's WordPress ID and course's WordPress ID while saving record in enrollment table.
