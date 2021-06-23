@@ -75,50 +75,45 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 */
 		private function eb_get_filter_query( $filter, $search_text, $from, $to, $order, $per_page, $offset, $stmt ) {
 			global $wpdb;
+			$column     = '';
+			$where      = '';
+			$post_table = '';
+			$user_table = '';
+
 			// There are 2 filters which need join query.
 			// 1. Course name.
 			// 2. User name.
 
 			if ( 'course' === $filter ) {
-				$order = ' p.post_title ' . $order;
-				$stmt  = $wpdb->prepare( "SELECT e.*, p.post_title FROM {$wpdb->prefix}moodle_enrollment e , {$wpdb->posts} p WHERE e.course_id=p.ID ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
-
-				if ( ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, p.post_title FROM {$wpdb->prefix}moodle_enrollment e , {$wpdb->posts} p WHERE e.course_id=p.ID AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, p.post_title  FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p  WHERE e.course_id=p.ID  time> %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) && ! empty( $to ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, p.post_title FROM {$wpdb->prefix}moodle_enrollment, {$wpdb->posts} p  WHERE e.course_id=p.ID time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, p.post_title FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p WHERE e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
+				$column     = ' p.post_title ';
+				$order      = $column . $order;
+				$where      = 'e.course_id=p.id';
+				$post_table = ', ' . $wpdb->posts . ' p ';
 			} elseif ( 'user' === $filter ) {
-				$order = ' u.user_login ' . $order;
-
-				$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment e , {$wpdb->users} u WHERE e.user_id=u.ID ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
-
-				if ( ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p, {$wpdb->users} u WHERE e.user_id=u.ID AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment, {$wpdb->users} u  WHERE e.user_id=u.ID AND time> %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) && ! empty( $to ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment, {$wpdb->users} u  WHERE e.user_id=u.ID AND time>= %s AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $to, $order, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
-
-				if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p, {$wpdb->users} u WHERE e.user_id=u.ID AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $order, $per_page, $offset ); // @codingStandardsIgnoreLine.
-				}
+				$column     = ' u.user_login ';
+				$order      = $column . $order;
+				$where      = 'e.user_id=u.ID';
+				$user_table = ', ' . $wpdb->users . ' u';
 			}
+
+			$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
+
+			if ( ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table} WHERE {$where} AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
+			if ( ! empty( $from ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column}  FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where}  time> %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
+			if ( ! empty( $from ) && ! empty( $to ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
+			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table} WHERE {$where} AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
 			return $stmt;
 		}
 
@@ -172,7 +167,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			// Need to check above if conditions again because of prepare statements as direct concatenating is prohibited.
 			// Also Not creating one common query with all tables as it will take time for all other searches.
-			if ( ! empty( $order_by ) && 'id' !== $order_by ) {
+			if ( ! empty( $order_by ) && 'id' !== $order_by && 'time' !== $order_by ) {
 				$stmt = $this->eb_get_filter_query( $order_by, $search_text, $from, $to, $order, $per_page, $offset, $stmt );
 			}
 
@@ -492,13 +487,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 * in your own package classes.
 			 */
 			$total_items = $table_data['total_records'];
-
-			/*
-			 * The WP_List_Table class does not handle pagination for us, so we need
-			 * to ensure that the data is trimmed to only the current page. We can use
-			 * array_slice() to do that.
-			 */
-			// $data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
 			/*
 			 * REQUIRED. Now we can add our *sorted* data to the items property, where
