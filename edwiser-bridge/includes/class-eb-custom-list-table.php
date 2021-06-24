@@ -99,7 +99,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
 
 			if ( ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table} WHERE {$where} AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p {$user_table} WHERE {$where} AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
 			if ( ! empty( $from ) ) {
@@ -111,11 +111,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			}
 
 			if ( ! empty( $from ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p {$user_table} where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table} WHERE {$where} AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p {$user_table} WHERE {$where} AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
 			return $stmt;
@@ -179,8 +179,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$stmt = $this->eb_get_filter_query( $order_by, $search_text, $from, $to, $order, $per_page, $offset, $stmt );
 			}
 
-error_log('STMT ::: '.print_r($stmt, 1));
-
 			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
 
 			foreach ( $results as $result ) {
@@ -199,7 +197,7 @@ error_log('STMT ::: '.print_r($stmt, 1));
 			}
 
 			$table_data    = apply_filters( 'eb_manage_student_enrollment_table_data', $tbl_records );
-			$total_records = isset( $_REQUEST['eb_enrollment_total_records'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_enrollment_total_records'] ) ) : $this->eb_get_enrollment_total_record( $search_text, $from, $to ); // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$total_records = $this->eb_get_enrollment_total_record( $search_text, $from, $to ); // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
 			return array(
 				'total_records' => $total_records,
 				'data'          => $table_data,
@@ -231,7 +229,7 @@ error_log('STMT ::: '.print_r($stmt, 1));
 			}
 
 			if ( ! empty( $from ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ", '%' . $search_text . '%', $from ); // @codingStandardsIgnoreLine.
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
