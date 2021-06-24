@@ -110,6 +110,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
+			if ( ! empty( $from ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table} WHERE {$where} AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
@@ -161,6 +165,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
+			if ( ! empty( $from ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			}
+
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
@@ -170,6 +178,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			if ( ! empty( $order_by ) && 'id' !== $order_by && 'time' !== $order_by ) {
 				$stmt = $this->eb_get_filter_query( $order_by, $search_text, $from, $to, $order, $per_page, $offset, $stmt );
 			}
+
+error_log('STMT ::: '.print_r($stmt, 1));
 
 			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
 
@@ -218,6 +228,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			if ( ! empty( $from ) && ! empty( $to ) ) {
 				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time>= %s  AND time<= %s ", $from, $to );
+			}
+
+			if ( ! empty( $from ) && ! empty( $search_text ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
