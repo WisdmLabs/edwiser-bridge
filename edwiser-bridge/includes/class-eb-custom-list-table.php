@@ -106,21 +106,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				}
 			}
 
-			// if ( ! empty( $from ) ) {
-			// 	$stmt = $wpdb->prepare( "SELECT e.*, {$column}  FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} AND time> %s ORDER BY {$order} LIMIT %d OFFSET %d", $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-			// }
-
 			if ( ! empty( $from ) || ! empty( $to ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} AND {$date} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
-			// if ( ! empty( $from ) && ! empty( $search_text ) ) {
-			// 	$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p {$user_table} where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-			// }
-
 			if ( ( ! empty( $from ) || ! empty( $to ) ) && ! empty( $search_text ) ) {
-				// $stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p {$user_table} WHERE {$where} AND p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
-			
 				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM wp_moodle_enrollment e LEFT JOIN wp_posts p ON p.ID=e.course_id LEFT JOIN wp_users u ON e.user_id=u.ID WHERE p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
@@ -164,17 +154,9 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
-			// if ( ! empty( $from ) ) {
-			// 	$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE  time> %s ORDER BY {$order_query} LIMIT %d OFFSET %d", $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-			// }
-
 			if ( ! empty( $from ) || ! empty( $to ) ) {
 				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE {$date} ORDER BY {$order_query} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
-
-			// if ( ! empty( $from ) && ! empty( $search_text ) ) {
-			// 	$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $per_page, $offset ); // @codingStandardsIgnoreLine.
-			// }
 
 			if ( ( ! empty( $from ) || ! empty( $to ) ) && ! empty( $search_text ) ) {
 				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND {$date} ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
