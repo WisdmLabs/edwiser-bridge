@@ -162,9 +162,10 @@ class EBUserManager {
 		// get courses of each user having a moodle a/c assosiated.
 		foreach ( $all_users as $key => $value ) {
 			$key;
+
 			// sync users courses only if checkbox is checked.
 			if ( isset( $sync_options['eb_synchronize_user_courses'] ) &&
-					1 === $sync_options['eb_synchronize_user_courses'] ) {
+					1 === (int) $sync_options['eb_synchronize_user_courses'] ) {
 				// get user's enrolled courses from moodle.
 				$moodle_user_courses = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $value['moodle_user_id'] );
 

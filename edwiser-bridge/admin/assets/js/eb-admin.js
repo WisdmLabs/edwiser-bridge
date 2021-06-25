@@ -364,7 +364,7 @@
             // prepare sync options array
             $('input:checkbox').each(function () {
                 var cb_key = $(this).attr('id');
-                var cb_value = (this.checked ? $(this).val() : 0);
+                var cb_value = (this.checked ? 1 : 0);
                 sync_options[cb_key] = cb_value;
             });
             var offset = 0;
