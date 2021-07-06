@@ -92,7 +92,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 
 					array(
 						'title'             => __( 'Moodle Access Token', 'eb-textdomain' ),
-						'desc'              => __( 'Moodle access token.', 'eb-textdomain' ),
+						'desc'              => __( 'Add the access token generated on the Moodle Site while creating a web service.', 'eb-textdomain' ),
 						'id'                => 'eb_access_token',
 						'css'               => 'min-width:350px;',
 						'default'           => '',

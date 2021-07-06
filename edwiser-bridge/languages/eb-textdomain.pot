@@ -899,7 +899,9 @@ msgid "Moodle Access Token"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:95
-msgid "Moodle access token."
+msgid ""
+"Add the access token generated on the Moodle Site while creating a web "
+"service."
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:108
@@ -1555,7 +1557,7 @@ msgid "from Manage email templates."
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:143
-#: admin/settings/class-eb-settings-synchronization.php:199
+#: admin/settings/class-eb-settings-synchronization.php:210
 msgid "Start Synchronization"
 msgstr ""
 
@@ -1573,6 +1575,12 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:186
 msgid "Keep synchronized courses as draft"
+msgstr ""
+
+#: admin/settings/class-eb-settings-synchronization.php:199
+msgid ""
+"Note: Courses in the draft will not reflect on the learners \"My Courses\" "
+"page!"
 msgstr ""
 
 #: edwiser-bridge.php:92
@@ -1666,48 +1674,8 @@ msgid ""
 "have problems."
 msgstr ""
 
-#: includes/class-eb-activator.php:236
-msgctxt "Page slug"
-msgid "thank-you-for-purchase"
-msgstr ""
-
-#: includes/class-eb-activator.php:237
-msgctxt "Page title"
-msgid "Thank You for Purchase"
-msgstr ""
-
 #: includes/class-eb-activator.php:238
 msgid "Thanks for purchasing the course, your order will be processed shortly."
-msgstr ""
-
-#: includes/class-eb-activator.php:242
-msgctxt "Page slug"
-msgid "user-account"
-msgstr ""
-
-#: includes/class-eb-activator.php:243
-msgctxt "Page title"
-msgid "User Account"
-msgstr ""
-
-#: includes/class-eb-activator.php:248
-msgctxt "Page slug"
-msgid "eb-my-courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:249
-msgctxt "Page title"
-msgid "My Courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:254
-msgctxt "Page slug"
-msgid "eb-courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:255
-msgctxt "Page title"
-msgid "Courses"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:117
@@ -1862,11 +1830,6 @@ msgstr ""
 msgid "View on Moodle"
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:54
-msgctxt "Column label"
-msgid "Record ID"
-msgstr ""
-
 #: includes/class-eb-custom-list-table.php:55
 msgid "User"
 msgstr ""
@@ -1887,11 +1850,6 @@ msgstr ""
 #: includes/class-eb-custom-list-table.php:343
 #: includes/class-eb-post-types.php:352
 msgid "Unenroll"
-msgstr ""
-
-#: includes/class-eb-custom-list-table.php:367
-msgctxt "Unenrolles the selected students from the courses"
-msgid "Bulk Unenroll"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:389
@@ -3447,4 +3405,5 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
+
 

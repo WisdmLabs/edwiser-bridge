@@ -193,6 +193,17 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 						),
 
 						array(
+							'title' => '',
+							'type'  => 'title',
+							'id'    => 'course_draft_notice',
+							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Courses in the draft will not reflect on the learners "My Courses" page!', 'eb-textdomain' ) . '</div>',
+						),
+						array(
+							'type' => 'sectionend',
+							'id'   => 'course_draft_notice',
+						),
+
+						array(
 							'title'    => '',
 							'desc'     => '',
 							'id'       => 'eb_synchronize_courses_button',
