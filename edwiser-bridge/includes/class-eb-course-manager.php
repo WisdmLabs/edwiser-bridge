@@ -318,7 +318,7 @@ class Eb_Course_Manager {
 	public function is_course_presynced( $course_id_on_moodle ) {
 		global $wpdb;
 
-		// get id of course on WordPress based on id on moodle $course_id =.
+		// Get id of course on WordPress based on id on moodle $course_id =.
 		$course_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT post_id
@@ -328,6 +328,14 @@ class Eb_Course_Manager {
 				$course_id_on_moodle
 			)
 		);
+
+		// Check if post is availabke or not.
+		// This code is to avoid conflict with MooWoodle plugin.
+		if ( false === get_post_status( $course_id ) ) {
+		    // The post does not exist, delete post meta also.
+		    delete_post_meta( $course_id, 'moodle_course_id' );
+		    $course_id = false;
+		}
 
 		return $course_id;
 	}
