@@ -874,7 +874,7 @@ msgid "Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)"
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:259
-msgid "Server Envirment Information"
+msgid "Server Environment Information"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:29
@@ -1674,8 +1674,48 @@ msgid ""
 "have problems."
 msgstr ""
 
+#: includes/class-eb-activator.php:236
+msgctxt "Page slug"
+msgid "thank-you-for-purchase"
+msgstr ""
+
+#: includes/class-eb-activator.php:237
+msgctxt "Page title"
+msgid "Thank You for Purchase"
+msgstr ""
+
 #: includes/class-eb-activator.php:238
 msgid "Thanks for purchasing the course, your order will be processed shortly."
+msgstr ""
+
+#: includes/class-eb-activator.php:242
+msgctxt "Page slug"
+msgid "user-account"
+msgstr ""
+
+#: includes/class-eb-activator.php:243
+msgctxt "Page title"
+msgid "User Account"
+msgstr ""
+
+#: includes/class-eb-activator.php:248
+msgctxt "Page slug"
+msgid "eb-my-courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:249
+msgctxt "Page title"
+msgid "My Courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:254
+msgctxt "Page slug"
+msgid "eb-courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:255
+msgctxt "Page title"
+msgid "Courses"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:117
@@ -1793,41 +1833,56 @@ msgstr ""
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:616
+#: includes/class-eb-course-manager.php:197
+msgid ""
+"Unable to create/update a few courses, since they might have already being "
+"synced by a third-party plugin. Please check complete error "
+msgstr ""
+
+#: includes/class-eb-course-manager.php:197
+msgid " here"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:650
 msgid "Course Title"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:617
+#: includes/class-eb-course-manager.php:651
 msgid "Moodle Course Id"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:618
+#: includes/class-eb-course-manager.php:652
 msgid "Course Type"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:643
+#: includes/class-eb-course-manager.php:677
 #: includes/class-eb-post-types.php:320
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
 msgid "Free"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:644
+#: includes/class-eb-course-manager.php:678
 #: includes/class-eb-post-types.php:321
 msgid "Paid"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:645
+#: includes/class-eb-course-manager.php:679
 #: includes/class-eb-post-types.php:322
 msgid "Closed"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:653
+#: includes/class-eb-course-manager.php:687
 msgid "Deleted"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:670
+#: includes/class-eb-course-manager.php:704
 msgid "View on Moodle"
+msgstr ""
+
+#: includes/class-eb-custom-list-table.php:54
+msgctxt "Column label"
+msgid "Record ID"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:55
@@ -1850,6 +1905,11 @@ msgstr ""
 #: includes/class-eb-custom-list-table.php:343
 #: includes/class-eb-post-types.php:352
 msgid "Unenroll"
+msgstr ""
+
+#: includes/class-eb-custom-list-table.php:367
+msgctxt "Unenrolles the selected students from the courses"
+msgid "Bulk Unenroll"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:389
@@ -3405,5 +3465,4 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
-
 

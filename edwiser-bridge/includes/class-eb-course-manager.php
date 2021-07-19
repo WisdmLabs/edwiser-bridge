@@ -194,7 +194,7 @@ class Eb_Course_Manager {
 				if ( $error_course_count ) {
 					$response_array['course_success'] = 0;
 					// push course response in array.
-					$response_array['course_response_message'] = esc_html__( 'Detected Courses Synced By Third Party Plugin. Please check complete error ', 'eb-textdomain' ) . '<a target="_blank" href="https://edwiser.helpscoutdocs.com/article/235-courses-do-not-synchronize-from-moodle-to-wordpress">' . esc_html__( ' here', 'eb-textdomain' ) . '</a>';
+					$response_array['course_response_message'] = esc_html__( 'Unable to create/update a few courses, since they might have already being synced by a third-party plugin. Please check complete error ', 'eb-textdomain' ) . '<a target="_blank" href="https://edwiser.helpscoutdocs.com/article/235-courses-do-not-synchronize-from-moodle-to-wordpress">' . esc_html__( ' here', 'eb-textdomain' ) . '</a>';
 				}
 			}
 
