@@ -59,14 +59,14 @@ foreach ( $extensions_details as $key => $value ) {
 			<div class='eb-set-as'>
 			<h3>Edwiser Bridge </br>complete eCommerce Suite</h3>
 			<div class="eb-set-as-desc">
-				<p>Automate your course selling experience with Edwiser Bridge bundle.</p>
+				<p>Automate your course selling experience with Edwiser ECommerce Suite.</p>
 				<ul>
 					<li>4 Noteworthy Course Selling Extensions.</li>
 					<li>Power of WooCommerce</li>
 					<li>165+ Payment Gateways Unlocked</li>
 					<li>10x eLearning Profits</li>
 				</ul>
-				<a href="https://bit.ly/2NAJ7OW">Check out Edwiser Bridge Bundle</a>
+				<a href="https://bit.ly/2NAJ7OW">Check out Edwiser ECommerce Suite</a>
 				<p>Rated <span class="dashicons dashicons-star-filled"></span>4.5</br>Trusted By <i>5000+</i> happy customers.</p>
 			</div>
 		</div>
