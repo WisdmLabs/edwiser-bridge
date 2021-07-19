@@ -175,8 +175,8 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 					<div class='ebpf-title'>
 					Unlock the power of<br/>WooCommerce, 165+ payment gateways,<br>10x eLearning profits, and much more 
 					</div>
-					<div class='ebpf-sub-title'>with the Edwiser ECommerce Suite.</div>
-					<a href="https://bit.ly/2NAJ7OW" target="_blank" class="ebpf-hbtn">Upgrade to Edwiser ECommerce Suite</a>
+					<div class='ebpf-sub-title'>with the Edwiser E-Commerce Suite.</div>
+					<a href="https://bit.ly/2NAJ7OW" target="_blank" class="ebpf-hbtn">Upgrade to Edwiser E-Commerce Suite</a>
 					<div class="ebpf-scroll-to">
 						<p>PREMIUM FEATURES</p>
 						<span>Scroll Down to View Premium Features</span>
@@ -205,7 +205,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 					<img class="ebpf-fimg1" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/ebpf-fbg1.png' ) ); ?>"/>
 					<img class="ebpf-fimg2" src="<?php echo esc_url( plugins_url( 'edwiser-bridge/admin/assets/images/ebpf-fbg2.png' ) ); ?>"/>
 					<div class="ebpf-fcontent">
-						<h3>Increase profits by automated course selling with<br/>Edwiser ECommerce Suite</h3>
+						<h3>Increase profits by automated course selling with<br/>Edwiser E-Commerce Suite</h3>
 						<a href="https://bit.ly/2NAJ7OW" target="_blank" class="ebpf-fbtn">Buy Now</a>
 					</div>
 				</div>
