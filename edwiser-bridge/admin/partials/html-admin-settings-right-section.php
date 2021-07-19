@@ -57,7 +57,7 @@ foreach ( $extensions_details as $key => $value ) {
 	if ( $show_banner ) {
 		?>
 			<div class='eb-set-as'>
-			<h3>Edwiser Bridge </br>Complete E-Commerce Suite</h3>
+			<h3>Edwiser E-Commerce Suite</h3>
 			<div class="eb-set-as-desc">
 				<p>Automate your course selling experience with Edwiser E-Commerce Suite.</p>
 				<ul>
