@@ -86,7 +86,7 @@ Cohorts are created for each purchase done by the course buyer,
 = <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Single Sign extension </a> =
 This extension provides a seamless connection between Course Front and LMS.
 
-
+Notice: Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin">here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
 
 
 = Additional Edwiser products that provides improves your Moodle experience - =
@@ -177,6 +177,10 @@ Take a look at the link below and follow the steps provided to configure your Mo
 
 
  ==  Frequently Asked Questions  == 
+
+= Do you require Multi-lingual/WPML support for Edwiser Bridge plugin? =
+Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin" >here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
+
 
  = Do WordPress and Moodle need to be installed and running on the same server? = 
 No, not required. Both the systems can be installed on the same server or different servers.

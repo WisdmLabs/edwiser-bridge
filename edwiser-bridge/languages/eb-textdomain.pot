@@ -706,7 +706,7 @@ msgid "Get License"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:425
-msgid "If you wish to purchase Edwiser E-Commerce Suite then click here"
+msgid "If you wish to purchase Edwiser Bridge PRO then click here"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:426
@@ -716,7 +716,7 @@ msgstr ""
 #: admin/licensing/class-licensing-settings.php:430
 msgid ""
 "If you already own one of the extensions, then click here to upgrade to "
-"Edwiser E-Commerce Suite"
+"Edwiser Bridge PRO"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:431
