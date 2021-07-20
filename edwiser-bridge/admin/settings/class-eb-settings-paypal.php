@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'paypal';
-			$this->label = __( 'PayPal Settings', 'eb-textdomain' );
+			$this->label = __( 'PayPal', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );

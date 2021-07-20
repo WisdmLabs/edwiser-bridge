@@ -53,16 +53,17 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 				// include the settings page class.
 				include_once 'settings/class-eb-settings-page.php';
-				include_once 'class-eb-admin-marketing-add.php';
 
 				$settings[]     = include 'settings/class-eb-settings-general.php';
 				$settings[]     = include 'settings/class-eb-settings-connection.php';
 				$settings[]     = include 'settings/class-eb-settings-synchronization.php';
 				$settings[]     = include 'settings/class-eb-settings-paypal.php';
+				$settings[]     = include 'settings/class-eb-settings-dummy.php';
 				self::$settings = apply_filters( 'eb_get_settings_pages', $settings );
-				$settings[]     = include 'settings/class-eb-settings-licensing.php';
+				$settings[]     = include 'licensing/class-licensing-settings.php';
+				$settings[]     = include 'settings/class-eb-bridge-summary.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';
-				$settings[]     = include 'settings/class-eb-settings-premium-extensions.php';
+				$settings[]     = include 'settings/class-eb-settings-premium-fetures.php';
 			}
 
 			return self::$settings;
@@ -81,8 +82,9 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
 
-			if ( isset( $_POST['_wp_http_referer'] ) ) {
-				$referer = sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) );
+			$postdata = $_POST;
+			if ( isset( $postdata['_wp_http_referer'] ) ) {
+				$referer = sanitize_text_field( wp_unslash( $postdata['_wp_http_referer'] ) );
 			}
 
 			// Trigger actions.
@@ -629,41 +631,6 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 						</tr>
 						<?php
 						break;
-
-					// Single sidebar select.
-					case 'courses_per_row':
-						$selected_val = self::get_option( $value['id'], $current_tab );
-						$selected_val = trim( $selected_val );
-						$selected_val = empty( $selected_val ) ? '4' : $selected_val;
-						$args         = array(
-							'name'             => $value['id'],
-							'id'               => $value['id'],
-							'sort_column'      => 'menu_order',
-							'sort_order'       => 'ASC',
-							'show_option_none' => ' ',
-							'class'            => $value['class'],
-							'echo'             => false,
-							'selected'         => $selected_val,
-						);
-
-						if ( isset( $value['args'] ) ) {
-							$args = wp_parse_args( $value['args'], $args );
-						}
-						?>
-						<tr valign="top" class="single_select_page">
-							<th scope="row" class="titledesc"><?php echo esc_html( $value['title'] ); ?>
-								<?php echo wp_kses_post( $tooltip_html ); ?>
-							</th>
-							<td class="forminp">
-								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
-									<option <?php selected( $args['selected'], '2' ); ?>><?php esc_html_e( '2', 'eb-textdomain' ); ?></option>
-									<option <?php selected( $args['selected'], '3' ); ?>><?php esc_html_e( '3', 'eb-textdomain' ); ?></option>
-									<option <?php selected( $args['selected'], '4' ); ?>><?php esc_html_e( '4', 'eb-textdomain' ); ?></option>
-								</select>
-							</td>
-						</tr>
-						<?php
-						break;
 					case 'horizontal_line':
 						?>
 						<tr valign="top" class="single_select_page">
@@ -726,7 +693,10 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
 				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
 			}
-			if ( empty( $_POST ) ) {
+
+			$postdata = $_POST;
+
+			if ( empty( $postdata ) ) {
 				return false;
 			}
 
@@ -748,16 +718,16 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					$setting_name = key( $option_name_array[ $option_name ] );
 					$option_value = null;
 
-					if ( isset( $_POST[ $option_name ][ $setting_name ] ) ) {
-						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $_POST[ $option_name ][ $setting_name ] ) ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+					if ( isset( $postdata[ $option_name ][ $setting_name ] ) ) {
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( ( wp_unslash( $postdata[ $option_name ][ $setting_name ] ) ) );
 					}
 				} else {
 					$option_name  = $value['id'];
 					$setting_name = '';
 					$option_value = null;
 
-					if ( isset( $_POST[ $value['id'] ] ) ) {
-						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $_POST[ $value['id'] ] ) ); // WPCS: input var ok, CSRF ok, sanitization ok.
+					if ( isset( $postdata[ $value['id'] ] ) ) {
+						$option_value = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( wp_unslash( $postdata[ $value['id'] ] ) );
 					}
 				}
 
@@ -855,8 +825,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$description = '<span class="load-response">
 									<img src="' . $eb_plugin_url . 'images/loader.gif" height="20" width="20" />
 								</span>
-								<span class="response-box"></span>
 								<span class="linkresponse-box"></span>
+								<span class="response-box"></span>
 								<div id="unlinkerrorid-modal" class="unlinkerror-modal">
 								  <div class="unlinkerror-modal-content">
 									<span class="unlinkerror-modal-close">&times;</span>

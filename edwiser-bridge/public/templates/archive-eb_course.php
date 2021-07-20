@@ -12,19 +12,17 @@
  * --------------------------------------
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 $wrapper_args = array();
+$eb_template  = get_option( 'eb_general' );
+$attr         = isset( $attr ) ? $attr : array();
 
-$eb_template = get_option( 'eb_general' );
-
-$count = isset( $eb_template['courses_per_row'] ) && is_numeric( $eb_template['courses_per_row'] ) && $eb_template['courses_per_row'] < 5 ? (int) $eb_template['courses_per_row'] : 4;
-
-// CSS to handle course grid.
-echo '<style type="text/css"> .eb-course-col{width:' . ( 100 / esc_html( $count ) ) . '%;}'
-. '.eb-course-col:nth-of-type(' . esc_html( $count ) . 'n+1){clear:left;}</style>';
-
-$template_loader = new app\wisdmlabs\edwiserBridge\EbTemplateLoader(
-	app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
-	app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_version()
+$template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
+	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
+	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_version()
 );
 
 
@@ -57,24 +55,30 @@ get_header();
 
 	<?php if ( apply_filters( 'eb_show_page_title', true ) ) : ?>
 		<h1 class="page-title"><?php esc_html_e( 'Courses', 'eb-textdomain' ); ?></h1>
-	<?php endif; ?>
+		<?php
 
-	<?php
+	endif;
+
+	do_action( 'eb_archive_before_course_cards', $attr );
+
 	if ( have_posts() ) {
 		?>
+		<div class="eb_course_cards_wrap">
+			<?php
+			// Start the Loop.
+			while ( have_posts() ) :
+				the_post();
+				$template_loader->wp_get_template_part( 'content', get_post_type() );
+				// End the loop.
+			endwhile;
+			?>
+		</div>
 		<?php
-		// Start the Loop.
-		while ( have_posts() ) :
-			the_post();
-			$template_loader->wp_get_template_part( 'content', get_post_type() );
-			// End the loop.
-		endwhile;
-
 		// Previous/next page navigation.
 		the_posts_pagination(
 			array(
-				'prev_text'          => __( 'Previous page', 'eb-textdomain' ),
-				'next_text'          => __( 'Next page', 'eb-textdomain' ),
+				'prev_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit">' . __( ' Prev', 'eb-textdomain' ) . '</span>',
+				'next_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"> ' . __( 'Next ', 'eb-textdomain' ) . '</span>',
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' .
 				esc_html__( 'Page', 'eb-textdomain' ) . ' </span>',
 			)
@@ -82,23 +86,14 @@ get_header();
 	} else {
 		$template_loader->wp_get_template_part( 'content', 'none' );
 	}
-	?>
 
-	<?php
+	/*
+	 * Edwiser hook after content.
+	 * Used mainly for by default compatibility with some themes.
+	 */
 	do_action( 'eb_archive_after_content', $wrapper_args );
-	?>
 
-<!-- </div> -->
-
-	<?php
-
-	// Use this Hook to add sidebar container.
-	do_action( 'eb_archive_before_sidebar', $wrapper_args );
-
-	get_sidebar();
-
-	// Use this Hook to close sidebar containers.
-	do_action( 'eb_archive_after_sidebar', $wrapper_args );
+	// Here get_sidebar() method can be called for sidebar content.
 
 	/*
 	 * -------------------------------------

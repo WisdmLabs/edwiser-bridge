@@ -14,6 +14,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Eb_Public class.
  */
@@ -66,6 +70,9 @@ class Eb_Public {
 		 * class.
 		 */
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+
+		// Loading dasicons.
+		wp_enqueue_style( 'dashicons' );
 
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
@@ -177,7 +184,7 @@ class Eb_Public {
 				'sInfo'           => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'eb-textdomain' ),
 				'sInfoEmpty'      => __( 'Showing 0 to 0 of 0 entries', 'eb-textdomain' ),
 				'sInfoFiltered'   => __( 'filtered from _MAX_ total entries', 'eb-textdomain' ),
-				'sInfoPostFix'    => __( '', 'eb-textdomain' ), // @codingStandardsIgnoreLine.
+				'sInfoPostFix'    => '',
 				'sInfoThousands'  => __( ',', 'eb-textdomain' ),
 				'sLengthMenu'     => __( 'Show _MENU_ entries', 'eb-textdomain' ),
 				'sFirst'          => __( 'First', 'eb-textdomain' ),

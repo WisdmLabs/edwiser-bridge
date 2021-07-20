@@ -9,6 +9,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Form handler.
  */
@@ -95,7 +99,7 @@ class Eb_Frontend_Form_Handler {
 				$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
 			}
 
-			if ( self::auto_enroll() ) {
+			if ( self::auto_enroll( $_GET ) ) {
 				$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
 			}
 			return $redirect;
@@ -117,17 +121,16 @@ class Eb_Frontend_Form_Handler {
 
 		// Proceed only if nonce is verified.
 		if ( ! empty( $_POST['register'] ) &&
-				isset( $_POST['_wpnonce'] ) &&
-				wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
-			$email     = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
-			$firstname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-			$lastname  = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-
-			/* get object of user manager class */
-			$user_manager = new EBUserManager(
-				edwiser_bridge_instance()->get_plugin_name(),
-				edwiser_bridge_instance()->get_version()
-			);
+			isset( $_POST['_wpnonce'] ) &&
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-register' ) ) {
+			$email         = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
+			$firstname     = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
+			$lastname      = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
+			$user_psw      = isset( $_POST['user_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['user_psw'] ) ) : '';
+			$conf_user_psw = isset( $_POST['conf_user_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['conf_user_psw'] ) ) : '';
+			/**
+			 * Password verification is completed.
+			 */
 
 			try {
 				$validation_error = new \WP_Error();
@@ -138,7 +141,12 @@ class Eb_Frontend_Form_Handler {
 					$lastname,
 					$email
 				);
-
+				if ( empty( $user_psw ) || empty( $conf_user_psw ) ) {
+					throw new \Exception( __( 'Password fields can not be empty.', 'eb-textdomain' ) );
+				}
+				if ( ! empty( $user_psw ) && $user_psw !== $conf_user_psw ) {
+					throw new \Exception( __( 'Password are not matching.', 'eb-textdomain' ) );
+				}
 				if ( $validation_error->get_error_code() ) {
 					throw new \Exception( $validation_error->get_error_message() );
 				}
@@ -151,7 +159,20 @@ class Eb_Frontend_Form_Handler {
 				// added afyter.
 				$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 
-				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role );
+				/* Create user manager class object*/
+				$user_manager = new EBUserManager(
+					edwiser_bridge_instance()->get_plugin_name(),
+					edwiser_bridge_instance()->get_version()
+				);
+				if ( ! empty( $_GET['redirect_to'] ) ) {
+					$redirect = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
+				} else {
+					$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
+				}
+				if ( self::auto_enroll( $_GET ) ) {
+					$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
+				}
+				$new_user = $user_manager->create_wordpress_user( sanitize_email( $email ), $firstname, $lastname, $role, $user_psw, $redirect );
 
 				if ( is_wp_error( $new_user ) ) {
 					throw new \Exception( $new_user->get_error_message() );
@@ -160,15 +181,6 @@ class Eb_Frontend_Form_Handler {
 				// add role code here.
 
 				$user_manager->set_user_auth_cookie( $new_user );
-
-				if ( ! empty( $_GET['redirect_to'] ) ) {
-					$redirect = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
-				} else {
-					$redirect = \app\wisdmlabs\edwiserBridge\wdm_eb_user_redirect_url();
-				}
-				if ( self::auto_enroll() ) {
-					$redirect = add_query_arg( 'auto_enroll', 'true', $redirect );
-				}
 				wp_safe_redirect( apply_filters( 'eb_registration_redirect', $redirect, $new_user ) );
 				exit;
 			} catch ( \Exception $e ) {
@@ -245,14 +257,14 @@ class Eb_Frontend_Form_Handler {
 
 	/**
 	 * Enroll.
+	 *
+	 * @param string $data data.
 	 */
-	private static function auto_enroll() {
-		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-login' ) ) {
-			if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-				return true;
-			} else {
-				return false;
-			}
+	private static function auto_enroll( $data ) {
+		if ( isset( $data['is_enroll'] ) && 'true' === $data['is_enroll'] ) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

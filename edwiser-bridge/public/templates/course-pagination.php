@@ -5,6 +5,10 @@
  * @package Edwiser Bridge.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( $max_num_pages <= 1 ) {
 	return;
 }
@@ -20,25 +24,23 @@ $prev_page    = 0;
 <nav class="eb-pagination">
 	<ul>
 		<?php if ( $current_page && $current_page > 1 ) : ?>
-			<li><?php previous_posts_link( '&larr;' ); ?></li>
+			<li class="prev" ><?php previous_posts_link( esc_html__( 'Prev', 'eb-textdomain' ) ); ?></li>
 		<?php endif; ?>
 
 		<?php
+
 		foreach ( $eb_pages as $eb_page ) {
-			if ( $prev_page !== $eb_page - 1 ) {
-				echo '<li><span class="gap">...</span></li>';
-			}
 			if ( $current_page === $eb_page ) {
-				echo '<li><span class="current" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</span></li>';
+				echo '<li><span class=" page-numbers eb-page-numbers current" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</span></li>';
 			} else {
-				echo '<li><a href="' . esc_html( get_pagenum_link( $eb_page ) ) . '" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</a></li>';
+				echo '<li><a class="page-numbers eb-page-numbers" href="' . esc_html( get_pagenum_link( $eb_page ) ) . '" data-page="' . esc_html( $eb_page ) . '">' . esc_html( $eb_page ) . '</a></li>';
 			}
 			$prev_page = $eb_page;
 		}
 		?>
 
 		<?php if ( $current_page && $current_page < $max_num_pages ) : ?>
-			<li><?php next_posts_link( '&rarr;', $max_num_pages ); ?></li>
+			<li class="next "><?php next_posts_link( esc_html__( 'Next', 'eb-textdomain' ), $max_num_pages ); ?></li>
 		<?php endif; ?>
 	</ul>
 </nav>

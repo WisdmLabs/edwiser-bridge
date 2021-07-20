@@ -13,6 +13,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Class EbTemplateLoader.
  */
@@ -167,47 +171,7 @@ class EbTemplateLoader {
 	public function wp_get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		// Declare variables here.
 		if ( $args && is_array( $args ) ) {
-			// Eb-courses page.
-			if ( isset( $args['max_num_pages'] ) ) {
-				$max_num_pages = $args['max_num_pages'];
-			}
-
-			// Eb-my courses page.
-			if ( isset( $args['is_eb_my_courses'] ) ) {
-				$is_eb_my_courses = $args['is_eb_my_courses'];
-			}
-			if ( isset( $args['attr'] ) ) {
-				$attr = $args['attr'];
-			}
-
-			// User-account page.
-			if ( isset( $args['current_user'] ) ) {
-				$current_user = $args['current_user'];
-			}
-			if ( isset( $args['user_orders'] ) ) {
-				$user_orders = $args['user_orders'];
-			}
-			if ( isset( $args['order_count'] ) ) {
-				$order_count = $args['order_count'];
-			}
-			if ( isset( $args['user_avatar'] ) ) {
-				$user_avatar = $args['user_avatar'];
-			}
-			if ( isset( $args['user'] ) ) {
-				$user = $args['user'];
-			}
-			if ( isset( $args['enrolled_courses'] ) ) {
-				$enrolled_courses = $args['enrolled_courses'];
-			}
-			if ( isset( $args['template_loader'] ) ) {
-				$template_loader = $args['template_loader'];
-			}
-			if ( isset( $args['user_meta'] ) ) {
-				$user_meta = $args['user_meta'];
-			}
-			if ( isset( $args['product_id'] ) ) {
-				$product_id = $args['product_id'];
-			}
+			extract( $args ); // @codingStandardsIgnoreLine
 		}
 
 		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
@@ -226,6 +190,27 @@ class EbTemplateLoader {
 		include $located;
 
 		do_action( 'eb_after_template_part', $template_name, $template_path, $located, $args );
+	}
+
+	/**
+	 * Function to get the template of the page.
+	 *
+	 * @param string $template_name Template file name.
+	 * @param string $template_path Template file path.
+	 * @param string $default_path Template file defualr path.
+	 */
+	public function eb_get_page_template( $template_name, $template_path = '', $default_path = '' ) {
+		$located = $this->wp_locate_template( $template_name, $template_path, $default_path );
+
+		if ( ! file_exists( $located ) ) {
+			/* Translators 1: file path */
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
+			return;
+		}
+
+		// Allow 3rd party plugin filter template file from their plugin.
+		$located = apply_filters( 'eb_get_template_file', $located, $template_name, $template_path, $default_path );
+		return $located;
 	}
 
 	/**

@@ -108,7 +108,7 @@ class EdwiserBridge {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'edwiserbridge';
-		$this->version     = '2.0.7';
+		$this->version     = '2.1.0';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_plugin_hooks();
@@ -241,6 +241,9 @@ class EdwiserBridge {
 		// handles theme compatibility.
 		require_once $plugin_path . 'public/class-eb-theme-compatibility.php';
 
+		// Handles template dependency.
+		require_once $plugin_path . 'public/class-eb-template-functions.php';
+
 		/*
 		 * loading refund dependencies.
 		 * @since      1.3.3
@@ -270,8 +273,6 @@ class EdwiserBridge {
 		require_once $plugin_path . 'admin/class-eb-admin.php';
 
 		require_once $plugin_path . 'admin/class-eb-welcome.php';
-
-		require_once $plugin_path . 'admin/class-eb-extensions.php';
 
 		/**
 		*The class used to add Moodle account column on users page frontend
@@ -607,6 +608,12 @@ class EdwiserBridge {
 			'eb_admin_notice_dismiss_handler'
 		);
 
+		$this->loader->eb_add_action(
+			'admin_notices',
+			$admin_notice_handler,
+			'eb_admin_template_notice'
+		);
+
 		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
 			$hook,
@@ -901,6 +908,13 @@ class EdwiserBridge {
 			10,
 			2
 		);
+		$this->loader->eb_add_action(
+			'post_row_actions',
+			$this->course_manager(),
+			'view_moodle_course_link',
+			10,
+			2
+		);
 
 		// handles addtion of new blog.
 
@@ -917,13 +931,6 @@ class EdwiserBridge {
 
 		// Adding theme compatibility hooks here.
 		$theme_compatibility = new Eb_Theme_Compatibility();
-		$this->loader->eb_add_action(
-			'eb_archive_before_content',
-			$theme_compatibility,
-			'eb_content_start_theme_compatibility',
-			10,
-			2
-		);
 
 		$this->loader->eb_add_action(
 			'eb_archive_after_content',
@@ -964,6 +971,81 @@ class EdwiserBridge {
 			10,
 			2
 		);
+
+		// Template related Hooks.
+		$template_functions = new Eb_Template_Functions();
+
+		$this->loader->eb_add_filter(
+			'eb_content_course_before',
+			$template_functions,
+			'content_eb_course_tml_dependency',
+			10,
+			3
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_content_single_course_before',
+			$template_functions,
+			'content_single_eb_course_tml_dependency',
+			10,
+			1
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_course_archive_price',
+			$template_functions,
+			'eb_course_archive_price_tmpl',
+			10,
+			1
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_my_course_archive_progress',
+			$template_functions,
+			'eb_my_course_archive_progress_tmpl',
+			10,
+			3
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_show_course_page_filter_and_sorting',
+			$template_functions,
+			'eb_show_course_filters_and_sorting',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_courses_wp_query_args',
+			$template_functions,
+			'eb_get_course_sorting_data',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'eb_courses_filter_args',
+			$template_functions,
+			'eb_get_course_filter_data',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'next_posts_link_attributes',
+			$template_functions,
+			'posts_link_attributes',
+			10,
+			2
+		);
+
+		$this->loader->eb_add_filter(
+			'previous_posts_link_attributes',
+			$template_functions,
+			'posts_link_attributes',
+			10,
+			2
+		);
 	}
 
 	/**
@@ -983,13 +1065,13 @@ class EdwiserBridge {
 		$this->loader->eb_add_filter( 'template_include', $template_loader, 'template_loader', 10 );
 
 		// Initiate our shortcodes class on init hook.
-		$this->loader->eb_add_action( 'init', 'app\wisdmlabs\edwiserBridge\Eb_Shortcodes', 'init' );
+		$this->loader->eb_add_action( 'init', '\app\wisdmlabs\edwiserBridge\Eb_Shortcodes', 'init' );
 
 		// Frontend form handler hooks to handle user login & registration.
-		$this->loader->eb_add_action( 'wp_loaded', 'app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_login', 20 );
-		$this->loader->eb_add_action( 'wp_loaded', 'app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_registration', 20 );
+		$this->loader->eb_add_action( 'wp_loaded', '\app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_login', 20 );
+		$this->loader->eb_add_action( 'wp_loaded', '\app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_registration', 20 );
 		// process course join request for free courses.
-		$this->loader->eb_add_action( 'wp_loaded', 'app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_free_course_join_request' );
+		$this->loader->eb_add_action( 'wp_loaded', '\app\wisdmlabs\edwiserBridge\Eb_Frontend_Form_Handler', 'process_free_course_join_request' );
 
 		$this->loader->eb_add_action( 'after_setup_theme', $plugin_public, 'after_setup_theme' );
 		add_action( 'template_redirect', array( '\app\wisdmlabs\edwiserBridge\Eb_Shortcode_User_Account', 'save_account_details' ) );

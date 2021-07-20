@@ -46,12 +46,25 @@ switch ( $template ) {
 		// Divi.
 	case 'Divi':
 		echo '<div id="main-content" style="'
-		. esc_html( $parentcss ) . '"><div class="container">';
+		. esc_html( $parentcss ) . '"><div class="container eb-primary">';
+
+		if ( is_archive() ) {
+			echo '<div id="content-area" class="clearfix">';
+		}
+
+
 		break;
 
 	case 'flatsome':
 		echo '<div id="content" style="padding:30px 0px;"'
 		. esc_html( $parentcss ) . '"><div class="row row-large row-divided">';
+		break;
+
+	case 'astra':
+		if ( is_archive() ) {
+			echo '<div>';
+		}
+
 		break;
 
 	default:

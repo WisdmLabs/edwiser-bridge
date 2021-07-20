@@ -49,10 +49,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 
-			<div class="eb_setting_right_sidebar_info">
 			<?php
-				require_once plugin_dir_path( __DIR__ ) . '../admin/partials/html-admin-settings-right-section.php';
+			$show_banner = true;
+			$extensions  = array(
+				'woocommerce-integration/bridge-woocommerce.php',
+				'selective-synchronization/selective-synchronization.php',
+				'edwiser-bridge-sso/sso.php',
+				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
+			);
+			foreach ( $extensions as $plugin_path ) {
+				if ( is_plugin_active( $plugin_path ) ) {
+					$show_banner = false;
+				} else {
+					$show_banner = true;
+					break;
+				}
+			}
+			if ( in_array( $tabname, array( 'remui', 'pfetures' ), true ) ) {
+				$show_banner = false;
+			}
+			$css_class = $show_banner ? 'eb_setting_right_sidebar_info' : '';
 			?>
+			<div class="eb_setting_right_sidebar_info">
+				<?php
+				require_once plugin_dir_path( __DIR__ ) . '../admin/partials/html-admin-settings-right-section.php';
+				?>
 			</div>
 		</div>
 		<?php

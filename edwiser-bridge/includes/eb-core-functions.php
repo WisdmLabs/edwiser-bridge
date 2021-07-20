@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	/**
 	 * Get a log file path.
@@ -55,7 +58,7 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 
 		if ( strlen( $page_content ) > 0 ) {
 			// Search for an existing page with the specified page content (typically a shortcode).
-			$page_found_id = $wpdb->get_var(
+			$page_found_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 				$wpdb->prepare(
 					'SELECT ID FROM ' . $wpdb->posts . "
 					WHERE post_type='page' AND post_content LIKE %s LIMIT 1;",
@@ -64,7 +67,7 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 			);
 		} else {
 			// Search for an existing page with the specified page slug.
-			$page_found_id = $wpdb->get_var(
+			$page_found_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 				$wpdb->prepare(
 					'SELECT ID FROM ' . $wpdb->posts . "
 					WHERE post_type='page' AND post_name = %s LIMIT 1;",
@@ -258,8 +261,9 @@ if ( ! function_exists( 'wdm_eb_get_shortcode_page_content' ) ) {
 				'order'               => 'DESC',
 				'per_page'            => 12,
 				'cat_per_page'        => 3,
-				'group_by_cat'        => 'yes',
-				'horizontally_scroll' => 'yes',
+				'group_by_cat'        => 'no',
+				'horizontally_scroll' => 'no',
+				'show_filter'         => 'yes',
 			),
 		);
 
@@ -415,7 +419,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_user_id_from_moodle_id' ) ) {
 	 */
 	function wdm_eb_get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) );
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -429,7 +433,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_course_id_from_moodle_course_id' ) ) {
 	 */
 	function wdm_eb_get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) );
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -532,7 +536,7 @@ if ( ! function_exists( 'wdm_eb_get_user_suspended_status' ) ) {
 		}
 
 		// check if user has access to course.
-		$suspended = $wpdb->get_var(
+		$suspended = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT suspended
 				FROM {$wpdb->prefix}moodle_enrollment
@@ -721,7 +725,7 @@ if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 	 * Gwt edwiser Bridge versio.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.0.7';
+		return '2.1.0';
 	}
 }
 
@@ -811,5 +815,116 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_log_dir' ) ) {
 		return $upload_dir['basedir'] . '/eb-logs/';
 	}
 }
+if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
+	/**
+	 * Function to get the current plugin version.
+	 *
+	 * @param string $path Plugin file path.
+	 */
+	function wdm_get_plugin_version( $path ) {
+		$plugin_info = array();
+		if ( file_exists( WP_PLUGIN_DIR . '/' . $path ) ) {
+			$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
+		}
+		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : __( 'Plugin not installed', 'eb-textdomain' );
+	}
+}
+
+if ( ! function_exists( 'wdm_request_edwiser' ) ) {
+	/**
+	 * Function to send the reuest to the edwiser site.
+	 *
+	 * @param  array $api_params request params data.
+	 * @return array array of the status and data.
+	 */
+	function wdm_request_edwiser( $api_params ) {
+		$store_url            = 'https://edwiser.org/check-update';
+		$api_params['author'] = 'WisdmLabs';
+		$resp_data            = array(
+			'status' => false,
+			'data'   => '',
+		);
+		$request              = wp_remote_get(
+			add_query_arg( $api_params, $store_url ),
+			array(
+				'timeout'   => 15,
+				'sslverify' => false,
+				'blocking'  => true,
+			)
+		);
+
+		if ( ! is_wp_error( $request ) ) {
+			$resp_data['data']   = json_decode( wp_remote_retrieve_body( $request ) );
+			$resp_data['status'] = wp_remote_retrieve_response_code( $request );
+		} else {
+			$resp_data['data'] = $request->get_error_messages();
+		}
+		return $resp_data;
+	}
+}
 
 
+
+
+if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
+	/**
+	 * Function to send the reuest to the edwiser site.
+	 *
+	 * @param  array $course_id course id.
+	 * @return array array of the status and data.
+	 */
+	function wdm_eb_course_terms( $course_id = '' ) {
+		$categories = array();
+
+		if ( ! empty( $course_id ) ) {
+			$terms = wp_get_post_terms(
+				$course_id,
+				'eb_course_cat',
+				array(
+					'orderby' => 'name',
+					'order'   => 'ASC',
+					'fields'  => 'all',
+				)
+			); // @codingStandardsIgnoreLine.
+		} else {
+			$terms = get_terms(
+				array(
+					'taxonomy'   => 'eb_course_cat',
+					'hide_empty' => false,
+				)
+			);
+		}
+
+		if ( is_array( $terms ) ) {
+			foreach ( $terms as $eb_term ) {
+				$categories[ $eb_term->term_id ] = esc_html( $eb_term->name );
+			}
+		}
+		return $categories;
+	}
+}
+
+
+if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
+	/**
+	 * Function to send the reuest to the edwiser site.
+	 *
+	 * @param  array $moodle_user_id moodle_user id.
+	 * @param  array $mdl_course_id course id.
+	 * @return array returns course URL.
+	 */
+	function wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id ) {
+		if ( '' !== $moodle_user_id && function_exists( 'ebsso\generateMoodleUrl' ) ) {
+			$query      = array(
+				'moodle_user_id'   => $moodle_user_id, // moodle user id.
+				'moodle_course_id' => $mdl_course_id,
+			);
+			$course_url = \ebsso\generateMoodleUrl( $query );
+		} else {
+			$eb_access_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
+			$course_url    = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
+		}
+
+		return $course_url;
+	}
+}

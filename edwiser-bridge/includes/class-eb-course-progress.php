@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Course Progress.
  */
@@ -41,7 +44,7 @@ class Eb_Course_Progress {
 					$course_progress_array[ $course_id ] = $value->completion;
 				}
 			}
-			update_user_meta( $user_id, 'moodle_course_progress', serialize( $course_progress_array ) );
+			update_user_meta( $user_id, 'moodle_course_progress', serialize( $course_progress_array ) ); // @codingStandardsIgnoreLine
 			return $course_progress_array;
 		}
 	}

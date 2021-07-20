@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Courses.
  */
@@ -41,11 +44,12 @@ class Eb_Shortcode_Courses {
 				'eb_shortcode_courses_defaults',
 				array(
 					'categories'          => '',
-					'order'               => 'DESC',
+					'order'               => 'ASC',
 					'group_by_cat'        => 'no',
 					'cat_per_page'        => '4', // -1 for all in one row
 					'horizontally_scroll' => 'no',
 					'per_page'            => 10,
+					'show_filter'         => 'no',
 				)
 			),
 			$atts
@@ -69,8 +73,25 @@ class Eb_Shortcode_Courses {
 				$per_page = $atts['per_page'];
 		}
 
+		// Course Filter related intilization.
+		$filter    = '';
+		$sorting   = '';
+		$tax_query = array();
+		$order_by  = '';
+		$page      = 1;
+
+		// Get filter data here.
+		if ( isset( $_REQUEST['eb_courses_page_key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_courses_page_key'] ) ), 'eb_courses_page_key' ) ) {
+			$page = isset( $_GET['eb-cat-page-no'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) ) : 1;
+			if ( 'yes' === $atts['show_filter'] ) {
+				$filter  = isset( $_REQUEST['eb_category_filter'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_category_filter'] ) ) : '';
+				$sorting = isset( $_REQUEST['eb_category_sort'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_category_sort'] ) ) : '';
+			}
+		}
+
 		$args = array(
 			'post_type'      => 'eb_course',
+			'orderby'        => 'title',
 			'order'          => $atts['order'],
 			'post_status'    => 'publish',
 			'posts_per_page' => $atts['per_page'],
@@ -81,7 +102,7 @@ class Eb_Shortcode_Courses {
 		 */
 		$input_cat = explode( ',', $atts['categories'] );
 		if ( ! empty( $atts['categories'] ) ) {
-			$args['tax_query'] = array(
+			$args['tax_query'] = array( // @codingStandardsIgnoreLine
 				array(
 					'taxonomy' => 'eb_course_cat',
 					'field'    => 'slug',
@@ -106,33 +127,51 @@ class Eb_Shortcode_Courses {
 			$args['posts_per_page'] = -1;
 		}
 
+		/*
+		 * Check if the shortcode attr for show filter is set.
+		 */
+		if ( 'yes' === $atts['show_filter'] ) {
+			/*
+			* get sorting data and merge it with the wp_query args.
+			*/
+			$args = apply_filters( 'eb_courses_wp_query_args', $args, $sorting );
+
+			// Functionality to show filters and sorting dropdowns.
+			do_action( 'eb_show_course_page_filter_and_sorting', $filter, $sorting );
+		}
+
 		/**
 		 * It will check whether to display courses page output in categorys grouping ot not
 		 * If in shortcode parameter it is spesified group_by_cat parameter value
 		 * true then shows courses in category groups.
 		 */
-		if ( isset( $atts['group_by_cat'] ) && 'yes' === $atts['group_by_cat'] ) {
-			$disp_cat = $curr_class->showCatView( $input_cat );
-			$cat_cnt  = count( $disp_cat );
-			$page     = 1;
+		if ( ( isset( $atts['group_by_cat'] ) && 'yes' === $atts['group_by_cat'] ) || ( ! empty( $filter ) && 'eb_archive_filter_all' !== $filter ) ) {
+			$disp_cat = $curr_class->showCatView( $input_cat, $filter );
 
-			if ( isset( $_GET['key'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['key'] ) ), 'eb_pagination' ) && isset( $_GET['eb-cat-page-no'] ) ) {
-					$page = sanitize_text_field( wp_unslash( $_GET['eb-cat-page-no'] ) );
+			/*
+			* Check if the shortcode attr for show filter is set.
+			*/
+			if ( 'yes' === $atts['show_filter'] ) {
+				// Filter to apply changes according to the selected filter from eb_course page.
+				$disp_cat = apply_filters( 'eb_courses_filter_args', $disp_cat, $filter );
 			}
 
+			$cat_cnt                = count( $disp_cat );
 			$cat_start              = $page * (int) $atts['cat_per_page'] - (int) $atts['cat_per_page'];
 			$cnt                    = 0;
 			$args['posts_per_page'] = -1;
+
 			foreach ( $disp_cat as $category ) {
 				$cnt++;
 				if ( $cnt < $cat_start + 1 || $cnt > $cat_start + (int) $atts['cat_per_page'] ) {
 					continue;
 				}
+
 				?>
 				<div class='eb-cat-parent'>
-					<h3 class="eb-cat-title"><?php echo esc_html( $category->name ); ?></h3>
+					<span class="eb-cat-title"><?php echo esc_html( $category->name ); ?></span>
 					<?php
-					$args['tax_query'] = array(
+					$args['tax_query'] = array( // @codingStandardsIgnoreLine
 						array(
 							'taxonomy'         => 'eb_course_cat',
 							'field'            => 'slug',
@@ -146,58 +185,61 @@ class Eb_Shortcode_Courses {
 				<?php
 			}
 
-			$curr_class->catPagination( $cat_cnt, $atts['cat_per_page'], $page );
+			$curr_class->catPagination( $cat_cnt, $atts['cat_per_page'], $page, $filter, $sorting );
 		} else {
 			if ( ! $scroll_horizontal ) {
 				$args['posts_per_page'] = $atts['per_page'];
 				$args['paged']          = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
 			}
-			?>
-			<div class='eb-cat-parent'>
-				<?php
-				$curr_class->genCoursesGridView( $args, $scroll_horizontal );
-				?>
-			</div>
-			<?php
+
+			$curr_class->genCoursesGridView( $args, $scroll_horizontal );
 		}
 	}
+
 
 	/**
 	 * It will  check which categorys need to show in the shortcode output
 	 *
 	 * @deprecated
-	 * @param array $input_cat Array of the category slugs to display courses from those categorys only.
+	 * @param array  $input_cat Array of the category slugs to display courses from those categorys only.
+	 * @param string $filter Array of the category slugs to display courses from those categorys only.
 	 * @return array returns array of the categorys object
 	 */
-	public function showCatView( $input_cat ) {
-		$eb_all_cat      = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
+	public function showCatView( $input_cat, $filter ) {
+		$cat_to_display  = array();
 		$first_input_cat = trim( $input_cat[0] );
+		$eb_all_cat      = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
+
 		/**
 		 * Check is the no category spesified in the shortcode parameter or emapy slug provided
 		 */
 		if ( count( $input_cat ) < 2 && empty( $first_input_cat ) ) {
+			$eb_all_cat = get_terms( array( 'taxonomy' => 'eb_course_cat' ) );
 			return $eb_all_cat;
 		}
 
-		$cat_to_display = array();
 		foreach ( $eb_all_cat as $cat ) {
 			if ( in_array( $cat->slug, $input_cat ) ) { // @codingStandardsIgnoreLine.
 				$cat_to_display[] = $cat;
 			}
 		}
+
 		return $cat_to_display;
 	}
 
 	/**
 	 * Genrates the pagination for the category view
 	 *
-	 * @param int $cat_cnt total category count.
 	 * @deprecated
-	 * @param int $per_page Categorys to display on each page.
-	 * @param int $current_page current page number shown in output.
+	 * @param int    $cat_cnt total category count.
+	 * @param int    $per_page Categorys to display on each page.
+	 * @param int    $current_page current page number shown in output.
+	 * @param string $filter category filter selected on page.
+	 * @param string $sorting sorting filter selected on the page.
+	 *
 	 * @return HTML returns the html output for the pagination.
 	 */
-	public function catPagination( $cat_cnt, $per_page, $current_page = 1 ) {
+	public function catPagination( $cat_cnt, $per_page, $current_page = 1, $filter = '', $sorting = '' ) {
 		/**
 		 * Check is the cat is less than perpage ammount
 		 * If yes then don't show pagination.
@@ -207,34 +249,36 @@ class Eb_Shortcode_Courses {
 			return;
 		}
 
-		$nonce = wp_create_nonce( 'eb_pagination' );
+		$nonce = wp_create_nonce( 'eb_courses_page_key' );
 
 		ob_start();
 		?>
 		<nav class="navigation pagination" role="navigation">
 			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
 			<form>
-				<input type="hidden" name="eb_pagnation_nonce" value="<?php esc_html( wp_create_nonce( 'eb_pagnation_nonce' ) ); ?>"> 
+				<input type="hidden" name="eb_courses_page_key" value="<?php esc_html( wp_create_nonce( 'eb_courses_page_key' ) ); ?>"> 
 				<div class="nav-links">
 					<?php
 					$page = 1;
 					if ( 1 !== $current_page ) {
 
 						?>
-						<a class="prev page-numbers" href="
+						<a class="prev page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
 								array(
-									'eb-cat-page-no' => $current_page - 1,
-									'key'            => $nonce,
+									'eb_category_filter'  => $filter,
+									'eb_category_sort'    => $sorting,
+									'eb-cat-page-no'      => $current_page - 1,
+									'eb_courses_page_key' => $nonce,
 								),
 								get_permalink()
 							)
 						);
 						?>
 						">
-							<?php esc_html_e( '&larr;', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Prev', 'eb-textdomain' ); ?>
 						</a>
 						<?php
 					}
@@ -251,13 +295,15 @@ class Eb_Shortcode_Courses {
 							$page_id_css .= ' current';
 						} else {
 							?>
-							<a class="page-numbers" href="
+							<a class="page-numbers eb-page-numbers" href="
 							<?php
 							echo esc_html(
 								add_query_arg(
 									array(
-										'eb-cat-page-no' => $page,
-										'key'            => $nonce,
+										'eb_category_filter' => $filter,
+										'eb_category_sort' => $sorting,
+										'eb-cat-page-no'   => $page,
+										'eb_courses_page_key' => $nonce,
 									),
 									get_permalink()
 								)
@@ -273,20 +319,22 @@ class Eb_Shortcode_Courses {
 					if ( $current_page < $page - 1 ) {
 
 						?>
-						<a class="next page-numbers" href="
+						<a class="next page-numbers eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="
 						<?php
 						echo esc_html(
 							add_query_arg(
 								array(
-									'eb-cat-page-no' => $current_page <= 1 ? 2 : $current_page + 1,
-									'key'            => $nonce,
+									'eb_category_filter'  => $filter,
+									'eb_category_sort'    => $sorting,
+									'eb-cat-page-no'      => $current_page <= 1 ? 2 : $current_page + 1,
+									'eb_courses_page_key' => $nonce,
 								),
 								get_permalink()
 							)
 						);
 						?>
 						">
-							<?php esc_html_e( '&rarr;', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Next', 'eb-textdomain' ); ?>
 						</a>
 						<?php
 					}
@@ -306,9 +354,13 @@ class Eb_Shortcode_Courses {
 	 * @param boolean $group_by_cat group the courses by categorys or not.
 	 */
 	public function genCoursesGridView( $args, $group_by_cat ) {
-		$scroll_class = 'sc-eb_courses-wrapper';
+		$scroll_class = 'sc-eb_courses-wrapper eb_course_cards_wrap';
 		if ( $group_by_cat ) {
 			$scroll_class = 'eb-cat-courses-cont sc-eb_courses-wrapper';
+		} else {
+			?>
+			<div class='eb-cat-parent'>
+			<?php
 		}
 		$custom_query = new \WP_Query( $args );
 
@@ -325,6 +377,7 @@ class Eb_Shortcode_Courses {
 				<span class="fa fa-angle-left eb-scroll-left" id="eb-scroll-left"></span>
 			<?php } ?>
 			<?php
+
 			do_action( 'eb_before_course_archive' );
 			if ( $custom_query->have_posts() ) {
 				while ( $custom_query->have_posts() ) :
@@ -335,6 +388,14 @@ class Eb_Shortcode_Courses {
 				$template_loader->wp_get_template_part( 'content', 'none' );
 			}
 			wp_reset_postdata();
+
+			if ( ! $group_by_cat ) {
+				// CLosing category parent div.
+				?>
+				</div>
+				<?php
+			}
+
 			?>
 			<div style="clear:both"></div>
 			<?php

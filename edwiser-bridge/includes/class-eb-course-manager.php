@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Course manager.
  */
@@ -192,7 +195,7 @@ class Eb_Course_Manager {
 		} else {
 			edwiser_bridge_instance()->logger()->add(
 				'course',
-				'Connection problem in synchronization, Response:' . print_r( $connected, true )
+				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
 			); // add connection log.
 		}
 
@@ -240,12 +243,13 @@ class Eb_Course_Manager {
 				$request_data
 			);
 
-			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // add course log.
+			// add course log.
+			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		} elseif ( empty( $moodle_user_id ) ) {
 			$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
 			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
-
-			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // add course log.
+			// add course log.
+			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		}
 
 		return $response;
@@ -283,7 +287,7 @@ class Eb_Course_Manager {
 		}
 
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
-		edwiser_bridge_instance()->logger()->add( 'course', serialize( $response ) );
+		edwiser_bridge_instance()->logger()->add( 'course', serialize( $response ) ); // @codingStandardsIgnoreLine
 
 		return $response;
 	}
@@ -315,7 +319,7 @@ class Eb_Course_Manager {
 		global $wpdb;
 
 		// get id of course on WordPress based on id on moodle $course_id =.
-		$course_id = $wpdb->get_var(
+		$course_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT post_id
 				FROM {$wpdb->prefix}postmeta
@@ -399,7 +403,7 @@ class Eb_Course_Manager {
 
 		$wp_course_id = wp_insert_post( $course_args ); // create a course on WordPress.
 
-		$term_id = $wpdb->get_var(
+		$term_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT term_id
 				FROM {$wpdb->prefix}termmeta
@@ -469,7 +473,7 @@ class Eb_Course_Manager {
 		// updater course on WordPress.
 		wp_update_post( $course_args );
 
-		$term_id = $wpdb->get_var(
+		$term_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT term_id
 				FROM {$wpdb->prefix}termmeta
@@ -508,7 +512,7 @@ class Eb_Course_Manager {
 
 		if ( 'eb_course' === get_post_type( $course_id ) ) {
 			// removing course from enrollment table.
-			$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'course_id' => $course_id ), array( '%d' ) );
+			$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'course_id' => $course_id ), array( '%d' ) ); // @codingStandardsIgnoreLine
 		}
 	}
 
@@ -547,7 +551,7 @@ class Eb_Course_Manager {
 			if ( $parent > 0 ) {
 				// get parent term if exists.
 
-				$parent_term = $wpdb->get_var(
+				$parent_term = $wpdb->get_var( // @codingStandardsIgnoreLine
 					$wpdb->prepare(
 						"SELECT term_id
 						FROM {$wpdb->prefix}termmeta
@@ -567,7 +571,10 @@ class Eb_Course_Manager {
 							'description' => $category->description,
 						)
 					);
-					update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+
+					if ( ! is_wp_error( $created_term ) && is_array( $created_term ) ) {
+						update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+					}
 
 					// Save the moodle id of category in options.
 				}
@@ -581,7 +588,10 @@ class Eb_Course_Manager {
 							'description' => $category->description,
 						)
 					);
-					update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+
+					if ( ! is_wp_error( $created_term ) && is_array( $created_term ) ) {
+						update_term_meta( $created_term['term_id'], 'eb_moodle_cat_id', $category->id );
+					}
 
 					// Save the moodle id of category in options.
 				}
@@ -601,24 +611,15 @@ class Eb_Course_Manager {
 	public function add_course_price_type_column( $columns ) {
 		$new_columns = array(); // new columns array.
 
-		foreach ( $columns as $k => $value ) {
-
-			if ( 'title' === $k ) {
-				$new_columns[ $k ] = esc_html__( 'Course Title', 'eb-textdomain' );
-			} else {
-				$new_columns[ $k ] = $value;
-			}
-
-			if ( 'title' === $k ) {
-				$new_columns['course_type'] = esc_html__( 'Course Type', 'eb-textdomain' );
-			}
-
-			if ( 'title' === $k ) {
+		foreach ( $columns as $key => $value ) {
+			if ( 'title' === $key ) {
+				$new_columns[ $key ]          = esc_html__( 'Course Title', 'eb-textdomain' );
 				$new_columns['mdl_course_id'] = esc_html__( 'Moodle Course Id', 'eb-textdomain' );
+				$new_columns['course_type']   = esc_html__( 'Course Type', 'eb-textdomain' );
+			} else {
+				$new_columns[ $key ] = $value;
 			}
-
 			$new_columns = apply_filters( 'eb_course_each_table_header', $new_columns );
-
 		}
 
 		$new_columns = apply_filters( 'eb_course_table_headers', $new_columns );
@@ -635,6 +636,7 @@ class Eb_Course_Manager {
 	 * @param array $post_id id of a column.
 	 */
 	public function add_course_price_type_column_content( $column_name, $post_id ) {
+
 		if ( 'course_type' === $column_name ) {
 			$status  = Eb_Post_Types::get_post_options( $post_id, 'course_price_type', 'eb_course' );
 			$options = array(
@@ -642,6 +644,7 @@ class Eb_Course_Manager {
 				'paid'   => esc_html__( 'Paid', 'eb-textdomain' ),
 				'closed' => esc_html__( 'Closed', 'eb-textdomain' ),
 			);
+			$status  = $status ? $status : 'free';
 			echo esc_html( isset( $options[ $status ] ) ? $options[ $status ] : ucfirst( $status ) );
 		} elseif ( 'mdl_course_id' === $column_name ) {
 			$mdl_course_id      = Eb_Post_Types::get_post_options( $post_id, 'moodle_course_id', 'eb_course' );
@@ -651,5 +654,21 @@ class Eb_Course_Manager {
 		}
 
 		do_action( 'eb_course_table_content', $column_name, $post_id );
+	}
+
+	/**
+	 * Adds the view moodle course link in courses list table for admin.
+	 *
+	 * @param array  $actions An array of row action links. .
+	 * @param object $post post object.
+	 */
+	public function view_moodle_course_link( $actions, $post ) {
+		if ( 'eb_course' === $post->post_type ) {
+			$eb_access_url          = wdm_edwiser_bridge_plugin_get_access_url();
+			$mdl_course_id          = $this->get_moodle_course_id( $post->ID );
+			$course_url             = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
+			$actions['moodle_link'] = "<a href='{$course_url}' title='' target='_blank' rel='permalink'>" . __( 'View on Moodle', 'eb-textdomain' ) . '</a>';
+		}
+		return $actions;
 	}
 }

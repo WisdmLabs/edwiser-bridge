@@ -9,6 +9,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Theme compat.
  */
@@ -31,8 +35,16 @@ class Eb_Theme_Compatibility {
 				echo '<div class="large-9 col">';
 				break;
 
+			case 'astra':
+				echo '<div id="primary" class="content-area primary">';
+				break;
+
+			case 'storefront':
+				echo '<div id="primary" class="content-area">';
+				break;
+
 			default:
-				echo '<div>';
+				echo '<div class="content-area">';
 				break;
 		}
 		unset( $wrapper_args );
@@ -62,6 +74,10 @@ class Eb_Theme_Compatibility {
 				echo '<div class="large-3 col">';
 				break;
 
+			case 'astra':
+				echo '';
+				break;
+
 			default:
 				echo '<div>';
 				break;
@@ -76,6 +92,9 @@ class Eb_Theme_Compatibility {
 	 * @param text $wrapper_args wrapper_args.
 	 */
 	public function eb_sidebar_end_theme_compatibility( $wrapper_args ) {
-		$this->eb_content_end_theme_compatibility( $wrapper_args );
+		$template = get_option( 'template' );
+		if ( 'astra' !== $template ) {
+			$this->eb_content_end_theme_compatibility( $wrapper_args );
+		}
 	}
 }

@@ -48,10 +48,17 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
 
 			/*
+			* translators: select courses page here
+			*/
+			$courses_page_desc = sprintf( __( 'Select courses page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/eb_courses' ) ) . '">' . __( 'Courses page', 'eb-textdomain' ) . '</a>' );
+
+			/*
 			* translators: My Courses page setting description.
 			*/
-			$redirect_desc = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
-			$settings      = apply_filters(
+			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'eb-textdomain' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'eb-textdomain' ) . '</a>' );
+
+			$settings = apply_filters(
 				'eb_general_settings',
 				array(
 					array(
@@ -93,6 +100,19 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
 					),
 					array(
+						'title'    => __( 'Courses page', 'eb-textdomain' ),
+						'desc'     => '<br/>' . $courses_page_desc,
+						'id'       => 'eb_courses_page_id',
+						'type'     => 'single_select_page',
+						'default'  => '',
+						'css'      => 'min-width:300px;',
+						'args'     => array(
+							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'option_none_value' => '',
+						),
+						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'eb-textdomain' ),
+					),
+					array(
 						'title'    => __( 'Moodle Language Code', 'eb-textdomain' ),
 						'desc'     => __( 'Enter language code which you get from moodle language settings.', 'eb-textdomain' ),
 						'id'       => 'eb_language_code',
@@ -100,6 +120,14 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
 						'desc_tip' => true,
+					),
+					array(
+						'title'    => __( 'Show Courses Archive page', 'eb-textdomain' ),
+						'desc'     => $courses_arch_desc,
+						'id'       => 'eb_show_archive',
+						'default'  => 'yes',
+						'type'     => 'checkbox',
+						'autoload' => true,
 					),
 					array(
 						'title'    => __( 'Redirect to My Courses', 'eb-textdomain' ),
@@ -144,16 +172,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
 						'desc_tip' => true,
-					),
-					array(
-						'title'    => __( 'Max number of courses in a row on the courses page', 'eb-textdomain' ),
-						'desc'     => '',
-						'id'       => 'courses_per_row',
-						'type'     => 'courses_per_row',
-						'default'  => '',
-						'css'      => '',
-						'desc_tip' =>
-						__( 'This setting will be applicable only on the `/courses` page template', 'eb-textdomain' ),
 					),
 					array(
 						'title'    => __( 'Erase associated Moodle data from Moodle site', 'eb-textdomain' ),

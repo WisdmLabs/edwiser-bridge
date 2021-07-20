@@ -11,162 +11,115 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-
-$eb_action = false;
-$username  = false;
-
-if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-login' ) ) {
-	$eb_action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : false;
-	$username  = isset( $_POST['username'] ) ? sanitize_text_field( wp_unslash( $_POST['username'] ) ) : false;
-}
-
-
-
-// check if registration enabled.
-$general_settings    = get_option( 'eb_general' );
-$enable_registration = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $general_settings, 'eb_enable_registration', '' );
-$eb_login_nonce      = wp_create_nonce( 'eb-login' );
-
 do_action( 'eb_before_customer_login_form' );
+\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
 ?>
-<div id="user_login">
+<div id="user_login" class='wdm-eb-user-login-form-wrap'>
 	<?php
-
-	\app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
-
-	if ( ! $eb_action || 'eb_register' !== $eb_action ) {
+	if ( 'eb_register' !== $eb_action ) {
 		?>
-		<h2>
-			<?php
-			esc_html_e( 'Login', 'eb-textdomain' );
-			?>
-		</h2>
-		<div class="eb-wrap-login-form">
+		<div class="eb-wrap-login-form wdm-eb-login-form-sec-1">
 			<form method="post" class="login">
-				<?php
-				do_action( 'eb_login_form_start' );
-				?>
-				<p class="form-row form-row-wide">
+				<?php do_action( 'eb_login_form_start' ); ?>
+				<p class="form-row form-row-wide eb-profile-txt-field">
 					<label for="wdm_username">
-						<?php
-						esc_html_e( 'Username', 'eb-textdomain' );
-						?>
+						<?php esc_html_e( 'Username', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
 					</label>
 					<input type="text" class="input-text" placeholder="<?php esc_html_e( 'Enter user name', 'eb-textdomain' ); ?>" name="wdm_username" id="wdm_username" value="<?php echo esc_attr( $username ); ?>" />
 				</p>
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field">
 					<label for="wdm_password">
-						<?php
-						esc_html_e( 'Password', 'eb-textdomain' );
-						?>
+						<?php esc_html_e( 'Password', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
 					</label>
 					<input class="input-text" type="password" placeholder="<?php esc_html_e( 'Enter password', 'eb-textdomain' ); ?>" name="wdm_password" id="wdm_password" />
+					<a class='wdm-forgott-psw-link' href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password?', 'eb-textdomain' ); ?></a>
 				</p>
-				<?php
-				do_action( 'eb_login_form' );
-				?>
+				<?php do_action( 'eb_login_form' ); ?>
 				<p class="form-row">
-					<input name="_wpnonce" type="hidden" id="eb_wpnonce" value="<?php echo esc_attr( $eb_login_nonce ); ?>" />
-
+					<?php wp_nonce_field( 'eb-login' ); ?>
 					<label for="rememberme" class="inline">
 						<input name="rememberme" type="checkbox" id="rememberme" value="forever" />
-						<?php
-						esc_html_e( 'Remember me', 'eb-textdomain' );
-						?>
+						<?php esc_html_e( 'Remember me', 'eb-textdomain' ); ?>
 					</label>
 				</p>
 				<p>
-					<input type="submit" class="eb-login-button button" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
-
-				</p>
-				<p class="lost_password form-row">
-					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php esc_html_e( 'Forgot password', 'eb-textdomain' ); ?></a>
+					<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>" />
 				</p>
 				<?php
-				if ( 'yes' === $enable_registration ) {
-					$arg_list = array( 'action' => 'eb_register' );
-					if ( ! empty( $_GET['redirect_to'] ) ) {
-						$arg_list['redirect_to'] = sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) );
-					}
-
-					if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
-						$arg_list['is_enroll'] = sanitize_text_field( wp_unslash( $_GET['is_enroll'] ) );
-					}
-
-					$arg_list['action']   = 'eb_register';
-					$arg_list['_wpnonce'] = esc_attr( $eb_login_nonce );
-
-					?>
-					<p class="register-link form-row">
-
-						<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $arg_list ) ); ?>'>
-							<?php
-							esc_html_e( 'Don\'t have an Account?', 'eb-textdomain' );
-							?>
-						</a>
-					</p>
-					<?php
-				}
 				do_action( 'eb_login_form_end' );
 				?>
 			</form>
-		</div>
+			</div>
+			<div class='wdm-eb-login-form-sec-2'>
+				<?php
+				if ( 'yes' === $enable_registration ) {
+					?>
+					<p class="register-link form-row">
+						<?php esc_html_e( 'Don\'t have an Account? Register one!', 'eb-textdomain' ); ?>
+					</p>
+					<a class='button wdm-eb-login-btn-scondary roll-button et_pb_button et_pb_contact_submit' href='<?php echo esc_url( $reg_link ); ?>'>
+						<?php esc_html_e( 'Get Registered', 'eb-textdomain' ); ?>
+					</a>
+					<?php
+				}
+				?>
+			</div>
 		<?php
 	}
 	?>
-
 	<?php
-	if ( $eb_action && 'eb_register' === $_GET['action'] && 'yes' === $enable_registration ) {
-		$fname = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
-		$lname = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-		$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
+	if ( $eb_action && 'eb_register' === $eb_action && 'yes' === $enable_registration ) {
 		?>
-		<h2>
-			<?php
-			esc_html_e( 'Register', 'eb-textdomain' );
-			?>
-		</h2>
-		<div class="eb-user-reg-form">
+		<div class="eb-user-reg-form wdm-eb-login-form-sec-1">
 			<form method="post" class="register">
-				<?php
-				do_action( 'eb_register_form_start' );
-				?>
-				<p class="form-row form-row-wide">
-					<label for="reg_firstname">
-						<?php
-						esc_html_e( 'First Name', 'eb-textdomain' );
-						?>
-						<span class="required">*</span>
-					</label>
-					<input type="text" class="input-text" name="firstname" id="reg_firstname" value="<?php echo esc_attr( $fname ); ?>" required/>
-				</p>
-				<p class="form-row form-row-wide">
-					<label for="reg_lastname">
-						<?php
-						esc_html_e( 'Last Name', 'eb-textdomain' );
-						?>
-						<span class="required">*</span>
-					</label>
-					<input type="text" class="input-text" name="lastname" id="reg_lastname" value="<?php echo esc_attr( $lname ); ?>" required/>
-				</p>
+				<?php do_action( 'eb_register_form_start' ); ?>
+				<div class="form-row-wide eb-profile-txt-field  wdm-eb-form-row-flex">
+					<p class='form-row-first wdm-eb-form-row-first'>
+						<label for="reg_firstname">
+							<?php esc_html_e( 'First Name', 'eb-textdomain' ); ?>
+							<span class="required">*</span>
+						</label>
+						<input type="text" class="input-text" name="firstname" id="reg_firstname" value="<?php echo esc_attr( $fname ); ?>" required/>
+					</p>
+					<p class='form-row-last wdm-eb-form-row-last'>
+						<label for="reg_lastname">
+							<?php esc_html_e( 'Last Name', 'eb-textdomain' ); ?>
+							<span class="required">*</span>
+						</label>
+						<input type="text" class="input-text" name="lastname" id="reg_lastname" value="<?php echo esc_attr( $lname ); ?>" required/>
+					</p>
+					</div>
 
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field ">
 					<label for="reg_email">
-						<?php
-						esc_html_e( 'Email', 'eb-textdomain' );
-						?>
+						<?php esc_html_e( 'Email', 'eb-textdomain' ); ?>
 						<span class="required">*</span>
 					</label>
 					<input type="email" class="input-text" name="email" id="reg_email" value="<?php echo esc_attr( $email ); ?>" required/>
 				</p>
-
+				<div class="form-row-wide eb-profile-txt-field  wdm-eb-form-row-flex">
+					<p class="form-row-first wdm-eb-form-row-first">
+						<label for="reg_pass">
+							<?php esc_html_e( 'Password', 'eb-textdomain' ); ?>
+							<span class="required">*</span>
+						</label>
+						<input type="password" class="input-text" name="user_psw" id="reg_pass" value="" required/>
+					</p>
+					<p class="form-row-last wdm-eb-form-row-last">
+						<label for="reg_pass_confirm">
+							<?php esc_html_e( 'Confirm Password', 'eb-textdomain' ); ?>
+							<span class="required">*</span>
+						</label>
+						<input type="password" class="input-text" name="conf_user_psw" id="reg_pass_confirm" value="" required/>
+					</p>
+				</div>
 				<?php
-				if ( isset( $general_settings['eb_enable_terms_and_cond'] ) && 'yes' === $general_settings['eb_enable_terms_and_cond'] && isset( $general_settings['eb_terms_and_cond'] ) ) {
+				if ( $eb_terms_and_cond ) {
 					?>
 
-				<p class="form-row form-row-wide">
+				<p class="form-row form-row-wide eb-profile-txt-field ">
 					<input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
 					<?php esc_html_e( 'I agree to the ', 'eb-textdomain' ); ?>
 					<span style="cursor: pointer;" id="eb_terms_cond_check"> <u><?php esc_html_e( 'Terms and Conditions', 'eb-textdomain' ); ?></u></span>
@@ -174,23 +127,16 @@ do_action( 'eb_before_customer_login_form' );
 
 				<div class="eb-user-account-terms">
 					<div id = "eb-user-account-terms-content" title="<?php esc_html_e( 'Terms and Conditions', 'eb-textdomain' ); ?>">
-						<?php
-						echo esc_html( $general_settings['eb_terms_and_cond'] );
-						?>
+						<?php echo esc_html( $eb_terms_and_cond ); ?>
 					</div>
 				</div>
-
 					<?php
 				}
 				?>
-
-
 				<!-- Spam Trap -->
 				<div style="<?php echo ( is_rtl() ) ? 'right' : 'left'; ?>: -999em; position: absolute;">
 					<label for="trap">
-						<?php
-						esc_html_e( 'Anti-spam', 'eb-textdomain' );
-						?>
+						<?php esc_html_e( 'Anti-spam', 'eb-textdomain' ); ?>
 					</label>
 					<input type="text" name="email_2" id="trap" tabindex="-1" />
 				</div>
@@ -200,30 +146,19 @@ do_action( 'eb_before_customer_login_form' );
 				?>
 
 				<p class="form-row">
-					<?php
-					wp_nonce_field( 'eb-register' );
-					?>
-					<input type="submit" class="button" name="register" value="<?php esc_html_e( 'Register', 'eb-textdomain' ); ?>" />
+					<?php wp_nonce_field( 'eb-register' ); ?>
+					<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'eb-textdomain' ); ?>" />
 				</p>
-
-				<?php
-				$redirect_to = array();
-				if ( ! empty( $_GET['redirect_to'] ) ) {
-					$redirect_to = array( 'redirect_to' => sanitize_text_field( wp_unslash( $_GET['redirect_to'] ) ) );
-				}
-				?>
-				<p class="login-link">
-					<a href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ); ?>'>
-						<?php
-						esc_html_e( 'Already have an account?', 'eb-textdomain' );
-						?>
-					</a>
-				</p>
-
-				<?php
-				do_action( 'eb_register_form_end' );
-				?>
+				<?php do_action( 'eb_register_form_end' ); ?>
 			</form>
+		</div>
+		<div class='wdm-eb-login-form-sec-2'>
+			<p class="login-link">
+				<?php esc_html_e( 'Already have an account?', 'eb-textdomain' ); ?>
+			</p>
+			<a class='button wdm-eb-login-btn-scondary roll-button et_pb_button et_pb_contact_submit' href='<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $redirect_to ) ); ?>'>
+				<?php esc_html_e( 'Login', 'eb-textdomain' ); ?>
+			</a>
 		</div>
 		<?php
 	}

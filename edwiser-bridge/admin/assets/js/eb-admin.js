@@ -45,17 +45,17 @@
 
         $('.colorpick').iris({
             change: function (event, ui) {
-                $(this).css({backgroundColor: ui.color.toString()});
+                $(this).css({ backgroundColor: ui.color.toString() });
             },
             hide: true,
             border: true
         }).each(function () {
-            $(this).css({backgroundColor: jQuery(this).val()});
+            $(this).css({ backgroundColor: jQuery(this).val() });
         })
-                .click(function () {
-                    $('.iris-picker').hide();
-                    $(this).closest('.color_box, td').find('.iris-picker').show();
-                });
+            .click(function () {
+                $('.iris-picker').hide();
+                $(this).closest('.color_box, td').find('.iris-picker').show();
+            });
         $('body').click(function () {
             $('.iris-picker').hide();
         });
@@ -114,22 +114,22 @@
                         if (response['success'] == true) {
                             var msg = response['data'];
                             message = "<div class='notice notice-success is-dismissible'>"
-                                    + "<p><strong>" + msg + "</strong></p>"
-                                    + "<button type='button' class='notice-dismiss'>"
-                                    + "<span class='screen-reader-text'>Dismiss this notice</span>"
-                                    + "</button>"
-                                    + "</div>";
+                                + "<p><strong>" + msg + "</strong></p>"
+                                + "<button type='button' class='notice-dismiss'>"
+                                + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                                + "</button>"
+                                + "</div>";
                             jQuery(row).css('background-color', '#d7cad2');
                             jQuery(row).fadeOut(2000, function () { });
 
                         } else {
                             var msg = response['data'];
                             message = "<div class='notice notice-error is-dismissible'>"
-                                    + "<p><strong>" + msg + "</strong></p>"
-                                    + "<button type='button' class='notice-dismiss'>"
-                                    + "<span class='screen-reader-text'>Dismiss this notice</span>"
-                                    + "</button>"
-                                    + "</div>";
+                                + "<p><strong>" + msg + "</strong></p>"
+                                + "<button type='button' class='notice-dismiss'>"
+                                + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                                + "</button>"
+                                + "</div>";
                         }
                         $("#eb-notices").empty();
                         $("#eb-notices").append(message);
@@ -137,11 +137,11 @@
                     },
                     error: function (error) {
                         var html = "<div class='notice notice-error is-dismissible'>"
-                                + "<p><strong>Error unenrolling student</strong></p>"
-                                + "<button type='button' class='notice-dismiss'>"
-                                + "<span class='screen-reader-text'>Dismiss this notice</span>"
-                                + "</button>"
-                                + "</div>";
+                            + "<p><strong>Error unenrolling student</strong></p>"
+                            + "<button type='button' class='notice-dismiss'>"
+                            + "<span class='screen-reader-text'>Dismiss this notice</span>"
+                            + "</button>"
+                            + "</div>";
                         $("#eb-lading-parent").hide();
                     }
                 });
@@ -169,8 +169,7 @@
          * copyright - nice copyright over here
          */
 
-        function ohSnap(text, type, status)
-        {
+        function ohSnap(text, type, status) {
             // text : message to show (HTML tag allowed)
             // Available colors : red, green, blue, orange, yellow --- add your own!
 
@@ -187,8 +186,7 @@
             // }, time);
         }
 
-        function ohSnapX(element)
-        {
+        function ohSnapX(element) {
             // Called without argument, the function removes all alerts
             // element must be a jQuery object
 
@@ -210,7 +208,7 @@
          * Manage Enrollment page js
          ------------------------------*/
 
-        $(document).on('click', '#eb_manage_enroll_dt_search', function(event){
+        $(document).on('click', '#eb_manage_enroll_dt_search', function (event) {
 
             event.preventDefault();
             $('#eb_manage_enroll_export').val('');
@@ -221,14 +219,14 @@
 
         });
 
-        $(document).on('focusout', '#enrollment_from_date', function(event){
+        $(document).on('focusout', '#enrollment_from_date', function (event) {
 
             var value = $(this).val();
 
 
             if (is_valid_date(value)) {
 
-                
+
                 // $('#enrollment_to_date').prop('disabled ', false);
                 document.getElementById("enrollment_to_date").disabled = false;
             } else {
@@ -332,7 +330,7 @@
                     $('.load-response').hide();
                     //prepare response for user
                     if (response.connection_response == 1) {
-                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] !== null ) {
+                        if (sync_options['eb_synchronize_previous'] == 1 || sync_options['eb_synchronize_draft'] !== null) {
                             if (response.course_success == 1) {
                                 ohSnap(eb_admin_js_object.msg_courses_sync_success, 'success', 1);
                             } else {
@@ -378,11 +376,11 @@
             //display loading animation
             $('.load-response').show();
             // new Ajax call function for user course status synchronization.
-            if($("#eb_synchronize_user_courses").prop('checked') == true){
+            if ($("#eb_synchronize_user_courses").prop('checked') == true) {
                 userSyncAjax($this, sync_options, offset, progressWidth);
             }
             // new Ajax call function for user link to moodle synchronization.
-            if($("#eb_link_users_to_moodle").prop('checked') == true){
+            if ($("#eb_link_users_to_moodle").prop('checked') == true) {
                 $(".unlink-table tbody").empty();
                 userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
             }
@@ -416,7 +414,6 @@
                 $('#eb_course_num_days_course_access').hide();
                 $('#num_days_course_access').val("");
                 $('#course_expiry_action').val("unenroll");
-                
             }
         });
         $('#course_price_type').change();
@@ -429,8 +426,7 @@
         var response_message = '';
         var user_id_success = '';
         var user_id_error = '';
-        if(!$('.response-box').is(":empty"))
-        {
+        if (!$('.response-box').is(":empty")) {
             $('.linkresponse-box').css('margin-top', '3%');
         }
         $.ajax({
@@ -461,10 +457,9 @@
                             userSyncAjax($this, sync_options, offset, progressWidth);
                         } else {
                             $('.load-response').hide();
-                            if(!$('.response-box').is(":empty"))
-					        {
-					            $('.linkresponse-box').css('margin-top', '3%');
-					        }
+                            if (!$('.response-box').is(":empty")) {
+                                $('.linkresponse-box').css('margin-top', '3%');
+                            }
                             ohSnap('<p>' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         }
                     }
@@ -475,14 +470,13 @@
             }
         });
     }
-     /* Function for link users to moodle, this will have a ajax call which will run after completion of another(recursively) */
+    /* Function for link users to moodle, this will have a ajax call which will run after completion of another(recursively) */
     function userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers) {
         $('.load-response').show();
         var response_message = '';
         var user_id_success = '';
         var user_id_error = '';
-        if(!$('.response-box').is(":empty"))
-        {
+        if (!$('.response-box').is(":empty")) {
             $('.linkresponse-box').css('margin-top', '3%');
         }
         $.ajax({
@@ -514,15 +508,14 @@
                         userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
                     } else {
                         $('.load-response').hide();
-                        if(!$('.response-box').is(":empty"))
-				        {
-				            $('.linkresponse-box').css('margin-top', '3%');
-				        }
+                        if (!$('.response-box').is(":empty")) {
+                            $('.linkresponse-box').css('margin-top', '3%');
+                        }
                         $('.linkresponse-box').css('margin-left', '0px !important');
                         // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
                         if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
                             var container = $('.linkresponse-box');
-                            var html = '<span class="linkresponse-box-error">'+eb_admin_js_object.msg_unlink_users_list+'</span>';
+                            var html = '<span class="linkresponse-box-error">' + eb_admin_js_object.msg_unlink_users_list + '</span>';
                             container.append(html);
                             $(".unlink-table tbody").append(notLinkedusers);
                         }
@@ -535,11 +528,11 @@
         });
     }
     // Used to show the response in popup for unlinked users to moodle functionality.
-    $(document).on('click', '.linkresponse-box a', function(){
+    $(document).on('click', '.linkresponse-box a', function () {
         $("#unlinkerrorid-modal").show();
     });
-     // Used to hide the response in popup for unlinked users to moodle functionality.
-    $(document).on('click', '.unlinkerror-modal-close', function(){
+    // Used to hide the response in popup for unlinked users to moodle functionality.
+    $(document).on('click', '.unlinkerror-modal-close', function () {
         $("#unlinkerrorid-modal").hide();
     });
     /**
@@ -554,24 +547,22 @@
     /* Function to show user's course synch progress */
     function showUserCourseSynchProgress(users_count = 0, wp_users_count = 0, type) {
         var container = $('.response-box');
-        var html = '<div class="alert alert-' + type + '">' + users_count+' / '+wp_users_count+' '+eb_admin_js_object.msg_user_sync_success+'</div>';
+        var html = '<div class="alert alert-' + type + '">' + users_count + ' / ' + wp_users_count + ' ' + eb_admin_js_object.msg_user_sync_success + '</div>';
         container.empty();
         container.append(html);
     }
-     /* Function to show progress of link users to moodle functionality*/
+    /* Function to show progress of link users to moodle functionality*/
     function showLinkedUsersProgress(linked_users_count = 0, unlinked_users_count = 0, type) {
         var container = $('.linkresponse-box');
-        var html = '<div class="alert alert-' + type + '">' + linked_users_count+' / '+unlinked_users_count+' '+eb_admin_js_object.msg_user_link_to_moodle_success+ '</div>';
+        var html = '<div class="alert alert-' + type + '">' + linked_users_count + ' / ' + unlinked_users_count + ' ' + eb_admin_js_object.msg_user_link_to_moodle_success + '</div>';
         container.empty();
         container.append(html);
     }
-    function setGetParameter(paramName, paramValue)
-    {
+    function setGetParameter(paramName, paramValue) {
         var url = window.location.href;
         var hash = location.hash;
         url = url.replace(hash, '');
-        if (url.indexOf("?") >= 0)
-        {
+        if (url.indexOf("?") >= 0) {
             var params = url.substring(url.indexOf("?") + 1).split("&");
             var paramFound = false;
             params.forEach(function (param, index) {
@@ -593,7 +584,7 @@
      */
     $(document).ready(function () {
 
-
+        // Usage tracking confirmation box.
         // $("#eb_usage_tracking").attr('readonly', true);
         $('#eb_usage_tracking').click(function (e) {
             if ($(this).is(':checked')) {
@@ -620,6 +611,34 @@
                 });
             }
         });
+	$('.wdm_eb_get_key_popup_btn').click(function (e) {
+            e.preventDefault();
+
+            $('#eb_get_license_key_dialog').dialog({
+                minWidth: 500,
+                maxHeight: 550,
+                width: $(window).width() * 0.4,
+                dialogClass: 'eb_get_license_key_dialog',
+                modal: true,
+                closeOnEscape: true,
+                draggable: false,
+                title: "Get License Key",
+                buttons: [
+                    {
+                        text: 'Close',
+                        class: "button",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ],
+                create: function (event, ui) {
+                    $(event.target).parent().css('position', 'fixed');
+                }
+            });
+        });
+
+
 
 
 
@@ -741,8 +760,7 @@
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                    if (str == "link")
-                    {
+                    if (str == "link") {
                         $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
                     } else {
                         $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
@@ -764,8 +782,7 @@
                         if (response.includes("LinkError")) {
                             $("#moodleLinkUnlinkUserNotices").children().html(response["msg"]);
                         } else {
-                            if (str == "link")
-                            {
+                            if (str == "link") {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
                             } else {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_unlink_user);
@@ -780,7 +797,7 @@
 
 
 
-/*************** from 1.2.4  ********************/
+        /*************** from 1.2.4  ********************/
         /**
          * Order page JS
          *
@@ -806,11 +823,10 @@
             }
         });
 
-/********  recommended courses settings in general settings and course edit settings   ************/
+        /********  recommended courses settings in general settings and course edit settings   ************/
 
 
-        function dfaultRecommendedSectionGeneralSettings(dfaultSection, dropdownDiv, selectDropDown, displayType)
-        {
+        function dfaultRecommendedSectionGeneralSettings(dfaultSection, dropdownDiv, selectDropDown, displayType) {
             if ($(dfaultSection).prop("checked") == true) {
                 $(selectDropDown).val([]);
                 dropdownDiv.css("display", "none");
@@ -820,8 +836,7 @@
         }
 
 
-        function recommendedCourseSectionGeneralSettings(enbleSection, dfaultSection, checkboxDiv, dropdownDiv, selectDropDown, displayType)
-        {
+        function recommendedCourseSectionGeneralSettings(enbleSection, dfaultSection, checkboxDiv, dropdownDiv, selectDropDown, displayType) {
             if ($(enbleSection).prop("checked") == true) {
                 checkboxDiv.css("display", displayType);
                 dfaultRecommendedSectionGeneralSettings(dfaultSection, dropdownDiv, selectDropDown, displayType);
@@ -832,29 +847,29 @@
         }
 
 
-        $("#eb_enable_recmnd_courses").click(function(){
-            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"),$("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
+        $("#eb_enable_recmnd_courses").click(function () {
+            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"), $("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
         });
 
-        $("#eb_show_default_recmnd_courses").click(function(){
+        $("#eb_show_default_recmnd_courses").click(function () {
             dfaultRecommendedSectionGeneralSettings("#eb_show_default_recmnd_courses", $("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
         });
 
         if ($("#eb_show_default_recmnd_courses").length) {
-            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"),$("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row") ;
+            recommendedCourseSectionGeneralSettings("#eb_enable_recmnd_courses", "#eb_show_default_recmnd_courses", $("#eb_show_default_recmnd_courses").closest("tr"), $("#eb_recmnd_courses").closest("tr"), "#eb_recmnd_courses", "table-row");
         }
 
-        $("#enable_recmnd_courses").click(function(){
-            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"),$("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block") ;
+        $("#enable_recmnd_courses").click(function () {
+            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"), $("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block");
         });
 
-        $("#show_default_recmnd_course").click(function(){
+        $("#show_default_recmnd_course").click(function () {
             dfaultRecommendedSectionGeneralSettings("#show_default_recmnd_course", $("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block");
         });
 
 
         if ($("#show_default_recmnd_course").length) {
-            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"),$("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block") ;
+            recommendedCourseSectionGeneralSettings("#enable_recmnd_courses", "#show_default_recmnd_course", $("#eb_course_show_default_recmnd_course"), $("#eb_course_enable_recmnd_courses_single_course"), "#enable_recmnd_courses_single_course", "block");
         }
 
 
@@ -866,9 +881,33 @@
             width: 'auto'
         });
 
+        /**
+         * Functionality to show hide the get license key button on licensing page start.
+         */
+        $('.wdm_key_in').bind("change paste keyup propertychange", function () {
+            toggleLicenseButtons($(this));
+        });
+        $('.wdm_key_in').each(function () {
+            toggleLicenseButtons($(this));
+        });
 
-
-/*******************  END   *********************/
+        function toggleLicenseButtons(element) {
+            if ($.trim(element.val()).length > 0) {
+                element.parent().parent().find('.get_license_key').hide();
+                element.parent().parent().find('.eb-activate-plugin').show();
+                element.parent().parent().find('.activate_license').show();
+                element.parent().parent().find('.install_plugin').show();
+            } else {
+                element.parent().parent().find('.get_license_key').show();
+                element.parent().parent().find('.eb-activate-plugin').hide();
+                element.parent().parent().find('.activate_license').hide();
+                element.parent().parent().find('.install_plugin').hide();
+            }
+        }
+        /**
+         * Functionality to show hide the get license key button on licensing page end.
+         */
+        /*******************  END   *********************/
 
     });
 
@@ -898,8 +937,7 @@
             }
         });
     }
-    function ohSnap(text, type)
-    {
+    function ohSnap(text, type) {
         var container = $('.response-box');
         var html = '<div class="alert alert-' + type + '">' + text + '</div>';
         container.empty();
@@ -913,8 +951,7 @@
      * @param {type} response responce sent by the ajax.
      * @param {type} name name of the template.
      */
-    function setTemplateData(response, name, tmplId)
-    {
+    function setTemplateData(response, name, tmplId) {
         try {
             response = $.parseJSON(response);
             $("#eb-email-template-name").text(name);
@@ -945,7 +982,7 @@
         var refAmt = $("#eb_ord_refund_amt").val();
         var refNote = $("#eb_order_refund_note").val();
         var isUneroll = "";
-        var nonce=$("#eb_order_refund_nons").val();
+        var nonce = $("#eb_order_refund_nons").val();
         if ($("#eb_order_meta_unenroll_user").prop("checked")) {
             isUneroll = "ON";
         }
@@ -967,7 +1004,7 @@
                 $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                 $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_refund_failed);
-                $('html, body').animate({scrollTop: 0}, "fast");
+                $('html, body').animate({ scrollTop: 0 }, "fast");
                 $("#eb-lading-parent").hide();
             },
             success: function (response) {
@@ -979,7 +1016,7 @@
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                     $("#moodleLinkUnlinkUserNotices").children().html(response['data']);
-                    $('html, body').animate({scrollTop: 0}, "fast");
+                    $('html, body').animate({ scrollTop: 0 }, "fast");
                 }
                 $("#eb-lading-parent").hide();
             }
@@ -989,9 +1026,9 @@
 
     function getUrlParameter(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
 
         for (i = 0; i < sURLVariables.length; i++) {
             sParameterName = sURLVariables[i].split('=');
@@ -1002,81 +1039,10 @@
         }
     }
 
-/*JS for Order page*/
+    /*JS for Order page*/
     $(document).ready(function () {
         $('#eb_order_username').select2();
         $('#eb_order_course').select2();
-
-
-/*        $('.eb_table_row div input[name$=license_activate]').click(function(){
-            event.preventDefault();
-            var submitButton = $(this);
-
-            // $(".eb_table_cell_1").dialog();
-            $('<div />').html(eb_admin_js_object.edwiser_terms_content).dialog({
-                title: eb_admin_js_object.edwiser_terms_title,
-                modal: true,
-                resizable: true,
-                width: 500,
-                dialogClass: 'eb_admin_terms_dialog',
-                buttons: [
-                    {
-                        text: "Agree",
-                        "class": 'eb_terms_button_agree',
-                        click: function() {
-                            $(this).dialog("close");
-                            submitButton.click();
-                        }
-                    },
-                    {
-                        text: "Disagree",
-                        "class": 'eb_terms_button_disagree',
-                        click: function() {
-                             $(this).dialog("close");
-                        }
-                    }
-                ],
-            });
-        });
-*/
-
-
-
-        /*$(window).scroll(function(){
-            // This is then function used to detect if the element is scrolled into view
-            function elementScrolled(elem)
-            {
-                var docViewTop = $(window).scrollTop();
-                var docViewBottom = docViewTop + $(window).height();
-
-                var elemTop = $(elem).offset().top;
-                var elemBottom = elemTop + $(elem).height();
-
-
-                return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-            }
-
-
-
-
-            // This is where we use the function to detect if ".box2" is scrolled into view, and when it is add the class ".animated" to the <p> child element
-            var elementsArray = [".eb-premium-extension-woo-int", ".eb-premium-extension-sso", ".eb-premium-extension-selective-synch"];
-            elementsArray.forEach(function(item) {
-                if ($(".eb-premium-extension-woo-int").length && $(".eb-premium-extension-sso").length && $(".eb-premium-extension-selective-synch").length) {
-
-                    if(elementScrolled(item)) {
-                        $(item).animate(
-                        {
-                        opacity: 1
-                        }, 1000);
-                    }
-                }
-            });
-
-        });*/
-
-
-
         if ($(".eb-nav-tab-wrapper .nav-tab:last-child").hasClass("nav-tab-active")) {
             $(".eb-nav-tab-wrapper .nav-tab:last-child").css("color", "#2e9aa6");
         } else {
@@ -1086,18 +1052,18 @@
 
 
         /****  TO hide eb update notice   ***/
-        $(".eb_update_notice_hide").click(function(){
+        $(".eb_update_notice_hide").click(function () {
             var parent = $(this).parent().parent();
             parent.css("display", "none");
         });
 
-        $(".eb_admin_discount_notice_hide").click(function(){
+        $(".eb_admin_discount_notice_hide").click(function () {
             var parent = $(this).parent().parent();
             parent.css("display", "none");
         });
 
 
-        $(".eb_admin_feedback_dismiss_notice_message").click(function(){
+        $(".eb_admin_feedback_dismiss_notice_message").click(function () {
             var parent = $(this).parent();
             parent.css("display", "none");
         });
@@ -1112,31 +1078,21 @@
         /*--------------------------------
          * Sidebar
          *---------------------------------*/
-        $('.eb_settings_help_btn_wrap .eb_open_btn').click(function(event){
+        $('.eb_settings_help_btn_wrap .eb_open_btn').click(function (event) {
             event.preventDefault();
             $(".eb_setting_help_pop_up").css('width', '250px');
+            $(".eb_setting_help_pop_up").css('right', '0px');
+
             // $("main").css('margin-left', '250px');
         });
 
 
-        $('.eb_setting_help_pop_up .closebtn').click(function(event){
+        $('.eb_setting_help_pop_up .closebtn').click(function (event) {
             $(".eb_setting_help_pop_up").css('width', "0");
-            // document.getElementById("main").style.marginLeft= "0";
+            $(".eb_setting_help_pop_up").css('right', '-25px');
         });
-
-        // $('.eb_settings_rate_btn_wrap .eb_open_btn').click(function(event){
-        //     event.preventDefault();
-        //     // $(".eb_setting_rate_pop_up").css('width', '250px');
-        //     // $("main").css('margin-left', '250px');
-        // });
-
-        // $('.eb_setting_rate_pop_up .closebtn').click(function(event){
-        //     $(".eb_setting_rate_pop_up").css('width', "0");
-        //     // document.getElementById("main").style.marginLeft= "0";
-        // });
-
     });
-/*JS for Order page end*/
+    /*JS for Order page end*/
 
 
 

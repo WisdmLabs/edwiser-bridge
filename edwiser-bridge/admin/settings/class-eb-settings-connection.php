@@ -26,7 +26,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'connection';
-			$this->label = __( 'Connection Settings', 'eb-textdomain' );
+			$this->label = __( 'Connection', 'eb-textdomain' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );

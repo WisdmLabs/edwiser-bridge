@@ -31,8 +31,6 @@ class Eb_Admin_Menus {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ), 10 );
 		add_action( 'admin_menu', array( $this, 'email_template' ), 10 );
 		add_action( 'admin_menu', array( $this, 'manage_enrollment_menu' ), 10 );
-		add_action( 'admin_menu', array( $this, 'extensions_menu' ), 10 );
-		add_action( 'admin_menu', array( $this, 'help_menu' ), 10 );
 		add_action( 'admin_footer', array( $this, 'open_help_menu_new_tab' ) ); // open help menu in new tab.
 	}
 
@@ -80,38 +78,6 @@ class Eb_Admin_Menus {
 			'manage_options',
 			'mucp-manage-enrollment',
 			array( $this, 'manage_enrollment_content' )
-		);
-	}
-
-	/**
-	 * Add email template submenu item
-	 *
-	 * @since 1.0.0
-	 */
-	public function extensions_menu() {
-		add_submenu_page(
-			'edit.php?post_type=eb_course',
-			__( 'Extensions', 'eb-textdomain' ),
-			__( 'Extensions', 'eb-textdomain' ),
-			'manage_options',
-			'eb-extensions',
-			array( $this, 'extensions_page' )
-		);
-	}
-
-	/**
-	 * Add help submenu item
-	 *
-	 * @since 1.0.0
-	 */
-	public function help_menu() {
-		add_submenu_page(
-			'edit.php?post_type=eb_course',
-			__( 'Help', 'eb-textdomain' ),
-			__( 'Help', 'eb-textdomain' ),
-			'manage_options',
-			'https://edwiser.org/bridge/documentation/',
-			__return_null()
 		);
 	}
 

@@ -11,6 +11,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 
 	/**
@@ -255,7 +259,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 										printf(
 											esc_html__( 'Thanks for creating an account on ', 'eb-textdomain' ) . '%s' . esc_html__( '. Your username is', 'eb-textdomain' ) . '%s.',
 											'{SITE_NAME}',
-											'<strong>{USER_NAME}</strong>'
+											'<strong> {USER_NAME}</strong>'
 										);
 									?>
 								</div>

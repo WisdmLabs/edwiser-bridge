@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * My courses.
  */
@@ -108,7 +111,7 @@ class Eb_Shortcode_My_Courses {
 
 		echo '<div class="eb-my-courses-wrapper">';
 		if ( ! empty( $atts['my_courses_wrapper_title'] ) ) {
-			?><h2 class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></h2>
+			?><span class="eb-my-courses-h2"><?php echo esc_html( $atts['my_courses_wrapper_title'] ); ?></span>
 			<?php
 		}
 
@@ -120,13 +123,12 @@ class Eb_Shortcode_My_Courses {
 				/* Translators 1: My account url */
 				printf(
 					esc_html__( 'You are not logged in. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to login.', 'eb-textdomain' ),
-					"<a href='" . esc_url( site_url( '/user-account' ) ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					"<a href='" . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
 				);
 				?>
 			</p>
 			<?php
 		} elseif ( count( $my_courses ) ) {
-
 			// My Courses.
 			$args = array(
 				'post_type'           => 'eb_course',
@@ -138,10 +140,26 @@ class Eb_Shortcode_My_Courses {
 
 			$courses = new \WP_Query( $args );
 
-			echo "<div class='eb-my-course'>";
+			echo "<div class='eb-my-course eb_course_cards_wrap'>";
 			if ( $courses->have_posts() ) {
+				$course_progress_manager = new \app\wisdmlabs\edwiserBridge\Eb_Course_Progress();
+				$progress_data           = $course_progress_manager->get_course_progress();
+				$user_id                 = get_current_user_id();
+				$mdl_uid                 = get_user_meta( $user_id, 'moodle_user_id', true );
+
+				$atts['show_progress'] = true;
 				while ( $courses->have_posts() ) :
 					$courses->the_post();
+
+					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
+						$course_prog_data         = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts, $mdl_uid );
+						$atts['progress_btn_div'] = $course_prog_data['html'];
+						$atts['completed']        = $course_prog_data['completed'];
+					} else {
+						$atts['progress_btn_div'] = '';
+						$atts['completed']        = 0;
+					}
+
 					$template_loader->wp_get_template(
 						'content-eb_course.php',
 						array(
@@ -176,6 +194,75 @@ class Eb_Shortcode_My_Courses {
 		}
 		do_action( 'eb_after_my_courses' );
 		echo '</div>';
+	}
+
+	/**
+	 * Return teh course progress div.
+	 *
+	 * @param int   $course_id The course id to calculate the progress.
+	 * @param array $progress_data The progress data.
+	 * @param int   $user_id currentuser id.
+	 * @param array $attr attr attr.
+	 * @param int   $moodle_user_id moodle_user_id.
+	 */
+	private function get_course_progress( $course_id, $progress_data, $user_id, $attr, $moodle_user_id ) {
+		$course_ids         = array_keys( $progress_data );
+		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
+		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
+		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
+		$completed          = 0;
+		$course_mang        = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
+		$mdl_course_id      = $course_mang->get_moodle_course_id( $course_id );
+		$course_url         = \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id );
+		$progress_class     = 'eb-course-action-btn-start';
+		$btn_text           = __( 'Start', 'eb-textdomain' );
+		ob_start();
+		?>
+		<div class='eb-course-action-cont'>
+			<?php
+			if ( $is_user_suspended ) {
+				$progress_class = 'eb-course-action-btn-suspended';
+				$btn_text       = __( 'Suspended', 'eb-textdomain' );
+			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
+				if ( 0 === $progress ) {
+					$progress_class     = 'eb-course-action-btn-start';
+					$btn_text           = __( 'Start', 'eb-textdomain' );
+					$progress_meta_data = __( 'Not yet started', 'eb-textdomain' );
+				} elseif ( $progress > 0 && $progress < 100 ) {
+					$progress_class     = 'eb-course-action-btn-resume';
+					$btn_text           = __( 'Resume', 'eb-textdomain' );
+					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'eb-textdomain' );
+				} else {
+					$completed          = 1;
+					$progress_class     = 'eb-course-action-btn-completed';
+					$btn_text           = __( 'View', 'eb-textdomain' );
+					$progress_meta_data = __( '100% Completed', 'eb-textdomain' );
+				}
+			}
+			?>
+			<div class='eb-course-progres-wrap'>
+
+				<div class='eb-course-action-progress-cont'>
+					<?php
+					if ( isset( $attr['show_progress'] ) && $attr['show_progress'] ) {
+						?>
+						<div class='eb-course-action-progress' style='width:<?php echo esc_attr( round( $progress ) ); ?>%' ></div>
+						<div class='eb-course-progress-status'> <?php echo esc_attr( $progress_meta_data ); ?> </div>
+						<?php
+					}
+					?>
+					<span  class="<?php echo esc_attr( $progress_class ); ?>">
+						<?php echo esc_attr( $btn_text ); ?>
+					</span>
+				</div>
+
+			</div>
+		</div>
+		<?php
+		return array(
+			'html'      => ob_get_clean(),
+			'completed' => $completed,
+		);
 	}
 
 	/**
@@ -224,16 +311,27 @@ class Eb_Shortcode_My_Courses {
 				<?php
 			}
 			do_action( 'eb_before_recommended_courses' );
-			echo '<div class="eb-rec-courses">';
+			echo '<div class="eb-rec-courses eb_course_cards_wrap">';
 
-			while ( $courses->have_posts() ) :
+			while ( $courses->have_posts() ) {
 				$courses->the_post();
 				$template_loader->wp_get_template_part( 'content', 'eb_course' );
-			endwhile;
+			}
 			do_action( 'eb_after_recommended_courses' );
 			echo '</div> </div>';
-			$eb_course     = get_post_type_object( 'eb_course' );
-			$view_more_url = site_url( $eb_course->rewrite['slug'] );
+
+			$eb_settings = get_option( 'eb_general' );
+
+			/*
+			* Set the login redirect url to the user account page.
+			*/
+			if ( isset( $eb_settings['eb_courses_page_id'] ) ) {
+				$courses_page_id = $eb_settings['eb_courses_page_id'];
+				$view_more_url   = get_permalink( $courses_page_id );
+			} else {
+				$eb_course     = get_post_type_object( 'eb_course' );
+				$view_more_url = site_url( $eb_course->rewrite['slug'] );
+			}
 			?>
 			<a href="<?php echo esc_html( $view_more_url ); ?>" class="wdm-btn eb-rec-courses-view-more">
 				<?php esc_html_e( 'View More &rarr;', 'eb-textdomain' ); ?>
@@ -263,7 +361,7 @@ class Eb_Shortcode_My_Courses {
 				'post_type'      => 'eb_course',
 				'post_status'    => 'publish',
 				'posts_per_page' => $count,
-				'tax_query'      => array(
+				'tax_query'      => array( // @codingStandardsIgnoreLine
 					array(
 						'taxonomy' => 'eb_course_cat',
 						'field'    => 'slug',
@@ -299,7 +397,7 @@ class Eb_Shortcode_My_Courses {
 					'post_type'      => 'eb_course',
 					'post_status'    => 'publish',
 					'posts_per_page' => 4,
-					'tax_query'      => array(
+					'tax_query'      => array( // @codingStandardsIgnoreLine
 						array(
 							'taxonomy' => 'eb_course_cat',
 							'field'    => 'slug',

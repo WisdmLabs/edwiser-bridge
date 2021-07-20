@@ -1,8 +1,8 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
-Tags: Moodle, Moodle eCommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning 
+Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 4.6
-Tested up to: 5.6
+Tested up to: 5.7.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/01/edwiserbridgemoodle_2.0.4.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -169,7 +169,10 @@ Take a look at the link below and follow the steps provided to configure your Mo
 21. Moodle Set-up wizard: Web Service Settings.
 22. Moodle Set-up wizard: WordPress Site Connection Settings.
 23. Moodle Set-up wizard: WordPress Site Connection Syncronisation settings.
-24. Moodle Set-up wizard: Settings Summary
+24. Moodle Set-up wizard: Settings Summary.
+25. Wordpress Edwiser Bridge Statistics.
+26. Wordpress User login page.
+27. Wordpress User registration page.
 
 
 
@@ -211,6 +214,30 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.1.0 =
+* Fix - Solved My-courses page login link issue for non logged in users.
+* Tweak - Modified course archive page, single course page, user-account page, eb_course shortcode page and my courses page templates.
+* Feature - Added course category wise filter and sorting functionality on course shortcode page.
+* Feature - Added stats page in Edwsier Bridge settings.
+* Feature - Added all Edwiser WordPress and Moodle extensions latest versions on stats page with Moodle plugins download link.
+* Feature - Added Edwiser Bridge configuration details like Moodle site details and course count on stats page.
+
+= 2.0.9 =
+* Feture - Added the password filed on user registration window.
+* Feture - Added link user account functionality if the account is created on moodle and exist on wordpress.
+* Feture - Added Setting to show hide course archive page in frontend.
+* Feture - Added search functionality on manage enrollment page.
+* Tweek - Added space before username in new user account email template.
+* Tweek - Improved the test connection error message.
+* Tweek - My Courses page progress service call optimisation.
+* Fix - Paid order was showing HTML in notes.
+* Fix - Help popup was showing html on setting page.
+* Fix - User Linked success message style fix.
+
+= 2.0.8 =
+* Fix - Fixed security issues added abspath check.
+
 = 2.0.7 =
 * Fix - Fixed security issues related to the nonce.
 

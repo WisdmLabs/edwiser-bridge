@@ -9,6 +9,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Edwiser payment manager.
  */
@@ -55,6 +59,8 @@ class Eb_Payment_Manager {
 	public function parse_ipn_request( $_wp ) {
 		if ( array_key_exists( 'eb', $_wp->query_vars ) && 'paypal-notify' === $_wp->query_vars['eb'] ) {
 			require_once 'eb-ipn.php';
+			$eb_ipn = new Eb_Ipn();
+			$eb_ipn->process_ipn();
 		}
 	}
 
@@ -85,7 +91,7 @@ class Eb_Payment_Manager {
 					}
 
 					$access_button = '<div class="eb_join_button">
-					<a class="wdm-btn" href="' . $access_course_url . '" id="wdm-btn">' .
+					<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $access_course_url . '" id="wdm-btn">' .
 					esc_html__( 'Access Course', 'eb-textdomain' ) . '</a></div>';
 				}
 
@@ -95,6 +101,9 @@ class Eb_Payment_Manager {
 				);
 
 				$button = apply_filters( 'eb_course_access_button', $access_button, $access_params );
+
+				// Compatibility with SSO plugin.
+				$button = str_replace( 'class="wdm-btn"', 'class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"', $button );
 
 				$user_id           = get_current_user_id();
 				$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
@@ -206,7 +215,7 @@ class Eb_Payment_Manager {
 							$closed_button_url = 'http://' . $closed_button_url;
 						}
 						$take_course_button = '<div class="eb_join_button">
-						<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
+						<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $closed_button_url . '" id="wdm-btn">' .
 						esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 					}
 					$closed_params      = array(
@@ -221,7 +230,7 @@ class Eb_Payment_Manager {
 					);
 					$login_url          = \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( $url_args );
 					$take_course_button = '<div class="eb_join_button">
-					<a class="wdm-btn" href="' . $login_url . '" id="wdm-btn">' .
+					<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $login_url . '" id="wdm-btn">' .
 					esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 
 					$take_course_button = apply_filters( 'eb_course_login_button', $take_course_button, $login_url );
@@ -245,7 +254,7 @@ class Eb_Payment_Manager {
 									$closed_button_url = 'http://' . $closed_button_url;
 								}
 								$take_course_button = '<div class="eb_join_button">
-								<a class="wdm-btn" href="' . $closed_button_url . '" id="wdm-btn">' .
+								<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $closed_button_url . '" id="wdm-btn">' .
 								esc_html__( 'Take this Course', 'eb-textdomain' ) . '</a></div>';
 							}
 							$closed_params      = array(
@@ -259,7 +268,7 @@ class Eb_Payment_Manager {
 											<input type="hidden" value="' . $course->ID . '" name="course_id">
 											<input type="submit"
 											value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
-											name="course_join" class="wdm-btn" id="wdm-btn">
+											name="course_join" class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" id="wdm-btn">
 								
 											' . wp_nonce_field( 'eb_course_payment_nonce', 'eb_course_payment_nonce' ) . '
 										</form></div>';

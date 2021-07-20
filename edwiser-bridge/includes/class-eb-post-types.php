@@ -9,6 +9,9 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Eb post type.
  */
@@ -92,7 +95,11 @@ class Eb_Post_Types {
 	 */
 	public function register_post_types() {
 		do_action( 'eb_register_post_type' );
-
+		$settings     = get_option( 'eb_general' );
+		$show_archive = true;
+		if ( isset( $settings['eb_show_archive'] ) && 'no' === $settings['eb_show_archive'] ) {
+			$show_archive = false;
+		}
 		if ( ! post_type_exists( 'eb_course' ) ) {
 			register_post_type(
 				'eb_course',
@@ -100,8 +107,8 @@ class Eb_Post_Types {
 					'eb_register_post_type_courses',
 					array(
 						'labels'            => array(
-							'name'               => __( 'Edwiser Bridge', 'eb-textdomain' ),
-							'singular_name'      => __( 'Moodle Course', 'eb-textdomain' ),
+							'name'               => __( 'Course', 'eb-textdomain' ),
+							'singular_name'      => __( 'Courses', 'eb-textdomain' ),
 							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
 							'all_items'          => __( 'Courses', 'eb-textdomain' ),
 							'add_new'            => __( 'Add Course', 'eb-textdomain' ),
@@ -133,12 +140,13 @@ class Eb_Post_Types {
 						'rewrite'           => array( 'slug' => 'courses' ),
 						'query_var'         => true,
 						'supports'          => array( 'title', 'editor', 'thumbnail', 'comments' ),
-						'has_archive'       => true,
+						'has_archive'       => $show_archive,
 						'show_in_nav_menus' => true,
 						'taxonomies'        => array( 'eb_course_cat' ),
 					)
 				)
 			);
+			flush_rewrite_rules( true );
 		}
 
 		if ( ! post_type_exists( 'eb_order' ) ) {
@@ -297,10 +305,10 @@ class Eb_Post_Types {
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
 					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
-					'description' => '',
+					'description' => __( 'This filed is disabeld. Do not change the course id this will affect the course access for the existing enrollemnt.', 'eb-textdomain' ),
 					'type'        => 'text',
 					'placeholder' => '',
-					'attr'        => 'text',
+					'attr'        => 'readonly',
 					'default'     => '0',
 					'note'        => isset( $deletion_status ) && ! empty( $deletion_status ) ? '<span style="color:red;">' . __( 'This course is deleted on Moodle', 'eb-textdomain' ) . '</span>' : '',
 				),
@@ -712,7 +720,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			9  => sprintf(
-				'%1$s' . __( 'scheduled for: <strong> ', 'eb-textdomain' ) . '%2$s' . __( '</strong>. <a href="', 'eb-textdomain' ) . '%3$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%4$s</a>',
+				'%1$s' . __( 'scheduled for:  ', 'eb-textdomain' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%4$s</a>', // @codingStandardsIgnoreLine
 				$singular,
 				date_i18n(
 					__( 'M j, Y @ G:i' ),
@@ -724,7 +732,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			10 => sprintf(
-				'%1$s' . __( ' draft updated. <a href="', 'eb-textdomain' ) . '%2$s' . __( '" target="_blank">Preview ', 'eb-textdomain' ) . '%3$s </a>',
+				'%1$s' . __( ' draft updated. ', 'eb-textdomain' ) . '<a href="' . '%2$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%3$s </a>', // @codingStandardsIgnoreLine
 				$singular,
 				esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
 				strtolower( $singular )

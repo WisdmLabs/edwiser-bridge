@@ -11,6 +11,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Class responsible to create plugin GDPR compatible.
  */
@@ -86,7 +90,7 @@ class Eb_Gdpr_Compatibility {
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
 		$enrolled_course = array();
-		$result          = $wpdb->get_results( $wpdb->prepare( "SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d", $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id` FROM {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user_id ) ); // @codingStandardsIgnoreLine
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -107,7 +111,7 @@ class Eb_Gdpr_Compatibility {
 		$table_name = $wpdb->prefix . 'moodle_enrollment';
 
 		$enrolled_course = array();
-		$result          = $wpdb->get_results( $wpdb->prepare( "SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d", $user_id ) );
+		$result          = $wpdb->get_results( $wpdb->prepare( 'SELECT `course_id`, `time` FROM {$wpdb->prefix}moodle_enrollment WHERE user_id = %d', $user_id ) ); // @codingStandardsIgnoreLine
 
 		if ( ! empty( $result ) ) {
 			foreach ( $result as $single_result ) {
@@ -164,7 +168,7 @@ class Eb_Gdpr_Compatibility {
 				array_push( $msg, esc_html__( 'Deleted Courses related data from the Moodle site', 'eb-textdomain' ) );
 			}
 
-			$wpdb->get_results( $wpdb->prepare( "DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d", $user->ID ) );
+			$wpdb->get_results( $wpdb->prepare( 'DELETE FROM  {$wpdb->prefix}moodle_enrollment  WHERE user_id = %d', $user->ID ) ); // @codingStandardsIgnoreLine
 			array_push( $msg, esc_html__( 'Deleted Courses related data from the WordPress site', 'eb-textdomain' ) );
 			delete_user_meta( $user->ID, 'moodle_user_id' );
 			array_push( $msg, esc_html__( 'Deleted Moodle user ID', 'eb-textdomain' ) );

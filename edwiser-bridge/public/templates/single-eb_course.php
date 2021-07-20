@@ -14,6 +14,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 $wrapper_args = array();
 
 $eb_template = get_option( 'eb_template' );
@@ -67,11 +71,8 @@ while ( have_posts() ) :
 	comments_template();
 endwhile;
 
+// End of the single course page.
 do_action( 'eb_after_single_course' );
-
-?>
-
-<?php
 
 
 // Use this Hook to add sidebar container.
