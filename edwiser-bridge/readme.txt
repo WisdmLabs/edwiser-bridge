@@ -211,6 +211,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.0.9 =
+* Fix - Fixed social login registration compatibility issue with Edwiser Bridge SSO plugin.
+
 = 2.0.8 =
 * Fix - Fixed security issues added abspath check.
 
