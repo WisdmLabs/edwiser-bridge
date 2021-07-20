@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2021/07/edwiserbridge-6.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -86,7 +86,7 @@ Cohorts are created for each purchase done by the course buyer,
 = <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Single Sign extension </a> =
 This extension provides a seamless connection between Course Front and LMS.
 
-
+Notice: Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin">here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
 
 
 = Additional Edwiser products that provides improves your Moodle experience - =
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/07/edwiserbridge-6.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/05/edwiserbridgemoodle.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/07/edwiserbridge-6.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -178,6 +178,10 @@ Take a look at the link below and follow the steps provided to configure your Mo
 
  ==  Frequently Asked Questions  == 
 
+= Do you require Multi-lingual/WPML support for Edwiser Bridge plugin? =
+Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin" >here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
+
+
  = Do WordPress and Moodle need to be installed and running on the same server? = 
 No, not required. Both the systems can be installed on the same server or different servers.
 
@@ -214,6 +218,11 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.1.1 =
+* Feature - Added option on WordPress Edwiser Bridge settings to add Moodle role id which is used while creating users on Moodle.
+* Tweak - Optimized user-account page functionality which further improved the page speed.
+* Tweak - Optimized My Courses page functionality which further improved the page speed.
 
 = 2.1.0 =
 * Fix - Solved My-courses page login link issue for non logged in users.

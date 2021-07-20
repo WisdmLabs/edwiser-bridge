@@ -113,8 +113,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
-			$post_page   = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok.
-			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok.
+			$post_page        = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$search_text      = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$from             = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$to               = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$eb_total_records = isset( $_REQUEST['eb_enrollment_total_records'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['eb_enrollment_total_records'] ) ) : $list_table->eb_get_enrollment_total_record( $search_text, $from, $to ); // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
 			?>
 			<div class="eb-manage-user-enrol-wrap">
 
@@ -139,6 +142,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 					<input type="submit" name="eb_manage_enroll_search" id="eb_manage_enroll_search" class="button action" value="<?php echo esc_html__( 'Search Courses', 'eb-textdomain' ); ?>"/>
 				</p>
 					<input type="hidden" name="page" value="<?php echo esc_html( $post_page ); ?>" />
+					<input type="hidden" name="eb_enrollment_total_records" value="<?php echo esc_html( $eb_total_records ); ?>" />
 					<?php
 					wp_nonce_field( 'eb-manage-user-enrol', 'eb-manage-user-enrol' );
 
@@ -188,7 +192,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
 			$query      = $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) );
 			$query      = wp_unslash( $query );
-			$results    = $wpdb->get_results( $query, ARRAY_A ); // WPCS: unprepared SQL OK.
+			$results    = $wpdb->get_results( $query, ARRAY_A ); // WPCS: unprepared SQL OK. // @codingStandardsIgnoreLine
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {

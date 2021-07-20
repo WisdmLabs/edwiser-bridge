@@ -422,12 +422,12 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 					</li>
 
 					<li class="eb_buy_license">
-						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge Bundle then click here', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge PRO then click here', 'eb-textdomain' ); ?>
 						<a href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'eb-textdomain' ); ?> </a>
 					</li>
 
 					<li class="eb_upgrade_license">
-						<?php esc_html_e( 'If you already own one of the extensions, then click here to upgrade to Edwiser Bridge Bundle', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'If you already own one of the extensions, then click here to upgrade to Edwiser Bridge PRO', 'eb-textdomain' ); ?>
 						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Upgrade License', 'eb-textdomain' ); ?> </a>
 					</li>
 				</ul>

@@ -166,7 +166,7 @@ class EBConnectionHelper {
 			if ( null === $body ) {
 				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success          = 0;
-				$response_message = __( "Please check moodle web service configuration, Got invalid JSON,Check moodle web summary {$url_link}", 'eb-textdomain' );
+				$response_message = __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'eb-textdomain' ) . $url_link;
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
 				$response_message = $body->message;
@@ -408,7 +408,4 @@ class EBConnectionHelper {
 			'response_data'    => $response_data,
 		);
 	}
-
-
-
 }

@@ -339,7 +339,7 @@ class Eb_Post_Types {
 				),
 				'course_expirey'           => array(
 					'label'       => __( 'Expire Access', 'eb-textdomain' ),
-					'description' => __( 'Leave this field unchecked if access never expires.', 'eb-textdomain' ),
+					'description' => __( 'Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin.', 'eb-textdomain' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,

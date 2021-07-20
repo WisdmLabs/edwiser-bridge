@@ -58,6 +58,8 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
 			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'eb-textdomain' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'eb-textdomain' ) . '</a>' );
 
+
+
 			$settings = apply_filters(
 				'eb_general_settings',
 				array(
@@ -69,7 +71,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'title'    => __( 'Enable Registration', 'eb-textdomain' ),
-						'desc'     => __( 'Enable user registration', 'eb-textdomain' ),
+						'desc'     => __( 'Enable user registration on user-account page.', 'eb-textdomain' ),
 						'id'       => 'eb_enable_registration',
 						'default'  => 'no',
 						'type'     => 'checkbox',
@@ -91,13 +93,22 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					array(
 						'title'    => __( 'Select Role', 'eb-textdomain' ),
 						'desc'     => '<br/>' .
-							__( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
+							__( 'Select WordPress default user role for users on registration from User Account Page.', 'eb-textdomain' ),
 						'id'       => 'eb_default_role',
 						'type'     => 'select',
 						'default'  => __( 'Select Role', 'eb-textdomain' ),
 						'css'      => 'min-width:300px;',
 						'options'  => \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_wp_roles(),
 						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
+					),
+					array(
+						'title'    => __( 'Moodle User Role ID', 'eb-textdomain' ),
+						'desc'     => '<br/>' . __( 'Moodle user role can be found here ', 'eb-textdomain' ) . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/roles/manage.php',
+						'id'       => 'eb_moodle_role_id',
+						'default'  => '5',
+						'type'     => 'text',
+						'css'      => 'min-width:300px;',
+						'desc_tip' => __( 'Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here.', 'eb-textdomain' ),
 					),
 					array(
 						'title'    => __( 'Courses page', 'eb-textdomain' ),
@@ -139,7 +150,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 							'<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>',
 							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
 						),
-						__( 'Redirect user to the My Courses page on login and registration', 'eb-textdomain' ),
+						__( 'Redirect user to the My Courses page after login and registration', 'eb-textdomain' ),
 						'id'       => 'eb_enable_my_courses',
 						'default'  => 'no',
 						'type'     => 'checkbox',

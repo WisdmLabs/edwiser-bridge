@@ -56,7 +56,8 @@ class Eb_Shortcode_My_Courses {
 
 		do_action( 'eb_before_my_courses_wrapper' );
 
-		$my_courses = $current_class->get_user_courses( $atts['user_id'] );
+		// $my_courses = $current_class->get_user_courses( $atts['user_id'] );
+		$my_courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses( $atts['user_id'] );
 
 		$current_class->show_my_courses( $my_courses, $atts );
 
@@ -75,7 +76,7 @@ class Eb_Shortcode_My_Courses {
 	 *
 	 * @param text $user_id user.
 	 */
-	public function get_user_courses( $user_id = null ) {
+/*	public function get_user_courses( $user_id = null ) {
 		$user_id = ! is_numeric( $user_id ) ? get_current_user_id() : (int) $user_id;
 
 		$courses = get_posts(
@@ -95,7 +96,7 @@ class Eb_Shortcode_My_Courses {
 		}
 
 		return $user_courses;
-	}
+	}*/
 
 	/**
 	 * Show my courses.

@@ -256,7 +256,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 					sprintf( __( 'Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)', 'eb-textdomain' ), $course_count->publish, $course_count->draft, $course_count->trash, $course_count->private ), // @codingStandardsIgnoreLine
 				),
 			);
-			$headings     = array( __( 'Server Envirment Information', 'eb-textdomain' ), '' );
+			$headings     = array( __( 'Server Environment Information', 'eb-textdomain' ), '' );
 			include $plugin_path . 'partials/html-bridge-summary.php';
 		}
 

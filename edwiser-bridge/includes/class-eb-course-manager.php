@@ -116,6 +116,7 @@ class Eb_Course_Manager {
 		$response_array       = array(); // contains response message to be displayed to user.
 		$courses_updated      = array(); // store updated course ids ( WordPress course ids ).
 		$courses_created      = array(); // store newely created course ids ( WordPress course ids ).
+		$error_course_count   = 0;
 		$eb_access_token      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$eb_access_url        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
@@ -172,6 +173,10 @@ class Eb_Course_Manager {
 						} elseif ( is_numeric( $existing_course_id ) &&
 								isset( $sync_options['eb_synchronize_previous'] ) &&
 								'1' === $sync_options['eb_synchronize_previous'] ) {
+								// Code to check if course meta moodle_course_id have post type other than eb_course. If yes then show notice.
+								// This is to reduce support from WooMoodle.
+								$error_course_count = $error_course_count + $this->check_post_type( $existing_course_id );
+
 								$course_id     = $this->update_course_on_wordpress(
 									$existing_course_id,
 									$course_data,
@@ -185,6 +190,12 @@ class Eb_Course_Manager {
 				$response_array['course_success'] = $moodle_course_resp['success'];
 				// push course response in array.
 				$response_array['course_response_message'] = $moodle_course_resp['response_message'];
+
+				if ( $error_course_count ) {
+					$response_array['course_success'] = 0;
+					// push course response in array.
+					$response_array['course_response_message'] = esc_html__( 'Unable to create/update a few courses, since they might have already being synced by a third-party plugin. Please check complete error ', 'eb-textdomain' ) . '<a target="_blank" href="https://edwiser.helpscoutdocs.com/article/235-courses-do-not-synchronize-from-moodle-to-wordpress">' . esc_html__( ' here', 'eb-textdomain' ) . '</a>';
+				}
 			}
 
 			/*
@@ -294,6 +305,21 @@ class Eb_Course_Manager {
 
 
 	/**
+	 * Checks if a course is previously synced from moodle.
+	 *
+	 * @param int $course_id the id of course as on moodle.
+	 *
+	 * @return bool returns respective course id on WordPress if exist else returns null
+	 */
+	public function check_post_type( $course_id ) {
+		if ( get_post_type( $course_id ) !== 'eb_course' ) {
+			return 1;
+		}
+		return 0;
+	}
+
+
+	/**
 	 * DEPRECATED FUNCTION.
 	 *
 	 * Checks if a course is previously synced from moodle.
@@ -318,7 +344,7 @@ class Eb_Course_Manager {
 	public function is_course_presynced( $course_id_on_moodle ) {
 		global $wpdb;
 
-		// get id of course on WordPress based on id on moodle $course_id =.
+		// Get id of course on WordPress based on id on moodle $course_id =.
 		$course_id = $wpdb->get_var( // @codingStandardsIgnoreLine
 			$wpdb->prepare(
 				"SELECT post_id
@@ -328,6 +354,14 @@ class Eb_Course_Manager {
 				$course_id_on_moodle
 			)
 		);
+
+		// Check if post is availabke or not.
+		// This code is to avoid conflict with MooWoodle plugin.
+		if ( false == get_post_status( $course_id ) ) {
+		    // The post does not exist, delete post meta also.
+		    delete_post_meta( $course_id, 'moodle_course_id' );
+		    $course_id = false;
+		}
 
 		return $course_id;
 	}

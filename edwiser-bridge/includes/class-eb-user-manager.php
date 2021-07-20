@@ -120,150 +120,141 @@ class EBUserManager {
 	public function user_course_synchronization_handler( $sync_options = array(), $user_id_to_sync = '', $offset = 0 ) {
 		global $wpdb;
 		// checking if moodle connection is working properly.
-		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
-		$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
-		$connected       = edwiser_bridge_instance()->connection_helper()->connection_test_helper( $eb_access_url, $eb_access_token );
 
-		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
+		$response_array['connection_response'] = 1; // add connection response in response array.
 		$wp_users_count                        = 1;
-		if ( 1 === $connected['success'] ) {
-			// get all WordPress users having an associated moodle account.
-			if ( is_numeric( $user_id_to_sync ) ) {
-				$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
-					$wpdb->prepare(
-						"SELECT user_id, meta_value AS moodle_user_id
-						FROM {$wpdb->base_prefix}usermeta
-						WHERE user_id =%d AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
-						$user_id_to_sync
-					),
-					ARRAY_A
-				);
-			} else {
-				// query to get all WordPress users having an associated moodle account so that we can synchronize the course enrollment
-				// added limit for get users in chunk.
-				$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
-					$wpdb->prepare(
-						"SELECT user_id, meta_value AS moodle_user_id
-						FROM {$wpdb->base_prefix}usermeta
-						WHERE meta_key = 'moodle_user_id'
-						AND meta_value IS NOT NULL
-						ORDER BY user_id ASC
-						LIMIT  %d , 20",
-						$offset
-					),
-					ARRAY_A
-				);
-				// used to get all users count.
-				$users_count    = $wpdb->get_results( // @codingStandardsIgnoreLine
-					"SELECT COUNT(user_id) AS users_count
+		// get all WordPress users having an associated moodle account.
+		if ( is_numeric( $user_id_to_sync ) ) {
+			$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
+				$wpdb->prepare(
+					"SELECT user_id, meta_value AS moodle_user_id
+					FROM {$wpdb->base_prefix}usermeta
+					WHERE user_id =%d AND meta_key = 'moodle_user_id' AND meta_value IS NOT NULL",
+					$user_id_to_sync
+				),
+				ARRAY_A
+			);
+		} else {
+			// query to get all WordPress users having an associated moodle account so that we can synchronize the course enrollment
+			// added limit for get users in chunk.
+			$all_users = $wpdb->get_results( // @codingStandardsIgnoreLine
+				$wpdb->prepare(
+					"SELECT user_id, meta_value AS moodle_user_id
 					FROM {$wpdb->base_prefix}usermeta
 					WHERE meta_key = 'moodle_user_id'
-					AND meta_value IS NOT NULL"
-				);
-				$wp_users_count = $users_count[0]->users_count;
-			}
+					AND meta_value IS NOT NULL
+					ORDER BY user_id ASC
+					LIMIT  %d , 20",
+					$offset
+				),
+				ARRAY_A
+			);
+			// used to get all users count.
+			$users_count    = $wpdb->get_results( // @codingStandardsIgnoreLine
+				"SELECT COUNT(user_id) AS users_count
+				FROM {$wpdb->base_prefix}usermeta
+				WHERE meta_key = 'moodle_user_id'
+				AND meta_value IS NOT NULL"
+			);
+			$wp_users_count = $users_count[0]->users_count;
+		}
 
-			// get courses of each user having a moodle a/c assosiated.
-			foreach ( $all_users as $key => $value ) {
-				$key;
-				// sync users courses only if checkbox is checked.
-				if ( isset( $sync_options['eb_synchronize_user_courses'] ) &&
-						1 === $sync_options['eb_synchronize_user_courses'] ) {
-					// get user's enrolled courses from moodle.
-					$moodle_user_courses = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $value['moodle_user_id'] );
+		// get courses of each user having a moodle a/c assosiated.
+		foreach ( $all_users as $key => $value ) {
+			$key;
 
-					$enrolled_courses = array(); // push user's all enrolled courses id in array.
-					// enrol user to courses based on recieved data.
-					if ( 1 === $moodle_user_courses['success'] ) {
-						foreach ( $moodle_user_courses['response_data'] as $course_data ) {
-							// get WordPress id of course.
-							$existing_course_id = edwiser_bridge_instance()->course_manager()->is_course_presynced( $course_data->id );
+			// sync users courses only if checkbox is checked.
+			if ( isset( $sync_options['eb_synchronize_user_courses'] ) &&
+					1 === (int) $sync_options['eb_synchronize_user_courses'] ) {
+				// get user's enrolled courses from moodle.
+				$moodle_user_courses = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $value['moodle_user_id'] );
 
-							// enroll user to course if course exist on WordPress ( synchronized on WordPress ).
-							if ( is_numeric( $existing_course_id ) ) {
-								// add enrolled courses id in array.
-								$enrolled_courses[] = $existing_course_id;
+				$enrolled_courses = array(); // push user's all enrolled courses id in array.
+				// enrol user to courses based on recieved data.
+				if ( 1 === $moodle_user_courses['success'] ) {
+					foreach ( $moodle_user_courses['response_data'] as $course_data ) {
+						// get WordPress id of course.
+						$existing_course_id = edwiser_bridge_instance()->course_manager()->is_course_presynced( $course_data->id );
 
-								// define args.
-								$args = array(
-									'user_id' => $value['user_id'],
-									'courses' => array( $existing_course_id ),
-								);
-								// update enrollment records.
-								edwiser_bridge_instance()->enrollment_manager()->update_enrollment_record_wordpress( $args );
+						// enroll user to course if course exist on WordPress ( synchronized on WordPress ).
+						if ( is_numeric( $existing_course_id ) ) {
+							// add enrolled courses id in array.
+							$enrolled_courses[] = $existing_course_id;
 
-								edwiser_bridge_instance()->logger()->add(
-									'user',
-									'New course enrolled,
-									User ID: ' . $value['user_id'] . ' Course ID: ' . $existing_course_id
-								); // add user log.
-							}
-						}
-					} else {
-						// Push user's id to separate array,
-						// if there is a problem in fetching his/her courses from moodle.
-						$response_array['user_with_error'][]  = $value['user_id'];
-						$response_array['user_with_error'][] .= '<strong>' . esc_html__( 'User ID:', 'eb-textdomain' ) . ' </strong>' . $value['user_id'];
-						$response_array['user_with_error'][] .= '</p><br/>';
-					}
+							// define args.
+							$args = array(
+								'user_id' => $value['user_id'],
+								'courses' => array( $existing_course_id ),
+							);
+							// update enrollment records.
+							edwiser_bridge_instance()->enrollment_manager()->update_enrollment_record_wordpress( $args );
 
-					/*
-					 * In this block we are unenrolling user course if a user is unenrolled from those course on moodle
-					 */
-					$old_enrolled_courses = $wpdb->get_results( // @codingStandardsIgnoreLine
-						$wpdb->prepare(
-							"SELECT course_id
-							FROM {$wpdb->prefix}moodle_enrollment
-							WHERE user_id = %d",
-							$value['user_id']
-						),
-						ARRAY_A
-					);
-
-					// get user's existing enrollment record from WordPress DB.
-					$notenrolled_courses = array();
-
-					foreach ( $old_enrolled_courses as $existing_course ) {
-						if ( ! in_array( trim( $existing_course['course_id'] ), $enrolled_courses, true ) ) {
-							$notenrolled_courses[] = $existing_course['course_id'];
+							edwiser_bridge_instance()->logger()->add(
+								'user',
+								'New course enrolled,
+								User ID: ' . $value['user_id'] . ' Course ID: ' . $existing_course_id
+							); // add user log.
 						}
 					}
-
-					if ( is_array( $notenrolled_courses ) && ! empty( $notenrolled_courses ) ) {
-						// define args.
-						$args = array(
-							'user_id'  => $value['user_id'],
-							'courses'  => $notenrolled_courses,
-							'unenroll' => 1,
-						);
-						edwiser_bridge_instance()->enrollment_manager()->update_enrollment_record_wordpress( $args );
-
-					}
-					/* Unenrollment part completed * */
+				} else {
+					// Push user's id to separate array,
+					// if there is a problem in fetching his/her courses from moodle.
+					$response_array['user_with_error'][]  = $value['user_id'];
+					$response_array['user_with_error'][] .= '<strong>' . esc_html__( 'User ID:', 'eb-textdomain' ) . ' </strong>' . $value['user_id'];
+					$response_array['user_with_error'][] .= '</p><br/>';
 				}
 
 				/*
-				 * hook that can be used when a single users data sync completes
-				 * total courses in which user is enrolled after sync is given as an argument with user id
-				 * we are passing users WordPress id and course id (as on WordPress)
-				 */
-				do_action( 'eb_user_synchronization_complete_single', $value['user_id'], $sync_options );
+					* In this block we are unenrolling user course if a user is unenrolled from those course on moodle
+					*/
+				$old_enrolled_courses = $wpdb->get_results( // @codingStandardsIgnoreLine
+					$wpdb->prepare(
+						"SELECT course_id
+						FROM {$wpdb->prefix}moodle_enrollment
+						WHERE user_id = %d",
+						$value['user_id']
+					),
+					ARRAY_A
+				);
+
+				// get user's existing enrollment record from WordPress DB.
+				$notenrolled_courses = array();
+
+				foreach ( $old_enrolled_courses as $existing_course ) {
+					if ( ! in_array( trim( $existing_course['course_id'] ), $enrolled_courses, true ) ) {
+						$notenrolled_courses[] = $existing_course['course_id'];
+					}
+				}
+
+				if ( is_array( $notenrolled_courses ) && ! empty( $notenrolled_courses ) ) {
+					// define args.
+					$args = array(
+						'user_id'  => $value['user_id'],
+						'courses'  => $notenrolled_courses,
+						'unenroll' => 1,
+					);
+					edwiser_bridge_instance()->enrollment_manager()->update_enrollment_record_wordpress( $args );
+
+				}
+				/* Unenrollment part completed * */
 			}
-			// these two properties are used to track, how many user's data have beedn updated.
-			$response_array['users_count']    = count( $all_users );
-			$response_array['wp_users_count'] = $wp_users_count;
 
 			/*
-			 * hook to be run on user data sync total completion
-			 * we are passing all user ids for which sync is performed
-			 */
-			do_action( 'eb_user_synchronization_complete', $all_users, $sync_options );
-		} else {
-			edwiser_bridge_instance()->logger()->add(
-				'user',
-				'Connection problem in synchronization, Response:' . print_r( $connected, true ) // @codingStandardsIgnoreLine
-			); // add connection log.
+				* hook that can be used when a single users data sync completes
+				* total courses in which user is enrolled after sync is given as an argument with user id
+				* we are passing users WordPress id and course id (as on WordPress)
+				*/
+			do_action( 'eb_user_synchronization_complete_single', $value['user_id'], $sync_options );
 		}
+		// these two properties are used to track, how many user's data have beedn updated.
+		$response_array['users_count']    = count( $all_users );
+		$response_array['wp_users_count'] = $wp_users_count;
+
+		/*
+			* hook to be run on user data sync total completion
+			* we are passing all user ids for which sync is performed
+			*/
+		do_action( 'eb_user_synchronization_complete', $all_users, $sync_options );
 
 		return $response_array;
 	}
@@ -405,11 +396,11 @@ class EBUserManager {
 				$login_link = '<a href="' . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url( array( $redirect_to ) ) ) . '">Please login</a>';
 				$uc_status  = new \WP_Error(
 					'registration-error',
+					/* translators: %s: $login_link Login link. */
 					sprintf( __( 'An account is already registered with your email address, %s.', 'eb-textdomain' ), $login_link ),
 					'eb_email_exists'
 				);
 			} else {
-
 				$username = sanitize_user( current( explode( '@', $email ) ), true );
 
 				// Ensure username is unique.

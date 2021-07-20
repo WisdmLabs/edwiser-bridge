@@ -67,7 +67,7 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				$creds['user_login']    = isset( $_POST['wdm_username'] ) ? sanitize_text_field( wp_unslash( $_POST['wdm_username'] ) ) : '';
-				$creds['user_password'] = isset( $_POST['wdm_password'] ) ? sanitize_text_field( wp_unslash( $_POST['wdm_password'] ) ) : '';
+				$creds['user_password'] = isset( $_POST['wdm_password'] ) ? $_POST['wdm_password'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				$creds['remember']      = isset( $_POST['rememberme'] );
 				$secure_cookie          = is_ssl() ? true : false;
 				$user                   = wp_signon( apply_filters( 'eb_login_credentials', $creds ), $secure_cookie );
@@ -75,8 +75,9 @@ class Eb_Frontend_Form_Handler {
 				if ( is_wp_error( $user ) ) {
 					throw new \Exception( $user->get_error_message() );
 				} else {
-					$redirect = self::calc_redirect();
-					wp_safe_redirect( apply_filters( 'eb_login_redirect', $redirect, $user ) );
+					$redirect  = self::calc_redirect();
+					$redirect1 = apply_filters( 'eb_login_redirect', $redirect, $user );
+					wp_safe_redirect( $redirect1 );
 					exit;
 				}
 			} catch ( \Exception $e ) {
@@ -126,8 +127,8 @@ class Eb_Frontend_Form_Handler {
 			$email         = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			$firstname     = isset( $_POST['firstname'] ) ? sanitize_text_field( wp_unslash( $_POST['firstname'] ) ) : '';
 			$lastname      = isset( $_POST['lastname'] ) ? sanitize_text_field( wp_unslash( $_POST['lastname'] ) ) : '';
-			$user_psw      = isset( $_POST['user_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['user_psw'] ) ) : '';
-			$conf_user_psw = isset( $_POST['conf_user_psw'] ) ? sanitize_text_field( wp_unslash( $_POST['conf_user_psw'] ) ) : '';
+			$user_psw      = isset( $_POST['user_psw'] ) ? $_POST['user_psw'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			$conf_user_psw = isset( $_POST['conf_user_psw'] ) ? $_POST['conf_user_psw'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			/**
 			 * Password verification is completed.
 			 */
