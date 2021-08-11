@@ -52,20 +52,20 @@ do_action( 'eb_before_customer_login_form' );
 				?>
 			</form>
 			</div>
+			<?php
+			if ( 'yes' === $enable_registration ) {
+				?>
 			<div class='wdm-eb-login-form-sec-2'>
-				<?php
-				if ( 'yes' === $enable_registration ) {
-					?>
 					<p class="register-link form-row">
 						<?php esc_html_e( 'Don\'t have an Account? Register one!', 'eb-textdomain' ); ?>
 					</p>
 					<a class='button wdm-eb-login-btn-scondary roll-button et_pb_button et_pb_contact_submit' href='<?php echo esc_url( $reg_link ); ?>'>
 						<?php esc_html_e( 'Get Registered', 'eb-textdomain' ); ?>
 					</a>
+			</div>
 					<?php
 				}
 				?>
-			</div>
 		<?php
 	}
 	?>

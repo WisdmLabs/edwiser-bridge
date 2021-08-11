@@ -240,8 +240,10 @@ class Eb_Payment_Manager {
 
 					/*
 					* Handle take course button in case user already has course access or course access is in suspended state.
+					* Now we are showing take this course button for suspended user courses.
 					*/
-					if ( edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course_id ) ) {
+					$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
+					if ( edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course_id ) && ! $is_user_suspended ) {
 						return '';
 					}
 

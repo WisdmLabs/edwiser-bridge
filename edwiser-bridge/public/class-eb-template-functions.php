@@ -170,6 +170,12 @@ class Eb_Template_Functions {
 			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
 		}
 
+		// Check if course is suspended for user then add suspended in the course access section.
+		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $post->ID );
+		if ( $is_user_suspended ) {
+			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Suspended ', 'eb-textdomain' ) . '</span>';
+		}
+
 		return array(
 			'eb_plugin_url'          => $eb_plugin_url,
 			'has_access'             => $has_access,
@@ -177,6 +183,7 @@ class Eb_Template_Functions {
 			'course_price_formatted' => $course_price_formatted,
 			'expiry_date_time'       => $expiry_date_time,
 			'categories'             => $categories,
+			'suspended'              => $is_user_suspended,
 		);
 	}
 
