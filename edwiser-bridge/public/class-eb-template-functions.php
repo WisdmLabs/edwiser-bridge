@@ -160,14 +160,15 @@ class Eb_Template_Functions {
 		/*
 		 * Check is course has expiry date
 		 */
+		$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
 		if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['course_expirey'] && '' !== $course_options['num_days_course_access'] ) {
-			if ( is_user_logged_in() && $has_access ) {
-				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'eb-textdomain' ) . '</strong>' . Eb_Enrollment_Manager::access_remianing( $user_id, $post->ID ) . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</span>';
-			} else {
+			$remaining_access = Eb_Enrollment_Manager::access_remianing( $user_id, $post->ID );
+
+			if ( is_user_logged_in() && $has_access && '0000-00-00 00:00:00' !== $remaining_access ) {
+				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'eb-textdomain' ) . '</strong>' . $remaining_access . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</span>';
+			} elseif ( ! is_user_logged_in() ) {
 				$expiry_date_time = '<span><strong>' . __( 'Course Access:  ', 'eb-textdomain' ) . ' </strong>' . $course_options['num_days_course_access'] . __( ' days access', 'eb-textdomain' ) . ' </span>';
 			}
-		} else {
-			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
 		}
 
 		// Check if course is suspended for user then add suspended in the course access section.

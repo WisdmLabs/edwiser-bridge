@@ -388,8 +388,14 @@ class Eb_Enrollment_Manager {
 					);
 
 				} elseif ( $this->user_has_course_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
-					// increase the count value.
-					$act_cnt = ++$act_cnt;
+					// Check if user is already suspended.
+					// If yes then don't increase the count.
+					$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $args['user_id'], $course_id );
+					if ( ! $is_user_suspended ) {
+						// increase the count value.
+						$act_cnt = ++$act_cnt;
+					}
+
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt );
 				}
@@ -487,7 +493,8 @@ class Eb_Enrollment_Manager {
 		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			array(
-				'suspended' => 1,   // increase OR decrease count value.
+				'suspended'   => 1,   // increase OR decrease count value.
+				'expire_time' => '0000-00-00 00:00:00',   // expire time should be 0 here
 			),
 			array(
 				'user_id'   => $user_id,
@@ -657,7 +664,13 @@ class Eb_Enrollment_Manager {
 	public static function access_remianing( $user_id, $course_id ) {
 		global $wpdb;
 		$curr_date   = new \DateTime( ( gmdate( 'Y-m-d H:i:s' ) ) );
-		$expire_date = new \DateTime( ( $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ) ) ); // @codingStandardsIgnoreLine
+		$expire_date = $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
+
+		if ( '0000-00-00 00:00:00' === $expire_date ) {
+			return '0000-00-00 00:00:00';
+		}
+
+		$expire_date = new \DateTime( $expire_date ); // @codingStandardsIgnoreLine
 
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}
