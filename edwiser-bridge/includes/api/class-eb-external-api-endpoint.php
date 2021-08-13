@@ -364,7 +364,12 @@ class Eb_External_Api_Endpoint {
 			$course_data->categoryid = $data['cat'];
 
 			// Create WP course from Moodle course id info.
-			edwiser_bridge_instance()->course_manager()->create_course_on_wordpress( $course_data, 'draft' );
+			edwiser_bridge_instance()->course_manager()->create_course_on_wordpress(
+				$course_data,
+				array(
+					'eb_synchronize_draft'=> '1',
+				),
+			);
 		}
 	}
 

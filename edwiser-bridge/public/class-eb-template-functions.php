@@ -166,7 +166,7 @@ class Eb_Template_Functions {
 
 			if ( is_user_logged_in() && $has_access && '0000-00-00 00:00:00' !== $remaining_access ) {
 				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'eb-textdomain' ) . '</strong>' . $remaining_access . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</span>';
-			} elseif ( ! is_user_logged_in() ) {
+			} else {
 				$expiry_date_time = '<span><strong>' . __( 'Course Access:  ', 'eb-textdomain' ) . ' </strong>' . $course_options['num_days_course_access'] . __( ' days access', 'eb-textdomain' ) . ' </span>';
 			}
 		}
