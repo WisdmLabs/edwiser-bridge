@@ -367,8 +367,8 @@ class Eb_External_Api_Endpoint {
 			edwiser_bridge_instance()->course_manager()->create_course_on_wordpress(
 				$course_data,
 				array(
-					'eb_synchronize_draft'=> '1',
-				),
+					'eb_synchronize_draft'=> '1'
+				)
 			);
 		}
 	}
