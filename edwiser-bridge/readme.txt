@@ -218,6 +218,11 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.2 =
+* Feature - Added functionality to create course on WordPress if created on Moodle.
+* Feature - Repurchase option for the suspended course on single course page.
+* Fix - Removed registration section from user-account page if registation is disabled from settings.
+
 
 = 2.1.1 =
 * Feature - Added option on WordPress Edwiser Bridge settings to add Moodle role id which is used while creating users on Moodle.
