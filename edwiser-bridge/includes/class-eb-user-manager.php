@@ -283,8 +283,8 @@ class EBUserManager {
 		$response_array['connection_response'] = $connected['success']; // add connection response in response array.
 		$link_users_count                      = 0;
 
-		if ( 1 === $connected['success'] ) {
-			if ( isset( $sync_options['eb_link_users_to_moodle'] ) && '1' === $sync_options['eb_link_users_to_moodle'] ) {
+		if ( 1 === (int) $connected['success'] ) {
+			if ( isset( $sync_options['eb_link_users_to_moodle'] ) && 1 === (int) $sync_options['eb_link_users_to_moodle'] ) {
 				// query to get list of users who have not linked to moodle with limit.
 				$unlinked_users = $wpdb->get_results( // @codingStandardsIgnoreLine
 					$wpdb->prepare(

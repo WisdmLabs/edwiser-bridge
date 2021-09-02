@@ -87,11 +87,16 @@ class Eb_External_Api_Endpoint {
 					$response_data = $this->eb_trigger_user_update( $request_data );
 					break;
 
+				case 'course_created':
+					$response_data = $this->eb_trigger_course_creation( $request_data );
+					break;
+
 				case 'course_deleted':
 					$response_data = $this->eb_trigger_course_delete( $request_data );
 					break;
 
 				default:
+					// Apply filter here for more default options.
 					break;
 			}
 		}
@@ -342,6 +347,32 @@ class Eb_External_Api_Endpoint {
 		}
 		return $uc_status;
 	}
+	/**
+	 * Trigger course creation.
+	 *
+	 * @param text $data data.
+	 */
+	public function eb_trigger_course_creation( $data ) {
+
+
+		if ( isset( $data['course_id'] ) ) {
+			// Create course data.
+			$course_data = new \stdClass();
+			$course_data->id         = $data['course_id'];
+			$course_data->fullname   = $data['fullname'];
+			$course_data->summary    = $data['summary'];
+			$course_data->categoryid = $data['cat'];
+
+			// Create WP course from Moodle course id info.
+			edwiser_bridge_instance()->course_manager()->create_course_on_wordpress(
+				$course_data,
+				array(
+					'eb_synchronize_draft'=> '1'
+				)
+			);
+		}
+	}
+
 
 
 	/**

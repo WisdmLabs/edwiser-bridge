@@ -115,7 +115,7 @@ class Eb_Admin_Notice_Handler {
 
 								<div class="eb_update_notice_content">
 									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2021/07/edwiserbridge-6.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									<a href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
 									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
 
 										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
@@ -141,7 +141,7 @@ class Eb_Admin_Notice_Handler {
 
 								<div class="eb_update_notice_content">
 									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2021/07/edwiserbridge-6.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									<a href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
 									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
 
 										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '

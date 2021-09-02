@@ -352,7 +352,7 @@ class Eb_Enrollment_Manager {
 		$new_role_id = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
 		$role_id     = ! empty( $new_role_id ) ? $new_role_id : $args['role_id'];
 
-		// add enrollment record in DB conditionally
+		// Add enrollment record in DB conditionally.
 		// We are using user's WordPress ID and course's WordPress ID while saving record in enrollment table.
 		if ( 0 === $args['unenroll'] && 0 === $args['suspend'] ) {
 			foreach ( $args['courses'] as $key => $course_id ) {
@@ -388,10 +388,17 @@ class Eb_Enrollment_Manager {
 					);
 
 				} elseif ( $this->user_has_course_access( $args['user_id'], $course_id ) && false !== $act_cnt ) {
-					// increase the count value.
-					$act_cnt = ++$act_cnt;
+					// Check if user is already suspended.
+					// If yes then don't increase the count.
+					$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $args['user_id'], $course_id );
+					if ( ! $is_user_suspended ) {
+						// increase the count value.
+						$act_cnt = ++$act_cnt;
+					}
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
+
 					// update increased count value.
-					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt );
+					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
 				}
 			}
 			// Trigger Email.
@@ -451,20 +458,29 @@ class Eb_Enrollment_Manager {
 	 * @param int $course_id WordPress course id of a course.
 	 * @param int $count WordPress course id of a course.
 	 */
-	public function update_user_course_access_count( $user_id, $course_id, $count ) {
+	public function update_user_course_access_count( $user_id, $course_id, $count, $expire_time = '' ) {
 		global $wpdb;
+		$data_array = array(
+			'act_cnt'   => $count, // increase OR decrease count value.
+			'suspended' => 0,
+		);
+
+		if ( ! empty( $expire_time ) ) {
+			$data_array['expire_time'] = $expire_time;
+		}
+
+
 		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
-			array(
-				'act_cnt'   => $count,   // increase OR decrease count value.
-				'suspended' => 0,
-			),
+			$data_array,
 			array(
 				'user_id'   => $user_id,
 				'course_id' => $course_id,
 			),
 			array(
 				'%d',
+				'%d',
+				'%s',
 			),
 			array(
 				'%d',
@@ -487,7 +503,8 @@ class Eb_Enrollment_Manager {
 		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			array(
-				'suspended' => 1,   // increase OR decrease count value.
+				'suspended'   => 1,   // increase OR decrease count value.
+				'expire_time' => '0000-00-00 00:00:00',   // expire time should be 0 here
 			),
 			array(
 				'user_id'   => $user_id,
@@ -495,6 +512,7 @@ class Eb_Enrollment_Manager {
 			),
 			array(
 				'%d',
+				'%s',
 			),
 			array(
 				'%d',
@@ -657,7 +675,13 @@ class Eb_Enrollment_Manager {
 	public static function access_remianing( $user_id, $course_id ) {
 		global $wpdb;
 		$curr_date   = new \DateTime( ( gmdate( 'Y-m-d H:i:s' ) ) );
-		$expire_date = new \DateTime( ( $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ) ) ); // @codingStandardsIgnoreLine
+		$expire_date = $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) );
+
+		if ( '0000-00-00 00:00:00' === $expire_date ) {
+			return '0000-00-00 00:00:00';
+		}
+
+		$expire_date = new \DateTime( $expire_date ); // @codingStandardsIgnoreLine
 
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}

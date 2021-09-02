@@ -87,7 +87,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 				<?php
 
 
-				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() ) {
+				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() || $single_course_data['suspended'] ) {
 					?>
 					<div class='eb_single_course_price_wrapper'>
 					<?php
