@@ -801,6 +801,8 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
+		// Hook to update password on Moodle if updated on WordPress when user is linked with Moodle.
+		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'eb_password_reset_update', 1, 2 );
 	}
 
 	/**

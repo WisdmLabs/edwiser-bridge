@@ -184,10 +184,13 @@ class Eb_Shortcode_My_Courses {
 			?>
 			<h5>
 				<?php
-				/* Translators 1: URL */
 				printf(
-					esc_html__( 'You are not enrolled to any course. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to access the courses page.', 'eb-textdomain' ),
-					"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					do_action(
+					'eb_logged_in_user_empty_my_courses_msg',
+					/* Translators 1: URL */
+						esc_html__( 'You are not enrolled to any course. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to access the courses page.', 'eb-textdomain' ),
+						"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					)
 				);
 				?>
 			</h5>

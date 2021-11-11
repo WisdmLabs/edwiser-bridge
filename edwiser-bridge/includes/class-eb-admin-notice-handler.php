@@ -74,6 +74,7 @@ class Eb_Admin_Notice_Handler {
 		$moodle_function = 'eb_get_edwiser_plugins_info';
 		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
 		$request_args    = array(
+			'sslverify' => false,
 			'body'    => array(),
 			'timeout' => 100,
 		);
