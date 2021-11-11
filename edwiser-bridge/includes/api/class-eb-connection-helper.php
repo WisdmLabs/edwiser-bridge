@@ -156,7 +156,13 @@ class EBConnectionHelper {
 		$request_args = array(
 			'timeout' => 100,
 		);
+		$settings   = get_option( 'eb_general' );
+  		$request_args['sslverify'] = false;
+ 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+  			$request_args['sslverify'] = true;
+  		}
 		$response     = wp_remote_post( $request_url, $request_args );
+		
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
@@ -220,11 +226,18 @@ class EBConnectionHelper {
 
 		$webservice_functions    = \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
+		
+		$request_args           = array( 'timeout' => 100 );
+		$settings                  = get_option( 'eb_general' );
+  		$request_args['sslverify'] = false;
+ 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+  			$request_args['sslverify'] = true;
+  		}
+
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
 			$request_url .= $token . '&wsfunction=';
 			$request_url .= $webservice_function . '&moodlewsrestformat=json';
-			$request_args = array( 'timeout' => 100 );
 			$response     = wp_remote_post( $request_url, $request_args );
 
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ||
@@ -304,6 +317,11 @@ class EBConnectionHelper {
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
 		$request_args = array( 'timeout' => 100 );
+		$settings                  = get_option( 'eb_general' );
+  		$request_args['sslverify'] = false;
+ 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+  			$request_args['sslverify'] = true;
+  		}
 		$response     = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
@@ -378,6 +396,11 @@ class EBConnectionHelper {
 			'body'    => $request_data,
 			'timeout' => 100,
 		);
+		$settings                  = get_option( 'eb_general' );
+  		$request_args['sslverify'] = false;
+ 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+  			$request_args['sslverify'] = true;
+  		}
 
 		$response = wp_remote_post( $request_url, $request_args );
 

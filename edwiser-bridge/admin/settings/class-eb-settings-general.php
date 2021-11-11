@@ -125,12 +125,20 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'title'    => __( 'Moodle Language Code', 'eb-textdomain' ),
-						'desc'     => __( 'Enter language code which you get from moodle language settings.', 'eb-textdomain' ),
+						'desc'     => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'eb-textdomain' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'eb-textdomain' ) . ' </a>' ,
 						'id'       => 'eb_language_code',
 						'default'  => 'en',
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
-						'desc_tip' => true,
+						// 'desc_tip' => true,
+					),
+					array(
+						'title'    => __( 'Disable SSL certificate check', 'eb-textdomain' ),
+						'desc'     => __( 'This option will try to ignore errors regariding SSL certificate.', 'eb-textdomain' ),
+						'id'       => 'eb_ignore_ssl',
+						'default'  => 'yes',
+						'type'     => 'checkbox',
+						'autoload' => false,
 					),
 					array(
 						'title'    => __( 'Show Courses Archive page', 'eb-textdomain' ),
