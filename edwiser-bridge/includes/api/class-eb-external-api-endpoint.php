@@ -405,7 +405,6 @@ class Eb_External_Api_Endpoint {
 	 * @param text $data data.
 	 */
 	public function eb_trigger_user_update( $data ) {
-
 		// get WP User id if present then process.
 		$wp_user_id      = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 		$eb_access_token = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
@@ -414,14 +413,16 @@ class Eb_External_Api_Endpoint {
 			// get fields.
 			$user_update_array = array(
 				'ID'         => $wp_user_id,
-				'first_name' => $data['first_name'],
-				'last_name'  => $data['last_name'],
 			);
 
+			// CHecking this as when user updates password through preferences only password will be sent to the WordPress, so if anyone of the field is empty we need to only update password.
+			if ( isset( $data['first_name'] ) && ! empty( $data['first_name'] ) ) {
+				$user_update_array['first_name'] = $data['first_name'];
+				$user_update_array['last_name']  = $data['last_name'];
+			}			
+
 			// if password is present then decode with key.
-
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
-
 				$enc_method = 'AES-128-CTR';
 				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
