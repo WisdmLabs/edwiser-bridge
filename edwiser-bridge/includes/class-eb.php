@@ -698,6 +698,12 @@ class EdwiserBridge {
 			'reset_email_template_content'
 		);
 
+		$this->loader->eb_add_action(
+			'wp_ajax_reload_course_enrollment_method',
+			$this->course_manager(),
+			'eb_reload_course_enrollment_method'
+		);
+
 		$gdpr_compatible = new Eb_Gdpr_Compatibility();
 		/**
 		 * Used to add eb personal while exporting personal data.
@@ -906,10 +912,27 @@ class EdwiserBridge {
 		$this->loader->eb_add_action(
 			'manage_eb_course_posts_custom_column',
 			$this->course_manager(),
-			'add_course_price_type_column_content',
+			'add_column_in_courses_table',
 			10,
 			2
 		);
+
+		$this->loader->eb_add_action(
+			'bulk_actions-edit-eb_course',
+			$this->course_manager(),
+			'add_custom_bulk_action',
+			10,
+			1
+		);
+		
+		$this->loader->eb_add_filter(
+			'handle_bulk_actions-edit-eb_course',
+			$this->course_manager(),
+			'handle_custom_bulk_action',
+			10,
+			3
+		);
+
 		$this->loader->eb_add_action(
 			'post_row_actions',
 			$this->course_manager(),
