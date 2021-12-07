@@ -218,6 +218,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.3 =
+* Feature - Added one setting on general settings to ignore SSL certificate.
+
 = 2.1.2 =
 * Feature - Added functionality to create course on WordPress if created on Moodle.
 * Feature - Repurchase option for the suspended course on single course page.
