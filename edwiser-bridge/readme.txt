@@ -220,6 +220,7 @@ Also check our knowledge base for more queries
  ==  Changelog  ==
 = 2.1.3 =
 * Feature - Added one setting on general settings to ignore SSL certificate.
+* Tweak - Updated Moodle side plugin coding standards to Moodle coding standards.
 
 = 2.1.2 =
 * Feature - Added functionality to create course on WordPress if created on Moodle.
