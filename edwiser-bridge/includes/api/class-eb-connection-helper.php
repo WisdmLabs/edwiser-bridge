@@ -165,29 +165,35 @@ class EBConnectionHelper {
 		
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
-			$response_message = $response->get_error_message();
+			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( null === $body ) {
 				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success          = 0;
-				$response_message = __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'eb-textdomain' ) . $url_link;
+				$response_message = $this->create_response_message(
+					$request_url,
+					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'eb-textdomain' ) . $url_link
+				);
+
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
-				$response_message = $body->message;
+				$response_message = $this->create_response_message( $request_url, print_r($body, 1) );
+
 			} else {
 				// added else to check the other services access error.
 				$access_control_result = $this->check_service_access( $url, $token );
 
 				if ( ! $access_control_result['success'] ) {
 					$success          = 0;
-					$response_message = $access_control_result['response_message'];
+					$response_message = $this->create_response_message( $url, $access_control_result['response_message'] );
 				}
 			}
 		} else {
 			$success          = 0;
-			$response_message = esc_html__( 'Please check Moodle URL !', 'eb-textdomain' );
+				$response_message = $this->create_response_message( $request_url, esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'eb-textdomain' ) );
+
 		}
 
 		return array(
@@ -270,7 +276,42 @@ class EBConnectionHelper {
 	}
 
 
+	/**
+	 *
+	 *
+	 */	
+	public function create_response_message( $url, $message ) {
+		$msg = '<div>
+                        <div class="eb_connection_short_msg">
+                            ' . esc_html__( 'Test Connection failed, To check more information about issue click', 'eb-textdomain' ) . ' <span class="eb_test_connection_log_open"> ' . esc_html__( 'here', 'eb-textdomain') . ' </span>.
+                        </div>
 
+                        <div class="eb_test_connection_log">
+                        	<div style="display:flex;">
+	                            <div class="eb_connection_err_response">
+	                                <h4> ' . esc_html__( 'An issue is detected.', 'eb-textdomain' ) . ' </h4>
+	                                <div style="display:flex;">
+	                                	<div> <b>' . esc_html__( 'Status : ', 'eb-textdomain' ) . '</b></div>
+	                                	<div>' . esc_html__( 'Connection Failed', 'eb-textdomain' ) . ' </div>
+	                                </div>
+	                                <div>
+	                                	<div><b>' . esc_html__( 'Url : ', 'eb-textdomain' ) . '</b></div>
+	                                	<div>' . $url .'</div>
+	                                </div>
+	                                <div>
+	                                	<div><b>' . esc_html__( 'Response : ', 'eb-textdomain' ) . '</b></div>
+	                                	<div>' . $message .'</div>
+	                                </div>
+	                            </div>
+
+	                            <div class="eb_admin_templ_dismiss_notice_message">
+									<span class="eb_test_connection_log_close dashicons dashicons-dismiss"></span> 
+								</div>
+							<div>
+                        </div>
+                    </div>';
+        return $msg;
+	}
 
 	/**
 	 * DEPRECATED FUNCTION.

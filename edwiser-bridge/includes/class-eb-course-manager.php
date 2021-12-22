@@ -257,6 +257,43 @@ class Eb_Course_Manager {
 
 
 
+	/**
+	 * Sync course enrollment methods.
+	 *
+	 * @param array $courses course array.
+	 * @param array $sync_options course sync options.
+	 *
+	 * @since   1.0.0
+	 */
+	public function edwiserbridge_local_update_course_enrollment_method( $course_array ) {
+
+		// Check sync option.
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+			'edwiserbridge_local_update_course_enrollment_method',
+			$course_array
+		);
+
+
+		if ( 1 == $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
+
+			foreach ($response['response_data'] as $course_data) {
+				$wp_course_id = $this->is_course_presynced( $course_data->courseid );
+				if ( $course_data->status ) {
+					update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->status );
+				}
+			}
+			return $response['response_data'];
+			
+		} else {
+
+		}
+
+	}
+
+
+
+
+
 
 	/**
 	 * DEPRECATED FUNCTION.
@@ -692,7 +729,7 @@ class Eb_Course_Manager {
 				$new_columns[ $key ]                     = esc_html__( 'Course Title', 'eb-textdomain' );
 				$new_columns['mdl_course_id']            = esc_html__( 'Moodle Course Id', 'eb-textdomain' );
 				$new_columns['course_type']              = esc_html__( 'Course Type', 'eb-textdomain' );
-				$new_columns['course_enrollment_method'] = esc_html__( 'Enrollment Method', 'eb-textdomain' );
+				$new_columns['course_enrollment_method'] = esc_html__( 'Manual Enrollment', 'eb-textdomain' );
 			} else {
 				$new_columns[ $key ] = $value;
 			}
@@ -730,15 +767,19 @@ class Eb_Course_Manager {
 			echo ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'eb-textdomain' ) . '<span>' : esc_html( $mdl_course_id );
 		} elseif ( 'course_enrollment_method' === $column_name ) {
 			// Get stored sync data.
-			$enrolment_enabled = get_post_meta( $post_id, 'eb_course_manual_enrolment_enabled' );
+			$enrolment_enabled = get_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 1 );
+
+			// Get Moodle course id.
+			$moodle_course_id = get_post_meta( $post_id, 'moodle_course_id', 1);
 
 			// If data is not synced show refresh icon to sync
 			// store status in DB.
-			$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ';
+			$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
 			if ( $enrolment_enabled ) {
-				$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+				// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+				$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
 			}
-			$html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
+			// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
 			echo $html;
 		}
 
@@ -752,27 +793,79 @@ class Eb_Course_Manager {
 	 * @param array  $bulk_actions An array of row action links. .
 	 */
 	public function add_custom_bulk_action( $bulk_actions ) {
-		$bulk_actions['sync_enrollment'] = __('Sync Enrollment Method', 'txtdomain');
+		$bulk_actions['sync_enrollment'] = __('Sync Enrollment Method', 'eb-textdomain');
+		$bulk_actions['enable_manual_enrollment'] = __('Enable Enrollment Method', 'eb-textdomain');
 		return $bulk_actions;
 	}
 
 
-	/*handle_bulk_actions*/
+	/**
+	 * Handle course enrollment bulk action synchronization.
+	 *
+	 * @param string $redirect_url redirect url.
+	 * @param string $action action.
+	 * @param array $post_ids course id array.
+	 */
 	public function handle_custom_bulk_action( $redirect_url, $action, $post_ids ) {
 
-		if ($action == 'sync_enrollment') {
+		// Create courses data i.e create required course array
+		if ( 'sync_enrollment' == $action ) {
 			$courses_data = $this->sync_course_enrollment_method();
+			$response_array = array();
+			// get all courses data.
 			foreach ($courses_data as $course_data) {
 				$wp_course_id = $this->is_course_presynced( $course_data->courseid );
+				$response_array[] = $wp_course_id; 
+			}
 
-				if ( in_array($wp_course_id, $post_ids ) ) {
-					update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->enabled );
+			foreach ($post_ids as $post_id) {
+
+				if ( in_array($post_id, $response_array ) ) {
+					update_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', $course_data->enabled );
+				} else {
+					update_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 0 );
 				}
 			}
+		} elseif ( 'enable_manual_enrollment' == $action ) {
+			$mdl_course_ids = array();
+			foreach ($post_ids as $wp_course_id) {
+				$mdl_course_id = get_post_meta( $wp_course_id, 'moodle_course_id', 1 );
+				if ( $mdl_course_id ) {
+					$mdl_course_ids[] = $mdl_course_id;
+				}
+			}
+
+			$this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => $mdl_course_ids ) );
 		}
 
 		return $redirect_url;
 	}
+
+	/**
+	 * Handle single course synchronization.
+	 *
+	 */
+	public function eb_enable_course_enrollment_method( $course_id = '' ) {
+
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+
+		// start working on request.
+		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : '';
+
+		if ( $course_id ) {
+
+			// $courses_data = $this->sync_course_enrollment_method();
+
+			// Update course enrollment method.
+			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => array( $course_id ) ) );
+
+			wp_send_json_success();
+		}
+	}
+
 
 
 

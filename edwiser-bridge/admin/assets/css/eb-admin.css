@@ -17,7 +17,52 @@
   padding-right: 30px;
 }
 
-/**** END  ***/
+/******  Test connection error messages  ******/
+
+.eb_test_connection_log_open, .eb_test_connection_log_close{
+    cursor: pointer;
+    color: #0f6fc5;
+    text-decoration: underline;
+}
+
+
+.eb_connection_short_msg{
+    color: red;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.eb_test_connection_log{
+    display: none;
+    border: 1px solid #d6d6d6;
+    padding: 10px 10px 10px 20px;
+    background: #fafafa;
+}
+
+.eb_connection_err_response h4, .eb_connection_err_recommended_sec h4{
+    font-weight: 600;
+}
+
+.eb_connection_err_response div{
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.eb_connection_err_recommended_sec{
+    padding-top: 10px;
+}
+
+.eb_connection_err_recommended_sec div{
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 6px;
+}
+
+.eb_connection_err_recommended_sec ol li{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 
 /*****************  sidebar css  ****************/
 

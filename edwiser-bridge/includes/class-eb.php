@@ -699,9 +699,9 @@ class EdwiserBridge {
 		);
 
 		$this->loader->eb_add_action(
-			'wp_ajax_reload_course_enrollment_method',
+			'wp_ajax_enable_course_enrollment_method',
 			$this->course_manager(),
-			'eb_reload_course_enrollment_method'
+			'eb_enable_course_enrollment_method'
 		);
 
 		$gdpr_compatible = new Eb_Gdpr_Compatibility();

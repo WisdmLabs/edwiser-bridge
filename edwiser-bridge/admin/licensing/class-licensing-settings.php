@@ -221,6 +221,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 						$resp_data = $this->wdm_eb_activate_plugin( $post_data );
 						break;
 					case 'install_plugin':
+						$resp_data = $this->manage_license( $post_data, 'activate' );
 						$resp_data = $this->wdm_install_plugin( $post_data );
 						break;
 					default:

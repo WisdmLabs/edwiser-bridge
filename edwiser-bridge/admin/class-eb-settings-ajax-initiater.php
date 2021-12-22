@@ -135,7 +135,7 @@ class Eb_Settings_Ajax_Initiater {
 		$response          = $connection_helper->connection_test_helper( $url, $token );
 
 		if ( 0 === $response['success'] ) {
-			$response['response_message'] .= esc_html__( ' : to know more about this error', 'eb-textdomain' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a>';
+			// $response['response_message'] .= esc_html__( ' : to know more about this error', 'eb-textdomain' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'eb-textdomain' ) . '</a>';
 		}
 
 		echo wp_json_encode( $response );

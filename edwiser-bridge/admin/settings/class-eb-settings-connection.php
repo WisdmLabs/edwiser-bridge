@@ -110,7 +110,12 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 						'desc_tip' => false,
 						'class'    => 'button secondary',
 					),
-
+					array(
+						'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
+						'type'  => 'cust_html',
+						// 'id'    => 'eb_test_connection_response',
+					),
+					
 					array(
 						'type' => 'sectionend',
 						'id'   => 'connection_options',

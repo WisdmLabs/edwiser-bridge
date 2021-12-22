@@ -643,11 +643,11 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 					case 'cust_html':
 						?>
 							<tr>
-								<td>
+								<!-- <td> -->
 									<?php
 									echo wp_kses_post( $value['html'] );
 									?>
-								</td>
+								<!-- </td> -->
 							</tr>
 							<?php
 						break;
