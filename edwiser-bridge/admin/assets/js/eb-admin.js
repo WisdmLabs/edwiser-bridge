@@ -312,6 +312,8 @@
             //get selected options
             //
             $('.response-box').empty(); // empty the response
+            $('.eb_test_connection_response').empty(); // empty the response
+            
             var url = $('#eb_url').val();
             var token = $('#eb_access_token').val();
             var $this = $(this);
