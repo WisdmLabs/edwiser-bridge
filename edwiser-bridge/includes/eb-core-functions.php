@@ -517,6 +517,8 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 				'eb_get_site_data',
 				'eb_get_course_progress',
 				'eb_get_edwiser_plugins_info',
+				'edwiserbridge_local_get_course_enrollment_method',
+				'edwiserbridge_local_update_course_enrollment_method',
 			)
 		);
 

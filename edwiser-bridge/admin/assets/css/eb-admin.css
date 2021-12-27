@@ -655,11 +655,10 @@ span.eb-option-input .eb-option-div select {
 .eb_table_cell_1 {
   width: 20%;
   font-weight: bold;
-  font-size: 1.1em;
 }
 
 .eb_table_cell_2 {
-  width: 35%;
+  width: 33%;
 }
 
 .eb_table_cell_2 input {
@@ -667,7 +666,7 @@ span.eb-option-input .eb-option-div select {
 }
 
 .eb_table_cell_3 {
-  width: 8%;
+  width: 10%;
 }
 
 .eb_table_cell_4 {

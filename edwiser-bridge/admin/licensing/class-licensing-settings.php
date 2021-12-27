@@ -288,9 +288,9 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 						$resp['msg'] = $installed->get_error_messages();
 					} elseif ( $installed ) {
 						$status = get_option( 'edd_' . $slug . '_license_status' );
-						if ( 'valid' === $status || 'expired' === $status ) {
+						/*if ( 'valid' === $status || 'expired' === $status ) {
 							$this->manage_license( $post_data, 'activate' );
-						}
+						}*/
 						$resp['msg']          = __( 'Plugin installed sucessfully.', 'eb-textdomain' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
