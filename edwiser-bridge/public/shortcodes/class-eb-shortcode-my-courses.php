@@ -72,33 +72,6 @@ class Eb_Shortcode_My_Courses {
 	}
 
 	/**
-	 * Get user courses.
-	 *
-	 * @param text $user_id user.
-	 */
-/*	public function get_user_courses( $user_id = null ) {
-		$user_id = ! is_numeric( $user_id ) ? get_current_user_id() : (int) $user_id;
-
-		$courses = get_posts(
-			array(
-				'post_type'      => 'eb_course',
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-			)
-		);
-
-		$user_courses = array();
-
-		foreach ( $courses as $course ) {
-			if ( edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course->ID ) ) {
-				$user_courses[] = $course->ID;
-			}
-		}
-
-		return $user_courses;
-	}*/
-
-	/**
 	 * Show my courses.
 	 *
 	 * @param text $my_courses my_courses.
@@ -185,12 +158,9 @@ class Eb_Shortcode_My_Courses {
 			<h5>
 				<?php
 				printf(
-					do_action(
-					'eb_logged_in_user_empty_my_courses_msg',
 					/* Translators 1: URL */
-						esc_html__( 'You are not enrolled to any course. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to access the courses page.', 'eb-textdomain' ),
-						"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
-					)
+					esc_html__( 'You are not enrolled to any course. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to access the courses page.', 'eb-textdomain' ),
+					"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
 				);
 				?>
 			</h5>

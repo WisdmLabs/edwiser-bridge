@@ -17,6 +17,10 @@
   padding-right: 30px;
 }
 
+.eb-form-content-wrap .select2.select2-container {
+    width: 50% !important;
+}
+
 /******  Test connection error messages  ******/
 
 .eb_test_connection_log_open, .eb_test_connection_log_close{
