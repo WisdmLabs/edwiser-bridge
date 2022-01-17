@@ -218,6 +218,13 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.3 =
+* Feature - Setting to ignore the SSL certificate check to improve connection check with moodle.
+* Feature - Ability to the course manually enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
+* Feature - Ability to enable course manual enrollment.
+* Tweak - Improved Moodle test connection error message now added more details about the error.
+* Fix- Fixe for the auto plugin installation/activation process from Edwiser bridge.
+
 = 2.1.2 =
 * Feature - Added functionality to create course on WordPress if created on Moodle.
 * Feature - Repurchase option for the suspended course on single course page.
