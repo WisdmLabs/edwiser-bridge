@@ -75,8 +75,8 @@ class Eb_Admin_Notice_Handler {
 		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
 		$request_args    = array(
 			'sslverify' => false,
-			'body'    => array(),
-			'timeout' => 100,
+			'body'      => array(),
+			'timeout'   => 100,
 		);
 		$response        = wp_remote_post( $request_url, $request_args );
 
@@ -116,7 +116,7 @@ class Eb_Admin_Notice_Handler {
 
 								<div class="eb_update_notice_content">
 									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									<a href="https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
 									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
 
 										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
@@ -142,7 +142,7 @@ class Eb_Admin_Notice_Handler {
 
 								<div class="eb_update_notice_content">
 									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
+									<a href="https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
 									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
 
 										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
@@ -340,15 +340,15 @@ class Eb_Admin_Notice_Handler {
 	public function eb_show_inline_plugin_update_notification( $curr_plugin_meta_data, $new_plugin_meta_data ) {
 		ob_start();
 		?>
-			<p>
-				<strong><?php echo esc_html__( 'Important Update Notice:', 'eb-textdomain' ); ?></strong>
-				<?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'eb-textdomain' ); ?>
-				<a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?></a>
-				<?php echo esc_html__( ' to download', 'eb-textdomain' ); ?>
+<p>
+    <strong><?php echo esc_html__( 'Important Update Notice:', 'eb-textdomain' ); ?></strong>
+    <?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'eb-textdomain' ); ?>
+    <a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?></a>
+    <?php echo esc_html__( ' to download', 'eb-textdomain' ); ?>
 
-			</p>
+</p>
 
-		<?php
+<?php
 		echo wp_kses( ob_get_clean(), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 
 		// added this just for commit purpose.
