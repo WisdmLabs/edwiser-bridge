@@ -1114,7 +1114,7 @@ class EBUserManager {
 			$new_p = $pass; // get new password entered by user.
 
 			$user_data = array(
-				'id'       => $moodle_user_id,
+				'id'       => (int) $moodle_user_id,
 				'password' => $new_p,
 			);
 

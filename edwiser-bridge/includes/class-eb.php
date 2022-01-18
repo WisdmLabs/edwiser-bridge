@@ -798,7 +798,7 @@ class EdwiserBridge {
 
 		// password sync with moodle on profile update & password reset.
 		$this->loader->eb_add_action( 'profile_update', $this->user_manager(), 'password_update', 10, 2 );
-		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'password_reset', 10, 2 );
+		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'password_reset', 1, 2 );
 
 		/*
 		 * In case a user is permanentaly deleted from WordPress,
@@ -808,7 +808,7 @@ class EdwiserBridge {
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
 		// Hook to update password on Moodle if updated on WordPress when user is linked with Moodle.
-		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'eb_password_reset_update', 1, 2 );
+		// $this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'eb_password_reset_update', 1, 2 );
 	}
 
 	/**
