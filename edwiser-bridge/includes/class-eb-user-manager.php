@@ -261,31 +261,6 @@ class EBUserManager {
 
 
 	/**
-	 * Update password on Moodle when updated on WordPress.
-	 * This function gets triggered when password reset link sent to the email through Edwiser Bridge User-account and Woocommerce My-account page.
-	 *
-	 * @param object $user user object of the user which is updated.
-	 * @param text $password updated password.
-	 * 
-	 * @since  2.1.2
-	 */
-	public static function eb_password_reset_update( $user_obj, $password ) {
-
-		$mdl_uid = get_user_meta( $user_obj->ID, 'moodle_user_id', true );
-
-		if ( is_numeric( $mdl_uid ) && ! empty( $password ) ) {
-			$user_data = array(
-				'id' => (int) $mdl_uid,
-			);
-
-			$user_data['password'] = $password;
-			$response     = $this->create_moodle_user( $user_data, 1 );
-		}
-	}
-
-
-
-	/**
 	 * Initiate the process to link users to moodle, get user's who have not linked to moodle
 	 * and link them to moodle
 	 *
