@@ -244,7 +244,7 @@ class Eb_Welcome {
 				</p>
 
 				<p class="eb_welcome_mdl_dwnld_btn_wrap">
-					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
+					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
 				</p>
 
 				<div class="changelog prompt-subscribe-wrap">

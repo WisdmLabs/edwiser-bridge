@@ -17,7 +17,56 @@
   padding-right: 30px;
 }
 
-/**** END  ***/
+.eb-form-content-wrap .select2.select2-container {
+    width: 50% !important;
+}
+
+/******  Test connection error messages  ******/
+
+.eb_test_connection_log_open, .eb_test_connection_log_close{
+    cursor: pointer;
+    color: #0f6fc5;
+    text-decoration: underline;
+}
+
+
+.eb_connection_short_msg{
+    color: red;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.eb_test_connection_log{
+    display: none;
+    border: 1px solid #d6d6d6;
+    padding: 10px 10px 10px 20px;
+    background: #fafafa;
+}
+
+.eb_connection_err_response h4, .eb_connection_err_recommended_sec h4{
+    font-weight: 600;
+}
+
+.eb_connection_err_response div{
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.eb_connection_err_recommended_sec{
+    padding-top: 10px;
+}
+
+.eb_connection_err_recommended_sec div{
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 6px;
+}
+
+.eb_connection_err_recommended_sec ol li{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 
 /*****************  sidebar css  ****************/
 
@@ -610,11 +659,10 @@ span.eb-option-input .eb-option-div select {
 .eb_table_cell_1 {
   width: 20%;
   font-weight: bold;
-  font-size: 1.1em;
 }
 
 .eb_table_cell_2 {
-  width: 35%;
+  width: 33%;
 }
 
 .eb_table_cell_2 input {
@@ -622,7 +670,7 @@ span.eb-option-input .eb-option-div select {
 }
 
 .eb_table_cell_3 {
-  width: 8%;
+  width: 10%;
 }
 
 .eb_table_cell_4 {

@@ -108,7 +108,7 @@ class EdwiserBridge {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'edwiserbridge';
-		$this->version     = '2.1.2';
+		$this->version     = '2.1.3';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_plugin_hooks();
@@ -698,6 +698,12 @@ class EdwiserBridge {
 			'reset_email_template_content'
 		);
 
+		$this->loader->eb_add_action(
+			'wp_ajax_enable_course_enrollment_method',
+			$this->course_manager(),
+			'eb_enable_course_enrollment_method'
+		);
+
 		$gdpr_compatible = new Eb_Gdpr_Compatibility();
 		/**
 		 * Used to add eb personal while exporting personal data.
@@ -792,7 +798,7 @@ class EdwiserBridge {
 
 		// password sync with moodle on profile update & password reset.
 		$this->loader->eb_add_action( 'profile_update', $this->user_manager(), 'password_update', 10, 2 );
-		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'password_reset', 10, 2 );
+		$this->loader->eb_add_action( 'password_reset', $this->user_manager(), 'password_reset', 1, 2 );
 
 		/*
 		 * In case a user is permanentaly deleted from WordPress,
@@ -801,6 +807,7 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
+		
 	}
 
 	/**
@@ -904,10 +911,27 @@ class EdwiserBridge {
 		$this->loader->eb_add_action(
 			'manage_eb_course_posts_custom_column',
 			$this->course_manager(),
-			'add_course_price_type_column_content',
+			'add_column_in_courses_table',
 			10,
 			2
 		);
+
+		$this->loader->eb_add_action(
+			'bulk_actions-edit-eb_course',
+			$this->course_manager(),
+			'add_custom_bulk_action',
+			10,
+			1
+		);
+		
+		$this->loader->eb_add_filter(
+			'handle_bulk_actions-edit-eb_course',
+			$this->course_manager(),
+			'handle_custom_bulk_action',
+			10,
+			3
+		);
+
 		$this->loader->eb_add_action(
 			'post_row_actions',
 			$this->course_manager(),

@@ -237,10 +237,7 @@
 
 
 
-        /*$("#enrollment_from_date").focusout(function(){
 
-
-        });*/
 
 
         function is_valid_date(s) {
@@ -256,7 +253,54 @@
         /*******  END  ******/
 
 
+        $(document).on('click', '.eb_test_connection_log_open', function (event) {
+            $('.eb_test_connection_log_open').addClass('eb_test_connection_log_close');
+            $('.eb_test_connection_log_close').removeClass('eb_test_connection_log_open');
+            $(".eb_test_connection_log").slideDown();
+        });
 
+        $(document).on('click', '.eb_test_connection_log_close', function (event) {
+            $('.eb_test_connection_log_close').addClass('eb_test_connection_log_open');
+            $('.eb_test_connection_log_open').removeClass('eb_test_connection_log_close');
+            $(".eb_test_connection_log").slideUp();
+        });
+
+
+        /**
+         * Reload the Moodle course enrollment.
+         */
+         $('.eb-enable-manual-enrolment').click(function(){
+
+            // Create loader.
+            var loader_html = '<span class="eb-load-response"><img src="' + eb_admin_js_object.plugin_url + 'images/loader.gif" height="20" width="20" /></span>';
+            var current = $(this);
+            var course_id = $(this).data('courseid');
+
+            current.append(loader_html);
+
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'enable_course_enrollment_method',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    current.find('.eb-load-response').remove();
+                    //prepare response for user
+                    if (response.success == 1) {
+                        // Add succes icon and also remove.
+                        current.parent().html('<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>');
+
+                    } else {
+
+                    }
+                }
+            });
+
+         });
 
 
 
@@ -268,6 +312,8 @@
             //get selected options
             //
             $('.response-box').empty(); // empty the response
+            $('.eb_test_connection_response').empty(); // empty the response
+            
             var url = $('#eb_url').val();
             var token = $('#eb_access_token').val();
             var $this = $(this);
@@ -289,8 +335,8 @@
                     if (response.success == 1) {
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
                     } else {
-                        ohSnap(response.response_message, 'error', 0);
-                        // ohSnap(custom_response, 'error', 0);
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_connection_response').html(response.response_message);
                     }
                 }
             });

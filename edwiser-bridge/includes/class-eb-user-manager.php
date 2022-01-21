@@ -708,6 +708,7 @@ class EBUserManager {
 		foreach ( $user_data as $key => $value ) {
 			$users[0][ $key ] = $value;
 		}
+		
 		// prepare request data.
 		$request_data = array( 'users' => $users );
 		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
@@ -822,7 +823,7 @@ class EBUserManager {
 				}
 
 				// generate random password for moodle account, as user is already registered on WordPress.
-				$user_p = apply_filters( 'eb_filter_moodle_password', wp_generate_password() );
+				$user_p = wp_unslash( apply_filters( 'eb_filter_moodle_password', wp_generate_password() ) );
 
 				$user_data = array(
 					'username'  => $user->user_login,
@@ -1088,7 +1089,7 @@ class EBUserManager {
 			$new_p = $pass; // get new password entered by user.
 
 			$user_data = array(
-				'id'       => $moodle_user_id,
+				'id'       => (int) $moodle_user_id,
 				'password' => $new_p,
 			);
 

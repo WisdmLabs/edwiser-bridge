@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2021/09/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -218,6 +218,13 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.3 =
+* Feature - Setting to ignore the SSL certificate check to improve connection check with moodle.
+* Feature - Ability to the course manually enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
+* Feature - Ability to enable course manual enrollment.
+* Tweak - Improved Moodle test connection error message now added more details about the error.
+* Fix- Fixe for the auto plugin installation/activation process from Edwiser bridge.
+
 = 2.1.2 =
 * Feature - Added functionality to create course on WordPress if created on Moodle.
 * Feature - Repurchase option for the suspended course on single course page.
