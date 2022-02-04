@@ -774,12 +774,22 @@ class Eb_Course_Manager {
 
 			// If data is not synced show refresh icon to sync
 			// store status in DB.
-			$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
-			if ( $enrolment_enabled ) {
-				// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+			// $html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
+			// if ( $enrolment_enabled ) {
+			// 	// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+			// 	$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
+			// }
+			// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
+			if( $enrolment_enabled ){
 				$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
 			}
-			// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
+			elseif( "" == $enrolment_enabled ){
+				$html = '<span style="color:#2271b1;font-size:20px;" class="dashicons dashicons-update"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Sync', 'eb-textdomain' );
+			}
+			else{
+				$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
+			}
+			
 			echo $html;
 		}
 
