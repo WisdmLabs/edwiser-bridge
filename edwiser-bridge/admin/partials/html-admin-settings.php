@@ -8,6 +8,21 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+$show_banner = true;
+$extensions  = array(
+	'woocommerce-integration/bridge-woocommerce.php',
+	'selective-synchronization/selective-synchronization.php',
+	'edwiser-bridge-sso/sso.php',
+	'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
+);
+foreach ( $extensions as $plugin_path ) {
+	if ( is_plugin_active( $plugin_path ) ) {
+		$show_banner = false;
+	} else {
+		$show_banner = true;
+		break;
+	}
+}
 
 ?>
 <div class="wrap edw">
@@ -23,7 +38,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<h2 class="nav-tab-wrapper eb-nav-tab-wrapper">
 			<?php
 			foreach ( $tabs as $name => $label ) {
-				echo '<a href="' . esc_url( admin_url( 'admin.php?page=eb-settings&tab=' . $name ) ) .
+				if( !$show_banner && 'pfetures' === $name ) {
+					$do_not_show = 'style="display:none;"';
+				}
+				else{
+					$do_not_show = '';
+				}
+				echo '<a ' . $do_not_show . ' href="' . esc_url( admin_url( 'admin.php?page=eb-settings&tab=' . $name ) ) .
 				'" class="nav-tab ' . ( $current_tab === $name ? 'nav-tab-active' : '' ) . '">'
 				. esc_html( $label ) .
 				'</a>';
@@ -50,21 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 			<?php
-			$show_banner = true;
-			$extensions  = array(
-				'woocommerce-integration/bridge-woocommerce.php',
-				'selective-synchronization/selective-synchronization.php',
-				'edwiser-bridge-sso/sso.php',
-				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
-			);
-			foreach ( $extensions as $plugin_path ) {
-				if ( is_plugin_active( $plugin_path ) ) {
-					$show_banner = false;
-				} else {
-					$show_banner = true;
-					break;
-				}
-			}
+			
 			if ( in_array( $tabname, array( 'remui', 'pfetures' ), true ) ) {
 				$show_banner = false;
 			}
