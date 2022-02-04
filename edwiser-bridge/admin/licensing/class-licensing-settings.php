@@ -254,11 +254,13 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				'notice_class' => 'notice-error',
 			);
 			$slug            = $post_data['action'];
-			$chec_plugin_dep = $this->check_plugin_dependancy( $slug );
-			if ( false !== $chec_plugin_dep ) {
-				$resp['msg'] = $chec_plugin_dep;
-				return $resp;
-			}
+
+			//removed dependency check during install plugin action.
+			// $chec_plugin_dep = $this->check_plugin_dependancy( $slug );
+			// if ( false !== $chec_plugin_dep ) {
+			// 	$resp['msg'] = $chec_plugin_dep;
+			// 	return $resp;
+			// }
 
 			$plugin_data               = $this->products_data[ $slug ];
 			$plugin_data['edd_action'] = 'get_version';
