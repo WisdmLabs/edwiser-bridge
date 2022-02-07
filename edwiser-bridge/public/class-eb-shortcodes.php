@@ -50,7 +50,7 @@ class Eb_Shortcodes {
 		$function,
 		$atts = array(),
 		$wrapper = array(
-			'class'  => '',
+			'class'  => 'edwiser-bridge',
 			'before' => null,
 			'after'  => null,
 		)

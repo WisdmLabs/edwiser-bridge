@@ -3,17 +3,15 @@
  * included in this file.
  */
 
-
 /*-----------------------
  * All buttons related styles
  ------------------------*/
 
 /*Pagination buttons*/
-.page-numbers .wdm-btn.button{
+.page-numbers .wdm-btn.button {
   /*padding: 10px 25px 10px 18px;*/
   vertical-align: middle;
 }
-
 
 #wdm-btn,
 #eb_course_payment_button {
@@ -28,7 +26,6 @@
   text-align: center;
   vertical-align: text-top;
 }
-
 
 .wdm-btn.eb_secondary_btn {
   background: #ffffff;
@@ -54,7 +51,6 @@
   font-size: 14px;
 }
 
-
 .navigation.pagination div .prev.page-numbers:hover,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn:hover,
 .navigation.pagination div .next.page-numbers:hover,
@@ -63,8 +59,6 @@
 .prev.page-numbers:hover {
   /*padding: 7px 20px;*/
 }
-
-
 
 .navigation.pagination div .prev.page-numbers,
 .navigation.pagination div .prev.page-numbers.eb_primary_btn,
@@ -97,7 +91,6 @@
   color: #00a1a8;
 }
 
-
 /*.eb-course-card-title-wrap {
   padding: 4px 0px;
 }*/
@@ -117,7 +110,7 @@
   text-align: left;
 }
 
-.eb-course-title{
+.eb-course-title {
   height: 43px;
 }
 
@@ -129,7 +122,6 @@
 .eb_single_course_title::first-letter {
   text-transform: uppercase;
 }
-
 
 /*  REMOVE  */
 
@@ -154,7 +146,6 @@
   position: relative;
   top: 0px;
 }
-
 
 /*Archive page filter and sorting*/
 .eb_filter_and_sorting {
@@ -196,18 +187,18 @@
   color: #444444;
 }
 
-#eb_category_sort, #eb_category_filter{
+#eb_category_sort,
+#eb_category_filter {
   width: auto;
   margin-left: 10px;
 }
-
 
 .eb-primary {
   padding: 0px 20px;
 }
 
 /*Divi theme compatibility*/
-.container.eb-primary::before{
+.container.eb-primary::before {
   display: none;
 }
 
@@ -316,9 +307,7 @@
   background-color: #1ab900;
 }
 
-
 /**********/
-
 
 /***  Theme compatibility *****/
 .eb-archive-container #primary.twentyseventeen {
@@ -352,7 +341,6 @@
 .eb-user-data div {
   padding-top: 3%;
 }
-
 
 /*
  * user account terms and conditions style
@@ -410,7 +398,6 @@
   border: 1px solid #0000003d;
 }
 
-
 /*
  * End
  */
@@ -418,7 +405,6 @@
 .eb-user-account-terms {
   display: none;
 }
-
 
 /**
  * course archive template style
@@ -436,15 +422,6 @@
   margin: 1em 0em;
   padding: 0 0.5em;
 }
-
-
-.eb-my-course,
-.eb-rec-courses {}
-
-.sc-eb_courses-wrapper .eb-course-col,
-.eb-my-courses-wrapper .eb-course-col,
-.eb-rec-courses-wrapper .eb-course-col {}
-
 
 .wdm-course-grid:hover {
   z-index: 500;
@@ -481,7 +458,6 @@
   border-top-left-radius: 3px;
 }
 
-
 .wdm-course-image img {
   height: 100%;
   transition: all 0.2s ease-in-out 0s;
@@ -516,6 +492,9 @@
 @media (max-width: 767px) {
   .eb_course_cards_wrap .wdm-col-3-2-1.hentry {
     width: 46%;
+  }
+  .eb-user-account-navigation {
+    position: inherit !important;
   }
 }
 
@@ -608,13 +587,11 @@ p.read-more {
   text-align: center;
 }
 
-
 /* for single course take course button css*/
 
 div.eb_join_button {
   margin-top: 5px;
 }
-
 
 /* for course archive take course button */
 
@@ -627,13 +604,11 @@ nav.navigation {
   clear: both;
 }
 
-
 /** single course template customization */
 
 article.single-course {
   padding: 30px 15px 15px 15px;
 }
-
 
 /* for course not available */
 
@@ -647,7 +622,6 @@ div.course-not-available {
     font-size: 1.1rem;
   }
 }
-
 
 /* user login and registration page styling */
 
@@ -740,8 +714,8 @@ div.course-not-available {
 
 .eb-user-account-navigation-wrap {
   border: 1px solid #dddddd;
-  position: sticky;
   position: -webkit-sticky;
+  position: sticky;
   top: 0;
 }
 
@@ -765,8 +739,6 @@ div#user_login label {
   letter-spacing: 0.1em;
 }
 
-
-
 /* user profile shortcode style */
 
 .eb-user-account-navigation {
@@ -777,26 +749,28 @@ div#user_login label {
 .eb-user-account-content {
   float: right;
   width: 70%;
+  max-width: 800px;
   padding: 2rem 1rem;
-  border: 1px solid #ddd;
   flex-grow: 1;
   background: white;
-  margin-left: 1rem;
 }
 
 .eb-user-profile {
   padding: 10px;
-  border-radius: 3px;
   display: flex;
   align-content: flex-start;
   justify-content: space-around;
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 900px;
   margin: auto;
+  gap: 1rem;
 }
-
+.eb-user-account-content,
+.eb-user-account-navigation {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
 .wdm-transaction-header h4 {
   margin-top: 2px;
 }
@@ -913,9 +887,9 @@ div#user_login label {
   font-size: 13px;
 }
 
-
 /* eb-pagination styling start */
-.eb-page-numbers, .page-numbers {
+.eb-page-numbers,
+.page-numbers {
   vertical-align: middle;
   padding: 10px;
   margin: 0;
@@ -936,12 +910,10 @@ div#user_login label {
   padding-top: 30px;
 }
 
-
 /*.navigation.pagination div .page-numbers:first-child,*/
 
 .navigation.pagination div .page-numbers.current,
 .page-numbers.current {
-  /*border-left: 1px solid #eee;*/
   background: #e5e5e5;
   border: 1px solid #e5e5e5;
   box-sizing: border-box;
@@ -974,7 +946,6 @@ nav.eb-pagination ul li {
 }
 
 /* eb-pagination styling end */
-
 
 /* Shortcode eb_courses wrapper */
 
@@ -1071,9 +1042,6 @@ nav.eb-pagination ul li {
     width: 100%;
   }
   /*Old Template compatibility*/
-  /*.eb-cat-courses-cont > .eb-course-col {
-      min-width: 60% !important;
-    }*/
   .eb-user-profile {
     flex-wrap: wrap;
     flex-direction: column;
@@ -1086,10 +1054,6 @@ nav.eb-pagination ul li {
   }
   .eb-user-account-content {
     width: 100%;
-  }
-  .eb-user-account-navigation {
-    position: inherit !important;
-    margin-bottom: 1rem;
   }
   .eb-user-account-content {
     margin-left: 0;
@@ -1135,7 +1099,6 @@ nav.eb-pagination ul li {
 .eb-rec-courses-view-more {
   display: block;
   clear: both;
-  /*float: right;*/
   text-align: right;
 }
 
@@ -1156,23 +1119,6 @@ nav.eb-pagination ul li {
   padding-left: 5%;
 }
 
-
-/*.wdm-col-3-2-1.hentry.eb_my_course_article {
-
-  height: 315px;
-  width: 230px;
-  min-width: 230px;
-}
-
-.wdm-col-3-2-1.hentry {
-  margin-top: 10px;
-  padding-top: 0;
-  border-radius: 3px;
-  height: 315px;
-  width: 230px;
-  min-width: 230px;
-}*/
-
 .eb_course_cards_wrap {
   display: flex;
   flex-wrap: wrap;
@@ -1190,12 +1136,6 @@ nav.eb-pagination ul li {
   min-width: 230px;
   max-width: 300px;
 }
-
-.eb-archive-container {
-  /*display: -webkit-box;*/
-  /*display: flex;*/
-}
-
 
 /* @ Edit user profile styling */
 
@@ -1226,9 +1166,7 @@ nav.eb-pagination ul li {
   color: #999999;
 }
 
-
 /* Edit user profile styling @ */
-
 
 /* Category Page */
 
@@ -1236,14 +1174,13 @@ nav.eb-pagination ul li {
   padding-top: 5% !important;
 }
 
-
 /**
 * Start eb-courses page shortcode styling
 */
 
 .eb-cat-parent {
-    display: block;
-    position: relative;
+  display: block;
+  position: relative;
 }
 
 .eb-cat-courses-cont {
@@ -1291,17 +1228,10 @@ nav.eb-pagination ul li {
 .eb-cat-courses-cont .eb-scroll-left:hover,
 .eb-cat-courses-cont .eb-scroll-left:active,
 .eb-cat-courses-cont .eb-scroll-left:focus {
-  /*border: 0px;*/
   background: white;
 }
 
-
 /*Old Template compatibility*/
-
-
-/*.eb-cat-courses-cont > .eb-course-col {
-  min-width: 27%;
-}*/
 
 .eb-cat-courses-cont::-webkit-scrollbar {
   width: 0px;
@@ -1351,12 +1281,9 @@ nav.eb-pagination ul li {
   font-weight: bold;
   font-size: 16px;
   line-height: 19px;
-  /* identical to box height */
   text-transform: uppercase;
   color: #999999;
-  /*border-bottom: 1px solid;*/
 }
-
 
 /**
 * End eb-courses page shortcode styling
@@ -1369,7 +1296,6 @@ nav.eb-pagination ul li {
 .eb-user-order-courses {
   list-style: none;
 }
-
 
 /**
 * New User Login form Style start.
@@ -1429,7 +1355,6 @@ nav.eb-pagination ul li {
 
 .wdm-eb-form-row-first {
   flex-grow: 1;
-  /* padding-right: 0.5rem; */
 }
 
 .wdm-eb-form-row-last {
@@ -1449,6 +1374,7 @@ nav.eb-pagination ul li {
   padding-bottom: 25px;
 }
 .eb-user-account-navigation {
+  position: -webkit-sticky;
   position: sticky;
   top: 7rem;
   display: flex;
@@ -1456,13 +1382,10 @@ nav.eb-pagination ul li {
   justify-content: flex-start;
   align-items: stretch;
   align-self: flex-start;
-  position: -webkit-sticky;
-  border: 1px solid #dddddd;
 }
 /**
 * New User Login form Style end.
 */
-
 
 /*
  * Css which we will remove in next update
@@ -1472,11 +1395,14 @@ nav.eb-pagination ul li {
   display: none;
 }
 
-
-.eb-cat-wrapper{
+.eb-cat-wrapper {
   margin-top: 20px;
   border-bottom: 1px solid #dddddd;
   border-top: 1px solid #dddddd;
   padding: 10px 0px;
 }
 
+.edwiser-bridge {
+  max-width: 1000px !important;
+  width: 100%;
+}

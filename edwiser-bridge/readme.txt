@@ -218,6 +218,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.4 =
+* Fix- Fixed error on reset password hook.
+
 = 2.1.3 =
 * Feature - Setting to ignore the SSL certificate check to improve connection check with moodle.
 * Feature - Ability to the course manually enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
