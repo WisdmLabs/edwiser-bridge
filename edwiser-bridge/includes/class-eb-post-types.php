@@ -358,7 +358,7 @@ class Eb_Post_Types {
 				'num_days_course_access'   => array(
 					'label'       => __( 'Expire Access After (days)', 'eb-textdomain' ),
 					'description' => __( 'Number of days the course is accessible', 'eb-textdomain' ),
-					'type'        => 'text',
+					'type'        => 'number',
 					'default'     => '',
 				),
 				'course_short_description' => array(
