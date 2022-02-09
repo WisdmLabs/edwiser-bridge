@@ -484,7 +484,7 @@ a.browse-all:hover {
 .response-box {
   text-shadow: none;
   display: inline-block;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   /*position: absolute;*/
 }
 
@@ -1167,9 +1167,10 @@ span.eb-option-input .eb-option-div select {
 
 /*** START User Sync CSS ***/
 .linkresponse-box {
-  margin-top: 0%;
-  position: absolute;
-  margin-left: 20px;
+  margin-top: 3%;
+  /* position: absolute; */
+  /* margin-left: 20px; */
+  display: block;
 }
 
 @media screen and (max-width: 640px) {
