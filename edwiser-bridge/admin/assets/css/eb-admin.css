@@ -43,6 +43,14 @@
     background: #fafafa;
 }
 
+.eb_test_conct_log_url{
+    max-width: 400px;
+    width: 75%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
 .eb_connection_err_response h4, .eb_connection_err_recommended_sec h4{
     font-weight: 600;
 }
