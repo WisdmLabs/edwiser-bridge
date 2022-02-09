@@ -296,7 +296,7 @@ class EBConnectionHelper {
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Url : ', 'eb-textdomain' ) . '</b></div>
-	                                	<div>' . $url .'</div>
+	                                	<div class="eb_test_conct_log_url">' . $url .'</div>
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Response : ', 'eb-textdomain' ) . '</b></div>
