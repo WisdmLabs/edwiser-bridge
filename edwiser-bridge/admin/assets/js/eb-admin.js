@@ -291,11 +291,15 @@
                     current.find('.eb-load-response').remove();
                     //prepare response for user
                     if (response.success == 1) {
+                        $("#moodleLinkUnlinkUserNotices").css("display", "none");
                         // Add succes icon and also remove.
                         current.parent().html('<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>');
 
                     } else {
-
+                        $("#moodleLinkUnlinkUserNotices").css("display", "block");
+                        $("#moodleLinkUnlinkUserNotices").removeClass("updated");
+                        $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
+                        $("#moodleLinkUnlinkUserNotices").children().html(response.data["message"]);
                     }
                 }
             });
