@@ -939,6 +939,11 @@ class EdwiserBridge {
 			10,
 			2
 		);
+		$this->loader->eb_add_action(
+			'admin_notices',
+			$this->course_manager(),
+			'handle_custom_bulk_action_result_admin_notice'
+		);
 
 		// handles addtion of new blog.
 
