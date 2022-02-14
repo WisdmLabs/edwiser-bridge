@@ -662,6 +662,7 @@ div.course-not-available {
 
 .eb-profile-form-submit .button-primary {
   float: right;
+  padding: 10px 25px;
 }
 
 #eb-update-profile legend {
@@ -683,6 +684,10 @@ div.course-not-available {
   height: 10em;
 }
 
+.eb-profile-txt-area-field textarea {
+  width: 100%;
+}
+
 .eb-profile-txt-area-field,
 .eb-profile-password-field,
 .eb-profile-txt-field {
@@ -698,7 +703,8 @@ div.course-not-available {
 .eb-profile-txt-field input[type="email"],
 .eb-profile-txt-field input[type="text"],
 .eb-profile-txt-field input[type="password"] {
-  width: 100%;
+  /* width: 100%; */
+  width: -webkit-fill-available;
   padding: 0.75em;
   height: auto;
 }
