@@ -865,10 +865,11 @@ class Eb_Course_Manager {
 			$count = 0;
 			foreach ($post_ids as $wp_course_id) {
 				$mdl_course_id = get_post_meta( $wp_course_id, 'moodle_course_id', 1 );
-				if ( $mdl_course_id ) {
+				$mdl_course_deleted = Eb_Post_Types::get_post_options( $wp_course_id, 'mdl_course_deleted', 'eb_course' );
+				if ( $mdl_course_id && empty( $mdl_course_deleted ) ) {
 					$mdl_course_ids[] = $mdl_course_id;
+					$count++;
 				}
-				$count++;
 			}
 
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => $mdl_course_ids ) );
