@@ -41,7 +41,8 @@ $template_loader = new EbTemplateLoader(
  * --------------------------------------
  **/
 
-get_header();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_header();
+
 
 /*
  *-------------------------------------
@@ -101,4 +102,4 @@ do_action( 'eb_archive_after_sidebar', $wrapper_args );
 
 $template_loader->wp_get_template( 'global/wrapper-end.php', $wrapper_args );
 
-get_footer();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_footer();

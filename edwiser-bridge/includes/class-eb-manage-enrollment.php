@@ -252,7 +252,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				if ( $res ) {
 					$course_name = get_the_title( $course_id );
 					$user        = get_userdata( $user_id );
-					$response    = ucfirst( $user->user_login ) . " has been unenrolled from the $course_name course";
+					$response    = ucfirst( $user->user_login ) . esc_html_e( ' has been unenrolled from the $course_name course', 'eb-textdomain' );
 					wp_send_json_success( $response );
 				} else {
 					wp_send_json_error( $response );

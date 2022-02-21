@@ -960,3 +960,69 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 		return $course_url;
 	}
 }
+if ( ! function_exists( 'wdm_eb_get_header' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 *
+	 * @return array returns course URL.
+	 */
+	function wdm_eb_get_header() {
+		
+		$my_theme = wp_get_theme();
+
+		if ( wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+			do_action( 'get_header', null, array() );
+
+			$var = array(
+				"blockName" => "core/template-part",
+				"attrs" => array( 
+				 	"slug" => "header",
+				 	"theme" => "twentytwentytwo" ),
+				"innerBlocks" => array(),
+				"innerHTML" => "",
+				"innerContent" => array()
+			);
+
+			echo render_block($var);
+			wp_head();
+		} else {
+			get_header();
+		}
+	}
+}
+
+
+
+if ( ! function_exists( 'wdm_eb_get_footer' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 *
+	 * @return array returns course URL.
+	 */
+	function wdm_eb_get_footer() {
+		
+		$my_theme = wp_get_theme();
+
+		if ( wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+			do_action( 'get_footer', null, array() );
+
+			$var = array(
+				"blockName" => "core/template-part",
+				"attrs" => array( 
+				 	"slug" => "footer",
+				 	"theme" => "twentytwentytwo" ),
+				"innerBlocks" => array(),
+				"innerHTML" => "",
+				"innerContent" => array()
+			);
+
+			echo render_block($var);
+			wp_footer();
+		} else {
+			get_footer();
+		}
+	}
+}
+
