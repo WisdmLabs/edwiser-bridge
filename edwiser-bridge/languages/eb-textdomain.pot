@@ -2433,7 +2433,7 @@ msgid "Failed"
 msgstr ""
 
 #: includes/class-eb-order-history-meta.php:137
-#: includes/class-eb-post-types.php:404
+#: includes/class-eb-order-manager.php:451 includes/class-eb-post-types.php:404
 msgid "Refunded"
 msgstr ""
 
@@ -3397,6 +3397,10 @@ msgstr ""
 
 #: public/templates/account/user-data.php:23
 msgid "Hello"
+msgstr ""
+
+#: public/templates/account/user-data.php:23
+msgid "not"
 msgstr ""
 
 #: public/templates/account/user-data.php:23
