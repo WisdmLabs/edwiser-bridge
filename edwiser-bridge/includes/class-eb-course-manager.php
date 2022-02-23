@@ -931,7 +931,7 @@ class Eb_Course_Manager {
 					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment enabled for' . ' %s ' . "courses", 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . "</p></div>";
 				}
 				else{
-					$message = "<div class='notice notice-error'><p>" . esc_html__($message, 'eb-textdomain' ) . "</p></div>";
+					$message = "<div class='notice notice-error'><p>". esc_html__( 'Please check if Course is deleted from Moodle or WordPress also check if Moodle Manual Enrollment is activate on Moodle ', 'eb-textdomain' ) ."</p><p>" . esc_html__( 'Error Message  : ' . $message, 'eb-textdomain' ) . "</p></div>";
 				}
 				echo $message;
 			}

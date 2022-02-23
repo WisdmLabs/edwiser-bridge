@@ -585,7 +585,7 @@ msgid "License Key for %s is deactivated"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:401
+#: admin/licensing/class-licensing-settings.php:402
 #: admin/settings/class-eb-bridge-summary.php:275
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
@@ -650,71 +650,71 @@ msgstr ""
 msgid "Invalid action."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:271
+#: admin/licensing/class-licensing-settings.php:272
 #: includes/class-eb-email-template-parser.php:196
 #: public/shortcodes/class-eb-shortcode-my-courses.php:100
 #: public/shortcodes/class-eb-shortcode-my-courses.php:163
 msgid "Click here"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:272
+#: admin/licensing/class-licensing-settings.php:273
 msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:272
+#: admin/licensing/class-licensing-settings.php:273
 msgid " to get the license key."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:295
+#: admin/licensing/class-licensing-settings.php:296
 msgid "Plugin installed sucessfully."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:298
+#: admin/licensing/class-licensing-settings.php:299
 msgid "Plugin installation failed."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:303
+#: admin/licensing/class-licensing-settings.php:304
 msgid ""
 "Empty download link. Please check your license key or contact edwiser "
 "support for more detials."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:318
+#: admin/licensing/class-licensing-settings.php:319
 msgid ""
 "Please installed and activate Edwiser WooCommerce Integration plugin first."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:320
+#: admin/licensing/class-licensing-settings.php:321
 msgid "Please installed and activate WooCommerce plugin first."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:383
+#: admin/licensing/class-licensing-settings.php:384
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:422
+#: admin/licensing/class-licensing-settings.php:423
 msgid "If you already own a license then click here"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:423
+#: admin/licensing/class-licensing-settings.php:424
 msgid "Get License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:427
+#: admin/licensing/class-licensing-settings.php:428
 msgid "If you wish to purchase Edwiser Bridge PRO then click here"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:428
+#: admin/licensing/class-licensing-settings.php:429
 msgid "Buy License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:432
+#: admin/licensing/class-licensing-settings.php:433
 msgid ""
 "If you already own one of the extensions, then click here to upgrade to "
 "Edwiser Bridge PRO"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:433
+#: admin/licensing/class-licensing-settings.php:434
 msgid "Upgrade License"
 msgstr ""
 
@@ -1715,48 +1715,8 @@ msgid ""
 "have problems."
 msgstr ""
 
-#: includes/class-eb-activator.php:236
-msgctxt "Page slug"
-msgid "thank-you-for-purchase"
-msgstr ""
-
-#: includes/class-eb-activator.php:237
-msgctxt "Page title"
-msgid "Thank You for Purchase"
-msgstr ""
-
 #: includes/class-eb-activator.php:238
 msgid "Thanks for purchasing the course, your order will be processed shortly."
-msgstr ""
-
-#: includes/class-eb-activator.php:242
-msgctxt "Page slug"
-msgid "user-account"
-msgstr ""
-
-#: includes/class-eb-activator.php:243
-msgctxt "Page title"
-msgid "User Account"
-msgstr ""
-
-#: includes/class-eb-activator.php:248
-msgctxt "Page slug"
-msgid "eb-my-courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:249
-msgctxt "Page title"
-msgid "My Courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:254
-msgctxt "Page slug"
-msgid "eb-courses"
-msgstr ""
-
-#: includes/class-eb-activator.php:255
-msgctxt "Page title"
-msgid "Courses"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:118
@@ -1921,25 +1881,53 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:777
-msgid "Enable"
+#: includes/class-eb-course-manager.php:793
+msgid "Sync"
 msgstr ""
 
 #: includes/class-eb-course-manager.php:796
+msgid "Enable"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:812
 msgid "Sync Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:797
+#: includes/class-eb-course-manager.php:813
 msgid "Enable Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:883
-msgid "View on Moodle"
+#: includes/class-eb-course-manager.php:878
+#: includes/class-eb-course-manager.php:963
+msgid "Manual Enrollment Plugin is not enabled/installed on moodle site."
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:54
-msgctxt "Column label"
-msgid "Record ID"
+#: includes/class-eb-course-manager.php:920
+#, php-format
+msgid "Manual enrollment status synced for %s courses"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:923
+msgid "Error in manual enrollment status sync"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:931
+#, php-format
+msgid "Manual enrollment enabled for %s courses"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:934
+msgid ""
+"Please check if Course is deleted from Moodle or WordPress also check if "
+"Moodle Manual Enrollment is activate on Moodle "
+msgstr ""
+
+#: includes/class-eb-course-manager.php:934
+msgid "Error Message  : "
+msgstr ""
+
+#: includes/class-eb-course-manager.php:989
+msgid "View on Moodle"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:55
@@ -1962,11 +1950,6 @@ msgstr ""
 #: includes/class-eb-custom-list-table.php:343
 #: includes/class-eb-post-types.php:352
 msgid "Unenroll"
-msgstr ""
-
-#: includes/class-eb-custom-list-table.php:367
-msgctxt "Unenrolles the selected students from the courses"
-msgid "Bulk Unenroll"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:389
@@ -2404,8 +2387,18 @@ msgstr ""
 msgid "No users has been unenrolled"
 msgstr ""
 
+#: includes/class-eb-manage-enrollment.php:246
+msgid "Failed to unenroll user"
+msgstr ""
+
 #: includes/class-eb-manage-enrollment.php:255
-msgid " has been unenrolled from the $course_name course"
+msgid " has been unenrolled from the "
+msgstr ""
+
+#: includes/class-eb-manage-enrollment.php:255
+#: public/class-eb-template-functions.php:77
+#: public/class-eb-template-functions.php:81
+msgid " course"
 msgstr ""
 
 #: includes/class-eb-manage-order-refund.php:61
@@ -3117,11 +3110,6 @@ msgstr ""
 msgid "Click to read more about"
 msgstr ""
 
-#: public/class-eb-template-functions.php:77
-#: public/class-eb-template-functions.php:81
-msgid " course"
-msgstr ""
-
 #: public/class-eb-template-functions.php:81
 msgid "Click to access"
 msgstr ""
@@ -3539,6 +3527,4 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
-
-
 

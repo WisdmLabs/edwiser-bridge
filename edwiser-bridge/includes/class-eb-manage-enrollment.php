@@ -243,7 +243,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * Ajax callback to unenroo the users from the database
 		 */
 		public function unenroll_user_ajax_handler() {
-			$response = 'Failed unenroll user';
+			$response = esc_html_e( 'Failed to unenroll user', 'eb-textdomain' );
 			if ( isset( $_POST['user_id'] ) && isset( $_POST['course_id'] ) && isset( $_POST['action'] ) && 'wdm_eb_user_manage_unenroll_unenroll_user' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 				$course_id = sanitize_text_field( wp_unslash( $_POST['course_id'] ) );
@@ -252,7 +252,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				if ( $res ) {
 					$course_name = get_the_title( $course_id );
 					$user        = get_userdata( $user_id );
-					$response    = ucfirst( $user->user_login ) . esc_html_e( ' has been unenrolled from the $course_name course', 'eb-textdomain' );
+					$response    = ucfirst( $user->user_login ) . esc_html__( ' has been unenrolled from the ', 'eb-textdomain' ) . $course_name . esc_html__( ' course', 'eb-textdomain' );
 					wp_send_json_success( $response );
 				} else {
 					wp_send_json_error( $response );
