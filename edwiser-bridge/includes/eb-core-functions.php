@@ -1026,3 +1026,19 @@ if ( ! function_exists( 'wdm_eb_get_footer' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wdm_eb_get_sidebar' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 *
+	 * @return array returns course URL.
+	 */
+	function wdm_eb_get_sidebar() {
+
+		$my_theme = wp_get_theme();
+
+		if ( ! wp_is_block_theme() || 'Twenty Twenty-Two' !== $my_theme->get( 'Name' ) ) {
+			get_sidebar();
+		} 
+	}
+}
