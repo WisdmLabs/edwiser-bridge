@@ -153,7 +153,7 @@
 		 * datatable js for user order history table
 		 */
 		$('#wdm_user_order_history').dataTable({
-			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+			"aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, ebDataTable.all]],
 			"iDisplayLength": 10,
 			"order": [[1, "desc"]],
 			"columnDefs": [{

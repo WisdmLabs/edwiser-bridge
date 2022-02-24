@@ -1715,8 +1715,48 @@ msgid ""
 "have problems."
 msgstr ""
 
+#: includes/class-eb-activator.php:236
+msgctxt "Page slug"
+msgid "thank-you-for-purchase"
+msgstr ""
+
+#: includes/class-eb-activator.php:237
+msgctxt "Page title"
+msgid "Thank You for Purchase"
+msgstr ""
+
 #: includes/class-eb-activator.php:238
 msgid "Thanks for purchasing the course, your order will be processed shortly."
+msgstr ""
+
+#: includes/class-eb-activator.php:242
+msgctxt "Page slug"
+msgid "user-account"
+msgstr ""
+
+#: includes/class-eb-activator.php:243
+msgctxt "Page title"
+msgid "User Account"
+msgstr ""
+
+#: includes/class-eb-activator.php:248
+msgctxt "Page slug"
+msgid "eb-my-courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:249
+msgctxt "Page title"
+msgid "My Courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:254
+msgctxt "Page slug"
+msgid "eb-courses"
+msgstr ""
+
+#: includes/class-eb-activator.php:255
+msgctxt "Page title"
+msgid "Courses"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:118
@@ -1930,6 +1970,11 @@ msgstr ""
 msgid "View on Moodle"
 msgstr ""
 
+#: includes/class-eb-custom-list-table.php:54
+msgctxt "Column label"
+msgid "Record ID"
+msgstr ""
+
 #: includes/class-eb-custom-list-table.php:55
 msgid "User"
 msgstr ""
@@ -1950,6 +1995,11 @@ msgstr ""
 #: includes/class-eb-custom-list-table.php:343
 #: includes/class-eb-post-types.php:352
 msgid "Unenroll"
+msgstr ""
+
+#: includes/class-eb-custom-list-table.php:367
+msgctxt "Unenrolles the selected students from the courses"
+msgid "Bulk Unenroll"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:389
@@ -2695,8 +2745,8 @@ msgstr ""
 
 #: includes/class-eb-post-types.php:308
 msgid ""
-"This filed is disabeld. Do not change the course id this will affect the "
-"course access for the existing enrollemnt."
+"This field is disabled. Do not change the course id this will affect the "
+"course access for the existing enrollment."
 msgstr ""
 
 #: includes/class-eb-post-types.php:313
@@ -3036,7 +3086,7 @@ msgstr ""
 msgid "Problems in processing your order, Please try later."
 msgstr ""
 
-#: public/class-eb-public.php:168 public/class-eb-public.php:183
+#: public/class-eb-public.php:168 public/class-eb-public.php:184
 msgid "Processing..."
 msgstr ""
 
@@ -3044,65 +3094,69 @@ msgstr ""
 msgid "Search:"
 msgstr ""
 
-#: public/class-eb-public.php:179
-msgid "No data available in table"
+#: public/class-eb-public.php:179 public/templates/course-filters.php:19
+msgid "All"
 msgstr ""
 
 #: public/class-eb-public.php:180
-msgid "Loading..."
+msgid "No data available in table"
 msgstr ""
 
 #: public/class-eb-public.php:181
-msgid "Search"
+msgid "Loading..."
 msgstr ""
 
 #: public/class-eb-public.php:182
+msgid "Search"
+msgstr ""
+
+#: public/class-eb-public.php:183
 msgid "No matching records found"
 msgstr ""
 
-#: public/class-eb-public.php:184
+#: public/class-eb-public.php:185
 msgid "Showing _START_ to _END_ of _TOTAL_ entries"
 msgstr ""
 
-#: public/class-eb-public.php:185
+#: public/class-eb-public.php:186
 msgid "Showing 0 to 0 of 0 entries"
 msgstr ""
 
-#: public/class-eb-public.php:186
+#: public/class-eb-public.php:187
 msgid "filtered from _MAX_ total entries"
 msgstr ""
 
-#: public/class-eb-public.php:188
+#: public/class-eb-public.php:189
 msgid ","
 msgstr ""
 
-#: public/class-eb-public.php:189
+#: public/class-eb-public.php:190
 msgid "Show _MENU_ entries"
 msgstr ""
 
-#: public/class-eb-public.php:190
+#: public/class-eb-public.php:191
 msgid "First"
 msgstr ""
 
-#: public/class-eb-public.php:191
+#: public/class-eb-public.php:192
 msgid "Last"
 msgstr ""
 
-#: public/class-eb-public.php:192
+#: public/class-eb-public.php:193
 #: public/shortcodes/class-eb-shortcode-courses.php:337
 #: public/templates/course-pagination.php:43
 msgid "Next"
 msgstr ""
 
-#: public/class-eb-public.php:193
+#: public/class-eb-public.php:194
 msgid "Previous"
 msgstr ""
 
-#: public/class-eb-public.php:194
+#: public/class-eb-public.php:195
 msgid ": activate to sort column ascending"
 msgstr ""
 
-#: public/class-eb-public.php:195
+#: public/class-eb-public.php:196
 msgid ": activate to sort column descending"
 msgstr ""
 
@@ -3456,10 +3510,6 @@ msgstr ""
 msgid "Filter Courses by Category:"
 msgstr ""
 
-#: public/templates/course-filters.php:19
-msgid "All"
-msgstr ""
-
 #: public/templates/course-filters.php:28
 msgid "Sort by:"
 msgstr ""
@@ -3527,4 +3577,3 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
-
