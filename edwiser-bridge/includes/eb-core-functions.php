@@ -1067,7 +1067,7 @@ if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 
 			echo render_block($var);
 		} else {
-			get_footer();
+			comments_template();
 		}
 	}
 }
