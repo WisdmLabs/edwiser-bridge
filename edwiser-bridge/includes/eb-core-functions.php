@@ -964,27 +964,25 @@ if ( ! function_exists( 'wdm_eb_get_header' ) ) {
 	/**
 	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
 	 * else print get_header()
-	 *
-	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_header() {
-		
 		$my_theme = wp_get_theme();
 
 		if ( wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
 			do_action( 'get_header', null, array() );
 
 			$var = array(
-				"blockName" => "core/template-part",
-				"attrs" => array( 
-				 	"slug" => "header",
-				 	"theme" => "twentytwentytwo" ),
-				"innerBlocks" => array(),
-				"innerHTML" => "",
-				"innerContent" => array()
+				'blockName'    => 'core/template-part',
+				'attrs'        => array(
+					'slug'  => 'header',
+					'theme' => 'twentytwentytwo',
+				),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
 			);
 
-			echo render_block($var);
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
 			wp_head();
 		} else {
 			get_header();
@@ -998,27 +996,25 @@ if ( ! function_exists( 'wdm_eb_get_footer' ) ) {
 	/**
 	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
 	 * else print get_header()
-	 *
-	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_footer() {
-		
 		$my_theme = wp_get_theme();
 
 		if ( wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
 			do_action( 'get_footer', null, array() );
 
 			$var = array(
-				"blockName" => "core/template-part",
-				"attrs" => array( 
-				 	"slug" => "footer",
-				 	"theme" => "twentytwentytwo" ),
-				"innerBlocks" => array(),
-				"innerHTML" => "",
-				"innerContent" => array()
+				'blockName'    => 'core/template-part',
+				'attrs'        => array(
+					'slug'  => 'footer',
+					'theme' => 'twentytwentytwo',
+				),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
 			);
 
-			echo render_block($var);
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
 			wp_footer();
 		} else {
 			get_footer();
@@ -1030,8 +1026,6 @@ if ( ! function_exists( 'wdm_eb_get_sidebar' ) ) {
 	/**
 	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
 	 * else print get_header()
-	 *
-	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_sidebar() {
 
@@ -1039,33 +1033,27 @@ if ( ! function_exists( 'wdm_eb_get_sidebar' ) ) {
 
 		if ( ! wp_is_block_theme() || 'Twenty Twenty-Two' !== $my_theme->get( 'Name' ) ) {
 			get_sidebar();
-		} 
+		}
 	}
 }
 
 
 if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 	/**
-	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
-	 * else print get_header()
-	 *
-	 * @return array returns course URL.
+	 * Function to check if theme is block theme and 2022 theme then echo comments block section value.
+	 * else print comments_template()
 	 */
 	function wdm_eb_get_comments() {
-		
 		if ( wp_is_block_theme() ) {
 			$var = array(
-				"blockName" => "core/post-comments",
-				"attrs" => array( 
-				 	// "slug" => "footer",
-				 	// "theme" => "twentytwentytwo"
-				 ),
-				"innerBlocks" => array(),
-				"innerHTML" => "",
-				"innerContent" => array()
+				'blockName'    => 'core/post-comments',
+				'attrs'        => array(),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
 			);
 
-			echo render_block($var);
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
 		} else {
 			comments_template();
 		}
