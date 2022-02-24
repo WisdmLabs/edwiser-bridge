@@ -44,6 +44,9 @@ switch ( $template ) {
 		. esc_html( $parentcss ) . '"><main id="main" class="site-main" role="main">';
 		break;
 		// Divi.
+	case 'twentytwentytwo':
+		echo '<div id="container" class="eb-primary wp-site-blocks"><div id="content" role="main">';
+		break;
 	case 'Divi':
 		echo '<div id="main-content" style="'
 		. esc_html( $parentcss ) . '"><div class="container eb-primary">';

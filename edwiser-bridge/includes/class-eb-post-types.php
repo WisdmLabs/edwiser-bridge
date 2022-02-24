@@ -305,7 +305,7 @@ class Eb_Post_Types {
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
 					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
-					'description' => __( 'This filed is disabeld. Do not change the course id this will affect the course access for the existing enrollemnt.', 'eb-textdomain' ),
+					'description' => __( 'This field is disabled. Do not change the course id this will affect the course access for the existing enrollment.', 'eb-textdomain' ),
 					'type'        => 'text',
 					'placeholder' => '',
 					'attr'        => 'readonly',
