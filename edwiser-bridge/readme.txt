@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 4.6
-Tested up to: 5.8
+Tested up to: 5.9.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -218,12 +218,18 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.5 =
+* Tweak - Added compatibility to WordPress 5.9.1.
+* Tweak - Added comaptibility with Twenty twenty two theme.
+* Tweak - Improved course manual enrollment syncronization functionality.
+* Tweak - UI improvements on user account page.
+
 = 2.1.4 =
-* Fix- Fixed error on reset password hook.
+* Fix- Fixed error on user account page for reset password hook .
 
 = 2.1.3 =
 * Feature - Setting to ignore the SSL certificate check to improve connection check with moodle.
-* Feature - Ability to the course manually enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
+* Feature - Ability to the course manual enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
 * Feature - Ability to enable course manual enrollment.
 * Tweak - Improved Moodle test connection error message now added more details about the error.
 * Fix- Fixe for the auto plugin installation/activation process from Edwiser bridge.
