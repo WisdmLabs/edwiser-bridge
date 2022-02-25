@@ -2373,7 +2373,9 @@ msgid "Email"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:271
-msgid "Username\", \"eb-textdomain"
+#: public/shortcodes/class-eb-shortcode-user-profile.php:231
+#: public/templates/account/form-login.php:26
+msgid "Username"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:272

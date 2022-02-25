@@ -268,7 +268,7 @@ class Eb_Gdpr_Compatibility {
 								<li>' . esc_html__( 'First Name', 'eb-textdomain' ) . '</li>
 								<li>' . esc_html__( 'Last Name', 'eb-textdomain' ) . '</li>
 								<li>' . esc_html__( 'Email', 'eb-textdomain' ) . '</li>
-								<li>' . esc_html__( 'Username", "eb-textdomain' ) . '</li>
+								<li>' . esc_html__( 'Username', 'eb-textdomain' ) . '</li>
 								<li>' . esc_html__( 'Password', 'eb-textdomain' ) . '</li>
 							</ul>
 						</p>
