@@ -3333,11 +3333,6 @@ msgstr ""
 msgid "Course purchase history"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-user-profile.php:231
-#: public/templates/account/form-login.php:26
-msgid "Username"
-msgstr ""
-
 #: public/templates/account/edit-user-profile.php:40
 msgid "Edit Account Details"
 msgstr ""
