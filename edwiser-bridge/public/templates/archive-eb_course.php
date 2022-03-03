@@ -32,7 +32,7 @@ $template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
  *-------------------------------------
  */
 
-get_header();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_header();
 
 	/*
 	 * -------------------------------------
@@ -111,4 +111,4 @@ get_header();
 	$template_loader->wp_get_template( 'global/wrapper-end.php', $wrapper_args );
 	?>
 <?php
-get_footer();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_footer();

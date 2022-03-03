@@ -141,7 +141,7 @@ class Eb_Order_History_Meta {
 
 		$stat_old   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $old_status );
 		$stat_new   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $new_status );
-		$note_state = esc_html__( 'Order status changed from ', 'eb-textdomain' ) . sprintf( '%1$s to %2$s.', $stat_old, $stat_new );
+		$note_state = esc_html__( 'Order status changed from ', 'eb-textdomain' ) . sprintf( '%s .', $stat_old ) . esc_html__( ' to ', 'eb-textdomain' ) . sprintf( ' %s.', $stat_new );
 
 		if ( empty( $old_status ) ) {
 			$note_state = esc_html__( 'New Order created by ', 'eb-textdomain' ) . sprintf( '%s.', $user->user_login );

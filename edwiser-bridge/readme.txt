@@ -1,8 +1,8 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
-Requires at least: 4.6
-Tested up to: 5.8
+Requires at least: 5.6
+Tested up to: 5.9.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ In order to extend its functionality and create a complete automated eCommerce s
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
 * <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
 * <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip"> Edwiser Bridge - Moodle Add On </a>
 
 
 
@@ -112,8 +112,8 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 
  = Minimum Requirements =
 * PHP version 5.6 or greater
-* WordPress 4.4 or higher
-* Moodle 3.0.3 or higher
+* WordPress 5.6 or higher
+* Moodle 3.9 or higher
 
  =  Automatic Installation  =
 * Go to the Plugins menu from the dashboard.
@@ -128,14 +128,14 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/01/edwiserbridge.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -218,9 +218,21 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.6 =
+* Fixed: Course acrhive page fix for wordpress version less than 5.9.
+
+= 2.1.5 =
+* Tweak - Added compatibility to WordPress 5.9.1.
+* Tweak - Added comaptibility with Twenty twenty two theme.
+* Tweak - Improved course manual enrollment syncronization functionality.
+* Tweak - UI improvements on user account page.
+
+= 2.1.4 =
+* Fix- Fixed error on user account page for reset password hook .
+
 = 2.1.3 =
 * Feature - Setting to ignore the SSL certificate check to improve connection check with moodle.
-* Feature - Ability to the course manually enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
+* Feature - Ability to the course manual enrollment status sync and enabled (Require Edwiser Bridge moodle plugin 2.1.3).
 * Feature - Ability to enable course manual enrollment.
 * Tweak - Improved Moodle test connection error message now added more details about the error.
 * Fix- Fixe for the auto plugin installation/activation process from Edwiser bridge.

@@ -257,7 +257,7 @@ class Eb_Post_Types {
 		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$css_class = 'eb-wdm-order-meta';
 			echo '<strong>';
-			echo esc_html__( 'Order ', 'eb-textdomain' ) . esc_html( printf( '#%s Details', get_the_id() ) );
+			echo esc_html__( 'Order ', 'eb-textdomain' ) . esc_html( printf( '#%s ', get_the_id() ) ) . esc_html__( 'Details ', 'eb-textdomain' );
 			echo '</strong>';
 			echo "<div id='" . esc_html( $args['args']['post_type'] ) . "'_options' class='post-options " . esc_html( $css_class ) . "'>";
 		} else {
@@ -305,7 +305,7 @@ class Eb_Post_Types {
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
 					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
-					'description' => __( 'This filed is disabeld. Do not change the course id this will affect the course access for the existing enrollemnt.', 'eb-textdomain' ),
+					'description' => __( 'This field is disabled. Do not change the course id this will affect the course access for the existing enrollment.', 'eb-textdomain' ),
 					'type'        => 'text',
 					'placeholder' => '',
 					'attr'        => 'readonly',
@@ -358,7 +358,7 @@ class Eb_Post_Types {
 				'num_days_course_access'   => array(
 					'label'       => __( 'Expire Access After (days)', 'eb-textdomain' ),
 					'description' => __( 'Number of days the course is accessible', 'eb-textdomain' ),
-					'type'        => 'text',
+					'type'        => 'number',
 					'default'     => '',
 				),
 				'course_short_description' => array(

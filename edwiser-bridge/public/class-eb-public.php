@@ -176,6 +176,7 @@ class Eb_Public {
 			'ebDataTable',
 			array(
 				'search'          => __( 'Search:', 'eb-textdomain' ),
+				'all'             => __( 'All', 'eb-textdomain' ),
 				'sEmptyTable'     => __( 'No data available in table', 'eb-textdomain' ),
 				'sLoadingRecords' => __( 'Loading...', 'eb-textdomain' ),
 				'sSearch'         => __( 'Search', 'eb-textdomain' ),

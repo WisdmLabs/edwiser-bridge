@@ -134,7 +134,7 @@ class EBAdminEmailTemplate {
 
 							<tr>
 								<td class="eb-email-lable">
-									<?php esc_html_e( 'BCC in email', 'eb-extension' ); ?>
+									<?php esc_html_e( 'BCC in email', 'eb-textdomain' ); ?>
 								</td>
 								<td>
 									<input type="text" value="<?php echo esc_html( $bcc_email ); ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>

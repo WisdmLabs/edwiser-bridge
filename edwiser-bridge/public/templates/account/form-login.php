@@ -120,7 +120,7 @@ do_action( 'eb_before_customer_login_form' );
 					?>
 
 				<p class="form-row form-row-wide eb-profile-txt-field ">
-					<input type="checkbox" class="input-text" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
+					<input type="checkbox" name="reg_terms_and_cond" id="reg_terms_and_cond"  required/>
 					<?php esc_html_e( 'I agree to the ', 'eb-textdomain' ); ?>
 					<span style="cursor: pointer;" id="eb_terms_cond_check"> <u><?php esc_html_e( 'Terms and Conditions', 'eb-textdomain' ); ?></u></span>
 				</p>

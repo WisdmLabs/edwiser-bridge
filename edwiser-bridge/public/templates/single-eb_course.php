@@ -41,7 +41,8 @@ $template_loader = new EbTemplateLoader(
  * --------------------------------------
  **/
 
-get_header();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_header();
+
 
 /*
  *-------------------------------------
@@ -68,7 +69,9 @@ while ( have_posts() ) :
 	$template_loader->wp_get_template_part( 'content-single', get_post_type() );
 
 	$eb_shrtcode_wrapper->generate_recommended_courses();
-	comments_template();
+
+	\app\wisdmlabs\edwiserBridge\wdm_eb_get_comments();
+
 endwhile;
 
 // End of the single course page.
@@ -78,7 +81,8 @@ do_action( 'eb_after_single_course' );
 // Use this Hook to add sidebar container.
 do_action( 'eb_archive_before_sidebar', $wrapper_args );
 
-get_sidebar();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_sidebar();
+
 
 // Use this Hook to close sidebar containers.
 do_action( 'eb_archive_after_sidebar', $wrapper_args );
@@ -101,4 +105,4 @@ do_action( 'eb_archive_after_sidebar', $wrapper_args );
 
 $template_loader->wp_get_template( 'global/wrapper-end.php', $wrapper_args );
 
-get_footer();
+\app\wisdmlabs\edwiserBridge\wdm_eb_get_footer();

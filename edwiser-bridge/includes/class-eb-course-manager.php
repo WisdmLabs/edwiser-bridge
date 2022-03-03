@@ -285,7 +285,7 @@ class Eb_Course_Manager {
 			return $response['response_data'];
 			
 		} else {
-
+			return $response;
 		}
 
 	}
@@ -766,20 +766,36 @@ class Eb_Course_Manager {
 
 			echo ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'eb-textdomain' ) . '<span>' : esc_html( $mdl_course_id );
 		} elseif ( 'course_enrollment_method' === $column_name ) {
-			// Get stored sync data.
-			$enrolment_enabled = get_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 1 );
-
-			// Get Moodle course id.
-			$moodle_course_id = get_post_meta( $post_id, 'moodle_course_id', 1);
-
-			// If data is not synced show refresh icon to sync
-			// store status in DB.
-			$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
-			if ( $enrolment_enabled ) {
-				// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
-				$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
+			//check if course is deleted
+			$mdl_course_deleted = Eb_Post_Types::get_post_options( $post_id, 'mdl_course_deleted', 'eb_course' );
+			if( ! empty( $mdl_course_deleted ) ){
+				$html = '<span style="padding: 2px 8px;"> — </span>';
 			}
-			// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
+			else{
+				// Get stored sync data.
+				$enrolment_enabled = get_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 1 );
+
+				// Get Moodle course id.
+				$moodle_course_id = get_post_meta( $post_id, 'moodle_course_id', 1);
+
+				// If data is not synced show refresh icon to sync
+				// store status in DB.
+				// $html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
+				// if ( $enrolment_enabled ) {
+				// 	// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+				// 	$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
+				// }
+				// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
+				if( $enrolment_enabled ){
+					$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'eb-textdomain' )*/;
+				}
+				elseif( "" == $enrolment_enabled ){
+					$html = '<span style="color:#2271b1;font-size:20px;" class="dashicons dashicons-update"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Sync', 'eb-textdomain' );
+				}
+				else{
+					$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'eb-textdomain' );
+				}
+			}
 			echo $html;
 		}
 
@@ -808,6 +824,9 @@ class Eb_Course_Manager {
 	 */
 	public function handle_custom_bulk_action( $redirect_url, $action, $post_ids ) {
 
+		$eb_bulk_action_nonce = wp_create_nonce( 'eb_bulk_action_nonce' );
+		$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+		$request_refer = strtok( $request_refer, '?' );
 		// Create courses data i.e create required course array
 		if ( 'sync_enrollment' == $action ) {
 			$courses_data = $this->sync_course_enrollment_method();
@@ -818,6 +837,7 @@ class Eb_Course_Manager {
 				$response_array[] = $wp_course_id; 
 			}
 
+			$count = 0;
 			foreach ($post_ids as $post_id) {
 
 				if ( in_array($post_id, $response_array ) ) {
@@ -825,20 +845,97 @@ class Eb_Course_Manager {
 				} else {
 					update_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 0 );
 				}
+				$count++;
 			}
+			$sendback = add_query_arg(
+				array(
+					'post_type' => 'eb_course',
+					'eb_bulk_action_nonce' => $eb_bulk_action_nonce,
+					'message1' => "success",
+					'count' => $count,
+					'action1' => $action
+				),
+				$request_refer
+			);
+
+			return $sendback;
+
 		} elseif ( 'enable_manual_enrollment' == $action ) {
 			$mdl_course_ids = array();
+			$count = 0;
 			foreach ($post_ids as $wp_course_id) {
 				$mdl_course_id = get_post_meta( $wp_course_id, 'moodle_course_id', 1 );
-				if ( $mdl_course_id ) {
+				$mdl_course_deleted = Eb_Post_Types::get_post_options( $wp_course_id, 'mdl_course_deleted', 'eb_course' );
+				if ( $mdl_course_id && empty( $mdl_course_deleted ) ) {
 					$mdl_course_ids[] = $mdl_course_id;
+					$count++;
 				}
 			}
 
-			$this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => $mdl_course_ids ) );
+			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => $mdl_course_ids ) );
+			if(isset($course_data['success']) && 0 === $course_data['success']){ //CHANGE YET TO COMMIT
+				if($course_data['response_message']  == "Class 'enrol_manual_plugin' not found" ){
+					$data = esc_html__("Manual Enrollment Plugin is not enabled/installed on moodle site.", 'eb-textdomain' );
+				}
+				else{
+					$data = esc_html__($course_data['response_message'], 'eb-textdomain' );
+				}
+			}
+			else{
+				$data = "success";
+			}
+			
+			$sendback = add_query_arg(
+				array(
+					'post_type' => 'eb_course',
+					'eb_bulk_action_nonce' => $eb_bulk_action_nonce,
+					'message1' => urlencode( $data ),
+					'count' => $count,
+					'action1' => $action
+				),
+				$request_refer
+			);
+
+			return $sendback;
 		}
 
 		return $redirect_url;
+	}
+
+	/**
+	 * Handle course enrollment bulk action result admin notice.
+	 */
+	public function handle_custom_bulk_action_result_admin_notice() {
+		global $post_type, $pagenow;
+		if ( ! isset( $_REQUEST['eb_bulk_action_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_bulk_action_nonce'] ) ), 'eb_bulk_action_nonce' ) ) {
+			return;
+		}
+		if ( 'edit.php' == $pagenow && 'eb_course' == $post_type ) {
+			$action = $_REQUEST['action1'];
+			if ( 'sync_enrollment' == $action ) {
+				$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : '';
+				$count = ( $count != '' ) ? $count : 0;
+				$message = isset( $_REQUEST['message1'] ) ? $_REQUEST['message1'] : '';
+				if( $message == "success" ){
+					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment status synced for'.' %s ' . "courses" , 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . "</p></div>";
+				}
+				else{
+					$message = "<div class='notice notice-error'><p>" . esc_html__("Error in manual enrollment status sync", 'eb-textdomain' ) . "</p></div>";
+				}
+				echo $message;
+			} elseif ( 'enable_manual_enrollment' == $action ) {
+				$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : '';
+				$count = ( $count != '' ) ? $count : 0;
+				$message = isset( $_REQUEST['message1'] ) ? $_REQUEST['message1'] : '';
+				if( $message == "success" ){
+					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment enabled for' . ' %s ' . "courses", 'eb-textdomain' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . "</p></div>";
+				}
+				else{
+					$message = "<div class='notice notice-error'><p>". esc_html__( 'Please check if Course is deleted from Moodle or WordPress also check if Moodle Manual Enrollment is activate on Moodle ', 'eb-textdomain' ) ."</p><p>" . esc_html__( 'Error Message  : ' . $message, 'eb-textdomain' ) . "</p></div>";
+				}
+				echo $message;
+			}
+		}
 	}
 
 	/**
@@ -861,8 +958,17 @@ class Eb_Course_Manager {
 
 			// Update course enrollment method.
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => array( $course_id ) ) );
-
-			wp_send_json_success();
+			if(0 === $course_data['success']){
+				if($course_data['response_message']  == "Class 'enrol_manual_plugin' not found" ){
+					wp_send_json_error( array( 'message' => esc_html__("Manual Enrollment Plugin is not enabled/installed on moodle site.", 'eb-textdomain' ) ) );
+				}
+				else{
+					wp_send_json_error( array( 'message' => esc_html__($course_data['response_message'], 'eb-textdomain' ) ) );
+				}
+			}
+			else{
+				wp_send_json_success();
+			}
 		}
 	}
 

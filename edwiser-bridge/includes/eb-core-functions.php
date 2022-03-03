@@ -757,7 +757,7 @@ if ( ! function_exists( 'wdm_edwiser_bridge_version' ) ) {
 	 * Gwt edwiser Bridge version.
 	 */
 	function wdm_edwiser_bridge_version() {
-		return '2.1.3';
+		return '2.1.5';
 	}
 }
 
@@ -958,5 +958,104 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 		}
 
 		return $course_url;
+	}
+}
+if ( ! function_exists( 'wdm_eb_get_header' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 */
+	function wdm_eb_get_header() {
+		$my_theme = wp_get_theme();
+
+		if ( function_exists('wp_is_block_theme') && wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+			do_action( 'get_header', null, array() );
+
+			$var = array(
+				'blockName'    => 'core/template-part',
+				'attrs'        => array(
+					'slug'  => 'header',
+					'theme' => 'twentytwentytwo',
+				),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
+			);
+
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
+			wp_head();
+		} else {
+			get_header();
+		}
+	}
+}
+
+
+
+if ( ! function_exists( 'wdm_eb_get_footer' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 */
+	function wdm_eb_get_footer() {
+		$my_theme = wp_get_theme();
+
+		if ( function_exists('wp_is_block_theme') && wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+			do_action( 'get_footer', null, array() );
+
+			$var = array(
+				'blockName'    => 'core/template-part',
+				'attrs'        => array(
+					'slug'  => 'footer',
+					'theme' => 'twentytwentytwo',
+				),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
+			);
+
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
+			wp_footer();
+		} else {
+			get_footer();
+		}
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_get_sidebar' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo hardcoded header value.
+	 * else print get_header()
+	 */
+	function wdm_eb_get_sidebar() {
+
+		$my_theme = wp_get_theme();
+
+		if ( ( function_exists('wp_is_block_theme') && ! wp_is_block_theme() ) || 'Twenty Twenty-Two' !== $my_theme->get( 'Name' ) ) {
+			get_sidebar();
+		}
+	}
+}
+
+
+if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
+	/**
+	 * Function to check if theme is block theme and 2022 theme then echo comments block section value.
+	 * else print comments_template()
+	 */
+	function wdm_eb_get_comments() {
+		if ( function_exists('wp_is_block_theme') && wp_is_block_theme() ) {
+			$var = array(
+				'blockName'    => 'core/post-comments',
+				'attrs'        => array(),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
+			);
+
+			echo render_block( $var ); // phpcs:ignore WordPress.Security.EscapeOutput
+		} else {
+			comments_template();
+		}
 	}
 }

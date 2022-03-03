@@ -108,7 +108,7 @@ class EdwiserBridge {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'edwiserbridge';
-		$this->version     = '2.1.3';
+		$this->version     = '2.1.6';
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_plugin_hooks();
@@ -938,6 +938,11 @@ class EdwiserBridge {
 			'view_moodle_course_link',
 			10,
 			2
+		);
+		$this->loader->eb_add_action(
+			'admin_notices',
+			$this->course_manager(),
+			'handle_custom_bulk_action_result_admin_notice'
 		);
 
 		// handles addtion of new blog.

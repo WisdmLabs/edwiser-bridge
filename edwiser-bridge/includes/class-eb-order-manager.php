@@ -448,6 +448,7 @@ class Eb_Order_Manager {
 				'pending'   => esc_html__( 'Pending', 'eb-textdomain' ),
 				'completed' => esc_html__( 'Completed', 'eb-textdomain' ),
 				'failed'    => esc_html__( 'Failed', 'eb-textdomain' ),
+				'refunded'    => esc_html__( 'Refunded', 'eb-textdomain' ),
 			);
 			echo isset( $options[ $status ] ) ? esc_html( $options[ $status ] ) : esc_html( ucfirst( $status ) );
 		} elseif ( 'ordered_by' === $column_name ) {

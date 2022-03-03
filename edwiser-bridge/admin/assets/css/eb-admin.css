@@ -43,6 +43,14 @@
     background: #fafafa;
 }
 
+.eb_test_conct_log_url{
+    max-width: 400px;
+    width: 75%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
 .eb_connection_err_response h4, .eb_connection_err_recommended_sec h4{
     font-weight: 600;
 }
@@ -484,7 +492,7 @@ a.browse-all:hover {
 .response-box {
   text-shadow: none;
   display: inline-block;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   /*position: absolute;*/
 }
 
@@ -1167,9 +1175,10 @@ span.eb-option-input .eb-option-div select {
 
 /*** START User Sync CSS ***/
 .linkresponse-box {
-  margin-top: 0%;
-  position: absolute;
-  margin-left: 20px;
+  margin-top: 3%;
+  /* position: absolute; */
+  /* margin-left: 20px; */
+  display: block;
 }
 
 @media screen and (max-width: 640px) {
