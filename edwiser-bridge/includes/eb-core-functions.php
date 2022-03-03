@@ -968,7 +968,7 @@ if ( ! function_exists( 'wdm_eb_get_header' ) ) {
 	function wdm_eb_get_header() {
 		$my_theme = wp_get_theme();
 
-		if ( ( function_exists('wp_is_block_theme') && wp_is_block_theme() ) || 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+		if ( function_exists('wp_is_block_theme') && wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
 			do_action( 'get_header', null, array() );
 
 			$var = array(
@@ -1000,7 +1000,7 @@ if ( ! function_exists( 'wdm_eb_get_footer' ) ) {
 	function wdm_eb_get_footer() {
 		$my_theme = wp_get_theme();
 
-		if ( ( function_exists('wp_is_block_theme') && wp_is_block_theme() ) || 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
+		if ( function_exists('wp_is_block_theme') && wp_is_block_theme() && 'Twenty Twenty-Two' === $my_theme->get( 'Name' ) ) {
 			do_action( 'get_footer', null, array() );
 
 			$var = array(
