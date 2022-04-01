@@ -231,8 +231,13 @@ class EdwiserBridge {
 		// To handle addition of new blog (for multisite installations).
 		require_once $plugin_path . 'includes/class-eb-activator.php';
 
-		// To handel the email template modification.
+		// To handle the email template modification.
 		require_once $plugin_path . 'admin/class-eb-email-template.php';
+
+		/**
+		 * Set up wizard.
+		 */
+		require_once $plugin_path . 'admin/setup-wizard/class-eb-setup-wizard.php';
 
 		require_once $plugin_path . 'includes/class-eb-email-template-parser.php';
 
@@ -622,6 +627,15 @@ class EdwiserBridge {
 			10,
 			2
 		);
+
+		/**
+		 * Set up wizard 
+		 */
+		// $setup_wizard = new Eb_Setup_Wizard();
+
+		// $this->loader->eb_add_action( 'admin_menu', $setup_wizard, 'admin_menus', 10 );
+		// $this->loader->eb_add_action( 'admin_init', $setup_wizard, 'eb_setup_wizard_handler', 10 );
+
 
 		/*
 		 * Handling custom button events on settings page

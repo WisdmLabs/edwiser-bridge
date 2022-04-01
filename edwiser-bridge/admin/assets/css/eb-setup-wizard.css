@@ -1,0 +1,651 @@
+
+
+.eb-setup-sidebar{
+    height: 100%;
+    /* padding: 15px; */
+    width: 27%;
+    position: fixed;
+    z-index: 1;
+    top: 90px;
+    left: 0;
+    background: #F7F7F7;
+    overflow-x: hidden;
+    padding-top: 10px;
+    /* padding-left: 30px; */
+}
+  
+.eb-setup-content{
+    /* padding: 5% 10%; */
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #444444;
+
+    width: 73%;
+    margin-left: 27%;
+    position: relative;
+    top: 90px;
+}
+  
+.eb-setup-header-logo{
+    background: #F7F7F7;
+    width: 27%;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);   
+}
+
+
+.eb-setup-header-logo-img-wrap{
+    height: 100%;
+    display: inline-grid;
+    justify-content: center;
+}
+
+.eb-setup-header-logo-img-wrap img{
+    margin-top: auto;
+    margin-left: 20px;
+    margin-bottom: auto;
+    /* height: 100%; */
+    /* vertical-align: middle; */
+    /* justify-content: center; */
+    /* display: block; */
+}
+
+
+
+.eb-setup-header-title-wrap{
+    /* padding: 15px; */
+    /* width: 80%; */
+    width: 73%;
+    text-align: center;
+}
+
+.eb-setup-header-title{
+    padding: 22px 30px;
+    /* position: absolute; */
+    /* width: 75%; */
+    color: white;
+    /* height: 99px; */
+    /* left: 360px; */
+    /* top: 0px; */
+    background: linear-gradient(0deg, #133F3F, #133F3F), #F7F7F7;
+    /* width: 80%; */
+
+    padding: 30px;
+    /* font-family: 'Open Sans'; */
+    /* font-style: normal; */
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 41px;
+    /* text-align: center; */
+    backdrop-filter: blur(4px);
+    /* flex: none; */
+    order: 0;
+    flex-grow: 0;
+    /* margin: 0px 10px;*/
+
+}
+
+.eb-setup-wizard-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+}
+
+
+.eb-setup-wizard-footer{
+    position: fixed;
+    bottom: 0;
+    z-index: 10000;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    color: white;
+    background: #133F3F;
+    display: flex;
+}
+
+.eb-setup-footer-copyright{
+    width: 70%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.eb-setup-footer-button{
+    width: 30%;
+    text-align: right;
+}
+
+
+.eb-setup-footer-button a{
+    padding: 7px 20px;
+    background: #FFFFFF;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    text-align: center;
+    color: #F98012;
+    cursor: pointer;
+}
+
+.eb_setup_free_initialize{
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+
+.eb_setup_free_initialize > div{
+    text-align: left;
+}
+
+.eb_setup_free_initialize div p{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 27px;
+    color: #444444;
+}
+
+
+.eb_setup_free_initialize_inp_wrap{
+
+}
+
+.eb_setup_free_initialize_inp_wrap input{
+    background: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+.eb_setup_free_initialize_inp_wrap label{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 162% */
+    align-items: center;
+    color: #F98012;
+}
+
+.eb_setup_free_initialize legend{
+    background: #C5F3F5;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+    padding: 3px;
+    text-transform: uppercase;
+
+    color: #444444;
+}
+
+.eb_setup_free_initialize fieldset{
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+.eb_setup_free_initialize fieldset p{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    /* or 138% */
+    color: #666666;
+}
+
+.eb_setup_free_initialize div{
+    padding-bottom: 10px;
+}
+
+.eb_setup_btn_wrap{
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.eb_setup_btn{
+    padding: 10px 25px;
+    left: calc(50% - 147px/2 - 6px);
+    top: calc(50% - 39px/2 - 62.5px);
+    background: #F98012;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    border: 0px;
+    text-align: center;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.eb_setup_btn:hover{
+    background: #133F3F;
+    /* identical to box height */
+}
+
+.eb_setup_h2{
+    padding-left: 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 162% */
+
+    color: #666666;
+}
+
+.eb_setup_h2 span{
+    font-size: 12px;
+    line-height: 20px;
+    background: #00A1A8;
+    color: white;
+    padding: 0px;
+    border-radius: 100%;
+    margin: auto;
+
+}
+
+.eb_setup_sec_btn{
+    padding: 10px 25px;
+    background: #FFFFFF;
+    border: 1px solid #F98012;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #F98012;
+
+}
+
+.eb_setup_sec_btn:hover{
+    border: 1px solid #133F3F;
+    color: #133F3F;
+}
+
+
+ .eb_setup_installation_guide, .eb_setup_conn_url, .eb_setup_test_connection, .eb_setup_user_sync{
+    padding: 30px;
+}
+
+.eb_setup_conn_url{
+    padding-top: 20px;
+    padding-bottom: 60px;
+    text-align: center;
+}
+
+.eb_setup_inp{
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    /* width: 50%; */
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.eb_setup_conn_url div{
+    padding-top: 20px;
+}
+
+
+.eb_setup_course_sync div, .eb_setup_user_sync div{
+    padding-top: 20px;
+}
+
+.eb_setup_conn_url_inp_wrap{
+    /* text-align: center; */
+    width: 50%;
+    text-align: left;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.eb_setup_conn_url_inp_wrap p{
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 4px;
+    padding-top: 10px;
+}
+
+.eb_setup_conn_url_inp_wrap p .eb_setup_h2{
+    padding-left: 0px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #444444;
+}
+
+.eb_setup_separator{
+    display: flex;
+}
+
+.eb_setup_hr{
+    width: 49%;
+}
+
+.eb_setup_hr hr{
+    width: 90%;
+    border: 1px solid #E5E5E5;
+}
+
+.eb_setup_separator div span {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height, or 130% */
+    text-align: center;
+    color: #00A1A8;
+    border: 8px solid #FFFFFF;
+}
+
+
+.eb_setup_course_sync_note, .eb_setup_user_sync_note{
+    width: 80%;
+    margin: auto;
+}
+
+.eb_setup_course_sync_inp_wrap, .eb_setup_user_sync_inp_wrap{
+    padding-left: 30px;
+}
+
+.eb_setup_course_sync_btn_wrap, .eb_setup_user_sync_btn_wrap{
+    text-align: center;
+}
+
+.eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset{
+    margin-top: 30px;
+}
+
+
+/*  */
+
+
+
+/* ---- accordion */
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .accordion:hover {
+    background-color: #ccc;
+  }
+  
+  /* Style the accordion panel. Note: hidden by default */
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    overflow: hidden;
+  }
+
+
+/* ----- */
+
+
+
+/* .eb-setup-step {
+    position: relative;
+    min-height: 1em;
+    color: gray;
+    padding: 10px 10px;
+
+
+}
+
+.title {
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+.caption {
+    font-size: 0.8em;
+}
+
+.eb-setup-step + .eb-setup-step {
+    margin-top: 1.5em
+  }
+
+  .eb-setup-step > div:first-child {
+    position: static;
+    height: 0;
+  }
+
+  .eb-setup-step > div:not(:first-child) {
+    margin-left: 1.5em;
+    padding-left: 1em;
+  }
+
+.eb-setup-step.eb-setup-step-completed .circle{
+
+}
+
+.eb-setup-step.eb-setup-step-active .circle{
+    background-color: #00A1A8;
+      
+}
+
+
+.eb-setup-step .circle {
+    position: relative;
+    border-radius: 100%;
+    color: #fff;
+    text-align: center;
+
+    background: #C4C4C4;
+    flex: none;
+    width: 9px;
+    height: 9px;
+    z-index: 10;
+
+}
+
+  .eb-setup-step .circle:after {
+    content: ' ';
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 50%;
+    bottom: 1px;
+    left: 50%;
+    height: 100%;
+    width: 1px;
+    transform: scale(1, 5);
+    transform-origin: 50% -40%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 5;
+  }
+
+  .eb-setup-step:last-child .circle:after {
+    display: none
+  }
+
+  .eb-setup-step.eb-setup-step-active {
+    color: #4285f4
+  }
+  
+  .eb-setup-steps{
+      padding: 10px 10px 20px 10px;
+  }
+
+
+.eb-setup-step-active .eb-setup-steps-title{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #00A1A8;
+}
+
+.eb-setup-step-active {
+    background: #FFFFFF;
+    border-radius: 30px 0px 0px 30px;
+} */
+
+
+/*  */
+
+
+
+
+
+
+
+
+/* ------------- */
+
+
+.eb-setup-steps li { 
+    display: flex; 
+    color: #999;
+}
+  
+.eb-setup-steps .eb-setup-step-circle { 
+    position: relative;
+    /* padding: 0 1.5em; */
+}
+  
+
+.eb-setup-step .eb-setup-step-circle  {
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    border-radius: 100%;
+    color: #fff;
+    text-align: center;
+    left: 5px;
+    background: #C4C4C4;
+    flex: none;
+    width: 9px;
+    height: 9px;
+    z-index: 10;
+}
+
+.eb-setup-step.eb-setup-step-active,
+.eb-setup-step .eb-setup-step-completed {
+cursor: pointer;
+}
+
+.eb-setup-step  {
+cursor: not-allowed;
+}
+
+
+.eb-setup-steps .eb-setup-step-circle {
+/* .eb-setup-steps .eb-setup-step-circle::after { */
+     /* content: "";
+     position: absolute;
+     z-index: 2;
+     right: 0;
+     top: 0;
+     transform: translateX(50%);
+     border-radius: 50%;
+     background: #fff;
+     border: 1px #ccc solid;
+     width: .8em;
+     height: .8em;
+    width: 9px;
+    height: 9px;
+    z-index: 10;
+    background: #C4C4C4; */
+}
+  
+
+.eb-setup-step-active .eb-setup-steps-title{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    color: #00A1A8;
+}
+
+.eb-setup-step-active {
+    background: #FFFFFF;
+    border-radius: 30px 0px 0px 30px;
+}
+
+.eb-setup-step-circle-wrap{
+    width: 20%;
+}
+
+  
+.eb-setup-steps .eb-setup-steps-title {
+    /* padding: 0 1.5em 1.5em 1.5em; */
+    padding: 10px 5px 10px 20px;
+    position: relative;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #133F3F;
+    opacity: 0.4;
+}
+  
+.eb-setup-steps .eb-setup-steps-title::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+
+    z-index: 1;
+    left: 0;
+    height: 100%;
+    border-left: 1px #ccc solid;
+}
+  
+.eb-setup-steps strong {
+    display: block;
+    font-weight: bolder;
+}
+  
+.eb-setup-steps {
+    /* margin: 1em; width: 50%; */
+    padding: 5px 0px 5px 30px;
+}
+
+
+.eb-setup-steps, 
+.eb-setup-steps *::before, 
+.eb-setup-steps *::after { box-sizing: border-box; font-family: arial; }
+
+.eb-setup-step:last-child .eb-setup-steps-title::before {
+    display: none
+  }
+
+/* --------------- */
