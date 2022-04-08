@@ -180,6 +180,25 @@ class EBConnectionHelper {
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
 				$response_message = $this->create_response_message( $request_url, print_r($body, 1) );
+				
+				//register error log
+				global $current_user;
+				wp_get_current_user();
+				$error_data = array(
+					'url' => $request_url,
+					'arguments' => $request_data,
+					'user' => $current_user->user_login . '(' . $current_user->user_firstname .' '.$current_user->user_lastname.')',
+					'responsecode' => wp_remote_retrieve_response_code( $response ),
+					'exception' => $body->exception,
+					'errorcode' => $body->errorcode,
+					'message' => $body->message,
+					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+				);
+				if(isset($body->debuginfo)){
+					$error_data['debuginfo'] = $body->debuginfo;
+				}
+
+				wdm_error_log_json( $error_data);
 
 			} else {
 				// added else to check the other services access error.
@@ -374,6 +393,26 @@ class EBConnectionHelper {
 			if ( ! empty( $body->exception ) ) {
 				$success          = 0;
 				$response_message = $body->message;
+
+				//register error log.
+				global $current_user;
+				wp_get_current_user();
+				$error_data = array(
+					'url' => $request_url,
+					'arguments' => $request_data,
+					'user' => $current_user->user_login . '(' . $current_user->firse_name .' '.$current_user->last_name.')',
+					'responsecode' => wp_remote_retrieve_response_code( $response ),
+					'exception' => $body->exception,
+					'errorcode' => $body->errorcode,
+					'message' => $body->message,
+					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+				);
+				if(isset($body->debuginfo)){
+					$error_data['debuginfo'] = $body->debuginfo;
+				}
+
+				wdm_error_log_json( $error_data);
+
 			} else {
 				$success       = 1;
 				$response_data = $body;
@@ -457,6 +496,25 @@ class EBConnectionHelper {
 				} else {
 					$response_message = $body->message;
 				}
+
+				//register error log.
+				global $current_user;
+				wp_get_current_user();
+				$error_data = array( //BY- ISHWAR
+					'url' => $request_url,
+					'arguments' => $request_data,
+					'user' => $current_user->user_login . '(' . $current_user->firse_name .' '.$current_user->last_name.')',
+					'responsecode' => wp_remote_retrieve_response_code( $response ),
+					'exception' => $body->exception,
+					'errorcode' => $body->errorcode,
+					'message' => $body->message,
+					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+				);
+				if(isset($body->debuginfo)){
+					$error_data['debuginfo'] = $body->debuginfo;
+				}
+
+				wdm_error_log_json( $error_data);
 			} else {
 				$success       = 1;
 				$response_data = $body;

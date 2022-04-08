@@ -1059,3 +1059,32 @@ if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 		}
 	}
 }
+
+if( ! function_exists( 'wdm_error_log_json ') ) {
+	/**
+	 * Function to write the error log in json format.
+	 *
+	 * @param  array $error_log_data error log data.
+	 * @return array returns error log data.
+	 * BY- ISHWAR
+	 */
+	function wdm_error_log_json( $error_log_data ) {
+
+		$error_log_file = wdm_edwiser_bridge_plugin_log_dir() . 'error_log.json';
+		// $error_log_data = json_encode( $error_log_data );
+		//get the current error log data.
+		$error_log_data_old = file_get_contents( $error_log_file );
+		$error_log_data_old = json_decode( $error_log_data_old, true );
+		if ( ! is_array( $error_log_data_old ) ) {
+			$error_log_data_old = array();
+		}
+		$error_log_data_old[] = array(
+			'time' => date_i18n( 'm-d-Y @ H:i:s' ),
+			'status' => 'NEW',
+			'data' => $error_log_data,
+		);
+		$error_log_data_old = json_encode( $error_log_data_old );
+		file_put_contents( $error_log_file, $error_log_data_old );
+		
+	}
+}
