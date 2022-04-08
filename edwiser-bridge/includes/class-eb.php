@@ -288,6 +288,10 @@ class EdwiserBridge {
 
 		require_once $plugin_path . 'includes/class-eb-manage-enrollment.php';
 
+		require_once $plugin_path . 'includes/class-eb-error-log-table.php';
+
+		require_once $plugin_path . 'includes/class-eb-error-log-manager.php';
+
 		/**
 		 * The core classes that initiates settings module.
 		 */
@@ -716,6 +720,26 @@ class EdwiserBridge {
 			'wp_ajax_enable_course_enrollment_method',
 			$this->course_manager(),
 			'eb_enable_course_enrollment_method'
+		);
+
+		$error_handler = new Eb_Manage_Error_Log( $this->plugin_name, $this->version );
+
+		$this->loader->eb_add_action(
+			'wp_ajax_wdm_eb_get_error_log_data',
+			$error_handler,
+			'ajax_get_error_log_data'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_wdm_eb_mark_error_log_resolved',
+			$error_handler,
+			'ajax_error_log_resolved'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_send_error_log_to_support',
+			$error_handler,
+			'ajax_send_error_log_to_support'
 		);
 
 		$gdpr_compatible = new Eb_Gdpr_Compatibility();

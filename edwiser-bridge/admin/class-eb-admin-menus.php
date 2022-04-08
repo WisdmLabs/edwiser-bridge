@@ -31,6 +31,7 @@ class Eb_Admin_Menus {
 		add_action( 'admin_menu', array( $this, 'settings_menu' ), 10 );
 		add_action( 'admin_menu', array( $this, 'email_template' ), 10 );
 		add_action( 'admin_menu', array( $this, 'manage_enrollment_menu' ), 10 );
+		add_action( 'admin_menu', array( $this, 'edwiser_error_log_menu' ), 10 );
 		add_action( 'admin_footer', array( $this, 'open_help_menu_new_tab' ) ); // open help menu in new tab.
 	}
 
@@ -82,6 +83,22 @@ class Eb_Admin_Menus {
 	}
 
 	/**
+	 * Add submenu `Error log` to Manage error logs under EB.
+	 *
+	 * @since 2.1.6
+	 */
+	public function edwiser_error_log_menu() {
+		add_submenu_page(
+			'edit.php?post_type=eb_course',
+			__( 'Error Logs', 'eb-textdomain' ),
+			__( 'Error Logs', 'eb-textdomain' ),
+			'manage_options',
+			'error-log',
+			array( $this, 'manage_error_log_page' )
+		);
+	}
+
+	/**
 	 * Add extensions submenu item
 	 *
 	 * @since 1.0.0
@@ -129,6 +146,17 @@ class Eb_Admin_Menus {
 	public function manage_enrollment_content() {
 		$edwiser            = EdwiserBridge::instance();
 		$enrollment_manager = new Eb_Manage_User_Enrollment( $edwiser->get_plugin_name(), $edwiser->get_version() );
+		$enrollment_manager->out_put();
+	}
+
+	/**
+	 * Render error log manager page content.
+	 *
+	 * @since 2.1.6
+	 */
+	public function manage_error_log_page() {
+		$edwiser            = EdwiserBridge::instance();
+		$enrollment_manager = new Eb_Manage_Error_Log( $edwiser->get_plugin_name(), $edwiser->get_version() );
 		$enrollment_manager->out_put();
 	}
 
