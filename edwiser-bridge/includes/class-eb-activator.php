@@ -47,6 +47,11 @@ class Eb_Activator {
 		// create required files & directories.
 		self::create_files();
 
+		//rename translation files.
+		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-i18n.php';
+		$plugin_i18n = new Eb_I18n();
+		$plugin_i18n->rename_langauge_files();
+
 		// redirect to welcome screen.
 		set_transient( '_eb_activation_redirect', 1, 30 );
 		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );

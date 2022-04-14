@@ -371,6 +371,9 @@ class EdwiserBridge {
 		$plugin_i18n->set_domain( 'edwiser-bridge' );
 
 		$this->loader->eb_add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+
+		//compatibility with edwiser-bridge textdomain.
+		$this->loader->eb_add_filter( 'load_textdomain_mofile', $plugin_i18n, 'load_edwiser_bridge_textdomain', 10, 2 );
 	}
 
 
