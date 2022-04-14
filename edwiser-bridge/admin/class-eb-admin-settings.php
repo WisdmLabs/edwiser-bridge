@@ -79,7 +79,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 
 			$referer = '';
 			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
-				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
+				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'edwiser-bridge' ) );
 			}
 
 			$postdata = $_POST;
@@ -92,7 +92,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			do_action( 'eb_update_options_' . $current_tab );
 			do_action( 'eb_update_options' );
 			if ( ! strpos( $referer, 'admin.php?page=eb-settings&tab=licensing' ) ) {
-				self::add_message( __( 'Your settings have been saved.', 'eb-textdomain' ) );
+				self::add_message( __( 'Your settings have been saved.', 'edwiser-bridge' ) );
 			}
 			do_action( 'eb_settings_saved' );
 		}
@@ -586,7 +586,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<?php
-								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+								echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'edwiser-bridge' ) . "'style='" . $value['css'] . "' class='" . $value['class'] . "' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 								echo wp_kses_post( $description );
 								?>
 							</td>
@@ -617,7 +617,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 							</th>
 							<td class="forminp">
 								<select name="<?php echo esc_attr( $value['id'] ); ?>" id="<?php echo esc_attr( $value['id'] ); ?>">
-									<option selected><?php esc_html_e( '- Select a sidebar -', 'eb-textdomain' ); ?></option>
+									<option selected><?php esc_html_e( '- Select a sidebar -', 'edwiser-bridge' ); ?></option>
 									<?php
 									$sidebars = $GLOBALS['wp_registered_sidebars'];
 									foreach ( $sidebars as $sidebar ) {
@@ -691,7 +691,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		public static function save_fields( $options ) {
 			global $current_tab;
 			if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'eb-settings' ) ) {
-				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'eb-textdomain' ) );
+				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'edwiser-bridge' ) );
 			}
 
 			$postdata = $_POST;
@@ -833,8 +833,8 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 									<table class="unlink-table">
 									 <thead>
 										<tr>
-										   <th>' . esc_html__( 'User ID', 'eb-textdomain' ) . '</th>
-										   <th>' . esc_html__( 'Name', 'eb-textdomain' ) . '</th>
+										   <th>' . esc_html__( 'User ID', 'edwiser-bridge' ) . '</th>
+										   <th>' . esc_html__( 'Name', 'edwiser-bridge' ) . '</th>
 										</tr>
 									 </thead>
 									 <tbody>

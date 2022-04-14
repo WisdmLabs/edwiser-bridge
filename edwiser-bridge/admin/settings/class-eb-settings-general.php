@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'general';
-			$this->label = __( 'General', 'eb-textdomain' );
+			$this->label = __( 'General', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -45,18 +45,18 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			/*
 			* translators: the user account page url will go here
 			*/
-			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
+			$user_acc_desc = sprintf( __( 'Select user account page here. Default page is %s ', 'edwiser-bridge' ), '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
 
 			/*
 			* translators: select courses page here
 			*/
-			$courses_page_desc = sprintf( __( 'Select courses page here. Default page is %s ', 'eb-textdomain' ), '<a href="' . esc_url( site_url( '/eb_courses' ) ) . '">' . __( 'Courses page', 'eb-textdomain' ) . '</a>' );
+			$courses_page_desc = sprintf( __( 'Select courses page here. Default page is %s ', 'edwiser-bridge' ), '<a href="' . esc_url( site_url( '/eb_courses' ) ) . '">' . __( 'Courses page', 'edwiser-bridge' ) . '</a>' );
 
 			/*
 			* translators: My Courses page setting description.
 			*/
-			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'eb-textdomain' ), '<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>' );
-			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'eb-textdomain' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'eb-textdomain' ) . '</a>' );
+			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'edwiser-bridge' ), '<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
+			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
 
 
 
@@ -64,68 +64,68 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 				'eb_general_settings',
 				array(
 					array(
-						'title' => __( 'General Options', 'eb-textdomain' ),
+						'title' => __( 'General Options', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
 						'id'    => 'general_options',
 					),
 					array(
-						'title'    => __( 'Enable Registration', 'eb-textdomain' ),
-						'desc'     => __( 'Enable user registration on user-account page.', 'eb-textdomain' ),
+						'title'    => __( 'Enable Registration', 'edwiser-bridge' ),
+						'desc'     => __( 'Enable user registration on user-account page.', 'edwiser-bridge' ),
 						'id'       => 'eb_enable_registration',
 						'default'  => 'no',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'User Account Page', 'eb-textdomain' ),
+						'title'    => __( 'User Account Page', 'edwiser-bridge' ),
 						'desc'     => '<br/>' . $user_acc_desc,
 						'id'       => 'eb_useraccount_page_id',
 						'type'     => 'single_select_page',
 						'default'  => '',
 						'css'      => 'min-width:300px;',
 						'args'     => array(
-							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'show_option_none'  => __( 'Select a page', 'edwiser-bridge' ),
 							'option_none_value' => '',
 						),
-						'desc_tip' => __( 'This sets the user account page, where user can see his/her purchase history.', 'eb-textdomain' ),
+						'desc_tip' => __( 'This sets the user account page, where user can see his/her purchase history.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Select Role', 'eb-textdomain' ),
+						'title'    => __( 'Select Role', 'edwiser-bridge' ),
 						'desc'     => '<br/>' .
-							__( 'Select WordPress default user role for users on registration from User Account Page.', 'eb-textdomain' ),
+							__( 'Select WordPress default user role for users on registration from User Account Page.', 'edwiser-bridge' ),
 						'id'       => 'eb_default_role',
 						'type'     => 'select',
-						'default'  => __( 'Select Role', 'eb-textdomain' ),
+						'default'  => __( 'Select Role', 'edwiser-bridge' ),
 						'css'      => 'min-width:300px;',
 						'options'  => \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_wp_roles(),
-						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'eb-textdomain' ),
+						'desc_tip' => __( 'Select default role for users on registration from User Account Page.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Moodle User Role ID', 'eb-textdomain' ),
-						'desc'     => '<br/>' . __( 'Moodle user role can be found here ', 'eb-textdomain' ) . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/roles/manage.php',
+						'title'    => __( 'Moodle User Role ID', 'edwiser-bridge' ),
+						'desc'     => '<br/>' . __( 'Moodle user role can be found here ', 'edwiser-bridge' ) . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/roles/manage.php',
 						'id'       => 'eb_moodle_role_id',
 						'default'  => '5',
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
-						'desc_tip' => __( 'Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here.', 'eb-textdomain' ),
+						'desc_tip' => __( 'Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Courses page', 'eb-textdomain' ),
+						'title'    => __( 'Courses page', 'edwiser-bridge' ),
 						'desc'     => '<br/>' . $courses_page_desc,
 						'id'       => 'eb_courses_page_id',
 						'type'     => 'single_select_page',
 						'default'  => '',
 						'css'      => 'min-width:300px;',
 						'args'     => array(
-							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'show_option_none'  => __( 'Select a page', 'edwiser-bridge' ),
 							'option_none_value' => '',
 						),
-						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'eb-textdomain' ),
+						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Moodle Language Code', 'eb-textdomain' ),
-						'desc'     => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'eb-textdomain' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'eb-textdomain' ) . ' </a>' ,
+						'title'    => __( 'Moodle Language Code', 'edwiser-bridge' ),
+						'desc'     => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'edwiser-bridge' ) . ' </a>' ,
 						'id'       => 'eb_language_code',
 						'default'  => 'en',
 						'type'     => 'text',
@@ -133,15 +133,15 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						// 'desc_tip' => true,
 					),
 					array(
-						'title'    => __( 'Disable SSL certificate check', 'eb-textdomain' ),
-						'desc'     => __( 'This option will try to ignore errors regariding SSL certificate.', 'eb-textdomain' ),
+						'title'    => __( 'Disable SSL certificate check', 'edwiser-bridge' ),
+						'desc'     => __( 'This option will try to ignore errors regariding SSL certificate.', 'edwiser-bridge' ),
 						'id'       => 'eb_ignore_ssl',
 						'default'  => 'yes',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Show Courses Archive page', 'eb-textdomain' ),
+						'title'    => __( 'Show Courses Archive page', 'edwiser-bridge' ),
 						'desc'     => $courses_arch_desc,
 						'id'       => 'eb_show_archive',
 						'default'  => 'yes',
@@ -149,43 +149,43 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'autoload' => true,
 					),
 					array(
-						'title'    => __( 'Redirect to My Courses', 'eb-textdomain' ),
+						'title'    => __( 'Redirect to My Courses', 'edwiser-bridge' ),
 						'desc'     => sprintf(
 							/**
 							* Translators: My Courses page setting description.
 							*/
-							__( 'Redirect user to the My Courses page on ', 'eb-textdomain' ) . '%s' . __( ' from the ', 'eb-textdomain' ) . '%s' . __( ' page.', 'eb-textdomain' ),
-							'<strong>' . __( 'Login / Registration', 'eb-textdomain' ) . '</strong>',
-							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'eb-textdomain' ) . '</a>'
+							__( 'Redirect user to the My Courses page on ', 'edwiser-bridge' ) . '%s' . __( ' from the ', 'edwiser-bridge' ) . '%s' . __( ' page.', 'edwiser-bridge' ),
+							'<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>',
+							'<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>'
 						),
-						__( 'Redirect user to the My Courses page after login and registration', 'eb-textdomain' ),
+						__( 'Redirect user to the My Courses page after login and registration', 'edwiser-bridge' ),
 						'id'       => 'eb_enable_my_courses',
 						'default'  => 'no',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'My Courses Page', 'eb-textdomain' ),
+						'title'    => __( 'My Courses Page', 'edwiser-bridge' ),
 						'desc'     => '<br/>' . sprintf(
 							/**
 							* Translators: My Courses page setting description.
 							*/
-							__( 'Select my courses page here. Default page is', 'eb-textdomain' ) . ' %s ',
-							'<a href="' . esc_url( site_url( '/eb-my-courses' ) ) . '">' . __( 'My Courses', 'eb-textdomain' ) . '</a>'
+							__( 'Select my courses page here. Default page is', 'edwiser-bridge' ) . ' %s ',
+							'<a href="' . esc_url( site_url( '/eb-my-courses' ) ) . '">' . __( 'My Courses', 'edwiser-bridge' ) . '</a>'
 						),
 						'id'       => 'eb_my_courses_page_id',
 						'type'     => 'single_select_page',
 						'default'  => '',
 						'css'      => 'min-width:300px;',
 						'args'     => array(
-							'show_option_none'  => __( 'Select a page', 'eb-textdomain' ),
+							'show_option_none'  => __( 'Select a page', 'edwiser-bridge' ),
 							'option_none_value' => '',
 						),
-						'desc_tip' => __( "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.", 'eb-textdomain' ),
+						'desc_tip' => __( "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page.", 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Empty My courses Page Redirect Link', 'eb-textdomain' ),
-						'desc'     => __( 'Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page', 'eb-textdomain' ),
+						'title'    => __( 'Empty My courses Page Redirect Link', 'edwiser-bridge' ),
+						'desc'     => __( 'Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page', 'edwiser-bridge' ),
 						'id'       => 'eb_my_course_link',
 						'default'  => '',
 						'type'     => 'text',
@@ -193,8 +193,8 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'desc_tip' => true,
 					),
 					array(
-						'title'    => __( 'Erase associated Moodle data from Moodle site', 'eb-textdomain' ),
-						'desc'     => __( 'Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'eb-textdomain' ),
+						'title'    => __( 'Erase associated Moodle data from Moodle site', 'edwiser-bridge' ),
+						'desc'     => __( 'Erase associated Moodle data from Moodle site on erase personal data of wordpress site', 'edwiser-bridge' ),
 						'id'       => 'eb_erase_moodle_data',
 						'default'  => 'no',
 						'type'     => 'checkbox',
@@ -205,24 +205,24 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'id'   => 'general_options',
 					),
 					array(
-						'title' => __( 'Privacy Policy', 'eb-textdomain' ),
+						'title' => __( 'Privacy Policy', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
 						'id'    => 'general_privacy_policy',
 					),
 					array(
-						'title'    => __( 'Enable terms and conditions', 'eb-textdomain' ),
-						'desc'     => __( 'Check this to use terms and conditions checkbox on the user-account page.', 'eb-textdomain' ),
+						'title'    => __( 'Enable terms and conditions', 'edwiser-bridge' ),
+						'desc'     => __( 'Check this to use terms and conditions checkbox on the user-account page.', 'edwiser-bridge' ),
 						'id'       => 'eb_enable_terms_and_cond',
 						'default'  => 'no',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Terms and Conditions', 'eb-textdomain' ),
+						'title'    => __( 'Terms and Conditions', 'edwiser-bridge' ),
 						'desc'     => __(
 							'Please enter the Terms and Conditions you want to show on user-account page.',
-							'eb-textdomain'
+							'edwiser-bridge'
 						),
 						'id'       => 'eb_terms_and_cond',
 						'default'  => '',
@@ -235,30 +235,30 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'id'   => 'general_privacy_policy',
 					),
 					array(
-						'title' => __( 'Recommended Courses Settings', 'eb-textdomain' ),
+						'title' => __( 'Recommended Courses Settings', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
 						'id'    => 'general_recommended_options',
 					),
 					array(
-						'title'    => __( 'Show Recommended Courses', 'eb-textdomain' ),
-						'desc'     => sprintf( __( 'Show recommended courses on eb-my-courses page.', 'eb-textdomain' ) ),
+						'title'    => __( 'Show Recommended Courses', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Show recommended courses on eb-my-courses page.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_enable_recmnd_courses',
 						'default'  => 'no',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Show Default Recommended Courses', 'eb-textdomain' ),
-						'desc'     => sprintf( __( 'Show category wise selected recommended courses on eb-my-courses page.', 'eb-textdomain' ) ),
+						'title'    => __( 'Show Default Recommended Courses', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Show category wise selected recommended courses on eb-my-courses page.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_show_default_recmnd_courses',
 						'default'  => 'yes',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Select Courses', 'eb-textdomain' ),
-						'desc'     => '<br/>' . sprintf( __( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ) ),
+						'title'    => __( 'Select Courses', 'edwiser-bridge' ),
+						'desc'     => '<br/>' . sprintf( __( 'Select courses to show in custom courses in recommended course section.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_recmnd_courses',
 						'type'     => 'multiselect',
 						'default'  => '',
@@ -270,40 +270,40 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'id'   => 'general_recommended_options',
 					),
 					array(
-						'title' => __( 'Refund Notification Settings', 'eb-textdomain' ),
+						'title' => __( 'Refund Notification Settings', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
 						'id'    => 'refund_options',
 					),
 					array(
-						'title'    => __( 'Notify Admin', 'eb-textdomain' ),
-						'desc'     => sprintf( __( 'Notify admin users on refund.', 'eb-textdomain' ) ),
+						'title'    => __( 'Notify Admin', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Notify admin users on refund.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_refund_mail_to_admin',
 						'default'  => 'yes',
 						'type'     => 'checkbox',
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'Notification Email', 'eb-textdomain' ),
-						'desc'     => '<br/>' . sprintf( __( 'Email address to send refund notification.', 'eb-textdomain' ) ),
+						'title'    => __( 'Notification Email', 'edwiser-bridge' ),
+						'desc'     => '<br/>' . sprintf( __( 'Email address to send refund notification.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_refund_mail',
 						'type'     => 'text',
 						'default'  => '',
-						'desc_tip' => __( 'Specify email address to send refund notification, otherwise keep it blank.', 'eb-textdomain' ),
+						'desc_tip' => __( 'Specify email address to send refund notification, otherwise keep it blank.', 'edwiser-bridge' ),
 					),
 					array(
 						'type' => 'sectionend',
 						'id'   => 'refund_options',
 					),
 					array(
-						'title' => __( 'Usage Tracking', 'eb-textdomain' ),
+						'title' => __( 'Usage Tracking', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
 						'id'    => 'refund_options',
 					),
 					array(
-						'title'    => __( 'Allow Usage Tracking', 'eb-textdomain' ),
-						'desc'     => sprintf( __( 'This will help us in building more useful functionalities for you.', 'eb-textdomain' ) ),
+						'title'    => __( 'Allow Usage Tracking', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'This will help us in building more useful functionalities for you.', 'edwiser-bridge' ) ),
 						'id'       => 'eb_usage_tracking',
 						'default'  => 'no',
 						'type'     => 'checkbox',

@@ -166,7 +166,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 			if ( false !== $resp_data['status'] ) {
 				$is_data_avlb = $this->check_if_no_data( $resp_data['data'], $resp_data['status'] );
 				if ( $is_data_avlb ) {
-					$resp_data['data']   = __( 'No responce from server edwiser.org.', 'eb-textdomain' );
+					$resp_data['data']   = __( 'No responce from server edwiser.org.', 'edwiser-bridge' );
 					$resp_data['status'] = false;
 				}
 			}

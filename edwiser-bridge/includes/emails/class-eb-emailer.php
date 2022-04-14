@@ -246,7 +246,7 @@ class Eb_Emailer {
 
 		// Prepare arguments array for email.
 		$args           = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
-		$email_subject  = apply_filters( 'eb_new_user_email_subject', esc_html__( 'New User Account Details', 'eb-textdomain' ) );
+		$email_subject  = apply_filters( 'eb_new_user_email_subject', esc_html__( 'New User Account Details', 'edwiser-bridge' ) );
 		$args['header'] = $email_subject; // send email subject as header in email template.
 		$email_content  = $this->get_content_html( $args );
 		$email_headers  = apply_filters( 'eb_email_headers', array( 'Content-Type: text/html; charset=UTF-8' ) );
@@ -298,7 +298,7 @@ class Eb_Emailer {
 
 		$email_subject  = apply_filters(
 			'eb_existing_wp_user_email_subject',
-			esc_html__( 'Your Learning Account Credentials', 'eb-textdomain' )
+			esc_html__( 'Your Learning Account Credentials', 'edwiser-bridge' )
 		);
 		$args['header'] = $email_subject; // send email subject as header in email template.
 		$email_content  = $this->get_content_html( $args );
@@ -370,7 +370,7 @@ class Eb_Emailer {
 					 */
 					$email_subject  = apply_filters(
 						'eb_order_completion_email_subject',
-						esc_html__( 'Your order completed successfully.', 'eb-textdomain' )
+						esc_html__( 'Your order completed successfully.', 'edwiser-bridge' )
 					);
 					$args['header'] = $email_subject; // send email subject as header in email template.
 					$email_content  = $this->get_content_html( $args );

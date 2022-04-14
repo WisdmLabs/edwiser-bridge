@@ -940,8 +940,8 @@ msgid "users has been unenrolled successfully."
 msgstr "Kullanıcılar başarıyla eklendi"
 
 #: includes/class-eb-gdpr-compatibility.php:271
-msgid "Username\", \"eb-textdomain"
-msgstr "Kullanıcı adı\", \"eb-textdomain"
+msgid "Username\", \"edwiser-bridge"
+msgstr "Kullanıcı adı\", \"edwiser-bridge"
 
 #. translators 1: display name 2: display name 3: a tag opening string 4: a tag
 #. closing

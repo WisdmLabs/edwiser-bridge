@@ -85,7 +85,7 @@ class EdwiserBridge {
 	 * @since   1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class EdwiserBridge {
 	 * @since   1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -368,7 +368,7 @@ class EdwiserBridge {
 	 */
 	private function set_locale() {
 		$plugin_i18n = new Eb_I18n();
-		$plugin_i18n->set_domain( 'eb-textdomain' );
+		$plugin_i18n->set_domain( 'edwiser-bridge' );
 
 		$this->loader->eb_add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}

@@ -80,7 +80,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * @since   1.0.0
 		 */
 		public function __clone() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * @since   1.0.0
 		 */
 		public function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 		}
 
 		/**
@@ -126,7 +126,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 					<div id="loading-div" class="ui-corner-all" >
 						<img style="height:40px;margin:40px;" src="images/loading.gif" alt="Loading.."/>
 						<h2 style="color:gray;font-weight:normal;">
-							<?php esc_html_e( 'Please wait processing request ....', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Please wait processing request ....', 'edwiser-bridge' ); ?>
 						</h2>
 					</div>
 				</div>
@@ -139,7 +139,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				<form id="eb-manage-user-enrollment-filter" method="post">
 				<p class='search-box'>
 					<input type="text" id="ebemt_search" name="ebemt_search" value="<?php echo esc_html( $search_text ); ?>">
-					<input type="submit" name="eb_manage_enroll_search" id="eb_manage_enroll_search" class="button action" value="<?php echo esc_html__( 'Search Courses', 'eb-textdomain' ); ?>"/>
+					<input type="submit" name="eb_manage_enroll_search" id="eb_manage_enroll_search" class="button action" value="<?php echo esc_html__( 'Search Courses', 'edwiser-bridge' ); ?>"/>
 				</p>
 					<input type="hidden" name="page" value="<?php echo esc_html( $post_page ); ?>" />
 					<input type="hidden" name="eb_enrollment_total_records" value="<?php echo esc_html( $eb_total_records ); ?>" />
@@ -207,13 +207,13 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<strong>
-							<?php sprintf( '%s ', $cnt ) . esc_html_e( 'users has been unenrolled successfully.', 'eb-textdomain' ); ?>
+							<?php sprintf( '%s ', $cnt ) . esc_html_e( 'users has been unenrolled successfully.', 'edwiser-bridge' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
 						<span class="screen-reader-text">
 						<?php
-						esc_html_e( 'Dismiss this notice', 'eb-textdomain' );
+						esc_html_e( 'Dismiss this notice', 'edwiser-bridge' );
 						?>
 						.</span>
 					</button>
@@ -224,13 +224,13 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				<div class="error notice">
 					<p>
 						<strong>
-							<?php esc_html_e( 'No users has been unenrolled', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'No users has been unenrolled', 'edwiser-bridge' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
 						<span class="screen-reader-text">
 						<?php
-						esc_html_e( 'Dismiss this notice', 'eb-textdomain' );
+						esc_html_e( 'Dismiss this notice', 'edwiser-bridge' );
 						?>
 						.</span>
 					</button>
@@ -243,7 +243,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 		 * Ajax callback to unenroo the users from the database
 		 */
 		public function unenroll_user_ajax_handler() {
-			$response = esc_html__( 'Failed to unenroll user', 'eb-textdomain' );
+			$response = esc_html__( 'Failed to unenroll user', 'edwiser-bridge' );
 			if ( isset( $_POST['user_id'] ) && isset( $_POST['course_id'] ) && isset( $_POST['action'] ) && 'wdm_eb_user_manage_unenroll_unenroll_user' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 				$course_id = sanitize_text_field( wp_unslash( $_POST['course_id'] ) );
@@ -252,7 +252,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) 
 				if ( $res ) {
 					$course_name = get_the_title( $course_id );
 					$user        = get_userdata( $user_id );
-					$response    = ucfirst( $user->user_login ) . esc_html__( ' has been unenrolled from the ', 'eb-textdomain' ) . $course_name . esc_html__( ' course', 'eb-textdomain' );
+					$response    = ucfirst( $user->user_login ) . esc_html__( ' has been unenrolled from the ', 'edwiser-bridge' ) . $course_name . esc_html__( ' course', 'edwiser-bridge' );
 					wp_send_json_success( $response );
 				} else {
 					wp_send_json_error( $response );

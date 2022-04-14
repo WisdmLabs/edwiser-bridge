@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 		/* Tanslators 1: first_name */
-		printf( esc_html__( 'Hi %$1s', 'eb-textdomain' ), esc_html( $args['first_name'] ) );
+		printf( esc_html__( 'Hi %$1s', 'edwiser-bridge' ), esc_html( $args['first_name'] ) );
 	?>
 	</p>
 
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	printf(
 		esc_html__(
 			'Thanks for creating an account on %$1s. Your username is <strong>%$2s</strong>.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		esc_html( get_bloginfo( 'name' ) ),
 		esc_html( $args['username'] )
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	printf(
 		esc_html__(
 			'Your password has been automatically generated: <strong>%$1s</strong>',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		esc_html( $args['password'] )
 	);
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	printf(
 		esc_html__(
 			'You can access your account here: <a href="%$1s">User Account</a>.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		esc_html( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() )
 	);

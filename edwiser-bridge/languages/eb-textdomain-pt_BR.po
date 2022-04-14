@@ -2440,8 +2440,8 @@ msgid "Email"
 msgstr "E-mail"
 
 #: includes/class-eb-gdpr-compatibility.php:271
-msgid "Username\", \"eb-textdomain"
-msgstr "Username\", \"eb-textdomain"
+msgid "Username\", \"edwiser-bridge"
+msgstr "Username\", \"edwiser-bridge"
 
 #: includes/class-eb-gdpr-compatibility.php:272
 #: public/templates/account/form-login.php:33

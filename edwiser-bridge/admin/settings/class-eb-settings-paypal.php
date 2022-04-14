@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'paypal';
-			$this->label = __( 'PayPal', 'eb-textdomain' );
+			$this->label = __( 'PayPal', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -71,13 +71,13 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 				'eb_paypal_settings',
 				array(
 					array(
-						'title' => __( 'PayPal Settings', 'eb-textdomain' ),
+						'title' => __( 'PayPal Settings', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'id'    => 'paypal_options',
 					),
 					array(
-						'title'             => __( 'PayPal Email', 'eb-textdomain' ),
-						'desc'              => __( 'Enter your PayPal email here.', 'eb-textdomain' ),
+						'title'             => __( 'PayPal Email', 'edwiser-bridge' ),
+						'desc'              => __( 'Enter your PayPal email here.', 'edwiser-bridge' ),
 						'id'                => 'eb_paypal_email',
 						'css'               => 'min-width:350px;',
 						'default'           => '',
@@ -86,32 +86,32 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'custom_attributes' => array( 'required' => 'required' ),
 					),
 					array(
-						'title'    => __( 'PayPal Currency', 'eb-textdomain' ),
-						'desc'     => __( 'Select transaction currency code, Default is USD.', 'eb-textdomain' ),
+						'title'    => __( 'PayPal Currency', 'edwiser-bridge' ),
+						'desc'     => __( 'Select transaction currency code, Default is USD.', 'edwiser-bridge' ),
 						'id'       => 'eb_paypal_currency',
 						'css'      => 'min-width:350px;',
 						'default'  => '',
 						'type'     => 'select',
 						'desc_tip' => true,
 						'options'  => array(
-							'USD' => __( 'U.S. Dollar (USD)', 'eb-textdomain' ),
-							'CAD' => __( 'Canadian Dollar (CAD)', 'eb-textdomain' ),
-							'NZD' => __( 'New Zealand Dollar (NZD)', 'eb-textdomain' ),
-							'HKD' => __( 'Hong Kong Dollar (HKD)', 'eb-textdomain' ),
-							'EUR' => __( 'Euro (EUR)', 'eb-textdomain' ),
-							'JPY' => __( 'Japanese Yen (JPY)', 'eb-textdomain' ),
-							'MXN' => __( 'Mexican Peso (MXN)', 'eb-textdomain' ),
-							'CHF' => __( 'Swiss Franc (CHF)', 'eb-textdomain' ),
-							'GBP' => __( 'Pound Sterling (GBP)', 'eb-textdomain' ),
-							'AUD' => __( 'Australian Dollar (AUD)', 'eb-textdomain' ),
-							'PLN' => __( 'Polish Zloty (PLN)', 'eb-textdomain' ),
-							'DKK' => __( 'Danish Krone (DKK)', 'eb-textdomain' ),
-							'SGD' => __( 'Singapore Dollar (SGD)', 'eb-textdomain' ),
+							'USD' => __( 'U.S. Dollar (USD)', 'edwiser-bridge' ),
+							'CAD' => __( 'Canadian Dollar (CAD)', 'edwiser-bridge' ),
+							'NZD' => __( 'New Zealand Dollar (NZD)', 'edwiser-bridge' ),
+							'HKD' => __( 'Hong Kong Dollar (HKD)', 'edwiser-bridge' ),
+							'EUR' => __( 'Euro (EUR)', 'edwiser-bridge' ),
+							'JPY' => __( 'Japanese Yen (JPY)', 'edwiser-bridge' ),
+							'MXN' => __( 'Mexican Peso (MXN)', 'edwiser-bridge' ),
+							'CHF' => __( 'Swiss Franc (CHF)', 'edwiser-bridge' ),
+							'GBP' => __( 'Pound Sterling (GBP)', 'edwiser-bridge' ),
+							'AUD' => __( 'Australian Dollar (AUD)', 'edwiser-bridge' ),
+							'PLN' => __( 'Polish Zloty (PLN)', 'edwiser-bridge' ),
+							'DKK' => __( 'Danish Krone (DKK)', 'edwiser-bridge' ),
+							'SGD' => __( 'Singapore Dollar (SGD)', 'edwiser-bridge' ),
 						),
 					),
 					array(
-						'title'             => __( 'PayPal Country', 'eb-textdomain' ),
-						'desc'              => __( 'Enter your country code here.', 'eb-textdomain' ),
+						'title'             => __( 'PayPal Country', 'edwiser-bridge' ),
+						'desc'              => __( 'Enter your country code here.', 'edwiser-bridge' ),
 						'id'                => 'eb_paypal_country_code',
 						'css'               => 'min-width:350px;',
 						'default'           => 'US',
@@ -120,8 +120,8 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'custom_attributes' => array( 'required' => 'required' ),
 					),
 					array(
-						'title'             => __( 'PayPal Cancel URL', 'eb-textdomain' ),
-						'desc'              => __( 'Enter the URL used for purchase cancellations.', 'eb-textdomain' ),
+						'title'             => __( 'PayPal Cancel URL', 'edwiser-bridge' ),
+						'desc'              => __( 'Enter the URL used for purchase cancellations.', 'edwiser-bridge' ),
 						'id'                => 'eb_paypal_cancel_url',
 						'css'               => 'min-width:350px;',
 						'default'           => site_url(),
@@ -130,10 +130,10 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'custom_attributes' => array( 'required' => 'required' ),
 					),
 					array(
-						'title'             => __( 'PayPal Return URL', 'eb-textdomain' ),
+						'title'             => __( 'PayPal Return URL', 'edwiser-bridge' ),
 						'desc'              => __(
 							'Enter the URL used for completed purchases (a thank you page).',
-							'eb-textdomain'
+							'edwiser-bridge'
 						),
 						'id'                => 'eb_paypal_return_url',
 						'css'               => 'min-width:350px;',
@@ -143,8 +143,8 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'custom_attributes' => array( 'required' => 'required' ),
 					),
 					array(
-						'title'             => __( 'PayPal Notify URL', 'eb-textdomain' ),
-						'desc'              => __( 'Enter the URL used for IPN notifications.', 'eb-textdomain' ),
+						'title'             => __( 'PayPal Notify URL', 'edwiser-bridge' ),
+						'desc'              => __( 'Enter the URL used for IPN notifications.', 'edwiser-bridge' ),
 						'id'                => 'eb_paypal_notify_url',
 						'css'               => 'min-width:350px;',
 						'default'           => site_url( '/eb/paypal-notify' ),
@@ -153,8 +153,8 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'custom_attributes' => array( 'readonly' => 'readonly' ),
 					),
 					array(
-						'title'           => __( 'Use PayPal Sandbox', 'eb-textdomain' ),
-						'desc'            => __( 'Check to enable the PayPal sandbox.', 'eb-textdomain' ),
+						'title'           => __( 'Use PayPal Sandbox', 'edwiser-bridge' ),
+						'desc'            => __( 'Check to enable the PayPal sandbox.', 'edwiser-bridge' ),
 						'id'              => 'eb_paypal_sandbox',
 						'default'         => 'no',
 						'type'            => 'checkbox',
@@ -166,13 +166,13 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'id'   => 'paypal_options',
 					),
 					array(
-						'title' => __( 'PayPal API Credentials (Optional)', 'eb-textdomain' ),
+						'title' => __( 'PayPal API Credentials (Optional)', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'id'    => 'paypal_api_options',
-						'desc'  => __( 'To use order refunds following fields are mandatory.', 'eb-textdomain' ),
+						'desc'  => __( 'To use order refunds following fields are mandatory.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'API username', 'eb-textdomain' ),
+						'title'    => __( 'API username', 'edwiser-bridge' ),
 						'id'       => 'eb_api_username',
 						'css'      => 'min-width:350px;',
 						'default'  => '',
@@ -180,7 +180,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'API password', 'eb-textdomain' ),
+						'title'    => __( 'API password', 'edwiser-bridge' ),
 						'id'       => 'eb_api_password',
 						'css'      => 'min-width:350px;',
 						'default'  => '',
@@ -188,7 +188,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'API signature', 'eb-textdomain' ),
+						'title'    => __( 'API signature', 'edwiser-bridge' ),
 						'id'       => 'eb_api_signature',
 						'css'      => 'min-width:350px;',
 						'default'  => '',

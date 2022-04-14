@@ -120,11 +120,11 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			}
 			$constant['{SITE_NAME}']              = get_bloginfo( 'name' );
 			$constant['{SITE_URL}']               = "<a href='" . get_bloginfo( 'url' ) . "'>" . get_bloginfo( 'name' ) . '</a>';
-			$constant['{COURSES_PAGE_LINK}']      = "<a href='" . site_url( '/courses' ) . "'>" . esc_html__( 'Courses', 'eb-textdomain' ) . '</a>';
+			$constant['{COURSES_PAGE_LINK}']      = "<a href='" . site_url( '/courses' ) . "'>" . esc_html__( 'Courses', 'edwiser-bridge' ) . '</a>';
 			$constant['{MY_COURSES_PAGE_LINK}']   = $this->get_my_courses_page_link();
-			$constant['{USER_ACCOUNT_PAGE_LINK}'] = "<a href='" . \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() . "'>" . esc_html__( 'User Account', 'eb-textdomain' ) . '</a>';
-			$constant['{WP_LOGIN_PAGE_LINK}']     = "<a href='" . $this->get_login_page_url() . "'>" . esc_html__( 'Login Page', 'eb-textdomain' ) . '</a>';
-			$constant['{MOODLE_URL}']             = "<a href='" . $this->get_moodle_url() . "'>" . esc_html__( 'Moodle Site', 'eb-textdomain' ) . '</a>';
+			$constant['{USER_ACCOUNT_PAGE_LINK}'] = "<a href='" . \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() . "'>" . esc_html__( 'User Account', 'edwiser-bridge' ) . '</a>';
+			$constant['{WP_LOGIN_PAGE_LINK}']     = "<a href='" . $this->get_login_page_url() . "'>" . esc_html__( 'Login Page', 'edwiser-bridge' ) . '</a>';
+			$constant['{MOODLE_URL}']             = "<a href='" . $this->get_moodle_url() . "'>" . esc_html__( 'Moodle Site', 'edwiser-bridge' ) . '</a>';
 			$constant['{COURSE_NAME}']            = $this->get_course_name( $args );
 			$constant['{USER_PASSWORD}']          = $this->get_user_password( $args );
 			$constant['{ORDER_ID}']               = $this->get_order_id( $args );
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$general_settings   = get_option( 'eb_general' );
 			$my_courses_page_id = $general_settings['eb_my_courses_page_id'];
 			$url                = get_permalink( $my_courses_page_id );
-			return "<a href='$url'>" . __( 'My Courses', 'eb-textdomain' ) . '</a>';
+			return "<a href='$url'>" . __( 'My Courses', 'edwiser-bridge' ) . '</a>';
 		}
 
 		/**
@@ -190,10 +190,10 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 		 */
 		private function get_course_page_link( $args ) {
 			if ( isset( $args['course_id'] ) ) {
-				return "<a href='" . get_post_permalink( $args['course_id'] ) . "'>" . esc_html__( 'click here', 'eb-textdomain' ) . '</a>';
+				return "<a href='" . get_post_permalink( $args['course_id'] ) . "'>" . esc_html__( 'click here', 'edwiser-bridge' ) . '</a>';
 			} else {
 				$url = get_site_url();
-				return "<a href='" . $url . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>';
+				return "<a href='" . $url . "'>" . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>';
 			}
 		}
 
@@ -265,11 +265,11 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 					?>
 					<div class='eb-order-meta-byer-details'>
 						<p>
-							<label><?php esc_html_e( 'Name: ', 'eb-textdomain' ); ?></label>
+							<label><?php esc_html_e( 'Name: ', 'edwiser-bridge' ); ?></label>
 							<?php echo esc_html( $buyer_details->user_login ); ?>
 						</p>
 						<p>
-							<label><?php esc_html_e( 'Email: ', 'eb-textdomain' ); ?></label>
+							<label><?php esc_html_e( 'Email: ', 'edwiser-bridge' ); ?></label>
 							<?php echo esc_html( $buyer_details->user_email ); ?>
 						</p>
 					</div>

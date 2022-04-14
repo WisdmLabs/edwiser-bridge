@@ -51,7 +51,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 					<div  class="eb-cat-wrapper-new ">
 						<span>
 							<strong>
-								<?php esc_html_e( 'CATEGORY: ', 'eb-textdomain' ); ?>
+								<?php esc_html_e( 'CATEGORY: ', 'edwiser-bridge' ); ?>
 							</strong>
 							<?php echo wp_kses( implode( ', ', $single_course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?>
 						</span>
@@ -130,7 +130,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 				<?php
 		} else {
 			?>
-			<div class='eb_h4'><?php esc_html_e( 'Course Overview', 'eb-textdomain' ); ?></div>
+			<div class='eb_h4'><?php esc_html_e( 'Course Overview', 'edwiser-bridge' ); ?></div>
 			<?php
 			the_content();
 		}

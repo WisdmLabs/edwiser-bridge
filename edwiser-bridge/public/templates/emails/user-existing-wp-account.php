@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 		/* Tanslators 1: first_name */
-		printf( esc_html__( 'Hi %$1s', 'eb-textdomain' ), esc_html( $args['first_name'] ) );
+		printf( esc_html__( 'Hi %$1s', 'edwiser-bridge' ), esc_html( $args['first_name'] ) );
 	?>
 </p>
 
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		esc_html__(
 			'A learning account is linked to your profile.
         Use credentials given below while accessing your courses.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		)
 	);
 	?>
@@ -34,14 +34,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p>
 	<?php
 		/* Tanslators 1: username */
-		printf( esc_html__( 'Username: <strong>%$1s</strong>', 'eb-textdomain' ), esc_html( $args['username'] ) );
+		printf( esc_html__( 'Username: <strong>%$1s</strong>', 'edwiser-bridge' ), esc_html( $args['username'] ) );
 	?>
 </p>
 
 <p>
 	<?php
 		/* Tanslators 1: password */
-		printf( esc_html__( 'Password: <strong>%$1s</strong>', 'eb-textdomain' ), esc_html( $args['password'] ) );
+		printf( esc_html__( 'Password: <strong>%$1s</strong>', 'edwiser-bridge' ), esc_html( $args['password'] ) );
 	?>
 </p>
 
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	printf(
 		esc_html__(
 			'To purchase and access more courses click here: <a href="%$1s">Courses</a>.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		esc_html( wp_site_url( '/courses' ) )
 	);

@@ -54,7 +54,7 @@ $template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 ?>
 
 	<?php if ( apply_filters( 'eb_show_page_title', true ) ) : ?>
-		<h1 class="page-title"><?php esc_html_e( 'Courses', 'eb-textdomain' ); ?></h1>
+		<h1 class="page-title"><?php esc_html_e( 'Courses', 'edwiser-bridge' ); ?></h1>
 		<?php
 
 	endif;
@@ -77,10 +77,10 @@ $template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
 		// Previous/next page navigation.
 		the_posts_pagination(
 			array(
-				'prev_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit">' . __( ' Prev', 'eb-textdomain' ) . '</span>',
-				'next_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"> ' . __( 'Next ', 'eb-textdomain' ) . '</span>',
+				'prev_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit">' . __( ' Prev', 'edwiser-bridge' ) . '</span>',
+				'next_text'          => '<span class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit"> ' . __( 'Next ', 'edwiser-bridge' ) . '</span>',
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' .
-				esc_html__( 'Page', 'eb-textdomain' ) . ' </span>',
+				esc_html__( 'Page', 'edwiser-bridge' ) . ' </span>',
 			)
 		);
 	} else {

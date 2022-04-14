@@ -312,7 +312,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				'nonote'       => '1',
 				'rm'           => '2',
 				'lc'           => '',
-				'cbt'          => esc_html__( 'Complete Your Purchase', 'eb-textdomain' ),
+				'cbt'          => esc_html__( 'Complete Your Purchase', 'edwiser-bridge' ),
 				'cn'           => '',
 				'pagestyle'    => 'paypal',
 				'notifyurl'    => '',
@@ -430,7 +430,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" src="' . $button_url . '" border="0" name="submit"
 					alt="' . $edwiser_bridge_alt_add . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'eb-textdomain' ) . '"
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edwiser-bridge' ) . '"
 				class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit" id="eb_course_payment_button">';
 
 				if ( $atts['noshipping'] > -1 ) {
@@ -571,7 +571,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= '<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
 					border="0" name="submit" alt="' .
-					esc_html__( 'PayPal - The safer, easier way to pay online.', 'eb-textdomain' ) . '" class="ppalbtn">';
+					esc_html__( 'PayPal - The safer, easier way to pay online.', 'edwiser-bridge' ) . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) .
 						'" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit" id="eb_course_payment_button ">';
@@ -777,7 +777,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 				} else {
 					$code .= '<input type="hidden" src="https://www.paypal.com/en_AU/i/btn/btn_subscribeCC_LG.gif"
 					border="0" name="submit" alt="' .
-							esc_html__( 'PayPal - The safer, easier way to pay online.', 'eb-textdomain' ) . '" class="ppalbtn">';
+							esc_html__( 'PayPal - The safer, easier way to pay online.', 'edwiser-bridge' ) . '" class="ppalbtn">';
 				}
 				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
 				id="eb_course_payment_button">';

@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 		 */
 		public function __construct() {
 			$this->_id   = 'pfetures';
-			$this->label = __( 'Upgrade to Premium', 'eb-textdomain' );
+			$this->label = __( 'Upgrade to Premium', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );

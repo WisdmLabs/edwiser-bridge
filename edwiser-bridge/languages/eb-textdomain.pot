@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Loco-Version: 2.5.2; wp-5.7.2\n"
-"X-Domain: eb-textdomain"
+"X-Domain: edwiser-bridge"
 
 
 #: admin/class-eb-admin-menus.php:45 admin/class-eb-admin-menus.php:46

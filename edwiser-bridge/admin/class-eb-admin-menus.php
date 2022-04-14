@@ -42,8 +42,8 @@ class Eb_Admin_Menus {
 	public function admin_menu() {
 		add_submenu_page(
 			'edit.php?post_type=eb_course',
-			__( 'Orders', 'eb-textdomain' ),
-			__( 'Orders', 'eb-textdomain' ),
+			__( 'Orders', 'edwiser-bridge' ),
+			__( 'Orders', 'edwiser-bridge' ),
 			'manage_options',
 			'edit.php?post_type=eb_order'
 		);
@@ -57,8 +57,8 @@ class Eb_Admin_Menus {
 	public function settings_menu() {
 		add_submenu_page(
 			'edit.php?post_type=eb_course',
-			__( 'Settings', 'eb-textdomain' ),
-			__( 'Settings', 'eb-textdomain' ),
+			__( 'Settings', 'edwiser-bridge' ),
+			__( 'Settings', 'edwiser-bridge' ),
 			'manage_options',
 			'eb-settings',
 			array( $this, 'settings_page' )
@@ -73,8 +73,8 @@ class Eb_Admin_Menus {
 	public function manage_enrollment_menu() {
 		add_submenu_page(
 			'edit.php?post_type=eb_course',
-			__( 'User Enrollment', 'eb-textdomain' ),
-			__( 'Manage Enrollment', 'eb-textdomain' ),
+			__( 'User Enrollment', 'edwiser-bridge' ),
+			__( 'Manage Enrollment', 'edwiser-bridge' ),
 			'manage_options',
 			'mucp-manage-enrollment',
 			array( $this, 'manage_enrollment_content' )
@@ -89,8 +89,8 @@ class Eb_Admin_Menus {
 	public function email_template() {
 		add_submenu_page(
 			'edit.php?post_type=eb_course',
-			__( 'Manage Email Templates', 'eb-textdomain' ),
-			__( 'Manage Email Templates', 'eb-textdomain' ),
+			__( 'Manage Email Templates', 'edwiser-bridge' ),
+			__( 'Manage Email Templates', 'edwiser-bridge' ),
 			'manage_options',
 			'eb-email-template',
 			array( $this, 'email_template_page' )

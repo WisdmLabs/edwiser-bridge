@@ -144,7 +144,7 @@ class Eb_Public {
 			$this->plugin_name . '-edit-user-profile',
 			'ebEditProfile',
 			array(
-				'default' => __( '- Select Country -', 'eb-textdomain' ),
+				'default' => __( '- Select Country -', 'edwiser-bridge' ),
 			)
 		);
 
@@ -161,12 +161,12 @@ class Eb_Public {
 			array(
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'nonce'            => $nonce,
-				'msg_val_fn'       => __( "The field 'First Name' cannot be left blank", 'eb-textdomain' ),
-				'msg_val_ln'       => __( "The field 'Last Name' cannot be left blank", 'eb-textdomain' ),
-				'msg_val_mail'     => __( "The field 'Email' cannot be left blank", 'eb-textdomain' ),
-				'msg_ordr_pro_err' => __( 'Problems in processing your order, Please try later.', 'eb-textdomain' ),
-				'msg_processing'   => __( 'Processing...', 'eb-textdomain' ),
-				'access_course'    => __( 'Access Course', 'eb-textdomain' ),
+				'msg_val_fn'       => __( "The field 'First Name' cannot be left blank", 'edwiser-bridge' ),
+				'msg_val_ln'       => __( "The field 'Last Name' cannot be left blank", 'edwiser-bridge' ),
+				'msg_val_mail'     => __( "The field 'Email' cannot be left blank", 'edwiser-bridge' ),
+				'msg_ordr_pro_err' => __( 'Problems in processing your order, Please try later.', 'edwiser-bridge' ),
+				'msg_processing'   => __( 'Processing...', 'edwiser-bridge' ),
+				'access_course'    => __( 'Access Course', 'edwiser-bridge' ),
 			)
 		);
 
@@ -175,25 +175,25 @@ class Eb_Public {
 			$this->plugin_name,
 			'ebDataTable',
 			array(
-				'search'          => __( 'Search:', 'eb-textdomain' ),
-				'all'             => __( 'All', 'eb-textdomain' ),
-				'sEmptyTable'     => __( 'No data available in table', 'eb-textdomain' ),
-				'sLoadingRecords' => __( 'Loading...', 'eb-textdomain' ),
-				'sSearch'         => __( 'Search', 'eb-textdomain' ),
-				'sZeroRecords'    => __( 'No matching records found', 'eb-textdomain' ),
-				'sProcessing'     => __( 'Processing...', 'eb-textdomain' ),
-				'sInfo'           => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'eb-textdomain' ),
-				'sInfoEmpty'      => __( 'Showing 0 to 0 of 0 entries', 'eb-textdomain' ),
-				'sInfoFiltered'   => __( 'filtered from _MAX_ total entries', 'eb-textdomain' ),
+				'search'          => __( 'Search:', 'edwiser-bridge' ),
+				'all'             => __( 'All', 'edwiser-bridge' ),
+				'sEmptyTable'     => __( 'No data available in table', 'edwiser-bridge' ),
+				'sLoadingRecords' => __( 'Loading...', 'edwiser-bridge' ),
+				'sSearch'         => __( 'Search', 'edwiser-bridge' ),
+				'sZeroRecords'    => __( 'No matching records found', 'edwiser-bridge' ),
+				'sProcessing'     => __( 'Processing...', 'edwiser-bridge' ),
+				'sInfo'           => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'edwiser-bridge' ),
+				'sInfoEmpty'      => __( 'Showing 0 to 0 of 0 entries', 'edwiser-bridge' ),
+				'sInfoFiltered'   => __( 'filtered from _MAX_ total entries', 'edwiser-bridge' ),
 				'sInfoPostFix'    => '',
-				'sInfoThousands'  => __( ',', 'eb-textdomain' ),
-				'sLengthMenu'     => __( 'Show _MENU_ entries', 'eb-textdomain' ),
-				'sFirst'          => __( 'First', 'eb-textdomain' ),
-				'sLast'           => __( 'Last', 'eb-textdomain' ),
-				'sNext'           => __( 'Next', 'eb-textdomain' ),
-				'sPrevious'       => __( 'Previous', 'eb-textdomain' ),
-				'sSortAscending'  => __( ': activate to sort column ascending', 'eb-textdomain' ),
-				'sSortDescending' => __( ': activate to sort column descending', 'eb-textdomain' ),
+				'sInfoThousands'  => __( ',', 'edwiser-bridge' ),
+				'sLengthMenu'     => __( 'Show _MENU_ entries', 'edwiser-bridge' ),
+				'sFirst'          => __( 'First', 'edwiser-bridge' ),
+				'sLast'           => __( 'Last', 'edwiser-bridge' ),
+				'sNext'           => __( 'Next', 'edwiser-bridge' ),
+				'sPrevious'       => __( 'Previous', 'edwiser-bridge' ),
+				'sSortAscending'  => __( ': activate to sort column ascending', 'edwiser-bridge' ),
+				'sSortDescending' => __( ': activate to sort column descending', 'edwiser-bridge' ),
 			)
 		);
 
