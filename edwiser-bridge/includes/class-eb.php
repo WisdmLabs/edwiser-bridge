@@ -374,6 +374,18 @@ class EdwiserBridge {
 
 		//compatibility with edwiser-bridge textdomain.
 		$this->loader->eb_add_filter( 'load_textdomain_mofile', $plugin_i18n, 'load_edwiser_bridge_textdomain', 10, 2 );
+
+		//hook to check file renaming after admin user login.
+		$this->loader->eb_add_action( 'wp_login', $plugin_i18n, 'check_file_renaming', 9);
+
+		//add ajax action to dismiss admin notice.
+		$this->loader->eb_add_action( 'admin_init', $plugin_i18n, 'eb_dismiss_lang_rename_admin_notice' );
+
+		//show admin notice if file renaming is not done.
+		$notice_dismissed = get_option( 'eb_rename_file_notice_dismissed' );
+		if ( 'false' == $notice_dismissed ) {
+			$this->loader->eb_add_action( 'admin_notices', $plugin_i18n, 'eb_admin_notice_failed_rename_files' );
+		}
 	}
 
 

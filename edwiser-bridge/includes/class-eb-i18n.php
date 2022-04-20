@@ -64,16 +64,30 @@ class Eb_I18n {
 	 */
 	public function load_edwiser_bridge_textdomain($mofile, $domain) {
 
-		$eb_renamed_lang_files = get_option('eb_renamed_lang_files');
-		if($eb_renamed_lang_files != 'true' && 'edwiser-bridge' === $domain && is_admin()) {
-			$this->rename_langauge_files();
-		}
+		// $eb_renamed_lang_files = get_option('eb_renamed_lang_files');
+		// if($eb_renamed_lang_files != 'true' && 'edwiser-bridge' === $domain && is_admin()) {
+		// 	$this->rename_langauge_files();
+		// }
 
 		if ( 'edwiser-bridge' === $domain && 0 === strpos( $mofile, WP_LANG_DIR . '/plugins/' ) && ! file_exists( $mofile ) ) {
 			$mofile = dirname( $mofile ) . DIRECTORY_SEPARATOR . str_replace( $domain, 'eb-textdomain', basename( $mofile ) );
 		}
 
 		return $mofile;
+	}
+
+	/**
+	 * check if language files are renamed and if not rename them each time user login.
+	 * hook : wp_login
+	 * @since    2.1.6
+	 */
+	public function check_file_renaming( ) {
+		$eb_renamed_lang_files = get_option('eb_renamed_lang_files');
+		error_log('eb_renamed_lang_files: ' . print_r($eb_renamed_lang_files, true));
+	//check if user is admin and if language files are renamed.
+		if ( $eb_renamed_lang_files != 'true' ) {
+			$this->rename_langauge_files();
+		}
 	}
 
 	/**
@@ -97,15 +111,17 @@ class Eb_I18n {
 				}
 				$msg .= '</li>';
 			}
-			$class = 'notice notice-error';
+			$redirection = add_query_arg( 'eb-rename-lang-notice-dismissed', true );
+			$class = 'notice notice-error ';
 			$message = '<h3>Edwiser Bridge is unable to rename translation files. please rename files manually</h3>
 			<p> Please rename the following files manually:</p>
 			<ul>
 				'.$msg.'
 			</ul>
+			<a href="' . esc_html( $redirection ) . '" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>
 			';
 
-			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
+			printf( '<div style="position:relative;" class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
 		}
 	}
 
@@ -115,6 +131,12 @@ class Eb_I18n {
 	 * @since    2.1.6
 	 */
 	public function rename_langauge_files() {
+
+		// if( !is_admin() ) {
+		// 	return;
+		// }
+		error_log('rename_langauge_files');
+
 		$lang_dir = WP_LANG_DIR . DIRECTORY_SEPARATOR . 'plugins';
 		$loco_dir = WP_LANG_DIR . DIRECTORY_SEPARATOR . 'loco' . DIRECTORY_SEPARATOR . 'language';
 		$plugin_dir = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . 'edwiser-bridge' . DIRECTORY_SEPARATOR . 'languages';
@@ -168,7 +190,18 @@ class Eb_I18n {
 		}
 		else{
 			update_option('eb_renamed_lang_files', $failed_files);
-			add_action( 'admin_notices', array( $this, 'eb_admin_notice_failed_rename_files' ) );
+			update_option('eb_rename_file_notice_dismissed', 'false');
+		}
+	}
+
+	/**
+	 * ajax function to dismiss admin notice
+	 *
+	 * @since    2.1.6
+	 */
+	public function eb_dismiss_lang_rename_admin_notice() {
+		if ( true === filter_input( INPUT_GET, 'eb-rename-lang-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			update_option( 'eb_rename_file_notice_dismissed', 'true');
 		}
 	}
 }
