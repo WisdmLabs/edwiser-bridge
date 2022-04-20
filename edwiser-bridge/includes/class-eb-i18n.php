@@ -83,8 +83,7 @@ class Eb_I18n {
 	 */
 	public function check_file_renaming( ) {
 		$eb_renamed_lang_files = get_option('eb_renamed_lang_files');
-		error_log('eb_renamed_lang_files: ' . print_r($eb_renamed_lang_files, true));
-	//check if user is admin and if language files are renamed.
+		//check if user is admin and if language files are renamed.
 		if ( $eb_renamed_lang_files != 'true' ) {
 			$this->rename_langauge_files();
 		}
@@ -135,7 +134,6 @@ class Eb_I18n {
 		// if( !is_admin() ) {
 		// 	return;
 		// }
-		error_log('rename_langauge_files');
 
 		$lang_dir = WP_LANG_DIR . DIRECTORY_SEPARATOR . 'plugins';
 		$loco_dir = WP_LANG_DIR . DIRECTORY_SEPARATOR . 'loco' . DIRECTORY_SEPARATOR . 'language';
