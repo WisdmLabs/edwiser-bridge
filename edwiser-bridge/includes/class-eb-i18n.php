@@ -64,10 +64,13 @@ class Eb_I18n {
 	 */
 	public function load_edwiser_bridge_textdomain($mofile, $domain) {
 
-		// $eb_renamed_lang_files = get_option('eb_renamed_lang_files');
-		// if($eb_renamed_lang_files != 'true' && 'edwiser-bridge' === $domain && is_admin()) {
-		// 	$this->rename_langauge_files();
-		// }
+		$notice_dismissed = get_option( 'eb_rename_file_notice_dismissed' );
+		if ( 'false' == $notice_dismissed ) {
+			$eb_renamed_lang_files = get_option('eb_renamed_lang_files');
+			if($eb_renamed_lang_files != 'true' && 'edwiser-bridge' === $domain && is_admin()) {
+				$this->rename_langauge_files();
+			}
+		}
 
 		if ( 'edwiser-bridge' === $domain && 0 === strpos( $mofile, WP_LANG_DIR . '/plugins/' ) && ! file_exists( $mofile ) ) {
 			$mofile = dirname( $mofile ) . DIRECTORY_SEPARATOR . str_replace( $domain, 'eb-textdomain', basename( $mofile ) );
