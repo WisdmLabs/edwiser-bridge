@@ -174,6 +174,11 @@ function process_upgrade() {
 		Eb_Activator::activate( false );
 		update_option( 'eb_current_version', $new_version );
 		update_option( 'eb_mdl_plugin_update_notice_dismissed', false );
+
+		//rename files
+		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-i18n.php';
+		$plugin_i18n = new Eb_I18n();
+		$plugin_i18n->rename_langauge_files();
 	}
 }
 
