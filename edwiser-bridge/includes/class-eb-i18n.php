@@ -96,6 +96,12 @@ class Eb_I18n {
 	 */
 	public function eb_admin_notice_failed_rename_files() {
 
+		//if notice is dismissed, do not show it again.
+		if ( true === filter_input( INPUT_GET, 'eb-rename-lang-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			update_option( 'eb_renamed_lang_files', 'true' );
+			return;
+		}
+		
 		$eb_renamed_lang_files = get_option('eb_renamed_lang_files');
 		if(!empty($eb_renamed_lang_files) && $eb_renamed_lang_files != 'true' ) {
 			$fileinfo = array();
