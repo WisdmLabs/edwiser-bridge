@@ -101,7 +101,7 @@ class Eb_I18n {
 
 		//if notice is dismissed, do not show it again.
 		if ( true === filter_input( INPUT_GET, 'eb-rename-lang-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
-			update_option( 'eb_renamed_lang_files', 'true' );
+			update_option( 'eb_rename_file_notice_dismissed', 'true' );
 			return;
 		}
 		
