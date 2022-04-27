@@ -580,7 +580,12 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 	function wdm_eb_get_moodle_url() {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
-			return $url['eb_url'];
+			$eb_moodle_url = $url['url'];
+
+			if(substr($eb_moodle_url , -1)=='/'){
+				$eb_moodle_url = substr($eb_moodle_url, 0, -1);
+			}
+			return $eb_moodle_url;
 		}
 		return 'MOODLE_URL';
 	}
@@ -829,6 +834,10 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_url' ) ) {
 		if ( isset( $connection_options['eb_url'] ) ) {
 			$eb_moodle_url = $connection_options['eb_url'];
 		}
+
+		if(substr($eb_moodle_url , -1)=='/'){
+            $eb_moodle_url = substr($eb_moodle_url, 0, -1);
+        }
 
 		return $eb_moodle_url;
 	}
