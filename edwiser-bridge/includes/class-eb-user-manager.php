@@ -736,7 +736,7 @@ class EBUserManager {
 				);
 			}
 		} elseif ( 1 === $update ) { // when updating profile details of an existing user on moodle.
-			if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
+			if ( 1 === $response['success'] && ( empty( $response['response_data'] ) || empty( $response['response_data']->warnings ) ) ) {
 				$user = array( 'user_updated' => 1 );
 			} else {
 				$user = array( 'user_updated' => 0 );
