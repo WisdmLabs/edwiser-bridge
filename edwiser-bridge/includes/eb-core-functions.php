@@ -580,7 +580,7 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 	function wdm_eb_get_moodle_url() {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
-			$eb_moodle_url = $url['url'];
+			$eb_moodle_url = $url['eb_url'];
 
 			if(substr($eb_moodle_url , -1)=='/'){
 				$eb_moodle_url = substr($eb_moodle_url, 0, -1);
