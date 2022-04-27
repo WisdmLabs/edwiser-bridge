@@ -310,7 +310,7 @@ class Eb_Shortcode_User_Account {
 		foreach ( $required_fields as $field_key => $field_name ) {
 			if ( empty( $posted_data[ $field_key ] ) ) {
 				/* Translators 1: field name */
-				$errors[] = sprintf( __( '%$1s is required field.', 'edwiser-bridge' ), '<strong>' . $field_name . '</strong>' );
+				$errors[] = sprintf( __( '%1$s is required field.', 'edwiser-bridge' ), '<strong>' . $field_name . '</strong>' );
 			}
 		}
 		$email    = sanitize_email( $posted_data['email'] );
@@ -320,10 +320,10 @@ class Eb_Shortcode_User_Account {
 
 		if ( ! is_email( $email ) ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( esc_html__( '%$1s is invalid email.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( esc_html__( '%1$s is invalid email.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
 		} elseif ( email_exists( $email ) && $email !== $current_user->user_email ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( __( '%$1s is already exists.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( __( '%1$s is already exists.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
 		}
 
 		if ( ! empty( $curr_psw ) && empty( $pass1 ) && empty( $pass2 ) ) {
