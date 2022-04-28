@@ -50,13 +50,13 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 			$this->bp_columns = apply_filters(
 				'edwiser_add_colomn_to_error_log_table',
 				array(
-					'cb'            => '<input type="checkbox" />',
-					'title'          => esc_html__( 'Title', 'eb-textdomain' ),
-                    'view'          => esc_html__( 'View', 'eb-textdomain' ),
-					'user'        => esc_html__( 'User', 'eb-textdomain' ),
-                    'status'           => esc_html_x( 'Status', 'Column label', 'eb-textdomain' ),
-					'rcode'        => esc_html__( 'Response Code', 'eb-textdomain' ),
-					'time' => esc_html__( 'Timestamp', 'eb-textdomain' ),
+					'cb'     => '<input type="checkbox" />',
+					'title'  => esc_html__( 'Title', 'eb-textdomain' ),
+					'view'   => esc_html__( 'View', 'eb-textdomain' ),
+					'user'   => esc_html__( 'User', 'eb-textdomain' ),
+					'status' => esc_html_x( 'Status', 'Column label', 'eb-textdomain' ),
+					'rcode'  => esc_html__( 'Response Code', 'eb-textdomain' ),
+					'time'   => esc_html__( 'Timestamp', 'eb-textdomain' ),
 				)
 			);
 		}
@@ -70,30 +70,30 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 		 * @param text $current_page current_page.
 		 */
 		public function bpGetTable( $post_data, $search_text, $current_page ) {
-            $error_log_file = wdm_edwiser_bridge_plugin_log_dir() . 'error_log.json';
-			if(!file_exists($error_log_file)){
+			$error_log_file = wdm_edwiser_bridge_plugin_log_dir() . 'error_log.json';
+			if ( ! file_exists( $error_log_file ) ) {
 				return array(
 					'total_records' => 0,
 					'data'          => array(),
 				);
 			}
-            $error_logs = file_get_contents( $error_log_file );
-            $error_logs = json_decode( $error_logs, true );
+			$error_logs = file_get_contents( $error_log_file ); // @codingStandardsIgnoreLine
+			$error_logs = json_decode( $error_logs, true );
 
-            if( !is_array( $error_logs ) ){
-                $error_logs = array();
-            }
+			if ( ! is_array( $error_logs ) ) {
+				$error_logs = array();
+			}
 			$tbl_records = array();
 
-			foreach ( $error_logs as $key=>$error_log ) {
-				$row                  = array();
-				$row['key']           = $key;
-				$row['status']        = $error_log['status'];
-				$row['title'] = $error_log['data']['message'];
-				$row['user'] = $error_log['data']['user'];
-                $row['rcode'] = $error_log['data']['responsecode'];
-                $row['time'] = $error_log['time'];
-                $row['view'] = true;
+			foreach ( $error_logs as $key => $error_log ) {
+				$row           = array();
+				$row['key']    = $key;
+				$row['status'] = $error_log['status'];
+				$row['title']  = $error_log['data']['message'];
+				$row['user']   = $error_log['data']['user'];
+				$row['rcode']  = $error_log['data']['responsecode'];
+				$row['time']   = $error_log['time'];
+				$row['view']   = true;
 
 				$tbl_records[] = apply_filters( 'eb_error_logs_each_row', $row, $error_logs, $search_text );
 			}
@@ -119,9 +119,9 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 		 */
 		protected function get_sortable_columns() {
 			$sortable_columns = array(
-				'status'           => array( 'status', false ),
-				'rcode'        => array( 'rcode', false ),
-				'time'          => array( 'time', false ),
+				'status' => array( 'status', false ),
+				'rcode'  => array( 'rcode', false ),
+				'time'   => array( 'time', false ),
 			);
 			return $sortable_columns;
 		}
@@ -172,7 +172,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 			);
 		}
 
-        /**
+		/**
 		 * Column maneg.
 		 *
 		 * @param text $item item.
@@ -180,15 +180,17 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 		protected function column_view( $item ) {
 			$output = '-';
 			if ( $item['view'] ) {
-                $key = $item['key'];
-                $eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
-				$output = apply_filters( 'edwiser_view_column_in_error_log_table',
-                '<a href="#" class="eb-error-log-view" data-log-id="' . $key . '" >
+				$key           = $item['key'];
+				$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+				$output        = apply_filters(
+					'edwiser_view_column_in_error_log_table',
+					'<a href="#" class="eb-error-log-view" data-log-id="' . $key . '" >
                 <span class="eb-view-eye-' . $key . ' dashicons dashicons-visibility"></span>
                 <span class="load-response-' . $key . '" style="display:none">
                     <img src="' . $eb_plugin_url . 'images/loader.gif" height="20" width="20" />
                 </span>
-                </a>' );
+                </a>'
+				);
 			}
 			return $output;
 		}
@@ -231,7 +233,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 			// Detect when a bulk action is being triggered.
 			if ( 'delete' === $this->current_action() ) {
 				if ( isset( $post_data['error'] ) && is_array( $post_data['error'] ) && count( $post_data['error'] ) ) {
-					
+					// do something.
 				} else {
 					echo '<div class="notice notice-error is-dismissible">';
 					echo '<p>' . esc_html__( 'No logs selected for bulk action, Please select the logs to delete', 'eb-textdomain' ) . '</p>';
@@ -292,8 +294,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Log_Table' ) ) {
 			 */
 			$current_page = $this->get_pagenum();
 
-
-			$table_data = $this->bpGetTable( $_REQUEST, '', $current_page );
+			$table_data = $this->bpGetTable( '', '', $current_page );
 			$data       = $table_data['data'];
 
 			/*

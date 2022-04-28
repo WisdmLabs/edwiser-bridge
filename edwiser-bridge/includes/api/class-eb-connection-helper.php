@@ -150,19 +150,19 @@ class EBConnectionHelper {
 
 		$webservice_function = 'core_course_get_courses';
 
-		$request_url  = $url . '/webservice/rest/server.php?wstoken=';
-		$request_url .= $token . '&wsfunction=';
-		$request_url .= $webservice_function . '&moodlewsrestformat=json';
-		$request_args = array(
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
 			'timeout' => 100,
 		);
-		$settings   = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
-		$response     = wp_remote_post( $request_url, $request_args );
-		
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+		$response = wp_remote_post( $request_url, $request_args );
+
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
@@ -179,26 +179,26 @@ class EBConnectionHelper {
 
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
-				$response_message = $this->create_response_message( $request_url, print_r($body, 1) );
-				
-				//register error log
+				$response_message = $this->create_response_message( $request_url, print_r( $body, 1 ) );
+
+				// register error log
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url' => $request_url,
-					'arguments' => $request_data,
-					'user' => $current_user->user_login . '(' . $current_user->user_firstname .' '.$current_user->user_lastname.')',
+					'url'          => $request_url,
+					'arguments'    => $request_args,
+					'user'         => $current_user->user_login . '(' . $current_user->user_firstname . ' ' . $current_user->user_lastname . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
-					'exception' => $body->exception,
-					'errorcode' => $body->errorcode,
-					'message' => $body->message,
-					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+					'exception'    => $body->exception,
+					'errorcode'    => $body->errorcode,
+					'message'      => $body->message,
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
 				);
-				if(isset($body->debuginfo)){
+				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;
 				}
 
-				wdm_error_log_json( $error_data);
+				wdm_error_log_json( $error_data );
 
 			} else {
 				// added else to check the other services access error.
@@ -210,7 +210,7 @@ class EBConnectionHelper {
 				}
 			}
 		} else {
-			$success          = 0;
+			$success              = 0;
 				$response_message = $this->create_response_message( $request_url, esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'eb-textdomain' ) );
 
 		}
@@ -251,13 +251,13 @@ class EBConnectionHelper {
 
 		$webservice_functions    = \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
-		
-		$request_args           = array( 'timeout' => 100 );
+
+		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
 
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -298,11 +298,11 @@ class EBConnectionHelper {
 	/**
 	 *
 	 *
-	 */	
+	 */
 	public function create_response_message( $url, $message ) {
 		$msg = '<div>
                         <div class="eb_connection_short_msg">
-                            ' . esc_html__( 'Test Connection failed, To check more information about issue click', 'eb-textdomain' ) . ' <span class="eb_test_connection_log_open"> ' . esc_html__( 'here', 'eb-textdomain') . ' </span>.
+                            ' . esc_html__( 'Test Connection failed, To check more information about issue click', 'eb-textdomain' ) . ' <span class="eb_test_connection_log_open"> ' . esc_html__( 'here', 'eb-textdomain' ) . ' </span>.
                         </div>
 
                         <div class="eb_test_connection_log">
@@ -315,11 +315,11 @@ class EBConnectionHelper {
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Url : ', 'eb-textdomain' ) . '</b></div>
-	                                	<div class="eb_test_conct_log_url">' . $url .'</div>
+	                                	<div class="eb_test_conct_log_url">' . $url . '</div>
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Response : ', 'eb-textdomain' ) . '</b></div>
-	                                	<div>' . $message .'</div>
+	                                	<div>' . $message . '</div>
 	                                </div>
 	                            </div>
 
@@ -329,7 +329,7 @@ class EBConnectionHelper {
 							<div>
                         </div>
                     </div>';
-        return $msg;
+		return $msg;
 	}
 
 	/**
@@ -376,13 +376,13 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args = array( 'timeout' => 100 );
+		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
-		$response     = wp_remote_post( $request_url, $request_args );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+		$response = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -394,24 +394,24 @@ class EBConnectionHelper {
 				$success          = 0;
 				$response_message = $body->message;
 
-				//register error log.
+				// register error log.
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url' => $request_url,
-					'arguments' => $request_data,
-					'user' => $current_user->user_login . '(' . $current_user->firse_name .' '.$current_user->last_name.')',
+					'url'          => $request_url,
+					'arguments'    => $request_args,
+					'user'         => $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
-					'exception' => $body->exception,
-					'errorcode' => $body->errorcode,
-					'message' => $body->message,
-					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+					'exception'    => $body->exception,
+					'errorcode'    => $body->errorcode,
+					'message'      => $body->message,
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
 				);
-				if(isset($body->debuginfo)){
+				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;
 				}
 
-				wdm_error_log_json( $error_data);
+				wdm_error_log_json( $error_data );
 
 			} else {
 				$success       = 1;
@@ -472,15 +472,15 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args = array(
+		$request_args              = array(
 			'body'    => $request_data,
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
 
 		$response = wp_remote_post( $request_url, $request_args );
 
@@ -497,24 +497,24 @@ class EBConnectionHelper {
 					$response_message = $body->message;
 				}
 
-				//register error log.
+				// register error log.
 				global $current_user;
 				wp_get_current_user();
-				$error_data = array( //BY- ISHWAR
-					'url' => $request_url,
-					'arguments' => $request_data,
-					'user' => $current_user->user_login . '(' . $current_user->firse_name .' '.$current_user->last_name.')',
+				$error_data = array( // BY- ISHWAR
+					'url'          => $request_url,
+					'arguments'    => $request_data,
+					'user'         => $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
-					'exception' => $body->exception,
-					'errorcode' => $body->errorcode,
-					'message' => $body->message,
-					'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+					'exception'    => $body->exception,
+					'errorcode'    => $body->errorcode,
+					'message'      => $body->message,
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
 				);
-				if(isset($body->debuginfo)){
+				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;
 				}
 
-				wdm_error_log_json( $error_data);
+				wdm_error_log_json( $error_data );
 			} else {
 				$success       = 1;
 				$response_data = $body;
