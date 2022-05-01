@@ -417,6 +417,11 @@
                 var cb_value = (this.checked ? 1 : 0);
                 sync_options[cb_key] = cb_value;
             });
+
+
+console.log(sync_options);
+
+
             var offset = 0;
             var progressWidth = 0;
             var linkedUsers = 0;

@@ -77,9 +77,9 @@ class Eb_Settings_Ajax_Initiater {
 	public function user_data_synchronization_initiater() {
 
 		// verifying generated nonce we created earlier.
-		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
-			die( 'Busted!' );
-		}
+		// if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+		// 	die( 'Busted!' );
+		// }
 		// Added offset for user get limit.
 		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
 
