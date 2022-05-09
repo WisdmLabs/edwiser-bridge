@@ -85,6 +85,43 @@
         });
 
 
+        /**
+         * Close setup.
+         */
+         $('.eb-setup-close-icon').click(function(){
+            // Create loader.
+
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_close_setup',
+                    // 'step': step
+                    // 'course_id': course_id,
+                    // '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+
+                    //prepare response for user
+                    if (response.success == 1) {
+                        $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
+
+                    } else {
+
+                    }
+                }
+            });
+
+        });
+
+        $(document).on('click', '.eb_setup_do_not_close', function (event) {
+            $('.eb_setup_popup').remove();
+        });
+
+        
+
+
         // // Clicking save continue
         // // 
         // // 
