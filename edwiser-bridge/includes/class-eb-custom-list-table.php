@@ -51,11 +51,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				'edwiser_add_colomn_to_manage_enrollment',
 				array(
 					'cb'            => '<input type="checkbox" />',
-					'rId'           => esc_html_x( 'Record ID', 'Column label', 'eb-textdomain' ),
-					'user'          => esc_html__( 'User', 'eb-textdomain' ),
-					'course'        => esc_html__( 'Course', 'eb-textdomain' ),
-					'enrolled_date' => esc_html__( 'Enrolled Date', 'eb-textdomain' ),
-					'manage'        => esc_html__( 'Manage', 'eb-textdomain' ),
+					'rId'           => esc_html_x( 'Record ID', 'Column label', 'edwiser-bridge' ),
+					'user'          => esc_html__( 'User', 'edwiser-bridge' ),
+					'course'        => esc_html__( 'Course', 'edwiser-bridge' ),
+					'enrolled_date' => esc_html__( 'Enrolled Date', 'edwiser-bridge' ),
+					'manage'        => esc_html__( 'Manage', 'edwiser-bridge' ),
 				)
 			);
 		}
@@ -340,7 +340,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		protected function column_manage( $item ) {
 			$output = '---';
 			if ( $item['manage'] ) {
-				$output = apply_filters( 'edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="' . $item['course_id'] . '">' . esc_html__( 'Unenroll', 'eb-textdomain' ) . '</a>' );
+				$output = apply_filters( 'edwiser_unenroll_column_in_manage_enrollment', '<a class="eb-unenrol" data-user-id="' . $item['user_id'] . '" data-record-id="' . $item['ID'] . '" data-course-id="' . $item['course_id'] . '">' . esc_html__( 'Unenroll', 'edwiser-bridge' ) . '</a>' );
 			}
 			return $output;
 		}
@@ -364,7 +364,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 */
 		protected function get_bulk_actions() {
 			$actions = array(
-				'unenroll' => esc_html_x( 'Bulk Unenroll', 'Unenrolles the selected students from the courses', 'eb-textdomain' ),
+				'unenroll' => esc_html_x( 'Bulk Unenroll', 'Unenrolles the selected students from the courses', 'edwiser-bridge' ),
 			);
 			return $actions;
 		}
@@ -386,7 +386,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 					$this->unerollUser( sanitize_text_field( wp_unslash( $post_data['enrollment'] ) ) );
 				} else {
 					echo '<div class="notice notice-error is-dismissible">';
-					echo '<p>' . esc_html__( 'No records selected to unenroll student, Please select the records to unenroll', 'eb-textdomain' ) . '</p>';
+					echo '<p>' . esc_html__( 'No records selected to unenroll student, Please select the records to unenroll', 'edwiser-bridge' ) . '</p>';
 					echo '</div>';
 				}
 			}
@@ -403,11 +403,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			if ( 'top' === $which ) {
 				?>
 				<div class="alignleft actions bulkactions eb_manage_enroll_custom_nav_wrap">
-					<lable><?php echo esc_html__( 'From : ', 'eb-textdomain' ); ?></lable>
+					<lable><?php echo esc_html__( 'From : ', 'edwiser-bridge' ); ?></lable>
 					<input type="date" id="enrollment_from_date" name="enrollment_from_date" value="<?php echo esc_html( $from ); ?>">
-					<lable><?php echo esc_html__( 'To : ', 'eb-textdomain' ); ?></lable>
+					<lable><?php echo esc_html__( 'To : ', 'edwiser-bridge' ); ?></lable>
 					<input type="date" id="enrollment_to_date" name="enrollment_to_date" value="<?php echo esc_html( $to ); ?>">
-					<input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="<?php echo esc_html__( 'Filter', 'eb-textdomain' ); ?>"/>
+					<input type="submit" name="eb_manage_enroll_dt_search" id="eb_manage_enroll_dt_search" class="button action" value="<?php echo esc_html__( 'Filter', 'edwiser-bridge' ); ?>"/>
 				</div>				
 				<?php
 			}

@@ -248,8 +248,8 @@ if ( ! function_exists( 'wdm_eb_get_shortcode_page_content' ) ) {
 		$shortcodes = array(
 			'eb_my_courses' => array(
 				'user_id'                           => '',
-				'my_courses_wrapper_title'          => __( 'My Courses', 'eb-textdomain' ),
-				'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'eb-textdomain' ),
+				'my_courses_wrapper_title'          => __( 'My Courses', 'edwiser-bridge' ),
+				'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'edwiser-bridge' ),
 				'number_of_recommended_courses'     => 4,
 				'my_courses_progress'               => 1,
 			),
@@ -580,7 +580,12 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 	function wdm_eb_get_moodle_url() {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
-			return $url['eb_url'];
+			$eb_moodle_url = $url['eb_url'];
+
+			if(substr($eb_moodle_url , -1)=='/'){
+				$eb_moodle_url = substr($eb_moodle_url, 0, -1);
+			}
+			return $eb_moodle_url;
 		}
 		return 'MOODLE_URL';
 	}
@@ -830,6 +835,10 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_url' ) ) {
 			$eb_moodle_url = $connection_options['eb_url'];
 		}
 
+		if(substr($eb_moodle_url , -1)=='/'){
+            $eb_moodle_url = substr($eb_moodle_url, 0, -1);
+        }
+
 		return $eb_moodle_url;
 	}
 }
@@ -858,7 +867,7 @@ if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
 		if ( file_exists( WP_PLUGIN_DIR . '/' . $path ) ) {
 			$plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $path );
 		}
-		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : __( 'Plugin not installed', 'eb-textdomain' );
+		return isset( $plugin_info['Version'] ) ? $plugin_info['Version'] : __( 'Plugin not installed', 'edwiser-bridge' );
 	}
 }
 

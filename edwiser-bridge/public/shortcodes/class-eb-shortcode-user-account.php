@@ -209,10 +209,10 @@ class Eb_Shortcode_User_Account {
 					// Profile updated on Moodle successfully.
 					if ( self::update_moodle_profile( $posted_data ) ) {
 						self::update_wordpress_profile( $posted_data );
-						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'eb-textdomain' ) . '</p>';
+						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
 						do_action( 'eb_save_account_details', $user->ID );
 					} else {
-						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'eb-textdomain' ) . '</p>';
+						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'edwiser-bridge' ) . '</p>';
 					}
 				}
 			}
@@ -303,14 +303,14 @@ class Eb_Shortcode_User_Account {
 		$required_fields = apply_filters(
 			'eb_save_account_details_required_fields',
 			array(
-				'email' => __( 'Email Address', 'eb-textdomain' ),
+				'email' => __( 'Email Address', 'edwiser-bridge' ),
 			)
 		);
 
 		foreach ( $required_fields as $field_key => $field_name ) {
 			if ( empty( $posted_data[ $field_key ] ) ) {
 				/* Translators 1: field name */
-				$errors[] = sprintf( __( '%$1s is required field.', 'eb-textdomain' ), '<strong>' . $field_name . '</strong>' );
+				$errors[] = sprintf( __( '%1$s is required field.', 'edwiser-bridge' ), '<strong>' . $field_name . '</strong>' );
 			}
 		}
 		$email    = sanitize_email( $posted_data['email'] );
@@ -320,22 +320,22 @@ class Eb_Shortcode_User_Account {
 
 		if ( ! is_email( $email ) ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( esc_html__( '%$1s is invalid email.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( esc_html__( '%1$s is invalid email.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
 		} elseif ( email_exists( $email ) && $email !== $current_user->user_email ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( __( '%$1s is already exists.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( __( '%1$s is already exists.', 'edwiser-bridge' ), '<strong>' . $email . '</strong>' );
 		}
 
 		if ( ! empty( $curr_psw ) && empty( $pass1 ) && empty( $pass2 ) ) {
-			$errors[] = __( 'Please fill out all password fields.', 'eb-textdomain' );
+			$errors[] = __( 'Please fill out all password fields.', 'edwiser-bridge' );
 		} elseif ( ! empty( $pass1 ) && empty( $curr_psw ) ) {
-			$errors[] = __( 'Please enter your current password.', 'eb-textdomain' );
+			$errors[] = __( 'Please enter your current password.', 'edwiser-bridge' );
 		} elseif ( ! empty( $pass1 ) && empty( $pass2 ) ) {
-			$errors[] = __( 'Please re-enter your password.', 'eb-textdomain' );
+			$errors[] = __( 'Please re-enter your password.', 'edwiser-bridge' );
 		} elseif ( ( ! empty( $pass1 ) || ! empty( $pass2 ) ) && $pass1 !== $pass2 ) {
-			$errors[] = __( 'New passwords do not match.', 'eb-textdomain' );
+			$errors[] = __( 'New passwords do not match.', 'edwiser-bridge' );
 		} elseif ( ! empty( $pass1 ) && ! wp_check_password( $curr_psw, $current_user->user_pass, $current_user->ID ) ) {
-			$errors[] = __( 'Your current password is incorrect.', 'eb-textdomain' );
+			$errors[] = __( 'Your current password is incorrect.', 'edwiser-bridge' );
 		}
 		return $errors;
 	}
@@ -410,24 +410,24 @@ class Eb_Shortcode_User_Account {
 			'eb_user_account_labels',
 			array(
 				array(
-					'label' => __( 'Dashboard', 'eb-textdomain' ),
+					'label' => __( 'Dashboard', 'edwiser-bridge' ),
 					'href'  => '',
-					''      => __( 'Dashboard', 'eb-textdomain' ),
+					''      => __( 'Dashboard', 'edwiser-bridge' ),
 				),
 				array(
-					'label' => __( 'Account Details', 'eb-textdomain' ),
+					'label' => __( 'Account Details', 'edwiser-bridge' ),
 					'href'  => 'eb-my-profile',
-					''      => __( 'Edit account details', 'eb-textdomain' ),
+					''      => __( 'Edit account details', 'edwiser-bridge' ),
 				),
 				array(
-					'label' => __( 'Orders', 'eb-textdomain' ),
+					'label' => __( 'Orders', 'edwiser-bridge' ),
 					'href'  => 'eb-orders',
-					''      => __( 'Course purchase history', 'eb-textdomain' ),
+					''      => __( 'Course purchase history', 'edwiser-bridge' ),
 				),
 				array(
-					'label' => __( 'My Courses', 'eb-textdomain' ),
+					'label' => __( 'My Courses', 'edwiser-bridge' ),
 					'href'  => 'eb-my-courses',
-					''      => __( 'My Courses', 'eb-textdomain' ),
+					''      => __( 'My Courses', 'edwiser-bridge' ),
 				),
 			)
 		);

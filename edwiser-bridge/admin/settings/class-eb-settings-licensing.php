@@ -35,7 +35,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		public function __construct() {
 			$this->addon_licensing = array( 'test' );
 			$this->_id             = 'licensing';
-			$this->label           = __( 'Licenses', 'eb-textdomain' );
+			$this->label           = __( 'Licenses', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -67,7 +67,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 				'eb_licensing',
 				array(
 					array(
-						'title' => __( 'Licenses', 'eb-textdomain' ),
+						'title' => __( 'Licenses', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'id'    => 'licensing_management',
 					),

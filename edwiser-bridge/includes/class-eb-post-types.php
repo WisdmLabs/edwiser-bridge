@@ -66,19 +66,19 @@ class Eb_Post_Types {
 				'eb_taxonomy_args_eb_course_cat',
 				array(
 					'hierarchical' => true,
-					'label'        => __( 'Course Categories', 'eb-textdomain' ),
+					'label'        => __( 'Course Categories', 'edwiser-bridge' ),
 					'labels'       => array(
-						'name'              => __( 'Course Categories', 'eb-textdomain' ),
-						'singular_name'     => __( 'Course Category', 'eb-textdomain' ),
-						'menu_name'         => _x( 'Course Categories', 'Admin menu name', 'eb-textdomain' ),
-						'search_items'      => __( 'Search Course Categories', 'eb-textdomain' ),
-						'all_items'         => __( 'All Course Categories', 'eb-textdomain' ),
-						'parent_item'       => __( 'Parent Course Categories', 'eb-textdomain' ),
-						'parent_item_colon' => __( 'Parent Course Category:', 'eb-textdomain' ),
-						'edit_item'         => __( 'Edit Course Category', 'eb-textdomain' ),
-						'update_item'       => __( 'Update Course Category', 'eb-textdomain' ),
-						'add_new_item'      => __( 'Add New Course Category', 'eb-textdomain' ),
-						'new_item_name'     => __( 'New Course Category Name', 'eb-textdomain' ),
+						'name'              => __( 'Course Categories', 'edwiser-bridge' ),
+						'singular_name'     => __( 'Course Category', 'edwiser-bridge' ),
+						'menu_name'         => _x( 'Course Categories', 'Admin menu name', 'edwiser-bridge' ),
+						'search_items'      => __( 'Search Course Categories', 'edwiser-bridge' ),
+						'all_items'         => __( 'All Course Categories', 'edwiser-bridge' ),
+						'parent_item'       => __( 'Parent Course Categories', 'edwiser-bridge' ),
+						'parent_item_colon' => __( 'Parent Course Category:', 'edwiser-bridge' ),
+						'edit_item'         => __( 'Edit Course Category', 'edwiser-bridge' ),
+						'update_item'       => __( 'Update Course Category', 'edwiser-bridge' ),
+						'add_new_item'      => __( 'Add New Course Category', 'edwiser-bridge' ),
+						'new_item_name'     => __( 'New Course Category Name', 'edwiser-bridge' ),
 					),
 					'show_ui'      => true,
 					'query_var'    => true,
@@ -107,24 +107,24 @@ class Eb_Post_Types {
 					'eb_register_post_type_courses',
 					array(
 						'labels'            => array(
-							'name'               => __( 'Course', 'eb-textdomain' ),
-							'singular_name'      => __( 'Courses', 'eb-textdomain' ),
-							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'eb-textdomain' ),
-							'all_items'          => __( 'Courses', 'eb-textdomain' ),
-							'add_new'            => __( 'Add Course', 'eb-textdomain' ),
-							'add_new_item'       => __( 'Add New Course', 'eb-textdomain' ),
-							'edit'               => __( 'Edit', 'eb-textdomain' ),
-							'edit_item'          => __( 'Edit Course', 'eb-textdomain' ),
-							'new_item'           => __( 'New Course', 'eb-textdomain' ),
-							'view'               => __( 'View Course', 'eb-textdomain' ),
-							'view_item'          => __( 'View Course', 'eb-textdomain' ),
-							'search_items'       => __( 'Search Courses', 'eb-textdomain' ),
-							'not_found'          => __( 'No Courses found', 'eb-textdomain' ),
-							'not_found_in_trash' => __( 'No Courses found in trash', 'eb-textdomain' ),
+							'name'               => __( 'Course', 'edwiser-bridge' ),
+							'singular_name'      => __( 'Courses', 'edwiser-bridge' ),
+							'menu_name'          => _x( 'Edwiser Bridge', 'Admin menu name', 'edwiser-bridge' ),
+							'all_items'          => __( 'Courses', 'edwiser-bridge' ),
+							'add_new'            => __( 'Add Course', 'edwiser-bridge' ),
+							'add_new_item'       => __( 'Add New Course', 'edwiser-bridge' ),
+							'edit'               => __( 'Edit', 'edwiser-bridge' ),
+							'edit_item'          => __( 'Edit Course', 'edwiser-bridge' ),
+							'new_item'           => __( 'New Course', 'edwiser-bridge' ),
+							'view'               => __( 'View Course', 'edwiser-bridge' ),
+							'view_item'          => __( 'View Course', 'edwiser-bridge' ),
+							'search_items'       => __( 'Search Courses', 'edwiser-bridge' ),
+							'not_found'          => __( 'No Courses found', 'edwiser-bridge' ),
+							'not_found_in_trash' => __( 'No Courses found in trash', 'edwiser-bridge' ),
 						),
 						'description'       => __(
 							'This is where you can add new courses to your Moodle LMS.',
-							'eb-textdomain'
+							'edwiser-bridge'
 						),
 						'public'            => true,
 						'capability_type'   => 'post',
@@ -156,21 +156,21 @@ class Eb_Post_Types {
 					'eb_register_post_type_order',
 					array(
 						'labels'            => array(
-							'name'               => __( 'Orders', 'eb-textdomain' ),
-							'singular_name'      => __( 'Order', 'eb-textdomain' ),
-							'menu_name'          => _x( 'Orders', 'Admin menu name', 'eb-textdomain' ),
-							'add_new'            => __( 'Add Order', 'eb-textdomain' ),
-							'add_new_item'       => __( 'Add New Order', 'eb-textdomain' ),
-							'edit'               => __( 'Edit', 'eb-textdomain' ),
-							'edit_item'          => __( 'Edit Order', 'eb-textdomain' ),
-							'new_item'           => __( 'New Order', 'eb-textdomain' ),
-							'view'               => __( 'View Order', 'eb-textdomain' ),
-							'view_item'          => __( 'View Order', 'eb-textdomain' ),
-							'search_items'       => __( 'Search Orders', 'eb-textdomain' ),
-							'not_found'          => __( 'No orders found', 'eb-textdomain' ),
-							'not_found_in_trash' => __( 'No orders found in trash', 'eb-textdomain' ),
+							'name'               => __( 'Orders', 'edwiser-bridge' ),
+							'singular_name'      => __( 'Order', 'edwiser-bridge' ),
+							'menu_name'          => _x( 'Orders', 'Admin menu name', 'edwiser-bridge' ),
+							'add_new'            => __( 'Add Order', 'edwiser-bridge' ),
+							'add_new_item'       => __( 'Add New Order', 'edwiser-bridge' ),
+							'edit'               => __( 'Edit', 'edwiser-bridge' ),
+							'edit_item'          => __( 'Edit Order', 'edwiser-bridge' ),
+							'new_item'           => __( 'New Order', 'edwiser-bridge' ),
+							'view'               => __( 'View Order', 'edwiser-bridge' ),
+							'view_item'          => __( 'View Order', 'edwiser-bridge' ),
+							'search_items'       => __( 'Search Orders', 'edwiser-bridge' ),
+							'not_found'          => __( 'No orders found', 'edwiser-bridge' ),
+							'not_found_in_trash' => __( 'No orders found in trash', 'edwiser-bridge' ),
 						),
-						'description'       => __( 'This is where you can see course orders.', 'eb-textdomain' ),
+						'description'       => __( 'This is where you can see course orders.', 'edwiser-bridge' ),
 						'public'            => false,
 						'capability_type'   => 'post',
 						'capabilities'      => array(
@@ -203,7 +203,7 @@ class Eb_Post_Types {
 		// register metabox for course post type options.
 		add_meta_box(
 			'eb_course_options',
-			__( 'Course Options', 'eb-textdomain' ),
+			__( 'Course Options', 'edwiser-bridge' ),
 			array( $this, 'post_options_callback' ),
 			'eb_course',
 			'advanced',
@@ -214,7 +214,7 @@ class Eb_Post_Types {
 		// register metabox for recommended course section on single course page.
 		add_meta_box(
 			'eb_recommended_course_options',
-			__( 'Recommended Course Settings', 'eb-textdomain' ),
+			__( 'Recommended Course Settings', 'edwiser-bridge' ),
 			array( $this, 'post_options_callback' ),
 			'eb_course',
 			'advanced',
@@ -225,7 +225,7 @@ class Eb_Post_Types {
 		// register metabox for moodle Order post type options.
 		add_meta_box(
 			'eb_order_options',
-			__( 'Order Details', 'eb-textdomain' ),
+			__( 'Order Details', 'edwiser-bridge' ),
 			array( $this, 'post_options_callback' ),
 			'eb_order',
 			'advanced',
@@ -257,7 +257,7 @@ class Eb_Post_Types {
 		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$css_class = 'eb-wdm-order-meta';
 			echo '<strong>';
-			echo esc_html__( 'Order ', 'eb-textdomain' ) . esc_html( printf( '#%s ', get_the_id() ) ) . esc_html__( 'Details ', 'eb-textdomain' );
+			echo esc_html__( 'Order ', 'edwiser-bridge' ) . esc_html( printf( '#%s ', get_the_id() ) ) . esc_html__( 'Details ', 'edwiser-bridge' );
 			echo '</strong>';
 			echo "<div id='" . esc_html( $args['args']['post_type'] ) . "'_options' class='post-options " . esc_html( $css_class ) . "'>";
 		} else {
@@ -304,66 +304,66 @@ class Eb_Post_Types {
 		$args_array = array(
 			'eb_course'                     => array(
 				'moodle_course_id'         => array(
-					'label'       => __( 'Moodle Course ID', 'eb-textdomain' ),
-					'description' => __( 'This field is disabled. Do not change the course id this will affect the course access for the existing enrollment.', 'eb-textdomain' ),
+					'label'       => __( 'Moodle Course ID', 'edwiser-bridge' ),
+					'description' => __( 'This field is disabled. Do not change the course id this will affect the course access for the existing enrollment.', 'edwiser-bridge' ),
 					'type'        => 'text',
 					'placeholder' => '',
 					'attr'        => 'readonly',
 					'default'     => '0',
-					'note'        => isset( $deletion_status ) && ! empty( $deletion_status ) ? '<span style="color:red;">' . __( 'This course is deleted on Moodle', 'eb-textdomain' ) . '</span>' : '',
+					'note'        => isset( $deletion_status ) && ! empty( $deletion_status ) ? '<span style="color:red;">' . __( 'This course is deleted on Moodle', 'edwiser-bridge' ) . '</span>' : '',
 				),
 				'course_price_type'        => array(
-					'label'       => __( 'Course Price Type', 'eb-textdomain' ),
-					'description' => __( 'Is it free to join or one time purchase?', 'eb-textdomain' ),
+					'label'       => __( 'Course Price Type', 'edwiser-bridge' ),
+					'description' => __( 'Is it free to join or one time purchase?', 'edwiser-bridge' ),
 					'type'        => 'select',
 					'options'     => array(
-						'free'   => __( 'Free', 'eb-textdomain' ),
-						'paid'   => __( 'Paid', 'eb-textdomain' ),
-						'closed' => __( 'Closed', 'eb-textdomain' ),
+						'free'   => __( 'Free', 'edwiser-bridge' ),
+						'paid'   => __( 'Paid', 'edwiser-bridge' ),
+						'closed' => __( 'Closed', 'edwiser-bridge' ),
 					),
 					'default'     => array( 'free' ),
 				),
 				'course_price'             => array(
-					'label'       => __( 'Course Price', 'eb-textdomain' ),
-					'description' => __( 'Course price in currency as defined in settings.', 'eb-textdomain' ),
+					'label'       => __( 'Course Price', 'edwiser-bridge' ),
+					'description' => __( 'Course price in currency as defined in settings.', 'edwiser-bridge' ),
 					'type'        => 'text',
-					'placeholder' => __( 'Enter course price', 'eb-textdomain' ),
+					'placeholder' => __( 'Enter course price', 'edwiser-bridge' ),
 					'default'     => '',
 				),
 				'course_closed_url'        => array(
-					'label'       => __( 'Optional URL', 'eb-textdomain' ),
-					'description' => __( 'Optional url to redirect user on click of take this course button.', 'eb-textdomain' ),
+					'label'       => __( 'Optional URL', 'edwiser-bridge' ),
+					'description' => __( 'Optional url to redirect user on click of take this course button.', 'edwiser-bridge' ),
 					'type'        => 'text',
-					'placeholder' => __( 'Optional URL', 'eb-textdomain' ),
+					'placeholder' => __( 'Optional URL', 'edwiser-bridge' ),
 					'default'     => '',
 				),
 				'course_expirey'           => array(
-					'label'       => __( 'Expire Access', 'eb-textdomain' ),
-					'description' => __( 'Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin.', 'eb-textdomain' ),
+					'label'       => __( 'Expire Access', 'edwiser-bridge' ),
+					'description' => __( 'Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin.', 'edwiser-bridge' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'course_expiry_action'     => array(
-					'label'       => __( 'On Course Expiration', 'eb-textdomain' ),
-					'description' => __( 'Select an action to perform on course access expiration.', 'eb-textdomain' ),
+					'label'       => __( 'On Course Expiration', 'edwiser-bridge' ),
+					'description' => __( 'Select an action to perform on course access expiration.', 'edwiser-bridge' ),
 					'type'        => 'select',
 					'options'     => array(
-						'unenroll'   => __( 'Unenroll', 'eb-textdomain' ),
-						'suspend'    => __( 'Suspend', 'eb-textdomain' ),
-						'do-nothing' => __( 'Do nothing', 'eb-textdomain' ),
+						'unenroll'   => __( 'Unenroll', 'edwiser-bridge' ),
+						'suspend'    => __( 'Suspend', 'edwiser-bridge' ),
+						'do-nothing' => __( 'Do nothing', 'edwiser-bridge' ),
 					),
 					'default'     => array( 'unenroll' ),
 				),
 				'num_days_course_access'   => array(
-					'label'       => __( 'Expire Access After (days)', 'eb-textdomain' ),
-					'description' => __( 'Number of days the course is accessible', 'eb-textdomain' ),
+					'label'       => __( 'Expire Access After (days)', 'edwiser-bridge' ),
+					'description' => __( 'Number of days the course is accessible', 'edwiser-bridge' ),
 					'type'        => 'number',
 					'default'     => '',
 				),
 				'course_short_description' => array(
-					'label'       => __( 'Short Description', 'eb-textdomain' ),
-					'description' => __( 'Short description of course.', 'eb-textdomain' ),
+					'label'       => __( 'Short Description', 'edwiser-bridge' ),
+					'description' => __( 'Short description of course.', 'edwiser-bridge' ),
 					'type'        => 'textarea',
 					'placeholder' => '',
 					'default'     => '',
@@ -371,22 +371,22 @@ class Eb_Post_Types {
 			),
 			'eb_recommended_course_options' => array(
 				'enable_recmnd_courses'               => array(
-					'label'       => __( 'Show Recommended Courses', 'eb-textdomain' ),
-					'description' => __( 'Show recommended courses on single course page.', 'eb-textdomain' ),
+					'label'       => __( 'Show Recommended Courses', 'edwiser-bridge' ),
+					'description' => __( 'Show recommended courses on single course page.', 'edwiser-bridge' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'show_default_recmnd_course'          => array(
-					'label'       => __( 'Show Category Wise Recommended Courses', 'eb-textdomain' ),
-					'description' => __( 'Show category wise selected recommended courses on single course page.', 'eb-textdomain' ),
+					'label'       => __( 'Show Category Wise Recommended Courses', 'edwiser-bridge' ),
+					'description' => __( 'Show category wise selected recommended courses on single course page.', 'edwiser-bridge' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
 					'autoload'    => false,
 				),
 				'enable_recmnd_courses_single_course' => array(
-					'label'       => __( 'Select Courses', 'eb-textdomain' ),
-					'description' => __( 'Select courses to show in custom courses in recommended course section.', 'eb-textdomain' ),
+					'label'       => __( 'Select Courses', 'edwiser-bridge' ),
+					'description' => __( 'Select courses to show in custom courses in recommended course section.', 'edwiser-bridge' ),
 					'type'        => 'select_multi',
 					'options'     => isset( $post->ID ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_eb_sourses( $post->ID ) : array(),
 					'default'     => array( 'pending' ),
@@ -394,14 +394,14 @@ class Eb_Post_Types {
 			),
 			'eb_order'                      => array(
 				'order_status' => array(
-					'label'       => __( 'Order Status', 'eb-textdomain' ),
-					'description' => __( 'Status of Order', 'eb-textdomain' ),
+					'label'       => __( 'Order Status', 'edwiser-bridge' ),
+					'description' => __( 'Status of Order', 'edwiser-bridge' ),
 					'type'        => 'select',
 					'options'     => array(
-						'pending'   => __( 'Pending', 'eb-textdomain' ),
-						'completed' => __( 'Completed', 'eb-textdomain' ),
-						'failed'    => __( 'Failed', 'eb-textdomain' ),
-						'refunded'  => __( 'Refunded', 'eb-textdomain' ),
+						'pending'   => __( 'Pending', 'edwiser-bridge' ),
+						'completed' => __( 'Completed', 'edwiser-bridge' ),
+						'failed'    => __( 'Failed', 'edwiser-bridge' ),
+						'refunded'  => __( 'Refunded', 'edwiser-bridge' ),
 					),
 					'default'     => array( 'pending' ),
 				),
@@ -691,18 +691,18 @@ class Eb_Post_Types {
 		$messages[ $post_type ] = array(
 			0  => '', // Unused. Messages start at index 1.
 			1  => sprintf( '%s', esc_attr( $singular ) ) .
-				__( ' updated.', 'eb-textdomain' ) . '<a href="' . sprintf( '%s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . __( ' View ', 'eb-textdomain' ) .
+				__( ' updated.', 'edwiser-bridge' ) . '<a href="' . sprintf( '%s" target="_blank">', esc_url( get_permalink( $post_ID ) ) ) . __( ' View ', 'edwiser-bridge' ) .
 				sprintf(
 					'%s</a>',
 					strtolower( $singular )
 				),
-			2  => __( 'Custom field updated.', 'eb-textdomain' ),
-			3  => __( 'Custom field deleted.', 'eb-textdomain' ),
-			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'eb-textdomain' ),
+			2  => __( 'Custom field updated.', 'edwiser-bridge' ),
+			3  => __( 'Custom field deleted.', 'edwiser-bridge' ),
+			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'edwiser-bridge' ),
 			5  => isset( $_GET['revision'] ) ? sprintf( // WPCS: input var ok, CSRF ok, sanitization ok.
 				'%s ',
 				wp_post_revision_title( filter_input( INPUT_GET, 'revision', FILTER_SANITIZE_NUMBER_INT ), false )
-			) . __( 'restored to revision from ', 'eb-textdomain' ) . sprintf(
+			) . __( 'restored to revision from ', 'edwiser-bridge' ) . sprintf(
 				'%s ',
 				esc_attr( $singular )
 			) : false,
@@ -712,7 +712,7 @@ class Eb_Post_Types {
 				esc_url( get_permalink( $post_ID ) ),
 				strtolower( $singular )
 			),
-			7  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'saved.', 'eb-textdomain' ),
+			7  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'saved.', 'edwiser-bridge' ),
 			8  => sprintf(
 				'%1$s submitted. <a href="%2$s" target="_blank">Preview %3$s</a>',
 				$singular,
@@ -720,7 +720,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			9  => sprintf(
-				'%1$s' . __( 'scheduled for:  ', 'eb-textdomain' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%4$s</a>', // @codingStandardsIgnoreLine
+				'%1$s' . __( 'scheduled for:  ', 'edwiser-bridge' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'edwiser-bridge' ) . '%4$s</a>', // @codingStandardsIgnoreLine
 				$singular,
 				date_i18n(
 					__( 'M j, Y @ G:i' ),
@@ -732,7 +732,7 @@ class Eb_Post_Types {
 				strtolower( $singular )
 			),
 			10 => sprintf(
-				'%1$s' . __( ' draft updated. ', 'eb-textdomain' ) . '<a href="' . '%2$s' . '" target="_blank">' . __( 'Preview ', 'eb-textdomain' ) . '%3$s </a>', // @codingStandardsIgnoreLine
+				'%1$s' . __( ' draft updated. ', 'edwiser-bridge' ) . '<a href="' . '%2$s' . '" target="_blank">' . __( 'Preview ', 'edwiser-bridge' ) . '%3$s </a>', // @codingStandardsIgnoreLine
 				$singular,
 				esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ),
 				strtolower( $singular )

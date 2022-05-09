@@ -108,7 +108,7 @@ class Eb_Order_Status {
 	public function save_new_order_place_note( $order_id ) {
 		$ord_detail = get_post_meta( $order_id, 'eb_order_options', true );
 		$course_id  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $ord_detail, 'course_id' );
-		$msg        = esc_html__( 'New order has been placed for the ', 'eb-textdomain' ) . '<strong>' . sprintf( '%s', get_the_title( $course_id ) ) . '</strong>' . esc_html__( ' course.', 'eb-textdomain' );
+		$msg        = esc_html__( 'New order has been placed for the ', 'edwiser-bridge' ) . '<strong>' . sprintf( '%s', get_the_title( $course_id ) ) . '</strong>' . esc_html__( ' course.', 'edwiser-bridge' );
 		$msg        = apply_filters( 'eb_order_history_save_status_new_order_msg', $msg );
 		$note       = array(
 			'type' => 'new_order',
@@ -237,7 +237,7 @@ class Eb_Order_Status {
 			$cur_user = wp_get_current_user();
 			$note     = array(
 				'type' => 'enrollment_susspend',
-				'msg'  => __( 'User enrollment has been suspended on order refund request.', 'eb-textdomain' ),
+				'msg'  => __( 'User enrollment has been suspended on order refund request.', 'edwiser-bridge' ),
 			);
 			\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, $cur_user->user_login, $note );
 		}

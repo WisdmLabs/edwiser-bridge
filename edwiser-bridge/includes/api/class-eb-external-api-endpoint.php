@@ -271,13 +271,13 @@ class Eb_External_Api_Endpoint {
 	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
 		$uc_status = new \WP_Error(
 			'registration-error',
-			esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
+			esc_html__( 'An account is already registered with your email address. Please login.', 'edwiser-bridge' ),
 			'eb_email_exists'
 		);
 		if ( email_exists( $email ) ) {
 			$uc_status = new \WP_Error(
 				'registration-error',
-				esc_html__( 'An account is already registered with your email address. Please login.', 'eb-textdomain' ),
+				esc_html__( 'An account is already registered with your email address. Please login.', 'edwiser-bridge' ),
 				'eb_email_exists'
 			);
 		} else {
@@ -323,10 +323,10 @@ class Eb_External_Api_Endpoint {
 				if ( is_wp_error( $user_id ) ) {
 					$uc_status = new \WP_Error(
 						'registration-error',
-						'<strong>' . esc_html__( 'ERROR', 'eb-textdomain' ) . '</strong>: ' .
+						'<strong>' . esc_html__( 'ERROR', 'edwiser-bridge' ) . '</strong>: ' .
 						esc_html__(
 							'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.',
-							'eb-textdomain'
+							'edwiser-bridge'
 						)
 					);
 				} else {

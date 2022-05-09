@@ -254,7 +254,7 @@ class Eb_Shortcode_Courses {
 		ob_start();
 		?>
 		<nav class="navigation pagination" role="navigation">
-			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'eb-textdomain' ); ?></h2>
+			<h2 class="screen-reader-text"><?php esc_html_e( 'Courses navigation', 'edwiser-bridge' ); ?></h2>
 			<form>
 				<input type="hidden" name="eb_courses_page_key" value="<?php esc_html( wp_create_nonce( 'eb_courses_page_key' ) ); ?>"> 
 				<div class="nav-links">
@@ -278,7 +278,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( 'Prev', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Prev', 'edwiser-bridge' ); ?>
 						</a>
 						<?php
 					}
@@ -334,7 +334,7 @@ class Eb_Shortcode_Courses {
 						);
 						?>
 						">
-							<?php esc_html_e( 'Next', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Next', 'edwiser-bridge' ); ?>
 						</a>
 						<?php
 					}

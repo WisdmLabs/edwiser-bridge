@@ -37,11 +37,11 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 ?>
 
 <section class="eb-user-info eb-edit-user-wrapper">
-	<h4 class="eb-user-info-h4"><?php esc_html_e( 'Edit Account Details', 'eb-textdomain' ); ?></h4>    
+	<h4 class="eb-user-info-h4"><?php esc_html_e( 'Edit Account Details', 'edwiser-bridge' ); ?></h4>    
 	<?php
 	if ( ! is_user_logged_in() ) {
 		?>
-		<p class="eb-warning"><?php esc_html_e( 'You must be logged in to edit your profile.', 'eb-textdomain' ); ?></p>
+		<p class="eb-warning"><?php esc_html_e( 'You must be logged in to edit your profile.', 'edwiser-bridge' ); ?></p>
 		<?php
 	} else {
 		if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
@@ -51,24 +51,24 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 		?>
 		<form method="post" id="eb-update-profile" action="">
 			<fieldset>
-				<legend><?php esc_html_e( 'Account Details', 'eb-textdomain' ); ?></legend>
+				<legend><?php esc_html_e( 'Account Details', 'edwiser-bridge' ); ?></legend>
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
-						<label for="first-name"><?php esc_html_e( 'First Name', 'eb-textdomain' ); ?></label>
+						<label for="first-name"><?php esc_html_e( 'First Name', 'edwiser-bridge' ); ?></label>
 						<input class="text-input" name="first_name" type="text" id="first_name" value="<?php echo esc_html( $first_name ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
-						<label for="last-name"><?php esc_html_e( 'Last Name', 'eb-textdomain' ); ?></label>
+						<label for="last-name"><?php esc_html_e( 'Last Name', 'edwiser-bridge' ); ?></label>
 						<input class="text-input" name="last_name" type="text" id="last_name" value="<?php echo esc_html( $last_name ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
-						<label for="nickname"><?php esc_html_e( 'Nick Name', 'eb-textdomain' ); ?></label>
+						<label for="nickname"><?php esc_html_e( 'Nick Name', 'edwiser-bridge' ); ?></label>
 						<input class="text-input" name="nickname" type="text" id="nickname" value="<?php echo esc_html( $nickname ); ?>" />
 					</div>
 				</div>
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
-						<label for="email"><?php esc_html_e( 'E-mail *', 'eb-textdomain' ); ?></label>
+						<label for="email"><?php esc_html_e( 'E-mail *', 'edwiser-bridge' ); ?></label>
 						<input class="text-input" name="email" type="email" id="email" value="<?php echo esc_html( $email ); ?>" required />
 					</div>
 				</div>
@@ -85,35 +85,35 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 				?>
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
-						<label for="country"><?php esc_html_e( 'Country', 'eb-textdomain' ); ?></label>
+						<label for="country"><?php esc_html_e( 'Country', 'edwiser-bridge' ); ?></label>
 						<select name="country" class='country' id="country"></select>
 					<input name="eb-selected-country" type="hidden" id="eb-selected-country" value="<?php echo esc_html( $country ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
-						<label for="city"><?php esc_html_e( 'City', 'eb-textdomain' ); ?></label>
+						<label for="city"><?php esc_html_e( 'City', 'edwiser-bridge' ); ?></label>
 						<input class="text-input" name="city" type="text" id="city" value="<?php echo esc_html( $city ); ?>" />
 					</div>
 				</div>
 				<div class="eb-profile-row-block">
 					<p class="eb-profile-txt-area-field">
-						<label for="description"><?php esc_html_e( 'Biographical Information', 'eb-textdomain' ); ?></label>
+						<label for="description"><?php esc_html_e( 'Biographical Information', 'edwiser-bridge' ); ?></label>
 						<textarea name="description" id="description" rows="3" cols="50"><?php echo esc_html( $description ); ?></textarea>
 					</p>
 				</div>
 			</fieldset>
 			<fieldset>
-				<legend><?php esc_html_e( 'Password Change', 'eb-textdomain' ); ?></legend>
+				<legend><?php esc_html_e( 'Password Change', 'edwiser-bridge' ); ?></legend>
 				<div class="eb-profile-txt-field">
-					<label for="eb_curr_psw"><?php esc_html_e( 'Current Password', 'eb-textdomain' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'eb-textdomain' ); ?></span></label>
+					<label for="eb_curr_psw"><?php esc_html_e( 'Current Password', 'edwiser-bridge' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'edwiser-bridge' ); ?></span></label>
 					<input class="text-input" name="curr_psw" type="password" id="eb_curr_psw" />                
 				</div>
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
-						<label for="eb_new_psw"><?php esc_html_e( 'New Password', 'eb-textdomain' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'eb-textdomain' ); ?></span></label>
+						<label for="eb_new_psw"><?php esc_html_e( 'New Password', 'edwiser-bridge' ); ?> <span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'edwiser-bridge' ); ?></span></label>
 						<input class="text-input" name="new_psw" type="password" id="eb_new_psw" />
 					</div>
 					<div class="eb-profile-txt-field">
-						<label for="eb_confirm_psw"><?php esc_html_e( 'Confirm Password', 'eb-textdomain' ); ?><span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'eb-textdomain' ); ?></span></label>
+						<label for="eb_confirm_psw"><?php esc_html_e( 'Confirm Password', 'edwiser-bridge' ); ?><span class="eb-small"><?php esc_html_e( '(Keep blank to leave unchanged)', 'edwiser-bridge' ); ?></span></label>
 						<input class="text-input" name="confirm_psw" type="password" id="eb_confirm_psw" />
 					</div>
 				</div>
@@ -123,10 +123,10 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 			do_action( 'eb_edit_user_profile', $current_user );
 			?>
 			<p class="eb-small">
-				<?php esc_html_e( 'NOTE: All fields will be updated on Moodle as well as on WordPress site.', 'eb-textdomain' ); ?>
+				<?php esc_html_e( 'NOTE: All fields will be updated on Moodle as well as on WordPress site.', 'edwiser-bridge' ); ?>
 			</p>
 			<p class="eb-profile-form-submit">
-				<input name="updateuser" type="submit" id="updateuser" class="button-primary et_pb_button et_pb_contact_submit" value="<?php esc_html_e( 'Save Changes', 'eb-textdomain' ); ?>" />
+				<input name="updateuser" type="submit" id="updateuser" class="button-primary et_pb_button et_pb_contact_submit" value="<?php esc_html_e( 'Save Changes', 'edwiser-bridge' ); ?>" />
 				<?php wp_nonce_field( 'eb-update-user' ); ?>
 				<input name="action" type="hidden" id="action" value="eb-update-user" />
 			</p>

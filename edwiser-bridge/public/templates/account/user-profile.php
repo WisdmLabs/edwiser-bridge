@@ -45,7 +45,7 @@ if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_u
 		</div>
 
 		<div class="eb-edit-profile" >
-			<a href="<?php echo esc_url( add_query_arg( 'eb_action', 'edit-profile', get_permalink() ) ); ?>" class="wdm-btn"><?php esc_html_e( 'Edit Profile', 'eb-textdomain' ); ?></a>
+			<a href="<?php echo esc_url( add_query_arg( 'eb_action', 'edit-profile', get_permalink() ) ); ?>" class="wdm-btn"><?php esc_html_e( 'Edit Profile', 'edwiser-bridge' ); ?></a>
 		</div>
 
 	</section>
@@ -54,7 +54,7 @@ if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_u
 ?>
 
 	<section class="eb-user-courses">
-		<div class="course-heading" ><span><?php esc_html_e( 'S.No.', 'eb-textdomain' ); ?></span> <span><?php esc_html_e( 'Enrolled Courses', 'eb-textdomain' ); ?></span></div>
+		<div class="course-heading" ><span><?php esc_html_e( 'S.No.', 'edwiser-bridge' ); ?></span> <span><?php esc_html_e( 'Enrolled Courses', 'edwiser-bridge' ); ?></span></div>
 		<div class="eb-course-data">
 <?php
 if ( ! empty( $enrolled_courses ) ) {
@@ -71,8 +71,8 @@ if ( ! empty( $enrolled_courses ) ) {
 		<?php
 		/* Translator 1: course url */
 		printf(
-			esc_html__( 'Looks like you are not enrolled in any course, get your first course %$1s', 'eb-textdomain' ),
-			'<a href="' . esc_url( site_url( '/courses' ) ) . '">' . esc_html__( 'here', 'eb-textdomain' ) . '</a>.'
+			esc_html__( 'Looks like you are not enrolled in any course, get your first course %$1s', 'edwiser-bridge' ),
+			'<a href="' . esc_url( site_url( '/courses' ) ) . '">' . esc_html__( 'here', 'edwiser-bridge' ) . '</a>.'
 		);
 		?>
 	</p>

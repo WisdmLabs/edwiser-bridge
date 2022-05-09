@@ -42,7 +42,7 @@ class Eb_Frontend_Form_Handler {
 				if ( $validation_error->get_error_code() ) {
 					throw new \Exception(
 						'<strong>' .
-						esc_html__( 'Error', 'eb-textdomain' ) .
+						esc_html__( 'Error', 'edwiser-bridge' ) .
 						':</strong> ' .
 						$validation_error->get_error_message()
 					);
@@ -51,18 +51,18 @@ class Eb_Frontend_Form_Handler {
 				if ( empty( $_POST['wdm_username'] ) ) {
 					throw new \Exception(
 						'<strong>' .
-						esc_html__( 'Error', 'eb-textdomain' ) .
+						esc_html__( 'Error', 'edwiser-bridge' ) .
 						':</strong> ' .
-						esc_html__( 'Username is required.', 'eb-textdomain' )
+						esc_html__( 'Username is required.', 'edwiser-bridge' )
 					);
 				}
 
 				if ( empty( $_POST['wdm_password'] ) ) {
 					throw new \Exception(
 						'<strong>' .
-						esc_html__( 'Error', 'eb-textdomain' ) .
+						esc_html__( 'Error', 'edwiser-bridge' ) .
 						':</strong> ' .
-						esc_html__( 'Password is required.', 'eb-textdomain' )
+						esc_html__( 'Password is required.', 'edwiser-bridge' )
 					);
 				}
 
@@ -143,10 +143,10 @@ class Eb_Frontend_Form_Handler {
 					$email
 				);
 				if ( empty( $user_psw ) || empty( $conf_user_psw ) ) {
-					throw new \Exception( __( 'Password fields can not be empty.', 'eb-textdomain' ) );
+					throw new \Exception( __( 'Password fields can not be empty.', 'edwiser-bridge' ) );
 				}
 				if ( ! empty( $user_psw ) && $user_psw !== $conf_user_psw ) {
-					throw new \Exception( __( 'Password are not matching.', 'eb-textdomain' ) );
+					throw new \Exception( __( 'Password are not matching.', 'edwiser-bridge' ) );
 				}
 				if ( $validation_error->get_error_code() ) {
 					throw new \Exception( $validation_error->get_error_message() );
@@ -154,7 +154,7 @@ class Eb_Frontend_Form_Handler {
 
 				/* Anti-spam trap */
 				if ( ! empty( $_POST['email_2'] ) ) {
-					throw new \Exception( __( 'Anti-spam field was filled in.', 'eb-textdomain' ) );
+					throw new \Exception( __( 'Anti-spam field was filled in.', 'edwiser-bridge' ) );
 				}
 
 				// added afyter.

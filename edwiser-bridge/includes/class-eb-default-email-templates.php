@@ -36,7 +36,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'New User Account Details', 'eb-textdomain' ),
+				'subject' => esc_html__( 'New User Account Details', 'edwiser-bridge' ),
 				'content' => $this->get_new_user_account_template(),
 			);
 			return $data;
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Your learning account is linked with moodle', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Your learning account is linked with moodle', 'edwiser-bridge' ),
 				'content' => $this->get_link_wp_moodle_account_template(),
 			);
 			return $data;
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Your Learning Account Credentials', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Your Learning Account Credentials', 'edwiser-bridge' ),
 				'content' => $this->get_link_new_moodle_account_template(),
 			);
 			return $data;
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Your order completed successfully.', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Your order completed successfully.', 'edwiser-bridge' ),
 				'content' => $this->get_order_complete_template(),
 			);
 			return $data;
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Course access expired.', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Course access expired.', 'edwiser-bridge' ),
 				'content' => $this->get_course_access_expired_template(),
 			);
 			return $data;
@@ -136,7 +136,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Order refund notification', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Order refund notification', 'edwiser-bridge' ),
 				'content' => $this->user_refunded_notification_template(),
 			);
 			return $data;
@@ -156,7 +156,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Order refund notification', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Order refund notification', 'edwiser-bridge' ),
 				'content' => $this->admin_refunded_notification_template(),
 			);
 			return $data;
@@ -177,7 +177,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Moodle Course Enrollment', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Moodle Course Enrollment', 'edwiser-bridge' ),
 				'content' => $this->moodle_enrollment_trigger_template(),
 			);
 			return $data;
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'Moodle Course Un-Enrollment', 'eb-textdomain' ),
+				'subject' => esc_html__( 'Moodle Course Un-Enrollment', 'edwiser-bridge' ),
 				'content' => $this->moodle_unenrollment_trigger_template(),
 			);
 			return $data;
@@ -219,7 +219,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 				return $data;
 			}
 			$data = array(
-				'subject' => esc_html__( 'User Account Deleted', 'eb-textdomain' ),
+				'subject' => esc_html__( 'User Account Deleted', 'edwiser-bridge' ),
 				'content' => $this->moodle_user_deletion_trigger_template(),
 			);
 			return $data;
@@ -240,7 +240,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 					<tbody>
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
-								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;"><?php esc_html_e( 'Your Learning Account Credentials', 'eb-textdomain' ); ?></h1>
+								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;"><?php esc_html_e( 'Your Learning Account Credentials', 'edwiser-bridge' ); ?></h1>
 							</td>
 						</tr>
 						<tr>
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 									printf(
-										esc_html__( 'Hi', 'eb-textdomain' ) . '%s',
+										esc_html__( 'Hi', 'edwiser-bridge' ) . '%s',
 										'{FIRST_NAME}'
 									);
 									?>
@@ -257,7 +257,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Thanks for creating an account on ', 'eb-textdomain' ) . '%s' . esc_html__( '. Your username is', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'Thanks for creating an account on ', 'edwiser-bridge' ) . '%s' . esc_html__( '. Your username is', 'edwiser-bridge' ) . '%s.',
 											'{SITE_NAME}',
 											'<strong> {USER_NAME}</strong>'
 										);
@@ -267,7 +267,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Your password has been automatically generated: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'Your password has been automatically generated: ', 'edwiser-bridge' ) . '%s.',
 											'<strong>{USER_PASSWORD}</strong>'
 										);
 									?>
@@ -276,7 +276,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can access your account here:', 'eb-textdomain' ) . ' %s.',
+											esc_html__( 'You can access your account here:', 'edwiser-bridge' ) . ' %s.',
 											'<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
 										);
 									?>
@@ -307,7 +307,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'Your Learning Account Credentials', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Your Learning Account Credentials', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -324,14 +324,14 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
-										esc_html_e( 'A learning account is linked to your profile.Use credentials given below while accessing your courses.', 'eb-textdomain' );
+										esc_html_e( 'A learning account is linked to your profile.Use credentials given below while accessing your courses.', 'edwiser-bridge' );
 									?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Username: ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Username: ', 'edwiser-bridge' ) . '%s',
 											'<strong>{USER_NAME}</strong>'
 										);
 									?>
@@ -340,7 +340,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 									printf(
-										esc_html__( 'Password: ', 'eb-textdomain' ) . '%s',
+										esc_html__( 'Password: ', 'edwiser-bridge' ) . '%s',
 										'<strong>{USER_PASSWORD} </strong>'
 									);
 									?>
@@ -349,7 +349,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can purchase &amp; access courses here: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'You can purchase &amp; access courses here: ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
 										);
 									?>
@@ -380,7 +380,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'Your learning account is linked with moodle', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Your learning account is linked with moodle', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -389,7 +389,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -397,7 +397,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
-										esc_html_e( 'A learning account is linked to your moodle profile.', 'eb-textdomain' );
+										esc_html_e( 'A learning account is linked to your moodle profile.', 'edwiser-bridge' );
 									?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can purchase &amp; access courses here: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'You can purchase &amp; access courses here: ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{COURSES_PAGE_LINK}</span>'
 										);
 									?>
@@ -438,7 +438,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'Your order completed successfully.', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Your order completed successfully.', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -447,7 +447,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -456,7 +456,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Thanks for purchasing ', 'eb-textdomain' ) . '%s course.',
+											esc_html__( 'Thanks for purchasing ', 'edwiser-bridge' ) . '%s course.',
 											'<strong>{COURSE_NAME}</strong>'
 										);
 									?>
@@ -465,7 +465,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Your order with ID ', 'eb-textdomain' ) . '%s' . esc_html__( ' completed successfully.', 'eb-textdomain' ),
+											esc_html__( 'Your order with ID ', 'edwiser-bridge' ) . '%s' . esc_html__( ' completed successfully.', 'edwiser-bridge' ),
 											'<strong>{ORDER_ID}</strong>'
 										);
 									?>
@@ -474,7 +474,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can access your account here: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'You can access your account here: ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
 										);
 									?>
@@ -508,7 +508,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
 									<?php
 										printf(
-											'Your %s' . esc_html__( ' course access is expired.', 'eb-textdomain' ),
+											'Your %s' . esc_html__( ' course access is expired.', 'edwiser-bridge' ),
 											'{COURSE_NAME}'
 										);
 									?>
@@ -520,7 +520,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -529,7 +529,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Your Subscription for ', 'eb-textdomain' ) . '%s' . esc_html__( ' course has expired.', 'eb-textdomain' ),
+											esc_html__( 'Your Subscription for ', 'edwiser-bridge' ) . '%s' . esc_html__( ' course has expired.', 'edwiser-bridge' ),
 											'{COURSE_NAME}'
 										);
 									?>
@@ -538,14 +538,14 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Please purchase the course again to continue with it. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to purchase now!', 'eb-textdomain' ),
+											esc_html__( 'Please purchase the course again to continue with it. ', 'edwiser-bridge' ) . '%s' . esc_html__( ' to purchase now!', 'edwiser-bridge' ),
 											'{WP_COURSE_PAGE_LINK}'
 										);
 									?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-									<?php esc_html_e( 'Thank you!', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Thank you!', 'edwiser-bridge' ); ?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div></td>
@@ -574,7 +574,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 							<td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
 									<?php
-									printf( esc_html__( 'Your order ', 'eb-textdomain' ) . '%s ' . esc_html__( ' has been successfully refunded.', 'eb-textdomain' ), '{ORDER_ID}' );
+									printf( esc_html__( 'Your order ', 'edwiser-bridge' ) . '%s ' . esc_html__( ' has been successfully refunded.', 'edwiser-bridge' ), '{ORDER_ID}' );
 									?>
 								</h1>
 							</td>
@@ -582,13 +582,13 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="padding: 20px; background-color: #dfdfdf; border-radius: 6px !important;" align="center" valign="top">
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-									<?php printf( esc_html__( 'Hello ', 'eb-textdomain' ) . '%s %s,', '{FIRST_NAME}', '{LAST_NAME}' ); ?>
+									<?php printf( esc_html__( 'Hello ', 'edwiser-bridge' ) . '%s %s,', '{FIRST_NAME}', '{LAST_NAME}' ); ?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 									printf(
-										esc_html__( 'This is to inform you that, The amount ', 'eb-textdomain' ) . '%s ' . esc_html__( '  has been refunded successfully, against the order ', 'eb-textdomain' ) . '%s by {SITE_NAME}.',
+										esc_html__( 'This is to inform you that, The amount ', 'edwiser-bridge' ) . '%s ' . esc_html__( '  has been refunded successfully, against the order ', 'edwiser-bridge' ) . '%s by {SITE_NAME}.',
 										'{CURRENT_REFUNDED_AMOUNT}',
 										'{ORDER_ID}',
 										'{SITE_NAME}'
@@ -597,7 +597,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								</div>
 								<div></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-									<?php printf( esc_html__( 'Order ', 'eb-textdomain' ) . '%s' . esc_html__( ' Details:', 'eb-textdomain' ), '{ORDER_ID}' ); ?>
+									<?php printf( esc_html__( 'Order ', 'edwiser-bridge' ) . '%s' . esc_html__( ' Details:', 'edwiser-bridge' ), '{ORDER_ID}' ); ?>
 								</div>
 								<div></div>
 								<div style="font-family: Arial;">
@@ -605,7 +605,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 										<tbody>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
 												<td style="border: 1px solid #465b94; padding: 5px;">
-													<?php esc_html_e( 'Order Item', 'eb-textdomain' ); ?>
+													<?php esc_html_e( 'Order Item', 'edwiser-bridge' ); ?>
 												</td>
 												<td style="border: 1px solid #465b94; padding: 5px;">
 													{ORDER_ITEM}
@@ -613,7 +613,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
 												<td style="border: 1px solid #465b94; padding: 5px;">
-													<?php esc_html_e( 'Total Amount Paid', 'eb-textdomain' ); ?>
+													<?php esc_html_e( 'Total Amount Paid', 'edwiser-bridge' ); ?>
 												</td>
 												<td style="border: 1px solid #465b94; padding: 5px;">
 													{TOTAL_AMOUNT_PAID}
@@ -621,7 +621,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
 												<td style="border: 1px solid #465b94; padding: 5px;">
-													<?php esc_html_e( 'Current Refunded Amount', 'eb-textdomain' ); ?>
+													<?php esc_html_e( 'Current Refunded Amount', 'edwiser-bridge' ); ?>
 												</td>
 												<td style="border: 1px solid #465b94; padding: 5px;">
 													{CURRENT_REFUNDED_AMOUNT}
@@ -629,7 +629,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
 												<td style="border: 1px solid #465b94; padding: 5px;">
-													<?php esc_html_e( 'Total Refunded Amount', 'eb-textdomain' ); ?>
+													<?php esc_html_e( 'Total Refunded Amount', 'edwiser-bridge' ); ?>
 												</td>
 												<td style="border: 1px solid #465b94; padding: 5px;">
 													{TOTAL_REFUNDED_AMOUNT}
@@ -664,7 +664,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-radius: 6px 6px 0px 0px; border-bottom: 0; font-family: Arial;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-								<?php printf( esc_html__( 'Refund notification for the order id: ', 'eb-textdomain' ) . '%s.', '{ORDER_ID}' ); ?>
+								<?php printf( esc_html__( 'Refund notification for the order id: ', 'edwiser-bridge' ) . '%s.', '{ORDER_ID}' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -674,35 +674,35 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 									Hello,</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-								<?php printf( esc_html__( 'This is to inform you that, Refund for the order id ', 'eb-textdomain' ) . '%s' . esc_html__( ' has been ', 'eb-textdomain' ) . '%s.', '{ORDER_ID}', '{ORDER_REFUND_STATUS}' ); ?>
+								<?php printf( esc_html__( 'This is to inform you that, Refund for the order id ', 'edwiser-bridge' ) . '%s' . esc_html__( ' has been ', 'edwiser-bridge' ) . '%s.', '{ORDER_ID}', '{ORDER_REFUND_STATUS}' ); ?>
 									.
 								</div>
 								<div></div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
-								<?php printf( esc_html__( 'Order ', 'eb-textdomain' ) . '%s' . esc_html__( ' Details:', 'eb-textdomain' ), '{ORDER_ID}' ); ?>
+								<?php printf( esc_html__( 'Order ', 'edwiser-bridge' ) . '%s' . esc_html__( ' Details:', 'edwiser-bridge' ), '{ORDER_ID}' ); ?>
 								</div>
 								<div></div>
 								<div style="font-family: Arial;">
 									<table style="border-collapse: collapse;">
 										<tbody>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
-												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Customer Details', 'eb-textdomain' ); ?></td>
+												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Customer Details', 'edwiser-bridge' ); ?></td>
 												<td style="border: 1px solid #465b94; padding: 5px;">{CUSTOMER_DETAILS}</td>
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
-												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Order Item', 'eb-textdomain' ); ?></td>
+												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Order Item', 'edwiser-bridge' ); ?></td>
 												<td style="border: 1px solid #465b94; padding: 5px;">{ORDER_ITEM}</td>
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
-												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Total paid amount', 'eb-textdomain' ); ?></td>
+												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Total paid amount', 'edwiser-bridge' ); ?></td>
 												<td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_AMOUNT_PAID}</td>
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
-												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Current Refunded Amount', 'eb-textdomain' ); ?></td>
+												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Current Refunded Amount', 'edwiser-bridge' ); ?></td>
 												<td style="border: 1px solid #465b94; padding: 5px;">{CURRENT_REFUNDED_AMOUNT}</td>
 											</tr>
 											<tr style="border: 1px solid #465b94; padding: 5px;">
-												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Total Refunded Amount', 'eb-textdomain' ); ?></td>
+												<td style="border: 1px solid #465b94; padding: 5px;"> <?php esc_html_e( 'Total Refunded Amount', 'edwiser-bridge' ); ?></td>
 												<td style="border: 1px solid #465b94; padding: 5px;">{TOTAL_REFUNDED_AMOUNT}</td>
 											</tr>
 										</tbody>
@@ -733,7 +733,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'Course Enrollment.', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Course Enrollment.', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -742,7 +742,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -751,7 +751,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You are successfully enrolled in ', 'eb-textdomain' ) . '%s course.',
+											esc_html__( 'You are successfully enrolled in ', 'edwiser-bridge' ) . '%s course.',
 											'<strong>{COURSE_NAME}</strong>'
 										);
 									?>
@@ -761,7 +761,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can access your account here: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'You can access your account here: ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
 										);
 									?>
@@ -790,7 +790,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'Course Un-Enrollment.', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'Course Un-Enrollment.', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -799,7 +799,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -808,7 +808,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You are un-enrolled from ', 'eb-textdomain' ) . '%s course.',
+											esc_html__( 'You are un-enrolled from ', 'edwiser-bridge' ) . '%s course.',
 											'<strong>{COURSE_NAME}</strong>'
 										);
 									?>
@@ -818,7 +818,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'You can access your account here: ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'You can access your account here: ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{USER_ACCOUNT_PAGE_LINK}</span>'
 										);
 									?>
@@ -848,7 +848,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 						<tr>
 							<td style="background-color: #465c94; border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; border-bottom: 0; font-family: Arial; font-weight: bold; line-height: 100%; vertical-align: middle;">
 								<h1 style="color: white; margin: 0; padding: 28px 24px; text-shadow: 0 1px 0 0; display: block; font-family: Arial; font-size: 30px; font-weight: bold; text-align: left; line-height: 150%;">
-									<?php esc_html_e( 'User Deleted', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'User Deleted', 'edwiser-bridge' ); ?>
 								</h1>
 							</td>
 						</tr>
@@ -857,7 +857,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Hi ', 'eb-textdomain' ) . '%s',
+											esc_html__( 'Hi ', 'edwiser-bridge' ) . '%s',
 											'{FIRST_NAME}'
 										);
 									?>
@@ -866,7 +866,7 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Your user account is deleted from ', 'eb-textdomain' ) . '%s.',
+											esc_html__( 'Your user account is deleted from ', 'edwiser-bridge' ) . '%s.',
 											'<strong>{SITE_URL}</strong>'
 										);
 									?>

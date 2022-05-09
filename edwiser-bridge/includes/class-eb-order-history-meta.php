@@ -89,7 +89,7 @@ class Eb_Order_History_Meta {
 				<?php echo wp_kses_post( $note ); ?>
 			</div>
 			<div class="eb-sso-hist-by">
-				<?php esc_html__( 'added by  ', 'eb-textdomain' ) . printf( '%s on %s.', esc_html( $updated_by ), esc_html( $updated_on ) ); ?>
+				<?php esc_html__( 'added by  ', 'edwiser-bridge' ) . printf( '%s on %s.', esc_html( $updated_by ), esc_html( $updated_on ) ); ?>
 			</div>
 		</li>
 		<?php
@@ -131,20 +131,20 @@ class Eb_Order_History_Meta {
 		$old_status   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'old_status' );
 		$new_status   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'new_status' );
 		$const_status = array(
-			'pending'   => __( 'Pending', 'eb-textdomain' ),
-			'completed' => __( 'Completed', 'eb-textdomain' ),
-			'failed'    => __( 'Failed', 'eb-textdomain' ),
-			'refunded'  => __( 'Refunded', 'eb-textdomain' ),
+			'pending'   => __( 'Pending', 'edwiser-bridge' ),
+			'completed' => __( 'Completed', 'edwiser-bridge' ),
+			'failed'    => __( 'Failed', 'edwiser-bridge' ),
+			'refunded'  => __( 'Refunded', 'edwiser-bridge' ),
 		);
 
 		$user = get_userdata( get_current_user_id() );
 
 		$stat_old   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $old_status );
 		$stat_new   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $const_status, $new_status );
-		$note_state = esc_html__( 'Order status changed from ', 'eb-textdomain' ) . sprintf( '%s .', $stat_old ) . esc_html__( ' to ', 'eb-textdomain' ) . sprintf( ' %s.', $stat_new );
+		$note_state = esc_html__( 'Order status changed from ', 'edwiser-bridge' ) . sprintf( '%s .', $stat_old ) . esc_html__( ' to ', 'edwiser-bridge' ) . sprintf( ' %s.', $stat_new );
 
 		if ( empty( $old_status ) ) {
-			$note_state = esc_html__( 'New Order created by ', 'eb-textdomain' ) . sprintf( '%s.', $user->user_login );
+			$note_state = esc_html__( 'New Order created by ', 'edwiser-bridge' ) . sprintf( '%s.', $user->user_login );
 		}
 		$note_state = apply_filters( 'eb_order_history_disp_status_change_msg', $note_state, $note );
 		return $note_state;
@@ -160,7 +160,7 @@ class Eb_Order_History_Meta {
 		$refund_is_uneroll = \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $note, 'refund_uneroll_users' );
 		$unenroll_msg      = '';
 		if ( 'ON' === $refund_is_uneroll ) {
-			$unenroll_msg = esc_html__( ' Also the user is unenrolled from associated course.', 'eb-textdomain' );
+			$unenroll_msg = esc_html__( ' Also the user is unenrolled from associated course.', 'edwiser-bridge' );
 		}
 		$hist_note = esc_html( $refund_note ) . sprintf( '%s', $unenroll_msg );
 		$hist_note = apply_filters( 'eb_order_history_disp_refund_msg', $hist_note, $note );
