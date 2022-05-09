@@ -1,0 +1,3416 @@
+# Translation of Plugins - Edwiser Bridge &#8211; WordPress Moodle LMS Integration - Development (trunk) in Turkish
+# This file is distributed under the same license as the Plugins - Edwiser Bridge &#8211; WordPress Moodle LMS Integration - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-12-07 10:22:18+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: tr\n"
+"Project-Id-Version: Plugins - Edwiser Bridge &#8211; WordPress Moodle LMS Integration - Development (trunk)\n"
+
+#: includes/class-eb-course-manager.php:797
+msgid "Enable Enrollment Method"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:796
+msgid "Sync Enrollment Method"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:777
+msgid "Enable"
+msgstr ""
+
+#: includes/class-eb-course-manager.php:732
+msgid "Manual Enrollment"
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:302
+msgid "Response : "
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:298
+msgid "Url : "
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:295
+msgid "Connection Failed"
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:294
+msgid "Status : "
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:292
+msgid "An issue is detected."
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:286
+msgid "Test Connection failed, To check more information about issue click"
+msgstr ""
+
+#: includes/api/class-eb-connection-helper.php:195
+msgid "Please check Moodle URL or Moodle plugin configuration !"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:137
+msgid "This option will try to ignore errors regariding SSL certificate."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:136
+msgid "Disable SSL certificate check"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:128
+msgid " here "
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:128
+msgid "Enter language code which you get from moodle language settings. You can check language code in Moodle "
+msgstr ""
+
+#: public/class-eb-template-functions.php:177
+msgid "Suspended "
+msgstr "Askıya alındı"
+
+#: includes/class-eb-post-types.php:342
+msgid "Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin."
+msgstr "Erişimin süresi asla dolmayacaksa bu alanı işaretlemeden bırakın. Süresi dolan erişim, Edwiser Bulk satın alma eklentisi ile değil, WooCommerce entegrasyonu ile çalışacaktır."
+
+#: includes/class-eb-course-manager.php:197
+msgid " here"
+msgstr "burada"
+
+#: includes/class-eb-course-manager.php:197
+msgid "Unable to create/update a few courses, since they might have already being synced by a third-party plugin. Please check complete error "
+msgstr "Halihazırda bir üçüncü taraf eklentisi tarafından senkronize edilmiş olabileceğinden, birkaç kurs oluşturulamıyor/güncellenemiyor. Lütfen tam hatayı kontrol edin"
+
+#: includes/api/class-eb-connection-helper.php:177
+msgid "Please check moodle web service configuration, Got invalid JSON,Check moodle web summary "
+msgstr "Lütfen moodle web hizmeti yapılandırmasını kontrol edin, Geçersiz JSON var, Moodle web özetini kontrol edin"
+
+#: admin/settings/class-eb-settings-synchronization.php:199
+msgid "Note: Courses in the draft will not reflect on the learners \"My Courses\" page!"
+msgstr "Taslaktaki dersler, öğrencilerin \"Derslerim\" sayfasına yansımayacaktır!"
+
+#: admin/settings/class-eb-settings-general.php:111
+msgid "Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here."
+msgstr "Genellikle, rol kimliği 5 olan kullanıcılar varsayılan öğrenci rolüne kaydolur, ancak varsayılan kullanıcı rolü kimliği değiştirilirse, kullanıcının buraya yeni bir kullanıcı rolü kimliği girmesi gerekir."
+
+#: admin/settings/class-eb-settings-general.php:106
+msgid "Moodle user role can be found here "
+msgstr "Moodle kullanıcı rolü burada bulunabilir"
+
+#: admin/settings/class-eb-settings-general.php:105
+msgid "Moodle User Role ID"
+msgstr "Moodle Kullanıcı Rolü Kimliği"
+
+#: admin/settings/class-eb-settings-general.php:96
+msgid "Select WordPress default user role for users on registration from User Account Page."
+msgstr "Kullanıcı Hesabı Sayfasından kayıt sırasında kullanıcılar için WordPress varsayılan kullanıcı rolünü seçin."
+
+#: admin/settings/class-eb-settings-general.php:74
+msgid "Enable user registration on user-account page."
+msgstr "Kullanıcı hesabı sayfasında kullanıcı kaydını etkinleştirin."
+
+#: admin/settings/class-eb-settings-connection.php:95
+msgid "Add the access token generated on the Moodle Site while creating a web service."
+msgstr "Bir web hizmeti oluştururken Moodle Sitesinde oluşturulan erişim belirtecini ekleyin."
+
+#: admin/licensing/class-licensing-settings.php:432
+msgid "Upgrade License"
+msgstr "Lisansı yükselt"
+
+#: admin/licensing/class-licensing-settings.php:431
+msgid "If you already own one of the extensions, then click here to upgrade to Edwiser Bridge PRO"
+msgstr "Uzantılardan birine zaten sahipseniz, Edwiser Bridge PRO'ya yükseltmek için burayı tıklayın"
+
+#: admin/licensing/class-licensing-settings.php:427
+msgid "Buy License"
+msgstr "Lisans Satın Al"
+
+#: admin/licensing/class-licensing-settings.php:426
+msgid "If you wish to purchase Edwiser Bridge PRO then click here"
+msgstr "Edwiser Bridge PRO satın almak istiyorsanız buraya tıklayın"
+
+#: admin/licensing/class-licensing-settings.php:422
+msgid "Get License"
+msgstr "Lisans Al"
+
+#: admin/licensing/class-licensing-settings.php:421
+msgid "If you already own a license then click here"
+msgstr "Mevcut bir lisansınız varsa buraya tıklayın"
+
+#: admin/licensing/class-licensing-settings.php:382
+msgid "Plugin activated successfully."
+msgstr "Eklenti başarıyla etkinleştirildi."
+
+#: admin/licensing/class-licensing-settings.php:319
+msgid "Please installed and activate WooCommerce plugin first."
+msgstr "Lütfen önce WooCommerce eklentisini kurun ve etkinleştirin."
+
+#: admin/licensing/class-licensing-settings.php:317
+msgid "Please installed and activate Edwiser WooCommerce Integration plugin first."
+msgstr "Lütfen önce Edwiser WooCommerce Integration eklentisini kurun ve etkinleştirin."
+
+#: admin/licensing/class-licensing-settings.php:302
+msgid "Empty download link. Please check your license key or contact edwiser support for more detials."
+msgstr "Boş indirme bağlantısı. Daha fazla ayrıntı için lütfen lisans anahtarınızı kontrol edin veya edwiser support ile iletişime geçin."
+
+#: admin/licensing/class-licensing-settings.php:297
+msgid "Plugin installation failed."
+msgstr "Eklenti kurulumu başarısız oldu."
+
+#: admin/licensing/class-licensing-settings.php:294
+msgid "Plugin installed sucessfully."
+msgstr "Eklenti başarıyla yüklendi."
+
+#: admin/licensing/class-licensing-settings.php:271
+msgid " to get the license key."
+msgstr "Lisans anahtarını almak için"
+
+#: admin/licensing/class-licensing-settings.php:271
+msgid "License key cannot be empty, Please enter the valid license key."
+msgstr "Lisans anahtarı boş olamaz, Lütfen geçerli lisans anahtarını girin."
+
+#: admin/licensing/class-licensing-settings.php:228
+msgid "Invalid action."
+msgstr "Geçersiz eylem."
+
+#: admin/licensing/class-licensing-settings.php:208
+msgid "Security check failed."
+msgstr "Güvenlik kontrolü başarısız oldu."
+
+#: admin/licensing/class-licensing-settings.php:195
+msgid "Activate License"
+msgstr "Lisansı Etkinleştir"
+
+#: admin/licensing/class-licensing-settings.php:183
+#: admin/licensing/class-licensing-settings.php:189
+msgid "Renew License"
+msgstr "Lisansı Yenile"
+
+#: admin/licensing/class-licensing-settings.php:177
+#: admin/licensing/class-licensing-settings.php:182
+#: admin/licensing/class-licensing-settings.php:188
+msgid "Deactivate License"
+msgstr "Lisansı Devre Dışı Bırak"
+
+#: admin/licensing/class-licensing-settings.php:149
+msgid "Activate Plugin"
+msgstr "Eklentiyi Etkinleştir"
+
+#: admin/licensing/class-licensing-settings.php:143
+msgid "Install Plugin"
+msgstr "Eklenti yükle"
+
+#: admin/licensing/class-licensing-settings.php:142
+#: admin/licensing/class-licensing-settings.php:148
+#: admin/licensing/class-licensing-settings.php:194
+msgid "Get License Key"
+msgstr "Lisans Anahtarını Al"
+
+#: admin/licensing/class-licensing-settings.php:109
+msgid "Not Active "
+msgstr "Etkin Değil"
+
+#: admin/licensing/class-licensing-settings.php:107
+msgid "Invalid Key"
+msgstr "Geçersiz Anahtar"
+
+#: admin/licensing/class-licensing-settings.php:103
+#: admin/licensing/class-licensing-settings.php:105
+msgid "Expired"
+msgstr "Süresi Doldu"
+
+#: admin/licensing/class-licensing-settings.php:101
+msgid "Not Active"
+msgstr "Etkin Değil"
+
+#: admin/licensing/class-licensing-settings.php:99
+msgid "Active"
+msgstr "Aktif"
+
+#: admin/licensing/class-eb-licensing-manager.php:518
+msgid "License Key for %s is deactivated"
+msgstr "%s için Lisans Anahtarı devre dışı bırakıldı"
+
+#: admin/licensing/class-eb-licensing-manager.php:511
+msgid "Site inactive(Press Activate license to activate plugin)"
+msgstr "Site etkin değil(Eklentiyi etkinleştirmek için Lisansı Etkinleştir'e basın)"
+
+#: admin/licensing/class-eb-licensing-manager.php:497
+msgid "Please enter valid license key for %s."
+msgstr "Lütfen %s için geçerli lisans anahtarını girin."
+
+#: admin/licensing/class-eb-licensing-manager.php:490
+#: admin/licensing/class-eb-licensing-manager.php:504
+msgid "License Key for %s is already activated at : "
+msgstr "%s için Lisans Anahtarı şurada zaten etkinleştirildi:"
+
+#: admin/licensing/class-eb-licensing-manager.php:464
+msgid "License Key for %1$s is already activated at : %2$s"
+msgstr "%1$s için Lisans Anahtarı şurada zaten etkinleştirildi: %2$s"
+
+#: admin/licensing/class-eb-licensing-manager.php:457
+msgid "License key for %s is Disabled."
+msgstr "%s için lisans anahtarı Devre Dışı bıkarıldı"
+
+#: admin/licensing/class-eb-licensing-manager.php:450
+msgid "License key for %s have been Expired. Please, Renew it."
+msgstr "%s için lisans anahtarının süresi doldu. Lütfen, Yenileyin"
+
+#: admin/licensing/class-eb-licensing-manager.php:443
+msgid "License key for %s have been Expired. Please, Renew it. <br/>Your License Key is already activated at : "
+msgstr "%s için lisans anahtarının süresi doldu. Lütfen, Yenileyin. <br/>Lisans Anahtarınız şurada zaten etkinleştirildi:"
+
+#: admin/licensing/class-eb-licensing-manager.php:436
+msgid "License key for %s is activated."
+msgstr "%s için lisans anahtarı etkinleştirildi."
+
+#: admin/licensing/class-eb-licensing-manager.php:429
+msgid "License key is not valid. Please check your license key and try again"
+msgstr "Lisans anahtarı geçerli değil. Lütfen lisans anahtarınızı kontrol edin ve tekrar deneyin"
+
+#: admin/licensing/class-eb-licensing-manager.php:422
+msgid "No response from server. Please try again later."
+msgstr "Sunucudan yanıt yok. Lütfen daha sonra tekrar deneyiniz."
+
+#: admin/licensing/class-eb-licensing-manager.php:415
+msgid "Please enter license key for %s."
+msgstr "Lütfen %s için lisans anahtarını girin."
+
+#: admin/licensing/class-eb-licensing-manager.php:169
+msgid "No responce from server edwiser.org."
+msgstr "edwiser.org sunucusundan yanıt yok."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:141
+msgid "This will show category wise filter and sorting section on page. Possible values:yes,no. Example: "
+msgstr "Bu, sayfada kategori bazında filtre ve sıralama bölümünü gösterecektir. Olası değerler: evet, hayır. Örnek:"
+
+#: admin/settings/class-eb-settings-general.php:124
+msgid "This sets the courses page, where user can see courses page."
+msgstr "Bu, kullanıcıların kurslar sayfasını görebileceği kurslar sayfasını ayarlar."
+
+#. translators: select courses page here
+#: admin/settings/class-eb-settings-general.php:53
+#: admin/settings/class-eb-settings-general.php:114
+msgid "Courses page"
+msgstr "Kurslar Sayfası"
+
+#. translators: select courses page here
+#: admin/settings/class-eb-settings-general.php:53
+msgid "Select courses page here. Default page is %s "
+msgstr "Burada kurslar sayfasını seçin. Varsayılan sayfa: %s"
+
+#: admin/settings/class-eb-settings-premium-fetures.php:30
+msgid "Upgrade to Premium"
+msgstr "Premium sürüme yükselt"
+
+#: admin/settings/class-eb-settings-dummy.php:323
+#: admin/settings/class-eb-settings-dummy.php:363
+#: admin/settings/class-eb-settings-dummy.php:371
+#: admin/settings/class-eb-settings-dummy.php:379
+msgid "Moodle WordPress Single Sign-On for quick & easy login."
+msgstr "Hızlı ve kolay oturum açmak için Moodle WordPress Tek-Hesapla-Oturum-Açma."
+
+#: admin/settings/class-eb-settings-dummy.php:211
+#: admin/settings/class-eb-settings-dummy.php:252
+#: admin/settings/class-eb-settings-dummy.php:260
+msgid "PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress."
+msgstr "Moodle'dan WordPress'e senkronize edilecek kursları ve kullanıcıları BELİRLEYİN ve SEÇİN."
+
+#: admin/settings/class-eb-settings-dummy.php:85
+#: admin/settings/class-eb-settings-dummy.php:136
+msgid "Sell Moodle Courses via 160+ Payment Gateways with WooCommerce."
+msgstr "WooCommerce ile 160+ Ödeme Cihazı aracılığıyla Moodle Kursları satın."
+
+#: admin/settings/class-eb-settings-dummy.php:51
+msgid "I want to know more."
+msgstr "Daha fazla öğrenmek istiyorum."
+
+#: admin/settings/class-eb-settings-synchronization.php:143
+#: admin/settings/class-eb-settings-synchronization.php:210
+msgid "Start Synchronization"
+msgstr "Senkronizasyonu Başlat"
+
+#: admin/settings/class-eb-settings-synchronization.php:133
+msgid "from Manage email templates."
+msgstr "E-posta şablonlarını yönet'ten."
+
+#: admin/settings/class-eb-settings-synchronization.php:133
+msgid "\"Link WP user account to moodle and Create new moodle account\""
+msgstr "\"WP kullanıcı hesabını moodle'a bağla ve yeni moodle hesabı oluştur\""
+
+#: admin/settings/class-eb-settings-synchronization.php:133
+msgid "Note: Performing user synchronization will email all the users with their login credentials. To disable the same you may deactivate"
+msgstr "Not: Kullanıcı senkronizasyonunun gerçekleştirilmesi, tüm kullanıcılara oturum açma kimlik bilgilerini e-posta ile gönderir. Aynı şeyi devre dışı bırakmak için devre dışı bırakabilirsiniz"
+
+#: admin/settings/class-eb-bridge-summary.php:259
+msgid "Server Environment Information"
+msgstr "Sunucu Ortamı Bilgileri"
+
+#: admin/settings/class-eb-bridge-summary.php:256
+msgid "Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)"
+msgstr "Yayınla (%1$d), Taslak(%2$d), Çöp Kutusu (%3$d), Özel(%4$d)"
+
+#: admin/settings/class-eb-bridge-summary.php:255
+msgid "Number of Courses:"
+msgstr "Kurs Sayısı"
+
+#: admin/settings/class-eb-bridge-summary.php:251
+msgid "Permalink Structure:"
+msgstr "Kalıcı Bağlantı Yapısı:"
+
+#: admin/settings/class-eb-bridge-summary.php:247
+msgid "Access Token:"
+msgstr "Erişim Belirteci:"
+
+#: admin/settings/class-eb-bridge-summary.php:243
+msgid "Moodle Site URL:"
+msgstr "Moodle Site URL:"
+
+#: admin/settings/class-eb-bridge-summary.php:239
+msgid "Wordpress Site URL:"
+msgstr "Wordpress Site URL:"
+
+#: admin/settings/class-eb-bridge-summary.php:188
+msgid "You might have invalid license key. Enter the valid licese key or Remove the invalid license key to get the plugin latest version information."
+msgstr "Geçersiz bir lisans anahtarınız olabilir. Eklentinin en son sürüm bilgilerini almak için geçerli lisans anahtarını girin veya geçersiz lisans anahtarını kaldırın."
+
+#: admin/settings/class-eb-bridge-summary.php:180
+msgid "Latest version installed"
+msgstr "En son sürüm kuruldu"
+
+#: admin/settings/class-eb-bridge-summary.php:175
+msgid "Download"
+msgstr "İndir"
+
+#: admin/settings/class-eb-bridge-summary.php:175
+msgid "Click to download the plugin file. Or you can update the from plugin page."
+msgstr "Eklenti dosyasını indirmek için tıklayın. Veya eklenti sayfasından güncelleyebilirsiniz."
+
+#: admin/settings/class-eb-bridge-summary.php:169
+msgid "Download Plugin"
+msgstr "Eklentiyi İndir"
+
+#: admin/settings/class-eb-bridge-summary.php:169
+msgid "Plugin is not installed, Click to download the plugin file."
+msgstr "Eklenti kurulu değil, Eklenti dosyasını indirmek için tıklayın."
+
+#: admin/settings/class-eb-bridge-summary.php:137
+msgid "Latest version"
+msgstr "En son versiyon:"
+
+#: admin/settings/class-eb-bridge-summary.php:136
+msgid "Installed"
+msgstr "Yüklendi"
+
+#: admin/settings/class-eb-bridge-summary.php:135
+msgid "Edwiser Bridge Plugin Summary"
+msgstr "Edwiser Bridge Eklenti Özeti"
+
+#: admin/settings/class-eb-bridge-summary.php:133
+msgid "Check update again"
+msgstr "Güncellemeyi tekrar kontrol et"
+
+#: admin/settings/class-eb-bridge-summary.php:126
+msgid "Moodle Edwiser Bulk Purchase :"
+msgstr "Moodle Edwiser Bulk Purchase :"
+
+#: admin/settings/class-eb-bridge-summary.php:121
+msgid "Moodle Edwiser Single Sign On :"
+msgstr "Moodle Edwiser Single Sign On :"
+
+#: admin/settings/class-eb-bridge-summary.php:116
+msgid "Moodle Edwiser Bridge :"
+msgstr "Moodle Edwiser Bridge :"
+
+#: admin/settings/class-eb-bridge-summary.php:111
+msgid "Moodle Plugins"
+msgstr "Moodle Eklentileri"
+
+#: admin/settings/class-eb-bridge-summary.php:87
+msgid "Edwiser Bridge :"
+msgstr "Edwiser Bridge :"
+
+#: admin/settings/class-eb-bridge-summary.php:82
+msgid "Wordpress Plugins"
+msgstr "Wordpress Eklentileri"
+
+#: admin/settings/class-eb-bridge-summary.php:37
+msgid "Stats"
+msgstr "İstatistikler"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:213
+msgid "100% Completed"
+msgstr "%100 Tamamlandı"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:212
+msgid "View"
+msgstr "Görüntüle"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:208
+msgid "% Completed"
+msgstr "% Tamamlandı"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:207
+msgid "Resume"
+msgstr "Devam et"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:204
+msgid "Not yet started"
+msgstr "Henüz başlamadı"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:199
+msgid "Suspended"
+msgstr "Askıya alındı"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:192
+#: public/shortcodes/class-eb-shortcode-my-courses.php:203
+msgid "Start"
+msgstr "Başlat"
+
+#: admin/settings/class-eb-bridge-summary.php:187
+#: public/shortcodes/class-eb-shortcode-my-courses.php:186
+msgid "Not available"
+msgstr "Uygun değil"
+
+#: public/templates/account/form-login.php:63
+msgid "Get Registered"
+msgstr "Kayıt Tarihi"
+
+#: public/templates/account/form-login.php:60
+msgid "Don't have an Account? Register one!"
+msgstr "Hesabınız yok mu? Kaydolun!"
+
+#: public/templates/content-single-eb_course.php:54
+msgid "CATEGORY: "
+msgstr "KATEGORİ:"
+
+#: public/templates/course-filters.php:33
+msgid "Sort by oldest"
+msgstr "En eskiye göre sırala"
+
+#: public/templates/course-filters.php:32
+msgid "Sort by latest"
+msgstr "En yeniye göre sırala"
+
+#: public/templates/course-filters.php:31
+msgid "Sort Z to A"
+msgstr "A'dan Z'ye sırala"
+
+#: public/templates/course-filters.php:30
+msgid "Default A to Z"
+msgstr "Varsayılan A'dan Z'ye"
+
+#: public/templates/course-filters.php:28
+msgid "Sort by:"
+msgstr "Sıralama ölçütü:"
+
+#: public/templates/course-filters.php:19
+msgid "All"
+msgstr "Tümü"
+
+#: public/templates/course-filters.php:17
+msgid "Filter Courses by Category:"
+msgstr "Kursları Kategoriye Göre Filtrele:"
+
+#: public/shortcodes/class-eb-shortcode-courses.php:281
+#: public/templates/course-pagination.php:27
+msgid "Prev"
+msgstr "Önceki"
+
+#: public/templates/archive-eb_course.php:81
+msgid "Next "
+msgstr "Sonraki:"
+
+#: public/templates/archive-eb_course.php:80
+msgid " Prev"
+msgstr "Önceki"
+
+#: public/class-eb-template-functions.php:163
+msgid "Lifetime "
+msgstr "Ömür Boyu"
+
+#: public/class-eb-template-functions.php:163
+#: public/class-eb-template-functions.php:177
+msgid "Course Access: "
+msgstr "Kurs Erişimi:"
+
+#: public/class-eb-template-functions.php:170
+msgid "Course Access:  "
+msgstr "Kurs Erişimi:"
+
+#: public/class-eb-template-functions.php:168
+msgid "Remaining Access: "
+msgstr "Kalan Erişim:"
+
+#: includes/eb-core-functions.php:861
+msgid "Plugin not installed"
+msgstr "Eklenti yüklü değil"
+
+#: includes/class-eb-post-types.php:735
+msgid " draft updated. "
+msgstr "Taslak güncellendi."
+
+#: includes/class-eb-post-types.php:723 includes/class-eb-post-types.php:735
+msgid "Preview "
+msgstr "Önizleme:"
+
+#: includes/class-eb-post-types.php:723
+msgid "scheduled for:  "
+msgstr "Şunun için planlanan:"
+
+#: includes/class-eb-admin-notice-handler.php:302
+msgid " article for theme compatibility"
+msgstr "tema uyumluluğu makalesi"
+
+#: includes/class-eb-admin-notice-handler.php:302
+msgid " this "
+msgstr "bu"
+
+#: includes/class-eb-admin-notice-handler.php:302
+msgid "Please refer to"
+msgstr "Bakınız"
+
+#: includes/class-eb-admin-notice-handler.php:300
+msgid "template. It may cause CSS breaks if not done."
+msgstr "şablon. Yapılmazsa CSS bozulmalarına neden olabilir."
+
+#: includes/class-eb-admin-notice-handler.php:299
+msgid "templates previously then please make sure that your templates are made compatible with the "
+msgstr "daha önce şablonlarınız varsa, lütfen şablonlarınızın şunlarla uyumlu hale getirildiğinden emin olun."
+
+#: includes/class-eb-admin-notice-handler.php:298
+msgid "If you have overridden the standard"
+msgstr "Standardı geçersiz kıldıysanız"
+
+#: includes/class-eb-admin-notice-handler.php:294
+msgid "If you have overridden the standard Edwiser Bridge templates previously then please make sure that your templates are made compatible with the NEW Edwiser Bridge template. It may cause CSS breaks if not done. "
+msgstr "Standart Edwiser Bridge şablonlarını daha önce geçersiz kıldıysanız, lütfen şablonlarınızın YENİ Edwiser Bridge şablonuyla uyumlu hale getirildiğinden emin olun. Yapılmazsa CSS kırılmalarına neden olabilir."
+
+#: includes/class-eb-post-types.php:308
+msgid "This filed is disabeld. Do not change the course id this will affect the course access for the existing enrollemnt."
+msgstr "Bu dosya devre dışı. Kurs kimliğini değiştirmeyin, bu, mevcut kayıt için kurs erişimini etkiler."
+
+#: includes/class-eb-custom-list-table.php:410
+msgid "Filter"
+msgstr "Filtre"
+
+#: includes/class-eb-course-manager.php:883
+msgid "View on Moodle"
+msgstr "Moodle'da gör"
+
+#. translators: %s: $login_link Login link.
+#: includes/class-eb-user-manager.php:400
+msgid "An account is already registered with your email address, %s."
+msgstr "%s e-posta adresinizle zaten bir hesap kayıtlı."
+
+#: public/class-eb-frontend-form-handler.php:149
+msgid "Password are not matching."
+msgstr "Parolalar uyuşmuyor."
+
+#: public/class-eb-frontend-form-handler.php:146
+msgid "Password fields can not be empty."
+msgstr "Parola alanları boş bırakılamaz."
+
+#: admin/settings/class-eb-settings-dummy.php:405
+msgid "Social Login"
+msgstr "Sosyal medya giriş"
+
+#: admin/settings/class-eb-settings-dummy.php:404
+msgid "Redirection"
+msgstr "Yönlendirme"
+
+#: admin/settings/class-eb-settings-dummy.php:326
+msgid "Single Sign On"
+msgstr "Tek Hesapla Oturum Açma"
+
+#: admin/settings/class-eb-settings-dummy.php:319
+#: admin/settings/class-eb-settings-dummy.php:359
+#: admin/settings/class-eb-settings-dummy.php:367
+#: admin/settings/class-eb-settings-dummy.php:375
+msgid "Single Sign On setting not found"
+msgstr "Tek Hesapla Oturum Açma ayarı bulunamadı"
+
+#: admin/settings/class-eb-settings-dummy.php:256
+msgid "Selective Sync Course synchronisation setting not found"
+msgstr "Selective Sync Kurs senkronizasyon ayarı bulunamadı "
+
+#: admin/settings/class-eb-settings-dummy.php:248
+msgid "Selective Sync user synchronisation setting not found"
+msgstr "Selective Sync kullanıcı senkronizasyon ayarı bulunamadı"
+
+#: admin/settings/class-eb-settings-dummy.php:215
+msgid "Selective Sync"
+msgstr "Selective Sync"
+
+#: admin/settings/class-eb-settings-dummy.php:207
+msgid "Selective Sync setting not found"
+msgstr "Selective Sync ayarları bulunamadı"
+
+#: admin/settings/class-eb-settings-dummy.php:132
+msgid "Woo Integration setting not found"
+msgstr "Woo Entegrasyon ayarı bulunamadı"
+
+#: admin/settings/class-eb-settings-dummy.php:109
+#: admin/settings/class-eb-settings-dummy.php:114
+msgid "Products"
+msgstr "Ürünler"
+
+#: admin/settings/class-eb-settings-dummy.php:89
+msgid "Woo Integration"
+msgstr "Woo Entegrasyon"
+
+#: admin/settings/class-eb-settings-dummy.php:84
+#: admin/settings/class-eb-settings-dummy.php:135
+#: admin/settings/class-eb-settings-dummy.php:210
+#: admin/settings/class-eb-settings-dummy.php:251
+#: admin/settings/class-eb-settings-dummy.php:259
+#: admin/settings/class-eb-settings-dummy.php:322
+#: admin/settings/class-eb-settings-dummy.php:362
+#: admin/settings/class-eb-settings-dummy.php:370
+#: admin/settings/class-eb-settings-dummy.php:378
+msgid "View Details"
+msgstr "Detayları Görüntüle"
+
+#: admin/settings/class-eb-settings-dummy.php:81
+msgid "Woo Integration setting image not found"
+msgstr "Woo Entegrasyon ayar resmi bulunamadı"
+
+#: admin/settings/class-eb-settings-paypal.php:30
+msgid "PayPal"
+msgstr "PayPal"
+
+#: admin/settings/class-eb-settings-connection.php:29
+msgid "Connection"
+msgstr "Bağlantı"
+
+#: admin/settings/class-eb-settings-general.php:144
+msgid "Show Courses Archive page"
+msgstr "Kurs Arşivi sayfasını göster"
+
+#: admin/settings/class-eb-settings-general.php:59
+msgid "Controlls whether to Show/Hide courses archive page. "
+msgstr "Ders arşiv sayfasının Göster/Gizle edilip edilmeyeceğini kontrol eder."
+
+#: includes/class-eb-admin-notice-handler.php:144
+msgid "Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning."
+msgstr "Edwiser Bridge eklentisini güncellediğiniz veya yüklediğiniz için teşekkürler, herhangi bir arızayı önlemek için lütfen Moodle eklentisini güncelleyin."
+
+#: includes/class-eb-default-email-templates.php:279
+msgid "You can access your account here:"
+msgstr "Hesabınıza buradan erişebilirsiniz:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:173
+msgid "This will sets the title for the courses wrapper Example: "
+msgstr "Bu, kurs wrapper'ın başlığını belirleyecektir. Örnek:"
+
+#: includes/class-eb-post-types.php:715
+msgid "saved."
+msgstr "Kaydedildi."
+
+#: includes/class-eb-post-types.php:705
+msgid "restored to revision from "
+msgstr "şu sürümden geri yüklendi: "
+
+#: includes/class-eb-post-types.php:701
+msgid "updated."
+msgstr "Güncellendi."
+
+#: includes/class-eb-post-types.php:694
+msgid " View "
+msgstr "Görüntüle"
+
+#: includes/class-eb-post-types.php:694
+msgid " updated."
+msgstr "Güncellendi."
+
+#: includes/class-eb-post-types.php:354
+msgid "Do nothing"
+msgstr "Hiçbir şey yapma"
+
+#: includes/class-eb-post-types.php:353
+msgid "Suspend"
+msgstr "Dondur"
+
+#: includes/class-eb-post-types.php:349
+msgid "Select an action to perform on course access expiration."
+msgstr "Kurs erişimi sona erdiğinde gerçekleştirilecek bir eylem seçin."
+
+#: includes/class-eb-post-types.php:348
+msgid "On Course Expiration"
+msgstr "Kurs Süresinde"
+
+#: includes/class-eb-post-types.php:313
+msgid "This course is deleted on Moodle"
+msgstr "Bu kurs Moodle'da silindi"
+
+#: includes/class-eb-post-types.php:112
+msgctxt "Admin menu name"
+msgid "Edwiser Bridge"
+msgstr "Edwiser Bridge"
+
+#: includes/class-eb-post-types.php:73
+msgctxt "Admin menu name"
+msgid "Course Categories"
+msgstr "Kurs Kategorileri"
+
+#: includes/class-eb-custom-list-table.php:408
+msgid "To : "
+msgstr "Alıcı: "
+
+#: includes/class-eb-custom-list-table.php:406
+msgid "From : "
+msgstr "Gönderen: "
+
+#: includes/payments/class-eb-refund-manager.php:92
+msgid "Refund for amount"
+msgstr "İade tutarı"
+
+#: includes/payments/eb-ipn.php:315
+msgid ". Payment status: "
+msgstr "Ödeme Durumu:"
+
+#: includes/payments/eb-ipn.php:293 includes/payments/eb-ipn.php:315
+msgid " Transaction id: "
+msgstr "İşlem id:"
+
+#: includes/payments/eb-ipn.php:293
+msgid "payment status: "
+msgstr "Ödeme Durumu:"
+
+#: includes/payments/eb-ipn.php:293
+msgid "IPN has been recived for the order id #"
+msgstr "Sipariş id # için IPN alındı"
+
+#: includes/class-eb-order-status.php:111
+msgid " course."
+msgstr "kurs."
+
+#: includes/class-eb-order-status.php:111
+msgid "New order has been placed for the "
+msgstr "şunun için yeni sipariş verildi"
+
+#: includes/class-eb-course-manager.php:767
+msgid "Deleted"
+msgstr "Silindi"
+
+#: includes/api/class-eb-connection-helper.php:267
+msgid " or you can directly create new token and webservice in our Moodle edwiser settings here "
+msgstr "veya buradaki Moodle edwiser ayarlarımızda doğrudan yeni jeton ve web servisi oluşturabilirsiniz."
+
+#: includes/api/class-eb-connection-helper.php:267
+msgid "You can check added webservice here "
+msgstr "Eklenen web servisini buradan kontrol edebilirsiniz"
+
+#: includes/class-eb-user-manager.php:1018
+msgid "Users Linked."
+msgstr "Kullanıcılar Bağlandı"
+
+#: includes/class-eb-user-manager.php:1016
+msgid "User Linked."
+msgstr "Kullanıcı Bağlandı"
+
+#: includes/class-eb-order-meta.php:186
+msgid "Refunded by"
+msgstr "Şu tarafından iade edildi: "
+
+#: includes/class-eb-manage-order-refund.php:61
+msgid "Failed to initiate refund for order #"
+msgstr "# numaralı sipariş için geri ödeme başlatılamadı"
+
+#: includes/class-eb-order-history-meta.php:144
+msgid "Order status changed from "
+msgstr "Sipariş durumu değişti"
+
+#: includes/class-eb-order-history-meta.php:92
+msgid "added by  "
+msgstr "Tarafından eklendi: "
+
+#: includes/class-eb-default-email-templates.php:811
+msgid "You are un-enrolled from "
+msgstr "Şuradan kaydınız silindi:"
+
+#: includes/class-eb-default-email-templates.php:754
+msgid "You are successfully enrolled in "
+msgstr "Başarıyla kaydoldunuz"
+
+#: includes/class-eb-default-email-templates.php:677
+msgid " has been "
+msgstr "oldu"
+
+#: includes/class-eb-default-email-templates.php:677
+msgid "This is to inform you that, Refund for the order id "
+msgstr "Şu sipariş ID için iade: "
+
+#: includes/class-eb-default-email-templates.php:600
+#: includes/class-eb-default-email-templates.php:682
+msgid " Details:"
+msgstr "Ayrıntılar:"
+
+#: includes/class-eb-default-email-templates.php:600
+#: includes/class-eb-default-email-templates.php:682
+#: includes/class-eb-post-types.php:260
+msgid "Order "
+msgstr "Sipariş "
+
+#: includes/class-eb-default-email-templates.php:591
+msgid "  has been refunded successfully, against the order "
+msgstr "sipariş başarıyla iade edildi"
+
+#: includes/class-eb-default-email-templates.php:591
+msgid "This is to inform you that, The amount "
+msgstr "Bu size şunu bildirmek içindir, miktar"
+
+#: includes/class-eb-default-email-templates.php:585
+msgid "Hello "
+msgstr "Merhaba"
+
+#: includes/class-eb-default-email-templates.php:577
+msgid " has been successfully refunded."
+msgstr "başarıyla iade edildi."
+
+#: includes/class-eb-default-email-templates.php:577
+msgid "Your order "
+msgstr "Siparişiniz"
+
+#: includes/class-eb-default-email-templates.php:541
+msgid " to purchase now!"
+msgstr "şimdi satın almak için!"
+
+#: includes/class-eb-default-email-templates.php:541
+msgid "Please purchase the course again to continue with it. "
+msgstr "Devam etmek için lütfen kursu tekrar satın alın."
+
+#: includes/class-eb-default-email-templates.php:532
+msgid " course has expired."
+msgstr "kursun süresi dolmuştur."
+
+#: includes/class-eb-default-email-templates.php:532
+msgid "Your Subscription for "
+msgstr "Aboneliğiniz"
+
+#: includes/class-eb-default-email-templates.php:511
+msgid " course access is expired."
+msgstr "kurs erişiminin süresi doldu."
+
+#: includes/class-eb-default-email-templates.php:468
+msgid " completed successfully."
+msgstr "başarıyla tamamlandı."
+
+#: includes/class-eb-default-email-templates.php:468
+msgid "Your order with ID "
+msgstr "ID ile birlikte siparişiniz"
+
+#: includes/class-eb-default-email-templates.php:459
+msgid "Thanks for purchasing "
+msgstr "Bize güvendiğiniz için teşekkürler"
+
+#: includes/class-eb-default-email-templates.php:392
+#: includes/class-eb-default-email-templates.php:450
+#: includes/class-eb-default-email-templates.php:523
+#: includes/class-eb-default-email-templates.php:745
+#: includes/class-eb-default-email-templates.php:802
+#: includes/class-eb-default-email-templates.php:860
+msgid "Hi "
+msgstr "Merhaba"
+
+#: includes/class-eb-default-email-templates.php:260
+msgid ". Your username is"
+msgstr "Kullanıcı adınız"
+
+#: includes/class-eb-default-email-templates.php:260
+msgid "Thanks for creating an account on "
+msgstr "Hesap oluşturduğunuz için teşekkürler"
+
+#: includes/class-eb-default-email-templates.php:251
+msgid "Hi"
+msgstr "Merhaba"
+
+#: includes/class-eb-order-manager.php:252
+msgid "Course "
+msgstr "Kurs"
+
+#: includes/class-eb-manage-enrollment.php:210
+msgid "users has been unenrolled successfully."
+msgstr "Kullanıcılar başarıyla eklendi"
+
+#: includes/class-eb-gdpr-compatibility.php:271
+msgid "Username\", \"edwiser-bridge"
+msgstr "Kullanıcı adı\", \"edwiser-bridge"
+
+#. translators 1: display name 2: display name 3: a tag opening string 4: a tag
+#. closing
+#: public/templates/account/user-data.php:23
+msgid "Sign out "
+msgstr "Çıkış yap"
+
+#. translators 1: display name 2: display name 3: a tag opening string 4: a tag
+#. closing
+#: public/templates/account/user-data.php:23
+msgid "Hello"
+msgstr "Merhaba"
+
+#: public/templates/emails/user-existing-wp-account.php:18
+#: public/templates/emails/user-new-account.php:18
+#: public/templates/emails/user-order-completion-email.php:18
+msgid "Hi %$1s"
+msgstr "Merhaba %$1s"
+
+#: public/class-eb-template-functions.php:77
+msgid "Click to read more about"
+msgstr "Daha fazla okumak için tıklayın"
+
+#: public/class-eb-template-functions.php:77
+#: public/class-eb-template-functions.php:81
+msgid " course"
+msgstr "Kurs"
+
+#: public/class-eb-template-functions.php:81
+msgid "Click to access"
+msgstr "Erişmek için tıklayın"
+
+#. Translators 1: URL
+#: public/shortcodes/class-eb-shortcode-my-courses.php:162
+msgid " to access the courses page."
+msgstr "kurslar sayfasına ulaşmak için"
+
+#. Translators 1: URL
+#: public/shortcodes/class-eb-shortcode-my-courses.php:162
+msgid "You are not enrolled to any course. "
+msgstr "Herhangi bir kursa kayıtlı değilsiniz."
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:99
+msgid " to login."
+msgstr "giriş yapmak için"
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:99
+msgid "You are not logged in. "
+msgstr "Giriş yapmadınız."
+
+#. Translators 1: file path
+#: public/class-eb-template-loader.php:181
+#: public/class-eb-template-loader.php:207
+msgid "%$1s"
+msgstr "%$1s"
+
+#: edwiser-bridge.php:145
+msgid " extensions to latest version."
+msgstr "en son sürüme uzantılar."
+
+#: edwiser-bridge.php:145
+msgid "Please update all "
+msgstr "Lütfen hepsini güncelleyin"
+
+#: admin/settings/class-eb-settings-help.php:79
+msgid "\\n Customer Email:"
+msgstr "\\n Müşteri E-posta:"
+
+#: admin/settings/class-eb-settings-help.php:79
+msgid "Edwiser subscription user details: \\n\\n Customer Website: "
+msgstr "Edwiser aboneliği kullanıcı ayrıntıları: \\n\\n Müşteri Web Sitesi:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:83
+msgid "shows courses in ascending order."
+msgstr "kursları artan sırada gösterir."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:83
+msgid "Sets order of courses. Possible values: DESC, ASC. Example: "
+msgstr "Derslerin sırasını ayarlar. Olası değerler: DESC, ASC. Örnek:"
+
+#: admin/settings/class-eb-settings-general.php:306
+msgid "This will help us in building more useful functionalities for you."
+msgstr "Bu, sizin için daha kullanışlı işlevler oluşturmamıza yardımcı olacaktır."
+
+#: admin/settings/class-eb-settings-general.php:305
+msgid "Allow Usage Tracking"
+msgstr "Kullanım takibine izin ver"
+
+#: admin/settings/class-eb-settings-general.php:299
+msgid "Usage Tracking"
+msgstr "Kullanım Takibi"
+
+#: admin/settings/class-eb-settings-general.php:157
+msgid " page."
+msgstr "sayfa."
+
+#: admin/settings/class-eb-settings-general.php:157
+msgid " from the "
+msgstr "Gönderen"
+
+#: admin/settings/class-eb-settings-general.php:157
+msgid "Redirect user to the My Courses page on "
+msgstr "Kullanıcıyı Kurslarım sayfasına yönlendirin."
+
+#: admin/class-eb-email-template.php:137
+msgid "BCC in email"
+msgstr "E-postada BCC"
+
+#: admin/class-eb-welcome.php:257
+msgid "Stay updated with the latest features in Edwiser Bridge and receive early-bird discounts on upcoming premium add ons."
+msgstr "Edwiser Bridge'deki en son özelliklerle güncel kalın ve yakında çıkacak premium eklentilerde erken rezervasyon indirimleri alın."
+
+#: admin/class-eb-admin-settings.php:837
+msgid "Name"
+msgstr "İsim"
+
+#: admin/class-eb-admin-settings.php:836
+msgid "User ID"
+msgstr "Kullanıcı ID"
+
+#: admin/class-eb-admin-settings.php:620
+msgid "- Select a sidebar -"
+msgstr "- Bir kenar çubuğu seçin -"
+
+#: admin/class-eb-admin-settings.php:95
+msgid "Your settings have been saved."
+msgstr "Ayarlarınız kaydedildi."
+
+#: admin/class-eb-admin-settings.php:82 admin/class-eb-admin-settings.php:694
+msgid "Action failed. Please refresh the page and retry."
+msgstr "İşlem başarısız. Lütfen sayfayı yenileyin ve tekrar deneyin."
+
+#: admin/class-eb-email-template.php:703
+msgid "Template restored successfully"
+msgstr "Şablon başarıyla geri yüklendi"
+
+#: admin/class-eb-email-template.php:691
+msgid "Failed to reset email template"
+msgstr "E-posta şablonu sıfırlama başarısız"
+
+#: admin/class-eb-email-template.php:476
+msgid "Due to the security issue changes are not saved, Try to re-update it."
+msgstr "Güvenlik sorunu nedeniyle değişiklikler kaydedilemedi, yeniden güncellemeyi deneyin."
+
+#: admin/class-eb-email-template.php:474
+msgid "Changes saved successfully!"
+msgstr "Değişiklikler başarıyla kaydedildi!"
+
+#: admin/class-eb-email-template.php:384
+msgid "The current course page link."
+msgstr "Mevcut kurs sayfası bağlantısı."
+
+#: admin/class-eb-email-template.php:379
+msgid "Order refund status transaction."
+msgstr "Sipariş iade durumu işlemi."
+
+#: admin/class-eb-email-template.php:378
+msgid "Total amount refunded till the time."
+msgstr "Şu zamana kadar iade edilen toplam tutar:"
+
+#: admin/class-eb-email-template.php:377
+msgid "Currantly refunded amount."
+msgstr "Şu anda iade edilen miktar."
+
+#: admin/class-eb-email-template.php:376
+msgid "Amount paid at the time of order placed."
+msgstr "Sipariş sırasında ödenen tutar."
+
+#: admin/class-eb-email-template.php:375
+msgid "Order associated item list."
+msgstr "İlgili listeyi sipariş edin."
+
+#: admin/class-eb-email-template.php:374
+msgid "This will get replaced by the customer details."
+msgstr "Bu, müşteri ayrıntılarıyla değiştirilecektir."
+
+#: admin/class-eb-email-template.php:373
+msgid "Refund order id."
+msgstr "Sipariş iade id"
+
+#: admin/class-eb-email-template.php:368
+msgid "The order id of the purchased order completed."
+msgstr "Satın alınan siparişin sipariş id'si tamamlandı."
+
+#: admin/class-eb-email-template.php:367
+msgid "The title of the course."
+msgstr "Kurs başlığı."
+
+#: admin/class-eb-email-template.php:363
+msgid "The user accounts password."
+msgstr "Kullanıcı hesapları parolası."
+
+#: admin/class-eb-email-template.php:359
+msgid "The moodle site url entered in the connection."
+msgstr "Bağlantıya girilen moodle site url'si."
+
+#: admin/class-eb-email-template.php:358
+msgid "The WordPress login page link."
+msgstr "WordPress giriş sayfası bağlantısı."
+
+#: admin/class-eb-email-template.php:357
+msgid "The WordPress user account page link."
+msgstr "WordPress kullanıcı hesabı sayfası bağlantısı."
+
+#: admin/class-eb-email-template.php:356
+msgid "The link to the my courses page."
+msgstr "Kurslarım sayfasının bağlantısı."
+
+#: admin/class-eb-email-template.php:355
+msgid "The link to the courses archive page."
+msgstr "Kurs arşiv sayfasına bağlantı."
+
+#: admin/class-eb-email-template.php:354
+msgid "The URL of the website."
+msgstr "Web sitesinin URL'si."
+
+#: admin/class-eb-email-template.php:353
+msgid "The name of the website."
+msgstr "Web sitesinin adı."
+
+#: admin/class-eb-email-template.php:352
+msgid "The last name of the user."
+msgstr "Kullanıcının soyadı."
+
+#: admin/class-eb-email-template.php:351
+msgid "The first name of the user."
+msgstr "Kullanıcının adı"
+
+#: admin/class-eb-email-template.php:350
+msgid "The display name of the user."
+msgstr "Kullanıcının görünen adı."
+
+#: admin/class-eb-email-template.php:201
+msgid "Template Constants"
+msgstr "Şablon Sabitleri"
+
+#: admin/class-eb-email-template.php:185
+msgid "Email Templates"
+msgstr "E-posta Şablonları"
+
+#: admin/class-eb-email-template.php:179
+msgid "Some of the constants in these emails would be replaced by demo content"
+msgstr "Bu e-postalardaki bazı sabitlerin yerini demo içerik alacak."
+
+#: admin/class-eb-email-template.php:179
+msgid "Note"
+msgstr "Not"
+
+#: admin/class-eb-email-template.php:172
+msgid "Send sample email with current selected template"
+msgstr "Mevcut seçili şablonla örnek e-posta gönder"
+
+#: admin/class-eb-email-template.php:172
+msgid "Send Test"
+msgstr "Testi Gönder"
+
+#: admin/class-eb-email-template.php:171
+msgid "Enter email address"
+msgstr "E-posta adresi girin"
+
+#: admin/class-eb-email-template.php:171
+msgid "Type an email address here and then click Send Test to generate a test email using current selected template"
+msgstr "Buraya bir e-posta adresi yazın ve ardından mevcut seçili şablonu kullanarak bir test e-postası oluşturmak için Testi Gönder'e tıklayın."
+
+#: admin/class-eb-email-template.php:169
+msgid "To"
+msgstr "Alıcı"
+
+#: admin/class-eb-email-template.php:167
+msgid "Send a test email of the selected template"
+msgstr "Seçilen şablonun test e-postasını gönder"
+
+#: admin/class-eb-email-template.php:159
+msgid "Restore template content"
+msgstr "Şablon içeriğini geri yükle"
+
+#: admin/class-eb-email-template.php:130
+msgid "Check the option to notify the user using selected template on action"
+msgstr "İşlemde seçilen şablonu kullanarak kullanıcıyı bilgilendirme seçeneğini işaretleyin"
+
+#: admin/class-eb-email-template.php:128
+msgid "Send email notification to the user?"
+msgstr "Kullanıcıya e-posta bildirimi gönderilsin mi?"
+
+#: admin/class-eb-email-template.php:123
+msgid "Enter email subject"
+msgstr "E-posta konusunu girin"
+
+#: admin/class-eb-email-template.php:123
+msgid "Enter the subject for the current email template. Current template will use the entered subject to send email from the site"
+msgstr "Geçerli e-posta şablonunun konusunu girin. Mevcut şablon, siteden e-posta göndermek için girilen konuyu kullanacak"
+
+#: admin/class-eb-email-template.php:121
+msgid "Subject"
+msgstr "Konu"
+
+#: admin/class-eb-email-template.php:116
+msgid "Enter from name"
+msgstr "İsimden girin"
+
+#: admin/class-eb-email-template.php:116
+msgid "Enter name here to use as the form name in email sent from site using Edwisaer plugins"
+msgstr "Edwiser eklentileri kullanılarak siteden gönderilen e-postada form adı olarak kullanmak için buraya adı girin"
+
+#: admin/class-eb-email-template.php:114
+msgid "From Name"
+msgstr "İsimden"
+
+#: admin/class-eb-email-template.php:53
+msgid "Refund Success mail to admin or specified email"
+msgstr "yöneticiye veya belirtilen e-postaya İade Başarılı e-postası"
+
+#: admin/class-eb-email-template.php:52
+msgid "Refund Success mail to customer"
+msgstr "Müşteriye İade Başarılı e-postası"
+
+#: admin/class-eb-email-template.php:51
+msgid "Course access expired"
+msgstr "Kurs erişiminin süresi doldu."
+
+#: admin/class-eb-email-template.php:50
+msgid "Course Order Completion"
+msgstr "Kurs Siparişi Tamamlama"
+
+#: admin/class-eb-email-template.php:49
+msgid "Create new moodle account"
+msgstr "Yeni moodle hesabı oluştur"
+
+#: admin/class-eb-email-template.php:48
+msgid "Link WP user account to moodle"
+msgstr "WP kullanıcı hesabını moodle'a bağla"
+
+#: admin/settings/class-eb-settings-paypal.php:191
+msgid "API signature"
+msgstr "API imzası"
+
+#: admin/settings/class-eb-settings-paypal.php:183
+msgid "API password"
+msgstr "API parolası"
+
+#: admin/settings/class-eb-settings-paypal.php:175
+msgid "API username"
+msgstr "API kullanıcı adı"
+
+#: admin/settings/class-eb-settings-paypal.php:172
+msgid "To use order refunds following fields are mandatory."
+msgstr "Sipariş iadelerini kullanmak için aşağıdaki alanların doldurulması zorunludur."
+
+#: admin/settings/class-eb-settings-paypal.php:169
+msgid "PayPal API Credentials (Optional)"
+msgstr "PayPal API Bilgileri (İsteğe Bağlı)"
+
+#: admin/settings/class-eb-settings-paypal.php:157
+msgid "Check to enable the PayPal sandbox."
+msgstr "PayPal sandbox'ı etkinleştirmek için işaretleyin."
+
+#: admin/settings/class-eb-settings-paypal.php:156
+msgid "Use PayPal Sandbox"
+msgstr "PayPal sandbox'ı kullan"
+
+#: admin/settings/class-eb-settings-paypal.php:147
+msgid "Enter the URL used for IPN notifications."
+msgstr "IPN bildirimleri için kullanılan URL'yi girin."
+
+#: admin/settings/class-eb-settings-paypal.php:146
+msgid "PayPal Notify URL"
+msgstr "PayPal Bildirim URL'si"
+
+#: admin/settings/class-eb-settings-paypal.php:134
+msgid "Enter the URL used for completed purchases (a thank you page)."
+msgstr "Tamamlanan satın alma işlemleri için kullanılan URL'yi girin (teşekkürler sayfası)."
+
+#: admin/settings/class-eb-settings-paypal.php:133
+msgid "PayPal Return URL"
+msgstr "PayPal İade URL'si"
+
+#: admin/settings/class-eb-settings-paypal.php:124
+msgid "Enter the URL used for purchase cancellations."
+msgstr "Satın alma iptalleri için kullanılan URL'yi girin."
+
+#: admin/settings/class-eb-settings-paypal.php:123
+msgid "PayPal Cancel URL"
+msgstr "PayPal İptal URL'si"
+
+#: admin/settings/class-eb-settings-paypal.php:114
+msgid "Enter your country code here."
+msgstr "Ülke kodunuzu buraya girin."
+
+#: admin/settings/class-eb-settings-paypal.php:113
+msgid "PayPal Country"
+msgstr "PayPal Ülkesi"
+
+#: admin/settings/class-eb-settings-paypal.php:109
+msgid "Singapore Dollar (SGD)"
+msgstr "Singapur Doları (SGD)"
+
+#: admin/settings/class-eb-settings-paypal.php:108
+msgid "Danish Krone (DKK)"
+msgstr "Danimarka Kronu (DKK)"
+
+#: admin/settings/class-eb-settings-paypal.php:107
+msgid "Polish Zloty (PLN)"
+msgstr "Polonya Zlotisi (PLN)"
+
+#: admin/settings/class-eb-settings-paypal.php:106
+msgid "Australian Dollar (AUD)"
+msgstr "Avustralya Doları (AUD)"
+
+#: admin/settings/class-eb-settings-paypal.php:105
+msgid "Pound Sterling (GBP)"
+msgstr "İngiliz Sterlini (GBP)"
+
+#: admin/settings/class-eb-settings-paypal.php:104
+msgid "Swiss Franc (CHF)"
+msgstr "İsviçre Frankı (CHF)"
+
+#: admin/settings/class-eb-settings-paypal.php:103
+msgid "Mexican Peso (MXN)"
+msgstr "Meksika Pesosu (MXN)"
+
+#: admin/settings/class-eb-settings-paypal.php:102
+msgid "Japanese Yen (JPY)"
+msgstr "Japon Yeni (JPY)"
+
+#: admin/settings/class-eb-settings-paypal.php:101
+msgid "Euro (EUR)"
+msgstr "Euro (EUR)"
+
+#: admin/settings/class-eb-settings-paypal.php:100
+msgid "Hong Kong Dollar (HKD)"
+msgstr "Hong Kong Doları (HKD)"
+
+#: admin/settings/class-eb-settings-paypal.php:99
+msgid "New Zealand Dollar (NZD)"
+msgstr "Yeni Zelanda Doları (NZD)"
+
+#: admin/settings/class-eb-settings-paypal.php:98
+msgid "Canadian Dollar (CAD)"
+msgstr "Canadian Doları (CAD)"
+
+#: admin/settings/class-eb-settings-paypal.php:97
+msgid "U.S. Dollar (USD)"
+msgstr "ABD Doları (USD)"
+
+#: admin/settings/class-eb-settings-paypal.php:90
+msgid "Select transaction currency code, Default is USD."
+msgstr "İşlem para birimi kodunu seçin, Varsayılan USD'dir."
+
+#: admin/settings/class-eb-settings-paypal.php:89
+msgid "PayPal Currency"
+msgstr "PayPal Para Birimi"
+
+#: admin/settings/class-eb-settings-paypal.php:80
+msgid "Enter your PayPal email here."
+msgstr "PayPal e-postanızı buraya girin."
+
+#: admin/settings/class-eb-settings-paypal.php:79
+msgid "PayPal Email"
+msgstr "PayPal e-posta"
+
+#: admin/settings/class-eb-settings-paypal.php:74
+msgid "PayPal Settings"
+msgstr "PayPal Ayarları"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:203
+msgid "This will show the course progress if it is set 1 and will hide course progress if set to 0 and if the parameter is not set"
+msgstr "Bu, 1 olarak ayarlanmışsa kurs ilerlemesini gösterecek, eğer 0 olarak ayarlanmışsa veya parametre ayarlanmamışsa kurs ilerlemesini gizleyecektir."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:193
+msgid "This will sets the quntity to show in the recommended courses Example:"
+msgstr "Bu, önerilen kurslarda gösterilecek miktarı belirler Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:183
+msgid "This will sets the title for the courses wrapper Example:"
+msgstr "Bu, kurs wrapper başlığını belirleyecektir. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:164
+msgid "This shortcode shows the users enrolled courses list and the courses from the enrolled courses categorys where user is not enrolled as the recommended courses. This shortcode can take following parameters."
+msgstr "Bu kısa kod, kayıtlı kurslar listesini ve kullanıcının kayıtlı olmadığı kurs kategorilerindeki kursları önerilen kurslar olarak gösterir. Bu kısa kod aşağıdaki parametreleri alabilir."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:156
+msgid "This shortcode shows single course page.This shortcode takes course id as a parameter. Example: "
+msgstr "Bu kısa kod, tek kurs sayfasını gösterir. Bu kısa kod, parametre olarak kurs kimliğini alır. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:131
+msgid "This will shows the courses in one row with horizontal scroll. Possible values:yes,no. Example: "
+msgstr "Bu, dersleri yatay kaydırma ile bir satırda gösterecektir. Olası değerler: evet, hayır. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:121
+msgid "This shows the courses grouped by the categorys. Possible values:yes,no. Example:"
+msgstr "Bu, kategorilere göre gruplandırılmış dersleri gösterir. Olası değerler: evet, hayır. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:111
+msgid "Sets number of categorys groups shown per page Example:"
+msgstr "Sayfa başına gösterilen kategori gruplarının sayısını ayarlar Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:101
+msgid "Shows courses from spesified category slugs. Example: "
+msgstr "Belirli kategori sümüklü böceklerinden kursları gösterir. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:92
+msgid "Sets number of courses per page. Example:"
+msgstr "Sayfa başına ders sayısını ayarlar. Örnek:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:75
+msgid "This shortcode shows the list of the edwiser bridge courses. You can use this shortcode on any page. This shortcode can take following parameters:"
+msgstr "Bu kısa kod, Edwiser Bridge kurslarının listesini gösterir. Bu kısa kodu herhangi bir sayfada kullanabilirsiniz. Bu kısa kod aşağıdaki parametreleri alabilir:"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:69
+msgid "This shortcode shows the user account details,his enrolled courses and orders placed by him. This shortcode also provides the functoinality to edit user profile."
+msgstr "Bu kısa kod, kullanıcı hesabı ayrıntılarını, kayıtlı kursları ve kendisi tarafından verilen siparişleri gösterir. Bu kısa kod aynı zamanda kullanıcı profilini düzenleme işlevini de sağlar."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:63
+msgid "You may use shortcodes to add information to any page/course/lesson/quiz. Here are built-in shortcodes for displaying relavent user information."
+msgstr "Herhangi bir sayfaya/kursa/derse/quize bilgi eklemek için kısa kodları kullanabilirsiniz. İşte ilgili kullanıcı bilgilerini görüntülemek için yerleşik kısa kodlar."
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:61
+msgid "Shortcode Options"
+msgstr "Kısa Kod Seçenekleri"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:58
+msgid "Edwiser Bridge Shortcodes"
+msgstr "Edwiser Bridge Kısa Kodları"
+
+#: admin/settings/class-eb-settings-shortcode-doc.php:30
+msgid "Shortcodes"
+msgstr "Kısa kodlar"
+
+#: admin/settings/class-eb-settings-general.php:292
+msgid "Specify email address to send refund notification, otherwise keep it blank."
+msgstr "İade bildiriminin gönderileceği e-posta adresini belirtin, aksi takdirde boş bırakın."
+
+#: admin/settings/class-eb-settings-general.php:288
+msgid "Email address to send refund notification."
+msgstr "İade bildiriminin gönderileceği e-posta adresi."
+
+#: admin/settings/class-eb-settings-general.php:287
+msgid "Notification Email"
+msgstr "Bildirim e-postası"
+
+#: admin/settings/class-eb-settings-general.php:280
+msgid "Notify admin users on refund."
+msgstr "Yönetici kullanıcıları iade konusunda bilgilendirin."
+
+#: admin/settings/class-eb-settings-general.php:279
+msgid "Notify Admin"
+msgstr "Yöneticiyi Bilgilendir"
+
+#: admin/settings/class-eb-settings-general.php:273
+msgid "Refund Notification Settings"
+msgstr "İade Bildirimi Ayarları"
+
+#: admin/settings/class-eb-settings-general.php:253
+msgid "Show category wise selected recommended courses on eb-my-courses page."
+msgstr "eb-my-courses sayfasında kategori açısından seçilmiş önerilen kursları göster."
+
+#: admin/settings/class-eb-settings-general.php:252
+msgid "Show Default Recommended Courses"
+msgstr "Varsayılan Önerilen Dersleri Göster"
+
+#: admin/settings/class-eb-settings-general.php:245
+msgid "Show recommended courses on eb-my-courses page."
+msgstr "eb-my-courses sayfasında önerilen kursları göster."
+
+#: admin/settings/class-eb-settings-general.php:238
+msgid "Recommended Courses Settings"
+msgstr "Önerilen Kurs Ayarları"
+
+#: admin/settings/class-eb-settings-general.php:223
+msgid "Please enter the Terms and Conditions you want to show on user-account page."
+msgstr "Lütfen user-account sayfasında göstermek istediğiniz Şartlar ve Koşulları girin."
+
+#: admin/settings/class-eb-settings-general.php:215
+msgid "Check this to use terms and conditions checkbox on the user-account page."
+msgstr "user-account sayfasındaki şartlar ve koşullar onay kutusunu kullanmak için bunu işaretleyin."
+
+#: admin/settings/class-eb-settings-general.php:214
+msgid "Enable terms and conditions"
+msgstr "Şartlar ve koşulları etkinleştir"
+
+#: admin/settings/class-eb-settings-general.php:208
+msgid "Privacy Policy"
+msgstr "Gizlilik Politikası (KVKK)"
+
+#: admin/settings/class-eb-settings-general.php:197
+msgid "Erase associated Moodle data from Moodle site on erase personal data of wordpress site"
+msgstr "Wordpress sitesinin kişisel verilerini silmek için Moodle sitesinden ilişkili Moodle verilerini silin"
+
+#: admin/settings/class-eb-settings-general.php:196
+msgid "Erase associated Moodle data from Moodle site"
+msgstr "Moodle sitesinden ilişkili Moodle verilerini silin"
+
+#: admin/settings/class-eb-settings-general.php:188
+msgid "Enter the link to where you want to redirect user from My Courses page when no course is enrolled if empty then will be redirected to the courses page"
+msgstr "Kurslarım sayfasından kullanıcıyı yönlendirmek istediğiniz bağlantıyı girin, kayıtlı kurs yokken boşsa kurslar sayfasına yönlendirilecektir."
+
+#: admin/settings/class-eb-settings-general.php:187
+msgid "Empty My courses Page Redirect Link"
+msgstr "Boş Kurslarım Sayfası Yönlendirme Bağlantısı"
+
+#: admin/settings/class-eb-settings-general.php:184
+msgid "This sets 'My Courses' page, where the user can see all his purchased courses and access them directly. You have to use this shortcode [eb_my_courses] to create this page."
+msgstr "Bu, kullanıcının satın aldığı tüm kursları görebileceği ve bunlara doğrudan erişebileceği 'Kurslarım' sayfasını ayarlar. Bu sayfayı oluşturmak için bu kısa kodu [eb_my_courses] kullanmanız gerekir."
+
+#: admin/settings/class-eb-settings-general.php:173
+msgid "Select my courses page here. Default page is"
+msgstr "Kurslarım sayfasını buradan seçin. Varsayılan sayfa"
+
+#: admin/settings/class-eb-settings-general.php:168
+msgid "My Courses Page"
+msgstr "Kurslarım Sayfası"
+
+#: admin/settings/class-eb-settings-general.php:161
+msgid "Redirect user to the My Courses page after login and registration"
+msgstr "Oturum açtıktan ve kayıt olduktan sonra kullanıcıyı Kurslarım sayfasına yönlendirin"
+
+#. translators: My Courses page setting description.
+#: admin/settings/class-eb-settings-general.php:58
+#: admin/settings/class-eb-settings-general.php:158
+msgid "Login / Registration"
+msgstr "Giriş / Kayıt"
+
+#. translators: My Courses page setting description.
+#: admin/settings/class-eb-settings-general.php:58
+msgid "Redirect user to the My Courses page on %1$s from the %2$s page."
+msgstr "Kullanıcıyı %2$s sayfasından %1$s üzerindeki Kurslarım sayfasına yönlendirin."
+
+#: admin/settings/class-eb-settings-general.php:152
+msgid "Redirect to My Courses"
+msgstr "Kurslarım sayfasına yönlendirin"
+
+#: admin/settings/class-eb-settings-general.php:127
+msgid "Moodle Language Code"
+msgstr "Moodle Dil Kodu"
+
+#: admin/settings/class-eb-settings-general.php:102
+msgid "Select default role for users on registration from User Account Page."
+msgstr "Kullanıcı Hesabı Sayfasından kayıt sırasında kullanıcılar için varsayılan rolü seçin."
+
+#: admin/settings/class-eb-settings-general.php:94
+#: admin/settings/class-eb-settings-general.php:99
+msgid "Select Role"
+msgstr "Rol seçin."
+
+#: admin/settings/class-eb-settings-general.php:91
+msgid "This sets the user account page, where user can see his/her purchase history."
+msgstr "Bu, kullanıcının satın alma geçmişini görebileceği kullanıcı hesabı sayfasını ayarlar."
+
+#: admin/class-eb-admin-settings.php:589
+#: admin/settings/class-eb-settings-general.php:88
+#: admin/settings/class-eb-settings-general.php:121
+#: admin/settings/class-eb-settings-general.php:181
+msgid "Select a page"
+msgstr "Sayfa seçin"
+
+#. translators: the user account page url will go here
+#: admin/settings/class-eb-settings-general.php:48
+msgid "Select user account page here. Default page is %s "
+msgstr "Burada kullanıcı hesabı sayfasını seçin. Varsayılan sayfa: %s"
+
+#: admin/settings/class-eb-settings-general.php:81
+msgid "User Account Page"
+msgstr "Kullanıcı Hesabı Sayfası"
+
+#: admin/settings/class-eb-settings-general.php:73
+msgid "Enable Registration"
+msgstr "Kayıt Olmayı Etkinleştir"
+
+#: admin/settings/class-eb-settings-general.php:67
+msgid "General Options"
+msgstr "Genel Ayarlar"
+
+#: admin/settings/class-eb-settings-dummy.php:403
+#: admin/settings/class-eb-settings-general.php:30
+msgid "General"
+msgstr "Genel"
+
+#: admin/class-eb-email-template.php:174
+msgid "Sorry, unable to load the image"
+msgstr "Üzgünüz, resim yüklenemedi"
+
+#: admin/settings/class-eb-settings-connection.php:108
+msgid "Test Connection"
+msgstr "Bağlantıyı Test Et"
+
+#: admin/settings/class-eb-settings-connection.php:94
+msgid "Moodle Access Token"
+msgstr "Moodle Erişim Jetonu"
+
+#: admin/settings/class-eb-settings-connection.php:81
+msgid "Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)"
+msgstr "Moodle URL'si (Örnek: http://example.com veya http://example.com/moodle vb.)"
+
+#: admin/settings/class-eb-settings-connection.php:80
+msgid "Moodle URL"
+msgstr "Moodle URL'si"
+
+#: admin/settings/class-eb-settings-connection.php:74
+msgid "Connection Settings"
+msgstr "Bağlantı Ayarları"
+
+#: admin/settings/class-eb-settings-synchronization.php:186
+msgid "Keep synchronized courses as draft"
+msgstr "Senkronize edilmiş kursları taslak olarak tut"
+
+#: admin/settings/class-eb-settings-synchronization.php:176
+msgid "Update previously synchronized courses"
+msgstr "Senkronize edilmiş kursları güncelle"
+
+#: admin/settings/class-eb-settings-synchronization.php:167
+msgid "Synchronize course categories"
+msgstr "Kurs kategorilerini senkronize et"
+
+#: admin/settings/class-eb-settings-synchronization.php:161
+msgid "Synchronize Courses"
+msgstr "Kursları Senkronize Et"
+
+#: admin/settings/class-eb-settings-synchronization.php:121
+msgid "Link user's account to moodle"
+msgstr "WP kullanıcı hesabını Moodle'a bağla"
+
+#: admin/settings/class-eb-settings-synchronization.php:112
+msgid "Update user's course enrollment status"
+msgstr "Kullanıcının kurs kayıt durumunu güncelle"
+
+#: admin/settings/class-eb-settings-synchronization.php:111
+#: admin/settings/class-eb-settings-synchronization.php:166
+msgid "Synchronization Options"
+msgstr "Senkronizasyon Ayarları"
+
+#: admin/settings/class-eb-settings-synchronization.php:106
+msgid "Synchronize User Data"
+msgstr "Kullanıcı Verilerini Senkronize Et"
+
+#: admin/settings/class-eb-settings-dummy.php:285
+#: admin/settings/class-eb-settings-synchronization.php:48
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#: admin/settings/class-eb-settings-synchronization.php:30
+msgid "Synchronization"
+msgstr "Senkronizasyon"
+
+#: admin/licensing/class-licensing-settings.php:45
+#: admin/licensing/class-licensing-settings.php:400
+#: admin/settings/class-eb-bridge-summary.php:275
+#: admin/settings/class-eb-settings-licensing.php:38
+#: admin/settings/class-eb-settings-licensing.php:70
+msgid "Licenses"
+msgstr "Lisanslar"
+
+#: admin/class-eb-moodle-link-unlink.php:60
+msgid "Unlink User"
+msgstr "Kullanıcının Bağlantısını Kaldır"
+
+#: admin/class-eb-moodle-link-unlink.php:59
+msgid "Link User"
+msgstr "Kullanıcıyı Bağla"
+
+#: admin/class-eb-moodle-link-unlink.php:37
+msgid "Moodle Account"
+msgstr "Moodle Hesabı"
+
+#: admin/class-eb-email-template.php:158
+#: admin/partials/html-admin-settings.php:44
+msgid "Save changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: admin/partials/html-admin-settings-right-section.php:110
+msgid "to chat with us."
+msgstr "bizimle sohbet etmek için."
+
+#: admin/partials/html-admin-settings-right-section.php:108
+msgid "Contact Us"
+msgstr "Bize Ulaşın"
+
+#: admin/partials/html-admin-settings-right-section.php:105
+msgid "to check frequently asked questions."
+msgstr "Sık sorulan soruları kontrol etmek için"
+
+#: admin/partials/html-admin-settings-right-section.php:102
+msgid "FAQs"
+msgstr "SSS"
+
+#: admin/partials/html-admin-settings-right-section.php:79
+msgid "Rate Us"
+msgstr "Bizi Değerlendirin"
+
+#: admin/partials/html-admin-settings-right-section.php:75
+#: admin/settings/class-eb-settings-help.php:30
+msgid "Get Help"
+msgstr "Yardım Alın"
+
+#. translators: string plugin name.
+#: admin/partials/html-admin-licensing.php:73
+msgid "%1$1s You do not have any extensions activated. %2$2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3$3s here%4$4s.%5$5s"
+msgstr "%1$1s Etkinleştirilmiş herhangi bir uzantınız yok. %2$2s Lütfen yüklü uzantıları etkinleştirin. Herhangi bir uzantınız yoksa, %3$3s listesine buradan %4$4s.%5$5s bakabilirsiniz."
+
+#: admin/class-eb-welcome.php:347
+msgid "Customer Email:"
+msgstr "Müşteri E-postası:"
+
+#: admin/class-eb-welcome.php:346
+msgid "Customer Website:"
+msgstr "Müşteri Web Sitesi"
+
+#: admin/class-eb-welcome.php:345
+msgid "Edwiser Bridge subscription user details:"
+msgstr "Edwiser Bridge aboneliği kullanıcı detayları:"
+
+#: admin/class-eb-welcome.php:342 admin/settings/class-eb-settings-help.php:72
+msgid "Edwiser Bridge Plugin Subscription Notification"
+msgstr "Edwiser Bridge Eklentisi Abonelik Bildirimi"
+
+#: admin/class-eb-welcome.php:331 admin/settings/class-eb-settings-help.php:61
+msgid "Sorry, there is a problem!"
+msgstr "Üzgünüm, bir sorun var!"
+
+#: admin/class-eb-welcome.php:292
+msgid "Docs"
+msgstr "Dokümanlar"
+
+#: admin/class-eb-welcome.php:291
+msgid "Skip to Settings"
+msgstr "Ayarlara Geç"
+
+#: admin/class-eb-welcome.php:281
+msgid "An error occurred in subscription process, please try again."
+msgstr "Abonelik işleminde bir hata oluştu, lütfen tekrar deneyiniz."
+
+#: admin/class-eb-welcome.php:275
+msgid "Thanks for subscribing to Edwiser Bridge Updates & Notifications."
+msgstr "Edwiser Bridge Güncellemeleri ve Bildirimlerine abone olduğunuz için teşekkür ederiz."
+
+#: admin/class-eb-welcome.php:267
+msgid "Subscribe"
+msgstr "Abone Ol"
+
+#: admin/class-eb-welcome.php:264
+msgid "Please enter your email address"
+msgstr "Lütfen e-posta adresinizi girin"
+
+#: admin/class-eb-welcome.php:252
+msgid "Get the latest updates on Edwiser Bridge in Your Inbox!"
+msgstr "Edwiser Bridge ile ilgili en son güncellemeleri Gelen Kutunuzdan alın!"
+
+#: admin/class-eb-welcome.php:247
+msgid "Download Moodle Plugin"
+msgstr "Moodle Eklentisini İndirin"
+
+#: admin/class-eb-welcome.php:242
+msgid "Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it."
+msgstr "Edwiser Bridge'i kurduğunuz için teşekkürler! WordPress'i Moodle ile entegre etmek hiç bu kadar kolay olmamıştı. Umarız keyifle kullanırsınız."
+
+#. translators: Version number.
+#: admin/class-eb-welcome.php:222
+msgid "Version %s"
+msgstr "Sürüm %s"
+
+#: admin/class-eb-welcome.php:50 admin/class-eb-welcome.php:215
+msgid "Welcome to Edwiser Bridge"
+msgstr "Edwiser Bridge'e hoş geldiniz"
+
+#: admin/class-eb-welcome.php:49
+msgid "About Edwiser Bridge"
+msgstr "Edwiser Köprüsü Hakkında"
+
+#: admin/class-eb-admin.php:188
+msgid "Edwiser extensions licensing system used to provide the latest stable code of the product as well as to check the renewals for this license at our end. For this purpose, we acquire the details like <b> \" Site Name, IP Address \" </b>and once the license gets deactivated or expires we won't get this information from your site. We need this information for giving you a seamless experience of selling Moodle courses through WordPress. Do hit the <b> \"Agree\" </b> button if you are ready to share these details with us. "
+msgstr "Edwiser extensions lisanslama sistemi, ürünün en son kararlı kodunu sağlamak ve tarafımızca bu lisansın yenilemelerini kontrol etmek için kullanılır. Bu amaçla <b> \" Site Adı, IP Adresi \" </b> gibi bilgileri alıyoruz ve lisans devre dışı bırakıldığında veya süresi dolduğunda bu bilgileri sitenizden almayacağız. Size WordPress üzerinden Moodle kursları satma konusunda sorunsuz bir deneyim sunmak için bu bilgilere ihtiyacımız var. Bu ayrıntıları bizimle paylaşmaya hazırsanız, <b> \"Kabul et\" </b> düğmesine basın."
+
+#: admin/class-eb-admin.php:187
+msgid "Edwiser Terms and Conditions"
+msgstr "Edwiser Şartlar ve Koşullar"
+
+#: admin/class-eb-admin.php:186
+msgid "Failed to refund the order"
+msgstr "Siparişin iadesi başarısız"
+
+#: admin/class-eb-admin.php:184
+msgid "Do you want to refund for the order id: #"
+msgstr "Sipariş id için iade yapmak istiyor musunuz: #"
+
+#: admin/class-eb-admin.php:183
+msgid "Sorry, unable to link to the moodle"
+msgstr "Üzgünüz, Moodle ile bağlantı kurulamıyor"
+
+#: admin/class-eb-admin.php:182
+msgid "To know more about this error please "
+msgstr "Bu hata hakkında daha fazla bilgi için lütfen"
+
+#: admin/class-eb-admin.php:181 admin/class-eb-admin.php:182
+msgid " click here"
+msgstr "Buraya tıklayın"
+
+#: admin/class-eb-admin.php:181
+msgid "To know more about this error please"
+msgstr "Bu hata hakkında daha fazla bilgi için lütfen"
+
+#: admin/class-eb-admin.php:181 admin/class-eb-admin.php:182
+msgid "Please test Moodle connection."
+msgstr "Lütfen Moodle bağlantısını test edin."
+
+#: admin/class-eb-admin.php:181 admin/class-eb-admin.php:182
+msgid "Check if first name and last name of the user is empty."
+msgstr "Kullanıcının adı ve soyadının boş olup olmadığını kontrol edin."
+
+#: admin/class-eb-admin.php:181 admin/class-eb-admin.php:182
+msgid "Sorry, unable to link user"
+msgstr "Üzgünüz, kullanıcı bağlanamadı"
+
+#: admin/class-eb-admin.php:180
+msgid "Unlinked "
+msgstr "Bağlantı kaldırıldı"
+
+#: admin/class-eb-admin.php:179
+msgid "Linked "
+msgstr "Bağlandı"
+
+#: admin/class-eb-admin.php:178
+msgid "Template not found"
+msgstr "Şablon bulunamadı"
+
+#: admin/class-eb-admin.php:177
+msgid "Categories synchronized successfully."
+msgstr "Kategoriler başarıyla senkronize edildi."
+
+#: admin/class-eb-admin.php:176
+msgid "An error occurred during parsing the response"
+msgstr "Yanıt ayrıştırılırken bir hata oluştu"
+
+#: admin/class-eb-admin.php:175
+msgid "Test mail sent to "
+msgstr "Test postası şu adrese gönderildi"
+
+#: admin/class-eb-admin.php:174
+msgid "Mail delivery failed."
+msgstr "E-posta teslimi başarısız."
+
+#: admin/class-eb-admin.php:173
+msgid "User's linked to moodle successfully."
+msgstr "Kullanıcılar başarıyla Moodle'a bağlandı."
+
+#. translators: Link to open the unlink users list.
+#: admin/class-eb-admin.php:157
+msgid "%s to see list of unlinked users."
+msgstr "Bağlantısı olmayan kullanıcıların listesini görmek için %s."
+
+#. translators: Link to open the unlink users list.
+#: admin/class-eb-admin.php:157
+msgid "  Click"
+msgstr "Tıkla"
+
+#: admin/class-eb-admin.php:171
+msgid "User's course enrollment status synced successfully."
+msgstr "Kullanıcıların kurs kayıt durumu başarıyla senkronize edildi."
+
+#: admin/class-eb-admin.php:170
+msgid "Error occured for following users: "
+msgstr "Aşağıdaki kullanıcılar için hata oluştu:"
+
+#: admin/class-eb-admin.php:169
+msgid "There is a problem while connecting to moodle server."
+msgstr "Moodle sunucusuna bağlanırken bir sorun var."
+
+#: admin/class-eb-admin.php:168
+msgid "Courses synchronized successfully."
+msgstr "Kurslar başarıyla senkronize edildi."
+
+#: admin/class-eb-admin.php:167
+msgid "Connection successful, Please save your connection details."
+msgstr "Bağlantı başarılı, Lütfen bağlantı ayrıntılarınızı kaydedin."
+
+#: admin/class-eb-admin.php:162
+msgid "Please save the changes."
+msgstr "Lütfen değişiklikleri kaydedin."
+
+#: admin/class-eb-admin-menus.php:92 admin/class-eb-admin-menus.php:93
+#: admin/class-eb-email-template.php:102
+msgid "Manage Email Templates"
+msgstr "E-posta Şablonlarını Yönetin"
+
+#: admin/class-eb-admin-menus.php:77
+msgid "Manage Enrollment"
+msgstr "Kurs Kayıtlarını Yönet"
+
+#: admin/class-eb-admin-menus.php:76
+msgid "User Enrollment"
+msgstr "Kullanıcı Kurs Kaydı"
+
+#: public/shortcodes/class-eb-shortcode-courses.php:257
+msgid "Courses navigation"
+msgstr "Kurslarda gezinme"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:425
+msgid "Course purchase history"
+msgstr "Kurs satın alma geçmişi"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:420
+msgid "Edit account details"
+msgstr "Hesap detaylarını düzenle"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:413
+#: public/shortcodes/class-eb-shortcode-user-account.php:415
+msgid "Dashboard"
+msgstr "Kontrol Paneli"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:338
+msgid "Your current password is incorrect."
+msgstr "Mevcut parolanız hatalı."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:336
+msgid "New passwords do not match."
+msgstr "Yeni parolalar eşleşmiyor."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:334
+msgid "Please re-enter your password."
+msgstr "Lütfen parolanızı tekrar giriniz."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:332
+msgid "Please enter your current password."
+msgstr "Lütfen mevcut parolanızı giriniz."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:330
+msgid "Please fill out all password fields."
+msgstr "Lütfen tüm parola alanlarını doldurunuz."
+
+#. Translators 1: email
+#. Translators 1: User name
+#: public/shortcodes/class-eb-shortcode-user-account.php:326
+#: public/shortcodes/class-eb-shortcode-user-profile.php:249
+#: public/shortcodes/class-eb-shortcode-user-profile.php:255
+msgid "%$1s is already exists."
+msgstr "%$1s zaten var."
+
+#. Translators 1: email
+#: public/shortcodes/class-eb-shortcode-user-account.php:323
+#: public/shortcodes/class-eb-shortcode-user-profile.php:246
+msgid "%$1s is invalid email."
+msgstr "%$1s geçersiz e-posta."
+
+#. Translators 1: field name
+#: public/shortcodes/class-eb-shortcode-user-account.php:313
+#: public/shortcodes/class-eb-shortcode-user-profile.php:239
+msgid "%$1s is required field."
+msgstr "%$1s doldurulması zorunludur."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:306
+#: public/shortcodes/class-eb-shortcode-user-profile.php:232
+msgid "Email Address"
+msgstr "E-posta Adresi"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:215
+#: public/shortcodes/class-eb-shortcode-user-profile.php:141
+msgid "Couldn't update your profile! This might be because wrong data sent to Moodle site or a Connection Error."
+msgstr "Profiliniz güncellenemedi! Bunun nedeni Moodle sitesine yanlış veri gönderilmesi veya Bağlantı Hatası olabilir."
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:212
+#: public/shortcodes/class-eb-shortcode-user-profile.php:137
+msgid "Account details saved successfully."
+msgstr "Hesap detayları başarıyla kaydedildi."
+
+#: public/shortcodes/class-eb-shortcode-my-courses.php:311
+msgid "View More &rarr;"
+msgstr "Daha Fazlasını Görüntüle &rarr;"
+
+#: public/class-eb-frontend-form-handler.php:157
+msgid "Anti-spam field was filled in."
+msgstr "Anti-spam alanı dolduruldu."
+
+#: public/class-eb-frontend-form-handler.php:65
+msgid "Password is required."
+msgstr "Parola gerekli"
+
+#: public/class-eb-frontend-form-handler.php:56
+msgid "Username is required."
+msgstr "Kullanıcı adı gerekli."
+
+#: public/class-eb-frontend-form-handler.php:45
+#: public/class-eb-frontend-form-handler.php:54
+#: public/class-eb-frontend-form-handler.php:63
+msgid "Error"
+msgstr "Hata"
+
+#: public/templates/emails/user-new-account.php:40
+msgid "Your password has been automatically generated: <strong>%$1s</strong>"
+msgstr "Parolanız otomatik olarak oluşturuldu: <strong>%$1s</strong>"
+
+#: public/templates/emails/user-new-account.php:26
+msgid "Thanks for creating an account on %$1s. Your username is <strong>%$2s</strong>."
+msgstr "%$1s üzerinde bir hesap oluşturduğunuz için teşekkür ederiz. Kullanıcı adınız <strong>%$2s</strong>."
+
+#: public/templates/emails/user-existing-wp-account.php:52
+msgid "To purchase and access more courses click here: <a href=\"%$1s\">Courses</a>."
+msgstr "Daha fazla kurs satın almak ve kurslara erişmek için buraya tıklayın: <a href=\"%$1s\">Eğitimler</a>."
+
+#: public/templates/emails/user-existing-wp-account.php:44
+msgid "Password: <strong>%$1s</strong>"
+msgstr "Parola: <strong>%$1s</strong>"
+
+#: public/templates/emails/user-existing-wp-account.php:37
+msgid "Username: <strong>%$1s</strong>"
+msgstr "Kullanıcı adı: <strong>%$1s</strong>"
+
+#: public/templates/emails/user-existing-wp-account.php:25
+msgid ""
+"A learning account is linked to your profile.\n"
+"        Use credentials given below while accessing your courses."
+msgstr ""
+"Profilinize bir platform hesabı bağlandı.\n"
+"         Kurslarınıza erişirken aşağıda verilen giriş bilgilerini kullanabilirsiniz."
+
+#: public/templates/emails/user-new-account.php:53
+#: public/templates/emails/user-order-completion-email.php:46
+msgid "You can access your account here: <a href=\"%$1s\">User Account</a>."
+msgstr "Hesabınıza buradan erişebilirsiniz: <a href=\"%$1s\">Kullanıcı Hesabı</a>."
+
+#: public/templates/emails/user-order-completion-email.php:38
+msgid "Your order with ID #%$1s completed successfully."
+msgstr "#%$1s ID'li siparişiniz başarıyla tamamlandı."
+
+#: admin/class-eb-email-template.php:158
+#: public/templates/account/edit-user-profile.php:129
+msgid "Save Changes"
+msgstr "Değişiklikleri Kaydet"
+
+#: public/templates/account/edit-user-profile.php:126
+msgid "NOTE: All fields will be updated on Moodle as well as on WordPress site."
+msgstr "NOT: Tüm alanlar Moodle ve WordPress sitesinde güncellenecektir."
+
+#: public/templates/account/edit-user-profile.php:116
+#: public/templates/account/form-login.php:112
+msgid "Confirm Password"
+msgstr "Parolayı Onaylayın"
+
+#: public/templates/account/edit-user-profile.php:112
+msgid "New Password"
+msgstr "Yeni Parola"
+
+#: public/templates/account/edit-user-profile.php:107
+#: public/templates/account/edit-user-profile.php:112
+#: public/templates/account/edit-user-profile.php:116
+msgid "(Keep blank to leave unchanged)"
+msgstr "(Değiştirilmeden bırakmak için boş bırakın)"
+
+#: public/templates/account/edit-user-profile.php:107
+msgid "Current Password"
+msgstr "Mevcut Parola"
+
+#: public/templates/account/edit-user-profile.php:105
+msgid "Password Change"
+msgstr "Parola Değiştirme"
+
+#: public/templates/account/edit-user-profile.php:99
+msgid "Biographical Information"
+msgstr "Biyografik bilgi"
+
+#: public/templates/account/edit-user-profile.php:93
+msgid "City"
+msgstr "Şehir"
+
+#: public/templates/account/edit-user-profile.php:88
+msgid "Country"
+msgstr "Ülke"
+
+#: public/templates/account/edit-user-profile.php:71
+msgid "E-mail *"
+msgstr "E-posta *"
+
+#: public/templates/account/edit-user-profile.php:65
+msgid "Nick Name"
+msgstr "Kullanıcı adı"
+
+#: public/shortcodes/class-eb-shortcode-user-account.php:418
+#: public/templates/account/edit-user-profile.php:54
+msgid "Account Details"
+msgstr "Hesap Detayları"
+
+#: public/templates/account/edit-user-profile.php:44
+msgid "You must be logged in to edit your profile."
+msgstr "Profilinizi düzenlemek için giriş yapmalısınız."
+
+#: public/templates/account/edit-user-profile.php:40
+msgid "Edit Account Details"
+msgstr "Hesap Detaylarını Düzenle"
+
+#: public/templates/account/user-orders.php:44
+msgid "Not Available"
+msgstr "Kullanılabilir Değil"
+
+#: public/templates/account/user-orders.php:26
+msgid "Status"
+msgstr "Durum"
+
+#: public/templates/account/user-orders.php:25
+msgid "Order Date"
+msgstr "Sipariş Tarihi"
+
+#: public/templates/account/user-orders.php:24
+msgid "Ordered Course"
+msgstr "Kurs Siparişleri"
+
+#: public/templates/account/user-orders.php:23
+msgid "Order ID"
+msgstr "Sipariş ID"
+
+#: public/templates/account/user-orders.php:18
+msgid "Course Purchase History"
+msgstr "Kurs Satın Alma Geçmişi"
+
+#: includes/api/class-eb-connection-helper.php:286
+#: public/templates/account/user-profile.php:75
+msgid "here"
+msgstr "Burada"
+
+#: public/templates/account/user-profile.php:74
+msgid "Looks like you are not enrolled in any course, get your first course %$1s"
+msgstr "Görünüşe göre herhangi bir kursa kayıtlı değilsiniz, ilk kursunuzu almak için %$1s"
+
+#: public/templates/account/user-profile.php:57
+msgid "S.No."
+msgstr "S.No."
+
+#: public/templates/account/user-profile.php:48
+msgid "Edit Profile"
+msgstr "Profili Düzenle"
+
+#: public/templates/account/form-login.php:157
+msgid "Already have an account?"
+msgstr "Zaten hesabım var"
+
+#: public/templates/account/form-login.php:139
+msgid "Anti-spam"
+msgstr "Anti-spam"
+
+#: admin/settings/class-eb-settings-general.php:222
+#: public/templates/account/form-login.php:125
+#: public/templates/account/form-login.php:129
+msgid "Terms and Conditions"
+msgstr "Şartlar ve Koşullar"
+
+#: public/templates/account/form-login.php:124
+msgid "I agree to the "
+msgstr "Katılıyorum"
+
+#: public/templates/account/form-login.php:150
+msgid "Register"
+msgstr "Kayıt Ol"
+
+#: public/templates/account/form-login.php:37
+msgid "Forgot password?"
+msgstr "Parolamı unuttum"
+
+#: public/templates/account/form-login.php:44
+msgid "Remember me"
+msgstr "Beni hatırla"
+
+#: public/templates/account/form-login.php:36
+msgid "Enter password"
+msgstr "Parola girin"
+
+#: public/templates/account/form-login.php:29
+msgid "Enter user name"
+msgstr "Kullanıcı adı girin"
+
+#: public/templates/account/form-login.php:48
+#: public/templates/account/form-login.php:160
+msgid "Login"
+msgstr "Oturum Aç"
+
+#: public/templates/content-single-eb_course.php:133
+msgid "Course Overview"
+msgstr "Kursa Genel Bakış"
+
+#: public/class-eb-template-functions.php:170
+msgid " days access"
+msgstr "günlük erişim"
+
+#: public/class-eb-template-functions.php:168
+msgid " days access remaining"
+msgstr "erişim için kalan gün"
+
+#: public/templates/archive-eb_course.php:83
+msgid "Page"
+msgstr "Sayfa"
+
+#: public/class-eb-public.php:195
+msgid ": activate to sort column descending"
+msgstr ": azalana göre sütun sıralamayı etkinleştir"
+
+#: public/class-eb-public.php:194
+msgid ": activate to sort column ascending"
+msgstr ": artana göre sütun sıralamayı etkinleştir"
+
+#: public/class-eb-public.php:193
+msgid "Previous"
+msgstr "Önceki"
+
+#: public/class-eb-public.php:192
+#: public/shortcodes/class-eb-shortcode-courses.php:337
+#: public/templates/course-pagination.php:43
+msgid "Next"
+msgstr "Sonraki"
+
+#: public/class-eb-public.php:191
+msgid "Last"
+msgstr "Son"
+
+#: public/class-eb-public.php:190
+msgid "First"
+msgstr "İlk"
+
+#: public/class-eb-public.php:189
+msgid "Show _MENU_ entries"
+msgstr "_MENU_ girişlerini göster"
+
+#: public/class-eb-public.php:188
+msgid ","
+msgstr ","
+
+#: public/class-eb-public.php:186
+msgid "filtered from _MAX_ total entries"
+msgstr "(_MAX_ total entries verisinden filtrelendi)"
+
+#: public/class-eb-public.php:185
+msgid "Showing 0 to 0 of 0 entries"
+msgstr "0 - 0 arası 0 girdi gösteriliyor"
+
+#: public/class-eb-public.php:184
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "_TOTAL_ kayıttan _START_ ile _END_ arası gösteriliyor"
+
+#: public/class-eb-public.php:182
+msgid "No matching records found"
+msgstr "Eşleşen kayıt bulunamadı"
+
+#: public/class-eb-public.php:181
+msgid "Search"
+msgstr "Ara"
+
+#: public/class-eb-public.php:180
+msgid "Loading..."
+msgstr "Yükleniyor..."
+
+#: public/class-eb-public.php:179
+msgid "No data available in table"
+msgstr "Tabloda herhangi bir veri yok"
+
+#: public/class-eb-public.php:178
+msgid "Search:"
+msgstr "Ara:"
+
+#: public/class-eb-public.php:168 public/class-eb-public.php:183
+msgid "Processing..."
+msgstr "İşleniyor..."
+
+#: public/class-eb-public.php:167
+msgid "Problems in processing your order, Please try later."
+msgstr "Siparişinizin işlenmesiyle ilgili sorunlar oluştu, Lütfen daha sonra tekrar deneyiniz."
+
+#: public/class-eb-public.php:166
+msgid "The field 'Email' cannot be left blank"
+msgstr "'E-posta' alanı boş bırakılamaz"
+
+#: public/class-eb-public.php:165
+msgid "The field 'Last Name' cannot be left blank"
+msgstr "'Soyadı' alanı boş bırakılamaz"
+
+#: public/class-eb-public.php:164
+msgid "The field 'First Name' cannot be left blank"
+msgstr "'Ad' alanı boş bırakılamaz"
+
+#: public/class-eb-public.php:147
+msgid "- Select Country -"
+msgstr "--Ülke Seçin--"
+
+#: admin/partials/html-admin-settings-right-section.php:96
+#: edwiser-bridge.php:146
+msgid "Edwiser Bridge"
+msgstr "Edwiser Bridge"
+
+#: admin/partials/html-admin-settings-right-section.php:92
+#: edwiser-bridge.php:93
+msgid "Documentation"
+msgstr "Dökümantasyon"
+
+#: edwiser-bridge.php:92
+msgid "Edwiser Bridge Documentation"
+msgstr "Edwiser Bridge Dökümantasyon"
+
+#: admin/class-eb-admin-menus.php:60 admin/class-eb-admin-menus.php:61
+#: edwiser-bridge.php:71
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: includes/class-eb-order-status.php:240
+msgid "User enrollment has been suspended on order refund request."
+msgstr "Kullanıcı kaydı, sipariş iade isteği üzerine askıya alındı."
+
+#: includes/class-eb-user-manager.php:1340
+msgid "Invalid ajax request."
+msgstr "Geçersiz ajax isteği."
+
+#: includes/class-eb-user-manager.php:1337
+msgid "s account has been unlinked successfully."
+msgstr "s hesabının bağlantısı başarıyla kaldırıldı."
+
+#: includes/class-eb-user-manager.php:1331
+msgid "s account has been linked successfully."
+msgstr "s hesabı başarıyla bağlandı."
+
+#: includes/class-eb-user-manager.php:1328
+msgid "Failed to process the request."
+msgstr "İstek işlenemedi."
+
+#: includes/class-eb-user-manager.php:1168
+msgid "Unenroll a Course"
+msgstr "Bir Kurstan Kayıt Kaldır"
+
+#: includes/class-eb-user-manager.php:1158
+#: includes/class-eb-user-manager.php:1171
+msgid "-- Select a Course --"
+msgstr "-- Bir Kurs Seçin --"
+
+#: includes/class-eb-user-manager.php:1155
+msgid "Enroll a Course"
+msgstr "Bir Kursa Kayıt Ol"
+
+#: includes/class-eb-user-manager.php:1134
+#: public/templates/account/user-profile.php:57
+msgid "Enrolled Courses"
+msgstr "Kayıtlı Kurslar"
+
+#: includes/class-eb-user-manager.php:1012
+msgid " Users Unlinked."
+msgstr "Kullanıcı Bağlantıları Kaldırıldı."
+
+#: includes/class-eb-user-manager.php:1009
+msgid " User Unlinked."
+msgstr "Kullanıcı Kaydı Kaldırıldı"
+
+#: includes/class-eb-user-manager.php:894
+#: includes/class-eb-user-manager.php:897
+msgid "Unlink Moodle Account"
+msgstr "Moodle Hesabının Bağlantısını Kaldır"
+
+#: includes/class-eb-user-manager.php:888
+#: includes/class-eb-user-manager.php:891
+msgid "Link Moodle Account"
+msgstr "Moodle Hesabı Bağla"
+
+#: includes/class-eb-user-manager.php:394
+msgid "Please provide a valid email address."
+msgstr "Lütfen geçerli bir e-posta adresi girin."
+
+#: includes/class-eb-user-manager.php:203
+msgid "User ID:"
+msgstr "Kullanıcı ID:"
+
+#: includes/payments/eb-ipn.php:315
+msgid "IPN has been recived, for the refund of amount "
+msgstr "Tutarın iadesi için IPN alındı"
+
+#: includes/payments/eb-ipn.php:295 includes/payments/eb-ipn.php:317
+msgid "Paypal IPN"
+msgstr "Paypal IPN"
+
+#: includes/payments/class-eb-payment-manager.php:316
+msgid "Course Not Available"
+msgstr "Kurs Mevcut Değil"
+
+#: includes/payments/class-eb-payment-manager.php:95
+#: public/class-eb-public.php:169
+msgid "Access Course"
+msgstr "Kursa Eriş"
+
+#: includes/payments/enhanced-paypal-shortcodes.php:574
+#: includes/payments/enhanced-paypal-shortcodes.php:780
+msgid "PayPal - The safer, easier way to pay online."
+msgstr "PayPal - Çevrimiçi ödeme yapmanın daha güvenli ve kolay yolu."
+
+#: includes/payments/class-eb-payment-manager.php:219
+#: includes/payments/class-eb-payment-manager.php:234
+#: includes/payments/class-eb-payment-manager.php:260
+#: includes/payments/class-eb-payment-manager.php:272
+#: includes/payments/enhanced-paypal-shortcodes.php:433
+#: includes/payments/enhanced-paypal-shortcodes.php:576
+#: includes/payments/enhanced-paypal-shortcodes.php:782
+#: includes/payments/enhanced-paypal-shortcodes.php:941
+msgid "Take this Course"
+msgstr "Bu Kursu Al"
+
+#: includes/payments/class-eb-payment-manager.php:297
+#: includes/payments/enhanced-paypal-shortcodes.php:315
+msgid "Complete Your Purchase"
+msgstr "Satın alımınızı tamamlayın"
+
+#: includes/payments/class-eb-refund-manager.php:127
+msgid "Please update Paypal API details on edwiser paypal settings page."
+msgstr "Lütfen edwiser paypal ayarları sayfasında Paypal API ayrıntılarını güncelleyin."
+
+#: includes/payments/class-eb-refund-manager.php:120
+msgid "Sorry, can not process this request as this is invalid transaction."
+msgstr "Maalesef bu geçersiz işlem olduğundan bu isteği işleme koyamazsınız."
+
+#: includes/payments/class-eb-refund-manager.php:95
+msgid "PayPal Responce: "
+msgstr "PayPal Yanıtı:"
+
+#: includes/payments/class-eb-refund-manager.php:83
+msgid "No Response from PayPal"
+msgstr "PayPal'dan Yanıt Yok"
+
+#: includes/api/class-eb-connection-helper.php:383
+msgid "Please check Moodle connection details."
+msgstr "Lütfen Moodle bağlantı ayrıntılarını kontrol edin."
+
+#: includes/api/class-eb-connection-helper.php:229
+msgid "Services:"
+msgstr "Servisler"
+
+#: includes/api/class-eb-connection-helper.php:224
+msgid "Edwiser Moodle extensions are not installed or have the lower version"
+msgstr "Edwiser Moodle uzantıları yüklü değil veya daha düşük sürüme sahip"
+
+#: includes/api/class-eb-connection-helper.php:223
+msgid "Authorised user don't have enough capabilities i.e he is not admin"
+msgstr "Yetkili kullanıcının yeterli erişimi yok (yönetici değil)"
+
+#: includes/api/class-eb-connection-helper.php:222
+msgid "Function is not added to the web service"
+msgstr "Web hizmetine işlev eklenmedi"
+
+#: includes/api/class-eb-connection-helper.php:218
+msgid "Below are the functions which don't have access to the web service you created. This is due to :"
+msgstr "Aşağıda oluşturduğunuz web servisine erişimi olmayan fonksiyonlar verilmiştir. Bunun nedeni :"
+
+#: includes/api/class-eb-connection-helper.php:466
+msgid "Please check Moodle URL !"
+msgstr "Lütfen Moodle URL'sini kontrol edin!"
+
+#: includes/api/class-eb-external-api-endpoint.php:327
+#: includes/class-eb-user-manager.php:450
+msgid "Couldn&#8217;t register you&hellip; please contact us if you continue to have problems."
+msgstr "Sizi kaydedemedik&hellip; sorun yaşamaya devam ederseniz lütfen bizimle iletişime geçin."
+
+#: includes/api/class-eb-external-api-endpoint.php:326
+#: includes/class-eb-user-manager.php:449
+msgid "ERROR"
+msgstr "HATA"
+
+#: includes/api/class-eb-external-api-endpoint.php:274
+#: includes/api/class-eb-external-api-endpoint.php:280
+msgid "An account is already registered with your email address. Please login."
+msgstr "E-posta adresinizle daha önce zaten bir hesap oluşturulmuş. Devam etmek için lütfen oturum açın."
+
+#: includes/class-eb-manage-enrollment.php:227
+msgid "No users has been unenrolled"
+msgstr "Hiçbir kullanıcının kurs kaydı kaldırılmadı"
+
+#: includes/class-eb-manage-enrollment.php:216
+#: includes/class-eb-manage-enrollment.php:233
+msgid "Dismiss this notice"
+msgstr "Bu bildirimi yok say"
+
+#: includes/class-eb-manage-enrollment.php:129
+msgid "Please wait processing request ...."
+msgstr "Lütfen bekleyin, istek işleniyor..."
+
+#: includes/eb-core-functions.php:252
+#: public/shortcodes/class-eb-shortcode-my-courses.php:48
+#: public/shortcodes/class-eb-shortcode-my-courses.php:366
+msgid "Recommended Courses"
+msgstr "Önerilen Kurslar"
+
+#: includes/class-eb-post-types.php:726
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: includes/class-eb-post-types.php:700
+msgid "Custom field deleted."
+msgstr "Özel alan silindi."
+
+#: includes/class-eb-post-types.php:699
+msgid "Custom field updated."
+msgstr "Özel alan güncellendi."
+
+#: includes/class-eb-post-types.php:398
+msgid "Status of Order"
+msgstr "Sipariş Durumu"
+
+#: admin/settings/class-eb-settings-general.php:261
+#: includes/class-eb-post-types.php:389
+msgid "Select courses to show in custom courses in recommended course section."
+msgstr "Önerilen kurs bölümünde özel kurslarda gösterilecek kursları seçin."
+
+#: admin/settings/class-eb-settings-general.php:260
+#: includes/class-eb-post-types.php:388
+msgid "Select Courses"
+msgstr "Kursları Seçin"
+
+#: includes/class-eb-post-types.php:382
+msgid "Show category wise selected recommended courses on single course page."
+msgstr "Kategoriye göre seçilmiş önerilen kursları tek kurs sayfasında göster."
+
+#: includes/class-eb-post-types.php:381
+msgid "Show Category Wise Recommended Courses"
+msgstr "Kategoriye Göre Tavsiye Edilen Kursları Göster"
+
+#: includes/class-eb-post-types.php:375
+msgid "Show recommended courses on single course page."
+msgstr "Önerilen kursları tek kurs sayfasında göster."
+
+#: admin/settings/class-eb-settings-general.php:244
+#: includes/class-eb-post-types.php:374
+msgid "Show Recommended Courses"
+msgstr "Önerilen Kursları Göster"
+
+#: includes/class-eb-post-types.php:366
+msgid "Short description of course."
+msgstr "Kursun kısa açıklaması."
+
+#: includes/class-eb-post-types.php:365
+msgid "Short Description"
+msgstr "Kısa Açıklama"
+
+#: includes/class-eb-post-types.php:360
+msgid "Number of days the course is accessible"
+msgstr "Kursun erişilebilir olduğu gün sayısı"
+
+#: includes/class-eb-post-types.php:359
+msgid "Expire Access After (days)"
+msgstr "Erişim Süresi (günler)"
+
+#: includes/class-eb-post-types.php:341
+msgid "Expire Access"
+msgstr "Erişim Süresi Sonu"
+
+#: includes/class-eb-post-types.php:335
+msgid "Optional url to redirect user on click of take this course button."
+msgstr "Bu kursu al düğmesine tıklandığında kullanıcıyı yeniden yönlendirmek için isteğe bağlı url."
+
+#: includes/class-eb-post-types.php:334 includes/class-eb-post-types.php:337
+msgid "Optional URL"
+msgstr "İsteğe bağlı URL"
+
+#: includes/class-eb-post-types.php:330
+msgid "Enter course price"
+msgstr "Kurs ücretini gir"
+
+#: includes/class-eb-post-types.php:328
+msgid "Course price in currency as defined in settings."
+msgstr "Ayarlarda tanımlanan para biriminde kurs ücreti."
+
+#: includes/class-eb-post-types.php:327
+msgid "Course Price"
+msgstr "Kurs Ücreti"
+
+#: includes/class-eb-post-types.php:317
+msgid "Is it free to join or one time purchase?"
+msgstr "Katılmak ücretsiz mi yoksa bir kerelik satın alım mı?"
+
+#: includes/class-eb-post-types.php:316
+msgid "Course Price Type"
+msgstr "Kurs Ücret Türü"
+
+#: includes/class-eb-post-types.php:307
+msgid "Moodle Course ID"
+msgstr "Moodle Kurs ID"
+
+#: includes/class-eb-post-types.php:228
+msgid "Order Details"
+msgstr "Sipariş Detayları"
+
+#: includes/class-eb-post-types.php:217
+msgid "Recommended Course Settings"
+msgstr "Önerilen Kurs Ayarları"
+
+#: includes/class-eb-post-types.php:206
+msgid "Course Options"
+msgstr "Kurs Ayarları"
+
+#: includes/class-eb-post-types.php:173
+msgid "This is where you can see course orders."
+msgstr "Burada, kurs siparişlerini görebilirsiniz."
+
+#: includes/class-eb-post-types.php:171
+msgid "No orders found in trash"
+msgstr "Çöp kutusunda sipariş bulunamadı"
+
+#: includes/class-eb-post-types.php:170
+msgid "No orders found"
+msgstr "Sipariş bulunamadı"
+
+#: includes/class-eb-post-types.php:169
+msgid "Search Orders"
+msgstr "Siparişlerde Ara"
+
+#: includes/class-eb-post-types.php:167 includes/class-eb-post-types.php:168
+msgid "View Order"
+msgstr "Siparişi Görüntüle"
+
+#: includes/class-eb-post-types.php:166
+msgid "New Order"
+msgstr "Yeni Sipariş"
+
+#: includes/class-eb-post-types.php:165
+msgid "Edit Order"
+msgstr "Siparişi Düzenle"
+
+#: includes/class-eb-post-types.php:163
+msgid "Add New Order"
+msgstr "Yeni Sipariş Ekle"
+
+#: includes/class-eb-post-types.php:162
+msgid "Add Order"
+msgstr "Sipariş Ekle"
+
+#: includes/class-eb-post-types.php:161
+msgctxt "Admin menu name"
+msgid "Orders"
+msgstr "Siparişler"
+
+#: includes/class-eb-post-types.php:160
+msgid "Order"
+msgstr "Sipariş"
+
+#: admin/class-eb-admin-menus.php:45 admin/class-eb-admin-menus.php:46
+#: includes/class-eb-post-types.php:159
+#: public/shortcodes/class-eb-shortcode-user-account.php:423
+msgid "Orders"
+msgstr "Siparişler"
+
+#: includes/class-eb-post-types.php:125
+msgid "This is where you can add new courses to your Moodle LMS."
+msgstr "Moodle platformunuza yeni kurslar ekleyebileceğiniz yer burasıdır."
+
+#: includes/class-eb-post-types.php:123
+msgid "No Courses found in trash"
+msgstr "Çöp Kutusunda kurs bulunamadı."
+
+#: includes/class-eb-post-types.php:122
+msgid "No Courses found"
+msgstr "Kurs bulunamadı"
+
+#: includes/class-eb-manage-enrollment.php:142
+#: includes/class-eb-post-types.php:121
+msgid "Search Courses"
+msgstr "Kurslarda ara"
+
+#: includes/class-eb-post-types.php:119 includes/class-eb-post-types.php:120
+msgid "View Course"
+msgstr "Kursu Göster"
+
+#: includes/class-eb-post-types.php:118
+msgid "New Course"
+msgstr "Yeni Kurs"
+
+#: includes/class-eb-post-types.php:117
+msgid "Edit Course"
+msgstr "Kursu Düzenle"
+
+#: includes/class-eb-post-types.php:116 includes/class-eb-post-types.php:164
+msgid "Edit"
+msgstr "Düzenle"
+
+#: includes/class-eb-post-types.php:115
+msgid "Add New Course"
+msgstr "Yeni Kurs Ekle"
+
+#: includes/class-eb-post-types.php:114
+msgid "Add Course"
+msgstr "Kurs Ekle"
+
+#: includes/class-eb-course-manager.php:730
+msgid "Moodle Course Id"
+msgstr "Moodle Kurs ID"
+
+#: includes/class-eb-post-types.php:81
+msgid "New Course Category Name"
+msgstr "Yeni Kurs Kategorisi Adı"
+
+#: includes/class-eb-post-types.php:80
+msgid "Add New Course Category"
+msgstr "Yeni Kurs Kategorisi Ekle"
+
+#: includes/class-eb-post-types.php:79
+msgid "Update Course Category"
+msgstr "Kurs Kategorisini Güncelle"
+
+#: includes/class-eb-post-types.php:78
+msgid "Edit Course Category"
+msgstr "Kurs Kategorisini Düzenle"
+
+#: includes/class-eb-post-types.php:77
+msgid "Parent Course Category:"
+msgstr "Kurs Üst Kategorisi"
+
+#: includes/class-eb-post-types.php:76
+msgid "Parent Course Categories"
+msgstr "Kurs Üst Kategorileri"
+
+#: includes/class-eb-post-types.php:75
+msgid "All Course Categories"
+msgstr "Tüm Kurs Kategorileri"
+
+#: includes/class-eb-post-types.php:74
+msgid "Search Course Categories"
+msgstr "Kurs kategorisi ara"
+
+#: includes/class-eb-post-types.php:72
+msgid "Course Category"
+msgstr "Kurs Kategorisi"
+
+#: includes/class-eb-post-types.php:69 includes/class-eb-post-types.php:71
+msgid "Course Categories"
+msgstr "Kurs Kategorileri"
+
+#: includes/class-eb-gdpr-compatibility.php:297
+msgid "For more details you could read our Privacy Policy and Terms and Conditions for better understanding of our product and services."
+msgstr "Daha fazla ayrıntı için, ürün ve hizmetlerimizi daha iyi anlamak için Gizlilik Politikamızı ve Şartlar ve Koşullar sayfamızı okuyabilirsiniz."
+
+#: includes/class-eb-gdpr-compatibility.php:294
+msgid "for more details."
+msgstr "Daha fazla detay için"
+
+#: includes/class-eb-gdpr-compatibility.php:294
+msgid "PayPal Privacy Policy"
+msgstr "PayPal Gizlilik Politikası"
+
+#: includes/class-eb-gdpr-compatibility.php:294
+msgid "Please see the"
+msgstr "Lütfen inceleyin"
+
+#: includes/class-eb-gdpr-compatibility.php:291
+msgid "We accept payments through PayPal. When processing payments, some of your data will be passed to PayPal, including information required to process or support the payment, such as the purchase total and billing information."
+msgstr "PayPal üzerinden ödeme kabul ediyoruz. Ödemeleri işlerken, satın alma toplamı ve fatura bilgileri gibi ödemeyi işlemek veya desteklemek için gerekli bilgiler de dahil olmak üzere bazı verileriniz PayPal'a iletilecektir."
+
+#: includes/class-eb-gdpr-compatibility.php:278
+msgid "Enroll user in the specified course."
+msgstr "Kullanıcıyı belirtilen kursa kaydedin."
+
+#: includes/class-eb-gdpr-compatibility.php:276
+msgid "The collected information will be used to:"
+msgstr "Toplanan bilgiler şu amaçlarla kullanılacaktır:"
+
+#: includes/class-eb-gdpr-compatibility.php:272
+#: public/templates/account/form-login.php:33
+#: public/templates/account/form-login.php:105
+msgid "Password"
+msgstr "Parola"
+
+#: public/shortcodes/class-eb-shortcode-user-profile.php:231
+#: public/templates/account/form-login.php:26
+msgid "Username"
+msgstr "Kullanıcı adı"
+
+#: includes/class-eb-gdpr-compatibility.php:270
+#: public/templates/account/form-login.php:97
+msgid "Email"
+msgstr "E-posta"
+
+#: includes/class-eb-gdpr-compatibility.php:269
+#: public/templates/account/edit-user-profile.php:61
+#: public/templates/account/form-login.php:88
+msgid "Last Name"
+msgstr "Soyadı"
+
+#: includes/class-eb-gdpr-compatibility.php:268
+#: public/templates/account/edit-user-profile.php:57
+#: public/templates/account/form-login.php:81
+msgid "First Name"
+msgstr "Adı"
+
+#: includes/class-eb-gdpr-compatibility.php:265
+msgid "We collect user information whenever you submit a checkout form on woocommerce store. When you submit woocommerce checkout form, we will use following information to create the user account on the Moodle site:"
+msgstr "WooCommerce mağazasında bir ödeme formu gönderdiğinizde kullanıcı bilgilerini topluyoruz. WooCommerce ödeme formunu gönderdiğinizde, Moodle sitesinde kullanıcı hesabını oluşturmak için aşağıdaki bilgileri kullanacağız:"
+
+#: includes/class-eb-gdpr-compatibility.php:259
+msgid "Enroll the same user into the course."
+msgstr "Aynı kullanıcıyı kursa kaydedin."
+
+#: includes/class-eb-gdpr-compatibility.php:258
+msgid "Moodle site"
+msgstr "Moodle sitesi"
+
+#: includes/class-eb-gdpr-compatibility.php:258
+msgid "Create a user on the "
+msgstr "Şunun üzerinde bir kullanıcı oluşturun:"
+
+#: includes/class-eb-gdpr-compatibility.php:256
+msgid "When you purchase from us through courses page, we’ll ask you to provide information including your first name, last name and email and creates username and password for the user. We’ll use this information for purposes, such as, to:"
+msgstr "Bizden kurslar sayfası üzerinden satın aldığınızda, sizden adınız, soyadınız ve e-posta adresiniz gibi bilgileri vermenizi isteyeceğiz ve kullanıcı için kullanıcı adı ve şifre oluşturacağız. Bu bilgileri aşağıdakiler gibi amaçlarla kullanacağız:"
+
+#: includes/class-eb-gdpr-compatibility.php:253
+msgid "We enroll the user in the course in Moodle for which we need to create an account in Moodle below are the ways by which we create users in Moodle."
+msgstr "Kullanıcıyı Moodle'da bir kursa kaydettiriyoruz, bunun için Moodle'da bir hesap oluşturmamız gerekiyor, Moodle'da kullanıcı oluşturma yöntemlerimiz aşağıdaki gibidir."
+
+#: includes/class-eb-gdpr-compatibility.php:231
+msgid "We collect information about you and process them for the following purposes."
+msgstr "Sizinle ilgili bilgileri topluyoruz ve bunları aşağıdaki amaçlarla işliyoruz."
+
+#: includes/class-eb-gdpr-compatibility.php:228
+msgid "This sample language includes the basics of what personal data our site is using to integrate our site with the Moodle LMS site."
+msgstr "Bu örnek dil, sitemizi Moodle LMS sitesiyle entegre etmek için sitemizin kullandığı kişisel verilerin temellerini içerir."
+
+#: includes/class-eb-gdpr-compatibility.php:226
+msgid "Edwiser"
+msgstr "Edwiser"
+
+#: includes/class-eb-gdpr-compatibility.php:220
+msgid "User’s Simultaneous login and logout"
+msgstr "Kullanıcının Eşzamanlı oturum açma ve oturum kapatma"
+
+#: includes/class-eb-gdpr-compatibility.php:217
+msgid "Payments"
+msgstr "Ödemeler"
+
+#: includes/class-eb-gdpr-compatibility.php:215
+msgid "User Account Creation"
+msgstr "Kullanıcı Hesabı Oluşturma"
+
+#: includes/class-eb-gdpr-compatibility.php:174
+msgid "Deleted Moodle user ID"
+msgstr "Silinmiş Moodle kullanıcı ID"
+
+#: includes/class-eb-gdpr-compatibility.php:172
+msgid "Deleted Courses related data from the WordPress site"
+msgstr "WordPress sitesinden Silinmiş Kurslarla ilgili veriler"
+
+#: includes/class-eb-gdpr-compatibility.php:168
+msgid "Deleted Courses related data from the Moodle site"
+msgstr "Moodle sitesinden Silinmiş Kurslarla ilgili veriler"
+
+#: includes/class-eb-gdpr-compatibility.php:134
+#: includes/class-eb-gdpr-compatibility.php:193
+msgid "Edwiser Bridge Plugin"
+msgstr "Edwiser Bridge Eklentisi"
+
+#: includes/class-eb-gdpr-compatibility.php:71
+msgid "Not Available (Not linked to the Moodle LMS site)"
+msgstr "Mevcut Değil (Moodle LMS sitesine bağlı değil)"
+
+#: includes/class-eb-gdpr-compatibility.php:70
+msgid "Enrollment data"
+msgstr "Kurs Kayıt verileri"
+
+#: includes/class-eb-gdpr-compatibility.php:53
+#: includes/class-eb-gdpr-compatibility.php:66
+msgid "User enrollment data"
+msgstr "Kullanıcı kurs kaydı verileri"
+
+#: includes/class-eb-gdpr-compatibility.php:35
+msgid "Enrollment Date and Time"
+msgstr "Kurs Kayıt Tarihi ve Saati"
+
+#: includes/class-eb-gdpr-compatibility.php:34
+msgid "Course Name"
+msgstr "Kurs Adı"
+
+#: admin/licensing/class-licensing-settings.php:270
+#: includes/class-eb-email-template-parser.php:196
+#: public/shortcodes/class-eb-shortcode-my-courses.php:100
+#: public/shortcodes/class-eb-shortcode-my-courses.php:163
+msgid "Click here"
+msgstr "Buraya Tıkla"
+
+#: includes/class-eb-email-template-parser.php:193
+msgid "click here"
+msgstr "buraya tıklayın"
+
+#: admin/settings/class-eb-settings-general.php:174
+#: includes/class-eb-email-template-parser.php:171
+#: includes/eb-core-functions.php:251
+#: public/shortcodes/class-eb-shortcode-user-account.php:428
+#: public/shortcodes/class-eb-shortcode-user-account.php:430
+msgid "My Courses"
+msgstr "Kurslarım"
+
+#: includes/class-eb-email-template-parser.php:127
+msgid "Moodle Site"
+msgstr "Moodle Sitesi"
+
+#: includes/class-eb-email-template-parser.php:126
+msgid "Login Page"
+msgstr "Giriş Sayfası"
+
+#. translators: the user account page url will go here
+#. translators: My Courses page setting description.
+#: admin/settings/class-eb-settings-general.php:48
+#: admin/settings/class-eb-settings-general.php:58
+#: admin/settings/class-eb-settings-general.php:159
+#: includes/class-eb-email-template-parser.php:125
+msgid "User Account"
+msgstr "Kullanıcı Hesabı"
+
+#: admin/settings/class-eb-settings-dummy.php:284
+#: admin/settings/class-eb-settings-general.php:59
+#: admin/settings/class-eb-settings-synchronization.php:47
+#: includes/class-eb-email-template-parser.php:123
+#: includes/class-eb-post-types.php:111 includes/class-eb-post-types.php:113
+#: public/templates/archive-eb_course.php:57
+msgid "Courses"
+msgstr "Kurslar"
+
+#: includes/class-eb-order-meta.php:335
+msgid "Date: "
+msgstr "Tarih:"
+
+#: includes/class-eb-order-meta.php:309 includes/class-eb-order-meta.php:319
+msgid "Course Name: "
+msgstr "Kurs Adı:"
+
+#: includes/class-eb-order-meta.php:300
+msgid "Id: "
+msgstr "ID:"
+
+#: includes/class-eb-order-meta.php:297
+msgid "Order Details: "
+msgstr "Sipariş Detayları:"
+
+#: includes/class-eb-email-template-parser.php:272
+#: includes/class-eb-order-meta.php:256
+msgid "Email: "
+msgstr "E-posta:"
+
+#: includes/class-eb-email-template-parser.php:268
+#: includes/class-eb-order-meta.php:250 includes/class-eb-order-meta.php:263
+msgid "Name: "
+msgstr "İsim: "
+
+#: includes/class-eb-order-meta.php:244
+msgid "Buyer Details: "
+msgstr "Alıcı Detayları: "
+
+#: includes/class-eb-order-meta.php:134
+msgid "Refund"
+msgstr "İade"
+
+#: includes/class-eb-order-meta.php:122
+msgid "Reason for refund (optional): "
+msgstr "İadesi nedeni (isteğe bağlı): "
+
+#: includes/class-eb-order-meta.php:114
+msgid "Refund amount: "
+msgstr "İade tutarı: "
+
+#: includes/class-eb-order-meta.php:106
+msgid "Total available to refund: "
+msgstr "Toplam yapılabilir iade:"
+
+#: includes/class-eb-order-meta.php:98
+msgid "Amount already refunded: "
+msgstr "İade edilmiş tutar:"
+
+#: includes/class-eb-order-meta.php:90
+msgid "Purchase cost: "
+msgstr "Satın alma bedeli:"
+
+#: includes/class-eb-order-meta.php:82
+msgid "Suspend course enrollment?: "
+msgstr "Kurs kaydı dondurulsun mu?:"
+
+#: includes/class-eb-order-meta.php:66
+msgid "Refund not available for this order"
+msgstr "Bu sipariş için iade yapılamaz"
+
+#: includes/class-eb-order-meta.php:56
+msgid "Refund order"
+msgstr "Sipariş iade"
+
+#: includes/class-eb-order-meta.php:55
+msgid "Order status history"
+msgstr "Sipariş durumu geçmişi"
+
+#: includes/class-eb-course-manager.php:759
+#: includes/class-eb-post-types.php:322
+msgid "Closed"
+msgstr "Kapalı"
+
+#: includes/class-eb-course-manager.php:758
+#: includes/class-eb-post-types.php:321
+msgid "Paid"
+msgstr "Ücretli"
+
+#: includes/class-eb-course-manager.php:757
+#: includes/class-eb-post-types.php:320
+#: public/class-eb-template-functions.php:65
+#: public/class-eb-template-functions.php:149
+msgid "Free"
+msgstr "Ücretsiz"
+
+#: includes/class-eb-course-manager.php:731
+msgid "Course Type"
+msgstr "Kurs Tipi"
+
+#: includes/class-eb-course-manager.php:729
+msgid "Course Title"
+msgstr "Kurs Başlığı"
+
+#: includes/class-eb-admin-notice-handler.php:347
+msgid " to download"
+msgstr "İndirmek için"
+
+#: admin/partials/html-admin-settings-right-section.php:104
+#: admin/partials/html-admin-settings-right-section.php:110
+#: includes/class-eb-admin-notice-handler.php:346
+msgid "Click here "
+msgstr "Buraya tıklayın"
+
+#: includes/class-eb-admin-notice-handler.php:345
+msgid "Please download and update associated edwiserbridge Moodle plugin."
+msgstr "Lütfen ilgili Edwiser Bridge Moodle eklentisini indirin ve güncelleyin."
+
+#: includes/class-eb-admin-notice-handler.php:344
+msgid "Important Update Notice:"
+msgstr "Önemli Güncelleme Uyarısı:"
+
+#: includes/class-eb-admin-notice-handler.php:265
+msgid "Dismiss Notice"
+msgstr "Bildirimi Yoksay"
+
+#: includes/class-eb-admin-notice-handler.php:260
+msgid "Remind me Later!"
+msgstr "Daha Sonra Hatırlat"
+
+#: includes/class-eb-admin-notice-handler.php:256
+msgid " to rate us."
+msgstr "bizi değerlendirmek için:"
+
+#: includes/class-eb-admin-notice-handler.php:254
+msgid " click here "
+msgstr "buraya tıklayın"
+
+#: includes/class-eb-admin-notice-handler.php:252
+msgid "Enjoying Edwiser bridge, Please  "
+msgstr "Edwiser Bridge'den memnunsanız, lütfen"
+
+#: includes/class-eb-admin-notice-handler.php:211
+msgid "Avail Offer Now!"
+msgstr "Hemen Faydalan!"
+
+#: includes/class-eb-admin-notice-handler.php:206
+msgid " Dismiss this notice"
+msgstr "Bu bildirimi yoksay"
+
+#: includes/class-eb-admin-notice-handler.php:202
+msgid "Get all Premium Edwiser Products at Flat 20% Off!"
+msgstr "Tüm Premium Edwiser Ürünlerini 20% İndirimle Alın!"
+
+#: includes/class-eb-admin-notice-handler.php:129
+#: includes/class-eb-admin-notice-handler.php:155
+msgid " Dismiss notice"
+msgstr "Bildirimi Yoksay"
+
+#: includes/class-eb-admin-notice-handler.php:123
+#: includes/class-eb-admin-notice-handler.php:149
+msgid " documentation"
+msgstr "dokümantasyon"
+
+#: includes/class-eb-admin-notice-handler.php:122
+#: includes/class-eb-admin-notice-handler.php:148
+msgid "For setup assistance check our "
+msgstr "Kurulum yardımı için"
+
+#: includes/class-eb-admin-notice-handler.php:120
+#: includes/class-eb-admin-notice-handler.php:146
+msgid " to download Moodle plugin."
+msgstr "Moodle Eklentisini İndirmek için"
+
+#: includes/class-eb-admin-notice-handler.php:119
+#: includes/class-eb-admin-notice-handler.php:145
+msgid " Click here "
+msgstr "Buraya tıklayın"
+
+#: includes/class-eb-admin-notice-handler.php:118
+msgid "Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning."
+msgstr "Edwiser Bridge eklentisinin en son sürümüne güncelleme yaptığınız için teşekkür ederiz, herhangi bir arızayı önlemek için lütfen ilişkili Moodle Eklentimizi de yüklediğinizden emin olun."
+
+#: includes/class-eb-activator.php:255
+msgctxt "Page title"
+msgid "Courses"
+msgstr "Kurslar"
+
+#: includes/class-eb-activator.php:254
+msgctxt "Page slug"
+msgid "eb-courses"
+msgstr "eb-courses"
+
+#: includes/class-eb-activator.php:249
+msgctxt "Page title"
+msgid "My Courses"
+msgstr "Kurslarım"
+
+#: includes/class-eb-activator.php:248
+msgctxt "Page slug"
+msgid "eb-my-courses"
+msgstr "eb-my-courses"
+
+#: includes/class-eb-activator.php:243
+msgctxt "Page title"
+msgid "User Account"
+msgstr "Kullanıcı Hesabı"
+
+#: includes/class-eb-activator.php:242
+msgctxt "Page slug"
+msgid "user-account"
+msgstr "kullanici-hesabi"
+
+#: includes/class-eb-activator.php:238
+msgid "Thanks for purchasing the course, your order will be processed shortly."
+msgstr "Kursu satın aldığınız için teşekkür ederiz, siparişiniz kısa süre içinde işleme alınacaktır."
+
+#: includes/class-eb-activator.php:237
+msgctxt "Page title"
+msgid "Thank You for Purchase"
+msgstr "Bizi Tercih Ettiğiniz İçin Teşekkür Ederiz"
+
+#: includes/class-eb-activator.php:236
+msgctxt "Page slug"
+msgid "thank-you-for-purchase"
+msgstr "tesekkur-ederiz"
+
+#: includes/class-eb-default-email-templates.php:869
+msgid "Your user account is deleted from "
+msgstr "Kullanıcı hesabınız şuradan silindi:"
+
+#: includes/class-eb-default-email-templates.php:851
+msgid "User Deleted"
+msgstr "Kullanıcı Silindi"
+
+#: includes/class-eb-default-email-templates.php:793
+msgid "Course Un-Enrollment."
+msgstr "Kurs Kayıt Silme"
+
+#: includes/class-eb-default-email-templates.php:736
+msgid "Course Enrollment."
+msgstr "Kurs Kaydı."
+
+#: includes/class-eb-default-email-templates.php:697
+msgid "Total paid amount"
+msgstr "Toplam ödenen tutar"
+
+#: includes/class-eb-default-email-templates.php:689
+msgid "Customer Details"
+msgstr "Müşteri Bilgileri"
+
+#: includes/class-eb-default-email-templates.php:667
+msgid "Refund notification for the order id: "
+msgstr "İade bildirimi Sipariş ID:"
+
+#: includes/class-eb-default-email-templates.php:632
+#: includes/class-eb-default-email-templates.php:705
+msgid "Total Refunded Amount"
+msgstr "Toplam İade Tutarı"
+
+#: includes/class-eb-default-email-templates.php:624
+#: includes/class-eb-default-email-templates.php:701
+msgid "Current Refunded Amount"
+msgstr "Mevcut İade Tutarı"
+
+#: includes/class-eb-default-email-templates.php:616
+msgid "Total Amount Paid"
+msgstr "Toplam Ödenen Tutar"
+
+#: includes/class-eb-default-email-templates.php:608
+#: includes/class-eb-default-email-templates.php:693
+msgid "Order Item"
+msgstr "Ürünü Sipariş Et"
+
+#: includes/class-eb-default-email-templates.php:548
+msgid "Thank you!"
+msgstr "Teşekkür ederiz!"
+
+#: public/templates/emails/user-order-completion-email.php:26
+msgid "Thanks for purchasing %$1s course."
+msgstr "%$1s kursunu satın aldığınız için teşekkür ederiz."
+
+#: includes/class-eb-default-email-templates.php:400
+msgid "A learning account is linked to your moodle profile."
+msgstr "Moodle profilinize bir öğrenci hesabı bağlandı."
+
+#: includes/class-eb-default-email-templates.php:352
+#: includes/class-eb-default-email-templates.php:408
+msgid "You can purchase &amp; access courses here: "
+msgstr "Kurslara buradan kayıt olabilir &amp; ve erişebilirsiniz:"
+
+#: includes/class-eb-default-email-templates.php:343
+msgid "Password: "
+msgstr "Parola:"
+
+#: includes/class-eb-default-email-templates.php:334
+msgid "Username: "
+msgstr "Kullanıcı adı:"
+
+#: includes/class-eb-default-email-templates.php:327
+msgid "A learning account is linked to your profile.Use credentials given below while accessing your courses."
+msgstr "Profilinize bir öğrenci hesabı bağlandı. Kurslarınıza erişirken aşağıda verilen giriş bilgilerini kullanabilirsiniz."
+
+#: includes/class-eb-default-email-templates.php:477
+#: includes/class-eb-default-email-templates.php:764
+#: includes/class-eb-default-email-templates.php:821
+msgid "You can access your account here: "
+msgstr "Hesabınıza buradan erişebilirsiniz:"
+
+#: includes/class-eb-default-email-templates.php:270
+msgid "Your password has been automatically generated: "
+msgstr "Parolanız otomatik olarak oluşturulmuştur:"
+
+#: admin/class-eb-email-template.php:61
+#: includes/class-eb-default-email-templates.php:222
+msgid "User Account Deleted"
+msgstr "Kullanıcı Hesabı Silindi"
+
+#: admin/class-eb-email-template.php:60
+#: includes/class-eb-default-email-templates.php:201
+msgid "Moodle Course Un-Enrollment"
+msgstr "Moodle Kursu Kayıt Silme"
+
+#: admin/class-eb-email-template.php:59
+#: includes/class-eb-default-email-templates.php:180
+msgid "Moodle Course Enrollment"
+msgstr "Moodle Kurs Kaydı"
+
+#: includes/class-eb-default-email-templates.php:139
+#: includes/class-eb-default-email-templates.php:159
+msgid "Order refund notification"
+msgstr "Sipariş iade bildirimi"
+
+#: includes/class-eb-default-email-templates.php:119
+msgid "Course access expired."
+msgstr "Kurs erişiminin süresi doldu."
+
+#: includes/class-eb-default-email-templates.php:99
+#: includes/class-eb-default-email-templates.php:441
+#: includes/emails/class-eb-emailer.php:373
+msgid "Your order completed successfully."
+msgstr "Siparişiniz başarıyla tamamlandı."
+
+#: includes/class-eb-default-email-templates.php:79
+#: includes/class-eb-default-email-templates.php:243
+#: includes/class-eb-default-email-templates.php:310
+#: includes/emails/class-eb-emailer.php:301
+msgid "Your Learning Account Credentials"
+msgstr "Öğrenci Hesabı Giriş Bilgileriniz"
+
+#: includes/class-eb-default-email-templates.php:59
+#: includes/class-eb-default-email-templates.php:383
+msgid "Your learning account is linked with moodle"
+msgstr "Öğrenci hesabınız moodle ile bağlandı"
+
+#: admin/class-eb-email-template.php:47
+#: includes/class-eb-default-email-templates.php:39
+#: includes/emails/class-eb-emailer.php:249
+msgid "New User Account Details"
+msgstr "Yeni Kullanıcı Hesabı Bilgileri"
+
+#: includes/class-eb-custom-list-table.php:389
+msgid "No records selected to unenroll student, Please select the records to unenroll"
+msgstr "Öğrenci kurs kaydını iptal etmek için hiçbir kayıt seçilmedi, Lütfen iptal edilecek kayıtları seçin"
+
+#: includes/class-eb-custom-list-table.php:367
+msgctxt "Unenrolles the selected students from the courses"
+msgid "Bulk Unenroll"
+msgstr "Toplu kurs kaydı kaldır"
+
+#: includes/class-eb-custom-list-table.php:343
+#: includes/class-eb-post-types.php:352
+msgid "Unenroll"
+msgstr "Kurs Kaydı Kaldır"
+
+#: includes/class-eb-custom-list-table.php:58
+msgid "Manage"
+msgstr "Yönet"
+
+#: includes/class-eb-custom-list-table.php:57
+msgid "Enrolled Date"
+msgstr "Kurs Kayıt Tarihi"
+
+#: includes/class-eb-custom-list-table.php:56
+#: includes/class-eb-post-types.php:110
+msgid "Course"
+msgstr "Kurs"
+
+#: includes/class-eb-custom-list-table.php:55
+msgid "User"
+msgstr "Kullanıcı"
+
+#: includes/class-eb-custom-list-table.php:54
+msgctxt "Column label"
+msgid "Record ID"
+msgstr "Kayıt ID"
+
+#: includes/class-eb-order-manager.php:429
+msgid "Ordered By"
+msgstr "Tarafından Sipariş Verildi"
+
+#: includes/class-eb-order-manager.php:428 includes/class-eb-post-types.php:397
+msgid "Order Status"
+msgstr "Sipariş Durumu"
+
+#: includes/class-eb-order-manager.php:422
+msgid "Order Title"
+msgstr "Sipariş Başlığı"
+
+#: includes/class-eb-order-manager.php:238
+msgid "Order details are not correct. Existing"
+msgstr "Sipariş detayları doğru değil. Var olan"
+
+#: includes/api/class-eb-connection-helper.php:75
+#: includes/api/class-eb-connection-helper.php:84
+#: includes/class-eb-course-manager.php:74
+#: includes/class-eb-course-manager.php:83
+#: includes/class-eb-enrollment-manager.php:76
+#: includes/class-eb-enrollment-manager.php:85 includes/class-eb-logger.php:76
+#: includes/class-eb-logger.php:85 includes/class-eb-manage-enrollment.php:83
+#: includes/class-eb-manage-enrollment.php:92
+#: includes/class-eb-order-manager.php:67
+#: includes/class-eb-order-manager.php:76 includes/class-eb-user-manager.php:72
+#: includes/class-eb-user-manager.php:81 includes/class-eb.php:88
+#: includes/class-eb.php:97
+msgid "Cheatin&#8217; huh?"
+msgstr "Hile&#8217; ha?"
+
+#: includes/class-eb-order-history-meta.php:163
+msgid " Also the user is unenrolled from associated course."
+msgstr "Ayrıca kullanıcının ilişkili dersten kaydı silinir."
+
+#: includes/class-eb-order-history-meta.php:147
+msgid "New Order created by "
+msgstr "tarafından yeni sipariş oluşturudu"
+
+#: includes/class-eb-order-history-meta.php:137
+#: includes/class-eb-post-types.php:404
+msgid "Refunded"
+msgstr "İade Edildi"
+
+#: includes/class-eb-order-history-meta.php:136
+#: includes/class-eb-order-manager.php:450 includes/class-eb-post-types.php:403
+msgid "Failed"
+msgstr "Başarısız"
+
+#: includes/class-eb-order-history-meta.php:135
+#: includes/class-eb-order-manager.php:449 includes/class-eb-post-types.php:402
+#: public/templates/content-eb_course.php:75
+msgid "Completed"
+msgstr "Tamamlandı"
+
+#: includes/class-eb-order-history-meta.php:134
+#: includes/class-eb-order-manager.php:448 includes/class-eb-post-types.php:401
+msgid "Pending"
+msgstr "Onay bekliyor"
+
+#. Author URI of the plugin
+msgid "https://edwiser.org"
+msgstr "https://edwiser.org"
+
+#. Author of the plugin
+msgid "WisdmLabs"
+msgstr "WisdmLabs"
+
+#. Description of the plugin
+msgid "Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy option to import Moodle courses to WordPress and sell them using PayPal. The plugin also allows automatic registration of WordPress users on the Moodle website along with single login credentials for both the systems."
+msgstr "Edwiser Bridge, WordPress'i Moodle LMS ile entegre eder. Eklenti, Moodle kurslarını WordPress'e aktarmak ve bunları PayPal kullanarak satmak için kolay bir seçenek sunar. Eklenti ayrıca WordPress kullanıcılarının Moodle web sitesinde otomatik olarak kaydedilmesine ve her iki sistem için tek oturum açma kimlik bilgilerine izin verir."
+
+#. Plugin URI of the plugin
+msgid "https://edwiser.org/bridge/"
+msgstr "https://edwiser.org/bridge/"
+
+#. Plugin Name of the plugin
+msgid "Edwiser Bridge - WordPress Moodle LMS Integration"
+msgstr "Edwiser Bridge - WordPress Moodle LMS Entegrasyonu"
