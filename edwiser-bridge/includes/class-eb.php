@@ -85,7 +85,7 @@ class EdwiserBridge {
 	 * @since   1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -94,7 +94,7 @@ class EdwiserBridge {
 	 * @since   1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -373,9 +373,24 @@ class EdwiserBridge {
 	 */
 	private function set_locale() {
 		$plugin_i18n = new Eb_I18n();
-		$plugin_i18n->set_domain( 'eb-textdomain' );
+		$plugin_i18n->set_domain( 'edwiser-bridge' );
 
 		$this->loader->eb_add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+
+		// compatibility with edwiser-bridge textdomain.
+		$this->loader->eb_add_filter( 'load_textdomain_mofile', $plugin_i18n, 'load_edwiser_bridge_textdomain', 10, 2 );
+
+		// hook to check file renaming after admin user login.
+		$this->loader->eb_add_action( 'wp_login', $plugin_i18n, 'check_file_renaming', 9 );
+
+		// add ajax action to dismiss admin notice.
+		$this->loader->eb_add_action( 'admin_init', $plugin_i18n, 'eb_dismiss_lang_rename_admin_notice' );
+
+		// show admin notice if file renaming is not done.
+		$notice_dismissed = get_option( 'eb_rename_file_notice_dismissed' );
+		if ( 'false' === $notice_dismissed ) {
+			$this->loader->eb_add_action( 'admin_notices', $plugin_i18n, 'eb_admin_notice_failed_rename_files' );
+		}
 	}
 
 
@@ -629,13 +644,12 @@ class EdwiserBridge {
 		);
 
 		/**
-		 * Set up wizard 
+		 * Set up wizard
 		 */
 		// $setup_wizard = new Eb_Setup_Wizard();
 
 		// $this->loader->eb_add_action( 'admin_menu', $setup_wizard, 'admin_menus', 10 );
 		// $this->loader->eb_add_action( 'admin_init', $setup_wizard, 'eb_setup_wizard_handler', 10 );
-
 
 		/*
 		 * Handling custom button events on settings page
@@ -821,7 +835,7 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
-		
+
 	}
 
 	/**
@@ -937,7 +951,7 @@ class EdwiserBridge {
 			10,
 			1
 		);
-		
+
 		$this->loader->eb_add_filter(
 			'handle_bulk_actions-edit-eb_course',
 			$this->course_manager(),
