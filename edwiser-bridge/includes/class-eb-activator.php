@@ -47,6 +47,11 @@ class Eb_Activator {
 		// create required files & directories.
 		self::create_files();
 
+		// rename translation files.
+		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-i18n.php';
+		$plugin_i18n = new Eb_I18n();
+		$plugin_i18n->rename_langauge_files();
+
 		// redirect to welcome screen.
 		set_transient( '_eb_activation_redirect', 1, 30 );
 		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );
@@ -233,26 +238,26 @@ class Eb_Activator {
 			'eb_create_default_pages',
 			array(
 				'thankyou'    => array(
-					'name'       => esc_html_x( 'thank-you-for-purchase', 'Page slug', 'eb-textdomain' ),
-					'title'      => esc_html_x( 'Thank You for Purchase', 'Page title', 'eb-textdomain' ),
-					'content'    => esc_html__( 'Thanks for purchasing the course, your order will be processed shortly.', 'eb-textdomain' ),
+					'name'       => esc_html_x( 'thank-you-for-purchase', 'Page slug', 'edwiser-bridge' ),
+					'title'      => esc_html_x( 'Thank You for Purchase', 'Page title', 'edwiser-bridge' ),
+					'content'    => esc_html__( 'Thanks for purchasing the course, your order will be processed shortly.', 'edwiser-bridge' ),
 					'option_key' => '',
 				),
 				'useraccount' => array(
-					'name'       => esc_html_x( 'user-account', 'Page slug', 'eb-textdomain' ),
-					'title'      => esc_html_x( 'User Account', 'Page title', 'eb-textdomain' ),
+					'name'       => esc_html_x( 'user-account', 'Page slug', 'edwiser-bridge' ),
+					'title'      => esc_html_x( 'User Account', 'Page title', 'edwiser-bridge' ),
 					'content'    => '[' . apply_filters( 'eb_user_account_shortcode_tag', 'eb_user_account' ) . ']',
 					'option_key' => 'eb_useraccount_page_id',
 				),
 				'mycourses'   => array(
-					'name'       => esc_html_x( 'eb-my-courses', 'Page slug', 'eb-textdomain' ),
-					'title'      => esc_html_x( 'My Courses', 'Page title', 'eb-textdomain' ),
+					'name'       => esc_html_x( 'eb-my-courses', 'Page slug', 'edwiser-bridge' ),
+					'title'      => esc_html_x( 'My Courses', 'Page title', 'edwiser-bridge' ),
 					'content'    => $page_content['eb_my_courses'],
 					'option_key' => 'eb_my_courses_page_id',
 				),
 				'courses'     => array(
-					'name'       => esc_html_x( 'eb-courses', 'Page slug', 'eb-textdomain' ),
-					'title'      => esc_html_x( 'Courses', 'Page title', 'eb-textdomain' ),
+					'name'       => esc_html_x( 'eb-courses', 'Page slug', 'edwiser-bridge' ),
+					'title'      => esc_html_x( 'Courses', 'Page title', 'edwiser-bridge' ),
 					'content'    => $page_content['eb_courses'],
 					'option_key' => 'eb_courses_page_id',
 				),
