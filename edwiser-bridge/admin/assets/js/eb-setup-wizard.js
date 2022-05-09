@@ -4,68 +4,83 @@
     $(document).ready(function () {
 
 
-    // ----    ------
-var acc = document.getElementsByClassName("accordion");
-var i;
+        // ----    ------
+        var acc = document.getElementsByClassName("accordion");
+        var i;
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active");
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                /* Toggle between adding and removing the "active" class,
+                to highlight the button that controls the panel */
+                this.classList.toggle("active");
 
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
+                /* Toggle between hiding and showing the active panel */
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                panel.style.display = "none";
+                } else {
+                panel.style.display = "block";
+                }
+            });
+        }
 
-    // ----   ------
+        // ----   ------
 
-    // ajax call to change the tab.
+        // ajax call to change the tab.
         /**
          * Reload the Moodle course enrollment.
          */
         $('.eb-setup-step-completed').click(function(){
 
-        // Create loader.
-        var current = $(this);
-        var step = $(this).data('step');
+            // Create loader.
+            var current = $(this);
+            var step = $(this).data('step');
 
-        // current.append(loader_html);
-
-
-        $.ajax({
-            method: "post",
-            url: eb_setup_wizard.ajax_url,
-            dataType: "json",
-            data: {
-                'action': 'eb_setup_' + step,
-                // 'course_id': course_id,
-                // '_wpnonce_field': eb_admin_js_object.nonce,
-            },
-            success: function (response) {
-
-                console.log('AAAAAAAAAA');
-                console.log(response);
-
-
-                current.find('.eb-load-response').remove();
-                //prepare response for user
-                if (response.success == 1) {
-                    $('.eb-setup-content').html(response.data.content);
-
-                } else {
+            // current.append(loader_html);
 
 
 
+            // if(document.location.href.contains('?')) {
+            // if(document.location.href.includes('current_step')) {
+            //     urlobj.searchParams.set('current_step', step);
+            // } else if(document.location.href.includes('?')) {
+            //     url = url + '&current_step=' + step;
+            // }else{
+            //     url = url + '?current_step=' + step;
+            // }
+            //   document.location = url;
+            
+            
+            var url = new URL(document.location);
+            url.searchParams.set('current_step', step);
+            window.history.replaceState( null, null, url );
+        
+
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_change_step',
+                    'step': step
+                    // 'course_id': course_id,
+                    // '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+
+                    current.find('.eb-load-response').remove();
+                    //prepare response for user
+                    if (response.success == 1) {
+                        $('.eb-setup-content').html(response.data.content);
+                        $('.eb-setup-header-title').html(response.data.title);
+
+                    } else {
+
+
+
+                    }
                 }
-            }
-        });
+            });
 
         });
 
@@ -119,10 +134,9 @@ for (i = 0; i < acc.length; i++) {
 
 
 
-    // ajax xall to save data and get new tab at the same time.
+        // ajax xall to save data and get new tab at the same time.
         
-            // Clicking save continue
-        // 
+        // Clicking save continue
         // 
         // $('.eb_setup_save_and_continue').click(function(){
         $(document).on('click', '.eb_setup_save_and_continue', function (event) {
@@ -132,6 +146,9 @@ for (i = 0; i < acc.length; i++) {
             var next_step = $(this).data('next-step');
             var is_next_sub_step = $(this).data('is-next-sub-step');
 
+            if ( $('.eb_setup_popup').length ) {
+                $('.eb_setup_popup').remove();
+            }
 
 
             // get current step.
@@ -166,8 +183,6 @@ for (i = 0; i < acc.length; i++) {
 
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
-
-
                     break;
 
                 case 'user_sync':
@@ -187,8 +202,10 @@ for (i = 0; i < acc.length; i++) {
                     break;
 
                 case 'free_recommended_settings':
+                    var user_account_page      = $('#eb_setup_user_accnt_page').val();
+                    var user_account_creation  = $('#eb_setup_user_account_creation').val()
                     // user account page selection and enable registration on user account
-                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    data = { 'user_account_page': user_account_page, 'user_account_creation': user_account_creation, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
                     break;
 
@@ -210,15 +227,14 @@ for (i = 0; i < acc.length; i++) {
                 
                     break;
 
-
                 case 'mdl_plugins':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                 
                     break;
 
-
                 case 'sso':
-                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    var sso_key = $('#eb_setup_pro_sso_key').val();
+                    data = { 'sso_key': sso_key, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                 
                     break;
 
@@ -230,10 +246,10 @@ for (i = 0; i < acc.length; i++) {
 
 
                 case 'pro_settings':
-                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    var archive_page = $('#eb_pro_rec_set_archive_page').val();
+                    data = { 'archive_page': archive_page, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                 
                     break;
-
 
                 default:
                     break;
@@ -259,7 +275,16 @@ console.log( data );
 
                         //prepare response for user
                         if (response.success == 1) {
-                            $('.eb-setup-content').html(response.data.content);
+                            // If final step show pop up
+                            if ( response.data.popup ) {
+                                $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
+                            } else {
+                                $('.eb-setup-content').html(response.data.content);
+                                $('.eb-setup-header-title').html(response.data.title);
+                            }
+                            
+
+                            
 
                         } else {
         
@@ -348,7 +373,8 @@ console.log( data );
                 $( ".eb_setup_save_and_continue" ).click();
 
             });
-            
+
+
             /* Function to show progress of link users to moodle functionality*/
             function showLinkedUsersProgress(linked_users_count = 0, unlinked_users_count = 0, type) {
                 var container = $('.linkresponse-box');
@@ -369,10 +395,8 @@ console.log( data );
                 //get selected options
                 //
                 
-                var url      = $('#eb_setup_test_conn_mdl_url').val();
-                var token    = $('#eb_setup_test_conn_token').val();
-
-
+                var url   = $('#eb_setup_test_conn_mdl_url').val();
+                var token = $('#eb_setup_test_conn_token').val();
 
                 var $this = $(this);
                 //display loading animation
@@ -387,9 +411,9 @@ console.log( data );
                         '_wpnonce_field': eb_setup_wizard.nonce,
                     },
                     success: function (response) {
+
                         //prepare response for user
                         if (response.success == 1) {
-
                             $('.eb_setup_test_conn_success').css('display', 'initial');
                             $('.eb_setup_test_connection_btn').css('display', 'none');
                             $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
@@ -402,6 +426,96 @@ console.log( data );
                 });
             });
 
+
+
+            // MaNAGE LICENSE
+            $(document).on('click', '.eb_setup_license_install_plugins', function(event){
+                var extensions = {};
+
+                $('.eb_setup_license_inp').each(function() {
+                    // var currentElement = $(this);
+                    extensions[$(this).data('action')] = $(this).val().trim();
+                    // var value = currentElement.val(); // if it is an input/select/textarea field
+                    // TODO: do something with the value
+                });
+
+console.log(extensions);
+
+
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    dataType: "json",
+                    data: {
+                        'action': 'eb_setup_manage_license',
+                        // 'data': url.trim(),
+                        'license_data': JSON.stringify(extensions),
+                        '_wpnonce_field': eb_setup_wizard.nonce,
+                    },
+                    success: function (response) {
+
+                        //prepare response for user
+                        if (response.success == 1) {
+                            // $('.eb_setup_test_conn_success').css('display', 'initial');
+                            // $('.eb_setup_test_connection_btn').css('display', 'none');
+                            // $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
+
+                            console.log(response);
+                            
+
+
+                        } else {
+                            // ohSnap(response.response_message, 'error', 0);
+                            $('.eb_setup_test_conn_error').html(response.response_message);
+                        }
+                    }
+                });
+
+
+
+            });
+
+            // Function for license activation
+
+            /**
+             * creates ajax request to initiate test connection request
+             * display a response to user on process completion
+             */
+            // $('#eb_setup_verify_sso_roken_btn').click(function () {
+            $(document).on( 'click', '.eb_setup_verify_sso_roken_btn', function(){
+                //get selected options
+                $('.response-box').empty(); // empty the response
+                var url = $('#eb_url').val();
+                var token = $('#eb_access_token').val();
+                var $this = $(this);
+
+                //display loading animation
+                $('.load-response').show();
+
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    dataType: "json",
+                    data: {
+                        'action': 'ebsso_verify_key',
+                        'url': url,
+                        'nonce': eb_setup_wizard.sso_nonce,
+                        'wp_key': jQuery('#eb_setup_pro_sso_key').val()
+                    },
+                    success: function (response) {
+                        $('.load-response').hide();
+                        console.log(response.success);
+                        if ( response.success === true ) {
+                            $('.eb_setup_sso_response').html(response.data);
+                            $('.eb_setup_sso_response').addClass('eb_setup_settings_success_msg');
+                        } else {
+                            $('.eb_setup_sso_response').html(response.data);
+                            $('.eb_setup_sso_response').addClass('eb_setup_settings_error_msg');
+
+                        }
+                    }
+                });
+            });
 
 
 

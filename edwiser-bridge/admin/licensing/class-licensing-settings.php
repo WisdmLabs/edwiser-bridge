@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
+if ( ! class_exists( 'Licensing_Settings' ) ) :
 
 	/**
 	 * Eb_Settings_Licensing.
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 *
 		 * @param  mixed $post_data Installation reuqest data.
 		 */
-		private function wdm_install_plugin( $post_data ) {
+		public function wdm_install_plugin( $post_data, $flush_content = 1 ) {
 			$resp            = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
@@ -268,6 +268,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			$l_key                     = trim( $post_data[ $l_key_name ] );
 			$plugin_data['license']    = $l_key;
 			update_option( $l_key_name, $l_key );
+
 			if ( empty( $plugin_data['license'] ) ) {
 				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
 				$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
@@ -285,7 +286,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
-					$installed = $this->install_plugin( $request->download_link );
+					$installed = $this->install_plugin( $request->download_link, $flush_content );
 					if ( is_wp_error( $installed ) ) {
 						$resp['msg'] = $installed->get_error_messages();
 					} elseif ( $installed ) {
@@ -328,11 +329,29 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 *
 		 * @param string $plugin_zip Plugin zip file url.
 		 */
-		private function install_plugin( $plugin_zip ) {
+		private function install_plugin( $plugin_zip, $flush = 1 ) {
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			wp_cache_flush();
+			
+var_dump($flush);
+// clear_update_cache
+var_dump($plugin_zip);
+
+			if ( $flush ) {
+var_dump('FLUSH CONTENT ::: ');
+
+				wp_cache_flush();
+				$args    = array(
+					'clear_update_cache' => true,
+				);
+			} else {
+				$args    = array(
+					'clear_update_cache' => false,
+				);
+			}
+
+			
 			$upgrader  = new \Plugin_Upgrader();
-			$installed = $upgrader->install( $plugin_zip );
+			$installed = $upgrader->install( $plugin_zip, $args );
 			return $installed;
 		}
 
@@ -343,6 +362,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 		 * @param  string $action Name of the action like activate/deactivate.
 		 */
 		private function manage_license( $data, $action ) {
+
 			$resp               = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
