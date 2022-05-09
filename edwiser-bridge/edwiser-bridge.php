@@ -15,7 +15,7 @@
  * Author URI:        https://edwiser.org
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       eb-textdomain
+ * Text Domain:       edwiser-bridge
  * Domain Path:       /languages
  */
 
@@ -68,7 +68,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), '\app\wisdmlab
  */
 function wdm_add_settings_action_link( $links ) {
 	$plugin_links = array(
-		'<a href="' . admin_url( '/admin.php?page=eb-settings' ) . '">' . esc_html__( 'Settings', 'eb-textdomain' ) . '</a>',
+		'<a href="' . admin_url( '/admin.php?page=eb-settings' ) . '">' . esc_html__( 'Settings', 'edwiser-bridge' ) . '</a>',
 	);
 
 	return array_merge( $links, $plugin_links );
@@ -89,8 +89,8 @@ function wdm_plugin_row_meta( $links, $file ) {
 	if ( plugin_basename( __FILE__ ) === $file ) {
 		$row_meta = array(
 			'docs' => '<a href="https://edwiser.org/bridge/documentation/" target="_blank"
-						title="' . esc_attr( esc_html__( 'Edwiser Bridge Documentation', 'eb-textdomain' ) ) . '">' .
-			esc_html__( 'Documentation', 'eb-textdomain' ) .
+						title="' . esc_attr( esc_html__( 'Edwiser Bridge Documentation', 'edwiser-bridge' ) ) . '">' .
+			esc_html__( 'Documentation', 'edwiser-bridge' ) .
 			'</a>',
 		);
 
@@ -142,8 +142,8 @@ function wdm_show_legacy_extensions_notices() {
 		<p>
 			<?php
 			printf(
-				esc_html__( 'Please update all ', 'eb-textdomain' ) . '%s' . esc_html__( ' extensions to latest version.', 'eb-textdomain' ),
-				'<strong>' . esc_html__( 'Edwiser Bridge', 'eb-textdomain' ) . '</strong>'
+				esc_html__( 'Please update all ', 'edwiser-bridge' ) . '%s' . esc_html__( ' extensions to latest version.', 'edwiser-bridge' ),
+				'<strong>' . esc_html__( 'Edwiser Bridge', 'edwiser-bridge' ) . '</strong>'
 			);
 			?>
 		</p>
@@ -174,6 +174,11 @@ function process_upgrade() {
 		Eb_Activator::activate( false );
 		update_option( 'eb_current_version', $new_version );
 		update_option( 'eb_mdl_plugin_update_notice_dismissed', false );
+
+		// rename files.
+		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-i18n.php';
+		$plugin_i18n = new Eb_I18n();
+		$plugin_i18n->rename_langauge_files();
 	}
 }
 
