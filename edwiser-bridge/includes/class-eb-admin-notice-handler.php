@@ -115,18 +115,18 @@ class Eb_Admin_Notice_Handler {
 							<div class="eb_admin_update_notice_message">
 
 								<div class="eb_update_notice_content">
-									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
-									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
+									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'edwiser-bridge' ) . '
+									<a href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
+									' . esc_html__( ' to download Moodle plugin.', 'edwiser-bridge' ) . '
 
-										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
-										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'eb-textdomain' ) . '</a>.
+										' . esc_html__( 'For setup assistance check our ', 'edwiser-bridge' ) . '
+										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'edwiser-bridge' ) . '</a>.
 								</div>
 								
 								<div class="eb_update_notice_dismiss_wrap">
 									<span style="padding-left: 5px;">
 										<a href="' . esc_html( $redirection ) . '">
-											' . esc_html__( ' Dismiss notice', 'eb-textdomain' ) . '
+											' . esc_html__( ' Dismiss notice', 'edwiser-bridge' ) . '
 										</a>
 									</span>
 								</div>
@@ -141,18 +141,18 @@ class Eb_Admin_Notice_Handler {
 							<div class="eb_admin_update_notice_message">
 
 								<div class="eb_update_notice_content">
-									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'eb-textdomain' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">' . esc_html__( ' Click here ', 'eb-textdomain' ) . '</a>
-									' . esc_html__( ' to download Moodle plugin.', 'eb-textdomain' ) . '
+									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'edwiser-bridge' ) . '
+									<a href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
+									' . esc_html__( ' to download Moodle plugin.', 'edwiser-bridge' ) . '
 
-										' . esc_html__( 'For setup assistance check our ', 'eb-textdomain' ) . '
-										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'eb-textdomain' ) . '</a>.
+										' . esc_html__( 'For setup assistance check our ', 'edwiser-bridge' ) . '
+										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'edwiser-bridge' ) . '</a>.
 								</div>
 								
 								<div class="eb_update_notice_dismiss_wrap">
 									<span style="padding-left: 5px;">
 										<a href="' . esc_html( $redirection ) . '">
-											' . esc_html__( ' Dismiss notice', 'eb-textdomain' ) . '
+											' . esc_html__( ' Dismiss notice', 'edwiser-bridge' ) . '
 										</a>
 									</span>
 								</div>
@@ -199,16 +199,16 @@ class Eb_Admin_Notice_Handler {
 			echo '  <div class="notice  eb_admin_discount_notice_message">
 						<div class="eb_admin_discount_notice_message_cont">
 							<div class="eb_admin_discount_notice_content">
-								' . esc_html__( 'Get all Premium Edwiser Products at Flat 20% Off!', 'eb-textdomain' ) . '
+								' . esc_html__( 'Get all Premium Edwiser Products at Flat 20% Off!', 'edwiser-bridge' ) . '
 
 								<div style="font-size:13px; padding-top:4px;">
 									<a href="' . esc_html( $redirection ) . '">
-										' . esc_html__( ' Dismiss this notice', 'eb-textdomain' ) . '
+										' . esc_html__( ' Dismiss this notice', 'edwiser-bridge' ) . '
 									</a>
 								</div>
 							</div>
 							<div>
-								<a class="eb_admin_discount_offer_btn" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=WordPress&utm_medium=notif&utm_campaign=inbridge"  target="_blank">' . esc_html__( 'Avail Offer Now!', 'eb-textdomain' ) . '</a>
+								<a class="eb_admin_discount_offer_btn" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=WordPress&utm_medium=notif&utm_campaign=inbridge"  target="_blank">' . esc_html__( 'Avail Offer Now!', 'edwiser-bridge' ) . '</a>
 							</div>
 						</div>
 						<div class="eb_admin_discount_dismiss_notice_message">
@@ -249,20 +249,20 @@ class Eb_Admin_Notice_Handler {
 		if ( 'eb_admin_feedback_notice' !== get_transient( 'edwiser_bridge_admin_feedback_notice' ) && ( ! $feedback_usermeta || 'remind_me_later' !== $feedback_usermeta ) && 'dismiss_permanantly' !== $feedback_usermeta ) {
 				echo '  <div class="notice eb_admin_feedback_notice_message_cont">
 							<div class="eb_admin_feedback_notice_message">'
-								. esc_html__( 'Enjoying Edwiser bridge, Please  ', 'eb-textdomain' ) . '
+								. esc_html__( 'Enjoying Edwiser bridge, Please  ', 'edwiser-bridge' ) . '
 								<a href="https://WordPress.org/plugins/edwiser-bridge/">'
-									. esc_html__( ' click here ', 'eb-textdomain' ) .
+									. esc_html__( ' click here ', 'edwiser-bridge' ) .
 								'</a>'
-								. esc_html__( ' to rate us.', 'eb-textdomain' ) . '
+								. esc_html__( ' to rate us.', 'edwiser-bridge' ) . '
 								<div style="padding-top:8px; font-size:13px;">
 									<span class="eb_feedback_rate_links">
 										<a href="' . esc_html( $redirection ) . '=remind_me_later">
-										' . esc_html__( 'Remind me Later!', 'eb-textdomain' ) . '
+										' . esc_html__( 'Remind me Later!', 'edwiser-bridge' ) . '
 										</a>
 									</span>
 									<span class="eb_feedback_rate_links">
 										<a href="' . esc_html( $redirection ) . '=dismiss_permanantly">
-										' . esc_html__( 'Dismiss Notice', 'eb-textdomain' ) . '
+										' . esc_html__( 'Dismiss Notice', 'edwiser-bridge' ) . '
 										</a>
 									</span>
 								</div>
@@ -291,15 +291,15 @@ class Eb_Admin_Notice_Handler {
 			$user_id        = get_current_user_id();
 			$templ_usermeta = get_user_meta( $user_id, 'eb_templ_compatibility_dismissed', true );
 			if ( empty( $templ_usermeta ) || ! $templ_usermeta ) {
-				$msg = esc_html__( 'If you have overridden the standard Edwiser Bridge templates previously then please make sure that your templates are made compatible with the NEW Edwiser Bridge template. It may cause CSS breaks if not done. ', 'eb-textdomain' );
+				$msg = esc_html__( 'If you have overridden the standard Edwiser Bridge templates previously then please make sure that your templates are made compatible with the NEW Edwiser Bridge template. It may cause CSS breaks if not done. ', 'edwiser-bridge' );
 
 				echo '<div class="notice notice-warning eb_template_notice_wrap"">
 						<div class="eb_template_notice">
-							' . esc_html__( 'If you have overridden the standard', 'eb-textdomain' ) . '
-							<b> Edwiser Bridge </b>' . esc_html__( 'templates previously then please make sure that your templates are made compatible with the ', 'eb-textdomain' ) . ' <b>NEW Edwiser Bridge</b>
-							' . esc_html__( 'template. It may cause CSS breaks if not done.', 'eb-textdomain' ) . '
+							' . esc_html__( 'If you have overridden the standard', 'edwiser-bridge' ) . '
+							<b> Edwiser Bridge </b>' . esc_html__( 'templates previously then please make sure that your templates are made compatible with the ', 'edwiser-bridge' ) . ' <b>NEW Edwiser Bridge</b>
+							' . esc_html__( 'template. It may cause CSS breaks if not done.', 'edwiser-bridge' ) . '
 							<div class="">
-								' . esc_html__( 'Please refer to', 'eb-textdomain' ) . '<a href="https://edwiser.org/blog/how-to-make-edwiser-bridge-compatible-with-your-theme/" target="_blank"> <b>' . esc_html__( ' this ', 'eb-textdomain' ) . '</b> </a>' . esc_html__( ' article for theme compatibility', 'eb-textdomain' ) . '
+								' . esc_html__( 'Please refer to', 'edwiser-bridge' ) . '<a href="https://edwiser.org/blog/how-to-make-edwiser-bridge-compatible-with-your-theme/" target="_blank"> <b>' . esc_html__( ' this ', 'edwiser-bridge' ) . '</b> </a>' . esc_html__( ' article for theme compatibility', 'edwiser-bridge' ) . '
 							</div>
 						</div>
 						<div class="eb_admin_templ_dismiss_notice_message">
@@ -341,10 +341,10 @@ class Eb_Admin_Notice_Handler {
 		ob_start();
 		?>
 <p>
-    <strong><?php echo esc_html__( 'Important Update Notice:', 'eb-textdomain' ); ?></strong>
-    <?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'eb-textdomain' ); ?>
-    <a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?></a>
-    <?php echo esc_html__( ' to download', 'eb-textdomain' ); ?>
+    <strong><?php echo esc_html__( 'Important Update Notice:', 'edwiser-bridge' ); ?></strong>
+    <?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'edwiser-bridge' ); ?>
+    <a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?></a>
+    <?php echo esc_html__( ' to download', 'edwiser-bridge' ); ?>
 
 </p>
 

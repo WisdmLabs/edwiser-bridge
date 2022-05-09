@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 		 */
 		public function __construct() {
 			$this->_id   = 'synchronization';
-			$this->label = __( 'Synchronization', 'eb-textdomain' );
+			$this->label = __( 'Synchronization', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -44,8 +44,8 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 		 */
 		public function get_sections() {
 			$sections = array(
-				''          => __( 'Courses', 'eb-textdomain' ),
-				'user_data' => __( 'Users', 'eb-textdomain' ),
+				''          => __( 'Courses', 'edwiser-bridge' ),
+				'user_data' => __( 'Users', 'edwiser-bridge' ),
 			);
 
 			$new_sections = apply_filters( 'eb_get_sections_' . $this->_id, $sections );
@@ -103,13 +103,13 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 					'eb_user_synchronization_settings',
 					array(
 						array(
-							'title' => __( 'Synchronize User Data', 'eb-textdomain' ),
+							'title' => __( 'Synchronize User Data', 'edwiser-bridge' ),
 							'type'  => 'title',
 							'id'    => 'user_synchronization_options',
 						),
 						array(
-							'title'           => __( 'Synchronization Options', 'eb-textdomain' ),
-							'desc'            => __( 'Update user\'s course enrollment status', 'eb-textdomain' ),
+							'title'           => __( 'Synchronization Options', 'edwiser-bridge' ),
+							'desc'            => __( 'Update user\'s course enrollment status', 'edwiser-bridge' ),
 							'id'              => 'eb_synchronize_user_courses',
 							'default'         => 'no',
 							'type'            => 'checkbox',
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'autoload'        => false,
 						),
 						array(
-							'desc'            => __( 'Link user\'s account to moodle', 'eb-textdomain' ),
+							'desc'            => __( 'Link user\'s account to moodle', 'edwiser-bridge' ),
 							'id'              => 'eb_link_users_to_moodle',
 							'default'         => 'no',
 							'type'            => 'checkbox',
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title' => '',
 							'type'  => 'title',
 							'id'    => 'user_sync_email_notice',
-							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Performing user synchronization will email all the users with their login credentials. To disable the same you may deactivate', 'eb-textdomain' ) . '<b>' . __( '"Link WP user account to moodle and Create new moodle account"', 'eb-textdomain' ) . '</b>' . __( 'from Manage email templates.', 'eb-textdomain' ) . '</div>',
+							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Performing user synchronization will email all the users with their login credentials. To disable the same you may deactivate', 'edwiser-bridge' ) . '<b>' . __( '"Link WP user account to moodle and Create new moodle account"', 'edwiser-bridge' ) . '</b>' . __( 'from Manage email templates.', 'edwiser-bridge' ) . '</div>',
 						),
 						array(
 							'type' => 'sectionend',
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title'    => '',
 							'desc'     => '',
 							'id'       => 'eb_synchronize_users_button',
-							'default'  => __( 'Start Synchronization', 'eb-textdomain' ),
+							'default'  => __( 'Start Synchronization', 'edwiser-bridge' ),
 							'type'     => 'button',
 							'desc_tip' => false,
 							'class'    => 'button secondary',
@@ -158,13 +158,13 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 					'eb_course_synchronization_settings',
 					array(
 						array(
-							'title' => __( 'Synchronize Courses', 'eb-textdomain' ),
+							'title' => __( 'Synchronize Courses', 'edwiser-bridge' ),
 							'type'  => 'title',
 							'id'    => 'course_synchronization_options',
 						),
 						array(
-							'title'           => __( 'Synchronization Options', 'eb-textdomain' ),
-							'desc'            => __( 'Synchronize course categories', 'eb-textdomain' ),
+							'title'           => __( 'Synchronization Options', 'edwiser-bridge' ),
+							'desc'            => __( 'Synchronize course categories', 'edwiser-bridge' ),
 							'id'              => 'eb_synchronize_categories',
 							'default'         => 'no',
 							'type'            => 'checkbox',
@@ -173,7 +173,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'autoload'        => false,
 						),
 						array(
-							'desc'            => __( 'Update previously synchronized courses', 'eb-textdomain' ),
+							'desc'            => __( 'Update previously synchronized courses', 'edwiser-bridge' ),
 							'id'              => 'eb_synchronize_previous',
 							'default'         => 'no',
 							'type'            => 'checkbox',
@@ -183,7 +183,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 						),
 
 						array(
-							'desc'            => __( 'Keep synchronized courses as draft', 'eb-textdomain' ),
+							'desc'            => __( 'Keep synchronized courses as draft', 'edwiser-bridge' ),
 							'id'              => 'eb_synchronize_draft',
 							'default'         => 'yes',
 							'type'            => 'checkbox',
@@ -196,7 +196,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title' => '',
 							'type'  => 'title',
 							'id'    => 'course_draft_notice',
-							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Courses in the draft will not reflect on the learners "My Courses" page!', 'eb-textdomain' ) . '</div>',
+							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Courses in the draft will not reflect on the learners "My Courses" page!', 'edwiser-bridge' ) . '</div>',
 						),
 						array(
 							'type' => 'sectionend',
@@ -207,7 +207,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title'    => '',
 							'desc'     => '',
 							'id'       => 'eb_synchronize_courses_button',
-							'default'  => __( 'Start Synchronization', 'eb-textdomain' ),
+							'default'  => __( 'Start Synchronization', 'edwiser-bridge' ),
 							'type'     => 'button',
 							'desc_tip' => false,
 							'class'    => 'button secondary',

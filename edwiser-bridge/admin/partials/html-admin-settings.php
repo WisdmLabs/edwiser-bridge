@@ -62,7 +62,7 @@ foreach ( $extensions as $plugin_path ) {
 				<p class="submit">
 					<?php if ( ! isset( $GLOBALS['hide_save_button'] ) ) : ?>
 						<input name="save" class="button-primary" type="submit"
-							value="<?php esc_html_e( 'Save changes', 'eb-textdomain' ); ?>" />
+							value="<?php esc_html_e( 'Save changes', 'edwiser-bridge' ); ?>" />
 					<?php endif; ?>
 					<input type="hidden" name="subtab" id="last_tab" />
 					<?php wp_nonce_field( 'eb-settings' ); ?>

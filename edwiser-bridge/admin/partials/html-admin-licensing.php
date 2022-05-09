@@ -70,5 +70,5 @@ if ( ! empty( $licensing_info ) ) {
 	/*
 	 * translators: string plugin name.
 	 */
-	printf( esc_html( __( '%1$1s You do not have any extensions activated. %2$2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3$3s here%4$4s.%5$5s', 'eb-textdomain' ) ), '<div class="update-nag"><strong>', '</strong>', '<a href="https://edwiser.org/bridge/extensions/" target="_blank">', '</a>', '</div>' );
+	printf( esc_html( __( '%1$1s You do not have any extensions activated. %2$2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3$3s here%4$4s.%5$5s', 'edwiser-bridge' ) ), '<div class="update-nag"><strong>', '</strong>', '<a href="https://edwiser.org/bridge/extensions/" target="_blank">', '</a>', '</div>' );
 }

@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'get-help';
-			$this->label = __( 'Get Help', 'eb-textdomain' );
+			$this->label = __( 'Get Help', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'admin_action_eb_help', array( $this, 'helpSubscribeHandler' ) );
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 
 			// verify nonce.
 			if ( ! isset( $_POST['subscribe_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-				esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
+				esc_html_e( 'Sorry, there is a problem!', 'edwiser-bridge' );
 				exit;
 			} else {
 				// process subscription.
@@ -69,14 +69,14 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 				// prepare email content.
 				$subject = apply_filters(
 					'eb_plugin_subscription_email_subject',
-					__( 'Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain' )
+					__( 'Edwiser Bridge Plugin Subscription Notification', 'edwiser-bridge' )
 				);
 
 				$message = sprintf(
 					/**
 					 * Translators: dispays the subuscription message.
 					 */
-					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: ', 'eb-textdomain' ) . '%s ' . esc_html__( '\n Customer Email:', 'eb-textdomain' ) . ' %s ',
+					esc_html__( 'Edwiser subscription user details: \n\n Customer Website: ', 'edwiser-bridge' ) . '%s ' . esc_html__( '\n Customer Email:', 'edwiser-bridge' ) . ' %s ',
 					site_url(),
 					$admin_email
 				);

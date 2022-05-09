@@ -15,15 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="eb-cph-wrapper">
 	<div class="wdm-transaction-header">
-		<h4 style=""><?php esc_html_e( 'Course Purchase History', 'eb-textdomain' ); ?></h4>
+		<h4 style=""><?php esc_html_e( 'Course Purchase History', 'edwiser-bridge' ); ?></h4>
 	</div>
 	<table id="wdm_user_order_history" class="display">
 		<thead>
 			<tr>
-				<th><?php esc_html_e( 'Order ID', 'eb-textdomain' ); ?></th>
-				<th><?php esc_html_e( 'Ordered Course', 'eb-textdomain' ); ?></th>
-				<th><?php esc_html_e( 'Order Date', 'eb-textdomain' ); ?></th>
-				<th><?php esc_html_e( 'Status', 'eb-textdomain' ); ?></th>
+				<th><?php esc_html_e( 'Order ID', 'edwiser-bridge' ); ?></th>
+				<th><?php esc_html_e( 'Ordered Course', 'edwiser-bridge' ); ?></th>
+				<th><?php esc_html_e( 'Order Date', 'edwiser-bridge' ); ?></th>
+				<th><?php esc_html_e( 'Status', 'edwiser-bridge' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					$row = "<ul class='eb-user-order-courses'>";
 					foreach ( $ord_items as $item ) {
 						if ( get_the_title( $item ) === '' ) {
-							$eb_title = esc_html__( 'Not Available', 'eb-textdomain' );
+							$eb_title = esc_html__( 'Not Available', 'edwiser-bridge' );
 						} else {
 							$eb_title = "<a href='" . get_permalink( $item ) . "'/>" . get_the_title( $item ) . '</a>';
 						}
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 					<td><?php echo wp_kses( $row, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ); ?></td>
 					<td><?php echo esc_html( $eb_order['date'] ); ?> </td>
-					<td><?php esc_html_e( ucfirst( $eb_order['status'] ), 'eb-textdomain' ); // @codingStandardsIgnoreLine.?></td>
+					<td><?php esc_html_e( ucfirst( $eb_order['status'] ), 'edwiser-bridge' ); // @codingStandardsIgnoreLine.?></td>
 				</tr>
 				<?php
 			}

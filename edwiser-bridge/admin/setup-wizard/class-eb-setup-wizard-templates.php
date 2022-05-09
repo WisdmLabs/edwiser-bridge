@@ -159,12 +159,12 @@ class Eb_Setup_Wizard_Templates {
 			<footer class="eb-setup-wizard-footer">
 
 				<div class="eb-setup-footer-copyright">
-					<?php esc_html_e( 'Copyright © 2022 Edwiser | Brought to you by WisdmLabs and Powered by Edwiser', 'eb-textdomain' ); ?>
+					<?php esc_html_e( 'Copyright © 2022 Edwiser | Brought to you by WisdmLabs and Powered by Edwiser', 'edwiser-bridge' ); ?>
 				</div>
 
 				<div class="eb-setup-footer-button">
 					<a>
-						<?php esc_html_e( 'Contact Us', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'Contact Us', 'edwiser-bridge' ); ?>
 					</a>
 				</div>
 
@@ -195,26 +195,26 @@ class Eb_Setup_Wizard_Templates {
 
 				<div>
 
-					<p> <?php esc_html_e( 'What are you trying to setup?', 'eb-textdomain' ); ?> </p>
+					<p> <?php esc_html_e( 'What are you trying to setup?', 'edwiser-bridge' ); ?> </p>
 
 					<div class="eb_setup_free_initialize_inp_wrap">
 						<input type="checkbox" name="eb_free_setup">
-						<label> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'eb-textdomain' ); ?> </label>
+						<label> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class="eb_setup_free_initialize_inp_wrap">
 						<input type="checkbox" name="eb_pro_setup">
-						<label> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'eb-textdomain' ); ?> </label>
+						<label> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class="eb_setup_free_initialize_inp_wrap">
 						<input type="checkbox" name="eb_free_and_pro">
-						<label> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'eb-textdomain' ); ?> </label>
+						<label> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 				</div>
 
 				<div class="eb_setup_btn_wrap">
-					<input type="submit" name="eb_setup_free_initialize" class="eb_setup_btn" value="<?php esc_html_e( 'Start The Setup', 'eb-textdomain' ); ?>">
+					<input type="submit" name="eb_setup_free_initialize" class="eb_setup_btn" value="<?php esc_html_e( 'Start The Setup', 'edwiser-bridge' ); ?>">
 				</div>
 
 			</form>
@@ -222,9 +222,9 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 				<fieldset>
-					<legend> <?php esc_html_e( 'Note', 'eb-textdomain' ); ?> </legend> 
+					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend> 
 					<p>
-						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
 					</p>
 	
 				</fieldset>
@@ -256,43 +256,43 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class="eb_setup_installation_guide">
 			<div>
-				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'eb-textdomain' ); ?> </span>
+				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'edwiser-bridge' ); ?> </span>
 				
 				<div class='eb_setup_h2_wrap'>
 
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bridge Free WordPress plugin', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bridge Free WordPress plugin', 'edwiser-bridge' ); ?> <p>
 					
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bridge Free Moodle plugin', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bridge Free Moodle plugin', 'edwiser-bridge' ); ?> <p>
 
 				</div>
 
 
-				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'eb-textdomain' ); ?> </span>
+				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'edwiser-bridge' ); ?> </span>
 
 				<div class="eb_setup_btn_wrap">
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Continue the setup', 'eb-textdomain' ); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
 				</div>
 
 			</div>
 
 			<div>
 				<div>
-					<div class="accordion"><span class="dashicons dashicons-editor-help"></span><?php esc_html_e( 'What to do if I have not installed the Moodle plugin?', 'eb-textdomain' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span></div>
+					<div class="accordion"><span class="dashicons dashicons-editor-help"></span><?php esc_html_e( 'What to do if I have not installed the Moodle plugin?', 'edwiser-bridge' ); ?><span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span></div>
 
 					<div class="panel">
 
 						<div>
-							<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download the plugin now', 'eb-textdomain' ); ?> </button>
+							<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download the plugin now', 'edwiser-bridge' ); ?> </button>
 						</div>
 
 						<p>
-							<span> <?php esc_html_e( 'After download please follow the steps below;', 'eb-textdomain' ); ?> </span>
+							<span> <?php esc_html_e( 'After download please follow the steps below;', 'edwiser-bridge' ); ?> </span>
 						
 							<ol>
-								<li> <?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'eb-textdomain' ); ?></li>
-								<li><?php esc_html_e( 'Navigate to Site adminstration > Plugins > Install plugins ', 'eb-textdomain' ); ?></li>
-								<li><?php esc_html_e( ' Upload the Edwiser Bridge FREE Moodle plugin here', 'eb-textdomain' ); ?></li>
-								<li><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'eb-textdomain' ); ?></li>
+								<li> <?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( 'Navigate to Site adminstration > Plugins > Install plugins ', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( ' Upload the Edwiser Bridge FREE Moodle plugin here', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
 							</ol>
 
 						</p>
@@ -330,15 +330,15 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 
-				<span class="eb_setup_h2"> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'eb-textdomain' ); ?> </span>
+				<span class="eb_setup_h2"> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </span>
 
 				<div class="eb_setup_conn_url_inp_wrap">
-					<p> <label class='eb_setup_h2'> <?php esc_html_e( 'Moodle URL', 'eb-textdomain' ); ?></label></p>
+					<p> <label class='eb_setup_h2'> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label></p>
 					<input class='eb_setup_inp' name='eb_setup_test_conn_mdl_url' id='eb_setup_test_conn_mdl_url' type='text' >
 				</div>
 
 				<div class="eb_setup_btn_wrap">
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'eb-textdomain' ); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge' ); ?> </button>
 				</div>
 
 			</div>
@@ -347,7 +347,7 @@ class Eb_Setup_Wizard_Templates {
 			<div>
 
 				<div>
-					<div class="accordion"> <?php esc_html_e( 'Unable to navigate directly to the Edwiser Bridge FREE plugin setup on Moodle from the above step?  ', 'eb-textdomain' ); ?> </div>
+					<div class="accordion"> <?php esc_html_e( 'Unable to navigate directly to the Edwiser Bridge FREE plugin setup on Moodle from the above step?  ', 'edwiser-bridge' ); ?> </div>
 					<div class="panel">
 					<p>  </p>
 					</div>
@@ -381,34 +381,34 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class="eb_setup_test_connection">
 			<div>
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'eb-textdomain' ); ?> </div>
+				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
 
 				<div>
 					<div class="eb_setup_conn_url_inp_wrap">
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle URL', 'eb-textdomain' ); ?></label></p>
+						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label></p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_mdl_url' id='eb_setup_test_conn_mdl_url' type='text' >
 					</div>
 
 					<div class="eb_setup_conn_url_inp_wrap">
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle access token', 'eb-textdomain' ); ?></label> </p>
+						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle access token', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_token' id='eb_setup_test_conn_token' type='text' >
 					</div>
 					
 					<div class="eb_setup_conn_url_inp_wrap">
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Language code', 'eb-textdomain' ); ?></label></p>
+						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Language code', 'edwiser-bridge' ); ?></label></p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_lang_code' id='eb_setup_test_conn_lang_code' type='text' >
 					</div>
 				
 				</div>
 
 				<div class="eb_setup_btn_wrap">
-					<button class="eb_setup_btn eb_setup_test_connection_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'eb-textdomain' ); ?> </button>
+					<button class="eb_setup_btn eb_setup_test_connection_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge' ); ?> </button>
 					
-					<button class="eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'eb-textdomain' ); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge' ); ?> </button>
 
-					<div class='eb_setup_settings_success_msg eb_setup_test_conn_success'> <span class="dashicons dashicons-yes-alt"></span> <?php  esc_html_e( 'WordPress to Moodle connection successful!', 'eb-textdomain' ); ?> </div>
+					<div class='eb_setup_settings_success_msg eb_setup_test_conn_success'> <span class="dashicons dashicons-yes-alt"></span> <?php  esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 
-					<div class='eb_setup_settings_error_msg eb_setup_test_conn_error'> <span class="dashicons dashicons-yes-alt"></span> <?php  esc_html_e( 'WordPress to Moodle connection successful!', 'eb-textdomain' ); ?> </div>
+					<div class='eb_setup_settings_error_msg eb_setup_test_conn_error'> <span class="dashicons dashicons-yes-alt"></span> <?php  esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 				
 				</div>
 
@@ -417,14 +417,14 @@ class Eb_Setup_Wizard_Templates {
 			<div>
 				<div class="eb_setup_separator"> 
 					<div class="eb_setup_hr"><hr></div>
-					<div> <span> <?php esc_html_e( ' OR ', 'eb-textdomain'); ?> </span> </div>
+					<div> <span> <?php esc_html_e( ' OR ', 'edwiser-bridge'); ?> </span> </div>
 					<div class="eb_setup_hr"><hr></div>
 				</div>
 				
 				<div>
 					<div>
-						<span class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'eb-textdomain' ); ?> </span>
-						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Submit & Continue', 'eb-textdomain'); ?> </button>
+						<span class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>
+						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge'); ?> </button>
 						
 					</div>
 
@@ -456,32 +456,32 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class="eb_setup_course_sync">
 			
-			<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'eb-textdomain' ); ?> </span>
+			<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
 			
 			<div class="eb_setup_course_sync_note">
 
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'eb-textdomain' ); ?> </div>
+				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'edwiser-bridge' ); ?> </div>
 				
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'eb-textdomain' ); ?> </div>
+				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'edwiser-bridge' ); ?> </div>
 
 				<div class="eb_setup_course_sync_inp_wrap">
 					<input type="checkbox" >
-					<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'eb-textdomain' ); ?></label>
+					<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
 					
 				</div>
 
 				<div class="eb_setup_course_sync_btn_wrap">
-					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Synchronize the courses', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge'); ?> </button>
 				</div>
 				
 			</div>
 
 			<div>
 				<fieldset>
-					<legend> <?php esc_html_e( 'Note', 'eb-textdomain' ); ?> </legend>
+					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 					<p>
-						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
 
 					</p>
 	
@@ -524,37 +524,37 @@ class Eb_Setup_Wizard_Templates {
 		?>
 			<div class="eb_setup_user_sync">
 
-				<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle users from Moodle to WordPress.', 'eb-textdomain' ); ?> </span>
+				<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle users from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
 			
 				<div class="eb_setup_user_sync_note">
 
-					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, send email notification to all synchronized users with their login credentials.', 'eb-textdomain' ); ?> </div>
+					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, send email notification to all synchronized users with their login credentials.', 'edwiser-bridge' ); ?> </div>
 					
-					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, it will not send email notification to all synchronized users', 'eb-textdomain' ); ?> </div>
+					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, it will not send email notification to all synchronized users', 'edwiser-bridge' ); ?> </div>
 
 					<div class="eb_setup_user_sync_inp_wrap">
 						<input type="checkbox" >
-						<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'eb-textdomain' ); ?></label>
+						<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
 						
 					</div>
 				</div>
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
 
-					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize the courses', 'eb-textdomain'); ?> </button>
+					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge'); ?> </button>
 
-					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize users & notify', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize users & notify', 'edwiser-bridge'); ?> </button>
 
 				</div>
 
 
 				<div>
 					<fieldset>
-						<legend> <?php esc_html_e( 'Note', 'eb-textdomain' ); ?> </legend>
+						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<p>
-							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
 
 						</p>
 
@@ -576,31 +576,31 @@ class Eb_Setup_Wizard_Templates {
 
 				<div>
 					<p>
-						<?php  esc_html_e( 'We have noticed that you have', 'eb-textdomain' ) . $result['total_users'] . esc_html_e( '2500 Moodle users and the synchronization would take approximately half an hour. ', 'eb-textdomain' ); ?>
+						<?php  esc_html_e( 'We have noticed that you have', 'edwiser-bridge' ) . $result['total_users'] . esc_html_e( '2500 Moodle users and the synchronization would take approximately half an hour. ', 'edwiser-bridge' ); ?>
 					</p>
 				
 					<p>
-						<?php esc_html_e( 'We strongly recommend you to synchronize the users manually by referring to the documentation link.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'We strongly recommend you to synchronize the users manually by referring to the documentation link.', 'edwiser-bridge' ); ?>
 					</p>
 
 				</div>
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
 
-					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize the courses', 'eb-textdomain'); ?> </button>
+					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge'); ?> </button>
 
-					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Skip and continue', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Skip and continue', 'edwiser-bridge'); ?> </button>
 
 				</div>
 
 
 				<div>
 					<fieldset>
-						<legend> <?php esc_html_e( 'Note', 'eb-textdomain' ); ?> </legend>
+						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<p>
-							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
 
 						</p>
 		
@@ -649,19 +649,19 @@ class Eb_Setup_Wizard_Templates {
 		}
 		?>
 		<div class="eb_setup_free_recommended_settings">
-			<span> <?php esc_html_e( 'Enable user registration.', 'eb-textdomain' ); ?> </span>
+			<span> <?php esc_html_e( 'Enable user registration.', 'edwiser-bridge' ); ?> </span>
 
 			<div class='' style="padding-bottom: 30px;" >
 				<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'  >
-				<label class='eb_setup_h2'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'eb-textdomain' ); ?></label>
+				<label class='eb_setup_h2'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
 			</div>
 
-			<span>  <?php esc_html_e( 'Default page is set to Edwiser Bridge - User Account.', 'eb-textdomain' ); ?> </span>
+			<span>  <?php esc_html_e( 'Default page is set to Edwiser Bridge - User Account.', 'edwiser-bridge' ); ?> </span>
 
 			<div class="eb_setup_inp_wrap">
-				<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'eb-textdomain' ); ?></label> </div>
+				<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
 				<?php
-				echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'eb-textdomain' ) . "'style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() ); /* wp_dropdown_pages( $args ); */ 
+				echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'edwiser-bridge' ) . "'style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() ); /* wp_dropdown_pages( $args ); */ 
 
 				// echo wp_kses(  wp_dropdown_pages( $args ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() ); /* wp_dropdown_pages( $args ); */
 
@@ -672,8 +672,8 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Save settings', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Save settings', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -705,14 +705,14 @@ class Eb_Setup_Wizard_Templates {
 			<div class=''>
 				<p> <span class='dashicons dashicons-yes-alt eb_setup_pupup_success_icon'></span> </p>
 
-				<p class="eb_setup_h2"> <?php esc_html_e( 'Edwiser Bridge FREE plugin Setup is Completed.', 'eb-textdomain' ); ?></p>
+				<p class="eb_setup_h2"> <?php esc_html_e( 'Edwiser Bridge FREE plugin Setup is Completed.', 'edwiser-bridge' ); ?></p>
 
-				<p>  <?php esc_html_e( 'Let’s continue with Edwiser Bridge PRO setup', 'eb-textdomain' ); ?> </p>
+				<p>  <?php esc_html_e( 'Let’s continue with Edwiser Bridge PRO setup', 'edwiser-bridge' ); ?> </p>
 
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-sub-step='<?php echo $sub_step ?>'> <?php esc_html_e( 'Start Edwiser Bridge PRO Setup', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-sub-step='<?php echo $sub_step ?>'> <?php esc_html_e( 'Start Edwiser Bridge PRO Setup', 'edwiser-bridge'); ?> </button>
 
 			</div>
 
@@ -746,17 +746,17 @@ class Eb_Setup_Wizard_Templates {
 		<div class="eb_setup_pro_initialize">
 			
 			<div>
-				<?php esc_html_e( 'We are about to install the “Edwiser Bridge PRO” plugins. Click on ‘Continue’ once you are ready.', 'eb-textdomain' ); ?>	
+				<?php esc_html_e( 'We are about to install the “Edwiser Bridge PRO” plugins. Click on ‘Continue’ once you are ready.', 'edwiser-bridge' ); ?>	
 			</div>
 
 			<div>
-				<?php esc_html_e( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from here', 'eb-textdomain' ); ?>
+				<?php esc_html_e( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from here', 'edwiser-bridge' ); ?>
 			</div>
 
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-sub-step='<?php echo $sub_step ?>'> <?php esc_html_e( 'Continue the Setup', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-sub-step='<?php echo $sub_step ?>'> <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -786,25 +786,25 @@ class Eb_Setup_Wizard_Templates {
 		<div class="eb_setup_license">
 			<div>
 				<p>
-					<?php esc_html_e( 'Please enter Edwiser Bridge PRO license keys here to install Edwiser Bridge PRO WordPress plugins.', 'eb-textdomain' ); ?>	
+					<?php esc_html_e( 'Please enter Edwiser Bridge PRO license keys here to install Edwiser Bridge PRO WordPress plugins.', 'edwiser-bridge' ); ?>	
 				</p>
 
 				<p>
-					<?php esc_html_e( 'You can find the keys in the purchase receipt email or you can navigate to My account page on Edwiser.', 'eb-textdomain' ); ?>	
+					<?php esc_html_e( 'You can find the keys in the purchase receipt email or you can navigate to My account page on Edwiser.', 'edwiser-bridge' ); ?>	
 				</p>
 			<div>
 
 			<div>
 				<div class='eb_setup_license_inp_wrap'>
 					<div class='eb_setup_conn_url_inp_wrap  '>
-						<p><label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'eb-textdomain' ); ?></label> </p>
+						<p><label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_woo_int' id='eb_setup_woo_int' data-action='woocommerce_integration'  type='text' >
 						<div class='eb_setup_woo_int_license_msg'> </div>
 
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
-						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Selective Sync', 'eb-textdomain' ); ?></label> </p>
+						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_selective_sync' id='eb_setup_selective_sync' data-action='selective_sync' type='text' >
 						<div class='eb_setup_selective_sync_license_msg'> </div>
 
@@ -814,14 +814,14 @@ class Eb_Setup_Wizard_Templates {
 			
 				<div class='eb_setup_license_inp_wrap'>
 					<div class='eb_setup_conn_url_inp_wrap'>
-						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'eb-textdomain' ); ?></label> </p>
+						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_bulk_purchase' id='eb_setup_bulk_purchase' data-action='bulk-purchase' type='text' >
 						<div class='eb_setup_bulk_purchase_license_msg'> </div>
 
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
-						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'eb-textdomain' ); ?></label> </p>
+						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_sso' id='eb_setup_sso' data-action='single_sign_on' type='text' >
 						<div class='eb_setup_sso_woo_int_license_msg'> </div>
 
@@ -835,9 +835,9 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class='eb_setup_btn eb_setup_license_install_plugins' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Install the plugins', 'eb-textdomain'); ?> </button>
+				<button class='eb_setup_btn eb_setup_license_install_plugins' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Install the plugins', 'edwiser-bridge'); ?> </button>
 
-				<button class='eb_setup_btn eb_setup_save_and_continue' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'eb-textdomain'); ?> </button>
+				<button class='eb_setup_btn eb_setup_save_and_continue' data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -866,19 +866,19 @@ class Eb_Setup_Wizard_Templates {
 		<div class='eb_setup_mdl_plugins'>
 			
 			<div>
-				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'eb-textdomain' ); ?>	
+				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
 			
 				<div>
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap'>
-						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'eb-textdomain'); ?> </button>
+						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge'); ?> </button>
 					</div>
 				</div>
 
 				<div>
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bulk Purchase Moodle plugin', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bulk Purchase Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap'>
-						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'eb-textdomain'); ?> </button>
+						<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge'); ?> </button>
 					</div>
 				</div>
 			</div>
@@ -887,7 +887,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -914,20 +914,20 @@ class Eb_Setup_Wizard_Templates {
 		}
 		?>
 		<div class="eb_setup_mdl_plugins_installation">
-			<span> <?php esc_html_e( 'You will have to follow the steps given below to install the Moodle plugins manually.', 'eb-textdomain'); ?>  </span>
+			<span> <?php esc_html_e( 'You will have to follow the steps given below to install the Moodle plugins manually.', 'edwiser-bridge'); ?>  </span>
 
 			<div>
 			
 				<fieldset>
-					<legend> <?php esc_html_e( 'STEP 1', 'eb-textdomain' ); ?> </legend> 
+					<legend> <?php esc_html_e( 'STEP 1', 'edwiser-bridge' ); ?> </legend> 
 					<p>
-						<?php esc_html_e( 'Click on Install button and you will be redirected to Moodle’s plugin installation page. (Login to your Moodle site if not logged in).', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'Click on Install button and you will be redirected to Moodle’s plugin installation page. (Login to your Moodle site if not logged in).', 'edwiser-bridge' ); ?>
 					</p>
 	
 				</fieldset>
 
 				<div class="eb_setup_user_sync_btn_wrap">
-					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Install plugins on Moodle', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge'); ?> </button>
 				</div>
 
 			</div>
@@ -936,9 +936,9 @@ class Eb_Setup_Wizard_Templates {
 			<div>
 			
 				<fieldset>
-					<legend> <?php esc_html_e( 'STEP 2', 'eb-textdomain' ); ?> </legend> 
+					<legend> <?php esc_html_e( 'STEP 2', 'edwiser-bridge' ); ?> </legend> 
 					<p>
-						<?php esc_html_e( 'Upload and install the Edwiser Bridge PRO plugin one by one which are downloaded in your browser.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'Upload and install the Edwiser Bridge PRO plugin one by one which are downloaded in your browser.', 'edwiser-bridge' ); ?>
 					</p>
 	
 				</fieldset>
@@ -949,18 +949,18 @@ class Eb_Setup_Wizard_Templates {
 			<div>
 			
 				<fieldset>
-					<legend> <?php esc_html_e( 'STEP 3', 'eb-textdomain' ); ?> </legend> 
+					<legend> <?php esc_html_e( 'STEP 3', 'edwiser-bridge' ); ?> </legend> 
 					<p>
-						<?php esc_html_e( 'Come back to this tab and continue your Edwiser Bridge PRO setup.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'Come back to this tab and continue your Edwiser Bridge PRO setup.', 'edwiser-bridge' ); ?>
 					</p>
 	
 				</fieldset>
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
+					<button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
 
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'eb-textdomain'); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge'); ?> </button>
 
 				</div>
 
@@ -993,19 +993,19 @@ class Eb_Setup_Wizard_Templates {
 		<div class='eb_setup_sso'>
 			
 			<div>
-				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'eb-textdomain' ); ?>	
+				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
 
 				<div>
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'To find the secret key on your Moodle site, please click on Single Sign On secret key and then copy & paste the key here.', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'To find the secret key on your Moodle site, please click on Single Sign On secret key and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
 				</div>
 
 				<div>
-					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'eb-textdomain' ); ?> <p>
+					<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
 				</div>
 
 				<div class="eb_setup_conn_url_inp_wrap">
 					<p>
-						<label class="eb_setup_h2"> <?php esc_html_e( 'SSO secret key', 'eb-textdomain' ); ?></label>
+						<label class="eb_setup_h2"> <?php esc_html_e( 'SSO secret key', 'edwiser-bridge' ); ?></label>
 					</p>
 
 					<input class='eb_setup_inp' id='eb_setup_pro_sso_key' name='eb_setup_pro_sso_key' type='text' >
@@ -1017,11 +1017,11 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
 
-				<button class="eb_setup_btn eb_setup_verify_sso_roken_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Verify token', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_verify_sso_roken_btn" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Verify token', 'edwiser-bridge'); ?> </button>
 
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Continue the Setup', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -1049,14 +1049,14 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_wi_products_sync'>
 
-			<?php esc_html_e( 'This will create a WooCommerce product for all your synchronized Moodle courses', 'eb-textdomain' ); ?>	
+			<?php esc_html_e( 'This will create a WooCommerce product for all your synchronized Moodle courses', 'edwiser-bridge' ); ?>	
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Skip', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
+				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Skip', 'edwiser-bridge'); ?> </button>
 
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Create', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>'> <?php esc_html_e( 'Create', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -1085,19 +1085,19 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_pro_settings'>
 
-			<p>  <?php esc_html_e( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using WooCommerce to sell Moodle courses as WooCommerce products ', 'eb-textdomain' ); ?> </p>
+			<p>  <?php esc_html_e( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using WooCommerce to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
 
 			<div class="eb_setup_inp_wrap">
 				<input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' >
 
-				<label class="eb_setup_h2"> <?php esc_html_e( 'Hide “Course Archive page”', 'eb-textdomain' ); ?></label>
+				<label class="eb_setup_h2"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
 
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
 
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'eb-textdomain'); ?> </button>
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Save settings', 'eb-textdomain'); ?> </button>
+				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge'); ?> </button>
+				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo $step ?>' data-next-step='<?php echo $next_step ?>' data-is-next-sub-step='<?php echo $is_next_sub_step ?>' > <?php esc_html_e( 'Save settings', 'edwiser-bridge'); ?> </button>
 			</div>
 
 		</div>
@@ -1132,14 +1132,14 @@ class Eb_Setup_Wizard_Templates {
 			<div class=''>
 				<p> <span class='dashicons dashicons-yes-alt eb_setup_pupup_success_icon'></span> </p>
 
-				<p class="eb_setup_h2"> <?php esc_html_e( 'Edwiser Bridge PRO plugin Setup is Completed.', 'eb-textdomain' ); ?></p>
+				<p class="eb_setup_h2"> <?php esc_html_e( 'Edwiser Bridge PRO plugin Setup is Completed.', 'edwiser-bridge' ); ?></p>
 
-				<p>  <?php esc_html_e( 'Set a price to your Moodle course and start selling. Click ‘Continue’ to configure your WooCommerce products.', 'eb-textdomain' ); ?> </p>
+				<p>  <?php esc_html_e( 'Set a price to your Moodle course and start selling. Click ‘Continue’ to configure your WooCommerce products.', 'edwiser-bridge' ); ?> </p>
 
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Continue', 'eb-textdomain'); ?> </a>
+				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Continue', 'edwiser-bridge'); ?> </a>
 
 			</div>
 
@@ -1165,20 +1165,20 @@ class Eb_Setup_Wizard_Templates {
 			<div class=''>
 				<p> <span class='dashicons dashicons-warning eb_setup_pupup_warning_icon'></span> </p>
 
-				<p class='eb_setup_h2'> <?php esc_html_e( 'Are you sure you want to close the Edwiser Bridge WordPress setup wizard?', 'eb-textdomain' ); ?></p>
+				<p class='eb_setup_h2'> <?php esc_html_e( 'Are you sure you want to close the Edwiser Bridge WordPress setup wizard?', 'edwiser-bridge' ); ?></p>
 
 				<div class="eb_setup_user_sync_btn_wrap">
-					<a href=' <?php echo esc_url( get_site_url() . '/wp-admin' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Yes', 'eb-textdomain'); ?> </a>
-					<button class='eb_setup_sec_btn eb_setup_do_not_close'> <?php esc_html_e( 'No', 'eb-textdomain'); ?> </button>
+					<a href=' <?php echo esc_url( get_site_url() . '/wp-admin' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Yes', 'edwiser-bridge'); ?> </a>
+					<button class='eb_setup_sec_btn eb_setup_do_not_close'> <?php esc_html_e( 'No', 'edwiser-bridge'); ?> </button>
 				</div>
 
 			</div>
 
 			<div>
 				<fieldset>
-					<legend> <?php esc_html_e( 'Note', 'eb-textdomain' ); ?> </legend>
+					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 					<div>
-						<?php esc_html_e( 'You can run the setup wizard again by navigating to WordPress backend > Edwiser Bridge > Setting > General settings > Run Setup wizard.', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'You can run the setup wizard again by navigating to WordPress backend > Edwiser Bridge > Setting > General settings > Run Setup wizard.', 'edwiser-bridge' ); ?>
 					</div>
 	
 				</fieldset>

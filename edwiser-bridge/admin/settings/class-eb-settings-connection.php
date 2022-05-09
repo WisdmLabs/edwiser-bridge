@@ -26,7 +26,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 */
 		public function __construct() {
 			$this->_id   = 'connection';
-			$this->label = __( 'Connection', 'eb-textdomain' );
+			$this->label = __( 'Connection', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
@@ -71,16 +71,16 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 				'eb_connection_settings',
 				array(
 					array(
-						'title' => __( 'Connection Settings', 'eb-textdomain' ),
+						'title' => __( 'Connection Settings', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'id'    => 'connection_options',
 					),
 
 					array(
-						'title'             => __( 'Moodle URL', 'eb-textdomain' ),
+						'title'             => __( 'Moodle URL', 'edwiser-bridge' ),
 						'desc'              => __(
 							'Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)',
-							'eb-textdomain'
+							'edwiser-bridge'
 						),
 						'id'                => 'eb_url',
 						'css'               => 'min-width:350px;',
@@ -91,8 +91,8 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 					),
 
 					array(
-						'title'             => __( 'Moodle Access Token', 'eb-textdomain' ),
-						'desc'              => __( 'Add the access token generated on the Moodle Site while creating a web service.', 'eb-textdomain' ),
+						'title'             => __( 'Moodle Access Token', 'edwiser-bridge' ),
+						'desc'              => __( 'Add the access token generated on the Moodle Site while creating a web service.', 'edwiser-bridge' ),
 						'id'                => 'eb_access_token',
 						'css'               => 'min-width:350px;',
 						'default'           => '',
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 						'title'    => '',
 						'desc'     => '',
 						'id'       => 'eb_test_connection_button',
-						'default'  => __( 'Test Connection', 'eb-textdomain' ),
+						'default'  => __( 'Test Connection', 'edwiser-bridge' ),
 						'type'     => 'button',
 						'desc_tip' => false,
 						'class'    => 'button secondary',

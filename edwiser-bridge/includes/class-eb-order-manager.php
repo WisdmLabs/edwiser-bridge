@@ -64,7 +64,7 @@ class Eb_Order_Manager {
 	 * @since   1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Eb_Order_Manager {
 	 * @since   1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'eb-textdomain' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'edwiser-bridge' ), '1.0.0' );
 	}
 
 	/**
@@ -235,7 +235,7 @@ class Eb_Order_Manager {
 		}
 
 		if ( empty( $buyer_id ) || empty( $course_id ) || empty( $order_status ) ) {
-			return new \WP_Error( 'warning', esc_html__( 'Order details are not correct. Existing', 'eb-textdomain' ) );
+			return new \WP_Error( 'warning', esc_html__( 'Order details are not correct. Existing', 'edwiser-bridge' ) );
 		}
 
 		// get buyer details.
@@ -249,7 +249,7 @@ class Eb_Order_Manager {
 
 		$order_id = wp_insert_post(
 			array(
-				'post_title'  => esc_html__( 'Course ', 'eb-textdomain' ) . sprintf( '%s', $course_title ),
+				'post_title'  => esc_html__( 'Course ', 'edwiser-bridge' ) . sprintf( '%s', $course_title ),
 				'post_type'   => 'eb_order',
 				'post_status' => 'publish',
 				'post_author' => 1,
@@ -419,14 +419,14 @@ class Eb_Order_Manager {
 
 		foreach ( $columns as $k => $value ) {
 			if ( 'title' === $k ) {
-				$new_columns[ $k ] = esc_html__( 'Order Title', 'eb-textdomain' );
+				$new_columns[ $k ] = esc_html__( 'Order Title', 'edwiser-bridge' );
 			} else {
 				$new_columns[ $k ] = $value;
 			}
 
 			if ( 'title' === $k ) {
-				$new_columns['order_status'] = esc_html__( 'Order Status', 'eb-textdomain' );
-				$new_columns['ordered_by']   = esc_html__( 'Ordered By', 'eb-textdomain' );
+				$new_columns['order_status'] = esc_html__( 'Order Status', 'edwiser-bridge' );
+				$new_columns['ordered_by']   = esc_html__( 'Ordered By', 'edwiser-bridge' );
 			}
 		}
 
@@ -445,10 +445,10 @@ class Eb_Order_Manager {
 		if ( 'order_status' === $column_name ) {
 			$status  = Eb_Post_Types::get_post_options( $post_id, 'order_status', 'eb_order' );
 			$options = array(
-				'pending'   => esc_html__( 'Pending', 'eb-textdomain' ),
-				'completed' => esc_html__( 'Completed', 'eb-textdomain' ),
-				'failed'    => esc_html__( 'Failed', 'eb-textdomain' ),
-				'refunded'    => esc_html__( 'Refunded', 'eb-textdomain' ),
+				'pending'   => esc_html__( 'Pending', 'edwiser-bridge' ),
+				'completed' => esc_html__( 'Completed', 'edwiser-bridge' ),
+				'failed'    => esc_html__( 'Failed', 'edwiser-bridge' ),
+				'refunded'    => esc_html__( 'Refunded', 'edwiser-bridge' ),
 			);
 			echo isset( $options[ $status ] ) ? esc_html( $options[ $status ] ) : esc_html( ucfirst( $status ) );
 		} elseif ( 'ordered_by' === $column_name ) {

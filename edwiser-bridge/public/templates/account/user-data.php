@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="eb-user-data">
 		<?php
 		/* translators 1: display name 2: display name 3: a tag opening string 4: a tag closing */
-		printf( esc_attr__( 'Hello', 'eb-textdomain' ) . ' <strong>%s</strong> (' . esc_attr__( 'not', 'eb-textdomain' ) . ' <strong>%s</strong>? %s ' . esc_attr__( 'Sign out ', 'eb-textdomain' ) . '%s)', esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
+		printf( esc_attr__( 'Hello', 'edwiser-bridge' ) . ' <strong>%s</strong> (' . esc_attr__( 'not', 'edwiser-bridge' ) . ' <strong>%s</strong>? %s ' . esc_attr__( 'Sign out ', 'edwiser-bridge' ) . '%s)', esc_html( $user->display_name ), esc_html( $user->display_name ), '<a href="' . esc_url( wp_logout_url( get_permalink() ) ) . '">', '</a>' );
 		?>
 		<div>
 			<?php

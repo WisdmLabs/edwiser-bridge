@@ -342,12 +342,12 @@ error_log('next_step ::: '.print_r($next_step, 1));
 				'nonce'                           => $setup_nonce,
 				'sync_nonce'                      => $sync_nonce,
 				'sso_nonce'                       => $sso_nonce,
-				'msg_user_link_to_moodle_success' => esc_html__( 'User\'s linked to moodle successfully.', 'eb-textdomain' ),
-				'msg_con_success'                 => esc_html__( 'Connection successful, Please save your connection details.', 'eb-textdomain' ),
-				'msg_courses_sync_success'        => esc_html__( 'Courses synchronized successfully.', 'eb-textdomain' ),
-				'msg_con_prob'                    => esc_html__( 'There is a problem while connecting to moodle server.', 'eb-textdomain' ),
-				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'eb-textdomain' ),
-				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'eb-textdomain' ),
+				'msg_user_link_to_moodle_success' => esc_html__( 'User\'s linked to moodle successfully.', 'edwiser-bridge' ),
+				'msg_con_success'                 => esc_html__( 'Connection successful, Please save your connection details.', 'edwiser-bridge' ),
+				'msg_courses_sync_success'        => esc_html__( 'Courses synchronized successfully.', 'edwiser-bridge' ),
+				'msg_con_prob'                    => esc_html__( 'There is a problem while connecting to moodle server.', 'edwiser-bridge' ),
+				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'edwiser-bridge' ),
+				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
 
 			)
 
@@ -545,8 +545,8 @@ error_log('next_step ::: '.print_r($next_step, 1));
 		// 	return;
 		// }
 
-		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'eb-textdomain' );
-		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' );
+		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'edwiser-bridge' );
+		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'edwiser-bridge' );
 
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
@@ -575,7 +575,7 @@ error_log('next_step ::: '.print_r($next_step, 1));
 			<li class="eb-setup-step eb-setup-step-completed-wrap">
 				<span class="eb-setup-step-circle" > </span> </span>
 				<span class="eb-setup-steps-title eb-setup-step-completed" data-step="<?php esc_attr_e( $key ); ?>">
-					<?php esc_attr_e( $step['name'], 'eb-textdomain' ); ?>
+					<?php esc_attr_e( $step['name'], 'edwiser-bridge' ); ?>
 				</span>
 			</li>
 

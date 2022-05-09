@@ -72,11 +72,11 @@ foreach ( $extensions_details as $key => $value ) {
 		</div>
 		<?php } ?>
 		<div class="eb_settings_help_btn_wrap">
-			<button class='eb_open_btn'> <?php echo esc_html__( 'Get Help', 'eb-textdomain' ); ?></button>
+			<button class='eb_open_btn'> <?php echo esc_html__( 'Get Help', 'edwiser-bridge' ); ?></button>
 		</div>
 		<div class="eb_settings_rate_btn_wrap">
 			<a class="eb_open_btn" target="_blank" href="https://wordpress.org/support/plugin/edwiser-bridge/reviews/">
-				<?php echo esc_html__( 'Rate Us', 'eb-textdomain' ); ?>
+				<?php echo esc_html__( 'Rate Us', 'edwiser-bridge' ); ?>
 			</a>
 		</div>
 	</div>
@@ -93,21 +93,21 @@ foreach ( $extensions_details as $key => $value ) {
 					<div>
 						<ol>
 							<li>
-								<a href="https://edwiser.org/bridge/documentation/" target="_blank"> <?php echo esc_html__( 'Edwiser Bridge', 'eb-textdomain' ); ?></a>
+								<a href="https://edwiser.org/bridge/documentation/" target="_blank"> <?php echo esc_html__( 'Edwiser Bridge', 'edwiser-bridge' ); ?></a>
 							</li>
 						<?php echo wp_kses_post( $documentation ); ?>
 						</ol>
 					</div>
 
-					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'FAQs', 'eb-textdomain' ); ?></h4>
+					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'FAQs', 'edwiser-bridge' ); ?></h4>
 					<div>
-						<a href="https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin" target="_blank"> <?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?>  </a>
-						<?php echo esc_html__( 'to check frequently asked questions.', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin" target="_blank"> <?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?>  </a>
+						<?php echo esc_html__( 'to check frequently asked questions.', 'edwiser-bridge' ); ?>
 					</div>
 
-					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'Contact Us', 'eb-textdomain' ); ?></h4>
+					<h4 class='eb_setting_help_h4'><?php echo esc_html__( 'Contact Us', 'edwiser-bridge' ); ?></h4>
 					<div>
-						<a href="https://edwiser.org/bridge/" target="_blank"> <?php echo esc_html__( 'Click here ', 'eb-textdomain' ); ?>  </a> <?php echo esc_html__( 'to chat with us.', 'eb-textdomain' ); ?>
+						<a href="https://edwiser.org/bridge/" target="_blank"> <?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?>  </a> <?php echo esc_html__( 'to chat with us.', 'edwiser-bridge' ); ?>
 					</div>
 				</div>
 			</div>

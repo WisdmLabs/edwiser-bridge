@@ -45,7 +45,7 @@ class Eb_Shortcode_My_Courses {
 				array(
 					'user_id'                           => get_current_user_id(),
 					'my_courses_wrapper_title'          => '',
-					'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'eb-textdomain' ),
+					'recommended_courses_wrapper_title' => __( 'Recommended Courses', 'edwiser-bridge' ),
 					'number_of_recommended_courses'     => 7,
 					'my_courses_progress'               => '0',
 				)
@@ -96,8 +96,8 @@ class Eb_Shortcode_My_Courses {
 				<?php
 				/* Translators 1: My account url */
 				printf(
-					esc_html__( 'You are not logged in. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to login.', 'eb-textdomain' ),
-					"<a href='" . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					esc_html__( 'You are not logged in. ', 'edwiser-bridge' ) . '%s' . esc_html__( ' to login.', 'edwiser-bridge' ),
+					"<a href='" . esc_url( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() ) . "'>" . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>'
 				);
 				?>
 			</p>
@@ -159,8 +159,8 @@ class Eb_Shortcode_My_Courses {
 				<?php
 				printf(
 					/* Translators 1: URL */
-					esc_html__( 'You are not enrolled to any course. ', 'eb-textdomain' ) . '%s' . esc_html__( ' to access the courses page.', 'eb-textdomain' ),
-					"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'eb-textdomain' ) . '</a>'
+					esc_html__( 'You are not enrolled to any course. ', 'edwiser-bridge' ) . '%s' . esc_html__( ' to access the courses page.', 'edwiser-bridge' ),
+					"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>'
 				);
 				?>
 			</h5>
@@ -183,34 +183,34 @@ class Eb_Shortcode_My_Courses {
 		$course_ids         = array_keys( $progress_data );
 		$is_user_suspended  = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $course_id );
 		$progress           = isset( $progress_data[ $course_id ] ) ? $progress_data[ $course_id ] : 1;
-		$progress_meta_data = __( 'Not available', 'eb-textdomain' );
+		$progress_meta_data = __( 'Not available', 'edwiser-bridge' );
 		$completed          = 0;
 		$course_mang        = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
 		$mdl_course_id      = $course_mang->get_moodle_course_id( $course_id );
 		$course_url         = \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id );
 		$progress_class     = 'eb-course-action-btn-start';
-		$btn_text           = __( 'Start', 'eb-textdomain' );
+		$btn_text           = __( 'Start', 'edwiser-bridge' );
 		ob_start();
 		?>
 		<div class='eb-course-action-cont'>
 			<?php
 			if ( $is_user_suspended ) {
 				$progress_class = 'eb-course-action-btn-suspended';
-				$btn_text       = __( 'Suspended', 'eb-textdomain' );
+				$btn_text       = __( 'Suspended', 'edwiser-bridge' );
 			} elseif ( in_array( $course_id, $course_ids ) ) {// @codingStandardsIgnoreLine.
 				if ( 0 === $progress ) {
 					$progress_class     = 'eb-course-action-btn-start';
-					$btn_text           = __( 'Start', 'eb-textdomain' );
-					$progress_meta_data = __( 'Not yet started', 'eb-textdomain' );
+					$btn_text           = __( 'Start', 'edwiser-bridge' );
+					$progress_meta_data = __( 'Not yet started', 'edwiser-bridge' );
 				} elseif ( $progress > 0 && $progress < 100 ) {
 					$progress_class     = 'eb-course-action-btn-resume';
-					$btn_text           = __( 'Resume', 'eb-textdomain' );
-					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'eb-textdomain' );
+					$btn_text           = __( 'Resume', 'edwiser-bridge' );
+					$progress_meta_data = esc_attr( round( $progress ) ) . __( '% Completed', 'edwiser-bridge' );
 				} else {
 					$completed          = 1;
 					$progress_class     = 'eb-course-action-btn-completed';
-					$btn_text           = __( 'View', 'eb-textdomain' );
-					$progress_meta_data = __( '100% Completed', 'eb-textdomain' );
+					$btn_text           = __( 'View', 'edwiser-bridge' );
+					$progress_meta_data = __( '100% Completed', 'edwiser-bridge' );
 				}
 			}
 			?>
@@ -308,7 +308,7 @@ class Eb_Shortcode_My_Courses {
 			}
 			?>
 			<a href="<?php echo esc_html( $view_more_url ); ?>" class="wdm-btn eb-rec-courses-view-more">
-				<?php esc_html_e( 'View More &rarr;', 'eb-textdomain' ); ?>
+				<?php esc_html_e( 'View More &rarr;', 'edwiser-bridge' ); ?>
 			</a>
 			<?php
 		} else {
@@ -363,7 +363,7 @@ class Eb_Shortcode_My_Courses {
 	public function generate_recommended_courses() {
 		global $post;
 		$course_options                            = get_post_meta( $post->ID, 'eb_course_options', true );
-		$attr['recommended_courses_wrapper_title'] = esc_html__( 'Recommended Courses', 'eb-textdomain' );
+		$attr['recommended_courses_wrapper_title'] = esc_html__( 'Recommended Courses', 'edwiser-bridge' );
 
 		if ( isset( $course_options['enable_recmnd_courses'] ) && 'yes' === $course_options['enable_recmnd_courses'] ) {
 			if ( isset( $course_options['show_default_recmnd_course'] ) && 'yes' === $course_options['show_default_recmnd_course'] ) {

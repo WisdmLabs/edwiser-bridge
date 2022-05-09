@@ -62,7 +62,7 @@ class Eb_Template_Functions {
 
 		if ( is_numeric( $course_price ) ) {
 			$currency_sym           = 'USD' === $currency ? '$' : $currency;
-			$course_price_formatted = '0' === $course_price ? __( 'Free', 'eb-textdomain' ) : $currency_sym . ' ' . $course_price;
+			$course_price_formatted = '0' === $course_price ? __( 'Free', 'edwiser-bridge' ) : $currency_sym . ' ' . $course_price;
 		}
 
 		// Course associated Categories.
@@ -74,11 +74,11 @@ class Eb_Template_Functions {
 
 		$course_class = 'no-access';
 		/* Tanslators 1: title */
-		$h_title = sprintf( esc_html__( 'Click to read more about', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
+		$h_title = sprintf( esc_html__( 'Click to read more about', 'edwiser-bridge' ) . ' %s' . esc_html__( ' course', 'edwiser-bridge' ), get_the_title( get_the_ID() ) );
 		if ( $has_access ) {
 			$course_class = 'has-access';
 			/* Tanslators 1: title */
-			$h_title = sprintf( esc_html__( 'Click to access', 'eb-textdomain' ) . ' %s' . esc_html__( ' course', 'eb-textdomain' ), get_the_title( get_the_ID() ) );
+			$h_title = sprintf( esc_html__( 'Click to access', 'edwiser-bridge' ) . ' %s' . esc_html__( ' course', 'edwiser-bridge' ), get_the_title( get_the_ID() ) );
 		}
 
 		// Shortcode eb_my_courses.
@@ -146,7 +146,7 @@ class Eb_Template_Functions {
 			}
 
 			if ( 0 === $course_price ) {
-				$course_price_formatted = __( 'Free', 'eb-textdomain' );
+				$course_price_formatted = __( 'Free', 'edwiser-bridge' );
 			}
 		}
 
@@ -160,21 +160,21 @@ class Eb_Template_Functions {
 		/*
 		 * Check is course has expiry date
 		 */
-		$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Lifetime ', 'eb-textdomain' ) . '</span>';
+		$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'edwiser-bridge' ) . '</strong>' . __( 'Lifetime ', 'edwiser-bridge' ) . '</span>';
 		if ( isset( $course_options['course_expirey'] ) && 'yes' === $course_options['course_expirey'] && '' !== $course_options['num_days_course_access'] ) {
 			$remaining_access = Eb_Enrollment_Manager::access_remianing( $user_id, $post->ID );
 
 			if ( is_user_logged_in() && $has_access && '0000-00-00 00:00:00' !== $remaining_access ) {
-				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'eb-textdomain' ) . '</strong>' . $remaining_access . ' ' . __( ' days access remaining', 'eb-textdomain' ) . '</span>';
+				$expiry_date_time = '<span><strong>' . __( 'Remaining Access: ', 'edwiser-bridge' ) . '</strong>' . $remaining_access . ' ' . __( ' days access remaining', 'edwiser-bridge' ) . '</span>';
 			} else {
-				$expiry_date_time = '<span><strong>' . __( 'Course Access:  ', 'eb-textdomain' ) . ' </strong>' . $course_options['num_days_course_access'] . __( ' days access', 'eb-textdomain' ) . ' </span>';
+				$expiry_date_time = '<span><strong>' . __( 'Course Access:  ', 'edwiser-bridge' ) . ' </strong>' . $course_options['num_days_course_access'] . __( ' days access', 'edwiser-bridge' ) . ' </span>';
 			}
 		}
 
 		// Check if course is suspended for user then add suspended in the course access section.
 		$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $user_id, $post->ID );
 		if ( $is_user_suspended ) {
-			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'eb-textdomain' ) . '</strong>' . __( 'Suspended ', 'eb-textdomain' ) . '</span>';
+			$expiry_date_time = '<span><strong>' . __( 'Course Access: ', 'edwiser-bridge' ) . '</strong>' . __( 'Suspended ', 'edwiser-bridge' ) . '</span>';
 		}
 
 		return array(

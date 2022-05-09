@@ -44,21 +44,21 @@ class EBAdminEmailTemplate {
 	 * @return array of the email tempalte list.
 	 */
 	public function eb_add_email_list( $email_list ) {
-		$email_list['eb_emailtmpl_create_user']                         = esc_html__( 'New User Account Details', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_linked_existing_wp_user']             = esc_html__( 'Link WP user account to moodle', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_linked_existing_wp_new_moodle_user']  = esc_html__( 'Create new moodle account', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_order_completed']                     = esc_html__( 'Course Order Completion', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_course_access_expir']                 = esc_html__( 'Course access expired', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_refund_completion_notifier_to_user']  = esc_html__( 'Refund Success mail to customer', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_refund_completion_notifier_to_admin'] = esc_html__( 'Refund Success mail to admin or specified email', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_create_user']                         = esc_html__( 'New User Account Details', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_linked_existing_wp_user']             = esc_html__( 'Link WP user account to moodle', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_linked_existing_wp_new_moodle_user']  = esc_html__( 'Create new moodle account', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_order_completed']                     = esc_html__( 'Course Order Completion', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_course_access_expir']                 = esc_html__( 'Course access expired', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_refund_completion_notifier_to_user']  = esc_html__( 'Refund Success mail to customer', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_refund_completion_notifier_to_admin'] = esc_html__( 'Refund Success mail to admin or specified email', 'edwiser-bridge' );
 
 		/**
 		 *   Two way synch.
 		 */
 
-		$email_list['eb_emailtmpl_mdl_enrollment_trigger']    = esc_html__( 'Moodle Course Enrollment', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_mdl_un_enrollment_trigger'] = esc_html__( 'Moodle Course Un-Enrollment', 'eb-textdomain' );
-		$email_list['eb_emailtmpl_mdl_user_deletion_trigger'] = esc_html__( 'User Account Deleted', 'eb-textdomain' );
+		$email_list['eb_emailtmpl_mdl_enrollment_trigger']    = esc_html__( 'Moodle Course Enrollment', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_mdl_un_enrollment_trigger'] = esc_html__( 'Moodle Course Un-Enrollment', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_mdl_user_deletion_trigger'] = esc_html__( 'User Account Deleted', 'edwiser-bridge' );
 		return $email_list;
 	}
 
@@ -99,7 +99,7 @@ class EBAdminEmailTemplate {
 		$tmpl_content = apply_filters( 'eb_email_template_data', $tmpl_data );
 		?>
 		<div class="wrap">
-			<h1 class="wp-heading-inline eb-emailtemp-head"><?php esc_html_e( 'Manage Email Templates', 'eb-textdomain' ); ?></h1>
+			<h1 class="wp-heading-inline eb-emailtemp-head"><?php esc_html_e( 'Manage Email Templates', 'edwiser-bridge' ); ?></h1>
 			<div class="eb-email-template-wrap">
 				<div class="eb-template-edit-form">
 					<h3 id="eb-email-template-name"><?php echo esc_html( $tmpl_name ); ?></h3>
@@ -111,30 +111,30 @@ class EBAdminEmailTemplate {
 								?>
 						<table>
 							<tr>
-								<td class="eb-email-lable"><?php esc_html_e( 'From Name', 'eb-textdomain' ); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'From Name', 'edwiser-bridge' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo esc_html( $from_name ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter name here to use as the form name in email sent from site using Edwisaer plugins', 'eb-textdomain' ); ?>" placeholder="<?php esc_attr_e( 'Enter from name', 'eb-textdomain' ); ?>"/>
+									<input type="text" name="eb_email_from_name" id="eb_email_from_name" value="<?php echo esc_html( $from_name ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter name here to use as the form name in email sent from site using Edwisaer plugins', 'edwiser-bridge' ); ?>" placeholder="<?php esc_attr_e( 'Enter from name', 'edwiser-bridge' ); ?>"/>
 								</td>
 							</tr>
 
 							<tr>
-								<td class="eb-email-lable"><?php esc_html_e( 'Subject', 'eb-textdomain' ); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'Subject', 'edwiser-bridge' ); ?></td>
 								<td>
-									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo esc_attr( $tmpl_content['subject'] ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'eb-textdomain' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'eb-textdomain' ); ?>"/>
+									<input type="text" name="eb_email_subject" id="eb_email_subject" value="<?php echo esc_attr( $tmpl_content['subject'] ); ?>" class="eb-email-input" title="<?php esc_html_e( 'Enter the subject for the current email template. Current template will use the entered subject to send email from the site', 'edwiser-bridge' ); ?>" placeholder="<?php esc_html_e( 'Enter email subject', 'edwiser-bridge' ); ?>"/>
 								</td>
 							</tr>
 
 							<tr>
-								<td class="eb-email-lable"><?php esc_html_e( 'Send email notification to the user?', 'eb-textdomain' ); ?></td>
+								<td class="eb-email-lable"><?php esc_html_e( 'Send email notification to the user?', 'edwiser-bridge' ); ?></td>
 								<td>
-									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked( $notif_on, 'ON' ); ?> class="eb-email-input" title="<?php esc_html_e( 'Check the option to notify the user using selected template on action', 'eb-textdomain' ); ?>" />
+									<input type="checkbox" name="eb_email_notification_on" id="eb_email_notification_on" value="ON" <?php echo checked( $notif_on, 'ON' ); ?> class="eb-email-input" title="<?php esc_html_e( 'Check the option to notify the user using selected template on action', 'edwiser-bridge' ); ?>" />
 								</td>
 							</tr>
 
 
 							<tr>
 								<td class="eb-email-lable">
-									<?php esc_html_e( 'BCC in email', 'eb-textdomain' ); ?>
+									<?php esc_html_e( 'BCC in email', 'edwiser-bridge' ); ?>
 								</td>
 								<td>
 									<input type="text" value="<?php echo esc_html( $bcc_email ); ?>" name="eb_bcc_email" id="eb_bcc_email" class="eb-email-input"/>
@@ -155,8 +155,8 @@ class EBAdminEmailTemplate {
 							<tr>
 								<td>
 									<input name="eb-mail-tpl-submit" type="hidden" id="eb-mail-tpl-submit" value="eb-mail-tpl-save-changes" />
-									<input type="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'eb-textdomain' ); ?>" name="eb_save_tmpl" title="<?php esc_html_e( 'Save changes', 'eb-textdomain' ); ?>"/>
-									<input type="button" class="button-primary" value="<?php esc_html_e( 'Restore template content', 'eb-textdomain' ); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
+									<input type="submit" class="button-primary" value="<?php esc_html_e( 'Save Changes', 'edwiser-bridge' ); ?>" name="eb_save_tmpl" title="<?php esc_html_e( 'Save changes', 'edwiser-bridge' ); ?>"/>
+									<input type="button" class="button-primary" value="<?php esc_html_e( 'Restore template content', 'edwiser-bridge' ); ?>" id="eb_email_reset_template" name="eb_email_reset_template" />
 									<input type="hidden" id="current_selected_email_tmpl_key" name="current_selected_email_tmpl_key" value="<?php echo esc_html( $tmpl_key ); ?>" />
 									<input type="hidden" id="current-tmpl-name" name="current_selected_email_tmpl_name" value="<?php echo esc_attr( $tmpl_content['subject'] ); ?>" />
 								</td>
@@ -164,25 +164,25 @@ class EBAdminEmailTemplate {
 						</table>
 					</form>
 					<div class="eb-email-testmail-wrap">
-						<h3><?php esc_html_e( 'Send a test email of the selected template', 'eb-textdomain' ); ?></h3>
+						<h3><?php esc_html_e( 'Send a test email of the selected template', 'edwiser-bridge' ); ?></h3>
 						<div class="eb-email-temp-test-mail-wrap">
-							<label class="eb-email-lable"><?php esc_html_e( 'To', 'eb-textdomain' ); ?> : </label>
+							<label class="eb-email-lable"><?php esc_html_e( 'To', 'edwiser-bridge' ); ?> : </label>
 							<?php wp_nonce_field( 'eb_send_testmail_sec', 'eb_send_testmail_sec_filed' ); ?>
-							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'eb-textdomain' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'eb-textdomain' ); ?>"/>
-							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'eb-textdomain' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'eb-textdomain' ); ?>"/>
+							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'edwiser-bridge' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'edwiser-bridge' ); ?>"/>
+							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'edwiser-bridge' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'edwiser-bridge' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'eb-textdomain' ); ?>" src="<?php echo esc_url( $eb_plugin_url . '/images/loader.gif' ); ?>" height="20" width="20">
+								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'edwiser-bridge' ); ?>" src="<?php echo esc_url( $eb_plugin_url . '/images/loader.gif' ); ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
 						</div>
-						<span class="eb-email-note"><strong><?php esc_html_e( 'Note', 'eb-textdomain' ); ?>:-</strong> <?php esc_html_e( 'Some of the constants in these emails would be replaced by demo content', 'eb-textdomain' ); ?>.</span>
+						<span class="eb-email-note"><strong><?php esc_html_e( 'Note', 'edwiser-bridge' ); ?>:-</strong> <?php esc_html_e( 'Some of the constants in these emails would be replaced by demo content', 'edwiser-bridge' ); ?>.</span>
 
 					</div>
 				</div>
 				<div class="eb-edit-email-template-aside">
 					<div class="eb-email-templates-list">
-						<h3><?php esc_attr_e( 'Email Templates', 'eb-textdomain' ); ?></h3>
+						<h3><?php esc_attr_e( 'Email Templates', 'edwiser-bridge' ); ?></h3>
 						<ul id="eb_email_templates_list">
 				<?php
 				foreach ( $tmpl_list as $tmpl_id => $tmpl_name ) {
@@ -198,7 +198,7 @@ class EBAdminEmailTemplate {
 						</ul>
 					</div>
 					<div class="eb-email-templates-const-wrap">
-						<h3><?php esc_html_e( 'Template Constants', 'eb-textdomain' ); ?></h3>
+						<h3><?php esc_html_e( 'Template Constants', 'edwiser-bridge' ); ?></h3>
 						<div class="eb-emiltemp-const-wrap">
 		<?php
 		foreach ( $const_sec as $sec_name => $tmpl_const ) {
@@ -347,41 +347,41 @@ class EBAdminEmailTemplate {
 		/**
 		 * Genral constants.
 		 */
-		$genral['{USER_NAME}']              = __( 'The display name of the user.', 'eb-textdomain' );
-		$genral['{FIRST_NAME}']             = __( 'The first name of the user.', 'eb-textdomain' );
-		$genral['{LAST_NAME}']              = __( 'The last name of the user.', 'eb-textdomain' );
-		$genral['{SITE_NAME}']              = __( 'The name of the website.', 'eb-textdomain' );
-		$genral['{SITE_URL}']               = __( 'The URL of the website.', 'eb-textdomain' );
-		$genral['{COURSES_PAGE_LINK}']      = __( 'The link to the courses archive page.', 'eb-textdomain' );
-		$genral['{MY_COURSES_PAGE_LINK}']   = __( 'The link to the my courses page.', 'eb-textdomain' );
-		$genral['{USER_ACCOUNT_PAGE_LINK}'] = __( 'The WordPress user account page link.', 'eb-textdomain' );
-		$genral['{WP_LOGIN_PAGE_LINK}']     = __( 'The WordPress login page link.', 'eb-textdomain' );
-		$genral['{MOODLE_URL}']             = __( 'The moodle site url entered in the connection.', 'eb-textdomain' );
+		$genral['{USER_NAME}']              = __( 'The display name of the user.', 'edwiser-bridge' );
+		$genral['{FIRST_NAME}']             = __( 'The first name of the user.', 'edwiser-bridge' );
+		$genral['{LAST_NAME}']              = __( 'The last name of the user.', 'edwiser-bridge' );
+		$genral['{SITE_NAME}']              = __( 'The name of the website.', 'edwiser-bridge' );
+		$genral['{SITE_URL}']               = __( 'The URL of the website.', 'edwiser-bridge' );
+		$genral['{COURSES_PAGE_LINK}']      = __( 'The link to the courses archive page.', 'edwiser-bridge' );
+		$genral['{MY_COURSES_PAGE_LINK}']   = __( 'The link to the my courses page.', 'edwiser-bridge' );
+		$genral['{USER_ACCOUNT_PAGE_LINK}'] = __( 'The WordPress user account page link.', 'edwiser-bridge' );
+		$genral['{WP_LOGIN_PAGE_LINK}']     = __( 'The WordPress login page link.', 'edwiser-bridge' );
+		$genral['{MOODLE_URL}']             = __( 'The moodle site url entered in the connection.', 'edwiser-bridge' );
 		/**
 		 * New account and link account constants
 		 */
-		$account['{USER_PASSWORD}'] = __( 'The user accounts password.', 'eb-textdomain' );
+		$account['{USER_PASSWORD}'] = __( 'The user accounts password.', 'edwiser-bridge' );
 		/**
 		 * Course order template constants
 		 */
-		$order['{COURSE_NAME}'] = __( 'The title of the course.', 'eb-textdomain' );
-		$order['{ORDER_ID}']    = __( 'The order id of the purchased order completed.', 'eb-textdomain' );
+		$order['{COURSE_NAME}'] = __( 'The title of the course.', 'edwiser-bridge' );
+		$order['{ORDER_ID}']    = __( 'The order id of the purchased order completed.', 'edwiser-bridge' );
 
 		/*
 		*Refund Order template constants
 		*/
-		$refund['{ORDER_ID}']                = __( 'Refund order id.', 'eb-textdomain' );
-		$refund['{CUSTOMER_DETAILS}']        = __( 'This will get replaced by the customer details.', 'eb-textdomain' );
-		$refund['{ORDER_ITEM}']              = __( 'Order associated item list.', 'eb-textdomain' );
-		$refund['{TOTAL_AMOUNT_PAID}']       = __( 'Amount paid at the time of order placed.', 'eb-textdomain' );
-		$refund['{CURRENT_REFUNDED_AMOUNT}'] = __( 'Currantly refunded amount.', 'eb-textdomain' );
-		$refund['{TOTAL_REFUNDED_AMOUNT}']   = __( 'Total amount refunded till the time.', 'eb-textdomain' );
-		$refund['{ORDER_REFUND_STATUS}']     = __( 'Order refund status transaction.', 'eb-textdomain' );
+		$refund['{ORDER_ID}']                = __( 'Refund order id.', 'edwiser-bridge' );
+		$refund['{CUSTOMER_DETAILS}']        = __( 'This will get replaced by the customer details.', 'edwiser-bridge' );
+		$refund['{ORDER_ITEM}']              = __( 'Order associated item list.', 'edwiser-bridge' );
+		$refund['{TOTAL_AMOUNT_PAID}']       = __( 'Amount paid at the time of order placed.', 'edwiser-bridge' );
+		$refund['{CURRENT_REFUNDED_AMOUNT}'] = __( 'Currantly refunded amount.', 'edwiser-bridge' );
+		$refund['{TOTAL_REFUNDED_AMOUNT}']   = __( 'Total amount refunded till the time.', 'edwiser-bridge' );
+		$refund['{ORDER_REFUND_STATUS}']     = __( 'Order refund status transaction.', 'edwiser-bridge' );
 
 		/**
 		 * Course unenrollment alert constants
 		 */
-		$unenrollment['{WP_COURSE_PAGE_LINK}'] = __( 'The current course page link.', 'eb-textdomain' );
+		$unenrollment['{WP_COURSE_PAGE_LINK}'] = __( 'The current course page link.', 'edwiser-bridge' );
 
 		$constants['General constants']       = $genral;
 		$constants['New moodle user account'] = $account;
@@ -471,9 +471,9 @@ class EBAdminEmailTemplate {
 			$this->set_notify_allow( $tmpl_name, $notify_allow );
 			$this->set_template_data( $tmpl_name, $data );
 			$this->set_bcc_email_address( $tmpl_name, $bcc_email );
-			$message = self::get_notice_html( __( 'Changes saved successfully!', 'eb-textdomain' ) );
+			$message = self::get_notice_html( __( 'Changes saved successfully!', 'edwiser-bridge' ) );
 		} else {
-			$message = self::get_notice_html( __( 'Due to the security issue changes are not saved, Try to re-update it.', 'eb-textdomain' ), 'error' );
+			$message = self::get_notice_html( __( 'Due to the security issue changes are not saved, Try to re-update it.', 'edwiser-bridge' ), 'error' );
 		}
 	}
 
@@ -688,7 +688,7 @@ class EBAdminEmailTemplate {
 	 */
 	public function reset_email_template_content() {
 		$responce = array(
-			'data'   => __( 'Failed to reset email template', 'eb-textdomain' ),
+			'data'   => __( 'Failed to reset email template', 'edwiser-bridge' ),
 			'status' => 'failed',
 		);
 		if ( isset( $_POST['action'] ) && isset( $_POST['tmpl_name'] ) && 'wdm_eb_email_tmpl_restore_content' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
@@ -700,7 +700,7 @@ class EBAdminEmailTemplate {
 				)
 			);
 			if ( true === $args['is_restored'] ) {
-				$responce['data']   = __( 'Template restored successfully', 'eb-textdomain' );
+				$responce['data']   = __( 'Template restored successfully', 'edwiser-bridge' );
 				$responce['status'] = 'success';
 				wp_send_json_success( $responce );
 			} else {

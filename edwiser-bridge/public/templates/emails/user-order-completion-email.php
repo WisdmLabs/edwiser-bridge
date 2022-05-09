@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 <p>
 	<?php
 		/* Tanslators 1: First name */
-		printf( esc_html__( 'Hi %$1s', 'eb-textdomain' ), esc_html( $args['first_name'] ) );
+		printf( esc_html__( 'Hi %$1s', 'edwiser-bridge' ), esc_html( $args['first_name'] ) );
 	?>
 </p>
 
@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 	printf(
 		esc_html__(
 			'Thanks for purchasing %$1s course.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		'<strong>' . esc_html( get_the_title( $args['course_id'] ) ) . '</strong>'
 	);
@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 <p>
 	<?php
 		/* Tanslators 1: eb_order_id */
-		printf( esc_html__( 'Your order with ID #%$1s completed successfully.', 'eb-textdomain' ), esc_html( $args['eb_order_id'] ) );   // cahnges 1.4.7.
+		printf( esc_html__( 'Your order with ID #%$1s completed successfully.', 'edwiser-bridge' ), esc_html( $args['eb_order_id'] ) );   // cahnges 1.4.7.
 	?>
 </p>
 
@@ -45,7 +45,7 @@ defined( 'ABSPATH' ) || exit;
 	printf(
 		esc_html__(
 			'You can access your account here: <a href="%$1s">User Account</a>.',
-			'eb-textdomain'
+			'edwiser-bridge'
 		),
 		esc_html( \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() )
 	);

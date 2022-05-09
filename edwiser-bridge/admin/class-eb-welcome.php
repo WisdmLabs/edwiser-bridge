@@ -46,8 +46,8 @@ class Eb_Welcome {
 			return;
 		}
 
-		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'eb-textdomain' );
-		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' );
+		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'edwiser-bridge' );
+		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'edwiser-bridge' );
 
 		switch ( $_GET['page'] ) {
 			case 'eb-about':
@@ -212,14 +212,14 @@ class Eb_Welcome {
 		$version = edwiser_bridge_instance()->get_version();
 		?>
 
-		<h1><?php printf( esc_html__( 'Welcome to Edwiser Bridge', 'eb-textdomain' ), esc_html( $version ) ); ?></h1>
+		<h1><?php printf( esc_html__( 'Welcome to Edwiser Bridge', 'edwiser-bridge' ), esc_html( $version ) ); ?></h1>
 
 		<span class="eb-version-badge">
 		<?php
 		/*
 		 * translators: Version number.
 		 */
-		printf( esc_html__( 'Version %s', 'eb-textdomain' ), esc_html( $version ) );
+		printf( esc_html__( 'Version %s', 'edwiser-bridge' ), esc_html( $version ) );
 		?>
 		</span>
 
@@ -239,32 +239,32 @@ class Eb_Welcome {
 			<div class="changelog">
 				<p class="about-description">
 					<?php
-					esc_html_e( 'Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'eb-textdomain' );
+					esc_html_e( 'Thanks for installing Edwiser Bridge! Integrating WordPress with Moodle has never been so simple. We hope you enjoy using it.', 'edwiser-bridge' );
 					?>
 				</p>
 
 				<p class="eb_welcome_mdl_dwnld_btn_wrap">
-					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'eb-textdomain' ); ?> </a>
+					<a class="eb_welcome_mdl_dwnld_btn" href="https://edwiser.org/wp-content/uploads/edd/2022/02/edwiserbridge-1.zip"> <?php echo esc_html__( 'Download Moodle Plugin', 'edwiser-bridge' ); ?> </a>
 				</p>
 
 				<div class="changelog prompt-subscribe-wrap">
 					<h1 style="text-align:center; margin:0; font-size:30px;">
-						<?php esc_html_e( 'Get the latest updates on Edwiser Bridge in Your Inbox!', 'eb-textdomain' ); ?>
+						<?php esc_html_e( 'Get the latest updates on Edwiser Bridge in Your Inbox!', 'edwiser-bridge' ); ?>
 					</h1>
 					<form method="post" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" class="prompt-subscribe-form">
 						<h4>
 							<?php
-							esc_html_e( 'Stay updated with the latest features in Edwiser Bridge and receive early-bird discounts on upcoming premium add ons.', 'eb-textdomain' );
+							esc_html_e( 'Stay updated with the latest features in Edwiser Bridge and receive early-bird discounts on upcoming premium add ons.', 'edwiser-bridge' );
 							?>
 						</h4>
 						<br/>
 						<input
 							type="email"
 							name="eb_sub_admin_email"
-							placeholder="<?php esc_html_e( 'Please enter your email address', 'eb-textdomain' ); ?>" value="" />
+							placeholder="<?php esc_html_e( 'Please enter your email address', 'edwiser-bridge' ); ?>" value="" />
 						<input type="hidden" name="action" value="eb_subscribe" />
 						<?php wp_nonce_field( 'subscribe_nonce', 'subscribe_nonce_field' ); ?>
-						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'eb-textdomain' ); ?>" />
+						<input type="submit" class="subscribe-submit" value="<?php esc_html_e( 'Subscribe', 'edwiser-bridge' ); ?>" />
 					</form>
 					<?php
 					// Proceed only if the nonce is verified.
@@ -272,13 +272,13 @@ class Eb_Welcome {
 						if ( isset( $_GET['subscribed'] ) && sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="success-message">
-								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'eb-textdomain' ); ?></span>
+								<span><?php esc_html_e( 'Thanks for subscribing to Edwiser Bridge Updates & Notifications.', 'edwiser-bridge' ); ?></span>
 							</div>
 							<?php
 						} elseif ( isset( $_GET['subscribed'] ) && ! sanitize_text_field( wp_unslash( $_GET['subscribed'] ) ) ) {
 							?>
 							<div class="error-message">
-								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'eb-textdomain' ); ?></span>
+								<span><?php esc_html_e( 'An error occurred in subscription process, please try again.', 'edwiser-bridge' ); ?></span>
 							</div>
 							<?php
 						}
@@ -288,8 +288,8 @@ class Eb_Welcome {
 			</div>
 
 			<div class="eb-actions">
-				<a href="<?php echo esc_url( admin_url( 'admin.php?page=eb-settings' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Skip to Settings', 'eb-textdomain' ); ?></a>
-				<a href="<?php echo esc_url( 'https://edwiser.org/bridge/documentation/' ); ?>" target="_blank" class="docs button button-primary"><?php esc_html_e( 'Docs', 'eb-textdomain' ); ?></a>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=eb-settings' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Skip to Settings', 'edwiser-bridge' ); ?></a>
+				<a href="<?php echo esc_url( 'https://edwiser.org/bridge/documentation/' ); ?>" target="_blank" class="docs button button-primary"><?php esc_html_e( 'Docs', 'edwiser-bridge' ); ?></a>
 			</div>
 		</div>
 		<?php
@@ -328,7 +328,7 @@ class Eb_Welcome {
 
 		// verify nonce.
 		if ( ! isset( $_POST['subscribe_nonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['subscribe_nonce_field'] ) ), 'subscribe_nonce' ) ) {
-			esc_html_e( 'Sorry, there is a problem!', 'eb-textdomain' );
+			esc_html_e( 'Sorry, there is a problem!', 'edwiser-bridge' );
 			exit;
 		} else {
 			// process subscription.
@@ -339,12 +339,12 @@ class Eb_Welcome {
 			// prepare email content.
 			$subject = apply_filters(
 				'eb_plugin_subscription_email_subject',
-				__( 'Edwiser Bridge Plugin Subscription Notification', 'eb-textdomain' )
+				__( 'Edwiser Bridge Plugin Subscription Notification', 'edwiser-bridge' )
 			);
 
-			$message  = __( 'Edwiser Bridge subscription user details:', 'eb-textdomain' ) . " \n";
-			$message .= "\n" . __( 'Customer Website:', 'eb-textdomain' ) . "\n" . site_url();
-			$message .= "\n\n" . __( 'Customer Email:', 'eb-textdomain' ) . " \n";
+			$message  = __( 'Edwiser Bridge subscription user details:', 'edwiser-bridge' ) . " \n";
+			$message .= "\n" . __( 'Customer Website:', 'edwiser-bridge' ) . "\n" . site_url();
+			$message .= "\n\n" . __( 'Customer Email:', 'edwiser-bridge' ) . " \n";
 			$message .= $admin_email;
 
 			$sent = wp_mail( $support_email, $subject, $message );

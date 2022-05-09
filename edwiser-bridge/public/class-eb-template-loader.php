@@ -178,7 +178,7 @@ class EbTemplateLoader {
 
 		if ( ! file_exists( $located ) ) {
 			/* Translators 1: file path */
-			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'edwiser-bridge' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
 			return;
 		}
 
@@ -204,7 +204,7 @@ class EbTemplateLoader {
 
 		if ( ! file_exists( $located ) ) {
 			/* Translators 1: file path */
-			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'eb-textdomain' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
+			_doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%$1s', 'edwiser-bridge' ) . ' does not exist.', '<code>' . esc_html( $located ) . '</code>' ), '2.1' );
 			return;
 		}
 

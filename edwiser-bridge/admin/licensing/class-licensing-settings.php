@@ -42,7 +42,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		public function __construct() {
 			$this->addon_licensing = array( 'licensing' );
 			$this->_id             = 'licensing';
-			$this->label           = __( 'Licenses', 'eb-textdomain' );
+			$this->label           = __( 'Licenses', 'edwiser-bridge' );
 			if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once plugin_dir_path( __FILE__ ) . 'class-eb-licensing-manager.php';
 			}
@@ -96,17 +96,17 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 
 			if ( false !== $status_option && 'valid' === $status_option ) {
 				$class  = 'active';
-				$status = __( 'Active', 'eb-textdomain' );
+				$status = __( 'Active', 'edwiser-bridge' );
 			} elseif ( 'site_inactive' === $status_option ) {
-				$status = __( 'Not Active', 'eb-textdomain' );
+				$status = __( 'Not Active', 'edwiser-bridge' );
 			} elseif ( 'expired' === $status_option && ( ! empty( $display ) || '' !== $display ) ) {
-				$status = __( 'Expired', 'eb-textdomain' );
+				$status = __( 'Expired', 'edwiser-bridge' );
 			} elseif ( 'expired' === $status_option ) {
-				$status = __( 'Expired', 'eb-textdomain' );
+				$status = __( 'Expired', 'edwiser-bridge' );
 			} elseif ( 'invalid' === $status_option ) {
-				$status = __( 'Invalid Key', 'eb-textdomain' );
+				$status = __( 'Invalid Key', 'edwiser-bridge' );
 			} else {
-				$status = __( 'Not Active ', 'eb-textdomain' );
+				$status = __( 'Not Active ', 'edwiser-bridge' );
 			}
 			?>
 			<span class="eb_lic_status eb_lic_<?php echo esc_attr( $class ); ?>"><?php echo esc_attr( $status ); ?></span>
@@ -139,14 +139,14 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin['path'] ) ) {
 				$action = 'install_plugin';
 				?>
-				<span class="button-primary get_license_key wdm_eb_get_key_popup_btn"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></span>
-				<input class="button-primary install_plugin" type="submit"  name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'eb-textdomain' ); ?>">
+				<span class="button-primary get_license_key wdm_eb_get_key_popup_btn"><?php esc_attr_e( 'Get License Key', 'edwiser-bridge' ); ?></span>
+				<input class="button-primary install_plugin" type="submit"  name="install_plugin" value="<?php esc_attr_e( 'Install Plugin', 'edwiser-bridge' ); ?>">
 				<?php
 			} elseif ( ! is_plugin_active( $plugin['path'] ) ) {
 				$action = 'activate_plugin';
 				?>
-					<a href="https://edwiser.org/my-account/"  class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
-					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'eb-textdomain' ); ?></button>
+					<a href="https://edwiser.org/my-account/"  class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'edwiser-bridge' ); ?></a>
+					<button class="button-primary eb-activate-plugin" name="activate_plugin" type='submit' value="<?php echo esc_attr( $plugin['path'] ); ?>"><?php esc_attr_e( 'Activate Plugin', 'edwiser-bridge' ); ?></button>
 				<?php
 			} else {
 				$action = $this->get_license_status_button( $plugin_slug, $action );
@@ -174,25 +174,25 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			if ( false !== $status && 'valid' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>"/>
 					<?php
 			} elseif ( 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) {
 				$action = 'activate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'eb-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} elseif ( 'expired' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'eb-textdomain' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'eb-textdomain' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>" />
+					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} else {
 				$action = 'activate_license';
 				?>
-					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'eb-textdomain' ); ?></a>
-					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'eb-textdomain' ); ?>"/>
+					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'edwiser-bridge' ); ?></a>
+					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'edwiser-bridge' ); ?>"/>
 					<?php
 			}
 
@@ -205,7 +205,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		private function license_form_submission_handler() {
 			$post_data = wp_unslash( $_POST );
 			$resp_data = array(
-				'msg'          => __( 'Security check failed.', 'eb-textdomain' ),
+				'msg'          => __( 'Security check failed.', 'edwiser-bridge' ),
 				'notice_class' => 'notice-error',
 			);
 			$action    = isset( $post_data['action'] ) ? sanitize_text_field( $post_data['action'] ) : false;
@@ -225,7 +225,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 						$resp_data = $this->wdm_install_plugin( $post_data );
 						break;
 					default:
-						$resp_data['msg'] = __( 'Invalid action.', 'eb-textdomain' );
+						$resp_data['msg'] = __( 'Invalid action.', 'edwiser-bridge' );
 						break;
 				}
 			}
@@ -270,8 +270,8 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			update_option( $l_key_name, $l_key );
 
 			if ( empty( $plugin_data['license'] ) ) {
-				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
-				$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
+				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
+				$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'edwiser-bridge' ) . $get_l_key_link . __( ' to get the license key.', 'edwiser-bridge' );
 				return $resp;
 			}
 			$request = wp_remote_get(
@@ -294,15 +294,15 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 						/*if ( 'valid' === $status || 'expired' === $status ) {
 							$this->manage_license( $post_data, 'activate' );
 						}*/
-						$resp['msg']          = __( 'Plugin installed sucessfully.', 'eb-textdomain' );
+						$resp['msg']          = __( 'Plugin installed sucessfully.', 'edwiser-bridge' );
 						$resp['notice_class'] = 'notice-success';
 					} else {
-						$resp['msg'] = __( 'Plugin installation failed.', 'eb-textdomain' );
+						$resp['msg'] = __( 'Plugin installation failed.', 'edwiser-bridge' );
 					}
 				} elseif ( isset( $request->msg ) ) {
 					$resp['msg'] = $request->msg;
 				} else {
-					$resp['msg'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
+					$resp['msg'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'edwiser-bridge' );
 				}
 			}
 			return $resp;
@@ -317,9 +317,9 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		private function check_plugin_dependancy( $slug ) {
 			$msg = false;
 			if ( 'bulk-purchase' === $slug && ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
-				$msg = __( 'Please installed and activate Edwiser WooCommerce Integration plugin first.', 'eb-textdomain' );
+				$msg = __( 'Please installed and activate Edwiser WooCommerce Integration plugin first.', 'edwiser-bridge' );
 			} elseif ( 'woocommerce_integration' === $slug && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-				$msg = __( 'Please installed and activate WooCommerce plugin first.', 'eb-textdomain' );
+				$msg = __( 'Please installed and activate WooCommerce plugin first.', 'edwiser-bridge' );
 			}
 			return $msg;
 		}
@@ -401,7 +401,7 @@ var_dump('FLUSH CONTENT ::: ');
 				if ( 'valid' !== get_option( 'edd_' . $data['action'] . '_license_status' ) ) {
 					$resp = $this->manage_license( $data, 'activate' );
 				}
-				$resp['msg']          = __( 'Plugin activated successfully.', 'eb-textdomain' );
+				$resp['msg']          = __( 'Plugin activated successfully.', 'edwiser-bridge' );
 				$resp['notice_class'] = 'notice-success';
 			}
 			return $resp;
@@ -419,7 +419,7 @@ var_dump('FLUSH CONTENT ::: ');
 				'eb_licensing',
 				array(
 					array(
-						'title' => __( 'Licenses', 'eb-textdomain' ),
+						'title' => __( 'Licenses', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'id'    => 'licensing_management',
 					),
@@ -440,18 +440,18 @@ var_dump('FLUSH CONTENT ::: ');
 			<div id="eb_get_license_key_dialog" style="display:none;">
 				<ul>
 					<li class="eb_get_license">
-						<?php esc_html_e( 'If you already own a license then click here', 'eb-textdomain' ); ?>
-						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Get License', 'eb-textdomain' ); ?> </a>
+						<?php esc_html_e( 'If you already own a license then click here', 'edwiser-bridge' ); ?>
+						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Get License', 'edwiser-bridge' ); ?> </a>
 					</li>
 
 					<li class="eb_buy_license">
-						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge PRO then click here', 'eb-textdomain' ); ?>
-						<a href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'eb-textdomain' ); ?> </a>
+						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge PRO then click here', 'edwiser-bridge' ); ?>
+						<a href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'edwiser-bridge' ); ?> </a>
 					</li>
 
 					<li class="eb_upgrade_license">
-						<?php esc_html_e( 'If you already own one of the extensions, then click here to upgrade to Edwiser Bridge PRO', 'eb-textdomain' ); ?>
-						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Upgrade License', 'eb-textdomain' ); ?> </a>
+						<?php esc_html_e( 'If you already own one of the extensions, then click here to upgrade to Edwiser Bridge PRO', 'edwiser-bridge' ); ?>
+						<a href="https://edwiser.org/my-account/" target="_blank" class="button-primary"> <?php esc_html_e( 'Upgrade License', 'edwiser-bridge' ); ?> </a>
 					</li>
 				</ul>
 			</div>
