@@ -54,7 +54,8 @@ class Eb_Setup_Wizard_Functions {
 		 */
 
 		if ( ! isset( $_POST['action'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
-			add_action( 'admin_init', array( $this, 'eb_setup_wizard_template' ), 9 );
+			$setup_templates = new Eb_Setup_Wizard_Templates();
+			add_action( 'admin_init', array( $setup_templates, 'eb_setup_wizard_template' ), 9 );
 			add_action( 'admin_init', array( $this, 'eb_setup_steps_save_handler' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
 		}
@@ -78,6 +79,168 @@ class Eb_Setup_Wizard_Functions {
 
 	}
 
+		/**
+	 * 
+	 */
+	public function eb_setup_wizard_get_steps() {
+
+		/**
+		 * Loop through the steps.
+		 * Ajax call for each of the steps and save.
+		 * step change logic.
+		 * load data on step change.
+		 * 
+		 */
+
+		$free_setup_steps = array(
+			'initialize' => array(
+				'name'     => __( 'Setup Initialize', 'eb-textdoamin' ),
+				'title'    => __( 'Edwiser Bridge plugin - Setup Initialization', 'eb-textdoamin' ),
+				'function' => 'eb_setup_initialize',
+				'sidebar'  => 0,
+				'sub_step' => 0
+			),
+			'free_installtion_guide' => array(
+				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
+				'title'    => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
+				'function' => 'eb_setup_free_installtion_guide',
+				'sidebar'  => 1,
+				'sub_step' => 0,
+			),
+			'moodle_redirection' => array(
+				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
+				'title'    => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'eb-textdoamin' ),
+				'sidebar'  => 1,
+				'function' => 'eb_setup_moodle_redirection',
+				'sub_step' => 1,
+
+			),
+			'test_connection' => array(
+				'name'     => __( 'Connection test between WordPress and Moodle', 'eb-textdoamin' ),
+				'title'    => __( 'Adding Moodle credential to WordPress', 'eb-textdoamin' ),
+				'sidebar'  => 1,
+				'function' => 'eb_setup_test_connection',
+				'sub_step' => 0,
+
+			),
+			'course_sync' => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Courses syncronization', 'eb-textdoamin' ),
+				'title'    => __( 'Synchronize Moodle courses', 'eb-textdoamin' ),
+				'function' => 'eb_setup_course_sync',
+				'sub_step' => 0,
+
+			),
+			'user_sync' => array(
+				'sidebar'  => 1,
+				'name'     => __( 'User syncronization', 'eb-textdoamin' ),
+				'title'    => __( 'Synchronize Moodle users', 'eb-textdoamin' ),
+				'function' => 'eb_setup_user_sync',
+				'sub_step' => 0,
+
+			),
+			'free_recommended_settings' => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Recommended settings', 'eb-textdoamin' ),
+				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'eb-textdoamin' ),
+				'function' => 'eb_setup_free_recommended_settings',
+				'sub_step' => 0,
+
+			),
+			'free_completed_popup' => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Recommended settings', 'eb-textdoamin' ),
+				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'eb-textdoamin' ),
+				'function' => 'eb_setup_free_completed_popup',
+				'sub_step' => 1,
+
+			),
+
+		);
+
+		$pro_setup_steps = array(
+			'pro_initialize'       => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Initialize Edwiser Bridge PRO setup ', 'eb-textdoamin' ),
+				'title'    => __( 'Initialize Edwiser Bridge PRO plugin setup ', 'eb-textdoamin' ),
+				'function' => 'eb_setup_pro_initialize',
+				'sub_step' => 0,
+			),
+			'license'       => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Edwiser Bridge PRO License setup', 'eb-textdoamin' ),
+				'title'    => __( 'Install Edwiser Bridge PRO WordPress plugins', 'eb-textdoamin' ),
+				'function' => 'eb_setup_license',
+				'sub_step' => 0,
+			),
+
+			// 'wp_plugins'       => array(
+			// 	'sidebar' => 1,
+			// 	'name'    => __( 'Edwiser Bridge PRO WordPress plugin installation', 'eb-textdoamin' ),
+			// 	'function'    => 'eb_setup_wp_plugins',
+			// 	'sub_step' => 0,
+
+			// ),
+			'mdl_plugins'       => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Download Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
+				'title'    => __( 'Download Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
+				'function' => 'eb_setup_mdl_plugins',
+				'sub_step' => 0,
+			),
+			'mdl_plugins_installation' => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
+				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
+				'function' => 'eb_setup_mdl_plugins_installation',
+				'sub_step' => 1,
+			),
+			'sso'     => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Single Sign On setup', 'eb-textdoamin' ),
+				'title'    => __( 'Enter Single Sign On secret key', 'eb-textdoamin' ),
+				'function' => 'eb_setup_sso',
+				'sub_step' => 0,
+			),
+			'wi_products_sync'     => array(
+				'sidebar'  => 1,
+				'name'     => __( 'WooCommerce product creation', 'eb-textdoamin' ),
+				'title'    => __( 'Create WooCommerce product of Moodle courses', 'eb-textdoamin' ),
+				'function' => 'eb_setup_wi_products_sync',
+				'sub_step' => 0,
+			),
+			'pro_settings'     => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Edwiser Bridge PRO plugin settings', 'eb-textdoamin' ),
+				'title'    => __( 'Recommended settings', 'eb-textdoamin' ),
+				'function' => 'eb_setup_pro_settings',
+				'sub_step' => 0,
+			),
+		);
+
+
+		/**
+		 * Check the value of the selected setup.
+		 * If free don't show only free plugins steps.
+		 * If pro select only pro steps.
+		 * If selected both merge above two arrays and show those steps.
+		 */
+
+		$setup_wizard = get_option( 'eb_setup_data' );
+
+		if ( 'free' === $setup_wizard['name'] ) {
+			$steps = $free_setup_steps;
+		} elseif ( 'pro' === $setup_wizard['name'] ) {
+			$steps = $pro_setup_steps;
+		} elseif ( 'free_and_pro' === $setup_wizard['name'] ) {
+			$steps = array_merge( $free_setup_steps, $pro_setup_steps );
+		}
+
+		return $steps;
+	} 
+
+
+
 	/**
 	 * Added This new function instead of adding one by one function for wp_ajax hook, as by default parameter is not being set in each step callback so wrote below wrapper function for all of them and provided parameter 1.
 	 */
@@ -85,7 +248,9 @@ class Eb_Setup_Wizard_Functions {
 		$step      = isset( $_POST['step'] ) ? sanitize_text_field( wp_unslash( $_POST['step'] ) ) : '';
         $steps     = $this->eb_setup_wizard_get_steps();
 		$function  = $steps[$step]['function'];
-        $step_html = $this->$function( 1 );
+		$setup_wizard_templates = new Eb_Setup_Wizard_Templates();
+
+        $step_html = $setup_wizard_templates->$function( 1 );
 	}
 
 
@@ -269,8 +434,10 @@ error_log('next_step ::: '.print_r($next_step, 1));
         // Check if there is any data to be saved.
 
 
-	   // Save step form progress
-
+	    // Save step form progress
+	    $setup_data = get_option( 'eb_setup_data' );
+	    $setup_data['progress'] = $current_step;
+	    update_option( 'eb_setup_data', $setup_data );
 
 
         /*
@@ -284,7 +451,9 @@ error_log('next_step ::: '.print_r($next_step, 1));
         *    b. success screens
         */
         // Check if there are any sub steps available. 
-        $next_step_html = $this->$function( 1 );
+
+		$setup_wizard_templates = new Eb_Setup_Wizard_Templates();
+        $next_step_html = $setup_wizard_templates->$function( 1 );
 
 	}
 
@@ -357,7 +526,7 @@ error_log('next_step ::: '.print_r($next_step, 1));
 	}
 
 
-	public function eb_setup_steps_save_handler(){
+	public function eb_setup_steps_save_handler() {
 		
 		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
@@ -365,171 +534,13 @@ error_log('next_step ::: '.print_r($next_step, 1));
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
 		
-		wp_send_json_success($return);
+		wp_send_json_success( $return );
 		
 	}
 
 
 
-	/**
-	 * 
-	 */
-	public function eb_setup_wizard_get_steps() {
 
-		/**
-		 * Loop through the steps.
-		 * Ajax call for each of the steps and save.
-		 * step change logic.
-		 * load data on step change.
-		 * 
-		 */
-
-		$free_setup_steps = array(
-			'initialize' => array(
-				'name'     => __( 'Setup Initialize', 'eb-textdoamin' ),
-				'title'    => __( 'Edwiser Bridge plugin - Setup Initialization', 'eb-textdoamin' ),
-				'function' => 'eb_setup_initialize',
-				'sidebar'  => 0,
-				'sub_step' => 0
-			),
-			'free_installtion_guide' => array(
-				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
-				'title'    => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
-				'function' => 'eb_setup_free_installtion_guide',
-				'sidebar'  => 1,
-				'sub_step' => 0,
-			),
-			'moodle_redirection' => array(
-				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
-				'title'    => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'eb-textdoamin' ),
-				'sidebar'  => 1,
-				'function' => 'eb_setup_moodle_redirection',
-				'sub_step' => 1,
-
-			),
-			'test_connection' => array(
-				'name'     => __( 'Connection test between WordPress and Moodle', 'eb-textdoamin' ),
-				'title'    => __( 'Adding Moodle credential to WordPress', 'eb-textdoamin' ),
-				'sidebar'  => 1,
-				'function' => 'eb_setup_test_connection',
-				'sub_step' => 0,
-
-			),
-			'course_sync' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Courses syncronization', 'eb-textdoamin' ),
-				'title'    => __( 'Synchronize Moodle courses', 'eb-textdoamin' ),
-				'function' => 'eb_setup_course_sync',
-				'sub_step' => 0,
-
-			),
-			'user_sync' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'User syncronization', 'eb-textdoamin' ),
-				'title'    => __( 'Synchronize Moodle users', 'eb-textdoamin' ),
-				'function' => 'eb_setup_user_sync',
-				'sub_step' => 0,
-
-			),
-			'free_recommended_settings' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Recommended settings', 'eb-textdoamin' ),
-				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'eb-textdoamin' ),
-				'function' => 'eb_setup_free_recommended_settings',
-				'sub_step' => 0,
-
-			),
-			'free_completed_popup' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Recommended settings', 'eb-textdoamin' ),
-				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'eb-textdoamin' ),
-				'function' => 'eb_setup_free_completed_popup',
-				'sub_step' => 1,
-
-			),
-
-		);
-
-		$pro_setup_steps = array(
-			'pro_initialize'       => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Initialize Edwiser Bridge PRO setup ', 'eb-textdoamin' ),
-				'title'    => __( 'Initialize Edwiser Bridge PRO plugin setup ', 'eb-textdoamin' ),
-				'function' => 'eb_setup_pro_initialize',
-				'sub_step' => 0,
-			),
-			'license'       => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Edwiser Bridge PRO License setup', 'eb-textdoamin' ),
-				'title'    => __( 'Install Edwiser Bridge PRO WordPress plugins', 'eb-textdoamin' ),
-				'function' => 'eb_setup_license',
-				'sub_step' => 0,
-			),
-
-			// 'wp_plugins'       => array(
-			// 	'sidebar' => 1,
-			// 	'name'    => __( 'Edwiser Bridge PRO WordPress plugin installation', 'eb-textdoamin' ),
-			// 	'function'    => 'eb_setup_wp_plugins',
-			// 	'sub_step' => 0,
-
-			// ),
-			'mdl_plugins'       => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Download Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
-				'title'    => __( 'Download Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
-				'function' => 'eb_setup_mdl_plugins',
-				'sub_step' => 0,
-			),
-			'mdl_plugins_installation' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
-				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'eb-textdoamin' ),
-				'function' => 'eb_setup_mdl_plugins_installation',
-				'sub_step' => 1,
-			),
-			'sso'     => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Single Sign On setup', 'eb-textdoamin' ),
-				'title'    => __( 'Enter Single Sign On secret key', 'eb-textdoamin' ),
-				'function' => 'eb_setup_sso',
-				'sub_step' => 0,
-			),
-			'wi_products_sync'     => array(
-				'sidebar'  => 1,
-				'name'     => __( 'WooCommerce product creation', 'eb-textdoamin' ),
-				'title'    => __( 'Create WooCommerce product of Moodle courses', 'eb-textdoamin' ),
-				'function' => 'eb_setup_wi_products_sync',
-				'sub_step' => 0,
-			),
-			'pro_settings'     => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Edwiser Bridge PRO plugin settings', 'eb-textdoamin' ),
-				'title'    => __( 'Recommended settings', 'eb-textdoamin' ),
-				'function' => 'eb_setup_pro_settings',
-				'sub_step' => 0,
-			),
-		);
-
-
-		/**
-		 * Check the value of the selected setup.
-		 * If free don't show only free plugins steps.
-		 * If pro select only pro steps.
-		 * If selected both merge above two arrays and show those steps.
-		 */
-
-		$setup_wizard = get_option( 'eb_setup_data' );
-
-		if ( 'free' === $setup_wizard['name'] ) {
-			$steps = $free_setup_steps;
-		} elseif ( 'pro' === $setup_wizard['name'] ) {
-			$steps = $pro_setup_steps;
-		} elseif ( 'both' === $setup_wizard['name'] ) {
-			$steps = array_merge( $free_setup_steps, $pro_setup_steps );
-		}
-
-		return $steps;
-	}
 
 
 
@@ -565,16 +576,43 @@ error_log('next_step ::: '.print_r($next_step, 1));
 	public function eb_setup_steps_html() {
 		$steps = $this->eb_setup_wizard_get_steps();
 
+		/**
+		 * Get completed steps data.
+		 * 
+		 */
+	    $setup_data = get_option( 'eb_setup_data' );
+		$progress   = isset( $setup_data['progress'] ) ? $setup_data['progress'] : '';
+		$completed  = 1;
+
+
+
+		if ( empty( $progress )  ) {
+			$completed = 0;
+		}
+		
 		if ( ! empty( $steps ) && is_array( $steps ) ) {
+
 		?>
 		<ul class="eb-setup-steps">
 
 		<?php
 			foreach( $steps as $key => $step ) {
+				$class = '';
+				$html  = '<span class="eb-setup-step-circle" > </span>';
+
+				if ( 1 == $completed ) {
+					$class = 'eb-setup-step-completed';
+					$html  = '<span class="dashicons dashicons-arrow-right-alt2"></span>';
+				}
+
+				if ( $key == $progress ) {
+					$completed = 0;
+				}
+
 			?>
-			<li class="eb-setup-step eb-setup-step-completed-wrap">
-				<span class="eb-setup-step-circle" > </span> </span>
-				<span class="eb-setup-steps-title eb-setup-step-completed" data-step="<?php esc_attr_e( $key ); ?>">
+			<li class='eb-setup-step  <?php echo $class . '-wrap'; ?>'>
+				<?php echo $html; ?>
+				<span class='eb-setup-steps-title <?php echo $class; ?>' data-step="<?php esc_attr_e( $key ); ?>">
 					<?php esc_attr_e( $step['name'], 'edwiser-bridge' ); ?>
 				</span>
 			</li>
@@ -607,7 +645,7 @@ error_log('next_step ::: '.print_r($next_step, 1));
 			} elseif ( isset( $_POST['eb_pro_setup'] ) ) {
 				$chosen_setup = 'pro';
 			} elseif ( isset( $_POST['eb_free_and_pro'] ) ) {
-				$chosen_setup = 'both';
+				$chosen_setup = 'free_and_pro';
 			}
 
 			$setup_array = array( 'name' => $chosen_setup );

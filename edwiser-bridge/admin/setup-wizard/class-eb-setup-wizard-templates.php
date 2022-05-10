@@ -33,12 +33,14 @@ class Eb_Setup_Wizard_Templates {
 	 */
 	public function eb_setup_wizard_template( $step = 'initialize' ) {
 		// Intialization.
+		$setup_functions = new Eb_Setup_Wizard_Functions();
+
 
 		// Get current step.
 		$content_class = '';
-		$steps         = $this->eb_setup_wizard_get_steps();
-		$step          = $this->eb_setup_handle_page_submission_or_refresh();
-		$title         = $this->eb_get_step_title( $step );
+		$steps         = $setup_functions->eb_setup_wizard_get_steps();
+		$step          = $setup_functions->eb_setup_handle_page_submission_or_refresh();
+		$title         = $setup_functions->eb_get_step_title( $step );
 
 		$this->setup_wizard_header( $title );
 
@@ -61,7 +63,7 @@ class Eb_Setup_Wizard_Templates {
 
 				<?php
 
-				$this->eb_setup_steps_html();
+				$setup_functions->eb_setup_steps_html();
 
 				?>
 
@@ -173,16 +175,16 @@ class Eb_Setup_Wizard_Templates {
 		</body>
 	</html>
 
-
-		<?php
+	<?php
 	}
 
 
 	public function eb_setup_initialize( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
 		$step             = 'initialize';
 		$is_next_sub_step = 0;
-		$next_step        = $this->get_next_step( $step );
-		$title            = $this->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -233,21 +235,20 @@ class Eb_Setup_Wizard_Templates {
 
 		<?php
 
-
-
 		if ( $ajax ) {
 			$html   = ob_get_clean();
 			$return = array( 'title' => $title, 'content' => $html, 'popup' => 0 );
 			wp_send_json_success( $return );
 		}
-
 	}
 
 	public function eb_setup_free_installtion_guide( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'free_installtion_guide';
 		$is_next_sub_step = 1;
-		$next_step        = $this->get_next_step( $step );
-		$title            = $this->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -316,11 +317,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_moodle_redirection( $ajax = '1' ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'moodle_redirection';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$next_step        = $this->get_next_step( $step );
-		$title            = $this->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
 		
 		if ( $ajax ) {
 			ob_start();
@@ -368,11 +371,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_test_connection( $ajax = '1' ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'test_connection';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$next_step        = $this->get_next_step( $step );
-		$title            = $this->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
 
 
 		if ( $ajax ) {
@@ -381,7 +386,7 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class="eb_setup_test_connection">
 			<div>
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
+				<div class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
 
 				<div>
 					<div class="eb_setup_conn_url_inp_wrap">
@@ -444,11 +449,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_course_sync( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'course_sync';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 	
 		if ( $ajax ) {
 			ob_start();
@@ -503,11 +510,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_user_sync( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'user_sync';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -627,11 +636,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_free_recommended_settings( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'free_recommended_settings';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 		
 		$args = array(
 			'name'             => 'eb_setup_user_accnt_page',
@@ -690,11 +701,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_free_completed_popup( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'free_completed_popup';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -732,11 +745,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_pro_initialize( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'pro_initialize';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -773,11 +788,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_license( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'license';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -853,11 +870,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_mdl_plugins( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'mdl_plugins';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -903,11 +922,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_mdl_plugins_installation( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'mdl_plugins_installation';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -980,11 +1001,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_sso( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'sso';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -1037,11 +1060,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_wi_products_sync( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'wi_products_sync';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();
@@ -1073,11 +1098,13 @@ class Eb_Setup_Wizard_Templates {
 
 
 	public function eb_setup_pro_settings( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+
 		$step             = 'pro_settings';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
-		$title            = $this->eb_get_step_title( $step );
-		$next_step        = $this->get_next_step( $step );
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
 
 		if ( $ajax ) {
 			ob_start();

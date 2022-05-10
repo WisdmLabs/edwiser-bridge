@@ -237,7 +237,8 @@ class EdwiserBridge {
 		/**
 		 * Set up wizard.
 		 */
-		require_once $plugin_path . 'admin/setup-wizard/class-eb-setup-wizard.php';
+		require_once $plugin_path . 'admin/setup-wizard/class-eb-setup-wizard-templates.php';
+		require_once $plugin_path . 'admin/setup-wizard/class-eb-setup-wizard-functions.php';
 
 		require_once $plugin_path . 'includes/class-eb-email-template-parser.php';
 
