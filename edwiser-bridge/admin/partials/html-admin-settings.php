@@ -37,14 +37,14 @@ foreach ( $extensions as $plugin_path ) {
 		<div class="icon32 icon32-eb-settings" id="icon-edw"><br /></div>
 		<h2 class="nav-tab-wrapper eb-nav-tab-wrapper">
 			<?php
+			$allowed_tags = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 			foreach ( $tabs as $name => $label ) {
-				if( !$show_banner && 'pfetures' === $name ) {
+				if ( ! $show_banner && 'pfetures' === $name ) {
 					$do_not_show = 'style="display:none;"';
-				}
-				else{
+				} else {
 					$do_not_show = '';
 				}
-				echo '<a ' . $do_not_show . ' href="' . esc_url( admin_url( 'admin.php?page=eb-settings&tab=' . $name ) ) .
+				echo '<a ' . wp_kses( $do_not_show, $allowed_tags ) . ' href="' . esc_url( admin_url( 'admin.php?page=eb-settings&tab=' . $name ) ) .
 				'" class="nav-tab ' . ( $current_tab === $name ? 'nav-tab-active' : '' ) . '">'
 				. esc_html( $label ) .
 				'</a>';
@@ -71,7 +71,7 @@ foreach ( $extensions as $plugin_path ) {
 
 
 			<?php
-			
+
 			if ( in_array( $tabname, array( 'remui', 'pfetures' ), true ) ) {
 				$show_banner = false;
 			}

@@ -26,7 +26,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 		 *
 		 * @var text $_id Id
 		 */
-		protected $_id = '';
+		protected $_id = ''; // @codingStandardsIgnoreLine.
 
 		/**
 		 * Label.

@@ -87,8 +87,6 @@ class Eb_Admin {
 			'all'
 		);
 
-		
-
 		wp_enqueue_style(
 			'jquery-tiptip-css',
 			$eb_plugin_url . 'admin/assets/css/tipTip.css',

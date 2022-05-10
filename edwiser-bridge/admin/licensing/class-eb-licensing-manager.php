@@ -405,7 +405,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				// Handle Submission of inputs on license page.
 				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 					// If empty, show error message.
-					
+
 					/*
 					* translators: license key.
 					*/

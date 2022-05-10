@@ -78,7 +78,7 @@ class Eb_Settings_Ajax_Initiater {
 
 		// verifying generated nonce we created earlier.
 		// if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
-		// 	die( 'Busted!' );
+		// die( 'Busted!' );
 		// }
 		// Added offset for user get limit.
 		$offset = isset( $_POST['offset'] ) ? sanitize_text_field( wp_unslash( $_POST['offset'] ) ) : 0;
@@ -133,10 +133,6 @@ class Eb_Settings_Ajax_Initiater {
 
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
-
-		if ( 0 === $response['success'] ) {
-			// $response['response_message'] .= esc_html__( ' : to know more about this error', 'edwiser-bridge' ) . "<a href='https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin' target='_blank'>" . esc_html__( ' click here', 'edwiser-bridge' ) . '</a>';
-		}
 
 		echo wp_json_encode( $response );
 		die();

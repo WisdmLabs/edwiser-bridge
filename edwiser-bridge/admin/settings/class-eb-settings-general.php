@@ -58,8 +58,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'edwiser-bridge' ), '<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
 			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
 
-
-
 			$settings = apply_filters(
 				'eb_general_settings',
 				array(
@@ -124,13 +122,12 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'desc_tip' => __( 'This sets the courses page, where user can see courses page.', 'edwiser-bridge' ),
 					),
 					array(
-						'title'    => __( 'Moodle Language Code', 'edwiser-bridge' ),
-						'desc'     => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'edwiser-bridge' ) . ' </a>' ,
-						'id'       => 'eb_language_code',
-						'default'  => 'en',
-						'type'     => 'text',
-						'css'      => 'min-width:300px;',
-						// 'desc_tip' => true,
+						'title'   => __( 'Moodle Language Code', 'edwiser-bridge' ),
+						'desc'    => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'edwiser-bridge' ) . ' </a>',
+						'id'      => 'eb_language_code',
+						'default' => 'en',
+						'type'    => 'text',
+						'css'     => 'min-width:300px;',
 					),
 					array(
 						'title'    => __( 'Disable SSL certificate check', 'edwiser-bridge' ),

@@ -112,10 +112,9 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 					),
 					array(
 						'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
-						'type'  => 'cust_html',
-						// 'id'    => 'eb_test_connection_response',
+						'type' => 'cust_html',
 					),
-					
+
 					array(
 						'type' => 'sectionend',
 						'id'   => 'connection_options',

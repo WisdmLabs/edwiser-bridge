@@ -247,20 +247,21 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		 * Function to install the plugin.
 		 *
 		 * @param  mixed $post_data Installation reuqest data.
+		 * @param  bool  $flush_content   Whether to flush content or not.
 		 */
 		public function wdm_install_plugin( $post_data, $flush_content = 1 ) {
-			$resp            = array(
+			$resp = array(
 				'msg'          => '',
 				'notice_class' => 'notice-error',
 			);
-			$slug            = $post_data['action'];
+			$slug = $post_data['action'];
 
-			//removed dependency check during install plugin action.
+			// removed dependency check during install plugin action.
 			// $chec_plugin_dep = $this->check_plugin_dependancy( $slug );
 			// if ( false !== $chec_plugin_dep ) {
-			// 	$resp['msg'] = $chec_plugin_dep;
-			// 	return $resp;
-			// }
+			// $resp['msg'] = $chec_plugin_dep;
+			// return $resp;
+			// }.
 
 			$plugin_data               = $this->products_data[ $slug ];
 			$plugin_data['edd_action'] = 'get_version';
@@ -291,7 +292,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 						$resp['msg'] = $installed->get_error_messages();
 					} elseif ( $installed ) {
 						$status = get_option( 'edd_' . $slug . '_license_status' );
-						/*if ( 'valid' === $status || 'expired' === $status ) {
+						/*if ( 'valid' === $status || 'expired' === $status ) { @codingStandardsIgnoreLine
 							$this->manage_license( $post_data, 'activate' );
 						}*/
 						$resp['msg']          = __( 'Plugin installed sucessfully.', 'edwiser-bridge' );
@@ -328,28 +329,28 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		 * Function to install the plugin.
 		 *
 		 * @param string $plugin_zip Plugin zip file url.
+		 * @param bool   $flush Whether to flush content or not.
 		 */
 		private function install_plugin( $plugin_zip, $flush = 1 ) {
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-			
-var_dump($flush);
-// clear_update_cache
-var_dump($plugin_zip);
+
+			var_dump( $flush ); //@codingStandardsIgnoreLine
+			// clear_update_cache.
+			var_dump( $plugin_zip ); //@codingStandardsIgnoreLine
 
 			if ( $flush ) {
-var_dump('FLUSH CONTENT ::: ');
+				var_dump( 'FLUSH CONTENT ::: ' ); //@codingStandardsIgnoreLine
 
 				wp_cache_flush();
-				$args    = array(
+				$args = array(
 					'clear_update_cache' => true,
 				);
 			} else {
-				$args    = array(
+				$args = array(
 					'clear_update_cache' => false,
 				);
 			}
 
-			
 			$upgrader  = new \Plugin_Upgrader();
 			$installed = $upgrader->install( $plugin_zip, $args );
 			return $installed;
