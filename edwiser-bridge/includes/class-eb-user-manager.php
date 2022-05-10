@@ -708,7 +708,7 @@ class EBUserManager {
 		foreach ( $user_data as $key => $value ) {
 			$users[0][ $key ] = $value;
 		}
-		
+
 		// prepare request data.
 		$request_data = array( 'users' => $users );
 		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
@@ -926,7 +926,7 @@ class EBUserManager {
 
 		$eb_bulk_user_nonce = wp_create_nonce( 'eb_bulk_users_nonce' );
 
-		$users = isset( $_REQUEST['users'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$users = isset( $_REQUEST['users'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_REQUEST['users'] ) : array(); //@codingStandardsIgnoreLine
 
 		// get all selected users.
 		$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';

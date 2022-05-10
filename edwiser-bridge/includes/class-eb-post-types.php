@@ -610,7 +610,7 @@ class Eb_Post_Types {
 
 				if ( isset( $_POST['eb_post_meta_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb_post_meta_nonce'] ) ), 'eb_post_meta_nonce' ) ) {
 					if ( isset( $_POST[ $post_type . '_options' ] ) ) {
-						$post_options = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // WPCS: input var ok, CSRF ok, sanitization ok.
+						$post_options = \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST[ $post_type . '_options' ] ); // @codingStandardsIgnoreLine
 					}
 					if ( ! empty( $post_options ) ) {
 						foreach ( $fields as $key => $values ) {
@@ -699,7 +699,7 @@ class Eb_Post_Types {
 			2  => __( 'Custom field updated.', 'edwiser-bridge' ),
 			3  => __( 'Custom field deleted.', 'edwiser-bridge' ),
 			4  => sprintf( '%s ', esc_attr( $singular ) ) . __( 'updated.', 'edwiser-bridge' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( // WPCS: input var ok, CSRF ok, sanitization ok.
+			5  => isset( $_GET['revision'] ) ? sprintf( // @codingStandardsIgnoreLine
 				'%s ',
 				wp_post_revision_title( filter_input( INPUT_GET, 'revision', FILTER_SANITIZE_NUMBER_INT ), false )
 			) . __( 'restored to revision from ', 'edwiser-bridge' ) . sprintf(

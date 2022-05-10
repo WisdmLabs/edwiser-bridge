@@ -200,7 +200,7 @@ class Eb_Ipn_Listener {
 			$this->post_uri = 'http://' . $uri . '/cgi-bin/webscr';
 		}
 
-		$_fp = fsockopen( $uri, $port, $errno, $errstr, $this->timeout );
+		$_fp = fsockopen( $uri, $port, $errno, $errstr, $this->timeout ); // @codingStandardsIgnoreLine
 
 		if ( ! $_fp ) {
 			// fsockopen error.
@@ -225,7 +225,7 @@ class Eb_Ipn_Listener {
 			}
 		}
 
-		fclose( $_fp );
+		fclose( $_fp ); // @codingStandardsIgnoreLine
 	}
 
 	/**
@@ -343,7 +343,7 @@ class Eb_Ipn_Listener {
 		} else {
 			// use provided data array.
 			$this->post_data = $post_data;
-			$encoded_data    = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+			$encoded_data    = wp_unslash( $_POST ); // @codingStandardsIgnoreLine
 
 		}
 

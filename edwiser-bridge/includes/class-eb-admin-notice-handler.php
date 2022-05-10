@@ -341,14 +341,14 @@ class Eb_Admin_Notice_Handler {
 		ob_start();
 		?>
 <p>
-    <strong><?php echo esc_html__( 'Important Update Notice:', 'edwiser-bridge' ); ?></strong>
-    <?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'edwiser-bridge' ); ?>
-    <a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?></a>
-    <?php echo esc_html__( ' to download', 'edwiser-bridge' ); ?>
+	<strong><?php echo esc_html__( 'Important Update Notice:', 'edwiser-bridge' ); ?></strong>
+		<?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'edwiser-bridge' ); ?>
+	<a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?></a>
+		<?php echo esc_html__( ' to download', 'edwiser-bridge' ); ?>
 
 </p>
 
-<?php
+		<?php
 		echo wp_kses( ob_get_clean(), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 
 		// added this just for commit purpose.

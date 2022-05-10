@@ -52,8 +52,8 @@ class EB_Usage_Tracking {
 			$url            = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
 			$request_args   = array(
 				'sslverify' => false,
-				'body'    => $analytics_data,
-				'timeout' => 100,
+				'body'      => $analytics_data,
+				'timeout'   => 100,
 			);
 			$result         = wp_remote_post( $url, $request_args );
 

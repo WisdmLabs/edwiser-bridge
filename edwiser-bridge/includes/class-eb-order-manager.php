@@ -123,7 +123,7 @@ class Eb_Order_Manager {
 			return $order_id;
 		}
 
-		$post_options = isset( $_POST['eb_order_options'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); // WPCS: input var ok, CSRF ok, sanitization ok.
+		$post_options = isset( $_POST['eb_order_options'] ) ? \app\wisdmlabs\edwiserBridge\wdm_eb_edwiser_sanitize_array( $_POST['eb_order_options'] ) : array(); //@codingStandardsIgnoreLine.
 
 		if ( empty( $post_options ) ) {
 			return false;
@@ -448,7 +448,7 @@ class Eb_Order_Manager {
 				'pending'   => esc_html__( 'Pending', 'edwiser-bridge' ),
 				'completed' => esc_html__( 'Completed', 'edwiser-bridge' ),
 				'failed'    => esc_html__( 'Failed', 'edwiser-bridge' ),
-				'refunded'    => esc_html__( 'Refunded', 'edwiser-bridge' ),
+				'refunded'  => esc_html__( 'Refunded', 'edwiser-bridge' ),
 			);
 			echo isset( $options[ $status ] ) ? esc_html( $options[ $status ] ) : esc_html( ucfirst( $status ) );
 		} elseif ( 'ordered_by' === $column_name ) {

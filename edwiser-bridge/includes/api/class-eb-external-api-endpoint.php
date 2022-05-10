@@ -116,7 +116,7 @@ class Eb_External_Api_Endpoint {
 			$settings = maybe_unserialize( get_option( 'eb_connection' ) );
 			if ( ! isset( $settings['eb_access_token'] ) ) {
 				$msg = 'Please save connection settings on Worpdress';
-			} elseif ( $settings['eb_access_token'] != $data['secret_key'] ) {
+			} elseif ( $settings['eb_access_token'] !== $data['secret_key'] ) {
 				$msg    = 'Invalid token please check token';
 				$status = 0;
 			} else {
@@ -174,7 +174,7 @@ class Eb_External_Api_Endpoint {
 					// check if there any pending enrollments for the given course then don't enroll user.
 					$user_enrollment_meta = get_user_meta( $wp_user_id, 'eb_pending_enrollment', 1 );
 
-					if ( is_array( $user_enrollment_meta ) && in_array( $wp_course_id, $user_enrollment_meta ) ) {
+					if ( is_array( $user_enrollment_meta ) && in_array( $wp_course_id, $user_enrollment_meta ) ) { // @codingStandardsIgnoreLine
 						return;
 					}
 
@@ -356,10 +356,9 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function eb_trigger_course_creation( $data ) {
 
-
 		if ( isset( $data['course_id'] ) ) {
 			// Create course data.
-			$course_data = new \stdClass();
+			$course_data             = new \stdClass();
 			$course_data->id         = $data['course_id'];
 			$course_data->fullname   = $data['fullname'];
 			$course_data->summary    = $data['summary'];
@@ -369,7 +368,7 @@ class Eb_External_Api_Endpoint {
 			edwiser_bridge_instance()->course_manager()->create_course_on_wordpress(
 				$course_data,
 				array(
-					'eb_synchronize_draft'=> '1'
+					'eb_synchronize_draft' => '1',
 				)
 			);
 		}
@@ -414,14 +413,14 @@ class Eb_External_Api_Endpoint {
 		if ( ! empty( $wp_user_id ) ) {
 			// get fields.
 			$user_update_array = array(
-				'ID'         => $wp_user_id,
+				'ID' => $wp_user_id,
 			);
 
 			// CHecking this as when user updates password through preferences only password will be sent to the WordPress, so if anyone of the field is empty we need to only update password.
 			if ( isset( $data['first_name'] ) && ! empty( $data['first_name'] ) ) {
 				$user_update_array['first_name'] = $data['first_name'];
 				$user_update_array['last_name']  = $data['last_name'];
-			}			
+			}
 
 			// if password is present then decode with key.
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {

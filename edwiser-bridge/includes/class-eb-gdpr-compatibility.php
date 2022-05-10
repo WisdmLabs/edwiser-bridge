@@ -215,7 +215,7 @@ class Eb_Gdpr_Compatibility {
 		$sections = array( esc_html__( 'User Account Creation', 'edwiser-bridge' ) => $this->eb_user_account_creation_policy() );
 
 		$sections[ esc_html__( 'Payments', 'edwiser-bridge' ) ] = $this->eb_payment_policy();
-		$active_plugins                                        = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+		$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
 		if ( in_array( 'edwiser-bridge-sso/sso.php', $active_plugins, true ) ) {
 			$sections[ esc_html__( 'User’s Simultaneous login and logout', 'edwiser-bridge' ) ] = $this->eb_sso_policy();
 		}

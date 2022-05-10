@@ -150,19 +150,19 @@ class EBConnectionHelper {
 
 		$webservice_function = 'core_course_get_courses';
 
-		$request_url  = $url . '/webservice/rest/server.php?wstoken=';
-		$request_url .= $token . '&wsfunction=';
-		$request_url .= $webservice_function . '&moodlewsrestformat=json';
-		$request_args = array(
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
 			'timeout' => 100,
 		);
-		$settings   = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
-		$response     = wp_remote_post( $request_url, $request_args );
-		
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+		$response = wp_remote_post( $request_url, $request_args );
+
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
@@ -179,7 +179,7 @@ class EBConnectionHelper {
 
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
-				$response_message = $this->create_response_message( $request_url, print_r($body, 1) );
+				$response_message = $this->create_response_message( $request_url, print_r( $body, 1 ) ); // @codingStandardsIgnoreLine
 
 			} else {
 				// added else to check the other services access error.
@@ -191,7 +191,7 @@ class EBConnectionHelper {
 				}
 			}
 		} else {
-			$success          = 0;
+			$success              = 0;
 				$response_message = $this->create_response_message( $request_url, esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'edwiser-bridge' ) );
 
 		}
@@ -232,13 +232,13 @@ class EBConnectionHelper {
 
 		$webservice_functions    = \app\wisdmlabs\edwiserBridge\wdm_eb_get_all_web_service_functions();
 		$missing_web_service_fns = array();
-		
-		$request_args           = array( 'timeout' => 100 );
+
+		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
 
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -277,13 +277,15 @@ class EBConnectionHelper {
 
 
 	/**
+	 * Parsing HTML response message.
 	 *
-	 *
-	 */	
+	 * @param text $url url.
+	 * @param text $message message.
+	 */
 	public function create_response_message( $url, $message ) {
 		$msg = '<div>
                         <div class="eb_connection_short_msg">
-                            ' . esc_html__( 'Test Connection failed, To check more information about issue click', 'edwiser-bridge' ) . ' <span class="eb_test_connection_log_open"> ' . esc_html__( 'here', 'edwiser-bridge') . ' </span>.
+                            ' . esc_html__( 'Test Connection failed, To check more information about issue click', 'edwiser-bridge' ) . ' <span class="eb_test_connection_log_open"> ' . esc_html__( 'here', 'edwiser-bridge' ) . ' </span>.
                         </div>
 
                         <div class="eb_test_connection_log">
@@ -296,11 +298,11 @@ class EBConnectionHelper {
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Url : ', 'edwiser-bridge' ) . '</b></div>
-	                                	<div class="eb_test_conct_log_url">' . $url .'</div>
+	                                	<div class="eb_test_conct_log_url">' . $url . '</div>
 	                                </div>
 	                                <div>
 	                                	<div><b>' . esc_html__( 'Response : ', 'edwiser-bridge' ) . '</b></div>
-	                                	<div>' . $message .'</div>
+	                                	<div>' . $message . '</div>
 	                                </div>
 	                            </div>
 
@@ -310,7 +312,7 @@ class EBConnectionHelper {
 							<div>
                         </div>
                     </div>';
-        return $msg;
+		return $msg;
 	}
 
 	/**
@@ -357,13 +359,13 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args = array( 'timeout' => 100 );
+		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
-		$response     = wp_remote_post( $request_url, $request_args );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+		$response = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -433,15 +435,15 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args = array(
+		$request_args              = array(
 			'body'    => $request_data,
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-  		$request_args['sslverify'] = false;
- 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-  			$request_args['sslverify'] = true;
-  		}
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
 
 		$response = wp_remote_post( $request_url, $request_args );
 

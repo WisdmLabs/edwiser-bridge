@@ -647,10 +647,12 @@ class EdwiserBridge {
 		/**
 		 * Set up wizard
 		 */
-		// $setup_wizard = new Eb_Setup_Wizard();
+		/**
+		* $setup_wizard = new Eb_Setup_Wizard();
 
-		// $this->loader->eb_add_action( 'admin_menu', $setup_wizard, 'admin_menus', 10 );
-		// $this->loader->eb_add_action( 'admin_init', $setup_wizard, 'eb_setup_wizard_handler', 10 );
+		* $this->loader->eb_add_action( 'admin_menu', $setup_wizard, 'admin_menus', 10 );
+		* $this->loader->eb_add_action( 'admin_init', $setup_wizard, 'eb_setup_wizard_handler', 10 );
+		*/
 
 		/*
 		 * Handling custom button events on settings page

@@ -38,8 +38,8 @@ class Eb_Ipn {
 	 * Function will start processing the eb ipn data.
 	 */
 	public function process_ipn() {
-		$request_data = wp_unslash( $_REQUEST ); // WPCS: CSRF ok, input var ok.
-		$post_data    = wp_unslash( $_POST ); // WPCS: CSRF ok, input var ok.
+		$request_data = wp_unslash( $_REQUEST ); // @codingStandardsIgnoreLine.
+		$post_data    = wp_unslash( $_POST ); // @codingStandardsIgnoreLine.
 
 		// create an object of logger class.
 		$this->bridge_logger->add( 'payment', "\n" );

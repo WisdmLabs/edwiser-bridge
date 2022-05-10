@@ -92,7 +92,6 @@ class Eb_Course_Manager {
 	 * @see Eb_Course_Manager()
 	 * @param text $plugin_name plugin_name.
 	 * @param text $version version.
-	 * @return Eb_Course_Manager - Main instance
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
@@ -198,14 +197,10 @@ class Eb_Course_Manager {
 				}
 			}
 
-
-
 			// Sync enrollment Methods.
 			if ( isset( $moodle_course_resp['response_data'] ) ) {
 
-
-
-				$this->sync_course_enrollment_method(1);
+				$this->sync_course_enrollment_method( 1 );
 			}
 
 			/*
@@ -227,8 +222,7 @@ class Eb_Course_Manager {
 	/**
 	 * Sync course enrollment methods.
 	 *
-	 * @param array $courses course array.
-	 * @param array $sync_options course sync options.
+	 * @param int $update - 1 to update enrollment methods.
 	 *
 	 * @since   1.0.0
 	 */
@@ -242,17 +236,14 @@ class Eb_Course_Manager {
 
 		if ( 1 === $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
 			if ( 1 === $update ) {
-				foreach ($response['response_data'] as $course_data) {
+				foreach ( $response['response_data'] as $course_data ) {
 					$wp_course_id = $this->is_course_presynced( $course_data->courseid );
 					update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->enabled );
 				}
 			} else {
 				return $response['response_data'];
 			}
-		} else {
-
 		}
-
 	}
 
 
@@ -260,8 +251,7 @@ class Eb_Course_Manager {
 	/**
 	 * Sync course enrollment methods.
 	 *
-	 * @param array $courses course array.
-	 * @param array $sync_options course sync options.
+	 * @param array $course_array course array.
 	 *
 	 * @since   1.0.0
 	 */
@@ -273,17 +263,16 @@ class Eb_Course_Manager {
 			$course_array
 		);
 
+		if ( 1 === $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
 
-		if ( 1 == $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
-
-			foreach ($response['response_data'] as $course_data) {
+			foreach ( $response['response_data'] as $course_data ) {
 				$wp_course_id = $this->is_course_presynced( $course_data->courseid );
 				if ( $course_data->status ) {
 					update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->status );
 				}
 			}
 			return $response['response_data'];
-			
+
 		} else {
 			return $response;
 		}
@@ -436,10 +425,10 @@ class Eb_Course_Manager {
 
 		// Check if post is availabke or not.
 		// This code is to avoid conflict with MooWoodle plugin.
-		if ( false == get_post_status( $course_id ) ) {
-		    // The post does not exist, delete post meta also.
-		    delete_post_meta( $course_id, 'moodle_course_id' );
-		    $course_id = false;
+		if ( false === get_post_status( $course_id ) ) {
+			// The post does not exist, delete post meta also.
+			delete_post_meta( $course_id, 'moodle_course_id' );
+			$course_id = false;
 		}
 
 		return $course_id;
@@ -766,37 +755,34 @@ class Eb_Course_Manager {
 
 			echo ! empty( $mdl_course_deleted ) ? '<span style="color:red;">' . esc_html__( 'Deleted', 'edwiser-bridge' ) . '<span>' : esc_html( $mdl_course_id );
 		} elseif ( 'course_enrollment_method' === $column_name ) {
-			//check if course is deleted
+			// check if course is deleted.
 			$mdl_course_deleted = Eb_Post_Types::get_post_options( $post_id, 'mdl_course_deleted', 'eb_course' );
-			if( ! empty( $mdl_course_deleted ) ){
+			if ( ! empty( $mdl_course_deleted ) ) {
 				$html = '<span style="padding: 2px 8px;"> — </span>';
-			}
-			else{
+			} else {
 				// Get stored sync data.
 				$enrolment_enabled = get_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 1 );
 
 				// Get Moodle course id.
-				$moodle_course_id = get_post_meta( $post_id, 'moodle_course_id', 1);
+				$moodle_course_id = get_post_meta( $post_id, 'moodle_course_id', 1 );
 
 				// If data is not synced show refresh icon to sync
 				// store status in DB.
 				// $html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'edwiser-bridge' );
 				// if ( $enrolment_enabled ) {
-				// 	// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
-				// 	$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'edwiser-bridge' )*/;
+				// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+				// $html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'edwiser-bridge' )*/;
 				// }
-				// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';
-				if( $enrolment_enabled ){
-					$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>' /*. esc_html__( 'Enabled', 'edwiser-bridge' )*/;
-				}
-				elseif( "" == $enrolment_enabled ){
-					$html = '<span style="color:#2271b1;font-size:20px;" class="dashicons dashicons-update"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Sync', 'edwiser-bridge' );
-				}
-				else{
-					$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span> ' . '<span data-courseid="'. $moodle_course_id .'" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'edwiser-bridge' );
+				// $html .= ' <span data-courseid="'. $post_id .'"  style="padding-left: 10px;padding-top: 5px;color: #392ee1;cursor: pointer;" class="dashicons dashicons-update eb-reload-enrolment-method"></span>';.
+				if ( $enrolment_enabled ) {
+					$html = '<span style="color:green;font-size:30px;" class="dashicons dashicons-yes"></span>';
+				} elseif ( '' === $enrolment_enabled ) {
+					$html = '<span style="color:#2271b1;font-size:20px;" class="dashicons dashicons-update"></span><span data-courseid="' . $moodle_course_id . '" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Sync', 'edwiser-bridge' );
+				} else {
+					$html = '<span style="color:red;font-size:25px;" class="dashicons dashicons-warning"></span><span data-courseid="' . $moodle_course_id . '" class="eb-enable-manual-enrolment"  style="color: #2271b1;cursor: pointer;">' . esc_html__( 'Enable', 'edwiser-bridge' );
 				}
 			}
-			echo $html;
+			echo wp_kses( $html, \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 		}
 
 		do_action( 'eb_course_table_content', $column_name, $post_id );
@@ -806,11 +792,11 @@ class Eb_Course_Manager {
 	/**
 	 * Adds the view moodle course link in courses list table for admin.
 	 *
-	 * @param array  $bulk_actions An array of row action links. .
+	 * @param array $bulk_actions An array of row action links. .
 	 */
 	public function add_custom_bulk_action( $bulk_actions ) {
-		$bulk_actions['sync_enrollment'] = __('Sync Enrollment Method', 'edwiser-bridge');
-		$bulk_actions['enable_manual_enrollment'] = __('Enable Enrollment Method', 'edwiser-bridge');
+		$bulk_actions['sync_enrollment']          = __( 'Sync Enrollment Method', 'edwiser-bridge' );
+		$bulk_actions['enable_manual_enrollment'] = __( 'Enable Enrollment Method', 'edwiser-bridge' );
 		return $bulk_actions;
 	}
 
@@ -820,27 +806,27 @@ class Eb_Course_Manager {
 	 *
 	 * @param string $redirect_url redirect url.
 	 * @param string $action action.
-	 * @param array $post_ids course id array.
+	 * @param array  $post_ids course id array.
 	 */
 	public function handle_custom_bulk_action( $redirect_url, $action, $post_ids ) {
 
 		$eb_bulk_action_nonce = wp_create_nonce( 'eb_bulk_action_nonce' );
-		$request_refer = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
-		$request_refer = strtok( $request_refer, '?' );
-		// Create courses data i.e create required course array
-		if ( 'sync_enrollment' == $action ) {
-			$courses_data = $this->sync_course_enrollment_method();
+		$request_refer        = isset( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+		$request_refer        = strtok( $request_refer, '?' );
+		// Create courses data i.e create required course array.
+		if ( 'sync_enrollment' === $action ) {
+			$courses_data   = $this->sync_course_enrollment_method();
 			$response_array = array();
 			// get all courses data.
-			foreach ($courses_data as $course_data) {
-				$wp_course_id = $this->is_course_presynced( $course_data->courseid );
-				$response_array[] = $wp_course_id; 
+			foreach ( $courses_data as $course_data ) {
+				$wp_course_id     = $this->is_course_presynced( $course_data->courseid );
+				$response_array[] = $wp_course_id;
 			}
 
 			$count = 0;
-			foreach ($post_ids as $post_id) {
+			foreach ( $post_ids as $post_id ) {
 
-				if ( in_array($post_id, $response_array ) ) {
+				if ( in_array( $post_id, $response_array ) ) { // @codingStandardsIgnoreLine
 					update_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', $course_data->enabled );
 				} else {
 					update_post_meta( $post_id, 'eb_course_manual_enrolment_enabled', 0 );
@@ -849,22 +835,22 @@ class Eb_Course_Manager {
 			}
 			$sendback = add_query_arg(
 				array(
-					'post_type' => 'eb_course',
+					'post_type'            => 'eb_course',
 					'eb_bulk_action_nonce' => $eb_bulk_action_nonce,
-					'message1' => "success",
-					'count' => $count,
-					'action1' => $action
+					'message1'             => 'success',
+					'count'                => $count,
+					'action1'              => $action,
 				),
 				$request_refer
 			);
 
 			return $sendback;
 
-		} elseif ( 'enable_manual_enrollment' == $action ) {
+		} elseif ( 'enable_manual_enrollment' === $action ) {
 			$mdl_course_ids = array();
-			$count = 0;
-			foreach ($post_ids as $wp_course_id) {
-				$mdl_course_id = get_post_meta( $wp_course_id, 'moodle_course_id', 1 );
+			$count          = 0;
+			foreach ( $post_ids as $wp_course_id ) {
+				$mdl_course_id      = get_post_meta( $wp_course_id, 'moodle_course_id', 1 );
 				$mdl_course_deleted = Eb_Post_Types::get_post_options( $wp_course_id, 'mdl_course_deleted', 'eb_course' );
 				if ( $mdl_course_id && empty( $mdl_course_deleted ) ) {
 					$mdl_course_ids[] = $mdl_course_id;
@@ -872,26 +858,24 @@ class Eb_Course_Manager {
 				}
 			}
 
-			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => $mdl_course_ids ) );
-			if(isset($course_data['success']) && 0 === $course_data['success']){ //CHANGE YET TO COMMIT
-				if($course_data['response_message']  == "Class 'enrol_manual_plugin' not found" ){
-					$data = esc_html__("Manual Enrollment Plugin is not enabled/installed on moodle site.", 'edwiser-bridge' );
+			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => $mdl_course_ids ) );
+			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
+				if ( "Class 'enrol_manual_plugin' not found" === $course_data['response_message'] ) {
+					$data = esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' );
+				} else {
+					$data = esc_html( $course_data['response_message'] );
 				}
-				else{
-					$data = esc_html__($course_data['response_message'], 'edwiser-bridge' );
-				}
+			} else {
+				$data = 'success';
 			}
-			else{
-				$data = "success";
-			}
-			
+
 			$sendback = add_query_arg(
 				array(
-					'post_type' => 'eb_course',
+					'post_type'            => 'eb_course',
 					'eb_bulk_action_nonce' => $eb_bulk_action_nonce,
-					'message1' => urlencode( $data ),
-					'count' => $count,
-					'action1' => $action
+					'message1'             => urlencode( $data ), // @codingStandardsIgnoreLine
+					'count'                => $count,
+					'action1'              => $action,
 				),
 				$request_refer
 			);
@@ -910,30 +894,28 @@ class Eb_Course_Manager {
 		if ( ! isset( $_REQUEST['eb_bulk_action_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb_bulk_action_nonce'] ) ), 'eb_bulk_action_nonce' ) ) {
 			return;
 		}
-		if ( 'edit.php' == $pagenow && 'eb_course' == $post_type ) {
-			$action = $_REQUEST['action1'];
-			if ( 'sync_enrollment' == $action ) {
-				$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : '';
-				$count = ( $count != '' ) ? $count : 0;
-				$message = isset( $_REQUEST['message1'] ) ? $_REQUEST['message1'] : '';
-				if( $message == "success" ){
-					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment status synced for'.' %s ' . "courses" , 'edwiser-bridge' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . "</p></div>";
+		if ( 'edit.php' === $pagenow && 'eb_course' === $post_type ) {
+			$action = isset( $_REQUEST['action1'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action1'] ) ) : '';
+			if ( 'sync_enrollment' === $action ) {
+				$count   = isset( $_REQUEST['count'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['count'] ) ) : '';
+				$count   = ( '' !== $count ) ? $count : 0;
+				$message = isset( $_REQUEST['message1'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['message1'] ) ) : '';
+				if ( 'success' === $message ) {
+					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment status synced for' . ' %s ' . 'courses', 'edwiser-bridge' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . '</p></div>'; // @codingStandardsIgnoreLine
+				} else {
+					$message = "<div class='notice notice-error'><p>" . esc_html__( 'Error in manual enrollment status sync', 'edwiser-bridge' ) . '</p></div>';
 				}
-				else{
-					$message = "<div class='notice notice-error'><p>" . esc_html__("Error in manual enrollment status sync", 'edwiser-bridge' ) . "</p></div>";
+				echo wp_kses( $message, \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+			} elseif ( 'enable_manual_enrollment' === $action ) {
+				$count   = isset( $_REQUEST['count'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['count'] ) ) : '';
+				$count   = ( '' !== $count ) ? $count : 0;
+				$message = isset( $_REQUEST['message1'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['message1'] ) ) : '';
+				if ( 'success' === $message ) {
+					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment enabled for' . ' %s ' . 'courses', 'edwiser-bridge' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . '</p></div>'; // @codingStandardsIgnoreLine
+				} else {
+					$message = "<div class='notice notice-error'><p>" . esc_html__( 'Please check if Course is deleted from Moodle or WordPress also check if Moodle Manual Enrollment is activate on Moodle ', 'edwiser-bridge' ) . '</p><p>' . esc_html__( 'Error Message  : ', 'edwiser-bridge' ) . $message . '</p></div>';
 				}
-				echo $message;
-			} elseif ( 'enable_manual_enrollment' == $action ) {
-				$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : '';
-				$count = ( $count != '' ) ? $count : 0;
-				$message = isset( $_REQUEST['message1'] ) ? $_REQUEST['message1'] : '';
-				if( $message == "success" ){
-					$message = "<div class='updated'><p>" . sprintf( esc_html__( 'Manual enrollment enabled for' . ' %s ' . "courses", 'edwiser-bridge' ), number_format_i18n( sanitize_text_field( wp_unslash( $count ) ) ) ) . "</p></div>";
-				}
-				else{
-					$message = "<div class='notice notice-error'><p>". esc_html__( 'Please check if Course is deleted from Moodle or WordPress also check if Moodle Manual Enrollment is activate on Moodle ', 'edwiser-bridge' ) ."</p><p>" . esc_html__( 'Error Message  : ' . $message, 'edwiser-bridge' ) . "</p></div>";
-				}
-				echo $message;
+				echo wp_kses( $message, \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 			}
 		}
 	}
@@ -941,6 +923,7 @@ class Eb_Course_Manager {
 	/**
 	 * Handle single course synchronization.
 	 *
+	 * @param int $course_id course id.
 	 */
 	public function eb_enable_course_enrollment_method( $course_id = '' ) {
 
@@ -953,20 +936,15 @@ class Eb_Course_Manager {
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : '';
 
 		if ( $course_id ) {
-
-			// $courses_data = $this->sync_course_enrollment_method();
-
 			// Update course enrollment method.
-			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array('courseid' => array( $course_id ) ) );
-			if(0 === $course_data['success']){
-				if($course_data['response_message']  == "Class 'enrol_manual_plugin' not found" ){
-					wp_send_json_error( array( 'message' => esc_html__("Manual Enrollment Plugin is not enabled/installed on moodle site.", 'edwiser-bridge' ) ) );
+			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => array( $course_id ) ) );
+			if ( 0 === $course_data['success'] ) {
+				if ( "Class 'enrol_manual_plugin' not found" === $course_data['response_message'] ) {
+					wp_send_json_error( array( 'message' => esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' ) ) );
+				} else {
+					wp_send_json_error( array( 'message' => esc_html( $course_data['response_message'] ) ) );
 				}
-				else{
-					wp_send_json_error( array( 'message' => esc_html__($course_data['response_message'], 'edwiser-bridge' ) ) );
-				}
-			}
-			else{
+			} else {
 				wp_send_json_success();
 			}
 		}
