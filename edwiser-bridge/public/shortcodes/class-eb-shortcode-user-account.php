@@ -320,10 +320,10 @@ class Eb_Shortcode_User_Account {
 
 		if ( ! is_email( $email ) ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( esc_html__( '%1$s is invalid email.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( esc_html__( '%1$s is invalid email.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' ); //@codingStandardsIgnoreLine
 		} elseif ( email_exists( $email ) && $email !== $current_user->user_email ) {
 				/* Translators 1: email */
-			$errors[] = sprintf( __( '%1$s is already exists.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' );
+			$errors[] = sprintf( __( '%1$s is already exists.', 'eb-textdomain' ), '<strong>' . $email . '</strong>' ); //@codingStandardsIgnoreLine
 		}
 
 		if ( ! empty( $curr_psw ) && empty( $pass1 ) && empty( $pass2 ) ) {

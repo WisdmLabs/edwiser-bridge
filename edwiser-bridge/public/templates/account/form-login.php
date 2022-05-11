@@ -63,9 +63,9 @@ do_action( 'eb_before_customer_login_form' );
 						<?php esc_html_e( 'Get Registered', 'edwiser-bridge' ); ?>
 					</a>
 			</div>
-					<?php
-				}
-				?>
+				<?php
+			}
+			?>
 		<?php
 	}
 	?>

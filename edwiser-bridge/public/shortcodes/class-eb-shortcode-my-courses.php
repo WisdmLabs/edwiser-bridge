@@ -56,7 +56,6 @@ class Eb_Shortcode_My_Courses {
 
 		do_action( 'eb_before_my_courses_wrapper' );
 
-		// $my_courses = $current_class->get_user_courses( $atts['user_id'] );
 		$my_courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses( $atts['user_id'] );
 
 		$current_class->show_my_courses( $my_courses, $atts );

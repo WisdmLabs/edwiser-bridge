@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="eb-user-profile" >
 	<?php
-	if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_unslash( $_GET['eb_action'] ) ) ) { // WPCS: input var okay, CSRF ok.
+	if ( isset( $_GET['eb_action'] ) && 'edit-profile' === sanitize_text_field( wp_unslash( $_GET['eb_action'] ) ) ) { // @codingStandardsIgnoreLine
 		$template_loader->wp_get_template(
 			'account/edit-user-profile.php',
 			array(
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		);
 	} else {
 		$labels      = $eb_shortcode_obj->get_user_account_navigation_items();
-		$active_link = isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : ''; // WPCS: input var okay, CSRF ok.
+		$active_link = isset( $_GET['eb-active-link'] ) ? sanitize_text_field( wp_unslash( $_GET['eb-active-link'] ) ) : ''; // @codingStandardsIgnoreLine
 		?>
 		<div class="eb-user-account-navigation">
 			<!-- <div class='eb-user-account-navigation-wrap'> -->
