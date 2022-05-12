@@ -275,13 +275,19 @@ class Eb_Setup_Wizard_Functions {
 
 		foreach ( $license_data as $key => $value ) {
 			if ( ! empty( $value ) ) {
-				$license_handler  = new Licensing_Settings();
-				$result           = $license_handler->wdm_install_plugin(
+				$license_handler = new Licensing_Settings();
+				// $result           = $license_handler->wdm_install_plugin(
+				// array(
+				// 'action'                       => $key,
+				// 'edd_' . $key . '_license_key' => $value,
+				// ),
+				// 0
+				// );
+				$result           = $this->eb_setup_wizard_install_plugins(
 					array(
 						'action'                       => $key,
 						'edd_' . $key . '_license_key' => $value,
-					),
-					0
+					)
 				);
 				$response[ $key ] = $result;
 			}
@@ -624,6 +630,99 @@ class Eb_Setup_Wizard_Functions {
 	public function eb_get_step_title( $step ) {
 		$steps = $this->eb_setup_wizard_get_steps();
 		return isset( $steps[ $step ]['title'] ) ? $steps[ $step ]['title'] : '';
+	}
+
+	/**
+	 * Setup Wizard install plugins.
+	 *
+	 * @param array $data Plugin Data.
+	 */
+	public function eb_setup_wizard_install_plugins( $data ) {
+		if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
+			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-licensing-manager.php';
+		}
+		if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
+			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-get-plugin-data.php';
+		}
+
+		$status['status']          = 'insallation failed';
+		$slug                      = $data['action'];
+		$products_data             = Eb_Licensing_Manager::get_plugin_data();
+		$plugin_data               = $products_data[ $slug ];
+		$plugin_data['edd_action'] = 'get_version';
+		$l_key_name                = $plugin_data['key'];
+		$l_key                     = trim( $data[ $l_key_name ] );
+		$plugin_data['license']    = $l_key;
+		update_option( $l_key_name, $l_key );
+		if ( empty( $plugin_data['license'] ) ) {
+			$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
+			$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
+			return $resp;
+		}
+		$request = wp_remote_get(
+			add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
+			array(
+				'timeout'   => 15,
+				'sslverify' => false,
+				'blocking'  => true,
+			)
+		);
+
+		if ( ! is_wp_error( $request ) ) {
+			$request = json_decode( wp_remote_retrieve_body( $request ) );
+			if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
+				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+				wp_cache_flush();
+				$skin     = new \WP_Ajax_Upgrader_Skin();
+				$upgrader = new \Plugin_Upgrader( $skin );
+				$result   = $upgrader->install( $request->download_link );
+
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+					$status['debug'] = $skin->get_upgrade_messages();
+				}
+
+				if ( is_wp_error( $result ) ) {
+					$status['errorCode']    = $result->get_error_code();
+					$status['errorMessage'] = $result->get_error_message();
+				} elseif ( is_wp_error( $skin->result ) ) {
+					$status['errorCode']    = $skin->result->get_error_code();
+					$status['errorMessage'] = $skin->result->get_error_message();
+				} elseif ( $skin->get_errors()->has_errors() ) {
+					$status['errorMessage'] = $skin->get_error_messages();
+				} elseif ( is_null( $result ) ) {
+					global $wp_filesystem;
+
+					$status['errorCode']    = 'unable_to_connect_to_filesystem';
+					$status['errorMessage'] = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
+
+					// Pass through the error from WP_Filesystem if one was raised.
+					if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+						$status['errorMessage'] = esc_html( $wp_filesystem->errors->get_error_message() );
+					}
+				} else {
+					$status['status'] = 'insallation success';
+				}
+
+				// Plugin Activation.
+				$result = activate_plugin( $plugin_data['path'] );
+				if ( is_wp_error( $result ) ) {
+					$resp['msg'] = $result->get_error_messages();
+				} else {
+					$resp['msg'] = __( 'Plugin activated successfully.', 'edwiser-bridge' );
+				}
+
+				$products_data[ $slug ]['key'] = $l_key;
+				$license_manager               = new Eb_Licensing_Manager( $products_data[ $slug ] );
+				$activate                      = $license_manager->activate_license();
+				$status['activate']            = $resp;
+
+			} elseif ( isset( $request->msg ) ) {
+				$status['msg'] = $request->msg;
+			} else {
+				$status['msg'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
+			}
+		}
+		return $status;
 	}
 
 
