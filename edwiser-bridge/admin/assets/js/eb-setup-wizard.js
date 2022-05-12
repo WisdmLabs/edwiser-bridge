@@ -478,34 +478,38 @@ console.log( data );
 
 console.log(extensions);
 
+                $.each(extensions, function(key, value) {
+                    var extension = {};
+                    extension[key] = value;
 
-                $.ajax({
-                    method: "post",
-                    url: eb_setup_wizard.ajax_url,
-                    dataType: "json",
-                    data: {
-                        'action': 'eb_setup_manage_license',
-                        // 'data': url.trim(),
-                        'license_data': JSON.stringify(extensions),
-                        '_wpnonce_field': eb_setup_wizard.nonce,
-                    },
-                    success: function (response) {
+                    $.ajax({
+                        method: "post",
+                        url: eb_setup_wizard.ajax_url,
+                        dataType: "json",
+                        data: {
+                            'action': 'eb_setup_manage_license',
+                            // 'data': url.trim(),
+                            'license_data': JSON.stringify(extension),
+                            '_wpnonce_field': eb_setup_wizard.nonce,
+                        },
+                        success: function (response) {
 
-                        //prepare response for user
-                        if (response.success == 1) {
-                            // $('.eb_setup_test_conn_success').css('display', 'initial');
-                            // $('.eb_setup_test_connection_btn').css('display', 'none');
-                            // $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
+                            //prepare response for user
+                            if (response.success == 1) {
+                                // $('.eb_setup_test_conn_success').css('display', 'initial');
+                                // $('.eb_setup_test_connection_btn').css('display', 'none');
+                                // $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
 
-                            console.log(response);
-                            
+                                console.log(response);
+                                
 
 
-                        } else {
-                            // ohSnap(response.response_message, 'error', 0);
-                            $('.eb_setup_test_conn_error').html(response.response_message);
+                            } else {
+                                // ohSnap(response.response_message, 'error', 0);
+                                $('.eb_setup_test_conn_error').html(response.response_message);
+                            }
                         }
-                    }
+                    });
                 });
 
 
