@@ -476,45 +476,59 @@ console.log( data );
                     // TODO: do something with the value
                 });
 
-console.log(extensions);
-
-                $.each(extensions, function(key, value) {
-                    var extension = {};
-                    extension[key] = value;
-
-                    $.ajax({
-                        method: "post",
-                        url: eb_setup_wizard.ajax_url,
-                        dataType: "json",
-                        data: {
-                            'action': 'eb_setup_manage_license',
-                            // 'data': url.trim(),
-                            'license_data': JSON.stringify(extension),
-                            '_wpnonce_field': eb_setup_wizard.nonce,
-                        },
-                        success: function (response) {
-
-                            //prepare response for user
-                            if (response.success == 1) {
-                                // $('.eb_setup_test_conn_success').css('display', 'initial');
-                                // $('.eb_setup_test_connection_btn').css('display', 'none');
-                                // $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
-
-                                console.log(response);
-                                
-
-
-                            } else {
-                                // ohSnap(response.response_message, 'error', 0);
-                                $('.eb_setup_test_conn_error').html(response.response_message);
-                            }
-                        }
-                    });
-                });
-
-
+                installPlugin( extensions, 0 );
 
             });
+
+            // install plugin
+            function installPlugin(extensions, key) {
+                var extension = {};
+
+                extension[Object.keys(extensions)[key]] = Object.values(extensions)[key];
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    dataType: "json",
+                    data: {
+                        'action': 'eb_setup_manage_license',
+                        // 'data': url.trim(),
+                        'license_data': JSON.stringify(extension),
+                        '_wpnonce_field': eb_setup_wizard.nonce,
+                    },
+                    success: function (response) {
+
+                        //prepare response for user
+                        if (response.success == 1) {
+                            $.each(response.data, function(slug, value) {
+                                if (value.message){
+                                    $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">' + value.message + '</span>');
+                                } else {
+                                    var msg = '';
+                                    if(value.install == 'Plugin Installed'){
+                                        msg = '<span class="eb_lic_active">' + value.install + '</span>';
+                                    } else {
+                                        msg = '<span class="eb_lic_status">' + value.install + '</span>';
+                                    }
+
+                                    if(value.activate == 'License Activated'){
+                                        msg += ', <span class="eb_lic_active">' + value.activate + '</span>';
+                                    } else {
+                                        msg += ', <span class="eb_lic_status">' + value.activate + '</span>';
+                                    }
+
+                                    $(".eb_setup_" + slug + "_license_msg").html( msg );
+                                }
+                            });
+                        } else {
+                            $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
+                        }
+
+                        if(key < Object.keys(extensions).length - 1){
+                            installPlugin(extensions, key + 1);
+                        }
+                    }
+                });
+            }
 
             // Function for license activation
 
