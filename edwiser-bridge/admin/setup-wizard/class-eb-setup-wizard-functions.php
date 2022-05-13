@@ -645,7 +645,7 @@ class Eb_Setup_Wizard_Functions {
 			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-get-plugin-data.php';
 		}
 
-		$status['status']          = 'insallation failed';
+		$status['install']         = 'insallation failed';
 		$slug                      = $data['action'];
 		$products_data             = Eb_Licensing_Manager::get_plugin_data();
 		$plugin_data               = $products_data[ $slug ];
@@ -671,44 +671,38 @@ class Eb_Setup_Wizard_Functions {
 		if ( ! is_wp_error( $request ) ) {
 			$request = json_decode( wp_remote_retrieve_body( $request ) );
 			if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
-				require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-				wp_cache_flush();
-				$skin     = new \WP_Ajax_Upgrader_Skin();
-				$upgrader = new \Plugin_Upgrader( $skin );
-				$result   = $upgrader->install( $request->download_link );
 
-				if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-					$status['debug'] = $skin->get_upgrade_messages();
-				}
-
-				if ( is_wp_error( $result ) ) {
-					$status['errorCode']    = $result->get_error_code();
-					$status['errorMessage'] = $result->get_error_message();
-				} elseif ( is_wp_error( $skin->result ) ) {
-					$status['errorCode']    = $skin->result->get_error_code();
-					$status['errorMessage'] = $skin->result->get_error_message();
-				} elseif ( $skin->get_errors()->has_errors() ) {
-					$status['errorMessage'] = $skin->get_error_messages();
-				} elseif ( is_null( $result ) ) {
-					global $wp_filesystem;
-
-					$status['errorCode']    = 'unable_to_connect_to_filesystem';
-					$status['errorMessage'] = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
-
-					// Pass through the error from WP_Filesystem if one was raised.
-					if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-						$status['errorMessage'] = esc_html( $wp_filesystem->errors->get_error_message() );
+				// dependency check.
+				if ( 'woocommerce_integration' === $slug ) {
+					// Install woocommerce plugin first.
+					include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+					$api = plugins_api(
+						'plugin_information',
+						array(
+							'slug'   => 'woocommerce',
+							'fields' => array(
+								'sections' => false,
+							),
+						)
+					);
+					if ( is_wp_error( $api ) ) {
+						$status['dependency']['woocommerce'] = $api->get_error_message();
+					} else {
+						$status['dependency']['woocommerce'] = $this->eb_setup_wizard_download_and_install( $api->download_link );
 					}
-				} else {
-					$status['status'] = 'insallation success';
+
+					activate_plugin( 'woocommerce/woocommerce.php' );
 				}
+
+				// Install the plugin.
+				$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
 
 				// Plugin Activation.
 				$result = activate_plugin( $plugin_data['path'] );
 				if ( is_wp_error( $result ) ) {
-					$resp['msg'] = $result->get_error_messages();
+					$resp = $result->get_error_messages();
 				} else {
-					$resp['msg'] = __( 'Plugin activated successfully.', 'edwiser-bridge' );
+					$resp = __( 'License Activated', 'edwiser-bridge' );
 				}
 
 				$products_data[ $slug ]['key'] = $l_key;
@@ -717,10 +711,45 @@ class Eb_Setup_Wizard_Functions {
 				$status['activate']            = $resp;
 
 			} elseif ( isset( $request->msg ) ) {
-				$status['msg'] = $request->msg;
+				$status['message'] = $request->msg;
 			} else {
-				$status['msg'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
+				$status['message'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
 			}
+		}
+		return $status;
+	}
+
+	/**
+	 * Download and install plugin.
+	 *
+	 * @param String $link Download link.
+	 *
+	 * @return String $status Status.
+	 */
+	public function eb_setup_wizard_download_and_install( $link ) {
+		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+		wp_cache_flush();
+		$skin     = new \WP_Ajax_Upgrader_Skin();
+		$upgrader = new \Plugin_Upgrader( $skin );
+		$result   = $upgrader->install( $link );
+
+		if ( is_wp_error( $result ) ) {
+			$status = $result->get_error_message();
+		} elseif ( is_wp_error( $skin->result ) ) {
+			$status = $skin->result->get_error_message();
+		} elseif ( $skin->get_errors()->has_errors() ) {
+			$status = $skin->get_error_messages();
+		} elseif ( is_null( $result ) ) {
+			global $wp_filesystem;
+
+			$status = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
+
+			// Pass through the error from WP_Filesystem if one was raised.
+			if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+				$status = esc_html( $wp_filesystem->errors->get_error_message() );
+			}
+		} else {
+			$status = 'Plugin Installed';
 		}
 		return $status;
 	}
