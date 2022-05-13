@@ -868,7 +868,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_conn_url_inp_wrap  '>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_woo_int' id='eb_setup_woo_int' data-action='woocommerce_integration'  type='text' >
-						<div class='eb_setup_woo_int_license_msg'> </div>
+						<div class='eb_setup_woocommerce_integration_license_msg'> </div>
 
 					</div>
 
@@ -885,14 +885,14 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_bulk_purchase' id='eb_setup_bulk_purchase' data-action='bulk-purchase' type='text' >
-						<div class='eb_setup_bulk_purchase_license_msg'> </div>
+						<div class='eb_setup_bulk-purchase_license_msg'> </div>
 
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_sso' id='eb_setup_sso' data-action='single_sign_on' type='text' >
-						<div class='eb_setup_sso_woo_int_license_msg'> </div>
+						<div class='eb_setup_single_sign_on_license_msg'> </div>
 
 					</div>
 
