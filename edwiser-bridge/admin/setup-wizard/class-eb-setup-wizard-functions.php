@@ -299,7 +299,7 @@ class Eb_Setup_Wizard_Functions {
 			}
 		}
 
-		wp_send_json_success( array( 'result' => $response ) );
+		wp_send_json_success( $response );
 	}
 
 	/**
@@ -729,13 +729,11 @@ class Eb_Setup_Wizard_Functions {
 				if ( is_wp_error( $result ) ) {
 					$resp = $result->get_error_messages();
 				} else {
-					$resp = __( 'License Activated', 'edwiser-bridge' );
+					$products_data[ $slug ]['key'] = $l_key;
+					$license_manager               = new Eb_Licensing_Manager( $products_data[ $slug ] );
+					$activate                      = $license_manager->activate_license();
+					$status['activate']            = __( 'License Activated', 'edwiser-bridge' );
 				}
-
-				$products_data[ $slug ]['key'] = $l_key;
-				$license_manager               = new Eb_Licensing_Manager( $products_data[ $slug ] );
-				$activate                      = $license_manager->activate_license();
-				$status['activate']            = $resp;
 
 			} elseif ( isset( $request->msg ) ) {
 				$status['message'] = $request->msg;
