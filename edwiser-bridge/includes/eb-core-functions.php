@@ -801,6 +801,27 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_template_path' ) ) {
 }
 
 
+if ( ! function_exists( 'wdm_edwiser_bridge_get_lang_code' ) ) {
+
+	/**
+	 * Gwt edwiser Bridge plugin url.
+	 */
+	function wdm_edwiser_bridge_get_lang_code() {
+
+		$general_options = get_option( 'eb_general' );
+
+		$eb_moodle_token = '';
+		if ( isset( $connection_options['eb_language_code'] ) ) {
+			$eb_moodle_token = $connection_options['eb_language_code'];
+		}
+
+		return $eb_moodle_token;
+	}
+}
+
+
+
+
 if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_token' ) ) {
 
 	/**
@@ -818,7 +839,6 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_token' ) ) {
 		return $eb_moodle_token;
 	}
 }
-
 
 
 if ( ! function_exists( 'wdm_edwiser_bridge_plugin_get_access_url' ) ) {

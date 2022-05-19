@@ -114,7 +114,6 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 						'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
 						'type' => 'cust_html',
 					),
-
 					array(
 						'type' => 'sectionend',
 						'id'   => 'connection_options',

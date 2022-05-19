@@ -470,6 +470,7 @@ class Eb_Enrollment_Manager {
 			$data_array['expire_time'] = $expire_time;
 		}
 
+
 		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			$data_array,

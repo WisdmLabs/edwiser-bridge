@@ -24,6 +24,13 @@
             });
         }
 
+        function change_url( step ) {
+            var url = new URL(document.location);
+            url.searchParams.set('current_step', step);
+            window.history.replaceState( null, null, url );
+        }
+
+
         // ----   ------
 
         // ajax call to change the tab.
@@ -49,12 +56,7 @@
             //     url = url + '?current_step=' + step;
             // }
             //   document.location = url;
-            
-            
-            var url = new URL(document.location);
-            url.searchParams.set('current_step', step);
-            window.history.replaceState( null, null, url );
-        
+            change_url( step );
 
             $.ajax({
                 method: "post",
@@ -83,6 +85,10 @@
             });
 
         });
+
+
+        
+
 
 
         /**
@@ -186,6 +192,7 @@
             if ( $('.eb_setup_popup').length ) {
                 $('.eb_setup_popup').remove();
             }
+
 
 
             // get current step.
@@ -293,11 +300,6 @@
             }
 
 
-
-console.log( 'data ::: ' );
-console.log( data );
-
-
                 $.ajax({
                     method: "post",
                     url: eb_setup_wizard.ajax_url,
@@ -315,9 +317,23 @@ console.log( data );
                             // If final step show pop up
                             if ( response.data.popup ) {
                                 $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
-                            } else {
+                            } else {   
+                                change_url( next_step );
+
+                                handle_step_progress( current_step, next_step );
+
+console.log( current_step );
+console.log( mdl_url );
+
+                                // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
+                                if ( 'moodle_redirection' == current_step ) {
+                                    window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                                }
+
                                 $('.eb-setup-content').html(response.data.content);
                                 $('.eb-setup-header-title').html(response.data.title);
+
+
                             }
                             
 
@@ -330,6 +346,24 @@ console.log( data );
                 });
     
             });
+
+
+            function handle_step_progress( current_step, next_step ) {
+                /**
+                 * 1. Mark current step as active and 
+                 * 2. Mark previous step as completed.
+                 */
+
+                // Add completed class to the sidebar steps
+                $('.eb-setup-step-' + current_step).addClass('eb-setup-step-completed-wrap');
+                var step_title = $('.eb-setup-step-' + current_step).children('.eb-setup-steps-title');
+                step_title.addClass('eb-setup-step-completed');
+
+                $('.eb-setup-step-' + next_step).addClass('eb-setup-step-active-wrap');
+                var step_title = $('.eb-setup-step-' + current_step).children('.eb-setup-steps-title');
+                step_title.addClass('eb-setup-step-active');
+            }
+
 
 
 
@@ -394,7 +428,7 @@ console.log( data );
             
             $(document).on('click', '.eb_setup_users_sync_btn', function (event) {
                 var $this = $(this);
-                
+
                 var sync_options = {};
                 // prepare sync options array
                 var sync_options = {eb_synchronize_user_courses: 1, eb_link_users_to_moodle: 1};
@@ -404,12 +438,18 @@ console.log( data );
                 var users_count = 0;
                 var queryLimit = 0;
                 var notLinkedusers = [];
+
+                // Showing pop up but here data will be empty
+                $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_users_sync_progress_popup').html() + ' </div>');
+                // arrow_animate();
+
                 userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
 
                 // Trigger save and continue button.
-                $( ".eb_setup_save_and_continue" ).click();
+                // $( ".eb_setup_save_and_continue" ).click();
 
             });
+
 
 
             /* Function to show progress of link users to moodle functionality*/
@@ -575,7 +615,59 @@ console.log( data );
 
 
 
+            // $('.eb_setup_upload_btn').change(function(){
+            $(document).on( 'click', '.eb_setup_upload_btn', function(){
+                $('#eb_setup_test_conn_mdl_url').val($('.eb_setup_test_conne_url').val());
+                $('#eb_setup_test_conn_token').val($('.eb_setup_test_conne_token').val());
+                $('#eb_setup_test_conn_lang_code').val($('.eb_setup_test_conne_lang').val());
+                $('.eb_setup_test_conn_seprator_wrap').css('display', 'none');
+                $('.eb_setup_test_conn_text').css('display', 'block');
+                $('.eb_setup_test_conn_h2').css('display', 'none');
+                
+            });
+
+
+
+            // function onChange(event) {
+            $('.eb_setup_file_btn').change(function(event){
+
+                var reader = new FileReader();
+                reader.onload = onReaderLoad;
+                reader.readAsText(event.target.files[0]);
+            });
+        
+            function onReaderLoad(event){
+                console.log(event.target.result);
+                var obj = JSON.parse(event.target.result);
+                $('.eb_setup_test_conne_url').val(obj.url);
+                $('.eb_setup_test_conne_token').val(obj.token);
+                $('.eb_setup_test_conne_lang').val(obj.lang_code);
+            }
+            
+            // function arrow_animate(){
+            //     $('.arrow').animate([
+            //         {left: '0'},
+            //         {left: '10px'},
+            //         {left: '0'}
+            //     ],{
+            //         duration: 700,
+            //         iterations: Infinity
+            //     });
+            // }
+                
+            // });
+
+
+
+
     });
+
+
+
+
+
+
+
     
 
 })(jQuery);

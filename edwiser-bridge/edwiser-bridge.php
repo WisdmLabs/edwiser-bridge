@@ -26,6 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-eb-activator.php.

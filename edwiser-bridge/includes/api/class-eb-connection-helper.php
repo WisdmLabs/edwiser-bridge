@@ -359,7 +359,7 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args              = array( 'timeout' => 100 );
+		$request_args = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = false;
 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {

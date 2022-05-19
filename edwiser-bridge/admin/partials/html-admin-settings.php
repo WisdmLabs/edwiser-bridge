@@ -71,7 +71,6 @@ foreach ( $extensions as $plugin_path ) {
 
 
 			<?php
-
 			if ( in_array( $tabname, array( 'remui', 'pfetures' ), true ) ) {
 				$show_banner = false;
 			}

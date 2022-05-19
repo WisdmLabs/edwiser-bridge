@@ -58,6 +58,8 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'edwiser-bridge' ), '<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
 			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
 
+
+
 			$settings = apply_filters(
 				'eb_general_settings',
 				array(

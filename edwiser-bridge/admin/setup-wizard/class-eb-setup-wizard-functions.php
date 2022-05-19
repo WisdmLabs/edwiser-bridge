@@ -42,23 +42,26 @@ class Eb_Setup_Wizard_Functions {
 		 * Remaining tasks.
 		 * 1. showing current step on refresh - DONE
 		 * 2. Product sync.
-		 * 3. Saving recommended settings.
-		 * 4. coding standards.
+		 * 3. Saving recommended settings. -Done
+		 * 4. coding standards. - Done
 		 * 5. nonce.
-		 * 6. license.
+		 * 6. license. - Done
 		 * 7. Total flow.
-		 * 8. pop-ups.
+		 * 8. pop-ups. -Done
 		 * 9. user sync Pop-up with progress.
 		 * 10. Loader.
 		 * 11. secret key. DONE
+		 * 12. Moodle sidebar progress issue.
+		 * 13. tooltip and accordion info
 		 */
 
-		if ( ! isset( $_POST['action'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
+		if ( ! isset( $_POST['action'] ) && isset( $_GET['page'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
 			$setup_templates = new Eb_Setup_Wizard_Templates();
 			add_action( 'admin_init', array( $setup_templates, 'eb_setup_wizard_template' ), 9 );
 			add_action( 'admin_init', array( $this, 'eb_setup_steps_save_handler' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
 		}
+
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -203,6 +206,7 @@ class Eb_Setup_Wizard_Functions {
 			),
 		);
 
+
 		/**
 		 * Check the value of the selected setup.
 		 * If free don't show only free plugins steps.
@@ -212,11 +216,11 @@ class Eb_Setup_Wizard_Functions {
 
 		$setup_wizard = get_option( 'eb_setup_data' );
 
-		if ( 'free' === $setup_wizard['name'] ) {
-			$steps = $free_setup_steps;
-		} elseif ( 'pro' === $setup_wizard['name'] ) {
+		$steps = $free_setup_steps;
+
+		if ( isset( $setup_wizard['name'] ) && 'pro' === $setup_wizard['name'] ) {
 			$steps = $pro_setup_steps;
-		} elseif ( 'free_and_pro' === $setup_wizard['name'] ) {
+		} elseif ( isset( $setup_wizard['name'] ) && 'free_and_pro' === $setup_wizard['name'] ) {
 			$steps = array_merge( $free_setup_steps, $pro_setup_steps );
 		}
 
@@ -247,6 +251,8 @@ class Eb_Setup_Wizard_Functions {
 
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
+
+
 
 		wp_send_json_success( $response );
 
@@ -318,6 +324,8 @@ class Eb_Setup_Wizard_Functions {
 
 					$url['eb_url'] = $data['mdl_url'];
 
+
+
 					update_option( 'eb_connection', $url );
 				}
 				break;
@@ -352,6 +360,7 @@ class Eb_Setup_Wizard_Functions {
 				break;
 
 			case 'user_sync':
+
 				break;
 
 			case 'free_recommended_settings':
@@ -375,6 +384,10 @@ class Eb_Setup_Wizard_Functions {
 				break;
 
 			case 'wi_products_sync':
+
+				// require_once WP_PLUGIN_DIR . '/woocommerce-integration/includes/class-bridge-woocommerce.php';
+				// require_once WP_PLUGIN_DIR . '/woocommerce-integration\includes\class-bridge-woocommerce-course.php';
+
 				require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
 				require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
 
@@ -489,7 +502,9 @@ class Eb_Setup_Wizard_Functions {
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
 
 			)
+
 		);
+
 
 	}
 
@@ -503,10 +518,10 @@ class Eb_Setup_Wizard_Functions {
 
 		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
-
 		wp_send_json_success( $return );
-
 	}
+
+
 
 	/**
 	 * Add admin menus/screens.
@@ -519,8 +534,8 @@ class Eb_Setup_Wizard_Functions {
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		add_dashboard_page(
-			'',
-			'',
+			'Edwiser Bridge Setup',
+			'Edwiser Bridge Setup',
 			'read',
 			'eb-setup-wizard',
 		);
@@ -530,7 +545,7 @@ class Eb_Setup_Wizard_Functions {
 	/**
 	 * Setup Wizard Steps HTML content
 	 */
-	public function eb_setup_steps_html() {
+	public function eb_setup_steps_html( $current_step = '' ) {
 		$steps = $this->eb_setup_wizard_get_steps();
 
 		/**
@@ -547,36 +562,43 @@ class Eb_Setup_Wizard_Functions {
 		if ( ! empty( $steps ) && is_array( $steps ) ) {
 
 			?>
-		<ul class="eb-setup-steps">
+			<ul class="eb-setup-steps">
 
 			<?php
 			$allowed_tags = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
 			foreach ( $steps as $key => $step ) {
-				$class = '';
-				$html  = '<span class="eb-setup-step-circle" > </span>';
+				if ( ! $step['sub_step'] ) {
+					$class = '';
+					$html  = '<span class="eb-setup-step-circle eb_setup_sidebar_progress_icons" > </span>';
 
-				if ( 1 === $completed ) {
-					$class = 'eb-setup-step-completed';
-					$html  = '<span class="dashicons dashicons-arrow-right-alt2"></span>';
+					if ( 1 === $completed ) {
+						$class = 'eb-setup-step-completed';
+						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
+						// $html  = '<span class="dashicons dashicons-arrow-right-alt2"></span>';
+					} elseif ( $current_step === $key ) {
+						$class = 'eb-setup-step-active';
+						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
+						// $html  = '<i class="fa-solid fa-circle-chevron-right eb_setup_sidebar_progress_icons"></i>';
+					}
+
+					if ( $key === $progress ) {
+						$completed = 0;
+					}
+
+					?>
+					<li class='eb-setup-step  <?php echo ' eb-setup-step-' . esc_attr( $key ) . ' ' . wp_kses( $class, $allowed_tags ) . '-wrap'; ?>' >
+						<?php echo wp_kses( $html, $allowed_tags ); ?>
+						<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php esc_attr_e( $key ); ?>">
+							<?php esc_attr_e( $step['name'], 'edwiser-bridge' ); ?>
+						</span>
+					</li>
+
+					<?php
 				}
-
-				if ( $key === $progress ) {
-					$completed = 0;
-				}
-
-				?>
-			<li class='eb-setup-step  <?php echo wp_kses( $class, $allowed_tags ) . '-wrap'; ?>'>
-				<?php echo wp_kses( $html, $allowed_tags ); ?>
-				<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php esc_attr_e( $key ); ?>">
-					<?php esc_attr_e( $step['name'], 'edwiser-bridge' ); ?>
-				</span>
-			</li>
-
-				<?php
 			}
 			?>
-		</ul>
+			</ul>
 			<?php
 		}
 	}
@@ -592,11 +614,9 @@ class Eb_Setup_Wizard_Functions {
 		 * Handle form submission.
 		 */
 		if ( ! empty( $_POST['eb_setup_free_initialize'] ) ) {
-
 			// save set up data.
-			get_option( 'eb_setup_data' );
+			$setup_data   = get_option( 'eb_setup_data' );
 			$chosen_setup = '';
-
 			if ( isset( $_POST['eb_free_setup'] ) ) {
 				$chosen_setup = 'free';
 			} elseif ( isset( $_POST['eb_pro_setup'] ) ) {
@@ -605,18 +625,25 @@ class Eb_Setup_Wizard_Functions {
 				$chosen_setup = 'free_and_pro';
 			}
 
-			$setup_array = array( 'name' => $chosen_setup );
+			if( is_array( $setup_data ) ) {
+				$setup_data['name'] = $chosen_setup;
+			} else {
+				$setup_data = array( 'name' => $chosen_setup );
+			}
 
-			update_option( 'eb_setup_data', $setup_array );
+			// If this form is submitted i.e progress should be added.
+			$setup_data['progress'] = 'initialize';
+
+			update_option( 'eb_setup_data', $setup_data );
 			$step = 'free_installtion_guide';
 		}
+
 
 		/**
 		 * Handle page refresh.
 		 */
 		if ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
 			$step = $_GET['current_step'];
-
 		}
 
 		return $step;

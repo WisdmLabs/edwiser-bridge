@@ -92,6 +92,7 @@ class Eb_Course_Manager {
 	 * @see Eb_Course_Manager()
 	 * @param text $plugin_name plugin_name.
 	 * @param text $version version.
+	 * @return Eb_Course_Manager - Main instance
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
@@ -197,6 +198,8 @@ class Eb_Course_Manager {
 				}
 			}
 
+
+
 			// Sync enrollment Methods.
 			if ( isset( $moodle_course_resp['response_data'] ) ) {
 
@@ -244,6 +247,7 @@ class Eb_Course_Manager {
 				return $response['response_data'];
 			}
 		}
+
 	}
 
 
@@ -272,7 +276,6 @@ class Eb_Course_Manager {
 				}
 			}
 			return $response['response_data'];
-
 		} else {
 			return $response;
 		}
@@ -868,7 +871,6 @@ class Eb_Course_Manager {
 			} else {
 				$data = 'success';
 			}
-
 			$sendback = add_query_arg(
 				array(
 					'post_type'            => 'eb_course',
@@ -936,6 +938,9 @@ class Eb_Course_Manager {
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : '';
 
 		if ( $course_id ) {
+
+			// $courses_data = $this->sync_course_enrollment_method();
+
 			// Update course enrollment method.
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => array( $course_id ) ) );
 			if ( 0 === $course_data['success'] ) {

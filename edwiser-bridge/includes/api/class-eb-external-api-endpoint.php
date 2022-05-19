@@ -356,6 +356,7 @@ class Eb_External_Api_Endpoint {
 	 */
 	public function eb_trigger_course_creation( $data ) {
 
+
 		if ( isset( $data['course_id'] ) ) {
 			// Create course data.
 			$course_data             = new \stdClass();
