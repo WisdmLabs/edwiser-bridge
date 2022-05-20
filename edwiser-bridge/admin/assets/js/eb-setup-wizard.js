@@ -40,6 +40,8 @@
         $('.eb-setup-step-completed').click(function(){
 
             // Create loader.
+            $("#eb-lading-parent").show();
+
             var current = $(this);
             var step = $(this).data('step');
 
@@ -64,9 +66,9 @@
                 dataType: "json",
                 data: {
                     'action': 'eb_setup_change_step',
-                    'step': step
+                    'step': step,
                     // 'course_id': course_id,
-                    // '_wpnonce_field': eb_admin_js_object.nonce,
+                    'nonce': eb_setup_wizard.nonce,
                 },
                 success: function (response) {
 
@@ -78,18 +80,20 @@
 
                     } else {
 
-
-
                     }
+
+                    $("#eb-lading-parent").hide();
+
                 }
             });
 
         });
 
 
+
+        var loader = '<div id="eb-lading-parent" class="eb-lading-parent-wrap"><div class="eb-loader-progsessing-anim"></div></div>';
+        $("body").append(loader);
         
-
-
 
         /**
          * Close setup.
@@ -103,6 +107,7 @@
                 dataType: "json",
                 data: {
                     'action': 'eb_setup_close_setup',
+                    'nonce': eb_setup_wizard.nonce,
                     // 'step': step
                     // 'course_id': course_id,
                     // '_wpnonce_field': eb_admin_js_object.nonce,
@@ -134,48 +139,6 @@
         // $(document).on('click', '.eb_set_up_save_and_continue', function (event) {
 
 
-        //     // Create loader.
-        //     var current = $(this);
-        //     var current_step = $(this).data('step');
-        //     var next_step = $(this).data('next-step');
-        //     var is_next_sub_step = $(this).data('is-next-sub-step');
-            
-        //     // get current step.
-        //     // get next step.
-        //     // get data which will be saved.
-
-        //     // Creating swicth case.
-            
-        //     var data = {};
-
-
-
-
-        //     $.ajax({
-        //         method: "post",
-        //         url: eb_setup_wizard.ajax_url,
-        //         dataType: "json",
-        //         data: {
-        //             'action': 'eb_setup_' + step,
-        //             // 'course_id': course_id,
-        //             // '_wpnonce_field': eb_admin_js_object.nonce,
-        //         },
-        //         success: function (response) {
-    
-        //             //prepare response for user
-        //             if (response.success == 1) {
-        //                 $('.eb-setup-content').html(response.data.content);
-
-        //             } else {
-    
-        //             }
-        //         }
-        //     });
-    
-        // });
-
-
-
 
         // ajax xall to save data and get new tab at the same time.
         
@@ -183,6 +146,8 @@
         // 
         // $('.eb_setup_save_and_continue').click(function(){
         $(document).on('click', '.eb_setup_save_and_continue', function (event) {
+
+            $("#eb-lading-parent").show();
 
             var $this = $(this);
             var current_step = $(this).data('step');
@@ -192,8 +157,6 @@
             if ( $('.eb_setup_popup').length ) {
                 $('.eb_setup_popup').remove();
             }
-
-
 
             // get current step.
             // get next step.
@@ -232,16 +195,16 @@
                 case 'user_sync':
                     // If user checkbox is clicked start user sync otherwise just procedd to next screen.
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                    var sync_options = {};
-                    // prepare sync options array
-                    var sync_options = {eb_synchronize_user_courses: 1, eb_link_users_to_moodle: 1};
-                    var offset = 0;
-                    var progressWidth = 0;
-                    var linkedUsers = 0;
-                    var users_count = 0;
-                    var queryLimit = 0;
-                    var notLinkedusers = [];
-                    userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
+                    // var sync_options = {};
+                    // // prepare sync options array
+                    // var sync_options = {eb_synchronize_user_courses: 1, eb_link_users_to_moodle: 1};
+                    // var offset = 0;
+                    // var progressWidth = 0;
+                    // var linkedUsers = 0;
+                    // var users_count = 0;
+                    // var queryLimit = 0;
+                    // var notLinkedusers = [];
+                    // userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
 
                     break;
 
@@ -306,6 +269,7 @@
                     dataType: "json",
                     data: {
                         'action': 'eb_setup_save_and_continue',
+                        'nonce': eb_setup_wizard.nonce,
                         // 'action': 'eb_setup_' + step,
                         'data': data,
                         // '_wpnonce_field': eb_admin_js_object.nonce,
@@ -322,9 +286,6 @@
 
                                 handle_step_progress( current_step, next_step );
 
-console.log( current_step );
-console.log( mdl_url );
-
                                 // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
                                 if ( 'moodle_redirection' == current_step ) {
                                     window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
@@ -332,16 +293,13 @@ console.log( mdl_url );
 
                                 $('.eb-setup-content').html(response.data.content);
                                 $('.eb-setup-header-title').html(response.data.title);
-
-
                             }
-                            
-
-                            
-
                         } else {
         
                         }
+
+                        $("#eb-lading-parent").hide();
+
                     }
                 });
     
@@ -353,18 +311,23 @@ console.log( mdl_url );
                  * 1. Mark current step as active and 
                  * 2. Mark previous step as completed.
                  */
-
-                // Add completed class to the sidebar steps
+                // Add completed class to the sidebar steps.
                 $('.eb-setup-step-' + current_step).addClass('eb-setup-step-completed-wrap');
+                $('.eb-setup-step-' + current_step).removeClass('eb-setup-step-active-wrap');
                 var step_title = $('.eb-setup-step-' + current_step).children('.eb-setup-steps-title');
                 step_title.addClass('eb-setup-step-completed');
+                step_title.removeClass('eb-setup-step-active');
+                var step_icon = $('.eb-setup-step-' + current_step).children('.eb_setup_sidebar_progress_icons');
+                step_icon.addClass('dashicons dashicons-yes-alt');
+                step_icon.removeClass('eb-setup-step-circle dashicons-arrow-right-alt2');
 
                 $('.eb-setup-step-' + next_step).addClass('eb-setup-step-active-wrap');
-                var step_title = $('.eb-setup-step-' + current_step).children('.eb-setup-steps-title');
+                var step_title = $('.eb-setup-step-' + next_step).children('.eb-setup-steps-title');
                 step_title.addClass('eb-setup-step-active');
+                var step_icon = $('.eb-setup-step-' + next_step).children('.eb_setup_sidebar_progress_icons');
+                step_icon.addClass('dashicons dashicons-arrow-right-alt2');
+                step_icon.removeClass('eb-setup-step-circle');
             }
-
-
 
 
             /* Function for link users to moodle, this will have a ajax call which will run after completion of another(recursively) */
@@ -387,11 +350,15 @@ console.log( mdl_url );
                         'offset': offset
                     },
                     success: function (response) {
+                        $("#eb-lading-parent").hide();
+
                         queryLimit = queryLimit + 2;
                         offset = offset + Math.abs(parseInt(response.unlinked_users_count) - parseInt(response.linked_users_count));
                         linkedUsers = parseInt(linkedUsers) + parseInt(response.linked_users_count);
                         users_count = parseInt(linkedUsers) + parseInt(response.users_count);
+                        
                         showLinkedUsersProgress(linkedUsers, users_count, 'success');
+
                         if (response.connection_response == 1) {
                             if (response.user_with_error !== undefined) {
                                 $.each(response.user_with_error, function (index, value) {
@@ -401,21 +368,24 @@ console.log( mdl_url );
                                     }
                                 });
                             }
+
                             if (queryLimit < users_count) {
                                 userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
                             } else {
-                                $('.load-response').hide();
-                                if (!$('.response-box').is(":empty")) {
-                                    $('.linkresponse-box').css('margin-top', '3%');
-                                }
-                                $('.linkresponse-box').css('margin-left', '0px !important');
-                                // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
-                                if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
-                                    var container = $('.linkresponse-box');
-                                    var html = '<span class="linkresponse-box-error">' + eb_setup_wizard.msg_unlink_users_list + '</span>';
-                                    container.append(html);
-                                    $(".unlink-table tbody").append(notLinkedusers);
-                                }
+                                $('.eb_setup_popup').css('display', 'none');
+                                $( ".eb_setup_save_and_continue").click();
+
+                                // if (!$('.response-box').is(":empty")) {
+                                //     $('.linkresponse-box').css('margin-top', '3%');
+                                // }
+                                // $('.linkresponse-box').css('margin-left', '0px !important');
+                                // // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
+                                // if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
+                                //     var container = $('.linkresponse-box');
+                                //     var html = '<span class="linkresponse-box-error">' + eb_setup_wizard.msg_unlink_users_list + '</span>';
+                                //     container.append(html);
+                                //     $(".unlink-table tbody").append(notLinkedusers);
+                                // }
                             }
                         } else {
                             $('.load-response').hide();
@@ -428,6 +398,7 @@ console.log( mdl_url );
             
             $(document).on('click', '.eb_setup_users_sync_btn', function (event) {
                 var $this = $(this);
+                $("#eb-lading-parent").show();
 
                 var sync_options = {};
                 // prepare sync options array
@@ -446,18 +417,20 @@ console.log( mdl_url );
                 userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
 
                 // Trigger save and continue button.
-                // $( ".eb_setup_save_and_continue" ).click();
-
             });
 
 
 
             /* Function to show progress of link users to moodle functionality*/
-            function showLinkedUsersProgress(linked_users_count = 0, unlinked_users_count = 0, type) {
-                var container = $('.linkresponse-box');
-                var html = '<div class="alert alert-' + type + '">' + linked_users_count + ' / ' + unlinked_users_count + ' ' + eb_setup_wizard.msg_user_link_to_moodle_success + '</div>';
-                container.empty();
-                container.append(html);
+            function showLinkedUsersProgress(linked_users_count = 0, users_count = 0, type) {
+                // var container = $('.linkresponse-box');
+                // var html = '<div class="alert alert-' + type + '">' + linked_users_count + ' / ' + unlinked_users_count + ' ' + eb_setup_wizard.msg_user_link_to_moodle_success + '</div>';
+                // container.empty();
+                // container.append(html);
+
+                $('.eb_setup_users_sync_users').html(linked_users_count);
+                $('.eb_setup_users_sync_total_users').html(users_count);
+
             }
 
 
@@ -468,6 +441,7 @@ console.log( mdl_url );
              * display a response to user on process completion
              */
             $(document).on('click', '.eb_setup_test_connection_btn', function (event) {
+                $("#eb-lading-parent").show();
 
                 //get selected options
                 //
@@ -499,6 +473,9 @@ console.log( mdl_url );
                             // ohSnap(response.response_message, 'error', 0);
                             $('.eb_setup_test_conn_error').html(response.response_message);
                         }
+
+                        $("#eb-lading-parent").hide();
+
                     }
                 });
             });
@@ -508,6 +485,7 @@ console.log( mdl_url );
             // MaNAGE LICENSE
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
                 var extensions = {};
+                $("#eb-lading-parent").show();
 
                 $('.eb_setup_license_inp').each(function() {
                     // var currentElement = $(this);
@@ -563,6 +541,9 @@ console.log( mdl_url );
                             $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
                         }
 
+                        $("#eb-lading-parent").hide();
+
+
                         if(key < Object.keys(extensions).length - 1){
                             installPlugin(extensions, key + 1);
                         }
@@ -578,6 +559,8 @@ console.log( mdl_url );
              */
             // $('#eb_setup_verify_sso_roken_btn').click(function () {
             $(document).on( 'click', '.eb_setup_verify_sso_roken_btn', function(){
+                $("#eb-lading-parent").show();
+
                 //get selected options
                 $('.response-box').empty(); // empty the response
                 var url = $('#eb_url').val();
@@ -606,8 +589,9 @@ console.log( mdl_url );
                         } else {
                             $('.eb_setup_sso_response').html(response.data);
                             $('.eb_setup_sso_response').addClass('eb_setup_settings_error_msg');
-
                         }
+
+                        $("#eb-lading-parent").hide();
                     }
                 });
             });
@@ -644,18 +628,10 @@ console.log( mdl_url );
                 $('.eb_setup_test_conne_lang').val(obj.lang_code);
             }
             
-            // function arrow_animate(){
-            //     $('.arrow').animate([
-            //         {left: '0'},
-            //         {left: '10px'},
-            //         {left: '0'}
-            //     ],{
-            //         duration: 700,
-            //         iterations: Infinity
-            //     });
-            // }
-                
-            // });
+            $('input[name="eb_setup_name"]').click(function() {
+                $('#eb_setup_free_initialize').removeClass('disabled');
+                $('#eb_setup_free_initialize').removeAttr("disabled");
+            });
 
 
 
@@ -664,10 +640,5 @@ console.log( mdl_url );
 
 
 
-
-
-
-
-    
 
 })(jQuery);

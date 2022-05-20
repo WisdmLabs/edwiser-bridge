@@ -292,7 +292,7 @@ class EBUserManager {
 						FROM {$wpdb->base_prefix}usermeta
 						WHERE user_id NOT IN (SELECT DISTINCT(user_id) from {$wpdb->base_prefix}usermeta WHERE meta_key = 'moodle_user_id' && meta_value IS NOT NULL)
 						ORDER BY user_id ASC
-						LIMIT %d , 20",
+						LIMIT %d , 2",
 						$offset
 					),
 					ARRAY_A

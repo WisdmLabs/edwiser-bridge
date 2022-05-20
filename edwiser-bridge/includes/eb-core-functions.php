@@ -810,12 +810,12 @@ if ( ! function_exists( 'wdm_edwiser_bridge_get_lang_code' ) ) {
 
 		$general_options = get_option( 'eb_general' );
 
-		$eb_moodle_token = '';
-		if ( isset( $connection_options['eb_language_code'] ) ) {
-			$eb_moodle_token = $connection_options['eb_language_code'];
+		$lang_code = '';
+		if ( isset( $general_options['eb_language_code'] ) ) {
+			$lang_code = $general_options['eb_language_code'];
 		}
 
-		return $eb_moodle_token;
+		return $lang_code;
 	}
 }
 

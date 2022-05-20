@@ -1,8 +1,46 @@
 
+/* Loader */
+/* .eb-loader-progsessing-anim {
+    border: 5px solid #ffffff;
+    border-top: 5px solid #07a3c3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    display: inline-block;
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .eb-lading-parent-wrap {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.73);
+    z-index: 99999;
+} */
+  
 
 .eb-setup-sidebar{
     height: 100%;
-    /* padding: 15px; */
     width: 27%;
     position: fixed;
     z-index: 1;
@@ -11,22 +49,21 @@
     background: #F7F7F7;
     overflow-x: hidden;
     padding-top: 10px;
-    /* padding-left: 30px; */
 }
   
-
+.eb_setup_btn.disabled{
+    background: #F7F7F7;
+    border: 1px solid #E5E5E5;
+    background: #C4C4C4;
+    cursor: not-allowed ;
+}
 
 .eb-setup-content{
-    /* padding: 5% 10%; */
-
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
-    /* identical to box height */
-
     color: #444444;
-
     width: 73%;
     margin-left: 27%;
     position: relative;
@@ -56,10 +93,6 @@
     margin-top: auto;
     margin-left: 20px;
     margin-bottom: auto;
-    /* height: 100%; */
-    /* vertical-align: middle; */
-    /* justify-content: center; */
-    /* display: block; */
 }
 
 .eb-setup-close-icon{
@@ -70,8 +103,6 @@
 }
 
 .eb-setup-header-title-wrap{
-    /* padding: 15px; */
-    /* width: 80%; */
     width: 73%;
     display: flex;
     text-align: center;
@@ -81,17 +112,8 @@
 .eb-setup-header-title{
     width: 90%;
     padding: 22px 30px;
-    /* position: absolute; */
-    /* width: 75%; */
     color: white;
-    /* height: 99px; */
-    /* left: 360px; */
-    /* top: 0px; */
-    /* width: 80%; */
-
     padding: 30px;
-    /* font-family: 'Open Sans'; */
-    /* font-style: normal; */
     font-weight: 400;
     font-size: 30px;
     line-height: 41px;
@@ -181,6 +203,8 @@
 }
 
 
+
+
 .eb_setup_free_initialize_inp_wrap{
 
 }
@@ -193,9 +217,9 @@
 
 .eb_setup_free_initialize_inp_wrap input{
     background: #FFFFFF;
-    border: 1px solid #C4C4C4;
+    /* border: 1px solid #C4C4C4; */
     box-sizing: border-box;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3); */
     border-radius: 4px;
 }
 
@@ -898,7 +922,7 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     font-size: 31px;
     color: #00A1A8;
     position: absolute;
-    animation: 3s bounce ease-in-out infinite paused;
+    animation: 1.5s bounce ease-in-out infinite paused;
     white-space: nowrap;
     top: 0;
     padding: 0 0.5rem;
