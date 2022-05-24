@@ -99,6 +99,10 @@
     cursor: not-allowed ;
 }
 
+
+
+
+
 .eb-setup-content{
     font-style: normal;
     font-weight: 400;
@@ -125,9 +129,17 @@
 .eb-setup-header-logo{
     background: #F7F7F7;
     width: 27%;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);   
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
 }
 
+.eb-setup-header-title-wrap.initialize{
+    background: #F7F7F7;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.eb-setup-header-title-wrap.initialize .eb-setup-header-title{
+    color: #133F3F;
+}
 
 .eb-setup-header-logo-img-wrap{
     height: 100%;

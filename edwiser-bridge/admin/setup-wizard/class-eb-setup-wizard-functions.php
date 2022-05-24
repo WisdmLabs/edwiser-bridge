@@ -20,29 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Eb_Setup_Wizard_Functions {
 
 	/**
-	 * Current step
-	 *
-	 * @var string
-	 */
-	private $step = '';
-
-	/**
-	 * Steps for the setup wizard
-	 *
-	 * @var array
-	 */
-	private $steps = array();
-
-	/**
 	 * Hook in tabs.
 	 */
 	public function __construct() {
-		/**
-		 * Remaining tasks.
-		 * 2. Product sync. - 
-		 * 7. Total flow. done
-		 * 13. tooltip and accordion info
-		 */
 		/* phpcs:disable WordPress.Security.NonceVerification */
 		if ( ! isset( $_POST['action'] ) && isset( $_GET['page'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
 			$setup_templates = new Eb_Setup_Wizard_Templates();
@@ -399,7 +379,8 @@ class Eb_Setup_Wizard_Functions {
 						'bridge_woo_synchronize_product_create'     => 1,
 					);
 
-					$course_woo_plugin = new EdwiserBridge\BridgeWoocommerceCourse( BridgeWoocommerce()->getPluginName(), BridgeWoocommerce()->getVersion() );
+
+					$course_woo_plugin = new \NmBridgeWoocommerce\BridgeWoocommerceCourse( \NmBridgeWoocommerce\BridgeWoocommerce()->getPluginName(), \NmBridgeWoocommerce\BridgeWoocommerce()->getVersion() );
 					$response          = $course_woo_plugin->bridgeWooProductSyncHandler( $sync_options );
 
 					break;

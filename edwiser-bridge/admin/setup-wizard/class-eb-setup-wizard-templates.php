@@ -42,12 +42,13 @@ class Eb_Setup_Wizard_Templates {
 		$steps         = $setup_functions->eb_setup_wizard_get_steps();
 		$step          = $setup_functions->eb_setup_handle_page_submission_or_refresh();
 		$title         = $setup_functions->eb_get_step_title( $step );
-
-		$this->setup_wizard_header( $title );
-
+		$header_class  = '';
 		if ( 'initialize' === $step ) {
 			$content_class = 'eb_setup_full_width';
+			$header_class  = 'initialize';
 		}
+
+		$this->setup_wizard_header( $title, $header_class );
 
 
 		// content area.
@@ -105,7 +106,7 @@ class Eb_Setup_Wizard_Templates {
 	 *
 	 * @param  String $title title.
 	 */
-	public function setup_wizard_header( $title = '' ) {
+	public function setup_wizard_header( $title = '', $header_class = '' ) {
 
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
@@ -138,7 +139,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 			</div>
 
-			<div class='eb-setup-header-title-wrap'>
+			<div class='eb-setup-header-title-wrap <?php echo esc_attr( $header_class ); ?>'>
 
 				<div class='eb-setup-header-title'> <?php echo esc_attr( $title ); ?></div>
 				<div class='eb-setup-close-icon'> <span class="dashicons dashicons-no"></span> </div>
