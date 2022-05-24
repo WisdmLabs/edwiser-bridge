@@ -37,13 +37,10 @@ class Eb_Setup_Wizard_Functions {
 	 * Hook in tabs.
 	 */
 	public function __construct() {
-
 		/**
 		 * Remaining tasks.
-		 * 1. Back button. 
 		 * 2. Product sync. - 
-		 * 7. Total flow.
-		 * 12. Moodle sidebar progress issue.
+		 * 7. Total flow. done
 		 * 13. tooltip and accordion info
 		 */
 		/* phpcs:disable WordPress.Security.NonceVerification */
@@ -55,6 +52,7 @@ class Eb_Setup_Wizard_Functions {
 		}
 		/* phpcs: enable */
 
+		add_action( 'admin_init', array( $this, 'welcome_handler' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		$steps = $this->eb_setup_wizard_get_steps();
@@ -67,6 +65,29 @@ class Eb_Setup_Wizard_Functions {
 	}
 
 	/**
+	 * Sends user to the welcome page on plugin activation.
+	 *
+	 * @since  1.0.0
+	 */
+	public function welcome_handler() {
+		// Return if no activation redirect transient is set. Or not network admin.
+		if ( ! get_transient( '_eb_activation_redirect' ) || is_network_admin() ) {
+			return;
+		}
+
+		if ( get_transient( '_eb_activation_redirect' ) ) {
+			// Delete transient used for redirection.
+			delete_transient( '_eb_activation_redirect' );
+			$wc_url = admin_url( '/?page=eb-setup-wizard' );
+			wp_safe_redirect( $wc_url );
+			exit;
+		}
+	}
+
+
+
+
+	/**
 	 * Setup Wizard steps.
 	 */
 	public function eb_setup_wizard_get_steps() {
@@ -77,14 +98,18 @@ class Eb_Setup_Wizard_Functions {
 		 * step change logic.
 		 * load data on step change.
 		 */
-		$free_setup_steps = array(
+
+		$default_array = array(
 			'initialize'                => array(
 				'name'     => __( 'Setup Initialize', 'eb-textdoamin' ),
 				'title'    => __( 'Edwiser Bridge plugin - Setup Initialization', 'eb-textdoamin' ),
 				'function' => 'eb_setup_initialize',
 				'sidebar'  => 0,
 				'sub_step' => 0,
-			),
+			)
+		);
+
+		$free_setup_steps = array(
 			'free_installtion_guide'    => array(
 				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
 				'title'    => __( 'Edwiser Bridge FREE plugin installation guide', 'eb-textdoamin' ),
@@ -203,12 +228,12 @@ class Eb_Setup_Wizard_Functions {
 		 */
 		$setup_wizard = get_option( 'eb_setup_data' );
 
-		$steps = $free_setup_steps;
+		$steps = array_merge( $default_array, $free_setup_steps );
 
 		if ( isset( $setup_wizard['name'] ) && 'pro' === $setup_wizard['name'] ) {
-			$steps = $pro_setup_steps;
+			$steps = array_merge( $default_array, $pro_setup_steps );
 		} elseif ( isset( $setup_wizard['name'] ) && 'free_and_pro' === $setup_wizard['name'] ) {
-			$steps = array_merge( $free_setup_steps, $pro_setup_steps );
+			$steps = array_merge( $default_array, $free_setup_steps, $pro_setup_steps );
 		}
 
 		return $steps;
@@ -234,14 +259,15 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_test_connection_handler() {
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+		// if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+
 			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
 			$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
 			$response          = $connection_helper->connection_test_helper( $url, $token );
 			wp_send_json_success( $response );
-		}
+		// }
 	}
 
 	/**
@@ -249,7 +275,7 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_manage_license() {
 
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+		// if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			if ( ! class_exists( 'Licensing_Settings' ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'settings/class-eb-settings-page.php';
 				include_once plugin_dir_path( __DIR__ ) . 'licensing/class-licensing-settings.php';
@@ -270,14 +296,7 @@ class Eb_Setup_Wizard_Functions {
 			foreach ( $license_data as $key => $value ) {
 				if ( ! empty( $value ) ) {
 					$license_handler = new Licensing_Settings();
-					// $result           = $license_handler->wdm_install_plugin(
-					// array(
-					// 'action'                       => $key,
-					// 'edd_' . $key . '_license_key' => $value,
-					// ),
-					// 0
-					// );
-					$result           = $this->eb_setup_wizard_install_plugins(
+					$result          = $this->eb_setup_wizard_install_plugins(
 						array(
 							'action'                       => $key,
 							'edd_' . $key . '_license_key' => $value,
@@ -288,7 +307,7 @@ class Eb_Setup_Wizard_Functions {
 			}
 
 			wp_send_json_success( $response );
-		}
+		// }
 	}
 
 	/**
@@ -541,12 +560,21 @@ class Eb_Setup_Wizard_Functions {
 
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
-		add_dashboard_page(
+		// add_dashboard_page(
+		// 	'Edwiser Bridge Setup',
+		// 	'Edwiser Bridge Setup',
+		// 	'manage_options',
+		// 	'eb-setup-wizard',
+		// );
+
+		add_submenu_page(
+			'',
 			'Edwiser Bridge Setup',
 			'Edwiser Bridge Setup',
 			'read',
 			'eb-setup-wizard',
 		);
+
 	}
 
 	/**
@@ -623,6 +651,7 @@ class Eb_Setup_Wizard_Functions {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			if ( isset( $_POST['eb_setup_name'] ) && ! empty( $_POST['eb_setup_free_initialize'] ) ) {
 				$setup_name = sanitize_text_field( wp_unslash( $_POST['eb_setup_name'] ) );
+				$step = 'free_installtion_guide';
 
 				// save set up data.
 				$setup_data   = get_option( 'eb_setup_data' );
@@ -630,6 +659,7 @@ class Eb_Setup_Wizard_Functions {
 				if ( 'eb_free_setup' == $setup_name ) {
 					$chosen_setup = 'free';
 				} elseif ( 'eb_pro_setup' == $setup_name ) {
+					$step = 'pro_initialize';
 					$chosen_setup = 'pro';
 				} elseif ( 'eb_free_and_pro' == $setup_name ) {
 					$chosen_setup = 'free_and_pro';
@@ -645,7 +675,6 @@ class Eb_Setup_Wizard_Functions {
 				$setup_data['progress'] = 'initialize';
 	
 				update_option( 'eb_setup_data', $setup_data );
-				$step = 'free_installtion_guide';
 			}
 		}
 

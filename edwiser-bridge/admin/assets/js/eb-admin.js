@@ -206,27 +206,19 @@
 
         /* ---------------------------
          * Manage Enrollment page js
-         ------------------------------*/
-
+         * ------------------------------*/
         $(document).on('click', '#eb_manage_enroll_dt_search', function (event) {
-
             event.preventDefault();
             $('#eb_manage_enroll_export').val('');
-
             var parent = $(this).closest('form');
             parent.attr('action', '');
             parent.submit();
-
         });
 
         $(document).on('focusout', '#enrollment_from_date', function (event) {
-
             var value = $(this).val();
 
-
             if (is_valid_date(value)) {
-
-
                 // $('#enrollment_to_date').prop('disabled ', false);
                 document.getElementById("enrollment_to_date").disabled = false;
             } else {

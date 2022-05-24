@@ -169,16 +169,17 @@
             switch ( current_step ) {
                 case 'moodle_redirection':
                     // Get required data and create array
-                    var mdl_url      = $('#eb_setup_test_conn_mdl_url').val();
-
+                    var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
+                    // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
+                    window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
                     data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-
+                    return;
                     break;
 
                 case 'test_connection':
-                    var mdl_url      = $('#eb_setup_test_conn_mdl_url').val();
-                    var mdl_token    = $('#eb_setup_test_conn_token').val();
-                    var mdl_lang_code = $('#eb_setup_test_conn_lang_code').val();
+                    var mdl_url      = $('#eb_setup_test_conn_mdl_url').val().trim();
+                    var mdl_token    = $('#eb_setup_test_conn_token').val().trim();
+                    var mdl_lang_code = $('#eb_setup_test_conn_lang_code').val().trim();
 
                     data = { 'mdl_url' : mdl_url, 'mdl_token' : mdl_token, 'mdl_lang_code': mdl_lang_code, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     
@@ -283,13 +284,8 @@
                                 $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
                             } else {   
                                 change_url( next_step );
-
                                 handle_step_progress( current_step, next_step );
 
-                                // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
-                                if ( 'moodle_redirection' == current_step ) {
-                                    window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
-                                }
 
                                 $('.eb-setup-content').html(response.data.content);
                                 $('.eb-setup-header-title').html(response.data.title);
@@ -465,7 +461,7 @@
 
                         //prepare response for user
                         if (response.success == 1) {
-                            $('.eb_setup_test_conn_success').css('display', 'initial');
+                            $('.eb_setup_test_conn_success').css('display', 'block');
                             $('.eb_setup_test_connection_btn').css('display', 'none');
                             $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
 
@@ -501,6 +497,7 @@
             // install plugin
             function installPlugin(extensions, key) {
                 var extension = {};
+                $("#eb-lading-parent").show();
 
                 extension[Object.keys(extensions)[key]] = Object.values(extensions)[key];
                 $.ajax({
@@ -542,7 +539,6 @@
                         }
 
                         $("#eb-lading-parent").hide();
-
 
                         if(key < Object.keys(extensions).length - 1){
                             installPlugin(extensions, key + 1);

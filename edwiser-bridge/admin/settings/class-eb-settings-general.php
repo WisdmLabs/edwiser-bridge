@@ -298,7 +298,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'title' => __( 'Usage Tracking', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
-						'id'    => 'refund_options',
+						'id'    => 'usage_tracking',
 					),
 					array(
 						'title'    => __( 'Allow Usage Tracking', 'edwiser-bridge' ),
@@ -314,7 +314,21 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'type' => 'sectionend',
-						'id'   => 'general_options',
+						'id'   => 'usage_tracking',
+					),
+					array(
+						'title' => __( 'Setup Wizard', 'edwiser-bridge' ),
+						'type'  => 'title',
+						'desc'  => '',
+						'id'    => 'setup_wizard',
+					),
+					array(
+						'type' => 'cust_html',
+						'html' => $this->eb_setup_wizard_link(),
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'setup_wizard',
 					),
 
 				)
@@ -322,6 +336,36 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings );
 		}
 
+
+		/**
+		 * Get setup wizard button Code.
+		 */
+		public function eb_setup_wizard_link() {
+			$url = get_site_url() . '/wp-admin/?page=eb-setup-wizard';
+			ob_start();
+			?>
+			<table class="form-table">
+				<tbody>
+					<tr valign="top" class="">
+						<th scope="row" class="titledesc"><?php esc_html_e( 'Run Setup Wizard', 'edwiser-bridge' ); ?></th>
+						<td class="forminp forminp-checkbox">
+							<fieldset>
+									<legend class="screen-reader-text">
+										<span><?php esc_html_e( 'Run Setup Wizard', 'edwiser-bridge' ); ?></span>
+									</legend>
+									<label for="">
+										<a href='<?php echo esc_attr( $url ); ?>' class='button'> <?php esc_html_e( 'Setup Wizard', 'edwiser-bridge' ); ?> </a>
+									</label>
+							</fieldset>
+						</td>
+					</tr>
+					<tr></tr>
+				</tbody>
+			</table>
+
+			<?php
+			return ob_get_clean();
+		}
 
 		/**
 		 * Get Popup Code.

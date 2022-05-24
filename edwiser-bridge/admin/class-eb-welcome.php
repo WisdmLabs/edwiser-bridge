@@ -28,10 +28,10 @@ class Eb_Welcome {
 	 * Hook in tabs.
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menus' ) );
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'admin_init', array( $this, 'welcome_handler' ) );
-		add_action( 'admin_action_eb_subscribe', array( $this, 'subscribe_handler' ) );
+		// add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+		// add_action( 'admin_head', array( $this, 'admin_head' ) );
+		// add_action( 'admin_init', array( $this, 'welcome_handler' ) );
+		// add_action( 'admin_action_eb_subscribe', array( $this, 'subscribe_handler' ) );
 	}
 
 	/**

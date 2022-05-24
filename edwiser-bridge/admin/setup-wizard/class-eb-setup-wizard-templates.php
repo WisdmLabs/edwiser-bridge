@@ -33,6 +33,7 @@ class Eb_Setup_Wizard_Templates {
 	 * @param  String $step step.
 	 */
 	public function eb_setup_wizard_template( $step = 'initialize' ) {
+
 		// Intialization.
 		$setup_functions = new Eb_Setup_Wizard_Functions();
 
@@ -47,6 +48,7 @@ class Eb_Setup_Wizard_Templates {
 		if ( 'initialize' === $step ) {
 			$content_class = 'eb_setup_full_width';
 		}
+
 
 		// content area.
 		// sidebar.
@@ -78,7 +80,6 @@ class Eb_Setup_Wizard_Templates {
 
 				$function = $steps[ $step ]['function'];
 				$this->$function( 0 );
-
 
 				?>
 			</div>
@@ -224,7 +225,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 				<fieldset>
-					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend> 
+					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 					<p>
 						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
 					</p>
@@ -349,7 +350,10 @@ class Eb_Setup_Wizard_Templates {
 				<span class="eb_setup_h2"> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </span>
 
 				<div class="eb_setup_conn_url_inp_wrap">
-					<p> <label class='eb_setup_h2'> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label></p>
+					<p>
+						<label class='eb_setup_h2'> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label>
+						<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Ensure there is no blank space. And it should follow the URL with Hypertext Transfer Protocol "https://"', 'edwiser-bridge' ); ?></span> </span>
+					</p>
 					<input class='eb_setup_inp' name='eb_setup_test_conn_mdl_url' id='eb_setup_test_conn_mdl_url' type='text' value='<?php echo esc_attr( $mdl_url ); ?>' >
 				</div>
 
@@ -363,7 +367,16 @@ class Eb_Setup_Wizard_Templates {
 				<div>
 					<div class="accordion"> <span class="dashicons dashicons-editor-help"></span> <?php esc_html_e( 'Unable to navigate directly to the Edwiser Bridge FREE plugin setup on Moodle from the above step?  ', 'edwiser-bridge' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span> </div>
 					<div class="panel">
-					<p>  </p>
+						<p>
+							<span> <?php echo esc_html_e( 'Please follow these manual steps below;', 'edwiser-bridge' ); ?> </span>
+							<ol>
+								<li> <?php esc_html_e( ' Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( ' Navigate to Site administration > Plugins > Edwiser Bridge ', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( ' Now click on ‘Initiate Edwiser Bridge Moodle Setup wizard’', 'edwiser-bridge' ); ?></li>
+								<li><?php esc_html_e( ' We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
+							</ol>
+
+						</p>
 					</div>
 				</div>
 			</div>
@@ -415,7 +428,10 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p class="eb_setup_test_conn_text"> <?php esc_html_e( 'Click on ‘Test connection’ once the details are added to the respective fields.', 'edwiser-bridge' ); ?> </p>
 
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label></p>
+						<p>
+							<label class="eb_setup_h2"> <?php esc_html_e( 'Moodle URL', 'edwiser-bridge' ); ?></label>
+							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Ensure there is no blank space. And it should follow the URL with Hypertext Transfer Protocol "https://"', 'edwiser-bridge' ); ?></span> </span>
+						</p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_mdl_url' id='eb_setup_test_conn_mdl_url' type='text' value='<?php echo esc_attr( $mdl_url ); ?>' >
 					</div>
 
@@ -564,6 +580,9 @@ class Eb_Setup_Wizard_Templates {
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
+		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
+
+
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -680,8 +699,9 @@ class Eb_Setup_Wizard_Templates {
 				<div class="eb_setup_user_sync_btn_wrap">
 
 					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </button>
+					<!-- <button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </button> -->
 
 				</div>
 
@@ -774,7 +794,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Save settings', 'edwiser-bridge' ); ?> </button>
 			</div>
@@ -810,6 +830,11 @@ class Eb_Setup_Wizard_Templates {
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
+		// Save step form progress.
+		$setup_data             = get_option( 'eb_setup_data' );
+
+
+
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -820,13 +845,32 @@ class Eb_Setup_Wizard_Templates {
 				<p> <span class='dashicons dashicons-yes-alt eb_setup_pupup_success_icon'></span> </p>
 
 				<p class="eb_setup_h2"> <?php esc_html_e( 'Edwiser Bridge FREE plugin Setup is Completed.', 'edwiser-bridge' ); ?></p>
-
-				<p>  <?php esc_html_e( 'Let’s continue with Edwiser Bridge PRO setup', 'edwiser-bridge' ); ?> </p>
-
+				<?php
+				if ( isset( $setup_data['name'] ) && 'free' != $setup_data['name'] ) {
+					?>
+					<p>  <?php esc_html_e( 'Let’s continue with Edwiser Bridge PRO setup', 'edwiser-bridge' ); ?> </p>
+					<?php
+				}
+				?>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-sub-step='<?php echo wp_kses( $sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Start Edwiser Bridge PRO Setup', 'edwiser-bridge' ); ?> </button>
+
+				<?php
+
+				if ( isset( $setup_data['name'] ) && 'free' == $setup_data['name'] ) {
+					?>
+					<a href=' <?php echo esc_url( get_site_url() . '/wp-admin' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Thank You !', 'edwiser-bridge' ); ?> </a>
+					<?php
+				} else {
+					?>
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-sub-step='<?php echo wp_kses( $sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Start Edwiser Bridge PRO Setup', 'edwiser-bridge' ); ?> </button>
+					<?php
+				}
+
+				?>
+				
+
 
 			</div>
 
@@ -871,7 +915,7 @@ class Eb_Setup_Wizard_Templates {
 			</p>
 
 			<p>
-				<?php esc_html_e( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a href="">' . esc_html_e( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
+				<?php echo esc_html( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a href="">' . esc_html( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
 			</p>
 
 			<div class="eb_setup_user_sync_btn_wrap">
@@ -1064,7 +1108,9 @@ class Eb_Setup_Wizard_Templates {
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
-
+		$mdl_url = \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url();
+		$mdl_url = ( 'MOODLE_URL' === $mdl_url ) ? '' : $mdl_url;
+		$mdl_url = $mdl_url . '/local/edwiserbridge/edwiserbridge.php?tab=service';
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -1097,10 +1143,20 @@ class Eb_Setup_Wizard_Templates {
 
 			</div>
 
-
 			<div>
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 3', 'edwiser-bridge' ); ?> </legend> 
+					<p>
+						<?php echo esc_html( 'Navigate to this URL  (', 'edwiser-bridge' ) . '<a href="<?php esc_attr( $mdl_url ) ?>">' . esc_attr( $mdl_url ) . '</a>' . esc_html( ') and click on ‘Update Web services’.', 'edwiser-bridge' ); ?>
+					</p>
+				</fieldset>
+
+			</div>
+
+
+			<div>
+				<fieldset>
+					<legend> <?php esc_html_e( 'STEP 4', 'edwiser-bridge' ); ?> </legend> 
 					<p>
 						<?php esc_html_e( 'Come back to this tab and continue your Edwiser Bridge PRO setup.', 'edwiser-bridge' ); ?>
 					</p>
@@ -1108,7 +1164,7 @@ class Eb_Setup_Wizard_Templates {
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 
@@ -1216,6 +1272,7 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
 
 		if ( $ajax ) {
 			ob_start();
@@ -1228,7 +1285,9 @@ class Eb_Setup_Wizard_Templates {
 			<div class="eb_setup_user_sync_btn_wrap">
 
 				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button>
-				<button class="eb_setup_sec_btn"> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </button>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+
+				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </button> -->
 
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Create', 'edwiser-bridge' ); ?> </button>
 			</div>
