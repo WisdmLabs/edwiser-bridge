@@ -142,10 +142,10 @@ class EBConnectionHelper {
 	 *
 	 * @return array returns array containing the success & response message
 	 */
-	public function connection_test_helper( $url, $token ) {
+	public function connection_test_helper( $url, $token, $text_response = 0 ) {
 		$success          = 1;
 		$response_message = 'success';
-
+		$plain_txt_msg    = '';
 		// function to check if webservice token is properly set.
 
 		$webservice_function = 'core_course_get_courses';
@@ -165,21 +165,26 @@ class EBConnectionHelper {
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
+			$plain_txt_msg    = $response->get_error_message();
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
+
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( null === $body ) {
 				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success          = 0;
+				$plain_txt_msg    = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
+
 				$response_message = $this->create_response_message(
 					$request_url,
 					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) . $url_link
 				);
-
 			} elseif ( ! empty( $body->exception ) ) {
 				$success          = 0;
-				$response_message = $this->create_response_message( $request_url, print_r( $body, 1 ) ); // @codingStandardsIgnoreLine
+				$msg              = print_r( $body, 1 ); // @codingStandardsIgnoreLine
+				$plain_txt_msg    = $msg;
+				$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
 
 			} else {
 				// added else to check the other services access error.
@@ -187,13 +192,18 @@ class EBConnectionHelper {
 
 				if ( ! $access_control_result['success'] ) {
 					$success          = 0;
+					$plain_txt_msg    = $access_control_result['response_message'];
 					$response_message = $this->create_response_message( $url, $access_control_result['response_message'] );
 				}
 			}
 		} else {
-			$success              = 0;
-				$response_message = $this->create_response_message( $request_url, esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'edwiser-bridge' ) );
+			$success          = 0;
+			$plain_txt_msg    = esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'edwiser-bridge' );
+			$response_message = $this->create_response_message( $request_url, esc_html__( 'Please check Moodle URL or Moodle plugin configuration !', 'edwiser-bridge' ) );
+		}
 
+		if ( $text_response && ! empty( $plain_txt_msg ) ) {
+			$response_message = $plain_txt_msg;
 		}
 
 		return array(

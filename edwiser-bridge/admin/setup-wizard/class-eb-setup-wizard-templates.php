@@ -266,7 +266,7 @@ class Eb_Setup_Wizard_Templates {
 		}
 
 		?>
-		<div class="eb_setup_installation_guide">
+		<div class="eb_setup_installation_guide es-w-80">
 			<div>
 				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'edwiser-bridge' ); ?> </span>
 				<div class='eb_setup_h2_wrap'>
@@ -344,7 +344,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_conn_url">
+		<div class="eb_setup_conn_url es-w-80">
 
 			<div>
 
@@ -404,7 +404,7 @@ class Eb_Setup_Wizard_Templates {
 	public function eb_setup_test_connection( $ajax = '1' ) {
 		$mdl_url   = \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url();
 		$mdl_url   = ( 'MOODLE_URL' === $mdl_url ) ? '' : $mdl_url;
-		$token     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token(); 
+		$token     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$lang_code = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_get_lang_code();
 
 		$setup_functions  = new Eb_Setup_Wizard_Functions();
@@ -417,11 +417,16 @@ class Eb_Setup_Wizard_Templates {
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
+		$disbaled = 'disabled';
+		if ( ! empty( $mdl_url ) && ! empty( $token ) && ! empty( $lang_code ) ) {
+			$disbaled = '';
+		}
+
 		if ( $ajax ) {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_test_connection">
+		<div class="eb_setup_test_connection es-w-80">
 			<div>
 				<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
 
@@ -437,29 +442,36 @@ class Eb_Setup_Wizard_Templates {
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Moodle access token', 'edwiser-bridge' ); ?></label> </p>
+						<p>
+							<label class="eb_setup_h2"> <?php esc_html_e( 'Moodle access token', 'edwiser-bridge' ); ?></label>
+							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Acts as an authenticator and is auto generated. Same has to be copied and pasted on the WordPress site.', 'edwiser-bridge' ); ?></span> </span>
+						</p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_token' id='eb_setup_test_conn_token' type='text' value='<?php echo esc_attr( $token ); ?>'>
 					</div>
+
 					<div class='eb_setup_conn_url_inp_wrap'>
-						<p><label class="eb_setup_h2"> <?php esc_html_e( 'Language code', 'edwiser-bridge' ); ?></label></p>
+						<p>
+							<label class="eb_setup_h2"> <?php esc_html_e( 'Language code', 'edwiser-bridge' ); ?></label>
+							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy paste this code on the WordPress site. Mis-Matched code may affect the integration.', 'edwiser-bridge' ); ?></span> </span>
+						</p>
 						<input class='eb_setup_inp' name='eb_setup_test_conn_lang_code' id='eb_setup_test_conn_lang_code' type='text' value='<?php echo esc_attr( $lang_code ); ?>'>
-					
+
 						<div class='eb_setup_settings_success_msg eb_setup_test_conn_success'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 						<div class='eb_setup_settings_error_msg eb_setup_test_conn_error'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 					</div>
 
 				</div>
 
-				<div class="eb_setup_btn_wrap">
+				<div class='eb_setup_btn_wrap'>
 					<input type='hidden' class='eb_setup_test_conne_url' >
 					<input type='hidden' class='eb_setup_test_conne_token' >
 					<input type='hidden' class='eb_setup_test_conne_lang' >
 
 					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
-					<button class='eb_setup_btn eb_setup_test_connection_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Test connection', 'edwiser-bridge' ); ?> </button>
+					<button class='eb_setup_btn eb_setup_test_connection_btn <?php echo esc_attr( $disbaled ); ?>' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' <?php echo esc_attr( $disbaled ); ?>> <?php esc_html_e( 'Test connection', 'edwiser-bridge' ); ?> </button>
 					<button class='eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
-					
+
 				</div>
 
 			</div>
@@ -518,15 +530,15 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_course_sync">
+		<div class="eb_setup_course_sync es-w-80">
 			<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
 			<div class="eb_setup_course_sync_note">
 
 				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'edwiser-bridge' ); ?> </div>
 				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'edwiser-bridge' ); ?> </div>
 
-				<div class="eb_setup_course_sync_inp_wrap">
-					<input type="checkbox" >
+				<div class='eb_setup_course_sync_inp_wrap'>
+					<input type='checkbox' class='eb_setup_course_sync_inp'>
 					<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
 				</div>
 
@@ -597,7 +609,7 @@ class Eb_Setup_Wizard_Templates {
 		$result = count_users();
 		if ( $result['total_users'] < 1500 ) {
 			?>
-			<div class="eb_setup_user_sync">
+			<div class="eb_setup_user_sync es-w-80">
 
 				<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle users from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
 				<div class="eb_setup_user_sync_note">
@@ -678,7 +690,7 @@ class Eb_Setup_Wizard_Templates {
 			<?php
 		} else {
 			?>
-			<div class="eb_setup_user_sync">
+			<div class="eb_setup_user_sync es-w-80">
 				<div class='eb_setup_large_users_warn'>
 					<div style='width:15%;'>
 						<!-- dashicons -->
@@ -777,7 +789,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class='eb_setup_free_recommended_settings'>
+		<div class='eb_setup_free_recommended_settings es-w-80'>
 			<span> <?php esc_html_e( 'Enable user registration.', 'edwiser-bridge' ); ?> </span>
 
 			<div class='' style="padding-bottom: 30px;" >
@@ -910,7 +922,7 @@ class Eb_Setup_Wizard_Templates {
 		}
 
 		?>
-		<div class="eb_setup_pro_initialize">
+		<div class="eb_setup_pro_initialize es-w-80">
 			<p>
 				<?php esc_html_e( 'We are about to install the “Edwiser Bridge PRO” plugins. Click on ‘Continue’ once you are ready.', 'edwiser-bridge' ); ?>	
 			</p>
@@ -964,7 +976,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_license">
+		<div class="eb_setup_license es-w-80">
 			<div>
 				<p>
 					<?php esc_html_e( 'Please enter Edwiser Bridge PRO license keys here to install Edwiser Bridge PRO WordPress plugins.', 'edwiser-bridge' ); ?>	
@@ -1053,7 +1065,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class='eb_setup_mdl_plugins'>
+		<div class='eb_setup_mdl_plugins es-w-80'>
 			<div>
 				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
 				<div>
@@ -1116,7 +1128,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_mdl_plugins_installation">
+		<div class="eb_setup_mdl_plugins_installation es-w-80">
 			<span> <?php esc_html_e( 'You will have to follow the steps given below to install the Moodle plugins manually.', 'edwiser-bridge' ); ?>  </span>
 
 			<div>
@@ -1211,7 +1223,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class='eb_setup_sso'>
+		<div class='eb_setup_sso es-w-80'>
 			<div>
 				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
 
@@ -1279,7 +1291,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class='eb_setup_wi_products_sync'>
+		<div class='eb_setup_wi_products_sync es-w-80'>
 
 			<?php esc_html_e( 'This will create a WooCommerce product for all your synchronized Moodle courses', 'edwiser-bridge' ); ?>	
 
@@ -1328,7 +1340,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class='eb_setup_pro_settings'>
+		<div class='eb_setup_pro_settings es-w-80'>
 
 			<p>  <?php esc_html_e( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using WooCommerce to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
 

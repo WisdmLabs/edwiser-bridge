@@ -245,7 +245,8 @@ class Eb_Setup_Wizard_Functions {
 			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
 			$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
-			$response          = $connection_helper->connection_test_helper( $url, $token );
+			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
+
 			wp_send_json_success( $response );
 		// }
 	}
@@ -332,13 +333,16 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'course_sync':
-					if ( ! $data->existing_site ) {
-						$sync_options['eb_synchronize_categories'] = '1';
-						$sync_options['eb_synchronize_previous']   = '1';
-						$sync_options['eb_synchronize_draft']      = '1';
 
-						$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+					$sync_options['eb_synchronize_draft']      = '1';
+
+					if ( $data['publish'] ) {
+						$sync_options['eb_synchronize_draft']      = '0';
 					}
+					$sync_options['eb_synchronize_categories'] = '1';
+					$sync_options['eb_synchronize_previous']   = '1';
+					$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+
 
 					break;
 

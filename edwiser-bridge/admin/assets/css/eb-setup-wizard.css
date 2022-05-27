@@ -72,13 +72,22 @@
     text-align: center;
     max-width: 200px;
     line-height: normal;
-  }
+}
   
-  .eb-tooltip:hover .eb-tooltiptext {
+
+.eb_setup_free_initialize{
+    padding-top: 10px;
+}
+
+
+
+.eb-tooltip:hover .eb-tooltiptext {
     visibility: visible;
-  }
+}
 
-
+.eb-setup-header-title-wrap.initialize .eb-setup-header-title{
+    text-align: left;
+}
 
 .eb-setup-sidebar{
     height: 100%;
@@ -91,17 +100,14 @@
     overflow-x: hidden;
     padding-top: 10px;
 }
-  
+
+
 .eb_setup_btn.disabled{
-    background: #F7F7F7;
+    color: #C4C4C4;
     border: 1px solid #E5E5E5;
-    background: #C4C4C4;
-    cursor: not-allowed ;
+    background: #F7F7F7;
+    cursor: not-allowed;
 }
-
-
-
-
 
 .eb-setup-content{
     font-style: normal;
@@ -113,8 +119,14 @@
     margin-left: 27%;
     position: relative;
     top: 90px;
+    padding-bottom: 30px;
+
 }
 
+.es-w-80{
+    width: 80%;
+    margin: auto;
+}
 
 .eb-setup-content a{
     color: #f98012;
@@ -154,7 +166,8 @@
 }
 
 .eb-setup-close-icon{
-    padding-top: 5px;
+    padding-top: 10px;
+    padding-right: 5px;
     width: 5%;
     color: #F98012;
     cursor: pointer;
@@ -615,13 +628,21 @@ a.eb_setup_btn{
     display: none;
 }
 
+.accordion.active{
+    color: #133F3F;
+    font-weight: 700;
+    font-size: 16px;
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF), #F7F7F7;
+
+}
+
 .accordion:hover {
     /* background-color: #ccc; */
 }
 
 /* Style the accordion panel. Note: hidden by default */
 .panel {
-    padding: 0 18px;
+    padding: 0 60px;
     background-color: white;
     display: none;
     overflow: hidden;
@@ -820,18 +841,14 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
 }
 
 
-.eb-setup-content {
-    font-family: arial;
-    line-height: 2em;
-    padding-bottom: 30px;
-}
+
 
 .eb_setup_installation_guide .accordion span.dashicons, .accordion span.dashicons {
     color: #00A1A8;
-    font-size: 30px;
-    /* line-height: 19px;
-    vertical-align: middle; */
-    margin-right: 10px;
+    font-size: 27px;
+    /* margin-right: 10px; */
+    line-height: unset;
+    padding-right: 15px;
 }
 
 

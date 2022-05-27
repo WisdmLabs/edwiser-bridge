@@ -45,19 +45,6 @@
             var current = $(this);
             var step = $(this).data('step');
 
-            // current.append(loader_html);
-
-
-
-            // if(document.location.href.contains('?')) {
-            // if(document.location.href.includes('current_step')) {
-            //     urlobj.searchParams.set('current_step', step);
-            // } else if(document.location.href.includes('?')) {
-            //     url = url + '&current_step=' + step;
-            // }else{
-            //     url = url + '?current_step=' + step;
-            // }
-            //   document.location = url;
             change_url( step );
 
             $.ajax({
@@ -108,9 +95,6 @@
                 data: {
                     'action': 'eb_setup_close_setup',
                     'nonce': eb_setup_wizard.nonce,
-                    // 'step': step
-                    // 'course_id': course_id,
-                    // '_wpnonce_field': eb_admin_js_object.nonce,
                 },
                 success: function (response) {
 
@@ -188,8 +172,9 @@
                 case 'course_sync':
                     // Course sync process.
                     // Call course sync callback and after completing the process, call this callback.
+                    var publish = $('.eb_setup_course_sync_inp').prop('checked') ? 1 : 0;
 
-                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step, 'publish': publish };
 
                     break;
 
@@ -385,7 +370,7 @@
                             }
                         } else {
                             $('.load-response').hide();
-                            linkUserResponseBox(eb_setup_wizard.msg_con_prob, 'error', 0);
+                            // linkUserResponseBox(eb_setup_wizard.msg_con_prob, 'error', 0);
                         }
                     }
                 });
@@ -440,8 +425,6 @@
                 $("#eb-lading-parent").show();
 
                 //get selected options
-                //
-                
                 var url   = $('#eb_setup_test_conn_mdl_url').val();
                 var token = $('#eb_setup_test_conn_token').val();
 
@@ -460,17 +443,25 @@
                     success: function (response) {
 
                         //prepare response for user
-                        if (response.success == 1) {
+                        if (response.data.success == 1) {
                             $('.eb_setup_test_conn_success').css('display', 'block');
+                            $('.eb_setup_test_conn_error').css('display', 'none');
+
                             $('.eb_setup_test_connection_btn').css('display', 'none');
                             $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
 
                         } else {
                             // ohSnap(response.response_message, 'error', 0);
-                            $('.eb_setup_test_conn_error').html(response.response_message);
+                            $('.eb_setup_test_conn_error').css('display', 'block');
+                            $('.eb_setup_test_conn_success').css('display', 'none');
+
+                            $('.eb_setup_test_conn_error').html( 'Error : ' + response.data.response_message);
                         }
 
                         $("#eb-lading-parent").hide();
+
+                    },
+                    error: function (response) {
 
                     }
                 });
@@ -610,6 +601,8 @@
 
             // function onChange(event) {
             $('.eb_setup_file_btn').change(function(event){
+            // $(document).on( 'change', '.eb_setup_file_btn', function(){
+
 
                 var reader = new FileReader();
                 reader.onload = onReaderLoad;
@@ -629,8 +622,57 @@
                 $('#eb_setup_free_initialize').removeAttr("disabled");
             });
 
+            
+            // $("#eb_setup_test_conn_mdl_url").change(function () {
+            $(document).on( 'change', '#eb_setup_test_conn_mdl_url', function(){
+
+                if($(this).val() == "") {
+                    // If text is empty,
+                    $('.eb_setup_test_connection_btn').addClass('disabled');
+                    $('.eb_setup_test_connection_btn').attr("disabled", "disabled");
+                    
+                } else {
+                    if ( '' != $('#eb_setup_test_conn_token').val() && '' != $('#eb_setup_test_conn_lang_code').val() ) {
+                        $('.eb_setup_test_connection_btn').removeClass('disabled');
+                        $('.eb_setup_test_connection_btn').removeAttr("disabled");
+                    }
+                }
+            });
+
+            // $("#eb_setup_test_conn_token").change(function () {
+            $(document).on( 'change', '#eb_setup_test_conn_token', function(){
+
+                if($(this).val() == "") {
+                    // If text is empty,
+                    $('.eb_setup_test_connection_btn').addClass('disabled');
+                    $('.eb_setup_test_connection_btn').attr("disabled", "disabled");
+                    
+                } else {
+                    if ( '' != $('#eb_setup_test_conn_mdl_url').val() && '' != $('#eb_setup_test_conn_lang_code').val() ) {
+                        $('.eb_setup_test_connection_btn').removeClass('disabled');
+                        $('.eb_setup_test_connection_btn').removeAttr("disabled");
+                    }
+                }
+            });
+
+            // $("#eb_setup_test_conn_lang_code").change(function () {
+            $(document).on( 'change', '#eb_setup_test_conn_lang_code', function(){
+
+                if($(this).val() == "") {
+                    // If text is empty,
+                    $('.eb_setup_test_connection_btn').addClass('disabled');
+                    $('.eb_setup_test_connection_btn').attr("disabled", "disabled");
+                    
+                } else {
+                    if ( '' != $('#eb_setup_test_conn_mdl_url').val() && '' != $('#eb_setup_test_conn_token').val() ) {
+                        $('.eb_setup_test_connection_btn').removeClass('disabled');
+                        $('.eb_setup_test_connection_btn').removeAttr("disabled");
+                    }
+                }
+            });
 
 
+                
 
     });
 

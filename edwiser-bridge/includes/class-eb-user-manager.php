@@ -1113,7 +1113,7 @@ class EBUserManager {
 
 		if ( is_numeric( $moodle_user_id ) ) {
 			global $profileuser;
-			$user_id             = $profileuser->ID;
+			$user_id             = $user->ID;
 			$enrolled_courses    = array();
 			$notenrolled_courses = array();
 
