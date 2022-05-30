@@ -1,44 +1,4 @@
 
-/* Loader */
-/* .eb-loader-progsessing-anim {
-    border: 5px solid #ffffff;
-    border-top: 5px solid #07a3c3;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    vertical-align: middle;
-    display: inline-block;
-    position: fixed;
-    z-index: 999;
-    height: 2em;
-    width: 2em;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .eb-lading-parent-wrap {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, 0.73);
-    z-index: 99999;
-} */
-  
-
 .eb-tooltip {
     position: relative;
     display: inline-block;
@@ -47,9 +7,20 @@
     font-size: 15px;
     color: #f98012;
     cursor: pointer;
-  }
+}
   
-  .eb-tooltip .eb-tooltiptext {
+.p-b-10{
+   padding-bottom: 10px; 
+}
+
+.es-sec-h{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+    color: #133F3F;
+}
+
+.eb-tooltip .eb-tooltiptext {
     visibility: hidden;
     width: 160px;
     background-color: black;
@@ -129,7 +100,7 @@
 }
 
 .eb-setup-content a{
-    color: #f98012;
+    /* color: #f98012; */
 }
 
 .eb-setup-content.eb_setup_full_width{
@@ -306,6 +277,7 @@
 
 .eb_setup_popup_content fieldset{
     text-align: left;
+    border: 1px solid #E5E5E5;
 }
 
 .eb_setup_popup_content .eb_setup_h2{
@@ -335,6 +307,7 @@
 
 .eb_setup_mdl_plugins_installation fieldset{
     margin-top: 5px;
+    border: 1px solid #E5E5E5;
 }
 
 .eb_setup_mdl_plugins_installation legend{
@@ -565,7 +538,7 @@ a.eb_setup_btn{
 
 
 .eb_setup_course_sync_note, .eb_setup_user_sync_note{
-    width: 80%;
+    width: 90%;
     margin: auto;
 }
 
@@ -579,6 +552,7 @@ a.eb_setup_btn{
 
 .eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset{
     margin-top: 10px;
+    border: 1px solid #E5E5E5;
 }
 
 
@@ -824,13 +798,6 @@ a.eb_setup_btn{
 }
 
 
-/* .eb-setup-steps, 
-.eb-setup-steps *::before, 
-.eb-setup-steps *::after {
-    box-sizing: border-box;
-    font-family: arial;
-} */
-
 .eb-setup-step:last-child .eb-setup-steps-title::before {
     display: none
 }
@@ -839,8 +806,6 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     vertical-align: inherit;
     margin-right: 2px;
 }
-
-
 
 
 .eb_setup_installation_guide .accordion span.dashicons, .accordion span.dashicons {

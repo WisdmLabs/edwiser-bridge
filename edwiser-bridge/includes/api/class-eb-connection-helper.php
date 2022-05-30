@@ -163,11 +163,15 @@ class EBConnectionHelper {
 		}
 		$response = wp_remote_post( $request_url, $request_args );
 
+// error_log('request_url ::: '.print_r($request_url, 1));
+// error_log('request_args ::: '.print_r($request_args, 1));
+// error_log('response ::: '.print_r($response, 1));
+
+
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$plain_txt_msg    = $response->get_error_message();
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
-
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -456,6 +460,11 @@ class EBConnectionHelper {
 		}
 
 		$response = wp_remote_post( $request_url, $request_args );
+
+		// error_log('request_url ::: '.print_r($request_url, 1));
+		// error_log('request_args ::: '.print_r($request_args, 1));
+		// error_log('response ::: '.print_r($response, 1));
+
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;

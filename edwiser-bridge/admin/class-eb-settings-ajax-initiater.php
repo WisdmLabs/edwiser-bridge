@@ -91,6 +91,7 @@ class Eb_Settings_Ajax_Initiater {
 		echo wp_json_encode( $response );
 		die();
 	}
+
 	/**
 	 * Initiate user link to moodle synchronization process.
 	 *
@@ -113,6 +114,7 @@ class Eb_Settings_Ajax_Initiater {
 		echo wp_json_encode( $response );
 		die();
 	}
+
 
 	/**
 	 * Test connection between WordPress and moodle.

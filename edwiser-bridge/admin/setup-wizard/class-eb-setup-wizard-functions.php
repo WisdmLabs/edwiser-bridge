@@ -23,9 +23,11 @@ class Eb_Setup_Wizard_Functions {
 	 * Hook in tabs.
 	 */
 	public function __construct() {
+
+		$setup_templates = new Eb_Setup_Wizard_Templates();
+
 		/* phpcs:disable WordPress.Security.NonceVerification */
 		if ( ! isset( $_POST['action'] ) && isset( $_GET['page'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
-			$setup_templates = new Eb_Setup_Wizard_Templates();
 			add_action( 'admin_init', array( $setup_templates, 'eb_setup_wizard_template' ), 9 );
 			add_action( 'admin_init', array( $this, 'eb_setup_steps_save_handler' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
@@ -37,8 +39,10 @@ class Eb_Setup_Wizard_Functions {
 
 		$steps = $this->eb_setup_wizard_get_steps();
 
+		add_filter( 'eb_send_new_user_email_on_user_sync', array( $this, 'eb_setup_send_mail_on_user_sync' ) );
+
 		add_action( 'wp_ajax_eb_setup_change_step', array( $this, 'eb_setup_change_step' ) );
-		add_action( 'wp_ajax_eb_setup_close_setup', array( $this, 'eb_setup_close_setup' ) );
+		add_action( 'wp_ajax_eb_setup_close_setup', array( $setup_templates, 'eb_setup_close_setup' ) );
 		add_action( 'wp_ajax_eb_setup_save_and_continue', array( $this, 'eb_setup_save_and_continue' ) );
 		add_action( 'wp_ajax_eb_setup_test_connection', array( $this, 'eb_setup_test_connection_handler' ) );
 		add_action( 'wp_ajax_eb_setup_manage_license', array( $this, 'eb_setup_manage_license' ) );
@@ -64,8 +68,19 @@ class Eb_Setup_Wizard_Functions {
 		}
 	}
 
-
-
+	/**
+	 * Send email .
+	 *
+	 * @since  1.0.0
+	 */
+	public function eb_setup_send_mail_on_user_sync( $send_email ) {
+		// Nonce should be same as user sync nonce. 
+		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			if ( isset( $_POST['send_mail'] ) ) {
+				return $send_email;
+			}
+		}
+	}
 
 	/**
 	 * Setup Wizard steps.
@@ -78,7 +93,6 @@ class Eb_Setup_Wizard_Functions {
 		 * step change logic.
 		 * load data on step change.
 		 */
-
 		$default_array = array(
 			'initialize'                => array(
 				'name'     => __( 'Setup Initialize', 'eb-textdoamin' ),
@@ -124,7 +138,7 @@ class Eb_Setup_Wizard_Functions {
 			'user_sync'                 => array(
 				'sidebar'  => 1,
 				'name'     => __( 'User syncronization', 'eb-textdoamin' ),
-				'title'    => __( 'Synchronize Moodle users', 'eb-textdoamin' ),
+				'title'    => __( 'Synchronize WordPress users', 'eb-textdoamin' ),
 				'function' => 'eb_setup_user_sync',
 				'sub_step' => 0,
 
@@ -145,7 +159,6 @@ class Eb_Setup_Wizard_Functions {
 				'sub_step' => 1,
 
 			),
-
 		);
 
 		$pro_setup_steps = array(
@@ -256,7 +269,9 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_manage_license() {
 
-		// if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+var_dump($_POST);
+
+		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			if ( ! class_exists( 'Licensing_Settings' ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'settings/class-eb-settings-page.php';
 				include_once plugin_dir_path( __DIR__ ) . 'licensing/class-licensing-settings.php';
@@ -269,8 +284,6 @@ class Eb_Setup_Wizard_Functions {
 			// Post data will provide key.
 			// Here we will provide only activation functionality.
 			// This action is the plugin name and 2nd parameter provided in function is licensse status action
-			// $license_data['action'] = '';
-			// $license_data['key']    = $_POST['key']; @codingStandardsIgnoreLine
 
 			$response = array();
 
@@ -288,7 +301,7 @@ class Eb_Setup_Wizard_Functions {
 			}
 
 			wp_send_json_success( $response );
-		// }
+		}
 	}
 
 	/**
@@ -333,16 +346,14 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'course_sync':
-
-					$sync_options['eb_synchronize_draft']      = '1';
+					$sync_options['eb_synchronize_draft'] = '1';
 
 					if ( $data['publish'] ) {
-						$sync_options['eb_synchronize_draft']      = '0';
+						$sync_options['eb_synchronize_draft'] = '0';
 					}
 					$sync_options['eb_synchronize_categories'] = '1';
 					$sync_options['eb_synchronize_previous']   = '1';
 					$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
-
 
 					break;
 
@@ -352,9 +363,10 @@ class Eb_Setup_Wizard_Functions {
 				case 'free_recommended_settings':
 					$general_settings                           = get_option( 'eb_general' );
 					$general_settings['eb_useraccount_page_id'] = $data['user_account_page'];
-					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) ? 1 : 0;
-					$result                                     = update_option( 'general_settings', $general_settings );
-					$function                                   = 'eb_setup_free_completed_popup';
+					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && $data['user_account_creation'] == 1 ? 'yes' : 'no';
+					
+					update_option( 'eb_general', $general_settings );
+					$function = 'eb_setup_free_completed_popup';
 
 					break;
 
@@ -370,10 +382,6 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'wi_products_sync':
-
-					// require_once WP_PLUGIN_DIR . '/woocommerce-integration/includes/class-bridge-woocommerce.php';
-					// require_once WP_PLUGIN_DIR . '/woocommerce-integration\includes\class-bridge-woocommerce-course.php';
-
 					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
 					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
 
@@ -383,13 +391,18 @@ class Eb_Setup_Wizard_Functions {
 						'bridge_woo_synchronize_product_create'     => 1,
 					);
 
-
 					$course_woo_plugin = new \NmBridgeWoocommerce\BridgeWoocommerceCourse( \NmBridgeWoocommerce\BridgeWoocommerce()->getPluginName(), \NmBridgeWoocommerce\BridgeWoocommerce()->getVersion() );
 					$response          = $course_woo_plugin->bridgeWooProductSyncHandler( $sync_options );
 
 					break;
 
 				case 'pro_settings':
+					if ( isset( $data['archive_page'] ) ) {
+						$general_settings = get_option( 'eb_general' );
+						$general_settings['eb_show_archive'] = $data['archive_page'] == 1 ? 'yes' : 'no' ;
+						update_option( 'eb_general', $general_settings );
+					}
+
 					$function = 'eb_setup_pro_completed_popup';
 					break;
 
@@ -707,6 +720,15 @@ class Eb_Setup_Wizard_Functions {
 		$l_key_name                = $plugin_data['key'];
 		$l_key                     = trim( $data[ $l_key_name ] );
 		$plugin_data['license']    = $l_key;
+
+		// Before this check if the key provided and key already present are same.
+		// If same then check if the license is already activated or not.
+		// If already activated then check if plugin is installed or not.
+		// if installed skip evrythinh show success msg.
+		// If Not then only perform below actions.
+
+		
+
 		update_option( $l_key_name, $l_key );
 		if ( empty( $plugin_data['license'] ) ) {
 			$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
@@ -747,6 +769,12 @@ class Eb_Setup_Wizard_Functions {
 
 					activate_plugin( 'woocommerce/woocommerce.php' );
 				}
+
+
+				// If plugin is already activated then don't install again.
+
+
+
 
 				// Install the plugin.
 				$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );

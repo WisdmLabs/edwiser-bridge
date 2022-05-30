@@ -175,73 +175,51 @@
                     var publish = $('.eb_setup_course_sync_inp').prop('checked') ? 1 : 0;
 
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step, 'publish': publish };
-
                     break;
 
                 case 'user_sync':
                     // If user checkbox is clicked start user sync otherwise just procedd to next screen.
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                    // var sync_options = {};
-                    // // prepare sync options array
-                    // var sync_options = {eb_synchronize_user_courses: 1, eb_link_users_to_moodle: 1};
-                    // var offset = 0;
-                    // var progressWidth = 0;
-                    // var linkedUsers = 0;
-                    // var users_count = 0;
-                    // var queryLimit = 0;
-                    // var notLinkedusers = [];
-                    // userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
-
                     break;
 
                 case 'free_recommended_settings':
                     var user_account_page      = $('#eb_setup_user_accnt_page').val();
-                    var user_account_creation  = $('#eb_setup_user_account_creation').val()
+                    var user_account_creation  = $('#eb_setup_user_account_creation').prop('checked') ? 1 : 0;
                     // user account page selection and enable registration on user account
                     data = { 'user_account_page': user_account_page, 'user_account_creation': user_account_creation, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-
                     break;
-
 
                 case 'pro_initialize':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
-
 
                 case 'license':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
-
 
                 case 'wp_plugins':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
 
                 case 'mdl_plugins':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
 
                 case 'sso':
                     var sso_key = $('#eb_setup_pro_sso_key').val();
                     data = { 'sso_key': sso_key, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
-
 
                 case 'wi_products_sync':
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
                     break;
 
-
                 case 'pro_settings':
-                    var archive_page = $('#eb_pro_rec_set_archive_page').val();
+                    // Here settings is to hide archive page and in WP settings it is show settings page.
+                    // so passing settings in opposite manner i.e if checked pass 0 and if not checked pass 1.
+                    var archive_page = $('#eb_pro_rec_set_archive_page').prop('checked') ? 0 : 1;
                     data = { 'archive_page': archive_page, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                
+
                     break;
 
                 default:
@@ -312,7 +290,7 @@
 
 
             /* Function for link users to moodle, this will have a ajax call which will run after completion of another(recursively) */
-            function userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers) {
+            function userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers, send_mail) {
                 $('.load-response').show();
                 var response_message = '';
                 var user_id_success = '';
@@ -328,7 +306,8 @@
                         'action': 'handleUserLinkToMoodle',
                         'sync_options': JSON.stringify(sync_options),
                         '_wpnonce_field': eb_setup_wizard.sync_nonce,
-                        'offset': offset
+                        'offset': offset,
+                        'send_mail' : send_mail
                     },
                     success: function (response) {
                         $("#eb-lading-parent").hide();
@@ -351,7 +330,7 @@
                             }
 
                             if (queryLimit < users_count) {
-                                userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
+                                userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers, send_mail);
                             } else {
                                 $('.eb_setup_popup').css('display', 'none');
                                 $( ".eb_setup_save_and_continue").click();
@@ -384,6 +363,8 @@
                 var sync_options = {};
                 // prepare sync options array
                 var sync_options = {eb_synchronize_user_courses: 1, eb_link_users_to_moodle: 1};
+                var send_mail = $('#eb_setup_user_sync_cb').prop('checked') ? 1 : 0;
+
                 var offset = 0;
                 var progressWidth = 0;
                 var linkedUsers = 0;
@@ -395,7 +376,7 @@
                 $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_users_sync_progress_popup').html() + ' </div>');
                 // arrow_animate();
 
-                userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers);
+                userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers, send_mail);
 
                 // Trigger save and continue button.
             });

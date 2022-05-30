@@ -129,22 +129,20 @@ class Eb_Setup_Wizard_Templates {
 		</head>
 
 
-		<body class="wc-setup wp-core-ui <?php echo esc_attr( 'wc-setup-step__' . $this->step ); ?>">
+		<body class="wc-setup wp-core-ui">
 
-		<header class='eb-setup-wizard-header'>
-
-			<div class='eb-setup-header-logo'>
-				<div class='eb-setup-header-logo-img-wrap'>
-					<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
+			<header class='eb-setup-wizard-header'>
+				<div class='eb-setup-header-logo'>
+					<div class='eb-setup-header-logo-img-wrap'>
+						<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
+					</div>
 				</div>
-			</div>
 
-			<div class='eb-setup-header-title-wrap <?php echo esc_attr( $header_class ); ?>'>
-
-				<div class='eb-setup-header-title'> <?php echo esc_attr( $title ); ?></div>
-				<div class='eb-setup-close-icon'> <span class="dashicons dashicons-no"></span> </div>
-			</div>
-		</header>
+				<div class='eb-setup-header-title-wrap <?php echo esc_attr( $header_class ); ?>'>
+					<div class='eb-setup-header-title'> <?php echo esc_attr( $title ); ?></div>
+					<div class='eb-setup-close-icon'> <span class="dashicons dashicons-no"></span> </div>
+				</div>
+			</header>
 		<?php
 	}
 
@@ -515,8 +513,7 @@ class Eb_Setup_Wizard_Templates {
 	 * @param  int $ajax if request is ajax.
 	 */
 	public function eb_setup_course_sync( $ajax = 1 ) {
-		$setup_functions = new Eb_Setup_Wizard_Functions();
-
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
 		$step             = 'course_sync';
 		$sub_step         = '';
 		$is_next_sub_step = 0;
@@ -530,16 +527,16 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_course_sync es-w-80">
-			<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
-			<div class="eb_setup_course_sync_note">
+		<div class='eb_setup_course_sync es-w-80'>
+			<span class=''> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
+			<div class='eb_setup_course_sync_note'>
 
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'edwiser-bridge' ); ?> </div>
-				<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'edwiser-bridge' ); ?> </div>
+				<div class='eb_setup_h2 p-b-10'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'edwiser-bridge' ); ?> </div>
+				<div class='eb_setup_h2 p-b-10'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'edwiser-bridge' ); ?> </div>
 
 				<div class='eb_setup_course_sync_inp_wrap'>
 					<input type='checkbox' class='eb_setup_course_sync_inp'>
-					<label> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
+					<label class='es-sec-h'> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
 				</div>
 
 				<div class='eb_setup_course_sync_btn_wrap'>
@@ -554,7 +551,6 @@ class Eb_Setup_Wizard_Templates {
 					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 					<p>
 						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
-
 					</p>
 				</fieldset>
 			</div>
@@ -563,9 +559,7 @@ class Eb_Setup_Wizard_Templates {
 
 		<?php
 		if ( $ajax ) {
-
 			$html = ob_get_clean();
-
 			$return = array(
 				'title'   => $title,
 				'content' => $html,
@@ -609,25 +603,23 @@ class Eb_Setup_Wizard_Templates {
 		$result = count_users();
 		if ( $result['total_users'] < 1500 ) {
 			?>
-			<div class="eb_setup_user_sync es-w-80">
+			<div class='eb_setup_user_sync es-w-80'>
 
-				<span class="eb_setup_h2"> <?php esc_html_e( 'This will synchronize all your Moodle users from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
-				<div class="eb_setup_user_sync_note">
+				<span class=''> <?php esc_html_e( 'This will synchronize all your WordPress users from WordPress to Moodle.', 'edwiser-bridge' ); ?> </span>
+				<div class='eb_setup_user_sync_note'>
 
-					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, send email notification to all synchronized users with their login credentials.', 'edwiser-bridge' ); ?> </div>
-					<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, it will not send email notification to all synchronized users', 'edwiser-bridge' ); ?> </div>
+					<div class='eb_setup_h2 p-b-10'> <span class='dashicons dashicons-arrow-right-alt2'></span> <?php esc_html_e( 'If “Enabled”, send email notification to all synchronized users with their login credentials.', 'edwiser-bridge' ); ?> </div>
+					<div class='eb_setup_h2 p-b-10'> <span class='dashicons dashicons-arrow-right-alt2'></span> <?php esc_html_e( 'If “Disabled”, it will not send email notification to all synchronized users', 'edwiser-bridge' ); ?> </div>
 
-					<div class="eb_setup_user_sync_inp_wrap">
-						<input type="checkbox" >
-						<label> <?php esc_html_e( 'Enabled - Send email notification with login credentials', 'edwiser-bridge' ); ?></label>
+					<div class='eb_setup_user_sync_inp_wrap'>
+						<input type='checkbox' id='eb_setup_user_sync_cb'>
+						<label class='es-sec-h'> <?php esc_html_e( 'Enabled - Send email notification with login credentials', 'edwiser-bridge' ); ?></label>
 					</div>
 				</div>
 
 				<div class="eb_setup_user_sync_btn_wrap">
-
 					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
-
 					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Synchronize users & notify', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
 				</div>
@@ -794,7 +786,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class='' style="padding-bottom: 30px;" >
 				<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'  <?php echo esc_attr($checked); ?>>
-				<label class='eb_setup_h2'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
+				<label class='es-sec-h'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
 			</div>
 
 			<span> <?php esc_html_e( 'Default page is set to Edwiser Bridge - User Account.', 'edwiser-bridge' ); ?> </span>
@@ -1346,9 +1338,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class="eb_setup_inp_wrap">
 				<input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' >
-
-				<label class="eb_setup_h2"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
-
+				<label class="es-sec-h"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">

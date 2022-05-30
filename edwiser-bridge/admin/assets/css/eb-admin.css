@@ -837,10 +837,12 @@ span.eb-option-input .eb-option-div select {
   padding-right: 2px;
   display: block;
 }
+
 .eb-mail-templat-const {
   padding: 5px 5px;
   border-bottom: 1px solid #ddd;
 }
+
 .eb-emailtmpl-const-sec > h3 {
   background: lightgray;
   border-bottom: 1px solid black;
@@ -852,6 +854,7 @@ span.eb-option-input .eb-option-div select {
 .eb-emailtmpl-const-sec:before {
   border: 1px solid red;
 }
+
 .eb-email-note {
   font-style: italic;
 }
@@ -861,6 +864,7 @@ span.eb-option-input .eb-option-div select {
   border-bottom: 1px solid #dddddd;
   padding-bottom: 5px;
 }
+
 .eb-marketing-add > a,
 .eb-marketing-add > a:visited,
 .eb-marketing-add > a:hover,
@@ -869,6 +873,7 @@ span.eb-option-input .eb-option-div select {
   clear: both;
   text-decoration: none;
 }
+
 .eb-marketing-add img {
   width: 100%;
   height: auto;
@@ -886,16 +891,19 @@ span.eb-option-input .eb-option-div select {
 #moodleLinkUnlinkUserNotices {
   display: none;
 }
+
 .eb-order-meta-details,
 .eb-order-meta-byer-details {
   position: relative;
   margin-left: 30px;
 }
+
 .eb-order-meta-details > div,
 .eb-order-meta-byer-details > div {
   /*display: inline-flex;*/
   margin: 5px 0px;
 }
+
 .eb-order-meta-details label,
 .eb-order-meta-byer-details label {
   margin-right: 3px;

@@ -302,7 +302,7 @@ class EBUserManager {
 					foreach ( $unlinked_users as $key => $value ) {
 						$user_object = get_userdata( $value['user_id'] );
 						$flag        = $this->link_moodle_user( $user_object );
-						// if user not linked then add it in unlinked users array.
+						// If user not linked then add it in unlinked users array.
 						if ( ! $flag ) {
 							$user                                = get_userdata( $value['user_id'] );
 							$response_array['user_with_error'][] = '<tr><td>' . $value['user_id'] . '</td><td> ' . $user->user_login . '</td></tr>';
@@ -672,11 +672,10 @@ class EBUserManager {
 		}
 
 		/**
-		 * To lowercase the username for moodle
+		 * To lowercase the username for moodle.
 		 *
 		 * @since  1.2.2
 		 */
-
 		// confirm that username is in lowercase always.
 		if ( isset( $user_data['username'] ) ) {
 			$user_data['username'] = strtolower( $user_data['username'] );
@@ -748,8 +747,8 @@ class EBUserManager {
 			$wp_user = get_user_by( 'email', $user_data['email'] );
 			$this->user_course_synchronization_handler( array( 'eb_synchronize_user_courses' => 1 ), $wp_user->ID );
 		}
-		do_action( 'eb_after_moodle_user_creation', $user );
 
+		do_action( 'eb_after_moodle_user_creation', $user );
 		return $user;
 	}
 
@@ -817,6 +816,7 @@ class EBUserManager {
 			} elseif ( isset( $moodle_user['user_exists'] ) && 0 === $moodle_user['user_exists'] ) {
 				$general_settings = get_option( 'eb_general' );
 				$language         = 'en';
+
 				if ( isset( $general_settings['eb_language_code'] ) ) {
 					$language = $general_settings['eb_language_code'];
 				}
@@ -843,6 +843,10 @@ class EBUserManager {
 			}
 		}
 
+		$send_user_creation_email = apply_filters( 'eb_send_new_user_email_on_user_sync', '1' );
+
+error_log('SENDING MAIL :::: ');
+
 		// add a dynamic hook only if a new user is created on moodle and linked to WordPress account.
 		if ( ! $created && $linked ) {
 			$args = array(
@@ -853,7 +857,7 @@ class EBUserManager {
 			);
 			// create a new action hook with user details as argument.
 			do_action( 'eb_linked_to_existing_wordpress_user', $args );
-		} elseif ( $created && $linked ) {
+		} elseif ( $send_user_creation_email && $created && $linked ) {
 			$args = array(
 				'user_email' => $user_data['email'],
 				'username'   => $moodle_user['user_data']->username,
