@@ -74,7 +74,7 @@ class Eb_Setup_Wizard_Functions {
 	 * @since  1.0.0
 	 */
 	public function eb_setup_send_mail_on_user_sync( $send_email ) {
-		// Nonce should be same as user sync nonce. 
+		// Nonce should be same as user sync nonce.
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			if ( isset( $_POST['send_mail'] ) ) {
 				return $send_email;
@@ -94,13 +94,13 @@ class Eb_Setup_Wizard_Functions {
 		 * load data on step change.
 		 */
 		$default_array = array(
-			'initialize'                => array(
+			'initialize' => array(
 				'name'     => __( 'Setup Initialize', 'eb-textdoamin' ),
 				'title'    => __( 'Edwiser Bridge plugin - Setup Initialization', 'eb-textdoamin' ),
 				'function' => 'eb_setup_initialize',
 				'sidebar'  => 0,
 				'sub_step' => 0,
-			)
+			),
 		);
 
 		$free_setup_steps = array(
@@ -269,9 +269,7 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_manage_license() {
 
-var_dump($_POST);
-
-		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			if ( ! class_exists( 'Licensing_Settings' ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'settings/class-eb-settings-page.php';
 				include_once plugin_dir_path( __DIR__ ) . 'licensing/class-licensing-settings.php';
@@ -289,8 +287,8 @@ var_dump($_POST);
 
 			foreach ( $license_data as $key => $value ) {
 				if ( ! empty( $value ) ) {
-					$license_handler = new Licensing_Settings();
-					$result          = $this->eb_setup_wizard_install_plugins(
+					$license_handler  = new Licensing_Settings();
+					$result           = $this->eb_setup_wizard_install_plugins(
 						array(
 							'action'                       => $key,
 							'edd_' . $key . '_license_key' => $value,
@@ -321,8 +319,8 @@ var_dump($_POST);
 				case 'moodle_redirection':
 					// Create web service and update data in EB settings.
 					if ( isset( $data['mdl_url'] ) ) {
-						$url = get_option( 'eb_connection' );
-						$url = is_array( $url ) ? $url : array();
+						$url           = get_option( 'eb_connection' );
+						$url           = is_array( $url ) ? $url : array();
 						$url['eb_url'] = $data['mdl_url'];
 						update_option( 'eb_connection', $url );
 					}
@@ -353,7 +351,7 @@ var_dump($_POST);
 					}
 					$sync_options['eb_synchronize_categories'] = '1';
 					$sync_options['eb_synchronize_previous']   = '1';
-					$response = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+					$response                                  = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
 
 					break;
 
@@ -364,7 +362,7 @@ var_dump($_POST);
 					$general_settings                           = get_option( 'eb_general' );
 					$general_settings['eb_useraccount_page_id'] = $data['user_account_page'];
 					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && $data['user_account_creation'] == 1 ? 'yes' : 'no';
-					
+
 					update_option( 'eb_general', $general_settings );
 					$function = 'eb_setup_free_completed_popup';
 
@@ -398,8 +396,8 @@ var_dump($_POST);
 
 				case 'pro_settings':
 					if ( isset( $data['archive_page'] ) ) {
-						$general_settings = get_option( 'eb_general' );
-						$general_settings['eb_show_archive'] = $data['archive_page'] == 1 ? 'yes' : 'no' ;
+						$general_settings                    = get_option( 'eb_general' );
+						$general_settings['eb_show_archive'] = $data['archive_page'] == 1 ? 'yes' : 'no';
 						update_option( 'eb_general', $general_settings );
 					}
 
@@ -466,25 +464,25 @@ var_dump($_POST);
 	 */
 	public function get_prev_step( $current_step ) {
 
-        $steps      = $this->eb_setup_wizard_get_steps();
-        $step       = '';
-        $found_step = 0;
-        $prevkey    = '';
-        foreach ( $steps as $key => $value ) {
-            if ( $current_step == $key ) {
-                $found_step = 1;
-            }
+		$steps      = $this->eb_setup_wizard_get_steps();
+		$step       = '';
+		$found_step = 0;
+		$prevkey    = '';
+		foreach ( $steps as $key => $value ) {
+			if ( $current_step == $key ) {
+				$found_step = 1;
+			}
 
-            if ( $found_step ) {
-                $step = $prevkey;
-                break;
-            }
+			if ( $found_step ) {
+				$step = $prevkey;
+				break;
+			}
 
-            $prevkey = $key;
-        }
+			$prevkey = $key;
+		}
 
-        return $step;
-    }
+		return $step;
+	}
 
 
 	/**
@@ -559,10 +557,10 @@ var_dump($_POST);
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		// add_dashboard_page(
-		// 	'Edwiser Bridge Setup',
-		// 	'Edwiser Bridge Setup',
-		// 	'manage_options',
-		// 	'eb-setup-wizard',
+		// 'Edwiser Bridge Setup',
+		// 'Edwiser Bridge Setup',
+		// 'manage_options',
+		// 'eb-setup-wizard',
 		// );
 
 		add_submenu_page(
@@ -649,40 +647,39 @@ var_dump($_POST);
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			if ( isset( $_POST['eb_setup_name'] ) && ! empty( $_POST['eb_setup_free_initialize'] ) ) {
 				$setup_name = sanitize_text_field( wp_unslash( $_POST['eb_setup_name'] ) );
-				$step = 'free_installtion_guide';
+				$step       = 'free_installtion_guide';
 
 				// save set up data.
 				$setup_data   = get_option( 'eb_setup_data' );
 				$chosen_setup = '';
-				if ( 'eb_free_setup' == $setup_name ) {
+				if ( 'eb_free_setup' === $setup_name ) {
 					$chosen_setup = 'free';
-				} elseif ( 'eb_pro_setup' == $setup_name ) {
-					$step = 'pro_initialize';
+				} elseif ( 'eb_pro_setup' === $setup_name ) {
+					$step         = 'pro_initialize';
 					$chosen_setup = 'pro';
-				} elseif ( 'eb_free_and_pro' == $setup_name ) {
+				} elseif ( 'eb_free_and_pro' === $setup_name ) {
 					$chosen_setup = 'free_and_pro';
 				}
-	
-				if( is_array( $setup_data ) ) {
+
+				if ( is_array( $setup_data ) ) {
 					$setup_data['name'] = $chosen_setup;
 				} else {
 					$setup_data = array( 'name' => $chosen_setup );
 				}
-	
+
 				// If this form is submitted i.e progress should be added.
 				$setup_data['progress'] = 'initialize';
-	
+
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		}
-
 
 		/**
 		 * Handle page refresh.
 		 */
 		/* phpcs:disable WordPress.Security.NonceVerification */
 		if ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
-			$step = $_GET['current_step'];
+			$step = $_GET['current_step']; // phpcs:ignore
 		}
 		/* phpcs: enable */
 
@@ -712,7 +709,7 @@ var_dump($_POST);
 			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-get-plugin-data.php';
 		}
 
-		$status['install']         = 'insallation failed';
+		$status['install']         = 'Plugin insallation failed';
 		$slug                      = $data['action'];
 		$products_data             = Eb_Licensing_Manager::get_plugin_data();
 		$plugin_data               = $products_data[ $slug ];
@@ -727,75 +724,116 @@ var_dump($_POST);
 		// if installed skip evrythinh show success msg.
 		// If Not then only perform below actions.
 
-		
-
-		update_option( $l_key_name, $l_key );
 		if ( empty( $plugin_data['license'] ) ) {
-			$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
-			$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
+			$get_l_key_link  = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
+			$resp['message'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
 			return $resp;
 		}
-		$request = wp_remote_get(
-			add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
-			array(
-				'timeout'   => 15,
-				'sslverify' => false,
-				'blocking'  => true,
-			)
-		);
 
-		if ( ! is_wp_error( $request ) ) {
-			$request = json_decode( wp_remote_retrieve_body( $request ) );
-			if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
+		$installed      = false;
+		$activated      = false;
+		$license_status = '';
 
-				// dependency check.
-				if ( 'woocommerce_integration' === $slug ) {
-					// Install woocommerce plugin first.
-					include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-					$api = plugins_api(
-						'plugin_information',
-						array(
-							'slug'   => 'woocommerce',
-							'fields' => array(
-								'sections' => false,
-							),
-						)
-					);
-					if ( is_wp_error( $api ) ) {
-						$status['dependency']['woocommerce'] = $api->get_error_message();
-					} else {
-						$status['dependency']['woocommerce'] = $this->eb_setup_wizard_download_and_install( $api->download_link );
+		// check if license key is already present in the database.
+		$license_key = get_option( $l_key_name );
+		// if old license key is same as license key provided.
+		if ( $license_key === $l_key ) {
+			// check if license key is already activated.
+			$license_status = get_option( 'edd_' . $slug . '_license_status' );
+		} else {
+			update_option( $l_key_name, $l_key );
+		}
+
+		if ( 'valid' !== $license_status ) {
+			$products_data[ $slug ]['key'] = $l_key;
+			$license_manager               = new Eb_Licensing_Manager( $products_data[ $slug ] );
+			$license_manager->activate_license();
+
+			// check license status and prepare response.
+			$license_status = get_option( 'edd_' . $slug . '_license_status' );
+
+			if ( 'valid' === $license_status ) {
+				$status['activate'] = __( 'License activated', 'edwiser-bridge' );
+			} elseif ( 'no_activations_left' === $license_status ) {
+				$status['activate'] = __( 'License is activated to maximum limit', 'edwiser-bridge' );
+			} else {
+				$status['activate'] = __( 'License activation failed', 'edwiser-bridge' );
+			}
+		} else {
+			$status['activate'] = __( 'License already activated', 'edwiser-bridge' );
+		}
+
+		// check if plugin is already installed and activated.
+		$all_plugins = get_plugins();
+		if ( array_key_exists( $plugin_data['path'], $all_plugins ) || in_array( $plugin_data['path'], $all_plugins, true ) ) {
+			$installed         = true;
+			$status['install'] = __( 'Plugin already installed', 'edwiser-bridge' );
+			// check if plugin is already activated.
+			if ( is_plugin_active( $plugin_data['path'] ) ) {
+				$activated         = true;
+				$status['install'] = $status['install'] . __( ' and activated', 'edwiser-bridge' );
+			}
+		}
+
+		// if not installed and license in valid then install the plugin.
+		if ( ! $installed && 'valid' === $license_status ) {
+			$request = wp_remote_get(
+				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
+				array(
+					'timeout'   => 15,
+					'sslverify' => false,
+					'blocking'  => true,
+				)
+			);
+
+			if ( ! is_wp_error( $request ) ) {
+				$request = json_decode( wp_remote_retrieve_body( $request ) );
+				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
+
+					// dependency check.
+					if ( 'woocommerce_integration' === $slug ) {
+						// Install woocommerce plugin first.
+						include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+						$api = plugins_api(
+							'plugin_information',
+							array(
+								'slug'   => 'woocommerce',
+								'fields' => array(
+									'sections' => false,
+								),
+							)
+						);
+						if ( is_wp_error( $api ) ) {
+							$status['dependency']['woocommerce'] = $api->get_error_message();
+						} else {
+							$status['dependency']['woocommerce'] = $this->eb_setup_wizard_download_and_install( $api->download_link );
+						}
+
+						activate_plugin( 'woocommerce/woocommerce.php' );
 					}
 
-					activate_plugin( 'woocommerce/woocommerce.php' );
-				}
+					// Install the plugin.
+					$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
 
-
-				// If plugin is already activated then don't install again.
-
-
-
-
-				// Install the plugin.
-				$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
-
-				// Plugin Activation.
-				$result = activate_plugin( $plugin_data['path'] );
-				if ( is_wp_error( $result ) ) {
-					$resp = $result->get_error_messages();
+					if ( 'Plugin Installed' === $status['install'] ) {
+						$installed = true;
+					}
+				} elseif ( isset( $request->msg ) ) {
+					$status['message'] = $request->msg;
 				} else {
-					$resp = __( 'License Activated', 'edwiser-bridge' );
+					$status['message'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
 				}
+			}
+		}
 
-				$products_data[ $slug ]['key'] = $l_key;
-				$license_manager               = new Eb_Licensing_Manager( $products_data[ $slug ] );
-				$activate                      = $license_manager->activate_license();
-				$status['activate']            = $resp;
-
-			} elseif ( isset( $request->msg ) ) {
-				$status['message'] = $request->msg;
+		// if installed and license in valid and not activated then activate the plugin.
+		if ( $installed && 'valid' === $license_status && ! $activated ) {
+			$result = activate_plugin( $plugin_data['path'] );
+			if ( is_wp_error( $result ) ) {
+				$resp              = $result->get_error_messages();
+				$status['install'] = $status['install'] . __( ', plugin activation failed', 'edwiser-bridge' );
 			} else {
-				$status['message'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
+				$status['install'] = $status['install'] . __( ', plugin activated', 'edwiser-bridge' );
 			}
 		}
 		return $status;
