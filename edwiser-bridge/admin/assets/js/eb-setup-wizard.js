@@ -148,6 +148,10 @@
 
             // Creating swicth case.
             
+
+
+
+
             var data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
             switch ( current_step ) {
@@ -211,6 +215,9 @@
                     break;
 
                 case 'wi_products_sync':
+                    $("#eb-lading-parent").hide();
+                    $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_product_sync_progress_popup').html() + ' </div>');
+                    
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
@@ -507,7 +514,7 @@
                                 }
                             });
                         } else {
-                            $(".eb_setup_" + Object.keys(extensions)[key] + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
+                            $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
                         }
 
                         $("#eb-lading-parent").hide();

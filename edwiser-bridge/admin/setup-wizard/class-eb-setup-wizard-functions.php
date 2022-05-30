@@ -74,7 +74,7 @@ class Eb_Setup_Wizard_Functions {
 	 * @since  1.0.0
 	 */
 	public function eb_setup_send_mail_on_user_sync( $send_email ) {
-		// Nonce should be same as user sync nonce.
+		// Nonce should be same as user sync nonce. 
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			if ( isset( $_POST['send_mail'] ) ) {
 				return $send_email;
@@ -252,7 +252,7 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_test_connection_handler() {
-		// if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
+		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 
 			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
@@ -261,7 +261,7 @@ class Eb_Setup_Wizard_Functions {
 			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
 
 			wp_send_json_success( $response );
-		// }
+		}
 	}
 
 	/**
@@ -362,7 +362,6 @@ class Eb_Setup_Wizard_Functions {
 					$general_settings                           = get_option( 'eb_general' );
 					$general_settings['eb_useraccount_page_id'] = $data['user_account_page'];
 					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && $data['user_account_creation'] == 1 ? 'yes' : 'no';
-
 					update_option( 'eb_general', $general_settings );
 					$function = 'eb_setup_free_completed_popup';
 
@@ -660,19 +659,18 @@ class Eb_Setup_Wizard_Functions {
 				} elseif ( 'eb_free_and_pro' === $setup_name ) {
 					$chosen_setup = 'free_and_pro';
 				}
-
+	
 				if ( is_array( $setup_data ) ) {
 					$setup_data['name'] = $chosen_setup;
 				} else {
 					$setup_data = array( 'name' => $chosen_setup );
 				}
-
 				// If this form is submitted i.e progress should be added.
 				$setup_data['progress'] = 'initialize';
-
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		}
+
 
 		/**
 		 * Handle page refresh.

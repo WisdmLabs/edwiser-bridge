@@ -129,7 +129,7 @@ class Eb_Setup_Wizard_Templates {
 		</head>
 
 
-		<body class="wc-setup wp-core-ui">
+		<body class="eb-setup wp-core-ui">
 
 			<header class='eb-setup-wizard-header'>
 				<div class='eb-setup-header-logo'>
@@ -424,7 +424,7 @@ class Eb_Setup_Wizard_Templates {
 			ob_start();
 		}
 		?>
-		<div class="eb_setup_test_connection es-w-80">
+		<div class='eb_setup_test_connection es-w-80'>
 			<div>
 				<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
 
@@ -586,9 +586,7 @@ class Eb_Setup_Wizard_Templates {
 		$eb_plugin_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
-
 		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
-
 
 		if ( $ajax ) {
 			ob_start();
@@ -623,7 +621,6 @@ class Eb_Setup_Wizard_Templates {
 					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Synchronize users & notify', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
 				</div>
-
 
 				<div>
 					<fieldset>
@@ -984,31 +981,27 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_conn_url_inp_wrap  '>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_woo_int' id='eb_setup_woo_int' data-action='woocommerce_integration'  type='text' value='<?php echo esc_attr( $woo_int_license ); ?>' >
-						<div class='eb_setup_woocommerce_integration_license_msg'> </div>
-
+						<div class='eb_setup_woocommerce_integration_license_msg'></div>
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_selective_sync' id='eb_setup_selective_sync' data-action='selective_sync' type='text' value='<?php echo esc_attr( $ss_license ); ?>' >
-						<div class='eb_setup_selective_sync_license_msg'> </div>
-
+						<div class='eb_setup_selective_sync_license_msg'></div>
 					</div>
-
 				</div>
+
 				<div class='eb_setup_license_inp_wrap'>
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_bulk_purchase' id='eb_setup_bulk_purchase' data-action='bulk-purchase' type='text' value='<?php echo esc_attr( $bp_license ); ?>' >
-						<div class='eb_setup_bulk-purchase_license_msg'> </div>
-
+						<div class='eb_setup_bulk-purchase_license_msg'></div>
 					</div>
 
 					<div class='eb_setup_conn_url_inp_wrap'>
 						<p><label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'edwiser-bridge' ); ?></label> </p>
 						<input class='eb_setup_inp eb_setup_license_inp' name='eb_setup_sso' id='eb_setup_sso' data-action='single_sign_on' type='text' value='<?php echo esc_attr( $sso_license ); ?>' >
-						<div class='eb_setup_single_sign_on_license_msg'> </div>
-
+						<div class='eb_setup_single_sign_on_license_msg'></div>
 					</div>
 
 				</div>
@@ -1277,6 +1270,7 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+		$eb_plugin_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
 
 		if ( $ajax ) {
@@ -1297,6 +1291,46 @@ class Eb_Setup_Wizard_Templates {
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Create', 'edwiser-bridge' ); ?> </button>
 			</div>
 
+			<!--  -->
+
+			<div class='eb_setup_product_sync_progress_popup'>
+				<div class='eb_setup_popup_content eb_setup_prod_sync_popup'>
+
+					<div class='eb_setup_h2'>
+						<?php esc_html_e( 'WooCommerce products of your Moodle courses creating', 'edwiser-bridge' ); ?>
+					</div>
+
+					<div class='eb_setup_product_sync_progress_images'>
+
+						<div class='eb_setup_users_sync_wp_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/woo.png' ); ?>" class='es-woo-img' />
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/commerce.png' ); ?>" />
+						</div>
+
+						<div class='eb_setup_product_sync_progress_arrows'>
+							<!-- <span class='arrow'> > > > </span> -->
+
+							<div class="animated  animated--on-hover  mt-2">
+								<span class="animated__text"> > > > </span>
+								<!-- <span class="dashicons dashicons-arrow-right-alt2 animated__text"></span>
+								<span class="dashicons dashicons-arrow-right-alt2 animated__text"></span>
+								<span class="dashicons dashicons-arrow-right-alt2 animated__text"></span> -->
+							</div>
+
+						</div>
+
+						<div class='eb_setup_users_sync_mdl_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<!--  -->
+
+
 		</div>
 
 
@@ -1312,6 +1346,7 @@ class Eb_Setup_Wizard_Templates {
 			wp_send_json_success( $return );
 		}
 	}
+
 
 	/**
 	 * Setup Wizard Settings for pro version.

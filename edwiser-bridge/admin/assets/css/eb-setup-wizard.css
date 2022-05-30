@@ -9,6 +9,13 @@
     cursor: pointer;
 }
   
+
+.eb-setup{
+    font-family: sans-serif;
+}
+
+
+
 .p-b-10{
    padding-bottom: 10px; 
 }
@@ -99,6 +106,11 @@
     margin: auto;
 }
 
+.eb_setup_conn_url_inp_wrap{
+    height: 100px;
+}
+
+
 .eb-setup-content a{
     /* color: #f98012; */
 }
@@ -138,7 +150,7 @@
 
 .eb-setup-close-icon{
     padding-top: 10px;
-    padding-right: 5px;
+    padding-right: 0px;
     width: 5%;
     color: #F98012;
     cursor: pointer;
@@ -920,6 +932,9 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     border-radius: 10px;
 }
 
+.es-woo-img{
+    background: #9C5C8F;
+}
 
 .eb-setup-content-area button{
     cursor: pointer;
@@ -929,17 +944,34 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     color: #00A1A8;
 }
 
-.eb_setup_users_sync_progress_popup{
+.eb_setup_users_sync_wp_img{
+    margin: auto;
+}
+
+.eb_setup_prod_sync_popup{
+    padding: 45px 45px 30px 45px;
+    width: 40%;
+}
+
+.eb_setup_users_sync_progress_popup, .eb_setup_product_sync_progress_popup{
     display: none;
 }
 
-.eb_setup_users_sync_progress_images{
+.eb_setup_users_sync_progress_images, .eb_setup_product_sync_progress_images{
     display: flex;
     padding: 22px 30px;
 }
 
 .eb_setup_users_sync_progress_images > div{
     width: 33%;
+}
+
+.eb_setup_product_sync_progress_images > div{
+    width: 30%;
+}
+
+.eb_setup_product_sync_progress_images > div:first-child{
+    width: 40%;
 }
 
 .eb_setup_large_users_warn .dashicons{
@@ -966,7 +998,7 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     font-size: 31px;
     color: #00A1A8;
     position: absolute;
-    animation: 1.5s bounce ease-in-out infinite paused;
+    animation: 1s bounce ease-in-out infinite paused;
     white-space: nowrap;
     top: 0;
     padding: 0 0.5rem;
