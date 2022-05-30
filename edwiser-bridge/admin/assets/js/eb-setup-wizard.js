@@ -507,7 +507,7 @@
                                 }
                             });
                         } else {
-                            $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
+                            $(".eb_setup_" + Object.keys(extensions)[key] + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
                         }
 
                         $("#eb-lading-parent").hide();
