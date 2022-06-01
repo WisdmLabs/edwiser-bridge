@@ -27,7 +27,7 @@ class Eb_Setup_Wizard_Functions {
 		$setup_templates = new Eb_Setup_Wizard_Templates();
 
 		/* phpcs:disable WordPress.Security.NonceVerification */
-		if ( ! isset( $_POST['action'] ) && isset( $_GET['page'] ) && $_GET['page'] === 'eb-setup-wizard' ) {
+		if ( ! isset( $_POST['action'] ) && isset( $_GET['page'] ) && 'eb-setup-wizard' === $_GET['page'] ) {
 			add_action( 'admin_init', array( $setup_templates, 'eb_setup_wizard_template' ), 9 );
 			add_action( 'admin_init', array( $this, 'eb_setup_steps_save_handler' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
@@ -71,10 +71,11 @@ class Eb_Setup_Wizard_Functions {
 	/**
 	 * Send email .
 	 *
+	 * @param  boolean $send_email true or false.
 	 * @since  1.0.0
 	 */
 	public function eb_setup_send_mail_on_user_sync( $send_email ) {
-		// Nonce should be same as user sync nonce. 
+		// Nonce should be same as user sync nonce.
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			if ( isset( $_POST['send_mail'] ) ) {
 				return $send_email;
@@ -281,7 +282,7 @@ class Eb_Setup_Wizard_Functions {
 
 			// Post data will provide key.
 			// Here we will provide only activation functionality.
-			// This action is the plugin name and 2nd parameter provided in function is licensse status action
+			// This action is the plugin name and 2nd parameter provided in function is licensse status action.
 
 			$response = array();
 
@@ -307,7 +308,7 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_save_and_continue() {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
-			$data             = $_POST['data'];
+			$data             = $_POST['data']; // phpcs:ignore
 			$current_step     = $data['current_step'];
 			$next_step        = $data['next_step'];
 			$is_next_sub_step = $data['is_next_sub_step'];
@@ -361,7 +362,7 @@ class Eb_Setup_Wizard_Functions {
 				case 'free_recommended_settings':
 					$general_settings                           = get_option( 'eb_general' );
 					$general_settings['eb_useraccount_page_id'] = $data['user_account_page'];
-					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && $data['user_account_creation'] == 1 ? 'yes' : 'no';
+					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && 1 === $data['user_account_creation'] ? 'yes' : 'no';
 					update_option( 'eb_general', $general_settings );
 					$function = 'eb_setup_free_completed_popup';
 
@@ -396,7 +397,7 @@ class Eb_Setup_Wizard_Functions {
 				case 'pro_settings':
 					if ( isset( $data['archive_page'] ) ) {
 						$general_settings                    = get_option( 'eb_general' );
-						$general_settings['eb_show_archive'] = $data['archive_page'] == 1 ? 'yes' : 'no';
+						$general_settings['eb_show_archive'] = 1 === $data['archive_page'] ? 'yes' : 'no';
 						update_option( 'eb_general', $general_settings );
 					}
 
@@ -468,7 +469,7 @@ class Eb_Setup_Wizard_Functions {
 		$found_step = 0;
 		$prevkey    = '';
 		foreach ( $steps as $key => $value ) {
-			if ( $current_step == $key ) {
+			if ( $current_step === $key ) {
 				$found_step = 1;
 			}
 
@@ -503,6 +504,8 @@ class Eb_Setup_Wizard_Functions {
 			'eb-setup-wizard-js',
 			$eb_plugin_url . 'admin/assets/js/eb-setup-wizard.js',
 			array( 'jquery', 'jquery-ui-dialog' ),
+			time(),
+			false
 		);
 
 		$setup_nonce = wp_create_nonce( 'eb_setup_wizard' );
@@ -555,13 +558,6 @@ class Eb_Setup_Wizard_Functions {
 
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
-		// add_dashboard_page(
-		// 'Edwiser Bridge Setup',
-		// 'Edwiser Bridge Setup',
-		// 'manage_options',
-		// 'eb-setup-wizard',
-		// );
-
 		add_submenu_page(
 			'',
 			'Edwiser Bridge Setup',
@@ -574,6 +570,8 @@ class Eb_Setup_Wizard_Functions {
 
 	/**
 	 * Setup Wizard Steps HTML content
+	 *
+	 * @param string $current_step Current step.
 	 */
 	public function eb_setup_steps_html( $current_step = '' ) {
 		$steps = $this->eb_setup_wizard_get_steps();
@@ -605,11 +603,9 @@ class Eb_Setup_Wizard_Functions {
 					if ( 1 === $completed ) {
 						$class = 'eb-setup-step-completed';
 						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
-						// $html  = '<span class="dashicons dashicons-arrow-right-alt2"></span>';
 					} elseif ( $current_step === $key ) {
 						$class = 'eb-setup-step-active';
 						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
-						// $html  = '<i class="fa-solid fa-circle-chevron-right eb_setup_sidebar_progress_icons"></i>';
 					}
 
 					if ( $key === $progress ) {
@@ -619,8 +615,8 @@ class Eb_Setup_Wizard_Functions {
 					?>
 					<li class='eb-setup-step  <?php echo ' eb-setup-step-' . esc_attr( $key ) . ' ' . wp_kses( $class, $allowed_tags ) . '-wrap'; ?>' >
 						<?php echo wp_kses( $html, $allowed_tags ); ?>
-						<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php esc_attr_e( $key ); ?>">
-							<?php esc_attr_e( $step['name'], 'edwiser-bridge' ); ?>
+						<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php esc_attr( $key ); ?>">
+							<?php esc_attr( $step['name'] ); ?>
 						</span>
 					</li>
 
@@ -659,7 +655,7 @@ class Eb_Setup_Wizard_Functions {
 				} elseif ( 'eb_free_and_pro' === $setup_name ) {
 					$chosen_setup = 'free_and_pro';
 				}
-	
+
 				if ( is_array( $setup_data ) ) {
 					$setup_data['name'] = $chosen_setup;
 				} else {
@@ -670,7 +666,6 @@ class Eb_Setup_Wizard_Functions {
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		}
-
 
 		/**
 		 * Handle page refresh.
@@ -707,7 +702,7 @@ class Eb_Setup_Wizard_Functions {
 			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-get-plugin-data.php';
 		}
 
-		$status['install']         = 'Plugin insallation failed';
+		$status['install']         = '<span class="eb_license_error">' . __( 'Plugin insallation failed', 'edwiser-bridge' ) . '</span>';
 		$slug                      = $data['action'];
 		$products_data             = Eb_Licensing_Manager::get_plugin_data();
 		$plugin_data               = $products_data[ $slug ];
@@ -723,8 +718,8 @@ class Eb_Setup_Wizard_Functions {
 		// If Not then only perform below actions.
 
 		if ( empty( $plugin_data['license'] ) ) {
-			$get_l_key_link  = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'eb-textdomain' ) . '</a>';
-			$resp['message'] = __( 'License key cannot be empty, Please enter the valid license key.', 'eb-textdomain' ) . $get_l_key_link . __( ' to get the license key.', 'eb-textdomain' );
+			$get_l_key_link  = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
+			$resp['message'] = __( 'License key cannot be empty, Please enter the valid license key.', 'edwiser-bridge' ) . $get_l_key_link . __( ' to get the license key.', 'edwiser-bridge' );
 			return $resp;
 		}
 
@@ -751,25 +746,25 @@ class Eb_Setup_Wizard_Functions {
 			$license_status = get_option( 'edd_' . $slug . '_license_status' );
 
 			if ( 'valid' === $license_status ) {
-				$status['activate'] = __( 'License activated', 'edwiser-bridge' );
+				$status['activate'] = '<span class="eb_license_success">' . __( 'License activated', 'edwiser-bridge' ) . '</span>';
 			} elseif ( 'no_activations_left' === $license_status ) {
-				$status['activate'] = __( 'License is activated to maximum limit', 'edwiser-bridge' );
+				$status['activate'] = '<span class="eb_license_error">' . __( 'License is activated to maximum limit', 'edwiser-bridge' ) . '</span>';
 			} else {
-				$status['activate'] = __( 'License activation failed', 'edwiser-bridge' );
+				$status['activate'] = '<span class="eb_license_error">' . __( 'License activation failed', 'edwiser-bridge' ) . '</span>';
 			}
 		} else {
-			$status['activate'] = __( 'License already activated', 'edwiser-bridge' );
+			$status['activate'] = '<span class="eb_license_error">' . __( 'License already activated', 'edwiser-bridge' ) . '</span>';
 		}
 
 		// check if plugin is already installed and activated.
 		$all_plugins = get_plugins();
 		if ( array_key_exists( $plugin_data['path'], $all_plugins ) || in_array( $plugin_data['path'], $all_plugins, true ) ) {
 			$installed         = true;
-			$status['install'] = __( 'Plugin already installed', 'edwiser-bridge' );
+			$status['install'] = '<span class="eb_license_error">' . __( 'Plugin already installed', 'edwiser-bridge' ) . '</span>';
 			// check if plugin is already activated.
 			if ( is_plugin_active( $plugin_data['path'] ) ) {
 				$activated         = true;
-				$status['install'] = $status['install'] . __( ' and activated', 'edwiser-bridge' );
+				$status['install'] = $status['install'] . '<span class="eb_license_error">' . __( ' and activated', 'edwiser-bridge' ) . '</span>';
 			}
 		}
 
@@ -819,7 +814,7 @@ class Eb_Setup_Wizard_Functions {
 				} elseif ( isset( $request->msg ) ) {
 					$status['message'] = $request->msg;
 				} else {
-					$status['message'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'eb-textdomain' );
+					$status['message'] = __( 'Empty download link. Please check your license key or contact edwiser support for more detials.', 'edwiser-bridge' );
 				}
 			}
 		}
@@ -829,9 +824,9 @@ class Eb_Setup_Wizard_Functions {
 			$result = activate_plugin( $plugin_data['path'] );
 			if ( is_wp_error( $result ) ) {
 				$resp              = $result->get_error_messages();
-				$status['install'] = $status['install'] . __( ', plugin activation failed', 'edwiser-bridge' );
+				$status['install'] = $status['install'] . '<span class="eb_license_error">' . __( ', plugin activation failed', 'edwiser-bridge' ) . '</span>';
 			} else {
-				$status['install'] = $status['install'] . __( ', plugin activated', 'edwiser-bridge' );
+				$status['install'] = $status['install'] . '<span class="eb_license_success">' . __( ', plugin activated', 'edwiser-bridge' ) . '</span>';
 			}
 		}
 		return $status;

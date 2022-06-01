@@ -495,26 +495,16 @@
                         if (response.success == 1) {
                             $.each(response.data, function(slug, value) {
                                 if (value.message){
-                                    $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">' + value.message + '</span>');
+                                    $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_license_error">' + value.message + '</span>');
                                 } else {
                                     var msg = '';
-                                    if(value.install == 'Plugin Installed'){
-                                        msg = '<span class="eb_lic_active">' + value.install + '</span>';
-                                    } else {
-                                        msg = '<span class="eb_lic_status">' + value.install + '</span>';
-                                    }
-
-                                    if(value.activate == 'License Activated'){
-                                        msg += ', <span class="eb_lic_active">' + value.activate + '</span>';
-                                    } else {
-                                        msg += ', <span class="eb_lic_status">' + value.activate + '</span>';
-                                    }
+                                    msg = value.install + ', ' + value.activate;
 
                                     $(".eb_setup_" + slug + "_license_msg").html( msg );
                                 }
                             });
                         } else {
-                            $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
+                            $(".eb_setup_" + Object.keys(extensions)[key] + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
                         }
 
                         $("#eb-lading-parent").hide();

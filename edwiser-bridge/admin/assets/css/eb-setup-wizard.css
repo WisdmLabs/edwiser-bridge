@@ -487,6 +487,15 @@ a.eb_setup_btn{
     padding-right: 20px;
 }
 
+.eb_license_error{
+    color: red;
+    text-transform: capitalize;
+}
+
+.eb_license_success{
+    color: green;
+    text-transform: capitalize;
+}
 
 .eb_setup_conn_url_inp_wrap{
     /* text-align: center; */
