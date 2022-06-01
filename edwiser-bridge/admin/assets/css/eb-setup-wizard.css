@@ -497,6 +497,23 @@ a.eb_setup_btn{
     text-transform: capitalize;
 }
 
+.eb_license_process{
+    color: blue;
+    text-transform: capitalize;
+    font-style: italic;
+}
+.eb_license_process_anim{
+    border: 3px solid #ffffff;
+    border-top: 3px solid #07a3c3;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    vertical-align: middle;
+    display: inline-block;
+    height: 0.7em;
+    width: 0.7em;
+    margin: auto;
+}
+
 .eb_setup_conn_url_inp_wrap{
     /* text-align: center; */
     width: 50%;
