@@ -615,8 +615,8 @@ class Eb_Setup_Wizard_Functions {
 					?>
 					<li class='eb-setup-step  <?php echo ' eb-setup-step-' . esc_attr( $key ) . ' ' . wp_kses( $class, $allowed_tags ) . '-wrap'; ?>' >
 						<?php echo wp_kses( $html, $allowed_tags ); ?>
-						<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php esc_attr( $key ); ?>">
-							<?php esc_attr( $step['name'] ); ?>
+						<span class='eb-setup-steps-title <?php echo wp_kses( $class, $allowed_tags ); ?>' data-step="<?php echo esc_attr( $key ); ?>">
+							<?php echo esc_attr( $step['name'] ); ?>
 						</span>
 					</li>
 
@@ -723,6 +723,37 @@ class Eb_Setup_Wizard_Functions {
 			return $resp;
 		}
 
+		// dependency check.
+		if ( 'woocommerce_integration' === $slug ) {
+			$all_plugins = get_plugins();
+			$woo_path = 'woocommerce/woocommerce.php';
+			if ( array_key_exists( $woo_path, $all_plugins ) || in_array( $woo_path, $all_plugins, true ) ) {
+				if ( !is_plugin_active( $woo_path ) ) {
+					activate_plugin( $woo_path );
+				}
+			} else{
+				include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+				$api = plugins_api(
+					'plugin_information',
+					array(
+						'slug'   => 'woocommerce',
+						'fields' => array(
+							'sections' => false,
+						),
+					)
+				);
+				if ( is_wp_error( $api ) ) {
+					$status['dependency']['woocommerce'] = $api->get_error_message();
+				} else {
+					$status['dependency']['woocommerce'] = $this->eb_setup_wizard_download_and_install( $api->download_link );
+				}
+
+				activate_plugin( 'woocommerce/woocommerce.php' );
+
+				return $status;
+			}	
+		}
+
 		$installed      = false;
 		$activated      = false;
 		$license_status = '';
@@ -746,25 +777,27 @@ class Eb_Setup_Wizard_Functions {
 			$license_status = get_option( 'edd_' . $slug . '_license_status' );
 
 			if ( 'valid' === $license_status ) {
-				$status['activate'] = '<span class="eb_license_success">' . __( 'License activated', 'edwiser-bridge' ) . '</span>';
+				$status['activate'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'License activated', 'edwiser-bridge' ) . '</span>';
 			} elseif ( 'no_activations_left' === $license_status ) {
-				$status['activate'] = '<span class="eb_license_error">' . __( 'License is activated to maximum limit', 'edwiser-bridge' ) . '</span>';
+				$status['activate'] = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'License is activated to maximum limit', 'edwiser-bridge' ) . '</span>';
+			} elseif ( 'expired' === $license_status ) {
+				$status['activate'] = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'License is expired', 'edwiser-bridge' ) . '</span>';
 			} else {
-				$status['activate'] = '<span class="eb_license_error">' . __( 'License activation failed', 'edwiser-bridge' ) . '</span>';
+				$status['activate'] = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'License activation failed', 'edwiser-bridge' ) . '</span>';
 			}
 		} else {
-			$status['activate'] = '<span class="eb_license_error">' . __( 'License already activated', 'edwiser-bridge' ) . '</span>';
+			$status['activate'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'License already activated', 'edwiser-bridge' ) . '</span>';
 		}
 
 		// check if plugin is already installed and activated.
 		$all_plugins = get_plugins();
 		if ( array_key_exists( $plugin_data['path'], $all_plugins ) || in_array( $plugin_data['path'], $all_plugins, true ) ) {
 			$installed         = true;
-			$status['install'] = '<span class="eb_license_error">' . __( 'Plugin already installed', 'edwiser-bridge' ) . '</span>';
+			$status['install'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'Plugin already installed', 'edwiser-bridge' ) . '</span>';
 			// check if plugin is already activated.
 			if ( is_plugin_active( $plugin_data['path'] ) ) {
 				$activated         = true;
-				$status['install'] = $status['install'] . '<span class="eb_license_error">' . __( ' and activated', 'edwiser-bridge' ) . '</span>';
+				$status['install'] = $status['install'] . '<span class="eb_license_success">' . __( ' and activated', 'edwiser-bridge' ) . '</span>';
 			}
 		}
 
@@ -783,33 +816,12 @@ class Eb_Setup_Wizard_Functions {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
 
-					// dependency check.
-					if ( 'woocommerce_integration' === $slug ) {
-						// Install woocommerce plugin first.
-						include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-						$api = plugins_api(
-							'plugin_information',
-							array(
-								'slug'   => 'woocommerce',
-								'fields' => array(
-									'sections' => false,
-								),
-							)
-						);
-						if ( is_wp_error( $api ) ) {
-							$status['dependency']['woocommerce'] = $api->get_error_message();
-						} else {
-							$status['dependency']['woocommerce'] = $this->eb_setup_wizard_download_and_install( $api->download_link );
-						}
-
-						activate_plugin( 'woocommerce/woocommerce.php' );
-					}
-
 					// Install the plugin.
 					$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
 
-					if ( 'Plugin Installed' === $status['install'] ) {
+					if ( true === $status['install'] ) {
 						$installed = true;
+						$status['install'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'Plugin installed', 'edwiser-bridge' ) . '</span>';
 					}
 				} elseif ( isset( $request->msg ) ) {
 					$status['message'] = $request->msg;
@@ -824,9 +836,9 @@ class Eb_Setup_Wizard_Functions {
 			$result = activate_plugin( $plugin_data['path'] );
 			if ( is_wp_error( $result ) ) {
 				$resp              = $result->get_error_messages();
-				$status['install'] = $status['install'] . '<span class="eb_license_error">' . __( ', plugin activation failed', 'edwiser-bridge' ) . '</span>';
+				$status['install'] = $status['install'] . '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'plugin activation failed', 'edwiser-bridge' ) . '</span>';
 			} else {
-				$status['install'] = $status['install'] . '<span class="eb_license_success">' . __( ', plugin activated', 'edwiser-bridge' ) . '</span>';
+				$status['install'] = $status['install'] . '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'plugin activated', 'edwiser-bridge' ) . '</span>';
 			}
 		}
 		return $status;
@@ -847,22 +859,22 @@ class Eb_Setup_Wizard_Functions {
 		$result   = $upgrader->install( $link );
 
 		if ( is_wp_error( $result ) ) {
-			$status = $result->get_error_message();
+			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . $result->get_error_message() . '</span>';
 		} elseif ( is_wp_error( $skin->result ) ) {
-			$status = $skin->result->get_error_message();
+			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . $skin->result->get_error_message() . '</span>';
 		} elseif ( $skin->get_errors()->has_errors() ) {
-			$status = $skin->get_error_messages();
+			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . $skin->get_error_messages() . '</span>';
 		} elseif ( is_null( $result ) ) {
 			global $wp_filesystem;
 
-			$status = __( 'Unable to connect to the filesystem. Please confirm your credentials.' );
+			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'Unable to connect to the filesystem. Please confirm your credentials.' ) . '</span>';
 
 			// Pass through the error from WP_Filesystem if one was raised.
 			if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-				$status = esc_html( $wp_filesystem->errors->get_error_message() );
+				$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . esc_html( $wp_filesystem->errors->get_error_message() ) . '</span>';
 			}
 		} else {
-			$status = 'Plugin Installed';
+			$status = true;
 		}
 		return $status;
 	}

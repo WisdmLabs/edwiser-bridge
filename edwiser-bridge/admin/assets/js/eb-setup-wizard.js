@@ -460,7 +460,6 @@
             // MaNAGE LICENSE
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
                 var extensions = {};
-                $("#eb-lading-parent").show();
 
                 $('.eb_setup_license_inp').each(function() {
                     // var currentElement = $(this);
@@ -476,9 +475,11 @@
             // install plugin
             function installPlugin(extensions, key) {
                 var extension = {};
-                $("#eb-lading-parent").show();
 
                 extension[Object.keys(extensions)[key]] = Object.values(extensions)[key];
+                var ext_slug = Object.keys(extensions)[key];
+                $(".eb_setup_" + ext_slug + "_license_msg").html('<span class="eb_license_process"><span class="eb_license_process_anim"></span>Installation in process</span>');
+                
                 $.ajax({
                     method: "post",
                     url: eb_setup_wizard.ajax_url,
@@ -494,17 +495,21 @@
                         //prepare response for user
                         if (response.success == 1) {
                             $.each(response.data, function(slug, value) {
-                                if (value.message){
-                                    $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_license_error">' + value.message + '</span>');
+                                if(value.dependency){
+                                    key--;
                                 } else {
-                                    var msg = '';
-                                    msg = value.install + ', ' + value.activate;
+                                    if (value.message){
+                                        $(".eb_setup_" + slug + "_license_msg").html('<span class="eb_license_error">' + value.message + '</span>');
+                                    } else {
+                                        var msg = '';
+                                        msg = value.install + '<br>' + value.activate;
 
-                                    $(".eb_setup_" + slug + "_license_msg").html( msg );
+                                        $(".eb_setup_" + slug + "_license_msg").html( msg );
+                                    }
                                 }
                             });
                         } else {
-                            $(".eb_setup_" + Object.keys(extensions)[key] + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
+                            $(".eb_setup_" + ext_slug + "_license_msg").html('<span class="eb_lic_status">Something went wrong</span>');
                         }
 
                         $("#eb-lading-parent").hide();
