@@ -643,6 +643,7 @@ if ( ! function_exists( 'wdm_eb_get_allowed_html_tags' ) ) {
 			'style' => array(),
 			'id'    => array(),
 			'class' => array(),
+			'data-courseid' => array(),
 
 		);
 		$allowed_tags['h4'] = array(

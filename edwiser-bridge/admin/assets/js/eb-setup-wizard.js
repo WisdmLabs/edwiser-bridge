@@ -147,10 +147,6 @@
             // get data which will be saved.
 
             // Creating swicth case.
-            
-
-
-
 
             var data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
@@ -234,42 +230,109 @@
             }
 
 
-                $.ajax({
-                    method: "post",
-                    url: eb_setup_wizard.ajax_url,
-                    dataType: "json",
-                    data: {
-                        'action': 'eb_setup_save_and_continue',
-                        'nonce': eb_setup_wizard.nonce,
-                        // 'action': 'eb_setup_' + step,
-                        'data': data,
-                        // '_wpnonce_field': eb_admin_js_object.nonce,
-                    },
-                    success: function (response) {
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_save_and_continue',
+                    'nonce': eb_setup_wizard.nonce,
+                    // 'action': 'eb_setup_' + step,
+                    'data': data,
+                    // '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
 
-                        //prepare response for user
-                        if (response.success == 1) {
-                            // If final step show pop up
-                            if ( response.data.popup ) {
-                                $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
-                            } else {   
-                                change_url( next_step );
-                                handle_step_progress( current_step, next_step );
+                    //prepare response for user
+                    if (response.success == 1) {
+                        // If final step show pop up
+                        if ( response.data.popup ) {
+                            $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + response.data.content + ' </div>');
+                        } else {
+
+                            // If product sync then add success icon to the div and then perform function after 1 second
+                            if ( 'wi_products_sync' == current_step ) {
+                                var icon = $('.animated__text');
+                                icon.html('<span class="dashicons dashicons-yes-alt eb_setup_pupup_success_icon"></span>');
+                                icon.removeClass('animated__text');
+
+                                setTimeout( function(){
+                                    $('.eb-setup-content').html(response.data.content);
+                                    $('.eb-setup-header-title').html(response.data.title);
+                                }  , 2000 );
 
 
+                            } else {
                                 $('.eb-setup-content').html(response.data.content);
                                 $('.eb-setup-header-title').html(response.data.title);
                             }
-                        } else {
-        
+
+
+                            change_url( next_step );
+                            handle_step_progress( current_step, next_step );
+                            
                         }
-
-                        $("#eb-lading-parent").hide();
-
-                    }
-                });
+                    } else {
     
+                    }
+
+                    $("#eb-lading-parent").hide();
+
+                }
             });
+
+        });
+
+        // Sync courses
+        $(document).on('click', '.eb_setup_course_sync_btn', function (event) {
+            
+            $("#eb-lading-parent").show();
+
+            // Course sync process.
+            // Call course sync callback and after completing the process, call this callback.
+            var publish = $('.eb_setup_course_sync_inp').prop('checked') ? 1 : 0;
+
+            // data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step, 'publish': publish };
+
+            var $this = $(this);
+            //display loading animation
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_course_sync',
+                    'publish': publish,
+                    '_wpnonce_field': eb_setup_wizard.nonce,
+                },
+                success: function (response) {
+
+                    //prepare response for user
+                    // if (response.data.success == 1) {
+                    $('.eb_setup_settings_success_msg').css('display', 'block');
+                    $('.eb_setup_test_conn_error').css('display', 'none');
+
+                    $('.eb_setup_course_sync_btn').css('display', 'none');
+                    $('.eb_setup_course_sync_cont_btn').css('display', 'initial');
+
+                    // } else {
+                    //     // ohSnap(response.response_message, 'error', 0);
+                    //     $('.eb_setup_test_conn_error').css('display', 'block');
+                    //     $('.eb_setup_test_conn_success').css('display', 'none');
+
+                    //     $('.eb_setup_test_conn_error').html( 'Error : ' + response.data.response_message);
+                    // }
+
+                    $("#eb-lading-parent").hide();
+
+                },
+                error: function (response) {
+
+                }
+            });
+        
+        });
+
 
 
             function handle_step_progress( current_step, next_step ) {
@@ -336,23 +399,19 @@
                                 });
                             }
 
-                            if (queryLimit < users_count) {
+                            if ( queryLimit < users_count ) {
                                 userLinkSyncAjax($this, sync_options, offset, linkedUsers, users_count, queryLimit, notLinkedusers, send_mail);
                             } else {
-                                $('.eb_setup_popup').css('display', 'none');
-                                $( ".eb_setup_save_and_continue").click();
 
-                                // if (!$('.response-box').is(":empty")) {
-                                //     $('.linkresponse-box').css('margin-top', '3%');
-                                // }
-                                // $('.linkresponse-box').css('margin-left', '0px !important');
-                                // // linkUserResponseBox('<p class="linkerror">' + eb_admin_js_object.msg_user_sync_success + '</p>', 'success', 1);
-                                // if (typeof notLinkedusers !== 'undefined' && notLinkedusers.length > 0) {
-                                //     var container = $('.linkresponse-box');
-                                //     var html = '<span class="linkresponse-box-error">' + eb_setup_wizard.msg_unlink_users_list + '</span>';
-                                //     container.append(html);
-                                //     $(".unlink-table tbody").append(notLinkedusers);
-                                // }
+                                var icon = $('.animated__text');
+                                icon.html('<span class="dashicons dashicons-yes-alt eb_setup_pupup_success_icon"></span>');
+                                icon.removeClass('animated__text');
+
+                                setTimeout( function(){
+                                    $('.eb_setup_popup').css('display', 'none');
+                                    $( ".eb_setup_save_and_continue").click();
+                                }  , 2000 );
+
                             }
                         } else {
                             $('.load-response').hide();
@@ -506,6 +565,8 @@
 
                                         $(".eb_setup_" + slug + "_license_msg").html( msg );
                                     }
+
+                                    //$(".eb_setup_" + slug + "_license_msg").html( msg );
                                 }
                             });
                         } else {
@@ -552,10 +613,13 @@
                     },
                     success: function (response) {
                         $('.load-response').hide();
-                        console.log(response.success);
                         if ( response.success === true ) {
                             $('.eb_setup_sso_response').html(response.data);
                             $('.eb_setup_sso_response').addClass('eb_setup_settings_success_msg');
+                            var parent = $this.parent();
+                            var cont_btn = parent.children('.eb_setup_save_and_continue');
+                            cont_btn.css('display', 'initial');
+                            $this.css('display', 'none');
                         } else {
                             $('.eb_setup_sso_response').html(response.data);
                             $('.eb_setup_sso_response').addClass('eb_setup_settings_error_msg');

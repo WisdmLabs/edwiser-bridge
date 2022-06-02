@@ -261,12 +261,12 @@
         /**
          * Reload the Moodle course enrollment.
          */
-         $('.eb-setup-step-completed').click(function(){
+         $('.eb-enable-manual-enrolment').click(function(){
 
             // Create loader.
             var loader_html = '<span class="eb-load-response"><img src="' + eb_admin_js_object.plugin_url + 'images/loader.gif" height="20" width="20" /></span>';
             var current = $(this);
-            var course_id = $(this).data('step');
+            var course_id = $(this).data('courseid');
 
             current.append(loader_html);
 
@@ -411,7 +411,8 @@
             });
 
 
-console.log(sync_options);
+
+
 
 
             var offset = 0;

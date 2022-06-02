@@ -14,11 +14,45 @@
     font-family: sans-serif;
 }
 
+.es-p-b-30{
+    padding-bottom: 30px;
+}
 
+.es-p-30{
+    padding-bottom: 30px;
+}
+
+.es-p-t-30{
+    padding-top: 30px;
+}
+
+.es-p-r-40{
+    padding-right: 40px;
+}
+
+.es-p-l-40{
+    padding-left: 40px;
+}
 
 .p-b-10{
    padding-bottom: 10px; 
 }
+
+.es-p-10{
+}
+
+.es-m-b-10{
+    margin-bottom: 10px;
+}
+
+.es-m-b-20{
+    margin-bottom: 20px;
+}
+
+.es-h-100{
+    height: 100px;
+}
+
 
 .es-sec-h{
     font-weight: 700;
@@ -106,13 +140,10 @@
     margin: auto;
 }
 
-.eb_setup_conn_url_inp_wrap{
-    height: 100px;
-}
-
 
 .eb-setup-content a{
     /* color: #f98012; */
+    text-decoration: none;
 }
 
 .eb-setup-content.eb_setup_full_width{
@@ -150,7 +181,8 @@
 
 .eb-setup-close-icon{
     padding-top: 10px;
-    padding-right: 0px;
+    padding-right: 10px;
+    text-align: right;
     width: 5%;
     color: #F98012;
     cursor: pointer;
@@ -337,6 +369,13 @@
     color: #444444;
 }
 
+.fieldset_content{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #666666;
+}
 
 .eb_setup_free_initialize fieldset{
     background: #FFFFFF;
@@ -449,7 +488,20 @@ a.eb_setup_btn{
 }
 
 
-.eb_setup_wi_products_sync, .eb_setup_sso, .eb_setup_mdl_plugins_installation, .eb_setup_license, .eb_setup_pro_initialize, .eb_setup_free_recommended_settings, .eb_setup_installation_guide, .eb_setup_conn_url, .eb_setup_test_connection, .eb_setup_user_sync, .eb_setup_course_sync{
+.eb_setup_wi_products_sync,
+.eb_setup_sso,
+.eb_setup_mdl_plugins_installation,
+.eb_setup_license,
+.eb_setup_pro_initialize,
+.eb_setup_free_recommended_settings,
+.eb_setup_installation_guide,
+.eb_setup_conn_url,
+.eb_setup_test_connection,
+.eb_setup_user_sync,
+.eb_setup_course_sync,
+.eb_setup_mdl_plugins,
+.eb_setup_mdl_plugins_installation
+{
     padding: 30px 40px;
 }
 
@@ -914,11 +966,16 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
 
 /* --------------- */
 
+a.eb_setup_sec_btn{
+    padding: 11px 25px;
+}
+
+
 .eb_setup_popup{
     /* display: none; */
     position: fixed;
     z-index: 1000;
-    padding-top: 150px;
+    padding-top: 130px;
     left: 0;
     top: 0;
     width: 100%;
@@ -933,7 +990,7 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     text-align: center;
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: 40px;
     border: 1px solid #888;
     width: 45%;
     border-radius: 5px;
@@ -944,7 +1001,7 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     color: #1AB900;
 }
 
-.eb_setup_pupup_warning_icon{
+.dashicons.dashicons-warning.eb_setup_pupup_warning_icon{
     font-size: 40px;
     color: #FFD21E;
 }
@@ -1009,6 +1066,10 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     display: flex;
 }
 
+.eb_setup_users_sync_mdl_img{
+    margin: auto;
+}
+
 /* ---- Animated arrows ---- */
 .animated {
     position: relative;
@@ -1019,6 +1080,13 @@ p.eb_setup_h2 .dashicons.dashicons-arrow-right-alt2 {
     line-height: 3rem;
     height: 3rem;
 }
+
+
+.animated__text .dashicons.dashicons-arrow-right-alt2{
+    width: 5px;
+    vertical-align: middle;
+}
+
 
 .animated__text {
     font-size: 31px;

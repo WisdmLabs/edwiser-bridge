@@ -31,17 +31,18 @@ class Eb_Setup_Wizard_Functions {
 			add_action( 'admin_init', array( $setup_templates, 'eb_setup_wizard_template' ), 9 );
 			add_action( 'admin_init', array( $this, 'eb_setup_steps_save_handler' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 		/* phpcs: enable */
 
 		add_action( 'admin_init', array( $this, 'welcome_handler' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 		$steps = $this->eb_setup_wizard_get_steps();
 
 		add_filter( 'eb_send_new_user_email_on_user_sync', array( $this, 'eb_setup_send_mail_on_user_sync' ) );
 
 		add_action( 'wp_ajax_eb_setup_change_step', array( $this, 'eb_setup_change_step' ) );
+		add_action( 'wp_ajax_eb_setup_course_sync', array( $this, 'eb_setup_course_sync' ) );
 		add_action( 'wp_ajax_eb_setup_close_setup', array( $setup_templates, 'eb_setup_close_setup' ) );
 		add_action( 'wp_ajax_eb_setup_save_and_continue', array( $this, 'eb_setup_save_and_continue' ) );
 		add_action( 'wp_ajax_eb_setup_test_connection', array( $this, 'eb_setup_test_connection_handler' ) );
@@ -78,7 +79,7 @@ class Eb_Setup_Wizard_Functions {
 		// Nonce should be same as user sync nonce.
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			if ( isset( $_POST['send_mail'] ) ) {
-				return $send_email;
+				return $_POST['send_mail'];
 			}
 		}
 	}
@@ -249,21 +250,6 @@ class Eb_Setup_Wizard_Functions {
 		}
 	}
 
-	/**
-	 * Setup Wizard Test connection handler.
-	 */
-	public function eb_setup_test_connection_handler() {
-		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
-
-			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
-			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
-
-			$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
-			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
-
-			wp_send_json_success( $response );
-		}
-	}
 
 	/**
 	 * Setup Wizard Manage license.
@@ -300,6 +286,42 @@ class Eb_Setup_Wizard_Functions {
 			}
 
 			wp_send_json_success( $response );
+		}
+	}
+
+	/**
+	 * Setup Wizard Test connection handler.
+	 */
+	public function eb_setup_test_connection_handler() {
+		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
+
+			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+			$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
+			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
+
+			wp_send_json_success( $response );
+		}
+	}
+
+
+	/**
+	 * Setup Wizard Test connection handler.
+	 */
+	public function eb_setup_course_sync() {
+		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
+			$publish   = isset( $_POST['publish'] ) ? sanitize_text_field( wp_unslash( $_POST['publish'] ) ) : '';
+			$sync_options['eb_synchronize_draft'] = '1';
+
+			if ( $publish ) {
+				$sync_options['eb_synchronize_draft'] = '0';
+			}
+			$sync_options['eb_synchronize_categories'] = '1';
+			$sync_options['eb_synchronize_previous']   = '1';
+			$response                                  = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
+
+			wp_send_json_success();
 		}
 	}
 
@@ -345,15 +367,6 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'course_sync':
-					$sync_options['eb_synchronize_draft'] = '1';
-
-					if ( $data['publish'] ) {
-						$sync_options['eb_synchronize_draft'] = '0';
-					}
-					$sync_options['eb_synchronize_categories'] = '1';
-					$sync_options['eb_synchronize_previous']   = '1';
-					$response                                  = edwiser_bridge_instance()->course_manager()->course_synchronization_handler( $sync_options );
-
 					break;
 
 				case 'user_sync':
@@ -555,8 +568,7 @@ class Eb_Setup_Wizard_Functions {
 
 		$welcome_page_name  = esc_html__( 'About Edwiser Bridge', 'edwiser-bridge' );
 		$welcome_page_title = esc_html__( 'Welcome to Edwiser Bridge', 'edwiser-bridge' );
-
-		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+		$eb_plugin_url      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		add_submenu_page(
 			'',
@@ -815,6 +827,7 @@ class Eb_Setup_Wizard_Functions {
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
+
 
 					// Install the plugin.
 					$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
