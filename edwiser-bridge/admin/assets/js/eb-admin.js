@@ -412,9 +412,6 @@
 
 
 
-
-
-
             var offset = 0;
             var progressWidth = 0;
             var linkedUsers = 0;
@@ -685,11 +682,6 @@
                 }
             });
         });
-
-
-
-
-
 
 
         $(".eb-emailtmpl-list-item").click(function (e) {

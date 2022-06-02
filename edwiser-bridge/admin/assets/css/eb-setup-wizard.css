@@ -9,6 +9,11 @@
     cursor: pointer;
 }
   
+.eb-setup-content input:checked {
+    background-color: #F98012;
+  }
+
+
 
 .eb-setup{
     font-family: sans-serif;
@@ -35,7 +40,7 @@
 }
 
 .p-b-10{
-   padding-bottom: 10px; 
+   padding-bottom: 15px; 
 }
 
 .es-p-10{
@@ -50,7 +55,7 @@
 }
 
 .es-h-100{
-    height: 100px;
+    height: 110px;
 }
 
 
@@ -90,8 +95,6 @@
 .eb_setup_free_initialize{
     padding-top: 10px;
 }
-
-
 
 .eb-tooltip:hover .eb-tooltiptext {
     visibility: visible;
@@ -540,23 +543,38 @@ a.eb_setup_btn{
 }
 
 .eb_license_error{
-    color: red;
-    text-transform: capitalize;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #DC0000;
 }
 
 .eb_license_success{
-    color: green;
-    text-transform: capitalize;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #1AB900;
 }
 
 .eb_license_process{
-    color: blue;
-    text-transform: capitalize;
     font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+
+    color: #00A1A8;
 }
+
+
 .eb_license_process_anim{
     border: 3px solid #ffffff;
-    border-top: 3px solid #07a3c3;
+    border-top: 3px solid #F98012;
+    /* background: linear-gradient(270deg, #F98012 -3.57%, #FFFFFF 114.29%); */
     border-radius: 50%;
     animation: spin 1s linear infinite;
     vertical-align: middle;

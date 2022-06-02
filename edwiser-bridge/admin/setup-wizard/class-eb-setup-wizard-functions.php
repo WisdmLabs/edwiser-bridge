@@ -577,7 +577,6 @@ class Eb_Setup_Wizard_Functions {
 			'read',
 			'eb-setup-wizard',
 		);
-
 	}
 
 	/**
@@ -667,7 +666,6 @@ class Eb_Setup_Wizard_Functions {
 				} elseif ( 'eb_free_and_pro' === $setup_name ) {
 					$chosen_setup = 'free_and_pro';
 				}
-
 				if ( is_array( $setup_data ) ) {
 					$setup_data['name'] = $chosen_setup;
 				} else {
@@ -678,6 +676,7 @@ class Eb_Setup_Wizard_Functions {
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		}
+
 
 		/**
 		 * Handle page refresh.

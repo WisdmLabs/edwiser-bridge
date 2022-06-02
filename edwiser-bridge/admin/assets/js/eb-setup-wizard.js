@@ -382,7 +382,7 @@
                     success: function (response) {
                         $("#eb-lading-parent").hide();
 
-                        queryLimit = queryLimit + 2;
+                        queryLimit = queryLimit + 20;
                         offset = offset + Math.abs(parseInt(response.unlinked_users_count) - parseInt(response.linked_users_count));
                         linkedUsers = parseInt(linkedUsers) + parseInt(response.linked_users_count);
                         users_count = parseInt(linkedUsers) + parseInt(response.users_count);
@@ -519,6 +519,7 @@
             // MaNAGE LICENSE
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
                 var extensions = {};
+                // $("#eb-lading-parent").show();
 
                 $('.eb_setup_license_inp').each(function() {
                     // var currentElement = $(this);
@@ -534,6 +535,7 @@
             // install plugin
             function installPlugin(extensions, key) {
                 var extension = {};
+                // $("#eb-lading-parent").show();
 
                 extension[Object.keys(extensions)[key]] = Object.values(extensions)[key];
                 var ext_slug = Object.keys(extensions)[key];
@@ -553,6 +555,7 @@
 
                         //prepare response for user
                         if (response.success == 1) {
+
                             $.each(response.data, function(slug, value) {
                                 if(value.dependency){
                                     key--;
@@ -630,9 +633,6 @@
                 });
             });
 
-
-
-
             // $('.eb_setup_upload_btn').change(function(){
             $(document).on( 'click', '.eb_setup_upload_btn', function(){
                 $('#eb_setup_test_conn_mdl_url').val($('.eb_setup_test_conne_url').val());
@@ -643,8 +643,6 @@
                 $('.eb_setup_test_conn_h2').css('display', 'none');
                 
             });
-
-
 
             // function onChange(event) {
             $('.eb_setup_file_btn').change(function(event){
