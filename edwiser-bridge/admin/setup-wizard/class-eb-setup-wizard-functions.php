@@ -375,7 +375,7 @@ class Eb_Setup_Wizard_Functions {
 				case 'free_recommended_settings':
 					$general_settings                           = get_option( 'eb_general' );
 					$general_settings['eb_useraccount_page_id'] = $data['user_account_page'];
-					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && 1 === $data['user_account_creation'] ? 'yes' : 'no';
+					$general_settings['eb_enable_registration'] = isset( $data['user_account_creation'] ) && '1' === $data['user_account_creation'] ? 'yes' : 'no';
 					update_option( 'eb_general', $general_settings );
 					$function = 'eb_setup_free_completed_popup';
 
@@ -410,7 +410,7 @@ class Eb_Setup_Wizard_Functions {
 				case 'pro_settings':
 					if ( isset( $data['archive_page'] ) ) {
 						$general_settings                    = get_option( 'eb_general' );
-						$general_settings['eb_show_archive'] = 1 === $data['archive_page'] ? 'yes' : 'no';
+						$general_settings['eb_show_archive'] = '1' === $data['archive_page'] ? 'yes' : 'no';
 						update_option( 'eb_general', $general_settings );
 					}
 

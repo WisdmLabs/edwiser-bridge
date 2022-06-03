@@ -11,9 +11,7 @@
   
 .eb-setup-content input:checked {
     background-color: #F98012;
-  }
-
-
+}
 
 .eb-setup{
     font-family: sans-serif;
@@ -43,7 +41,12 @@
    padding-bottom: 15px; 
 }
 
-.es-p-10{
+.es-p-t-10{
+    padding-top: 10px;
+}
+
+.es-m-t-20{
+    margin-top: 20px;
 }
 
 .es-m-b-10{
@@ -58,12 +61,20 @@
     height: 110px;
 }
 
-
 .es-sec-h{
     font-weight: 700;
     font-size: 16px;
     line-height: 26px;
     color: #133F3F;
+}
+
+a.es_text_links{
+    font-weight: 500;
+    text-decoration: revert !important;
+}
+
+.es-primary-color{
+    color: #F98012;
 }
 
 .eb-tooltip .eb-tooltiptext {
@@ -74,6 +85,7 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
+    font-family: sans-serif;
     
     /* Position the tooltip */
     position: absolute;
@@ -154,11 +166,11 @@
     width: 100%;
 }
 
-  
+
 .eb-setup-header-logo{
     background: #F7F7F7;
     width: 27%;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.1);
 }
 
 .eb-setup-header-title-wrap.initialize{
@@ -252,25 +264,38 @@
     text-align: right;
 }
 
-
 .eb-setup-footer-button a{
+    text-decoration: none;
     padding: 7px 20px;
     background: #FFFFFF;
     border-radius: 30px;
     font-weight: 600;
     font-size: 14px;
     line-height: 19px;
-    /* identical to box height */
     text-align: center;
     color: #F98012;
     cursor: pointer;
 }
 
-.eb_setup_free_initialize, .eb_setup_pro_settings, .eb_setup_mdl_plugins{
+.eb-setup-footer-button a:hover{
+    background: linear-gradient(0deg, #F98012, #F98012), #FFFFFF;
+    color: #FFFFFF;
+}
+
+
+
+
+.eb_setup_free_initialize, .eb_setup_mdl_plugins{
     text-align: left;
     width: 50%;
     margin: auto;
     margin-top: 20px;
+}
+
+.eb_setup_pro_settings{
+    text-align: left;
+    width: 50%;
+    margin: auto;
 }
 
 .eb_setup_free_initialize > form > div{
@@ -378,6 +403,10 @@
     font-size: 16px;
     line-height: 22px;
     color: #666666;
+}
+
+.fieldset_content.fieldset_content_non_i{
+    font-style: initial;
 }
 
 .eb_setup_free_initialize fieldset{
@@ -503,7 +532,8 @@ a.eb_setup_btn{
 .eb_setup_user_sync,
 .eb_setup_course_sync,
 .eb_setup_mdl_plugins,
-.eb_setup_mdl_plugins_installation
+.eb_setup_mdl_plugins_installation,
+.eb_setup_pro_settings
 {
     padding: 30px 40px;
 }
