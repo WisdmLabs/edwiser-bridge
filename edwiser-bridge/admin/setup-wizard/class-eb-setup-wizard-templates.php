@@ -23,7 +23,6 @@ class Eb_Setup_Wizard_Templates {
 	 * Hook in tabs.
 	 */
 	public function __construct() {
-
 	}
 
 
@@ -49,7 +48,6 @@ class Eb_Setup_Wizard_Templates {
 		}
 
 		$this->setup_wizard_header( $title, $header_class );
-
 
 		// content area.
 		// sidebar.
@@ -119,7 +117,7 @@ class Eb_Setup_Wizard_Templates {
 		<!DOCTYPE html>
 		<html <?php language_attributes(); ?>>
 		<head>
-			<title><?php echo esc_html( 'Edwiser Bridge Setup Wizard', 'edwiser-bridge' ); ?></title>
+			<title><?php echo esc_html__( 'Edwiser Bridge Setup Wizard', 'edwiser-bridge' ); ?></title>
 			<meta name="viewport" content="width=device-width" />
 			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			<title></title>
@@ -141,7 +139,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class='eb-setup-header-title-wrap <?php echo esc_attr( $header_class ); ?>'>
-					<div class='eb-setup-header-title'> <?php echo esc_attr( $title ); ?></div>
+					<div class='eb-setup-header-title'> <?php echo esc_attr__( $title ); ?></div>
 					<div class='eb-setup-close-icon'> <span class="dashicons dashicons-no"></span> </div>
 				</div>
 			</header>
@@ -926,7 +924,7 @@ class Eb_Setup_Wizard_Templates {
 			</p>
 
 			<p>
-				<?php echo esc_html( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree">' . esc_html( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
+				<?php echo esc_html__( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree">' . esc_html__( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
 			</p>
 
 			<div class="eb_setup_user_sync_btn_wrap">
@@ -980,7 +978,7 @@ class Eb_Setup_Wizard_Templates {
 				</p>
 
 				<p>
-					<?php echo esc_html( 'You can find the keys in the purchase receipt email or you can navigate to ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/my-account" >' . esc_html( 'My account page on Edwiser.', 'edwiser-bridge' ) . '</a>'; ?>	
+					<?php echo esc_html__( 'You can find the keys in the purchase receipt email or you can navigate to ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/my-account" >' . esc_html__( 'My account page on Edwiser.', 'edwiser-bridge' ) . '</a>'; ?>	
 				</p>
 			<div>
 
@@ -1140,7 +1138,7 @@ class Eb_Setup_Wizard_Templates {
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 1', 'edwiser-bridge' ); ?> </legend> 
 					<div class='fieldset_content fieldset_content_non_i'>
-						<?php echo esc_html( 'Click on Install button and you will be redirected to Moodle’s plugin installation page.', 'edwiser-bridge' ) . '<b>' . esc_html( ' (Login to your Moodle site if not logged in).', 'edwiser-bridge' ) . '</b>'; ?>
+						<?php echo esc_html__( 'Click on Install button and you will be redirected to Moodle’s plugin installation page.', 'edwiser-bridge' ) . '<b>' . esc_html__( ' (Login to your Moodle site if not logged in).', 'edwiser-bridge' ) . '</b>'; ?>
 					</div>
 				</fieldset>
 
@@ -1156,7 +1154,7 @@ class Eb_Setup_Wizard_Templates {
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 2', 'edwiser-bridge' ); ?> </legend> 
 					<div class='fieldset_content fieldset_content_non_i'>
-						<?php echo '<b>' . esc_html( 'Upload and install the Edwiser Bridge PRO plugin ', 'edwiser-bridge' ) . '</b>' . esc_html( ' one by one which are downloaded in your browser.', 'edwiser-bridge' ); ?>
+						<?php echo '<b>' . esc_html__( 'Upload and install the Edwiser Bridge PRO plugin ', 'edwiser-bridge' ) . '</b>' . esc_html__( ' one by one which are downloaded in your browser.', 'edwiser-bridge' ); ?>
 					</div>
 				</fieldset>
 
@@ -1166,7 +1164,7 @@ class Eb_Setup_Wizard_Templates {
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 3', 'edwiser-bridge' ); ?> </legend> 
 					<div class='fieldset_content fieldset_content_non_i'>
-						<?php echo esc_html( 'Navigate to this URL  (', 'edwiser-bridge' ) . '<a style="color: #f98012;" target="_blank" href="' . esc_attr( $mdl_url ) . '">' . esc_attr( $mdl_url ) . '</a>' . esc_html( ') and click on ‘Update Web services’.', 'edwiser-bridge' ); ?>
+						<?php echo esc_html__( 'Navigate to this URL  (', 'edwiser-bridge' ) . '<a style="color: #f98012;" target="_blank" href="' . esc_attr( $mdl_url ) . '">' . esc_attr( $mdl_url ) . '</a>' . esc_html__( ') and click on ‘Update Web services’.', 'edwiser-bridge' ); ?>
 					</div>
 				</fieldset>
 
@@ -1176,7 +1174,7 @@ class Eb_Setup_Wizard_Templates {
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 4', 'edwiser-bridge' ); ?> </legend>
 					<div class='fieldset_content fieldset_content_non_i'>
-						<?php echo '<b>' . esc_html( 'Come back to this tab ', 'edwiser-bridge' ) . '</b>' . esc_html( ' and continue your Edwiser Bridge PRO setup.', 'edwiser-bridge' ); ?>
+						<?php echo '<b>' . esc_html__( 'Come back to this tab ', 'edwiser-bridge' ) . '</b>' . esc_html__( ' and continue your Edwiser Bridge PRO setup.', 'edwiser-bridge' ); ?>
 					</div>
 				</fieldset>
 
@@ -1251,7 +1249,7 @@ class Eb_Setup_Wizard_Templates {
 					<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
 
 					<div>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="<?php echo $mdl_url; ?>" >' . esc_html( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html( 'and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
+						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="<?php echo $mdl_url; ?>" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
 					</div>
 
 					<div>
@@ -1429,7 +1427,7 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_pro_settings es-w-80'>
 
-			<p>  <?php echo esc_html( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="" >' . esc_html( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
+			<p>  <?php echo esc_html__( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="" >' . esc_html__( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html__( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
 
 			<div class="eb_setup_inp_wrap">
 				<input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' >
