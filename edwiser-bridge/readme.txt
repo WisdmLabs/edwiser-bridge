@@ -218,6 +218,15 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.2.0 =
+* Feature - Added Setup Wizard for on WordPress as well as Moodle plugin.
+* Feature - Added compatibility to WordPress 6.0.
+
+= 2.1.7 =
+* Tweak – Changed textdomain to edwiser-bridge as per wordpress guidelines and added compatibility with old textdomain.
+* Tweak – Added compatibility with Moodle 4.0.
+
 = 2.1.6 =
 * Fixed: Course acrhive page fix for wordpress version less than 5.9.
 

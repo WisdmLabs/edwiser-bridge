@@ -334,13 +334,8 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 		private function install_plugin( $plugin_zip, $flush = 1 ) {
 			include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-			var_dump( $flush ); //@codingStandardsIgnoreLine
 			// clear_update_cache.
-			var_dump( $plugin_zip ); //@codingStandardsIgnoreLine
-
 			if ( $flush ) {
-				var_dump( 'FLUSH CONTENT ::: ' ); //@codingStandardsIgnoreLine
-
 				wp_cache_flush();
 				$args = array(
 					'clear_update_cache' => true,
