@@ -297,7 +297,8 @@ class Eb_Setup_Wizard_Functions {
 			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
-			$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
+			$version           = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
+			$connection_helper = new EBConnectionHelper( 'edwiserbridge', $version );
 			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
 
 			wp_send_json_success( $response );
@@ -333,7 +334,7 @@ class Eb_Setup_Wizard_Functions {
 			$data             = $_POST['data']; // phpcs:ignore
 			$current_step     = $data['current_step'];
 			$next_step        = $data['next_step'];
-			$is_next_sub_step = $data['is_next_sub_step'];
+			$is_next_sub_step = isset( $data['is_next_sub_step'] ) ? $data['is_next_sub_step'] : 0;
 
 			$steps    = $this->eb_setup_wizard_get_steps();
 			$function = $steps[ $next_step ]['function'];

@@ -943,7 +943,7 @@ class Eb_Course_Manager {
 
 			// Update course enrollment method.
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => array( $course_id ) ) );
-			if ( 0 === $course_data['success'] ) {
+			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
 				if ( "Class 'enrol_manual_plugin' not found" === $course_data['response_message'] ) {
 					wp_send_json_error( array( 'message' => esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' ) ) );
 				} else {
