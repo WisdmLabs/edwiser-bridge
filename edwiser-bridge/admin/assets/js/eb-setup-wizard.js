@@ -528,6 +528,38 @@
 
             });
 
+            // license key validation
+            $(document).on('change', '.eb_setup_license_inp', function(){
+                var key = $(this).val();
+                var action = $(this).data('action');
+
+                $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_process"><span class="eb_license_process_anim"></span>Validating licanse key</span>');
+
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    dataType: "json",
+                    data: {
+                        'action': 'eb_setup_validate_license',
+                        'license_key': key,
+                        'license_action': action,
+                        '_wpnonce_field': eb_setup_wizard.nonce,
+                    },
+                    success: function (response) {
+
+                        //prepare response for user
+                        if (response.status == 'success') {
+                            $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_success">' + response.message + '</span>');
+                        } else {
+                            $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_error">' + response.message + '</span>');
+                        }
+
+                        $("#eb-lading-parent").hide();
+
+                    }
+                });
+            });
+
             // install plugin
             function installPlugin(extensions, key) {
                 var extension = {};
