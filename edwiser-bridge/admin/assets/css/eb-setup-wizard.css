@@ -37,6 +37,11 @@
     padding-left: 40px;
 }
 
+.es-p-l-30{
+    padding-left: 30px;
+}
+
+
 .p-b-10{
    padding-bottom: 15px; 
 }
@@ -128,6 +133,9 @@ a.es_text_links{
     padding-top: 10px;
 }
 
+.eb_setup_file_btn{
+    width: 35%;
+}
 
 .eb_setup_btn.disabled{
     color: #C4C4C4;
@@ -154,6 +162,159 @@ a.es_text_links{
     width: 80%;
     margin: auto;
 }
+
+
+/* ****  Checkbox styling.    **** */
+
+.esw-cb-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+
+  /* Hide the browser's default checkbox */
+  .esw-cb-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .esw-cb-checkmark {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    height: 20px;
+    width: 20px;
+    /* background-color: #eee; */
+    background-color: #FFFFFF;
+    border: 1px solid #C4C4C4;
+    box-shadow: 0px 2px 2px rgb(0 0 0 / 30%);
+    border-radius: 4px;
+    margin-right: 30px;
+
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .esw-cb-container:hover input ~ .esw-cb-checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .esw-cb-container input:checked ~ .esw-cb-checkmark {
+    /* background-color: #2196F3; */
+    background-color: #f98012;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .esw-cb-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .esw-cb-container input:checked ~ .esw-cb-checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .esw-cb-container .esw-cb-checkmark:after {
+    left: 7px;
+    top: 2px;
+    width: 4px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+
+/* *****   END Checkbox styling    ***** */
+
+/* **********  Radio Button styling   ********* */
+
+/* The container */
+.esw-radio-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .esw-radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .esw-radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+    margin-right: 30px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .esw-radio-container:hover input ~ .esw-radio-checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .esw-radio-container input:checked ~ .esw-radio-checkmark {
+    background-color: #fa9e4b;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .esw-radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .esw-radio-container input:checked ~ .esw-radio-checkmark:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .esw-radio-container .esw-radio-checkmark:after {
+       top: 9px;
+      left: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+  }
+
+
+/* *****   END Radio Button styling    ***** */
+
+
 
 
 .eb-setup-content a{
