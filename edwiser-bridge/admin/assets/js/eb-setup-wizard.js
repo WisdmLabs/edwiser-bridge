@@ -760,6 +760,18 @@
             });
 
 
+
+
+            $(document).on( 'change', '.eb_setup_file_btn', function(){
+                if( jQuery(".eb_setup_file_btn").get(0).files.length == 0 ){
+                    $('.eb_setup_upload_btn').addClass('disabled');
+                    $('.eb_setup_upload_btn').attr('disabled', true);
+                } else {
+                    $('.eb_setup_upload_btn').removeClass('disabled');
+                    $('.eb_setup_upload_btn').attr('disabled', false);
+                }
+            });
+
                 
 
     });

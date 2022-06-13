@@ -492,11 +492,10 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 				<div>
 					<div>
-						<span class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>
-						<div>
-							<input class="eb_setup_sec_btn eb_setup_file_btn" type="file" accept=".json">
-							<button class="eb_setup_sec_btn eb_setup_upload_btn"> <?php esc_html_e( 'Upload', 'edwiser-bridge' ); ?> </button>	
-						</div>
+						<span class='eb_setup_h2'> <span style='vertical-align: baseline;' class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>		
+						<input class="eb_setup_sec_btn eb_setup_file_btn" type="file" accept=".json">
+						<button class="eb_setup_sec_btn eb_setup_upload_btn disabled" disabled> <?php esc_html_e( 'Upload', 'edwiser-bridge' ); ?> </button>	
+						
 					</div>
 
 				</div>
@@ -635,7 +634,7 @@ class Eb_Setup_Wizard_Templates {
 							<span class='esw-cb-checkmark'></span>
 						</label>
 
-						<label class='es-sec-h'> <?php esc_html_e( 'Enabled - Send email notification with login credentials', 'edwiser-bridge' ); ?></label>
+						<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enabled - Send email notification with login credentials', 'edwiser-bridge' ); ?></label>
 					</div>
 				</div>
 
@@ -820,7 +819,7 @@ class Eb_Setup_Wizard_Templates {
 					<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'>
 					<span class='esw-cb-checkmark'></span>
 				</label>
-				<label class='es-sec-h'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
+				<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
 			</div>
 
 			<span> <?php esc_html_e( 'Default page is set to Edwiser Bridge - User Account.', 'edwiser-bridge' ); ?> </span>
@@ -1470,7 +1469,7 @@ class Eb_Setup_Wizard_Templates {
 					<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page'>
 					<span class='esw-cb-checkmark'></span>
 				</label>
-				<label class="es-sec-h"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
+				<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">

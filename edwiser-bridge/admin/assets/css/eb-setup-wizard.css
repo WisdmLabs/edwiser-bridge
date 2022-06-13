@@ -137,7 +137,7 @@ a.es_text_links{
     width: 35%;
 }
 
-.eb_setup_btn.disabled{
+.eb_setup_btn.disabled, .eb_setup_sec_btn.disabled{
     color: #C4C4C4;
     border: 1px solid #E5E5E5;
     background: #F7F7F7;
