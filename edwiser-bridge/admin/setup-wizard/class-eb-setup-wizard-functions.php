@@ -37,8 +37,6 @@ class Eb_Setup_Wizard_Functions {
 
 		add_action( 'admin_init', array( $this, 'welcome_handler' ) );
 
-		// $steps = $this->eb_setup_wizard_get_steps();
-
 		add_filter( 'eb_send_new_user_email_on_user_sync', array( $this, 'eb_setup_send_mail_on_user_sync' ) );
 		add_action( 'wp_ajax_eb_setup_change_step', array( $this, 'eb_setup_change_step' ) );
 		add_action( 'wp_ajax_eb_setup_course_sync', array( $this, 'eb_setup_course_sync' ) );
@@ -79,7 +77,7 @@ class Eb_Setup_Wizard_Functions {
 		// Nonce should be same as user sync nonce.
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			if ( isset( $_POST['send_mail'] ) ) {
-				return $_POST['send_mail'];
+				return $_POST['send_mail']; // phpcs:ignore
 			}
 		}
 	}
@@ -292,16 +290,16 @@ class Eb_Setup_Wizard_Functions {
 	/**
 	 * Setup Wizard validate license keys.
 	 */
-	function eb_setup_validate_license(){
+	public function eb_setup_validate_license() {
 		$response = array(
 			'status' => 'error',
 			'msg'    => __( 'Something went wrong. Please try again.', 'edwiser-bridge' ),
 		);
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			$license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( wp_unslash( $_POST['license_key'] ) ) : '';
-			$action = isset( $_POST['license_action'] ) ? sanitize_text_field( wp_unslash( $_POST['license_action'] ) ) : '';
+			$action      = isset( $_POST['license_action'] ) ? sanitize_text_field( wp_unslash( $_POST['license_action'] ) ) : '';
 
-			if( ! empty( $license_key ) && ! empty( $action ) ){
+			if ( ! empty( $license_key ) && ! empty( $action ) ) {
 				if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-licensing-manager.php';
 				}
@@ -314,56 +312,62 @@ class Eb_Setup_Wizard_Functions {
 					array(
 						'edd_action'      => 'check_license',
 						'license'         => $license_key,
-						'item_name'       => urlencode( $plugin_data['item_name']),
+						'item_name'       => urlencode( $plugin_data['item_name']), //phpcs:ignore
 						'current_version' => $plugin_data['current_version'],
 						'url'             => get_home_url(),
 					)
 				);
-	
+
 				if ( false === $resp_data['status'] || null === $resp_data['data'] || ! in_array( $resp_data['status'], array( 200, 301 ), true ) ) {
 					$response = array(
-						'status' => 'error',
-						'message'    => __( 'No response from server edwiser.org.', 'edwiser-bridge' ),
+						'status'  => 'error',
+						'message' => __( 'No response from server edwiser.org.', 'edwiser-bridge' ),
 					);
 				}
 				$license_data = $resp_data['data'];
-				if(isset($license_data)){
-					switch($license_data->license){
+				if ( isset( $license_data ) ) {
+					switch ( $license_data->license ) {
 						case 'valid':
 							$response = array(
-								'status' => 'success',
-								'message'    => __( 'Valid license key.', 'edwiser-bridge' ),
+								'status'  => 'success',
+								'message' => __( 'Valid license key.', 'edwiser-bridge' ),
+							);
+							break;
+						case 'inactive':
+							$response = array(
+								'status'  => 'success',
+								'message' => __( 'Valid license key.', 'edwiser-bridge' ),
 							);
 							break;
 						case 'expired':
 							$response = array(
-								'status' => 'error',
-								'message'    => __( 'License key has expired.', 'edwiser-bridge' ),
+								'status'  => 'error',
+								'message' => __( 'License key has expired.', 'edwiser-bridge' ),
 							);
 							break;
 						case 'no_activations_left':
 							$response = array(
-								'status' => 'error',
-								'message'    => __( 'License key has no activations left.', 'edwiser-bridge' ),
+								'status'  => 'error',
+								'message' => __( 'License key has no activations left.', 'edwiser-bridge' ),
 							);
 							break;
 						case 'item_name_mismatch':
 							$response = array(
-								'status' => 'error',
-								'message'    => __( 'License key is not valid for this product.', 'edwiser-bridge' ),
+								'status'  => 'error',
+								'message' => __( 'License key is not valid for this product.', 'edwiser-bridge' ),
 							);
 							break;
 						default:
 							$response = array(
-								'status' => 'error',
-								'message'    => __( 'License key is invalid.', 'edwiser-bridge' ),
+								'status'  => 'error',
+								'message' => __( 'License key is invalid.', 'edwiser-bridge' ),
 							);
 							break;
 					}
 				} else {
 					$response = array(
-						'status' => 'error',
-						'message'    => __( 'No response from server edwiser.org.', 'edwiser-bridge' ),
+						'status'  => 'error',
+						'message' => __( 'No response from server edwiser.org.', 'edwiser-bridge' ),
 					);
 				}
 			}
@@ -394,7 +398,7 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_course_sync() {
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
-			$publish = isset( $_POST['publish'] ) ? sanitize_text_field( wp_unslash( $_POST['publish'] ) ) : '';
+			$publish                              = isset( $_POST['publish'] ) ? sanitize_text_field( wp_unslash( $_POST['publish'] ) ) : '';
 			$sync_options['eb_synchronize_draft'] = '1';
 
 			if ( $publish ) {
@@ -759,7 +763,6 @@ class Eb_Setup_Wizard_Functions {
 			}
 		}
 
-
 		/**
 		 * Handle page refresh.
 		 */
@@ -819,12 +822,12 @@ class Eb_Setup_Wizard_Functions {
 		// dependency check.
 		if ( 'woocommerce_integration' === $slug ) {
 			$all_plugins = get_plugins();
-			$woo_path = 'woocommerce/woocommerce.php';
+			$woo_path    = 'woocommerce/woocommerce.php';
 			if ( array_key_exists( $woo_path, $all_plugins ) || in_array( $woo_path, $all_plugins, true ) ) {
-				if ( !is_plugin_active( $woo_path ) ) {
+				if ( ! is_plugin_active( $woo_path ) ) {
 					activate_plugin( $woo_path );
 				}
-			} else{
+			} else {
 				include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 				$api = plugins_api(
 					'plugin_information',
@@ -844,7 +847,7 @@ class Eb_Setup_Wizard_Functions {
 				activate_plugin( 'woocommerce/woocommerce.php' );
 
 				return $status;
-			}	
+			}
 		}
 
 		$installed      = false;
@@ -909,12 +912,11 @@ class Eb_Setup_Wizard_Functions {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {
 
-
 					// Install the plugin.
 					$status['install'] = $this->eb_setup_wizard_download_and_install( $request->download_link );
 
 					if ( true === $status['install'] ) {
-						$installed = true;
+						$installed         = true;
 						$status['install'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'Plugin installed', 'edwiser-bridge' ) . '</span>';
 					}
 				} elseif ( isset( $request->msg ) ) {
@@ -965,7 +967,7 @@ class Eb_Setup_Wizard_Functions {
 
 			// Pass through the error from WP_Filesystem if one was raised.
 			if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-				$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . esc_html__( $wp_filesystem->errors->get_error_message() ) . '</span>';
+				$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . esc_html( $wp_filesystem->errors->get_error_message() ) . '</span>';
 			}
 		} else {
 			$status = true;
