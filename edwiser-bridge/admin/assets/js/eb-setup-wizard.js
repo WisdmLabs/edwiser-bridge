@@ -607,7 +607,12 @@
 
                                             $(".eb_setup_" + slug + "_license_msg").html( msg );
                                         }
-
+                                        //remove install plugin and text from bottom of page
+                                        if(key == 3 && $('.eb_license_error').length == 0){
+                                            $('.eb_setup_license_install_plugins').hide();
+                                            $('.text_install').hide();
+                                            $('.eb_setup_user_sync_btn_wrap span b').hide();
+                                        }
                                         //$(".eb_setup_" + slug + "_license_msg").html( msg );
                                     }
                                 });
