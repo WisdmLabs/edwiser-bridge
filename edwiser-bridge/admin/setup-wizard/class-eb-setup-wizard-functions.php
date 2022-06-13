@@ -317,7 +317,7 @@ class Eb_Setup_Wizard_Functions {
 						'url'             => get_home_url(),
 					)
 				);
-
+	
 				if ( false === $resp_data['status'] || null === $resp_data['data'] || ! in_array( $resp_data['status'], array( 200, 301 ), true ) ) {
 					$response = array(
 						'status'  => 'error',

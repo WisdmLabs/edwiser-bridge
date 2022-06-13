@@ -33,44 +33,44 @@
         /**
          * Reload the Moodle course enrollment.
          */
-        $('.eb-setup-step-completed').click(function(){
+        // $('.eb-setup-step-completed').click(function(){
 
-            // Create loader.
-            $("#eb-lading-parent").show();
+        //     // Create loader.
+        //     $("#eb-lading-parent").show();
 
-            var current = $(this);
-            var step = $(this).data('step');
+        //     var current = $(this);
+        //     var step = $(this).data('step');
 
-            change_url( step );
+        //     change_url( step );
 
-            $.ajax({
-                method: "post",
-                url: eb_setup_wizard.ajax_url,
-                dataType: "json",
-                data: {
-                    'action': 'eb_setup_change_step',
-                    'step': step,
-                    // 'course_id': course_id,
-                    'nonce': eb_setup_wizard.nonce,
-                },
-                success: function (response) {
+        //     $.ajax({
+        //         method: "post",
+        //         url: eb_setup_wizard.ajax_url,
+        //         dataType: "json",
+        //         data: {
+        //             'action': 'eb_setup_change_step',
+        //             'step': step,
+        //             // 'course_id': course_id,
+        //             'nonce': eb_setup_wizard.nonce,
+        //         },
+        //         success: function (response) {
 
-                    current.find('.eb-load-response').remove();
-                    //prepare response for user
-                    if (response.success == 1) {
-                        $('.eb-setup-content').html(response.data.content);
-                        $('.eb-setup-header-title').html(response.data.title);
+        //             current.find('.eb-load-response').remove();
+        //             //prepare response for user
+        //             if (response.success == 1) {
+        //                 $('.eb-setup-content').html(response.data.content);
+        //                 $('.eb-setup-header-title').html(response.data.title);
 
-                    } else {
+        //             } else {
 
-                    }
+        //             }
 
-                    $("#eb-lading-parent").hide();
+        //             $("#eb-lading-parent").hide();
 
-                }
-            });
+        //         }
+        //     });
 
-        });
+        // });
 
 
 

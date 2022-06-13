@@ -495,7 +495,7 @@ class Eb_Setup_Wizard_Templates {
 						<span class='eb_setup_h2'> <span style='vertical-align: baseline;' class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>		
 						<input class="eb_setup_sec_btn eb_setup_file_btn" type="file" accept=".json">
 						<button class="eb_setup_sec_btn eb_setup_upload_btn disabled" disabled> <?php esc_html_e( 'Upload', 'edwiser-bridge' ); ?> </button>	
-
+						
 					</div>
 
 				</div>
@@ -551,7 +551,7 @@ class Eb_Setup_Wizard_Templates {
 					</label>
 
 					<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
-
+				
 					<div class='eb_setup_settings_success_msg' style='display:none;'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'Courses Synchronized successful!', 'edwiser-bridge' ); ?> </div>
 				</div>
 
@@ -680,7 +680,7 @@ class Eb_Setup_Wizard_Templates {
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#5abec3;'></span>
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#14979d;'></span>
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#007075;'></span>
-
+								
 								</span>
 								<!-- <span class="dashicons dashicons-arrow-right-alt2 animated__text"></span>
 								<span class="dashicons dashicons-arrow-right-alt2 animated__text"></span>
@@ -1275,7 +1275,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>
 						<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 					</div>
-
+					
 					<?php
 			} else {
 				?>
@@ -1310,11 +1310,9 @@ class Eb_Setup_Wizard_Templates {
 
 			</div>
 
-
-
-				<?php
+		<?php
 			}
-
+			
 			if ( $ajax ) {
 				$html   = ob_get_clean();
 				$return = array(
@@ -1359,7 +1357,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>
 						<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 					</div>
-
+					
 					<?php
 			} else {
 				?>
@@ -1401,7 +1399,7 @@ class Eb_Setup_Wizard_Templates {
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#5abec3;'></span>
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#14979d;'></span>
 									<span class="dashicons dashicons-arrow-right-alt2" style='color:#007075;'></span>
-
+								
 								</span>
 							</div>
 

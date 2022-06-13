@@ -167,9 +167,9 @@ a.es_text_links{
 /* ****  Checkbox styling.    **** */
 
 .esw-cb-container {
-    display: block;
+    /* display: block; */
     position: relative;
-    padding-left: 35px;
+    /* padding-left: 35px; */
     margin-bottom: 12px;
     cursor: pointer;
     font-size: 22px;
@@ -957,7 +957,7 @@ a.eb_setup_btn{
 }
 
 .eb-setup-step .eb-setup-step-active {
-    cursor: pointer;
+    /* cursor: pointer; */
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
@@ -967,7 +967,7 @@ a.eb_setup_btn{
 }
 
 .eb-setup-step .eb-setup-step-completed{
-    cursor: pointer;
+    /* cursor: pointer; */
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
