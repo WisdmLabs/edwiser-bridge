@@ -58,9 +58,17 @@ class Eb_Setup_Wizard_Functions {
 			return;
 		}
 
+		// check if setup wizard already completed or closed by user.
+		$setup_completed = get_option( 'eb_setup_wizard_completed' );
+		if ( $setup_completed ) {
+			return;
+		}
+
 		if ( get_transient( '_eb_activation_redirect' ) ) {
 			// Delete transient used for redirection.
 			delete_transient( '_eb_activation_redirect' );
+			update_option( 'eb_setup_wizard_completed', 1 );
+
 			$wc_url = admin_url( '/?page=eb-setup-wizard' );
 			wp_safe_redirect( $wc_url );
 			exit;
@@ -317,7 +325,7 @@ class Eb_Setup_Wizard_Functions {
 						'url'             => get_home_url(),
 					)
 				);
-	
+
 				if ( false === $resp_data['status'] || null === $resp_data['data'] || ! in_array( $resp_data['status'], array( 200, 301 ), true ) ) {
 					$response = array(
 						'status'  => 'error',
@@ -420,11 +428,11 @@ class Eb_Setup_Wizard_Functions {
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			$data             = $_POST['data']; // phpcs:ignore
 			$current_step     = $data['current_step'];
-			$next_step        = $data['next_step'];
+			$next_step        = isset( $data['next_step'] ) ? $data['next_step'] : '';
 			$is_next_sub_step = isset( $data['is_next_sub_step'] ) ? $data['is_next_sub_step'] : 0;
 
 			$steps    = $this->eb_setup_wizard_get_steps();
-			$function = $steps[ $next_step ]['function'];
+			$function = ! empty( $next_step ) ? $steps[ $next_step ]['function'] : '';
 
 			switch ( $current_step ) {
 				case 'moodle_redirection':
