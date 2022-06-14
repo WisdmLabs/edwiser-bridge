@@ -2167,7 +2167,7 @@ msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1068
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1249
-msgid "Please download the listed two plugin and install manually"
+msgid "Please download the latest version of Edwiser Bridge PRO Moodle plugin from here if not downloaded already"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1070
