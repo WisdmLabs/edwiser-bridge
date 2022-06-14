@@ -555,6 +555,7 @@
                             if (response.status == 'success') {
                                 $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_success">' + response.message + '</span>');
                             } else {
+                                $('.text_install').show();
                                 $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_error">' + response.message + '</span>');
                             }
 

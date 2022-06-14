@@ -1057,7 +1057,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<span class="text_install"> <?php echo esc_html__( 'Retry adding valid licence key and ', 'edwiser-bridge' ); ?> </span>
+				<span class="text_install" style='display:none;'> <?php echo esc_html__( 'Retry adding valid licence key and ', 'edwiser-bridge' ); ?> </span>
 				<button class='eb_setup_sec_btn eb_setup_license_install_plugins' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Install the plugins', 'edwiser-bridge' ); ?> </button>
 				<span style='display:none;' class='ebs_license_install_plugins_cont'>
 					<?php echo '<b>' . esc_html__( ' OR ', 'edwiser-bridge' ) . '</b>'; ?> 
@@ -1100,7 +1100,8 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_mdl_plugins es-w-80'>
 			<div>
-				<?php esc_html_e( 'Please download the listed two plugin and install manually', 'edwiser-bridge' ); ?>	
+				<?php esc_html_e( 'Please download the latest version of Edwiser Bridge PRO Moodle plugin from here if not downloaded already.', 'edwiser-bridge' ); ?>	
+
 				<div>
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
@@ -1281,7 +1282,6 @@ class Eb_Setup_Wizard_Templates {
 				?>
 
 				<div>
-				<?php esc_html_e( 'Please download the latest version of Edwiser Bridge PRO Moodle plugin from here if not downloaded already.', 'edwiser-bridge' ); ?>	
 
 					<div>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
