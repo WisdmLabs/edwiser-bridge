@@ -269,6 +269,10 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
+		$download_url     = 'https://edwiser.org/wp-content/uploads/edd/2022/03/edwiserbridge.zip';
+		$download_url     =  apply_filters( 'eb_setup_mdl_plugin_link', $download_url );
+
+
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -299,7 +303,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='panel'>
 
 						<div class='es-m-t-20'>
-							<a class='eb_setup_sec_btn' href='https://edwiser.org/wp-content/uploads/edd/2022/03/edwiserbridge.zip'> <?php esc_html_e( 'Download the plugin now', 'edwiser-bridge' ); ?> </a>
+							<a class='eb_setup_sec_btn' href='<?php echo $download_url; ?>'> <?php esc_html_e( 'Download the plugin now', 'edwiser-bridge' ); ?> </a>
 						</div>
 
 						<p>
@@ -1094,6 +1098,12 @@ class Eb_Setup_Wizard_Templates {
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
+		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2022/04/wdmwpmoodle.zip';
+		$sso_download_url =  apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
+
+		$bp_download_url  = 'https://edwiser.org/wp-content/uploads/edd/2021/05/wdmgroupregistration.zip';
+		$bp_download_url  =  apply_filters( 'eb_setup_bp_plugin_download_link', $bp_download_url );
+
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -1106,7 +1116,7 @@ class Eb_Setup_Wizard_Templates {
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
 						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='https://edwiser.org/wp-content/uploads/edd/2022/04/wdmwpmoodle.zip'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo $sso_download_url; ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
 					</div>
 				</div>
 
@@ -1114,7 +1124,7 @@ class Eb_Setup_Wizard_Templates {
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bulk Purchase Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
 						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='https://edwiser.org/wp-content/uploads/edd/2021/05/wdmgroupregistration.zip'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo $bp_download_url; ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
 					</div>
 				</div>
 			</div>
