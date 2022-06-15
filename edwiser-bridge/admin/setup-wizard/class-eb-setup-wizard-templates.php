@@ -1527,7 +1527,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=eb_course&page=eb-settings' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Continue', 'edwiser-bridge' ); ?> </a>
+				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=product' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Continue', 'edwiser-bridge' ); ?> </a>
 
 			</div>
 
