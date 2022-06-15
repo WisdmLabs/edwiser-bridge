@@ -38,8 +38,8 @@ class Eb_Setup_Wizard_Templates {
 
 		// Get current step.
 		$content_class = '';
-		$steps         = $setup_functions->eb_setup_wizard_get_steps();
 		$step          = $setup_functions->eb_setup_handle_page_submission_or_refresh();
+		$steps         = $setup_functions->eb_setup_wizard_get_steps();
 		$title         = $setup_functions->eb_get_step_title( $step );
 		$header_class  = '';
 		if ( 'initialize' === $step ) {
@@ -1466,7 +1466,7 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_pro_settings es-w-80'>
 
-			<p>  <?php echo esc_html__( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="" >' . esc_html__( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html__( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
+			<p>  <?php echo esc_html__( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://wordpress.org/plugins/woocommerce/" >' . esc_html__( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html__( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </p>
 
 			<div class="eb_setup_inp_wrap">
 				<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
