@@ -288,7 +288,7 @@ class Eb_Setup_Wizard_Templates {
 
 				</div>
 
-				<span> <?php esc_html_e( 'To start the setup you need to have the following plugins installed on WordPress & Moodle.', 'edwiser-bridge' ); ?> </span>
+				<span> <?php esc_html_e( 'If you have already installed Edwiser Bridge FREE plugin on WordPress & Moodle, please click', 'edwiser-bridge' ); ?> </span>
 
 				<div class="eb_setup_btn_wrap">
 					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
@@ -440,7 +440,7 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_test_connection es-w-80'>
 			<div>
-				<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </div>
+				<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Manually “Copy and Paste” the Moodle credentials to Edwiser Bridge WordPress settings from the Moodle page.', 'edwiser-bridge' ); ?> </div>
 
 				<div>
 					<div class='eb_setup_conn_url_inp_wrap'>
@@ -568,15 +568,6 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 			</div>
 
-			<div>
-				<fieldset>
-					<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
-					<div class='fieldset_content'>
-						<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
-					</div>
-				</fieldset>
-			</div>
-
 		</div>
 
 		<?php
@@ -653,7 +644,7 @@ class Eb_Setup_Wizard_Templates {
 					<fieldset>
 						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<div class='fieldset_content'>
-							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
+							<?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?>
 						</div>
 
 					</fieldset>
@@ -747,7 +738,7 @@ class Eb_Setup_Wizard_Templates {
 					<fieldset>
 						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<div class='fieldset_content'>
-							<?php esc_html_e( 'It approximately takes 10-15 minutes to complete the setup since we will be installing plugins, enabling mandatory settings and synchronizing courses and users.', 'edwiser-bridge' ); ?>
+							<?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?>
 						</div>
 					</fieldset>
 				</div>
@@ -1295,10 +1286,9 @@ class Eb_Setup_Wizard_Templates {
 
 					<div>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
-					</div>
-
-					<div>
+						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Secret key is a 10-15 character based key that you need to set on Moodle and copy the same on WordPress for secret key authentication.', 'edwiser-bridge' ); ?> <p>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
+					
 					</div>
 
 					<div class="eb_setup_conn_url_inp_wrap">

@@ -19,7 +19,6 @@ msgstr ""
 "X-Domain: edwiser-bridge"
 
 
-
 #: admin/class-eb-admin-menus.php:45 admin/class-eb-admin-menus.php:46
 #: includes/class-eb-post-types.php:159
 #: public/shortcodes/class-eb-shortcode-user-account.php:423
@@ -85,32 +84,32 @@ msgid "Please save the changes."
 msgstr ""
 
 #: admin/class-eb-admin.php:168
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:538
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:633
 msgid "Connection successful, Please save your connection details."
 msgstr ""
 
 #: admin/class-eb-admin.php:169
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:539
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:634
 msgid "Courses synchronized successfully."
 msgstr ""
 
 #: admin/class-eb-admin.php:170
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:540
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:635
 msgid "There is a problem while connecting to moodle server."
 msgstr ""
 
 #: admin/class-eb-admin.php:171
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:541
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:636
 msgid "Error occured for following users: "
 msgstr ""
 
 #: admin/class-eb-admin.php:172
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:542
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:637
 msgid "User's course enrollment status synced successfully."
 msgstr ""
 
 #: admin/class-eb-admin.php:174
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:537
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:632
 msgid "User's linked to moodle successfully."
 msgstr ""
 
@@ -323,11 +322,10 @@ msgid "Sorry, unable to load the image"
 msgstr ""
 
 #: admin/class-eb-email-template.php:179
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:225
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:553
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:629
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:721
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1529
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:238
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:642
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:735
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1553
 msgid "Note"
 msgstr ""
 
@@ -456,12 +454,12 @@ msgid "Unlink User"
 msgstr ""
 
 #: admin/class-eb-welcome.php:49
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:568
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:663
 msgid "About Edwiser Bridge"
 msgstr ""
 
 #: admin/class-eb-welcome.php:50 admin/class-eb-welcome.php:215
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:569
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:664
 msgid "Welcome to Edwiser Bridge"
 msgstr ""
 
@@ -599,7 +597,7 @@ msgid "License Key for %s is deactivated"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:45
-#: admin/licensing/class-licensing-settings.php:423
+#: admin/licensing/class-licensing-settings.php:418
 #: admin/settings/class-eb-bridge-summary.php:275
 #: admin/settings/class-eb-settings-licensing.php:38
 #: admin/settings/class-eb-settings-licensing.php:70
@@ -665,7 +663,7 @@ msgid "Invalid action."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:274
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:730
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:826
 #: includes/class-eb-email-template-parser.php:196
 #: public/shortcodes/class-eb-shortcode-my-courses.php:100
 #: public/shortcodes/class-eb-shortcode-my-courses.php:163
@@ -673,12 +671,12 @@ msgid "Click here"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:275
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:731
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:827
 msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:275
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:731
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:827
 msgid " to get the license key."
 msgstr ""
 
@@ -691,7 +689,7 @@ msgid "Plugin installation failed."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:306
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:839
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:935
 msgid ""
 "Empty download link. Please check your license key or contact edwiser "
 "support for more detials."
@@ -706,33 +704,33 @@ msgstr ""
 msgid "Please installed and activate WooCommerce plugin first."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:405
+#: admin/licensing/class-licensing-settings.php:400
 msgid "Plugin activated successfully."
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:444
+#: admin/licensing/class-licensing-settings.php:439
 msgid "If you already own a license then click here"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:445
+#: admin/licensing/class-licensing-settings.php:440
 msgid "Get License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:449
+#: admin/licensing/class-licensing-settings.php:444
 msgid "If you wish to purchase Edwiser Bridge PRO then click here"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:450
+#: admin/licensing/class-licensing-settings.php:445
 msgid "Buy License"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:454
+#: admin/licensing/class-licensing-settings.php:449
 msgid ""
 "If you already own one of the extensions, then click here to upgrade to "
 "Edwiser Bridge PRO"
 msgstr ""
 
-#: admin/licensing/class-licensing-settings.php:455
+#: admin/licensing/class-licensing-settings.php:450
 msgid "Upgrade License"
 msgstr ""
 
@@ -778,7 +776,7 @@ msgid "to check frequently asked questions."
 msgstr ""
 
 #: admin/partials/html-admin-settings-right-section.php:108
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:162
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:163
 msgid "Contact Us"
 msgstr ""
 
@@ -844,10 +842,10 @@ msgid ""
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:175
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1072
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1073
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1080
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1081
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1105
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1106
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1113
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1114
 msgid "Download"
 msgstr ""
 
@@ -904,8 +902,8 @@ msgid "Connection Settings"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:80
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:351
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:434
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:366
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:449
 msgid "Moodle URL"
 msgstr ""
 
@@ -979,7 +977,7 @@ msgid ""
 msgstr ""
 
 #: admin/settings/class-eb-settings-dummy.php:215
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:998
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1021
 msgid "Selective Sync"
 msgstr ""
 
@@ -1020,7 +1018,7 @@ msgid "Moodle WordPress Single Sign-On for quick & easy login."
 msgstr ""
 
 #: admin/settings/class-eb-settings-dummy.php:326
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1018
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1041
 msgid "Single Sign On"
 msgstr ""
 
@@ -1086,7 +1084,7 @@ msgid "Enable user registration on user-account page."
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:81
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:801
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:819
 msgid "User Account Page"
 msgstr ""
 
@@ -1140,7 +1138,7 @@ msgid ""
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:128
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:927
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:943
 msgid " here "
 msgstr ""
 
@@ -1631,705 +1629,761 @@ msgid ""
 "page!"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:99
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:106
 msgid "Setup Initialize"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:100
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:107
 msgid "Edwiser Bridge plugin - Setup Initialization"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:109
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:110
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:116
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:117
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:123
 msgid "Edwiser Bridge FREE plugin installation guide"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:117
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:124
 msgid "Edwiser Bridge FREE Moodle plugin configuration"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:124
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:131
 msgid "Connection test between WordPress and Moodle"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:125
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:132
 msgid "Adding Moodle credential to WordPress"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:133
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:140
 msgid "Courses syncronization"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:134
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:141
 msgid "Synchronize Moodle courses"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:141
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:148
 msgid "User syncronization"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:142
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:149
 msgid "Synchronize WordPress users"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:149
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:157
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:211
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:156
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:164
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:218
 msgid "Recommended settings"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:150
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:158
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:157
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:165
 msgid "Edwiser Bridge FREE plugin recommended settings"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:168
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:175
 msgid "Initialize Edwiser Bridge PRO setup "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:169
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:176
 msgid "Initialize Edwiser Bridge PRO plugin setup "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:175
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:182
 msgid "Edwiser Bridge PRO License setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:176
-msgid "Install Edwiser Bridge PRO WordPress plugins"
-msgstr ""
-
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:182
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:183
-msgid "Download Edwiser Bridge PRO Moodle plugins"
+msgid "Install Edwiser Bridge PRO WordPress plugins"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:189
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:190
-msgid "Let’s install Edwiser Bridge PRO Moodle plugins"
+msgid "Download Edwiser Bridge PRO Moodle plugins"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:196
-msgid "Single Sign On setup"
-msgstr ""
-
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:197
-msgid "Enter Single Sign On secret key"
+msgid "Let’s install Edwiser Bridge PRO Moodle plugins"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:203
-msgid "WooCommerce product creation"
+msgid "Single Sign On setup"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:204
-msgid "Create WooCommerce product of Moodle courses"
+msgid "Enter Single Sign On secret key"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:210
+msgid "WooCommerce product creation"
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:211
+msgid "Create WooCommerce product of Moodle courses"
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:217
 msgid "Edwiser Bridge PRO plugin settings"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:714
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:304
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:331
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:377
+msgid "No response from server edwiser.org."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:340
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:346
+msgid "Valid license key."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:352
+msgid "License key has expired."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:358
+msgid "License key has no activations left."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:364
+msgid "License key is not valid for this product."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:370
+msgid "License key is invalid."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:810
 msgid "Plugin insallation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:789
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:885
 msgid "License activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:791
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:887
 msgid "License is activated to maximum limit"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:793
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:889
 msgid "License is expired"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:795
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:891
 msgid "License activation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:798
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:894
 msgid "License already activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:805
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:901
 msgid "Plugin already installed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:809
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:905
 msgid " and activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:834
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:930
 msgid "Plugin installed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:849
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:945
 msgid "plugin activation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:851
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:947
 msgid "plugin activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:880
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:976
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:120
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:121
 msgid "Edwiser Bridge Setup Wizard"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:157
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:158
 msgid ""
 "Copyright © 2022 Edwiser | Brought to you by WisdmLabs and Powered by Edwiser"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:197
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:198
 msgid "What are you trying to setup?"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:201
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:206
 msgid "Only Edwiser Bridge FREE"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:206
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:215
 msgid "Only Edwiser Bridge PRO"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:211
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:224
 msgid "Both, Edwiser Bridge FREE & PRO"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:217
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:230
 msgid "Start The Setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:227
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:555
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:631
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:723
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:240
 msgid ""
 "It approximately takes 10-15 minutes to complete the setup since we will be "
 "installing plugins, enabling mandatory settings and synchronizing courses "
 "and users."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:267
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:275
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:284
 msgid ""
 "To start the setup you need to have the following plugins installed on "
 "WordPress & Moodle."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:270
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
 msgid "Edwiser Bridge Free WordPress plugin"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:271
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
 msgid "Edwiser Bridge Free Moodle plugin"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:278
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:469
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:546
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:624
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:292
+msgid ""
+"If you have already installed Edwiser Bridge FREE plugin on WordPress & "
+"Moodle, please click"
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:295
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:484
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:563
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:637
 msgid "Continue the setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:285
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:302
 msgid "What to do if I have not installed the Moodle plugin?"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:290
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:307
 msgid "Download the plugin now"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:294
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:311
 msgid "After download please follow the steps below;"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:296
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:370
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:313
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:385
 msgid "Login to your Moodle site with Adminstrative access"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:297
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:314
 msgid "Navigate to Site adminstration > Plugins > Install plugins "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:298
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:315
 msgid " Upload the Edwiser Bridge FREE Moodle plugin here"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:299
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:373
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:316
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:388
 msgid "We will assist you with the rest of the setup from there 🙂"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:347
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:427
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:362
 msgid ""
 "Enter your Moodle URL to intiate the configuration on moodle site for "
 "Edwiser Bridge FREE Moodle plugin."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:352
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:435
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:367
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:450
 msgid ""
 "Ensure there is no blank space. And it should follow the URL with Hypertext "
 "Transfer Protocol \"https://\""
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:358
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:373
 msgid "Submit & Continue"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:365
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:380
 msgid ""
 "Unable to navigate directly to the Edwiser Bridge FREE plugin setup on "
 "Moodle from the above step?  "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:368
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:383
 msgid "Please follow these manual steps below;"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:371
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:386
 msgid "Navigate to Site administration > Plugins > Edwiser Bridge"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:372
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:387
 msgid "Now click on ‘Initiate Edwiser Bridge Moodle Setup wizard’"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:431
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:442
+msgid ""
+"Manually “Copy and Paste” the Moodle credentials to Edwiser Bridge WordPress "
+"settings from the Moodle page."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:446
 msgid ""
 "Click on ‘Test connection’ once the details are added to the respective "
 "fields."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:442
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:457
 msgid "Moodle access token"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:443
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:458
 msgid ""
 "Acts as an authenticator and is auto generated. Same has to be copied and "
 "pasted on the WordPress site."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:450
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:465
 msgid "Language code"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:451
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:466
 msgid ""
 "Copy paste this code on the WordPress site. Mis-Matched code may affect the "
 "integration."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:455
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:456
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:470
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:471
 msgid "WordPress to Moodle connection successful!"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:466
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:467
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:543
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:544
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:621
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:622
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:711
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:713
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:808
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:809
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1183
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1184
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1271
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1334
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1336
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1438
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1440
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:481
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:482
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:560
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:561
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:634
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:635
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:725
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:727
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:826
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:827
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1215
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1216
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1300
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1359
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1361
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1462
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1464
 msgid "Back"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:468
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:483
 msgid "Test connection"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:478
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:493
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1055
 msgid " OR "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:483
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:498
 msgid "Choose and upload the Moodle Credential file here"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:486
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:500
 msgid "Upload"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:529
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:542
 msgid ""
 "This will synchronize all your Moodle course ID, title, description from "
 "Moodle to WordPress."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:532
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:545
 msgid ""
 "If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:533
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:546
 msgid "If “Disabled”, courses will be synchronized as ‘Draft’."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:537
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:555
 msgid "Enabled - Synchronized courses will be set as ‘Published’ "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:539
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:556
 msgid "Courses Synchronized successful!"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:545
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:562
 msgid "Synchronize the courses"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:608
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:616
 msgid ""
 "This will synchronize all your WordPress users from WordPress to Moodle."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:611
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:619
 msgid ""
 "If “Enabled”, send email notification to all synchronized users with their "
 "login credentials."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:612
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:620
 msgid ""
 "If “Disabled”, it will not send email notification to all synchronized users"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:616
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:629
 msgid "Enabled - Send email notification with login credentials"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:623
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:636
 msgid "Synchronize users & notify"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:643
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:644
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:737
+msgid ""
+"WordPress emailing functionality (SMTP) needs to be setup and configured on "
+"your WordPress site to send emails to your users."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:656
 msgid "WordPress users are being synchronized to Moodle"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:678
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:690
 msgid " users synchronized"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:699
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:713
 msgid "We have noticed that "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:699
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:713
 msgid " you have "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:699
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:713
 msgid " Moodle users "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:699
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:713
 msgid " and the synchronization would take approximately half an hour. "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:703
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:717
 msgid "We strongly recommend you "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:703
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:717
 msgid ""
 " to synchronize the users manually by referring to the documentation link."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:712
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:714
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:726
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:728
 msgid "Skip and continue"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:791
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:805
 msgid "Enable user registration."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:795
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:813
 msgid "Enable user creation on Edwiser Bridge user-account page "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:798
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:816
 msgid "Default page is set to Edwiser Bridge - User Account."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:810
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1441
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:828
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1465
 msgid "Save settings"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:858
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:874
 msgid "Edwiser Bridge FREE plugin Setup is Completed."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:862
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:878
 msgid "Let’s continue with Edwiser Bridge PRO setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:874
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:890
 msgid "Thank You !"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:878
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:894
 msgid "Start Edwiser Bridge PRO Setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:923
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:939
 msgid ""
 "We are about to install the “Edwiser Bridge PRO” plugins. Click on "
 "‘Continue’ once you are ready."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:927
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:943
 msgid ""
 "If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can "
 "purchase it from "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:931
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1030
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1090
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1185
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1273
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:947
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1056
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1122
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1217
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1302
 msgid "Continue the Setup"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:977
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1000
 msgid ""
 "Please enter Edwiser Bridge PRO license keys here to install Edwiser Bridge "
 "PRO WordPress plugins."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:981
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1004
 msgid ""
 "You can find the keys in the purchase receipt email or you can navigate to "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:981
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1004
 msgid "My account page on Edwiser."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:989
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1012
 msgid "WooCommerce Integration"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:990
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1013
 msgid ""
 "Copy and paste the license key without any white space for WooCommerce "
 "Integration."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:999
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1022
 msgid ""
 "Copy and paste the license key without any white/blank space for Selective "
 "Sync."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1009
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1032
 msgid "Bulk Purchase"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1010
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1033
 msgid ""
 "Copy and paste the license key without any white/blank space for Bulk "
 "Purchase."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1019
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1042
 msgid ""
 "Copy and paste the license key without any white/blank space for Single Sign "
 "On."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1029
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1052
+msgid "Retry adding valid licence key and "
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1053
 msgid "Install the plugins"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1068
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1249
-msgid "Please download the latest version of Edwiser Bridge PRO Moodle plugin from here if not downloaded already"
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1100
+msgid ""
+"Please download the latest version of Edwiser Bridge PRO Moodle plugin from "
+"here if not downloaded already."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1070
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1103
 msgid "Edwiser Single Sign On Moodle plugin"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1078
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1111
 msgid "Edwiser Bulk Purchase Moodle plugin"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1135
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1167
 msgid ""
 "You will have to follow the steps given below to install the Moodle plugins "
 "manually."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1139
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1171
 msgid "STEP 1"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1141
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1173
 msgid ""
 "Click on Install button and you will be redirected to Moodle’s plugin "
 "installation page."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1141
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1173
 msgid " (Login to your Moodle site if not logged in)."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1146
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1147
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1178
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1179
 msgid "Install plugins on Moodle"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1155
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1187
 msgid "STEP 2"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1157
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1189
 msgid "Upload and install the Edwiser Bridge PRO plugin "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1157
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1189
 msgid " one by one which are downloaded in your browser."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1165
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1197
 msgid "STEP 3"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1167
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1199
 msgid "Navigate to this URL  ("
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1167
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1199
 msgid ") and click on ‘Update Web services’."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1175
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1207
 msgid "STEP 4"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1177
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1209
 msgid "Come back to this tab "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1177
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1209
 msgid " and continue your Edwiser Bridge PRO setup."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1241
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1325
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1337
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1339
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1273
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1351
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1362
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1364
 msgid "Skip"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1252
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1282
 msgid "To find the secret key on your Moodle site, please click on"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1252
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1282
 msgid " Single Sign On secret key "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1252
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1282
 msgid "and then copy & paste the key here."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1256
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1283
+msgid ""
+"Secret key is a 10-15 character based key that you need to set on Moodle and "
+"copy the same on WordPress for secret key authentication."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1284
 msgid "Click on ‘Verify token’ once you add the secret key."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1261
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1290
 msgid "SSO secret key"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1272
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1301
 msgid "Verify token"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1331
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1356
 msgid ""
 "This will create a WooCommerce product for all your synchronized Moodle "
 "courses"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1341
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1366
 msgid "Create"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1350
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1375
 msgid "WooCommerce products of your Moodle courses creating"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1430
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1450
 msgid ""
 "Enable this setting to hide Edwiser Bridge - “Course archive page” if you "
 "are using "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1430
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1450
 msgid " WooCommerce "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1430
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1450
 msgid " to sell Moodle courses as WooCommerce products "
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1434
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1458
 msgid "Hide “Course Archive page”"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1480
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1504
 msgid "Edwiser Bridge PRO plugin Setup is Completed."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1482
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1506
 msgid ""
 "Set a price to your Moodle course and start selling. Click ‘Continue’ to "
 "configure your WooCommerce products."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1487
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1511
 msgid "Continue"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1518
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1543
 msgid ""
 "Are you sure you want to close the Edwiser Bridge WordPress setup wizard?"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1521
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1546
 msgid "Yes"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1522
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1547
 msgid "No"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1531
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1555
 msgid ""
 "You can run the setup wizard again by navigating to WordPress backend > "
 "Edwiser Bridge > Setting > General settings > Run Setup wizard."
@@ -4331,5 +4385,3 @@ msgstr ""
 #: public/templates/emails/user-order-completion-email.php:38
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
-
-
