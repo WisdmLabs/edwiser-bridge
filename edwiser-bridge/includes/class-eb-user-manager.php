@@ -843,7 +843,8 @@ class EBUserManager {
 			}
 		}
 
-		$send_user_creation_email = apply_filters( 'eb_send_new_user_email_on_user_sync', '1' );
+		$send_user_creation_email = 1;
+		$send_user_creation_email = apply_filters( 'eb_send_new_user_email_on_user_sync', $send_user_creation_email );
 
 
 		// add a dynamic hook only if a new user is created on moodle and linked to WordPress account.

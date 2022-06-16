@@ -88,6 +88,7 @@ class Eb_Setup_Wizard_Functions {
 				return $_POST['send_mail']; // phpcs:ignore
 			}
 		}
+		return $send_email;
 	}
 
 	/**
