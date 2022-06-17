@@ -1285,8 +1285,7 @@ class Eb_Setup_Wizard_Templates {
 				<div>
 
 					<div>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here.', 'edwiser-bridge' ); ?> <p>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Secret key is a 10-15 character based key that you need to set on Moodle and copy the same on WordPress for secret key authentication.', 'edwiser-bridge' ); ?> <p>
+						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Secret key is a unique key that you need to set on Moodle and copy the same on WordPress for secret key authentication.', 'edwiser-bridge' ); ?> <p>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
 					
 					</div>
