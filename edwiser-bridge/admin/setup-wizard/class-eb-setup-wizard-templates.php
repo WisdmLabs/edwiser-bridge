@@ -269,9 +269,8 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
-		$download_url     = 'https://edwiser.org/wp-content/uploads/edd/2022/03/edwiserbridge.zip';
-		$download_url     =  apply_filters( 'eb_setup_mdl_plugin_link', $download_url );
-
+		$download_url = 'https://edwiser.org/wp-content/uploads/edd/2022/03/edwiserbridge.zip';
+		$download_url = apply_filters( 'eb_setup_mdl_plugin_link', $download_url );
 
 		if ( $ajax ) {
 			ob_start();
@@ -544,9 +543,6 @@ class Eb_Setup_Wizard_Templates {
 			<span class=''> <?php esc_html_e( 'This will synchronize all your Moodle course ID, title, description from Moodle to WordPress.', 'edwiser-bridge' ); ?> </span>
 			<div class='eb_setup_course_sync_note'>
 
-				<div class='eb_setup_h2 p-b-10'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Enabled”, synchronized courses will be set as ‘Published’ on WordPress.', 'edwiser-bridge' ); ?> </div>
-				<div class='eb_setup_h2 p-b-10'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'If “Disabled”, courses will be synchronized as ‘Draft’.', 'edwiser-bridge' ); ?> </div>
-
 				<div class='eb_setup_course_sync_inp_wrap'>
 					<!-- <input type='checkbox' class='eb_setup_course_sync_inp'> -->
 					<label class="esw-cb-container">
@@ -554,7 +550,7 @@ class Eb_Setup_Wizard_Templates {
 						<span class="esw-cb-checkmark"></span>
 					</label>
 
-					<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enabled - Synchronized courses will be set as ‘Published’ ', 'edwiser-bridge' ); ?></label>
+					<label class='es-sec-h es-p-l-30'> <?php esc_html_e( '‘Enabling’ Synchronized courses will publish them on WordPress. If disabled, courses will be set as ‘Draft’.', 'edwiser-bridge' ); ?></label>
 
 					<div class='eb_setup_settings_success_msg' style='display:none;'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'Courses Synchronized successful!', 'edwiser-bridge' ); ?> </div>
 				</div>
@@ -619,9 +615,6 @@ class Eb_Setup_Wizard_Templates {
 				<span class=''> <?php esc_html_e( 'This will synchronize all your WordPress users from WordPress to Moodle.', 'edwiser-bridge' ); ?> </span>
 				<div class='eb_setup_user_sync_note'>
 
-					<div class='eb_setup_h2 p-b-10'> <span class='dashicons dashicons-arrow-right-alt2'></span> <?php esc_html_e( 'If “Enabled”, send email notification to all synchronized users with their login credentials.', 'edwiser-bridge' ); ?> </div>
-					<div class='eb_setup_h2 p-b-10'> <span class='dashicons dashicons-arrow-right-alt2'></span> <?php esc_html_e( 'If “Disabled”, it will not send email notification to all synchronized users', 'edwiser-bridge' ); ?> </div>
-
 					<div class='eb_setup_user_sync_inp_wrap'>
 						<!-- <input type='checkbox' id='eb_setup_user_sync_cb'> -->
 						<label class='esw-cb-container' >
@@ -629,7 +622,7 @@ class Eb_Setup_Wizard_Templates {
 							<span class='esw-cb-checkmark'></span>
 						</label>
 
-						<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enabled - Send email notification with login credentials', 'edwiser-bridge' ); ?></label>
+						<label class='es-sec-h es-p-l-30'> <?php esc_html_e( '‘Enabling’ will synchronize and send login credentials to WordPress users. If disabled, it will not send email notification to all synchronized users.', 'edwiser-bridge' ); ?></label>
 					</div>
 				</div>
 
@@ -1090,10 +1083,10 @@ class Eb_Setup_Wizard_Templates {
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
 		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2022/04/wdmwpmoodle.zip';
-		$sso_download_url =  apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
+		$sso_download_url = apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
 
-		$bp_download_url  = 'https://edwiser.org/wp-content/uploads/edd/2021/05/wdmgroupregistration.zip';
-		$bp_download_url  =  apply_filters( 'eb_setup_bp_plugin_download_link', $bp_download_url );
+		$bp_download_url = 'https://edwiser.org/wp-content/uploads/edd/2021/05/wdmgroupregistration.zip';
+		$bp_download_url = apply_filters( 'eb_setup_bp_plugin_download_link', $bp_download_url );
 
 		if ( $ajax ) {
 			ob_start();
@@ -1101,7 +1094,7 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_mdl_plugins es-w-80'>
 			<div>
-				<?php esc_html_e( 'Please download the latest version of Edwiser Bridge PRO Moodle plugin from here if not downloaded already.', 'edwiser-bridge' ); ?>	
+				<?php esc_html_e( 'Please download the latest version of Edwiser Bridge PRO Moodle plugins from here if not downloaded already.', 'edwiser-bridge' ); ?>	
 
 				<div>
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
@@ -1126,6 +1119,8 @@ class Eb_Setup_Wizard_Templates {
 
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 			</div>
+
+			<?php esc_html_e( 'Note: Edwiser WooCommerce Integration and Edwiser Selective Synchronization do not require any installation on Moodle site.', 'edwiser-bridge' ); ?>
 
 		</div>
 
@@ -1285,9 +1280,8 @@ class Eb_Setup_Wizard_Templates {
 				<div>
 
 					<div>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Secret key is a unique key that you need to set on Moodle and copy the same on WordPress for secret key authentication.', 'edwiser-bridge' ); ?> <p>
+						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Set a unique alphanumeric password in Moodle under the Secret key setting & copy-paste it in WordPress, under the same setting (Secret Key).', 'edwiser-bridge' ); ?> <p>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
-					
 					</div>
 
 					<div class="eb_setup_conn_url_inp_wrap">
