@@ -69,7 +69,17 @@ class Eb_Setup_Wizard_Functions {
 			delete_transient( '_eb_activation_redirect' );
 			update_option( 'eb_setup_wizard_completed', 1 );
 
-			$wc_url = admin_url( '/?page=eb-setup-wizard' );
+			$setup_data = get_option( 'eb_setup_data' );
+			$wc_url     = admin_url( '/?page=eb-setup-wizard' );
+
+			if ( isset( $setup_data ) && ! empty( $setup_data ) ) {
+				$name      = $setup_data['name'];
+				$progress  = $setup_data['progress'];
+				$next_step = $setup_data['next_step'];
+				if ( isset( $next_step ) && ! empty( $next_step ) ) {
+					$wc_url = admin_url( '/?page=eb-setup-wizard&current_step=' . $next_step );
+				}
+			}
 			wp_safe_redirect( $wc_url );
 			exit;
 		}
@@ -522,8 +532,9 @@ class Eb_Setup_Wizard_Functions {
 			// Check if there is any data to be saved.
 
 			// Save step form progress.
-			$setup_data             = get_option( 'eb_setup_data' );
-			$setup_data['progress'] = $current_step;
+			$setup_data              = get_option( 'eb_setup_data' );
+			$setup_data['progress']  = $current_step;
+			$setup_data['next_step'] = $next_step;
 			update_option( 'eb_setup_data', $setup_data );
 
 			/*

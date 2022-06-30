@@ -58,8 +58,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'edwiser-bridge' ), '<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
 			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
 
-
-
 			$settings = apply_filters(
 				'eb_general_settings',
 				array(
@@ -341,7 +339,16 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		 * Get setup wizard button Code.
 		 */
 		public function eb_setup_wizard_link() {
-			$url = get_site_url() . '/wp-admin/?page=eb-setup-wizard';
+			$url        = get_site_url() . '/wp-admin/?page=eb-setup-wizard';
+			$setup_data = get_option( 'eb_setup_data' );
+			if ( isset( $setup_data ) && ! empty( $setup_data ) ) {
+				$name      = $setup_data['name'];
+				$progress  = $setup_data['progress'];
+				$next_step = $setup_data['next_step'];
+				if ( isset( $next_step ) && ! empty( $next_step ) ) {
+					$url = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
+				}
+			}
 			ob_start();
 			?>
 			<table class="form-table">
@@ -371,7 +378,8 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		 * Get Popup Code.
 		 */
 		private function get_Popup_Code() {
-			ob_start(); ?>
+			ob_start();
+			?>
 			<div id="dialog-tnc" style="display:none;">
 				<p>Here is an overview of the different data collected by Edwiser products and why it will be beneficial for the Edwiser community.</p>
 				<div>
