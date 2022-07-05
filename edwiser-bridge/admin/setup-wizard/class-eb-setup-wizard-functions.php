@@ -778,7 +778,8 @@ class Eb_Setup_Wizard_Functions {
 					$setup_data = array( 'name' => $chosen_setup );
 				}
 				// If this form is submitted i.e progress should be added.
-				$setup_data['progress'] = 'initialize';
+				$setup_data['progress']  = 'initialize';
+				$setup_data['next_step'] = $step;
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		}
@@ -789,6 +790,15 @@ class Eb_Setup_Wizard_Functions {
 		/* phpcs:disable WordPress.Security.NonceVerification */
 		if ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
 			$step = $_GET['current_step']; // phpcs:ignore
+		}
+
+		$setup_data = get_option( 'eb_setup_data' );
+
+		if ( isset( $setup_data ) && ! empty( $setup_data ) && ! isset( $step ) ) {
+			$next_step = $setup_data['next_step'];
+			if ( isset( $next_step ) && ! empty( $next_step ) ) {
+				$step = $next_step;
+			}
 		}
 		/* phpcs: enable */
 

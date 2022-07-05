@@ -302,7 +302,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='panel'>
 
 						<div class='es-m-t-20'>
-							<a class='eb_setup_sec_btn' href='<?php echo $download_url; ?>'> <?php esc_html_e( 'Download the plugin now', 'edwiser-bridge' ); ?> </a>
+							<a class='eb_setup_sec_btn' href='<?php echo wp_kses( $download_url, $allowed_tags ); ?>'> <?php esc_html_e( 'Download the plugin now', 'edwiser-bridge' ); ?> </a>
 						</div>
 
 						<p>
@@ -792,7 +792,7 @@ class Eb_Setup_Wizard_Templates {
 			$args['selected'] = $general_settings['eb_useraccount_page_id'];
 		}
 
-		$checked = isset( $general_settings['eb_enable_registration'] ) ? 'checked' : '';
+		$checked = ( isset( $general_settings['eb_enable_registration'] ) && 'yes' === $general_settings['eb_enable_registration'] ) ? 'checked' : '';
 
 		if ( $ajax ) {
 			ob_start();
@@ -804,7 +804,7 @@ class Eb_Setup_Wizard_Templates {
 			<div class='' style="padding-bottom: 30px;padding-top:10px;" >
 				<!-- <input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'> -->
 				<label class='esw-cb-container' >
-					<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'>
+					<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation' <?php echo wp_kses( $checked, $allowed_tags ); ?>>
 					<span class='esw-cb-checkmark'></span>
 				</label>
 				<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
@@ -1100,7 +1100,7 @@ class Eb_Setup_Wizard_Templates {
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
 						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='<?php echo $sso_download_url; ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo wp_kses( $sso_download_url, $allowed_tags ); ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
 					</div>
 				</div>
 
@@ -1108,7 +1108,7 @@ class Eb_Setup_Wizard_Templates {
 					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bulk Purchase Moodle plugin', 'edwiser-bridge' ); ?> <p>
 					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
 						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='<?php echo $bp_download_url; ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo wp_kses( $bp_download_url, $allowed_tags ); ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
 					</div>
 				</div>
 			</div>
@@ -1280,7 +1280,7 @@ class Eb_Setup_Wizard_Templates {
 				<div>
 
 					<div>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . $mdl_url . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Set a unique alphanumeric password in Moodle under the Secret key setting & copy-paste it in WordPress, under the same setting (Secret Key).', 'edwiser-bridge' ); ?> <p>
+						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . wp_kses( $mdl_url, $allowed_tags ) . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Set a unique alphanumeric password in Moodle under the Secret key setting & copy-paste it in WordPress, under the same setting (Secret Key).', 'edwiser-bridge' ); ?> <p>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
 					</div>
 
@@ -1443,6 +1443,8 @@ class Eb_Setup_Wizard_Templates {
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
+		$general_settings = get_option( 'eb_general' );
+		$checked          = ( isset( $general_settings['eb_show_archive'] ) && 'yes' === $general_settings['eb_show_archive'] ) ? 'checked' : '';
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -1454,7 +1456,7 @@ class Eb_Setup_Wizard_Templates {
 			<div class="eb_setup_inp_wrap">
 				<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
 				<label class='esw-cb-container' >
-					<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page'>
+					<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' <?php echo wp_kses( $checked, $allowed_tags ); ?>>
 					<span class='esw-cb-checkmark'></span>
 				</label>
 				<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
