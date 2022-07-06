@@ -262,12 +262,12 @@
                                 $('.eb-setup-content').html(response.data.content);
                                 $('.eb-setup-header-title').html(response.data.title);
                             }
-
-
+                            
                             change_url( next_step );
-                            handle_step_progress( current_step, next_step );
+                            
                             
                         }
+                        handle_step_progress( current_step, next_step );
                     } else {
     
                     }
