@@ -751,8 +751,9 @@ class Eb_Setup_Wizard_Functions {
 	 */
 	public function eb_setup_handle_page_submission_or_refresh() {
 
-		$steps = $this->eb_setup_wizard_get_steps();
-		$step  = 'initialize';
+		$steps      = $this->eb_setup_wizard_get_steps();
+		$step       = 'initialize';
+		$setup_data = get_option( 'eb_setup_data' );
 		/**
 		 * Handle form submission.
 		 */
@@ -782,23 +783,15 @@ class Eb_Setup_Wizard_Functions {
 				$setup_data['next_step'] = $step;
 				update_option( 'eb_setup_data', $setup_data );
 			}
-		}
-
-		/**
-		 * Handle page refresh.
-		 */
-		/* phpcs:disable WordPress.Security.NonceVerification */
-		if ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
+		} elseif ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
 			$step = $_GET['current_step']; // phpcs:ignore
-		}
-
-		$setup_data = get_option( 'eb_setup_data' );
-
-		if ( isset( $setup_data ) && ! empty( $setup_data ) && ! isset( $step ) ) {
+		} elseif ( isset( $setup_data ) && ! empty( $setup_data ) ) {
 			$next_step = $setup_data['next_step'];
 			if ( isset( $next_step ) && ! empty( $next_step ) ) {
 				$step = $next_step;
 			}
+		} else {
+			$step = 'initialize';
 		}
 		/* phpcs: enable */
 
