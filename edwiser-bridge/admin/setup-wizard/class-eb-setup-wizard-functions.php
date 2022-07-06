@@ -738,6 +738,10 @@ class Eb_Setup_Wizard_Functions {
 					</li>
 
 					<?php
+				} else {
+					if ( $key === $progress ) {
+						$completed = 0;
+					}
 				}
 			}
 			?>
