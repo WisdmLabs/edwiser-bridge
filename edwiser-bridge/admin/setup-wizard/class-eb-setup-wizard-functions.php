@@ -876,6 +876,13 @@ class Eb_Setup_Wizard_Functions {
 				return $status;
 			}
 		}
+		if ( 'bulk-purchase' === $slug ) {
+			$woo_integration_path = 'woocommerce-integration/woocommerce-integration.php';
+			if ( ! is_plugin_active( $woo_path ) ) {
+				$status['message'] = __( 'Please activate the WooCommerce Integration plugin first.', 'edwiser-bridge' );
+				return $status;
+			}
+		}
 
 		$installed      = false;
 		$activated      = false;
