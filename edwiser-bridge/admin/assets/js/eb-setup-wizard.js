@@ -217,7 +217,8 @@
                     // Here settings is to hide archive page and in WP settings it is show settings page.
                     // so passing settings in opposite manner i.e if checked pass 0 and if not checked pass 1.
                     var archive_page = $('#eb_pro_rec_set_archive_page').prop('checked') ? 0 : 1;
-                    data = { 'archive_page': archive_page, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    var guest_checkout = $('#eb_pro_rec_set_guest_checkout').prop('checked') ? 0 : 1;
+                    data = { 'archive_page': archive_page, 'guest_checkout' : guest_checkout, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
                     break;
 

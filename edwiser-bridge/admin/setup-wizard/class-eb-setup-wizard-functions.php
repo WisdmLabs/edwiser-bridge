@@ -517,8 +517,10 @@ class Eb_Setup_Wizard_Functions {
 				case 'pro_settings':
 					if ( isset( $data['archive_page'] ) ) {
 						$general_settings                    = get_option( 'eb_general' );
-						$general_settings['eb_show_archive'] = '1' === $data['archive_page'] ? 'yes' : 'no';
+						$general_settings['eb_show_archive'] = ( '1' === $data['archive_page'] ) ? 'yes' : 'no';
+						$guest_checkout = ('1' === $data['guest_checkout']) ? 'yes' : 'no';
 						update_option( 'eb_general', $general_settings );
+						update_option( 'woocommerce_enable_guest_checkout', $guest_checkout );
 					}
 
 					$function = 'eb_setup_pro_completed_popup';
