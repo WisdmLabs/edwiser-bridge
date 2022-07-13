@@ -533,7 +533,7 @@ a.browse-all:hover {
 .iris-picker {
   margin: 15px 0 0 -7px;
   z-index: 100;
-  position: absolute !important;
+  /* position: absolute !important; */
   display: none;
   border: 1px solid #ccc;
   -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
