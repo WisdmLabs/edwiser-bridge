@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 5.6
-Tested up to: 5.9.1
+Tested up to: 6.0.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -218,6 +218,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.1.8 =
+* Tweak - Added compatibility with WordPress 6.0
+
 = 2.1.7 =
 * Tweak - Changed textdomain to edwiser-bridge as per wordpress guidelines and added compatibility with old textdomain.
 * Tweak - Added compatibility with Moodle 4.0.
