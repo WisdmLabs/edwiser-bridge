@@ -131,11 +131,11 @@ class Eb_Setup_Wizard_Functions {
 				'sub_step' => 0,
 			),
 			'moodle_redirection'        => array(
-				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'edwiser-bridge' ),
+				'name'     => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'sidebar'  => 1,
 				'function' => 'eb_setup_moodle_redirection',
-				'sub_step' => 1,
+				'sub_step' => 0,
 
 			),
 			'test_connection'           => array(
@@ -207,7 +207,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'function' => 'eb_setup_mdl_plugins_installation',
-				'sub_step' => 1,
+				'sub_step' => 0,
 			),
 			'sso'                      => array(
 				'sidebar'  => 1,

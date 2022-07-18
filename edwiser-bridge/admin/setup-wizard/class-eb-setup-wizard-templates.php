@@ -800,25 +800,29 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_free_recommended_settings es-w-80'>
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Enable User registration', 'edwiser-bridge' ); ?> </div>
-			<span> <?php esc_html_e( 'This allows user to create user account while purchasing a Moodle course', 'edwiser-bridge' ); ?> </span>
+			<div class='es-p-l-25'>
+				<div class='es-p-t-b-5'> <?php esc_html_e( 'This allows user to create user account while purchasing a Moodle course', 'edwiser-bridge' ); ?> </div>
 
-			<div class='' style="padding-bottom: 30px;padding-top:10px;" >
-				<!-- <input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'> -->
-				<label class='esw-cb-container' >
-					<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation' <?php echo wp_kses( $checked, $allowed_tags ); ?>>
-					<span class='esw-cb-checkmark'></span>
-				</label>
-				<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
+				<div class='' style="padding-bottom: 30px;padding-top:10px;" >
+					<!-- <input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation'> -->
+					<label class='esw-cb-container' >
+						<input type='checkbox' name='eb_setup_user_account_creation' id='eb_setup_user_account_creation' <?php echo wp_kses( $checked, $allowed_tags ); ?>>
+						<span class='esw-cb-checkmark'></span>
+					</label>
+					<label class='es-sec-h es-p-l-30'> <?php esc_html_e( 'Enable user creation on Edwiser Bridge user-account page ', 'edwiser-bridge' ); ?></label>
+				</div>
 			</div>
 
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Page setup', 'edwiser-bridge' ); ?> </div>
-			<span> <?php esc_html_e( 'Set up user account page to send users to the following page after login/sign-up', 'edwiser-bridge' ); ?> </span>
+			<div class='es-p-l-25'>
+				<div class='es-p-t-b-5'> <?php esc_html_e( 'Set up user account page to send users to the following page after login/sign-up', 'edwiser-bridge' ); ?> </div>
 
-			<div class='eb_setup_inp_wrap'>
-				<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
-				<?php
-				echo wp_kses( str_replace( ' id=', " data-placeholder='Select a page' style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
-				?>
+				<div class='' class='eb_setup_inp_wrap'>
+					<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
+					<?php
+					echo wp_kses( str_replace( ' id=', " data-placeholder='Select a page' style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+					?>
+				</div>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
@@ -1456,27 +1460,31 @@ class Eb_Setup_Wizard_Templates {
 		<div class='eb_setup_pro_settings es-w-80'>
 
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Course archive page', 'edwiser-bridge' ); ?> </div>
-			<span>  <?php echo esc_html__( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://wordpress.org/plugins/woocommerce/" >' . esc_html__( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html__( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </span>
+			<div class='es-p-l-25'>
+				<div class='es-p-t-b-5'>  <?php echo esc_html__( 'Enable this setting to hide Edwiser Bridge - “Course archive page” if you are using ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://wordpress.org/plugins/woocommerce/" >' . esc_html__( ' WooCommerce ', 'edwiser-bridge' ) . '</a>' . esc_html__( ' to sell Moodle courses as WooCommerce products ', 'edwiser-bridge' ); ?> </div>
 
-			<div class="eb_setup_inp_wrap" style="padding-bottom: 30px;padding-top:10px;">
-				<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
-				<label class='esw-cb-container' >
-					<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' <?php echo wp_kses( $checked_archive, $allowed_tags ); ?>>
-					<span class='esw-cb-checkmark'></span>
-				</label>
-				<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
+				<div class="eb_setup_inp_wrap" style="padding-bottom: 30px;padding-top:10px;">
+					<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
+					<label class='esw-cb-container' >
+						<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' <?php echo wp_kses( $checked_archive, $allowed_tags ); ?>>
+						<span class='esw-cb-checkmark'></span>
+					</label>
+					<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
+				</div>
 			</div>
 
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Guest checkout', 'edwiser-bridge' ); ?> </div>
-			<span>  <?php echo esc_html__( 'Disable setting ‘to allow customers to place orders without an account’ since user registration is required for course enrollment in Moodle.', 'edwiser-bridge' ); ?> </span>
+			<div class='es-p-l-25'>
+				<div class='es-p-t-b-5'>  <?php echo esc_html__( 'Disable setting ‘to allow customers to place orders without an account’ since user registration is required for course enrollment in Moodle.', 'edwiser-bridge' ); ?> </div>
 
-			<div class="eb_setup_inp_wrap">
-				<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
-				<label class='esw-cb-container' >
-					<input type='checkbox' name='eb_pro_rec_set_guest_checkout' id='eb_pro_rec_set_guest_checkout' <?php echo wp_kses( $checked_guest, $allowed_tags ); ?>>
-					<span class='esw-cb-checkmark'></span>
-				</label>
-				<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Disable Guest checkout', 'edwiser-bridge' ); ?></label>
+				<div class="eb_setup_inp_wrap">
+					<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
+					<label class='esw-cb-container' >
+						<input type='checkbox' name='eb_pro_rec_set_guest_checkout' id='eb_pro_rec_set_guest_checkout' <?php echo wp_kses( $checked_guest, $allowed_tags ); ?>>
+						<span class='esw-cb-checkmark'></span>
+					</label>
+					<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Disable Guest checkout', 'edwiser-bridge' ); ?></label>
+				</div>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">

@@ -42,6 +42,15 @@
 }
 
 
+.es-p-l-25{
+    padding-left: 25px;
+}
+
+.es-p-t-b-5{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .p-b-10{
    padding-bottom: 15px; 
 }
@@ -368,13 +377,16 @@ a.es_text_links{
     width: 73%;
     display: flex;
     text-align: center;
-    background: linear-gradient(0deg, #133F3F, #133F3F), #F7F7F7;
+    background: white;
+
+    /* background: linear-gradient(0deg, #133F3F, #133F3F), #F7F7F7; */
 }
 
 .eb-setup-header-title{
     width: 90%;
     padding: 22px 30px;
-    color: white;
+    /*color: white;*/
+    color: #00a1a8;
     padding: 30px;
     font-weight: 400;
     font-size: 30px;
@@ -384,6 +396,16 @@ a.es_text_links{
     /* flex: none; */
     order: 0;
     flex-grow: 0;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 41px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #00A1A8;
     /* margin: 0px 10px;*/
 
 }
@@ -455,7 +477,7 @@ a.es_text_links{
 
 .eb_setup_pro_settings{
     text-align: left;
-    width: 50%;
+    width: 60%;
     margin: auto;
 }
 
@@ -485,7 +507,7 @@ a.es_text_links{
 }
 
 .eb_setup_free_recommended_settings{
-    width: 50%;
+    width: 60%;
     margin: auto;
 }
 
