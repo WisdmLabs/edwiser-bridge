@@ -350,6 +350,8 @@ class Eb_Setup_Wizard_Templates {
 		$next_step        = $setup_functions->get_next_step( $step );
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+		$eb_plugin_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+
 
 		if ( $ajax ) {
 			ob_start();
@@ -392,6 +394,47 @@ class Eb_Setup_Wizard_Templates {
 					</div>
 				</div>
 			</div>
+
+			<!--  -->
+			<div class='eb_setup_product_sync_progress_popup eb_setup_moodle_redirection_popup'>
+				<div class='eb_setup_popup_content eb_setup_prod_sync_popup'>
+
+					<div class='eb_setup_h2'>
+					<?php esc_html_e( 'Redirecting to Moodle Setup wizard', 'edwiser-bridge' ); ?>
+					</div>
+
+					<div class='eb_setup_product_sync_progress_images'>
+
+						<div class='eb_setup_users_sync_wp_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
+						</div>
+
+						<div class='eb_setup_product_sync_progress_arrows'>
+
+							<div class="animated  animated--on-hover  mt-2">
+								<span class="animated__text">
+									<span class='dashicons dashicons-arrow-right-alt2' style='color:#bedbe2;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#76bccc;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#5abec3;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#14979d;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#007075;'></span>
+								</span>
+							</div>
+
+						</div>
+
+						<div class='eb_setup_users_sync_mdl_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<!--  -->
+
+
+
 
 		</div>
 
@@ -947,6 +990,7 @@ class Eb_Setup_Wizard_Templates {
 			</p>
 
 			<div class="eb_setup_user_sync_btn_wrap">
+				<button class="eb_setup_sec_btn eb-setup-close-icon eb-exit" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-sub-step='<?php echo wp_kses( $sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Exit', 'edwiser-bridge' ); ?> </button>
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-sub-step='<?php echo wp_kses( $sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 			</div>
 
@@ -1126,7 +1170,16 @@ class Eb_Setup_Wizard_Templates {
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 			</div>
 
-			<?php esc_html_e( 'Note: Edwiser WooCommerce Integration and Edwiser Selective Synchronization do not require any installation on Moodle site.', 'edwiser-bridge' ); ?>
+
+
+
+			<fieldset>
+				<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
+				<div class='fieldset_content'>
+					<?php esc_html_e( 'Edwiser WooCommerce Integration and Edwiser Selective Synchronization do not require any installation on Moodle site.', 'edwiser-bridge' ); ?>
+				</div>
+			</fieldset>
+
 
 		</div>
 

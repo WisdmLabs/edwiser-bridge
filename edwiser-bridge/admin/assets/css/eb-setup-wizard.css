@@ -481,6 +481,10 @@ a.es_text_links{
     margin: auto;
 }
 
+.eb-exit.eb-setup-close-icon{
+    width: auto;
+}
+
 .eb_setup_free_initialize > form > div{
     width: 50%;
     margin: auto;
@@ -547,7 +551,7 @@ a.es_text_links{
 }
 
 
-.eb_setup_free_initialize legend, .eb_setup_course_sync legend, .eb_setup_user_sync legend, .eb_setup_popup_content legend{
+.eb_setup_mdl_plugins legend, .eb_setup_free_initialize legend, .eb_setup_course_sync legend, .eb_setup_user_sync legend, .eb_setup_popup_content legend{
     background: #C5F3F5;
     border-radius: 4px;
     font-style: normal;
