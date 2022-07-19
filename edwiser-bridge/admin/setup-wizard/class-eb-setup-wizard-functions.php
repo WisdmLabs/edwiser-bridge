@@ -719,15 +719,21 @@ class Eb_Setup_Wizard_Functions {
 					$class = '';
 					$html  = '<span class="eb-setup-step-circle eb_setup_sidebar_progress_icons" > </span>';
 
-					if ( 1 === $completed ) {
-						$class = 'eb-setup-step-completed';
-						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
-					} elseif ( $current_step === $key ) {
+					
+
+
+					if ( $current_step === $key ) {
 						$class = 'eb-setup-step-active';
 						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
+						$completed = 0;
+					} elseif ( 1 === $completed ) {
+						$class = 'eb-setup-step-completed';
+						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
 					}
 
-					if ( $key === $progress ) {
+					
+
+					if ( empty( $current_step ) && $key === $progress ) {
 						$completed = 0;
 					}
 
