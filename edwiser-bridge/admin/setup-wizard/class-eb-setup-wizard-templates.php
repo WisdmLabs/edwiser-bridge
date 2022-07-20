@@ -863,7 +863,7 @@ class Eb_Setup_Wizard_Templates {
 				<div class='' class='eb_setup_inp_wrap'>
 					<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
 					<?php
-					echo wp_kses( str_replace( ' id=', " data-placeholder='Select a page' style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+					echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'edwiser-bridge' ) . "style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 					?>
 				</div>
 			</div>
@@ -933,7 +933,7 @@ class Eb_Setup_Wizard_Templates {
 
 				if ( isset( $setup_data['name'] ) && 'free' === $setup_data['name'] ) {
 					?>
-					<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=eb_course&page=eb-settings' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Thank You !', 'edwiser-bridge' ); ?> </a>
+					<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=eb_course&page=eb-settings' ); ?>' class='eb_setup_btn eb_complete_setup_btn' > <?php esc_html_e( 'Thank You !', 'edwiser-bridge' ); ?> </a>
 					<?php
 				} else {
 					?>
@@ -1533,7 +1533,7 @@ class Eb_Setup_Wizard_Templates {
 				<div class="eb_setup_inp_wrap">
 					<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
 					<label class='esw-cb-container' >
-						<input type='checkbox' name='eb_pro_rec_set_guest_checkout' id='eb_pro_rec_set_guest_checkout' <?php echo wp_kses( $checked_guest, $allowed_tags ); ?>>
+						<input type='checkbox' name='eb_pro_rec_set_guest_checkout' id='eb_pro_rec_set_guest_checkout' <?php /*echo wp_kses( $checked_guest, $allowed_tags );*/ ?> checked>
 						<span class='esw-cb-checkmark'></span>
 					</label>
 					<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Disable Guest checkout', 'edwiser-bridge' ); ?></label>
