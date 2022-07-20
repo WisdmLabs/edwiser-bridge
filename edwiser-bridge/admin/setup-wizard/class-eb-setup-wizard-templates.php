@@ -779,7 +779,7 @@ class Eb_Setup_Wizard_Templates {
 			'id'                => 'eb_setup_user_accnt_page',
 			'sort_column'       => 'menu_order',
 			'sort_order'        => 'ASC',
-			'show_option_none'  => ' ',
+			'show_option_none'  => 'Select Page',
 			'class'             => 'eb_setup_inp',
 			'echo'              => false,
 			'value_field'       => 'Select Page',
