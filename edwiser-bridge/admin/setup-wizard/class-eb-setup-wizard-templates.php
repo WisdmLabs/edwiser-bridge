@@ -825,8 +825,8 @@ class Eb_Setup_Wizard_Templates {
 			'show_option_none'  => ' ',
 			'class'             => 'eb_setup_inp',
 			'echo'              => false,
-			'value_field'       => 'Select Page',
-			'option_none_value' => '',
+			// 'value_field'       => 'Select Page',
+			// 'option_none_value' => '',
 		);
 
 		$general_settings = get_option( 'eb_general' );
@@ -1503,7 +1503,7 @@ class Eb_Setup_Wizard_Templates {
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
 		$general_settings = get_option( 'eb_general' );
-		$checked_archive          = ( isset( $general_settings['eb_show_archive'] ) && 'no' === $general_settings['eb_show_archive'] ) ? 'checked' : '';
+		$checked_archive  = ( isset( $general_settings['eb_show_archive'] ) && 'no' === $general_settings['eb_show_archive'] ) ? 'checked' : '';
 		$checked_guest    = get_option( 'woocommerce_enable_guest_checkout' );
 		$checked_guest    = ( isset( $checked_guest ) && 'no' === $checked_guest ) ? 'checked' : '';
 		if ( $ajax ) {
@@ -1519,7 +1519,7 @@ class Eb_Setup_Wizard_Templates {
 				<div class="eb_setup_inp_wrap" style="padding-bottom: 30px;padding-top:10px;">
 					<!-- <input class='' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' type='checkbox' > -->
 					<label class='esw-cb-container' >
-						<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' <?php echo wp_kses( $checked_archive, $allowed_tags ); ?>>
+						<input type='checkbox' name='eb_pro_rec_set_archive_page' id='eb_pro_rec_set_archive_page' <?php /*echo wp_kses( $checked_archive, $allowed_tags );*/ ?> checked>
 						<span class='esw-cb-checkmark'></span>
 					</label>
 					<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Hide “Course Archive page”', 'edwiser-bridge' ); ?></label>
@@ -1590,7 +1590,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=product' ); ?>' class='eb_setup_btn' > <?php esc_html_e( 'Continue', 'edwiser-bridge' ); ?> </a>
+				<a href=' <?php echo esc_url( get_site_url() . '/wp-admin/edit.php?post_type=product' ); ?>' class='eb_setup_btn eb_complete_setup_btn' > <?php esc_html_e( 'Continue', 'edwiser-bridge' ); ?> </a>
 
 			</div>
 

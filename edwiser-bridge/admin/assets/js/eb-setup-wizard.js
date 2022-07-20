@@ -112,11 +112,42 @@
 
         
 
+        
 
-        // // Clicking save continue
-        // // 
-        // // 
-        // $(document).on('click', '.eb_set_up_save_and_continue', function (event) {
+        $(document).on('click', '.eb_complete_setup_btn', function (event) {
+            var $this = $(this);
+            var current_step = 'completed_setup';
+            var next_step = '';
+            var is_next_sub_step = 0;
+
+
+            // get current step.
+            // get next step.
+            // get data which will be saved.
+
+            // Creating swicth case.
+
+            var data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_save_and_continue',
+                    'nonce': eb_setup_wizard.nonce,
+                    'data': data,
+                },
+                success: function (response) {
+
+                }
+            });
+
+
+
+
+
+        });
 
 
 
@@ -237,6 +268,7 @@
                     data = { 'archive_page': archive_page, 'guest_checkout' : guest_checkout, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
                     break;
+                    
 
                 default:
                     break;
