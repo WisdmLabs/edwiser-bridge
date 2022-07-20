@@ -131,11 +131,11 @@ class Eb_Setup_Wizard_Functions {
 				'sub_step' => 0,
 			),
 			'moodle_redirection'        => array(
-				'name'     => __( 'Edwiser Bridge FREE plugin installation guide', 'edwiser-bridge' ),
+				'name'     => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'sidebar'  => 1,
 				'function' => 'eb_setup_moodle_redirection',
-				'sub_step' => 1,
+				'sub_step' => 0,
 
 			),
 			'test_connection'           => array(
@@ -207,7 +207,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'function' => 'eb_setup_mdl_plugins_installation',
-				'sub_step' => 1,
+				'sub_step' => 0,
 			),
 			'sso'                      => array(
 				'sidebar'  => 1,
@@ -444,6 +444,15 @@ class Eb_Setup_Wizard_Functions {
 
 			$steps    = $this->eb_setup_wizard_get_steps();
 			$function = ! empty( $next_step ) ? $steps[ $next_step ]['function'] : '';
+			// Check current step.
+			// Check if there is any data to be saved.
+
+			// Save step form progress.
+			$setup_data              = get_option( 'eb_setup_data' );
+			$setup_data['progress']  = $current_step;
+			$setup_data['next_step'] = $next_step;
+			update_option( 'eb_setup_data', $setup_data );
+
 
 			switch ( $current_step ) {
 				case 'moodle_redirection':
@@ -526,18 +535,22 @@ class Eb_Setup_Wizard_Functions {
 					$function = 'eb_setup_pro_completed_popup';
 					break;
 
+				case 'completed_setup':
+					// Check current step.
+					// Check if there is any data to be saved.
+
+					// Save step form progress.
+					$setup_data              = get_option( 'eb_setup_data' );
+					$setup_data['progress']  = '';
+					$setup_data['next_step'] = '';
+					update_option( 'eb_setup_data', $setup_data );
+					break;
+
 				default:
 					break;
 			}
 
-			// Check current step.
-			// Check if there is any data to be saved.
-
-			// Save step form progress.
-			$setup_data              = get_option( 'eb_setup_data' );
-			$setup_data['progress']  = $current_step;
-			$setup_data['next_step'] = $next_step;
-			update_option( 'eb_setup_data', $setup_data );
+			
 
 			/*
 			* There are multiple steps inside 1 step which are listed below.
@@ -550,8 +563,11 @@ class Eb_Setup_Wizard_Functions {
 			*    b. success screens
 			*/
 			// Check if there are any sub steps available.
-			$setup_wizard_templates = new Eb_Setup_Wizard_Templates();
-			$next_step_html         = $setup_wizard_templates->$function( 1 );
+			if ( 'completed_setup' != $current_step ) {
+				$setup_wizard_templates = new Eb_Setup_Wizard_Templates();
+				$next_step_html         = $setup_wizard_templates->$function( 1 );
+			}
+
 		}
 	}
 
@@ -719,15 +735,21 @@ class Eb_Setup_Wizard_Functions {
 					$class = '';
 					$html  = '<span class="eb-setup-step-circle eb_setup_sidebar_progress_icons" > </span>';
 
-					if ( 1 === $completed ) {
-						$class = 'eb-setup-step-completed';
-						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
-					} elseif ( $current_step === $key ) {
+					
+
+
+					if ( $current_step === $key ) {
 						$class = 'eb-setup-step-active';
 						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
+						$completed = 0;
+					} elseif ( 1 === $completed ) {
+						$class = 'eb-setup-step-completed';
+						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
 					}
 
-					if ( $key === $progress ) {
+					
+
+					if ( empty( $current_step ) && $key === $progress ) {
 						$completed = 0;
 					}
 

@@ -112,11 +112,42 @@
 
         
 
+        
 
-        // // Clicking save continue
-        // // 
-        // // 
-        // $(document).on('click', '.eb_set_up_save_and_continue', function (event) {
+        $(document).on('click', '.eb_complete_setup_btn', function (event) {
+            var $this = $(this);
+            var current_step = 'completed_setup';
+            var next_step = '';
+            var is_next_sub_step = 0;
+
+
+            // get current step.
+            // get next step.
+            // get data which will be saved.
+
+            // Creating swicth case.
+
+            var data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+
+            $.ajax({
+                method: "post",
+                url: eb_setup_wizard.ajax_url,
+                dataType: "json",
+                data: {
+                    'action': 'eb_setup_save_and_continue',
+                    'nonce': eb_setup_wizard.nonce,
+                    'data': data,
+                },
+                success: function (response) {
+
+                }
+            });
+
+
+
+
+
+        });
 
 
 
@@ -149,10 +180,26 @@
             switch ( current_step ) {
                 case 'moodle_redirection':
                     // Get required data and create array
-                    var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
-                    // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
-                    window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
-                    data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    $("#eb-lading-parent").hide();
+
+                    $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_moodle_redirection_popup').html() + ' </div>');
+
+                    setTimeout( function(){
+                        // $('.eb-setup-content').html(response.data.content);
+                        // $('.eb-setup-header-title').html(response.data.title);
+                        var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
+                        // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
+                        window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                        data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    }  , 2000 );
+
+
+
+
+                    // var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
+                    // // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
+                    // window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                    // data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     return;
                     break;
 
@@ -221,6 +268,7 @@
                     data = { 'archive_page': archive_page, 'guest_checkout' : guest_checkout, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
                     break;
+                    
 
                 default:
                     break;
