@@ -583,7 +583,7 @@ class Eb_Setup_Wizard_Functions {
 		$found_step = 0;
 		foreach ( $steps as $key => $value ) {
 
-			if ( $found_step ) {
+			if ( $found_step && ! $value['sub_step']  ) {
 				$step = $key;
 				break;
 			}

@@ -875,7 +875,7 @@ a.eb_setup_btn{
     text-align: center;
 }
 
-.eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset{
+.eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset, .eb_setup_mdl_plugins fieldset{
     margin-top: 10px;
     border: 1px solid #E5E5E5;
 }

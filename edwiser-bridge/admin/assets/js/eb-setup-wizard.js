@@ -81,7 +81,9 @@
         /**
          * Close setup.
          */
-         $('.eb-setup-close-icon').click(function(){
+        //  $('.eb-setup-close-icon').click(function(){
+        $(document).on('click', '.eb-setup-close-icon', function (event) {
+
             // Create loader.
 
             $.ajax({
