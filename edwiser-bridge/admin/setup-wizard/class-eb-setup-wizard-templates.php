@@ -863,7 +863,7 @@ class Eb_Setup_Wizard_Templates {
 				<div class='' class='eb_setup_inp_wrap'>
 					<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
 					<?php
-					echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'edwiser-bridge' ) . "style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
+					echo wp_kses( str_replace( ' id=', " data-placeholder='" . __( 'Select a page', 'edwiser-bridge' ) . "' style='' class='' id=", wp_dropdown_pages( $args ) ), \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags() );
 					?>
 				</div>
 			</div>
