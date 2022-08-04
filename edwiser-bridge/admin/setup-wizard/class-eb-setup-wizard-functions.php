@@ -117,6 +117,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Setup Initialize', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge plugin - Setup Initialization', 'edwiser-bridge' ),
 				'function' => 'eb_setup_initialize',
+				'priority' => 10,
 				'sidebar'  => 0,
 				'sub_step' => 0,
 			),
@@ -128,12 +129,14 @@ class Eb_Setup_Wizard_Functions {
 				'title'    => __( 'Edwiser Bridge FREE plugin installation guide', 'edwiser-bridge' ),
 				'function' => 'eb_setup_free_installtion_guide',
 				'sidebar'  => 1,
+				'priority' => 20,
 				'sub_step' => 0,
 			),
 			'moodle_redirection'        => array(
 				'name'     => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge FREE Moodle plugin configuration', 'edwiser-bridge' ),
 				'sidebar'  => 1,
+				'priority' => 30,
 				'function' => 'eb_setup_moodle_redirection',
 				'sub_step' => 0,
 
@@ -142,6 +145,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Connection test between WordPress and Moodle', 'edwiser-bridge' ),
 				'title'    => __( 'Connection test between WordPress and Moodle', 'edwiser-bridge' ),
 				'sidebar'  => 1,
+				'priority' => 40,
 				'function' => 'eb_setup_test_connection',
 				'sub_step' => 0,
 
@@ -151,6 +155,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Courses syncronization', 'edwiser-bridge' ),
 				'title'    => __( 'Courses syncronization', 'edwiser-bridge' ),
 				'function' => 'eb_setup_course_sync',
+				'priority' => 50,
 				'sub_step' => 0,
 
 			),
@@ -159,6 +164,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'User syncronization', 'edwiser-bridge' ),
 				'title'    => __( 'User syncronization', 'edwiser-bridge' ),
 				'function' => 'eb_setup_user_sync',
+				'priority' => 60,
 				'sub_step' => 0,
 
 			),
@@ -167,6 +173,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Recommended settings', 'edwiser-bridge' ),
 				'title'    => __( 'Recommended settings', 'edwiser-bridge' ),
 				'function' => 'eb_setup_free_recommended_settings',
+				'priority' => 70,
 				'sub_step' => 0,
 
 			),
@@ -175,6 +182,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Recommended settings', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'edwiser-bridge' ),
 				'function' => 'eb_setup_free_completed_popup',
+				'priority' => 80,
 				'sub_step' => 1,
 
 			),
@@ -186,6 +194,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Initialize Edwiser Bridge PRO setup ', 'edwiser-bridge' ),
 				'title'    => __( 'Initialize Edwiser Bridge PRO plugin setup ', 'edwiser-bridge' ),
 				'function' => 'eb_setup_pro_initialize',
+				'priority' => 90,
 				'sub_step' => 0,
 			),
 			'license'                  => array(
@@ -193,6 +202,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
 				'function' => 'eb_setup_license',
+				'priority' => 100,
 				'sub_step' => 0,
 			),
 			'mdl_plugins'              => array(
@@ -200,6 +210,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Download Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'title'    => __( 'Download Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'function' => 'eb_setup_mdl_plugins',
+				'priority' => 110,
 				'sub_step' => 0,
 			),
 			'mdl_plugins_installation' => array(
@@ -207,6 +218,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
 				'function' => 'eb_setup_mdl_plugins_installation',
+				'priority' => 120,
 				'sub_step' => 0,
 			),
 			'sso'                      => array(
@@ -214,6 +226,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Single Sign On setup', 'edwiser-bridge' ),
 				'title'    => __( 'Single Sign On setup', 'edwiser-bridge' ),
 				'function' => 'eb_setup_sso',
+				'priority' => 130,
 				'sub_step' => 0,
 			),
 			'wi_products_sync'         => array(
@@ -221,6 +234,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'WooCommerce product creation', 'edwiser-bridge' ),
 				'title'    => __( 'WooCommerce product creation', 'edwiser-bridge' ),
 				'function' => 'eb_setup_wi_products_sync',
+				'priority' => 140,
 				'sub_step' => 0,
 			),
 			'pro_settings'             => array(
@@ -228,6 +242,7 @@ class Eb_Setup_Wizard_Functions {
 				'name'     => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
 				'function' => 'eb_setup_pro_settings',
+				'priority' => 150,
 				'sub_step' => 0,
 			),
 		);
@@ -449,9 +464,18 @@ class Eb_Setup_Wizard_Functions {
 
 			// Save step form progress.
 			$setup_data              = get_option( 'eb_setup_data' );
-			$setup_data['progress']  = $current_step;
-			$setup_data['next_step'] = $next_step;
-			update_option( 'eb_setup_data', $setup_data );
+
+			// Get the priority of the existing progress data.
+			// If the existing priority is greater then dont update it, let old progress be as it is.
+
+			// var_dump( $steps[$setup_data['progress']]['priority'] );
+
+			if ( isset( $setup_data[ 'progress' ] ) && $steps[$setup_data['progress']]['priority'] < $steps[$current_step]['priority'] ) {
+				$setup_data['progress']  = $current_step;
+				$setup_data['next_step'] = $next_step;
+				update_option( 'eb_setup_data', $setup_data );
+			}
+
 
 
 			switch ( $current_step ) {

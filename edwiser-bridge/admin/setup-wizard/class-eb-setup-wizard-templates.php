@@ -1529,6 +1529,14 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 			</div>
 
+			
+			<?php
+
+			$active_plugins = get_option( 'active_plugins' );
+
+			if ( in_array( 'woocommerce-integration/bridge-woocommerce.php', $active_plugins, true ) ) {
+				
+			?>
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Guest checkout', 'edwiser-bridge' ); ?> </div>
 			<div class='es-p-l-25'>
 				<div class='es-p-t-b-5'>  <?php echo esc_html__( 'Disable setting ‘to allow customers to place orders without an account’ since user registration is required for course enrollment in Moodle.', 'edwiser-bridge' ); ?> </div>
@@ -1542,6 +1550,9 @@ class Eb_Setup_Wizard_Templates {
 					<label class="es-sec-h es-p-l-30"> <?php esc_html_e( 'Disable Guest checkout', 'edwiser-bridge' ); ?></label>
 				</div>
 			</div>
+			<?php
+			}
+			?>
 
 			<div class="eb_setup_user_sync_btn_wrap">
 				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>

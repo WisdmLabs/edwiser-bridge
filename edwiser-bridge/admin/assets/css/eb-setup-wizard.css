@@ -737,7 +737,7 @@ a.eb_setup_btn{
 .eb_setup_mdl_plugins_installation,
 .eb_setup_pro_settings
 {
-    padding: 30px 40px;
+    padding: 10px 40px 30px 40px;
 }
 
 .eb_setup_pro_initialize{
@@ -773,6 +773,17 @@ a.eb_setup_btn{
 
 .eb_setup_license_inp_wrap{
     display: flex;
+}
+
+.eb_setup_woocommerce_integration_license_msg,
+.eb_setup_selective_sync_license_msg,
+.eb_setup_bulk-purchase_license_msg,
+.eb_setup_single_sign_on_license_msg{
+    padding-top: 6px;
+}
+
+.eb_setup_license_inp_wrap:nth-child(2) {
+    padding-top: 6px;
 }
 
 .eb_setup_license_inp_wrap div{
