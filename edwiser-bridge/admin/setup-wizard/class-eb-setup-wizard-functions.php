@@ -140,7 +140,7 @@ class Eb_Setup_Wizard_Functions {
 			),
 			'test_connection'           => array(
 				'name'     => __( 'Connection test between WordPress and Moodle', 'edwiser-bridge' ),
-				'title'    => __( 'Adding Moodle credential to WordPress', 'edwiser-bridge' ),
+				'title'    => __( 'Connection test between WordPress and Moodle', 'edwiser-bridge' ),
 				'sidebar'  => 1,
 				'function' => 'eb_setup_test_connection',
 				'sub_step' => 0,
@@ -149,7 +149,7 @@ class Eb_Setup_Wizard_Functions {
 			'course_sync'               => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Courses syncronization', 'edwiser-bridge' ),
-				'title'    => __( 'Synchronize Moodle courses', 'edwiser-bridge' ),
+				'title'    => __( 'Courses syncronization', 'edwiser-bridge' ),
 				'function' => 'eb_setup_course_sync',
 				'sub_step' => 0,
 
@@ -157,7 +157,7 @@ class Eb_Setup_Wizard_Functions {
 			'user_sync'                 => array(
 				'sidebar'  => 1,
 				'name'     => __( 'User syncronization', 'edwiser-bridge' ),
-				'title'    => __( 'Synchronize WordPress users', 'edwiser-bridge' ),
+				'title'    => __( 'User syncronization', 'edwiser-bridge' ),
 				'function' => 'eb_setup_user_sync',
 				'sub_step' => 0,
 
@@ -165,7 +165,7 @@ class Eb_Setup_Wizard_Functions {
 			'free_recommended_settings' => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Recommended settings', 'edwiser-bridge' ),
-				'title'    => __( 'Edwiser Bridge FREE plugin recommended settings', 'edwiser-bridge' ),
+				'title'    => __( 'Recommended settings', 'edwiser-bridge' ),
 				'function' => 'eb_setup_free_recommended_settings',
 				'sub_step' => 0,
 
@@ -191,7 +191,7 @@ class Eb_Setup_Wizard_Functions {
 			'license'                  => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
-				'title'    => __( 'Install Edwiser Bridge PRO WordPress plugins', 'edwiser-bridge' ),
+				'title'    => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
 				'function' => 'eb_setup_license',
 				'sub_step' => 0,
 			),
@@ -212,21 +212,21 @@ class Eb_Setup_Wizard_Functions {
 			'sso'                      => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Single Sign On setup', 'edwiser-bridge' ),
-				'title'    => __( 'Enter Single Sign On secret key', 'edwiser-bridge' ),
+				'title'    => __( 'Single Sign On setup', 'edwiser-bridge' ),
 				'function' => 'eb_setup_sso',
 				'sub_step' => 0,
 			),
 			'wi_products_sync'         => array(
 				'sidebar'  => 1,
 				'name'     => __( 'WooCommerce product creation', 'edwiser-bridge' ),
-				'title'    => __( 'Create WooCommerce product of Moodle courses', 'edwiser-bridge' ),
+				'title'    => __( 'WooCommerce product creation', 'edwiser-bridge' ),
 				'function' => 'eb_setup_wi_products_sync',
 				'sub_step' => 0,
 			),
 			'pro_settings'             => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
-				'title'    => __( 'Recommended settings', 'edwiser-bridge' ),
+				'title'    => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
 				'function' => 'eb_setup_pro_settings',
 				'sub_step' => 0,
 			),
@@ -735,21 +735,18 @@ class Eb_Setup_Wizard_Functions {
 					$class = '';
 					$html  = '<span class="eb-setup-step-circle eb_setup_sidebar_progress_icons" > </span>';
 
-					
-
-
-					if ( $current_step === $key ) {
-						$class = 'eb-setup-step-active';
-						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
-						$completed = 0;
-					} elseif ( 1 === $completed ) {
+					if ( 1 === $completed ) {
 						$class = 'eb-setup-step-completed';
 						$html  = '<span class="dashicons dashicons-yes-alt eb_setup_sidebar_progress_icons"></span>';
 					}
+					if ( $current_step === $key ) {
+						$class = 'eb-setup-step-active';
+						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
+						// $completed = 0;
+					}
 
 					
-
-					if ( empty( $current_step ) && $key === $progress ) {
+					if ( /*empty( $current_step ) &&*/ $key === $progress ) {
 						$completed = 0;
 					}
 

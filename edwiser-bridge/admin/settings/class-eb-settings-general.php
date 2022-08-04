@@ -62,6 +62,20 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 				'eb_general_settings',
 				array(
 					array(
+						'title' => __( 'Setup Wizard', 'edwiser-bridge' ),
+						'type'  => 'title',
+						'desc'  => '',
+						'id'    => 'setup_wizard',
+					),
+					array(
+						'type' => 'cust_html',
+						'html' => $this->eb_setup_wizard_link(),
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'setup_wizard',
+					),
+					array(
 						'title' => __( 'General Options', 'edwiser-bridge' ),
 						'type'  => 'title',
 						'desc'  => '',
@@ -314,21 +328,6 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type' => 'sectionend',
 						'id'   => 'usage_tracking',
 					),
-					array(
-						'title' => __( 'Setup Wizard', 'edwiser-bridge' ),
-						'type'  => 'title',
-						'desc'  => '',
-						'id'    => 'setup_wizard',
-					),
-					array(
-						'type' => 'cust_html',
-						'html' => $this->eb_setup_wizard_link(),
-					),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'setup_wizard',
-					),
-
 				)
 			);
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings );

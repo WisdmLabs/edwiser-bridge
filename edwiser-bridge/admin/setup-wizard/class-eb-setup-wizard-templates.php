@@ -296,7 +296,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div>
-				<div>
+				<div class='es-p-t-10'>
 					<div class='accordion'><span class="dashicons dashicons-editor-help"></span><?php esc_html_e( 'What to do if I have not installed the Moodle plugin?', 'edwiser-bridge' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span></div>
 
 					<div class='panel'>
@@ -361,7 +361,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 
-				<span class="eb_setup_h2"> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </span>
+				<span class=""> <?php esc_html_e( 'Enter your Moodle URL to intiate the configuration on moodle site for Edwiser Bridge FREE Moodle plugin.', 'edwiser-bridge' ); ?> </span>
 
 				<div class="eb_setup_conn_url_inp_wrap">
 					<p>
@@ -378,7 +378,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div>
-				<div>
+				<div class='es-p-t-10'>
 					<div class="accordion"> <span class="dashicons dashicons-editor-help"></span> <?php esc_html_e( 'Unable to navigate directly to the Edwiser Bridge FREE plugin setup on Moodle from the above step?  ', 'edwiser-bridge' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span> </div>
 					<div class="panel">
 						<p>
@@ -538,10 +538,14 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 				<div>
 					<div>
-						<span class='eb_setup_h2'> <span style='vertical-align: baseline;' class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>		
-						<input class="eb_setup_sec_btn eb_setup_file_btn" type="file" accept=".json">
-						<button class="eb_setup_sec_btn eb_setup_upload_btn disabled" disabled> <?php esc_html_e( 'Upload', 'edwiser-bridge' ); ?> </button>	
-
+						<div>
+							<span class='eb_setup_h2'> <span style='vertical-align: baseline;' class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Choose and upload the Moodle Credential file here', 'edwiser-bridge' ); ?> </span>		
+						</div>	
+						<div>
+							<input class="eb_setup_sec_btn eb_setup_file_btn" type="file" accept=".json">
+							<button class="eb_setup_sec_btn eb_setup_upload_btn disabled" disabled> <?php esc_html_e( 'Upload', 'edwiser-bridge' ); ?> </button>	
+						</div>
+					
 					</div>
 
 				</div>
@@ -858,7 +862,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div class='eb_setup_h2 eb_setup_test_conn_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Page setup', 'edwiser-bridge' ); ?> </div>
 			<div class='es-p-l-25'>
-				<div class='es-p-t-b-5'> <?php esc_html_e( 'Set up user account page to send users to the following page after login/sign-up', 'edwiser-bridge' ); ?> </div>
+				<div class='es-p-t-b-10'> <?php esc_html_e( 'Set up user account page to send users to the following page after login/sign-up', 'edwiser-bridge' ); ?> </div>
 
 				<div class='' class='eb_setup_inp_wrap'>
 					<div><label class="eb_setup_h2"> <?php esc_html_e( 'User Account Page', 'edwiser-bridge' ); ?></label> </div>
@@ -985,9 +989,9 @@ class Eb_Setup_Wizard_Templates {
 				<?php esc_html_e( 'We are about to install the “Edwiser Bridge PRO” plugins. Click on ‘Continue’ once you are ready.', 'edwiser-bridge' ); ?>	
 			</p>
 
-			<p>
+			<div>
 				<?php echo esc_html__( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree">' . esc_html__( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
-			</p>
+			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
 				<button class="eb_setup_sec_btn eb-setup-close-icon eb-exit" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-sub-step='<?php echo wp_kses( $sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Exit', 'edwiser-bridge' ); ?> </button>
@@ -1231,12 +1235,11 @@ class Eb_Setup_Wizard_Templates {
 					<div class='fieldset_content fieldset_content_non_i'>
 						<?php echo esc_html__( 'Click on Install button and you will be redirected to Moodle’s plugin installation page.', 'edwiser-bridge' ) . '<b>' . esc_html__( ' (Login to your Moodle site if not logged in).', 'edwiser-bridge' ) . '</b>'; ?>
 					</div>
+					<div class='es-p-t-30 es-m-b-10'>
+						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </button> -->
+						<a target='_blank' class='eb_setup_sec_btn' href='<?php echo esc_attr( $mdl_plugin_url ); ?>'> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </a>
+					</div>
 				</fieldset>
-
-				<div class='eb_setup_user_sync_btn_wrap es-p-t-30 es-m-b-10'>
-					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </button> -->
-					<a target='_blank' class='eb_setup_sec_btn' href='<?php echo esc_attr( $mdl_plugin_url ); ?>'> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </a>
-				</div>
 
 			</div>
 
@@ -1344,9 +1347,9 @@ class Eb_Setup_Wizard_Templates {
 					</div>
 
 					<div class="eb_setup_conn_url_inp_wrap">
-						<p>
+						<div>
 							<label class="eb_setup_h2"> <?php esc_html_e( 'SSO secret key', 'edwiser-bridge' ); ?></label>
-						</p>
+						</div>
 
 						<input class='eb_setup_inp' id='eb_setup_pro_sso_key' name='eb_setup_pro_sso_key' type='text' value='<?php echo wp_kses( $key, $allowed_tags ); ?>'>
 						<div class='eb_setup_sso_response'> </div>

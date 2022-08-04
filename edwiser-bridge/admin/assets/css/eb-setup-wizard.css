@@ -51,12 +51,21 @@
     padding-bottom: 5px;
 }
 
+.es-p-t-b-10{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .p-b-10{
    padding-bottom: 15px; 
 }
 
 .es-p-t-10{
     padding-top: 10px;
+}
+
+.es-p-t-15{
+    padding-top: 15px;
 }
 
 .es-m-t-20{
@@ -100,7 +109,6 @@ a.es_text_links{
     border-radius: 6px;
     padding: 5px 0;
     font-family: sans-serif;
-    
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
@@ -112,7 +120,7 @@ a.es_text_links{
     padding: 0.5em;
     background: none repeat scroll 0% 0% #3C3C3C;
     border-radius: 3px;
-    text-align: center;
+    text-align: left;
     max-width: 200px;
     line-height: normal;
 }
@@ -618,7 +626,7 @@ a.es_text_links{
 
 .eb_setup_btn_wrap{
     text-align: center;
-    padding: 20px 10px;
+    padding: 5px 20px 10px 10px;
 }
 
 a.eb_setup_btn{
@@ -701,6 +709,13 @@ a.eb_setup_btn{
     color: #133F3F;
 }
 
+.eb_setup_sec_btn.disabled:hover{
+    color: #C4C4C4;
+    border: 1px solid #E5E5E5;
+    background: #F7F7F7;
+    cursor: not-allowed;
+}
+
 .eb_setup_installation_guide .eb_setup_sec_btn{
     margin-top: 20px;
     text-align: center;
@@ -725,10 +740,15 @@ a.eb_setup_btn{
     padding: 30px 40px;
 }
 
+.eb_setup_pro_initialize{
+    text-align: center;
+}
+
+
 .eb_setup_conn_url{
     padding-top: 20px;
     padding-bottom: 60px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .eb_setup_inp{
@@ -743,7 +763,7 @@ a.eb_setup_btn{
 }
 
 .eb_setup_conn_url div{
-    padding-top: 20px;
+    /* padding-top: 20px; */
 }
 
 
@@ -807,7 +827,7 @@ a.eb_setup_btn{
     text-align: left;
     margin: auto;
     padding-top: 10px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .eb_setup_inp_wrap{
@@ -863,17 +883,22 @@ a.eb_setup_btn{
 
 
 .eb_setup_course_sync_note, .eb_setup_user_sync_note{
-    width: 90%;
+    width: 94%;
     margin: auto;
 }
 
 .eb_setup_course_sync_inp_wrap, .eb_setup_user_sync_inp_wrap{
-    padding-left: 30px;
+    /* padding-left: 30px; */
 }
 
 .eb_setup_course_sync_btn_wrap, .eb_setup_user_sync_btn_wrap{
     text-align: center;
 }
+
+div.eb_setup_user_sync_btn_wrap{
+    padding-top: 5px;
+}
+
 
 .eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset, .eb_setup_mdl_plugins fieldset{
     margin-top: 10px;
@@ -1347,4 +1372,15 @@ a.eb_setup_sec_btn{
 }
 
 /* ----------------------------- */
+
+/* @media screen and (max-width: 640) { */
+@media screen and (min-width: 1840px) {
+
+    .es-w-80{
+        width: 60%;
+    }
+
+}
+
+
 
