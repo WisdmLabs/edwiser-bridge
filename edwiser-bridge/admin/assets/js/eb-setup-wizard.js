@@ -185,6 +185,23 @@
                     $("#eb-lading-parent").hide();
 
                     $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_moodle_redirection_popup').html() + ' </div>');
+                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+
+
+                    // Set data progress first.
+                    $.ajax({
+                        method: "post",
+                        url: eb_setup_wizard.ajax_url,
+                        dataType: "json",
+                        data: {
+                            'action': 'eb_setup_save_and_continue',
+                            'nonce': eb_setup_wizard.nonce,
+                            'data': data,
+                        },
+                        success: function (response) {
+                        }
+                    });
+
 
                     setTimeout( function(){
                         // $('.eb-setup-content').html(response.data.content);
@@ -398,11 +415,16 @@
                 step_icon.removeClass('eb-setup-step-circle dashicons-arrow-right-alt2');
 
                 $('.eb-setup-step-' + next_step).addClass('eb-setup-step-active-wrap');
+                $('.eb-setup-step-' + next_step).removeClass('eb-setup-step-completed-wrap');
+
                 var step_title = $('.eb-setup-step-' + next_step).children('.eb-setup-steps-title');
                 step_title.addClass('eb-setup-step-active');
+                step_title.removeClass('eb-setup-step-completed');
+
                 var step_icon = $('.eb-setup-step-' + next_step).children('.eb_setup_sidebar_progress_icons');
                 step_icon.addClass('dashicons dashicons-arrow-right-alt2');
                 step_icon.removeClass('eb-setup-step-circle');
+                step_icon.removeClass('dashicons-yes-alt');
             }
 
 

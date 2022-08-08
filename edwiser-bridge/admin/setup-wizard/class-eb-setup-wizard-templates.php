@@ -199,28 +199,28 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_free_initialize_inp_wrap'>
 						<!-- <input type='radio' name='eb_setup_name' value='eb_free_setup'> -->
 						<label class="esw-radio-container">
-							<input type="radio"  name='eb_setup_name' value='eb_free_setup'>
+							<input type="radio"  name='eb_setup_name' id='eb_setup_free' value='eb_free_setup'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_free' class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class='eb_setup_free_initialize_inp_wrap'>
 						<!-- <input type='radio' name='eb_setup_name' value='eb_pro_setup'> -->
 						<label class="esw-radio-container">
-							<input type="radio"  name='eb_setup_name' value='eb_pro_setup'>
+							<input type="radio"  name='eb_setup_name' id='eb_setup_pro' value='eb_pro_setup'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_pro' class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class='eb_setup_free_initialize_inp_wrap'>
 						<!-- <input type='radio' name='eb_setup_name' value='eb_free_and_pro'> -->
 						<label class="esw-radio-container">
-							<input type="radio"  name='eb_setup_name' value='eb_free_and_pro'>
+							<input type="radio"  name='eb_setup_name' id='eb_setup_free_and_pro' value='eb_free_and_pro'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label class='es-p-l-30'> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_free_and_pro' class='es-p-l-30'> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 				</div>
 

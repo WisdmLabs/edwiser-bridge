@@ -53,7 +53,10 @@ class Eb_Activator {
 		$plugin_i18n->rename_langauge_files();
 
 		// redirect to welcome screen.
-		set_transient( '_eb_activation_redirect', 1, 30 );
+		$current_version = get_option( 'eb_current_version' );
+        if( ! $current_version ) {
+			set_transient( '_eb_activation_redirect', 1, 30 );
+		}
 		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );
 	}
 
