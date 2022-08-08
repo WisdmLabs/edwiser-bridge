@@ -372,7 +372,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class="eb_setup_btn_wrap">
-					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge' ); ?> </button>
+					<button class="eb_setup_btn eb_setup_save_and_continue eb_setup_moodle_redirection_btn" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Submit & Continue', 'edwiser-bridge' ); ?> </button>
 				</div>
 
 			</div>
@@ -1342,7 +1342,7 @@ class Eb_Setup_Wizard_Templates {
 				<div>
 
 					<div>
-						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . wp_kses( $mdl_url, $allowed_tags ) . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Set a unique alphanumeric password in Moodle under the Secret key setting & copy-paste it in WordPress, under the same setting (Secret Key).', 'edwiser-bridge' ); ?> <p>
+						<div class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php echo esc_html__( 'To find the secret key on your Moodle site, please click on', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="' . wp_kses( $mdl_url, $allowed_tags ) . '" >' . esc_html__( ' Single Sign On secret key ', 'edwiser-bridge' ) . '</a>' . esc_html__( 'and then copy & paste the key here. Set a unique alphanumeric password in Moodle under the Secret key setting & copy-paste it in WordPress, under the same setting (Secret Key).', 'edwiser-bridge' ); ?> <div>
 						<p class="eb_setup_h2"> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Click on ‘Verify token’ once you add the secret key.', 'edwiser-bridge' ); ?> <p>
 					</div>
 

@@ -160,7 +160,6 @@
         // $('.eb_setup_save_and_continue').click(function(){
         $(document).on('click', '.eb_setup_save_and_continue', function (event) {
 
-            $("#eb-lading-parent").show();
 
             var $this = $(this);
             var current_step = $(this).data('step');
@@ -181,40 +180,49 @@
 
             switch ( current_step ) {
                 case 'moodle_redirection':
-                    // Get required data and create array
-                    $("#eb-lading-parent").hide();
 
-                    $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_moodle_redirection_popup').html() + ' </div>');
-                    data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    // $(document).on( 'click', '.eb_setup_moodle_redirection_btn', function(event){
+                    if( '' == $('#eb_setup_test_conn_mdl_url').val() ){
+                        console.log();
+                        event.preventDefault();
+                        $('#eb_setup_test_conn_mdl_url').css('border-color', 'red');
+                    } else {
 
+                                // });
+                        $("#eb-lading-parent").show();
 
-                    // Set data progress first.
-                    $.ajax({
-                        method: "post",
-                        url: eb_setup_wizard.ajax_url,
-                        dataType: "json",
-                        data: {
-                            'action': 'eb_setup_save_and_continue',
-                            'nonce': eb_setup_wizard.nonce,
-                            'data': data,
-                        },
-                        success: function (response) {
-                        }
-                    });
+                        // Get required data and create array
+                        $("#eb-lading-parent").hide();
+
+                        $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_moodle_redirection_popup').html() + ' </div>');
+                        data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
 
 
-                    setTimeout( function(){
-                        // $('.eb-setup-content').html(response.data.content);
-                        // $('.eb-setup-header-title').html(response.data.title);
-                        var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
-                        // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
-                        window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
-                        data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
-                    }  , 2000 );
+                        // Set data progress first.
+                        $.ajax({
+                            method: "post",
+                            url: eb_setup_wizard.ajax_url,
+                            dataType: "json",
+                            data: {
+                                'action': 'eb_setup_save_and_continue',
+                                'nonce': eb_setup_wizard.nonce,
+                                'data': data,
+                            },
+                            success: function (response) {
+                            }
+                        });
 
 
-
-
+                        setTimeout( function(){
+                            // $('.eb-setup-content').html(response.data.content);
+                            // $('.eb-setup-header-title').html(response.data.title);
+                            var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
+                            // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
+                            window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                            data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                        }  , 2000 );
+                    }
+                    
                     // var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
                     // // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
                     // window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
@@ -223,6 +231,8 @@
                     break;
 
                 case 'test_connection':
+                    $("#eb-lading-parent").show();
+
                     var mdl_url      = $('#eb_setup_test_conn_mdl_url').val().trim();
                     var mdl_token    = $('#eb_setup_test_conn_token').val().trim();
                     var mdl_lang_code = $('#eb_setup_test_conn_lang_code').val().trim();
@@ -234,17 +244,23 @@
                 case 'course_sync':
                     // Course sync process.
                     // Call course sync callback and after completing the process, call this callback.
+                    $("#eb-lading-parent").show();
+
                     var publish = $('.eb_setup_course_sync_inp').prop('checked') ? 1 : 0;
 
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step, 'publish': publish };
                     break;
 
                 case 'user_sync':
+                    $("#eb-lading-parent").show();
+
                     // If user checkbox is clicked start user sync otherwise just procedd to next screen.
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'free_recommended_settings':
+                    $("#eb-lading-parent").show();
+
                     var user_account_page      = $('#eb_setup_user_accnt_page').val();
                     var user_account_creation  = $('#eb_setup_user_account_creation').prop('checked') ? 1 : 0;
                     // user account page selection and enable registration on user account
@@ -252,27 +268,39 @@
                     break;
 
                 case 'pro_initialize':
+                    $("#eb-lading-parent").show();
+                    
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'license':
+                    $("#eb-lading-parent").show();
+
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'wp_plugins':
+                    $("#eb-lading-parent").show();
+
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'mdl_plugins':
+                    $("#eb-lading-parent").show();
+
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'sso':
+                    $("#eb-lading-parent").show();
+
                     var sso_key = $('#eb_setup_pro_sso_key').val();
                     data = { 'sso_key': sso_key, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'wi_products_sync':
+                    $("#eb-lading-parent").show();
+
                     $("#eb-lading-parent").hide();
                     $('.eb-setup-content').append('<div class="eb_setup_popup"> ' + $('.eb_setup_product_sync_progress_popup').html() + ' </div>');
                     
@@ -280,6 +308,8 @@
                     break;
 
                 case 'pro_settings':
+                    $("#eb-lading-parent").show();
+
                     // Here settings is to hide archive page and in WP settings it is show settings page.
                     // so passing settings in opposite manner i.e if checked pass 0 and if not checked pass 1.
                     var archive_page = $('#eb_pro_rec_set_archive_page').prop('checked') ? 0 : 1;
@@ -290,6 +320,7 @@
                     
 
                 default:
+                    $("#eb-lading-parent").show();
                     break;
             }
 
@@ -851,7 +882,6 @@
                 }
             });
 
-                
 
     });
 
