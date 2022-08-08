@@ -128,7 +128,7 @@ class Eb_Setup_Wizard_Templates {
 
 		</head>
 
-
+	
 		<body class="eb-setup wp-core-ui">
 
 			<header class='eb-setup-wizard-header'>
@@ -202,7 +202,7 @@ class Eb_Setup_Wizard_Templates {
 							<input type="radio"  name='eb_setup_name' id='eb_setup_free' value='eb_free_setup'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label for='eb_setup_free' class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_free' class='eb_cursor_point es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge FREE', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class='eb_setup_free_initialize_inp_wrap'>
@@ -211,7 +211,7 @@ class Eb_Setup_Wizard_Templates {
 							<input type="radio"  name='eb_setup_name' id='eb_setup_pro' value='eb_pro_setup'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label for='eb_setup_pro' class='es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_pro' class='eb_cursor_point es-p-l-30'> <?php esc_html_e( 'Only Edwiser Bridge PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 
 					<div class='eb_setup_free_initialize_inp_wrap'>
@@ -220,7 +220,7 @@ class Eb_Setup_Wizard_Templates {
 							<input type="radio"  name='eb_setup_name' id='eb_setup_free_and_pro' value='eb_free_and_pro'>
 							<span class="esw-radio-checkmark"></span>
 						</label>
-						<label for='eb_setup_free_and_pro' class='es-p-l-30'> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'edwiser-bridge' ); ?> </label>
+						<label for='eb_setup_free_and_pro' class='eb_cursor_point es-p-l-30'> <?php esc_html_e( 'Both, Edwiser Bridge FREE & PRO', 'edwiser-bridge' ); ?> </label>
 					</div>
 				</div>
 

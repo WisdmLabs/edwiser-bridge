@@ -746,7 +746,7 @@ a.eb_setup_btn{
 
 
 .eb_setup_conn_url{
-    padding-top: 20px;
+    /* padding-top: 20px; */
     padding-bottom: 60px;
     /* text-align: center; */
 }
@@ -764,6 +764,10 @@ a.eb_setup_btn{
 
 .eb_setup_conn_url div{
     /* padding-top: 20px; */
+}
+
+.eb_cursor_point{
+    cursor: pointer;
 }
 
 
