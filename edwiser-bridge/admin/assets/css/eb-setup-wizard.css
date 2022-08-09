@@ -60,6 +60,10 @@
    padding-bottom: 15px; 
 }
 
+.p-b-5{
+    padding-bottom: 5px; 
+ }
+
 .es-p-t-10{
     padding-top: 10px;
 }
@@ -761,6 +765,18 @@ a.eb_setup_btn{
     width: 100%;
     padding: 10px 15px;
 }
+
+.eb_setup_inp_select{
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    width: 50%;
+    /* width: 100%; */
+    padding: 10px 15px;
+}
+
 
 .eb_setup_conn_url div{
     /* padding-top: 20px; */

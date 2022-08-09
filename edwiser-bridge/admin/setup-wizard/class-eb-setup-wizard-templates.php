@@ -308,10 +308,10 @@ class Eb_Setup_Wizard_Templates {
 						<p>
 							<span> <?php esc_html_e( 'After download please follow the steps below;', 'edwiser-bridge' ); ?> </span>
 							<ol>
-								<li> <?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( 'Navigate to Site adminstration > Plugins > Install plugins ', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( ' Upload the Edwiser Bridge FREE Moodle plugin here', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'> <?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'Navigate to Site adminstration > Plugins > Install plugins ', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( ' Upload the Edwiser Bridge FREE Moodle plugin here', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
 							</ol>
 
 						</p>
@@ -381,16 +381,16 @@ class Eb_Setup_Wizard_Templates {
 				<div class='es-p-t-10'>
 					<div class="accordion"> <span class="dashicons dashicons-editor-help"></span> <?php esc_html_e( 'Unable to navigate directly to the Edwiser Bridge FREE plugin setup on Moodle from the above step?  ', 'edwiser-bridge' ); ?> <span class="dashicons dashicons-arrow-down-alt2"></span><span class="dashicons dashicons-arrow-up-alt2"></span> </div>
 					<div class="panel">
-						<p>
+						<div>
 							<span> <?php esc_html_e( 'Please follow these manual steps below;', 'edwiser-bridge' ); ?> </span>
 							<ol>
-								<li><?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( 'Navigate to Site administration > Plugins > Edwiser Bridge', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( 'Now click on ‘Initiate Edwiser Bridge Moodle Setup wizard’', 'edwiser-bridge' ); ?></li>
-								<li><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'Login to your Moodle site with Adminstrative access', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'Navigate to Site administration > Plugins > Edwiser Bridge', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'Now click on ‘Initiate Edwiser Bridge Moodle Setup wizard’', 'edwiser-bridge' ); ?></li>
+								<li class='p-b-5'><?php esc_html_e( 'We will assist you with the rest of the setup from there 🙂', 'edwiser-bridge' ); ?></li>
 							</ol>
 
-						</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -827,7 +827,7 @@ class Eb_Setup_Wizard_Templates {
 			'sort_column'       => 'menu_order',
 			'sort_order'        => 'ASC',
 			'show_option_none'  => 'Select Page',
-			'class'             => 'eb_setup_inp',
+			'class'             => 'eb_setup_inp_select',
 			'echo'              => false,
 			// 'value_field'       => 'Select Page',
 			// 'option_none_value' => '',
