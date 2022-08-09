@@ -789,6 +789,7 @@
             // $('.eb_setup_upload_btn').change(function(){
             $(document).on( 'click', '.eb_setup_upload_btn', function(){
                 $('.eb_setup_test_connection_btn').removeClass('disabled');
+                $('.eb_setup_test_connection_btn').prop("disabled", false);
                 $('#eb_setup_test_conn_mdl_url').val($('.eb_setup_test_conne_url').val());
                 $('#eb_setup_test_conn_token').val($('.eb_setup_test_conne_token').val());
                 $('#eb_setup_test_conn_lang_code').val($('.eb_setup_test_conne_lang').val());
