@@ -620,7 +620,6 @@
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
                 var extensions = {};
                 // $("#eb-lading-parent").show();
-                $('.ebs_license_install_plugins_cont').css('display', 'initial');
 
 
                 $('.eb_setup_license_inp').each(function() {
@@ -729,6 +728,8 @@
 
                             if(key < Object.keys(extensions).length - 1){
                                 installPlugin(extensions, key + 1);
+                            } else {
+                                $('.ebs_license_install_plugins_cont').css('display', 'initial');
                             }
                         }
                     });
