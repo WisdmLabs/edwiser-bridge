@@ -78,7 +78,7 @@
 		});
 	}
 
-	$(window).on("load", function () {
+	$(window).load(function () {
 
 
 		function getUrlParameter(sParam)
