@@ -28,7 +28,7 @@
      * be doing this, we should try to minimize doing that in our own work.
      */
 
-    $(window).load(function () {
+    $(window).on("load", function () {
         if ($("#eb_email_templates_list").length) {
             var container = $("#eb_email_templates_list");
             var scrollTo = $(".eb-emailtmpl-active");
