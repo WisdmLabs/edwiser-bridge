@@ -185,6 +185,7 @@ class EBUserManager {
 							$args = array(
 								'user_id' => $value['user_id'],
 								'courses' => array( $existing_course_id ),
+								'sync'    => true,
 							);
 							// update enrollment records.
 							edwiser_bridge_instance()->enrollment_manager()->update_enrollment_record_wordpress( $args );
