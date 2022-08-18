@@ -207,12 +207,20 @@ class Eb_Shortcode_User_Account {
 					$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . implode( '<br />', $errors ) . '</p>';
 				} else {
 					// Profile updated on Moodle successfully.
-					if ( self::update_moodle_profile( $posted_data ) ) {
-						self::update_wordpress_profile( $posted_data );
-						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+					if ( self::update_wordpress_profile( $posted_data ) ) {
+						$mdl_uid = get_user_meta( $user->ID, 'moodle_user_id', true );
+						if( is_numeric( $mdl_uid ) ) {
+							if ( self::update_moodle_profile( $posted_data ) ) {
+								$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+							} else {
+								$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Error in updating profile on Moodle.', 'edwiser-bridge' ) . '</p>';
+							}
+						} else {
+							$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+						}
 						do_action( 'eb_save_account_details', $user->ID );
 					} else {
-						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! This might be because wrong data sent to Moodle site or a Connection Error.', 'edwiser-bridge' ) . '</p>';
+						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! Something went wrong.', 'edwiser-bridge' ) . '</p>';
 					}
 				}
 			}
@@ -399,7 +407,11 @@ class Eb_Shortcode_User_Account {
 		if ( isset( $posted_data['new_psw'] ) && ! empty( $posted_data['new_psw'] ) ) {
 			$args['user_pass'] = $posted_data['new_psw'];
 		}
-		wp_update_user( $args );
+		$result = wp_update_user( $args );
+		if ( is_wp_error( $result ) ) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
