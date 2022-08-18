@@ -205,10 +205,6 @@ class Eb_Enrollment_Manager {
 			}
 		}
 
-		if( empty( $enrolments ) ) {
-			return false;
-		}
-
 		$response = array();
 		// If enrolling is enabled then process Moodle request if unenrollment triggered then first check the count and then process request.
 
@@ -395,16 +391,12 @@ class Eb_Enrollment_Manager {
 					// Check if user is already suspended.
 					// If yes then don't increase the count.
 					$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $args['user_id'], $course_id );
-
-					if ( isset($args['sync']) && $args['sync'] === true ){
-						$expire_date = '';
-					} else {
-						if ( ! $is_user_suspended ) {
-							// increase the count value.
-							$act_cnt = ++$act_cnt;
-						}
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id );
+					if ( ! $is_user_suspended ) {
+						// increase the count value.
+						$act_cnt = ++$act_cnt;
 					}
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
+
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
 				}
