@@ -215,7 +215,15 @@ class Eb_Enrollment_Manager {
 		if ( 1 !== $args['unenroll'] ) {
 
 			// prepare request data.
-			$request_data = array( 'enrolments' => $enrolments );
+			// $request_data = array( 'enrolments' => $enrolments );
+			$request_data = array( 'enrolments' => array(
+				$course_id => array(
+					'roleid'   => $role_id,
+					'userid'   => $moodle_user_id,
+					'courseid' => $moodle_courses[ $course_id ],
+				),
+			) );
+			
 			$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
 				$webservice_function,
 				$request_data
