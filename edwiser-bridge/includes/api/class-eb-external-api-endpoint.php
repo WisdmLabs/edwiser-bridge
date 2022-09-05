@@ -395,6 +395,15 @@ class Eb_External_Api_Endpoint {
 
 				$course_meta['mdl_course_deleted'] = 1;
 
+				// To add eb_course in wordpress to draft if course is deleted from moodle.
+				$post_status = array(
+					'ID' => $wp_course_id,
+					'post_type' => 'eb_course',
+					'post_status' => 'draft',
+				);
+				wp_update_post( $post_status );
+
+
 				update_post_meta( $wp_course_id, 'eb_course_options', $course_meta );
 			}
 		}

@@ -349,7 +349,7 @@ class EdwiserBridge {
 
 		require_once $plugin_path . 'public/shortcodes/class-eb-shortcode-user-account.php';
 
-		require_once $plugin_path . 'public/shortcodes/class-eb-shortcode-user-profile.php';
+		// require_once $plugin_path . 'public/shortcodes/class-eb-shortcode-user-profile.php';
 
 		require_once $plugin_path . 'public/shortcodes/class-eb-shortcode-courses.php';
 
