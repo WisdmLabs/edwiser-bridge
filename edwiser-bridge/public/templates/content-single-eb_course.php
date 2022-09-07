@@ -86,6 +86,10 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 
 				<?php
 
+				// To hide "take this course" button if course is deleted from moodle
+				if ( 'publish' !== get_post_status( $post ) || $single_course_data[ 'mdl_course_deleted' ] ) {
+					exit;
+				}
 
 				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() || $single_course_data['suspended'] ) {
 					?>
