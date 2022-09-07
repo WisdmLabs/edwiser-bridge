@@ -185,6 +185,7 @@ class Eb_Template_Functions {
 			'expiry_date_time'       => $expiry_date_time,
 			'categories'             => $categories,
 			'suspended'              => $is_user_suspended,
+			'mdl_course_deleted'     => $course_options['mdl_course_deleted'],
 		);
 	}
 
