@@ -86,10 +86,6 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 
 				<?php
 
-				// To hide "take this course" button if course is deleted from moodle
-				if ( 'publish' !== get_post_status( $post ) || $single_course_data[ 'mdl_course_deleted' ] ) {
-					exit;
-				}
 
 				if ( ! $single_course_data['has_access'] || ! is_user_logged_in() || $single_course_data['suspended'] ) {
 					?>
@@ -98,8 +94,12 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 						// Add_action for price type and price div.
 						do_action( 'eb_course_archive_price', $single_course_data );
 
-						// Echo take this course Button.
-						echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+						error_log( 'single_course_data :: ' . print_r( $single_course_data, 1 ) . ' :: ' . get_post_status( $post ) );
+						// To hide "take this course" button if course is deleted from moodle
+						if ( ! $single_course_data[ 'mdl_course_deleted' ] && 'publish' == get_post_status( $post ) ) {
+							// Echo take this course Button.
+							echo wp_kses( Eb_Payment_Manager::take_course_button( $post->ID ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+						}
 					?>
 					</div>
 					<?php
