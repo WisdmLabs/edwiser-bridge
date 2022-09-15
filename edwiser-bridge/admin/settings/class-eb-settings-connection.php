@@ -31,6 +31,23 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
 			add_action( 'eb_settings_save_' . $this->_id, array( $this, 'save' ) );
+			add_action( 'eb_sections_' . $this->_id, array( $this, 'output_sections' ) );
+		}
+
+		/**
+		 * Get sections.
+		 *
+		 * @since  2.2.1
+		 *
+		 * @return array
+		 */
+		public function get_sections() {
+			$sections = array(
+				''          => __( 'Connection', 'edwiser-bridge' ),
+				'enrollment' => __( 'Enrollment', 'edwiser-bridge' ),
+			);
+
+			return $sections;
 		}
 
 		/**
@@ -40,6 +57,10 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 */
 		public function output() {
 			global $current_section;
+
+			if( 'enrollment' === $current_section ) {
+				$GLOBALS['hide_save_button'] = true;
+			}
 
 			$settings = $this->get_settings( $current_section );
 
@@ -59,6 +80,30 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		}
 
 		/**
+		 * Get All Courses
+		 * 
+		 * @return array
+		 * 
+		 * @since  2.2.1
+		 */
+		public function get_courses() {
+			$courses = array();
+
+			$course_args = array(
+				'post_type'      => 'eb_course',
+				'post_status'    => 'publish', // remove this line to get all courses.
+				'posts_per_page' => -1,
+			);
+			$all_courses = get_posts( $course_args );
+
+			foreach ( $all_courses as $course ) {
+				$courses[ $course->ID ] = $course->post_title;
+			}
+
+			return $courses;
+		}
+
+		/**
 		 * Get settings array.
 		 *
 		 * @since  1.0.0
@@ -67,59 +112,102 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 * @return array
 		 */
 		public function get_settings( $current_section = '' ) {
-			$settings = apply_filters(
-				'eb_connection_settings',
-				array(
+			if( 'enrollment' === $current_section) {
+				$settings = apply_filters(
+					'test_enrollment_settings',
 					array(
-						'title' => __( 'Connection Settings', 'edwiser-bridge' ),
-						'type'  => 'title',
-						'id'    => 'connection_options',
-					),
-
-					array(
-						'title'             => __( 'Moodle URL', 'edwiser-bridge' ),
-						'desc'              => __(
-							'Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)',
-							'edwiser-bridge'
+						array(
+							'title' => __( 'Test Course Enrollment', 'edwiser-bridge' ),
+							'type'  => 'title',
+							'id'    => 'test_enrollment_options',
 						),
-						'id'                => 'eb_url',
-						'css'               => 'min-width:350px;',
-						'default'           => '',
-						'type'              => 'url',
-						'desc_tip'          => true,
-						'custom_attributes' => array( 'required' => 'required' ),
-					),
 
-					array(
-						'title'             => __( 'Moodle Access Token', 'edwiser-bridge' ),
-						'desc'              => __( 'Add the access token generated on the Moodle Site while creating a web service.', 'edwiser-bridge' ),
-						'id'                => 'eb_access_token',
-						'css'               => 'min-width:350px;',
-						'default'           => '',
-						'type'              => 'text',
-						'desc_tip'          => true,
-						'custom_attributes' => array( 'required' => 'required' ),
-					),
+						array(
+							'title'             => __( 'Select Course', 'edwiser-bridge' ),
+							'desc'              => __( 'Select a course to test enrollment.', 'edwiser-bridge' ),
+							'id'                => 'eb_test_enrollment_course',
+							'css'               => 'min-width:350px;',
+							'default'           => __( 'Select Course', 'edwiser-bridge' ),
+							'type'              => 'select',
+							'desc_tip'          => true,
+							'options'		   	=> $this->get_courses(),
+							'custom_attributes' => array( 'required' => 'required' ),
+						),
 
+						array(
+							'title'    => '',
+							'desc'     => '',
+							'id'       => 'eb_test_enrollment_button',
+							'default'  => __( 'Test Enrollment', 'edwiser-bridge' ),
+							'type'     => 'button',
+							'desc_tip' => false,
+							'class'    => 'button secondary',
+						),
+						array(
+							'html' => '<th></th><td> <div class="eb_enrollment_test_response"></div> </td>',
+							'type' => 'cust_html',
+						),
+						array(
+							'type' => 'sectionend',
+							'id'   => 'test_enrollment_options',
+						),
+					)
+				);
+			} else {
+				$settings = apply_filters(
+					'eb_connection_settings',
 					array(
-						'title'    => '',
-						'desc'     => '',
-						'id'       => 'eb_test_connection_button',
-						'default'  => __( 'Test Connection', 'edwiser-bridge' ),
-						'type'     => 'button',
-						'desc_tip' => false,
-						'class'    => 'button secondary',
-					),
-					array(
-						'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
-						'type' => 'cust_html',
-					),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'connection_options',
-					),
-				)
-			);
+						array(
+							'title' => __( 'Connection Settings', 'edwiser-bridge' ),
+							'type'  => 'title',
+							'id'    => 'connection_options',
+						),
+
+						array(
+							'title'             => __( 'Moodle URL', 'edwiser-bridge' ),
+							'desc'              => __(
+								'Moodle URL ( Like: http://example.com or http://example.com/moodle etc.)',
+								'edwiser-bridge'
+							),
+							'id'                => 'eb_url',
+							'css'               => 'min-width:350px;',
+							'default'           => '',
+							'type'              => 'url',
+							'desc_tip'          => true,
+							'custom_attributes' => array( 'required' => 'required' ),
+						),
+
+						array(
+							'title'             => __( 'Moodle Access Token', 'edwiser-bridge' ),
+							'desc'              => __( 'Add the access token generated on the Moodle Site while creating a web service.', 'edwiser-bridge' ),
+							'id'                => 'eb_access_token',
+							'css'               => 'min-width:350px;',
+							'default'           => '',
+							'type'              => 'text',
+							'desc_tip'          => true,
+							'custom_attributes' => array( 'required' => 'required' ),
+						),
+
+						array(
+							'title'    => '',
+							'desc'     => '',
+							'id'       => 'eb_test_connection_button',
+							'default'  => __( 'Test Connection', 'edwiser-bridge' ),
+							'type'     => 'button',
+							'desc_tip' => false,
+							'class'    => 'button secondary',
+						),
+						array(
+							'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
+							'type' => 'cust_html',
+						),
+						array(
+							'type' => 'sectionend',
+							'id'   => 'connection_options',
+						),
+					)
+				);
+			}
 
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
 		}
