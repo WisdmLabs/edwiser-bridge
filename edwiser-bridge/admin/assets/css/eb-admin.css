@@ -525,6 +525,11 @@ a.browse-all:hover {
   background-image: url("../../../images/success.png");
 }
 
+.alert-warning {
+  color: #dba617;
+  padding-left: 0px;
+}
+
 /* iris color picker css*/
 
 .color_box_clear {
