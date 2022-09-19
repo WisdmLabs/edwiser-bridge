@@ -186,7 +186,10 @@ class Eb_Enrollment_Manager {
 		foreach ( $moodle_courses as $wp_course_id => $moodle_course_id ) {
 			// first we check if a moodle course id exists.
 			if ( '' !== $moodle_course_id ) {
-				$expire_date                 = $this->calc_course_acess_expiry_date( $wp_course_id );
+				$expire_date = '0000-00-00 00:00:00';
+				if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
+					$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+				}
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
 					'userid'   => $moodle_user_id,
