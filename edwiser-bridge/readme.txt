@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 5.6
-Tested up to: 5.9.1
+Tested up to: 6.0.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -218,6 +218,13 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+
+= 2.2.1 =
+* Tweak - Remove the take this course button from the deleted course.
+* Tweak - After deleting the course from Moodle course status will get changed to draft on the WordPress site.
+* Fix   - Solved Edwiser Bridge expire time issue on user enrollment synchronization.
+* Fix   - Fixed repeated user unerollement emails for deleted courses.
+* Fix   - Solved WordPress user data update issue on user account page, in case the user was not linked to Moodle.
 
 = 2.2.0 =
 * Feature - Added Setup Wizard for on WordPress as well as Moodle plugin.
