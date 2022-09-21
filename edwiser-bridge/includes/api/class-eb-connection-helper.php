@@ -162,7 +162,9 @@ class EBConnectionHelper {
 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
 			$request_args['sslverify'] = true;
 		}
-		$response = wp_remote_post( $request_url, $request_args );		
+		$response = wp_remote_post( $request_url, $request_args );
+
+
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -456,8 +458,6 @@ class EBConnectionHelper {
 		}
 
 		$response = wp_remote_post( $request_url, $request_args );
-
-		
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
