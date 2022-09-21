@@ -338,7 +338,7 @@ class Eb_Post_Types {
 					'default'     => '',
 				),
 				'course_expirey'           => array(
-					'label'       => __( 'Expire Access (Not applicable for subscription-based courses.)', 'edwiser-bridge' ),
+					'label'       => __( 'Expire Access', 'edwiser-bridge' ),
 					'description' => __( 'Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin.', 'edwiser-bridge' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
