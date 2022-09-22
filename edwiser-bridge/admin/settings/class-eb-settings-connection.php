@@ -144,7 +144,22 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'class'    => 'button secondary',
 						),
 						array(
-							'html' => '<th></th><td> <div class="eb_enrollment_test_response"></div> </td>',
+							'html' => '<th></th><td>
+							<ul class="enroll-progress">
+								<li class="active">Settings</li>
+								<li class="active">User Creation</li>
+								<li>User Enrollment</li>
+								<li>Finish</li>
+							</ul></td>',
+							'type' => 'cust_html',
+						),
+						array(
+							'html' => '<th></th><td> <div class="eb_test_enrollment_response">
+							<div class="alert alert-loading" >Checking settings</div>
+							<div class="alert alert-success">Web service enabled.</div>
+							<div class="alert alert-error">Web service disabled.</div>
+							<button class="button button-secondary" >Enable and Continue</button>
+							</div> </td>',
 							'type' => 'cust_html',
 						),
 						array(
