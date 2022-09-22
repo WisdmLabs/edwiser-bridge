@@ -1355,4 +1355,90 @@ class EBUserManager {
 				 <p></p>
 			  </div>";
 	}
+
+	/**
+	 * Create dummy user. Used for Enrollment test functionality.
+	 * 
+	 * @return int $user_id id of the dummy user created.
+	 * 
+	 * @since 2.2.1
+	 */
+	public function create_dummy_user() { //CHANGES
+		$response_array      = array(
+			'status' => 'error',
+		);
+		$username            = 'ebdummyuser';
+		$wp_user_created     = 0;
+		$moodle_user_created = 0;
+		// check if user already exists.
+		$user                = get_user_by( 'login', $username );
+		if ( ! $user ) {
+			// create dummy user.
+			$user_data = array(
+				'user_login' => $username,
+				'user_pass'  => 'ebdummyuser',
+				'user_email' => 'ebdummyuser@wdm.com',
+				'role'       => get_option( 'default_role' ),
+			);
+
+			$user_id   = wp_insert_user( $user_data );
+			if( is_wp_error( $user_id ) ) {
+				$response_array[ 'wp_message' ] = 'Wrodpress User creation failed. ERROR : ' . $user_id->get_error_message();
+				return $response_array;
+			} else {
+				$user_id                        = $user_id;
+				$wp_user_created                = 1;
+				$response_array[ 'wp_message' ] = 'Wrodpress User created successfully.';
+			}
+		} else {
+			$user_id                        = $user->ID;
+			$wp_user_created                = 1;
+			$response_array[ 'wp_message' ] = 'Wrodpress User already exists.';
+		}
+
+		//create moodle user.
+		if( $this->is_moodle_username_available( $username) ) {
+			$general_settings = get_option( 'eb_general' );
+			$language         = 'en';
+			if ( isset( $general_settings['eb_language_code'] ) ) {
+				$language = $general_settings['eb_language_code'];
+			}
+			$moodle_user_data[0] = array(
+				'username'  => $username,
+				'password'  => 'ebdummyuser',
+				'email'     => 'ebdummyuser@wdm.com',
+				'firstname' => 'ebdummyuser',
+				'lastname'  => 'ebdummyuser',
+				'auth'      => 'manual',
+				'lang'      => $language,
+			);
+
+			$webservice_function = 'core_user_create_users';
+			$request_data        = array( 'users' => $moodle_user_data );
+			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+				$webservice_function,
+				$request_data
+			);
+
+			if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
+				$response_array[ 'moodle_message' ] = 'Moodle User creation failed.';
+			} elseif ( 1 === $response['success'] && is_array( $response['response_data'] ) && ! empty( $response['response_data'] ) ) {
+				$moodle_user_id = $response['response_data'][0]->id;
+				update_user_meta( $user_id, 'moodle_user_id', $moodle_user_id );
+				$moodle_user_created                = 1;
+				$response_array[ 'moodle_message' ] = 'Moodle User created successfully.';
+			} elseif ( 0 === $response['success'] ) {
+				$response_array[ 'moodle_message' ] = 'Moodle User creation failed. ERROR : ' . $response['response_message'];
+			}
+		} else {
+			$moodle_user_created                = 1;
+			$response_array[ 'moodle_message' ] = 'Moodle User already exists.';
+		}
+
+		if( 1 === $wp_user_created && 1 === $moodle_user_created ) {
+			$response_array[ 'status' ] = 'success';
+		}
+
+		return $response_array;
+	}
 }
