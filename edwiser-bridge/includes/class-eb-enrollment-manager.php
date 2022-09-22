@@ -712,14 +712,16 @@ class Eb_Enrollment_Manager {
 	 * 
 	 * @since 2.2.1
 	 */
-	public function enroll_dummy_user( $course_id ) { // CHANGES
+	public function enroll_dummy_user() { // CHANGES
+		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$response_array   = array(
 			'status' => 'error',
 		);
 		$user             = get_user_by( 'login', 'ebdummyuser' );
 		$moodle_user_id   = get_user_meta( $user->ID, 'moodle_user_id', true );
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
-
+		error_log($course_id);
+		error_log($moodle_course_id);
 		$response = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
 		$enrolled_courses = $response[ 'response_data' ];
 		foreach( $enrolled_courses as $course ) {
@@ -741,12 +743,13 @@ class Eb_Enrollment_Manager {
 		$role_id             = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
 		$role_id             = ! empty( $role_id ) ? $role_id : '5';
 		$webservice_function = 'enrol_manual_enrol_users';
-		$request_data        = array( 'enrolments' => array(
-			$course_id => array(
-				'roleid'   => $role_id,
-				'userid'   => $moodle_user_id,
-				'courseid' => $moodle_course_id,
-			),
+		$request_data        = array( 
+			'enrolments' => array(
+				$course_id => array(
+					'roleid'   => $role_id,
+					'userid'   => $moodle_user_id,
+					'courseid' => $moodle_course_id,
+				),
 		) );
 		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
 			$webservice_function,
@@ -774,7 +777,8 @@ class Eb_Enrollment_Manager {
 		} else {
 			$response_array[ 'enroll_message' ] = 'User enrollment test failed. ERROR: ' . $response[ 'response_message' ];
 		}
-		return $response_array;
+		echo wp_json_encode( $response_array );
+		die();
 	}
 
 	/**

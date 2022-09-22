@@ -429,7 +429,7 @@ class EdwiserBridge {
 	 * @return Eb_Course_Manager
 	 */
 	public function courseManager() {
-		return Eb_Course_Manager::instance( $this->get_plugin_name(), $this->get_version() );
+		$this->course_manager();
 	}
 
 
@@ -761,6 +761,52 @@ class EdwiserBridge {
 			$gdpr_compatible,
 			'eb_privacy_policy_page_data'
 		);
+		/**
+         * Test enrollment ajax calls
+		 */
+
+		$this->loader->eb_add_action(
+			'wp_ajax_check_mandatory_settings',
+			$admin_settings_init,
+			'check_mandatory_settings'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_check_manual_enrollment',
+			$admin_settings_init,
+			'check_manual_enrollment'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_enable_mandatory_settings',
+			$admin_settings_init,
+			'enable_mandatory_settings'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_check_course_options',
+			$admin_settings_init,
+			'check_course_options'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_enable_manual_enrollment',
+			$admin_settings_init,
+			'enable_manual_enrollment'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_create_dummy_user',
+			$this->user_manager(),
+			'create_dummy_user'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_enroll_dummy_user',
+			$this->enrollment_manager(),
+			'enroll_dummy_user'
+		);
+
+		
 	}
 
 	/**

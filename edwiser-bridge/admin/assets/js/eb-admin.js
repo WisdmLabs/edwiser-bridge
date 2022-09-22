@@ -299,6 +299,199 @@
          });
 
 
+        /**
+         * creates ajax request to initiate test connection request
+         * display a response to user on process completion
+         */
+        $('#eb_test_enrollment_button').click(function () {
+            //get selected options
+            //
+            $('.response-box').empty(); // empty the response
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Checking mandatory settings.</div>');
+
+            var course_id = $('#eb_test_enrollment_course').val();
+            var $this = $(this);
+        
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'check_mandatory_settings',
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        check_manual_enrollment(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message + response.html);
+                    }
+                }
+            });
+        });
+
+        function check_course_options( course_id ){
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Checking course options.</div>');
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'check_course_options',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        create_dummy_user(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        }
+
+        function check_manual_enrollment( course_id ){
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Checking manual enrollment.</div>');
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'check_manual_enrollment',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        check_course_options(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        }
+
+        function create_dummy_user( course_id ){
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Creating dummy user.</div>');
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'create_dummy_user',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        enroll_dummy_user(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        }
+
+        function enroll_dummy_user( course_id ){
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Enrolling dummy user in the course.</div>');
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'enroll_dummy_user',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        }
+
+        $('.eb_test_enrollment_response').on('click', '#btn_set_mandatory', function () {
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Updating mandatory settings.</div>');
+            var course_id = $('#eb_test_enrollment_course').val();
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'enable_mandatory_settings',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        check_manual_enrollment(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        });
+
+
+        $('.eb_test_enrollment_response').on('click','#btn_set_manual_enrol', function () {
+            $('.eb_test_enrollment_response').empty(); // empty the response
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Enabling manual enrollment.</div>');
+            var course_id = $('#eb_test_enrollment_course').val();
+            $.ajax({
+               method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'enable_manual_enrollment',
+                    'course_id': course_id,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    $('.load-response').hide();
+                    //prepare response for user
+                    if (response.status == 'success') {
+                        $('.eb_test_enrollment_response').html(response.message);
+                        check_manual_enrollment(course_id);
+                    } else {
+                        // ohSnap(response.response_message, 'error', 0);
+                        $('.eb_test_enrollment_response').html(response.message);
+                    }
+                }
+            });
+        });
 
         /**
          * creates ajax request to initiate test connection request

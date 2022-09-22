@@ -1439,6 +1439,7 @@ class EBUserManager {
 			$response_array[ 'status' ] = 'success';
 		}
 
-		return $response_array;
+		echo wp_json_encode( $response_array );
+		die();
 	}
 }
