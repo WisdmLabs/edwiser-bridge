@@ -704,4 +704,122 @@ class Eb_Enrollment_Manager {
 
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}
+
+	/**
+	 * Enroll dummy user in the course.
+	 * 
+	 * @param int $course_id WordPress course id of a course.
+	 * 
+	 * @since 2.2.1
+	 */
+	public function enroll_dummy_user( $course_id ) { // CHANGES
+		$response_array   = array(
+			'status' => 'error',
+		);
+		$user             = get_user_by( 'login', 'ebdummyuser' );
+		$moodle_user_id   = get_user_meta( $user->ID, 'moodle_user_id', true );
+		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
+
+		$response = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
+		$enrolled_courses = $response[ 'response_data' ];
+		foreach( $enrolled_courses as $course ) {
+			if ( 1 === $course->id ) {
+				continue;
+			}
+			if( $course->id == $moodle_course_id ) {
+				// user already enrolled in the course. Unenroll first
+				$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
+					'user_id' => $user->ID,
+					'moodle_user_id' => $moodle_user_id,
+					'course_id' => $course_id,
+					'moodle_course_id' => $moodle_course_id,
+					) 
+				);
+			}
+		}
+
+		$role_id             = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
+		$role_id             = ! empty( $role_id ) ? $role_id : '5';
+		$webservice_function = 'enrol_manual_enrol_users';
+		$request_data        = array( 'enrolments' => array(
+			$course_id => array(
+				'roleid'   => $role_id,
+				'userid'   => $moodle_user_id,
+				'courseid' => $moodle_course_id,
+			),
+		) );
+		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+			$webservice_function,
+			$request_data
+		);
+
+		if( isset( $response[ 'success' ]) && $response[ 'success' ] ) {
+			$args = array(
+				'user_id'   => $user->ID,
+				'courses' => array( $course_id ),
+				'role_id'   => $role_id,
+			);
+			$this->update_enrollment_record_wordpress( $args );
+			$response_array[ 'status' ] = 'success';
+			$response_array[ 'enroll_message' ] = 'User enrollment test successfull';
+			//unenroll dummy user
+			$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
+				'user_id' => $user->ID,
+				'moodle_user_id' => $moodle_user_id,
+				'course_id' => $course_id,
+				'moodle_course_id' => $moodle_course_id,
+				) 
+			);
+			
+		} else {
+			$response_array[ 'enroll_message' ] = 'User enrollment test failed. ERROR: ' . $response[ 'response_message' ];
+		}
+		return $response_array;
+	}
+
+	/**
+	 * Unenroll dummy user from the course.
+	 * 
+	 * @param int $course_id WordPress course id of a course.
+	 *
+	 * @since 2.2.1
+	 */
+	public function unenroll_dummy_user( $args ) { // CHANGES
+		$role_id             = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
+		$role_id             = ! empty( $role_id ) ? $role_id : '5';
+		$webservice_function = 'enrol_manual_unenrol_users';
+		$request_data        = array( 'enrolments' => array(
+			$args['course_id'] => array(
+				'roleid'   => $role_id,
+				'userid'   => $args['moodle_user_id'],
+				'courseid' => $args['moodle_course_id'],
+			),
+		) );
+		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+			$webservice_function,
+			$request_data
+		);
+		if ( isset( $response[ 'success' ] ) && $response[ 'success' ] ) {
+			global $wpdb;
+			$deleted = $wpdb->delete( // @codingStandardsIgnoreLine
+				$wpdb->prefix . 'moodle_enrollment',
+				array(
+					'user_id'   => $args['user_id'],
+					'course_id' => $args['course_id'],
+				),
+				array(
+					'%d',
+					'%d',
+				)
+			);
+			if( $deleted ) {
+				$msg = 'User unenrollment test successfull';
+			} else {
+				$msg = 'User unenrollment failed at wordpress side.';
+			}
+		} else {
+			$msg = 'User unenrollment test failed. ERROR: ' . $response[ 'response_message' ];
+		}
+		return $msg;
+	}
 }
