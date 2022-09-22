@@ -484,6 +484,7 @@ class EBConnectionHelper {
 			'success'          => $success,
 			'response_message' => $response_message,
 			'response_data'    => $response_data,
+			'status_code'      => wp_remote_retrieve_response_code( $response ),
 		);
 	}
 }

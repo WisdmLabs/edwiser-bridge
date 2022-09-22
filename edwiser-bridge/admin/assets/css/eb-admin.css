@@ -1538,6 +1538,7 @@ abbr.help:hover::after {
 
 /* Enrollment test progress */
 .enroll-progress{
+  display: none;
   counter-reset: step;
 }
 .enroll-progress li{

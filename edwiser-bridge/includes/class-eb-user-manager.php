@@ -1383,17 +1383,17 @@ class EBUserManager {
 
 			$user_id   = wp_insert_user( $user_data );
 			if( is_wp_error( $user_id ) ) {
-				$response_array[ 'wp_message' ] = 'Wrodpress User creation failed. ERROR : ' . $user_id->get_error_message();
+				$response_array[ 'wp_message' ] = '<div class="alert alert-error">Wrodpress User creation failed. ERROR : ' . $user_id->get_error_message() . '</div>';
 				return $response_array;
 			} else {
 				$user_id                        = $user_id;
 				$wp_user_created                = 1;
-				$response_array[ 'wp_message' ] = 'Wrodpress User created successfully.';
+				$response_array[ 'wp_message' ] = '<div class="alert alert-success">Wrodpress User created successfully.</div>';
 			}
 		} else {
 			$user_id                        = $user->ID;
 			$wp_user_created                = 1;
-			$response_array[ 'wp_message' ] = 'Wrodpress User already exists.';
+			$response_array[ 'wp_message' ] = '<div class="alert alert-success">Wrodpress User already exists.</div>';
 		}
 
 		//create moodle user.
@@ -1421,18 +1421,18 @@ class EBUserManager {
 			);
 
 			if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
-				$response_array[ 'moodle_message' ] = 'Moodle User creation failed.';
+				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">Moodle User creation failed.</div>';
 			} elseif ( 1 === $response['success'] && is_array( $response['response_data'] ) && ! empty( $response['response_data'] ) ) {
 				$moodle_user_id = $response['response_data'][0]->id;
 				update_user_meta( $user_id, 'moodle_user_id', $moodle_user_id );
 				$moodle_user_created                = 1;
-				$response_array[ 'moodle_message' ] = 'Moodle User created successfully.';
+				$response_array[ 'moodle_message' ] = '<div class="alert alert-success">Moodle User created successfully.</div>';
 			} elseif ( 0 === $response['success'] ) {
-				$response_array[ 'moodle_message' ] = 'Moodle User creation failed. ERROR : ' . $response['response_message'];
+				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">Moodle User creation failed. ERROR : ' . $response['response_message'] . '</div>';
 			}
 		} else {
 			$moodle_user_created                = 1;
-			$response_array[ 'moodle_message' ] = 'Moodle User already exists.';
+			$response_array[ 'moodle_message' ] = '<div class="alert alert-success">Moodle User already exists.</div>';
 		}
 
 		if( 1 === $wp_user_created && 1 === $moodle_user_created ) {

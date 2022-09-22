@@ -211,12 +211,12 @@ class Eb_Settings_Ajax_Initiater {
 			$course_options = get_post_meta( $course_id, 'eb_course_options', true ) ;
 			if ( isset( $course_options['course_price_type'] ) && 'closed' !== $course_options['course_price_type'] ) {
 				$flag = true;
-				$msg .= '<div>Course Price type is not set to closed. It is recomended to be closed for woocommerce products.</div>';
+				$msg .= '<div class="alert alert-error">Course Price type is not set to closed. It is recomended to be closed for woocommerce products.</div>';
 			}
 		}
 		if ( 'publish' !== get_post_status( $course_id ) ) {
 			$flag = true;
-			$msg .= '<div>Course should be published.</div>';
+			$msg .= '<div class="alert alert-error">Course should be published.</div>';
 		}
 
 		if ( $flag ) {
@@ -224,7 +224,7 @@ class Eb_Settings_Ajax_Initiater {
 			$response_array = array(
 				'status' => 'error',
 				'message' => $msg,
-				'html' => '<a href="' . $post_link . '">Make Changes</a>',
+				'html' => '<a target="_blank" href="' . $post_link . '">Make Changes</a>',
 			);
 		} else {
 			$response_array = array(

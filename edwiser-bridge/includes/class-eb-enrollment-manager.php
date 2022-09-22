@@ -764,7 +764,7 @@ class Eb_Enrollment_Manager {
 			);
 			$this->update_enrollment_record_wordpress( $args );
 			$response_array[ 'status' ] = 'success';
-			$response_array[ 'enroll_message' ] = 'User enrollment test successfull';
+			$response_array[ 'enroll_message' ] = '<div class="alert alert-success">User enrollment test successfull</div>';
 			//unenroll dummy user
 			$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
 				'user_id' => $user->ID,
@@ -775,7 +775,7 @@ class Eb_Enrollment_Manager {
 			);
 			
 		} else {
-			$response_array[ 'enroll_message' ] = 'User enrollment test failed. ERROR: ' . $response[ 'response_message' ];
+			$response_array[ 'enroll_message' ] = '<div class="alert alert-error">User enrollment test failed. ERROR: ' . $response[ 'response_message' ] . '</div>';
 		}
 		echo wp_json_encode( $response_array );
 		die();
@@ -817,12 +817,12 @@ class Eb_Enrollment_Manager {
 				)
 			);
 			if( $deleted ) {
-				$msg = 'User unenrollment test successfull';
+				$msg = '<div class="alert alert-success">User unenrollment test successfull.</div>';
 			} else {
-				$msg = 'User unenrollment failed at wordpress side.';
+				$msg = '<div class="alert alert-error">User unenrollment failed at wordpress side.</div>';
 			}
 		} else {
-			$msg = 'User unenrollment test failed. ERROR: ' . $response[ 'response_message' ];
+			$msg = '<div class="alert alert-error">User unenrollment test failed. ERROR: ' . $response[ 'response_message' ] . '</div>';
 		}
 		return $msg;
 	}
