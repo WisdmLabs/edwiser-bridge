@@ -518,11 +518,13 @@ a.browse-all:hover {
 .alert-error {
   color: red;
   background-image: url("../../../images/error.png");
+  background-position: 0px 5px;
 }
 
 .alert-success {
   color: green;
   background-image: url("../../../images/success.png");
+  background-position: 0px 5px;
 }
 
 .alert-warning {
@@ -533,6 +535,17 @@ a.browse-all:hover {
 .alert-loading {
   color: blue;
   background-image: url("../../../images/loader.gif");
+}
+
+.eb_test_enrollment_response{
+  width: 75%;
+}
+
+.response-fieldset{
+  border-width: 2px;
+  border-style: groove;
+  border-color: rgb(192, 192, 192);
+  padding: 5px 10px;
 }
 
 /* iris color picker css*/

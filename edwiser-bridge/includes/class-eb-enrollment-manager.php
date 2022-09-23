@@ -765,6 +765,21 @@ class Eb_Enrollment_Manager {
 			$this->update_enrollment_record_wordpress( $args );
 			$response_array[ 'status' ] = 'success';
 			$response_array[ 'enroll_message' ] = '<div class="alert alert-success">User enrollment test successfull</div>';
+			$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
+			if ( is_plugin_active( $woo_integration_path ) ) {
+				$html = '<div class="alert alert-success">Enrollment process for this course successfull</div>
+						<fieldset class="response-fieldset">
+						<legend>Note</legend>
+						<p>If you are still facing issues in enrollment for this course check the following things</p>
+								<ul style="list-style: disc;padding:revert; ">
+									<li>Payment Gateway should be compatible with WooCommerce and should confirm the payment receipt</li>
+									<li>WooCommerce will process the order and update the order status to complete when the payment gateway confirms the payment</li>
+									<li>Enrollment will be processed only when the order status is complete</li>
+									<li>If the order is in processing Edwiser plugin will not enroll the user in the course</li>
+								</ul>
+							</fieldset>';
+				$response_array[ 'enroll_message' ] .= $html;
+			}
 			//unenroll dummy user
 			$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
 				'user_id' => $user->ID,
@@ -817,9 +832,9 @@ class Eb_Enrollment_Manager {
 				)
 			);
 			if( $deleted ) {
-				$msg = '<div class="alert alert-success">User unenrollment test successfull.</div>';
+				$msg = '<div class="alert alert-success">User unenrollment test successfull</div>';
 			} else {
-				$msg = '<div class="alert alert-error">User unenrollment failed at wordpress side.</div>';
+				$msg = '<div class="alert alert-error">User unenrollment failed at wordpress side</div>';
 			}
 		} else {
 			$msg = '<div class="alert alert-error">User unenrollment test failed. ERROR: ' . $response[ 'response_message' ] . '</div>';

@@ -149,6 +149,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 						),
 						array(
 							'html' => '<th></th><td>
+							<h2 class="test-enrollment-heading"></h2>
 							<ul class="enroll-progress">
 								<li id="progress_settings">Settings</li>
 								<li id="progress_user">User Creation</li>
