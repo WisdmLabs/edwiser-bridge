@@ -1431,6 +1431,12 @@ class EBUserManager {
 				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">Moodle User creation failed. ERROR : ' . $response['response_message'] . '</div>';
 			}
 		} else {
+			$moodle_user = $this->get_moodle_user( 'ebdummyuser@wdm.com' );
+
+			if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] && is_object( $moodle_user['user_data'] ) ) {
+				update_user_meta( $user_id, 'moodle_user_id', $moodle_user['user_data']->id );
+			}
+			
 			$moodle_user_created                = 1;
 			$response_array[ 'moodle_message' ] = '<div class="alert alert-success">Moodle User already exists</div>';
 		}
