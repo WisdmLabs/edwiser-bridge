@@ -270,6 +270,7 @@ class Eb_Enrollment_Manager {
 				'unenroll'          => $args['unenroll'],
 				'suspend'           => $args['suspend'],
 				'complete_unenroll' => $args['complete_unenroll'],
+				'is_subscription'   => $args['is_subscription'],
 
 			);
 
@@ -379,7 +380,10 @@ class Eb_Enrollment_Manager {
 					// Set timezone.
 
 					// New code for time.
-					$expire_date = $this->calc_course_acess_expiry_date( $course_id );
+					$expire_date = '0000-00-00 00:00:00';
+					if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
+						$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+					}
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
@@ -413,7 +417,10 @@ class Eb_Enrollment_Manager {
 							// increase the count value.
 							$act_cnt = ++$act_cnt;
 						}
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id );
+						$expire_date = '0000-00-00 00:00:00';
+						if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
+							$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+						}
 					}
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
