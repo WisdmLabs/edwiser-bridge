@@ -313,14 +313,15 @@
             $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Checking mandatory settings.</div>');
 
             var course_id = $('#eb_test_enrollment_course').val();
-            var course_name = $('#eb_test_enrollment_course option:selected').text();
-            $('.test-enrollment-heading').html('Testing enrollment process for course ' + course_name);
+            
             if(course_id == ''){
                 $('.eb_test_enrollment_response').empty(); // empty the response
-                $('.eb_test_enrollment_response').html('<div class="alert alert-error">Please select a course.</div>');
+                ohSnap('Please select a course.', 'error');
                 $('.enroll-progress').hide();
                 return;
             }
+            var course_name = $('#eb_test_enrollment_course option:selected').text();
+            $('.test-enrollment-heading').html('Testing enrollment process for course ' + course_name);
             var $this = $(this);
         
             $.ajax({
@@ -519,10 +520,13 @@
                     if (response.status == 'success') {
                         $('.eb_test_enrollment_response').append(response.message);
                         setTimeout(function () {
-                            check_manual_enrollment(course_id);
+                            check_course_options(course_id);
                         }, 1000);
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
+                        if(response.html){
+                            response.message += response.html;
+                        }
                         $('.eb_test_enrollment_response').append(response.message);
                     }
                 }
