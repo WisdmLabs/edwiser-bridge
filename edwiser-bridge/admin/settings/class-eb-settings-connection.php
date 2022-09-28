@@ -98,7 +98,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 
 			foreach ( $all_courses as $course ) {
 				if( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
-					error_log( 'Course deleted from moodle' );
+
 					continue;
 				}
 				$courses[ $course->ID ] = $course->post_title;
