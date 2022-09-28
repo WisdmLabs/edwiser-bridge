@@ -188,7 +188,7 @@ class Eb_Settings_Ajax_Initiater {
 				$response_array = array(
 					'status' => 'error',
 					'message' => $msg,
-					'html' => '<buton id="btn_set_mandatory" class="button button-secondary">Enable & Continue</button>',
+					'html' => '<buton id="btn_set_mandatory" class="button button-secondary">Update mandatory settings & Continue</button>',
 				);
 			} else {
 				$response_array = array(
@@ -220,7 +220,7 @@ class Eb_Settings_Ajax_Initiater {
 			if ( isset( $course_options['course_price_type'] ) && 'closed' !== $course_options['course_price_type'] ) {
 				$flag = true;
 				$post_link = get_edit_post_link( $course_id );
-				$msg .= '<div class="alert alert-error">Course Price type is not set to closed. It is recomended to be closed for woocommerce products. <a target="_blank" href="' . $post_link . '">Configure course price type</a></div>';
+				$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>Course Price type is not set to closed. It is recomended to be closed for woocommerce products. <a target="_blank" href="' . $post_link . '">Configure course price type</a></div>';
 			}
 		}
 		if ( 'publish' !== get_post_status( $course_id ) ) {
@@ -262,21 +262,29 @@ class Eb_Settings_Ajax_Initiater {
 
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
-		error_log( print_r( $response, true ) );
-		foreach ( $response as $course ) {
-			if ( $course->courseid == $moodle_course_id ) {
-				$response_array = array(
-					'status' => 'success',
-					'message' => '<div class="alert alert-success">Manual Enrollment method enabled</div>',
-				);
-				break;
-			} else {
-				update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 0 );
-				$response_array = array(
-					'status' => 'error',
-					'message' => '<div class="alert alert-error">Manual Enrollment method not enabled</div>',
-					'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">Enable & Continue</button>',
-				);
+
+		if( ! isset( $response ) ){
+			$response_array = array(
+				'status' => 'error',
+				'message' => '<div class="alert alert-error">Manual Enrollment method not enabled on Moodle Site</div>',
+				'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">Enable & Continue</button>',
+			);
+		} else {
+			foreach ( $response as $course ) {
+				if ( $course->courseid == $moodle_course_id ) {
+					$response_array = array(
+						'status' => 'success',
+						'message' => '<div class="alert alert-success">Manual Enrollment method enabled</div>',
+					);
+					break;
+				} else {
+					update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 0 );
+					$response_array = array(
+						'status' => 'error',
+						'message' => '<div class="alert alert-error">Manual Enrollment method not enabled</div>',
+						'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">Enable & Continue</button>',
+					);
+				}
 			}
 		}
 	
@@ -310,6 +318,11 @@ class Eb_Settings_Ajax_Initiater {
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">Enabling Manual Enrollment method failed. ERROR: ' . $response['response_message'] . '</div>',
 			);
+			if( "Class 'enrol_manual_plugin' not found" === $response['response_message'] ) {
+				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/settings.php?section=manageenrols';
+				$response_array['message'] .= '<div class="alert alert-error">Please enable manual enrolment plugin on Moodle Site </div>';
+				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">Enable Manual Enrollment plugin</a>';
+			}
 		} else {
 			update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 1 );
 			$response_array = array(
@@ -347,10 +360,17 @@ class Eb_Settings_Ajax_Initiater {
 			$general_settings['eb_language_code'] = $response['response_data']->lang_code;
 			update_option( 'eb_general', $general_settings );
 		}
-		$response_array = array(
-			'status' => 'success',
-			'message' => '<div class="alert alert-success">Mandatory Settings are up to mark</div>',
-		);
+		if( isset( $response['success'] ) && 0 === $response['success'] ) {
+			$response_array = array(
+				'status' => 'error',
+				'message' => '<div class="alert alert-error">Enabling Mandatory Settings failed. Try Test Connection first. ERROR: ' . $response['response_message'] . '</div>',
+			);
+		} else {
+			$response_array = array(
+				'status' => 'success',
+				'message' => '<div class="alert alert-success">Mandatory Settings are up to mark</div>',
+			);
+		}
 	
 		echo wp_json_encode( $response_array );
 		die();
