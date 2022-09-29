@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-29 12:17+0530\n"
+"POT-Creation-Date: 2022-09-29 20:02+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -36,6 +36,7 @@ msgid "Settings"
 msgstr ""
 
 #: admin/class-eb-admin-menus.php:76
+#: admin/settings/class-eb-settings-connection.php:156
 msgid "User Enrollment"
 msgstr ""
 
@@ -230,6 +231,10 @@ msgstr ""
 msgid "Enabling manual enrollment"
 msgstr ""
 
+#: admin/class-eb-admin.php:198
+msgid "Please select a course"
+msgstr ""
+
 #: admin/class-eb-email-template.php:47
 #: includes/class-eb-default-email-templates.php:39
 #: includes/emails/class-eb-emailer.php:249
@@ -365,6 +370,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:779
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1181
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1650
+#: includes/class-eb-enrollment-manager.php:780
 msgid "Note"
 msgstr ""
 
@@ -526,63 +532,93 @@ msgstr ""
 msgid "Something went wrong. Try Test Connection. ERROR : "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:223
+#: admin/class-eb-settings-ajax-initiater.php:206
+#: admin/class-eb-settings-ajax-initiater.php:275
+#: admin/class-eb-settings-ajax-initiater.php:334
+#: admin/class-eb-settings-ajax-initiater.php:385
+#: includes/class-eb-user-manager.php:1434
+msgid "Update webservice"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:206
+#: admin/class-eb-settings-ajax-initiater.php:275
+#: admin/class-eb-settings-ajax-initiater.php:334
+#: admin/class-eb-settings-ajax-initiater.php:385
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1105
+#: includes/class-eb-user-manager.php:1434
+msgid " OR "
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:206
+#: admin/class-eb-settings-ajax-initiater.php:275
+#: admin/class-eb-settings-ajax-initiater.php:334
+#: admin/class-eb-settings-ajax-initiater.php:385
+#: includes/class-eb-user-manager.php:1434
+msgid "Try test connection"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:227
 msgid ""
 "Course Price type is not set to closed. It is recomended to be closed for "
 "woocommerce products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:223
+#: admin/class-eb-settings-ajax-initiater.php:227
 msgid "Configure course price type"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:228
+#: admin/class-eb-settings-ajax-initiater.php:232
 msgid "Course should be published"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:235
+#: admin/class-eb-settings-ajax-initiater.php:239
 msgid "Continue without chnage"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:240
+#: admin/class-eb-settings-ajax-initiater.php:244
 msgid "All post options are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:269
+#: admin/class-eb-settings-ajax-initiater.php:272
+msgid "Manual Enrollment method check failed. ERROR : "
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:279
 msgid "Manual Enrollment method not enabled on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:270
-#: admin/class-eb-settings-ajax-initiater.php:285
+#: admin/class-eb-settings-ajax-initiater.php:280
+#: admin/class-eb-settings-ajax-initiater.php:296
 msgid "Enable & Continue"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:277
-#: admin/class-eb-settings-ajax-initiater.php:330
+#: admin/class-eb-settings-ajax-initiater.php:288
+#: admin/class-eb-settings-ajax-initiater.php:345
 msgid "Manual Enrollment method enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:284
+#: admin/class-eb-settings-ajax-initiater.php:295
 msgid "Manual Enrollment method not enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:319
+#: admin/class-eb-settings-ajax-initiater.php:330
 msgid "Enabling Manual Enrollment method failed. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:323
+#: admin/class-eb-settings-ajax-initiater.php:338
 msgid "Please enable manual enrolment plugin on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:324
+#: admin/class-eb-settings-ajax-initiater.php:339
 msgid "Enable Manual Enrollment plugin"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:366
+#: admin/class-eb-settings-ajax-initiater.php:381
 msgid "Enabling Mandatory Settings failed. Try Test Connection first. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:371
+#: admin/class-eb-settings-ajax-initiater.php:390
 msgid "Mandatory Settings are up to mark"
 msgstr ""
 
@@ -1050,6 +1086,18 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:145
 msgid "Test Enrollment"
+msgstr ""
+
+#: admin/settings/class-eb-settings-connection.php:154
+msgid "Mandatory Settings"
+msgstr ""
+
+#: admin/settings/class-eb-settings-connection.php:155
+msgid "User Creation"
+msgstr ""
+
+#: admin/settings/class-eb-settings-connection.php:157
+msgid "Finish"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:176
@@ -2140,11 +2188,6 @@ msgstr ""
 msgid "Test connection"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1105
-msgid " OR "
-msgstr ""
-
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:542
 msgid "Choose and upload the Moodle Credential file here"
 msgstr ""
@@ -2658,7 +2701,7 @@ msgstr ""
 msgid "Please check Moodle connection details."
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:480
+#: includes/api/class-eb-connection-helper.php:481
 msgid "Please check Moodle URL !"
 msgstr ""
 
@@ -3219,6 +3262,40 @@ msgstr ""
 #: includes/class-eb-email-template-parser.php:272
 #: includes/class-eb-order-meta.php:256
 msgid "Email: "
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:775
+msgid "User enrollment test successfull"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:778
+msgid "Enrollment process for this course successfull"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:781
+msgid ""
+"If you are still facing issues in enrollment for this course check the "
+"following things"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:783
+msgid ""
+"Payment Gateway should be compatible with WooCommerce and should confirm the "
+"payment receipt"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:784
+msgid ""
+"WooCommerce will process the order and update the order status to complete "
+"when the payment gateway confirms the payment"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:785
+msgid "Enrollment will be processed only when the order status is complete"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:786
+msgid ", "
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:34
@@ -3921,13 +3998,37 @@ msgstr ""
 msgid "Invalid ajax request."
 msgstr ""
 
+#: includes/class-eb-user-manager.php:1386
+msgid "Wrodpress User creation failed. ERROR : "
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1391
+msgid "Wrodpress User created successfully"
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1396
+msgid "Wrodpress User already exists"
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1429
+msgid "Moodle User created successfully"
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1431
+msgid "Moodle User creation failed. ERROR : "
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1445
+msgid "Moodle User already exists"
+msgstr ""
+
 #: includes/eb-core-functions.php:252
 #: public/shortcodes/class-eb-shortcode-my-courses.php:48
 #: public/shortcodes/class-eb-shortcode-my-courses.php:366
 msgid "Recommended Courses"
 msgstr ""
 
-#: includes/eb-core-functions.php:893
+#: includes/eb-core-functions.php:894
 msgid "Plugin not installed"
 msgstr ""
 
