@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-29 11:52+0530\n"
+"POT-Creation-Date: 2022-09-29 12:17+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -196,6 +196,38 @@ msgid ""
 "information from your site. We need this information for giving you a "
 "seamless experience of selling Moodle courses through WordPress. Do hit the "
 "<b> \"Agree\" </b> button if you are ready to share these details with us. "
+msgstr ""
+
+#: admin/class-eb-admin.php:190
+msgid "Testing enrollment process for course "
+msgstr ""
+
+#: admin/class-eb-admin.php:191
+msgid "Checking mandatory settings"
+msgstr ""
+
+#: admin/class-eb-admin.php:192
+msgid "Checking course options"
+msgstr ""
+
+#: admin/class-eb-admin.php:193
+msgid "Checking manual enrollment"
+msgstr ""
+
+#: admin/class-eb-admin.php:194
+msgid "Creating dummy user"
+msgstr ""
+
+#: admin/class-eb-admin.php:195
+msgid "Enrolling dummy user in the course"
+msgstr ""
+
+#: admin/class-eb-admin.php:196
+msgid "Updating mandatory settings"
+msgstr ""
+
+#: admin/class-eb-admin.php:197
+msgid "Enabling manual enrollment"
 msgstr ""
 
 #: admin/class-eb-email-template.php:47

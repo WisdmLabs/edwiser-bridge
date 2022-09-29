@@ -187,6 +187,14 @@ class Eb_Admin {
 				'msg_refund_failed'               => esc_html__( 'Failed to refund the order', 'edwiser-bridge' ),
 				'edwiser_terms_title'             => esc_html__( 'Edwiser Terms and Conditions', 'edwiser-bridge' ),
 				'edwiser_terms_content'           => esc_html__( 'Edwiser extensions licensing system used to provide the latest stable code of the product as well as to check the renewals for this license at our end. For this purpose, we acquire the details like <b> " Site Name, IP Address " </b>and once the license gets deactivated or expires we won\'t get this information from your site. We need this information for giving you a seamless experience of selling Moodle courses through WordPress. Do hit the <b> "Agree" </b> button if you are ready to share these details with us. ', 'edwiser-bridge' ),
+				'testing_enrollment_process' => esc_html__( 'Testing enrollment process for course ', 'edwiser-bridge' ),
+				'checking_mandatory_settings' => esc_html__( 'Checking mandatory settings', 'edwiser-bridge' ),
+				'checking_course_options' => esc_html__( 'Checking course options', 'edwiser-bridge' ),
+				'checking_manual_enrollment' => esc_html__( 'Checking manual enrollment', 'edwiser-bridge' ),
+				'creating_dummy_user' => esc_html__( 'Creating dummy user', 'edwiser-bridge' ),
+				'enrolling_user' => esc_html__( 'Enrolling dummy user in the course', 'edwiser-bridge' ),
+				'updating_mandatory_settings' => esc_html__( 'Updating mandatory settings', 'edwiser-bridge' ),
+				'enabling_manual_enrollment' => esc_html__( 'Enabling manual enrollment', 'edwiser-bridge' ),
 			)
 		);
 
