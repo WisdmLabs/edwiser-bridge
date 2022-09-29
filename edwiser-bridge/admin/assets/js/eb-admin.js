@@ -307,6 +307,7 @@
             // $('#eb_test_enrollment_button').prop('disabled', true);
             $('.enroll-progress').show();
             $('.response-box').empty();
+            $('.test-enrollment-heading').empty();
             //remove all active classes
             $('.enroll-progress').find('.active').removeClass('active');
             $('#progress_settings').addClass('active');
