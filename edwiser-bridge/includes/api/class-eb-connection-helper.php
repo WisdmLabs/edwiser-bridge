@@ -439,6 +439,7 @@ class EBConnectionHelper {
 	 */
 	public function connect_moodle_with_args_helper( $webservice_function, $request_data ) {
 		$success          = 1;
+		$body             = '';
 		$response_message = 'success';
 		$response_data    = array();
 		$eb_access_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
@@ -485,6 +486,7 @@ class EBConnectionHelper {
 			'response_message' => $response_message,
 			'response_data'    => $response_data,
 			'status_code'      => wp_remote_retrieve_response_code( $response ),
+			'response_body'    => $body,
 		);
 	}
 }

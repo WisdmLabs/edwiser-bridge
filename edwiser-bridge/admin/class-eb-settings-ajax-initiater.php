@@ -165,7 +165,7 @@ class Eb_Settings_Ajax_Initiater {
 			);
 		} elseif ( ! empty( $response['response_data'] ) ) {
 			$data = $response['response_data'];
-			error_log( print_r( $data, true ) );
+
 			$general_settings = get_option( 'eb_general' );
 			$language         = isset( $general_settings['eb_language_code'] ) ? $general_settings['eb_language_code'] : 'en';
 			$msg = '';
@@ -201,6 +201,10 @@ class Eb_Settings_Ajax_Initiater {
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">' . __('Something went wrong. Try Test Connection. ERROR : ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
 		}
 
 		echo wp_json_encode( $response_array );
@@ -258,19 +262,26 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 
-		$response = edwiser_bridge_instance()->course_manager()->sync_course_enrollment_method();
-
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( 'edwiserbridge_local_get_course_enrollment_method', array() );
+		
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
 
-		if( ! isset( $response ) ){ 
-			$response_array = array(
-				'status' => 'error',
-				'message' => '<div class="alert alert-error">'. __('Manual Enrollment method not enabled on Moodle Site', 'edwiser-bridge') .'</div>',
-				'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">' . __('Enable & Continue', 'edwiser-bridge') . '</button>',
-			);
-		} else {
-			foreach ( $response as $course ) {
+		if( 0 === $response['success']) {
+			$response_array [ 'status' ] = 'error';
+			$response_array[ 'message' ] = '<div class="alert alert-error">' . __( 'Manual Enrollment method check failed. ERROR : ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			} else {
+				$response_array = array(
+					'status' => 'error',
+					'message' => '<div class="alert alert-error">' . __( 'Manual Enrollment method not enabled on Moodle Site', 'edwiser-bridge' ) .'</div>',
+					'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">' . __( 'Enable & Continue', 'edwiser-bridge' ) .'</button>',
+				);
+			}
+		} elseif( isset( $response['response_data'] ) ) {
+			foreach ( $response['response_data'] as $course ) {
 				if ( $course->courseid == $moodle_course_id ) {
 					$response_array = array(
 						'status' => 'success',
@@ -318,6 +329,10 @@ class Eb_Settings_Ajax_Initiater {
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">' . __('Enabling Manual Enrollment method failed. ERROR: ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
 			if( "Class 'enrol_manual_plugin' not found" === $response['response_message'] ) {
 				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/settings.php?section=manageenrols';
 				$response_array['message'] .= '<div class="alert alert-error">' . __('Please enable manual enrolment plugin on Moodle Site', 'edwiser-bridge') . ' </div>';
@@ -365,6 +380,10 @@ class Eb_Settings_Ajax_Initiater {
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">' . __('Enabling Mandatory Settings failed. Try Test Connection first. ERROR: ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>',
 			);
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
 		} else {
 			$response_array = array(
 				'status' => 'success',

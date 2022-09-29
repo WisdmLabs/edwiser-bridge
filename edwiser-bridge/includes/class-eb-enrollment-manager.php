@@ -181,13 +181,15 @@ class Eb_Enrollment_Manager {
 		$enrolments          = array();
 		$role_id             = $args['role_id']; // the role id 5 denotes student role on moodle.
 		$webservice_function = $this->get_moodle_web_service_function( $args['unenroll'] );
+		$is_subscription = isset( $args['is_subscription'] ) ? $args['is_subscription'] : false;
 
 		// prepare course array.
 		foreach ( $moodle_courses as $wp_course_id => $moodle_course_id ) {
 			// first we check if a moodle course id exists.
 			if ( '' !== $moodle_course_id ) {
 				$expire_date = '0000-00-00 00:00:00';
-				if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
+				
+				if( ! $is_subscription ) { // only set expiary date if it is not a subscription.
 					$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
 				}
 				$enrolments[ $wp_course_id ] = array(
@@ -270,7 +272,7 @@ class Eb_Enrollment_Manager {
 				'unenroll'          => $args['unenroll'],
 				'suspend'           => $args['suspend'],
 				'complete_unenroll' => $args['complete_unenroll'],
-				'is_subscription'   => isset( $args['is_subscription'] ) ? $args['is_subscription'] : false,
+				'is_subscription'   => $is_subscription,
 
 			);
 
@@ -727,8 +729,7 @@ class Eb_Enrollment_Manager {
 		$user             = get_user_by( 'login', 'ebdummyuser' );
 		$moodle_user_id   = get_user_meta( $user->ID, 'moodle_user_id', true );
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
-		error_log($course_id);
-		error_log($moodle_course_id);
+
 		$response = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
 		$enrolled_courses = $response[ 'response_data' ];
 		foreach( $enrolled_courses as $course ) {
@@ -781,8 +782,8 @@ class Eb_Enrollment_Manager {
 								<ul style="list-style: disc;padding:revert; ">
 									<li>' . __('Payment Gateway should be compatible with WooCommerce and should confirm the payment receipt', 'edwiser-bridge') . '</li>
 									<li>' . __('WooCommerce will process the order and update the order status to complete when the payment gateway confirms the payment', 'edwiser-bridge') . '</li>
-									<li>' . __('Enrollment will be processed only when the order status is complete</li>
-									<li>If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge') . '</li>
+									<li>' . __('Enrollment will be processed only when the order status is complete', 'edwiser-bridge') . '</li>
+									<li>' . __(If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge') . '</li>
 								</ul>
 							</fieldset>';
 				$response_array[ 'enroll_message' ] .= $html;
@@ -798,6 +799,10 @@ class Eb_Enrollment_Manager {
 			
 		} else {
 			$response_array[ 'enroll_message' ] = '<div class="alert alert-error">' . __('User enrollment test failed. ERROR: ', 'edwiser-bridge') . $response[ 'response_message' ] . '</div>';
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array[ 'html' ]           = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
 		}
 		echo wp_json_encode( $response_array );
 		die();
@@ -845,6 +850,10 @@ class Eb_Enrollment_Manager {
 			}
 		} else {
 			$msg = '<div class="alert alert-error">' . __('User unenrollment test failed. ERROR: ', 'edwiser-bridge') . $response[ 'response_message' ] . '</div>';
+			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
+				$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$msg                               .= '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
 		}
 		return $msg;
 	}

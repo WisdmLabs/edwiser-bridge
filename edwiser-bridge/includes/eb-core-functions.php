@@ -507,6 +507,7 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 			'eb_web_service_functions',
 			array(
 				'core_user_get_users_by_field',
+				'core_user_create_users',
 				'core_user_update_users',
 				'core_course_get_courses',
 				'core_course_get_categories',
@@ -1089,5 +1090,15 @@ if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 		} else {
 			comments_template();
 		}
+	}
+}
+
+if( ! function_exists( 'is_access_exception' ) ) {
+	function is_access_exception( $response ) {
+		$exception = false;
+		if ( isset( $response['response_body']->exception ) && 'webservice_access_exception' === $response['response_body']->exception ) {
+			$exception = true;
+		}
+		return $exception;
 	}
 }

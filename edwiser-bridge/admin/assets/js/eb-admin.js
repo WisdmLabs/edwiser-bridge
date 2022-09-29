@@ -310,7 +310,8 @@
             $('.test-enrollment-heading').empty();
             //remove all active classes
             $('.enroll-progress').find('.active').removeClass('active');
-            $('#progress_settings').addClass('active');
+            $('.enroll-progress').find('.in-progress').removeClass('in-progress');
+            $('#progress_settings').addClass('in-progress');
             $('.eb_test_enrollment_response').empty(); // empty the response
             $('.eb_test_enrollment_response').html('<div class="alert alert-loading">'+eb_admin_js_object.checking_mandatory_settings+'</div>');
 
@@ -371,6 +372,7 @@
                     //prepare response for user
                     if (response.status == 'success') {
                         $('.eb_test_enrollment_response').append(response.message);
+                        $('#progress_settings').addClass('active');
                         setTimeout(function () {
                             create_dummy_user(course_id);
                         }, 1000);
@@ -411,7 +413,7 @@
         }
 
         function create_dummy_user( course_id ){
-            $('#progress_user').addClass('active');
+            $('#progress_user').addClass('in-progress');
             $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.creating_dummy_user+'</div>');
             $.ajax({
                method: "post",
@@ -427,20 +429,24 @@
                     $('.alert-loading').remove();
                     //prepare response for user
                     if (response.status == 'success') {
-                        $('.eb_test_enrollment_response').append(response.moodle_message + response.wp_message);
+                        $('.eb_test_enrollment_response').append(response.wp_message + response.moodle_message);
+                        $('#progress_user').addClass('active');
                         setTimeout(function () {
                             enroll_dummy_user(course_id);
                         }, 1000);
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
-                        $('.eb_test_enrollment_response').append(response.moodle_message + response.wp_message);
+                        if(response.html){
+                            response.moodle_message = response.moodle_message + response.html;
+                        }
+                        $('.eb_test_enrollment_response').append(response.wp_message + response.moodle_message);
                     }
                 }
             });
         }
 
         function enroll_dummy_user( course_id ){
-            $('#progress_enroll').addClass('active');
+            $('#progress_enroll').addClass('in-progress');
             $('.eb_test_enrollment_response').append('<div class="alert alert-loading">' + eb_admin_js_object.enrolling_user + '</div>');
             $.ajax({
                method: "post",
@@ -456,10 +462,14 @@
                     $('.alert-loading').remove();
                     //prepare response for user
                     if (response.status == 'success') {
+                        $('#progress_enroll').addClass('active');
                         $('.eb_test_enrollment_response').append(response.enroll_message);
                         $('#progress_finish').addClass('active');
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
+                        if(response.html){
+                            response.enroll_message = response.enroll_message + response.html;
+                        }
                         $('.eb_test_enrollment_response').append(response.enroll_message);
                     }
                 }
@@ -493,6 +503,9 @@
                         }, 1000);
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
+                        if(response.html){
+                            response.message = response.message + response.html;
+                        }
                         $('.eb_test_enrollment_response').append(response.message);
                     }
                 }
@@ -537,6 +550,7 @@
 
         $('.eb_test_enrollment_response').on('click', '#btn_set_course_price_type', function () {
             $('.eb_test_enrollment_response').find('#btn_set_course_price_type').remove();
+            $('#progress_settings').addClass('active');
             var course_id = $('#eb_test_enrollment_course').val();
             create_dummy_user(course_id);
         });
