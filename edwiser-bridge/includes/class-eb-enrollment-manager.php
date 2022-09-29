@@ -270,7 +270,7 @@ class Eb_Enrollment_Manager {
 				'unenroll'          => $args['unenroll'],
 				'suspend'           => $args['suspend'],
 				'complete_unenroll' => $args['complete_unenroll'],
-				'is_subscription'   => $args['is_subscription'],
+				'is_subscription'   => isset( $args['is_subscription'] ) ? $args['is_subscription'] : false,
 
 			);
 
@@ -382,7 +382,7 @@ class Eb_Enrollment_Manager {
 					// New code for time.
 					$expire_date = '0000-00-00 00:00:00';
 					if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
-						$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+						$expire_date = $this->calc_course_acess_expiry_date( $course_id );
 					}
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
@@ -419,7 +419,7 @@ class Eb_Enrollment_Manager {
 						}
 						$expire_date = '0000-00-00 00:00:00';
 						if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
-							$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+							$expire_date = $this->calc_course_acess_expiry_date( $course_id );
 						}
 					}
 					// update increased count value.
