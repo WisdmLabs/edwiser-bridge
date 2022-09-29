@@ -312,7 +312,7 @@
             $('.enroll-progress').find('.active').removeClass('active');
             $('#progress_settings').addClass('active');
             $('.eb_test_enrollment_response').empty(); // empty the response
-            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">Checking mandatory settings.</div>');
+            $('.eb_test_enrollment_response').html('<div class="alert alert-loading">'+eb_admin_js_object.checking_mandatory_settings+'</div>');
 
             var course_id = $('#eb_test_enrollment_course').val();
             
@@ -323,7 +323,7 @@
                 return;
             }
             var course_name = $('#eb_test_enrollment_course option:selected').text();
-            $('.test-enrollment-heading').html('Testing enrollment process for course ' + course_name);
+            $('.test-enrollment-heading').html(eb_admin_js_object.testing_enrollment_process + course_name);
             var $this = $(this);
         
             $.ajax({
@@ -355,7 +355,7 @@
         });
 
         function check_course_options( course_id ){
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Checking course options.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.checking_course_options+'</div>');
             $.ajax({
                method: "post",
                 url: eb_admin_js_object.ajaxurl,
@@ -383,7 +383,7 @@
         }
 
         function check_manual_enrollment( course_id ){
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Checking manual enrollment.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.checking_manual_enrollment+'</div>');
             $.ajax({
                method: "post",
                 url: eb_admin_js_object.ajaxurl,
@@ -412,7 +412,7 @@
 
         function create_dummy_user( course_id ){
             $('#progress_user').addClass('active');
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Creating dummy user.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.creating_dummy_user+'</div>');
             $.ajax({
                method: "post",
                 url: eb_admin_js_object.ajaxurl,
@@ -441,7 +441,7 @@
 
         function enroll_dummy_user( course_id ){
             $('#progress_enroll').addClass('active');
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Enrolling dummy user in the course.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'eb_admin_js_object.enrolling_user'</div>');
             $.ajax({
                method: "post",
                 url: eb_admin_js_object.ajaxurl,
@@ -469,7 +469,7 @@
         $('.eb_test_enrollment_response').on('click', '#btn_set_mandatory', function () {
             $('.alert-error').remove();
             $('.eb_test_enrollment_response').find('#btn_set_mandatory').remove();
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Updating mandatory settings.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.updating_mandatory_settings+'</div>');
             var course_id = $('#eb_test_enrollment_course').val();
             $.ajax({
                method: "post",
@@ -503,7 +503,7 @@
         $('.eb_test_enrollment_response').on('click','#btn_set_manual_enrol', function () {
             $('.alert-error').remove();
             $('.eb_test_enrollment_response').find('#btn_set_manual_enrol').remove();
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">Enabling manual enrollment.</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.enabling_manual_enrollment+'</div>');
             var course_id = $('#eb_test_enrollment_course').val();
             
             $.ajax({
