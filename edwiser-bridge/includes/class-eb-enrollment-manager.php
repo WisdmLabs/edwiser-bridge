@@ -783,7 +783,7 @@ class Eb_Enrollment_Manager {
 									<li>' . __('Payment Gateway should be compatible with WooCommerce and should confirm the payment receipt', 'edwiser-bridge') . '</li>
 									<li>' . __('WooCommerce will process the order and update the order status to complete when the payment gateway confirms the payment', 'edwiser-bridge') . '</li>
 									<li>' . __('Enrollment will be processed only when the order status is complete', 'edwiser-bridge') . '</li>
-									<li>' . __(If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge') . '</li>
+									<li>' . __('If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge') . '</li>
 								</ul>
 							</fieldset>';
 				$response_array[ 'enroll_message' ] .= $html;
