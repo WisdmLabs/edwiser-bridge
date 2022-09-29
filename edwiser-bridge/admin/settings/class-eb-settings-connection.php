@@ -151,10 +151,10 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'html' => '<th></th><td>
 							<h2 class="test-enrollment-heading"></h2>
 							<ul class="enroll-progress">
-								<li id="progress_settings">Settings</li>
-								<li id="progress_user">User Creation</li>
-								<li id="progress_enroll">User Enrollment</li>
-								<li id="progress_finish">Finish</li>
+								<li id="progress_settings">' . __('Mandatory Settings', 'edwiser-bridge') . '</li>
+								<li id="progress_user">' . __('User Creation', 'edwiser-bridge') . '</li>
+								<li id="progress_enroll">' . __('User Enrollment', 'edwiser-bridge') . '</li>
+								<li id="progress_finish">' . __('Finish', 'edwiser-bridge') . '</li>
 							</ul></td>',
 							'type' => 'cust_html',
 						),

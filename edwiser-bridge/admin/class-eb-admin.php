@@ -195,6 +195,7 @@ class Eb_Admin {
 				'enrolling_user' => esc_html__( 'Enrolling dummy user in the course', 'edwiser-bridge' ),
 				'updating_mandatory_settings' => esc_html__( 'Updating mandatory settings', 'edwiser-bridge' ),
 				'enabling_manual_enrollment' => esc_html__( 'Enabling manual enrollment', 'edwiser-bridge' ),
+				'please_select_course' => esc_html__( 'Please select a course', 'edwiser-bridge' ),
 			)
 		);
 

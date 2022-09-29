@@ -318,7 +318,7 @@
             
             if(course_id == ''){
                 $('.eb_test_enrollment_response').empty(); // empty the response
-                ohSnap('Please select a course.', 'error');
+                ohSnap( eb_admin_js_object.please_select_course, 'error');
                 $('.enroll-progress').hide();
                 return;
             }

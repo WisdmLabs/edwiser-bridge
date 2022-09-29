@@ -1383,17 +1383,17 @@ class EBUserManager {
 
 			$user_id   = wp_insert_user( $user_data );
 			if( is_wp_error( $user_id ) ) {
-				$response_array[ 'wp_message' ] = '<div class="alert alert-error">Wrodpress User creation failed. ERROR : ' . $user_id->get_error_message() . '</div>';
+				$response_array[ 'wp_message' ] = '<div class="alert alert-error">' . __('Wrodpress User creation failed. ERROR : ', 'edwiser-bridge') . $user_id->get_error_message() . '</div>';
 				return $response_array;
 			} else {
 				$user_id                        = $user_id;
 				$wp_user_created                = 1;
-				$response_array[ 'wp_message' ] = '<div class="alert alert-success">Wrodpress User created successfully</div>';
+				$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wrodpress User created successfully', 'edwiser-bridge') . '</div>';
 			}
 		} else {
 			$user_id                        = $user->ID;
 			$wp_user_created                = 1;
-			$response_array[ 'wp_message' ] = '<div class="alert alert-success">Wrodpress User already exists</div>';
+			$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wrodpress User already exists', 'edwiser-bridge') . '</div>';
 		}
 
 		//create moodle user.
@@ -1426,9 +1426,9 @@ class EBUserManager {
 				$moodle_user_id = $response['response_data'][0]->id;
 				update_user_meta( $user_id, 'moodle_user_id', $moodle_user_id );
 				$moodle_user_created                = 1;
-				$response_array[ 'moodle_message' ] = '<div class="alert alert-success">Moodle User created successfully</div>';
+				$response_array[ 'moodle_message' ] = '<div class="alert alert-success">' . __('Moodle User created successfully', 'edwiser-bridge') . '</div>';
 			} elseif ( 0 === $response['success'] ) {
-				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">Moodle User creation failed. ERROR : ' . $response['response_message'] . '</div>';
+				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">' . __('Moodle User creation failed. ERROR : ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>';
 			}
 		} else {
 			$moodle_user = $this->get_moodle_user( 'ebdummyuser@wdm.com' );
@@ -1438,7 +1438,7 @@ class EBUserManager {
 			}
 			
 			$moodle_user_created                = 1;
-			$response_array[ 'moodle_message' ] = '<div class="alert alert-success">Moodle User already exists</div>';
+			$response_array[ 'moodle_message' ] = '<div class="alert alert-success">' . __( 'Moodle User already exists', 'edwiser-bridge' ) . '</div>';
 		}
 
 		if( 1 === $wp_user_created && 1 === $moodle_user_created ) {
