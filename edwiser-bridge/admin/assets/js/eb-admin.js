@@ -441,7 +441,7 @@
 
         function enroll_dummy_user( course_id ){
             $('#progress_enroll').addClass('active');
-            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'eb_admin_js_object.enrolling_user'</div>');
+            $('.eb_test_enrollment_response').append('<div class="alert alert-loading">' + eb_admin_js_object.enrolling_user + '</div>');
             $.ajax({
                method: "post",
                 url: eb_admin_js_object.ajaxurl,
