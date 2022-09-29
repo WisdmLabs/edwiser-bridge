@@ -160,8 +160,8 @@ class Eb_Settings_Ajax_Initiater {
 			$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=settings';
 			$response_array = array(
 				'status' => 'error',
-				'message' => '<div class="alert alert-error">REST Protocol and Web Services should be enabled in moodle. Check Test Connection first and try again</div>',
-				'html' => '<a target="_blank" href="' . $mdl_settings_link . '">Enable REST Protocol and Web Services</a>'
+				'message' => '<div class="alert alert-error">' . __('REST Protocol and Web Services should be enabled in moodle. Check Test Connection first and try again', 'edwiser-bridge') . '</div>',
+				'html' => '<a target="_blank" href="' . $mdl_settings_link . '">' . __('Enable REST Protocol and Web Services', 'edwiser-bridge') . '</a>'
 			);
 		} elseif ( ! empty( $response['response_data'] ) ) {
 			$data = $response['response_data'];
@@ -172,15 +172,15 @@ class Eb_Settings_Ajax_Initiater {
 			$flag = false;
 			if ( 1 != $data->allow_extended_char ) {
 				$flag = true;
-				$msg .= '<div class="alert alert-error">Extended character in username should be enabled</div>';
+				$msg .= '<div class="alert alert-error">' . __('Extended character in username should be enabled', 'edwiser-bridge') . '</div>';
 			}
 			if ( 0 != $data->password_policy ) {
 				$flag = true;
-				$msg .= '<div class="alert alert-error">Password Policy should be disabled</div>';
+				$msg .= '<div class="alert alert-error">' . __('Password Policy should be disabled', 'edwiser-bridge') . '</div>';
 			}
 			if ( $language !== $data->lang_code ){
 				$flag = true;
-				$msg .= '<div class="alert alert-error">Language code in edwiser settings should be same as in moodle</div>';
+				$msg .= '<div class="alert alert-error">' . __('Language code in edwiser settings should be same as in moodle', 'edwiser-bridge') . '</div>';
 			}
 
 
@@ -188,18 +188,18 @@ class Eb_Settings_Ajax_Initiater {
 				$response_array = array(
 					'status' => 'error',
 					'message' => $msg,
-					'html' => '<buton id="btn_set_mandatory" class="button button-secondary">Update mandatory settings & Continue</button>',
+					'html' => '<buton id="btn_set_mandatory" class="button button-secondary">' . __('Update mandatory settings & Continue', 'edwiser-bridge') . '</button>',
 				);
 			} else {
 				$response_array = array(
 					'status' => 'success',
-					'message' => '<div class="alert alert-success">All Mandatory settings are up to mark</div>',
+					'message' => '<div class="alert alert-success">' . __('All Mandatory settings are up to mark', 'edwiser-bridge') . '</div>',
 				);
 			}
 		} else {
 			$response_array = array(
 				'status' => 'error',
-				'message' => '<div class="alert alert-error">Something went wrong. Try Test Connection. ERROR : ' . $response['response_message'] . '</div>',
+				'message' => '<div class="alert alert-error">' . __('Something went wrong. Try Test Connection. ERROR : ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
 		}
 
@@ -220,24 +220,24 @@ class Eb_Settings_Ajax_Initiater {
 			if ( isset( $course_options['course_price_type'] ) && 'closed' !== $course_options['course_price_type'] ) {
 				$flag = true;
 				$post_link = get_edit_post_link( $course_id );
-				$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>Course Price type is not set to closed. It is recomended to be closed for woocommerce products. <a target="_blank" href="' . $post_link . '">Configure course price type</a></div>';
+				$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . __('Course Price type is not set to closed. It is recomended to be closed for woocommerce products.', 'edwiser-bridge') . ' <a target="_blank" href="' . $post_link . '">' . __('Configure course price type', 'edwiser-bridge') . '</a></div>';
 			}
 		}
 		if ( 'publish' !== get_post_status( $course_id ) ) {
 			$flag = true;
-			$msg .= '<div class="alert alert-error">Course should be published</div>';
+			$msg .= '<div class="alert alert-error">' . __('Course should be published', 'edwiser-bridge') . '</div>';
 		}
 
 		if ( $flag ) {
 			$response_array = array(
 				'status' => 'error',
 				'message' => $msg,
-				'html' => '<buton id="btn_set_course_price_type" class="button button-secondary">Continue without chnage</button>',
+				'html' => '<buton id="btn_set_course_price_type" class="button button-secondary">' . __('Continue without chnage', 'edwiser-bridge') . '</button>',
 			);
 		} else {
 			$response_array = array(
 				'status' => 'success',
-				'message' => '<div class="alert alert-success">All post options are up to mark</div>',
+				'message' => '<div class="alert alert-success">' . __('All post options are up to mark', 'edwiser-bridge') . '</div>',
 			);
 		}
 
@@ -263,26 +263,26 @@ class Eb_Settings_Ajax_Initiater {
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
 
-		if( ! isset( $response ) ){
+		if( ! isset( $response ) ){ 
 			$response_array = array(
 				'status' => 'error',
-				'message' => '<div class="alert alert-error">Manual Enrollment method not enabled on Moodle Site</div>',
-				'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">Enable & Continue</button>',
+				'message' => '<div class="alert alert-error">'. __('Manual Enrollment method not enabled on Moodle Site', 'edwiser-bridge') .'</div>',
+				'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">' . __('Enable & Continue', 'edwiser-bridge') . '</button>',
 			);
 		} else {
 			foreach ( $response as $course ) {
 				if ( $course->courseid == $moodle_course_id ) {
 					$response_array = array(
 						'status' => 'success',
-						'message' => '<div class="alert alert-success">Manual Enrollment method enabled</div>',
+						'message' => '<div class="alert alert-success">' . __('Manual Enrollment method enabled', 'edwiser-bridge') . '</div>',
 					);
 					break;
 				} else {
 					update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 0 );
 					$response_array = array(
 						'status' => 'error',
-						'message' => '<div class="alert alert-error">Manual Enrollment method not enabled</div>',
-						'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">Enable & Continue</button>',
+						'message' => '<div class="alert alert-error">' . __('Manual Enrollment method not enabled', 'edwiser-bridge') . '</div>',
+						'html' => '<buton id="btn_set_manual_enrol" class="button button-secondary">' . __('Enable & Continue', 'edwiser-bridge') . '</button>',
 					);
 				}
 			}
@@ -316,18 +316,18 @@ class Eb_Settings_Ajax_Initiater {
 		if( isset( $response['success'] ) && 0 === $response['success'] ) {
 			$response_array = array(
 				'status' => 'error',
-				'message' => '<div class="alert alert-error">Enabling Manual Enrollment method failed. ERROR: ' . $response['response_message'] . '</div>',
+				'message' => '<div class="alert alert-error">' . __('Enabling Manual Enrollment method failed. ERROR: ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
 			if( "Class 'enrol_manual_plugin' not found" === $response['response_message'] ) {
 				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/settings.php?section=manageenrols';
-				$response_array['message'] .= '<div class="alert alert-error">Please enable manual enrolment plugin on Moodle Site </div>';
-				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">Enable Manual Enrollment plugin</a>';
+				$response_array['message'] .= '<div class="alert alert-error">' . __('Please enable manual enrolment plugin on Moodle Site', 'edwiser-bridge') . ' </div>';
+				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __('Enable Manual Enrollment plugin', 'edwiser-bridge') . '</a>';
 			}
 		} else {
 			update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 1 );
 			$response_array = array(
 				'status' => 'success',
-				'message' => '<div class="alert alert-success">Manual Enrollment method enabled</div>',
+				'message' => '<div class="alert alert-success">' . __('Manual Enrollment method enabled', 'edwiser-bridge') . '</div>',
 			);
 		}
 
@@ -363,12 +363,12 @@ class Eb_Settings_Ajax_Initiater {
 		if( isset( $response['success'] ) && 0 === $response['success'] ) {
 			$response_array = array(
 				'status' => 'error',
-				'message' => '<div class="alert alert-error">Enabling Mandatory Settings failed. Try Test Connection first. ERROR: ' . $response['response_message'] . '</div>',
+				'message' => '<div class="alert alert-error">' . __('Enabling Mandatory Settings failed. Try Test Connection first. ERROR: ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>',
 			);
 		} else {
 			$response_array = array(
 				'status' => 'success',
-				'message' => '<div class="alert alert-success">Mandatory Settings are up to mark</div>',
+				'message' => '<div class="alert alert-success">' . __('Mandatory Settings are up to mark', 'edwiser-bridge') . '</div>',
 			);
 		}
 	
