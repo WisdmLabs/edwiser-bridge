@@ -44,7 +44,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		public function get_sections() {
 			$sections = array(
 				''          => __( 'Connection', 'edwiser-bridge' ),
-				'enrollment' => __( 'Enrollment', 'edwiser-bridge' ),
+				'enrollment' => __( 'Test Enrollment', 'edwiser-bridge' ),
 			);
 
 			return $sections;

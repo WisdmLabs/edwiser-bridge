@@ -308,6 +308,7 @@
             $('.enroll-progress').show();
             $('.response-box').empty();
             $('.test-enrollment-heading').empty();
+            $('#eb_test_enrollment_button').attr('disabled', 'disabled');
             //remove all active classes
             $('.enroll-progress').find('.active').removeClass('active');
             $('.enroll-progress').find('.in-progress').removeClass('in-progress');
@@ -321,6 +322,7 @@
                 $('.eb_test_enrollment_response').empty(); // empty the response
                 ohSnap( eb_admin_js_object.please_select_course, 'error');
                 $('.enroll-progress').hide();
+                $('#eb_test_enrollment_button').removeAttr('disabled');
                 return;
             }
             var course_name = $('#eb_test_enrollment_course option:selected').text();
@@ -345,7 +347,7 @@
                             check_manual_enrollment(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
                             response.message = response.message + response.html;
                         }
@@ -378,7 +380,7 @@
                             create_dummy_user(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         $('.eb_test_enrollment_response').append(response.message + response.html);
                     }
                 }
@@ -406,7 +408,7 @@
                             check_course_options(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         $('.eb_test_enrollment_response').append(response.message + response.html);
                     }
                 }
@@ -437,7 +439,7 @@
                             enroll_dummy_user(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
                             response.moodle_message = response.moodle_message + response.html;
                         }
@@ -469,7 +471,7 @@
                         $('.eb_test_enrollment_response').append(response.enroll_message);
                         $('#progress_finish').addClass('active');
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
                             response.enroll_message = response.enroll_message + response.html;
                         }
@@ -482,6 +484,7 @@
         $('.eb_test_enrollment_response').on('click', '#btn_set_mandatory', function () {
             $('.alert-error').remove();
             $('.eb_test_enrollment_response').find('#btn_set_mandatory').remove();
+            $('#eb_test_enrollment_button').attr('disabled', 'disabled');
             $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.updating_mandatory_settings+'</div>');
             var course_id = $('#eb_test_enrollment_course').val();
             $.ajax({
@@ -505,7 +508,7 @@
                             check_manual_enrollment(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
                             response.message = response.message + response.html;
                         }
@@ -519,6 +522,7 @@
         $('.eb_test_enrollment_response').on('click','#btn_set_manual_enrol', function () {
             $('.alert-error').remove();
             $('.eb_test_enrollment_response').find('#btn_set_manual_enrol').remove();
+            $('#eb_test_enrollment_button').attr('disabled', 'disabled');
             $('.eb_test_enrollment_response').append('<div class="alert alert-loading">'+eb_admin_js_object.enabling_manual_enrollment+'</div>');
             var course_id = $('#eb_test_enrollment_course').val();
             
@@ -541,7 +545,7 @@
                             check_course_options(course_id);
                         }, 1000);
                     } else {
-                        // ohSnap(response.response_message, 'error', 0);
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
                             response.message += response.html;
                         }
@@ -555,6 +559,7 @@
             $('.eb_test_enrollment_response').find('#btn_set_course_price_type').remove();
             $('#progress_settings').removeClass('in-progress');
             $('#progress_settings').addClass('active');
+            $('#eb_test_enrollment_button').attr('disabled', 'disabled');
             var course_id = $('#eb_test_enrollment_course').val();
             create_dummy_user(course_id);
         });
