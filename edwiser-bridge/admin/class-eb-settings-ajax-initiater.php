@@ -283,13 +283,14 @@ class Eb_Settings_Ajax_Initiater {
 		} elseif( isset( $response['response_data'] ) ) {
 			foreach ( $response['response_data'] as $course ) {
 				if ( $course->courseid == $moodle_course_id ) {
+					update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 1 );
 					$response_array = array(
 						'status' => 'success',
 						'message' => '<div class="alert alert-success">' . __('Manual Enrollment method enabled', 'edwiser-bridge') . '</div>',
 					);
 					break;
 				} else {
-					update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 0 );
+					// update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 0 );
 					$response_array = array(
 						'status' => 'error',
 						'message' => '<div class="alert alert-error">' . __('Manual Enrollment method not enabled', 'edwiser-bridge') . '</div>',
