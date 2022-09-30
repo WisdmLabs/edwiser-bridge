@@ -218,6 +218,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.2 =
+* Feature - Added course enrollment test for users who face issues with enrollment.
+* Fix     - Fixed color for warning notice.
+* Fix     - Fixed course access expiry date for subscription renewal
 
 = 2.2.1 =
 * Tweak - Remove the take this course button from the deleted course.
