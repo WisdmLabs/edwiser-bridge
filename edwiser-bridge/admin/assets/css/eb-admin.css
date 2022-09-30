@@ -1599,7 +1599,9 @@ abbr.help:hover::after {
 .enroll-progress li.active::after{
   background-color: green;
 }
-
+.enroll-progress li.in-progress:before{
+  background-color: #d6d6d6;
+}
 .enroll-progress li.in-progress::after{
   background-color: green;
 }

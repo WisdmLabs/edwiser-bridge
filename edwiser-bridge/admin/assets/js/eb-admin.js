@@ -372,6 +372,7 @@
                     //prepare response for user
                     if (response.status == 'success') {
                         $('.eb_test_enrollment_response').append(response.message);
+                        $('#progress_settings').removeClass('in-progress');
                         $('#progress_settings').addClass('active');
                         setTimeout(function () {
                             create_dummy_user(course_id);
@@ -430,6 +431,7 @@
                     //prepare response for user
                     if (response.status == 'success') {
                         $('.eb_test_enrollment_response').append(response.wp_message + response.moodle_message);
+                        $('#progress_user').removeClass('in-progress');
                         $('#progress_user').addClass('active');
                         setTimeout(function () {
                             enroll_dummy_user(course_id);
@@ -462,6 +464,7 @@
                     $('.alert-loading').remove();
                     //prepare response for user
                     if (response.status == 'success') {
+                        $('#progress_enroll').removeClass('in-progress');
                         $('#progress_enroll').addClass('active');
                         $('.eb_test_enrollment_response').append(response.enroll_message);
                         $('#progress_finish').addClass('active');
@@ -550,6 +553,7 @@
 
         $('.eb_test_enrollment_response').on('click', '#btn_set_course_price_type', function () {
             $('.eb_test_enrollment_response').find('#btn_set_course_price_type').remove();
+            $('#progress_settings').removeClass('in-progress');
             $('#progress_settings').addClass('active');
             var course_id = $('#eb_test_enrollment_course').val();
             create_dummy_user(course_id);
