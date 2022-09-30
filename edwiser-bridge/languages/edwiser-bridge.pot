@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-30 13:25+0530\n"
+"POT-Creation-Date: 2022-09-30 18:26+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1074,7 +1074,8 @@ msgid "Connection"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:47
-msgid "Enrollment"
+#: admin/settings/class-eb-settings-connection.php:145
+msgid "Test Enrollment"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:124
@@ -1088,10 +1089,6 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:131
 msgid "Select a course to test enrollment."
-msgstr ""
-
-#: admin/settings/class-eb-settings-connection.php:145
-msgid "Test Enrollment"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:154
