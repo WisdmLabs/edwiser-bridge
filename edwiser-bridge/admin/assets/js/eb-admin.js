@@ -470,6 +470,7 @@
                         $('#progress_enroll').addClass('active');
                         $('.eb_test_enrollment_response').append(response.enroll_message);
                         $('#progress_finish').addClass('active');
+                        $('#eb_test_enrollment_button').removeAttr('disabled');
                     } else {
                         $('#eb_test_enrollment_button').removeAttr('disabled');
                         if(response.html){
