@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-29 20:02+0530\n"
+"POT-Creation-Date: 2022-09-30 13:25+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -536,6 +536,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:275
 #: admin/class-eb-settings-ajax-initiater.php:334
 #: admin/class-eb-settings-ajax-initiater.php:385
+#: includes/class-eb-enrollment-manager.php:804
+#: includes/class-eb-enrollment-manager.php:855
 #: includes/class-eb-user-manager.php:1434
 msgid "Update webservice"
 msgstr ""
@@ -546,6 +548,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:385
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1105
+#: includes/class-eb-enrollment-manager.php:804
+#: includes/class-eb-enrollment-manager.php:855
 #: includes/class-eb-user-manager.php:1434
 msgid " OR "
 msgstr ""
@@ -554,6 +558,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:275
 #: admin/class-eb-settings-ajax-initiater.php:334
 #: admin/class-eb-settings-ajax-initiater.php:385
+#: includes/class-eb-enrollment-manager.php:804
+#: includes/class-eb-enrollment-manager.php:855
 #: includes/class-eb-user-manager.php:1434
 msgid "Try test connection"
 msgstr ""
@@ -3295,7 +3301,25 @@ msgid "Enrollment will be processed only when the order status is complete"
 msgstr ""
 
 #: includes/class-eb-enrollment-manager.php:786
-msgid ", "
+msgid ""
+"If the order is in processing Edwiser plugin will not enroll the user in the "
+"course"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:801
+msgid "User enrollment test failed. ERROR: "
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:847
+msgid "User unenrollment test successfull"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:849
+msgid "User unenrollment failed at wordpress side"
+msgstr ""
+
+#: includes/class-eb-enrollment-manager.php:852
+msgid "User unenrollment test failed. ERROR: "
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:34
