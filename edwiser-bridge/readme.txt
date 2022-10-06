@@ -218,6 +218,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.3 =
+* Fix - Added missing lines in eb-admin.js file.
+
 = 2.2.2 =
 * Feature - Added course enrollment test for users who face issues with enrollment.
 * Fix     - Fixed color for warning notice.
