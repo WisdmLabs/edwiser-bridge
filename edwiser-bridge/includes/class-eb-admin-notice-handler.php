@@ -116,7 +116,7 @@ class Eb_Admin_Notice_Handler {
 
 								<div class="eb_update_notice_content">
 									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'edwiser-bridge' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2022/08/edwiserbridge.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
+									<a href="https://edwiser.org/wp-content/uploads/edd/2022/10/edwiserbridge.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
 									' . esc_html__( ' to download Moodle plugin.', 'edwiser-bridge' ) . '
 
 										' . esc_html__( 'For setup assistance check our ', 'edwiser-bridge' ) . '

@@ -1354,6 +1354,7 @@ class EBUserManager {
 		echo "<div id='moodleLinkUnlinkUserNotices' class='updated'>
 				 <p></p>
 			  </div>";
+	
 	}
 
 	/**
