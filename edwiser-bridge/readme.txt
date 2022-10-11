@@ -218,6 +218,9 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.4 =
+* Fix - Fixed selective sync fatal error issue
+
 = 2.2.3 =
 * Fix - Added missing lines in eb-admin.js file.
 
