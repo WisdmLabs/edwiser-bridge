@@ -429,7 +429,7 @@ class EdwiserBridge {
 	 * @return Eb_Course_Manager
 	 */
 	public function courseManager() {
-		$this->course_manager();
+		return $this->course_manager();
 	}
 
 
