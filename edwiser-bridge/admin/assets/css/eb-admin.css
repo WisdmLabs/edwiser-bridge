@@ -1605,4 +1605,54 @@ abbr.help:hover::after {
 .enroll-progress li.in-progress::after{
   background-color: green;
 }
+.eb-admin-bfcm-notice-message{
+  border: none;
+  padding: 0px;
+  position: relative;
+}
+.eb-admin-bfcm-notice-message-content{
+  display: flex;
+  flex-direction: column;
+  padding-left: 16%;
+  background-image: url("../../../images/bfcm.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+.eb-admin-bfcm-notice-message-content .title{
+  color: white;
+  font-size: 22px;
+  margin: 0px;
+  margin-top: 10px;
+}
+.eb-admin-bfcm-notice-message-content .title2{
+  color: white;
+  font-size: 22px;
+  margin: 0px;
+}
 
+.eb-admin-bfcm-notice-message-content .desc{
+  color: #8EFAFF;
+  font-size: 18px;
+  margin: 0px;
+}
+.eb-admin-bfcm-notice-message-content .button{
+  width: 131px;
+  color: white;
+  font-size: 14px;
+  padding: 0px 20px;
+  border: 1px solid #C4C4C4;
+  border-radius: 4px;
+  background-color: #FF7A00;
+  margin: 10px 0px 15px 0px;
+}
+.eb-admin-bfcm-notice-message-dismiss{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+}
+.eb-admin-bfcm-notice-message-dismiss > a{
+  text-decoration: none;
+  color: white;
+}

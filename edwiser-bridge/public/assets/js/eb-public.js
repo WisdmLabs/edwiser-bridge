@@ -322,3 +322,7 @@
 		});
 	});
 })(jQuery);
+
+function ebSubmitCaptchaForm(token) {
+	document.getElementById("eb-user-account-form").submit();
+}

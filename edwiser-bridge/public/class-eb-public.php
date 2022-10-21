@@ -213,6 +213,17 @@ class Eb_Public {
 			$this->version,
 			false
 		);
+
+		if ( \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+			wp_register_script(
+				'eb_captcha',
+				'https://www.google.com/recaptcha/api.js',
+				array(),
+				$this->version,
+				true
+			);
+			wp_enqueue_script( 'eb_captcha' );
+		}
 	}
 
 

@@ -218,6 +218,8 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.5 =
+* Feature - added google reCAPTCHA validation on user-account page.
 = 2.2.4 =
 * Fix - Fixed selective sync fatal error issue
 

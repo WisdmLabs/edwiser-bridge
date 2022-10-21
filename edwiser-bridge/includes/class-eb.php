@@ -633,6 +633,19 @@ class EdwiserBridge {
 			'eb_admin_template_notice'
 		);
 
+		$this->loader->eb_add_action(
+			'admin_init',
+			$admin_notice_handler,
+			'eb_admin_bfcm_notice_dismiss_handler'
+		);
+
+		$this->loader->eb_add_action(
+			'admin_notices',
+			$admin_notice_handler,
+			'eb_admin_bfcm_notice'
+		);
+		
+
 		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
 			$hook,

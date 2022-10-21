@@ -355,4 +355,46 @@ class Eb_Admin_Notice_Handler {
 		unset( $curr_plugin_meta_data );
 		unset( $new_plugin_meta_data );
 	}
+
+	/**
+	 * bfcm notice dismiss handler.
+	 */
+	public function eb_admin_bfcm_notice_dismiss_handler() {
+		if ( true === filter_input( INPUT_GET, 'eb-admin-bfcm-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			add_user_meta( $user_id, 'eb_admin_bfcm_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-bfcm-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
+		}
+	}
+	/**
+	 * BFCM admin notice
+	 *
+	 * @since 2.2.4
+	 */
+	public function eb_admin_bfcm_notice() {
+
+
+		$user_id = get_current_user_id();
+		if ( ! get_user_meta( $user_id, 'eb_admin_bfcm_notice_dismissed' ) ) {
+			global $pagenow;
+			$redirection    = add_query_arg( 'eb-admin-bfcm-notice-dismissed', true );
+			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+        	if ( is_admin() && 'index.php' == $pagenow ) {
+			?>
+			<div class="notice eb-admin-bfcm-notice-message">
+				<div class="eb-admin-bfcm-notice-message-content">
+					<p class="title"><?php esc_html_e( 'Get the power of selling courses via WooCommerce!', 'edwiser-bridge' ); ?></p>
+					<p class="title2"><?php esc_html_e( 'It\'s an Early Black Friday for you.', 'edwiser-bridge' ); ?></p>
+					<p class="desc"><?php esc_html_e( 'Get up to 70% OFF on Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
+					<a class="button" href="https://edwiser.org/edwiser-lifetime-kit/?utm_source=WordPress&utm_medium=notif&utm_campaign=inbridge"  target="_blank"><?php esc_html_e( 'Upgrade Now', 'edwiser-bridge' ); ?></a>
+				</div>
+				<div class="eb-admin-bfcm-notice-message-dismiss">
+					<a href="<?php echo esc_html( $redirection ); ?>">
+						<span class="dashicons dashicons-no-alt eb_admin_bfcm_notice_hide"></span>
+					</a>
+				</div>
+			</div>
+			<?php
+			}
+		}
+	}
 }
