@@ -328,6 +328,70 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type' => 'sectionend',
 						'id'   => 'usage_tracking',
 					),
+					array(
+						'title' => __( 'Google reCAPTCHA Settings', 'edwiser-bridge' ),
+						'type'  => 'title',
+						'desc'  => '',
+						'id'    => 'recaptcha_options',
+					),
+					array(
+						'title'    => __( 'Enable reCAPTCHA', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Enable reCAPTCHA on registration form.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_enable_recaptcha',
+						'default'  => 'no',
+						'type'     => 'checkbox',
+						'autoload' => false,
+					),
+					array(
+						'title'    => __( 'reCAPTCHA Type', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Select reCAPTCHA type.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_recaptcha_type',
+						'default'  => 'v2',
+						'type'     => 'radio',
+						'options'  => array(
+							'v2' => __( 'reCAPTCHA v2', 'edwiser-bridge' ),
+							'v3' => __( 'reCAPTCHA v3', 'edwiser-bridge' ),
+						),
+					),
+					array(
+						'title'    => __( 'Site Key', 'edwiser-bridge' ),
+						'desc'     => '<br/>' . sprintf( __( 'Site key for reCAPTCHA.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_recaptcha_site_key',
+						'type'     => 'text',
+						'css'      => 'min-width:300px;',
+						'default'  => '',
+						'desc_tip' => __( 'Specify site key for reCAPTCHA.', 'edwiser-bridge' ),
+					),
+					array(
+						'title'    => __( 'Secret Key', 'edwiser-bridge' ),
+						'desc'     => '<br/>' . sprintf( __( 'Secret key for reCAPTCHA.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_recaptcha_secret_key',
+						'type'     => 'text',
+						'css'      => 'min-width:300px;',
+						'default'  => '',
+						'desc_tip' => __( 'Specify secret key for reCAPTCHA.', 'edwiser-bridge' ),
+					),
+					array(
+						'title'    => __( 'Show on registration page', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Show reCAPTCHA on edwiser-bridge registration page.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_recaptcha_show_on_register',
+						'default'  => 'yes',
+						'type'     => 'checkbox',
+						'autoload' => false,
+					),
+					array(
+						'title'    => __( 'Show on Login page', 'edwiser-bridge' ),
+						'desc'     => sprintf( __( 'Show reCAPTCHA on edwiser-bridge login page.', 'edwiser-bridge' ) ),
+						'id'       => 'eb_recaptcha_show_on_login',
+						'default'  => 'no',
+						'type'     => 'checkbox',
+						'autoload' => false,
+					),
+					array(
+						'type' => 'sectionend',
+						'id'   => 'recaptcha_options',
+					),
+
 				)
 			);
 			return apply_filters( 'eb_get_settings_' . $this->_id, $settings );

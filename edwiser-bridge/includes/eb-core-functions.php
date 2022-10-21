@@ -1093,12 +1093,88 @@ if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 	}
 }
 
-if( ! function_exists( 'is_access_exception' ) ) {
+if ( ! function_exists( 'is_access_exception' ) ) {
 	function is_access_exception( $response ) {
 		$exception = false;
 		if ( isset( $response['response_body']->exception ) && 'webservice_access_exception' === $response['response_body']->exception ) {
 			$exception = true;
 		}
 		return $exception;
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
+	function wdm_eb_recaptcha_type() {
+		$general_settings = get_option( 'eb_general' );
+		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
+			return isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+		} else {
+			return false;
+		}
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_render_recaptcha_v2' ) ) {
+	function wdm_eb_render_recaptcha_v2( $action ) {
+		$general_settings = get_option( 'eb_general' );
+		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
+			$recaptcha_type = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+			$recaptcha_site_key = isset( $general_settings['eb_recaptcha_site_key'] ) ? $general_settings['eb_recaptcha_site_key'] : '';
+			if ( 'wdm_login' === $action ) {
+				$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_login'] ) ? $general_settings['eb_recaptcha_show_on_login'] : 'no';
+				if( 'yes' !== $show_recaptcha ) {
+					return;
+				}
+			} elseif ( 'register' === $action ) {
+				$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_register'] ) ? $general_settings['eb_recaptcha_show_on_register'] : 'no';
+				if( 'yes' !== $show_recaptcha ) {
+					return;
+				}
+			}
+			if ( ! empty( $recaptcha_site_key ) && 'v2' === $recaptcha_type ) {
+				?>
+				<div class="g-recaptcha form-row form-row-wide eb-profile-txt-field" style="margin-bottom:25px;" data-sitekey="<?php echo esc_attr( $recaptcha_site_key ); ?>"></div>
+				<?php
+			}
+		}
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_render_recaptcha_v3' ) ) {
+	function wdm_eb_render_recaptcha_v3( $action ) {
+		$general_settings = get_option( 'eb_general' );
+		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
+			$recaptcha_type = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+			$recaptcha_site_key = isset( $general_settings['eb_recaptcha_site_key'] ) ? $general_settings['eb_recaptcha_site_key'] : '';
+			if ( ! empty( $recaptcha_site_key ) && 'v3' === $recaptcha_type ) {
+				if ( 'wdm_login' === $action ) {
+					$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_login'] ) ? $general_settings['eb_recaptcha_show_on_login'] : 'no';
+					if( 'yes' !== $show_recaptcha ) {
+						?>
+						<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'edwiser-bridge' ); ?>" />
+						<?php
+						return;
+					}
+					$text = esc_html__( 'Login', 'edwiser-bridge' );
+					$class = 'eb-login-button';
+				} elseif ( 'register' === $action ) {
+					$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_register'] ) ? $general_settings['eb_recaptcha_show_on_register'] : 'no';
+					if( 'yes' !== $show_recaptcha ) {
+						?>
+						<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'edwiser-bridge' ); ?>" />
+						<?php
+						return;
+					}
+					$text = esc_html__( 'Register', 'edwiser-bridge' );
+					$class = 'eb-reg-button';
+				} else {
+					return;
+				}
+				?>
+				<button data-sitekey="<?php echo esc_attr( $recaptcha_site_key ); ?>" data-callback='ebSubmitCaptchaForm' data-action='submit' class="g-recaptcha <?php echo $class; ?> button button-primary et_pb_button et_pb_contact_submit" ><?php echo $text; ?></button>
+				<input type="hidden" name="<?php echo $action; ?>" value="<?php echo $text; ?>">
+				<?php
+			}
+		}
 	}
 }

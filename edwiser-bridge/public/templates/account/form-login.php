@@ -19,7 +19,7 @@ do_action( 'eb_before_customer_login_form' );
 	if ( 'eb_register' !== $eb_action ) {
 		?>
 		<div class="eb-wrap-login-form wdm-eb-login-form-sec-1">
-			<form method="post" class="login">
+			<form method="post" class="login" id="eb-user-account-form">
 				<?php do_action( 'eb_login_form_start' ); ?>
 				<p class="form-row form-row-wide eb-profile-txt-field">
 					<label for="wdm_username">
@@ -44,8 +44,21 @@ do_action( 'eb_before_customer_login_form' );
 						<?php esc_html_e( 'Remember me', 'edwiser-bridge' ); ?>
 					</label>
 				</p>
+				<?php
+				if ( 'v2' === \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+					\app\wisdmlabs\edwiserBridge\wdm_eb_render_recaptcha_v2( 'wdm_login' );
+				}
+				?>
 				<p>
-					<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'edwiser-bridge' ); ?>" />
+					<?php
+					if ( 'v3' === \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+						\app\wisdmlabs\edwiserBridge\wdm_eb_render_recaptcha_v3( 'wdm_login' );
+					} else {
+						?>
+						<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'edwiser-bridge' ); ?>" />
+						<?php
+					}
+					?>
 				</p>
 				<?php
 				do_action( 'eb_login_form_end' );
@@ -73,7 +86,7 @@ do_action( 'eb_before_customer_login_form' );
 	if ( $eb_action && 'eb_register' === $eb_action && 'yes' === $enable_registration ) {
 		?>
 		<div class="eb-user-reg-form wdm-eb-login-form-sec-1">
-			<form method="post" class="register">
+			<form method="post" class="register" id="eb-user-account-form">
 				<?php do_action( 'eb_register_form_start' ); ?>
 				<div class="form-row-wide eb-profile-txt-field  wdm-eb-form-row-flex">
 					<p class='form-row-first wdm-eb-form-row-first'>
@@ -90,7 +103,7 @@ do_action( 'eb_before_customer_login_form' );
 						</label>
 						<input type="text" class="input-text" name="lastname" id="reg_lastname" value="<?php echo esc_attr( $lname ); ?>" required/>
 					</p>
-					</div>
+				</div>
 
 				<p class="form-row form-row-wide eb-profile-txt-field ">
 					<label for="reg_email">
@@ -144,10 +157,22 @@ do_action( 'eb_before_customer_login_form' );
 				<?php
 				do_action( 'eb_register_form' );
 				?>
-
+				<?php
+				if ( 'v2' === \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+					\app\wisdmlabs\edwiserBridge\wdm_eb_render_recaptcha_v2( 'register' );
+				}
+				?>
 				<p class="form-row">
 					<?php wp_nonce_field( 'eb-register' ); ?>
-					<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'edwiser-bridge' ); ?>" />
+					<?php
+					if ( 'v3' === \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+						\app\wisdmlabs\edwiserBridge\wdm_eb_render_recaptcha_v3( 'register' );
+					} else {
+						?>
+						<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'edwiser-bridge' ); ?>" />
+						<?php
+					}
+					?>
 				</p>
 				<?php do_action( 'eb_register_form_end' ); ?>
 			</form>

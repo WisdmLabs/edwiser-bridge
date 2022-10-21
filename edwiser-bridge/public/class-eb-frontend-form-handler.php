@@ -66,6 +66,40 @@ class Eb_Frontend_Form_Handler {
 					);
 				}
 
+				// recaptcha validation.
+				$general_settings = get_option( 'eb_general' );
+				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_login'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_login'] ) {
+					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
+						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
+						if( '' === $secret ) {
+							throw new \Exception(
+								'<strong>' .
+								esc_html__( 'Error', 'edwiser-bridge' ) .
+								':</strong> ' .
+								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
+							);
+						}
+						$captcha = $_POST['g-recaptcha-response'];
+						$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha);
+						$responseKeys = json_decode( $response, true );
+						if ( 1 !== intval( $responseKeys["success"] ) ) {
+							throw new \Exception(
+								'<strong>' .
+								esc_html__( 'Error', 'edwiser-bridge' ) .
+								':</strong> ' .
+								esc_html__( 'Invalid Captcha.', 'edwiser-bridge' )
+							);
+						}
+					} else {
+						throw new \Exception(
+							'<strong>' .
+							esc_html__( 'Error', 'edwiser-bridge' ) .
+							':</strong> ' .
+							esc_html__( 'Captcha is required.', 'edwiser-bridge' )
+						);
+					}
+				}
+
 				$creds['user_login']    = isset( $_POST['wdm_username'] ) ? sanitize_text_field( wp_unslash( $_POST['wdm_username'] ) ) : '';
 				$creds['user_password'] = isset( $_POST['wdm_password'] ) ? $_POST['wdm_password'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				$creds['remember']      = isset( $_POST['rememberme'] );
@@ -155,6 +189,39 @@ class Eb_Frontend_Form_Handler {
 				/* Anti-spam trap */
 				if ( ! empty( $_POST['email_2'] ) ) {
 					throw new \Exception( __( 'Anti-spam field was filled in.', 'edwiser-bridge' ) );
+				}
+
+				// recaptcha validation.
+				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_register'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_register'] ) {
+					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
+						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
+						if( '' === $secret ) {
+							throw new \Exception(
+								'<strong>' .
+								esc_html__( 'Error', 'edwiser-bridge' ) .
+								':</strong> ' .
+								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
+							);
+						}
+						$captcha = $_POST['g-recaptcha-response'];
+						$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha);
+						$responseKeys = json_decode( $response, true );
+						if ( 1 !== intval( $responseKeys["success"] ) ) {
+							throw new \Exception(
+								'<strong>' .
+								esc_html__( 'Error', 'edwiser-bridge' ) .
+								':</strong> ' .
+								esc_html__( 'Invalid Captcha.', 'edwiser-bridge' )
+							);
+						}
+					} else {
+						throw new \Exception(
+							'<strong>' .
+							esc_html__( 'Error', 'edwiser-bridge' ) .
+							':</strong> ' .
+							esc_html__( 'Captcha is required.', 'edwiser-bridge' )
+						);
+					}
 				}
 
 				// added afyter.
