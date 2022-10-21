@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-30 18:26+0530\n"
+"POT-Creation-Date: 2022-10-21 13:34+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -534,33 +534,33 @@ msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:206
 #: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:334
-#: admin/class-eb-settings-ajax-initiater.php:385
+#: admin/class-eb-settings-ajax-initiater.php:335
+#: admin/class-eb-settings-ajax-initiater.php:386
 #: includes/class-eb-enrollment-manager.php:804
 #: includes/class-eb-enrollment-manager.php:855
-#: includes/class-eb-user-manager.php:1434
+#: includes/class-eb-user-manager.php:1435
 msgid "Update webservice"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:206
 #: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:334
-#: admin/class-eb-settings-ajax-initiater.php:385
+#: admin/class-eb-settings-ajax-initiater.php:335
+#: admin/class-eb-settings-ajax-initiater.php:386
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1105
 #: includes/class-eb-enrollment-manager.php:804
 #: includes/class-eb-enrollment-manager.php:855
-#: includes/class-eb-user-manager.php:1434
+#: includes/class-eb-user-manager.php:1435
 msgid " OR "
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:206
 #: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:334
-#: admin/class-eb-settings-ajax-initiater.php:385
+#: admin/class-eb-settings-ajax-initiater.php:335
+#: admin/class-eb-settings-ajax-initiater.php:386
 #: includes/class-eb-enrollment-manager.php:804
 #: includes/class-eb-enrollment-manager.php:855
-#: includes/class-eb-user-manager.php:1434
+#: includes/class-eb-user-manager.php:1435
 msgid "Try test connection"
 msgstr ""
 
@@ -595,36 +595,36 @@ msgid "Manual Enrollment method not enabled on Moodle Site"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:280
-#: admin/class-eb-settings-ajax-initiater.php:296
+#: admin/class-eb-settings-ajax-initiater.php:297
 msgid "Enable & Continue"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:288
-#: admin/class-eb-settings-ajax-initiater.php:345
+#: admin/class-eb-settings-ajax-initiater.php:289
+#: admin/class-eb-settings-ajax-initiater.php:346
 msgid "Manual Enrollment method enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:295
+#: admin/class-eb-settings-ajax-initiater.php:296
 msgid "Manual Enrollment method not enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:330
+#: admin/class-eb-settings-ajax-initiater.php:331
 msgid "Enabling Manual Enrollment method failed. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:338
+#: admin/class-eb-settings-ajax-initiater.php:339
 msgid "Please enable manual enrolment plugin on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:339
+#: admin/class-eb-settings-ajax-initiater.php:340
 msgid "Enable Manual Enrollment plugin"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:381
+#: admin/class-eb-settings-ajax-initiater.php:382
 msgid "Enabling Mandatory Settings failed. Try Test Connection first. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:390
+#: admin/class-eb-settings-ajax-initiater.php:391
 msgid "Mandatory Settings are up to mark"
 msgstr ""
 
@@ -1278,7 +1278,7 @@ msgid "Controlls whether to Show/Hide courses archive page. "
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:65
-#: admin/settings/class-eb-settings-general.php:363
+#: admin/settings/class-eb-settings-general.php:427
 msgid "Setup Wizard"
 msgstr ""
 
@@ -1442,8 +1442,8 @@ msgid ""
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:233
-#: public/templates/account/form-login.php:125
-#: public/templates/account/form-login.php:129
+#: public/templates/account/form-login.php:138
+#: public/templates/account/form-login.php:142
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -1520,8 +1520,76 @@ msgstr ""
 msgid "This will help us in building more useful functionalities for you."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:356
-#: admin/settings/class-eb-settings-general.php:360
+#: admin/settings/class-eb-settings-general.php:332
+msgid "Google reCAPTCHA Settings"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:338
+msgid "Enable reCAPTCHA"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:339
+msgid "Enable reCAPTCHA on registration form."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:346
+msgid "reCAPTCHA Type"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:347
+msgid "Select reCAPTCHA type."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:352
+msgid "reCAPTCHA v2"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:353
+msgid "reCAPTCHA v3"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:357
+msgid "Site Key"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:358
+msgid "Site key for reCAPTCHA."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:363
+msgid "Specify site key for reCAPTCHA."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:366
+msgid "Secret Key"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:367
+msgid "Secret key for reCAPTCHA."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:372
+msgid "Specify secret key for reCAPTCHA."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:375
+msgid "Show on registration page"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:376
+msgid "Show reCAPTCHA on edwiser-bridge registration page."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:383
+msgid "Show on Login page"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:384
+msgid "Show reCAPTCHA on edwiser-bridge login page."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:420
+#: admin/settings/class-eb-settings-general.php:424
 msgid "Run Setup Wizard"
 msgstr ""
 
@@ -2884,6 +2952,22 @@ msgstr ""
 msgid " to download"
 msgstr ""
 
+#: includes/class-eb-admin-notice-handler.php:385
+msgid "Get the power of selling courses via WooCommerce!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:386
+msgid "It's an Early Black Friday for you."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:387
+msgid "Get up to 70% OFF on Edwiser Bridge Pro"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:388
+msgid "Upgrade Now"
+msgstr ""
+
 #: includes/class-eb-course-manager.php:197
 msgid ""
 "Unable to create/update a few courses, since they might have already being "
@@ -3419,18 +3503,18 @@ msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:268
 #: public/templates/account/edit-user-profile.php:57
-#: public/templates/account/form-login.php:81
+#: public/templates/account/form-login.php:94
 msgid "First Name"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:269
 #: public/templates/account/edit-user-profile.php:61
-#: public/templates/account/form-login.php:88
+#: public/templates/account/form-login.php:101
 msgid "Last Name"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:270
-#: public/templates/account/form-login.php:97
+#: public/templates/account/form-login.php:110
 msgid "Email"
 msgstr ""
 
@@ -3441,7 +3525,7 @@ msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:272
 #: public/templates/account/form-login.php:33
-#: public/templates/account/form-login.php:105
+#: public/templates/account/form-login.php:118
 msgid "Password"
 msgstr ""
 
@@ -4019,27 +4103,27 @@ msgstr ""
 msgid "Invalid ajax request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1386
+#: includes/class-eb-user-manager.php:1387
 msgid "Wrodpress User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1391
+#: includes/class-eb-user-manager.php:1392
 msgid "Wrodpress User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1396
+#: includes/class-eb-user-manager.php:1397
 msgid "Wrodpress User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1429
+#: includes/class-eb-user-manager.php:1430
 msgid "Moodle User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1431
+#: includes/class-eb-user-manager.php:1432
 msgid "Moodle User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1445
+#: includes/class-eb-user-manager.php:1446
 msgid "Moodle User already exists"
 msgstr ""
 
@@ -4051,6 +4135,17 @@ msgstr ""
 
 #: includes/eb-core-functions.php:894
 msgid "Plugin not installed"
+msgstr ""
+
+#: includes/eb-core-functions.php:1154 includes/eb-core-functions.php:1158
+#: public/templates/account/form-login.php:58
+#: public/templates/account/form-login.php:185
+msgid "Login"
+msgstr ""
+
+#: includes/eb-core-functions.php:1164 includes/eb-core-functions.php:1168
+#: public/templates/account/form-login.php:172
+msgid "Register"
 msgstr ""
 
 #: includes/payments/class-eb-payment-manager.php:95
@@ -4130,6 +4225,12 @@ msgstr ""
 #: public/class-eb-frontend-form-handler.php:45
 #: public/class-eb-frontend-form-handler.php:54
 #: public/class-eb-frontend-form-handler.php:63
+#: public/class-eb-frontend-form-handler.php:77
+#: public/class-eb-frontend-form-handler.php:88
+#: public/class-eb-frontend-form-handler.php:96
+#: public/class-eb-frontend-form-handler.php:201
+#: public/class-eb-frontend-form-handler.php:212
+#: public/class-eb-frontend-form-handler.php:220
 msgid "Error"
 msgstr ""
 
@@ -4141,15 +4242,30 @@ msgstr ""
 msgid "Password is required."
 msgstr ""
 
-#: public/class-eb-frontend-form-handler.php:146
+#: public/class-eb-frontend-form-handler.php:79
+#: public/class-eb-frontend-form-handler.php:203
+msgid "reCAPTCHA secret key is not set. please contact admin."
+msgstr ""
+
+#: public/class-eb-frontend-form-handler.php:90
+#: public/class-eb-frontend-form-handler.php:214
+msgid "Invalid Captcha."
+msgstr ""
+
+#: public/class-eb-frontend-form-handler.php:98
+#: public/class-eb-frontend-form-handler.php:222
+msgid "Captcha is required."
+msgstr ""
+
+#: public/class-eb-frontend-form-handler.php:180
 msgid "Password fields can not be empty."
 msgstr ""
 
-#: public/class-eb-frontend-form-handler.php:149
+#: public/class-eb-frontend-form-handler.php:183
 msgid "Password are not matching."
 msgstr ""
 
-#: public/class-eb-frontend-form-handler.php:157
+#: public/class-eb-frontend-form-handler.php:191
 msgid "Anti-spam field was filled in."
 msgstr ""
 
@@ -4464,7 +4580,7 @@ msgid "New Password"
 msgstr ""
 
 #: public/templates/account/edit-user-profile.php:116
-#: public/templates/account/form-login.php:112
+#: public/templates/account/form-login.php:125
 msgid "Confirm Password"
 msgstr ""
 
@@ -4489,32 +4605,23 @@ msgstr ""
 msgid "Remember me"
 msgstr ""
 
-#: public/templates/account/form-login.php:48
-#: public/templates/account/form-login.php:160
-msgid "Login"
-msgstr ""
-
-#: public/templates/account/form-login.php:60
+#: public/templates/account/form-login.php:73
 msgid "Don't have an Account? Register one!"
 msgstr ""
 
-#: public/templates/account/form-login.php:63
+#: public/templates/account/form-login.php:76
 msgid "Get Registered"
 msgstr ""
 
-#: public/templates/account/form-login.php:124
+#: public/templates/account/form-login.php:137
 msgid "I agree to the "
 msgstr ""
 
-#: public/templates/account/form-login.php:139
+#: public/templates/account/form-login.php:152
 msgid "Anti-spam"
 msgstr ""
 
-#: public/templates/account/form-login.php:150
-msgid "Register"
-msgstr ""
-
-#: public/templates/account/form-login.php:157
+#: public/templates/account/form-login.php:182
 msgid "Already have an account?"
 msgstr ""
 
