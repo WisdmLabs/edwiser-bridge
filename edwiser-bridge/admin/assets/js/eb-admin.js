@@ -921,6 +921,14 @@
                 });
             }
         });
+
+        $('#eb_enable_recaptcha').click(function (e) {
+            if ($(this).is(':checked')) {
+                $('#eb_enable_recaptcha').closest('tbody').find('tr').show();
+            } else {
+                $('#eb_enable_recaptcha').closest('tbody').find('tr').not(':first').hide();
+            }
+        });
 	$('.wdm_eb_get_key_popup_btn').click(function (e) {
             e.preventDefault();
 
