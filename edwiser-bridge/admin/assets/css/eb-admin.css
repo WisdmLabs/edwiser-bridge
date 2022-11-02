@@ -1614,32 +1614,29 @@ abbr.help:hover::after {
   display: flex;
   flex-direction: column;
   padding-left: 200px;
-  background-image: url("../../../images/bfcm.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left center;
+  min-height: 170px;
+  justify-content: center;
 }
 .eb-admin-bfcm-notice-message-content .title{
   color: white;
   font-size: 22px;
   margin: 0px;
   margin-top: 10px;
+  max-width: 90%;
 }
-.eb-admin-bfcm-notice-message-content .title2{
-  color: white;
-  font-size: 22px;
-  margin: 0px;
-}
-
 .eb-admin-bfcm-notice-message-content .desc{
   color: #8EFAFF;
   font-size: 18px;
   margin: 0px;
 }
 .eb-admin-bfcm-notice-message-content .button{
-  width: 131px;
+  max-width: fit-content;
   color: white;
   font-size: 14px;
+  text-transform: uppercase;
   padding: 0px 20px;
   border: 1px solid #C4C4C4;
   border-radius: 4px;
@@ -1655,22 +1652,23 @@ abbr.help:hover::after {
   text-decoration: none;
   color: white;
 }
+@media screen and (max-width: 1024px) {
+  .eb-admin-bfcm-notice-message-content{
+    padding-left: 250px;
+  }
+}
 @media screen and (max-width: 640px) {
   .eb-admin-bfcm-notice-message-content{
     padding: 10px;
     padding-top: 25%;
-    background-image: url("../../../images/bfcm-mobile.png");
+    background-image: url("../../../images/bfcm-mobile.png") !important;
     background-position: top center;
   }
   .eb-admin-bfcm-notice-message-content .title{
     font-size: 26px;
     line-height: 30px;
+    max-width: fit-content;
   }
-  .eb-admin-bfcm-notice-message-content .title2{
-    font-size: 26px;
-    line-height: 30px;
-  }
-  
   .eb-admin-bfcm-notice-message-content .desc{
     margin-top: 10px;
     font-size: 22px;

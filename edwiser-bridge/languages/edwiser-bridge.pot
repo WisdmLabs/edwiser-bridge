@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-21 13:34+0530\n"
+"POT-Creation-Date: 2022-11-02 16:39+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 "X-Loco-Version: 2.5.2; wp-5.7.2\n"
 "X-Domain: edwiser-bridge\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -2952,20 +2952,47 @@ msgstr ""
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:385
-msgid "Get the power of selling courses via WooCommerce!"
+#: includes/class-eb-admin-notice-handler.php:415
+msgid "Play a Game with Edwiser to get ahead of the Black Friday Sale!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:386
+#: includes/class-eb-admin-notice-handler.php:416
 msgid "It's an Early Black Friday for you."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:387
-msgid "Get up to 70% OFF on Edwiser Bridge Pro"
+#: includes/class-eb-admin-notice-handler.php:417
+msgid ""
+"Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & "
+"plugins"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:388
+#: includes/class-eb-admin-notice-handler.php:418
+msgid "Spin and Win"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:433
+msgid "Get the power of selling courses via WooCommerce!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:434
+msgid "It's Black Friday for you."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:438
+msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:439
 msgid "Upgrade Now"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:443
+msgid ""
+"Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:444
+msgid "Upgrade tO Lifetime"
 msgstr ""
 
 #: includes/class-eb-course-manager.php:197
