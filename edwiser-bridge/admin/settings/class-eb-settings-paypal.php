@@ -107,6 +107,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 							'PLN' => __( 'Polish Zloty (PLN)', 'edwiser-bridge' ),
 							'DKK' => __( 'Danish Krone (DKK)', 'edwiser-bridge' ),
 							'SGD' => __( 'Singapore Dollar (SGD)', 'edwiser-bridge' ),
+							'BRL' => __( 'Brazilian Real (BRL)', 'edwiser-bridge' ),
 						),
 					),
 					array(

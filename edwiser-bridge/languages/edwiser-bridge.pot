@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-02 16:39+0530\n"
+"POT-Creation-Date: 2022-11-04 09:57+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1677,63 +1677,67 @@ msgstr ""
 msgid "Singapore Dollar (SGD)"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:113
-msgid "PayPal Country"
+#: admin/settings/class-eb-settings-paypal.php:110
+msgid "Brazilian Real (BRL)"
 msgstr ""
 
 #: admin/settings/class-eb-settings-paypal.php:114
+msgid "PayPal Country"
+msgstr ""
+
+#: admin/settings/class-eb-settings-paypal.php:115
 msgid "Enter your country code here."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:123
+#: admin/settings/class-eb-settings-paypal.php:124
 msgid "PayPal Cancel URL"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:124
+#: admin/settings/class-eb-settings-paypal.php:125
 msgid "Enter the URL used for purchase cancellations."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:133
+#: admin/settings/class-eb-settings-paypal.php:134
 msgid "PayPal Return URL"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:135
+#: admin/settings/class-eb-settings-paypal.php:136
 msgid "Enter the URL used for completed purchases (a thank you page)."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:146
+#: admin/settings/class-eb-settings-paypal.php:147
 msgid "PayPal Notify URL"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:147
+#: admin/settings/class-eb-settings-paypal.php:148
 msgid "Enter the URL used for IPN notifications."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:156
+#: admin/settings/class-eb-settings-paypal.php:157
 msgid "Use PayPal Sandbox"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:157
+#: admin/settings/class-eb-settings-paypal.php:158
 msgid "Check to enable the PayPal sandbox."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:169
+#: admin/settings/class-eb-settings-paypal.php:170
 msgid "PayPal API Credentials (Optional)"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:172
+#: admin/settings/class-eb-settings-paypal.php:173
 msgid "To use order refunds following fields are mandatory."
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:175
+#: admin/settings/class-eb-settings-paypal.php:176
 msgid "API username"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:183
+#: admin/settings/class-eb-settings-paypal.php:184
 msgid "API password"
 msgstr ""
 
-#: admin/settings/class-eb-settings-paypal.php:191
+#: admin/settings/class-eb-settings-paypal.php:192
 msgid "API signature"
 msgstr ""
 
@@ -2952,46 +2956,38 @@ msgstr ""
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:415
+#: includes/class-eb-admin-notice-handler.php:414
 msgid "Play a Game with Edwiser to get ahead of the Black Friday Sale!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:416
-msgid "It's an Early Black Friday for you."
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:417
+#: includes/class-eb-admin-notice-handler.php:415
 msgid ""
 "Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & "
 "plugins"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:418
+#: includes/class-eb-admin-notice-handler.php:416
 msgid "Spin and Win"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:433
+#: includes/class-eb-admin-notice-handler.php:431
 msgid "Get the power of selling courses via WooCommerce!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:434
-msgid "It's Black Friday for you."
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:438
+#: includes/class-eb-admin-notice-handler.php:435
 msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:439
+#: includes/class-eb-admin-notice-handler.php:436
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:443
+#: includes/class-eb-admin-notice-handler.php:440
 msgid ""
 "Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:444
+#: includes/class-eb-admin-notice-handler.php:441
 msgid "Upgrade tO Lifetime"
 msgstr ""
 
