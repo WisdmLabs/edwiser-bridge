@@ -220,6 +220,8 @@ Also check our knowledge base for more queries
  ==  Changelog  ==
 = 2.2.5 =
 * Feature - added google reCAPTCHA validation on user-account page.
+* Feature - added Brazilian Real (BRL) in paypal
+
 = 2.2.4 =
 * Fix - Fixed selective sync fatal error issue
 

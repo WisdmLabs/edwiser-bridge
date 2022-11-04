@@ -383,20 +383,6 @@ class Eb_Admin_Notice_Handler {
 		if ( is_admin() && ( 'index.php' === $pagenow || 'eb_course_page_eb-settings' === $screen->id ) ) {
 			
 			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
-			$extensions  = array(
-				'woocommerce-integration/bridge-woocommerce.php',
-				'selective-synchronization/selective-synchronization.php',
-				'edwiser-bridge-sso/sso.php',
-				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
-			);
-			foreach ( $extensions as $plugin_path ) {
-				if ( is_plugin_active( $plugin_path ) ) {
-					$free = false;
-				} else {
-					$free = true;
-					break;
-				}
-			}
 			
 			// chek if current date is between 4th and 23rd of november.
 			$bfcm_pre_start_date = strtotime( '2022-11-04' );
@@ -406,7 +392,7 @@ class Eb_Admin_Notice_Handler {
 			$current_date        = strtotime( wp_date( 'Y-m-d' ) );
 
 			// pre bfcm banner.
-			if( $current_date >= $bfcm_pre_start_date && $current_date <= $bfcm_pre_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_pre_notice_dismissed' ) && $free ) {
+			if( $current_date >= $bfcm_pre_start_date && $current_date <= $bfcm_pre_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_pre_notice_dismissed' ) ) {
 				$redirection    = add_query_arg( 'eb-admin-bfcm-pre-notice-dismissed', true );
 				?>
 				<div class="notice eb-admin-bfcm-notice-message">
@@ -424,6 +410,20 @@ class Eb_Admin_Notice_Handler {
 				<?php
 			} elseif ( $current_date >= $bfcm_start_date && $current_date <= $bfcm_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_notice_dismissed' )) {
 				// bfcm banner.
+				$extensions  = array(
+					'woocommerce-integration/bridge-woocommerce.php',
+					'selective-synchronization/selective-synchronization.php',
+					'edwiser-bridge-sso/sso.php',
+					'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
+				);
+				foreach ( $extensions as $plugin_path ) {
+					if ( is_plugin_active( $plugin_path ) ) {
+						$free = false;
+					} else {
+						$free = true;
+						break;
+					}
+				}
 				$redirection    = add_query_arg( 'eb-admin-bfcm-notice-dismissed', true );
 				?>
 				<div class="notice eb-admin-bfcm-notice-message">
