@@ -117,6 +117,13 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					'key'             => 'edd_selective_sync_license_key',
 					'path'            => 'selective-synchronization/selective-synchronization.php',
 				),
+				'edwiser_custom_fields'   => array(
+					'slug'            => 'edwiser_custom_fields',
+					'current_version' => '1.0.0',
+					'item_name'       => 'Edwiser Custom Fields',
+					'key'             => 'edd_edwiser_custom_fields_license_key',
+					'path'            => 'edwiser-custom-fields/custom-fields.php',
+				),
 			);
 			if ( $plugin_slug ) {
 				$products_data = $products_data[ $plugin_slug ];
