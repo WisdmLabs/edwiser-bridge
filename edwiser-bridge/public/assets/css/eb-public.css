@@ -702,7 +702,10 @@ div.course-not-available {
 
 .eb-profile-txt-field input[type="email"],
 .eb-profile-txt-field input[type="text"],
-.eb-profile-txt-field input[type="password"] {
+.eb-profile-txt-field input[type="password"],
+.eb-profile-txt-field input[type="number"],
+.eb-profile-txt-field input[type="date"],
+.eb-profile-txt-field select {
   /* width: 100%; */
   width: -webkit-fill-available;
   padding: 0.75em;
