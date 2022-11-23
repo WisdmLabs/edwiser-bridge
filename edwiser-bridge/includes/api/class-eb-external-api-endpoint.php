@@ -226,6 +226,9 @@ class Eb_External_Api_Endpoint {
 			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p );
 			if ( $wp_user_id ) {
 				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
+
+				// user creation hook.
+				do_action( 'eb_user_created_from_moodle', $user_id, $data );
 			}
 		}
 	}
@@ -446,6 +449,8 @@ class Eb_External_Api_Endpoint {
 
 			// Update password and fields.
 			wp_update_user( $user_update_array );
+
+			do_action( 'eb_user_updated_from_moodle', $wp_user_id, $data );
 		}
 	}
 }
