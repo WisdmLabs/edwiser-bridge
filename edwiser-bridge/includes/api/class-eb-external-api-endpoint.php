@@ -228,7 +228,7 @@ class Eb_External_Api_Endpoint {
 				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
 
 				// user creation hook.
-				do_action( 'eb_user_created_from_moodle', $user_id, $data );
+				do_action( 'eb_user_created_from_moodle', $wp_user_id, $data );
 			}
 		}
 	}
