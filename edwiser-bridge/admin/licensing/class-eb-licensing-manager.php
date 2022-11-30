@@ -120,9 +120,9 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				'edwiser_custom_fields'   => array(
 					'slug'            => 'edwiser_custom_fields',
 					'current_version' => '1.0.0',
-					'item_name'       => 'Edwiser Custom Fields',
+					'item_name'       => 'Edwiser Bridge Custom Fields',
 					'key'             => 'edd_edwiser_custom_fields_license_key',
-					'path'            => 'edwiser-custom-fields/custom-fields.php',
+					'path'            => 'edwiser-custom-fields/edwiser-custom-fields.php',
 				),
 			);
 			if ( $plugin_slug ) {
