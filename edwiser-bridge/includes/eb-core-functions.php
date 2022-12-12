@@ -915,6 +915,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 				'timeout'   => 15,
 				'sslverify' => false,
 				'blocking'  => true,
+				'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 			)
 		);
 		if ( ! is_wp_error( $request ) ) {
