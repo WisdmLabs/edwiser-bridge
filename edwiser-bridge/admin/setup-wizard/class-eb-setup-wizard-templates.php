@@ -1032,6 +1032,7 @@ class Eb_Setup_Wizard_Templates {
 		$license['woo_int_license'] = get_option( 'edd_woocommerce_integration_license_key' );
 		$license['ss_license']      = get_option( 'edd_selective_sync_license_key' );
 		$license['bp_license']      = get_option( 'edd_bulk-purchase_license_key' );
+		$license['cf_license']      = get_option( 'edd_edwiser_custom_fields_license_key' );
 
 		$class = 'disable';
 		foreach ( $license as $value ) {
@@ -1057,7 +1058,7 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 				<div class='eb_setup_license_inp_wrap'>
-					<div class='eb_setup_conn_url_inp_wrap  es-h-100'>
+					<div class='eb_setup_conn_url_inp_wrap'>
 						<p>
 							<label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label>
 							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for WooCommerce Integration.', 'edwiser-bridge' ); ?></span> </span>
@@ -1066,7 +1067,7 @@ class Eb_Setup_Wizard_Templates {
 						<div class='eb_setup_woocommerce_integration_license_msg'></div>
 					</div>
 
-					<div class='eb_setup_conn_url_inp_wrap es-h-100'>
+					<div class='eb_setup_conn_url_inp_wrap'>
 						<p>
 							<label class='eb_setup_h2'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label>
 							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Selective Sync.', 'edwiser-bridge' ); ?></span> </span>
@@ -1077,7 +1078,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class='eb_setup_license_inp_wrap '>
-					<div class='eb_setup_conn_url_inp_wrap es-h-100'>
+					<div class='eb_setup_conn_url_inp_wrap'>
 						<p>
 							<label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label>
 							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Bulk Purchase.', 'edwiser-bridge' ); ?></span> </span>
@@ -1086,7 +1087,7 @@ class Eb_Setup_Wizard_Templates {
 						<div class='eb_setup_bulk-purchase_license_msg'></div>
 					</div>
 
-					<div class='eb_setup_conn_url_inp_wrap es-h-100'>
+					<div class='eb_setup_conn_url_inp_wrap'>
 						<p>
 							<label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'edwiser-bridge' ); ?></label>
 							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Single Sign On.', 'edwiser-bridge' ); ?></span> </span>
@@ -1094,7 +1095,16 @@ class Eb_Setup_Wizard_Templates {
 						<input class='eb_setup_inp eb_setup_license_inp eb_setup_single_sign_on_license' name='eb_setup_sso' id='eb_setup_sso' data-action='single_sign_on' type='text' value='<?php echo esc_attr( $license['sso_license'] ); ?>' >
 						<div class='eb_setup_single_sign_on_license_msg'></div>
 					</div>
-
+				</div>
+				<div class='eb_setup_license_inp_wrap'>
+					<div class='eb_setup_conn_url_inp_wrap eb_setup_single'>
+						<p>
+							<label class='eb_setup_h2'> <?php esc_html_e( 'Edwiser Custom Fields', 'edwiser-bridge' ); ?></label>
+							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Edwiser Custom Fields.', 'edwiser-bridge' ); ?></span> </span>
+						</p>
+						<input class='eb_setup_inp eb_setup_license_inp eb_setup_edwiser_custom_fields_license' name='eb_setup_edwiser_custom_fields' id='eb_setup_edwiser_custom_fields' data-action='edwiser_custom_fields' type='text' value='<?php echo esc_attr( $license['cf_license'] ); ?>' >
+						<div class='eb_setup_edwiser_custom_fields_license_msg'></div>
+					</div>
 				</div>
 			</div>
 

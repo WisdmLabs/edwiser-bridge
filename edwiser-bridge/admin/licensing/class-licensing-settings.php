@@ -281,9 +281,9 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 					'timeout'   => 15,
 					'sslverify' => false,
 					'blocking'  => true,
+					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)
 			);
-
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {

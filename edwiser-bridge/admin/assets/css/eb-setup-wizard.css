@@ -865,6 +865,11 @@ a.eb_setup_btn{
     /* margin-bottom: 10px; */
 }
 
+.eb_setup_single{
+    width: calc( 50% - 20px );
+    margin: 0;
+}
+
 .eb_setup_inp_wrap{
     /* text-align: center; */
     width: 100%;

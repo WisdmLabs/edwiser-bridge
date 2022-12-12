@@ -50,7 +50,6 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 			// Hide the save button.
 			$GLOBALS['hide_save_button'] = true;
 			$plugin_path                 = plugin_dir_path( __DIR__ );
-
 			require_once $plugin_path . 'partials/html-admin-licensing.php';
 
 		}

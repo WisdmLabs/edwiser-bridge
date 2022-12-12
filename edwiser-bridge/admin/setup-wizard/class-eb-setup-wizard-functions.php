@@ -870,7 +870,7 @@ class Eb_Setup_Wizard_Functions {
 			include_once plugin_dir_path( __DIR__ ) . 'licensing/class-eb-get-plugin-data.php';
 		}
 
-		$status['install']         = '<span class="eb_license_error">' . __( 'Plugin insallation failed', 'edwiser-bridge' ) . '</span>';
+		$status['install']         = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'Plugin insallation failed', 'edwiser-bridge' ) . '</span>';
 		$slug                      = $data['action'];
 		$products_data             = Eb_Licensing_Manager::get_plugin_data();
 		$plugin_data               = $products_data[ $slug ];
@@ -920,12 +920,20 @@ class Eb_Setup_Wizard_Functions {
 
 				return $status;
 			}
-		}
-		if ( 'bulk-purchase' === $slug ) {
+		} elseif ( 'bulk-purchase' === $slug ) {
 			$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
 			if ( ! is_plugin_active( $woo_integration_path ) ) {
 				$status['message'] = __( 'Please activate the WooCommerce Integration plugin first.', 'edwiser-bridge' );
 				return $status;
+			}
+		} elseif ( 'edwiser_custom_fields' === $slug ) {
+			$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
+			if ( is_plugin_active( $woo_integration_path ) ) {
+				$woo_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $woo_integration_path );
+            	if ( version_compare($woo_data['Version'], '2.2.1', '<' ) ) {
+					$status['message'] = __( 'WooCommerce Integration plugin Version 2.2.1 required.', 'edwiser-bridge' );
+					return $status;
+				}
 			}
 		}
 
@@ -950,7 +958,6 @@ class Eb_Setup_Wizard_Functions {
 
 			// check license status and prepare response.
 			$license_status = get_option( 'edd_' . $slug . '_license_status' );
-
 			if ( 'valid' === $license_status ) {
 				$status['activate'] = '<span class="eb_license_success"><span class="dashicons dashicons-yes"></span>' . __( 'License activated', 'edwiser-bridge' ) . '</span>';
 			} elseif ( 'no_activations_left' === $license_status ) {
@@ -986,7 +993,6 @@ class Eb_Setup_Wizard_Functions {
 					'blocking'  => true,
 				)
 			);
-
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {

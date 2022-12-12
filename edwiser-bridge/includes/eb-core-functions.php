@@ -903,7 +903,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 	 * @return array array of the status and data.
 	 */
 	function wdm_request_edwiser( $api_params ) {
-		$store_url            = 'https://edwiser.org/check-update';
+		$store_url            = 'https://dev1.edwiser.org/check-update';
 		$api_params['author'] = 'WisdmLabs';
 		$resp_data            = array(
 			'status' => false,
@@ -917,7 +917,6 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 				'blocking'  => true,
 			)
 		);
-
 		if ( ! is_wp_error( $request ) ) {
 			$resp_data['data']   = json_decode( wp_remote_retrieve_body( $request ) );
 			$resp_data['status'] = wp_remote_retrieve_response_code( $request );
