@@ -154,7 +154,27 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 			}
 
 			if ( $set_trans ) {
-				$time = ( 'valid' === $license_status ) ? 60 * 60 * 24 * 7 : 60 * 60 * 24;
+				switch ($license_status) {
+					case 'invalid':
+					case 'no_activations_left':
+						$time = 0; // Do not repeat.
+						break;
+					case 'failed':
+						$time = 86400; // Repeat everyday.
+						break;
+					case 'expired':
+						$time = 86400 * 2; // Repeat every 2 days.
+						break;
+					case 'disabled':
+						$time = 86400 * 4; // Repeat every 4 days.
+						break;
+					case 'valid':
+						$time = 86400 * 7; // Repeat every 7 days.
+						break;
+					default:
+						$time = 86400 * 7; // Fallback. Repeat every 7 days.
+						break;
+				}
 				set_transient( 'wdm_' . $plugin_slug . '_license_trans', $license_status, $time );
 			}
 		}

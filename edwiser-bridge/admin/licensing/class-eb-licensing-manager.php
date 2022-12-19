@@ -356,8 +356,9 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 			if ( isset( $tran_var ) ) {
 				delete_transient( 'wdm_' . $this->plugin_slug . '_license_trans' );
 				if ( ! empty( $license_status ) ) {
-					$time = ( 'valid' === $license_status ) ? ( 60 * 60 * 24 * 7 ) : ( 60 * 60 * 24 );
-					set_transient( 'wdm_' . $this->plugin_slug . '_license_trans', $license_status, $time );
+
+					include_once plugin_dir_path( __FILE__ ) . 'class-eb-get-plugin-data.php';
+					Eb_Get_Plugin_Data::set_response_data( $license_status, '', $this->plugin_slug, true );
 				}
 			}
 		}
