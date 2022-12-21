@@ -903,7 +903,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 	 * @return array array of the status and data.
 	 */
 	function wdm_request_edwiser( $api_params ) {
-		$store_url            = 'https://dev1.edwiser.org/check-update';
+		$store_url            = 'https://edwiser.org/check-update';
 		$api_params['author'] = 'WisdmLabs';
 		$resp_data            = array(
 			'status' => false,

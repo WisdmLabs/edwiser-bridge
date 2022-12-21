@@ -51,7 +51,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 		 *
 		 * @var string  $store_url Stores the URL of store.
 		 */
-		public static $store_url = 'https://dev1.edwiser.org/check-update';
+		public static $store_url = 'https://edwiser.org/check-update';
 
 		/**
 		 * Plugin author name.

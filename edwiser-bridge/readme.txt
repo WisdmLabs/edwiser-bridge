@@ -218,6 +218,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.6 =
+* Feature - new custom fields plugin
+* Tweak   - improved licensing process
+
 = 2.2.5 =
 * Feature - added google reCAPTCHA validation on user-account page.
 * Feature - added Brazilian Real (BRL) in paypal
