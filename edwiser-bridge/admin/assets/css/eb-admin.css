@@ -945,9 +945,6 @@ span.eb-option-input .eb-option-div select {
 #eb_order_order_status > .eb-option-label {
   min-width: unset;
 }
-#order_status {
-  width: unset;
-}
 #eb_order_order_status {
   width: unset;
 }
