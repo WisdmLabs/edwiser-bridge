@@ -345,11 +345,21 @@
 }
 
 .eb_admin_update_notice_message_cont {
-  background: #ffeb3b14;
-  border-left: 5px solid #ffc107;
-  border-bottom: 1px solid #ffc107;
-  border-top: 1px solid #ffc107;
-  border-right: 1px solid #ffc107;
+  background-color: #fff;
+  border-left: 5px solid #133F3F;
+  border-bottom: 1px solid #133F3F;
+  border-top: 1px solid #133F3F;
+  border-right: 1px solid #133F3F;
+}
+.eb_admin_update_notice_message_logo {
+  width: 15%;
+  display: flex;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+.eb_admin_update_notice_message_logo img{
+  width: 50%
 }
 
 .eb_admin_update_notice_message {
@@ -365,19 +375,23 @@
 .eb_update_notice_content {
   font-size: 12px;
   /*line-height: 25px;*/
-  padding-left: 10px;
+  padding: 10px;
   width: 85%;
 }
 
-.eb_admin_feedback_notice_message_cont,
-.eb_admin_update_notice_message_cont {
+.eb_admin_feedback_notice_message_cont {
   overflow: auto;
   padding: 13px;
+}
+.eb_admin_update_notice_message_cont {
+  overflow: auto;
+  padding: 0px;
 }
 
 .eb_admin_feedback_dismiss_notice_message,
 .eb_admin_update_dismiss_notice_message {
   float: right;
+  padding: 10px;
 }
 
 .eb_admin_feedback_dismiss_notice_message a span,
@@ -1395,14 +1409,16 @@ span.eb-option-input .eb-option-div select {
 
 a[href*="tab=sso-dummy"].nav-tab,
 a[href*="tab=woo_int_dummy"].nav-tab,
-a[href*="tab=sel_sync_dummy"].nav-tab {
+a[href*="tab=sel_sync_dummy"].nav-tab,
+a[href*="tab=custom_fields_dummy"].nav-tab {
   position: relative;
   overflow: hidden;
   display: block;
 }
 a[href*="tab=sso-dummy"].nav-tab::after,
 a[href*="tab=woo_int_dummy"].nav-tab::after,
-a[href*="tab=sel_sync_dummy"].nav-tab::after {
+a[href*="tab=sel_sync_dummy"].nav-tab::after,
+a[href*="tab=custom_fields_dummy"].nav-tab::after {
   background-color: red;
   content: "Pro";
   color: white;

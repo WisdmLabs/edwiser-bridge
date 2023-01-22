@@ -26,6 +26,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// plugin data global variable.
+global $eb_plugin_data;
+$eb_plugin_data = array(
+	'name' => 'Edwiser Bridge - WordPress Moodle LMS Integration',
+	'slug' => 'edwiser-bridge',
+	'version' => '2.2.6',
+	'mdl_plugin_url' => 'https://edwiser.org/wp-content/uploads/edd/2022/12/edwiserbridge.zip',
+);
 
 /**
  * The code that runs during plugin activation.

@@ -23,7 +23,6 @@ foreach ( $extensions as $plugin_path ) {
 		break;
 	}
 }
-
 ?>
 <div class="wrap edw">
 	<?php

@@ -33,6 +33,9 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 			if ( ! is_plugin_active( 'edwiser-bridge-sso/sso.php' ) ) {
 				new Eb_Settings_Dummy_SSO();
 			}
+			if ( ! is_plugin_active( 'edwiser-custom-fields/edwiser-custom-fields.php' ) ) {
+				new Eb_Settings_Dummy_Custom_Fields();
+			}
 		}
 
 		/**
@@ -81,7 +84,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 				'img_alt_text' => __( 'Woo Integration setting image not found', 'edwiser-bridge' ),
 				'img_name'     => 'woo_int.png',
 				'go_to_url'    => 'https://bit.ly/2YWsjEj',
-				'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+				'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 				'cta_msg'      => __( 'Sell Moodle Courses via 160+ Payment Gateways with WooCommerce.', 'edwiser-bridge' ),
 			);
 
@@ -132,7 +135,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 					'img_alt_text' => __( 'Woo Integration setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'woo_int_prod_sync.png',
 					'go_to_url'    => 'https://bit.ly/2YWsjEj',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'Sell Moodle Courses via 160+ Payment Gateways with WooCommerce.', 'edwiser-bridge' ),
 				);
 				$settings = apply_filters(
@@ -207,7 +210,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 				'img_alt_text' => __( 'Selective Sync setting not found', 'edwiser-bridge' ),
 				'img_name'     => 'selective-synch.png',
 				'go_to_url'    => 'https://bit.ly/3tNRmrJ',
-				'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+				'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 				'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'edwiser-bridge' ),
 			);
 
@@ -248,7 +251,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_alt_text' => __( 'Selective Sync user synchronisation setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'selective_users.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'edwiser-bridge' ),
 				);
 			} else {
@@ -256,7 +259,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 					'img_alt_text' => __( 'Selective Sync Course synchronisation setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'selective_sync.png',
 					'go_to_url'    => 'https://bit.ly/3tNRmrJ',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'PICK and CHOOSE the courses and users to synchronize from Moodle to WordPress.', 'edwiser-bridge' ),
 				);
 			}
@@ -319,7 +322,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 				'img_alt_text' => __( 'Single Sign On setting not found', 'edwiser-bridge' ),
 				'img_name'     => 'sso.png',
 				'go_to_url'    => 'https://bit.ly/3tICgDx',
-				'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+				'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 				'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'edwiser-bridge' ),
 			);
 			$this->_id          = 'sso-dummy';
@@ -359,7 +362,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_alt_text' => __( 'Single Sign On setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'sso_redirection.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'edwiser-bridge' ),
 				);
 			} elseif ( 'social_login' === $current_section ) {
@@ -367,7 +370,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_alt_text' => __( 'Single Sign On setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'sso_social.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'edwiser-bridge' ),
 				);
 			} else {
@@ -375,7 +378,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 					'img_alt_text' => __( 'Single Sign On setting not found', 'edwiser-bridge' ),
 					'img_name'     => 'sso.png',
 					'go_to_url'    => 'https://bit.ly/3tICgDx',
-					'btn_text'     => __( 'View Details', 'edwiser-bridge' ),
+					'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
 					'cta_msg'      => __( 'Moodle WordPress Single Sign-On for quick & easy login.', 'edwiser-bridge' ),
 				);
 			}
@@ -415,6 +418,75 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 				$sections = array_merge( $sections, $new_sections );
 			}
 			return $sections;
+		}
+	}
+}
+
+if ( ! class_exists( 'Eb_Settings_Dummy_Custom_Fields' ) ) {
+	/**
+	 * Eb_Settings_Dummy_Custom_Fields.
+	 */
+	class Eb_Settings_Dummy_Custom_Fields extends EBSettingsPage { // @codingStandardsIgnoreLine
+
+		/**
+		 * Setting data.
+		 *
+		 * @var array $setting_data.
+		 */
+		private $setting_data = array();
+		/**
+		 * Constructor.
+		 */
+		public function __construct() {
+			$this->setting_data = array(
+				'img_alt_text' => __( 'Custom Fields setting image not found', 'edwiser-bridge' ),
+				'img_name'     => 'custom_fields.png',
+				'go_to_url'    => 'https://bit.ly/2YWsjEj',
+				'btn_text'     => __( 'Available in Edwiser Bridge Pro', 'edwiser-bridge' ),
+				'cta_msg'      => __( 'Create and Configure custom fields on Edwiser Registration, User account, WooCommerce Registration, My Account, Checkout page.', 'edwiser-bridge' ),
+			);
+
+			$this->_id   = 'custom_fields_dummy';
+			$this->label = __( 'Custom Fields', 'edwiser-bridge' );
+			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
+			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
+		}
+
+		/**
+		 * Output the settings.
+		 *
+		 * @since  1.0.0
+		 */
+		public function output() {
+			global $current_section;
+
+			// Hide the save button.
+			$GLOBALS['hide_save_button'] = true;
+
+			$settings = $this->get_settings( $current_section );
+
+			EbAdminSettings::output_fields( $settings );
+		}
+
+		/**
+		 * Get settings array.
+		 *
+		 * @since  1.0.0
+		 *
+		 * @param text $current_section name of the section.
+		 * @return array
+		 */
+		public function get_settings( $current_section = '' ) {
+			$settings = apply_filters(
+				'custom_fields_dummy',
+				array(
+					array(
+						'type' => 'cust_html',
+						'html' => Eb_Settings_Dummy::disp_setting_img( $this->setting_data ),
+					),
+				)
+			);
+			return apply_filters( 'eb_get_settings_' . $this->_id, $settings, $current_section );
 		}
 	}
 }
