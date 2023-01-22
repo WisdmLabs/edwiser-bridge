@@ -206,5 +206,8 @@ class Eb_Admin {
 			$this->version,
 			false
 		);
+
+		// add helpscout beacon script
+		add_action( 'eb_settings_footer', '\app\wisdmlabs\edwiserBridge\add_beacon_helpscout_script');
 	}
 }
