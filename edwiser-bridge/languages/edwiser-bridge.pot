@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-12 10:09+0530\n"
+"POT-Creation-Date: 2023-01-23 11:34+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -31,7 +31,7 @@ msgid "Orders"
 msgstr ""
 
 #: admin/class-eb-admin-menus.php:60 admin/class-eb-admin-menus.php:61
-#: edwiser-bridge.php:73
+#: edwiser-bridge.php:81
 msgid "Settings"
 msgstr ""
 
@@ -326,7 +326,7 @@ msgid "Save Changes"
 msgstr ""
 
 #: admin/class-eb-email-template.php:158
-#: admin/partials/html-admin-settings.php:65
+#: admin/partials/html-admin-settings.php:64
 msgid "Save changes"
 msgstr ""
 
@@ -533,19 +533,29 @@ msgid "Something went wrong. Try Test Connection. ERROR : "
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:206
-#: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:335
-#: admin/class-eb-settings-ajax-initiater.php:386
+msgid ""
+"Something went wrong. Probably Moodle Edwiser Bridge plugin is not updated "
+"or installed properly. Please update the plugin and try again."
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:207
+msgid "Download latest plugin file"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:211
+#: admin/class-eb-settings-ajax-initiater.php:280
+#: admin/class-eb-settings-ajax-initiater.php:340
+#: admin/class-eb-settings-ajax-initiater.php:391
 #: includes/class-eb-enrollment-manager.php:804
 #: includes/class-eb-enrollment-manager.php:855
 #: includes/class-eb-user-manager.php:1435
 msgid "Update webservice"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:206
-#: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:335
-#: admin/class-eb-settings-ajax-initiater.php:386
+#: admin/class-eb-settings-ajax-initiater.php:211
+#: admin/class-eb-settings-ajax-initiater.php:280
+#: admin/class-eb-settings-ajax-initiater.php:340
+#: admin/class-eb-settings-ajax-initiater.php:391
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1115
 #: includes/class-eb-enrollment-manager.php:804
@@ -554,77 +564,77 @@ msgstr ""
 msgid " OR "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:206
-#: admin/class-eb-settings-ajax-initiater.php:275
-#: admin/class-eb-settings-ajax-initiater.php:335
-#: admin/class-eb-settings-ajax-initiater.php:386
+#: admin/class-eb-settings-ajax-initiater.php:211
+#: admin/class-eb-settings-ajax-initiater.php:280
+#: admin/class-eb-settings-ajax-initiater.php:340
+#: admin/class-eb-settings-ajax-initiater.php:391
 #: includes/class-eb-enrollment-manager.php:804
 #: includes/class-eb-enrollment-manager.php:855
 #: includes/class-eb-user-manager.php:1435
 msgid "Try test connection"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:227
+#: admin/class-eb-settings-ajax-initiater.php:232
 msgid ""
 "Course Price type is not set to closed. It is recomended to be closed for "
 "woocommerce products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:227
+#: admin/class-eb-settings-ajax-initiater.php:232
 msgid "Configure course price type"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:232
+#: admin/class-eb-settings-ajax-initiater.php:237
 msgid "Course should be published"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:239
+#: admin/class-eb-settings-ajax-initiater.php:244
 msgid "Continue without chnage"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:244
+#: admin/class-eb-settings-ajax-initiater.php:249
 msgid "All post options are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:272
+#: admin/class-eb-settings-ajax-initiater.php:277
 msgid "Manual Enrollment method check failed. ERROR : "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:279
+#: admin/class-eb-settings-ajax-initiater.php:284
 msgid "Manual Enrollment method not enabled on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:280
-#: admin/class-eb-settings-ajax-initiater.php:297
+#: admin/class-eb-settings-ajax-initiater.php:285
+#: admin/class-eb-settings-ajax-initiater.php:302
 msgid "Enable & Continue"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:289
-#: admin/class-eb-settings-ajax-initiater.php:346
+#: admin/class-eb-settings-ajax-initiater.php:294
+#: admin/class-eb-settings-ajax-initiater.php:351
 msgid "Manual Enrollment method enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:296
+#: admin/class-eb-settings-ajax-initiater.php:301
 msgid "Manual Enrollment method not enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:331
+#: admin/class-eb-settings-ajax-initiater.php:336
 msgid "Enabling Manual Enrollment method failed. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:339
+#: admin/class-eb-settings-ajax-initiater.php:344
 msgid "Please enable manual enrolment plugin on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:340
+#: admin/class-eb-settings-ajax-initiater.php:345
 msgid "Enable Manual Enrollment plugin"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:382
+#: admin/class-eb-settings-ajax-initiater.php:387
 msgid "Enabling Mandatory Settings failed. Try Test Connection first. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:391
+#: admin/class-eb-settings-ajax-initiater.php:396
 msgid "Mandatory Settings are up to mark"
 msgstr ""
 
@@ -711,62 +721,62 @@ msgstr ""
 msgid "No responce from server edwiser.org."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:421
+#: admin/licensing/class-eb-licensing-manager.php:422
 #, php-format
 msgid "Please enter license key for %s."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:428
+#: admin/licensing/class-eb-licensing-manager.php:429
 msgid "No response from server. Please try again later."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:435
+#: admin/licensing/class-eb-licensing-manager.php:436
 msgid "License key is not valid. Please check your license key and try again"
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:442
+#: admin/licensing/class-eb-licensing-manager.php:443
 #, php-format
 msgid "License key for %s is activated."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:449
+#: admin/licensing/class-eb-licensing-manager.php:450
 #, php-format
 msgid ""
 "License key for %s have been Expired. Please, Renew it. <br/>Your License "
 "Key is already activated at : "
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:456
+#: admin/licensing/class-eb-licensing-manager.php:457
 #, php-format
 msgid "License key for %s have been Expired. Please, Renew it."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:463
+#: admin/licensing/class-eb-licensing-manager.php:464
 #, php-format
 msgid "License key for %s is Disabled."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:470
+#: admin/licensing/class-eb-licensing-manager.php:471
 #, php-format
 msgid "License Key for %1$s is already activated at : %2$s"
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:496
-#: admin/licensing/class-eb-licensing-manager.php:510
+#: admin/licensing/class-eb-licensing-manager.php:497
+#: admin/licensing/class-eb-licensing-manager.php:511
 #, php-format
 msgid "License Key for %s is already activated at : "
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:503
+#: admin/licensing/class-eb-licensing-manager.php:504
 #, php-format
 msgid "Please enter valid license key for %s."
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:517
+#: admin/licensing/class-eb-licensing-manager.php:518
 msgid "Site inactive(Press Activate license to activate plugin)"
 msgstr ""
 
-#: admin/licensing/class-eb-licensing-manager.php:524
+#: admin/licensing/class-eb-licensing-manager.php:525
 #, php-format
 msgid "License Key for %s is deactivated"
 msgstr ""
@@ -864,7 +874,7 @@ msgid "Plugin installation failed."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:306
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1010
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1011
 msgid ""
 "Empty download link. Please check your license key or contact edwiser "
 "support for more detials."
@@ -917,46 +927,8 @@ msgid ""
 "at the list %3$3s here%4$4s.%5$5s"
 msgstr ""
 
-#: admin/partials/html-admin-settings-right-section.php:75
-#: admin/settings/class-eb-settings-help.php:30
-msgid "Get Help"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:79
+#: admin/partials/html-admin-settings-right-section.php:35
 msgid "Rate Us"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:92
-#: edwiser-bridge.php:96
-msgid "Documentation"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:96
-#: edwiser-bridge.php:149
-msgid "Edwiser Bridge"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:102
-msgid "FAQs"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:104
-#: admin/partials/html-admin-settings-right-section.php:110
-#: includes/class-eb-admin-notice-handler.php:346
-msgid "Click here "
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:105
-msgid "to check frequently asked questions."
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:108
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:162
-msgid "Contact Us"
-msgstr ""
-
-#: admin/partials/html-admin-settings-right-section.php:110
-msgid "to chat with us."
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:37
@@ -1132,70 +1104,71 @@ msgstr ""
 msgid "Test Connection"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:51
+#: admin/settings/class-eb-settings-dummy.php:54
 msgid "I want to know more."
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:81
+#: admin/settings/class-eb-settings-dummy.php:84
 msgid "Woo Integration setting image not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:84
-#: admin/settings/class-eb-settings-dummy.php:135
-#: admin/settings/class-eb-settings-dummy.php:210
-#: admin/settings/class-eb-settings-dummy.php:251
-#: admin/settings/class-eb-settings-dummy.php:259
-#: admin/settings/class-eb-settings-dummy.php:322
-#: admin/settings/class-eb-settings-dummy.php:362
-#: admin/settings/class-eb-settings-dummy.php:370
-#: admin/settings/class-eb-settings-dummy.php:378
-msgid "View Details"
+#: admin/settings/class-eb-settings-dummy.php:87
+#: admin/settings/class-eb-settings-dummy.php:138
+#: admin/settings/class-eb-settings-dummy.php:213
+#: admin/settings/class-eb-settings-dummy.php:254
+#: admin/settings/class-eb-settings-dummy.php:262
+#: admin/settings/class-eb-settings-dummy.php:325
+#: admin/settings/class-eb-settings-dummy.php:365
+#: admin/settings/class-eb-settings-dummy.php:373
+#: admin/settings/class-eb-settings-dummy.php:381
+#: admin/settings/class-eb-settings-dummy.php:445
+msgid "Available in Edwiser Bridge Pro"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:85
-#: admin/settings/class-eb-settings-dummy.php:136
+#: admin/settings/class-eb-settings-dummy.php:88
+#: admin/settings/class-eb-settings-dummy.php:139
 msgid "Sell Moodle Courses via 160+ Payment Gateways with WooCommerce."
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:89
+#: admin/settings/class-eb-settings-dummy.php:92
 msgid "Woo Integration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:109
-#: admin/settings/class-eb-settings-dummy.php:114
+#: admin/settings/class-eb-settings-dummy.php:112
+#: admin/settings/class-eb-settings-dummy.php:117
 msgid "Products"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:132
+#: admin/settings/class-eb-settings-dummy.php:135
 msgid "Woo Integration setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:207
+#: admin/settings/class-eb-settings-dummy.php:210
 msgid "Selective Sync setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:211
-#: admin/settings/class-eb-settings-dummy.php:252
-#: admin/settings/class-eb-settings-dummy.php:260
+#: admin/settings/class-eb-settings-dummy.php:214
+#: admin/settings/class-eb-settings-dummy.php:255
+#: admin/settings/class-eb-settings-dummy.php:263
 msgid ""
 "PICK and CHOOSE the courses and users to synchronize from Moodle to "
 "WordPress."
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:215
+#: admin/settings/class-eb-settings-dummy.php:218
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1072
 msgid "Selective Sync"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:248
+#: admin/settings/class-eb-settings-dummy.php:251
 msgid "Selective Sync user synchronisation setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:256
+#: admin/settings/class-eb-settings-dummy.php:259
 msgid "Selective Sync Course synchronisation setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:284
+#: admin/settings/class-eb-settings-dummy.php:287
 #: admin/settings/class-eb-settings-general.php:59
 #: admin/settings/class-eb-settings-synchronization.php:47
 #: includes/class-eb-email-template-parser.php:123
@@ -1204,41 +1177,55 @@ msgstr ""
 msgid "Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:285
+#: admin/settings/class-eb-settings-dummy.php:288
 #: admin/settings/class-eb-settings-synchronization.php:48
 msgid "Users"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:319
-#: admin/settings/class-eb-settings-dummy.php:359
-#: admin/settings/class-eb-settings-dummy.php:367
-#: admin/settings/class-eb-settings-dummy.php:375
+#: admin/settings/class-eb-settings-dummy.php:322
+#: admin/settings/class-eb-settings-dummy.php:362
+#: admin/settings/class-eb-settings-dummy.php:370
+#: admin/settings/class-eb-settings-dummy.php:378
 msgid "Single Sign On setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:323
-#: admin/settings/class-eb-settings-dummy.php:363
-#: admin/settings/class-eb-settings-dummy.php:371
-#: admin/settings/class-eb-settings-dummy.php:379
+#: admin/settings/class-eb-settings-dummy.php:326
+#: admin/settings/class-eb-settings-dummy.php:366
+#: admin/settings/class-eb-settings-dummy.php:374
+#: admin/settings/class-eb-settings-dummy.php:382
 msgid "Moodle WordPress Single Sign-On for quick & easy login."
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:326
+#: admin/settings/class-eb-settings-dummy.php:329
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1092
 msgid "Single Sign On"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:403
+#: admin/settings/class-eb-settings-dummy.php:406
 #: admin/settings/class-eb-settings-general.php:30
 msgid "General"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:404
+#: admin/settings/class-eb-settings-dummy.php:407
 msgid "Redirection"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:405
+#: admin/settings/class-eb-settings-dummy.php:408
 msgid "Social Login"
+msgstr ""
+
+#: admin/settings/class-eb-settings-dummy.php:442
+msgid "Custom Fields setting image not found"
+msgstr ""
+
+#: admin/settings/class-eb-settings-dummy.php:446
+msgid ""
+"Create and Configure custom fields on Edwiser Registration, User account, "
+"WooCommerce Registration, My Account, Checkout page."
+msgstr ""
+
+#: admin/settings/class-eb-settings-dummy.php:450
+msgid "Custom Fields"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:48
@@ -1591,6 +1578,10 @@ msgstr ""
 #: admin/settings/class-eb-settings-general.php:420
 #: admin/settings/class-eb-settings-general.php:424
 msgid "Run Setup Wizard"
+msgstr ""
+
+#: admin/settings/class-eb-settings-help.php:30
+msgid "Get Help"
 msgstr ""
 
 #: admin/settings/class-eb-settings-help.php:79
@@ -2058,19 +2049,19 @@ msgstr ""
 msgid " and activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1005
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1006
 msgid "Plugin installed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1020
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1021
 msgid "plugin activation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1022
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1023
 msgid "plugin activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1051
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1052
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr ""
 
@@ -2081,6 +2072,10 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:157
 msgid ""
 "Copyright © 2022 Edwiser | Brought to you by WisdmLabs and Powered by Edwiser"
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:162
+msgid "Contact Us"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:197
@@ -2686,20 +2681,28 @@ msgid ""
 "Edwiser Bridge > Setting > General settings > Run Setup wizard."
 msgstr ""
 
-#: edwiser-bridge.php:74
+#: edwiser-bridge.php:99
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: edwiser-bridge.php:95
+#: edwiser-bridge.php:120
 msgid "Edwiser Bridge Documentation"
 msgstr ""
 
-#: edwiser-bridge.php:148
+#: edwiser-bridge.php:121
+msgid "Documentation"
+msgstr ""
+
+#: edwiser-bridge.php:173
 msgid "Please update all "
 msgstr ""
 
-#: edwiser-bridge.php:148
+#: edwiser-bridge.php:173
 msgid " extensions to latest version."
+msgstr ""
+
+#: edwiser-bridge.php:174
+msgid "Edwiser Bridge"
 msgstr ""
 
 #: includes/api/class-eb-connection-helper.php:76
@@ -2815,197 +2818,194 @@ msgid ""
 "have problems."
 msgstr ""
 
-#: includes/class-eb-activator.php:244
+#: includes/class-eb-activator.php:249
 msgctxt "Page slug"
 msgid "thank-you-for-purchase"
 msgstr ""
 
-#: includes/class-eb-activator.php:245
+#: includes/class-eb-activator.php:250
 msgctxt "Page title"
 msgid "Thank You for Purchase"
 msgstr ""
 
-#: includes/class-eb-activator.php:246
+#: includes/class-eb-activator.php:251
 msgid "Thanks for purchasing the course, your order will be processed shortly."
 msgstr ""
 
-#: includes/class-eb-activator.php:250
+#: includes/class-eb-activator.php:255
 msgctxt "Page slug"
 msgid "user-account"
 msgstr ""
 
-#: includes/class-eb-activator.php:251
+#: includes/class-eb-activator.php:256
 msgctxt "Page title"
 msgid "User Account"
 msgstr ""
 
-#: includes/class-eb-activator.php:256
+#: includes/class-eb-activator.php:261
 msgctxt "Page slug"
 msgid "eb-my-courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:257
+#: includes/class-eb-activator.php:262
 msgctxt "Page title"
 msgid "My Courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:262
+#: includes/class-eb-activator.php:267
 msgctxt "Page slug"
 msgid "eb-courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:263
+#: includes/class-eb-activator.php:268
 msgctxt "Page title"
 msgid "Courses"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:118
+#: includes/class-eb-admin-notice-handler.php:97
 msgid ""
-"Thanks for updating to the latest version of Edwiser Bridge plugin, please "
-"make sure you have also installed our associated Moodle Plugin to avoid any "
-"malfunctioning."
+"Thanks for using Edwiser Bridge plugin. To avoid any malfunctioning please"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:119
-#: includes/class-eb-admin-notice-handler.php:145
+#: includes/class-eb-admin-notice-handler.php:97
+msgid ""
+"make sure you have also installed and activated our latest associated Moodle "
+"Plugin"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:98
+msgid "on your Moodle site."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:101
+msgid "New version of the following plugins are available for the Moodle site."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:109
+msgid "is available."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:111
 msgid " Click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:120
-#: includes/class-eb-admin-notice-handler.php:146
-msgid " to download Moodle plugin."
+#: includes/class-eb-admin-notice-handler.php:112
+msgid " to download plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:122
-#: includes/class-eb-admin-notice-handler.php:148
-msgid "For setup assistance check our "
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:123
-#: includes/class-eb-admin-notice-handler.php:149
-msgid " documentation"
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:129
-#: includes/class-eb-admin-notice-handler.php:155
-msgid " Dismiss notice"
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:144
-msgid ""
-"Thanks for updating or installing Edwiser Bridge plugin, please update "
-"Moodle Plugin to avoid any malfunctioning."
-msgstr ""
-
-#: includes/class-eb-admin-notice-handler.php:202
+#: includes/class-eb-admin-notice-handler.php:199
 msgid "Get all Premium Edwiser Products at Flat 20% Off!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:206
+#: includes/class-eb-admin-notice-handler.php:203
 msgid " Dismiss this notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:211
+#: includes/class-eb-admin-notice-handler.php:208
 msgid "Avail Offer Now!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:252
+#: includes/class-eb-admin-notice-handler.php:249
 msgid "Enjoying Edwiser bridge, Please  "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:254
+#: includes/class-eb-admin-notice-handler.php:251
 msgid " click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:256
+#: includes/class-eb-admin-notice-handler.php:253
 msgid " to rate us."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:260
+#: includes/class-eb-admin-notice-handler.php:257
 msgid "Remind me Later!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:265
+#: includes/class-eb-admin-notice-handler.php:262
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:294
+#: includes/class-eb-admin-notice-handler.php:291
 msgid ""
 "If you have overridden the standard Edwiser Bridge templates previously then "
 "please make sure that your templates are made compatible with the NEW "
 "Edwiser Bridge template. It may cause CSS breaks if not done. "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:298
+#: includes/class-eb-admin-notice-handler.php:295
 msgid "If you have overridden the standard"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:299
+#: includes/class-eb-admin-notice-handler.php:296
 msgid ""
 "templates previously then please make sure that your templates are made "
 "compatible with the "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:300
+#: includes/class-eb-admin-notice-handler.php:297
 msgid "template. It may cause CSS breaks if not done."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:302
+#: includes/class-eb-admin-notice-handler.php:299
 msgid "Please refer to"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:302
+#: includes/class-eb-admin-notice-handler.php:299
 msgid " this "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:302
+#: includes/class-eb-admin-notice-handler.php:299
 msgid " article for theme compatibility"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:344
+#: includes/class-eb-admin-notice-handler.php:341
 msgid "Important Update Notice:"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:345
+#: includes/class-eb-admin-notice-handler.php:342
 msgid "Please download and update associated edwiserbridge Moodle plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:347
+#: includes/class-eb-admin-notice-handler.php:343
+msgid "Click here "
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:344
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:400
+#: includes/class-eb-admin-notice-handler.php:397
 msgid "Play a Game with Edwiser to get ahead of the Black Friday Sale!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:401
+#: includes/class-eb-admin-notice-handler.php:398
 msgid ""
 "Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & "
 "plugins"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:402
+#: includes/class-eb-admin-notice-handler.php:399
 msgid "Spin and Win"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:431
+#: includes/class-eb-admin-notice-handler.php:428
 msgid "Get the power of selling courses via WooCommerce!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:435
+#: includes/class-eb-admin-notice-handler.php:432
 msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:436
+#: includes/class-eb-admin-notice-handler.php:433
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:440
+#: includes/class-eb-admin-notice-handler.php:437
 msgid ""
 "Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:441
+#: includes/class-eb-admin-notice-handler.php:438
 msgid "Upgrade tO Lifetime"
 msgstr ""
 
@@ -4178,13 +4178,13 @@ msgstr ""
 msgid "Plugin not installed"
 msgstr ""
 
-#: includes/eb-core-functions.php:1153 includes/eb-core-functions.php:1157
+#: includes/eb-core-functions.php:1154 includes/eb-core-functions.php:1158
 #: public/templates/account/form-login.php:58
 #: public/templates/account/form-login.php:185
 msgid "Login"
 msgstr ""
 
-#: includes/eb-core-functions.php:1163 includes/eb-core-functions.php:1167
+#: includes/eb-core-functions.php:1164 includes/eb-core-functions.php:1168
 #: public/templates/account/form-login.php:172
 msgid "Register"
 msgstr ""
