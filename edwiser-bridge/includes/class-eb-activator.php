@@ -52,6 +52,11 @@ class Eb_Activator {
 		$plugin_i18n = new Eb_I18n();
 		$plugin_i18n->rename_langauge_files();
 
+		// check if moodle plugin update is available
+		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-admin-notice-handler.php';
+		$notice_handler = new Eb_Admin_Notice_Handler();
+		$notice_handler->eb_check_mdl_plugin_update();
+
 		// redirect to welcome screen.
 		$current_version = get_option( 'eb_current_version' );
         if( ! $current_version ) {

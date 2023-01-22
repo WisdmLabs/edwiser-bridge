@@ -60,43 +60,17 @@ class Eb_Admin_Notice_Handler {
 	 * Currently only version is provided.
 	 */
 	public function eb_get_mdl_plugin_info() {
-		$connection_options = get_option( 'eb_connection' );
-		$eb_moodle_url      = '';
-		if ( isset( $connection_options['eb_url'] ) ) {
-			$eb_moodle_url = $connection_options['eb_url'];
-		}
-		$eb_moodle_token = '';
-		if ( isset( $connection_options['eb_access_token'] ) ) {
-			$eb_moodle_token = $connection_options['eb_access_token'];
-		}
-		$request_url = $eb_moodle_url . '/webservice/rest/server.php?wstoken=';
 
 		$moodle_function = 'eb_get_edwiser_plugins_info';
-		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
-		$request_args    = array(
-			'sslverify' => false,
-			'body'      => array(),
-			'timeout'   => 100,
-		);
-		$response        = wp_remote_post( $request_url, $request_args );
 
-		$status = 0;
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $moodle_function );
 
-		if ( is_wp_error( $response ) ) {
-			return $status;
-		} elseif ( 200 === wp_remote_retrieve_response_code( $response ) ||
-				300 === wp_remote_retrieve_response_code( $response ) ) {
-			$body = json_decode( wp_remote_retrieve_body( $response ) );
-
-			if ( isset( $body->plugin_name ) && isset( $body->version ) && 0 === version_compare( '2.0.7', $body->version ) ) {
-				$status = 1;
-			}
+		if ( isset( $response['success'] ) && $response['success'] ) {
+			$plugin_info = $response['response_data'];
+			return $plugin_info->plugins;
 		} else {
-			$status = 0;
+			return false;
 		}
-
-		return $status;
-
 	}
 
 
@@ -107,65 +81,88 @@ class Eb_Admin_Notice_Handler {
 	 * @since 1.3.1
 	 */
 	public function eb_admin_update_moodle_plugin_notice() {
+
+		// show notice.
 		$redirection = add_query_arg( 'eb-update-notice-dismissed', true );
+		$plugin_data = get_option( 'eb_mdl_plugin_update_check' );
+		if ( ! get_option( 'eb_mdl_plugin_update_notice_dismissed' ) && is_array( $plugin_data ) && ! empty( $plugin_data ) ) {
+			?>
+			<div class="notice  eb_admin_update_notice_message_cont">
+				<div class="eb_admin_update_notice_message">
+					<div class="eb_admin_update_notice_message_logo">
+						<img src="<?php echo esc_url( plugins_url( 'images/logo.png', dirname( __FILE__ ) ) ); ?>" alt="Edwiser Bridge Logo" />
+					</div>
+					<div class="eb_update_notice_content">
+						<p>
+							<?php esc_html_e( 'Thanks for using Edwiser Bridge plugin. To avoid any malfunctioning please', 'edwiser-bridge' ) ?> <strong><?php esc_html_e( 'make sure you have also installed and activated our latest associated Moodle Plugin', 'edwiser-bridge' ) ?></strong>
+							<?php esc_html_e( 'on your Moodle site.', 'edwiser-bridge' ) ?>
+						</p>
+						<p>
+							<?php esc_html_e( 'New version of the following plugins are available for the Moodle site.', 'edwiser-bridge' ) ?>
+						</p>
+						<ol>
+							<?php
+							foreach ( $plugin_data as $plugin ) {
+								?>
+								<li>
+									<?php
+									echo '<strong>' . esc_html( $plugin['name'] ) . '</strong> ' . esc_html( $plugin['new_version'] ) . ' ' . esc_html__( 'is available.', 'edwiser-bridge' );
+									?>
+									<a href="<?php echo $plugin['url'] ?>"><?php esc_html_e( ' Click here ', 'edwiser-bridge' ) ?></a>
+									<?php esc_html_e( ' to download plugin.', 'edwiser-bridge' ) ?>
+								</li>
+								<?php
+							}
+							?>
+						</ol>
+					</div>
+				</div>
+				<div class="eb_admin_update_dismiss_notice_message">
+					<a href="<?php echo $redirection ?>">
+						<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
+					</a>
+				</div>
+			</div>
+			<?php
+		}
+	}
 
-		if ( ! get_option( 'eb_mdl_plugin_update_notice_dismissed' ) ) {
-			if ( ! $this->check_if_moodle_plugin_installed() ) {
-				echo '  <div class="notice  eb_admin_update_notice_message_cont">
-							<div class="eb_admin_update_notice_message">
-
-								<div class="eb_update_notice_content">
-									' . esc_html__( 'Thanks for updating to the latest version of Edwiser Bridge plugin, please make sure you have also installed our associated Moodle Plugin to avoid any malfunctioning.', 'edwiser-bridge' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2022/12/edwiserbridge.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
-									' . esc_html__( ' to download Moodle plugin.', 'edwiser-bridge' ) . '
-
-										' . esc_html__( 'For setup assistance check our ', 'edwiser-bridge' ) . '
-										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'edwiser-bridge' ) . '</a>.
-								</div>
-								
-								<div class="eb_update_notice_dismiss_wrap">
-									<span style="padding-left: 5px;">
-										<a href="' . esc_html( $redirection ) . '">
-											' . esc_html__( ' Dismiss notice', 'edwiser-bridge' ) . '
-										</a>
-									</span>
-								</div>
-
-							</div>
-							<div class="eb_admin_update_dismiss_notice_message">
-									<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
-							</div>
-						</div>';
-			} elseif ( ! $this->eb_get_mdl_plugin_info() ) {
-				echo '  <div class="notice  eb_admin_update_notice_message_cont">
-							<div class="eb_admin_update_notice_message">
-
-								<div class="eb_update_notice_content">
-									' . esc_html__( 'Thanks for updating or installing Edwiser Bridge plugin, please update Moodle Plugin to avoid any malfunctioning.', 'edwiser-bridge' ) . '
-									<a href="https://edwiser.org/wp-content/uploads/edd/2022/12/edwiserbridge.zip">' . esc_html__( ' Click here ', 'edwiser-bridge' ) . '</a>
-									' . esc_html__( ' to download Moodle plugin.', 'edwiser-bridge' ) . '
-
-										' . esc_html__( 'For setup assistance check our ', 'edwiser-bridge' ) . '
-										<a href="https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">' . esc_html__( ' documentation', 'edwiser-bridge' ) . '</a>.
-								</div>
-								
-								<div class="eb_update_notice_dismiss_wrap">
-									<span style="padding-left: 5px;">
-										<a href="' . esc_html( $redirection ) . '">
-											' . esc_html__( ' Dismiss notice', 'edwiser-bridge' ) . '
-										</a>
-									</span>
-								</div>
-
-							</div>
-							<div class="eb_admin_update_dismiss_notice_message">
-									<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
-							</div>
-						</div>';
-			} else {
-				update_option( 'eb_mdl_plugin_update_notice_dismissed', 'true', true );
+	/**
+	 * Check if Moodle plugin update is available.
+	 *
+	 * @since 2.2.6
+	 */
+	public function eb_check_mdl_plugin_update() {
+		$plugin_info = $this->eb_get_mdl_plugin_info();
+		$url = 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json';
+		
+		// set user agent.
+		$args = array(
+			'timeout' => 15,
+			'headers' => array(
+				'User-Agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
+			),
+		);
+		$response = wp_remote_get( $url, $args );
+		$update_data = array();
+		if ( 200 === wp_remote_retrieve_response_code( $response ) && $plugin_info ) {
+			$responce = json_decode( wp_remote_retrieve_body( $response ) );
+			foreach ( $plugin_info as $plugin ) {
+				$plugin_name = $plugin->plugin_name;
+				if ( version_compare( $plugin->version, $responce->{$plugin_name}->version, '<' ) ) {
+					$update_data[] = array(
+						'slug' => $plugin_name,
+						'name' => $responce->{$plugin_name}->name,
+						'new_version' => $responce->{$plugin_name}->version,
+						'old_version' => $plugin->version,
+						'url' => $responce->{$plugin_name}->url,
+					);
+				}
 			}
 		}
+		update_option( 'eb_mdl_plugin_update_check', $update_data );
+		// delete option dismiss notice.
+		delete_option( 'eb_mdl_plugin_update_notice_dismissed' );
 	}
 
 
