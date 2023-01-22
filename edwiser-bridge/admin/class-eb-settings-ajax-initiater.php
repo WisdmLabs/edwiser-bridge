@@ -201,6 +201,11 @@ class Eb_Settings_Ajax_Initiater {
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">' . __('Something went wrong. Try Test Connection. ERROR : ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
+			if ( strpos( $response['response_message'], 'external_functions' ) !== false ) {
+				global $eb_plugin_data;
+				$response_array['message'] =  '<div class="alert alert-error">' . __('Something went wrong. Probably Moodle Edwiser Bridge plugin is not updated or installed properly. Please update the plugin and try again.', 'edwiser-bridge') . '</div>';
+				$response_array['html'] = '<a target="_blank" href="' . $eb_plugin_data['mdl_plugin_url'] . '">' . __('Download latest plugin file', 'edwiser-bridge') . '</a>';
+			}
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
 				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
