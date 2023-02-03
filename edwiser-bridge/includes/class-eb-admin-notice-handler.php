@@ -67,7 +67,7 @@ class Eb_Admin_Notice_Handler {
 
 		if ( isset( $response['success'] ) && $response['success'] ) {
 			$plugin_info = $response['response_data'];
-			return $plugin_info->plugins;
+			return $plugin_info;
 		} else {
 			return false;
 		}
@@ -100,7 +100,7 @@ class Eb_Admin_Notice_Handler {
 						<p>
 							<?php esc_html_e( 'New version of the following plugins are available for the Moodle site.', 'edwiser-bridge' ) ?>
 						</p>
-						<ol>
+						<ul>
 							<?php
 							foreach ( $plugin_data as $plugin ) {
 								?>
@@ -114,12 +114,12 @@ class Eb_Admin_Notice_Handler {
 								<?php
 							}
 							?>
-						</ol>
+						</ul>
 					</div>
 				</div>
 				<div class="eb_admin_update_dismiss_notice_message">
 					<a href="<?php echo $redirection ?>">
-						<span class="dashicons dashicons-dismiss eb_update_notice_hide"></span>
+						<span class="dashicons dashicons-no-alt eb_update_notice_hide"></span>
 					</a>
 				</div>
 			</div>
@@ -145,18 +145,30 @@ class Eb_Admin_Notice_Handler {
 		);
 		$response = wp_remote_get( $url, $args );
 		$update_data = array();
+		
 		if ( 200 === wp_remote_retrieve_response_code( $response ) && $plugin_info ) {
 			$responce = json_decode( wp_remote_retrieve_body( $response ) );
-			foreach ( $plugin_info as $plugin ) {
-				$plugin_name = $plugin->plugin_name;
-				if ( version_compare( $plugin->version, $responce->{$plugin_name}->version, '<' ) ) {
-					$update_data[] = array(
-						'slug' => $plugin_name,
-						'name' => $responce->{$plugin_name}->name,
-						'new_version' => $responce->{$plugin_name}->version,
-						'old_version' => $plugin->version,
-						'url' => $responce->{$plugin_name}->url,
-					);
+			if ( isset( $plugin_info->plugin_name ) && "edwiser_bridge" === $plugin_info->plugin_name ) {
+				$update_data[] = array(
+					'slug' => 'moodle_edwiser_bridge',
+					'name' => $responce->moodle_edwiser_bridge->name,
+					'new_version' => $responce->moodle_edwiser_bridge->version,
+					'old_version' => $plugin_info->version,
+					'url' => $responce->moodle_edwiser_bridge->url,
+				);
+			} else {
+				$plugin_info = $plugin_info->plugins;
+				foreach ( $plugin_info as $plugin ) {
+					$plugin_name = $plugin->plugin_name;
+					if ( version_compare( $plugin->version, $responce->{$plugin_name}->version, '<' ) ) {
+						$update_data[] = array(
+							'slug' => $plugin_name,
+							'name' => $responce->{$plugin_name}->name,
+							'new_version' => $responce->{$plugin_name}->version,
+							'old_version' => $plugin->version,
+							'url' => $responce->{$plugin_name}->url,
+						);
+					}
 				}
 			}
 		}

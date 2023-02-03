@@ -352,19 +352,19 @@
   border-right: 1px solid #133F3F;
 }
 .eb_admin_update_notice_message_logo {
-  width: 15%;
+  width: 150px;
   display: flex;
   background-color: #fff;
   justify-content: center;
   align-items: center;
 }
 .eb_admin_update_notice_message_logo img{
-  width: 50%
+  width: 80%;
 }
 
 .eb_admin_update_notice_message {
   display: flex;
-  width: 96%;
+  width: 100%;
   float: left;
 }
 .eb_update_notice_dismiss_wrap {
@@ -373,12 +373,25 @@
 }
 
 .eb_update_notice_content {
-  font-size: 12px;
+  font-size: 16px;
   /*line-height: 25px;*/
-  padding: 10px;
+  padding: 20px 30px;
   width: 85%;
 }
-
+.eb_update_notice_content p:first-child{
+  font-size: 20px;
+  color: #133F3F;
+  margin: 0;
+}
+.eb_update_notice_content p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.eb_update_notice_content ul {
+  margin: 0;
+  list-style-type: disc;
+  padding-left: 30px;
+}
 .eb_admin_feedback_notice_message_cont {
   overflow: auto;
   padding: 13px;
@@ -386,18 +399,25 @@
 .eb_admin_update_notice_message_cont {
   overflow: auto;
   padding: 0px;
+  background-color: #E8FEFF;
 }
 
-.eb_admin_feedback_dismiss_notice_message,
-.eb_admin_update_dismiss_notice_message {
+.eb_admin_feedback_dismiss_notice_message {
   float: right;
   padding: 10px;
 }
+.eb_admin_update_dismiss_notice_message {
+  padding: 5px;
+  position: absolute;
+  right: 20px;
+}
 
 .eb_admin_feedback_dismiss_notice_message a span,
-.eb_admin_update_dismiss_notice_message a span,
 .eb_admin_discount_dismiss_notice_message a span {
   color: red;
+}
+.eb_admin_update_dismiss_notice_message a span{
+  color: black;
 }
 
 .eb_admin_feedback_dismiss_notice_message a,
