@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-23 11:34+0530\n"
+"POT-Creation-Date: 2023-02-03 20:20+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -2893,119 +2893,119 @@ msgstr ""
 msgid " to download plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:199
+#: includes/class-eb-admin-notice-handler.php:211
 msgid "Get all Premium Edwiser Products at Flat 20% Off!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:203
+#: includes/class-eb-admin-notice-handler.php:215
 msgid " Dismiss this notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:208
+#: includes/class-eb-admin-notice-handler.php:220
 msgid "Avail Offer Now!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:249
+#: includes/class-eb-admin-notice-handler.php:261
 msgid "Enjoying Edwiser bridge, Please  "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:251
+#: includes/class-eb-admin-notice-handler.php:263
 msgid " click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:253
+#: includes/class-eb-admin-notice-handler.php:265
 msgid " to rate us."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:257
+#: includes/class-eb-admin-notice-handler.php:269
 msgid "Remind me Later!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:262
+#: includes/class-eb-admin-notice-handler.php:274
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:291
+#: includes/class-eb-admin-notice-handler.php:303
 msgid ""
 "If you have overridden the standard Edwiser Bridge templates previously then "
 "please make sure that your templates are made compatible with the NEW "
 "Edwiser Bridge template. It may cause CSS breaks if not done. "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:295
+#: includes/class-eb-admin-notice-handler.php:307
 msgid "If you have overridden the standard"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:296
+#: includes/class-eb-admin-notice-handler.php:308
 msgid ""
 "templates previously then please make sure that your templates are made "
 "compatible with the "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:297
+#: includes/class-eb-admin-notice-handler.php:309
 msgid "template. It may cause CSS breaks if not done."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:299
+#: includes/class-eb-admin-notice-handler.php:311
 msgid "Please refer to"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:299
+#: includes/class-eb-admin-notice-handler.php:311
 msgid " this "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:299
+#: includes/class-eb-admin-notice-handler.php:311
 msgid " article for theme compatibility"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:341
+#: includes/class-eb-admin-notice-handler.php:353
 msgid "Important Update Notice:"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:342
+#: includes/class-eb-admin-notice-handler.php:354
 msgid "Please download and update associated edwiserbridge Moodle plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:343
+#: includes/class-eb-admin-notice-handler.php:355
 msgid "Click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:344
+#: includes/class-eb-admin-notice-handler.php:356
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:397
+#: includes/class-eb-admin-notice-handler.php:409
 msgid "Play a Game with Edwiser to get ahead of the Black Friday Sale!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:398
+#: includes/class-eb-admin-notice-handler.php:410
 msgid ""
 "Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & "
 "plugins"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:399
+#: includes/class-eb-admin-notice-handler.php:411
 msgid "Spin and Win"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:428
+#: includes/class-eb-admin-notice-handler.php:440
 msgid "Get the power of selling courses via WooCommerce!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:432
+#: includes/class-eb-admin-notice-handler.php:444
 msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:433
+#: includes/class-eb-admin-notice-handler.php:445
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:437
+#: includes/class-eb-admin-notice-handler.php:449
 msgid ""
 "Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:438
+#: includes/class-eb-admin-notice-handler.php:450
 msgid "Upgrade tO Lifetime"
 msgstr ""
 
