@@ -1,8 +1,8 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
-Requires at least: 5.6
-Tested up to: 6.0.2
+Requires at least: 5.8
+Tested up to: 6.1.1
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -112,8 +112,8 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 
  = Minimum Requirements =
 * PHP version 5.6 or greater
-* WordPress 5.6 or higher
-* Moodle 3.9 or higher
+* WordPress 5.8 or higher
+* Moodle 3.10 or higher
 
  =  Automatic Installation  =
 * Go to the Plugins menu from the dashboard.
@@ -218,6 +218,10 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.7 =
+* Feature - Moodle plugin update notification on WordPress.
+* Tweak   - Simplified Test Enrollment error messages.
+
 = 2.2.6 =
 * Feature - new custom fields plugin
 * Tweak   - improved licensing process

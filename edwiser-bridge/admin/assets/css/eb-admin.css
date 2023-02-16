@@ -1685,6 +1685,76 @@ abbr.help:hover::after {
   text-decoration: none;
   color: white;
 }
+#beacon-container .BeaconContainer {
+  z-index: 999999;
+}
+.eb_admin_remui_demo_notice {
+  background-color: #fff;
+  border-left: 5px solid #133F3F;
+  border-bottom: 1px solid #133F3F;
+  border-top: 1px solid #133F3F;
+  border-right: 1px solid #133F3F;
+  padding: 0;
+  position: relative;
+}
+.eb_admin_remui_demo_notice_message{
+  display: flex;
+}
+.eb_admin_remui_demo_notice_message_logo{
+  width: 150px;
+  display: flex;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+}
+.eb_admin_remui_demo_notice_message_logo img{
+  width: 80%;
+}
+.eb_remui_demo_notice_content{
+  width: calc(100% - 150px);
+  padding: 10px 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+.eb_remui_demo_notice_content .remui-title{
+  color: #fff;
+  font-size: 18px;
+  width: 60%;
+}
+.eb_remui_demo_notice_content .remui-content{
+  color: #fff;
+  font-size: 14;
+  width: 60%;
+}
+.eb_remui_demo_notice_content .remui-button{
+  display: block;
+  width: fit-content;
+  color: #133F3F;
+  font-weight: 700;
+  font-size: 18;
+  padding: 10px 12px;
+  background-color: #ffF;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 13px 0 10px 0;
+  cursor: pointer;
+}
+.eb_admin_remui_demo_dismiss_notice_message{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.eb_admin_remui_demo_dismiss_notice_message a{
+  text-decoration: none;
+  color: #fff;
+}
+.eb_admin_remui_demo_image{
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  height: 200px;
+}
 @media screen and (max-width: 1024px) {
   .eb-admin-bfcm-notice-message-content{
     padding-left: 250px;

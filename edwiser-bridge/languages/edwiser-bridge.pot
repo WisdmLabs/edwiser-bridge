@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-03 20:20+0530\n"
+"POT-Creation-Date: 2023-02-16 10:41+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1580,6 +1580,12 @@ msgstr ""
 msgid "Run Setup Wizard"
 msgstr ""
 
+#: admin/settings/class-eb-settings-general.php:429
+msgid ""
+"Note: Setup Wizard is intended for new users only. For technical issues or "
+"Edwiser plugin updates, please refer to our knowledge-base."
+msgstr ""
+
 #: admin/settings/class-eb-settings-help.php:30
 msgid "Get Help"
 msgstr ""
@@ -3007,6 +3013,22 @@ msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:450
 msgid "Upgrade tO Lifetime"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:487
+msgid ""
+"We’ve something new for you to help you design an amazingly personalized "
+"Moodle - faster & easier."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:487
+msgid " Our fully redesigned Edwiser RemUI theme is LAUNCHED!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:490
+msgid ""
+"Check out the demo to see the modern layouts, ready-to-use homepages, "
+"brilliantly upgraded dashboard & more"
 msgstr ""
 
 #: includes/class-eb-course-manager.php:197

@@ -618,6 +618,18 @@ class EdwiserBridge {
 		$this->loader->eb_add_action(
 			'admin_init',
 			$admin_notice_handler,
+			'eb_admin_remui_demo_notice_dismiss_handler'
+		);
+
+		$this->loader->eb_add_action(
+			'admin_notices',
+			$admin_notice_handler,
+			'eb_admin_remui_demo_notice'
+		);
+
+		$this->loader->eb_add_action(
+			'admin_init',
+			$admin_notice_handler,
 			'eb_admin_update_notice_dismiss_handler'
 		);
 

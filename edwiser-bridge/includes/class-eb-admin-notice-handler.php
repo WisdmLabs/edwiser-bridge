@@ -462,4 +462,45 @@ class Eb_Admin_Notice_Handler {
 			}
 		}
 	}
+
+	public function eb_admin_remui_demo_notice_dismiss_handler() {
+		if ( true === filter_input( INPUT_GET, 'eb-admin-remui-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			error_log( 'user id: ' . $user_id );
+			add_user_meta( $user_id, 'eb_admin_remui_demo_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-remui-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
+		}
+	}
+
+	public function eb_admin_remui_demo_notice() {
+		$redirection    = add_query_arg( 'eb-admin-remui-notice-notice-dismissed', true );
+		$user_id = get_current_user_id();
+		if ( ! get_user_meta( $user_id, 'eb_admin_remui_demo_notice_dismissed' ) ) {
+			?>
+			<div class="notice  eb_admin_remui_demo_notice">
+				<a style="text-decoration:none;" target="_blank" href="https://remui.edwiser.org/schoolv2/?utm_source=remui4.0-launch-bridge-thankyoupage&utm_medium=remui4.0-launch-bridge-thankyoupage-bannerctaclicks&utm_campaign=remui-4.0-launch">
+				<div class="eb_admin_remui_demo_notice_message">
+					<div class="eb_admin_remui_demo_notice_message_logo">
+						<img src="<?php echo esc_url( plugins_url( 'images/logo.png', dirname( __FILE__ ) ) ); ?>" alt="Edwiser Bridge Logo" />
+					</div>
+					<div class="eb_remui_demo_notice_content" style="background-image:url('<?php echo esc_url( plugins_url( 'images/remui_back.png', dirname( __FILE__ ) ) ); ?>'">
+						<p class="remui-title">
+							<?php esc_html_e( 'We’ve something new for you to help you design an amazingly personalized Moodle - faster & easier.', 'edwiser-bridge' ) ?> <b><?php esc_html_e( ' Our fully redesigned Edwiser RemUI theme is LAUNCHED!', 'edwiser-bridge' ) ?></b>
+						</p>
+						<p class="remui-content">
+							<?php esc_html_e( 'Check out the demo to see the modern layouts, ready-to-use homepages, brilliantly upgraded dashboard & more', 'edwiser-bridge' ) ?>
+						</p>
+						<button class="remui-button" href="#">Explore the demo</button>
+					</div>
+				</div>
+				</a>
+				<img class="eb_admin_remui_demo_image" src="<?php echo esc_url( plugins_url( 'images/remui-demo.png', dirname( __FILE__ ) ) ); ?>" alt="Edwiser Remu UI demo">
+				<div class="eb_admin_remui_demo_dismiss_notice_message">
+					<a href="<?php echo $redirection ?>">
+						<span class="dashicons dashicons-no-alt eb_remui_demo_notice_hide"></span>
+					</a>
+				</div>
+			</div>
+			<?php
+		}
+	}
 }
