@@ -73,7 +73,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 					}
 					?>
 				</h1>
-
+				<?php do_action( 'eb_after_course_title', $post->ID ); ?>
 
 				<div  class="eb-validity-wrapper">
 					<div>

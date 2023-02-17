@@ -670,6 +670,20 @@ class EBUserManager {
 			$webservice_function = 'core_user_update_users';
 		} else {
 			$webservice_function = 'core_user_create_users';
+
+			$eb_general_settings = get_option( 'eb_general' );
+			if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+				// get wp user id from email.
+				$wp_user_id = email_exists( $user_data['email'] );
+				$is_verified = get_user_meta( $wp_user_id, 'eb_user_email_verified', true );
+				if ( 1 != $is_verified ) {
+					$user = array(
+						'user_created' => 0,
+						'user_data'    => __( 'Email not verified', 'eb-textdomain' ),
+					);
+					return $user;
+				}
+			}
 		}
 
 		/**
@@ -1452,5 +1466,130 @@ class EBUserManager {
 
 		echo wp_json_encode( $response_array );
 		die();
+	}
+
+	public function eb_user_email_verification_set_meta( $user_id ) {
+		$eb_general_settings = get_option( 'eb_general' );
+		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+			update_user_meta( $user_id, 'eb_user_email_verified', 0 );
+
+			// generate verification code.
+			$verification_key = wp_generate_password( 20, false );
+			update_user_meta( $user_id, 'eb_user_email_verification_key', $verification_key );
+			// generate verification link.
+			$verification_link = add_query_arg(
+				array(
+					'action'                         => 'eb_user_email_verification',
+					'eb_user_email_verification_key' => $verification_key,
+					'eb_user_email_verification_id'  => $user_id,
+				),
+				get_site_url()
+			);
+			$verification_link = "<a href='$verification_link'>Verify</a>";
+			// send verification email.
+			$user = get_user_by( 'id', $user_id );
+			$first_name = isset( $_POST['firstname'] ) ? sanitize_text_field( $_POST['firstname'] ) : $user->first_name;
+			$last_name = isset( $_POST['lastname'] ) ? sanitize_text_field( $_POST['lastname'] ) : $user->last_name;
+			$args = array(
+				'user_email' => $user->user_email,
+				'username'   => $user->user_login,
+				'first_name' => $first_name,
+				'last_name'  => $last_name,
+				'verify_url' => $verification_link,
+			);
+			error_log( print_r( $args, true ) );
+			do_action( 'eb_new_user_email_verification_trigger', $args );
+		}
+	}
+
+	public function eb_verify_registration_redirect( $redirect, $user = null ) {
+		wp_logout();
+		$query_args = add_query_arg(
+			array(
+				'eb_user_email_verification' => 1,
+			),
+			get_permalink()
+		);
+		return $query_args;
+	}
+
+	public function eb_show_email_verification_message_on_woo(){
+		if ( isset( $_GET['eb_user_email_verification'] ) && 1 == $_GET['eb_user_email_verification'] ) {
+			?>
+			<div class="woocommerce-message">
+				<?php
+				_e( 'Registration successfull. Please check your email for verification link.', 'edwiser-bridge' );
+				?>
+			</div>
+			<?php
+		}
+	}
+
+	public function eb_user_authentication_check( $user, $username, $password ) {
+		$eb_general_settings = get_option( 'eb_general' );
+		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+			// check the username against the email and username if user exist
+			$userdata = get_user_by( 'email', $username );
+			if ( ! $userdata ) {
+				$userdata = get_user_by( 'login', $username );
+			}
+
+			$eb_user_email_verified = get_user_meta( $userdata->ID, 'eb_user_email_verified', true );
+			if ( 0 == $eb_user_email_verified ) {
+				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) );
+			}
+		}
+		return $user;
+	}
+
+	public function eb_user_email_verify() {
+		$verification_key = isset( $_GET['eb_user_email_verification_key'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_key'] ) : '';
+		$verification_id  = isset( $_GET['eb_user_email_verification_id'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_id'] ) : '';
+		$action		   = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
+
+		if( 'eb_user_email_verification' === $action ) {
+			$eb_user_email_verification_key = get_user_meta( $verification_id, 'eb_user_email_verification_key', true );
+			if ( $verification_key === $eb_user_email_verification_key ) {
+				update_user_meta( $verification_id, 'eb_user_email_verified', 1 );
+				$message = __( 'Your email is verified successfully.', 'edwiser-bridge' );
+				// create moodle user.
+				$user             = get_user_by( 'id', $verification_id );
+				$general_settings = get_option( 'eb_general' );
+				$language         = 'en';
+
+				if ( isset( $general_settings['eb_language_code'] ) ) {
+					$language = $general_settings['eb_language_code'];
+				}
+
+				$user_data = array(
+					'username'  => $user->user_login,
+					'password'  => wp_generate_password( 12, false ),
+					'firstname' => $user->first_name,
+					'lastname'  => $user->last_name,
+					'email'     => $user->user_email,
+					'auth'      => 'manual',
+					'lang'      => $language,
+				);
+
+				$moodle_user = $this->create_moodle_user( $user_data );
+				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
+					update_user_meta( $verification_id, 'moodle_user_id', $moodle_user['user_data']->id );
+				}
+
+				// login user.
+				wp_clear_auth_cookie();
+				wp_set_current_user($user->ID);
+				wp_set_auth_cookie($user->ID);
+				do_action('wp_login', $user->user_login, $user);
+
+			} else {
+				$message = __( 'Your email verification link is invalid.', 'edwiser-bridge' );
+			}
+			?>
+			<div class="eb-user-email-verification-message">
+				<?php echo $message; ?>
+			</div>
+			<?php
+		}
 	}
 }

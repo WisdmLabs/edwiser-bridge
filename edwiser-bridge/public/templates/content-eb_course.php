@@ -37,6 +37,7 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 				<div class="wdm-caption">
 
 					<!--  -->
+					
 					<div  class="eb-cat-wrapper-new ">
 					<?php
 						echo wp_kses( implode( ', ', $course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
@@ -44,6 +45,8 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 					</div>
 
 					<div class="eb-course-title eb-course-card-title"><?php the_title(); ?></div>
+
+					<?php do_action( 'eb_after_course_title', $post->ID ); ?>
 
 					<div>
 						<p class="eb_short_desc">

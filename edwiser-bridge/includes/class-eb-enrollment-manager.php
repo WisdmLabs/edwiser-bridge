@@ -181,24 +181,28 @@ class Eb_Enrollment_Manager {
 		$enrolments          = array();
 		$role_id             = $args['role_id']; // the role id 5 denotes student role on moodle.
 		$webservice_function = $this->get_moodle_web_service_function( $args['unenroll'] );
-		$is_subscription = isset( $args['is_subscription'] ) ? $args['is_subscription'] : false;
 
 		// prepare course array.
 		foreach ( $moodle_courses as $wp_course_id => $moodle_course_id ) {
 			// first we check if a moodle course id exists.
 			if ( '' !== $moodle_course_id ) {
 				$expire_date = '0000-00-00 00:00:00';
-				
-				if( ! $is_subscription ) { // only set expiary date if it is not a subscription.
-					$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id );
+				$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
+				$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
+				$act_cnt     = $this->get_user_course_access_count( $args['user_id'], $wp_course_id );
+				if ( 0 === $args['unenroll'] && 0 === $args['suspend'] && false !== $act_cnt ) {
+					$act_cnt++;
 				}
+
+				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date );
+
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
 					'userid'   => $moodle_user_id,
 					'courseid' => $moodle_course_id,
 				);
 				if ( 'enrol_manual_enrol_users' === $webservice_function && '0000-00-00 00:00:00' !== $expire_date ) {
-					$enrolments[ $wp_course_id ]['timestart'] = strtotime( gmdate( 'Y-m-d H:i:s' ) );
+					$enrolments[ $wp_course_id ]['timestart'] = strtotime( $start_date );
 					$enrolments[ $wp_course_id ]['timeend']   = strtotime( $expire_date );
 				}
 
@@ -210,7 +214,7 @@ class Eb_Enrollment_Manager {
 			}
 		}
 
-		if( empty( $enrolments ) ) {
+		if ( empty( $enrolments ) ) {
 			return false;
 		}
 
@@ -237,14 +241,15 @@ class Eb_Enrollment_Manager {
 				if ( $act_cnt <= 1 || $args['complete_unenroll'] ) {
 
 					// update decreased count value.
-					// $request_data = array( 'enrolments' => $enrolments );
-					$request_data = array( 'enrolments' => array(
-						$course_id => array(
-							'roleid'   => $role_id,
-							'userid'   => $moodle_user_id,
-							'courseid' => $moodle_courses[ $course_id ],
+					$request_data = array(
+						'enrolments' => array(
+							$course_id => array(
+								'roleid'   => $role_id,
+								'userid'   => $moodle_user_id,
+								'courseid' => $moodle_courses[ $course_id ],
+							),
 						),
-					) );
+					);
 					$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
 						$webservice_function,
 						$request_data
@@ -272,7 +277,8 @@ class Eb_Enrollment_Manager {
 				'unenroll'          => $args['unenroll'],
 				'suspend'           => $args['suspend'],
 				'complete_unenroll' => $args['complete_unenroll'],
-				'is_subscription'   => $is_subscription,
+				'start_date'        => $args['start_date'],
+				'end_date'          => $args['end_date'],
 
 			);
 
@@ -383,9 +389,10 @@ class Eb_Enrollment_Manager {
 
 					// New code for time.
 					$expire_date = '0000-00-00 00:00:00';
-					if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id );
-					}
+					$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
+					$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
+
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
@@ -393,7 +400,7 @@ class Eb_Enrollment_Manager {
 							'user_id'     => $args['user_id'],
 							'course_id'   => $course_id,
 							'role_id'     => $role_id,
-							'time'        => gmdate( 'Y-m-d H:i:s' ),
+							'time'        => $start_date,
 							'expire_time' => $expire_date,
 							'act_cnt'     => 1,
 						),
@@ -412,17 +419,19 @@ class Eb_Enrollment_Manager {
 					// If yes then don't increase the count.
 					$is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status( $args['user_id'], $course_id );
 
-					if ( isset($args['sync']) && $args['sync'] === true ){
+					if ( isset( $args['sync'] ) && true === $args['sync'] ) {
 						$expire_date = '';
 					} else {
 						if ( ! $is_user_suspended ) {
 							// increase the count value.
 							$act_cnt = ++$act_cnt;
 						}
+
 						$expire_date = '0000-00-00 00:00:00';
-						if( isset( $args[ 'is_subscription' ] ) && ! $args[ 'is_subscription' ] ) { // only set expiary date if it is not a subscription.
-							$expire_date = $this->calc_course_acess_expiry_date( $course_id );
-						}
+						$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
+						$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
+
+						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
 					}
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
@@ -497,7 +506,6 @@ class Eb_Enrollment_Manager {
 			$data_array['expire_time'] = $expire_time;
 		}
 
-
 		$wpdb->update( // @codingStandardsIgnoreLine
 			$wpdb->prefix . 'moodle_enrollment',
 			$data_array,
@@ -553,13 +561,23 @@ class Eb_Enrollment_Manager {
 	/**
 	 * Expiry date.
 	 *
-	 * @param int $course_id WordPress course id of a course.
+	 * @param int    $course_id WordPress course id of a course.
+	 * @param int    $act_cnt access count.
+	 * @param string $start_date WordPress course id of a course.
+	 * @param string $end_date WordPress course id of a course.
 	 */
-	public function calc_course_acess_expiry_date( $course_id ) {
+	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00' ) {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
+		$start_date       = '0000-00-00 00:00:00' === $start_date ? gmdate( 'Y-m-d H:i:s' ) : $start_date;
+		$act_cnt          = ( false === $act_cnt ) ? 1 : $act_cnt;
+
 		if ( isset( $course_meta['course_expirey'] ) && 'yes' === $course_meta['course_expirey'] ) {
-			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( '+' . $course_meta['num_days_course_access'] . ' days' ) );
+			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( $start_date . '+' . $act_cnt * $course_meta['num_days_course_access'] . ' days' ) );
+		}
+		// if enddate is greater than expiry date then set expiry date as end date.
+		if ( '0000-00-00 00:00:00' !== $end_date && strtotime( $end_date ) > strtotime( $expiry_date_time ) ) {
+			$expiry_date_time = $end_date;
 		}
 		return $expiry_date_time;
 	}
@@ -716,13 +734,11 @@ class Eb_Enrollment_Manager {
 
 	/**
 	 * Enroll dummy user in the course.
-	 * 
-	 * @param int $course_id WordPress course id of a course.
-	 * 
+	 *
 	 * @since 2.2.1
 	 */
-	public function enroll_dummy_user() { // CHANGES
-		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
+	public function enroll_dummy_user() {
+		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0; // @codingStandardsIgnoreLine
 		$response_array   = array(
 			'status' => 'error',
 		);
@@ -730,20 +746,21 @@ class Eb_Enrollment_Manager {
 		$moodle_user_id   = get_user_meta( $user->ID, 'moodle_user_id', true );
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
 
-		$response = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
-		$enrolled_courses = $response[ 'response_data' ];
-		foreach( $enrolled_courses as $course ) {
+		$response         = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
+		$enrolled_courses = $response['response_data'];
+		foreach ( $enrolled_courses as $course ) {
 			if ( 1 === $course->id ) {
 				continue;
 			}
-			if( $course->id == $moodle_course_id ) {
-				// user already enrolled in the course. Unenroll first
-				$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
-					'user_id' => $user->ID,
-					'moodle_user_id' => $moodle_user_id,
-					'course_id' => $course_id,
-					'moodle_course_id' => $moodle_course_id,
-					) 
+			if ( $course->id === $moodle_course_id ) {
+				// user already enrolled in the course. Unenroll first.
+				$response_array['unenroll_message'] = $this->unenroll_dummy_user(
+					array(
+						'user_id'          => $user->ID,
+						'moodle_user_id'   => $moodle_user_id,
+						'course_id'        => $course_id,
+						'moodle_course_id' => $moodle_course_id,
+					),
 				);
 			}
 		}
@@ -751,57 +768,60 @@ class Eb_Enrollment_Manager {
 		$role_id             = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
 		$role_id             = ! empty( $role_id ) ? $role_id : '5';
 		$webservice_function = 'enrol_manual_enrol_users';
-		$request_data        = array( 
+		$request_data        = array(
 			'enrolments' => array(
 				$course_id => array(
 					'roleid'   => $role_id,
 					'userid'   => $moodle_user_id,
 					'courseid' => $moodle_course_id,
 				),
-		) );
-		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+			),
+		);
+
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
 			$webservice_function,
 			$request_data
 		);
 
-		if( isset( $response[ 'success' ]) && $response[ 'success' ] ) {
+		if ( isset( $response['success'] ) && $response['success'] ) {
 			$args = array(
-				'user_id'   => $user->ID,
+				'user_id' => $user->ID,
 				'courses' => array( $course_id ),
-				'role_id'   => $role_id,
+				'role_id' => $role_id,
 			);
 			$this->update_enrollment_record_wordpress( $args );
-			$response_array[ 'status' ] = 'success';
-			$response_array[ 'enroll_message' ] = '<div class="alert alert-success">' . __('User enrollment test successfull', 'edwiser-bridge') . '</div>';
-			$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
+			$response_array['status']         = 'success';
+			$response_array['enroll_message'] = '<div class="alert alert-success">' . __( 'User enrollment test successfull', 'edwiser-bridge' ) . '</div>';
+			$woo_integration_path             = 'woocommerce-integration/bridge-woocommerce.php';
 			if ( is_plugin_active( $woo_integration_path ) ) {
-				$html = '<div class="alert alert-success">' . __('Enrollment process for this course successfull', 'edwiser-bridge') . '</div>
+				$html = '<div class="alert alert-success">' . __( 'Enrollment process for this course successfull', 'edwiser-bridge' ) . '</div>
 						<fieldset class="response-fieldset">
-						<legend>' . __('Note', 'edwiser-bridge') . '</legend>
-						<p>' . __('If you are still facing issues in enrollment for this course check the following things', 'edwiser-bridge') . '</p>
+						<legend>' . __( 'Note', 'edwiser-bridge' ) . '</legend>
+						<p>' . __( 'If you are still facing issues in enrollment for this course check the following things', 'edwiser-bridge' ) . '</p>
 								<ul style="list-style: disc;padding:revert; ">
-									<li>' . __('Payment Gateway should be compatible with WooCommerce and should confirm the payment receipt', 'edwiser-bridge') . '</li>
-									<li>' . __('WooCommerce will process the order and update the order status to complete when the payment gateway confirms the payment', 'edwiser-bridge') . '</li>
-									<li>' . __('Enrollment will be processed only when the order status is complete', 'edwiser-bridge') . '</li>
-									<li>' . __('If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge') . '</li>
+									<li>' . __( 'Payment Gateway should be compatible with WooCommerce and should confirm the payment receipt', 'edwiser-bridge' ) . '</li>
+									<li>' . __( 'WooCommerce will process the order and update the order status to complete when the payment gateway confirms the payment', 'edwiser-bridge' ) . '</li>
+									<li>' . __( 'Enrollment will be processed only when the order status is complete', 'edwiser-bridge' ) . '</li>
+									<li>' . __( 'If the order is in processing Edwiser plugin will not enroll the user in the course', 'edwiser-bridge' ) . '</li>
 								</ul>
 							</fieldset>';
-				$response_array[ 'enroll_message' ] .= $html;
+
+				$response_array['enroll_message'] .= $html;
 			}
-			//unenroll dummy user
-			$response_array['unenroll_message'] = $this->unenroll_dummy_user( array(
-				'user_id' => $user->ID,
-				'moodle_user_id' => $moodle_user_id,
-				'course_id' => $course_id,
-				'moodle_course_id' => $moodle_course_id,
-				) 
+			// unenroll dummy user.
+			$response_array['unenroll_message'] = $this->unenroll_dummy_user(
+				array(
+					'user_id'          => $user->ID,
+					'moodle_user_id'   => $moodle_user_id,
+					'course_id'        => $course_id,
+					'moodle_course_id' => $moodle_course_id,
+				)
 			);
-			
 		} else {
-			$response_array[ 'enroll_message' ] = '<div class="alert alert-error">' . __('User enrollment test failed. ERROR: ', 'edwiser-bridge') . $response[ 'response_message' ] . '</div>';
+			$response_array['enroll_message'] = '<div class="alert alert-error">' . __( 'User enrollment test failed. ERROR: ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
-				$response_array[ 'html' ]           = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		}
 		echo wp_json_encode( $response_array );
@@ -810,27 +830,28 @@ class Eb_Enrollment_Manager {
 
 	/**
 	 * Unenroll dummy user from the course.
-	 * 
-	 * @param int $course_id WordPress course id of a course.
+	 *
+	 * @param array $args arguments.
 	 *
 	 * @since 2.2.1
 	 */
-	public function unenroll_dummy_user( $args ) { // CHANGES
+	public function unenroll_dummy_user( $args ) {
 		$role_id             = \app\wisdmlabs\edwiserBridge\eb_get_moodle_role_id();
 		$role_id             = ! empty( $role_id ) ? $role_id : '5';
 		$webservice_function = 'enrol_manual_unenrol_users';
-		$request_data        = array( 'enrolments' => array(
-			$args['course_id'] => array(
-				'roleid'   => $role_id,
-				'userid'   => $args['moodle_user_id'],
-				'courseid' => $args['moodle_course_id'],
+		$request_data        = array(
+			'enrolments' => array(
+				$args['course_id'] => array(
+					'roleid'   => $role_id,
+					'userid'   => $args['moodle_user_id'],
+					'courseid' => $args['moodle_course_id'],
+				),
 			),
-		) );
-		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			$webservice_function,
-			$request_data
 		);
-		if ( isset( $response[ 'success' ] ) && $response[ 'success' ] ) {
+
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( $webservice_function, $request_data );
+
+		if ( isset( $response['success'] ) && $response['success'] ) {
 			global $wpdb;
 			$deleted = $wpdb->delete( // @codingStandardsIgnoreLine
 				$wpdb->prefix . 'moodle_enrollment',
@@ -843,18 +864,42 @@ class Eb_Enrollment_Manager {
 					'%d',
 				)
 			);
-			if( $deleted ) {
-				$msg = '<div class="alert alert-success">' . __('User unenrollment test successfull', 'edwiser-bridge') . '</div>';
+			if ( $deleted ) {
+				$msg = '<div class="alert alert-success">' . __( 'User unenrollment test successfull', 'edwiser-bridge' ) . '</div>';
 			} else {
-				$msg = '<div class="alert alert-error">' . __('User unenrollment failed at wordpress side', 'edwiser-bridge') . '</div>';
+				$msg = '<div class="alert alert-error">' . __( 'User unenrollment failed at WordPress side', 'edwiser-bridge' ) . '</div>';
 			}
 		} else {
-			$msg = '<div class="alert alert-error">' . __('User unenrollment test failed. ERROR: ', 'edwiser-bridge') . $response[ 'response_message' ] . '</div>';
+			$msg = '<div class="alert alert-error">' . __( 'User unenrollment test failed. ERROR: ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
-				$msg                               .= '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$msg              .= '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		}
 		return $msg;
+	}
+
+	/**
+	 * Label for already enrolled user.
+	 *
+	 * @param array $course_ids WordPress course id of a course.
+	 */
+	public function user_already_enrolled_in_course_label( $course_ids ) {
+		$eb_general_settings    = get_option( 'eb_general' );
+		$eb_enable_course_label = isset( $eb_general_settings['eb_show_already_enrolled_label'] ) ? $eb_general_settings['eb_show_already_enrolled_label'] : 'no';
+		if ( 'yes' !== $eb_enable_course_label ) {
+			return false;
+		}
+		$course_ids      = is_array( $course_ids ) ? $course_ids : array( $course_ids );
+		$user_id         = get_current_user_id();
+		$user_has_access = false;
+		foreach ( $course_ids as $course_id ) {
+			$user_has_access = $this->user_has_course_access( $user_id, $course_id );
+		}
+		if ( $user_has_access ) {
+			?>
+			<span class = "user-already-enrolled-message"><?php esc_attr_e( 'Already Enrolled', 'edwiser-bridge' ); ?></span>
+			<?php
+		}
 	}
 }

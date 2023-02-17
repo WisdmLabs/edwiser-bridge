@@ -1141,7 +1141,7 @@ nav.eb-pagination ul li {
   display: inline-flex;
   padding: 0.5rem 1rem 1rem 1rem;
   width: 25%;
-  height: 330px;
+  /* height: 330px; */
   min-width: 230px;
   max-width: 300px;
 }
@@ -1414,4 +1414,14 @@ nav.eb-pagination ul li {
 .edwiser-bridge {
   max-width: 1000px !important;
   width: 100%;
+}
+
+.user-already-enrolled-message {
+	overflow-x: hidden;
+	font-size: 11px;
+	color: #555;
+	padding: 0.4em;
+	color: #fff;
+	background: #888;
+	border-radius: 10px;
 }

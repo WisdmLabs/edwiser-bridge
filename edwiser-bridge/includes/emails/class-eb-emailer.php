@@ -501,6 +501,36 @@ class Eb_Emailer {
 	}
 
 	/**
+	 * Sends email verification email to new user.
+	 *
+	 * @param array $args user details array.
+	 *
+	 * @return bool
+	 */
+	public function send_new_user_email_verification_email( $args ) {
+		/**
+		 * Using Email template Editor
+		 */
+
+		$args            = apply_filters( 'eb_args_data', $args );
+		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_new_user_email_verification' );
+		$allow_notify    = get_option( 'eb_emailtmpl_new_user_email_verification_notify_allow' );
+		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
+			return false;
+		}
+		if ( $email_tmpl_data ) {
+			$email_tmpl_obj = new EBAdminEmailTemplate();
+			// CUSTOMIZATION HOOKS.
+			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_new_user_email_verification' );
+
+			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
+		}
+		/**
+		 * Using Default
+		 */
+	}
+
+	/**
 	 * Order details.
 	 *
 	 * @param array $order_detail order_detail array.

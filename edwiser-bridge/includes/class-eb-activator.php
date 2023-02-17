@@ -296,6 +296,8 @@ class Eb_Activator {
 		self::update_template_data( 'eb_emailtmpl_mdl_enrollment_trigger', $default_tmpl->moodle_enrollment_trigger( 'eb_emailtmpl_mdl_enrollment_trigger' ) );
 		self::update_template_data( 'eb_emailtmpl_mdl_un_enrollment_trigger', $default_tmpl->moodle_unenrollment_trigger( 'eb_emailtmpl_mdl_un_enrollment_trigger' ) );
 		self::update_template_data( 'eb_emailtmpl_mdl_user_deletion_trigger', $default_tmpl->user_deletion_trigger( 'eb_emailtmpl_mdl_user_deletion_trigger' ) );
+		self::update_template_data( 'eb_emailtmpl_new_user_email_verification', $default_tmpl->new_user_email_verification( 'eb_emailtmpl_new_user_email_verification' ) );
+
 
 		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow', 'ON' );
 		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow', 'ON' );
@@ -309,6 +311,7 @@ class Eb_Activator {
 		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow', 'ON' );
 		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow', 'ON' );
 		self::update_allow_mail_send_data( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow', 'ON' );
+		self::update_allow_mail_send_data( 'eb_emailtmpl_new_user_email_verification_notify_allow', 'ON' );
 	}
 
 	/**

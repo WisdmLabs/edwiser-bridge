@@ -908,6 +908,23 @@ class EdwiserBridge {
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
 
+		/**
+		 * Email verification hooks.
+		 */
+		$eb_general_settings = get_option( 'eb_general' );
+		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+
+			$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_user_email_verification_set_meta', 99 );
+			$this->loader->eb_add_action( 'eb_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
+			$this->loader->eb_add_action( 'woocommerce_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
+			
+			$this->loader->eb_add_action( 'woocommerce_before_customer_login_form', $this->user_manager(), 'eb_show_email_verification_message_on_woo', 99, 2 );
+			$this->loader->eb_add_action( 'authenticate', $this->user_manager(), 'eb_user_authentication_check', 100, 3 );
+			$this->loader->eb_add_action( 'init', $this->user_manager(), 'eb_user_email_verify' );
+
+			
+		}
+
 	}
 
 	/**
@@ -1175,6 +1192,22 @@ class EdwiserBridge {
 			10,
 			2
 		);
+
+		$this->loader->eb_add_filter(
+			'eb_after_course_title',
+			$this->enrollment_manager(),
+			'user_already_enrolled_in_course_label',
+			10,
+			1
+		);
+
+		$this->loader->eb_add_filter(
+			'wi_after_associated_course',
+			$this->enrollment_manager(),
+			'user_already_enrolled_in_course_label',
+			10,
+			1
+		);
 	}
 
 	/**
@@ -1229,12 +1262,29 @@ class EdwiserBridge {
 			'get_email_footer',
 			10
 		); // Get email footer template.
-		$this->loader->eb_add_action(
-			'eb_created_user',
-			$plugin_emailer,
-			'send_new_user_email',
-			10
-		); // email on new user registration.
+
+		/**
+		 * Only one of the email trigger is required to be active.
+		 * If email verification is enabled then new user email verification email is sent.
+		 * If email verification is disabled then new user email is sent.
+		 */
+		$eb_general_settings = get_option( 'eb_general' );
+		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+			$this->loader->eb_add_action(
+				'eb_new_user_email_verification_trigger',
+				$plugin_emailer,
+				'send_new_user_email_verification_email',
+				10
+			); // email for new user email verification.
+		} else {
+			$this->loader->eb_add_action(
+				'eb_created_user',
+				$plugin_emailer,
+				'send_new_user_email',
+				10
+			); // email on new user registration.
+		}
+
 		$this->loader->eb_add_action(
 			'eb_linked_to_existing_wordpress_user',
 			$plugin_emailer,

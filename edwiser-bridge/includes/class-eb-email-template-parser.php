@@ -118,17 +118,19 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 				$constant['{FIRST_NAME}'] = $cur_user->first_name;
 				$constant['{LAST_NAME}']  = $cur_user->last_name;
 			}
-			$constant['{SITE_NAME}']              = get_bloginfo( 'name' );
-			$constant['{SITE_URL}']               = "<a href='" . get_bloginfo( 'url' ) . "'>" . get_bloginfo( 'name' ) . '</a>';
-			$constant['{COURSES_PAGE_LINK}']      = "<a href='" . site_url( '/courses' ) . "'>" . esc_html__( 'Courses', 'edwiser-bridge' ) . '</a>';
-			$constant['{MY_COURSES_PAGE_LINK}']   = $this->get_my_courses_page_link();
-			$constant['{USER_ACCOUNT_PAGE_LINK}'] = "<a href='" . \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() . "'>" . esc_html__( 'User Account', 'edwiser-bridge' ) . '</a>';
-			$constant['{WP_LOGIN_PAGE_LINK}']     = "<a href='" . $this->get_login_page_url() . "'>" . esc_html__( 'Login Page', 'edwiser-bridge' ) . '</a>';
-			$constant['{MOODLE_URL}']             = "<a href='" . $this->get_moodle_url() . "'>" . esc_html__( 'Moodle Site', 'edwiser-bridge' ) . '</a>';
-			$constant['{COURSE_NAME}']            = $this->get_course_name( $args );
-			$constant['{USER_PASSWORD}']          = $this->get_user_password( $args );
-			$constant['{ORDER_ID}']               = $this->get_order_id( $args );
-			$constant['{WP_COURSE_PAGE_LINK}']    = $this->get_course_page_link( $args );
+			$constant['{SITE_NAME}']                   = get_bloginfo( 'name' );
+			$constant['{SITE_URL}']                    = "<a href='" . get_bloginfo( 'url' ) . "'>" . get_bloginfo( 'name' ) . '</a>';
+			$constant['{COURSES_PAGE_LINK}']           = "<a href='" . site_url( '/courses' ) . "'>" . esc_html__( 'Courses', 'edwiser-bridge' ) . '</a>';
+			$constant['{MY_COURSES_PAGE_LINK}']        = $this->get_my_courses_page_link();
+			$constant['{USER_ACCOUNT_PAGE_LINK}']      = "<a href='" . \app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url() . "'>" . esc_html__( 'User Account', 'edwiser-bridge' ) . '</a>';
+			$constant['{WP_LOGIN_PAGE_LINK}']          = "<a href='" . $this->get_login_page_url() . "'>" . esc_html__( 'Login Page', 'edwiser-bridge' ) . '</a>';
+			$constant['{MOODLE_URL}']                  = "<a href='" . $this->get_moodle_url() . "'>" . esc_html__( 'Moodle Site', 'edwiser-bridge' ) . '</a>';
+			$constant['{COURSE_NAME}']                 = $this->get_course_name( $args );
+			$constant['{USER_PASSWORD}']               = $this->get_user_password( $args );
+			$constant['{ORDER_ID}']                    = $this->get_order_id( $args );
+			$constant['{WP_COURSE_PAGE_LINK}']         = $this->get_course_page_link( $args );
+			$constant['{USER_EMAIL_VERIFY_PAGE_LINK}'] = isset( $args['verify_url'] ) ? $args['verify_url'] : '';
+
 
 			/**
 			 * Refund Template parser.

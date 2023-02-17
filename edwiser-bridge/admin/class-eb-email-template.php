@@ -51,6 +51,8 @@ class EBAdminEmailTemplate {
 		$email_list['eb_emailtmpl_course_access_expir']                 = esc_html__( 'Course access expired', 'edwiser-bridge' );
 		$email_list['eb_emailtmpl_refund_completion_notifier_to_user']  = esc_html__( 'Refund Success mail to customer', 'edwiser-bridge' );
 		$email_list['eb_emailtmpl_refund_completion_notifier_to_admin'] = esc_html__( 'Refund Success mail to admin or specified email', 'edwiser-bridge' );
+		$email_list['eb_emailtmpl_new_user_email_verification']         = esc_html__( 'Verify Your Email Address', 'edwiser-bridge' );
+
 
 		/**
 		 *   Two way synch.
@@ -750,6 +752,9 @@ class EBAdminEmailTemplate {
 				break;
 			case 'eb_emailtmpl_mdl_user_deletion_trigger':
 				$value = $default_tmpl->user_deletion_trigger( 'eb_emailtmpl_mdl_user_deletion_trigger', true );
+				break;
+			case 'eb_emailtmpl_new_user_email_verification':
+				$value = $default_tmpl->new_user_email_verification( 'eb_emailtmpl_new_user_email_verification', true );
 				break;
 			default:
 				$args = apply_filters(
