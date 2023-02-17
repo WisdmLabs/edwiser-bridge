@@ -595,6 +595,12 @@
                     //prepare response for user
                     if (response.success == 1) {
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
+                        if(response.warnings){
+                            // add ohSnap warning message for each warning
+                            $.each(response.warnings, function (index, value) {
+                                ohSnap(value, 'warning', 0);
+                            });
+                        }
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
                         $('.eb_test_connection_response').html(response.response_message);

@@ -99,6 +99,11 @@ class Eb_External_Api_Endpoint {
 					// Apply filter here for more default options.
 					break;
 			}
+		} elseif ( ! $this->eb_validate_api_key( $request_data ) ) {
+			$response_data = array(
+				'status' => 0,
+				'msg'    => 'Invalid token please check token',
+			);
 		}
 		return $response_data;
 	}

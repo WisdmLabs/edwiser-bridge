@@ -149,7 +149,8 @@ class EBConnectionHelper {
 		$plain_txt_msg    = '';
 		// function to check if webservice token is properly set.
 
-		$webservice_function = 'core_course_get_courses';
+		// new test connection api
+		$webservice_function = 'eb_test_connection';
 
 		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
 		$request_url              .= $token . '&wsfunction=';
@@ -162,15 +163,20 @@ class EBConnectionHelper {
 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
 			$request_args['sslverify'] = true;
 		}
-		$response = wp_remote_post( $request_url, $request_args );
 
+		$request_args['body'] = array(
+			'test_connection' => 'wordpress',
+			'wp_url' => get_site_url(),
+			'wp_token' => $token,
+		);
+		$response = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$plain_txt_msg    = $response->get_error_message();
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
-				wp_remote_retrieve_response_code( $response ) === 303 ) {
+			wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( null === $body ) {
 				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
@@ -182,19 +188,22 @@ class EBConnectionHelper {
 					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) . $url_link
 				);
 			} elseif ( ! empty( $body->exception ) ) {
-				$success          = 0;
-				$msg              = print_r( $body, 1 ); // @codingStandardsIgnoreLine
-				$plain_txt_msg    = $msg;
-				$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
-
-			} else {
-				// added else to check the other services access error.
-				$access_control_result = $this->check_service_access( $url, $token );
-
-				if ( ! $access_control_result['success'] ) {
+				if ( "invalid_parameter_exception" === $body->exception ) {
 					$success          = 0;
-					$plain_txt_msg    = $access_control_result['response_message'];
-					$response_message = $this->create_response_message( $url, $access_control_result['response_message'] );
+					$msg              = __( 'Edwiser plugin is not updated on your Moodle Site. Please update it to avoid any malfunctioning.', 'edwiser-bridge' );
+					$plain_txt_msg    = $msg;
+					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+				} else {
+					$success          = 0;
+					$msg              = print_r( $body, 1 ); // @codingStandardsIgnoreLine
+					$plain_txt_msg    = $msg;
+					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+				}
+			} else {
+				if ( "0" === $body->status ) {
+					$success          = 0;
+					$plain_txt_msg    = esc_html__( 'Connection failed', 'edwiser-bridge' );
+					$response_message = $this->create_response_message( $request_url, esc_html( $body->msg ) );
 				}
 			}
 		} else {
@@ -207,10 +216,17 @@ class EBConnectionHelper {
 			$response_message = $plain_txt_msg;
 		}
 
-		return array(
+		$response =  array(
 			'success'          => $success,
 			'response_message' => $response_message,
 		);
+		if ( isset( $body->warnings ) && is_array( $body->warnings ) ) {
+			foreach ( $body->warnings as $warning ) {
+				$response['warnings'][] = '<span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . $warning;
+			}
+		}
+		
+		return $response;
 	}
 
 
@@ -458,7 +474,6 @@ class EBConnectionHelper {
 		}
 
 		$response = wp_remote_post( $request_url, $request_args );
-
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
