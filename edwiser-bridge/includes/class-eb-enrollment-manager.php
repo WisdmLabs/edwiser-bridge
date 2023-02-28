@@ -760,7 +760,7 @@ class Eb_Enrollment_Manager {
 						'moodle_user_id'   => $moodle_user_id,
 						'course_id'        => $course_id,
 						'moodle_course_id' => $moodle_course_id,
-					),
+					)
 				);
 			}
 		}
