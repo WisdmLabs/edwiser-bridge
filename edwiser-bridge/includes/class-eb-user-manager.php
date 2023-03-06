@@ -672,7 +672,7 @@ class EBUserManager {
 			$webservice_function = 'core_user_create_users';
 
 			$eb_general_settings = get_option( 'eb_general' );
-			if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+			if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
 				// get wp user id from email.
 				$wp_user_id = email_exists( $user_data['email'] );
 				$is_verified = get_user_meta( $wp_user_id, 'eb_user_email_verified', true );
@@ -1470,7 +1470,8 @@ class EBUserManager {
 
 	public function eb_user_email_verification_set_meta( $user_id ) {
 		$eb_general_settings = get_option( 'eb_general' );
-		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+		// check if user is registered from edwiser bridge registration form.
+		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
 			update_user_meta( $user_id, 'eb_user_email_verified', 0 );
 
 			// generate verification code.
@@ -1497,7 +1498,6 @@ class EBUserManager {
 				'last_name'  => $last_name,
 				'verify_url' => $verification_link,
 			);
-			error_log( print_r( $args, true ) );
 			do_action( 'eb_new_user_email_verification_trigger', $args );
 		}
 	}
@@ -1513,18 +1513,6 @@ class EBUserManager {
 		return $query_args;
 	}
 
-	public function eb_show_email_verification_message_on_woo(){
-		if ( isset( $_GET['eb_user_email_verification'] ) && 1 == $_GET['eb_user_email_verification'] ) {
-			?>
-			<div class="woocommerce-message">
-				<?php
-				_e( 'Registration successfull. Please check your email for verification link.', 'edwiser-bridge' );
-				?>
-			</div>
-			<?php
-		}
-	}
-
 	public function eb_user_authentication_check( $user, $username, $password ) {
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
@@ -1535,7 +1523,8 @@ class EBUserManager {
 			}
 
 			$eb_user_email_verified = get_user_meta( $userdata->ID, 'eb_user_email_verified', true );
-			if ( 0 == $eb_user_email_verified ) {
+			$moodle_user_id         = get_user_meta( $userdata->ID, 'moodle_user_id', true );
+			if ( 0 === $eb_user_email_verified || empty( $moodle_user_id ) ) {
 				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) );
 			}
 		}

@@ -916,9 +916,8 @@ class EdwiserBridge {
 
 			$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_user_email_verification_set_meta', 99 );
 			$this->loader->eb_add_action( 'eb_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
-			$this->loader->eb_add_action( 'woocommerce_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
-			
-			$this->loader->eb_add_action( 'woocommerce_before_customer_login_form', $this->user_manager(), 'eb_show_email_verification_message_on_woo', 99, 2 );
+
+
 			$this->loader->eb_add_action( 'authenticate', $this->user_manager(), 'eb_user_authentication_check', 100, 3 );
 			$this->loader->eb_add_action( 'init', $this->user_manager(), 'eb_user_email_verify' );
 
