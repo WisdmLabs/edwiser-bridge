@@ -652,6 +652,12 @@ class EdwiserBridge {
 		);
 
 		$this->loader->eb_add_action(
+			'eb_check_mdl_plugin_update',
+			$admin_notice_handler,
+			'eb_check_mdl_plugin_update'
+		);
+
+		$this->loader->eb_add_action(
 			'admin_notices',
 			$admin_notice_handler,
 			'eb_admin_bfcm_notice'
