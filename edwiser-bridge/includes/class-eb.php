@@ -1274,7 +1274,7 @@ class EdwiserBridge {
 		 * If email verification is disabled then new user email is sent.
 		 */
 		$eb_general_settings = get_option( 'eb_general' );
-		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
 			$this->loader->eb_add_action(
 				'eb_new_user_email_verification_trigger',
 				$plugin_emailer,
