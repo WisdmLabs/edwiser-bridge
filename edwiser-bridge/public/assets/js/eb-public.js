@@ -325,10 +325,10 @@
 		{
 			// Show the message in the dialog box
 			$('<div></div>').html(eb_user_email_verification.message).dialog({
-				modal: true,
+				modal: false,
 				resizable: false,
 				width: 500,
-				dialogClass: 'eb_admin_terms_dialog',
+				dialogClass: 'eb_admin_terms_dialog eb_email_verify_dialog',
 				buttons: [
 					{
 						text: "Ok",

@@ -1425,3 +1425,6 @@ nav.eb-pagination ul li {
 	background: #888;
 	border-radius: 10px;
 }
+.eb_email_verify_dialog{
+  z-index: 1000 !important;
+}
