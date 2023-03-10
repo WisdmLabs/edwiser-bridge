@@ -321,7 +321,7 @@
 			$(this).children(".eb-scroll-left").hide();
 		});
 
-		if(eb_user_email_verification.message != '')
+		if(typeof eb_user_email_verification != "undefined")
 		{
 			// Show the message in the dialog box
 			$('<div></div>').html(eb_user_email_verification.message).dialog({
