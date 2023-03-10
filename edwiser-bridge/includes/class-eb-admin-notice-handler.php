@@ -466,7 +466,6 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_remui_demo_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-admin-remui-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
 			$user_id = get_current_user_id();
-			error_log( 'user id: ' . $user_id );
 			add_user_meta( $user_id, 'eb_admin_remui_demo_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-remui-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
 		}
 	}

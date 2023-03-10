@@ -277,8 +277,8 @@ class Eb_Enrollment_Manager {
 				'unenroll'          => $args['unenroll'],
 				'suspend'           => $args['suspend'],
 				'complete_unenroll' => $args['complete_unenroll'],
-				'start_date'        => $args['start_date'],
-				'end_date'          => $args['end_date'],
+				'start_date'        => $start_date,
+				'end_date'          => $end_date,
 
 			);
 

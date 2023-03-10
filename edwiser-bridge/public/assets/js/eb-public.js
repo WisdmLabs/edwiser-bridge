@@ -320,6 +320,26 @@
 			}
 			$(this).children(".eb-scroll-left").hide();
 		});
+
+		if(eb_user_email_verification.message != '')
+		{
+			// Show the message in the dialog box
+			$('<div></div>').html(eb_user_email_verification.message).dialog({
+				modal: true,
+				resizable: false,
+				width: 500,
+				dialogClass: 'eb_admin_terms_dialog',
+				buttons: [
+					{
+						text: "Ok",
+						"class": 'eb_terms_button_agree',
+						click: function() {
+							$(this).dialog("close");
+						}
+					}
+				],
+			});
+		}
 	});
 })(jQuery);
 

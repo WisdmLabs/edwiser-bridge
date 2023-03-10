@@ -1521,6 +1521,10 @@ class EBUserManager {
 			if ( ! $userdata ) {
 				$userdata = get_user_by( 'login', $username );
 			}
+			
+			if ( ! $userdata ) {
+				return $user;
+			}
 
 			$eb_user_email_verified = get_user_meta( $userdata->ID, 'eb_user_email_verified', true );
 			$moodle_user_id         = get_user_meta( $userdata->ID, 'moodle_user_id', true );
@@ -1574,11 +1578,16 @@ class EBUserManager {
 			} else {
 				$message = __( 'Your email verification link is invalid.', 'edwiser-bridge' );
 			}
-			?>
-			<div class="eb-user-email-verification-message">
-				<?php echo $message; ?>
-			</div>
-			<?php
+			// register and localize script.
+			wp_register_script( 'eb-user-email-verification', false );
+			wp_enqueue_script( 'eb-user-email-verification' );
+			wp_localize_script(
+				'eb-user-email-verification',
+				'eb_user_email_verification',
+				array(
+					'message' => $message,
+				)
+			);
 		}
 	}
 }
