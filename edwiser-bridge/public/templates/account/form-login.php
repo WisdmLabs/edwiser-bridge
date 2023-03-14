@@ -15,11 +15,20 @@ do_action( 'eb_before_customer_login_form' );
 \app\wisdmlabs\edwiserBridge\wdm_eb_login_reg_show_notices();
 
 if ( 1 === filter_input( INPUT_GET, 'eb_user_email_verification', FILTER_VALIDATE_INT ) ) {
-	?>
-	<div class='wdm-flash-info'>
-		<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address.', 'edwiser-bridge' ); ?></span>
-	</div>
-	<?php
+	// check if get paramter is_enrolled is set.
+	if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
+		?>
+		<div class='wdm-flash-info'>
+			<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address. then try enrolling in course again.', 'edwiser-bridge' ); ?></span>
+		</div>
+		<?php
+	} else {
+		?>
+		<div class='wdm-flash-info'>
+			<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address.', 'edwiser-bridge' ); ?></span>
+		</div>
+		<?php
+	}
 }
 ?>
 <div id="user_login" class='wdm-eb-user-login-form-wrap'>

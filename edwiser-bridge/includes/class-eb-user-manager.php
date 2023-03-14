@@ -1474,31 +1474,8 @@ class EBUserManager {
 		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
 			update_user_meta( $user_id, 'eb_user_email_verified', 0 );
 
-			// generate verification code.
-			$verification_key = wp_generate_password( 20, false );
-			update_user_meta( $user_id, 'eb_user_email_verification_key', $verification_key );
-			// generate verification link.
-			$verification_link = add_query_arg(
-				array(
-					'action'                         => 'eb_user_email_verification',
-					'eb_user_email_verification_key' => $verification_key,
-					'eb_user_email_verification_id'  => $user_id,
-				),
-				get_site_url()
-			);
-			$verification_link = "<a href='$verification_link'>Verify</a>";
-			// send verification email.
-			$user = get_user_by( 'id', $user_id );
-			$first_name = isset( $_POST['firstname'] ) ? sanitize_text_field( $_POST['firstname'] ) : $user->first_name;
-			$last_name = isset( $_POST['lastname'] ) ? sanitize_text_field( $_POST['lastname'] ) : $user->last_name;
-			$args = array(
-				'user_email' => $user->user_email,
-				'username'   => $user->user_login,
-				'first_name' => $first_name,
-				'last_name'  => $last_name,
-				'verify_url' => $verification_link,
-			);
-			do_action( 'eb_new_user_email_verification_trigger', $args );
+			$this->eb_send_email_verification_link( $user_id );
+			
 		}
 	}
 
@@ -1528,8 +1505,15 @@ class EBUserManager {
 
 			$eb_user_email_verified = get_user_meta( $userdata->ID, 'eb_user_email_verified', true );
 			$moodle_user_id         = get_user_meta( $userdata->ID, 'moodle_user_id', true );
+			$resend_link            = add_query_arg(
+				array(
+					'action'                         => 'eb_user_verification_resend',
+					'eb_user_email_verification_id'  => $userdata->ID,
+				)
+			);
+			$resend_link = '<a href="' . $resend_link . '">' . __( 'Resend Verification Email', 'edwiser-bridge' ) . '</a>';
 			if ( 0 === $eb_user_email_verified || empty( $moodle_user_id ) ) {
-				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) );
+				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) . ' ' . $resend_link );
 			}
 		}
 		return $user;
@@ -1588,6 +1572,56 @@ class EBUserManager {
 					'message' => $message,
 				)
 			);
+		} elseif ( 'eb_user_verification_resend' === $action ) {
+
+			$eb_user_email_verified = (int)get_user_meta( $verification_id, 'eb_user_email_verified', true );
+			if ( 0 === $eb_user_email_verified ) {
+				$this->eb_send_email_verification_link( $verification_id );
+				$message = __( 'Verification email has been sent to your email address.', 'edwiser-bridge' );
+				// register and localize script.
+				wp_register_script( 'eb-user-email-verification', false );
+				wp_enqueue_script( 'eb-user-email-verification' );
+				wp_localize_script(
+					'eb-user-email-verification',
+					'eb_user_email_verification',
+					array(
+						'message' => $message,
+					)
+				);
+			}
 		}
+	}
+
+	/**
+	 * Send email verification link to user.
+	 * 
+	 * @param object $user user object.
+	 */
+	public function eb_send_email_verification_link( $user_id ) {
+		// generate verification code.
+		$verification_key = wp_generate_password( 20, false );
+		update_user_meta( $user_id, 'eb_user_email_verification_key', $verification_key );
+		// generate verification link.
+		$verification_link = add_query_arg(
+			array(
+				'action'                         => 'eb_user_email_verification',
+				'eb_user_email_verification_key' => $verification_key,
+				'eb_user_email_verification_id'  => $user_id,
+			),
+			get_site_url()
+		);
+		$verification_link = "<a href='$verification_link'>Verify</a>";
+		// send verification email.
+		$user = get_user_by( 'id', $user_id );
+		$first_name = isset( $_POST['firstname'] ) ? sanitize_text_field( $_POST['firstname'] ) : $user->first_name;
+		$last_name = isset( $_POST['lastname'] ) ? sanitize_text_field( $_POST['lastname'] ) : $user->last_name;
+		$args = array(
+			'user_email' => $user->user_email,
+			'username'   => $user->user_login,
+			'first_name' => $first_name,
+			'last_name'  => $last_name,
+			'verify_url' => $verification_link,
+		);
+		do_action( 'eb_new_user_email_verification_trigger', $args );
 	}
 }

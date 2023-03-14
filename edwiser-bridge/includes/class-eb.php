@@ -1275,12 +1275,7 @@ class EdwiserBridge {
 		 */
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
-			$this->loader->eb_add_action(
-				'eb_new_user_email_verification_trigger',
-				$plugin_emailer,
-				'send_new_user_email_verification_email',
-				10
-			); // email for new user email verification.
+			// continue.
 		} else {
 			$this->loader->eb_add_action(
 				'eb_created_user',
@@ -1289,6 +1284,13 @@ class EdwiserBridge {
 				10
 			); // email on new user registration.
 		}
+
+		$this->loader->eb_add_action(
+			'eb_new_user_email_verification_trigger',
+			$plugin_emailer,
+			'send_new_user_email_verification_email',
+			10
+		); // email for new user email verification.
 
 		$this->loader->eb_add_action(
 			'eb_linked_to_existing_wordpress_user',
