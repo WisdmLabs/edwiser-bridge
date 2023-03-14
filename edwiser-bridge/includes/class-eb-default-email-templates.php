@@ -946,9 +946,15 @@ if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Please verify your email address by visiting : ', 'edwiser-bridge' ) . '%s.',
+											esc_html__( 'To confirm your email address, please click on the link : ', 'edwiser-bridge' ) . '%s.',
 											'<span style="color: #0000ff;">{USER_EMAIL_VERIFY_PAGE_LINK}</span>'
 										);
+									?>
+								</div>
+								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
+								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
+									<?php
+										esc_html_e( '(If you are unable to click on the link above, please copy and paste the entire link into your web browser\'s address bar. )', 'edwiser-bridge' );
 									?>
 								</div>
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;"></div>
