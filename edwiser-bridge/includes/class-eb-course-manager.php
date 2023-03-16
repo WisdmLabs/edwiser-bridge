@@ -148,7 +148,7 @@ class Eb_Course_Manager {
 			/*
 			 * sync moodle courses to WordPress.
 			 */
-			$moodle_course_resp = $this->get_moodle_courses(); // get courses from moodle.
+			$moodle_course_resp = $this->get_moodle_courses(null, $sync_options); // get courses from moodle.
 
 			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && '1' === $sync_options['eb_synchronize_previous'] ) ) {
 
@@ -313,7 +313,7 @@ class Eb_Course_Manager {
 	 *
 	 * @return array stores moodle web service response.
 	 */
-	public function get_moodle_courses( $moodle_user_id = null ) {
+	public function get_moodle_courses( $moodle_user_id = null, $sync_options = array() ) {
 		$response = '';
 
 		if ( ! empty( $moodle_user_id ) ) {
@@ -328,8 +328,16 @@ class Eb_Course_Manager {
 			// add course log.
 			edwiser_bridge_instance()->logger()->add( 'course', 'User course response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		} elseif ( empty( $moodle_user_id ) ) {
-			$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
+			if ( isset( $sync_options['eb_synchronize_images'] ) && '1' === $sync_options['eb_synchronize_images'] ) {
+				$webservice_function = 'core_course_get_courses_by_field'; // get all courses from moodle.
+			} else {
+				$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
+			}
+			
 			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
+			if ( isset( $sync_options['eb_synchronize_images'] ) && '1' === $sync_options['eb_synchronize_images'] ) {
+				$response['response_data'] = $response['response_data']->courses;
+			}
 			// add course log.
 			edwiser_bridge_instance()->logger()->add( 'course', 'Response: ' . serialize( $response ) ); // @codingStandardsIgnoreLine
 		}
@@ -528,6 +536,11 @@ class Eb_Course_Manager {
 		add_post_meta( $wp_course_id, 'moodle_course_id', $course_data->id );
 		add_post_meta( $wp_course_id, 'eb_course_options', $eb_course_options );
 
+		if ( isset( $sync_options['eb_synchronize_images'] ) && '1' === $sync_options['eb_synchronize_images'] ) {
+			// add course image.
+			$this->sync_course_image( $wp_course_id, $course_data );
+		}
+
 		/*
 		 * execute your own action on course creation on WorPress
 		 * we are passing newly created course id as well as its respective moodle id in arguments
@@ -591,6 +604,11 @@ class Eb_Course_Manager {
 		// set course terms.
 		if ( $term_id > 0 ) {
 			wp_set_post_terms( $wp_course_id, $term_id, 'eb_course_cat' );
+		}
+
+		if ( isset( $sync_options['eb_synchronize_images'] ) && '1' === $sync_options['eb_synchronize_images'] ) {
+			// add course image.
+			$this->sync_course_image( $wp_course_id, $course_data );
 		}
 
 		/*
@@ -972,5 +990,47 @@ class Eb_Course_Manager {
 			$actions['moodle_link'] = "<a href='{$course_url}' title='' target='_blank' rel='permalink'>" . __( 'View on Moodle', 'edwiser-bridge' ) . '</a>';
 		}
 		return $actions;
+	}
+
+	/**
+	 * Sync Course image with moodle.
+	 * 
+	 * @param  int   $course_id course id.
+	 * @param  array $course_data course data.
+	 */
+	public function sync_course_image( $course_id, $course_data ) {
+		if ( isset( $course_data->overviewfiles ) && ! empty( $course_data->overviewfiles ) ) {
+			$course_image = $course_data->overviewfiles[0];
+			error_log( print_r( $course_image, true ) );
+			$token     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+			// set this image as course featured image.
+			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $course_image->fileurl . '&token=' . $token ) );
+
+			error_log( $course_image->fileurl . '?token=' . $token );
+			if ( ! $upload_file['error'] ) {
+				// if succesfull insert the new file into the media library (create a new attachment post type).
+				$wp_filetype = wp_check_filetype($course_image->filename, null );
+			  
+				$attachment = array(
+				  'post_mime_type' => $wp_filetype['type'],
+				  'post_parent'    => $course_id,
+				  'post_title'     => preg_replace( '/\.[^.]+$/', '', $course_image->filename ),
+				  'post_content'   => '',
+				  'post_status'    => 'inherit'
+				);
+			  
+				$attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], $course_id );
+			  
+				if ( ! is_wp_error( $attachment_id ) ) {
+				   // if attachment post was successfully created, insert it as a thumbnail to the post $course_id.
+				   require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+			  
+				   $attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
+			  
+				   wp_update_attachment_metadata( $attachment_id,  $attachment_data );
+				   set_post_thumbnail( $course_id, $attachment_id );
+				}
+			}
+		}
 	}
 }

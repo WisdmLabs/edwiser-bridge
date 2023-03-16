@@ -249,17 +249,7 @@ class Eb_External_Api_Endpoint {
 		if ( isset( $data['user_id'] ) ) {
 			$wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 			if ( $wp_user_id ) {
-				$user    = get_user_by( 'ID', $wp_user_id );
-				$args    = array(
-					'user_email' => $user->user_email,
-					'username'   => $user->user_login,
-					'first_name' => $user->first_name,
-					'last_name'  => $user->last_name,
-				);
 				$deleted = wp_delete_user( $wp_user_id );
-				if ( $deleted ) {
-					do_action( 'eb_mdl_user_deletion_trigger', $args );
-				}
 			}
 		}
 	}

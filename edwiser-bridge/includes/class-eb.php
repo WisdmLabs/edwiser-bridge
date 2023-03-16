@@ -296,6 +296,8 @@ class EdwiserBridge {
 
 		require_once $plugin_path . 'admin/class-eb-admin-settings.php';
 
+		require_once $plugin_path . 'includes/class-eb-error-logs-table.php';
+
 		/**
 		 * The core class to handle custom events events on settings page.
 		 *
@@ -747,6 +749,26 @@ class EdwiserBridge {
 			$admin_settings_init,
 			'connection_test_initiater'
 		);
+		
+		// error log ajax handlers
+		$this->loader->eb_add_action(
+			'wp_ajax_wdm_eb_get_log_data',
+			$admin_settings_init,
+			'eb_get_log_data'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_wdm_eb_mark_log_resolved',
+			$admin_settings_init,
+			'eb_log_resolved'
+		);
+
+		$this->loader->eb_add_action(
+			'wp_ajax_send_log_to_support',
+			$admin_settings_init,
+			'eb_send_log_to_support'
+		);
+
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_user_manage_unenroll_unenroll_user',
 			$manage_enrollment,

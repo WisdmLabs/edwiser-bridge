@@ -1755,6 +1755,9 @@ abbr.help:hover::after {
   right: 40px;
   height: 200px;
 }
+.eb-view-more{
+  display: none;
+}
 @media screen and (max-width: 1024px) {
   .eb-admin-bfcm-notice-message-content{
     padding-left: 250px;

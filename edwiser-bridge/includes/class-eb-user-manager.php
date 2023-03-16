@@ -1290,6 +1290,17 @@ class EBUserManager {
 		$wpdb->delete( $wpdb->prefix . 'moodle_enrollment', array( 'user_id' => $user_id ), array( '%d' ) ); // @codingStandardsIgnoreLine
 
 		edwiser_bridge_instance()->logger()->add( 'user', "Enrollment records of user ID: {$user_id} are deleted." );  // add user log.
+
+		// send email to user.
+		$user = get_userdata( $user_id );
+		
+		$args = array(
+			'user_email' => $user->user_email,
+			'username'   => $user->user_login,
+			'first_name' => $user->first_name,
+			'last_name'  => $user->last_name,
+		);
+		do_action( 'eb_mdl_user_deletion_trigger', $args );
 	}
 
 	/**

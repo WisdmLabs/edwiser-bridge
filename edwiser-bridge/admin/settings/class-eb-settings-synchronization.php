@@ -191,6 +191,15 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'show_if_checked' => 'yes',
 							'autoload'        => false,
 						),
+						array(
+							'desc'            => __( 'Sync Course images from moodle', 'edwiser-bridge' ),
+							'id'              => 'eb_synchronize_images',
+							'default'         => 'no',
+							'type'            => 'checkbox',
+							'checkboxgroup'   => '',
+							'show_if_checked' => 'yes',
+							'autoload'        => false,
+						),
 
 						array(
 							'title' => '',

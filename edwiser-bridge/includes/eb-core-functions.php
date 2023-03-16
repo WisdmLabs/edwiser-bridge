@@ -1190,5 +1190,36 @@ if ( ! function_exists( 'add_beacon_helpscout_script' ) ) {
 		<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
 		<?php
 	}
+}
 
+if( ! function_exists( 'wdm_log_json ') ) {
+	/**
+	 * Function to write the error log in json format.
+	 *
+	 * @param  array $log_data error log data.
+	 * @return array returns error log data.
+	 */
+	function wdm_log_json( $log_data ) {
+
+		$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
+
+		if ( file_get_contents( $log_file ) ) {
+			$log_data_old = file_get_contents( $log_file );
+			$log_data_old = json_decode( $log_data_old, true );
+		} else {
+			$log_data_old = array();
+		}
+		
+		if ( ! is_array( $log_data_old ) ) {
+			$log_data_old = array();
+		}
+		$log_data_old[] = array(
+			'time' => date_i18n( 'm-d-Y @ H:i:s' ),
+			'status' => 'NEW',
+			'data' => $log_data,
+		);
+		$log_data_old = json_encode( $log_data_old );
+		file_put_contents( $log_file, $log_data_old );
+		
+	}
 }

@@ -63,6 +63,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 				$settings[]     = include 'licensing/class-licensing-settings.php';
 				$settings[]     = include 'settings/class-eb-bridge-summary.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';
+				$settings[]     = include 'settings/class-eb-error-log.php';
 				$settings[]     = include 'settings/class-eb-settings-premium-fetures.php';
 			}
 
@@ -91,7 +92,7 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 			do_action( 'eb_settings_save_' . $current_tab );
 			do_action( 'eb_update_options_' . $current_tab );
 			do_action( 'eb_update_options' );
-			if ( ! strpos( $referer, 'admin.php?page=eb-settings&tab=licensing' ) ) {
+			if ( ! in_array( $current_tab, array( 'licensing', 'logs' ), true ) ) {
 				self::add_message( __( 'Your settings have been saved.', 'edwiser-bridge' ) );
 			}
 			do_action( 'eb_settings_saved' );

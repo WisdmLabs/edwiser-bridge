@@ -147,6 +147,159 @@
                 });
             });
         });
+
+        //error log manager
+        $('.eb-error-log-view').click(function(){
+            var id = jQuery(this).data('log-id');
+            var row = jQuery(this).parents('tr');
+            //hide .eb-view-eye and show .load-response 
+            $('.eb-view-eye-'+id).hide();
+            $('.load-response-'+id).show();
+            
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                dataType: "json",
+                data: {
+                    'action': 'wdm_eb_get_log_data',
+                    'key': id,
+                    'admin_nonce': eb_admin_js_object.admin_nonce,
+                },
+                success: function (response) {
+                    console.log(response);
+                    var log = response.data;
+                    var dialogBox = $(document.createElement('div'));
+                    dialogBox.attr('id', 'eb-error-log-dialog');
+                    dialogBox.attr('title', log.data.message);
+                    
+                    var heading = $(document.createElement('h3'));
+                    heading.html('Status: '+log.status);
+
+                    var time = $(document.createElement('p')).html('Time : '+log.time);
+                    var user = $(document.createElement('p')).html('User : '+log.data.user);
+                    var rcode = $(document.createElement('p')).html('Error Code : '+log.data.responsecode);
+                    var rmsg = $(document.createElement('p')).html('Response Message : '+log.data.errorcode);
+                    var viewMore = $(document.createElement('a')).html('View More...');
+                    viewMore.attr('href', '#');
+                    viewMore.attr('id', 'eb-dialog-view-more');
+
+                    var viewMoreDiv = $(document.createElement('div')).addClass('eb-view-more');
+                    var urlData = $(document.createElement('p')).html('URL : '+log.data.url);
+                    // explode backtrace with , and then add <br> after each line
+                    var backtrace = log.data.backtrace;
+                    var backtraceHtml = '';
+                    for(var i=0; i<backtrace.length; i++){
+                        backtraceHtml += backtrace[i]+'<br>';
+                    }
+                    var backtrace = $(document.createElement('p')).html('Backtrace : '+backtraceHtml);
+                    viewMoreDiv.append(urlData);
+                    viewMoreDiv.append(backtrace);
+
+                    dialogBox.append(heading);
+                    dialogBox.append(time);
+                    dialogBox.append(user);
+                    dialogBox.append(rcode);
+                    dialogBox.append(rmsg);
+                    
+                    
+                    if(log.data.debuginfo){
+                        var debug = $(document.createElement('p')).html('Debug Info: '+log.data.debuginfo);
+                        dialogBox.append(debug);
+                    }
+
+                    dialogBox.append(viewMore);
+                    dialogBox.append(viewMoreDiv);
+
+
+                    dialogBox.dialog({
+                        modal: true,
+                        height: 'auto',
+                        minWidth: 500,
+                        buttons: [
+                            {
+                                text: "Mark Resolved",
+                                click: function () {
+                                    $.ajax({
+                                        method: "post",
+                                        url: eb_admin_js_object.ajaxurl,
+                                        dataType: "json",
+                                        data: {
+                                            'action': 'wdm_eb_mark_log_resolved',
+                                            'key': id,
+                                            'admin_nonce': eb_admin_js_object.admin_nonce,
+                                        },
+                                        success: function (response) {
+                                            $(row).find('.column-status').html('RESOLVED');
+                                        }
+                                    });
+                                    $(this).dialog("close");
+                                }
+                            },
+                            {
+                                text: "Report Issue",
+                                title: "Send this issue to Edwiser Support",
+                                click: function () {
+                                    //opew dialog box and ask for email
+                                    var emailDialogBox = $(document.createElement('div'));
+                                    emailDialogBox.attr('id', 'eb-error-log-dialog');
+                                    emailDialogBox.attr('title', 'Send this issue to Edwiser Support');
+                                    var email = $(document.createElement('input')).attr('type', 'email').attr('placeholder', 'Enter Admin Email');
+                                    email.css('width', '100%');
+                                    email.css('margin-top', '15px');
+                                    var info = $(document.createElement('p')).html('*This email will be used for further communication from Edwiser Support');
+
+                                    emailDialogBox.append(email);
+                                    emailDialogBox.append(info);
+                                    emailDialogBox.dialog({
+                                        modal: true,
+                                        height: 'auto',
+                                        minWidth:400,
+                                        buttons: [
+                                            {
+                                                text: "Cancel",
+                                                click: function () {
+                                                    $(this).dialog("close");
+                                                }
+                                            },
+                                            {
+                                                text: "Send",
+                                                click: function () {
+                                                    var email = $(this).find('input').val();
+                                                    $.ajax({
+                                                        method: "post",
+                                                        url: eb_admin_js_object.ajaxurl,
+                                                        dataType: "json",
+                                                        data: {
+                                                            'action': 'send_log_to_support',
+                                                            'key': id,
+                                                            'email': email,
+                                                            'admin_nonce': eb_admin_js_object.admin_nonce,
+                                                        },
+                                                        success: function (response) {
+                                                            if(response.success){
+                                                                $(row).find('.column-status').html('SENT TO SUPPORT');
+                                                            }
+                                                        }
+                                                    });
+                                                    $(this).dialog("close");
+                                                }
+                                            }
+                                        ]
+                                    });                                        
+                                    $(this).dialog("close");
+                                }
+                            }
+                        ]
+                    });
+                    $('.eb-view-eye-'+id).show();
+                    $('#eb-dialog-view-more').click(function(){
+                        $('.eb-view-more').toggle();
+                    });
+                    $('.load-response-'+id).hide();
+                }
+            });
+        });
+
         //help tip
         var tiptip_args = {
             'attribute': 'data-tip',

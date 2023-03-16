@@ -168,6 +168,7 @@ class Eb_Settings_Ajax_Initiater {
 
 			$general_settings = get_option( 'eb_general' );
 			$language         = isset( $general_settings['eb_language_code'] ) ? $general_settings['eb_language_code'] : 'en';
+			$role_id          = isset( $general_settings['eb_moodle_role_id'] ) ? $general_settings['eb_moodle_role_id'] : 5;
 			$msg = '';
 			$flag = false;
 			if ( 1 != $data->allow_extended_char ) {
@@ -181,6 +182,10 @@ class Eb_Settings_Ajax_Initiater {
 			if ( $language !== $data->lang_code ){
 				$flag = true;
 				$msg .= '<div class="alert alert-error">' . __('Language code in edwiser settings should be same as in moodle', 'edwiser-bridge') . '</div>';
+			}
+			if ( $role_id != $data->student_role_id ){
+				$flag = true;
+				$msg .= '<div class="alert alert-error">' . __('Default student role in edwiser settings should be same as in moodle', 'edwiser-bridge') . '</div>';
 			}
 
 
@@ -231,6 +236,8 @@ class Eb_Settings_Ajax_Initiater {
 				$post_link = get_edit_post_link( $course_id );
 				$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . __('Course Price type is not set to closed. It is recomended to be closed for woocommerce products.', 'edwiser-bridge') . ' <a target="_blank" href="' . $post_link . '">' . __('Configure course price type', 'edwiser-bridge') . '</a></div>';
 			}
+
+			
 		}
 		if ( 'publish' !== get_post_status( $course_id ) ) {
 			$flag = true;
@@ -379,6 +386,7 @@ class Eb_Settings_Ajax_Initiater {
 
 		if ( ! empty( $response['response_data'] ) ) {
 			$general_settings['eb_language_code'] = $response['response_data']->lang_code;
+			$general_settings['eb_moodle_role_id'] = $response['response_data']->student_role_id;
 			update_option( 'eb_general', $general_settings );
 		}
 		if( isset( $response['success'] ) && 0 === $response['success'] ) {
@@ -399,5 +407,143 @@ class Eb_Settings_Ajax_Initiater {
 	
 		echo wp_json_encode( $response_array );
 		die();
+	}
+
+	/**
+	 * Ajax callback to get error log data for given id
+	 */
+	public function eb_get_log_data() {
+		$response = esc_html__( 'Error log not found', 'eb-textdomain' );
+		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_get_log_data' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
+
+			$key            = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+			$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
+			$logs     = file_get_contents( $log_file ); // @codingStandardsIgnoreLine
+			$logs     = json_decode( $logs, true );
+
+			if ( ! is_array( $logs ) ) {
+				wp_send_json_error( $response );
+			} else {
+				if ( isset( $logs[ $key ] ) ) {
+					$response = $logs[ $key ];
+					wp_send_json_success( $response );
+				} else {
+					wp_send_json_error( $response );
+				}
+			}
+		} else {
+			wp_send_json_error( $response );
+		}
+	}
+
+	/**
+	 * Ajax callback to mark error log resolved
+	 */
+	public function eb_log_resolved() {
+		$response = esc_html__( 'Error log not found', 'eb-textdomain' );
+		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_mark_log_resolved' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
+
+			// get error log file.
+			$key            = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+			$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
+			$logs     = file_get_contents( $log_file ); // @codingStandardsIgnoreLine
+			$logs     = json_decode( $logs, true );
+
+			// get resolved error log file for this month.
+			$resolved_log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log-' . date( 'm-y' ) . '.json'; // @codingStandardsIgnoreLine
+			if ( file_exists( $resolved_log_file ) ) {
+				$resolved_logs     = file_get_contents( $resolved_log_file ); // @codingStandardsIgnoreLine
+				$resolved_logs     = json_decode( $resolved_logs, true );
+			} else {
+				$resolved_logs = array();
+			}
+
+			if ( ! is_array( $logs ) ) {
+				wp_send_json_error( $response );
+			} else {
+				$logs[ $key ]['status'] = 'RESOLVED';
+
+				if ( ! is_array( $resolved_logs ) ) {
+					$resolved_logs = array();
+				}
+				$resolved_logs[] = $logs[ $key ];
+				unset( $logs[ $key ] );
+
+				$logs    = wp_json_encode( $logs );
+				$resolved_logs = wp_json_encode( $resolved_logs );
+				file_put_contents( $log_file, $logs ); // @codingStandardsIgnoreLine
+				file_put_contents( $resolved_log_file, $resolved_logs ); // @codingStandardsIgnoreLine
+				wp_send_json_success();
+			}
+		} else {
+			wp_send_json_error( $response );
+		}
+	}
+
+	/**
+	 * Ajax callback to delete error log
+	 */
+	public function eb_send_log_to_support() {
+		$response = esc_html__( 'Failed', 'eb-textdomain' );
+		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'send_log_to_support' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
+
+			$key = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+			if ( isset( $_POST['email'] ) ) {
+				$email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+			} else {
+				$email = get_option( 'admin_email' );
+			}
+			$email          = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+			$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
+			$logs     = file_get_contents( $log_file ); // @codingStandardsIgnoreLine
+			$logs     = json_decode( $logs, true );
+
+			if ( ! is_array( $logs ) ) {
+				wp_send_json_error( $response );
+			} else {
+				$log_data = $logs[ $key ]['data'];
+				// send mail to support.
+				// get site name and url for subject.
+				$site_name = get_option( 'blogname' );
+				$site_url  = get_option( 'siteurl' );
+				$subject   = 'Error Log From : ' . $site_name . ' - ' . $site_url;
+				$message   = '<p>' . esc_html__( 'Error log details', 'eb-textdomain' ) . '</p>';
+				if ( isset( $email ) ) {
+					$message .= '<p>' . esc_html__( 'Support Email', 'eb-textdomain' ) . ' : ' . $email . '</p>';
+				}
+				$message .= '<p>' . esc_html__( 'Error log message', 'eb-textdomain' ) . ': ' . $log_data['message'] . '</p>';
+				$message .= '<p>' . esc_html__( 'URL', 'eb-textdomain' ) . ': ' . $log_data['url'] . '</p>';
+				$message .= '<p>' . esc_html__( 'HTTP Response Code', 'eb-textdomain' ) . ': ' . $log_data['responsecode'] . '</p>';
+				$message .= '<p>' . esc_html__( 'User', 'eb-textdomain' ) . ': ' . $log_data['user'] . '</p>';
+				$message .= '<p>' . esc_html__( 'Exception', 'eb-textdomain' ) . ': ' . $log_data['exception'] . '</p>';
+				$message .= '<p>' . esc_html__( 'Error Code', 'eb-textdomain' ) . ': ' . $log_data['errorcode'] . '</p>';
+				if ( isset( $log_data['debuginfo'] ) ) {
+					$message .= '<p>' . esc_html__( 'Debug Info', 'eb-textdomain' ) . ': ' . $log_data['debuginfo'] . '</p>';
+				}
+				if ( isset( $log_data['backtrace'] ) ) {
+					$message .= '<pre>' . esc_html__( 'Backtrace', 'eb-textdomain' ) . ': ' . print_r( $log_data['backtrace'], true ) . '</pre>'; // @codingStandardsIgnoreLine
+				}
+
+				$headers       = array( 'Content-Type: text/html; charset=UTF-8' );
+				$support_email = 'ishwar.singh.solanki@wisdmlabs.com';
+
+				$mail_sent = wp_mail( $support_email, $subject, $message, $headers );
+				if ( $mail_sent ) {
+					$response = esc_html__( 'Mail sent successfully', 'eb-textdomain' );
+
+					// add status in error log file.
+					$logs[ $key ]['status'] = 'SENT TO SUPPORT';
+
+					$logs = wp_json_encode( $logs );
+					file_put_contents( $log_file, $logs ); // @codingStandardsIgnoreLine
+
+					wp_send_json_success( $response );
+				} else {
+					wp_send_json_error( $response );
+				}
+			}
+		} else {
+			wp_send_json_error( $response );
+		}
 	}
 }
