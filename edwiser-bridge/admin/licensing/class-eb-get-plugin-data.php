@@ -61,6 +61,7 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 							'timeout'   => 15,
 							'sslverify' => false,
 							'blocking'  => true,
+							'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) . 'Edwiser Bridge',
 						)
 					);
 
