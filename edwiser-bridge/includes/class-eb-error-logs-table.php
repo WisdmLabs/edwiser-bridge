@@ -118,11 +118,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 		 * Get sortable columns
 		 */
 		protected function get_sortable_columns() {
-			$sortable_columns = array(
-				'status' => array( 'status', false ),
-				'rcode'  => array( 'rcode', false ),
-				'time'   => array( 'time', false ),
-			);
+			$sortable_columns = array();
 			return $sortable_columns;
 		}
 

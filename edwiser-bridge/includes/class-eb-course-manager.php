@@ -1004,9 +1004,16 @@ class Eb_Course_Manager {
 			error_log( print_r( $course_image, true ) );
 			$token     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 			// set this image as course featured image.
-			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $course_image->fileurl . '&token=' . $token ) );
+			// check if file url have & token then remove it.
+			if( strpos( $course_image->fileurl, '?file=' ) !== false ) {
+				$file_url = $course_image->fileurl . '&token=' . $token;
+			}
+			else {
+				$file_url = $course_image->fileurl . '?token=' . $token;
+			}
+			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $file_url ) );
 
-			error_log( $course_image->fileurl . '?token=' . $token );
+			error_log( print_r( $upload_file, true ) );
 			if ( ! $upload_file['error'] ) {
 				// if succesfull insert the new file into the media library (create a new attachment post type).
 				$wp_filetype = wp_check_filetype($course_image->filename, null );

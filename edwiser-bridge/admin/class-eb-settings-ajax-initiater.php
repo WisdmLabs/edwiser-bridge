@@ -237,7 +237,25 @@ class Eb_Settings_Ajax_Initiater {
 				$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . __('Course Price type is not set to closed. It is recomended to be closed for woocommerce products.', 'edwiser-bridge') . ' <a target="_blank" href="' . $post_link . '">' . __('Configure course price type', 'edwiser-bridge') . '</a></div>';
 			}
 
-			
+			global $wpdb;
+			$query = 'SELECT `product_id` FROM ' . $wpdb->prefix . "woo_moodle_course WHERE `moodle_post_id` = '" . $course_id . "'";
+
+            $product_id = $wpdb->get_var($query);
+
+			// check if product is virtual and downloadable
+			if ( $product_id ) {
+				$product = wc_get_product( $product_id );
+				if ( ! $product->is_virtual() ) {
+					$flag = true;
+					$post_link = get_edit_post_link( $product_id );
+					$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . __('Product is not virtual. It is recomended to be virtual for woocommerce products.', 'edwiser-bridge') . ' <a target="_blank" href="' . $post_link . '">' . __('Configure product', 'edwiser-bridge') . '</a></div>';
+				}
+				if ( ! $product->is_downloadable() ) {
+					$flag = true;
+					$post_link = get_edit_post_link( $product_id );
+					$msg .= '<div class="alert alert-warning"><span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . __('Product is not downloadable. It is recomended to be downloadable for woocommerce products.', 'edwiser-bridge') . ' <a target="_blank" href="' . $post_link . '">' . __('Configure product', 'edwiser-bridge') . '</a></div>';
+				}
+			}
 		}
 		if ( 'publish' !== get_post_status( $course_id ) ) {
 			$flag = true;
@@ -248,7 +266,7 @@ class Eb_Settings_Ajax_Initiater {
 			$response_array = array(
 				'status' => 'error',
 				'message' => $msg,
-				'html' => '<buton id="btn_set_course_price_type" class="button button-secondary">' . __('Continue without chnage', 'edwiser-bridge') . '</button>',
+				'html' => '<buton id="btn_set_course_price_type" class="button button-secondary">' . __('Continue without change', 'edwiser-bridge') . '</button>',
 			);
 		} else {
 			$response_array = array(

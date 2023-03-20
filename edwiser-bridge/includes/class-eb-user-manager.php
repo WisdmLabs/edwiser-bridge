@@ -1409,17 +1409,17 @@ class EBUserManager {
 
 			$user_id   = wp_insert_user( $user_data );
 			if( is_wp_error( $user_id ) ) {
-				$response_array[ 'wp_message' ] = '<div class="alert alert-error">' . __('Wrodpress User creation failed. ERROR : ', 'edwiser-bridge') . $user_id->get_error_message() . '</div>';
+				$response_array[ 'wp_message' ] = '<div class="alert alert-error">' . __('Wordpress User creation failed. ERROR : ', 'edwiser-bridge') . $user_id->get_error_message() . '</div>';
 				return $response_array;
 			} else {
 				$user_id                        = $user_id;
 				$wp_user_created                = 1;
-				$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wrodpress User created successfully', 'edwiser-bridge') . '</div>';
+				$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wordpress User created successfully', 'edwiser-bridge') . '</div>';
 			}
 		} else {
 			$user_id                        = $user->ID;
 			$wp_user_created                = 1;
-			$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wrodpress User already exists', 'edwiser-bridge') . '</div>';
+			$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wordpress User already exists', 'edwiser-bridge') . '</div>';
 		}
 
 		//create moodle user.

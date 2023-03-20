@@ -265,6 +265,13 @@
                                                 text: "Send",
                                                 click: function () {
                                                     var email = $(this).find('input').val();
+                                                    // check if this is an valid email address
+                                                    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+                                                        // valid email
+                                                    } else {
+                                                        alert('Please enter a valid email address');
+                                                        return;
+                                                    }
                                                     $.ajax({
                                                         method: "post",
                                                         url: eb_admin_js_object.ajaxurl,

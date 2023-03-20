@@ -594,7 +594,7 @@ msgid "Course should be published"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:244
-msgid "Continue without chnage"
+msgid "Continue without change"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:249
@@ -4228,15 +4228,15 @@ msgid "Invalid ajax request."
 msgstr ""
 
 #: includes/class-eb-user-manager.php:1401
-msgid "Wrodpress User creation failed. ERROR : "
+msgid "Wordpress User creation failed. ERROR : "
 msgstr ""
 
 #: includes/class-eb-user-manager.php:1406
-msgid "Wrodpress User created successfully"
+msgid "Wordpress User created successfully"
 msgstr ""
 
 #: includes/class-eb-user-manager.php:1411
-msgid "Wrodpress User already exists"
+msgid "Wordpress User already exists"
 msgstr ""
 
 #: includes/class-eb-user-manager.php:1444
