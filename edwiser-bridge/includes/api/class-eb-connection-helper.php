@@ -175,6 +175,19 @@ class EBConnectionHelper {
 			$success          = 0;
 			$plain_txt_msg    = $response->get_error_message();
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
+			global $current_user;
+			wp_get_current_user();
+			$error_data = array( // BY- ISHWAR
+				'url'          => $request_url,
+				'arguments'    => $request_args,
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'responsecode' => '',
+				'exception'    => '',
+				'errorcode'    => '',
+				'message'      => $plain_txt_msg,
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+			);
+			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 			wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -418,6 +431,19 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
+			global $current_user;
+			wp_get_current_user();
+			$error_data = array( // BY- ISHWAR
+				'url'          => $request_url,
+				'arguments'    => $request_args,
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'responsecode' => '',
+				'exception'    => '',
+				'errorcode'    => '',
+				'message'      => $response_message,
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+			);
+			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 				wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
@@ -518,6 +544,19 @@ class EBConnectionHelper {
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$response_message = $response->get_error_message();
+			global $current_user;
+			wp_get_current_user();
+			$error_data = array( // BY- ISHWAR
+				'url'          => $request_url,
+				'arguments'    => $request_args,
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'responsecode' => '',
+				'exception'    => '',
+				'errorcode'    => '',
+				'message'      => $response_message,
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+			);
+			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( ! empty( $body->exception ) ) {
