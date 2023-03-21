@@ -27,7 +27,7 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 		 */
 		public function __construct() {
 			$this->_id   = 'logs';
-			$this->label = __( 'logs', 'edwiser-bridge' );
+			$this->label = __( 'Logs', 'edwiser-bridge' );
 
 			add_filter( 'eb_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );

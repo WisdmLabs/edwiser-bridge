@@ -208,6 +208,12 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Courses in the draft will not reflect on the learners "My Courses" page!', 'edwiser-bridge' ) . '</div>',
 						),
 						array(
+							'title' => '',
+							'type'  => 'title',
+							'id'    => 'course_draft_notice',
+							'desc'  => '<div class="user_sync_email_notice">' . sprintf( __( 'Pre-Requisite Alert: Before you can synchronize course images from Moodle, ensure that you have enabled the "Can Download File" option on your Moodle site. To learn how to do this, please click the %s provided.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/559-how-to-enable-can-download-file-in-the-active-external-web-service">' . __( 'link', 'edwiser-bridge' ) . '</a>' ) . '</div>',
+						),
+						array(
 							'type' => 'sectionend',
 							'id'   => 'course_draft_notice',
 						),
