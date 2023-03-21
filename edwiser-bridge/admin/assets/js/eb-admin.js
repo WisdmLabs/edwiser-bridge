@@ -178,12 +178,12 @@
                     var time = $(document.createElement('p')).html('Time : '+log.time);
                     var user = $(document.createElement('p')).html('User : '+log.data.user);
                     var rcode = $(document.createElement('p')).html('Error Code : '+log.data.responsecode);
-                    var rmsg = $(document.createElement('p')).html('Response Message : '+log.data.errorcode);
+                    var rmsg = $(document.createElement('p')).html('Response Message : '+log.data.message);
                     var viewMore = $(document.createElement('a')).html('View More...');
                     viewMore.attr('href', '#');
-                    viewMore.attr('id', 'eb-dialog-view-more');
+                    viewMore.attr('id', 'eb-dialog-view-more'+id);
 
-                    var viewMoreDiv = $(document.createElement('div')).addClass('eb-view-more');
+                    var viewMoreDiv = $(document.createElement('div')).addClass('eb-view-more eb-view-more'+id);
                     var urlData = $(document.createElement('p')).html('URL : '+log.data.url);
                     // explode backtrace with , and then add <br> after each line
                     var backtrace = log.data.backtrace;
@@ -299,8 +299,8 @@
                         ]
                     });
                     $('.eb-view-eye-'+id).show();
-                    $('#eb-dialog-view-more').click(function(){
-                        $('.eb-view-more').toggle();
+                    $('#eb-dialog-view-more'+id).click(function(){
+                        $('.eb-view-more'+id).toggle();
                     });
                     $('.load-response-'+id).hide();
                 }
