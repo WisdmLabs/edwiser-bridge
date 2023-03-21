@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 15:32+0530\n"
+"POT-Creation-Date: 2023-03-21 14:33+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -49,15 +49,15 @@ msgstr ""
 msgid "Manage Email Templates"
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:82 admin/class-eb-admin-settings.php:694
+#: admin/class-eb-admin-settings.php:83 admin/class-eb-admin-settings.php:695
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:95
+#: admin/class-eb-admin-settings.php:96
 msgid "Your settings have been saved."
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:589
+#: admin/class-eb-admin-settings.php:590
 #: admin/settings/class-eb-settings-general.php:108
 #: admin/settings/class-eb-settings-general.php:141
 #: admin/settings/class-eb-settings-general.php:200
@@ -65,15 +65,15 @@ msgstr ""
 msgid "Select a page"
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:620
+#: admin/class-eb-admin-settings.php:621
 msgid "- Select a sidebar -"
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:836
+#: admin/class-eb-admin-settings.php:837
 msgid "User ID"
 msgstr ""
 
-#: admin/class-eb-admin-settings.php:837
+#: admin/class-eb-admin-settings.php:838
 msgid "Name"
 msgstr ""
 
@@ -513,134 +513,212 @@ msgstr ""
 msgid "Enable REST Protocol and Web Services"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:175
+#: admin/class-eb-settings-ajax-initiater.php:176
 msgid "Extended character in username should be enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:179
+#: admin/class-eb-settings-ajax-initiater.php:180
 msgid "Password Policy should be disabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:183
+#: admin/class-eb-settings-ajax-initiater.php:184
 msgid "Language code in edwiser settings should be same as in moodle"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:191
-msgid "Update mandatory settings & Continue"
+#: admin/class-eb-settings-ajax-initiater.php:188
+msgid "Default student role in edwiser settings should be same as in moodle"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:196
+msgid "Update mandatory settings & Continue"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:201
 msgid "All Mandatory settings are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:202
+#: admin/class-eb-settings-ajax-initiater.php:207
 msgid "Something went wrong. Try Test Connection. ERROR : "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:206
+#: admin/class-eb-settings-ajax-initiater.php:211
 msgid ""
 "Something went wrong. Probably Moodle Edwiser Bridge plugin is not updated "
 "or installed properly. Please update the plugin and try again."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:207
+#: admin/class-eb-settings-ajax-initiater.php:212
 msgid "Download latest plugin file"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:211
-#: admin/class-eb-settings-ajax-initiater.php:280
-#: admin/class-eb-settings-ajax-initiater.php:340
-#: admin/class-eb-settings-ajax-initiater.php:391
+#: admin/class-eb-settings-ajax-initiater.php:216
+#: admin/class-eb-settings-ajax-initiater.php:305
+#: admin/class-eb-settings-ajax-initiater.php:365
+#: admin/class-eb-settings-ajax-initiater.php:417
 #: includes/class-eb-enrollment-manager.php:824
 #: includes/class-eb-enrollment-manager.php:876
-#: includes/class-eb-user-manager.php:1449
+#: includes/class-eb-user-manager.php:1460
 msgid "Update webservice"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:211
-#: admin/class-eb-settings-ajax-initiater.php:280
-#: admin/class-eb-settings-ajax-initiater.php:340
-#: admin/class-eb-settings-ajax-initiater.php:391
+#: admin/class-eb-settings-ajax-initiater.php:216
+#: admin/class-eb-settings-ajax-initiater.php:305
+#: admin/class-eb-settings-ajax-initiater.php:365
+#: admin/class-eb-settings-ajax-initiater.php:417
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:536
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1115
 #: includes/class-eb-enrollment-manager.php:824
 #: includes/class-eb-enrollment-manager.php:876
-#: includes/class-eb-user-manager.php:1449
+#: includes/class-eb-user-manager.php:1460
 msgid " OR "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:211
-#: admin/class-eb-settings-ajax-initiater.php:280
-#: admin/class-eb-settings-ajax-initiater.php:340
-#: admin/class-eb-settings-ajax-initiater.php:391
+#: admin/class-eb-settings-ajax-initiater.php:216
+#: admin/class-eb-settings-ajax-initiater.php:305
+#: admin/class-eb-settings-ajax-initiater.php:365
+#: admin/class-eb-settings-ajax-initiater.php:417
 #: includes/class-eb-enrollment-manager.php:824
 #: includes/class-eb-enrollment-manager.php:876
-#: includes/class-eb-user-manager.php:1449
+#: includes/class-eb-user-manager.php:1460
 msgid "Try test connection"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:232
+#: admin/class-eb-settings-ajax-initiater.php:237
 msgid ""
 "Course Price type is not set to closed. It is recomended to be closed for "
 "woocommerce products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:232
+#: admin/class-eb-settings-ajax-initiater.php:237
 msgid "Configure course price type"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:237
+#: admin/class-eb-settings-ajax-initiater.php:251
+msgid ""
+"Product is not virtual. It is recomended to be virtual for woocommerce "
+"products."
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:251
+#: admin/class-eb-settings-ajax-initiater.php:256
+msgid "Configure product"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:256
+msgid ""
+"Product is not downloadable. It is recomended to be downloadable for "
+"woocommerce products."
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:262
 msgid "Course should be published"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:244
+#: admin/class-eb-settings-ajax-initiater.php:269
 msgid "Continue without change"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:249
+#: admin/class-eb-settings-ajax-initiater.php:274
 msgid "All post options are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:277
+#: admin/class-eb-settings-ajax-initiater.php:302
 msgid "Manual Enrollment method check failed. ERROR : "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:284
+#: admin/class-eb-settings-ajax-initiater.php:309
 msgid "Manual Enrollment method not enabled on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:285
-#: admin/class-eb-settings-ajax-initiater.php:302
+#: admin/class-eb-settings-ajax-initiater.php:310
+#: admin/class-eb-settings-ajax-initiater.php:327
 msgid "Enable & Continue"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:294
-#: admin/class-eb-settings-ajax-initiater.php:351
+#: admin/class-eb-settings-ajax-initiater.php:319
+#: admin/class-eb-settings-ajax-initiater.php:376
 msgid "Manual Enrollment method enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:301
+#: admin/class-eb-settings-ajax-initiater.php:326
 msgid "Manual Enrollment method not enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:336
+#: admin/class-eb-settings-ajax-initiater.php:361
 msgid "Enabling Manual Enrollment method failed. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:344
+#: admin/class-eb-settings-ajax-initiater.php:369
 msgid "Please enable manual enrolment plugin on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:345
+#: admin/class-eb-settings-ajax-initiater.php:370
 msgid "Enable Manual Enrollment plugin"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:387
+#: admin/class-eb-settings-ajax-initiater.php:413
 msgid "Enabling Mandatory Settings failed. Try Test Connection first. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:396
+#: admin/class-eb-settings-ajax-initiater.php:422
 msgid "Mandatory Settings are up to mark"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:434
+#: admin/class-eb-settings-ajax-initiater.php:461
+msgid "Error log not found"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:505
+#: includes/class-eb-order-history-meta.php:136
+#: includes/class-eb-order-manager.php:450 includes/class-eb-post-types.php:403
+msgid "Failed"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:528
+msgid "Error log details"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:530
+msgid "Support Email"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:532
+msgid "Error log message"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:533
+msgid "URL"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:534
+msgid "HTTP Response Code"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:535
+#: includes/class-eb-custom-list-table.php:55
+#: includes/class-eb-error-logs-table.php:56
+msgid "User"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:536
+msgid "Exception"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:537
+msgid "Error Code"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:539
+msgid "Debug Info"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:542
+msgid "Backtrace"
+msgstr ""
+
+#: admin/class-eb-settings-ajax-initiater.php:550
+msgid "Mail sent successfully"
 msgstr ""
 
 #: admin/class-eb-welcome.php:49
@@ -1043,6 +1121,34 @@ msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:259
 msgid "Server Environment Information"
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:30
+msgid "logs"
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:55
+#: includes/class-eb-manage-enrollment.php:129
+msgid "Please wait processing request ...."
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:61
+msgid "Error logs"
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:129
+msgid " error logs are deleted successfully."
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:135
+#: admin/settings/class-eb-error-log.php:152
+#: includes/class-eb-manage-enrollment.php:216
+#: includes/class-eb-manage-enrollment.php:233
+msgid "Dismiss this notice"
+msgstr ""
+
+#: admin/settings/class-eb-error-log.php:146
+msgid "No error log deleted"
 msgstr ""
 
 #: admin/settings/class-eb-settings-connection.php:29
@@ -1901,7 +2007,7 @@ msgid "from Manage email templates."
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:143
-#: admin/settings/class-eb-settings-synchronization.php:210
+#: admin/settings/class-eb-settings-synchronization.php:219
 msgid "Start Synchronization"
 msgstr ""
 
@@ -1921,7 +2027,11 @@ msgstr ""
 msgid "Keep synchronized courses as draft"
 msgstr ""
 
-#: admin/settings/class-eb-settings-synchronization.php:199
+#: admin/settings/class-eb-settings-synchronization.php:195
+msgid "Sync Course images from moodle"
+msgstr ""
+
+#: admin/settings/class-eb-settings-synchronization.php:208
 msgid ""
 "Note: Courses in the draft will not reflect on the learners \"My Courses\" "
 "page!"
@@ -2749,110 +2859,110 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:184
-#: includes/api/class-eb-connection-helper.php:188
+#: includes/api/class-eb-connection-helper.php:197
+#: includes/api/class-eb-connection-helper.php:201
 msgid ""
 "Please check moodle web service configuration, Got invalid JSON,Check moodle "
 "web summary "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:193
+#: includes/api/class-eb-connection-helper.php:206
 msgid ""
 "Edwiser plugin is not updated on your Moodle Site. Please update it to avoid "
 "any malfunctioning."
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:205
+#: includes/api/class-eb-connection-helper.php:238
 msgid "Connection failed"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:206
-#: includes/api/class-eb-connection-helper.php:295
+#: includes/api/class-eb-connection-helper.php:239
+#: includes/api/class-eb-connection-helper.php:328
 msgid "You can check added webservice here "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:206
-#: includes/api/class-eb-connection-helper.php:295
+#: includes/api/class-eb-connection-helper.php:239
+#: includes/api/class-eb-connection-helper.php:328
 msgid ""
 " or you can directly create new token and webservice in our Moodle edwiser "
 "settings here "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:212
-#: includes/api/class-eb-connection-helper.php:213
+#: includes/api/class-eb-connection-helper.php:245
+#: includes/api/class-eb-connection-helper.php:246
 msgid "Please check Moodle URL or Moodle plugin configuration !"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:246
+#: includes/api/class-eb-connection-helper.php:279
 msgid ""
 "Below are the functions which don't have access to the web service you "
 "created. This is due to :"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:250
+#: includes/api/class-eb-connection-helper.php:283
 msgid "Function is not added to the web service"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:251
+#: includes/api/class-eb-connection-helper.php:284
 msgid "Authorised user don't have enough capabilities i.e he is not admin"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:252
+#: includes/api/class-eb-connection-helper.php:285
 msgid "Edwiser Moodle extensions are not installed or have the lower version"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:257
+#: includes/api/class-eb-connection-helper.php:290
 msgid "Services:"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:316
+#: includes/api/class-eb-connection-helper.php:349
 msgid "Test Connection failed, To check more information about issue click"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:316
+#: includes/api/class-eb-connection-helper.php:349
 #: public/templates/account/user-profile.php:75
 msgid "here"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:322
+#: includes/api/class-eb-connection-helper.php:355
 msgid "An issue is detected."
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:324
+#: includes/api/class-eb-connection-helper.php:357
 msgid "Status : "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:325
+#: includes/api/class-eb-connection-helper.php:358
 msgid "Connection Failed"
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:328
+#: includes/api/class-eb-connection-helper.php:361
 msgid "Url : "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:332
+#: includes/api/class-eb-connection-helper.php:365
 msgid "Response : "
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:413
+#: includes/api/class-eb-connection-helper.php:478
 msgid "Please check Moodle connection details."
 msgstr ""
 
-#: includes/api/class-eb-connection-helper.php:496
+#: includes/api/class-eb-connection-helper.php:594
 msgid "Please check Moodle URL !"
 msgstr ""
 
-#: includes/api/class-eb-external-api-endpoint.php:282
-#: includes/api/class-eb-external-api-endpoint.php:288
+#: includes/api/class-eb-external-api-endpoint.php:272
+#: includes/api/class-eb-external-api-endpoint.php:278
 msgid "An account is already registered with your email address. Please login."
 msgstr ""
 
-#: includes/api/class-eb-external-api-endpoint.php:334
+#: includes/api/class-eb-external-api-endpoint.php:324
 #: includes/class-eb-user-manager.php:450
 msgid "ERROR"
 msgstr ""
 
-#: includes/api/class-eb-external-api-endpoint.php:336
+#: includes/api/class-eb-external-api-endpoint.php:326
 #: includes/class-eb-user-manager.php:452
 msgid ""
 "Couldn&#8217;t register you&hellip; please contact us if you continue to "
@@ -3076,99 +3186,95 @@ msgstr ""
 msgid " here"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:721
+#: includes/class-eb-course-manager.php:739
 msgid "Course Title"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:722
+#: includes/class-eb-course-manager.php:740
 msgid "Moodle Course Id"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:723
+#: includes/class-eb-course-manager.php:741
 msgid "Course Type"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:724
+#: includes/class-eb-course-manager.php:742
 msgid "Manual Enrollment"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:749
+#: includes/class-eb-course-manager.php:767
 #: includes/class-eb-post-types.php:320
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
 msgid "Free"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:750
+#: includes/class-eb-course-manager.php:768
 #: includes/class-eb-post-types.php:321
 msgid "Paid"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:751
+#: includes/class-eb-course-manager.php:769
 #: includes/class-eb-post-types.php:322
 msgid "Closed"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:759
+#: includes/class-eb-course-manager.php:777
 msgid "Deleted"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:783
+#: includes/class-eb-course-manager.php:801
 msgid "Sync"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:785
+#: includes/class-eb-course-manager.php:803
 msgid "Enable"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:801
+#: includes/class-eb-course-manager.php:819
 msgid "Sync Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:802
+#: includes/class-eb-course-manager.php:820
 msgid "Enable Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:867
-#: includes/class-eb-course-manager.php:948
+#: includes/class-eb-course-manager.php:885
+#: includes/class-eb-course-manager.php:966
 msgid "Manual Enrollment Plugin is not enabled/installed on moodle site."
 msgstr ""
 
-#: includes/class-eb-course-manager.php:906
+#: includes/class-eb-course-manager.php:924
 #, php-format
 msgid "Manual enrollment status synced for %s courses"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:908
+#: includes/class-eb-course-manager.php:926
 msgid "Error in manual enrollment status sync"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:916
+#: includes/class-eb-course-manager.php:934
 #, php-format
 msgid "Manual enrollment enabled for %s courses"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:918
+#: includes/class-eb-course-manager.php:936
 msgid ""
 "Please check if Course is deleted from Moodle or WordPress also check if "
 "Moodle Manual Enrollment is activate on Moodle "
 msgstr ""
 
-#: includes/class-eb-course-manager.php:918
+#: includes/class-eb-course-manager.php:936
 msgid "Error Message  : "
 msgstr ""
 
-#: includes/class-eb-course-manager.php:972
+#: includes/class-eb-course-manager.php:990
 msgid "View on Moodle"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:54
 msgctxt "Column label"
 msgid "Record ID"
-msgstr ""
-
-#: includes/class-eb-custom-list-table.php:55
-msgid "User"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:56
@@ -3523,6 +3629,37 @@ msgstr ""
 msgid "Already Enrolled"
 msgstr ""
 
+#: includes/class-eb-error-logs-table.php:54
+msgid "Title"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:55
+#: public/shortcodes/class-eb-shortcode-my-courses.php:212
+msgid "View"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:57
+msgctxt "Column label"
+msgid "Status"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:58
+msgid "Response Code"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:59
+msgid "Timestamp"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:213
+msgctxt "Delete the selected error logs"
+msgid "Bulk Delete"
+msgstr ""
+
+#: includes/class-eb-error-logs-table.php:235
+msgid "No logs selected for bulk action, Please select the logs to delete"
+msgstr ""
+
 #: includes/class-eb-gdpr-compatibility.php:34
 msgid "Course Name"
 msgstr ""
@@ -3682,10 +3819,6 @@ msgid ""
 "for better understanding of our product and services."
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:129
-msgid "Please wait processing request ...."
-msgstr ""
-
 #: includes/class-eb-manage-enrollment.php:142
 #: includes/class-eb-post-types.php:121
 msgid "Search Courses"
@@ -3693,11 +3826,6 @@ msgstr ""
 
 #: includes/class-eb-manage-enrollment.php:210
 msgid "users has been unenrolled successfully."
-msgstr ""
-
-#: includes/class-eb-manage-enrollment.php:216
-#: includes/class-eb-manage-enrollment.php:233
-msgid "Dismiss this notice"
 msgstr ""
 
 #: includes/class-eb-manage-enrollment.php:227
@@ -3735,11 +3863,6 @@ msgstr ""
 #: includes/class-eb-order-manager.php:449 includes/class-eb-post-types.php:402
 #: public/templates/content-eb_course.php:78
 msgid "Completed"
-msgstr ""
-
-#: includes/class-eb-order-history-meta.php:136
-#: includes/class-eb-order-manager.php:450 includes/class-eb-post-types.php:403
-msgid "Failed"
 msgstr ""
 
 #: includes/class-eb-order-history-meta.php:137
@@ -4211,63 +4334,63 @@ msgstr ""
 msgid "Unenroll a Course"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1346
+#: includes/class-eb-user-manager.php:1357
 msgid "Failed to process the request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1349
+#: includes/class-eb-user-manager.php:1360
 msgid "s account has been linked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1355
+#: includes/class-eb-user-manager.php:1366
 msgid "s account has been unlinked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1358
+#: includes/class-eb-user-manager.php:1369
 msgid "Invalid ajax request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1401
+#: includes/class-eb-user-manager.php:1412
 msgid "Wordpress User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1406
+#: includes/class-eb-user-manager.php:1417
 msgid "Wordpress User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1411
+#: includes/class-eb-user-manager.php:1422
 msgid "Wordpress User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1444
+#: includes/class-eb-user-manager.php:1455
 msgid "Moodle User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1446
+#: includes/class-eb-user-manager.php:1457
 msgid "Moodle User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1460
+#: includes/class-eb-user-manager.php:1471
 msgid "Moodle User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1514
+#: includes/class-eb-user-manager.php:1525
 msgid "Resend Verification Email"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1516
+#: includes/class-eb-user-manager.php:1527
 msgid "Your email is not verified. Please verify your email."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1531
+#: includes/class-eb-user-manager.php:1542
 msgid "Your email is verified successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1563
+#: includes/class-eb-user-manager.php:1574
 msgid "Your email verification link is invalid."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1580
+#: includes/class-eb-user-manager.php:1591
 msgid "Verification email has been sent to your email address."
 msgstr ""
 
@@ -4593,10 +4716,6 @@ msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:208
 msgid "% Completed"
-msgstr ""
-
-#: public/shortcodes/class-eb-shortcode-my-courses.php:212
-msgid "View"
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:213
