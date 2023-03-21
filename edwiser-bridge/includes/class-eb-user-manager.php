@@ -679,7 +679,7 @@ class EBUserManager {
 				if ( 1 != $is_verified ) {
 					$user = array(
 						'user_created' => 0,
-						'user_data'    => __( 'Email not verified', 'eb-textdomain' ),
+						'user_data'    => __( 'Email not verified', 'edwiser-bridge' ),
 					);
 					return $user;
 				}

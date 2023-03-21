@@ -431,7 +431,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to get error log data for given id
 	 */
 	public function eb_get_log_data() {
-		$response = esc_html__( 'Error log not found', 'eb-textdomain' );
+		$response = esc_html__( 'Error log not found', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_get_log_data' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 			$key            = sanitize_text_field( wp_unslash( $_POST['key'] ) );
@@ -458,7 +458,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to mark error log resolved
 	 */
 	public function eb_log_resolved() {
-		$response = esc_html__( 'Error log not found', 'eb-textdomain' );
+		$response = esc_html__( 'Error log not found', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_mark_log_resolved' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 			// get error log file.
@@ -502,7 +502,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to delete error log
 	 */
 	public function eb_send_log_to_support() {
-		$response = esc_html__( 'Failed', 'eb-textdomain' );
+		$response = esc_html__( 'Failed', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'send_log_to_support' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
 			$key = sanitize_text_field( wp_unslash( $_POST['key'] ) );
@@ -525,21 +525,21 @@ class Eb_Settings_Ajax_Initiater {
 				$site_name = get_option( 'blogname' );
 				$site_url  = get_option( 'siteurl' );
 				$subject   = 'Error Log From : ' . $site_name . ' - ' . $site_url;
-				$message   = '<p>' . esc_html__( 'Error log details', 'eb-textdomain' ) . '</p>';
+				$message   = '<p>' . esc_html__( 'Error log details', 'edwiser-bridge' ) . '</p>';
 				if ( isset( $email ) ) {
-					$message .= '<p>' . esc_html__( 'Support Email', 'eb-textdomain' ) . ' : ' . $email . '</p>';
+					$message .= '<p>' . esc_html__( 'Support Email', 'edwiser-bridge' ) . ' : ' . $email . '</p>';
 				}
-				$message .= '<p>' . esc_html__( 'Error log message', 'eb-textdomain' ) . ': ' . $log_data['message'] . '</p>';
-				$message .= '<p>' . esc_html__( 'URL', 'eb-textdomain' ) . ': ' . $log_data['url'] . '</p>';
-				$message .= '<p>' . esc_html__( 'HTTP Response Code', 'eb-textdomain' ) . ': ' . $log_data['responsecode'] . '</p>';
-				$message .= '<p>' . esc_html__( 'User', 'eb-textdomain' ) . ': ' . $log_data['user'] . '</p>';
-				$message .= '<p>' . esc_html__( 'Exception', 'eb-textdomain' ) . ': ' . $log_data['exception'] . '</p>';
-				$message .= '<p>' . esc_html__( 'Error Code', 'eb-textdomain' ) . ': ' . $log_data['errorcode'] . '</p>';
+				$message .= '<p>' . esc_html__( 'Error log message', 'edwiser-bridge' ) . ': ' . $log_data['message'] . '</p>';
+				$message .= '<p>' . esc_html__( 'URL', 'edwiser-bridge' ) . ': ' . $log_data['url'] . '</p>';
+				$message .= '<p>' . esc_html__( 'HTTP Response Code', 'edwiser-bridge' ) . ': ' . $log_data['responsecode'] . '</p>';
+				$message .= '<p>' . esc_html__( 'User', 'edwiser-bridge' ) . ': ' . $log_data['user'] . '</p>';
+				$message .= '<p>' . esc_html__( 'Exception', 'edwiser-bridge' ) . ': ' . $log_data['exception'] . '</p>';
+				$message .= '<p>' . esc_html__( 'Error Code', 'edwiser-bridge' ) . ': ' . $log_data['errorcode'] . '</p>';
 				if ( isset( $log_data['debuginfo'] ) ) {
-					$message .= '<p>' . esc_html__( 'Debug Info', 'eb-textdomain' ) . ': ' . $log_data['debuginfo'] . '</p>';
+					$message .= '<p>' . esc_html__( 'Debug Info', 'edwiser-bridge' ) . ': ' . $log_data['debuginfo'] . '</p>';
 				}
 				if ( isset( $log_data['backtrace'] ) ) {
-					$message .= '<pre>' . esc_html__( 'Backtrace', 'eb-textdomain' ) . ': ' . print_r( $log_data['backtrace'], true ) . '</pre>'; // @codingStandardsIgnoreLine
+					$message .= '<pre>' . esc_html__( 'Backtrace', 'edwiser-bridge' ) . ': ' . print_r( $log_data['backtrace'], true ) . '</pre>'; // @codingStandardsIgnoreLine
 				}
 
 				$headers       = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -547,7 +547,7 @@ class Eb_Settings_Ajax_Initiater {
 
 				$mail_sent = wp_mail( $support_email, $subject, $message, $headers );
 				if ( $mail_sent ) {
-					$response = esc_html__( 'Mail sent successfully', 'eb-textdomain' );
+					$response = esc_html__( 'Mail sent successfully', 'edwiser-bridge' );
 
 					// add status in error log file.
 					$logs[ $key ]['status'] = 'SENT TO SUPPORT';

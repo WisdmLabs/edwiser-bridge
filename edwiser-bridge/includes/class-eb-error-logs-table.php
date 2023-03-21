@@ -51,12 +51,12 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 				'edwiser_add_colomn_to_log_table',
 				array(
 					'cb'     => '<input type="checkbox" />',
-					'title'  => esc_html__( 'Title', 'eb-textdomain' ),
-					'view'   => esc_html__( 'View', 'eb-textdomain' ),
-					'user'   => esc_html__( 'User', 'eb-textdomain' ),
-					'status' => esc_html_x( 'Status', 'Column label', 'eb-textdomain' ),
-					'rcode'  => esc_html__( 'Response Code', 'eb-textdomain' ),
-					'time'   => esc_html__( 'Timestamp', 'eb-textdomain' ),
+					'title'  => esc_html__( 'Title', 'edwiser-bridge' ),
+					'view'   => esc_html__( 'View', 'edwiser-bridge' ),
+					'user'   => esc_html__( 'User', 'edwiser-bridge' ),
+					'status' => esc_html_x( 'Status', 'Column label', 'edwiser-bridge' ),
+					'rcode'  => esc_html__( 'Response Code', 'edwiser-bridge' ),
+					'time'   => esc_html__( 'Timestamp', 'edwiser-bridge' ),
 				)
 			);
 		}
@@ -210,7 +210,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 		 */
 		protected function get_bulk_actions() {
 			$actions = array(
-				'delete' => esc_html_x( 'Bulk Delete', 'Delete the selected error logs', 'eb-textdomain' ),
+				'delete' => esc_html_x( 'Bulk Delete', 'Delete the selected error logs', 'edwiser-bridge' ),
 			);
 			return $actions;
 		}
@@ -232,7 +232,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 					// do something.
 				} else {
 					echo '<div class="notice notice-error is-dismissible">';
-					echo '<p>' . esc_html__( 'No logs selected for bulk action, Please select the logs to delete', 'eb-textdomain' ) . '</p>';
+					echo '<p>' . esc_html__( 'No logs selected for bulk action, Please select the logs to delete', 'edwiser-bridge' ) . '</p>';
 					echo '</div>';
 				}
 			}

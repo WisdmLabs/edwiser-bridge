@@ -183,7 +183,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 						),
 
 						array(
-							'desc'            => __( 'Keep synchronized courses as draft', 'edwiser-bridge' ),
+							'desc'            => __( 'Keep synchronized courses as draft. (Courses in the draft will not reflect on the learners "My Courses" page!)', 'edwiser-bridge' ),
 							'id'              => 'eb_synchronize_draft',
 							'default'         => 'yes',
 							'type'            => 'checkbox',
@@ -199,13 +199,6 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'checkboxgroup'   => '',
 							'show_if_checked' => 'yes',
 							'autoload'        => false,
-						),
-
-						array(
-							'title' => '',
-							'type'  => 'title',
-							'id'    => 'course_draft_notice',
-							'desc'  => '<div class="user_sync_email_notice">' . __( 'Note: Courses in the draft will not reflect on the learners "My Courses" page!', 'edwiser-bridge' ) . '</div>',
 						),
 						array(
 							'title' => '',

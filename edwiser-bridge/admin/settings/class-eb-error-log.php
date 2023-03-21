@@ -52,7 +52,7 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 					<div id="loading-div" class="ui-corner-all" >
 						<img style="height:40px;margin:40px;" src="images/loading.gif" alt="Loading.."/>
 						<h2 style="color:gray;font-weight:normal;">
-							<?php esc_html_e( 'Please wait processing request ....', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'Please wait processing request ....', 'edwiser-bridge' ); ?>
 						</h2>
 					</div>
 				</div>
@@ -126,13 +126,13 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<strong>
-							<?php sprintf( '%s ', $cnt ) . esc_html_e( ' error logs are deleted successfully.', 'eb-textdomain' ); ?>
+							<?php sprintf( '%s ', $cnt ) . esc_html_e( ' error logs are deleted successfully.', 'edwiser-bridge' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
 						<span class="screen-reader-text">
 						<?php
-						esc_html_e( 'Dismiss this notice', 'eb-textdomain' );
+						esc_html_e( 'Dismiss this notice', 'edwiser-bridge' );
 						?>
 						.</span>
 					</button>
@@ -143,13 +143,13 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 				<div class="error notice">
 					<p>
 						<strong>
-							<?php esc_html_e( 'No error log deleted', 'eb-textdomain' ); ?>
+							<?php esc_html_e( 'No error log deleted', 'edwiser-bridge' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
 						<span class="screen-reader-text">
 						<?php
-						esc_html_e( 'Dismiss this notice', 'eb-textdomain' );
+						esc_html_e( 'Dismiss this notice', 'edwiser-bridge' );
 						?>
 						.</span>
 					</button>

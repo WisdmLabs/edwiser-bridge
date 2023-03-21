@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-21 14:33+0530\n"
+"POT-Creation-Date: 2023-03-21 19:45+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -1124,7 +1124,7 @@ msgid "Server Environment Information"
 msgstr ""
 
 #: admin/settings/class-eb-error-log.php:30
-msgid "logs"
+msgid "Logs"
 msgstr ""
 
 #: admin/settings/class-eb-error-log.php:55
@@ -2007,7 +2007,7 @@ msgid "from Manage email templates."
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:143
-#: admin/settings/class-eb-settings-synchronization.php:219
+#: admin/settings/class-eb-settings-synchronization.php:218
 msgid "Start Synchronization"
 msgstr ""
 
@@ -2024,17 +2024,25 @@ msgid "Update previously synchronized courses"
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:186
-msgid "Keep synchronized courses as draft"
+msgid ""
+"Keep synchronized courses as draft. (Courses in the draft will not reflect "
+"on the learners \"My Courses\" page!)"
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:195
 msgid "Sync Course images from moodle"
 msgstr ""
 
-#: admin/settings/class-eb-settings-synchronization.php:208
+#: admin/settings/class-eb-settings-synchronization.php:207
+#, php-format
 msgid ""
-"Note: Courses in the draft will not reflect on the learners \"My Courses\" "
-"page!"
+"Pre-Requisite Alert: Before you can synchronize course images from Moodle, "
+"ensure that you have enabled the \"Can Download File\" option on your Moodle "
+"site. To learn how to do this, please click the %s provided."
+msgstr ""
+
+#: admin/settings/class-eb-settings-synchronization.php:207
+msgid "link"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:117
