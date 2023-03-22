@@ -543,7 +543,7 @@ class Eb_Settings_Ajax_Initiater {
 				}
 
 				$headers       = array( 'Content-Type: text/html; charset=UTF-8' );
-				$support_email = 'ishwar.singh.solanki@wisdmlabs.com';
+				$support_email = 'edwiser@wisdmlabs.com';
 
 				$mail_sent = wp_mail( $support_email, $subject, $message, $headers );
 				if ( $mail_sent ) {

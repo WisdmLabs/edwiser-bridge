@@ -218,6 +218,18 @@ Also check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.2.9 =
+* Feature - Error logging and reporting functionality
+* Feature - Sync Course images from moodle
+* Tweak   - added student role id and product virtual, downloadable check in test enrollment
+* Tweak   - user deletion email for wordpress user deletion
+
+= 2.2.8 =
+* Feature - Added email verification process on user registration from edwiser user account page.
+* Feature - Added already enrolled tag in the course when the user is already enrolled in courses.
+* Tweak   - Simplified test connection error messages at Moodle and WordPress.
+* Tweak   - PHP 8.0 compatibility.
+
 = 2.2.7 =
 * Feature - Moodle plugin update notification on WordPress.
 * Tweak   - Simplified Test Enrollment error messages.

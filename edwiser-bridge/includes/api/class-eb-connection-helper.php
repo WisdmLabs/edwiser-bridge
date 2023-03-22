@@ -177,7 +177,7 @@ class EBConnectionHelper {
 			$response_message = $this->create_response_message( $request_url, $response->get_error_message() );
 			global $current_user;
 			wp_get_current_user();
-			$error_data = array( // BY- ISHWAR
+			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
 				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
@@ -433,7 +433,7 @@ class EBConnectionHelper {
 			$response_message = $response->get_error_message();
 			global $current_user;
 			wp_get_current_user();
-			$error_data = array( // BY- ISHWAR
+			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
 				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
@@ -546,7 +546,7 @@ class EBConnectionHelper {
 			$response_message = $response->get_error_message();
 			global $current_user;
 			wp_get_current_user();
-			$error_data = array( // BY- ISHWAR
+			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
 				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
@@ -570,7 +570,7 @@ class EBConnectionHelper {
 				// register error log.
 				global $current_user;
 				wp_get_current_user();
-				$error_data = array( // BY- ISHWAR
+				$error_data = array(
 					'url'          => $request_url,
 					'arguments'    => $request_data,
 					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
