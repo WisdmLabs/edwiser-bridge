@@ -180,7 +180,7 @@ class EBConnectionHelper {
 			$error_data = array( // BY- ISHWAR
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
@@ -436,7 +436,7 @@ class EBConnectionHelper {
 			$error_data = array( // BY- ISHWAR
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
@@ -457,7 +457,7 @@ class EBConnectionHelper {
 				$error_data = array(
 					'url'          => $request_url,
 					'arguments'    => $request_args,
-					'user'         => $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')',
+					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
 					'exception'    => $body->exception,
 					'errorcode'    => $body->errorcode,
@@ -549,7 +549,7 @@ class EBConnectionHelper {
 			$error_data = array( // BY- ISHWAR
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
@@ -573,7 +573,7 @@ class EBConnectionHelper {
 				$error_data = array( // BY- ISHWAR
 					'url'          => $request_url,
 					'arguments'    => $request_data,
-					'user'         => $current_user->user_login . '(' . $current_user->firse_name . ' ' . $current_user->last_name . ')',
+					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
 					'exception'    => $body->exception,
 					'errorcode'    => $body->errorcode,
