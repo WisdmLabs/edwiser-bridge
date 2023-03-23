@@ -269,7 +269,7 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
-		$download_url = 'https://edwiser.org/wp-content/uploads/edd/2022/12/edwiserbridge.zip';
+		$download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/03/edwiserbridge-1.zip';
 		$download_url = apply_filters( 'eb_setup_mdl_plugin_link', $download_url );
 
 		if ( $ajax ) {
@@ -1146,10 +1146,10 @@ class Eb_Setup_Wizard_Templates {
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
-		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2022/12/wdmwpmoodle.zip';
+		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/03/wdmwpmoodle.zip';
 		$sso_download_url = apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
 
-		$bp_download_url = 'https://edwiser.org/wp-content/uploads/edd/2021/05/wdmgroupregistration.zip';
+		$bp_download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/02/wdmgroupregistration.zip';
 		$bp_download_url = apply_filters( 'eb_setup_bp_plugin_download_link', $bp_download_url );
 
 		if ( $ajax ) {
