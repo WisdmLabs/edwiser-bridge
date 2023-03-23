@@ -13,4 +13,4 @@ jobs:
       - run: eval ssh-agent -s && ssh-add ~/.ssh/id_rsa
       - run: ssh-keyscan "${{ vars.DEV_SITE_ADDRESS }}" >> ~/.ssh/known_hosts
       - run: which rsync || (apt update -y && apt install rsync -y)
-      - run: rsync -rvz --delete --no-perms --no-group --no-owner --ignore-missing-args --rsh='ssh ubuntu@"${{ vars.DEV_SITE_ADDRESS }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' ${{ github.workspace }}/remui/. :"${{ vars.DIRECTORY }}"
+      - run: rsync -rvz --delete --no-perms --no-group --no-owner --ignore-missing-args --rsh='ssh ubuntu@"${{ vars.DEV_SITE_ADDRESS }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' . :"${{ vars.DIRECTORY }}"
