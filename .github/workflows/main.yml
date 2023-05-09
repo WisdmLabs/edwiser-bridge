@@ -1,5 +1,5 @@
-name: edwiser-development-actions
-run-name: Development server deployment
+name: bridge-dev-actions
+run-name: Bridge Dev server deployment
 on: [push]
 jobs:
   deploy:
@@ -14,3 +14,4 @@ jobs:
       - run: ssh-keyscan "${{ vars.DEV_SITE_ADDRESS }}" >> ~/.ssh/known_hosts
       - run: which rsync || (apt update -y && apt install rsync -y)
       - run: rsync -rvz --no-perms --exclude=".github" --exclude="vscode.code-workspace" --rsync-path="sudo rsync" --chown=dev-bridge:www-data --ignore-missing-args --rsh='ssh ubuntu@"${{ vars.DEV_SITE_ADDRESS }}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null' . :"/var/www/dev-bridge/public_html/wp-content/plugins"
+      
