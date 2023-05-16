@@ -13,6 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div>
 	<div class="eb_settings_pop_btn_wrap">	
 	<?php
+	$license = get_option( 'edd_edwiser_bridge_pro_license_status' );
+	if ( 'valid' === $license ) {
+		$show_banner = false;
+	}
 	if ( $show_banner ) {
 		?>
 			<div class='eb-set-as'>

@@ -66,6 +66,12 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			$plugin_path                 = plugin_dir_path( __DIR__ );
 			$store_url                   = Eb_Licensing_Manager::$store_url;
 			$author_name                 = 'WisdmLabs';
+			$bridge_pro                  = get_option( 'edd_edwiser_bridge_pro_license_status' );
+			if ( 'valid' === $bridge_pro ) {
+				$bridge_pro = true;
+			} else {
+				$bridge_pro = false;
+			}
 			require_once $plugin_path . 'licensing/html-licensing.php';
 		}
 
@@ -98,18 +104,29 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 				$class  = 'active';
 				$status = __( 'Active', 'edwiser-bridge' );
 			} elseif ( 'site_inactive' === $status_option ) {
+				$class  = 'not_active';
 				$status = __( 'Not Active', 'edwiser-bridge' );
 			} elseif ( 'expired' === $status_option && ( ! empty( $display ) || '' !== $display ) ) {
+				$class  = 'expired';
 				$status = __( 'Expired', 'edwiser-bridge' );
 			} elseif ( 'expired' === $status_option ) {
+				$class  = 'expired';
 				$status = __( 'Expired', 'edwiser-bridge' );
 			} elseif ( 'invalid' === $status_option ) {
+				$class  = 'expired';
 				$status = __( 'Invalid Key', 'edwiser-bridge' );
 			} else {
+				$class  = 'not_active';
 				$status = __( 'Not Active ', 'edwiser-bridge' );
 			}
+
+			if ( 'edwiser_bridge_pro' === $plugin_slug ) {
+				$class = 'eb_pro_lic_' . $class;
+			} else {
+				$class = 'eb_lic_' . $class;
+			}
 			?>
-			<span class="eb_lic_status eb_lic_<?php echo esc_attr( $class ); ?>"><?php echo esc_attr( $status ); ?></span>
+			<span class="eb_lic_status <?php echo esc_attr( $class ); ?> eb_pro_lic_<?php echo esc_attr( $class ); ?>"><?php echo esc_attr( $status ); ?></span>
 			<?php
 		}
 
@@ -284,6 +301,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)
 			);
+
 			if ( ! is_wp_error( $request ) ) {
 				$request = json_decode( wp_remote_retrieve_body( $request ) );
 				if ( $request && isset( $request->download_link ) && ! empty( $request->download_link ) ) {

@@ -820,7 +820,7 @@ class Eb_Enrollment_Manager {
 		} else {
 			$response_array['enroll_message'] = '<div class="alert alert-error">' . __( 'User enrollment test failed. ERROR: ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		}
@@ -872,7 +872,7 @@ class Eb_Enrollment_Manager {
 		} else {
 			$msg = '<div class="alert alert-error">' . __( 'User unenrollment test failed. ERROR: ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$msg              .= '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		}

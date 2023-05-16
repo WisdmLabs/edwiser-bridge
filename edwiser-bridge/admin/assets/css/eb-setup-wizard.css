@@ -484,7 +484,7 @@ a.es_text_links{
 
 
 
-.eb_setup_free_initialize, .eb_setup_mdl_plugins{
+.eb_setup_free_initialize, .eb_setup_pro_plugins, .eb_setup_mdl_plugins{
     text-align: left;
     width: 50%;
     margin: auto;
@@ -567,7 +567,7 @@ a.es_text_links{
 }
 
 
-.eb_setup_mdl_plugins legend, .eb_setup_free_initialize legend, .eb_setup_course_sync legend, .eb_setup_user_sync legend, .eb_setup_popup_content legend{
+.eb_setup_mdl_plugins legend, .eb_setup_free_initialize legend, .eb_setup_course_sync legend, .eb_setup_pro_plugins legend, .eb_setup_user_sync legend, .eb_setup_popup_content legend{
     background: #C5F3F5;
     border-radius: 4px;
     font-style: normal;
@@ -741,6 +741,7 @@ a.eb_setup_btn{
 .eb_setup_test_connection,
 .eb_setup_user_sync,
 .eb_setup_course_sync,
+.eb_setup_pro_plugins,
 .eb_setup_mdl_plugins,
 .eb_setup_mdl_plugins_installation,
 .eb_setup_pro_settings
@@ -855,7 +856,6 @@ a.eb_setup_btn{
     width: 0.7em;
     margin: auto;
 }
-
 .eb_setup_conn_url_inp_wrap{
     /* text-align: center; */
     width: 50%;
@@ -865,6 +865,13 @@ a.eb_setup_btn{
     /* margin-bottom: 10px; */
 }
 
+.eb_setup_pro_license_inp_wrap{
+    display: flex;
+    text-align: left;
+    padding-top: 10px;
+    width: 100%;
+}
+
 .eb_setup_single{
     width: calc( 50% - 20px );
     margin: 0;
@@ -872,7 +879,6 @@ a.eb_setup_btn{
 
 .eb_setup_inp_wrap{
     /* text-align: center; */
-    width: 100%;
     text-align: left;
     margin: auto;
     padding-top: 10px;
@@ -895,6 +901,26 @@ a.eb_setup_btn{
     line-height: 19px;
     /* identical to box height */
     color: #444444;
+}
+.eb_setup_pro_license_inp_wrap p{
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 4px;
+    padding-top: 10px;
+}
+
+.eb_setup_pro_license_inp_wrap p .eb_setup_h2{
+    padding-left: 0px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    /* identical to box height */
+    color: #444444;
+}
+.eb_setup_pro_license_inp_wrap .eb_setup_license_div{
+    margin-left: 20px;
+    width: 50%;
 }
 
 .eb_setup_separator{
@@ -930,6 +956,11 @@ a.eb_setup_btn{
 .eb_setup_course_sync_inp_wrap, .eb_setup_user_sync_inp_wrap{
     /* padding-left: 30px; */
 }
+.eb_setup_pro_plugin_inp_wrap{
+    text-align: left;
+    margin: auto;
+    padding-top: 10px;
+}
 
 .eb_setup_course_sync_btn_wrap, .eb_setup_user_sync_btn_wrap{
     text-align: center;
@@ -940,7 +971,7 @@ div.eb_setup_user_sync_btn_wrap{
 }
 
 
-.eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset, .eb_setup_mdl_plugins fieldset{
+.eb_setup_course_sync fieldset, .eb_setup_user_sync fieldset, .eb_setup_mdl_plugins fieldset, .eb_setup_pro_plugins fieldset{
     margin-top: 10px;
     border: 1px solid #E5E5E5;
 }

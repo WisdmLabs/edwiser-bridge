@@ -51,7 +51,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 		 *
 		 * @var string  $store_url Stores the URL of store.
 		 */
-		public static $store_url = 'https://edwiser.org/check-update';
+		public static $store_url = 'https://dev1.edwiser.org/check-update';
 
 		/**
 		 * Plugin author name.
@@ -124,6 +124,13 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					'key'             => 'edd_edwiser_custom_fields_license_key',
 					'path'            => 'edwiser-custom-fields/edwiser-custom-fields.php',
 				),
+				'edwiser_bridge_pro'      => array(
+					'slug'            => 'edwiser_bridge_pro',
+					'current_version' => '3.0.0',
+					'item_name'       => 'Edwiser Bridge Pro Plugin',
+					'key'             => 'edd_edwiser_bridge_pro_license_key',
+					'path'            => 'edwiser-bridge-pro/edwiser-bridge-pro.php',
+				),
 			);
 			if ( $plugin_slug ) {
 				$products_data = $products_data[ $plugin_slug ];
@@ -145,6 +152,9 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				$license_data = $responce['data'];
 				if ( 'deactivated' === $license_data->license || 'failed' === $license_data->license ) {
 					update_option( 'edd_' . $this->plugin_slug . '_license_status', 'deactivated' );
+
+					// remove addon data.
+					delete_option( 'edd_' . $this->plugin_slug . '_license_addon_data' );
 				}
 				delete_transient( 'wdm_' . $this->plugin_slug . '_license_trans' );
 
@@ -228,6 +238,13 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 
 			$status = ( empty( $status ) ) ? 'invalid' : $status;
 			update_option( 'edd_' . $plugin_slug . '_license_status', $status );
+			// save new licensing data
+			if ( 'valid' === $status && isset( $license_data->license_data ) && ! empty( $license_data->license_data ) ) {
+				update_option( 'edd_' . $plugin_slug . '_license_addon_data', $license_data->license_data );
+			} else {
+				delete_option( 'edd_' . $plugin_slug . '_license_addon_data' );
+			}
+
 			return $status;
 		}
 
@@ -344,6 +361,16 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				update_option( 'eb_' . $this->plugin_slug . '_license_key_sites', '' );
 				update_option( 'eb_' . $this->plugin_slug . '_license_max_site', '' );
 			}
+			if ( isset( $license_data->expires ) && '' !== $license_data->expires ) {
+				update_option( 'eb_' . $this->plugin_slug . '_license_key_expires', $license_data->expires );
+			}
+			if ( isset( $license_data->site_count ) && '' !== $license_data->site_count ) {
+				update_option( 'eb_' . $this->plugin_slug . '_license_key_site_count', $license_data->site_count );
+			}
+			if ( isset( $license_data->license_limit ) && '' !== $license_data->license_limit ) {
+				update_option( 'eb_' . $this->plugin_slug . '_license_key_license_limit', $license_data->license_limit );
+			}
+
 		}
 
 		/**

@@ -1537,6 +1537,11 @@
             parent.css("display", "none");
         });
 
+        $(".eb_admin_pro_popup_hide").click(function () {
+            var parent = $(this).parent().parent().parent();
+            parent.css("display", "none");
+        });
+
         $(".eb_admin_discount_notice_hide").click(function () {
             var parent = $(this).parent().parent();
             parent.css("display", "none");
@@ -1544,6 +1549,11 @@
 
 
         $(".eb_admin_feedback_dismiss_notice_message").click(function () {
+            var parent = $(this).parent();
+            parent.css("display", "none");
+        });
+
+        $(".eb_admin_update_dismiss_notice_message").click(function () {
             var parent = $(this).parent();
             parent.css("display", "none");
         });

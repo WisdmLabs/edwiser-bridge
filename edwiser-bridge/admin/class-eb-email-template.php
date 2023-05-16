@@ -539,7 +539,7 @@ class EBAdminEmailTemplate {
 			 */
 			$args = array(
 				'course_id'   => '1',
-				'password'    => 'eb-pa88@#d',
+				'password'    => get_option( 'eb_emailtmpl_create_user_notify_allow' ),
 				'eb_order_id' => '12235', // chnaged 1.4.7.
 				'headers'     => isset( $_POST['headers'] ) ? sanitize_text_field( wp_unslash( $_POST['headers'] ) ) : '',
 			);
