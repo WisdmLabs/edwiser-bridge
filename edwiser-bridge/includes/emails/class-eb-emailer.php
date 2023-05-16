@@ -253,7 +253,6 @@ class Eb_Emailer {
 
 		// CUSTOMIZATION HOOKS.
 		$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_create_user' );
-
 		// send email.
 		$sent = $this->mailer( $args['user_email'], $email_subject, $email_content, $email_headers );
 

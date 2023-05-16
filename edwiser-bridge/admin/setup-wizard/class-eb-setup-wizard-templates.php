@@ -242,6 +242,57 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 		</div>
 
+		<div class='eb_setup_product_sync_progress_popup eb_setup_moodle_redirection_popup'>
+				<div class='eb_setup_popup_content eb_setup_prod_sync_popup'>
+
+					<div class='eb_setup_h2'>
+					<?php esc_html_e( 'Redirecting to Moodle Setup wizard', 'edwiser-bridge' ); ?>
+					</div>
+
+					<div class='eb_setup_product_sync_progress_images'>
+
+						<div class='eb_setup_users_sync_wp_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
+						</div>
+
+						<div class='eb_setup_product_sync_progress_arrows'>
+
+							<div class="animated  animated--on-hover  mt-2">
+								<span class="animated__text">
+									<span class='dashicons dashicons-arrow-right-alt2' style='color:#bedbe2;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#76bccc;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#5abec3;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#14979d;'></span>
+									<span class="dashicons dashicons-arrow-right-alt2" style='color:#007075;'></span>
+								</span>
+							</div>
+
+						</div>
+
+						<div class='eb_setup_users_sync_mdl_img'>
+							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<?php
+			$is_pro = eb_is_legacy_pro();
+			if ( $is_pro || true ) {
+				?>
+				<div class="eb-admin-pro-popup eb-admin-pro-popup-setup-wizard">
+					<div class='eb-admin-pro-popup-content'>
+						<p class="eb-admin-pro-popup-title"><?php echo __( 'Introducing', 'edwiser-bridge' ) . '<strong>' . __( ' consolidated Edwiser Bridge Pro Plugin', 'edwiser-bridge' ) . '</strong>' . __( ' for smoother configuration experience', 'edwiser-bridge' ); ?></p>
+						<p class="eb-admin-pro-popup-text"><?php echo __( 'Starting from Edwiser Bridge version xxx,  all the Edwiser Bridge Pro add-on plugins  have been combined into a', 'edwiser-bridge' ) . '<strong>' . __( ' single plugin -Edwiser Bridge Pro', 'edwiser-bridge' ) . '</strong>' . __( ' to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></p>
+						<p class="eb-admin-pro-popup-text"><?php echo __( 'To install and activate the', 'edwiser-bridge' ) . '<strong>' . __( ' new Edwiser Bridge Pro plugin', 'edwiser-bridge' ) . '</strong>' . __( ' click below', 'edwiser-bridge' ); ?></p>
+						<a class="eb-admin-pro-popup-button" href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=licensing' ) ?>"><?php esc_html_e( 'Activate Now', 'edwiser-bridge' ); ?> </a>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+
 		<?php
 
 		if ( $ajax ) {
@@ -1028,11 +1079,8 @@ class Eb_Setup_Wizard_Templates {
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
 		// License keys.
-		$license['sso_license']     = get_option( 'edd_single_sign_on_license_key' );
-		$license['woo_int_license'] = get_option( 'edd_woocommerce_integration_license_key' );
-		$license['ss_license']      = get_option( 'edd_selective_sync_license_key' );
-		$license['bp_license']      = get_option( 'edd_bulk-purchase_license_key' );
-		$license['cf_license']      = get_option( 'edd_edwiser_custom_fields_license_key' );
+		$license['eb_pro_license'] = get_option( 'edd_edwiser_bridge_pro_license_key' );
+	
 
 		$class = 'disable';
 		foreach ( $license as $value ) {
@@ -1058,52 +1106,15 @@ class Eb_Setup_Wizard_Templates {
 
 			<div>
 				<div class='eb_setup_license_inp_wrap'>
-					<div class='eb_setup_conn_url_inp_wrap'>
+					<div class='eb_setup_pro_license_inp_wrap'>
 						<p>
-							<label class='eb_setup_h2'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label>
-							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for WooCommerce Integration.', 'edwiser-bridge' ); ?></span> </span>
+							<label class='eb_setup_h2'> <?php esc_html_e( 'Edwiser Bridge Pro', 'edwiser-bridge' ); ?></label>
+							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </span>
 						</p>
-						<input class='eb_setup_inp eb_setup_license_inp eb_setup_woocommerce_integration_license' name='eb_setup_woo_int' id='eb_setup_woo_int' data-action='woocommerce_integration'  type='text' value='<?php echo esc_attr( $license['woo_int_license'] ); ?>' >
-						<div class='eb_setup_woocommerce_integration_license_msg'></div>
-					</div>
-
-					<div class='eb_setup_conn_url_inp_wrap'>
-						<p>
-							<label class='eb_setup_h2'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label>
-							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Selective Sync.', 'edwiser-bridge' ); ?></span> </span>
-						</p>
-						<input class='eb_setup_inp eb_setup_license_inp eb_setup_selective_sync_license' name='eb_setup_selective_sync' id='eb_setup_selective_sync' data-action='selective_sync' type='text' value='<?php echo esc_attr( $license['ss_license'] ); ?>' >
-						<div class='eb_setup_selective_sync_license_msg'></div>
-					</div>
-				</div>
-
-				<div class='eb_setup_license_inp_wrap '>
-					<div class='eb_setup_conn_url_inp_wrap'>
-						<p>
-							<label class='eb_setup_h2'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label>
-							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Bulk Purchase.', 'edwiser-bridge' ); ?></span> </span>
-						</p>
-						<input class='eb_setup_inp eb_setup_license_inp eb_setup_bulk-purchase_license' name='eb_setup_bulk_purchase' id='eb_setup_bulk_purchase' data-action='bulk-purchase' type='text' value='<?php echo esc_attr( $license['bp_license'] ); ?>' >
-						<div class='eb_setup_bulk-purchase_license_msg'></div>
-					</div>
-
-					<div class='eb_setup_conn_url_inp_wrap'>
-						<p>
-							<label class='eb_setup_h2'> <?php esc_html_e( 'Single Sign On', 'edwiser-bridge' ); ?></label>
-							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Single Sign On.', 'edwiser-bridge' ); ?></span> </span>
-						</p>
-						<input class='eb_setup_inp eb_setup_license_inp eb_setup_single_sign_on_license' name='eb_setup_sso' id='eb_setup_sso' data-action='single_sign_on' type='text' value='<?php echo esc_attr( $license['sso_license'] ); ?>' >
-						<div class='eb_setup_single_sign_on_license_msg'></div>
-					</div>
-				</div>
-				<div class='eb_setup_license_inp_wrap'>
-					<div class='eb_setup_conn_url_inp_wrap eb_setup_single'>
-						<p>
-							<label class='eb_setup_h2'> <?php esc_html_e( 'Edwiser Custom Fields', 'edwiser-bridge' ); ?></label>
-							<span class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white/blank space for Edwiser Custom Fields.', 'edwiser-bridge' ); ?></span> </span>
-						</p>
-						<input class='eb_setup_inp eb_setup_license_inp eb_setup_edwiser_custom_fields_license' name='eb_setup_edwiser_custom_fields' id='eb_setup_edwiser_custom_fields' data-action='edwiser_custom_fields' type='text' value='<?php echo esc_attr( $license['cf_license'] ); ?>' >
-						<div class='eb_setup_edwiser_custom_fields_license_msg'></div>
+						<div class="eb_setup_license_div">
+							<input class='eb_setup_inp eb_setup_license_inp eb_setup_edwiser_bridge_pro_license' name='eb_setup_eb_pro' id='eb_setup_eb_pro' data-action='edwiser_bridge_pro'  type='text' value='<?php echo esc_attr( $license['eb_pro_license'] ); ?>' >
+							<div class='eb_setup_edwiser_bridge_pro_license_msg'></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1133,6 +1144,108 @@ class Eb_Setup_Wizard_Templates {
 	}
 
 	/**
+	 * Enable/Disable pro plugins.
+	 *
+	 * @param int $ajax if request is ajax.
+	 */
+	public function eb_setup_pro_plugins( $ajax = 1 ) {
+		$setup_functions  = new Eb_Setup_Wizard_Functions();
+		$step             = 'pro_plugins';
+		$sub_step         = '';
+		$is_next_sub_step = 0;
+		$title            = $setup_functions->eb_get_step_title( $step );
+		$next_step        = $setup_functions->get_next_step( $step );
+		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+
+		$module_data = get_option( 'eb_pro_modules_data' );
+
+		$modules_data = array(
+			'selective_sync'  => isset( $module_data['selective_sync'] ) ? $module_data['selective_sync'] : 'deactive',
+			'sso'             => isset( $module_data['sso'] ) ? $module_data['sso'] : 'deactive',
+			'woo_integration' => isset( $module_data['woo_integration'] ) ? $module_data['woo_integration'] : 'deactive',
+			'bulk_purchase'   => isset( $module_data['bulk_purchase'] ) ? $module_data['bulk_purchase'] : 'deactive',
+			'custom_fields'   => isset( $module_data['custom_fields'] ) ? $module_data['custom_fields'] : 'deactive',
+		);
+		if ( $ajax ) {
+			ob_start();
+		}
+		?>
+		<div class='eb_setup_pro_plugins es-w-80'>
+			<span class='eb_setup_h2'> <?php esc_html_e( 'Select the Pro feature you want to enable', 'edwiser-bridge' ); ?> </span>
+			<fieldset>
+				<legend>Note</legend>
+				<div class='fieldset_content'>
+					<?php esc_html_e( 'To enable the bulk purchase you must also enable Woocommerce Integration', 'edwiser-bridge' ) ?>
+				</div>
+			</fieldset>
+			<div class='eb_setup_course_sync_note'>
+
+				<div class='eb_setup_pro_plugin_inp_wrap'>
+					<label class="esw-cb-container">
+						<input type="checkbox"  class='eb_setup_sso_inp' <?php echo 'active' === $module_data['sso'] ? 'checked' : '';  ?>>
+						<span class="esw-cb-checkmark"></span>
+						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Edwiser Bridge Single Sign On', 'edwiser-bridge' ); ?></label>
+						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </i>
+					</label>
+				</div>
+				<div class='eb_setup_pro_plugin_inp_wrap'>
+					<label class="esw-cb-container">
+						<input type="checkbox"  class='eb_setup_woo_int_inp' <?php echo 'active' === $module_data['woo_integration'] ? 'checked' : '';  ?>>
+						<span class="esw-cb-checkmark"></span>
+						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label>
+						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </i>
+					</label>
+				</div>
+				<div class='eb_setup_pro_plugin_inp_wrap'>
+					<label class="esw-cb-container">
+						<input type="checkbox"  class='eb_setup_bulk_purchase_inp' <?php echo 'active' === $module_data['bulk_purchase'] ? 'checked' : '';  ?>>
+						<span class="esw-cb-checkmark"></span>
+						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label>
+						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </i>
+					</label>
+				</div>
+				<div class='eb_setup_pro_plugin_inp_wrap'>
+					<label class="esw-cb-container">
+						<input type="checkbox"  class='eb_setup_selective_sync_inp' <?php echo 'active' === $module_data['selective_sync'] ? 'checked' : '';  ?>>
+						<span class="esw-cb-checkmark"></span>
+						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label>
+						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </i>
+					</label>
+				</div>
+				<div class='eb_setup_pro_plugin_inp_wrap'>
+					<label class="esw-cb-container">
+						<input type="checkbox"  class='eb_setup_custom_fields_inp' <?php echo 'active' === $module_data['custom_fields'] ? 'checked' : '';  ?>>
+						<span class="esw-cb-checkmark"></span>
+						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Edwiser Bridge Custom Fields', 'edwiser-bridge' ); ?></label>
+						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Copy and paste the license key without any white space for Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></span> </i>
+					</label>
+				</div>
+				<div class='eb_setup_settings_error_msg' style="display:none;"></div>
+
+				<div class='eb_setup_course_sync_btn_wrap'>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<!-- <button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
+					<!-- <button class='eb_setup_btn eb_setup_course_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge' ); ?> </button> -->
+					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Save settings', 'edwiser-bridge' ); ?> </button>
+
+				</div>
+			</div>
+
+		</div>
+
+		<?php
+		if ( $ajax ) {
+			$html   = ob_get_clean();
+			$return = array(
+				'title'   => $title,
+				'content' => $html,
+				'popup'   => 0,
+			);
+			wp_send_json_success( $return );
+		}
+	}
+
+	/**
 	 * Setup Wizard Moodle Plugins Download.
 	 *
 	 * @param int $ajax if request is ajax.
@@ -1145,6 +1258,8 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+		$prev_step        = $setup_functions->get_prev_step( $step );
+		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
 		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/03/wdmwpmoodle.zip';
 		$sso_download_url = apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
@@ -1158,43 +1273,20 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_mdl_plugins es-w-80'>
 			<div>
-				<?php esc_html_e( 'Please download the latest version of Edwiser Bridge PRO Moodle plugins from here if not downloaded already.', 'edwiser-bridge' ); ?>	
+				<?php esc_html_e( 'You will have to enter the license key on your Moodle site to active the Edwiser Bridge Pro Feature on the Moodle end', 'edwiser-bridge' ); ?>	
 
 				<div>
-					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Single Sign On Moodle plugin', 'edwiser-bridge' ); ?> <p>
-					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
-						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='<?php echo wp_kses( $sso_download_url, $allowed_tags ); ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
-					</div>
+					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'To get the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="#"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
 				</div>
 
 				<div>
-					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Edwiser Bulk Purchase Moodle plugin', 'edwiser-bridge' ); ?> <p>
-					<div class='eb_setup_user_sync_btn_wrap es-m-b-20 p-b-10'>
-						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </button> -->
-						<a class='eb_setup_sec_btn' href='<?php echo wp_kses( $bp_download_url, $allowed_tags ); ?>'> <?php esc_html_e( 'Download', 'edwiser-bridge' ); ?> </a>
-					</div>
+					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Insert the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="#"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
 				</div>
 			</div>
-
-			<hr />
-
 			<div class="eb_setup_user_sync_btn_wrap">
-
+				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 			</div>
-
-
-
-
-			<fieldset>
-				<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
-				<div class='fieldset_content'>
-					<?php esc_html_e( 'Edwiser WooCommerce Integration and Edwiser Selective Synchronization do not require any installation on Moodle site.', 'edwiser-bridge' ); ?>
-				</div>
-			</fieldset>
-
-
 		</div>
 
 
@@ -1230,7 +1322,7 @@ class Eb_Setup_Wizard_Templates {
 		$mdl_url        = \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url();
 		$mdl_url        = ( 'MOODLE_URL' === $mdl_url ) ? '' : $mdl_url;
 		$mdl_plugin_url = $mdl_url . '/admin/tool/installaddon/index.php';
-		$mdl_url        = $mdl_url . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+		$mdl_url        = $mdl_url . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 
 		if ( $ajax ) {
 			ob_start();
@@ -1336,9 +1428,9 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_sso es-w-80'>
 			<?php
-				$active_plugins = get_option( 'active_plugins' );
+			$module_data = get_option( 'eb_pro_modules_data' );
 
-			if ( ! in_array( 'edwiser-bridge-sso/sso.php', $active_plugins, true ) ) {
+			if ( ! isset( $module_data['sso'] ) || 'active' !== $module_data['sso'] ) {
 				?>
 					<div class='eb_setup_settings_error_msg'> <?php echo esc_attr( 'Single sign on plugin is not activated, Please active it first or skip the step. ' ); ?> </div>
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>
@@ -1414,9 +1506,9 @@ class Eb_Setup_Wizard_Templates {
 		?>
 		<div class='eb_setup_wi_products_sync es-w-80'>
 			<?php
-				$active_plugins = get_option( 'active_plugins' );
+			$module_data = get_option( 'eb_pro_modules_data' );
 
-			if ( ! in_array( 'woocommerce-integration/bridge-woocommerce.php', $active_plugins, true ) ) {
+			if ( ! isset( $module_data['woo_integration'] ) || 'active' !== $module_data['woo_integration'] ) {
 				?>
 					<div class='eb_setup_settings_error_msg'> <?php echo esc_attr( 'Woocommerce Integration plugin is not activated, Please active it first or skip the step. ' ); ?> </div>
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>

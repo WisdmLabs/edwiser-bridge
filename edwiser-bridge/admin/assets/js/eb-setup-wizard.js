@@ -218,14 +218,14 @@
                             // $('.eb-setup-header-title').html(response.data.title);
                             var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
                             // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
-                            window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                            window.location.replace( mdl_url + '/auth/edwiserbridge/setup_wizard.php' );
                             data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                         }  , 2000 );
                     }
                     
                     // var mdl_url = $('#eb_setup_test_conn_mdl_url').val();
                     // // There is only one exceptional step where we are redirecting user to Moodle so checking it directly.
-                    // window.location.replace( mdl_url + '/local/edwiserbridge/setup_wizard.php' );
+                    // window.location.replace( mdl_url + '/auth/edwiserbridge/setup_wizard.php' );
                     // data = { 'mdl_url' : mdl_url, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     return;
                     break;
@@ -277,6 +277,23 @@
                     $("#eb-lading-parent").show();
 
                     data = { 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    break;
+                
+                case 'pro_plugins':
+                    $("#eb-lading-parent").show();
+                    var sso = $('.eb_setup_sso_inp').prop('checked') ? 1 : 0;
+                    var woo_int = $('.eb_setup_woo_int_inp').prop('checked') ? 1 : 0;
+                    var bulk_purchase = $('.eb_setup_bulk_purchase_inp').prop('checked') ? 1 : 0;
+                    var selective_sync = $('.eb_setup_selective_sync_inp').prop('checked') ? 1 : 0;
+                    var custom_fields = $('.eb_setup_custom_fields_inp').prop('checked') ? 1 : 0;
+
+                    if ( bulk_purchase == 1 && woo_int == 0 ) {
+                        $('.eb_setup_settings_error_msg').html(eb_setup_wizard.msg_woo_int_enable_error).show();
+                        $("#eb-lading-parent").hide();
+                        return;
+                    }
+
+                    data = { 'sso': sso, 'woo_int': woo_int, 'bulk_purchase': bulk_purchase, 'selective_sync': selective_sync, 'custom_fields': custom_fields, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'wp_plugins':
@@ -818,6 +835,9 @@
             }
             
             $('input[name="eb_setup_name"]').click(function() {
+                if($(this).val() == 'eb_pro_setup') {
+                    $('.eb-admin-pro-popup-setup-wizard').css('display', 'block');
+                }
                 $('#eb_setup_free_initialize').removeClass('disabled');
                 $('#eb_setup_free_initialize').removeAttr("disabled");
             });

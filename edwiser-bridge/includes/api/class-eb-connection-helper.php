@@ -192,7 +192,7 @@ class EBConnectionHelper {
 			wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( null === $body ) {
-				$url_link         = "<a href='$url/local/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
+				$url_link         = "<a href='$url/auth/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success          = 0;
 				$plain_txt_msg    = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
 
@@ -236,7 +236,7 @@ class EBConnectionHelper {
 				if ( "0" === $body->status ) {
 					$success          = 0;
 					$plain_txt_msg    = esc_html__( 'Connection failed', 'edwiser-bridge' );
-					$update_msg       = esc_html__( 'You can check added webservice here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service</a>';
+					$update_msg       = esc_html__( 'You can check added webservice here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service</a>';
 					$response_message = $this->create_response_message( $request_url, esc_html( $body->msg ) . ' ' . $update_msg );
 				}
 			}
@@ -325,7 +325,7 @@ class EBConnectionHelper {
 									</div>';
 			// Add new message here.
 
-			$response_message .= esc_html__( 'You can check added webservice here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service</a>';
+			$response_message .= esc_html__( 'You can check added webservice here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service</a>';
 
 			$response_message .= '</div>';
 		}

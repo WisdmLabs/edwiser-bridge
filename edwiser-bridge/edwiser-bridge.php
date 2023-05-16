@@ -10,7 +10,7 @@
  * Plugin Name:       Edwiser Bridge - WordPress Moodle LMS Integration
  * Plugin URI:        https://edwiser.org/bridge/
  * Description:       Edwiser Bridge integrates WordPress with the Moodle LMS. The plugin provides an easy option to import Moodle courses to WordPress and sell them using PayPal. The plugin also allows automatic registration of WordPress users on the Moodle website along with single login credentials for both the systems.
- * Version:           2.3.0
+ * Version:           3.0.0
  * Author:            WisdmLabs
  * Author URI:        https://edwiser.org
  * License:           GPL-2.0+
@@ -31,7 +31,7 @@ global $eb_plugin_data;
 $eb_plugin_data = array(
 	'name' => 'Edwiser Bridge - WordPress Moodle LMS Integration',
 	'slug' => 'edwiser-bridge',
-	'version' => '2.3.0',
+	'version' => '3.0.0',
 	'mdl_plugin_url' => 'https://edwiser.org/wp-content/uploads/edd/2023/03/edwiserbridge-1.zip',
 );
 
@@ -184,7 +184,7 @@ function wdm_show_legacy_extensions_notices() {
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-eb.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-eb.php';
 
 /*
  * Executes on the plugin update.
@@ -195,7 +195,7 @@ add_action( 'admin_init', '\app\wisdmlabs\edwiserBridge\process_upgrade' );
  * Upgrade.
  */
 function process_upgrade() {
-	$new_version     = '2.3.0';
+	$new_version     = '3.0.0';
 	$current_version = get_option( 'eb_current_version' );
 	if ( false === $current_version || $current_version !== $new_version ) {
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-eb-activator.php';

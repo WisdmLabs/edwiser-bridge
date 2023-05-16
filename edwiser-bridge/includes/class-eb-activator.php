@@ -63,6 +63,14 @@ class Eb_Activator {
 			set_transient( '_eb_activation_redirect', 1, 30 );
 		}
 		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );
+
+		// eb pro consolidated plugin notice.
+		$is_pro = eb_is_legacy_pro();
+		$pro_plugin_path = 'edwiser-bridge-pro/edwiser-bridge-pro.php';
+		if ( $is_pro && ! is_plugin_active( $pro_plugin_path ) ) {
+			delete_option( 'eb_pro_consolidated_plugin_notice_dismissed');
+			set_transient( '_eb_pro_consolidated_plugin_notice', 1, 30 );
+		}
 	}
 
 	/**

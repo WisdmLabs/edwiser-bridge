@@ -660,9 +660,15 @@ class EdwiserBridge {
 		);
 
 		$this->loader->eb_add_action(
+			'admin_init',
+			$admin_notice_handler,
+			'eb_admin_pro_notice_dismiss_handler'
+		);
+		
+		$this->loader->eb_add_action(
 			'admin_notices',
 			$admin_notice_handler,
-			'eb_admin_bfcm_notice'
+			'eb_admin_pro_notice'
 		);
 		
 

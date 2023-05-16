@@ -205,22 +205,30 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 100,
 				'sub_step' => 0,
 			),
+			'pro_plugins'              => array(
+				'sidebar'  => 1,
+				'name'     => __( 'Enable or disable the Edwiser Bridge PRO WordPress plugins', 'edwiser-bridge' ),
+				'title'    => __( 'Enable/Disable the Edwiser Bridge PRO WordPress features', 'edwiser-bridge' ),
+				'function' => 'eb_setup_pro_plugins',
+				'priority' => 110,
+				'sub_step' => 0,
+			),
 			'mdl_plugins'              => array(
 				'sidebar'  => 1,
-				'name'     => __( 'Download Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
-				'title'    => __( 'Download Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
+				'name'     => __( 'Activate Edwiser Bridge Pro Features on Moodle', 'edwiser-bridge' ),
+				'title'    => __( 'Activate Edwiser Bridge Pro Features on Moodle', 'edwiser-bridge' ),
 				'function' => 'eb_setup_mdl_plugins',
 				'priority' => 110,
 				'sub_step' => 0,
 			),
-			'mdl_plugins_installation' => array(
-				'sidebar'  => 1,
-				'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
-				'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
-				'function' => 'eb_setup_mdl_plugins_installation',
-				'priority' => 120,
-				'sub_step' => 0,
-			),
+			// 'mdl_plugins_installation' => array(
+			// 	'sidebar'  => 1,
+			// 	'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
+			// 	'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
+			// 	'function' => 'eb_setup_mdl_plugins_installation',
+			// 	'priority' => 120,
+			// 	'sub_step' => 0,
+			// ),
 			'sso'                      => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Single Sign On setup', 'edwiser-bridge' ),
@@ -523,7 +531,16 @@ class Eb_Setup_Wizard_Functions {
 
 				case 'free_completed_popup':
 					break;
-
+				case 'pro_plugins':
+					$module_data = get_option( 'eb_pro_modules_data' );
+					$modules_data = array(
+						'selective_sync'  => '1' === $data['selective_sync'] ? 'active' : 'deactive',
+						'sso'             => '1' === $data['sso'] ? 'active' : 'deactive',
+						'woo_integration' => '1' === $data['woo_integration'] ? 'active' : 'deactive',
+						'bulk_purchase'   => '1' === $data['bulk_purchase'] ? 'active' : 'deactive',
+						'custom_fields'   => '1' === $data['custom_fields'] ? 'active' : 'deactive',
+					);
+					update_option( 'eb_pro_modules_data', $modules_data );
 				case 'sso':
 					$old_sso_settings = get_option( 'eb_sso_settings_general' );
 					if ( isset( $data['sso_key'] ) ) {
@@ -690,6 +707,7 @@ class Eb_Setup_Wizard_Functions {
 				'msg_con_prob'                    => esc_html__( 'There is a problem while connecting to moodle server.', 'edwiser-bridge' ),
 				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'edwiser-bridge' ),
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
+				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 			)
 		);
 
@@ -891,7 +909,7 @@ class Eb_Setup_Wizard_Functions {
 			return $resp;
 		}
 
-		// dependency check.
+		// dependency check. depricated
 		if ( 'woocommerce_integration' === $slug ) {
 			$all_plugins = get_plugins();
 			$woo_path    = 'woocommerce/woocommerce.php';

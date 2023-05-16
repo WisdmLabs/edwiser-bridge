@@ -157,7 +157,7 @@ class Eb_Settings_Ajax_Initiater {
 		$response          = $connection_helper->connect_moodle_with_args_helper( 'edwiserbridge_local_get_mandatory_settings', array() );
 
 		if( 403 === $response['status_code'] ) {
-			$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=settings';
+			$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=settings';
 			$response_array = array(
 				'status' => 'error',
 				'message' => '<div class="alert alert-error">' . __('REST Protocol and Web Services should be enabled in moodle. Check Test Connection first and try again', 'edwiser-bridge') . '</div>',
@@ -212,7 +212,7 @@ class Eb_Settings_Ajax_Initiater {
 				$response_array['html'] = '<a target="_blank" href="' . $eb_plugin_data['mdl_plugin_url'] . '">' . __('Download latest plugin file', 'edwiser-bridge') . '</a>';
 			}
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		}
@@ -301,7 +301,7 @@ class Eb_Settings_Ajax_Initiater {
 			$response_array [ 'status' ] = 'error';
 			$response_array[ 'message' ] = '<div class="alert alert-error">' . __( 'Manual Enrollment method check failed. ERROR : ', 'edwiser-bridge' ) . $response['response_message'] . '</div>';
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			} else {
 				$response_array = array(
@@ -361,7 +361,7 @@ class Eb_Settings_Ajax_Initiater {
 				'message' => '<div class="alert alert-error">' . __('Enabling Manual Enrollment method failed. ERROR: ', 'edwiser-bridge') . $response['response_message'] . '</div>',
 			);
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 			if( "Class 'enrol_manual_plugin' not found" === $response['response_message'] ) {
@@ -413,7 +413,7 @@ class Eb_Settings_Ajax_Initiater {
 				'message' => '<div class="alert alert-error">' . __('Enabling Mandatory Settings failed. Try Test Connection first. ERROR: ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>',
 			);
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
 		} else {

@@ -1456,7 +1456,7 @@ class EBUserManager {
 			} elseif ( 0 === $response['success'] ) {
 				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">' . __('Moodle User creation failed. ERROR : ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>';
 				if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-					$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/local/edwiserbridge/edwiserbridge.php?tab=service';
+					$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 					$response_array[ 'html' ]           = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 				}
 			}

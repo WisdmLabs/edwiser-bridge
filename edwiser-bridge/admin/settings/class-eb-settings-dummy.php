@@ -24,18 +24,50 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-			if ( ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
-				new Eb_Settings_Dummy_Woo_Int();
+			// if ( ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
+			// 	new Eb_Settings_Dummy_Woo_Int();
+			// }
+			// if ( ! is_plugin_active( 'selective-synchronization/selective-synchronization.php' ) ) {
+			// 	new Eb_Settings_Dummy_Sel_Sync();
+			// }
+			// if ( ! is_plugin_active( 'edwiser-bridge-sso/sso.php' ) ) {
+			// 	new Eb_Settings_Dummy_SSO();
+			// }
+			// if ( ! is_plugin_active( 'edwiser-custom-fields/edwiser-custom-fields.php' ) ) {
+			// 	new Eb_Settings_Dummy_Custom_Fields();
+			// }
+
+			// new dummy settings pages flow for pro modules.
+			$bridge_pro_data = get_option( 'eb_pro_modules_data' );
+			if ( is_array( $bridge_pro_data ) && ! empty( $bridge_pro_data ) ) {
+
+				if ( isset( $bridge_pro_data['selective_sync'] ) && 'active' !== $bridge_pro_data['selective_sync'] ) {
+					// new Eb_Settings_Dummy_Sel_Sync();
+				}
+				if ( isset( $bridge_pro_data['woo_integration'] ) && 'active' !== $bridge_pro_data['woo_integration'] ) {
+					// new Eb_Settings_Dummy_Woo_Int();
+				}
+				if ( isset( $bridge_pro_data['sso'] ) && 'active' !== $bridge_pro_data['sso'] ) {
+					// new Eb_Settings_Dummy_SSO();
+				}
+				if ( isset( $bridge_pro_data['custom_fields'] ) && 'active' !== $bridge_pro_data['custom_fields'] ) {
+					// new Eb_Settings_Dummy_Custom_Fields();
+				}
+			} else {
+				if ( ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
+					new Eb_Settings_Dummy_Woo_Int();
+				}
+				if ( ! is_plugin_active( 'selective-synchronization/selective-synchronization.php' ) ) {
+					new Eb_Settings_Dummy_Sel_Sync();
+				}
+				if ( ! is_plugin_active( 'edwiser-bridge-sso/sso.php' ) ) {
+					new Eb_Settings_Dummy_SSO();
+				}
+				if ( ! is_plugin_active( 'edwiser-custom-fields/edwiser-custom-fields.php' ) ) {
+					new Eb_Settings_Dummy_Custom_Fields();
+				}
 			}
-			if ( ! is_plugin_active( 'selective-synchronization/selective-synchronization.php' ) ) {
-				new Eb_Settings_Dummy_Sel_Sync();
-			}
-			if ( ! is_plugin_active( 'edwiser-bridge-sso/sso.php' ) ) {
-				new Eb_Settings_Dummy_SSO();
-			}
-			if ( ! is_plugin_active( 'edwiser-custom-fields/edwiser-custom-fields.php' ) ) {
-				new Eb_Settings_Dummy_Custom_Fields();
-			}
+
 		}
 
 		/**

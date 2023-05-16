@@ -78,6 +78,12 @@ class Eb_Admin {
 			$this->version,
 			'all'
 		);
+		wp_enqueue_style(
+			'eb-setup-wizard-css',
+			$eb_plugin_url . 'admin/assets/css/eb-setup-wizard.css',
+			array( 'dashicons' ),
+			time()
+		);
 
 		wp_enqueue_style(
 			$this->plugin_name,

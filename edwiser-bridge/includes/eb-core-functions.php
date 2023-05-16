@@ -903,7 +903,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 	 * @return array array of the status and data.
 	 */
 	function wdm_request_edwiser( $api_params ) {
-		$store_url            = 'https://edwiser.org/check-update';
+		$store_url            = 'https://dev1.edwiser.org/check-update';
 		$api_params['author'] = 'WisdmLabs';
 		$resp_data            = array(
 			'status' => false,
@@ -979,12 +979,12 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id ) {
-		if ( '' !== $moodle_user_id && function_exists( 'ebsso\generateMoodleUrl' ) ) {
+		if ( '' !== $moodle_user_id && function_exists( 'app\wisdmlabs\edwiserBridgePro\includes\sso\generateMoodleUrl' ) ) {
 			$query      = array(
 				'moodle_user_id'   => $moodle_user_id, // moodle user id.
 				'moodle_course_id' => $mdl_course_id,
 			);
-			$course_url = \ebsso\generateMoodleUrl( $query );
+			$course_url = \app\wisdmlabs\edwiserBridgePro\includes\sso\generateMoodleUrl( $query );
 		} else {
 			$eb_access_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 			$course_url    = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
@@ -1221,5 +1221,47 @@ if( ! function_exists( 'wdm_log_json ') ) {
 		$log_data_old = json_encode( $log_data_old );
 		file_put_contents( $log_file, $log_data_old );
 		
+	}
+}
+
+if ( ! function_exists( 'eb_is_legacy_pro' ) ) {
+	function eb_is_legacy_pro( $check_license = false ) {
+		$pro = false;
+		if ( ! $check_license ) {
+			$extensions  = array(
+				'woocommerce-integration/bridge-woocommerce.php',
+				'selective-synchronization/selective-synchronization.php',
+				'edwiser-bridge-sso/sso.php',
+				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
+				'edwiser-custom-fields/edwiser-custom-fields.php'
+			);
+			foreach ( $extensions as $plugin_path ) {
+				if ( is_plugin_active( $plugin_path ) ) {
+					$pro = true;
+					break;
+				} else {
+					$pro = false;
+				}
+			}
+		} else {
+			$extensions = array(
+				'single_sign_on',
+				'woocommerce_integration',
+				'selective_sync',
+				'edwiser_custom_fields',
+				'bulk-purchase',
+			);
+			foreach ( $extensions as $extension ) {
+				$license = get_option( 'edd_' . $extension . '_license_status' );
+				if ( ! empty( $license ) ) {
+					$pro = true;
+					break;
+				} else {
+					$pro = false;
+				}
+			}
+		}
+
+		return $pro;
 	}
 }

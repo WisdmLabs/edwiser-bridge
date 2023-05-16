@@ -145,7 +145,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 					),
 					array(
 						'title'   => __( 'Moodle Language Code', 'edwiser-bridge' ),
-						'desc'    => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/local/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'edwiser-bridge' ) . ' </a>',
+						'desc'    => '<br>' . __( 'Enter language code which you get from moodle language settings. You can check language code in Moodle ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=summary" >' . __( ' here ', 'edwiser-bridge' ) . ' </a>',
 						'id'      => 'eb_language_code',
 						'default' => 'en',
 						'type'    => 'text',
