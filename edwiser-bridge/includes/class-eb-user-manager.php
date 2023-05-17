@@ -301,6 +301,7 @@ class EBUserManager {
 
 				if ( ! empty( $unlinked_users ) ) {
 					foreach ( $unlinked_users as $key => $value ) {
+						if($value['user_id'] == 0) continue;
 						$user_object = get_userdata( $value['user_id'] );
 						$flag        = $this->link_moodle_user( $user_object );
 						// If user not linked then add it in unlinked users array.
