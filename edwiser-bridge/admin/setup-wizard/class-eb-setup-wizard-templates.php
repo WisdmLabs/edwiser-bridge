@@ -179,6 +179,7 @@ class Eb_Setup_Wizard_Templates {
 	 */
 	public function eb_setup_initialize( $ajax = 1 ) {
 		$setup_functions  = new Eb_Setup_Wizard_Functions();
+		$eb_plugin_url    = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 		$step             = 'initialize';
 		$is_next_sub_step = 0;
 		$next_step        = $setup_functions->get_next_step( $step );
@@ -279,7 +280,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 			<?php
 			$is_pro = eb_is_legacy_pro();
-			if ( $is_pro || true ) {
+			if ( $is_pro ) {
 				?>
 				<div class="eb-admin-pro-popup eb-admin-pro-popup-setup-wizard">
 					<div class='eb-admin-pro-popup-content'>
@@ -1156,6 +1157,8 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$next_step        = $setup_functions->get_next_step( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
+		$prev_step        = $setup_functions->get_prev_step( $step );
+		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
 		$module_data = get_option( 'eb_pro_modules_data' );
 

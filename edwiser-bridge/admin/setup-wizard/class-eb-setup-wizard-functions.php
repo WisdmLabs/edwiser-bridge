@@ -10,6 +10,8 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+use app\wisdmlabs\edwiserBridgePro\includes as includes;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -207,7 +209,7 @@ class Eb_Setup_Wizard_Functions {
 			),
 			'pro_plugins'              => array(
 				'sidebar'  => 1,
-				'name'     => __( 'Enable or disable the Edwiser Bridge PRO WordPress plugins', 'edwiser-bridge' ),
+				'name'     => __( 'Enable or disable the Edwiser Bridge PRO WordPress features', 'edwiser-bridge' ),
 				'title'    => __( 'Enable/Disable the Edwiser Bridge PRO WordPress features', 'edwiser-bridge' ),
 				'function' => 'eb_setup_pro_plugins',
 				'priority' => 110,
@@ -559,7 +561,7 @@ class Eb_Setup_Wizard_Functions {
 						'bridge_woo_synchronize_product_create'     => 1,
 					);
 
-					$course_woo_plugin = new \NmBridgeWoocommerce\BridgeWoocommerceCourse( \NmBridgeWoocommerce\BridgeWoocommerce()->getPluginName(), \NmBridgeWoocommerce\BridgeWoocommerce()->getVersion() );
+					$course_woo_plugin = new includes\wooInt\BridgeWoocommerceCourse( includes\edwiser_bridge_pro()->get_plugin_name(), includes\edwiser_bridge_pro()->get_version() );
 					$response          = $course_woo_plugin->bridgeWooProductSyncHandler( $sync_options );
 
 					break;

@@ -516,7 +516,6 @@ class Eb_Admin_Notice_Handler {
 		global $eb_plugin_data;
 		$transient = get_transient( '_eb_pro_consolidated_plugin_notice' );
 		$dismissed = get_option( 'eb_pro_consolidated_plugin_notice_dismissed');
-		error_log( print_r( $transient, true ) );
 		// if transient is set then show popup.
 		if ( $transient ) {
 			delete_transient( '_eb_pro_consolidated_plugin_notice' );

@@ -80,22 +80,8 @@ function wdm_add_settings_action_link( $links ) {
 	$plugin_links = array(
 		'<a href="' . admin_url( '/admin.php?page=eb-settings' ) . '">' . esc_html__( 'Settings', 'edwiser-bridge' ) . '</a>',
 	);
-	$extensions  = array(
-		'woocommerce-integration/bridge-woocommerce.php',
-		'selective-synchronization/selective-synchronization.php',
-		'edwiser-bridge-sso/sso.php',
-		'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
-		'edwiser-custom-fields/edwiser-custom-fields.php'
-	);
-	foreach ( $extensions as $plugin_path ) {
-		if ( is_plugin_active( $plugin_path ) ) {
-			$free = false;
-		} else {
-			$free = true;
-			break;
-		}
-	}
-	if ( $free ) {
+	$license = get_option( 'edd_edwiser_bridge_pro_license_status' );
+	if ( 'valid' !== $license ) {
 		$plugin_links[] = '<a href="https://bit.ly/2NAJ7OW" target="_blank">' . esc_html__( 'Upgrade to Pro', 'edwiser-bridge' ) . '</a>';
 	}
 

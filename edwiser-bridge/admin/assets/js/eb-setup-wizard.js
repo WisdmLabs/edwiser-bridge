@@ -293,7 +293,7 @@
                         return;
                     }
 
-                    data = { 'sso': sso, 'woo_int': woo_int, 'bulk_purchase': bulk_purchase, 'selective_sync': selective_sync, 'custom_fields': custom_fields, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
+                    data = { 'sso': sso, 'woo_integration': woo_int, 'bulk_purchase': bulk_purchase, 'selective_sync': selective_sync, 'custom_fields': custom_fields, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 
                 case 'wp_plugins':
