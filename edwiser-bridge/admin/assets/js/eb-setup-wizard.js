@@ -636,22 +636,23 @@
             // MaNAGE LICENSE
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
                 var extensions = {};
-                // $("#eb-lading-parent").show();
-
 
                 $('.eb_setup_license_inp').each(function() {
-                    // var currentElement = $(this);
                     extensions[$(this).data('action')] = $(this).val().trim();
-                    // var value = currentElement.val(); // if it is an input/select/textarea field
-                    // TODO: do something with the value
                 });
+
+                // check if license is valid
+                if( $('.eb_license_error').length > 0){
+                    return;
+                }
+
 
                 installPlugin( extensions, 0 );
 
             });
 
             // license key validation
-            $(document).on('change', '.eb_setup_license_inp', function(){
+            $(document).on('keyup', '.eb_setup_license_inp', function(){
                 var key = $(this).val();
 
                 if ( '' != key ) {
@@ -745,7 +746,7 @@
 
                             if(key < Object.keys(extensions).length - 1){
                                 installPlugin(extensions, key + 1);
-                            } else {
+                            } else if($('.eb_license_error').length == 0) {
                                 $('.ebs_license_install_plugins_cont').css('display', 'initial');
                             }
                         }
