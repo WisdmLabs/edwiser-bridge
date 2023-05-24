@@ -81,14 +81,10 @@ foreach ( $extensions as $plugin_path ) {
 				?>
 			</div>
 		</div>
-		<?php
-		if ( 'licensing' !== $tabname ) {
-			?>
 		</form>
 			<hr/>
 			<?php
 			do_action( 'eb_settings_footer' );
-		}
 		?>
 </div>
 <?php
