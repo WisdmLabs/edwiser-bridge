@@ -156,8 +156,16 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 
 				$woo_path = 'woocommerce/woocommerce.php';
 
+				do_action( 'eb_check_mdl_plugin_update' );
+
+				$moodle_pro = get_option( 'moodle_edwiser_bridge_pro' );
+
 				if( 'bulk_purchase' === $action && 'active' === $status && 'active' !== $this->plugin_activation_data[ 'woo_integration' ] ){
 					$resp_data['msg'] = __( 'Bulk Purchase requires WooCommerce Integration to be active.', 'edwiser-bridge' );
+				} elseif( 'bulk_purchase' === $action && 'active' === $status && 'available' !== $moodle_pro ){
+					$resp_data['msg'] = __( 'Moodle Edwiser Pro license is not active, to use bulk purchase functionality activate moodle edwiser bridge pro license.', 'edwiser-bridge' );
+				} elseif( 'sso' === $action && 'active' === $status && 'available' !== $moodle_pro ){
+					$resp_data['msg'] = __( 'Moodle Edwiser Pro license is not active, to use Single Sign On functionality activate moodle edwiser bridge pro license.', 'edwiser-bridge' );
 				} elseif ( 'woo_integration' === $action && 'deactive' === $status ) {
 					$this->plugin_activation_data[ $action ] = $status;
 					$this->plugin_activation_data[ 'bulk_purchase' ] = 'deactive';
