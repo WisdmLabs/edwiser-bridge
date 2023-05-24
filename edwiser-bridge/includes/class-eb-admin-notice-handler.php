@@ -160,6 +160,10 @@ class Eb_Admin_Notice_Handler {
 				$plugin_info = $plugin_info->plugins;
 				foreach ( $plugin_info as $plugin ) {
 					$plugin_name = $plugin->plugin_name;
+					if ( 'moodle_edwiser_bridge_pro' === $plugin_name ) {
+						update_option( 'moodle_edwiser_bridge_pro', $plugin->version );
+						continue;
+					}
 					if ( version_compare( $plugin->version, $responce->{$plugin_name}->version, '<' ) ) {
 						$update_data[] = array(
 							'slug' => $plugin_name,
