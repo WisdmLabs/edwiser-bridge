@@ -710,6 +710,7 @@ class Eb_Setup_Wizard_Functions {
 				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'edwiser-bridge' ),
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
+				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
 			)
 		);
 
