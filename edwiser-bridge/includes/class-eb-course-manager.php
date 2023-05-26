@@ -270,9 +270,15 @@ class Eb_Course_Manager {
 		if ( 1 === $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
 
 			foreach ( $response['response_data'] as $course_data ) {
-				$wp_course_id = $this->is_course_presynced( $course_data->courseid );
-				if ( $course_data->status ) {
-					update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->status );
+				if ( isset( $course_data->message) && 'plugin_not_installed' === $course_data->message ) {
+					$response['success'] = 0;
+					$response['response_message'] = $course_data->message;
+					return $response;
+				} else {
+					$wp_course_id = $this->is_course_presynced( $course_data->courseid );
+					if ( $course_data->status ) {
+						update_post_meta( $wp_course_id, 'eb_course_manual_enrolment_enabled', $course_data->status );
+					}
 				}
 			}
 			return $response['response_data'];
@@ -881,7 +887,7 @@ class Eb_Course_Manager {
 
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => $mdl_course_ids ) );
 			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
-				if ( "Class 'enrol_manual_plugin' not found" === $course_data['response_message'] ) {
+				if ( "plugin_not_installed" === $course_data['response_message'] ) {
 					$data = esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' );
 				} else {
 					$data = esc_html( $course_data['response_message'] );
@@ -962,7 +968,7 @@ class Eb_Course_Manager {
 			// Update course enrollment method.
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => array( $course_id ) ) );
 			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
-				if ( "Class 'enrol_manual_plugin' not found" === $course_data['response_message'] ) {
+				if ( "plugin_not_installed" === $course_data['response_message'] ) {
 					wp_send_json_error( array( 'message' => esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' ) ) );
 				} else {
 					wp_send_json_error( array( 'message' => esc_html( $course_data['response_message'] ) ) );

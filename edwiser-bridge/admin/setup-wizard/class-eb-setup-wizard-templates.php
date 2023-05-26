@@ -1421,7 +1421,7 @@ class Eb_Setup_Wizard_Templates {
 		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
 		$mdl_url          = \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url();
 		$mdl_url          = ( 'MOODLE_URL' === $mdl_url ) ? '' : $mdl_url;
-		$mdl_url          = $mdl_url . '/admin/settings.php?section=authsettingwdmwpmoodle';
+		$mdl_url          = $mdl_url . '/auth/edwiserbridge/edwiserbridge.php?tab=sso';
 		$eb_sso           = get_option( 'eb_sso_settings_general' );
 		$key              = isset( $eb_sso['eb_sso_secret_key'] ) ? $eb_sso['eb_sso_secret_key'] : '';
 

@@ -209,5 +209,7 @@ class Eb_Admin {
 
 		// add helpscout beacon script
 		add_action( 'eb_settings_footer', '\app\wisdmlabs\edwiserBridge\add_beacon_helpscout_script');
+
+		add_action( 'eb_settings_header', '\app\wisdmlabs\edwiserBridge\add_edwiser_header_content' );
 	}
 }

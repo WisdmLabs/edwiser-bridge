@@ -1089,6 +1089,9 @@
             }
         });
 
+        if (!$('#eb_enable_recaptcha').is(':checked')) {
+            $('#eb_enable_recaptcha').closest('tbody').find('tr').not(':first').hide();
+        }
         $('#eb_enable_recaptcha').click(function (e) {
             if ($(this).is(':checked')) {
                 $('#eb_enable_recaptcha').closest('tbody').find('tr').show();
@@ -1096,7 +1099,7 @@
                 $('#eb_enable_recaptcha').closest('tbody').find('tr').not(':first').hide();
             }
         });
-	$('.wdm_eb_get_key_popup_btn').click(function (e) {
+	    $('.wdm_eb_get_key_popup_btn').click(function (e) {
             e.preventDefault();
 
             $('#eb_get_license_key_dialog').dialog({

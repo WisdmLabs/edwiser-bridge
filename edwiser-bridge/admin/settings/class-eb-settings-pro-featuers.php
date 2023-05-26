@@ -42,13 +42,20 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 		 */
 		public $plugin_data = array();
 
+		/**
+		 * Bridge Pro.
+		 *
+		 * @var bool
+		 */
+		public $bridge_pro = false;
+
         /**
          * Settings page constructor.
          */
         public function __construct() {
             $this->addon_licensing = array( 'pro-features' );
 			$this->_id             = 'pro_features';
-			$this->label           = __( 'Pro Features', 'edwiser-bridge-pro' );
+			$this->label           = __( 'Pro Features', 'edwiser-bridge' );
 
 			$this->plugin_licensing_data = get_option( 'edd_edwiser_bridge_pro_license_addon_data' );
 			if ( ! is_array( $this->plugin_licensing_data ) ) {
@@ -62,6 +69,13 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 
             if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				include_once WP_PLUGIN_DIR . '/edwiser-bridge/admin/licensing/class-eb-licensing-manager.php';
+			}
+
+			$license = get_option( 'edd_edwiser_bridge_pro_license_status' );
+			if ( ! is_plugin_active( 'edwiser-bridge-pro/edwiser-bridge-pro.php' ) || 'valid' !== $license ) {
+				$this->bridge_pro = false;
+			} else {
+				$this->bridge_pro = true;
 			}
 
             $this->plugin_data = self::get_plugin_data();
@@ -102,31 +116,31 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 				'sso'          => array(
 					'slug'            => 'single_sign_on',
 					'item_name'       => 'Edwiser Bridge Single Sign On',
-					'description'     => 'Single Sign On allows users to login to your WordPress and Moodle site using the same credentials.',
+					'description'     => 'Experience seamless login synchronization between Moodle and WordPress, eliminating login hassles and saving time for learners.',
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=sso_settings_general' ),
 				),
 				'woo_integration' => array(
 					'slug'            => 'woocommerce_integration',
 					'item_name'       => 'WooCommerce Integration',
-					'description'     => 'WooCommerce Integration allows you to sell Moodle courses using WooCommerce.',
+					'description'     => 'Effortlessly sell Moodle courses on WordPress with WooCommerce, optimizing pages and integrating with Moodle LMS.',
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=woo_int_settings' ),
 				),
 				'bulk_purchase'           => array(
 					'slug'            => 'bulk-purchase',
 					'item_name'       => 'Bulk Purchase',
-					'description'     => 'Bulk Purchase allows you to sell Moodle courses in bulk quantity to single user.',
+					'description'     => 'Create a loyal user base by offering course bundles, increasing earnings and user satisfaction through discounts.',
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=general' ),
 				),
 				'selective_sync'          => array(
 					'slug'            => 'selective_sync',
 					'item_name'       => 'Selective Synchronization',
-					'description'     => 'Selective Synchronization allows you to sync only the required courses and users from Moodle to WordPress.',
+					'description'     => 'Flexiblity to choose specific courses to sync. Save time by choosing to sync only updated courses, course categories and users.',
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=selective_synch_settings' ),
 				),
 				'custom_fields'   => array(
 					'slug'            => 'edwiser_custom_fields',
 					'item_name'       => 'Edwiser Bridge Custom Fields',
-					'description'     => 'Edwiser Bridge Custom Fields allows you to add custom fields to the registration form.',
+					'description'     => 'Enhance registration and checkout forms with Custom Fields in WordPress, WooCommerce, and Edwiser Bridge for personalized information collection.',
 					'setting_url'     => admin_url( 'edit.php?post_type=eb_course&page=eb-custom-fields' ),
 				),
 			);
@@ -166,7 +180,7 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 					$resp_data['msg'] = __( 'Moodle Edwiser Pro license is not active, to use bulk purchase functionality activate moodle edwiser bridge pro license.', 'edwiser-bridge' );
 				} elseif( 'sso' === $action && 'active' === $status && 'available' !== $moodle_pro ){
 					$resp_data['msg'] = __( 'Moodle Edwiser Pro license is not active, to use Single Sign On functionality activate moodle edwiser bridge pro license.', 'edwiser-bridge' );
-				} elseif ( 'woo_integration' === $action && 'deactive' === $status ) {
+				} elseif ( 'woo_integration' === $action && 'deactive' === $status && 'active' === $this->plugin_activation_data[ 'bulk_purchase' ] ) {
 					$this->plugin_activation_data[ $action ] = $status;
 					$this->plugin_activation_data[ 'bulk_purchase' ] = 'deactive';
 					update_option( 'eb_pro_modules_data', $this->plugin_activation_data );
@@ -175,11 +189,14 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 				} elseif ( 'woo_integration' === $action && 'active' === $status && ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 					$resp_data['msg'] = __( 'WooCommerce Integration requires WooCommerce to be active.', 'edwiser-bridge' );
 				} else {
+					
 					$this->plugin_activation_data[ $action ] = $status;
 					update_option( 'eb_pro_modules_data', $this->plugin_activation_data );
 					$resp_data['msg'] = '';
 				}
 				
+			} else {
+				$resp_data['msg'] = __( 'Security check failed.', 'edwiser-bridge' );
 			}
 			$plugin_error = '';
 			if ( $action && ! empty( $resp_data['msg'] ) ) {
@@ -193,6 +210,23 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 			}
 			$plugin_error = apply_filters( 'eb_license_setting_messages', $plugin_error );
 			echo wp_kses_post( $plugin_error );
+		}
+
+		/**
+		 * Check if plugin is active or not.
+		 *
+		 * @since  1.0.0
+		 * @param  string $plugin_slug plugin slug.
+		 * @param  bool true if plugin is active, false otherwise.
+		 */
+		public function is_plugin_active( $plugin_slug ) {
+			if ( isset( $this->plugin_activation_data[ $plugin_slug ] ) && 'active' === $this->plugin_activation_data[ $plugin_slug ] && in_array( $this->plugin_data[$plugin_slug]['item_name'], $this->plugin_licensing_data ) ) {
+				return true;
+			} else {
+				$this->plugin_activation_data[ $plugin_slug ] = 'deactive';
+				update_option( 'eb_pro_modules_data', $this->plugin_activation_data );
+				return false;
+			}
 		}
     }
 }

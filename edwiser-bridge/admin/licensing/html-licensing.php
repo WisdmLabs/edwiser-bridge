@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // check if user is legacy pro user if not then do not show older license keys.
 $is_legacy_pro = app\wisdmlabs\edwiserBridge\eb_is_legacy_pro( true );
-if ( $is_legacy_pro ) {
+if ( $is_legacy_pro && ! $bridge_pro ) {
 
 	?>
-	<div class="eb_table" <?php echo $bridge_pro ? 'style="opacity: 0.5;cursor: not-allowed;"' : ''; ?>>
+	<div class="eb_table" style="opacity: 0.5;cursor: not-allowed;" >
 		<div class="eb_table_body">
 			<?php
 			foreach ( $this->products_data as $single ) {
@@ -30,7 +30,7 @@ if ( $is_legacy_pro ) {
 						</div>
 
 						<div class="eb_table_cell_2">
-							<input class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value="<?php echo esc_attr( $this->get_licence_key( $single['key'] ) ); ?>" <?php echo $bridge_pro ? esc_attr( $this->is_readonly_key( $single['slug'] ) ) : 'readonly'; ?> />
+							<input style="opacity: 0.5;cursor: not-allowed;" class="wdm_key_in" type="text" name="<?php echo esc_attr( $single['key'] ); ?>" value="<?php echo esc_attr( $this->get_licence_key( $single['key'] ) ); ?>" <?php echo $bridge_pro ? esc_attr( $this->is_readonly_key( $single['slug'] ) ) : 'readonly'; ?> />
 						</div>
 
 						<div class="eb_table_cell_3">
@@ -48,7 +48,7 @@ if ( $is_legacy_pro ) {
 						if( ! $bridge_pro ) {
 							?>
 							<div class="eb_table_cell_4">
-							<?php $this->get_license_buttons( $single['slug'] ); ?>
+							<?php // $this->get_license_buttons( $single['slug'] ); ?>
 							</div>
 							<input type="hidden" name="action" value="<?php echo esc_attr( $single['slug'] ); ?>"/>
 							<?php wp_nonce_field( 'eb-licence-nonce', $single['slug'] ); ?>
@@ -63,7 +63,7 @@ if ( $is_legacy_pro ) {
 		</div>
 	</div>
 	<?php
-	if( $bridge_pro ) {
+	if( $bridge_pro ) { // if user have pro license active then show this notice.
 		?>
 		<div class="eb-admin-license-page-notice">
 			<p><?php _e( '<strong>Note: </strong>Starting from Edwiser Bridge version 3.0.0, you no longer need to activate or deactivate licenses for each add-on separately. All the Edwiser Bridge Pro Add-ons have been combined into a single plugin, and you just need to activate one license key to receive all the updates.', 'edwiser-bridge' ); ?></p>
@@ -79,14 +79,14 @@ if ( $is_legacy_pro ) {
 		</div>
 		<?php
 	}
-} else {
+} elseif ( ! get_option( 'edd_edwiser_bridge_pro_license_status' ) ) { // if user does not have pro license.
 	?>
 	<div class="eb-pro-upgrade-plugin-notice">
 		<img class="eb-pro-upgrade-plugin-notice-img eb-pro-p-b-0" src="<?php echo \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url(); ?>/admin/assets/images/eb-pro-banner.svg" alt="">
 		<div class="eb-pro-upgrade-plugin-notice-content">
-			<h1><?php _e( 'It seems that you have not purchased Edwiser Bridge Add-on plugin(s).', 'edwiser-bridge-pro' ); ?></h1>
-			<p><?php echo sprintf ( __( 'To get access to all the Edwiser Bridge Pro features consider %s', 'edwiser-bridge-pro' ), '<a href="#">' . __( 'Upgrading to Pro', 'edwiser-bridge-pro' ) . '</a>' ); ?></p>
-			<p><a href="#"><?php _e( 'Refer here', 'edwiser-bridge-pro' ); ?></a><?php _e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge-pro' ) ?></p>
+			<h1><?php _e( 'It seems that you have not purchased Edwiser Bridge Pro plugin.', 'edwiser-bridge' ); ?></h1>
+			<p><?php echo sprintf ( __( 'To get access to all the Edwiser Bridge Pro features consider %s', 'edwiser-bridge' ), '<a href="#">' . __( 'Upgrading to Pro', 'edwiser-bridge' ) . '</a>' ); ?></p>
+			<p><a href="#"><?php _e( 'Refer here', 'edwiser-bridge' ); ?></a><?php _e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge' ) ?></p>
 		</div>
 	</div>
 	<?php
@@ -129,7 +129,7 @@ if ( $is_legacy_pro ) {
 						?>
 						<tr>
 							<td colspan="3" class="eb_pro_license_info_wrap">
-								<span class="eb_pro_license_info"><?php _e( 'Licence Expires on: ') ?> <?php echo $license_expiry; ?></span>
+								<span class="eb_pro_license_info"><?php _e( 'License Expires on: ') ?> <?php echo $license_expiry; ?></span>
 								<span class="eb_pro_license_info"><?php _e( 'Active licenses: ') ?> <?php echo $license_active; ?> of <?php echo $license_left; ?></span>
 							</td>
 						</tr>
@@ -138,6 +138,23 @@ if ( $is_legacy_pro ) {
 					?>
 			</table>
 		</form>
+		<div class="eb-pro-feature-link">
+			<?php _e( 'Enable / Disable Edwiser Bridge Pro features Individually from here', 'edwiser-bridge' ) ?> <a href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=pro_features' ); ?>"> <?php _e( 'here', 'edwiser-bridge' ) ?></a>
+		</div>
+	</div>
+	<div class="eb-license-help">
+		<div class="eb-help-tootip">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="12" cy="12" r="11.5" fill="white" stroke="#C4C4C4"/>
+				<path d="M10.5332 14.1085V13.5708C10.5332 13.1058 10.6325 12.7013 10.8311 12.3574C11.0297 12.0135 11.393 11.6478 11.921 11.2603C12.4296 10.897 12.7638 10.6015 12.9237 10.3738C13.0884 10.1462 13.1707 9.89188 13.1707 9.61093C13.1707 9.29608 13.0545 9.05631 12.8219 8.89162C12.5894 8.72692 12.2649 8.64458 11.8483 8.64458C11.1217 8.64458 10.2934 8.88193 9.36341 9.35663L8.57143 7.76541C9.65162 7.15992 10.7972 6.85718 12.0082 6.85718C13.006 6.85718 13.798 7.09695 14.3841 7.5765C14.9751 8.05604 15.2705 8.69544 15.2705 9.49468C15.2705 10.0275 15.1494 10.4877 14.9072 10.8752C14.6651 11.2627 14.2049 11.6987 13.5267 12.183C13.0617 12.527 12.7662 12.7885 12.6403 12.9678C12.5192 13.147 12.4587 13.3819 12.4587 13.6725V14.1085H10.5332ZM10.3007 16.5934C10.3007 16.1865 10.4097 15.8789 10.6277 15.6707C10.8456 15.4624 11.1629 15.3582 11.5795 15.3582C11.9815 15.3582 12.2915 15.4648 12.5095 15.6779C12.7323 15.891 12.8437 16.1962 12.8437 16.5934C12.8437 16.9761 12.7323 17.2788 12.5095 17.5016C12.2867 17.7196 11.9767 17.8286 11.5795 17.8286C11.1726 17.8286 10.8577 17.722 10.6349 17.5089C10.4121 17.2909 10.3007 16.9858 10.3007 16.5934Z" fill="#F98012"/>
+			</svg>
+			<span class="eb-help-tootip-content"><?php _e( 'Looking for help?', 'edwiser-bridge' ) ?></span>
+		</div>
+		<ul>
+			<li><a href="#"><?php _e( 'Where to find my license key?', 'edwiser-bridge' ); ?></a></li>
+			<li><a href="#"><?php _e( 'Installation and User Guide', 'edwiser-bridge' ); ?></a></li>
+			<li><?php _e( 'Talk to us:', 'edwiser-bridge' ); ?> <a href="mailto:support@edwiser.org">support@edwiser.org</a></li>
+		</ul>
 	</div>
 </div>
 <?php
