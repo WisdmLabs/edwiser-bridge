@@ -1524,7 +1524,8 @@ class EBUserManager {
 				)
 			);
 			$resend_link = '<a href="' . $resend_link . '">' . __( 'Resend Verification Email', 'edwiser-bridge' ) . '</a>';
-			if ( 0 === $eb_user_email_verified ) {
+
+			if ( '' !== $eb_user_email_verified && 1 !== $eb_user_email_verified ) {
 				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) . ' ' . $resend_link );
 			}
 		}
@@ -1587,7 +1588,7 @@ class EBUserManager {
 		} elseif ( 'eb_user_verification_resend' === $action ) {
 
 			$eb_user_email_verified = get_user_meta( $verification_id, 'eb_user_email_verified', true );
-			if ( 0 === $eb_user_email_verified ) {
+			if ( '' !== $eb_user_email_verified && 1 !== $eb_user_email_verified ) {
 				$this->eb_send_email_verification_link( $verification_id );
 				$message = __( 'Verification email has been sent to your email address.', 'edwiser-bridge' );
 				// register and localize script.

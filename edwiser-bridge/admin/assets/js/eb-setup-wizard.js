@@ -641,6 +641,12 @@
                     extensions[$(this).data('action')] = $(this).val().trim();
                 });
 
+                var license_key = $('.eb_setup_edwiser_bridge_pro_license').val().trim();
+                if ( '' == license_key ) {
+                    // add error message
+                    $('.eb_setup_edwiser_bridge_pro_license_msg').html('<span class="eb_license_error">' + eb_setup_wizard.msg_empty_license_key + '</span>');
+                }
+
                 // check if license is valid
                 if( $('.eb_license_error').length > 0){
                     return;
@@ -675,9 +681,11 @@
                             //prepare response for user
                             if (response.status == 'success') {
                                 $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_success">' + response.message + '</span>');
+                                $('.eb_setup_license_install_plugins').removeClass('disabled');
                             } else {
                                 $('.text_install').show();
                                 $(".eb_setup_" + action + "_license_msg").html('<span class="eb_license_error">' + response.message + '</span>');
+                                $('.eb_setup_license_install_plugins').addClass('disabled');
                             }
 
                             $("#eb-lading-parent").hide();
