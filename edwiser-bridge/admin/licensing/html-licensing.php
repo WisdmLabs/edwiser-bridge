@@ -139,7 +139,7 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 			</table>
 		</form>
 		<div class="eb-pro-feature-link">
-			<?php _e( 'Enable / Disable Edwiser Bridge Pro features Individually from here', 'edwiser-bridge' ) ?> <a href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=pro_features' ); ?>"> <?php _e( 'here', 'edwiser-bridge' ) ?></a>
+			<?php _e( 'Enable / Disable Edwiser Bridge Pro features Individually from', 'edwiser-bridge' ) ?> <a href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=pro_features' ); ?>"> <?php _e( 'here', 'edwiser-bridge' ) ?></a>
 		</div>
 	</div>
 	<div class="eb-license-help">

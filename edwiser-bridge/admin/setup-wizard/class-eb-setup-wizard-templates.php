@@ -1264,6 +1264,10 @@ class Eb_Setup_Wizard_Templates {
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
+		$mdl_url        = \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url();
+		$mdl_url        = ( 'MOODLE_URL' === $mdl_url ) ? '' : $mdl_url;
+		$mdl_url        = $mdl_url . '/auth/edwiserbridge/edwiserbridge.php?tab=summary';
+
 		$sso_download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/03/wdmwpmoodle.zip';
 		$sso_download_url = apply_filters( 'eb_setup_sso_plugin_download_link', $sso_download_url );
 
@@ -1279,11 +1283,11 @@ class Eb_Setup_Wizard_Templates {
 				<?php esc_html_e( 'You will have to enter the license key on your Moodle site to active the Edwiser Bridge Pro Feature on the Moodle end', 'edwiser-bridge' ); ?>	
 
 				<div>
-					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'To get the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="#"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
+					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'To get the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/my-account"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
 				</div>
 
 				<div>
-					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Insert the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="#"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
+					<p class='eb_setup_h2'> <span class="dashicons dashicons-arrow-right-alt2"></span> <?php esc_html_e( 'Insert the new Moodle version license key', 'edwiser-bridge' ); ?> <a class="es-primary-color es_text_links" target="_blank" href="<?php echo $mdl_url; ?>"><?php esc_html_e( 'Click here', 'edwiser-bridge' ); ?></a><p>
 				</div>
 			</div>
 			<div class="eb_setup_user_sync_btn_wrap">

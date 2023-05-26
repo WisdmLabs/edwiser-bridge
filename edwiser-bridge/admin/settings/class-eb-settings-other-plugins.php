@@ -63,7 +63,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 								<h2><?php echo esc_attr( $plugin['name'] ); ?></h2>
 							</div>
 							<div class="eb-pro-plugin-card-body">
-								<p><?php echo esc_attr( $plugin['desc'] ); ?></p>
+								<?php echo esc_attr( $plugin['desc'] ); ?>
 							</div>
 							<div class="eb-pro-plugin-card-footer">
 								<a class="eb-pro-other-plugin-btn" href="<?php echo esc_attr( $plugin['link'] ); ?>"><?php esc_attr_e( 'Explore now', 'edwiser-bridge' ); ?></a>

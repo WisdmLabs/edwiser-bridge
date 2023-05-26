@@ -141,7 +141,7 @@ if ( count( $this->plugin_licensing_data ) < 5 ) {
                         <h2><?php echo esc_attr( $plugin['item_name'] ); ?></h2>
                     </div>
                     <div class="eb-pro-plugin-card-body">
-                        <p><?php echo esc_attr( $plugin['description'] ); ?></p>
+                        <?php echo esc_attr( $plugin['description'] ); ?>
                     </div>
                     <div class="eb-pro-plugin-card-footer">
                         <a class="eb-pro-upgrade-to-pro-btn" href="#"><?php esc_attr_e( 'Upgrade to PRO', 'edwiser-bridge' ); ?></a>
