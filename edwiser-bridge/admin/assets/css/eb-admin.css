@@ -350,6 +350,8 @@
   border-bottom: 1px solid #133F3F;
   border-top: 1px solid #133F3F;
   border-right: 1px solid #133F3F;
+  font-family: 'Open Sans';
+  font-style: normal;
 }
 .eb_admin_update_notice_message_logo {
   width: 150px;
@@ -1831,9 +1833,13 @@ abbr.help:hover::after {
   /* background-color: rgb(82 82 82); */
   background-color: rgb(0 0 0 / 64%);
   border-radius: 4px;
+  font-family: 'Open Sans';
+  font-style: normal;
 }
 .eb-admin-pro-popup-setup-wizard{
   display: none;
+  font-family: 'Open Sans';
+  font-style: normal;
 }
 .eb-admin-pro-popup-content{
   position: relative;
@@ -1958,7 +1964,9 @@ abbr.help:hover::after {
   background: linear-gradient(180deg, #C5F3F5 0%, #FFFFFF 53.66%), #FFFFFF;
   border: 1px solid #E5E5E5;
   border-radius: 4px;
-  max-width: 25%;
+  max-width: 260px;
+  font-family: 'Open Sans';
+  font-style: normal;
 }
 .eb-pro-upgrade-plugin-card:hover{
   box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.15);
@@ -2137,6 +2145,8 @@ input:checked + .eb-pro-checkbox-slider:before {
   margin-bottom: 0;
 }
 .eb-admin-license-page-notice{
+  font-family: 'Open Sans';
+  font-style: normal;
   background: #FEF8EE;
   border: 1px solid #FFAD1D;
   border-left-width: 4px;
@@ -2146,6 +2156,8 @@ input:checked + .eb-pro-checkbox-slider:before {
   border-left-color: #dba617;
 }
 .edwiser-settings-header{
+  font-family: 'Open Sans';
+  font-style: normal;
   display: inline-block
 }
 .edwiser-settings-header-logo{
@@ -2214,16 +2226,22 @@ input:checked + .eb-pro-checkbox-slider:before {
   cursor: pointer;
 }
 .eb-active{
+  font-family: 'Open Sans';
+  font-style: normal;
   background: #F98012;
   border: 1px solid #F98012;
   color: #FFFFFF;
 }
 .eb-deactive{
+  font-family: 'Open Sans';
+  font-style: normal;
   background: #FEE6D0;
   border: 1px solid #F98012;
   color: #111111;
 }
 .eb-license-help{
+  font-family: 'Open Sans';
+  font-style: normal;
   display: flex;
   flex-direction: column;
   padding: 20px;
