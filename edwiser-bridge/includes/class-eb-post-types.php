@@ -353,7 +353,7 @@ class Eb_Post_Types {
 						'suspend'    => __( 'Suspend', 'edwiser-bridge' ),
 						'do-nothing' => __( 'Do nothing', 'edwiser-bridge' ),
 					),
-					'default'     => array( 'unenroll' ),
+					'default'     => array( 'do-nothing' ),
 				),
 				'num_days_course_access'   => array(
 					'label'       => __( 'Expire Access After (days)', 'edwiser-bridge' ),

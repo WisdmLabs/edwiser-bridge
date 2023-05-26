@@ -191,25 +191,25 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			if ( false !== $status && 'valid' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>"/>
+					<input type="submit" class="eb-license-button eb-deactive" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate', 'edwiser-bridge' ); ?>"/>
 					<?php
 			} elseif ( 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) {
 				$action = 'activate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="eb-license-button eb-deactive" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate', 'edwiser-bridge' ); ?>" />
+					<input type="button" class="eb-license-button eb-deactive" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} elseif ( 'expired' === $status ) {
 				$action = 'deactivate_license';
 				?>
-					<input type="submit" class="button-primary" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate License', 'edwiser-bridge' ); ?>" />
-					<input type="button" class="button-primary" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
+					<input type="submit" class="eb-license-button eb-deactive" name="deactivate_license" value="<?php esc_attr_e( 'Deactivate', 'edwiser-bridge' ); ?>" />
+					<input type="button" class="eb-license-button eb-deactive" name="renew_license" value="<?php esc_attr_e( 'Renew License', 'edwiser-bridge' ); ?>" onclick="window.open( \'' . $renew_link . '\' )"/>
 					<?php
 			} else {
 				$action = 'activate_license';
 				?>
-					<a href="https://edwiser.org/my-account/" class="button-primary get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'edwiser-bridge' ); ?></a>
-					<input type="submit" class="button-primary activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate License', 'edwiser-bridge' ); ?>"/>
+					<a href="https://edwiser.org/my-account/" class="eb-license-button eb-active get_license_key" target="_blank"><?php esc_attr_e( 'Get License Key', 'edwiser-bridge' ); ?></a>
+					<input type="submit" class="eb-license-button eb-active activate_license" name="activate_license" value="<?php esc_attr_e( 'Activate', 'edwiser-bridge' ); ?>"/>
 					<?php
 			}
 

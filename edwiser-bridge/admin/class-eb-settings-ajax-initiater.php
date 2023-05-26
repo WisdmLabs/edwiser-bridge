@@ -364,17 +364,27 @@ class Eb_Settings_Ajax_Initiater {
 				$mdl_settings_link        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array[ 'html' ] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
-			if( "Class 'enrol_manual_plugin' not found" === $response['response_message'] ) {
+			if( "plugin_not_installed" === $response['response_message'] ) {
 				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/settings.php?section=manageenrols';
 				$response_array['message'] .= '<div class="alert alert-error">' . __('Please enable manual enrolment plugin on Moodle Site', 'edwiser-bridge') . ' </div>';
 				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __('Enable Manual Enrollment plugin', 'edwiser-bridge') . '</a>';
 			}
 		} else {
-			update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 1 );
-			$response_array = array(
-				'status' => 'success',
-				'message' => '<div class="alert alert-success">' . __('Manual Enrollment method enabled', 'edwiser-bridge') . '</div>',
-			);
+			$course_data = $response[0];
+			if ( isset( $course_data->message) && 'plugin_not_installed' === $course_data->message ) {
+				$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/settings.php?section=manageenrols';
+				$response_array = array(
+					'status' => 'error',
+					'message' => '<div class="alert alert-error">' . __('Please enable manual enrolment plugin on Moodle Site', 'edwiser-bridge') . ' </div>',
+					'html' => '<a target="_blank" href="' . $mdl_settings_link . '">' . __('Enable Manual Enrollment plugin', 'edwiser-bridge') . '</a>',
+				);
+			} else {
+				update_post_meta( $course_id, 'eb_course_manual_enrolment_enabled', 1 );
+				$response_array = array(
+					'status' => 'success',
+					'message' => '<div class="alert alert-success">' . __('Manual Enrollment method enabled', 'edwiser-bridge') . '</div>',
+				);
+			}
 		}
 
 		echo wp_json_encode( $response_array );

@@ -114,58 +114,6 @@ function wdm_plugin_row_meta( $links, $file ) {
 	return (array) $links;
 }
 
-
-
-/*
- * Always show warning if legacy extensions are active
- *
- * @since 1.1
- */
-add_action( 'admin_init', '\app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions' );
-
-/**
- * Legacy.
- */
-function wdm_show_legacy_extensions() {
-	// prepare extensions array.
-	$extensions = array(
-		'selective_sync'          => array( 'selective-synchronization/selective-synchronization.php', '1.0.0' ),
-		'woocommerce_integration' => array( 'woocommerce-integration/bridge-woocommerce.php', '1.0.4' ),
-		'single_signon'           => array( 'edwiser-bridge-sso/sso.php', '1.0.0' ),
-	);
-
-	// legacy extensions.
-	foreach ( $extensions as $extension ) {
-		if ( is_plugin_active( $extension[0] ) ) {
-			if ( file_exists( WP_PLUGIN_DIR . '/' . $extension[0] ) ) {
-				$plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $extension[0] );
-			}
-			if ( $plugin_data['Version'] && version_compare( $plugin_data['Version'], $extension[1] ) <= 0 ) {
-					add_action( 'admin_notices', '\app\wisdmlabs\edwiserBridge\wdm_show_legacy_extensions_notices' );
-			}
-		}
-	}
-}
-
-/**
- * Notices.
- */
-function wdm_show_legacy_extensions_notices() {
-	ob_start(); ?>
-	<div class="error">
-		<p>
-			<?php
-			printf(
-				esc_html__( 'Please update all ', 'edwiser-bridge' ) . '%s' . esc_html__( ' extensions to latest version.', 'edwiser-bridge' ),
-				'<strong>' . esc_html__( 'Edwiser Bridge', 'edwiser-bridge' ) . '</strong>'
-			);
-			?>
-		</p>
-	</div>
-	<?php
-	echo esc_html( ob_get_clean() );
-}
-
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

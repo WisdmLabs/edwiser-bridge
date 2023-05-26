@@ -49,7 +49,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 			
 			?>
 			<div class="eb_table" >
-				<h1><?php esc_attr_e( 'Edwiser Bridge Plugins', 'edwiser-bridge-pro' ); ?></h1>
+				<h1><?php esc_attr_e( 'Edwiser Bridge Plugins', 'edwiser-bridge' ); ?></h1>
 				<div class="eb-pro-plugins">  
 					<?php
 					// non licensed plugins
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 								<p><?php echo esc_attr( $plugin['desc'] ); ?></p>
 							</div>
 							<div class="eb-pro-plugin-card-footer">
-								<a class="eb-pro-other-plugin-btn" href="<?php echo esc_attr( $plugin['link'] ); ?>"><?php esc_attr_e( 'Explore now', 'edwiser-bridge-pro' ); ?></a>
+								<a class="eb-pro-other-plugin-btn" href="<?php echo esc_attr( $plugin['link'] ); ?>"><?php esc_attr_e( 'Explore now', 'edwiser-bridge' ); ?></a>
 							</div>
 						</div>
 						<?php  
@@ -108,13 +108,6 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 					'free' => false,
 				),
 				array(
-					'name' => 'Edwiser Reports',
-					'desc' => __( 'Easily monitor learning trends and student engagement with this visual reporting plugin for Moodle™ software using Edwiser Reports', 'edwiser-bridge' ),
-					'link' => 'https://bit.ly/2NAJ7OW',
-					'img'  => plugins_url( 'edwiser-bridge/admin/assets/images/ed-reports.svg' ),
-					'free' => true,
-				),
-				array(
 					'name' => 'Edwiser Forms',
 					'desc' => __( 'Create versatile forms in Moodle™ using Edwiser Forms, featuring Conditional Logic and a user-friendly Drag & Drop Builder.', 'edwiser-bridge' ),
 					'link' => 'https://bit.ly/2NAJ7OW',
@@ -127,6 +120,13 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 					'link' => 'https://bit.ly/2NAJ7OW',
 					'img'  => plugins_url( 'edwiser-bridge/admin/assets/images/ed-rapid-grader.svg' ),
 					'free' => false,
+				),
+				array(
+					'name' => 'Edwiser Reports',
+					'desc' => __( 'Easily monitor learning trends and student engagement with this visual reporting plugin for Moodle™ software using Edwiser Reports', 'edwiser-bridge' ),
+					'link' => 'https://bit.ly/2NAJ7OW',
+					'img'  => plugins_url( 'edwiser-bridge/admin/assets/images/ed-reports.svg' ),
+					'free' => true,
 				),
 				array(
 					'name' => 'Edwiser Site Monitor',
