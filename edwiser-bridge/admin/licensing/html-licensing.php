@@ -39,7 +39,7 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 								$this->get_license_status( $single['slug'] );
 							} else{
 								?>
-								<span class="eb_lic_status">Not active</span>
+								<span class="eb_lic_status"><?php _e( 'Not active',  'edwiser-bridge' ); ?></span>
 								<?php
 							}
 							?>
@@ -129,8 +129,8 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 						?>
 						<tr>
 							<td colspan="3" class="eb_pro_license_info_wrap">
-								<span class="eb_pro_license_info"><?php _e( 'License Expires on: ') ?> <?php echo $license_expiry; ?></span>
-								<span class="eb_pro_license_info"><?php _e( 'Active licenses: ') ?> <?php echo $license_active; ?> of <?php echo $license_left; ?></span>
+								<span class="eb_pro_license_info"><?php _e( 'License Expires on: ', 'edwiser-bridge' ) ?> <?php echo $license_expiry; ?></span>
+								<span class="eb_pro_license_info"><?php _e( 'Active licenses: ',  'edwiser-bridge' ) ?> <?php echo $license_active; ?> of <?php echo $license_left; ?></span>
 							</td>
 						</tr>
 						<?php

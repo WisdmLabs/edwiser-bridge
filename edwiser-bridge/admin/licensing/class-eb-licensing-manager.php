@@ -154,7 +154,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					update_option( 'edd_' . $this->plugin_slug . '_license_status', 'deactivated' );
 
 					// remove addon data.
-					delete_option( 'edd_' . $this->plugin_slug . '_license_addon_data' );
+					// delete_option( 'edd_' . $this->plugin_slug . '_license_addon_data' );
 				}
 				delete_transient( 'wdm_' . $this->plugin_slug . '_license_trans' );
 

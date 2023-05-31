@@ -116,31 +116,31 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 				'sso'          => array(
 					'slug'            => 'single_sign_on',
 					'item_name'       => 'Edwiser Bridge Single Sign On',
-					'description'     => 'Experience seamless login synchronization between Moodle and WordPress, eliminating login hassles and saving time for learners.',
+					'description'     => __( 'Experience seamless login synchronization between Moodle and WordPress, eliminating login hassles and saving time for learners.', 'edwiser-bridge' ),
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=sso_settings_general' ),
 				),
 				'woo_integration' => array(
 					'slug'            => 'woocommerce_integration',
 					'item_name'       => 'WooCommerce Integration',
-					'description'     => 'Effortlessly sell Moodle courses on WordPress with WooCommerce, optimizing pages and integrating with Moodle LMS.',
+					'description'     => __( 'Effortlessly sell Moodle courses on WordPress with WooCommerce, optimizing pages and integrating with Moodle LMS.', 'edwiser-bridge' ),
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=woo_int_settings' ),
 				),
 				'bulk_purchase'           => array(
 					'slug'            => 'bulk-purchase',
 					'item_name'       => 'Bulk Purchase',
-					'description'     => 'Create a loyal user base by offering course bundles, increasing earnings and user satisfaction through discounts.',
+					'description'     => __( 'Create a loyal user base by offering course bundles, increasing earnings and user satisfaction through discounts.', 'edwiser-bridge' ),
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=general' ),
 				),
 				'selective_sync'          => array(
 					'slug'            => 'selective_sync',
 					'item_name'       => 'Selective Synchronization',
-					'description'     => 'Flexiblity to choose specific courses to sync. Save time by choosing to sync only updated courses, course categories and users.',
+					'description'     => __( 'Flexiblity to choose specific courses to sync. Save time by choosing to sync only updated courses, course categories and users.', 'edwiser-bridge' ),
 					'setting_url'     => admin_url( 'admin.php?page=eb-settings&tab=selective_synch_settings' ),
 				),
 				'custom_fields'   => array(
 					'slug'            => 'edwiser_custom_fields',
 					'item_name'       => 'Edwiser Bridge Custom Fields',
-					'description'     => 'Enhance registration and checkout forms with Custom Fields in WordPress, WooCommerce, and Edwiser Bridge for personalized information collection.',
+					'description'     => __( 'Enhance registration and checkout forms with Custom Fields in WordPress, WooCommerce, and Edwiser Bridge for personalized information collection.', 'edwiser-bridge' ),
 					'setting_url'     => admin_url( 'edit.php?post_type=eb_course&page=eb-custom-fields' ),
 				),
 			);
@@ -220,6 +220,10 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 		 * @param  bool true if plugin is active, false otherwise.
 		 */
 		public function is_plugin_active( $plugin_slug ) {
+			// if pro license is activated.
+			if( ! $this->bridge_pro ) {
+				return false;
+			}
 			if ( isset( $this->plugin_activation_data[ $plugin_slug ] ) && 'active' === $this->plugin_activation_data[ $plugin_slug ] && in_array( $this->plugin_data[$plugin_slug]['item_name'], $this->plugin_licensing_data ) ) {
 				return true;
 			} else {
