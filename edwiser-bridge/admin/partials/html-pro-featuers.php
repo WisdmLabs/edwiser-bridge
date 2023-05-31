@@ -54,7 +54,7 @@ if ( count( $this->plugin_licensing_data ) > 0 ) {
                                     <input class="eb-pro-activate-plugin" name="activate_plugin" value="1" type="checkbox" <?php echo $this->is_plugin_active($key) ? 'checked' : '' ?>>
                                     <span class="eb-pro-checkbox-slider round"></span>
                                 </label>
-                                <span class="eb-pro-license-status <?php echo $this->is_plugin_active($key) ? 'eb-pro-license-active' : 'eb-pro-license-not-active' ?>"><?php echo $this->is_plugin_active($key) ? 'Active' : 'Not active' ?></span>
+                                <span class="eb-pro-license-status <?php echo $this->is_plugin_active($key) ? 'eb-pro-license-active' : 'eb-pro-license-not-active' ?>"><?php echo $this->is_plugin_active($key) ? __( 'Active', 'edwiser-bridge' ) : __( 'Not active', 'edwiser-bridge' ) ?></span>
                             </form>
                             <?php
                             if ( $this->is_plugin_active($key) ) {
