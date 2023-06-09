@@ -190,3 +190,12 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 	}
 
 endif;
+
+/**
+ * Deprecated Class.
+ *
+ * @deprecated 3.0.0
+ */
+class ESettingsPage extends EB_Settings_Page { // @codingStandardsIgnoreLine.
+
+}
