@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 	/**
 	 * Eb_Settings_PayPal.
 	 */
-	class Eb_Settings_PayPal extends EBSettingsPage {
+	class Eb_Settings_PayPal extends EB_Settings_Page {
 
 		/**
 		 * Constructor.
@@ -44,7 +44,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Eb_Settings_PayPal' ) ) :
 			global $current_section;
 
 			$settings = $this->get_settings( $current_section );
-			EbAdminSettings::save_fields( $settings );
+			Eb_Admin_Settings::save_fields( $settings );
 		}
 
 		/**

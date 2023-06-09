@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
+if ( ! class_exists( 'Eb_Email_Template_Parser' ) ) {
 	/**
 	 * Parser.
 	 */
-	class Eb_Email_Tmpl_Parser {
+	class Eb_Email_Template_Parser {
 		/**
 		 * Plugin name.
 		 *
@@ -130,7 +130,6 @@ if ( ! class_exists( 'Eb_Email_Tmpl_Parser' ) ) {
 			$constant['{ORDER_ID}']                    = $this->get_order_id( $args );
 			$constant['{WP_COURSE_PAGE_LINK}']         = $this->get_course_page_link( $args );
 			$constant['{USER_EMAIL_VERIFY_PAGE_LINK}'] = isset( $args['verify_url'] ) ? $args['verify_url'] : '';
-
 
 			/**
 			 * Refund Template parser.

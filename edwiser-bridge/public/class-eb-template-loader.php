@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class EbTemplateLoader.
+ * Class Eb_Template_Loader.
  */
-class EbTemplateLoader {
+class Eb_Template_Loader {
 
 
 	/**

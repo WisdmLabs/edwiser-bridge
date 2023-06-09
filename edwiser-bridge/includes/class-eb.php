@@ -402,10 +402,10 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 * @deprecated since 2.0.1 use user_manager() insted.
-	 * @return EBUserManager
+	 * @return Eb_User_Manager
 	 */
 	public function userManager() {
-		return EBUserManager::instance( $this->get_plugin_name(), $this->get_version() );
+		return $this->user_manager();
 	}
 
 
@@ -414,10 +414,10 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return EBUserManager
+	 * @return Eb_User_Manager
 	 */
 	public function user_manager() {
-		return EBUserManager::instance( $this->get_plugin_name(), $this->get_version() );
+		return Eb_User_Manager::instance( $this->get_plugin_name(), $this->get_version() );
 	}
 
 	/**
@@ -458,7 +458,7 @@ class EdwiserBridge {
 	 * @return Eb_Enrollment_Manager
 	 */
 	public function enrollmentManager() {
-		return Eb_Enrollment_Manager::instance( $this->get_plugin_name(), $this->get_version() );
+		return $this->enrollment_manager();
 	}
 
 
@@ -486,7 +486,7 @@ class EdwiserBridge {
 	 * @return Eb_Order_Manager
 	 */
 	public function orderManager() {
-		return Eb_Order_Manager::instance( $this->get_plugin_name(), $this->get_version() );
+		return $this->order_manager();
 	}
 
 
@@ -509,10 +509,10 @@ class EdwiserBridge {
 	 * @since    1.0.0
 	 *
 	 * @deprecated since 2.0.1 use connection_helper() insted.
-	 * @return EBConnectionHelper
+	 * @return Eb_Connection_Helper
 	 */
 	public function connectionHelper() {
-		return EBConnectionHelper::instance( $this->get_plugin_name(), $this->get_version() );
+		return $this->connection_helper();
 	}
 
 
@@ -522,10 +522,10 @@ class EdwiserBridge {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return EBConnectionHelper
+	 * @return Eb_Connection_Helper
 	 */
 	public function connection_helper() {
-		return EBConnectionHelper::instance( $this->get_plugin_name(), $this->get_version() );
+		return Eb_Connection_Helper::instance( $this->get_plugin_name(), $this->get_version() );
 	}
 
 
@@ -575,7 +575,7 @@ class EdwiserBridge {
 		 */
 		$order_meta            = new Eb_Order_Meta( $this->plugin_name, $this->version );
 		$save_order_meta       = new Eb_Order_Status( $this->plugin_name, $this->version );
-		$paypal_refund_manager = new Eb_Paypal_Refund_Manager( $this->plugin_name, $this->version );
+		$paypal_refund_manager = new Eb_Refund_Manager( $this->plugin_name, $this->version );
 
 		$this->loader->eb_add_action(
 			'eb_order_refund_init',
@@ -658,13 +658,12 @@ class EdwiserBridge {
 			$admin_notice_handler,
 			'eb_admin_pro_notice_dismiss_handler'
 		);
-		
+
 		$this->loader->eb_add_action(
 			'admin_notices',
 			$admin_notice_handler,
 			'eb_admin_pro_notice'
 		);
-		
 
 		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
@@ -695,8 +694,8 @@ class EdwiserBridge {
 		/**
 		 * Email template editor ajax start
 		 */
-		$email_tmpl_editor = new EBAdminEmailTemplate();
-		$manage_enrollment = new Eb_Manage_User_Enrollment( $this->plugin_name, $this->version );
+		$email_tmpl_editor = new EB_Email_Template();
+		$manage_enrollment = new Eb_Manage_Enrollment( $this->plugin_name, $this->version );
 
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_get_email_template',
@@ -749,8 +748,8 @@ class EdwiserBridge {
 			$admin_settings_init,
 			'connection_test_initiater'
 		);
-		
-		// error log ajax handlers
+
+		// error log ajax handlers.
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_get_log_data',
 			$admin_settings_init,
@@ -815,7 +814,7 @@ class EdwiserBridge {
 			'eb_privacy_policy_page_data'
 		);
 		/**
-         * Test enrollment ajax calls
+		 * Test enrollment ajax calls
 		 */
 
 		$this->loader->eb_add_action(
@@ -858,8 +857,6 @@ class EdwiserBridge {
 			$this->enrollment_manager(),
 			'enroll_dummy_user'
 		);
-
-		
 	}
 
 	/**
@@ -945,11 +942,8 @@ class EdwiserBridge {
 			$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_user_email_verification_set_meta', 99 );
 			$this->loader->eb_add_action( 'eb_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
 
-
 			$this->loader->eb_add_action( 'authenticate', $this->user_manager(), 'eb_user_authentication_check', 100, 3 );
 			$this->loader->eb_add_action( 'init', $this->user_manager(), 'eb_user_email_verify' );
-
-			
 		}
 
 	}
@@ -1245,7 +1239,7 @@ class EdwiserBridge {
 	 */
 	private function define_public_hooks() {
 		$plugin_public   = new Eb_Public( $this->get_plugin_name(), $this->get_version() );
-		$template_loader = new EbTemplateLoader( $this->get_plugin_name(), $this->get_version() );
+		$template_loader = new Eb_Template_Loader( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_styles' );
 		$this->loader->eb_add_action( 'wp_enqueue_scripts', $plugin_public, 'public_enqueue_scripts' );
@@ -1296,7 +1290,7 @@ class EdwiserBridge {
 		 * If email verification is disabled then new user email is sent.
 		 */
 		$eb_general_settings = get_option( 'eb_general' );
-		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) { // @codingStandardsIgnoreLine
 			// continue.
 		} else {
 			$this->loader->eb_add_action(

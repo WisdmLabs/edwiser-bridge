@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Default_Email_Template' ) ) {
+if ( ! class_exists( 'Eb_Default_Email_Templates' ) ) {
 
 	/**
 	 * Email temp.
 	 */
-	class Eb_Default_Email_Template {
+	class Eb_Default_Email_Templates {
 
 		/**
 		 * Preapares the default new user account creation on moodle and WP email

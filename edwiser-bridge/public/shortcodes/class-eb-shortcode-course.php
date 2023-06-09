@@ -70,7 +70,7 @@ class Eb_Shortcode_Course {
 		while ( $courses->have_posts() ) :
 			$courses->the_post();
 
-			$template_loader = new EbTemplateLoader(
+			$template_loader = new Eb_Template_Loader(
 				edwiser_bridge_instance()->get_plugin_name(),
 				edwiser_bridge_instance()->get_version()
 			);

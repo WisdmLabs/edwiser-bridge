@@ -20,7 +20,7 @@ $wrapper_args = array();
 $eb_template  = get_option( 'eb_general' );
 $attr         = isset( $attr ) ? $attr : array();
 
-$template_loader = new \app\wisdmlabs\edwiserBridge\EbTemplateLoader(
+$template_loader = new \app\wisdmlabs\edwiserBridge\Eb_Template_Loader(
 	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_plugin_name(),
 	\app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->get_version()
 );

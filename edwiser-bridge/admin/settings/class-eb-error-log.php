@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Eb_Settings_Log' ) ) {
+if ( ! class_exists( 'Eb_Error_Log' ) ) {
 
 	/**
-	 * Eb_Settings_Log.
+	 * Eb_Error_Log.
 	 */
-	class Eb_Settings_Log extends EBSettingsPage {
+	class Eb_Error_Log extends EB_Settings_Page {
 
 		/**
 		 * Constructor.
@@ -33,13 +33,13 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 			add_action( 'eb_settings_' . $this->_id, array( $this, 'output' ) );
 		}
 
-        /**
+		/**
 		 * Displays the manage user enrollment page output
 		 */
 		public function output() {
-            $GLOBALS['hide_save_button'] = true;
+			$GLOBALS['hide_save_button'] = true;
 
-			$list_table     = new Eb_Log_Table();
+			$list_table     = new Eb_Error_Logs_Table();
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 				</div>
 				<!-- Display the proccessing popup end. -->
 
-				<h1><?php _e( 'Error logs', 'edwiser-bridge' ); ?></h1>
+				<h1><?php esc_html_e( 'Error logs', 'edwiser-bridge' ); ?></h1>
 
 				<div class="eb-notices" id="eb-notices"><!-- Add custom notices inside this. --></div>
 				<?php do_action( 'eb_before_log_table' ); ?>
@@ -106,11 +106,11 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 				return;
 			}
 
-			$keys           = $data['error'];
+			$keys     = $data['error'];
 			$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
 			$logs     = file_get_contents( $log_file ); // @codingStandardsIgnoreLine
 			$logs     = json_decode( $logs, true );
-			$cnt            = 0;
+			$cnt      = 0;
 
 			foreach ( $keys as $key ) {
 				if ( isset( $logs[ $key ] ) ) {
@@ -160,4 +160,4 @@ if ( ! class_exists( 'Eb_Settings_Log' ) ) {
 	}
 }
 
-return new Eb_Settings_Log();
+return new Eb_Error_Log();

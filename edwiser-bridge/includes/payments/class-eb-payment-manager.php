@@ -58,7 +58,7 @@ class Eb_Payment_Manager {
 	 */
 	public function parse_ipn_request( $_wp ) {
 		if ( array_key_exists( 'eb', $_wp->query_vars ) && 'paypal-notify' === $_wp->query_vars['eb'] ) {
-			require_once 'eb-ipn.php';
+			require_once 'class-eb-ipn.php';
 			$eb_ipn = new Eb_Ipn();
 			$eb_ipn->process_ipn();
 		}

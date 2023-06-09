@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * EBAdminEmailTemplate Class
+ * EB_Email_Template Class
  */
-class EBAdminEmailTemplate {
+class EB_Email_Template {
 
 
 	/**
@@ -52,7 +52,6 @@ class EBAdminEmailTemplate {
 		$email_list['eb_emailtmpl_refund_completion_notifier_to_user']  = esc_html__( 'Refund Success mail to customer', 'edwiser-bridge' );
 		$email_list['eb_emailtmpl_refund_completion_notifier_to_admin'] = esc_html__( 'Refund Success mail to admin or specified email', 'edwiser-bridge' );
 		$email_list['eb_emailtmpl_new_user_email_verification']         = esc_html__( 'Verify Your Email Address', 'edwiser-bridge' );
-
 
 		/**
 		 *   Two way synch.
@@ -591,7 +590,7 @@ class EBAdminEmailTemplate {
 		/**
 		 * Call the email template parser
 		 */
-		$email_tmpl_parser = new Eb_Email_Tmpl_Parser();
+		$email_tmpl_parser = new Eb_Email_Template_Parser();
 		$tmpl_content      = $email_tmpl_parser->out_put( $args, $tmpl_content );
 
 		/**
@@ -720,7 +719,7 @@ class EBAdminEmailTemplate {
 	 * @return boolean
 	 */
 	public function restore_email_template( $args ) {
-		$default_tmpl = new Eb_Default_Email_Template();
+		$default_tmpl = new Eb_Default_Email_Templates();
 		$tmpl_key     = $args['tmpl_name'];
 		switch ( $tmpl_key ) {
 			case 'eb_emailtmpl_create_user':

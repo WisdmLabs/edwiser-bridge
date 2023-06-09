@@ -643,9 +643,9 @@ if ( ! function_exists( 'wdm_eb_get_allowed_html_tags' ) ) {
 			'types' => array(),
 		);
 		$allowed_tags['span']   = array(
-			'style' => array(),
-			'id'    => array(),
-			'class' => array(),
+			'style'         => array(),
+			'id'            => array(),
+			'class'         => array(),
 			'data-courseid' => array(),
 
 		);
@@ -912,9 +912,9 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 		$request              = wp_remote_get(
 			add_query_arg( $api_params, $store_url ),
 			array(
-				'timeout'   => 15,
-				'sslverify' => false,
-				'blocking'  => true,
+				'timeout'    => 15,
+				'sslverify'  => false,
+				'blocking'   => true,
 				'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 			)
 		);
@@ -1094,6 +1094,11 @@ if ( ! function_exists( 'wdm_eb_get_comments' ) ) {
 }
 
 if ( ! function_exists( 'is_access_exception' ) ) {
+	/**
+	 * Function to check if response is access exception.
+	 *
+	 * @param  array $response response.
+	 */
 	function is_access_exception( $response ) {
 		$exception = false;
 		if ( isset( $response['response_body']->exception ) && 'webservice_access_exception' === $response['response_body']->exception ) {
@@ -1104,6 +1109,9 @@ if ( ! function_exists( 'is_access_exception' ) ) {
 }
 
 if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
+	/**
+	 * Function to check if recaptcha is enabled.
+	 */
 	function wdm_eb_recaptcha_type() {
 		$general_settings = get_option( 'eb_general' );
 		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
@@ -1115,19 +1123,24 @@ if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
 }
 
 if ( ! function_exists( 'wdm_eb_render_recaptcha_v2' ) ) {
+	/**
+	 * Function to render recaptcha v2.
+	 *
+	 * @param  string $action action.
+	 */
 	function wdm_eb_render_recaptcha_v2( $action ) {
 		$general_settings = get_option( 'eb_general' );
 		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
-			$recaptcha_type = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+			$recaptcha_type     = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
 			$recaptcha_site_key = isset( $general_settings['eb_recaptcha_site_key'] ) ? $general_settings['eb_recaptcha_site_key'] : '';
 			if ( 'wdm_login' === $action ) {
 				$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_login'] ) ? $general_settings['eb_recaptcha_show_on_login'] : 'no';
-				if( 'yes' !== $show_recaptcha ) {
+				if ( 'yes' !== $show_recaptcha ) {
 					return;
 				}
 			} elseif ( 'register' === $action ) {
 				$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_register'] ) ? $general_settings['eb_recaptcha_show_on_register'] : 'no';
-				if( 'yes' !== $show_recaptcha ) {
+				if ( 'yes' !== $show_recaptcha ) {
 					return;
 				}
 			}
@@ -1141,38 +1154,43 @@ if ( ! function_exists( 'wdm_eb_render_recaptcha_v2' ) ) {
 }
 
 if ( ! function_exists( 'wdm_eb_render_recaptcha_v3' ) ) {
+	/**
+	 * Function to render recaptcha v3.
+	 *
+	 * @param  string $action action.
+	 */
 	function wdm_eb_render_recaptcha_v3( $action ) {
 		$general_settings = get_option( 'eb_general' );
 		if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] ) {
-			$recaptcha_type = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+			$recaptcha_type     = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
 			$recaptcha_site_key = isset( $general_settings['eb_recaptcha_site_key'] ) ? $general_settings['eb_recaptcha_site_key'] : '';
 			if ( ! empty( $recaptcha_site_key ) && 'v3' === $recaptcha_type ) {
 				if ( 'wdm_login' === $action ) {
 					$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_login'] ) ? $general_settings['eb_recaptcha_show_on_login'] : 'no';
-					if( 'yes' !== $show_recaptcha ) {
+					if ( 'yes' !== $show_recaptcha ) {
 						?>
 						<input type="submit" class="eb-login-button button button-primary et_pb_button et_pb_contact_submit" name="wdm_login" value="<?php esc_html_e( 'Login', 'edwiser-bridge' ); ?>" />
 						<?php
 						return;
 					}
-					$text = esc_html__( 'Login', 'edwiser-bridge' );
+					$text  = esc_html__( 'Login', 'edwiser-bridge' );
 					$class = 'eb-login-button';
 				} elseif ( 'register' === $action ) {
 					$show_recaptcha = isset( $general_settings['eb_recaptcha_show_on_register'] ) ? $general_settings['eb_recaptcha_show_on_register'] : 'no';
-					if( 'yes' !== $show_recaptcha ) {
+					if ( 'yes' !== $show_recaptcha ) {
 						?>
 						<input type="submit" class="eb-reg-button button button-primary et_pb_button et_pb_contact_submit" name="register" value="<?php esc_html_e( 'Register', 'edwiser-bridge' ); ?>" />
 						<?php
 						return;
 					}
-					$text = esc_html__( 'Register', 'edwiser-bridge' );
+					$text  = esc_html__( 'Register', 'edwiser-bridge' );
 					$class = 'eb-reg-button';
 				} else {
 					return;
 				}
 				?>
-				<button data-sitekey="<?php echo esc_attr( $recaptcha_site_key ); ?>" data-callback='ebSubmitCaptchaForm' data-action='submit' class="g-recaptcha <?php echo $class; ?> button button-primary et_pb_button et_pb_contact_submit" ><?php echo $text; ?></button>
-				<input type="hidden" name="<?php echo $action; ?>" value="<?php echo $text; ?>">
+				<button data-sitekey="<?php echo esc_attr( $recaptcha_site_key ); ?>" data-callback='ebSubmitCaptchaForm' data-action='submit' class="g-recaptcha <?php echo esc_attr( $class ); ?> button button-primary et_pb_button et_pb_contact_submit" ><?php echo esc_attr( $text ); ?></button>
+				<input type="hidden" name="<?php echo esc_attr( $action ); ?>" value="<?php echo esc_attr( $text ); ?>">
 				<?php
 			}
 		}
@@ -1184,7 +1202,7 @@ if ( ! function_exists( 'add_beacon_helpscout_script' ) ) {
 	 * Add the Helpscout Beacon script on the PEP backend pages.
 	 * Callback to action hook 'quoteup_pep_backend_page'.
 	 */
-	function add_beacon_helpscout_script (){
+	function add_beacon_helpscout_script() {
 		?>
 		<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
 		<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
@@ -1192,48 +1210,53 @@ if ( ! function_exists( 'add_beacon_helpscout_script' ) ) {
 	}
 }
 
-if( ! function_exists( 'wdm_log_json ') ) {
+if ( ! function_exists( 'wdm_log_json ' ) ) {
 	/**
 	 * Function to write the error log in json format.
 	 *
 	 * @param  array $log_data error log data.
-	 * @return array returns error log data.
 	 */
 	function wdm_log_json( $log_data ) {
 
 		$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
 
-		if ( file_get_contents( $log_file ) ) {
-			$log_data_old = file_get_contents( $log_file );
+		if ( file_get_contents( $log_file ) ) { // @codingStandardsIgnoreLine
+			$log_data_old = file_get_contents( $log_file ); // @codingStandardsIgnoreLine
 			$log_data_old = json_decode( $log_data_old, true );
 		} else {
 			$log_data_old = array();
 		}
-		
+
 		if ( ! is_array( $log_data_old ) ) {
 			$log_data_old = array();
 		}
 		$log_data_old[] = array(
-			'time' => date_i18n( 'm-d-Y @ H:i:s' ),
+			'time'   => date_i18n( 'm-d-Y @ H:i:s' ),
 			'status' => 'NEW',
-			'data' => $log_data,
+			'data'   => $log_data,
 		);
-		$log_data_old = json_encode( $log_data_old );
-		file_put_contents( $log_file, $log_data_old );
-		
+		$log_data_old   = json_encode( $log_data_old ); // @codingStandardsIgnoreLine
+		file_put_contents( $log_file, $log_data_old ); // @codingStandardsIgnoreLine
+
 	}
 }
 
 if ( ! function_exists( 'eb_is_legacy_pro' ) ) {
+	/**
+	 * Function to check if any of the pro extension is active.
+	 *
+	 * @param  boolean $check_license check if the license is active.
+	 * @return boolean
+	 */
 	function eb_is_legacy_pro( $check_license = false ) {
 		$pro = false;
 		if ( ! $check_license ) {
-			$extensions  = array(
+			$extensions = array(
 				'woocommerce-integration/bridge-woocommerce.php',
 				'selective-synchronization/selective-synchronization.php',
 				'edwiser-bridge-sso/sso.php',
 				'edwiser-multiple-users-course-purchase/edwiser-multiple-users-course-purchase.php',
-				'edwiser-custom-fields/edwiser-custom-fields.php'
+				'edwiser-custom-fields/edwiser-custom-fields.php',
 			);
 			foreach ( $extensions as $plugin_path ) {
 				if ( is_plugin_active( $plugin_path ) ) {
@@ -1267,7 +1290,11 @@ if ( ! function_exists( 'eb_is_legacy_pro' ) ) {
 }
 
 if ( ! function_exists( 'add_edwiser_header_content' ) ) {
-	function add_edwiser_header_content(){
+	/**
+	 * Function to add the header content on the Edwiser Bridge settings page.
+	 * Callback to action hook 'eb_settings_page_header'.
+	 */
+	function add_edwiser_header_content() {
 		?>
 		<div class="edwiser-settings-header">
 			<div class="edwiser-settings-header-logo">
@@ -1280,7 +1307,7 @@ if ( ! function_exists( 'add_edwiser_header_content' ) ) {
 				<svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M8.57153 16C10.6933 16 12.7281 15.1571 14.2284 13.6569C15.7287 12.1566 16.5715 10.1217 16.5715 8C16.5715 5.87827 15.7287 3.84344 14.2284 2.34315C12.7281 0.842855 10.6933 0 8.57153 0C6.4498 0 4.41497 0.842855 2.91468 2.34315C1.41439 3.84344 0.571533 5.87827 0.571533 8C0.571533 10.1217 1.41439 12.1566 2.91468 13.6569C4.41497 15.1571 6.4498 16 8.57153 16ZM5.69966 10.1719C6.25903 10.8188 7.21528 11.5 8.57153 11.5C9.92778 11.5 10.884 10.8188 11.4434 10.1719C11.6247 9.9625 11.9403 9.94063 12.1497 10.1219C12.359 10.3031 12.3809 10.6187 12.1997 10.8281C11.5028 11.6281 10.2934 12.5 8.57153 12.5C6.84966 12.5 5.64028 11.6281 4.94341 10.8281C4.76216 10.6187 4.78403 10.3031 4.99341 10.1219C5.20278 9.94063 5.51841 9.9625 5.69966 10.1719ZM5.08403 6.5C5.08403 6.23478 5.18939 5.98043 5.37693 5.79289C5.56446 5.60536 5.81882 5.5 6.08403 5.5C6.34925 5.5 6.6036 5.60536 6.79114 5.79289C6.97868 5.98043 7.08403 6.23478 7.08403 6.5C7.08403 6.76522 6.97868 7.01957 6.79114 7.20711C6.6036 7.39464 6.34925 7.5 6.08403 7.5C5.81882 7.5 5.56446 7.39464 5.37693 7.20711C5.18939 7.01957 5.08403 6.76522 5.08403 6.5ZM11.084 5.5C11.3492 5.5 11.6036 5.60536 11.7911 5.79289C11.9787 5.98043 12.084 6.23478 12.084 6.5C12.084 6.76522 11.9787 7.01957 11.7911 7.20711C11.6036 7.39464 11.3492 7.5 11.084 7.5C10.8188 7.5 10.5645 7.39464 10.3769 7.20711C10.1894 7.01957 10.084 6.76522 10.084 6.5C10.084 6.23478 10.1894 5.98043 10.3769 5.79289C10.5645 5.60536 10.8188 5.5 11.084 5.5Z" fill="#FFB900"/>
 				</svg>
-				5k+ customers
+				5k+ Customers
 			</div>
 			<div class="edwiser-rating-rate">
 				<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">

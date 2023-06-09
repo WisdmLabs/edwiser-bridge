@@ -148,7 +148,7 @@ class Eb_Course_Manager {
 			/*
 			 * sync moodle courses to WordPress.
 			 */
-			$moodle_course_resp = $this->get_moodle_courses(null, $sync_options); // get courses from moodle.
+			$moodle_course_resp = $this->get_moodle_courses( null, $sync_options ); // get courses from moodle.
 
 			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && '1' === $sync_options['eb_synchronize_previous'] ) ) {
 
@@ -197,8 +197,6 @@ class Eb_Course_Manager {
 					$response_array['course_response_message'] = esc_html__( 'Unable to create/update a few courses, since they might have already being synced by a third-party plugin. Please check complete error ', 'edwiser-bridge' ) . '<a target="_blank" href="https://edwiser.helpscoutdocs.com/article/235-courses-do-not-synchronize-from-moodle-to-wordpress">' . esc_html__( ' here', 'edwiser-bridge' ) . '</a>';
 				}
 			}
-
-
 
 			// Sync enrollment Methods.
 			if ( isset( $moodle_course_resp['response_data'] ) ) {
@@ -270,8 +268,8 @@ class Eb_Course_Manager {
 		if ( 1 === $response['success'] && ! empty( $response['response_data'] ) && is_array( $response['response_data'] ) ) {
 
 			foreach ( $response['response_data'] as $course_data ) {
-				if ( isset( $course_data->message) && 'plugin_not_installed' === $course_data->message ) {
-					$response['success'] = 0;
+				if ( isset( $course_data->message ) && 'plugin_not_installed' === $course_data->message ) {
+					$response['success']          = 0;
 					$response['response_message'] = $course_data->message;
 					return $response;
 				} else {
@@ -315,7 +313,8 @@ class Eb_Course_Manager {
 	 *
 	 * Uses connect_moodle_helper() and connect_moodle_with_args_helper()
 	 *
-	 * @param int $moodle_user_id   moodle user_id of a WordPress user passed to connection helper.
+	 * @param int   $moodle_user_id   moodle user_id of a WordPress user passed to connection helper.
+	 * @param array $sync_options   sync options.
 	 *
 	 * @return array stores moodle web service response.
 	 */
@@ -339,8 +338,8 @@ class Eb_Course_Manager {
 			} else {
 				$webservice_function = 'core_course_get_courses'; // get all courses from moodle.
 			}
-			
-			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
+
+			$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $webservice_function );
 			if ( isset( $sync_options['eb_synchronize_images'] ) && '1' === $sync_options['eb_synchronize_images'] ) {
 				$response['response_data'] = $response['response_data']->courses;
 			}
@@ -887,7 +886,7 @@ class Eb_Course_Manager {
 
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => $mdl_course_ids ) );
 			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
-				if ( "plugin_not_installed" === $course_data['response_message'] ) {
+				if ( 'plugin_not_installed' === $course_data['response_message'] ) {
 					$data = esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' );
 				} else {
 					$data = esc_html( $course_data['response_message'] );
@@ -962,13 +961,10 @@ class Eb_Course_Manager {
 		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : '';
 
 		if ( $course_id ) {
-
-			// $courses_data = $this->sync_course_enrollment_method();
-
 			// Update course enrollment method.
 			$course_data = $this->edwiserbridge_local_update_course_enrollment_method( array( 'courseid' => array( $course_id ) ) );
 			if ( isset( $course_data['success'] ) && 0 === $course_data['success'] ) {
-				if ( "plugin_not_installed" === $course_data['response_message'] ) {
+				if ( 'plugin_not_installed' === $course_data['response_message'] ) {
 					wp_send_json_error( array( 'message' => esc_html__( 'Manual Enrollment Plugin is not enabled/installed on moodle site.', 'edwiser-bridge' ) ) );
 				} else {
 					wp_send_json_error( array( 'message' => esc_html( $course_data['response_message'] ) ) );
@@ -1000,46 +996,44 @@ class Eb_Course_Manager {
 
 	/**
 	 * Sync Course image with moodle.
-	 * 
+	 *
 	 * @param  int   $course_id course id.
 	 * @param  array $course_data course data.
 	 */
 	public function sync_course_image( $course_id, $course_data ) {
 		if ( isset( $course_data->overviewfiles ) && ! empty( $course_data->overviewfiles ) ) {
 			$course_image = $course_data->overviewfiles[0];
-			$token     = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
+			$token        = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 			// set this image as course featured image.
 			// check if file url have & token then remove it.
-			if( strpos( $course_image->fileurl, '?file=' ) !== false ) {
+			if ( strpos( $course_image->fileurl, '?file=' ) !== false ) {
 				$file_url = $course_image->fileurl . '&token=' . $token;
-			}
-			else {
+			} else {
 				$file_url = $course_image->fileurl . '?token=' . $token;
 			}
-			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $file_url ) );
+			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $file_url ) ); // @codingStandardsIgnoreLine
 
 			if ( ! $upload_file['error'] ) {
 				// if succesfull insert the new file into the media library (create a new attachment post type).
-				$wp_filetype = wp_check_filetype($course_image->filename, null );
-			  
-				$attachment = array(
-				  'post_mime_type' => $wp_filetype['type'],
-				  'post_parent'    => $course_id,
-				  'post_title'     => preg_replace( '/\.[^.]+$/', '', $course_image->filename ),
-				  'post_content'   => '',
-				  'post_status'    => 'inherit'
+				$wp_filetype = wp_check_filetype( $course_image->filename, null );
+				$attachment  = array(
+					'post_mime_type' => $wp_filetype['type'],
+					'post_parent'    => $course_id,
+					'post_title'     => preg_replace( '/\.[^.]+$/', '', $course_image->filename ),
+					'post_content'   => '',
+					'post_status'    => 'inherit',
 				);
-			  
+
 				$attachment_id = wp_insert_attachment( $attachment, $upload_file['file'], $course_id );
-			  
+
 				if ( ! is_wp_error( $attachment_id ) ) {
-				   // if attachment post was successfully created, insert it as a thumbnail to the post $course_id.
-				   require_once(ABSPATH . "wp-admin" . '/includes/image.php');
-			  
-				   $attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
-			  
-				   wp_update_attachment_metadata( $attachment_id,  $attachment_data );
-				   set_post_thumbnail( $course_id, $attachment_id );
+					// if attachment post was successfully created, insert it as a thumbnail to the post $course_id.
+					require_once ABSPATH . 'wp-admin/includes/image.php';
+
+					$attachment_data = wp_generate_attachment_metadata( $attachment_id, $upload_file['file'] );
+
+					wp_update_attachment_metadata( $attachment_id, $attachment_data );
+					set_post_thumbnail( $course_id, $attachment_id );
 				}
 			}
 		}

@@ -56,7 +56,6 @@ class Eb_Shortcode_My_Courses {
 
 		do_action( 'eb_before_my_courses_wrapper' );
 
-		// $my_courses = $current_class->get_user_courses( $atts['user_id'] );
 		$my_courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses( $atts['user_id'] );
 
 		$current_class->show_my_courses( $my_courses, $atts );
@@ -78,7 +77,7 @@ class Eb_Shortcode_My_Courses {
 	 * @param text $atts usattser.
 	 */
 	public function show_my_courses( $my_courses, $atts ) {
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
@@ -272,7 +271,7 @@ class Eb_Shortcode_My_Courses {
 		}
 		$courses = new \WP_Query( $args );
 
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);

@@ -17,12 +17,12 @@ if ( ! class_exists( '\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_User_Enrollment' ) ) {
+if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 
 	/**
 	 * Manage enrollment.
 	 */
-	class Eb_Manage_User_Enrollment {
+	class Eb_Manage_Enrollment {
 
 
 		/**

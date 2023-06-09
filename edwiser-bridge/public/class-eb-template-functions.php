@@ -197,7 +197,7 @@ class Eb_Template_Functions {
 	 * @param int $course_data course data.
 	 */
 	public function eb_course_archive_price_tmpl( $course_data ) {
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
@@ -218,7 +218,7 @@ class Eb_Template_Functions {
 	 */
 	public function eb_my_course_archive_progress_tmpl( $course_data, $shortcode_attr ) {
 
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
@@ -240,7 +240,7 @@ class Eb_Template_Functions {
 	 * @param string $sorting sorting attr.
 	 */
 	public function eb_show_course_filters_and_sorting( $filter, $sorting ) {
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);

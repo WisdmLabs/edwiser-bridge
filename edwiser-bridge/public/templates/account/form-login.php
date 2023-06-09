@@ -16,7 +16,7 @@ do_action( 'eb_before_customer_login_form' );
 
 if ( 1 === filter_input( INPUT_GET, 'eb_user_email_verification', FILTER_VALIDATE_INT ) ) {
 	// check if get paramter is_enrolled is set.
-	if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) {
+	if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) { // @codingStandardsIgnoreLine
 		?>
 		<div class='wdm-flash-info'>
 			<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address. then try enrolling in course again.', 'edwiser-bridge' ); ?></span>

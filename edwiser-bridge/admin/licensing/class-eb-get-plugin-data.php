@@ -58,9 +58,9 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 					$response = wp_remote_get(
 						add_query_arg( $api_params, $store_url ),
 						array(
-							'timeout'   => 15,
-							'sslverify' => false,
-							'blocking'  => true,
+							'timeout'    => 15,
+							'sslverify'  => false,
+							'blocking'   => true,
 							'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) . 'Edwiser Bridge',
 						)
 					);
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 			}
 
 			if ( $set_trans ) {
-				switch ($license_status) {
+				switch ( $license_status ) {
 					case 'invalid':
 					case 'no_activations_left':
 						$time = 0; // Do not repeat.

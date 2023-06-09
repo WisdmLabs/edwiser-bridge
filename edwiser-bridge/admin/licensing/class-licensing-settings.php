@@ -20,7 +20,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 	/**
 	 * Eb_Settings_Licensing.
 	 */
-	class Licensing_Settings extends EBSettingsPage {
+	class Licensing_Settings extends EB_Settings_Page {
 
 		/**
 		 * Addon licensing.
@@ -295,9 +295,9 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			$request = wp_remote_get(
 				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
 				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'blocking'  => true,
+					'timeout'    => 15,
+					'sslverify'  => false,
+					'blocking'   => true,
 					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)
 			);

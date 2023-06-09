@@ -367,7 +367,7 @@ class Eb_Shortcode_Courses {
 		// Pagination fix.
 		$wp_query = $custom_query;
 
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);

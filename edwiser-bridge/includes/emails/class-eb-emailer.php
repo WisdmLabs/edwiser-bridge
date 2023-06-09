@@ -68,7 +68,7 @@ class Eb_Emailer {
 		 */
 		require_once $plugin_path . '../public/class-eb-template-loader.php';
 
-		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
+		$this->plugin_template_loader = new Eb_Template_Loader( $this->plugin_name, $this->version );
 	}
 
 	/**
@@ -114,10 +114,10 @@ class Eb_Emailer {
 	 * @param text $args Args.
 	 */
 	public function send_course_access_expire_email( $args ) {
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_course_access_expir' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_course_access_expir' );
 		$allow_notify    = get_option( 'eb_emailtmpl_course_access_expir_notify_allow' );
 		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_course_access_expir' );
@@ -132,10 +132,10 @@ class Eb_Emailer {
 	 * @param text $args Args.
 	 */
 	public function send_existing_wp_user_new_moodle_account_email( $args ) {
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
 		$allow_notify    = get_option( 'eb_emailtmpl_linked_existing_wp_new_moodle_user_notify_allow' );
 		if ( $email_tmpl_data && 'ON' === $allow_notify ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_new_moodle_user' );
@@ -153,10 +153,10 @@ class Eb_Emailer {
 	public function refund_completion_email( $args ) {
 
 		$args                  = apply_filters( 'eb_args_data', $args );
-		$user_email_tmpl_data  = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_user' );
-		$admin_email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_admin' );
+		$user_email_tmpl_data  = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_user' );
+		$admin_email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_refund_completion_notifier_to_admin' );
 
-		$email_tmpl_obj = new EBAdminEmailTemplate();
+		$email_tmpl_obj = new EB_Email_Template();
 
 		$eb_general = get_option( 'eb_general' );
 		if ( $eb_general ) {
@@ -227,13 +227,13 @@ class Eb_Emailer {
 		 * Using Email template Editor
 		 */
 		$args            = apply_filters( 'eb_args_data', $args );
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_create_user' );
 		$allow_notify    = get_option( 'eb_emailtmpl_create_user_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return false;
 		}
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_create_user' );
 
@@ -273,7 +273,7 @@ class Eb_Emailer {
 		/**
 		 * Using Email template Editor
 		 */
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_user' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_linked_existing_wp_user' );
 
 		$allow_notify = get_option( 'eb_emailtmpl_linked_existing_wp_user_notify_allow' );
 
@@ -281,7 +281,7 @@ class Eb_Emailer {
 			return false;
 		}
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			$args           = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_linked_existing_wp_user' );
 
 			return $email_tmpl_obj->send_email( $args['user_email'], $args, $email_tmpl_data );
@@ -290,7 +290,7 @@ class Eb_Emailer {
 		 * Using Default
 		 */
 		$this->template_name          = 'emails/user-existing-wp-account.php';
-		$this->plugin_template_loader = new EbTemplateLoader( $this->plugin_name, $this->version );
+		$this->plugin_template_loader = new Eb_Template_Loader( $this->plugin_name, $this->version );
 
 		// prepare arguments array for email.
 		$args = apply_filters( 'eb_filter_email_parameters', $args, $this->template_name );
@@ -331,7 +331,7 @@ class Eb_Emailer {
 			$args         = array(); // arguments array for email.
 
 			$this->template_name          = 'emails/user-order-completion-email.php'; // template for order completion email.
-			$this->plugin_template_loader = new EbTemplateLoader(
+			$this->plugin_template_loader = new Eb_Template_Loader(
 				$this->plugin_name,
 				$this->version
 			); // template loader object.
@@ -353,12 +353,12 @@ class Eb_Emailer {
 			/**
 			 * Using Email template Editor
 			 */
-			$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
+			$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_order_completed' );
 
 			$allow_notify = get_option( 'eb_emailtmpl_order_completed_notify_allow' );
 			if ( true === $allow_notify || 'ON' === $allow_notify ) {
 				if ( $email_tmpl_data ) {
-					$email_tmpl_obj = new EBAdminEmailTemplate();
+					$email_tmpl_obj = new EB_Email_Template();
 					// CUSTOMIZATION HOOKS.
 					$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_order_completed' );
 
@@ -402,14 +402,14 @@ class Eb_Emailer {
 		 */
 
 		$args            = apply_filters( 'eb_args_data', $args );
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_mdl_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return false;
 		}
 
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_enrollment_trigger' );
 
@@ -442,13 +442,13 @@ class Eb_Emailer {
 		 */
 
 		$args            = apply_filters( 'eb_args_data', $args );
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_un_enrollment_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return false;
 		}
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_un_enrollment_trigger' );
 
@@ -482,13 +482,13 @@ class Eb_Emailer {
 		 */
 
 		$args            = apply_filters( 'eb_args_data', $args );
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_mdl_user_deletion_trigger' );
 		$allow_notify    = get_option( 'eb_emailtmpl_mdl_user_deletion_trigger_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return false;
 		}
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_mdl_user_deletion_trigger' );
 
@@ -512,13 +512,13 @@ class Eb_Emailer {
 		 */
 
 		$args            = apply_filters( 'eb_args_data', $args );
-		$email_tmpl_data = EBAdminEmailTemplate::get_email_tmpl_content( 'eb_emailtmpl_new_user_email_verification' );
+		$email_tmpl_data = EB_Email_Template::get_email_tmpl_content( 'eb_emailtmpl_new_user_email_verification' );
 		$allow_notify    = get_option( 'eb_emailtmpl_new_user_email_verification_notify_allow' );
 		if ( false === $allow_notify || 'ON' !== $allow_notify ) {
 			return false;
 		}
 		if ( $email_tmpl_data ) {
-			$email_tmpl_obj = new EBAdminEmailTemplate();
+			$email_tmpl_obj = new EB_Email_Template();
 			// CUSTOMIZATION HOOKS.
 			$args = apply_filters( 'eb_email_custom_args', $args, 'eb_emailtmpl_new_user_email_verification' );
 

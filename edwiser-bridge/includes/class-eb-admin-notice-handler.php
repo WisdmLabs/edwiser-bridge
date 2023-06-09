@@ -94,11 +94,11 @@ class Eb_Admin_Notice_Handler {
 					</div>
 					<div class="eb_update_notice_content">
 						<p>
-							<?php esc_html_e( 'Thanks for using Edwiser Bridge plugin. To avoid any malfunctioning please', 'edwiser-bridge' ) ?> <strong><?php esc_html_e( 'make sure you have also installed and activated our latest associated Moodle Plugin', 'edwiser-bridge' ) ?></strong>
-							<?php esc_html_e( 'on your Moodle site.', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'Thanks for using Edwiser Bridge plugin. To avoid any malfunctioning please', 'edwiser-bridge' ); ?> <strong><?php esc_html_e( 'make sure you have also installed and activated our latest associated Moodle Plugin', 'edwiser-bridge' ); ?></strong>
+							<?php esc_html_e( 'on your Moodle site.', 'edwiser-bridge' ); ?>
 						</p>
 						<p>
-							<?php esc_html_e( 'New version of the following plugins are available for the Moodle site.', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'New version of the following plugins are available for the Moodle site.', 'edwiser-bridge' ); ?>
 						</p>
 						<ul>
 							<?php
@@ -108,8 +108,8 @@ class Eb_Admin_Notice_Handler {
 									<?php
 									echo '<strong>' . esc_html( $plugin['name'] ) . '</strong> ' . esc_html( $plugin['new_version'] ) . ' ' . esc_html__( 'is available.', 'edwiser-bridge' );
 									?>
-									<a href="<?php echo $plugin['url'] ?>"><?php esc_html_e( ' Click here ', 'edwiser-bridge' ) ?></a>
-									<?php esc_html_e( ' to download plugin.', 'edwiser-bridge' ) ?>
+									<a href="<?php esc_url( $plugin['url'] ); ?>"><?php esc_html_e( ' Click here ', 'edwiser-bridge' ); ?></a>
+									<?php esc_html_e( ' to download plugin.', 'edwiser-bridge' ); ?>
 								</li>
 								<?php
 							}
@@ -118,7 +118,7 @@ class Eb_Admin_Notice_Handler {
 					</div>
 				</div>
 				<div class="eb_admin_update_dismiss_notice_message">
-					<a href="<?php echo $redirection ?>">
+					<a href="<?php esc_url( $redirection ); ?>">
 						<span class="dashicons dashicons-no-alt eb_update_notice_hide"></span>
 					</a>
 				</div>
@@ -134,27 +134,27 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function eb_check_mdl_plugin_update() {
 		$plugin_info = $this->eb_get_mdl_plugin_info();
-		$url = 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json';
-		
+		$url         = 'https://edwiser.org/edwiserdemoimporter/bridge-free-plugin-info.json';
+
 		// set user agent.
-		$args = array(
+		$args        = array(
 			'timeout' => 15,
 			'headers' => array(
 				'User-Agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 			),
 		);
-		$response = wp_remote_get( $url, $args );
+		$response    = wp_remote_get( $url, $args );
 		$update_data = array();
-		
+
 		if ( 200 === wp_remote_retrieve_response_code( $response ) && $plugin_info ) {
 			$responce = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( isset( $plugin_info->plugin_name ) && "edwiser_bridge" === $plugin_info->plugin_name ) {
+			if ( isset( $plugin_info->plugin_name ) && 'edwiser_bridge' === $plugin_info->plugin_name ) {
 				$update_data[] = array(
-					'slug' => 'moodle_edwiser_bridge',
-					'name' => $responce->moodle_edwiser_bridge->name,
+					'slug'        => 'moodle_edwiser_bridge',
+					'name'        => $responce->moodle_edwiser_bridge->name,
 					'new_version' => $responce->moodle_edwiser_bridge->version,
 					'old_version' => $plugin_info->version,
-					'url' => $responce->moodle_edwiser_bridge->url,
+					'url'         => $responce->moodle_edwiser_bridge->url,
 				);
 			} else {
 				$plugin_info = $plugin_info->plugins;
@@ -166,11 +166,11 @@ class Eb_Admin_Notice_Handler {
 					}
 					if ( version_compare( $plugin->version, $responce->{$plugin_name}->version, '<' ) ) {
 						$update_data[] = array(
-							'slug' => $plugin_name,
-							'name' => $responce->{$plugin_name}->name,
+							'slug'        => $plugin_name,
+							'name'        => $responce->{$plugin_name}->name,
 							'new_version' => $responce->{$plugin_name}->version,
 							'old_version' => $plugin->version,
-							'url' => $responce->{$plugin_name}->url,
+							'url'         => $responce->{$plugin_name}->url,
 						);
 					}
 				}
@@ -331,7 +331,7 @@ class Eb_Admin_Notice_Handler {
 	}
 
 	/**
-	 * bfcm notice dismiss handler.
+	 * Bfcm notice dismiss handler.
 	 */
 	public function eb_admin_bfcm_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-admin-bfcm-pre-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
@@ -350,14 +350,13 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function eb_admin_bfcm_notice() {
 
-
 		$user_id = get_current_user_id();
 		global $pagenow;
 		$screen = get_current_screen();
 		if ( is_admin() && ( 'index.php' === $pagenow || 'eb_course_page_eb-settings' === $screen->id ) ) {
-			
+
 			$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
-			
+
 			// chek if current date is between 4th and 23rd of november.
 			$bfcm_pre_start_date = strtotime( '2022-11-04' );
 			$bfcm_pre_end_date   = strtotime( '2022-11-23' );
@@ -366,11 +365,11 @@ class Eb_Admin_Notice_Handler {
 			$current_date        = strtotime( wp_date( 'Y-m-d' ) );
 
 			// pre bfcm banner.
-			if( $current_date >= $bfcm_pre_start_date && $current_date <= $bfcm_pre_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_pre_notice_dismissed' ) ) {
-				$redirection    = add_query_arg( 'eb-admin-bfcm-pre-notice-dismissed', true );
+			if ( $current_date >= $bfcm_pre_start_date && $current_date <= $bfcm_pre_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_pre_notice_dismissed' ) ) {
+				$redirection = add_query_arg( 'eb-admin-bfcm-pre-notice-dismissed', true );
 				?>
 				<div class="notice eb-admin-bfcm-notice-message">
-					<div class="eb-admin-bfcm-notice-message-content" style="background-image: url('<?php echo $eb_plugin_url; ?>images/bfcm-pre.png');">
+					<div class="eb-admin-bfcm-notice-message-content" style="background-image: url('<?php echo esc_url( $eb_plugin_url ); ?>images/bfcm-pre.png');">
 						<p class="title"><?php esc_html_e( 'Play a Game with Edwiser to get ahead of the Black Friday Sale!', 'edwiser-bridge' ); ?></p>
 						<p class="desc"><?php esc_html_e( 'Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & plugins', 'edwiser-bridge' ); ?></p>
 						<a class="button" href="https://edwiser.org/edwiser-black-friday-giveaway/?utm_source=giveaway&utm_medium=spinthewheel&utm_campaign=bfcm22"  target="_blank"><?php esc_html_e( 'Spin and Win', 'edwiser-bridge' ); ?></a>
@@ -382,9 +381,9 @@ class Eb_Admin_Notice_Handler {
 					</div>
 				</div>
 				<?php
-			} elseif ( $current_date >= $bfcm_start_date && $current_date <= $bfcm_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_notice_dismissed' )) {
+			} elseif ( $current_date >= $bfcm_start_date && $current_date <= $bfcm_end_date && ! get_user_meta( $user_id, 'eb_admin_bfcm_notice_dismissed' ) ) {
 				// bfcm banner.
-				$extensions  = array(
+				$extensions = array(
 					'woocommerce-integration/bridge-woocommerce.php',
 					'selective-synchronization/selective-synchronization.php',
 					'edwiser-bridge-sso/sso.php',
@@ -398,10 +397,10 @@ class Eb_Admin_Notice_Handler {
 						break;
 					}
 				}
-				$redirection    = add_query_arg( 'eb-admin-bfcm-notice-dismissed', true );
+				$redirection = add_query_arg( 'eb-admin-bfcm-notice-dismissed', true );
 				?>
 				<div class="notice eb-admin-bfcm-notice-message">
-					<div class="eb-admin-bfcm-notice-message-content" style="background-image: url('<?php echo $eb_plugin_url; ?>images/bfcm.png');">
+					<div class="eb-admin-bfcm-notice-message-content" style="background-image: url('<?php echo esc_url( $eb_plugin_url ); ?>images/bfcm.png');">
 						<p class="title"><?php esc_html_e( 'Get the power of selling courses via WooCommerce!', 'edwiser-bridge' ); ?></p>
 						<?php
 						if ( $free ) {
@@ -428,6 +427,9 @@ class Eb_Admin_Notice_Handler {
 		}
 	}
 
+	/**
+	 * Dismiss the notice.
+	 */
 	public function eb_admin_remui_demo_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-admin-remui-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
 			$user_id = get_current_user_id();
@@ -435,9 +437,12 @@ class Eb_Admin_Notice_Handler {
 		}
 	}
 
+	/**
+	 * Remui demo notice.
+	 */
 	public function eb_admin_remui_demo_notice() {
-		$redirection    = add_query_arg( 'eb-admin-remui-notice-notice-dismissed', true );
-		$user_id = get_current_user_id();
+		$redirection = add_query_arg( 'eb-admin-remui-notice-notice-dismissed', true );
+		$user_id     = get_current_user_id();
 		if ( ! get_user_meta( $user_id, 'eb_admin_remui_demo_notice_dismissed' ) ) {
 			?>
 			<div class="notice  eb_admin_remui_demo_notice">
@@ -448,10 +453,10 @@ class Eb_Admin_Notice_Handler {
 					</div>
 					<div class="eb_remui_demo_notice_content" style="background-image:url('<?php echo esc_url( plugins_url( 'images/remui_back.png', dirname( __FILE__ ) ) ); ?>'">
 						<p class="remui-title">
-							<?php esc_html_e( 'We’ve something new for you to help you design an amazingly personalized Moodle - faster & easier.', 'edwiser-bridge' ) ?> <b><?php esc_html_e( ' Our fully redesigned Edwiser RemUI theme is LAUNCHED!', 'edwiser-bridge' ) ?></b>
+							<?php esc_html_e( 'We’ve something new for you to help you design an amazingly personalized Moodle - faster & easier.', 'edwiser-bridge' ); ?> <b><?php esc_html_e( ' Our fully redesigned Edwiser RemUI theme is LAUNCHED!', 'edwiser-bridge' ); ?></b>
 						</p>
 						<p class="remui-content">
-							<?php esc_html_e( 'Check out the demo to see the modern layouts, ready-to-use homepages, brilliantly upgraded dashboard & more', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'Check out the demo to see the modern layouts, ready-to-use homepages, brilliantly upgraded dashboard & more', 'edwiser-bridge' ); ?>
 						</p>
 						<button class="remui-button" href="#">Explore the demo</button>
 					</div>
@@ -459,7 +464,7 @@ class Eb_Admin_Notice_Handler {
 				</a>
 				<img class="eb_admin_remui_demo_image" src="<?php echo esc_url( plugins_url( 'images/remui-demo.png', dirname( __FILE__ ) ) ); ?>" alt="Edwiser Remu UI demo">
 				<div class="eb_admin_remui_demo_dismiss_notice_message">
-					<a href="<?php echo $redirection ?>">
+					<a href="<?php echo esc_url( $redirection ); ?>">
 						<span class="dashicons dashicons-no-alt eb_remui_demo_notice_hide"></span>
 					</a>
 				</div>
@@ -468,6 +473,9 @@ class Eb_Admin_Notice_Handler {
 		}
 	}
 
+	/**
+	 * Dismiss the notice.
+	 */
 	public function eb_admin_pro_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-admin-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
 			update_option( 'eb_pro_consolidated_plugin_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) );
@@ -480,18 +488,18 @@ class Eb_Admin_Notice_Handler {
 	public function eb_admin_pro_notice() {
 		global $eb_plugin_data;
 		$transient = get_transient( '_eb_pro_consolidated_plugin_notice' );
-		$dismissed = get_option( 'eb_pro_consolidated_plugin_notice_dismissed');
+		$dismissed = get_option( 'eb_pro_consolidated_plugin_notice_dismissed' );
 		// if transient is set then show popup.
 		if ( $transient ) {
 			delete_transient( '_eb_pro_consolidated_plugin_notice' );
 			?>
 			<div class="eb-admin-pro-popup">
 				<div class='eb-admin-pro-popup-content'>
-					<div class="eb-admin-pro-popup-success-msg"> <span class="dashicons dashicons-yes-alt"></span> <?php echo sprintf( esc_html__( 'Edwiser Bridge version %s activated successfully', 'edwiser-bridge' ), $eb_plugin_data['version'] ); ?></div>
-					<p class="eb-admin-pro-popup-title"><?php echo __( 'Introducing', 'edwiser-bridge' ) . '<strong>' . __( ' consolidated Edwiser Bridge Pro Plugin', 'edwiser-bridge' ) . '</strong>' . __( ' for smoother configuration experience', 'edwiser-bridge' ); ?></p>
-					<p class="eb-admin-pro-popup-text"><?php echo __( 'Starting from Edwiser Bridge version xxx,  all the Edwiser Bridge Pro add-on plugins  have been combined into a', 'edwiser-bridge' ) . '<strong>' . __( ' single plugin -Edwiser Bridge Pro', 'edwiser-bridge' ) . '</strong>' . __( ' to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></p>
-					<p class="eb-admin-pro-popup-text"><?php echo __( 'To install and activate the', 'edwiser-bridge' ) . '<strong>' . __( ' new Edwiser Bridge Pro plugin', 'edwiser-bridge' ) . '</strong>' . __( ' click below', 'edwiser-bridge' ); ?></p>
-					<a class="eb-admin-pro-popup-button" href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=licensing' ) ?>"><?php esc_html_e( 'Activate Now', 'edwiser-bridge' ); ?> </a>
+					<div class="eb-admin-pro-popup-success-msg"> <span class="dashicons dashicons-yes-alt"></span> <?php echo sprintf( esc_html__( 'Edwiser Bridge version %s activated successfully', 'edwiser-bridge' ), $eb_plugin_data['version'] ); // @codingStandardsIgnoreLine ?></div>
+					<p class="eb-admin-pro-popup-title"><?php echo esc_html__( 'Introducing', 'edwiser-bridge' ) . '<strong>' . esc_html__( ' consolidated Edwiser Bridge Pro Plugin', 'edwiser-bridge' ) . '</strong>' . esc_html__( ' for smoother configuration experience', 'edwiser-bridge' ); ?></p>
+					<p class="eb-admin-pro-popup-text"><?php echo esc_html__( 'Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a', 'edwiser-bridge' ) . '<strong>' . esc_html__( ' single plugin -Edwiser Bridge Pro', 'edwiser-bridge' ) . '</strong>' . esc_html__( ' to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro.', 'edwiser-bridge' ); ?></p>
+					<p class="eb-admin-pro-popup-text"><?php echo esc_html__( 'To install and activate the', 'edwiser-bridge' ) . '<strong>' . esc_html__( ' new Edwiser Bridge Pro plugin', 'edwiser-bridge' ) . '</strong>' . esc_html__( ' click below', 'edwiser-bridge' ); ?></p>
+					<a class="eb-admin-pro-popup-button" href="<?php esc_url( admin_url( 'admin.php?page=eb-settings&tab=licensing' ) ); ?>"><?php esc_html_e( 'Activate Now', 'edwiser-bridge' ); ?> </a>
 				</div>
 			</div>
 			<?php
@@ -505,22 +513,22 @@ class Eb_Admin_Notice_Handler {
 					</div>
 					<div class="eb_update_notice_content">
 						<p>
-							<?php esc_html_e( 'Introducing', 'edwiser-bridge' ) ?> <strong><?php esc_html_e( 'consolidated Edwiser Bridge Pro Plugin', 'edwiser-bridge' ) ?></strong> <?php esc_html_e( 'for smoother configuration experience', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'Introducing', 'edwiser-bridge' ); ?> <strong><?php esc_html_e( 'consolidated Edwiser Bridge Pro Plugin', 'edwiser-bridge' ); ?></strong> <?php esc_html_e( 'for smoother configuration experience', 'edwiser-bridge' ); ?>
 						</p>
 						<p>
-							<?php esc_html_e( 'Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a single plugin -Edwiser Bridge Pro to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro.', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a single plugin -Edwiser Bridge Pro to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro.', 'edwiser-bridge' ); ?>
 						</p>
 						<p>
-							<?php esc_html_e( 'To install and activate the ', 'edwiser-bridge' ) ?> <strong><?php esc_html_e( 'new Edwiser Bridge Pro plugin', 'edwiser-bridge' ) ?> </strong><?php esc_html_e( ' click below', 'edwiser-bridge' ) ?>
+							<?php esc_html_e( 'To install and activate the ', 'edwiser-bridge' ); ?> <strong><?php esc_html_e( 'new Edwiser Bridge Pro plugin', 'edwiser-bridge' ); ?> </strong><?php esc_html_e( ' click below', 'edwiser-bridge' ); ?>
 						</p>
 						<p class="eb-admin-pro-popup-button-wrap">
-							<a class="eb-admin-pro-popup-button" href="<?php echo admin_url( 'admin.php?page=eb-settings&tab=licensing' ) ?>"><?php esc_html_e( 'Activate Now', 'edwiser-bridge' ); ?> </a>
-							<a class="eb-admin-pro-popup-dismiss-button" href="<?php echo $redirection ?>"><?php esc_html_e( 'Dismiss Forever', 'edwiser-bridge' ); ?> </a>
+							<a class="eb-admin-pro-popup-button" href="<?php esc_url( admin_url( 'admin.php?page=eb-settings&tab=licensing' ) ); ?>"><?php esc_html_e( 'Activate Now', 'edwiser-bridge' ); ?> </a>
+							<a class="eb-admin-pro-popup-dismiss-button" href="<?php esc_url( $redirection ); ?>"><?php esc_html_e( 'Dismiss Forever', 'edwiser-bridge' ); ?> </a>
 						</p>
 					</div>
 				</div>
 				<div class="eb_admin_update_dismiss_notice_message">
-					<!-- <a href="<?php echo $redirection ?>"> -->
+					<!-- <a href="<?php esc_url( $redirection ); ?>"> -->
 						<span class="dashicons dashicons-no-alt eb_update_notice_hide"></span>
 					<!-- </a> -->
 				</div>

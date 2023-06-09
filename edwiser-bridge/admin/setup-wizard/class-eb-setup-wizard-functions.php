@@ -191,7 +191,7 @@ class Eb_Setup_Wizard_Functions {
 		);
 
 		$pro_setup_steps = array(
-			'pro_initialize'           => array(
+			'pro_initialize'   => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Initialize Edwiser Bridge PRO setup ', 'edwiser-bridge' ),
 				'title'    => __( 'Initialize Edwiser Bridge PRO plugin setup ', 'edwiser-bridge' ),
@@ -199,7 +199,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 90,
 				'sub_step' => 0,
 			),
-			'license'                  => array(
+			'license'          => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge PRO License setup', 'edwiser-bridge' ),
@@ -207,7 +207,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 100,
 				'sub_step' => 0,
 			),
-			'pro_plugins'              => array(
+			'pro_plugins'      => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Enable or disable the Edwiser Bridge PRO WordPress features', 'edwiser-bridge' ),
 				'title'    => __( 'Enable/Disable the Edwiser Bridge PRO WordPress features', 'edwiser-bridge' ),
@@ -215,7 +215,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 110,
 				'sub_step' => 0,
 			),
-			'mdl_plugins'              => array(
+			'mdl_plugins'      => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Activate Edwiser Bridge Pro Features on Moodle', 'edwiser-bridge' ),
 				'title'    => __( 'Activate Edwiser Bridge Pro Features on Moodle', 'edwiser-bridge' ),
@@ -223,15 +223,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 110,
 				'sub_step' => 0,
 			),
-			// 'mdl_plugins_installation' => array(
-			// 	'sidebar'  => 1,
-			// 	'name'     => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
-			// 	'title'    => __( 'Let’s install Edwiser Bridge PRO Moodle plugins', 'edwiser-bridge' ),
-			// 	'function' => 'eb_setup_mdl_plugins_installation',
-			// 	'priority' => 120,
-			// 	'sub_step' => 0,
-			// ),
-			'sso'                      => array(
+			'sso'              => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Single Sign On setup', 'edwiser-bridge' ),
 				'title'    => __( 'Single Sign On setup', 'edwiser-bridge' ),
@@ -239,7 +231,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 130,
 				'sub_step' => 0,
 			),
-			'wi_products_sync'         => array(
+			'wi_products_sync' => array(
 				'sidebar'  => 1,
 				'name'     => __( 'WooCommerce product creation', 'edwiser-bridge' ),
 				'title'    => __( 'WooCommerce product creation', 'edwiser-bridge' ),
@@ -247,7 +239,7 @@ class Eb_Setup_Wizard_Functions {
 				'priority' => 140,
 				'sub_step' => 0,
 			),
-			'pro_settings'             => array(
+			'pro_settings'     => array(
 				'sidebar'  => 1,
 				'name'     => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
 				'title'    => __( 'Edwiser Bridge PRO plugin settings', 'edwiser-bridge' ),
@@ -429,7 +421,7 @@ class Eb_Setup_Wizard_Functions {
 			$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
 			$version           = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
-			$connection_helper = new EBConnectionHelper( 'edwiserbridge', $version );
+			$connection_helper = new Eb_Connection_Helper( 'edwiserbridge', $version );
 			$response          = $connection_helper->connection_test_helper( $url, $token, 1 );
 
 			wp_send_json_success( $response );
@@ -473,20 +465,16 @@ class Eb_Setup_Wizard_Functions {
 			// Check if there is any data to be saved.
 
 			// Save step form progress.
-			$setup_data              = get_option( 'eb_setup_data' );
+			$setup_data = get_option( 'eb_setup_data' );
 
 			// Get the priority of the existing progress data.
 			// If the existing priority is greater then dont update it, let old progress be as it is.
 
-			// var_dump( $steps[$setup_data['progress']]['priority'] );
-
-			if ( isset( $setup_data[ 'progress' ] ) && $steps[$setup_data['progress']]['priority'] < $steps[$current_step]['priority'] ) {
+			if ( isset( $setup_data['progress'] ) && $steps[ $setup_data['progress'] ]['priority'] < $steps[ $current_step ]['priority'] ) {
 				$setup_data['progress']  = $current_step;
 				$setup_data['next_step'] = $next_step;
 				update_option( 'eb_setup_data', $setup_data );
 			}
-
-
 
 			switch ( $current_step ) {
 				case 'moodle_redirection':
@@ -534,7 +522,7 @@ class Eb_Setup_Wizard_Functions {
 				case 'free_completed_popup':
 					break;
 				case 'pro_plugins':
-					$module_data = get_option( 'eb_pro_modules_data' );
+					$module_data  = get_option( 'eb_pro_modules_data' );
 					$modules_data = array(
 						'selective_sync'  => '1' === $data['selective_sync'] ? 'active' : 'deactive',
 						'sso'             => '1' === $data['sso'] ? 'active' : 'deactive',
@@ -543,6 +531,7 @@ class Eb_Setup_Wizard_Functions {
 						'custom_fields'   => '1' === $data['custom_fields'] ? 'active' : 'deactive',
 					);
 					update_option( 'eb_pro_modules_data', $modules_data );
+					break;
 				case 'sso':
 					$old_sso_settings = get_option( 'eb_sso_settings_general' );
 					if ( isset( $data['sso_key'] ) ) {
@@ -561,8 +550,8 @@ class Eb_Setup_Wizard_Functions {
 						'bridge_woo_synchronize_product_create'     => 1,
 					);
 
-					$course_woo_plugin = new includes\wooInt\BridgeWoocommerceCourse( includes\edwiser_bridge_pro()->get_plugin_name(), includes\edwiser_bridge_pro()->get_version() );
-					$response          = $course_woo_plugin->bridgeWooProductSyncHandler( $sync_options );
+					$course_woo_plugin = new includes\wooInt\Bridge_Woocommerce_Course( includes\edwiser_bridge_pro()->get_plugin_name(), includes\edwiser_bridge_pro()->get_version() );
+					$response          = $course_woo_plugin->bridge_woo_product_sync_handler( $sync_options );
 
 					break;
 
@@ -570,7 +559,7 @@ class Eb_Setup_Wizard_Functions {
 					if ( isset( $data['archive_page'] ) ) {
 						$general_settings                    = get_option( 'eb_general' );
 						$general_settings['eb_show_archive'] = ( '1' === $data['archive_page'] ) ? 'yes' : 'no';
-						$guest_checkout = ('1' === $data['guest_checkout']) ? 'yes' : 'no';
+						$guest_checkout                      = ( '1' === $data['guest_checkout'] ) ? 'yes' : 'no';
 						update_option( 'eb_general', $general_settings );
 						update_option( 'woocommerce_enable_guest_checkout', $guest_checkout );
 					}
@@ -593,8 +582,6 @@ class Eb_Setup_Wizard_Functions {
 					break;
 			}
 
-			
-
 			/*
 			* There are multiple steps inside 1 step which are listed below.
 			* 1. Web sevice
@@ -606,11 +593,10 @@ class Eb_Setup_Wizard_Functions {
 			*    b. success screens
 			*/
 			// Check if there are any sub steps available.
-			if ( 'completed_setup' != $current_step ) {
+			if ( 'completed_setup' !== $current_step ) {
 				$setup_wizard_templates = new Eb_Setup_Wizard_Templates();
 				$next_step_html         = $setup_wizard_templates->$function( 1 );
 			}
-
 		}
 	}
 
@@ -626,7 +612,7 @@ class Eb_Setup_Wizard_Functions {
 		$found_step = 0;
 		foreach ( $steps as $key => $value ) {
 
-			if ( $found_step && ! $value['sub_step']  ) {
+			if ( $found_step && ! $value['sub_step'] ) {
 				$step = $key;
 				break;
 			}
@@ -711,6 +697,7 @@ class Eb_Setup_Wizard_Functions {
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
+				'msg_no_plugin_selected_error'    => esc_html__( 'No pro feature selected.', 'edwiser-bridge' ),
 			)
 		);
 
@@ -724,7 +711,7 @@ class Eb_Setup_Wizard_Functions {
 		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
-		$connection_helper = new EBConnectionHelper( $this->plugin_name, $this->version );
+		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_helper( $url, $token );
 		wp_send_json_success( $return );
 	}
@@ -787,11 +774,9 @@ class Eb_Setup_Wizard_Functions {
 					if ( $current_step === $key ) {
 						$class = 'eb-setup-step-active';
 						$html  = '<span class="dashicons dashicons-arrow-right-alt2 eb_setup_sidebar_progress_icons"></span>';
-						// $completed = 0;
 					}
 
-					
-					if ( /*empty( $current_step ) &&*/ $key === $progress ) {
+					if ( $key === $progress ) {
 						$completed = 0;
 					}
 
@@ -912,7 +897,7 @@ class Eb_Setup_Wizard_Functions {
 			return $resp;
 		}
 
-		// dependency check. depricated
+		// dependency check. depricated.
 		if ( 'woocommerce_integration' === $slug ) {
 			$all_plugins = get_plugins();
 			$woo_path    = 'woocommerce/woocommerce.php';
@@ -950,8 +935,8 @@ class Eb_Setup_Wizard_Functions {
 		} elseif ( 'edwiser_custom_fields' === $slug ) {
 			$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
 			if ( is_plugin_active( $woo_integration_path ) ) {
-				$woo_data = get_plugin_data(WP_PLUGIN_DIR . '/' . $woo_integration_path );
-            	if ( version_compare($woo_data['Version'], '2.2.1', '<' ) ) {
+				$woo_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $woo_integration_path );
+				if ( version_compare( $woo_data['Version'], '2.2.1', '<' ) ) {
 					$status['message'] = __( 'WooCommerce Integration plugin Version 2.2.1 required.', 'edwiser-bridge' );
 					return $status;
 				}
@@ -1009,9 +994,9 @@ class Eb_Setup_Wizard_Functions {
 			$request = wp_remote_get(
 				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
 				array(
-					'timeout'   => 15,
-					'sslverify' => false,
-					'blocking'  => true,
+					'timeout'    => 15,
+					'sslverify'  => false,
+					'blocking'   => true,
 					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)
 			);
@@ -1086,6 +1071,4 @@ class Eb_Setup_Wizard_Functions {
 
 }
 
-
 new Eb_Setup_Wizard_Functions();
-

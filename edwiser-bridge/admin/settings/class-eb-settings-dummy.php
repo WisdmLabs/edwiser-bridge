@@ -24,35 +24,11 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 		 * Constructor.
 		 */
 		public function __construct() {
-			// if ( ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
-			// 	new Eb_Settings_Dummy_Woo_Int();
-			// }
-			// if ( ! is_plugin_active( 'selective-synchronization/selective-synchronization.php' ) ) {
-			// 	new Eb_Settings_Dummy_Sel_Sync();
-			// }
-			// if ( ! is_plugin_active( 'edwiser-bridge-sso/sso.php' ) ) {
-			// 	new Eb_Settings_Dummy_SSO();
-			// }
-			// if ( ! is_plugin_active( 'edwiser-custom-fields/edwiser-custom-fields.php' ) ) {
-			// 	new Eb_Settings_Dummy_Custom_Fields();
-			// }
 
 			// new dummy settings pages flow for pro modules.
 			$bridge_pro_data = get_option( 'eb_pro_modules_data' );
-			if ( is_array( $bridge_pro_data ) && ! empty( $bridge_pro_data ) ) {
-
-				if ( isset( $bridge_pro_data['selective_sync'] ) && 'active' !== $bridge_pro_data['selective_sync'] ) {
-					// new Eb_Settings_Dummy_Sel_Sync();
-				}
-				if ( isset( $bridge_pro_data['woo_integration'] ) && 'active' !== $bridge_pro_data['woo_integration'] ) {
-					// new Eb_Settings_Dummy_Woo_Int();
-				}
-				if ( isset( $bridge_pro_data['sso'] ) && 'active' !== $bridge_pro_data['sso'] ) {
-					// new Eb_Settings_Dummy_SSO();
-				}
-				if ( isset( $bridge_pro_data['custom_fields'] ) && 'active' !== $bridge_pro_data['custom_fields'] ) {
-					// new Eb_Settings_Dummy_Custom_Fields();
-				}
+			if ( is_array( $bridge_pro_data ) && ! empty( $bridge_pro_data ) ) { // @codingStandardsIgnoreLine
+				// do nothing.
 			} else {
 				if ( ! is_plugin_active( 'woocommerce-integration/bridge-woocommerce.php' ) ) {
 					new Eb_Settings_Dummy_Woo_Int();
@@ -100,7 +76,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 	/**
 	 * Eb_Settings_Dummy_Woo_Int.
 	 */
-	class Eb_Settings_Dummy_Woo_Int extends EBSettingsPage { // @codingStandardsIgnoreLine
+	class Eb_Settings_Dummy_Woo_Int extends EB_Settings_Page { // @codingStandardsIgnoreLine
 
 		/**
 		 * Setting data.
@@ -196,7 +172,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Woo_Int' ) ) {
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -226,7 +202,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 	/**
 	 * Eb_Settings_Dummy_Sel_Sync.
 	 */
-	class Eb_Settings_Dummy_Sel_Sync extends EBSettingsPage { // @codingStandardsIgnoreLine
+	class Eb_Settings_Dummy_Sel_Sync extends EB_Settings_Page { // @codingStandardsIgnoreLine
 		/**
 		 * Setting data.
 		 *
@@ -266,7 +242,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Sel_Sync' ) ) {
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -338,7 +314,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 	/**
 	 * Eb_Settings_Dummy_SSO.
 	 */
-	class Eb_Settings_Dummy_SSO extends EBSettingsPage { // @codingStandardsIgnoreLine
+	class Eb_Settings_Dummy_SSO extends EB_Settings_Page { // @codingStandardsIgnoreLine
 		/**
 		 * Setting data.
 		 *
@@ -377,7 +353,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_SSO' ) ) {
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -458,7 +434,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Custom_Fields' ) ) {
 	/**
 	 * Eb_Settings_Dummy_Custom_Fields.
 	 */
-	class Eb_Settings_Dummy_Custom_Fields extends EBSettingsPage { // @codingStandardsIgnoreLine
+	class Eb_Settings_Dummy_Custom_Fields extends EB_Settings_Page { // @codingStandardsIgnoreLine
 
 		/**
 		 * Setting data.
@@ -497,7 +473,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy_Custom_Fields' ) ) {
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
