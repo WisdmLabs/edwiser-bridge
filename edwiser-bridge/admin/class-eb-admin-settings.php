@@ -868,3 +868,12 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 	}
 }
 new Eb_Admin_Settings();
+
+/**
+ * Deprecated Class.
+ *
+ * @deprecated 3.0.0
+ */
+Class EbAdminSettings extends Eb_Admin_Settings { // @codingStandardsIgnoreLine
+
+}

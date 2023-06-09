@@ -774,3 +774,12 @@ class EB_Email_Template {
 		}
 	}
 }
+
+/**
+ * Deprecated Class.
+ *
+ * @deprecated 3.0.0
+ */
+class EBAdminEmailTemplate extends EB_Email_Template { // @codingStandardsIgnoreLine
+
+}
