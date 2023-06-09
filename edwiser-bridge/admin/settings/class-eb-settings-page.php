@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'ESettingsPage' ) ) :
 
 	/**
-	 * EBSettingsPage
+	 * EB_Settings_Page
 	 */
-	abstract class EBSettingsPage {
+	abstract class EB_Settings_Page {
 		/**
 		 * Id.
 		 *
@@ -169,7 +169,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 				$settings = $this->get_settings();
 			}
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -181,7 +181,7 @@ if ( ! class_exists( 'ESettingsPage' ) ) :
 			global $current_section;
 
 			$settings = $this->get_settings();
-			EbAdminSettings::save_fields( $settings );
+			Eb_Admin_Settings::save_fields( $settings );
 
 			if ( $current_section ) {
 				do_action( 'eb_update_options_' . $this->_id . '_' . $current_section );

@@ -71,7 +71,7 @@ class Eb_Frontend_Form_Handler {
 				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_login'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_login'] ) {
 					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
 						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
-						if( '' === $secret ) {
+						if ( '' === $secret ) {
 							throw new \Exception(
 								'<strong>' .
 								esc_html__( 'Error', 'edwiser-bridge' ) .
@@ -79,10 +79,10 @@ class Eb_Frontend_Form_Handler {
 								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
 							);
 						}
-						$captcha = $_POST['g-recaptcha-response'];
-						$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha);
-						$responseKeys = json_decode( $response, true );
-						if ( 1 !== intval( $responseKeys["success"] ) ) {
+						$captcha       = $_POST['g-recaptcha-response']; // @codingStandardsIgnoreLine
+						$response      = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captcha ); // @codingStandardsIgnoreLine
+						$response_keys = json_decode( $response, true );
+						if ( 1 !== intval( $response_keys['success'] ) ) {
 							throw new \Exception(
 								'<strong>' .
 								esc_html__( 'Error', 'edwiser-bridge' ) .
@@ -195,7 +195,7 @@ class Eb_Frontend_Form_Handler {
 				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_register'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_register'] ) {
 					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
 						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
-						if( '' === $secret ) {
+						if ( '' === $secret ) {
 							throw new \Exception(
 								'<strong>' .
 								esc_html__( 'Error', 'edwiser-bridge' ) .
@@ -203,10 +203,10 @@ class Eb_Frontend_Form_Handler {
 								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
 							);
 						}
-						$captcha = $_POST['g-recaptcha-response'];
-						$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secret."&response=".$captcha);
-						$responseKeys = json_decode( $response, true );
-						if ( 1 !== intval( $responseKeys["success"] ) ) {
+						$captcha       = $_POST['g-recaptcha-response']; // @codingStandardsIgnoreLine
+						$response      = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captcha ); // @codingStandardsIgnoreLine
+						$response_keys = json_decode( $response, true );
+						if ( 1 !== intval( $response_keys['success'] ) ) {
 							throw new \Exception(
 								'<strong>' .
 								esc_html__( 'Error', 'edwiser-bridge' ) .
@@ -228,7 +228,7 @@ class Eb_Frontend_Form_Handler {
 				$role = \app\wisdmlabs\edwiserBridge\wdm_eb_default_registration_role();
 
 				/* Create user manager class object*/
-				$user_manager = new EBUserManager(
+				$user_manager = new Eb_User_Manager(
 					edwiser_bridge_instance()->get_plugin_name(),
 					edwiser_bridge_instance()->get_version()
 				);

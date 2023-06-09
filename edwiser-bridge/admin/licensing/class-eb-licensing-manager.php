@@ -154,7 +154,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					update_option( 'edd_' . $this->plugin_slug . '_license_status', 'deactivated' );
 
 					// remove addon data.
-					// delete_option( 'edd_' . $this->plugin_slug . '_license_addon_data' );
+					// delete_option( 'edd_' . $this->plugin_slug . '_license_addon_data' );.
 				}
 				delete_transient( 'wdm_' . $this->plugin_slug . '_license_trans' );
 
@@ -179,7 +179,6 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					'url'             => get_home_url(),
 				)
 			);
-
 			if ( false !== $resp_data['status'] ) {
 				$is_data_avlb = $this->check_if_no_data( $resp_data['data'], $resp_data['status'] );
 				if ( $is_data_avlb ) {
@@ -238,7 +237,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 
 			$status = ( empty( $status ) ) ? 'invalid' : $status;
 			update_option( 'edd_' . $plugin_slug . '_license_status', $status );
-			// save new licensing data
+			// save new licensing data.
 			if ( 'valid' === $status && isset( $license_data->license_data ) && ! empty( $license_data->license_data ) ) {
 				update_option( 'edd_' . $plugin_slug . '_license_addon_data', $license_data->license_data );
 			} else {
@@ -440,6 +439,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				// Handle Submission of inputs on license page.
 				if ( isset( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) && empty( $_POST[ 'edd_' . $this->plugin_slug . '_license_key' ] ) ) { // WPCS: CSRF ok, input var ok. @codingStandardsIgnoreLine
 					// If empty, show error message.
+
 					/*
 					* translators: license key.
 					*/

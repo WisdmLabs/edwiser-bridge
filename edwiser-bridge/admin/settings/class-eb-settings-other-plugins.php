@@ -20,10 +20,11 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 	/**
 	 * SettingsPremiumExtensions.
 	 */
-	class Eb_Settings_Other_Plugins extends EBSettingsPage {
+	class Eb_Settings_Other_Plugins extends EB_Settings_Page {
 
 		/**
 		 * Plugin data.
+		 *
 		 * @var array
 		 */
 		public $plugin_data = array();
@@ -46,15 +47,15 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 		 */
 		public function output() {
 			$GLOBALS['hide_save_button'] = 1;
-			
+
 			?>
 			<div class="eb_table" >
 				<h1><?php esc_attr_e( 'Edwiser Bridge Plugins', 'edwiser-bridge' ); ?></h1>
 				<div class="eb-pro-plugins">  
 					<?php
-					// non licensed plugins
+					// non licensed plugins.
 					foreach ( $this->plugin_data as $plugin ) {
-						// create card for each plugin with activation/deactivation button
+						// create card for each plugin with activation/deactivation button.
 						?>
 						<div class="eb-pro-upgrade-plugin-card">
 							<div class="eb-pro-plugin-card-header">
@@ -69,7 +70,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 								<a class="eb-pro-other-plugin-btn" href="<?php echo esc_attr( $plugin['link'] ); ?>"><?php esc_attr_e( 'Explore now', 'edwiser-bridge' ); ?></a>
 							</div>
 						</div>
-						<?php  
+						<?php
 					}
 					?>
 				</div>
@@ -84,7 +85,7 @@ if ( ! class_exists( 'Eb_Settings_Premium_Features' ) ) {
 		 *
 		 * @return array
 		 */
-		public static function get_other_plugin_data(){
+		public static function get_other_plugin_data() {
 			$plugin_data = array(
 				array(
 					'name' => 'All-in-One Edwiser Bundle',

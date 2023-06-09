@@ -125,7 +125,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param text $search_text text.
 		 * @param text $current_page current_page.
 		 */
-		public function bpGetTable( $post_data, $search_text, $current_page ) {
+		public function bp_get_table( $post_data, $search_text, $current_page ) {
 			global $wpdb;
 			$per_page    = 20;
 			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
@@ -171,7 +171,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$results = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine
 
 			foreach ( $results as $result ) {
-				$profile_url          = $this->getUserProfileURL( $result->user_id );
+				$profile_url          = $this->get_user_profile_url( $result->user_id );
 				$row                  = array();
 				$row['user_id']       = $result->user_id;
 				$row['user']          = $profile_url;
@@ -235,7 +235,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param type $user_id user_id.
 		 * @return type
 		 */
-		private function getUserProfileURL( $user_id ) {
+		private function get_user_profile_url( $user_id ) {
 			$user_name = '';
 			$user_info = get_userdata( $user_id );
 			if ( $user_info ) {
@@ -328,7 +328,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param object $item A singular item (one full row's worth of data).
 		 * @return string Text to be placed inside the column <td>.
 		 */
-		protected function column_rId( $item ) {
+		protected function column_rId( $item ) { // @codingStandardsIgnoreLine
 			return sprintf( '%1$s', $item['rId'] );
 		}
 
@@ -478,7 +478,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 
 			$options['ebemt_search'] = $search_text;
 
-			$table_data = $this->bpGetTable( $_REQUEST, $search_text, $current_page );
+			$table_data = $this->bp_get_table( $_REQUEST, $search_text, $current_page );
 			$data       = $table_data['data'];
 
 			/*

@@ -118,7 +118,7 @@ class Eb_Admin_Menus {
 	 * @since 1.0.0
 	 */
 	public function settings_page() {
-		EbAdminSettings::output();
+		Eb_Admin_Settings::output();
 	}
 
 	/**
@@ -128,7 +128,7 @@ class Eb_Admin_Menus {
 	 */
 	public function manage_enrollment_content() {
 		$edwiser            = EdwiserBridge::instance();
-		$enrollment_manager = new Eb_Manage_User_Enrollment( $edwiser->get_plugin_name(), $edwiser->get_version() );
+		$enrollment_manager = new Eb_Manage_Enrollment( $edwiser->get_plugin_name(), $edwiser->get_version() );
 		$enrollment_manager->out_put();
 	}
 
@@ -143,7 +143,7 @@ class Eb_Admin_Menus {
 	 * Email template page.
 	 */
 	public function email_template_page() {
-		$email_tmpl = new EBAdminEmailTemplate();
+		$email_tmpl = new EB_Email_Template();
 		$email_tmpl->output();
 	}
 }

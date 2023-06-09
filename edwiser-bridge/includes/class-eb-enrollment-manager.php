@@ -570,7 +570,7 @@ class Eb_Enrollment_Manager {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
 		$start_date       = '0000-00-00 00:00:00' === $start_date ? gmdate( 'Y-m-d H:i:s' ) : $start_date;
-		$act_cnt          = ( false == $act_cnt ) ? 1 : $act_cnt;
+		$act_cnt          = ( false == $act_cnt ) ? 1 : $act_cnt; // @codingStandardsIgnoreLine
 
 		if ( isset( $course_meta['course_expirey'] ) && 'yes' === $course_meta['course_expirey'] ) {
 			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( $start_date . '+' . $act_cnt * $course_meta['num_days_course_access'] . ' days' ) );

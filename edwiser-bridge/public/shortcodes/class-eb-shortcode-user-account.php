@@ -49,7 +49,7 @@ class Eb_Shortcode_User_Account {
 	 * @since  1.0.0
 	 */
 	public static function output( $atts ) {
-		$template_loader = new EbTemplateLoader(
+		$template_loader = new Eb_Template_Loader(
 			edwiser_bridge_instance()->get_plugin_name(),
 			edwiser_bridge_instance()->get_version()
 		);
@@ -209,7 +209,7 @@ class Eb_Shortcode_User_Account {
 					// Profile updated on Moodle successfully.
 					if ( self::update_wordpress_profile( $posted_data ) ) {
 						$mdl_uid = get_user_meta( $user->ID, 'moodle_user_id', true );
-						if( is_numeric( $mdl_uid ) ) {
+						if ( is_numeric( $mdl_uid ) ) {
 							if ( self::update_moodle_profile( $posted_data ) ) {
 								$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
 							} else {
@@ -318,7 +318,7 @@ class Eb_Shortcode_User_Account {
 		foreach ( $required_fields as $field_key => $field_name ) {
 			if ( empty( $posted_data[ $field_key ] ) ) {
 				/* Translators 1: field name */
-				$errors[] = sprintf( __( '%1$s is required field.', 'edwiser-bridge' ), '<strong>' . $field_name . '</strong>' );
+				$errors[] = sprintf( __( '%1$s is required field.', 'edwiser-bridge' ), '<strong>' . $field_name . '</strong>' ); // @codingStandardsIgnoreLine
 			}
 		}
 		$email    = sanitize_email( $posted_data['email'] );
@@ -376,7 +376,7 @@ class Eb_Shortcode_User_Account {
 			}
 
 			$version      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_version();
-			$user_manager = new EBUserManager( 'edwiserbridge', $version );
+			$user_manager = new Eb_User_Manager( 'edwiserbridge', $version );
 			$response     = $user_manager->create_moodle_user( $user_data, 1 );
 			if ( isset( $response['user_updated'] ) && $response['user_updated'] ) {
 				return true;

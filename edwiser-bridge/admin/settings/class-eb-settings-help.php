@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_Help' ) ) :
 	/**
 	 * Eb_Settings_Help.
 	 */
-	class Eb_Settings_Help extends EBSettingsPage {
+	class Eb_Settings_Help extends EB_Settings_Page {
 
 		/**
 		 * Constructor.

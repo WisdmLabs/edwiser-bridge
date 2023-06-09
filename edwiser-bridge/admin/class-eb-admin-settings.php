@@ -17,12 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'EbAdminSettings' ) ) {
+if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 
 	/**
-	 * EbAdminSettings.
+	 * Eb_Admin_Settings.
 	 */
-	class EbAdminSettings {
+	class Eb_Admin_Settings {
 		/**
 		 * Settings.
 		 *
@@ -867,4 +867,4 @@ if ( ! class_exists( 'EbAdminSettings' ) ) {
 		}
 	}
 }
-new EbAdminSettings();
+new Eb_Admin_Settings();

@@ -1913,7 +1913,7 @@ abbr.help:hover::after {
   background: linear-gradient(180deg, #C5F3F5 0%, #FFFFFF 53.66%), #FFFFFF;
   border: 1px solid #E5E5E5;
   border-radius: 4px;
-  width: 240px;
+  width: 195px;
   font-family: 'Open Sans';
   font-style: normal;
   position: relative;
@@ -1964,7 +1964,7 @@ abbr.help:hover::after {
   background: linear-gradient(180deg, #C5F3F5 0%, #FFFFFF 53.66%), #FFFFFF;
   border: 1px solid #E5E5E5;
   border-radius: 4px;
-  max-width: 260px;
+  max-width: 200px;
   font-family: 'Open Sans';
   font-style: normal;
 }
@@ -2017,7 +2017,6 @@ abbr.help:hover::after {
   margin-top: 10px;
   display: block;
 }
-
 .eb-pro-plugin-card-body{
   flex-grow: 1;
   border-bottom: 1px solid #E5E5E5;
@@ -2114,7 +2113,7 @@ input:checked + .eb-pro-checkbox-slider:before {
   margin: 10px 0px;
 }
 .eb-pro-plugin-card-header h2{
-  margin: 0px;
+  margin: 10px 0 0 0;
   color: #133F3F;
 }
 .eb-pro-upgrade-plugin-notice{
@@ -2165,7 +2164,8 @@ input:checked + .eb-pro-checkbox-slider:before {
   flex-direction: column;
 }
 .edwiser-settings-header-logo img{
-  width: 152px;
+  height: 40px;
+  width: fit-content;
   margin-top: 20px;
 }
 .edwiser-settings-header-logo p{
@@ -2174,7 +2174,7 @@ input:checked + .eb-pro-checkbox-slider:before {
   font-weight: 600;
   font-size: 24px;
   line-height: 33px;
-  margin: 40px 0 0 0;
+  margin: 30px 0 0 0;
 }
 .edwiser-rating{
   position: sticky;

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Connection helper.
  */
-class EBConnectionHelper {
+class Eb_Connection_Helper {
 
 	/**
 	 * The ID of this plugin.
@@ -40,24 +40,24 @@ class EBConnectionHelper {
 	/**
 	 * Instance.
 	 *
-	 * @var EBConnectionHelper The single instance of the class
+	 * @var Eb_Connection_Helper The single instance of the class
 	 *
 	 * @since 1.0.0
 	 */
 	protected static $instance = null;
 
 	/**
-	 * Main EBConnectionHelper Instance.
+	 * Main Eb_Connection_Helper Instance.
 	 *
-	 * Ensures only one instance of EBConnectionHelper is loaded or can be loaded.
+	 * Ensures only one instance of Eb_Connection_Helper is loaded or can be loaded.
 	 *
 	 * @since 1.0.0
 	 * @static
 	 *
-	 * @see EBConnectionHelper()
+	 * @see Eb_Connection_Helper()
 	 * @param text $plugin_name plugin_name.
 	 * @param text $version version.
-	 * @return EBConnectionHelper - Main instance
+	 * @return Eb_Connection_Helper - Main instance
 	 */
 	public static function instance( $plugin_name, $version ) {
 		if ( is_null( self::$instance ) ) {
@@ -140,6 +140,7 @@ class EBConnectionHelper {
 	 *
 	 * @param string $url   moodle URL.
 	 * @param string $token moodle access token.
+	 * @param int    $text_response text response.
 	 *
 	 * @return array returns array containing the success & response message
 	 */
@@ -149,7 +150,7 @@ class EBConnectionHelper {
 		$plain_txt_msg    = '';
 		// function to check if webservice token is properly set.
 
-		// new test connection api
+		// new test connection api.
 		$webservice_function = 'eb_test_connection';
 
 		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
@@ -166,10 +167,10 @@ class EBConnectionHelper {
 
 		$request_args['body'] = array(
 			'test_connection' => 'wordpress',
-			'wp_url' => get_site_url(),
-			'wp_token' => $token,
+			'wp_url'          => get_site_url(),
+			'wp_token'        => $token,
 		);
-		$response = wp_remote_post( $request_url, $request_args );
+		$response             = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -180,28 +181,28 @@ class EBConnectionHelper {
 			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
 				'message'      => $plain_txt_msg,
-				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 			);
 			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
 			wp_remote_retrieve_response_code( $response ) === 303 ) {
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if ( null === $body ) {
-				$url_link         = "<a href='$url/auth/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
-				$success          = 0;
-				$plain_txt_msg    = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
+				$url_link      = "<a href='$url/auth/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
+				$success       = 0;
+				$plain_txt_msg = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
 
 				$response_message = $this->create_response_message(
 					$request_url,
 					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) . $url_link
 				);
 			} elseif ( ! empty( $body->exception ) ) {
-				if ( "invalid_parameter_exception" === $body->exception ) {
+				if ( 'invalid_parameter_exception' === $body->exception ) {
 					$success          = 0;
 					$msg              = __( 'Edwiser plugin is not updated on your Moodle Site. Please update it to avoid any malfunctioning.', 'edwiser-bridge' );
 					$plain_txt_msg    = $msg;
@@ -213,7 +214,7 @@ class EBConnectionHelper {
 					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
 				}
 
-				// register error log
+				// register error log.
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
@@ -224,7 +225,7 @@ class EBConnectionHelper {
 					'exception'    => $body->exception,
 					'errorcode'    => $body->errorcode,
 					'message'      => $body->message,
-					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 				);
 				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;
@@ -233,7 +234,7 @@ class EBConnectionHelper {
 				wdm_log_json( $error_data );
 
 			} else {
-				if ( "0" === $body->status ) {
+				if ( '0' === $body->status ) {
 					$success          = 0;
 					$plain_txt_msg    = esc_html__( 'Connection failed', 'edwiser-bridge' );
 					$update_msg       = esc_html__( 'You can check added webservice here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/admin/settings.php?section=externalservices</a>' . esc_html__( ' or you can directly create new token and webservice in our Moodle edwiser settings here ', 'edwiser-bridge' ) . '<a href="' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service">' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_moodle_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service</a>';
@@ -250,7 +251,7 @@ class EBConnectionHelper {
 			$response_message = $plain_txt_msg;
 		}
 
-		$response =  array(
+		$response = array(
 			'success'          => $success,
 			'response_message' => $response_message,
 		);
@@ -259,7 +260,7 @@ class EBConnectionHelper {
 				$response['warnings'][] = '<span class="dashicons dashicons-warning" style="padding: 2px 6px 2px 0px;font-size: 22px;margin-left: -2px;"></span>' . $warning;
 			}
 		}
-		
+
 		return $response;
 	}
 
@@ -420,7 +421,7 @@ class EBConnectionHelper {
 		$request_url  = $eb_access_url . '/webservice/rest/server.php?wstoken=';
 		$request_url .= $eb_access_token . '&wsfunction=' . $webservice_function . '&moodlewsrestformat=json';
 
-		$request_args = array( 'timeout' => 100 );
+		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = false;
 		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
@@ -436,12 +437,12 @@ class EBConnectionHelper {
 			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
 				'message'      => $response_message,
-				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 			);
 			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ||
@@ -462,7 +463,7 @@ class EBConnectionHelper {
 					'exception'    => $body->exception,
 					'errorcode'    => $body->errorcode,
 					'message'      => $body->message,
-					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 				);
 				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;
@@ -549,12 +550,12 @@ class EBConnectionHelper {
 			$error_data = array(
 				'url'          => $request_url,
 				'arguments'    => $request_args,
-				'user'         => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
 				'exception'    => '',
 				'errorcode'    => '',
 				'message'      => $response_message,
-				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+				'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 			);
 			wdm_log_json( $error_data );
 		} elseif ( wp_remote_retrieve_response_code( $response ) === 200 ) {
@@ -578,7 +579,7 @@ class EBConnectionHelper {
 					'exception'    => $body->exception,
 					'errorcode'    => $body->errorcode,
 					'message'      => $body->message,
-					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ),
+					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 				);
 				if ( isset( $body->debuginfo ) ) {
 					$error_data['debuginfo'] = $body->debuginfo;

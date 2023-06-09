@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_Shortcode_Doc' ) ) {
 	/**
 	 * Eb_Settings_Shortcode_Doc.
 	 */
-	class Eb_Settings_Shortcode_Doc extends EBSettingsPage {
+	class Eb_Settings_Shortcode_Doc extends EB_Settings_Page {
 
 		/**
 		 * Constructor.

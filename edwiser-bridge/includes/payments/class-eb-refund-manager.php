@@ -14,9 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * En paypal refund manager.
+ * Eb paypal refund manager.
  */
-class Eb_Paypal_Refund_Manager {
+class Eb_Refund_Manager {
 	/**
 	 * Plugin name.
 	 *

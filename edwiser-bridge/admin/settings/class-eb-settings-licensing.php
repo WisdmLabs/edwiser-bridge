@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_Licensing' ) ) :
 	/**
 	 * Eb_Settings_Licensing.
 	 */
-	class Eb_Settings_Licensing extends EBSettingsPage {
+	class Eb_Settings_Licensing extends EB_Settings_Page {
 
 		/**
 		 * Addon licensing.

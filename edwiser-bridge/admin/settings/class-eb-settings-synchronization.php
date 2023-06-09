@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 	/**
 	 * Eb_Settings_Synchronization.
 	 */
-	class Eb_Settings_Synchronization extends EBSettingsPage {
+	class Eb_Settings_Synchronization extends EB_Settings_Page {
 
 		/**
 		 * Constructor.
@@ -74,7 +74,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 			global $current_section;
 
 			$settings = $this->get_settings( $current_section );
-			EbAdminSettings::save_fields( $settings );
+			Eb_Admin_Settings::save_fields( $settings );
 		}
 
 		/**
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Eb_Settings_Synchronization' ) ) {
 							'title' => '',
 							'type'  => 'title',
 							'id'    => 'course_draft_notice',
-							'desc'  => '<div class="user_sync_email_notice">' . sprintf( __( 'Pre-Requisite Alert: Before you can synchronize course images from Moodle, ensure that you have enabled the "Can Download File" option on your Moodle site. To learn how to do this, please click the %s provided.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/559-how-to-enable-can-download-file-in-the-active-external-web-service">' . __( 'link', 'edwiser-bridge' ) . '</a>' ) . '</div>',
+							'desc'  => '<div class="user_sync_email_notice">' . sprintf( __( 'Pre-Requisite Alert: Before you can synchronize course images from Moodle, ensure that you have enabled the "Can Download File" option on your Moodle site. To learn how to do this, please click the %s provided.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/559-how-to-enable-can-download-file-in-the-active-external-web-service">' . __( 'link', 'edwiser-bridge' ) . '</a>' ) . '</div>', // @codingStandardsIgnoreLine
 						),
 						array(
 							'type' => 'sectionend',

@@ -29,9 +29,9 @@ if ( ! defined( 'WPINC' ) ) {
 // plugin data global variable.
 global $eb_plugin_data;
 $eb_plugin_data = array(
-	'name' => 'Edwiser Bridge - WordPress Moodle LMS Integration',
-	'slug' => 'edwiser-bridge',
-	'version' => '3.0.0',
+	'name'           => 'Edwiser Bridge - WordPress Moodle LMS Integration',
+	'slug'           => 'edwiser-bridge',
+	'version'        => '3.0.0',
 	'mdl_plugin_url' => 'https://edwiser.org/wp-content/uploads/edd/2023/03/edwiserbridge-1.zip',
 );
 
@@ -76,11 +76,11 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), '\app\wisdmlab
  * @param text $links links.
  */
 function wdm_add_settings_action_link( $links ) {
-	// add pro link 
+	// add pro link.
 	$plugin_links = array(
 		'<a href="' . admin_url( '/admin.php?page=eb-settings' ) . '">' . esc_html__( 'Settings', 'edwiser-bridge' ) . '</a>',
 	);
-	$license = get_option( 'edd_edwiser_bridge_pro_license_status' );
+	$license      = get_option( 'edd_edwiser_bridge_pro_license_status' );
 	if ( 'valid' !== $license ) {
 		$plugin_links[] = '<a href="https://bit.ly/2NAJ7OW" target="_blank">' . esc_html__( 'Upgrade to Pro', 'edwiser-bridge' ) . '</a>';
 	}

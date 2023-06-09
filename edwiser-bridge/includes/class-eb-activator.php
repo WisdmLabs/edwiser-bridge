@@ -52,23 +52,23 @@ class Eb_Activator {
 		$plugin_i18n = new Eb_I18n();
 		$plugin_i18n->rename_langauge_files();
 
-		// check if moodle plugin update is available
+		// check if moodle plugin update is available.
 		require_once WP_PLUGIN_DIR . '/edwiser-bridge/includes/class-eb-admin-notice-handler.php';
 		$notice_handler = new Eb_Admin_Notice_Handler();
 		$notice_handler->eb_check_mdl_plugin_update();
 
 		// redirect to welcome screen.
 		$current_version = get_option( 'eb_current_version' );
-        if( ! $current_version ) {
+		if ( ! $current_version ) {
 			set_transient( '_eb_activation_redirect', 1, 30 );
 		}
 		set_transient( 'edwiser_bridge_admin_feedback_notice', 'eb_admin_feedback_notice', 60 * 60 * 24 * 15 );
 
 		// eb pro consolidated plugin notice.
-		$is_pro = eb_is_legacy_pro();
+		$is_pro          = eb_is_legacy_pro();
 		$pro_plugin_path = 'edwiser-bridge-pro/edwiser-bridge-pro.php';
 		if ( $is_pro && ! is_plugin_active( $pro_plugin_path ) ) {
-			delete_option( 'eb_pro_consolidated_plugin_notice_dismissed');
+			delete_option( 'eb_pro_consolidated_plugin_notice_dismissed' );
 			set_transient( '_eb_pro_consolidated_plugin_notice', 1, 30 );
 		}
 	}
@@ -290,7 +290,7 @@ class Eb_Activator {
 	 * Default email tempalate.
 	 */
 	public static function create_default_email_tempaltes() {
-		$default_tmpl = new Eb_Default_Email_Template();
+		$default_tmpl = new Eb_Default_Email_Templates();
 		self::update_template_data( 'eb_emailtmpl_create_user', $default_tmpl->new_user_acoount( 'eb_emailtmpl_create_user' ) );
 
 		self::update_template_data( 'eb_emailtmpl_refund_completion_notifier_to_user', $default_tmpl->notify_user_on_order_refund( 'eb_emailtmpl_refund_completion_notifier_to_user' ) );
@@ -305,7 +305,6 @@ class Eb_Activator {
 		self::update_template_data( 'eb_emailtmpl_mdl_un_enrollment_trigger', $default_tmpl->moodle_unenrollment_trigger( 'eb_emailtmpl_mdl_un_enrollment_trigger' ) );
 		self::update_template_data( 'eb_emailtmpl_mdl_user_deletion_trigger', $default_tmpl->user_deletion_trigger( 'eb_emailtmpl_mdl_user_deletion_trigger' ) );
 		self::update_template_data( 'eb_emailtmpl_new_user_email_verification', $default_tmpl->new_user_email_verification( 'eb_emailtmpl_new_user_email_verification' ) );
-
 
 		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_user_notify_allow', 'ON' );
 		self::update_allow_mail_send_data( 'eb_emailtmpl_refund_completion_notifier_to_admin_notify_allow', 'ON' );

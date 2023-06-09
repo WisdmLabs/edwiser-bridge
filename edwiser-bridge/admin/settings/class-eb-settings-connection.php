@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 	/**
 	 * Eb_Settings_Connection.
 	 */
-	class Eb_Settings_Connection extends EBSettingsPage {
+	class Eb_Settings_Connection extends EB_Settings_Page {
 		/**
 		 * Constructor.
 		 */
@@ -43,7 +43,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 */
 		public function get_sections() {
 			$sections = array(
-				''          => __( 'Connection', 'edwiser-bridge' ),
+				''           => __( 'Connection', 'edwiser-bridge' ),
 				'enrollment' => __( 'Test Enrollment', 'edwiser-bridge' ),
 			);
 
@@ -58,13 +58,13 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		public function output() {
 			global $current_section;
 
-			if( 'enrollment' === $current_section ) {
+			if ( 'enrollment' === $current_section ) {
 				$GLOBALS['hide_save_button'] = true;
 			}
 
 			$settings = $this->get_settings( $current_section );
 
-			EbAdminSettings::output_fields( $settings );
+			Eb_Admin_Settings::output_fields( $settings );
 		}
 
 		/**
@@ -76,14 +76,14 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 			global $current_section;
 
 			$settings = $this->get_settings( $current_section );
-			EbAdminSettings::save_fields( $settings );
+			Eb_Admin_Settings::save_fields( $settings );
 		}
 
 		/**
 		 * Get All Courses
-		 * 
+		 *
 		 * @return array
-		 * 
+		 *
 		 * @since  2.2.1
 		 */
 		public function get_courses() {
@@ -97,7 +97,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 			$all_courses = get_posts( $course_args );
 
 			foreach ( $all_courses as $course ) {
-				if( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
+				if ( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
 
 					continue;
 				}
@@ -116,7 +116,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 		 * @return array
 		 */
 		public function get_settings( $current_section = '' ) {
-			if( 'enrollment' === $current_section) {
+			if ( 'enrollment' === $current_section ) {
 				$settings = apply_filters(
 					'test_enrollment_settings',
 					array(
@@ -134,7 +134,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'default'           => __( 'Select Course', 'edwiser-bridge' ),
 							'type'              => 'select',
 							'desc_tip'          => true,
-							'options'		   	=> $this->get_courses(),
+							'options'           => $this->get_courses(),
 							'custom_attributes' => array( 'required' => 'required' ),
 						),
 
@@ -151,10 +151,10 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'html' => '<th></th><td>
 							<h2 class="test-enrollment-heading"></h2>
 							<ul class="enroll-progress">
-								<li id="progress_settings">' . __('Mandatory Settings', 'edwiser-bridge') . '</li>
-								<li id="progress_user">' . __('User Creation', 'edwiser-bridge') . '</li>
-								<li id="progress_enroll">' . __('User Enrollment', 'edwiser-bridge') . '</li>
-								<li id="progress_finish">' . __('Finish', 'edwiser-bridge') . '</li>
+								<li id="progress_settings">' . __( 'Mandatory Settings', 'edwiser-bridge' ) . '</li>
+								<li id="progress_user">' . __( 'User Creation', 'edwiser-bridge' ) . '</li>
+								<li id="progress_enroll">' . __( 'User Enrollment', 'edwiser-bridge' ) . '</li>
+								<li id="progress_finish">' . __( 'Finish', 'edwiser-bridge' ) . '</li>
 							</ul></td>',
 							'type' => 'cust_html',
 						),

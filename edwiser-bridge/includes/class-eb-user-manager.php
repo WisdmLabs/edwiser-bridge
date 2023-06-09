@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * User manager.
  */
-class EBUserManager {
+class Eb_User_Manager {
 
 	/**
 	 * The ID of this plugin.
@@ -301,7 +301,7 @@ class EBUserManager {
 
 				if ( ! empty( $unlinked_users ) ) {
 					foreach ( $unlinked_users as $key => $value ) {
-						if($value['user_id'] == 0) continue;
+						if ( 0 == $value['user_id'] ) continue; // @codingStandardsIgnoreLine
 						$user_object = get_userdata( $value['user_id'] );
 						$flag        = $this->link_moodle_user( $user_object );
 						// If user not linked then add it in unlinked users array.
@@ -673,11 +673,11 @@ class EBUserManager {
 			$webservice_function = 'core_user_create_users';
 
 			$eb_general_settings = get_option( 'eb_general' );
-			if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+			if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) { // @codingStandardsIgnoreLine
 				// get wp user id from email.
-				$wp_user_id = email_exists( $user_data['email'] );
+				$wp_user_id  = email_exists( $user_data['email'] );
 				$is_verified = get_user_meta( $wp_user_id, 'eb_user_email_verified', true );
-				if ( 1 != $is_verified ) {
+				if ( 1 != $is_verified ) { // @codingStandardsIgnoreLine
 					$user = array(
 						'user_created' => 0,
 						'user_data'    => __( 'Email not verified', 'edwiser-bridge' ),
@@ -861,7 +861,6 @@ class EBUserManager {
 
 		$send_user_creation_email = 1;
 		$send_user_creation_email = apply_filters( 'eb_send_new_user_email_on_user_sync', $send_user_creation_email );
-
 
 		// add a dynamic hook only if a new user is created on moodle and linked to WordPress account.
 		if ( ! $created && $linked ) {
@@ -1294,7 +1293,7 @@ class EBUserManager {
 
 		// send email to user.
 		$user = get_userdata( $user_id );
-		
+
 		$args = array(
 			'user_email' => $user->user_email,
 			'username'   => $user->user_login,
@@ -1380,17 +1379,16 @@ class EBUserManager {
 		echo "<div id='moodleLinkUnlinkUserNotices' class='updated'>
 				 <p></p>
 			  </div>";
-	
 	}
 
 	/**
 	 * Create dummy user. Used for Enrollment test functionality.
-	 * 
+	 *
 	 * @return int $user_id id of the dummy user created.
-	 * 
+	 *
 	 * @since 2.2.1
 	 */
-	public function create_dummy_user() { //CHANGES
+	public function create_dummy_user() {
 		$response_array      = array(
 			'status' => 'error',
 		);
@@ -1398,7 +1396,7 @@ class EBUserManager {
 		$wp_user_created     = 0;
 		$moodle_user_created = 0;
 		// check if user already exists.
-		$user                = get_user_by( 'login', $username );
+		$user = get_user_by( 'login', $username );
 		if ( ! $user ) {
 			// create dummy user.
 			$user_data = array(
@@ -1408,23 +1406,23 @@ class EBUserManager {
 				'role'       => get_option( 'default_role' ),
 			);
 
-			$user_id   = wp_insert_user( $user_data );
-			if( is_wp_error( $user_id ) ) {
-				$response_array[ 'wp_message' ] = '<div class="alert alert-error">' . __('Wordpress User creation failed. ERROR : ', 'edwiser-bridge') . $user_id->get_error_message() . '</div>';
+			$user_id = wp_insert_user( $user_data );
+			if ( is_wp_error( $user_id ) ) {
+				$response_array['wp_message'] = '<div class="alert alert-error">' . __( 'WordPress User creation failed. ERROR : ', 'edwiser-bridge' ) . $user_id->get_error_message() . '</div>';
 				return $response_array;
 			} else {
-				$user_id                        = $user_id;
-				$wp_user_created                = 1;
-				$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wordpress User created successfully', 'edwiser-bridge') . '</div>';
+				$user_id                      = $user_id;
+				$wp_user_created              = 1;
+				$response_array['wp_message'] = '<div class="alert alert-success">' . __( 'WordPress User created successfully', 'edwiser-bridge' ) . '</div>';
 			}
 		} else {
-			$user_id                        = $user->ID;
-			$wp_user_created                = 1;
-			$response_array[ 'wp_message' ] = '<div class="alert alert-success">' . __('Wordpress User already exists', 'edwiser-bridge') . '</div>';
+			$user_id                      = $user->ID;
+			$wp_user_created              = 1;
+			$response_array['wp_message'] = '<div class="alert alert-success">' . __( 'WordPress User already exists', 'edwiser-bridge' ) . '</div>';
 		}
 
-		//create moodle user.
-		if( $this->is_moodle_username_available( $username) ) {
+		// create moodle user.
+		if ( $this->is_moodle_username_available( $username ) ) {
 			$general_settings = get_option( 'eb_general' );
 			$language         = 'en';
 			if ( isset( $general_settings['eb_language_code'] ) ) {
@@ -1448,17 +1446,17 @@ class EBUserManager {
 			);
 
 			if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
-				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">Moodle User creation failed</div>';
+				$response_array['moodle_message'] = '<div class="alert alert-error">Moodle User creation failed</div>';
 			} elseif ( 1 === $response['success'] && is_array( $response['response_data'] ) && ! empty( $response['response_data'] ) ) {
 				$moodle_user_id = $response['response_data'][0]->id;
 				update_user_meta( $user_id, 'moodle_user_id', $moodle_user_id );
-				$moodle_user_created                = 1;
-				$response_array[ 'moodle_message' ] = '<div class="alert alert-success">' . __('Moodle User created successfully', 'edwiser-bridge') . '</div>';
+				$moodle_user_created              = 1;
+				$response_array['moodle_message'] = '<div class="alert alert-success">' . __( 'Moodle User created successfully', 'edwiser-bridge' ) . '</div>';
 			} elseif ( 0 === $response['success'] ) {
-				$response_array[ 'moodle_message' ] = '<div class="alert alert-error">' . __('Moodle User creation failed. ERROR : ', 'edwiser-bridge') . '' . $response['response_message'] . '</div>';
+				$response_array['moodle_message'] = '<div class="alert alert-error">' . __( 'Moodle User creation failed. ERROR : ', 'edwiser-bridge' ) . '' . $response['response_message'] . '</div>';
 				if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
-					$mdl_settings_link                  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
-					$response_array[ 'html' ]           = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+					$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
+					$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 				}
 			}
 		} else {
@@ -1467,30 +1465,40 @@ class EBUserManager {
 			if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] && is_object( $moodle_user['user_data'] ) ) {
 				update_user_meta( $user_id, 'moodle_user_id', $moodle_user['user_data']->id );
 			}
-			
-			$moodle_user_created                = 1;
-			$response_array[ 'moodle_message' ] = '<div class="alert alert-success">' . __( 'Moodle User already exists', 'edwiser-bridge' ) . '</div>';
+
+			$moodle_user_created              = 1;
+			$response_array['moodle_message'] = '<div class="alert alert-success">' . __( 'Moodle User already exists', 'edwiser-bridge' ) . '</div>';
 		}
 
-		if( 1 === $wp_user_created && 1 === $moodle_user_created ) {
-			$response_array[ 'status' ] = 'success';
+		if ( 1 === $wp_user_created && 1 === $moodle_user_created ) {
+			$response_array['status'] = 'success';
 		}
 
 		echo wp_json_encode( $response_array );
 		die();
 	}
 
+	/**
+	 * Set user meta for email verification.
+	 *
+	 * @param  int $user_id user id.
+	 */
 	public function eb_user_email_verification_set_meta( $user_id ) {
 		$eb_general_settings = get_option( 'eb_general' );
 		// check if user is registered from edwiser bridge registration form.
-		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
+		if ( isset( $_GET['action'] ) && 'eb_register' === $_GET['action'] && isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) { // @codingStandardsIgnoreLine
 			update_user_meta( $user_id, 'eb_user_email_verified', 0 );
 
 			$this->eb_send_email_verification_link( $user_id );
-			
 		}
 	}
 
+	/**
+	 * Redirect user to login page after registration.
+	 *
+	 * @param  string $redirect redirect url.
+	 * @param  object $user     user object.
+	 */
 	public function eb_verify_registration_redirect( $redirect, $user = null ) {
 		wp_logout();
 		$query_args = add_query_arg(
@@ -1502,15 +1510,22 @@ class EBUserManager {
 		return $query_args;
 	}
 
+	/**
+	 * Authentication check during login.
+	 *
+	 * @param  object $user     user object.
+	 * @param  string $username username.
+	 * @param  string $password password.
+	 */
 	public function eb_user_authentication_check( $user, $username, $password ) {
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
-			// check the username against the email and username if user exist
+			// check the username against the email and username if user exist.
 			$userdata = get_user_by( 'email', $username );
 			if ( ! $userdata ) {
 				$userdata = get_user_by( 'login', $username );
 			}
-			
+
 			if ( ! $userdata ) {
 				return $user;
 			}
@@ -1519,25 +1534,28 @@ class EBUserManager {
 			$moodle_user_id         = get_user_meta( $userdata->ID, 'moodle_user_id', true );
 			$resend_link            = add_query_arg(
 				array(
-					'action'                         => 'eb_user_verification_resend',
-					'eb_user_email_verification_id'  => $userdata->ID,
+					'action'                        => 'eb_user_verification_resend',
+					'eb_user_email_verification_id' => $userdata->ID,
 				)
 			);
-			$resend_link = '<a href="' . $resend_link . '">' . __( 'Resend Verification Email', 'edwiser-bridge' ) . '</a>';
+			$resend_link            = '<a href="' . $resend_link . '">' . __( 'Resend Verification Email', 'edwiser-bridge' ) . '</a>';
 
-			if ( '' !== $eb_user_email_verified && 1 != $eb_user_email_verified ) {
+			if ( '' !== $eb_user_email_verified && 1 != $eb_user_email_verified ) { // @codingStandardsIgnoreLine
 				$user = new \WP_Error( 'eb_user_email_verification', __( 'Your email is not verified. Please verify your email.', 'edwiser-bridge' ) . ' ' . $resend_link );
 			}
 		}
 		return $user;
 	}
 
+	/**
+	 * Verify user email.
+	 */
 	public function eb_user_email_verify() {
-		$verification_key = isset( $_GET['eb_user_email_verification_key'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_key'] ) : '';
-		$verification_id  = isset( $_GET['eb_user_email_verification_id'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_id'] ) : '';
-		$action		   = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
+		$verification_key = isset( $_GET['eb_user_email_verification_key'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_key'] ) : ''; // @codingStandardsIgnoreLine
+		$verification_id  = isset( $_GET['eb_user_email_verification_id'] ) ? sanitize_text_field( $_GET['eb_user_email_verification_id'] ) : ''; // @codingStandardsIgnoreLine
+		$action		      = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : ''; // @codingStandardsIgnoreLine
 
-		if( 'eb_user_email_verification' === $action ) {
+		if ( 'eb_user_email_verification' === $action ) {
 			$eb_user_email_verification_key = get_user_meta( $verification_id, 'eb_user_email_verification_key', true );
 			if ( $verification_key === $eb_user_email_verification_key ) {
 				update_user_meta( $verification_id, 'eb_user_email_verified', 1 );
@@ -1568,15 +1586,15 @@ class EBUserManager {
 
 				// login user.
 				wp_clear_auth_cookie();
-				wp_set_current_user($user->ID);
-				wp_set_auth_cookie($user->ID);
-				do_action('wp_login', $user->user_login, $user);
+				wp_set_current_user( $user->ID );
+				wp_set_auth_cookie( $user->ID );
+				do_action( 'wp_login', $user->user_login, $user );
 
 			} else {
 				$message = __( 'Your email verification link is invalid.', 'edwiser-bridge' );
 			}
 			// register and localize script.
-			wp_register_script( 'eb-user-email-verification', false );
+			wp_register_script( 'eb-user-email-verification', false ); // @codingStandardsIgnoreLine
 			wp_enqueue_script( 'eb-user-email-verification' );
 			wp_localize_script(
 				'eb-user-email-verification',
@@ -1588,11 +1606,11 @@ class EBUserManager {
 		} elseif ( 'eb_user_verification_resend' === $action ) {
 
 			$eb_user_email_verified = get_user_meta( $verification_id, 'eb_user_email_verified', true );
-			if ( '' !== $eb_user_email_verified && 1 != $eb_user_email_verified ) {
+			if ( '' !== $eb_user_email_verified && 1 != $eb_user_email_verified ) { // @codingStandardsIgnoreLine
 				$this->eb_send_email_verification_link( $verification_id );
 				$message = __( 'Verification email has been sent to your email address.', 'edwiser-bridge' );
 				// register and localize script.
-				wp_register_script( 'eb-user-email-verification', false );
+				wp_register_script( 'eb-user-email-verification', false ); // @codingStandardsIgnoreLine
 				wp_enqueue_script( 'eb-user-email-verification' );
 				wp_localize_script(
 					'eb-user-email-verification',
@@ -1607,8 +1625,8 @@ class EBUserManager {
 
 	/**
 	 * Send email verification link to user.
-	 * 
-	 * @param object $user user object.
+	 *
+	 * @param object $user_id user id.
 	 */
 	public function eb_send_email_verification_link( $user_id ) {
 		// generate verification code.
@@ -1625,10 +1643,10 @@ class EBUserManager {
 		);
 		$verification_link = "<a href='$verification_link'>Verify</a>";
 		// send verification email.
-		$user = get_user_by( 'id', $user_id );
-		$first_name = isset( $_POST['firstname'] ) ? sanitize_text_field( $_POST['firstname'] ) : $user->first_name;
-		$last_name = isset( $_POST['lastname'] ) ? sanitize_text_field( $_POST['lastname'] ) : $user->last_name;
-		$args = array(
+		$user       = get_user_by( 'id', $user_id );
+		$first_name = isset( $_POST['firstname'] ) ? sanitize_text_field( $_POST['firstname'] ) : $user->first_name; // @codingStandardsIgnoreLine
+		$last_name  = isset( $_POST['lastname'] ) ? sanitize_text_field( $_POST['lastname'] ) : $user->last_name; // @codingStandardsIgnoreLine
+		$args       = array(
 			'user_email' => $user->user_email,
 			'username'   => $user->user_login,
 			'first_name' => $first_name,

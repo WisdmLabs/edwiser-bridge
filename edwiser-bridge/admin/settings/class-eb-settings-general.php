@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 	/**
 	 * Eb_Settings_General.
 	 */
-	class Eb_Settings_General extends EBSettingsPage {
+	class Eb_Settings_General extends EB_Settings_Page {
 
 		/**
 		 * Constructor.
@@ -359,12 +359,12 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'autoload' => false,
 					),
 					array(
-						'title'    => __( 'reCAPTCHA Type', 'edwiser-bridge' ),
-						'desc'     => sprintf( __( 'Select reCAPTCHA type.', 'edwiser-bridge' ) ),
-						'id'       => 'eb_recaptcha_type',
-						'default'  => 'v2',
-						'type'     => 'radio',
-						'options'  => array(
+						'title'   => __( 'reCAPTCHA Type', 'edwiser-bridge' ),
+						'desc'    => sprintf( __( 'Select reCAPTCHA type.', 'edwiser-bridge' ) ),
+						'id'      => 'eb_recaptcha_type',
+						'default' => 'v2',
+						'type'    => 'radio',
+						'options' => array(
 							'v2' => __( 'reCAPTCHA v2', 'edwiser-bridge' ),
 							'v3' => __( 'reCAPTCHA v3', 'edwiser-bridge' ),
 						),
@@ -520,7 +520,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 		 */
 		public function save() {
 			$settings = $this->get_settings();
-			EbAdminSettings::save_fields( $settings );
+			Eb_Admin_Settings::save_fields( $settings );
 		}
 	}
 endif;

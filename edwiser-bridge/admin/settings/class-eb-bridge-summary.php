@@ -20,7 +20,7 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 	/**
 	 * Eb_Settings_Licensing.
 	 */
-	class Eb_Bridge_Summary extends EBSettingsPage {
+	class Eb_Bridge_Summary extends EB_Settings_Page {
 
 		/**
 		 * Addon licensing.
@@ -94,7 +94,10 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			}
 			$products_data = Eb_Licensing_Manager::get_plugin_data();
 
-			foreach ( $products_data as $product ) {
+			foreach ( $products_data as $key => $product ) {
+				if ( 'edwiser_bridge_pro' !== $key ) {
+					continue;
+				}
 				$version_info = wdm_get_plugin_version( $product['path'] );
 				$remote_data  = $this->get_plugin_remote_version( $product, $fetch_data );
 				$data[]       = array(
@@ -116,16 +119,6 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Bridge :', 'edwiser-bridge' ) . '</span>',
 						'---',
 						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge'] ),
-					),
-					array(
-						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Single Sign On :', 'edwiser-bridge' ) . '</span>',
-						'---',
-						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_sso'] ),
-					),
-					array(
-						'<span class="eb-summary-lbl-text">' . __( 'Moodle Edwiser Bulk Purchase :', 'edwiser-bridge' ) . '</span>',
-						'---',
-						$this->show_plugin_version( $free_plugin_data['moodle_edwiser_bridge_bp'] ),
 					),
 				)
 			);

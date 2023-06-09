@@ -293,6 +293,13 @@
                         return;
                     }
 
+                    // if no plugin is selected then show error message.
+                    if ( sso == 0 && woo_int == 0 && bulk_purchase == 0 && selective_sync == 0 && custom_fields == 0 ) {
+                        $('.eb_setup_settings_error_msg').html(eb_setup_wizard.msg_no_plugin_selected_error).show();
+                        $("#eb-lading-parent").hide();
+                        return;
+                    }
+
                     data = { 'sso': sso, 'woo_integration': woo_int, 'bulk_purchase': bulk_purchase, 'selective_sync': selective_sync, 'custom_fields': custom_fields, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 

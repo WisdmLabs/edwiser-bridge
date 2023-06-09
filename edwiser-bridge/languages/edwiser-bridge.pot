@@ -1035,14 +1035,14 @@ msgstr ""
 #: admin/licensing/html-licensing.php:76
 msgid ""
 "<strong>Note: </strong> Enter your new license key below to activate the "
-"Edwiser Bridge Pro versioon xxx."
+"Edwiser Bridge Pro versioon 3.0.0."
 msgstr ""
 
 #: admin/licensing/html-licensing.php:77
 msgid ""
 "Upon entering the license key we will automatically install and activate the "
-"Pro plugin. While activating the Pro version xxx we will deactivate any "
-"Bridge Pro add-on plugin (version xxx and below) if found active on the site."
+"Pro plugin. While activating the Pro version 3.0.0 we will deactivate any "
+"Bridge Pro add-on plugin (version 3.0.0 and below) if found active on the site."
 msgstr ""
 
 #: admin/licensing/html-licensing.php:78
@@ -2584,7 +2584,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
 #: includes/class-eb-admin-notice-handler.php:492
 msgid ""
-"Starting from Edwiser Bridge version xxx,  all the Edwiser Bridge Pro add-on "
+"Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on "
 "plugins  have been combined into a"
 msgstr ""
 

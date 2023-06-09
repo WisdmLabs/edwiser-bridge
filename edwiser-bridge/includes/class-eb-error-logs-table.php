@@ -17,12 +17,12 @@ if ( ! class_exists( '\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
+if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Logs_Table' ) ) {
 
 	/**
 	 * Custom list table.
 	 */
-	class Eb_Log_Table extends \WP_List_Table {
+	class Eb_Error_Logs_Table extends \WP_List_Table {
 
 		/**
 		 * Bp_columns.
@@ -69,7 +69,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 		 * @param text $search_text text.
 		 * @param text $current_page current_page.
 		 */
-		public function bpGetTable( $post_data, $search_text, $current_page ) {
+		public function eb_get_table( $post_data, $search_text, $current_page ) {
 			$log_file = wdm_edwiser_bridge_plugin_log_dir() . 'log.json';
 			if ( ! file_exists( $log_file ) ) {
 				return array(
@@ -228,7 +228,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 		protected function process_bulk_action( $post_data ) {
 			// Detect when a bulk action is being triggered.
 			if ( 'delete' === $this->current_action() ) {
-				if ( isset( $post_data['error'] ) && is_array( $post_data['error'] ) && count( $post_data['error'] ) ) {
+				if ( isset( $post_data['error'] ) && is_array( $post_data['error'] ) && count( $post_data['error'] ) ) { // @codingStandardsIgnoreLine
 					// do something.
 				} else {
 					echo '<div class="notice notice-error is-dismissible">';
@@ -290,7 +290,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 			 */
 			$current_page = $this->get_pagenum();
 
-			$table_data = $this->bpGetTable( '', '', $current_page );
+			$table_data = $this->eb_get_table( '', '', $current_page );
 			$data       = $table_data['data'];
 
 			/*
@@ -305,6 +305,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Log_Table' ) ) {
 			 * REQUIRED. Now we can add our *sorted* data to the items property, where
 			 * it can be used by the rest of the class.
 			 */
+			$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
+
 			$this->items = $data;
 
 			/**
