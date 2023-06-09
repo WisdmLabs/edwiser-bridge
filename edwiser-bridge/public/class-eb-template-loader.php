@@ -257,3 +257,12 @@ class Eb_Template_Loader {
 		return apply_filters( 'eb_locate_template', $template, $template_name, $template_path );
 	}
 }
+
+/**
+ * Depricated Class.
+ *
+ * @deprecated since 3.0.0
+ */
+class EbTemplateLoader extends EB_Template_Loader { // @codingStandardsIgnoreLine
+
+}

@@ -604,3 +604,12 @@ class Eb_Connection_Helper {
 		);
 	}
 }
+
+/**
+ * Deprecated Class.
+ *
+ * @deprecated since 3.0.0
+ */
+class EBConnectionHelper extends EB_Connection_Helper { // @codingStandardsIgnoreLine
+
+}
