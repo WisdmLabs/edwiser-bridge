@@ -196,6 +196,6 @@ endif;
  *
  * @deprecated 3.0.0
  */
-class ESettingsPage extends EB_Settings_Page { // @codingStandardsIgnoreLine.
+class EBSettingsPage extends EB_Settings_Page { // @codingStandardsIgnoreLine.
 
 }
