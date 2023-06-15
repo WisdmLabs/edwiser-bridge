@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-09 09:58+0530\n"
+"POT-Creation-Date: 2023-06-15 19:53+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -3609,7 +3609,7 @@ msgid "Manage"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:343
-#: includes/class-eb-post-types.php:352
+#: includes/class-eb-post-types.php:353
 msgid "Unenroll"
 msgstr ""
 
@@ -4489,7 +4489,7 @@ msgid "Optional url to redirect user on click of take this course button."
 msgstr ""
 
 #: includes/class-eb-post-types.php:341
-msgid "Expire Access (Not applicable for subscription-based courses.)"
+msgid "Expire Access"
 msgstr ""
 
 #: includes/class-eb-post-types.php:342
@@ -4506,12 +4506,12 @@ msgstr ""
 msgid "Select an action to perform on course access expiration."
 msgstr ""
 
-#: includes/class-eb-post-types.php:353
-msgid "Suspend"
+#: includes/class-eb-post-types.php:352
+msgid "Do nothing"
 msgstr ""
 
 #: includes/class-eb-post-types.php:354
-msgid "Do nothing"
+msgid "Suspend"
 msgstr ""
 
 #: includes/class-eb-post-types.php:359
@@ -4546,47 +4546,47 @@ msgstr ""
 msgid "Status of Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:694
+#: includes/class-eb-post-types.php:700
 msgid " updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:694
+#: includes/class-eb-post-types.php:700
 msgid " View "
 msgstr ""
 
-#: includes/class-eb-post-types.php:699
+#: includes/class-eb-post-types.php:705
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:700
+#: includes/class-eb-post-types.php:706
 msgid "Custom field deleted."
 msgstr ""
 
-#: includes/class-eb-post-types.php:701
+#: includes/class-eb-post-types.php:707
 msgid "updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:705
+#: includes/class-eb-post-types.php:711
 msgid "restored to revision from "
 msgstr ""
 
-#: includes/class-eb-post-types.php:715
+#: includes/class-eb-post-types.php:721
 msgid "saved."
 msgstr ""
 
-#: includes/class-eb-post-types.php:723
+#: includes/class-eb-post-types.php:729
 msgid "scheduled for:  "
 msgstr ""
 
-#: includes/class-eb-post-types.php:723 includes/class-eb-post-types.php:735
+#: includes/class-eb-post-types.php:729 includes/class-eb-post-types.php:741
 msgid "Preview "
 msgstr ""
 
-#: includes/class-eb-post-types.php:726
+#: includes/class-eb-post-types.php:732
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: includes/class-eb-post-types.php:735
+#: includes/class-eb-post-types.php:741
 msgid " draft updated. "
 msgstr ""
 
