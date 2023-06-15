@@ -890,7 +890,7 @@
                 $('#eb_course_course_expiry_action').hide();
                 $('#eb_course_num_days_course_access').hide();
                 $('#num_days_course_access').val("");
-                $('#course_expiry_action').val("unenroll");
+                $('#course_expiry_action').val("do-nothing");
             }
         });
         $('#course_price_type').change();

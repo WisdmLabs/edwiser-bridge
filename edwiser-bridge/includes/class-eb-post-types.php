@@ -338,7 +338,7 @@ class Eb_Post_Types {
 					'default'     => '',
 				),
 				'course_expirey'           => array(
-					'label'       => __( 'Expire Access (Not applicable for subscription-based courses.)', 'edwiser-bridge' ),
+					'label'       => __( 'Expire Access', 'edwiser-bridge' ),
 					'description' => __( 'Leave this field unchecked if access never expires. Expire access will work with Woocommerce integration and not with Edwiser Bulk purchase plugin.', 'edwiser-bridge' ),
 					'default'     => 'no',
 					'type'        => 'checkbox',
@@ -349,9 +349,9 @@ class Eb_Post_Types {
 					'description' => __( 'Select an action to perform on course access expiration.', 'edwiser-bridge' ),
 					'type'        => 'select',
 					'options'     => array(
+						'do-nothing' => __( 'Do nothing', 'edwiser-bridge' ),
 						'unenroll'   => __( 'Unenroll', 'edwiser-bridge' ),
 						'suspend'    => __( 'Suspend', 'edwiser-bridge' ),
-						'do-nothing' => __( 'Do nothing', 'edwiser-bridge' ),
 					),
 					'default'     => array( 'do-nothing' ),
 				),
@@ -528,9 +528,15 @@ class Eb_Post_Types {
 				?>
 				<select name=" <?php echo esc_attr( $option_name ); ?>" id="<?php echo esc_attr( $field_id ); ?>">
 				<?php
+				if ( ! is_array( $data ) ) {
+					$data = array( $data );
+				}
+				error_log( print_r( $data, true ) );
+				
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( $k === $data ) {
+					error_log( print_r( $k, true ) );
+					if ( in_array( trim( $k ), $data, true ) ) {
 						$selected = true;
 					}
 					?>
