@@ -576,9 +576,17 @@ class Eb_Enrollment_Manager {
 			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( $start_date . '+' . $act_cnt * $course_meta['num_days_course_access'] . ' days' ) );
 		}
 		// if enddate is greater than expiry date then set expiry date as end date.
-		if ( '0000-00-00 00:00:00' !== $end_date && strtotime( $end_date ) > strtotime( $expiry_date_time ) ) {
-			$expiry_date_time = $end_date;
+		if ( '0000-00-00 00:00:00' !== $end_date && false !== $end_date ) {
+			if ( 0 === $end_date ) {
+				$expiry_date_time = '0000-00-00 00:00:00';
+			} else {
+				$expiry_date_time = $end_date;
+			}
 		}
+		// Older code to determine which expiry date is bigger and then set accordingly
+		// if ( '0000-00-00 00:00:00' !== $end_date && strtotime( $end_date ) > strtotime( $expiry_date_time ) ) {
+		// 	$expiry_date_time = $end_date;
+		// }
 		return $expiry_date_time;
 	}
 
