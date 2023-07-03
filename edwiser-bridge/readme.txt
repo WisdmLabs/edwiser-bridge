@@ -17,11 +17,11 @@ Edwiser Bridge integrates WordPress with Moodle LMS & provides an easy option to
 Edwiser Bridge - The #1 WordPress and Moodle Integration plugin that provides a robust platform to sell Moodle courses online.
 
 Are you a Moodle user, who creates courses and wants a robust integration with WordPress/WooCommerce to sell them.
-Then you are at the right place Edwiser Bridge is the only WordPress plugin that provides stable and robust integration between the two platforms.
+Then you are in the right place. Edwiser Bridge is the only WordPress plugin that provides stable and robust integration between the two platforms.
 
-Edwiser Bridge provides the necessary platform for you to sell your Moodle courses through default payment gateway PayPal.
+Edwiser Bridge provides the necessary platform for you to sell your Moodle courses through the default payment gateway, PayPal.
 
-In order to extend its functionality and create a complete automated eCommerce solution to sell your Moodle, you got to include following plugins in your WordPress site,
+So to enhance its functionality and achieve a fully automated WooCommerce Solution for the purpose of selling your Moodle courses, you may consider choosing Edwiser Bridge Pro to be installed on both your Moodle and WordPress sites.
 
 * <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - WooCommerce Integration extension </a>
 * <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
@@ -36,76 +36,70 @@ In order to extend its functionality and create a complete automated eCommerce s
 
 = CourseFront - =
 * Integration between your WordPress and Moodle sites,
+* Connect Moodle with multiple WordPress sites,
+* Courses from single Moodle site could be sold through multiple WordPress sites.
 * Import your Moodle courses to WordPress,
 * Synchronize Moodle course categories to WordPress,
-* Set the Moodle courses as draft,
-* Sell courses through WordPress and take its payments through PayPal,
-* Synchronize enrolled courses data for users.
+* Set the Moodle courses as drafts,
+* Sell courses through WordPress and take payments through PayPal,
+* Synchronize enrolled course data for users.
+* Synchronize Moodle course images with WordPress.
+* Automated 2-way synchronization between each WordPress site and your Moodle site,
+* The course progress of student is synced from Moodle to WordPress in real time.
 
 = Course Access Control - =
 * Automation user registration in Moodle,
-* Enable/Disable registration to courses,
+* Enable/Disable registration for courses,
 * Identical login credentials to access courses in Moodle,
 * Set course access time from WordPress,
 * Update previously synchronized courses,
-* Enrol / Unenrol users from WordPress,
-* Provide Refund to your students from WordPress.
+* Enroll / Unenrol users from WordPress,
+* Provide refunds to your students from WordPress.
 
 = Connect your Moodle with Multiple WordPress Sites - =
 * Now connect single Moodle site with multiple WordPress sites,
 * Courses from single Moodle site could be sold through multiple WordPress sites,
 * Automated 2-way synchronization between each WordPress site and your Moodle site,
 * Secured and efficient transfer of information across sites,
-* Course Progress of student synced from Moodle to WordPress in real time.
+* The course progress of student is synced from Moodle to WordPress in real time.
 
-
-
-= Recommended Plugins to Extend Edwiser Bridge's Features - =
-
-= Why we need to extend the functionality? =
-If you wish to create a complete eCommerce shopfront to sell your Moodle courses.
-If you want to sell your courses through payment gateways other than PayPal.
-If you want to create purchase invoices automatically for your course buyers.
-If you wish to sell an add-on product along with your Moodle course.
-When you want to provide a seamless access between your Course Shopfront and  Moodle LMS.
-If you sell your courses to companies.    
-
-= <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-WooCommerce Integration extension </a> =
-This provides integration with WooCommerce - popular eCommerce solution in WordPress,
-It helps you to sell your Moodle courses through more than 160+ payment gateways,
-You can also sell a physical product or an add-on product along with your Moodle courses,
-Courses could be sold through subscriptions with ready integration with WooCommerce Subscriptions,
-Ability to set variation to courses and sell them through your store,
-Ability to bundle multiple courses as a single product or multiple products under a single product, 
-
-= <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Bulk Purchase extension </a> =
-When coupled with WooCommerce Integration extension your course buyers could then purchase multiple courses at once,
-Course Buyers could also enrol multiple students in the purchased course,
-Cohorts are created for each purchase done by the course buyer,
-
-= <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge-Single Sign extension </a> =
-This extension provides a seamless connection between Course Front and LMS.
-
-Notice: Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin">here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
+= Why would someone choose the Pro version over the base version? =
+* If you wish to create a complete WooCommerce shopfront to sell your Moodle courses.
+* If you want to sell your courses through payment gateways other than PayPal.
+* If you want to create purchase invoices automatically for your course buyers.
+* If you wish to sell an add-on product along with your Moodle course.
+* When you want to provide seamless access between your Course Shopfront and  Moodle LMS.
+* If you sell your courses to companies.    
+* If you are interested in integrating with WooCommerce, a popular e-commerce solution in WordPress, this will allow you to sell your Moodle courses through more than 160 payment gateways.
+* Courses could be sold through subscriptions with ready integration with the WooCommerce Subscriptions add-on.
+* Ability to set variations on courses and sell them through your store.
+* Ability to bundle multiple courses as a single product or multiple products under a single product.
+* When coupled with the WooCommerce Integration extension, your course buyers could then purchase multiple courses at once.
+* Course Buyers could also enroll multiple students in the purchased course,
+* Cohorts are created for each purchase made by the course buyer.
 
 
 = Additional Edwiser products that provides improves your Moodle experience - =
 
 = <a href="https://edwiser.org/remui/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser RemUI </a> =
 
-The Best theme for Moodle that is built to provide superior user experience in Moodle. It also provides enhanced functionality to ease the process of course creation and navigation.
+The Best theme for Moodle is one that is built to provide a superior user experience in Moodle. It also provides enhanced functionality to ease the process of course creation and navigation.
 
 = <a href="https://edwiser.org/forms/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Forms </a> =
 
-An easy to use tool that lets you create any form in Moodle using drag and drop interface. Contact form, Survey form, Feedback form or registration form any form that you need can now be developed within few minutes.
+An easy to use tool that lets you create any form in Moodle using a drag and drop interface. Contact form, Survey form, Feedback form, or registration form any form that you need can now be developed within a few minutes.
 
 = <a href="https://edwiser.org/site-monitor/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Site Monitor </a> =
 
-A free plugin that helps you manage your Moodle site performance right from Admin Dashboard of Moodle. It provides essential site information like CPU Status, Memory Usage etc. 
+A free plugin that helps you manage your Moodle site performance right from the admin dashboard of Moodle. It provides essential site information like CPU Status, Memory usage etc. 
 
 = <a href="https://edwiser.org/course-formats/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Course Formats </a> =
 
-A free plugin that provides you two distinct course formats for your Moodle courses if you wish to improve learning and course engagement among students.
+A free plugin that provides you with two distinct course formats for your Moodle courses if you wish to improve learning and course engagement among students.
+
+= <a href="https://edwiser.org/reports/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser Reports </a> =
+
+It is a powerful tool that can help you improve your Moodle LMS. This plugin provides advanced reporting capabilities. It allows you to track and analyze learner progress, course performance, and LMS usage. You can create custom reports by combining various data points.
 
 
  ==  Installation  ==
@@ -120,7 +114,7 @@ A free plugin that provides you two distinct course formats for your Moodle cour
 * Click on the 'Add New' button on this page.
 * Search for 'Edwiser Bridge' in the search bar provided.
 * Click on 'Install Now' once you have located the plugin.
-* On successful installation click the 'Activate Plugin' link to activate the plugin.
+* On successful installation, click the 'Activate Plugin' link to activate the plugin.
 
  =  Manual Installation  =
 * Download the Edwiser Bridge plugin from WordPress.org.
@@ -178,15 +172,14 @@ Take a look at the link below and follow the steps provided to configure your Mo
 
  ==  Frequently Asked Questions  == 
 
-= Do you require Multi-lingual/WPML support for Edwiser Bridge plugin? =
-Please drop a message <a target="_blank" href="https://forums.edwiser.org/topic/116/multi-lingual-wpml-support-version-for-edwiser-bridge-plugin" >here </a> if you want us to develop WPML supported version for Edwiser Bridge plugin.
-
+= Does Edwiser Bridge support Multi-lingual/WPML? =
+Unfortunately,  Edwiser Bridge is currently not compatible with Multi-lingual/WPML solutions.
 
  = Do WordPress and Moodle need to be installed and running on the same server? = 
-No, not required. Both the systems can be installed on the same server or different servers.
+No, it's not required. Both systems can be installed on the same server or on different servers.
 
- = Which course details are imported on synchronizing courses from Moodle to WordPress? = 
-When courses are imported from Moodle the course title, description and course category are imported to WordPress.
+ = Which course details are imported when synchronizing courses from Moodle to WordPress? = 
+When courses are imported from Moodle, the course title, description, images and course category are imported to WordPress.
 
  = Can one WordPress website be used with multiple Moodle websites? = 
 No, this is not possible using Edwiser Bridge.
@@ -194,14 +187,11 @@ No, this is not possible using Edwiser Bridge.
 
  = Can one Moodle site be connected to multiple WordPress sites?
 
-Yes, if you are using Edwiser Bridge version 1.4.0 onwards then you will now be able to connect your Moodle site to multiple WordPress sites.
+Yes, if you are using Edwiser Bridge version 1.4.0 onwards, you will now be able to connect your Moodle site to multiple WordPress sites.
 
  = Can I use another payment gateway in place of PayPal to sell my courses?
 
-As of now Edwiser Bridge has only one payment gateway integrated with it and that's PayPal.
-But we are open to adding new payment gateways as part of the product but for that we need your suggestions so that we add the one that works best for you.
-
-You can post your suggestions in our Ideas Forum.   
+Yes, you may opt for Edwiser Bridge Pro, which will allow you to integrate all the WooCommerce supported <a target="_blank" href="https://woocommerce.com/product-category/woocommerce-extensions/payment-gateways/" >payment gateways</a>. 
 
  = What if I wish to suggest some new features as part of Edwiser Bridge? Where should I do it?
 
@@ -209,10 +199,10 @@ You can post all your feature requests and also vote of similar feature requests
 
 
 
-Take a look at the link below to see the full list of questions which will help you around the Edwiser Bridge plugin. 
+Take a look at the link below to see the full list of questions that will help you navigate the Edwiser Bridge plugin. 
 <a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
 
-Also check our knowledge base for more queries
+Also, check our knowledge base for more queries
 <a href = "https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin">knowledge base for Edwiser Bridge</a>
 
 
