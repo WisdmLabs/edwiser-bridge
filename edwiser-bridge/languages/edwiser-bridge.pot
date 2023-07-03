@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-15 19:53+0530\n"
+"POT-Creation-Date: 2023-07-03 17:57+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -373,7 +373,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:735
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:829
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1750
-#: includes/class-eb-enrollment-manager.php:799
+#: includes/class-eb-enrollment-manager.php:807
 msgid "Note"
 msgstr ""
 
@@ -553,8 +553,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:301
 #: admin/class-eb-settings-ajax-initiater.php:357
 #: admin/class-eb-settings-ajax-initiater.php:417
-#: includes/class-eb-enrollment-manager.php:824
-#: includes/class-eb-enrollment-manager.php:876
+#: includes/class-eb-enrollment-manager.php:832
+#: includes/class-eb-enrollment-manager.php:884
 #: includes/class-eb-user-manager.php:1459
 msgid "Update webservice"
 msgstr ""
@@ -565,8 +565,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:417
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:586
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1122
-#: includes/class-eb-enrollment-manager.php:824
-#: includes/class-eb-enrollment-manager.php:876
+#: includes/class-eb-enrollment-manager.php:832
+#: includes/class-eb-enrollment-manager.php:884
 #: includes/class-eb-user-manager.php:1459
 msgid " OR "
 msgstr ""
@@ -575,8 +575,8 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:301
 #: admin/class-eb-settings-ajax-initiater.php:357
 #: admin/class-eb-settings-ajax-initiater.php:417
-#: includes/class-eb-enrollment-manager.php:824
-#: includes/class-eb-enrollment-manager.php:876
+#: includes/class-eb-enrollment-manager.php:832
+#: includes/class-eb-enrollment-manager.php:884
 #: includes/class-eb-user-manager.php:1459
 msgid "Try test connection"
 msgstr ""
@@ -3890,59 +3890,59 @@ msgstr ""
 msgid "Email: "
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:794
+#: includes/class-eb-enrollment-manager.php:802
 msgid "User enrollment test successfull"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:797
+#: includes/class-eb-enrollment-manager.php:805
 msgid "Enrollment process for this course successfull"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:800
+#: includes/class-eb-enrollment-manager.php:808
 msgid ""
 "If you are still facing issues in enrollment for this course check the "
 "following things"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:802
+#: includes/class-eb-enrollment-manager.php:810
 msgid ""
 "Payment Gateway should be compatible with WooCommerce and should confirm the "
 "payment receipt"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:803
+#: includes/class-eb-enrollment-manager.php:811
 msgid ""
 "WooCommerce will process the order and update the order status to complete "
 "when the payment gateway confirms the payment"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:804
+#: includes/class-eb-enrollment-manager.php:812
 msgid "Enrollment will be processed only when the order status is complete"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:805
+#: includes/class-eb-enrollment-manager.php:813
 msgid ""
 "If the order is in processing Edwiser plugin will not enroll the user in the "
 "course"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:821
+#: includes/class-eb-enrollment-manager.php:829
 msgid "User enrollment test failed. ERROR: "
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:868
+#: includes/class-eb-enrollment-manager.php:876
 msgid "User unenrollment test successfull"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:870
+#: includes/class-eb-enrollment-manager.php:878
 msgid "User unenrollment failed at WordPress side"
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:873
+#: includes/class-eb-enrollment-manager.php:881
 msgid "User unenrollment test failed. ERROR: "
 msgstr ""
 
-#: includes/class-eb-enrollment-manager.php:901
+#: includes/class-eb-enrollment-manager.php:909
 msgid "Already Enrolled"
 msgstr ""
 
@@ -4546,47 +4546,47 @@ msgstr ""
 msgid "Status of Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:700
+#: includes/class-eb-post-types.php:698
 msgid " updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:700
+#: includes/class-eb-post-types.php:698
 msgid " View "
 msgstr ""
 
-#: includes/class-eb-post-types.php:705
+#: includes/class-eb-post-types.php:703
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:706
+#: includes/class-eb-post-types.php:704
 msgid "Custom field deleted."
 msgstr ""
 
-#: includes/class-eb-post-types.php:707
+#: includes/class-eb-post-types.php:705
 msgid "updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:711
+#: includes/class-eb-post-types.php:709
 msgid "restored to revision from "
 msgstr ""
 
-#: includes/class-eb-post-types.php:721
+#: includes/class-eb-post-types.php:719
 msgid "saved."
 msgstr ""
 
-#: includes/class-eb-post-types.php:729
+#: includes/class-eb-post-types.php:727
 msgid "scheduled for:  "
 msgstr ""
 
-#: includes/class-eb-post-types.php:729 includes/class-eb-post-types.php:741
+#: includes/class-eb-post-types.php:727 includes/class-eb-post-types.php:739
 msgid "Preview "
 msgstr ""
 
-#: includes/class-eb-post-types.php:732
+#: includes/class-eb-post-types.php:730
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: includes/class-eb-post-types.php:741
+#: includes/class-eb-post-types.php:739
 msgid " draft updated. "
 msgstr ""
 
