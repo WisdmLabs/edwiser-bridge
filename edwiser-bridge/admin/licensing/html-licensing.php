@@ -129,8 +129,8 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 						?>
 						<tr>
 							<td colspan="3" class="eb_pro_license_info_wrap">
-								<span class="eb_pro_license_info"><?php esc_html_e( 'License Expires on: ', 'edwiser-bridge' ); ?> <?php esc_html( $license_expiry ); ?></span>
-								<span class="eb_pro_license_info"><?php esc_html_e( 'Active licenses: ', 'edwiser-bridge' ); ?> <?php esc_html( $license_active ); ?> of <?php esc_html( $license_left ); ?></span>
+								<span class="eb_pro_license_info"><?php esc_html_e( 'License Expires on: ', 'edwiser-bridge' ); ?> <?php echo esc_html( $license_expiry ); ?></span>
+								<span class="eb_pro_license_info"><?php esc_html_e( 'Active licenses: ', 'edwiser-bridge' ); ?> <?php echo esc_html( $license_active ); ?> of <?php echo esc_html( $license_left ); ?></span>
 							</td>
 						</tr>
 						<?php
