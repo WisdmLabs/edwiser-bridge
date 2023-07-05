@@ -124,7 +124,11 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 					$license_active = get_option( 'eb_' . $single['slug'] . '_license_key_site_count' );
 					$license_left   = get_option( 'eb_' . $single['slug'] . '_license_key_license_limit' );
 
-					$license_expiry = date( 'd F Y', strtotime( $license_expiry ) ); // @codingStandardsIgnoreLine
+					if ( 'lifetime' !== $license_expiry ) {
+						$license_expiry = date( 'd F Y', strtotime( $license_expiry ) ); // @codingStandardsIgnoreLine
+					} else {
+						$license_expiry = __( 'Lifetime', 'edwiser-bridge' );
+					}
 					if ( false !== $status_option && 'valid' === $status_option ) {
 						?>
 						<tr>
