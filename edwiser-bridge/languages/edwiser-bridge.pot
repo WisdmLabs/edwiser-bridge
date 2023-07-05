@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-03 17:57+0530\n"
+"POT-Creation-Date: 2023-07-05 10:20+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -934,7 +934,7 @@ msgid "Invalid action."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:291
-#: admin/licensing/html-licensing.php:185
+#: admin/licensing/html-licensing.php:189
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:895
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1281
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1285
@@ -1096,55 +1096,59 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:132
+#: admin/licensing/html-licensing.php:130
+msgid "Lifetime"
+msgstr ""
+
+#: admin/licensing/html-licensing.php:136
 msgid "License Expires on: "
 msgstr ""
 
-#: admin/licensing/html-licensing.php:133
+#: admin/licensing/html-licensing.php:137
 msgid "Active licenses: "
 msgstr ""
 
-#: admin/licensing/html-licensing.php:142
+#: admin/licensing/html-licensing.php:146
 msgid "Enable / Disable Edwiser Bridge Pro features Individually from"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:142
+#: admin/licensing/html-licensing.php:146
 #: includes/api/class-eb-connection-helper.php:350
 #: public/templates/account/user-profile.php:75
 msgid "here"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:151
+#: admin/licensing/html-licensing.php:155
 msgid "Looking for help?"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:154
+#: admin/licensing/html-licensing.php:158
 msgid "Where to find my license key?"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:155
+#: admin/licensing/html-licensing.php:159
 msgid "Installation and User Guide"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:156
+#: admin/licensing/html-licensing.php:160
 msgid "Talk to us:"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:184
+#: admin/licensing/html-licensing.php:188
 #, php-format
 msgid "The Edwiser Bridge Moodle Plugin is not update to the latest version %s"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:185
+#: admin/licensing/html-licensing.php:189
 #, php-format
 msgid "To download the latest version %s or go to Edwiser %s"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:185
+#: admin/licensing/html-licensing.php:189
 msgid "My account"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:186
+#: admin/licensing/html-licensing.php:190
 msgid "How to update the Edwiser Bridge Moodle Pluign? "
 msgstr ""
 
