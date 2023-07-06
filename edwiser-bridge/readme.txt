@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 5.8
-Tested up to: 6.1.1
+Tested up to: 6.2.2
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,13 +23,10 @@ Edwiser Bridge provides the necessary platform for you to sell your Moodle cours
 
 So to enhance its functionality and achieve a fully automated WooCommerce Solution for the purpose of selling your Moodle courses, you may consider choosing Edwiser Bridge Pro to be installed on both your Moodle and WordPress sites.
 
-* <a href="https://edwiser.org/bridge/extensions/woocommerce-integration/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - WooCommerce Integration extension </a>
-* <a href="https://edwiser.org/bridge/extensions/bulk-purchase/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Bulk Purchase extension </a>
-* <a href="https://edwiser.org/bridge/extensions/single-sign-on/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Single Sign On extension </a>
-* <a href="https://edwiser.org/bridge/extensions/selective-synchronization/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge - Selective Synchronization </a>
+* <a href="https://wordpress.org/plugins/edwiser-bridge/"> Edwiser Bridge - WordPress Add On </a>
 * <a href="https://edwiser.org/wp-content/uploads/edd/2023/03/edwiserbridge-1.zip"> Edwiser Bridge - Moodle Add On </a>
 
-
+* <a href="https://edwiser.org/bridge/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge Pro </a>
 
 
 = Top Features if you want to sell your Moodle courses better - =
@@ -208,6 +205,9 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 2.3.0 =
+* New     - New consolidated Edwiser Bridge PRO plugin.
+
 = 2.2.9 =
 * Feature - Error logging and reporting functionality
 * Feature - Sync Course images from moodle
