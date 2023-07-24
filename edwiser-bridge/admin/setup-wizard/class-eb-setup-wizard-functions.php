@@ -541,8 +541,8 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'wi_products_sync':
-					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
-					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
+					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
+					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
 
 					$sync_options = array(
 						'bridge_woo_synchronize_product_categories' => 1,
