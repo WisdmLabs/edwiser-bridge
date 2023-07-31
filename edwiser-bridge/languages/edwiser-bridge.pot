@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-05 10:20+0530\n"
+"POT-Creation-Date: 2023-07-31 13:33+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -90,32 +90,32 @@ msgid "Please save the changes."
 msgstr ""
 
 #: admin/class-eb-admin.php:168
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:693
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:692
 msgid "Connection successful, Please save your connection details."
 msgstr ""
 
 #: admin/class-eb-admin.php:169
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:694
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:693
 msgid "Courses synchronized successfully."
 msgstr ""
 
 #: admin/class-eb-admin.php:170
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:695
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:694
 msgid "There is a problem while connecting to moodle server."
 msgstr ""
 
 #: admin/class-eb-admin.php:171
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:696
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:695
 msgid "Error occured for following users: "
 msgstr ""
 
 #: admin/class-eb-admin.php:172
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:697
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:696
 msgid "User's course enrollment status synced successfully."
 msgstr ""
 
 #: admin/class-eb-admin.php:174
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:692
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:691
 msgid "User's linked to moodle successfully."
 msgstr ""
 
@@ -722,12 +722,12 @@ msgid "Mail sent successfully"
 msgstr ""
 
 #: admin/class-eb-welcome.php:46
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:726
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:727
 msgid "About Edwiser Bridge"
 msgstr ""
 
 #: admin/class-eb-welcome.php:47 admin/class-eb-welcome.php:212
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:727
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:728
 msgid "Welcome to Edwiser Bridge"
 msgstr ""
 
@@ -935,7 +935,7 @@ msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:291
 #: admin/licensing/html-licensing.php:189
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:895
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:896
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1281
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1285
 #: includes/class-eb-email-template-parser.php:197
@@ -945,12 +945,12 @@ msgid "Click here"
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:292
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:896
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:897
 msgid "License key cannot be empty, Please enter the valid license key."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:292
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:896
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:897
 msgid " to get the license key."
 msgstr ""
 
@@ -963,7 +963,7 @@ msgid "Plugin installation failed."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:324
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1017
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1018
 msgid ""
 "Empty download link. Please check your license key or contact edwiser support "
 "for more detials."
@@ -2095,30 +2095,35 @@ msgid "Pro Features"
 msgstr ""
 
 #: admin/settings/class-eb-settings-pro-featuers.php:120
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1186
 msgid ""
 "Experience seamless login synchronization between Moodle and WordPress, "
 "eliminating login hassles and saving time for learners."
 msgstr ""
 
 #: admin/settings/class-eb-settings-pro-featuers.php:126
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1194
 msgid ""
 "Effortlessly sell Moodle courses on WordPress with WooCommerce, optimizing "
 "pages and integrating with Moodle LMS."
 msgstr ""
 
 #: admin/settings/class-eb-settings-pro-featuers.php:132
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1202
 msgid ""
 "Create a loyal user base by offering course bundles, increasing earnings and "
 "user satisfaction through discounts."
 msgstr ""
 
 #: admin/settings/class-eb-settings-pro-featuers.php:138
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1210
 msgid ""
 "Flexiblity to choose specific courses to sync. Save time by choosing to sync "
 "only updated courses, course categories and users."
 msgstr ""
 
 #: admin/settings/class-eb-settings-pro-featuers.php:144
+#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1218
 msgid ""
 "Enhance registration and checkout forms with Custom Fields in WordPress, "
 "WooCommerce, and Edwiser Bridge for personalized information collection."
@@ -2436,71 +2441,75 @@ msgstr ""
 msgid "License key is invalid."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:698
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:697
 msgid "WooCommerce Integration must be enabled to use Bulk Purchase feature."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:699
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:698
 msgid "Please enter a valid license key."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:700
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:699
 msgid "No pro feature selected."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:879
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:701
+msgid "WooCommerce must be active to use WooCommerce Integration feature."
+msgstr ""
+
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:880
 msgid "Plugin insallation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:932
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:933
 msgid "Please activate the WooCommerce Integration plugin first."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:940
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:941
 msgid "WooCommerce Integration plugin Version 2.2.1 required."
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:968
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:969
 msgid "License activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:970
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:971
 msgid "License is activated to maximum limit"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:972
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:973
 msgid "License is expired"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:974
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:975
 msgid "License activation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:977
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:978
 msgid "License already activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:984
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:985
 msgid "Plugin already installed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:988
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:989
 msgid " and activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1012
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1013
 msgid "Plugin installed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1027
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1028
 msgid "plugin activation failed"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1029
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1030
 msgid "plugin activated"
 msgstr ""
 
-#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1058
+#: admin/setup-wizard/class-eb-setup-wizard-functions.php:1059
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr ""
 
@@ -2933,11 +2942,6 @@ msgid "My account page on Edwiser."
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1108
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1186
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1194
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1202
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1210
-#: admin/setup-wizard/class-eb-setup-wizard-templates.php:1218
 msgid ""
 "Copy and paste the license key without any white space for Edwiser Bridge Pro."
 msgstr ""

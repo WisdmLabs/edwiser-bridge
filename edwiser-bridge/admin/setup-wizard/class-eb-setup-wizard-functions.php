@@ -697,6 +697,8 @@ class Eb_Setup_Wizard_Functions {
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
 				'msg_no_plugin_selected_error'    => esc_html__( 'No pro feature selected.', 'edwiser-bridge' ),
+				'is_woo_active'                   => is_plugin_active('woocommerce/woocommerce.php'),
+				'msg_woo_enable_error'            => esc_html__( 'WooCommerce must be active to use WooCommerce Integration feature.', 'edwiser-bridge' ),
 			)
 		);
 
