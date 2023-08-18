@@ -469,8 +469,7 @@ class Eb_Setup_Wizard_Functions {
 
 			// Get the priority of the existing progress data.
 			// If the existing priority is greater then dont update it, let old progress be as it is.
-
-			if ( isset( $setup_data['progress'] ) && $steps[ $setup_data['progress'] ]['priority'] < $steps[ $current_step ]['priority'] ) {
+			if ( isset( $setup_data['progress'] ) && 'completed_setup' !== $current_step && $steps[ $setup_data['progress'] ]['priority'] < $steps[ $current_step ]['priority'] ) {
 				$setup_data['progress']  = $current_step;
 				$setup_data['next_step'] = $next_step;
 				update_option( 'eb_setup_data', $setup_data );
@@ -541,8 +540,8 @@ class Eb_Setup_Wizard_Functions {
 					break;
 
 				case 'wi_products_sync':
-					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
-					require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
+					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
+					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
 
 					$sync_options = array(
 						'bridge_woo_synchronize_product_categories' => 1,
@@ -573,7 +572,7 @@ class Eb_Setup_Wizard_Functions {
 
 					// Save step form progress.
 					$setup_data              = get_option( 'eb_setup_data' );
-					$setup_data['progress']  = '';
+					$setup_data['progress']  = 'initialize';
 					$setup_data['next_step'] = '';
 					update_option( 'eb_setup_data', $setup_data );
 					break;
@@ -698,6 +697,8 @@ class Eb_Setup_Wizard_Functions {
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
 				'msg_no_plugin_selected_error'    => esc_html__( 'No pro feature selected.', 'edwiser-bridge' ),
+				'is_woo_active'                   => is_plugin_active('woocommerce/woocommerce.php'),
+				'msg_woo_enable_error'            => esc_html__( 'WooCommerce must be active to use WooCommerce Integration feature.', 'edwiser-bridge' ),
 			)
 		);
 

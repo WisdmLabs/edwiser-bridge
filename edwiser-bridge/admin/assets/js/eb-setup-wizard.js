@@ -300,6 +300,12 @@
                         return;
                     }
 
+                    if ( woo_int == 1 && eb_setup_wizard.is_woo_active == false ){
+                        $('.eb_setup_settings_error_msg').html(eb_setup_wizard.msg_woo_enable_error).show();
+                        $("#eb-lading-parent").hide();
+                        return;
+                    }
+
                     data = { 'sso': sso, 'woo_integration': woo_int, 'bulk_purchase': bulk_purchase, 'selective_sync': selective_sync, 'custom_fields': custom_fields, 'current_step' : current_step, 'next_step' : next_step, 'is_next_sub_step': is_next_sub_step };
                     break;
 

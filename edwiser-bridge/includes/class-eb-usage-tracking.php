@@ -57,7 +57,7 @@ class EB_Usage_Tracking {
 			);
 			$result         = wp_remote_post( $url, $request_args );
 
-			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
+			if ( 200 === wp_remote_retrieve_response_code( $result ) ) {
 				$result_arr = json_decode( $result, 1 );
 			}
 		}
@@ -199,7 +199,7 @@ class EB_Usage_Tracking {
 			'127.0.0.1',
 			'::1',
 		);
-
+		$is_local  = '';
 		// Check if site is running on localhost or not.
 		if ( isset( $_SERVER['REMOTE_ADDR'] ) && in_array( $_SERVER['REMOTE_ADDR'], $whitelist, true ) ) {
 			$is_local = 'localsite--';
