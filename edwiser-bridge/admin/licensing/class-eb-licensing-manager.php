@@ -127,7 +127,7 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				'edwiser_bridge_pro'      => array(
 					'slug'            => 'edwiser_bridge_pro',
 					'current_version' => '3.0.0',
-					'item_name'       => 'Edwiser Bridge Pro',
+					'item_name'       => 'Edwiser Bridge Pro - WordPress',
 					'key'             => 'edd_edwiser_bridge_pro_license_key',
 					'path'            => 'edwiser-bridge-pro/edwiser-bridge-pro.php',
 				),
