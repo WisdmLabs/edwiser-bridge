@@ -155,9 +155,9 @@ if ( $is_legacy_pro && ! $bridge_pro ) {
 			<span class="eb-help-tootip-content"><?php esc_html_e( 'Looking for help?', 'edwiser-bridge' ); ?></span>
 		</div>
 		<ul>
-			<li><a href="#"><?php esc_html_e( 'Where to find my license key?', 'edwiser-bridge' ); ?></a></li>
-			<li><a href="#"><?php esc_html_e( 'Installation and User Guide', 'edwiser-bridge' ); ?></a></li>
-			<li><?php esc_html_e( 'Talk to us:', 'edwiser-bridge' ); ?> <a href="mailto:support@edwiser.org">support@edwiser.org</a></li>
+			<li><a href="https://edwiser.org/documentation/edwiser-bridge-pro/edwiser-bridge-pro/how-to-obtain-the-license-key/"><?php esc_html_e( 'Where to find my license key?', 'edwiser-bridge' ); ?></a></li>
+			<li><a href="https://edwiser.org/documentation/edwiser-bridge-pro/edwiser-bridge-pro/installation-and-user-guide-for-v3-0-0/"><?php esc_html_e( 'Installation and User Guide', 'edwiser-bridge' ); ?></a></li>
+			<li><?php esc_html_e( 'Talk to us:', 'edwiser-bridge' ); ?> <a href="mailto:edwiser@wisdmlabs.com">edwiser@wisdmlabs.com</a></li>
 		</ul>
 	</div>
 </div>
