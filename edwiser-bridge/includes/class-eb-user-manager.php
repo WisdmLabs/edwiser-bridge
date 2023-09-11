@@ -1142,6 +1142,8 @@ class Eb_User_Manager {
 				'posts_per_page' => -1,
 			);
 			$courses     = get_posts( $course_args );
+
+			$user_enrolled_courses = eb_get_user_enrolled_courses( $user_id );
 			?>
 			<table class="form-table">
 				<tr>
@@ -1154,8 +1156,7 @@ class Eb_User_Manager {
 						<ol>
 							<?php
 							foreach ( $courses as $course ) {
-								$has_access = edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course->ID );
-								if ( $has_access ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
 									$enrolled_courses[] = $course;
 									echo "<li><a href='" . esc_html( get_permalink( $course->ID ) ) . "'>" . esc_html( $course->post_title ) . '</a></li>';
 								} else {
@@ -1583,6 +1584,8 @@ class Eb_User_Manager {
 				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
 					update_user_meta( $verification_id, 'moodle_user_id', $moodle_user['user_data']->id );
 				}
+
+				do_action( 'eb_user_email_verified', $user->ID );
 
 				// login user.
 				wp_clear_auth_cookie();
