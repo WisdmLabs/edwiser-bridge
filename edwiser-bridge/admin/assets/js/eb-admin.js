@@ -896,6 +896,97 @@
         $('#course_price_type').change();
         $("#course_expirey").change();
 
+        /* Profile page js */
+        $(document).on('keyup', '#eb-search-all-courses', function (event) {
+            event.preventDefault();
+            var course = $(this).val();
+            var all_courses = $('#eb-all-courses-list').children();
+            var options = $('#eb-all-courses').children();
+            // remove all otpions
+            options.remove();
+            // add options
+            all_courses.each(function () {
+                var course_name = $(this).text();
+                if (course_name.toLowerCase().indexOf(course.toLowerCase()) >= 0) {
+                    $('#eb-all-courses').append($(this).clone());
+                }
+            });
+        });
+
+        $(document).on('keyup', '#eb-search-enrolled-courses', function (event) {
+            event.preventDefault();
+            var course = $(this).val();
+            var enrolled_courses = $('#eb-enrolled-courses-list').children();
+            var options = $('#eb-enrolled-courses').children();
+            // remove enrolled otpions
+            options.remove();
+            // add options
+            enrolled_courses.each(function () {
+                var course_name = $(this).text();
+                if (course_name.toLowerCase().indexOf(course.toLowerCase()) >= 0) {
+                    $('#eb-enrolled-courses').append($(this).clone());
+                }
+            });
+        });
+
+        $(document).on('click', '#eb-profile-course-add', function (event) {
+            event.preventDefault();
+            var selected = $('#eb-all-courses').children(':selected');
+            // check if duplicate
+            var duplicate = false;
+            $('#eb-enrolled-courses').children().each(function () {
+                if ($(this).val() == selected.val()) {
+                    duplicate = true;
+                }
+            });
+            if (duplicate) {
+                return;
+            }
+            $('#eb-enrolled-courses').append(selected.clone());
+            // get data
+            var course_id = selected.val();
+            var course_name = selected.text();
+            var option = '<option value="' + course_id + '">' + course_name + '</option>';
+            $('#eb-enrolled-courses-list').append(option);
+            // remove from datalist
+            $('#eb-all-courses-list').find('option[value="' + course_id + '"]').remove();
+
+            var enrolled_courses = $('#eb_enroll_courses').val();
+            enrolled_courses = JSON.parse(enrolled_courses);
+            // check if array then add the course id
+            if (Array.isArray(enrolled_courses)) {
+                // add int value 
+                enrolled_courses.push(parseInt(course_id));
+            } else {
+                enrolled_courses = [];
+                enrolled_courses.push(parseInt(course_id));
+            }
+            $('#eb_enroll_courses').val(JSON.stringify(enrolled_courses));
+        });
+        $(document).on('click', '#eb-profile-course-remove', function (event) {
+            event.preventDefault();
+            var selected = $('#eb-enrolled-courses').children(':selected');
+            selected.remove();
+            // get data
+            var course_id = selected.val();
+            var course_name = selected.text();
+            // remove from datalist
+            $('#eb-enrolled-courses-list').find('option[value="' + course_id + '"]').remove();
+
+            var enrolled_courses = $('#eb_enroll_courses').val();
+            enrolled_courses = JSON.parse(enrolled_courses);
+            // check if array then add the course id
+            if (Array.isArray(enrolled_courses)) {
+                console.log(enrolled_courses);
+                var index = enrolled_courses.indexOf(parseInt(course_id));
+                console.log(index);
+                if (index > -1) {
+                    console.log(index);
+                    enrolled_courses.splice(index, 1);
+                }
+            }
+            $('#eb_enroll_courses').val(JSON.stringify(enrolled_courses));
+        });
     });
     /* Function for user synchronization, this will have a ajax call which will run after completion of another(recursively) */
     function userSyncAjax($this, sync_options, offset, progressWidth) {

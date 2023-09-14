@@ -2275,6 +2275,43 @@ input:checked + .eb-pro-checkbox-slider:before {
   margin: 14px 0 0 25px;
 }
 
+/* Profile page enroll course */
+.eb-profile-all-courses{
+  width: 40%;
+}
+.eb-profile-all-courses input{
+  width: 100%;
+}
+.eb-profile-all-courses select{
+  width: 100%;
+  min-height: 250px;
+}
+.eb-profile-enroll-courses{
+  width: 40%;
+}
+.eb-profile-enroll-courses input{
+  width: 100%;
+}
+.eb-profile-enroll-courses select{
+  width: 100%;
+  min-height: 250px;
+}
+.eb-profile-enroll-icons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+.eb-profile-enroll-icons a{
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
 
 
 /* media queries */
