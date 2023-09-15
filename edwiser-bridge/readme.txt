@@ -205,6 +205,11 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.1 =
+* Feature - Moodle plugin update notification and One-Click update on Moodle.
+* Feature - Multiple courses enrollment from the user profile edit page.
+* Tweak   - Added Hooks after email verification complete.
+
 = 3.0.0 =
 * New     - New consolidated Edwiser Bridge PRO plugin.
 
