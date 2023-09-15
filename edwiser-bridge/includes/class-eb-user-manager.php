@@ -1160,6 +1160,9 @@ class Eb_User_Manager {
 						<select name="eb-all-courses" multiple="multiple" id="eb-all-courses">
 							<?php
 							foreach ( $courses as $course ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									continue;
+								}
 								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 							}
 							?>
@@ -1167,6 +1170,9 @@ class Eb_User_Manager {
 						<datalist id="eb-all-courses-list">
 							<?php
 							foreach ( $courses as $course ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									continue;
+								}
 								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 							}
 							?>

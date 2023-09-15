@@ -943,48 +943,55 @@
                 return;
             }
             $('#eb-enrolled-courses').append(selected.clone());
+            selected.remove();
             // get data
-            var course_id = selected.val();
-            var course_name = selected.text();
-            var option = '<option value="' + course_id + '">' + course_name + '</option>';
-            $('#eb-enrolled-courses-list').append(option);
-            // remove from datalist
-            $('#eb-all-courses-list').find('option[value="' + course_id + '"]').remove();
-
+            // for each selected option
+            
             var enrolled_courses = $('#eb_enroll_courses').val();
             enrolled_courses = JSON.parse(enrolled_courses);
-            // check if array then add the course id
-            if (Array.isArray(enrolled_courses)) {
-                // add int value 
-                enrolled_courses.push(parseInt(course_id));
-            } else {
-                enrolled_courses = [];
-                enrolled_courses.push(parseInt(course_id));
-            }
+            selected.each(function () {
+                var course_id = $(this).val();
+                var course_name = $(this).text();
+                var option = '<option value="' + course_id + '">' + course_name + '</option>';
+                $('#eb-enrolled-courses-list').append(option);
+                // remove from datalist
+                $('#eb-all-courses-list').find('option[value="' + course_id + '"]').remove();
+
+                // check if array then add the course id
+                if (Array.isArray(enrolled_courses)) {
+                    // add int value 
+                    enrolled_courses.push(parseInt(course_id));
+                } else {
+                    enrolled_courses = [];
+                    enrolled_courses.push(parseInt(course_id));
+                }
+            });
             $('#eb_enroll_courses').val(JSON.stringify(enrolled_courses));
         });
         $(document).on('click', '#eb-profile-course-remove', function (event) {
             event.preventDefault();
             var selected = $('#eb-enrolled-courses').children(':selected');
+            $('#eb-all-courses').append(selected.clone());
             selected.remove();
             // get data
-            var course_id = selected.val();
-            var course_name = selected.text();
-            // remove from datalist
-            $('#eb-enrolled-courses-list').find('option[value="' + course_id + '"]').remove();
-
             var enrolled_courses = $('#eb_enroll_courses').val();
             enrolled_courses = JSON.parse(enrolled_courses);
-            // check if array then add the course id
-            if (Array.isArray(enrolled_courses)) {
-                console.log(enrolled_courses);
-                var index = enrolled_courses.indexOf(parseInt(course_id));
-                console.log(index);
-                if (index > -1) {
-                    console.log(index);
-                    enrolled_courses.splice(index, 1);
+            selected.each(function () {
+                var course_id = $(this).val();
+                var course_name = $(this).text();
+                var option = '<option value="' + course_id + '">' + course_name + '</option>';
+                $('#eb-all-courses-list').append(option);
+                // remove from datalist
+                $('#eb-enrolled-courses-list').find('option[value="' + course_id + '"]').remove();
+
+                // check if array then add the course id
+                if (Array.isArray(enrolled_courses)) {
+                    var index = enrolled_courses.indexOf(parseInt(course_id));
+                    if (index > -1) {
+                        enrolled_courses.splice(index, 1);
+                    }
                 }
-            }
+            });
             $('#eb_enroll_courses').val(JSON.stringify(enrolled_courses));
         });
     });
@@ -1548,7 +1555,6 @@
             }
         } catch (e) {
             alert(eb_admin_js_object.msg_err_parsing_res);
-            console.log("EB Error : " + e);
         }
     }
 
