@@ -32,7 +32,7 @@ $eb_plugin_data = array(
 	'name'           => 'Edwiser Bridge - WordPress Moodle LMS Integration',
 	'slug'           => 'edwiser-bridge',
 	'version'        => '3.0.1',
-	'mdl_plugin_url' => 'https://edwiser.org/wp-content/uploads/edd/2023/08/edwiserbridge-1.zip',
+	'mdl_plugin_url' => 'https://edwiser.org/wp-content/uploads/edd/2023/09/edwiserbridge.zip',
 );
 
 /**
