@@ -688,7 +688,7 @@ class Eb_Enrollment_Manager {
 
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ); // @codingStandardsIgnoreLine
 
-		if ( trim( $result ) === trim( $user_id ) ) {
+		if ( $result != '' && trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
 		}
 
