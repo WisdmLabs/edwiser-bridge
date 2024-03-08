@@ -690,10 +690,10 @@ class Eb_Course_Manager {
 				);
 
 				if ( $parent_term && ! term_exists( $cat_name_lower, 'eb_course_cat', $parent_term ) ) {
-					// check if same category exists
-					if( term_exists( $cat_name_lower, 'eb_course_cat' ) ) {
+					// check if same category exists.
+					if ( term_exists( $cat_name_lower, 'eb_course_cat' ) ) {
 						$cat_name_lower = $cat_name_lower . '_' . $category->id;
-						if( term_exists( $cat_name_lower, 'eb_course_cat', $parent_term ) ) {
+						if ( term_exists( $cat_name_lower, 'eb_course_cat', $parent_term ) ) {
 							continue;
 						}
 					}

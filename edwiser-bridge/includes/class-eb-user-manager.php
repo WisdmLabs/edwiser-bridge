@@ -1144,7 +1144,7 @@ class Eb_User_Manager {
 			$courses     = get_posts( $course_args );
 
 			$user_enrolled_courses = eb_get_user_enrolled_courses( $user_id );
-			// make sure all the courses are in int
+			// make sure all the courses are in int.
 			$user_enrolled_courses = array_map( 'intval', $user_enrolled_courses );
 			?>
 			<table>
@@ -1246,11 +1246,11 @@ class Eb_User_Manager {
 					$enroll_courses = (array) wp_unslash( $_POST['eb_enroll_courses'] );
 				}
 				$enroll_courses = json_decode( $enroll_courses[0], true );
-				
+
 				$user_enrolled_courses = eb_get_user_enrolled_courses( $user_id );
 
 				// enroll user to courses.
-				$to_enroll = array_diff( $enroll_courses, $user_enrolled_courses );
+				$to_enroll   = array_diff( $enroll_courses, $user_enrolled_courses );
 				$to_unenroll = array_diff( $user_enrolled_courses, $enroll_courses );
 
 				if ( is_array( $to_enroll ) ) {

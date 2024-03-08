@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 5.8
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -205,6 +205,9 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.3 =
+* Tweak - Security issues fixed.
+
 = 3.0.2 =
 * Tweak - WooCommerce HPOS compatibility.
 * Tweak - PHP 8.1 compatibility.
