@@ -1142,62 +1142,73 @@ class Eb_User_Manager {
 				'posts_per_page' => -1,
 			);
 			$courses     = get_posts( $course_args );
-			?>
-			<table class="form-table">
-				<tr>
-					<?php
-					wp_nonce_field( 'eb_mdl_course_enrollment', 'eb_mdl_course_enrollment' );
-					?>
 
-					<th><h3><?php esc_html_e( 'Enrolled Courses', 'edwiser-bridge' ); ?></h3></th>
-					<td>
-						<ol>
+			$user_enrolled_courses = eb_get_user_enrolled_courses( $user_id );
+			// make sure all the courses are in int.
+			$user_enrolled_courses = array_map( 'intval', $user_enrolled_courses );
+			?>
+			<table>
+				<tr>
+				<?php
+				wp_nonce_field( 'eb_mdl_course_enrollment', 'eb_mdl_course_enrollment' );
+				?>
+				<h3><?php esc_html_e( 'Enrolled Courses', 'edwiser-bridge' ); ?></h3>
+				</tr>
+				<tr>
+					<td class="eb-profile-all-courses">
+						<input type="text" id="eb-search-all-courses" placeholder="Search all courses">
+						<select name="eb-all-courses" multiple="multiple" id="eb-all-courses">
 							<?php
 							foreach ( $courses as $course ) {
-								$has_access = edwiser_bridge_instance()->enrollment_manager()->user_has_course_access( $user_id, $course->ID );
-								if ( $has_access ) {
-									$enrolled_courses[] = $course;
-									echo "<li><a href='" . esc_html( get_permalink( $course->ID ) ) . "'>" . esc_html( $course->post_title ) . '</a></li>';
-								} else {
-									$notenrolled_courses[] = $course;
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									continue;
+								}
+								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+							}
+							?>
+						</select>
+						<datalist id="eb-all-courses-list">
+							<?php
+							foreach ( $courses as $course ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									continue;
+								}
+								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+							}
+							?>
+						</datalist>
+					</td>
+					<td class="eb-profile-enroll-icons">
+						<a href="#" id="eb-profile-course-add">
+							<span class="dashicons dashicons-arrow-right-alt"></span>
+						</a>
+						<a href="#" id="eb-profile-course-remove">
+							<span class="dashicons dashicons-arrow-left-alt"></span>
+						</a>
+					</td>
+					<td class="eb-profile-enroll-courses">
+						<input type="hidden" name="eb_enroll_courses[]" value="<?php echo htmlspecialchars( wp_json_encode( $user_enrolled_courses ) ); ?>" id="eb_enroll_courses">
+						<input type="text" id="eb-search-enrolled-courses" placeholder="Search enrolled courses">
+						<select name="eb-enrolled-courses" multiple="multiple" id="eb-enrolled-courses">
+							<?php
+							foreach ( $courses as $course ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 								}
 							}
 							?>
-						</ol>
+						</select>
+						<datalist id="eb-enrolled-courses-list">
+							<?php
+							foreach ( $courses as $course ) {
+								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+								}
+							}
+							?>
+						</datalist>
 					</td>
 				</tr>
-				<?php
-				if ( current_user_can( 'manage_options' ) ) {
-					?>
-					<tr>
-						<th><h3><?php esc_html_e( 'Enroll a Course', 'edwiser-bridge' ); ?></h3></th>
-						<td>
-							<select name="enroll_course">
-								<option value=''><?php esc_html_e( '-- Select a Course --', 'edwiser-bridge' ); ?></option>
-								<?php
-								foreach ( $notenrolled_courses as $course ) {
-									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
-								}
-								?>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th><h3><?php esc_html_e( 'Unenroll a Course', 'edwiser-bridge' ); ?></h3></th>
-						<td>
-							<select name="unenroll_course">
-								<option value=''><?php esc_html_e( '-- Select a Course --', 'edwiser-bridge' ); ?></option>
-								<?php
-								foreach ( $enrolled_courses as $course ) {
-									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
-								}
-								?>
-							</select>
-						</td>
-					</tr>
-					<?php
-				}
-				?>
 			</table>
 
 			<?php
@@ -1229,43 +1240,50 @@ class Eb_User_Manager {
 			$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
 
 			if ( is_numeric( $moodle_user_id ) ) {
-				$enroll_course = '';
-				if ( isset( $_POST['enroll_course'] ) ) {
-					$enroll_course = sanitize_text_field( wp_unslash( $_POST['enroll_course'] ) );
-				}
 
-				$unenroll_course = '';
-				if ( isset( $_POST['unenroll_course'] ) ) {
-					$unenroll_course = sanitize_text_field( wp_unslash( $_POST['unenroll_course'] ) );
+				$enroll_courses = array();
+				if ( isset( $_POST['eb_enroll_courses'] ) ) {
+					$enroll_courses = (array) wp_unslash( $_POST['eb_enroll_courses'] );
 				}
+				$enroll_courses = json_decode( $enroll_courses[0], true );
 
-				if ( is_numeric( $enroll_course ) ) {
+				$user_enrolled_courses = eb_get_user_enrolled_courses( $user_id );
+
+				// enroll user to courses.
+				$to_enroll   = array_diff( $enroll_courses, $user_enrolled_courses );
+				$to_unenroll = array_diff( $user_enrolled_courses, $enroll_courses );
+
+				if ( is_array( $to_enroll ) ) {
 					// define args.
 					$args = array(
 						'user_id'           => $user->ID,
-						'courses'           => array( $enroll_course ),
+						'courses'           => $to_enroll,
 						'complete_unenroll' => 0,
 					);
 
 					// enroll user to course.
 					edwiser_bridge_instance()->enrollment_manager()->update_user_course_enrollment( $args );
 
-					$args = array(
-						'user_email' => $user->user_email,
-						'username'   => $user->user_login,
-						'first_name' => $user->first_name,
-						'last_name'  => $user->last_name,
-						'course_id'  => $enroll_course,
-					);
+					foreach ( $to_enroll as $course_id ) {
+						$course = get_post( $course_id );
+						// send email to user.
+						$args = array(
+							'user_email' => $user->user_email,
+							'username'   => $user->user_login,
+							'first_name' => $user->first_name,
+							'last_name'  => $user->last_name,
+							'course_id'  => $course_id,
+						);
 
-					do_action( 'eb_mdl_enrollment_trigger', $args );
+						do_action( 'eb_mdl_enrollment_trigger', $args );
+					}
 				}
 
-				if ( is_numeric( $unenroll_course ) ) {
+				if ( is_array( $to_unenroll ) ) {
 					// define args.
 					$args = array(
 						'user_id'           => $user->ID,
-						'courses'           => array( $unenroll_course ),
+						'courses'           => $to_unenroll,
 						'unenroll'          => 1,
 						'complete_unenroll' => 1,
 					);
@@ -1583,6 +1601,8 @@ class Eb_User_Manager {
 				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
 					update_user_meta( $verification_id, 'moodle_user_id', $moodle_user['user_data']->id );
 				}
+
+				do_action( 'eb_user_email_verified', $user->ID );
 
 				// login user.
 				wp_clear_auth_cookie();

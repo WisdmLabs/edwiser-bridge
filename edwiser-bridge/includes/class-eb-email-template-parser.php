@@ -84,6 +84,9 @@ if ( ! class_exists( 'Eb_Email_Template_Parser' ) ) {
 			$tmpl_content = $tmpl_content['content'];
 			$tmpl_const   = $this->get_tmpl_constant( $args );
 			foreach ( $tmpl_const as $const => $val ) {
+				if ( empty( $val ) ) {
+					$val = '';
+				}
 				$tmpl_content = str_replace( $const, $val, $tmpl_content );
 			}
 			$tmpl_content = apply_filters(

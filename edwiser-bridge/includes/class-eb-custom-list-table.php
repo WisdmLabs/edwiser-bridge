@@ -79,7 +79,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$where      = '';
 			$post_table = '';
 			$user_table = '';
-			$date       = empty( $from ) ? '' : "time> '" . $from . "'" . ( empty( $to ) ? '' : " AND time< '" . $to . "'" );
+			$date       = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
 
 			// There are 2 filters which need join query.
 			// 1. Course name.
@@ -135,13 +135,23 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$order_by = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id'; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine.
 			// If no order, default to asc.
 			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc'; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine.
-			$date  = empty( $from ) ? '' : "time> '" . $from . "'" . ( empty( $to ) ? '' : " AND time< '" . $to . "'" );
+			$date  = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
 
+			$allowed_orderby = $this->get_sortable_columns();
+			if ( ! array_key_exists( $order_by, $allowed_orderby ) ) {
+				$order_by = 'id';
+			}
+			if ( ! in_array( strtoupper( $order ), array( 'ASC', 'DESC' ), true ) ) {
+				$order = 'ASC';
+			}
 			if ( 'rId' === $order_by ) {
 				$order_by = 'id';
 			} elseif ( 'enrolled_date' === $order_by ) {
 				$order_by = 'time';
 			}
+
+			$order_by = $wpdb->_real_escape( $order_by );
+			$order    = $wpdb->_real_escape( $order );
 
 			$order_query = $order_by . ' ' . strtoupper( $order );
 

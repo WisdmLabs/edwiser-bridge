@@ -688,7 +688,7 @@ class Eb_Enrollment_Manager {
 
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ); // @codingStandardsIgnoreLine
 
-		if ( trim( $result ) === trim( $user_id ) ) {
+		if ( $result != '' && trim( $result ) === trim( $user_id ) ) {
 			$has_access = true;
 		}
 
@@ -731,7 +731,7 @@ class Eb_Enrollment_Manager {
 		$curr_date   = new \DateTime( ( gmdate( 'Y-m-d H:i:s' ) ) );
 		$expire_date = $wpdb->get_var( $wpdb->prepare( "SELECT expire_time	FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;", $course_id, $user_id ) ); // @codingStandardsIgnoreLine
 
-		if ( '0000-00-00 00:00:00' === $expire_date ) {
+		if ( '0000-00-00 00:00:00' === $expire_date || empty( $expire_date ) ) {
 			return '0000-00-00 00:00:00';
 		}
 

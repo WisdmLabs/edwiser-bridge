@@ -320,7 +320,7 @@ class Eb_Setup_Wizard_Templates {
 		$title            = $setup_functions->eb_get_step_title( $step );
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 
-		$download_url = 'https://edwiser.org/wp-content/uploads/edd/2023/08/edwiserbridge-1.zip';
+		$download_url = 'https://edwiser.org/plugins/edwiserbridge.zip';
 		$download_url = apply_filters( 'eb_setup_mdl_plugin_link', $download_url );
 
 		if ( $ajax ) {

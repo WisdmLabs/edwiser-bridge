@@ -236,7 +236,8 @@ class Eb_Settings_Ajax_Initiater {
 			}
 
 			global $wpdb;
-			$query = 'SELECT `product_id` FROM ' . $wpdb->prefix . "woo_moodle_course WHERE `moodle_post_id` = '" . $course_id . "'";
+			// $query = 'SELECT `product_id` FROM ' . $wpdb->prefix . "eb_moodle_course_products WHERE `moodle_post_id` = '" . $course_id . "'";
+			$query = $wpdb->prepare( "SELECT `product_id` FROM {$wpdb->prefix}eb_moodle_course_products WHERE `moodle_post_id` = %d", $course_id ); // @codingStandardsIgnoreLine
 
 			$product_id = $wpdb->get_var( $query ); // @codingStandardsIgnoreLine
 

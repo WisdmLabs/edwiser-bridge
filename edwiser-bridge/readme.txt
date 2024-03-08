@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
 Requires at least: 5.8
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: trunk
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,7 @@ Edwiser Bridge provides the necessary platform for you to sell your Moodle cours
 So to enhance its functionality and achieve a fully automated WooCommerce Solution for the purpose of selling your Moodle courses, you may consider choosing Edwiser Bridge Pro to be installed on both your Moodle and WordPress sites.
 
 * <a href="https://wordpress.org/plugins/edwiser-bridge/"> Edwiser Bridge - WordPress Add On </a>
-* <a href="https://edwiser.org/wp-content/uploads/edd/2023/08/edwiserbridge-1.zip"> Edwiser Bridge - Moodle Add On </a>
+* <a href="https://edwiser.org/plugins/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
 
 * <a href="https://edwiser.org/bridge/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge Pro </a>
 
@@ -119,14 +119,14 @@ It is a powerful tool that can help you improve your Moodle LMS. This plugin pro
 * The plugin can then be activated by navigating to the Plugins menu in the admin dashboard.
 
 = Moodle Plugin Automatic Installation =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2023/08/edwiserbridge-1.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/plugins/edwiserbridge.zip">here</a>.
 * Go to the Plugins menu in Moodle.
 * Click on Install plugins.
 * Upload plugins zip file.
 * Then click on Install plugin from the Zip file.
 
  = Moodle Plugin Manual Installation  =
-* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/wp-content/uploads/edd/2023/08/edwiserbridge-1.zip">here</a>.
+* Download the Moodle edwiserbridge plugin from <a href = "https://edwiser.org/plugins/edwiserbridge.zip">here</a>.
 * Now unzip and upload the folder in local directory of Moodle using the FTP application of your choice.
 * The plugin can then be activated by navigating to the Plugins menu in the dashboard.
 
@@ -205,6 +205,18 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.3 =
+* Tweak - Security issues fixed.
+
+= 3.0.2 =
+* Tweak - WooCommerce HPOS compatibility.
+* Tweak - PHP 8.1 compatibility.
+
+= 3.0.1 =
+* Feature - Moodle plugin update notification and One-Click update on Moodle.
+* Feature - Multiple courses enrollment from the user profile edit page.
+* Tweak   - Added Hooks after email verification complete.
+
 = 3.0.0 =
 * New     - New consolidated Edwiser Bridge PRO plugin.
 

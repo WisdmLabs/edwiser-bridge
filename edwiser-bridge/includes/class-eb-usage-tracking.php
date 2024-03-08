@@ -58,7 +58,7 @@ class EB_Usage_Tracking {
 			$result         = wp_remote_post( $url, $request_args );
 
 			if ( 200 === wp_remote_retrieve_response_code( $result ) ) {
-				$result_arr = json_decode( $result, 1 );
+				$result_arr = json_decode( wp_remote_retrieve_body( $result ) );
 			}
 		}
 	}
