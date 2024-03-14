@@ -206,12 +206,12 @@ class Eb_Connection_Helper {
 					$success          = 0;
 					$msg              = __( 'Edwiser plugin is not updated on your Moodle Site. Please update it to avoid any malfunctioning.', 'edwiser-bridge' );
 					$plain_txt_msg    = $msg;
-					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+					$response_message = $this->create_response_message( $request_url, $msg );
 				} else {
 					$success          = 0;
 					$msg              = print_r( $body, 1 ); // @codingStandardsIgnoreLine
 					$plain_txt_msg    = $msg;
-					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+					$response_message = $this->create_response_message( $request_url, $msg );
 				}
 
 				// register error log.

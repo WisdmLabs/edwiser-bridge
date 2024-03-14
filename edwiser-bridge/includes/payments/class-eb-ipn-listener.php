@@ -168,7 +168,7 @@ class Eb_Ipn_Listener {
 
 		if ( is_wp_error( $resp ) ) {
 			$errstr = $resp->get_error_message();
-			throw new \Exception( "cURL error: $errstr" );
+			throw new \Exception( 'cURL error: ' . esc_html( $errstr ) );
 		} elseif ( 200 === wp_remote_retrieve_response_code( $resp ) ) {
 			// Set responce here.
 			$this->response = $resp['body'];
@@ -204,7 +204,7 @@ class Eb_Ipn_Listener {
 
 		if ( ! $_fp ) {
 			// fsockopen error.
-			throw new \Exception( "fsockopen error: [$errno] $errstr" );
+			throw new \Exception( 'fsockopen error: [' . esc_html( $errno ) . '] ' . esc_html( $errstr ) );
 		}
 
 		$header  = "POST /cgi-bin/webscr HTTP/1.0\r\n";
@@ -357,7 +357,7 @@ class Eb_Ipn_Listener {
 
 		if ( false === $this->response_status ) {
 
-			throw new \Exception( 'Invalid response status: ' . $this->response_status );
+			throw new \Exception( 'Invalid response status: ' . esc_html( $this->response_status ) );
 		}
 
 		if ( strpos( $this->response, 'VERIFIED' ) !== false ) {

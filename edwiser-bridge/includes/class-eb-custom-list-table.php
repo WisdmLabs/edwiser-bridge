@@ -127,15 +127,22 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 */
 		public function bp_get_table( $post_data, $search_text, $current_page ) {
 			global $wpdb;
-			$per_page    = 20;
-			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
-			$from        = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
-			$to          = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
+			$per_page = 20;
+
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				$post_data = $_REQUEST;
+			} else {
+				$post_data = array();
+			}
+			$search_text = isset( $post_data['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $post_data['ebemt_search'] ) ) : '';
+			$from        = isset( $post_data['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) : '';
+			$to          = isset( $post_data['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) : '';
+			$date        = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
+
 			// If no sort, default to title.
-			$order_by = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id'; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine.
+			$order_by = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id';
 			// If no order, default to asc.
-			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc'; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine.
-			$date  = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
+			$order = ! empty( $_REQUEST['order'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'asc';
 
 			$allowed_orderby = $this->get_sortable_columns();
 			if ( ! array_key_exists( $order_by, $allowed_orderby ) ) {
@@ -408,8 +415,13 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 		 * @param text $which which.
 		 */
 		public function extra_tablenav( $which ) {
-			$from = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : ''; // @codingStandardsIgnoreLine
-			$to   = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : ''; // @codingStandardsIgnoreLine
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				$from = isset( $_REQUEST['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) ) : '';
+				$to   = isset( $_REQUEST['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) ) : '';
+			} else {
+				$from = '';
+				$to   = '';
+			}
 			if ( 'top' === $which ) {
 				?>
 				<div class="alignleft actions bulkactions eb_manage_enroll_custom_nav_wrap">
@@ -479,14 +491,25 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			 * case, we'll handle them within our package just to keep things clean.
 			 */
 
-			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
-				return;
+			if ( isset( $_REQUEST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+				$this->process_bulk_action( $_POST );
+
+				$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : '';
+
+				$options['ebemt_search'] = $search_text;
+
+				// adding nonce in the options so that data will not be lost on pagination.
+				$options['eb-manage-user-enrol'] = sanitize_text_field( wp_unslash( $_REQUEST['eb-manage-user-enrol'] ) );
+
+				if ( isset( $_REQUEST['enrollment_from_date'] ) ) {
+					$options['enrollment_from_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
+				}
+				if ( isset( $_REQUEST['enrollment_to_date'] ) ) {
+					$options['enrollment_to_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
+				}
+			} else {
+				$search_text = '';
 			}
-			$this->process_bulk_action( $_POST );
-
-			$search_text = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : '';
-
-			$options['ebemt_search'] = $search_text;
 
 			$table_data = $this->bp_get_table( $_REQUEST, $search_text, $current_page );
 			$data       = $table_data['data'];
@@ -515,12 +538,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 					'total_pages' => ceil( $total_items / $per_page ), // WE have to calculate the total number of pages.
 				)
 			);
-			if ( isset( $_REQUEST['enrollment_from_date'] ) ) {
-				$options['enrollment_from_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_from_date'] ) );
-			}
-			if ( isset( $_REQUEST['enrollment_to_date'] ) ) {
-				$options['enrollment_to_date'] = sanitize_text_field( wp_unslash( $_REQUEST['enrollment_to_date'] ) );
-			}
+
 			// Update the current URI with the new options.
 			$_SERVER['REQUEST_URI'] = add_query_arg( $options, $_SERVER['REQUEST_URI'] ); // @codingStandardsIgnoreLine
 		}

@@ -223,11 +223,15 @@ class Eb_Settings_Ajax_Initiater {
 	 * Checks if the course is published and its tye is closed.
 	 */
 	public function check_course_options() {
-		$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
-		$flag                 = false;
-		$msg                  = '';
-		$course_id            = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0; // @codingStandardsIgnoreLine
-		if ( is_plugin_active( $woo_integration_path ) ) {
+		$pro_module_option = get_option( 'eb_pro_modules_data' );
+		$flag              = false;
+		$msg               = '';
+
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
+		if ( isset( $pro_module_option['woo_integration'] ) && 'active' === $pro_module_option['woo_integration'] ) {
 			$course_options = get_post_meta( $course_id, 'eb_course_options', true );
 			if ( isset( $course_options['course_price_type'] ) && 'closed' !== $course_options['course_price_type'] ) {
 				$flag      = true;
@@ -237,7 +241,7 @@ class Eb_Settings_Ajax_Initiater {
 
 			global $wpdb;
 			// $query = 'SELECT `product_id` FROM ' . $wpdb->prefix . "eb_moodle_course_products WHERE `moodle_post_id` = '" . $course_id . "'";
-			$query = $wpdb->prepare( "SELECT `product_id` FROM {$wpdb->prefix}eb_moodle_course_products WHERE `moodle_post_id` = %d", $course_id ); // @codingStandardsIgnoreLine
+			$query = $wpdb->prepare( "SELECT `product_id` FROM {$wpdb->prefix}eb_moodle_course_products WHERE `moodle_post_id` = %d", $course_id );
 
 			$product_id = $wpdb->get_var( $query ); // @codingStandardsIgnoreLine
 

@@ -1160,7 +1160,7 @@ class Eb_User_Manager {
 						<select name="eb-all-courses" multiple="multiple" id="eb-all-courses">
 							<?php
 							foreach ( $courses as $course ) {
-								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									continue;
 								}
 								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
@@ -1170,7 +1170,7 @@ class Eb_User_Manager {
 						<datalist id="eb-all-courses-list">
 							<?php
 							foreach ( $courses as $course ) {
-								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									continue;
 								}
 								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
@@ -1187,12 +1187,12 @@ class Eb_User_Manager {
 						</a>
 					</td>
 					<td class="eb-profile-enroll-courses">
-						<input type="hidden" name="eb_enroll_courses[]" value="<?php echo htmlspecialchars( wp_json_encode( $user_enrolled_courses ) ); ?>" id="eb_enroll_courses">
+						<input type="hidden" name="eb_enroll_courses[]" value="<?php echo esc_html( wp_json_encode( $user_enrolled_courses ) ); ?>" id="eb_enroll_courses">
 						<input type="text" id="eb-search-enrolled-courses" placeholder="Search enrolled courses">
 						<select name="eb-enrolled-courses" multiple="multiple" id="eb-enrolled-courses">
 							<?php
 							foreach ( $courses as $course ) {
-								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 								}
 							}
@@ -1201,7 +1201,7 @@ class Eb_User_Manager {
 						<datalist id="eb-enrolled-courses-list">
 							<?php
 							foreach ( $courses as $course ) {
-								if ( in_array( $course->ID, $user_enrolled_courses ) ) {
+								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 								}
 							}
@@ -1243,7 +1243,7 @@ class Eb_User_Manager {
 
 				$enroll_courses = array();
 				if ( isset( $_POST['eb_enroll_courses'] ) ) {
-					$enroll_courses = (array) wp_unslash( $_POST['eb_enroll_courses'] );
+					$enroll_courses = wp_unslash( (array) $_POST['eb_enroll_courses'] );
 				}
 				$enroll_courses = json_decode( $enroll_courses[0], true );
 

@@ -1401,8 +1401,8 @@ msgstr ""
 "https://edwiser.org\n"
 
 #. URI of the plugin
-msgid "https://edwiser.org/bridge/"
-msgstr "https://edwiser.org/bridge/"
+msgid "https://edwiser.org/bridge-wordpress-moodle-integration/"
+msgstr "https://edwiser.org/bridge-wordpress-moodle-integration/"
 
 #: public/templates/account/form-login.php:124
 msgid "I agree to the "

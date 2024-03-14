@@ -115,7 +115,7 @@ class Eb_Template_Functions {
 	public function content_single_eb_course_tml_dependency() {
 		global $post;
 
-		$post_id       = $post->ID; // @codingStandardsIgnoreLine.
+		$post_id       = $post->ID;
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		// get currency.

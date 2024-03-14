@@ -1038,7 +1038,7 @@ class Eb_Setup_Wizard_Templates {
 			</p>
 
 			<div>
-				<?php echo esc_html__( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree">' . esc_html__( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
+				<?php echo esc_html__( 'If you still haven’t purchased the “Edwiser Bridge PRO” plugin then you can purchase it from ', 'edwiser-bridge' ) . '<a class="es-primary-color es_text_links" target="_blank" href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree">' . esc_html__( ' here ', 'edwiser-bridge' ) . '</a>'; ?>
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">

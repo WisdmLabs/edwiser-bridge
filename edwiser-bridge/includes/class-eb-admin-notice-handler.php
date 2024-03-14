@@ -118,7 +118,7 @@ class Eb_Admin_Notice_Handler {
 					</div>
 				</div>
 				<div class="eb_admin_update_dismiss_notice_message">
-					<a href="<?php echo ( $redirection ); ?>">
+					<a href="<?php echo esc_url( $redirection ); ?>">
 						<span class="dashicons dashicons-no-alt eb_update_notice_hide"></span>
 					</a>
 				</div>
@@ -317,7 +317,7 @@ class Eb_Admin_Notice_Handler {
 <p>
 	<strong><?php echo esc_html__( 'Important Update Notice:', 'edwiser-bridge' ); ?></strong>
 		<?php echo esc_html__( 'Please download and update associated edwiserbridge Moodle plugin.', 'edwiser-bridge' ); ?>
-	<a href="https://edwiser.org/bridge/"><?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?></a>
+	<a href="https://edwiser.org/bridge-wordpress-moodle-integration/"><?php echo esc_html__( 'Click here ', 'edwiser-bridge' ); ?></a>
 		<?php echo esc_html__( ' to download', 'edwiser-bridge' ); ?>
 
 </p>
@@ -406,12 +406,12 @@ class Eb_Admin_Notice_Handler {
 						if ( $free ) {
 							?>
 							<p class="desc"><?php esc_html_e( 'Get amazing Black Friday discounts on Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
-							<a class="button" href="https://edwiser.org/bridge/?utm_source=freeplugin&utm_medium=banner&utm_campaign=bfcm22"  target="_blank"><?php esc_html_e( 'Upgrade Now', 'edwiser-bridge' ); ?></a>
+							<a class="button" href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=freeplugin&utm_medium=banner&utm_campaign=bfcm22"  target="_blank"><?php esc_html_e( 'Upgrade Now', 'edwiser-bridge' ); ?></a>
 							<?php
 						} else {
 							?>
 							<p class="desc"><?php esc_html_e( 'Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license', 'edwiser-bridge' ); ?></p>
-							<a class="button" href="https://edwiser.org/bridge/?utm_source=proplugin&utm_medium=banner&utm_campaign=bfcm22"  target="_blank"><?php esc_html_e( 'Upgrade tO Lifetime', 'edwiser-bridge' ); ?></a>
+							<a class="button" href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=proplugin&utm_medium=banner&utm_campaign=bfcm22"  target="_blank"><?php esc_html_e( 'Upgrade tO Lifetime', 'edwiser-bridge' ); ?></a>
 							<?php
 						}
 						?>

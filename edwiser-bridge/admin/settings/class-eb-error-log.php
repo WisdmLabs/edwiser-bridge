@@ -43,7 +43,6 @@ if ( ! class_exists( 'Eb_Error_Log' ) ) {
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
 			$list_table->prepare_items();
-			$post_page        = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine	
 			?>
 			<div class="eb-manage-user-enrol-wrap">
 

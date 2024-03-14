@@ -1,9 +1,9 @@
 === Edwiser Bridge - WordPress Moodle LMS Integration ===
 Contributors: WisdmLabs
-Tags: Moodle, Moodle ecommerce, WordPress Moodle, Sell Moodle Courses, LMS Integration, Moodle Integration, Moodle WordPress, WP Moodle, eLearning, WooCommerce
+Tags: wordpress moodle, moodle wordpress, moodle wocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: trunk
+Stable tag: 3.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,7 @@ So to enhance its functionality and achieve a fully automated WooCommerce Soluti
 * <a href="https://wordpress.org/plugins/edwiser-bridge/"> Edwiser Bridge - WordPress Add On </a>
 * <a href="https://edwiser.org/plugins/edwiserbridge.zip"> Edwiser Bridge - Moodle Add On </a>
 
-* <a href="https://edwiser.org/bridge/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge Pro </a>
+* <a href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin"> Edwiser Bridge Pro </a>
 
 
 = Top Features if you want to sell your Moodle courses better - =
@@ -133,7 +133,7 @@ It is a powerful tool that can help you improve your Moodle LMS. This plugin pro
 
  = Moodle Configuration =
 Take a look at the link below and follow the steps provided to configure your Moodle website.
-<a href = "https://edwiser.org/bridge/documentation/#tab-b540a7a7-e59f-3">Moodle Website Configurations</a>
+<a href = "https://edwiser.org/bridge-wordpress-moodle-integration/documentation/#tab-b540a7a7-e59f-3">Moodle Website Configurations</a>
 
 
 == Screenshots == 
@@ -197,7 +197,7 @@ You can post all your feature requests and also vote of similar feature requests
 
 
 Take a look at the link below to see the full list of questions that will help you navigate the Edwiser Bridge plugin. 
-<a href = "https://edwiser.org/bridge/faqs/">Frequently Asked Questions for Edwiser Bridge</a>
+<a href = "https://edwiser.org/bridge-wordpress-moodle-integration/#bulk-faqs">Frequently Asked Questions for Edwiser Bridge</a>
 
 Also, check our knowledge base for more queries
 <a href = "https://edwiser.helpscoutdocs.com/collection/85-edwiser-bridge-plugin">knowledge base for Edwiser Bridge</a>
@@ -205,6 +205,9 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.3 =
+* Tweak - Security issues fixed.
+
 = 3.0.3 =
 * Tweak - Security issues fixed.
 

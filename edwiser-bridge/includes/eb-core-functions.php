@@ -950,7 +950,7 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 					'order'   => 'ASC',
 					'fields'  => 'all',
 				)
-			); // @codingStandardsIgnoreLine.
+			);
 		} else {
 			$terms = get_terms(
 				array(

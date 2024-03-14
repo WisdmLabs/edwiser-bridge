@@ -541,7 +541,7 @@ class Eb_Setup_Wizard_Functions {
 
 				case 'wi_products_sync':
 					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce.php';
-					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';
+					// require_once ABSPATH . '/wp-content/plugins/woocommerce-integration/includes/class-bridge-woocommerce-course.php';.
 
 					$sync_options = array(
 						'bridge_woo_synchronize_product_categories' => 1,
@@ -697,7 +697,7 @@ class Eb_Setup_Wizard_Functions {
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
 				'msg_no_plugin_selected_error'    => esc_html__( 'No pro feature selected.', 'edwiser-bridge' ),
-				'is_woo_active'                   => is_plugin_active('woocommerce/woocommerce.php'),
+				'is_woo_active'                   => is_plugin_active( 'woocommerce/woocommerce.php' ),
 				'msg_woo_enable_error'            => esc_html__( 'WooCommerce must be active to use WooCommerce Integration feature.', 'edwiser-bridge' ),
 			)
 		);
@@ -893,7 +893,7 @@ class Eb_Setup_Wizard_Functions {
 		// If Not then only perform below actions.
 
 		if ( empty( $plugin_data['license'] ) ) {
-			$get_l_key_link  = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
+			$get_l_key_link  = '<a href="https://edwiser.org/bridge-wordpress-moodle-integration/#pricing">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
 			$resp['message'] = __( 'License key cannot be empty, Please enter the valid license key.', 'edwiser-bridge' ) . $get_l_key_link . __( ' to get the license key.', 'edwiser-bridge' );
 			return $resp;
 		}
