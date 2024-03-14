@@ -205,7 +205,7 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
-= 3.0.3 =
+= 3.0.4 =
 * Tweak - Security issues fixed.
 
 = 3.0.3 =
