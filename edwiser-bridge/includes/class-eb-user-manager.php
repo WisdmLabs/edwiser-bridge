@@ -1341,6 +1341,8 @@ class Eb_User_Manager {
 			$args = array(
 				'user_id' => $course_enroll_data->user_id,
 				'courses' => array( $course_enroll_data->course_id ),
+				'start_date' => $course_enroll_data->time,
+				'end_date' => $course_enroll_data->expire_time,
 			);
 			// get expiration action.
 			if ( isset( $course_options['course_expiry_action'] ) && 'suspend' === $course_options['course_expiry_action'] ) {

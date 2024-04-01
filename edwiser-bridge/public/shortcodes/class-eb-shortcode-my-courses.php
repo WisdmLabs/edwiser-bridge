@@ -144,6 +144,7 @@ class Eb_Shortcode_My_Courses {
 			} else {
 				$template_loader->wp_get_template_part( 'content', 'none' );
 			}
+			wp_reset_postdata();
 			echo '</div>';
 		} else {
 
@@ -313,6 +314,7 @@ class Eb_Shortcode_My_Courses {
 		} else {
 			$template_loader->wp_get_template_part( 'content', 'none' );
 		}
+		wp_reset_postdata();
 	}
 
 

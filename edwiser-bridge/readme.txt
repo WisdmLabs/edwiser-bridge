@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle wocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.4.3
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,7 +78,7 @@ So to enhance its functionality and achieve a fully automated WooCommerce Soluti
 
 = Additional Edwiser products that provides improves your Moodle experience - =
 
-= <a href="https://edwiser.org/remui/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Edwiser RemUI </a> =
+= <a href="https://edwiser.org/remui-moodle-theme/?utm_source=WordPress&utm_medium=landingpage&utm_campaign=EBFreePlugin">Moodle Theme - Edwiser RemUI </a> =
 
 The Best theme for Moodle is one that is built to provide a superior user experience in Moodle. It also provides enhanced functionality to ease the process of course creation and navigation.
 

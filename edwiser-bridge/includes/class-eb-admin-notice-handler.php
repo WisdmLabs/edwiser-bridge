@@ -486,6 +486,7 @@ class Eb_Admin_Notice_Handler {
 	 * Notice/popup for edwiser bridge pro after activation.
 	 */
 	public function eb_admin_pro_notice() {
+
 		global $eb_plugin_data;
 		$transient = get_transient( '_eb_pro_consolidated_plugin_notice' );
 		$dismissed = get_option( 'eb_pro_consolidated_plugin_notice_dismissed' );

@@ -84,6 +84,8 @@ class Eb_Post_Types {
 					'query_var'    => true,
 					'hierarchical' => true,
 					'rewrite'      => array( 'slug' => 'eb_category' ),
+					'show_in_rest' => true,
+					'publicly_queryable' => true,
 				)
 			)
 		);
@@ -143,6 +145,8 @@ class Eb_Post_Types {
 						'has_archive'       => $show_archive,
 						'show_in_nav_menus' => true,
 						'taxonomies'        => array( 'eb_course_cat' ),
+						'show_in_rest'      => true,
+						'publicly_queryable' => true,
 					)
 				)
 			);
