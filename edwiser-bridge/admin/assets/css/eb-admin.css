@@ -1491,6 +1491,7 @@ span.eb-option-input .eb-option-div select {
 a[href*="tab=sso-dummy"].nav-tab,
 a[href*="tab=woo_int_dummy"].nav-tab,
 a[href*="tab=sel_sync_dummy"].nav-tab,
+a[href*="tab=elementor_template_settings"].nav-tab,
 a[href*="tab=custom_fields_dummy"].nav-tab {
   position: relative;
   overflow: hidden;
@@ -1510,6 +1511,20 @@ a[href*="tab=custom_fields_dummy"].nav-tab::after {
   position: absolute;
   right: -20px;
   top: -7px;
+  transform: rotate(45deg);
+  padding-left: 20px;
+}
+a[href*="tab=elementor_template_settings"].nav-tab::after {
+  background-color: red;
+  content: "NEW";
+  color: white;
+  color: white;
+  font-weight: bolder;
+  padding: 5px 15px 0px 0px;
+  font-size: 10px;
+  position: absolute;
+  right: -20px;
+  top: -3px;
   transform: rotate(45deg);
   padding-left: 20px;
 }
