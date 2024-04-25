@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-31 13:33+0530\n"
+"POT-Creation-Date: 2024-04-25 19:22+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/class-eb-admin-menus.php:45 admin/class-eb-admin-menus.php:46
-#: includes/class-eb-post-types.php:159
+#: includes/class-eb-post-types.php:163
 #: public/shortcodes/class-eb-shortcode-user-account.php:435
 msgid "Orders"
 msgstr ""
@@ -550,174 +550,174 @@ msgid "Download latest plugin file"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:215
-#: admin/class-eb-settings-ajax-initiater.php:301
-#: admin/class-eb-settings-ajax-initiater.php:357
-#: admin/class-eb-settings-ajax-initiater.php:417
+#: admin/class-eb-settings-ajax-initiater.php:306
+#: admin/class-eb-settings-ajax-initiater.php:362
+#: admin/class-eb-settings-ajax-initiater.php:422
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1459
+#: includes/class-eb-user-manager.php:1479
 msgid "Update webservice"
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:215
-#: admin/class-eb-settings-ajax-initiater.php:301
-#: admin/class-eb-settings-ajax-initiater.php:357
-#: admin/class-eb-settings-ajax-initiater.php:417
+#: admin/class-eb-settings-ajax-initiater.php:306
+#: admin/class-eb-settings-ajax-initiater.php:362
+#: admin/class-eb-settings-ajax-initiater.php:422
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:586
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1122
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1459
+#: includes/class-eb-user-manager.php:1479
 msgid " OR "
 msgstr ""
 
 #: admin/class-eb-settings-ajax-initiater.php:215
-#: admin/class-eb-settings-ajax-initiater.php:301
-#: admin/class-eb-settings-ajax-initiater.php:357
-#: admin/class-eb-settings-ajax-initiater.php:417
+#: admin/class-eb-settings-ajax-initiater.php:306
+#: admin/class-eb-settings-ajax-initiater.php:362
+#: admin/class-eb-settings-ajax-initiater.php:422
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1459
+#: includes/class-eb-user-manager.php:1479
 msgid "Try test connection"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:235
+#: admin/class-eb-settings-ajax-initiater.php:239
 msgid ""
 "Course Price type is not set to closed. It is recomended to be closed for "
 "woocommerce products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:235
+#: admin/class-eb-settings-ajax-initiater.php:239
 msgid "Configure course price type"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:249
+#: admin/class-eb-settings-ajax-initiater.php:254
 msgid ""
 "Product is not virtual. It is recomended to be virtual for woocommerce "
 "products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:249
 #: admin/class-eb-settings-ajax-initiater.php:254
+#: admin/class-eb-settings-ajax-initiater.php:259
 msgid "Configure product"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:254
+#: admin/class-eb-settings-ajax-initiater.php:259
 msgid ""
 "Product is not downloadable. It is recomended to be downloadable for "
 "woocommerce products."
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:260
+#: admin/class-eb-settings-ajax-initiater.php:265
 msgid "Course should be published"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:267
+#: admin/class-eb-settings-ajax-initiater.php:272
 msgid "Continue without change"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:272
+#: admin/class-eb-settings-ajax-initiater.php:277
 msgid "All post options are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:298
+#: admin/class-eb-settings-ajax-initiater.php:303
 msgid "Manual Enrollment method check failed. ERROR : "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:305
+#: admin/class-eb-settings-ajax-initiater.php:310
 msgid "Manual Enrollment method not enabled on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:306
-#: admin/class-eb-settings-ajax-initiater.php:322
+#: admin/class-eb-settings-ajax-initiater.php:311
+#: admin/class-eb-settings-ajax-initiater.php:327
 msgid "Enable & Continue"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:315
-#: admin/class-eb-settings-ajax-initiater.php:377
+#: admin/class-eb-settings-ajax-initiater.php:320
+#: admin/class-eb-settings-ajax-initiater.php:382
 msgid "Manual Enrollment method enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:321
+#: admin/class-eb-settings-ajax-initiater.php:326
 msgid "Manual Enrollment method not enabled"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:353
+#: admin/class-eb-settings-ajax-initiater.php:358
 msgid "Enabling Manual Enrollment method failed. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:361
-#: admin/class-eb-settings-ajax-initiater.php:370
+#: admin/class-eb-settings-ajax-initiater.php:366
+#: admin/class-eb-settings-ajax-initiater.php:375
 msgid "Please enable manual enrolment plugin on Moodle Site"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:362
-#: admin/class-eb-settings-ajax-initiater.php:371
+#: admin/class-eb-settings-ajax-initiater.php:367
+#: admin/class-eb-settings-ajax-initiater.php:376
 msgid "Enable Manual Enrollment plugin"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:413
+#: admin/class-eb-settings-ajax-initiater.php:418
 msgid "Enabling Mandatory Settings failed. Try Test Connection first. ERROR: "
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:422
+#: admin/class-eb-settings-ajax-initiater.php:427
 msgid "Mandatory Settings are up to mark"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:433
-#: admin/class-eb-settings-ajax-initiater.php:460
+#: admin/class-eb-settings-ajax-initiater.php:438
+#: admin/class-eb-settings-ajax-initiater.php:465
 msgid "Error log not found"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:504
+#: admin/class-eb-settings-ajax-initiater.php:509
 #: includes/class-eb-order-history-meta.php:136
-#: includes/class-eb-order-manager.php:450 includes/class-eb-post-types.php:403
+#: includes/class-eb-order-manager.php:450 includes/class-eb-post-types.php:407
 msgid "Failed"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:527
+#: admin/class-eb-settings-ajax-initiater.php:532
 msgid "Error log details"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:529
+#: admin/class-eb-settings-ajax-initiater.php:534
 msgid "Support Email"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:531
+#: admin/class-eb-settings-ajax-initiater.php:536
 msgid "Error log message"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:532
+#: admin/class-eb-settings-ajax-initiater.php:537
 msgid "URL"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:533
+#: admin/class-eb-settings-ajax-initiater.php:538
 msgid "HTTP Response Code"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:534
+#: admin/class-eb-settings-ajax-initiater.php:539
 #: includes/class-eb-custom-list-table.php:55
 #: includes/class-eb-error-logs-table.php:56
 msgid "User"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:535
+#: admin/class-eb-settings-ajax-initiater.php:540
 msgid "Exception"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:536
+#: admin/class-eb-settings-ajax-initiater.php:541
 msgid "Error Code"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:538
+#: admin/class-eb-settings-ajax-initiater.php:543
 msgid "Debug Info"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:541
+#: admin/class-eb-settings-ajax-initiater.php:546
 msgid "Backtrace"
 msgstr ""
 
-#: admin/class-eb-settings-ajax-initiater.php:549
+#: admin/class-eb-settings-ajax-initiater.php:554
 msgid "Mail sent successfully"
 msgstr ""
 
@@ -938,9 +938,9 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:896
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1281
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1285
-#: includes/class-eb-email-template-parser.php:197
+#: includes/class-eb-email-template-parser.php:200
 #: public/shortcodes/class-eb-shortcode-my-courses.php:99
-#: public/shortcodes/class-eb-shortcode-my-courses.php:162
+#: public/shortcodes/class-eb-shortcode-my-courses.php:163
 msgid "Click here"
 msgstr ""
 
@@ -1253,7 +1253,7 @@ msgid "Latest version installed"
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:180
-#: public/shortcodes/class-eb-shortcode-my-courses.php:185
+#: public/shortcodes/class-eb-shortcode-my-courses.php:186
 msgid "Not available"
 msgstr ""
 
@@ -1296,27 +1296,27 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: admin/settings/class-eb-error-log.php:55
+#: admin/settings/class-eb-error-log.php:54
 #: includes/class-eb-manage-enrollment.php:129
 msgid "Please wait processing request ...."
 msgstr ""
 
-#: admin/settings/class-eb-error-log.php:61
+#: admin/settings/class-eb-error-log.php:60
 msgid "Error logs"
 msgstr ""
 
-#: admin/settings/class-eb-error-log.php:129
+#: admin/settings/class-eb-error-log.php:128
 msgid " error logs are deleted successfully."
 msgstr ""
 
-#: admin/settings/class-eb-error-log.php:135
-#: admin/settings/class-eb-error-log.php:152
+#: admin/settings/class-eb-error-log.php:134
+#: admin/settings/class-eb-error-log.php:151
 #: includes/class-eb-manage-enrollment.php:216
 #: includes/class-eb-manage-enrollment.php:233
 msgid "Dismiss this notice"
 msgstr ""
 
-#: admin/settings/class-eb-error-log.php:146
+#: admin/settings/class-eb-error-log.php:145
 msgid "No error log deleted"
 msgstr ""
 
@@ -1448,8 +1448,8 @@ msgstr ""
 #: admin/settings/class-eb-settings-dummy.php:295
 #: admin/settings/class-eb-settings-general.php:59
 #: admin/settings/class-eb-settings-synchronization.php:47
-#: includes/class-eb-email-template-parser.php:123
-#: includes/class-eb-post-types.php:111 includes/class-eb-post-types.php:113
+#: includes/class-eb-email-template-parser.php:126
+#: includes/class-eb-post-types.php:113 includes/class-eb-post-types.php:115
 #: public/templates/archive-eb_course.php:57
 msgid "Courses"
 msgstr ""
@@ -1512,7 +1512,7 @@ msgstr ""
 #: admin/settings/class-eb-settings-general.php:48
 #: admin/settings/class-eb-settings-general.php:58
 #: admin/settings/class-eb-settings-general.php:178
-#: includes/class-eb-email-template-parser.php:125
+#: includes/class-eb-email-template-parser.php:128
 msgid "User Account"
 msgstr ""
 
@@ -1664,7 +1664,7 @@ msgid "Select my courses page here. Default page is"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:193
-#: includes/class-eb-email-template-parser.php:172
+#: includes/class-eb-email-template-parser.php:175
 #: includes/eb-core-functions.php:251
 #: public/shortcodes/class-eb-shortcode-user-account.php:440
 #: public/shortcodes/class-eb-shortcode-user-account.php:442
@@ -1736,7 +1736,7 @@ msgid "Recommended Courses Settings"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:271
-#: includes/class-eb-post-types.php:374
+#: includes/class-eb-post-types.php:378
 msgid "Show Recommended Courses"
 msgstr ""
 
@@ -1753,12 +1753,12 @@ msgid "Show category wise selected recommended courses on eb-my-courses page."
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:287
-#: includes/class-eb-post-types.php:388
+#: includes/class-eb-post-types.php:392
 msgid "Select Courses"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:288
-#: includes/class-eb-post-types.php:389
+#: includes/class-eb-post-types.php:393
 msgid "Select courses to show in custom courses in recommended course section."
 msgstr ""
 
@@ -2559,59 +2559,59 @@ msgid "Redirecting to Moodle Setup wizard"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:499
-#: includes/class-eb-admin-notice-handler.php:516
+#: includes/class-eb-admin-notice-handler.php:500
+#: includes/class-eb-admin-notice-handler.php:517
 msgid "Introducing"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:499
+#: includes/class-eb-admin-notice-handler.php:500
 msgid " consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:499
+#: includes/class-eb-admin-notice-handler.php:500
 msgid " for smoother configuration experience"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:500
+#: includes/class-eb-admin-notice-handler.php:501
 msgid ""
 "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on "
 "plugins  have been combined into a"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:500
+#: includes/class-eb-admin-notice-handler.php:501
 msgid " single plugin -Edwiser Bridge Pro"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:500
+#: includes/class-eb-admin-notice-handler.php:501
 msgid ""
 " to provide a smoother and better experience for installing, configuring and "
 "updating Edwiser Bridge Pro."
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:501
+#: includes/class-eb-admin-notice-handler.php:502
 msgid "To install and activate the"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:501
+#: includes/class-eb-admin-notice-handler.php:502
 msgid " new Edwiser Bridge Pro plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:501
-#: includes/class-eb-admin-notice-handler.php:522
+#: includes/class-eb-admin-notice-handler.php:502
+#: includes/class-eb-admin-notice-handler.php:523
 msgid " click below"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:289
-#: includes/class-eb-admin-notice-handler.php:502
-#: includes/class-eb-admin-notice-handler.php:525
+#: includes/class-eb-admin-notice-handler.php:503
+#: includes/class-eb-admin-notice-handler.php:526
 msgid "Activate Now"
 msgstr ""
 
@@ -3472,20 +3472,20 @@ msgid ""
 "brilliantly upgraded dashboard & more"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:498
+#: includes/class-eb-admin-notice-handler.php:499
 #, php-format
 msgid "Edwiser Bridge version %s activated successfully"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:516
+#: includes/class-eb-admin-notice-handler.php:517
 msgid "consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:516
+#: includes/class-eb-admin-notice-handler.php:517
 msgid "for smoother configuration experience"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:519
+#: includes/class-eb-admin-notice-handler.php:520
 msgid ""
 "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on "
 "plugins  have been combined into a single plugin -Edwiser Bridge Pro to "
@@ -3493,15 +3493,15 @@ msgid ""
 "updating Edwiser Bridge Pro."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:522
+#: includes/class-eb-admin-notice-handler.php:523
 msgid "To install and activate the "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:522
+#: includes/class-eb-admin-notice-handler.php:523
 msgid "new Edwiser Bridge Pro plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:526
+#: includes/class-eb-admin-notice-handler.php:527
 msgid "Dismiss Forever"
 msgstr ""
 
@@ -3515,86 +3515,86 @@ msgstr ""
 msgid " here"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:744
+#: includes/class-eb-course-manager.php:751
 msgid "Course Title"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:745
+#: includes/class-eb-course-manager.php:752
 msgid "Moodle Course Id"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:746
+#: includes/class-eb-course-manager.php:753
 msgid "Course Type"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:747
+#: includes/class-eb-course-manager.php:754
 msgid "Manual Enrollment"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:772 includes/class-eb-post-types.php:320
+#: includes/class-eb-course-manager.php:779 includes/class-eb-post-types.php:324
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
 msgid "Free"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:773 includes/class-eb-post-types.php:321
+#: includes/class-eb-course-manager.php:780 includes/class-eb-post-types.php:325
 msgid "Paid"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:774 includes/class-eb-post-types.php:322
+#: includes/class-eb-course-manager.php:781 includes/class-eb-post-types.php:326
 msgid "Closed"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:782
+#: includes/class-eb-course-manager.php:789
 msgid "Deleted"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:806
+#: includes/class-eb-course-manager.php:813
 msgid "Sync"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:808
+#: includes/class-eb-course-manager.php:815
 msgid "Enable"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:824
+#: includes/class-eb-course-manager.php:831
 msgid "Sync Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:825
+#: includes/class-eb-course-manager.php:832
 msgid "Enable Enrollment Method"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:890
-#: includes/class-eb-course-manager.php:968
+#: includes/class-eb-course-manager.php:897
+#: includes/class-eb-course-manager.php:975
 msgid "Manual Enrollment Plugin is not enabled/installed on moodle site."
 msgstr ""
 
-#: includes/class-eb-course-manager.php:929
+#: includes/class-eb-course-manager.php:936
 #, php-format
 msgid "Manual enrollment status synced for %s courses"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:931
+#: includes/class-eb-course-manager.php:938
 msgid "Error in manual enrollment status sync"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:939
+#: includes/class-eb-course-manager.php:946
 #, php-format
 msgid "Manual enrollment enabled for %s courses"
 msgstr ""
 
-#: includes/class-eb-course-manager.php:941
+#: includes/class-eb-course-manager.php:948
 msgid ""
 "Please check if Course is deleted from Moodle or WordPress also check if "
 "Moodle Manual Enrollment is activate on Moodle "
 msgstr ""
 
-#: includes/class-eb-course-manager.php:941
+#: includes/class-eb-course-manager.php:948
 msgid "Error Message  : "
 msgstr ""
 
-#: includes/class-eb-course-manager.php:992
+#: includes/class-eb-course-manager.php:999
 msgid "View on Moodle"
 msgstr ""
 
@@ -3604,7 +3604,7 @@ msgid "Record ID"
 msgstr ""
 
 #: includes/class-eb-custom-list-table.php:56
-#: includes/class-eb-post-types.php:110
+#: includes/class-eb-post-types.php:112
 msgid "Course"
 msgstr ""
 
@@ -3616,30 +3616,30 @@ msgstr ""
 msgid "Manage"
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:343
-#: includes/class-eb-post-types.php:353
+#: includes/class-eb-custom-list-table.php:360
+#: includes/class-eb-post-types.php:357
 msgid "Unenroll"
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:367
+#: includes/class-eb-custom-list-table.php:384
 msgctxt "Unenrolles the selected students from the courses"
 msgid "Bulk Unenroll"
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:389
+#: includes/class-eb-custom-list-table.php:406
 msgid ""
 "No records selected to unenroll student, Please select the records to unenroll"
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:406
+#: includes/class-eb-custom-list-table.php:428
 msgid "From : "
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:408
+#: includes/class-eb-custom-list-table.php:430
 msgid "To : "
 msgstr ""
 
-#: includes/class-eb-custom-list-table.php:410
+#: includes/class-eb-custom-list-table.php:432
 msgid "Filter"
 msgstr ""
 
@@ -3790,7 +3790,7 @@ msgstr ""
 
 #: includes/class-eb-default-email-templates.php:620
 #: includes/class-eb-default-email-templates.php:702
-#: includes/class-eb-post-types.php:260
+#: includes/class-eb-post-types.php:264
 msgid "Order "
 msgstr ""
 
@@ -3876,24 +3876,24 @@ msgid ""
 "entire link into your web browser's address bar. )"
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:126
+#: includes/class-eb-email-template-parser.php:129
 msgid "Login Page"
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:127
+#: includes/class-eb-email-template-parser.php:130
 msgid "Moodle Site"
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:194
+#: includes/class-eb-email-template-parser.php:197
 msgid "click here"
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:269
+#: includes/class-eb-email-template-parser.php:272
 #: includes/class-eb-order-meta.php:250 includes/class-eb-order-meta.php:263
 msgid "Name: "
 msgstr ""
 
-#: includes/class-eb-email-template-parser.php:273
+#: includes/class-eb-email-template-parser.php:276
 #: includes/class-eb-order-meta.php:256
 msgid "Email: "
 msgstr ""
@@ -3959,7 +3959,7 @@ msgid "Title"
 msgstr ""
 
 #: includes/class-eb-error-logs-table.php:55
-#: public/shortcodes/class-eb-shortcode-my-courses.php:211
+#: public/shortcodes/class-eb-shortcode-my-courses.php:212
 msgid "View"
 msgstr ""
 
@@ -4145,7 +4145,7 @@ msgid ""
 msgstr ""
 
 #: includes/class-eb-manage-enrollment.php:142
-#: includes/class-eb-post-types.php:121
+#: includes/class-eb-post-types.php:123
 msgid "Search Courses"
 msgstr ""
 
@@ -4180,18 +4180,18 @@ msgid "added by  "
 msgstr ""
 
 #: includes/class-eb-order-history-meta.php:134
-#: includes/class-eb-order-manager.php:448 includes/class-eb-post-types.php:401
+#: includes/class-eb-order-manager.php:448 includes/class-eb-post-types.php:405
 msgid "Pending"
 msgstr ""
 
 #: includes/class-eb-order-history-meta.php:135
-#: includes/class-eb-order-manager.php:449 includes/class-eb-post-types.php:402
-#: public/templates/content-eb_course.php:78
+#: includes/class-eb-order-manager.php:449 includes/class-eb-post-types.php:406
+#: public/templates/content-eb_course.php:75
 msgid "Completed"
 msgstr ""
 
 #: includes/class-eb-order-history-meta.php:137
-#: includes/class-eb-order-manager.php:451 includes/class-eb-post-types.php:404
+#: includes/class-eb-order-manager.php:451 includes/class-eb-post-types.php:408
 msgid "Refunded"
 msgstr ""
 
@@ -4223,7 +4223,7 @@ msgstr ""
 msgid "Order Title"
 msgstr ""
 
-#: includes/class-eb-order-manager.php:428 includes/class-eb-post-types.php:397
+#: includes/class-eb-order-manager.php:428 includes/class-eb-post-types.php:401
 msgid "Order Status"
 msgstr ""
 
@@ -4352,249 +4352,249 @@ msgstr ""
 msgid "New Course Category Name"
 msgstr ""
 
-#: includes/class-eb-post-types.php:112
+#: includes/class-eb-post-types.php:114
 msgctxt "Admin menu name"
 msgid "Edwiser Bridge"
 msgstr ""
 
-#: includes/class-eb-post-types.php:114
+#: includes/class-eb-post-types.php:116
 msgid "Add Course"
 msgstr ""
 
-#: includes/class-eb-post-types.php:115
+#: includes/class-eb-post-types.php:117
 msgid "Add New Course"
 msgstr ""
 
-#: includes/class-eb-post-types.php:116 includes/class-eb-post-types.php:164
+#: includes/class-eb-post-types.php:118 includes/class-eb-post-types.php:168
 msgid "Edit"
 msgstr ""
 
-#: includes/class-eb-post-types.php:117
+#: includes/class-eb-post-types.php:119
 msgid "Edit Course"
 msgstr ""
 
-#: includes/class-eb-post-types.php:118
+#: includes/class-eb-post-types.php:120
 msgid "New Course"
 msgstr ""
 
-#: includes/class-eb-post-types.php:119 includes/class-eb-post-types.php:120
+#: includes/class-eb-post-types.php:121 includes/class-eb-post-types.php:122
 msgid "View Course"
 msgstr ""
 
-#: includes/class-eb-post-types.php:122
+#: includes/class-eb-post-types.php:124
 msgid "No Courses found"
 msgstr ""
 
-#: includes/class-eb-post-types.php:123
+#: includes/class-eb-post-types.php:125
 msgid "No Courses found in trash"
 msgstr ""
 
-#: includes/class-eb-post-types.php:126
+#: includes/class-eb-post-types.php:128
 msgid "This is where you can add new courses to your Moodle LMS."
 msgstr ""
 
-#: includes/class-eb-post-types.php:160
+#: includes/class-eb-post-types.php:164
 msgid "Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:161
+#: includes/class-eb-post-types.php:165
 msgctxt "Admin menu name"
 msgid "Orders"
 msgstr ""
 
-#: includes/class-eb-post-types.php:162
+#: includes/class-eb-post-types.php:166
 msgid "Add Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:163
+#: includes/class-eb-post-types.php:167
 msgid "Add New Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:165
+#: includes/class-eb-post-types.php:169
 msgid "Edit Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:166
+#: includes/class-eb-post-types.php:170
 msgid "New Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:167 includes/class-eb-post-types.php:168
+#: includes/class-eb-post-types.php:171 includes/class-eb-post-types.php:172
 msgid "View Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:169
+#: includes/class-eb-post-types.php:173
 msgid "Search Orders"
 msgstr ""
 
-#: includes/class-eb-post-types.php:170
+#: includes/class-eb-post-types.php:174
 msgid "No orders found"
 msgstr ""
 
-#: includes/class-eb-post-types.php:171
+#: includes/class-eb-post-types.php:175
 msgid "No orders found in trash"
 msgstr ""
 
-#: includes/class-eb-post-types.php:173
+#: includes/class-eb-post-types.php:177
 msgid "This is where you can see course orders."
 msgstr ""
 
-#: includes/class-eb-post-types.php:206
+#: includes/class-eb-post-types.php:210
 msgid "Course Options"
 msgstr ""
 
-#: includes/class-eb-post-types.php:217
+#: includes/class-eb-post-types.php:221
 msgid "Recommended Course Settings"
 msgstr ""
 
-#: includes/class-eb-post-types.php:228
+#: includes/class-eb-post-types.php:232
 msgid "Order Details"
 msgstr ""
 
-#: includes/class-eb-post-types.php:260
+#: includes/class-eb-post-types.php:264
 msgid "Details "
 msgstr ""
 
-#: includes/class-eb-post-types.php:307
+#: includes/class-eb-post-types.php:311
 msgid "Moodle Course ID"
 msgstr ""
 
-#: includes/class-eb-post-types.php:308
+#: includes/class-eb-post-types.php:312
 msgid ""
 "This field is disabled. Do not change the course id this will affect the "
 "course access for the existing enrollment."
 msgstr ""
 
-#: includes/class-eb-post-types.php:313
+#: includes/class-eb-post-types.php:317
 msgid "This course is deleted on Moodle"
 msgstr ""
 
-#: includes/class-eb-post-types.php:316
+#: includes/class-eb-post-types.php:320
 msgid "Course Price Type"
 msgstr ""
 
-#: includes/class-eb-post-types.php:317
+#: includes/class-eb-post-types.php:321
 msgid "Is it free to join or one time purchase?"
 msgstr ""
 
-#: includes/class-eb-post-types.php:327
+#: includes/class-eb-post-types.php:331
 msgid "Course Price"
 msgstr ""
 
-#: includes/class-eb-post-types.php:328
+#: includes/class-eb-post-types.php:332
 msgid "Course price in currency as defined in settings."
 msgstr ""
 
-#: includes/class-eb-post-types.php:330
+#: includes/class-eb-post-types.php:334
 msgid "Enter course price"
 msgstr ""
 
-#: includes/class-eb-post-types.php:334 includes/class-eb-post-types.php:337
+#: includes/class-eb-post-types.php:338 includes/class-eb-post-types.php:341
 msgid "Optional URL"
 msgstr ""
 
-#: includes/class-eb-post-types.php:335
+#: includes/class-eb-post-types.php:339
 msgid "Optional url to redirect user on click of take this course button."
 msgstr ""
 
-#: includes/class-eb-post-types.php:341
+#: includes/class-eb-post-types.php:345
 msgid "Expire Access"
 msgstr ""
 
-#: includes/class-eb-post-types.php:342
+#: includes/class-eb-post-types.php:346
 msgid ""
 "Leave this field unchecked if access never expires. Expire access will work "
 "with Woocommerce integration and not with Edwiser Bulk purchase plugin."
 msgstr ""
 
-#: includes/class-eb-post-types.php:348
+#: includes/class-eb-post-types.php:352
 msgid "On Course Expiration"
 msgstr ""
 
-#: includes/class-eb-post-types.php:349
+#: includes/class-eb-post-types.php:353
 msgid "Select an action to perform on course access expiration."
 msgstr ""
 
-#: includes/class-eb-post-types.php:352
+#: includes/class-eb-post-types.php:356
 msgid "Do nothing"
 msgstr ""
 
-#: includes/class-eb-post-types.php:354
+#: includes/class-eb-post-types.php:358
 msgid "Suspend"
 msgstr ""
 
-#: includes/class-eb-post-types.php:359
+#: includes/class-eb-post-types.php:363
 msgid "Expire Access After (days)"
 msgstr ""
 
-#: includes/class-eb-post-types.php:360
+#: includes/class-eb-post-types.php:364
 msgid "Number of days the course is accessible"
 msgstr ""
 
-#: includes/class-eb-post-types.php:365
+#: includes/class-eb-post-types.php:369
 msgid "Short Description"
 msgstr ""
 
-#: includes/class-eb-post-types.php:366
+#: includes/class-eb-post-types.php:370
 msgid "Short description of course."
 msgstr ""
 
-#: includes/class-eb-post-types.php:375
+#: includes/class-eb-post-types.php:379
 msgid "Show recommended courses on single course page."
 msgstr ""
 
-#: includes/class-eb-post-types.php:381
+#: includes/class-eb-post-types.php:385
 msgid "Show Category Wise Recommended Courses"
 msgstr ""
 
-#: includes/class-eb-post-types.php:382
+#: includes/class-eb-post-types.php:386
 msgid "Show category wise selected recommended courses on single course page."
 msgstr ""
 
-#: includes/class-eb-post-types.php:398
+#: includes/class-eb-post-types.php:402
 msgid "Status of Order"
 msgstr ""
 
-#: includes/class-eb-post-types.php:698
+#: includes/class-eb-post-types.php:702
 msgid " updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:698
+#: includes/class-eb-post-types.php:702
 msgid " View "
 msgstr ""
 
-#: includes/class-eb-post-types.php:703
+#: includes/class-eb-post-types.php:707
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:704
+#: includes/class-eb-post-types.php:708
 msgid "Custom field deleted."
 msgstr ""
 
-#: includes/class-eb-post-types.php:705
+#: includes/class-eb-post-types.php:709
 msgid "updated."
 msgstr ""
 
-#: includes/class-eb-post-types.php:709
+#: includes/class-eb-post-types.php:713
 msgid "restored to revision from "
 msgstr ""
 
-#: includes/class-eb-post-types.php:719
+#: includes/class-eb-post-types.php:723
 msgid "saved."
 msgstr ""
 
-#: includes/class-eb-post-types.php:727
+#: includes/class-eb-post-types.php:731
 msgid "scheduled for:  "
 msgstr ""
 
-#: includes/class-eb-post-types.php:727 includes/class-eb-post-types.php:739
+#: includes/class-eb-post-types.php:731 includes/class-eb-post-types.php:743
 msgid "Preview "
 msgstr ""
 
-#: includes/class-eb-post-types.php:730
+#: includes/class-eb-post-types.php:734
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: includes/class-eb-post-types.php:739
+#: includes/class-eb-post-types.php:743
 msgid " draft updated. "
 msgstr ""
 
@@ -4639,87 +4639,74 @@ msgstr ""
 msgid "Users Linked."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1152
+#: includes/class-eb-user-manager.php:1155
 #: public/templates/account/user-profile.php:57
 msgid "Enrolled Courses"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1173
-msgid "Enroll a Course"
-msgstr ""
-
-#: includes/class-eb-user-manager.php:1176
-#: includes/class-eb-user-manager.php:1189
-msgid "-- Select a Course --"
-msgstr ""
-
-#: includes/class-eb-user-manager.php:1186
-msgid "Unenroll a Course"
-msgstr ""
-
-#: includes/class-eb-user-manager.php:1357
+#: includes/class-eb-user-manager.php:1377
 msgid "Failed to process the request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1360
+#: includes/class-eb-user-manager.php:1380
 msgid "s account has been linked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1366
+#: includes/class-eb-user-manager.php:1386
 msgid "s account has been unlinked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1369
+#: includes/class-eb-user-manager.php:1389
 msgid "Invalid ajax request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1411
+#: includes/class-eb-user-manager.php:1431
 msgid "WordPress User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1416
+#: includes/class-eb-user-manager.php:1436
 msgid "WordPress User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1421
+#: includes/class-eb-user-manager.php:1441
 msgid "WordPress User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1454
+#: includes/class-eb-user-manager.php:1474
 msgid "Moodle User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1456
+#: includes/class-eb-user-manager.php:1476
 msgid "Moodle User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1470
+#: includes/class-eb-user-manager.php:1490
 msgid "Moodle User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1541
+#: includes/class-eb-user-manager.php:1561
 msgid "Resend Verification Email"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1544
+#: includes/class-eb-user-manager.php:1564
 msgid "Your email is not verified. Please verify your email."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1562
+#: includes/class-eb-user-manager.php:1582
 msgid "Your email is verified successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1594
+#: includes/class-eb-user-manager.php:1616
 msgid "Your email verification link is invalid."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1611
+#: includes/class-eb-user-manager.php:1633
 msgid "Verification email has been sent to your email address."
 msgstr ""
 
 #: includes/eb-core-functions.php:252
 #: public/shortcodes/class-eb-shortcode-my-courses.php:48
-#: public/shortcodes/class-eb-shortcode-my-courses.php:365
+#: public/shortcodes/class-eb-shortcode-my-courses.php:367
 msgid "Recommended Courses"
 msgstr ""
 
@@ -5020,40 +5007,40 @@ msgstr ""
 msgid " to login."
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:161
+#: public/shortcodes/class-eb-shortcode-my-courses.php:162
 msgid "You are not enrolled to any course. "
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:161
+#: public/shortcodes/class-eb-shortcode-my-courses.php:162
 msgid " to access the courses page."
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:191
-#: public/shortcodes/class-eb-shortcode-my-courses.php:202
+#: public/shortcodes/class-eb-shortcode-my-courses.php:192
+#: public/shortcodes/class-eb-shortcode-my-courses.php:203
 msgid "Start"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:198
+#: public/shortcodes/class-eb-shortcode-my-courses.php:199
 msgid "Suspended"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:203
+#: public/shortcodes/class-eb-shortcode-my-courses.php:204
 msgid "Not yet started"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:206
+#: public/shortcodes/class-eb-shortcode-my-courses.php:207
 msgid "Resume"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:207
+#: public/shortcodes/class-eb-shortcode-my-courses.php:208
 msgid "% Completed"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:212
+#: public/shortcodes/class-eb-shortcode-my-courses.php:213
 msgid "100% Completed"
 msgstr ""
 
-#: public/shortcodes/class-eb-shortcode-my-courses.php:310
+#: public/shortcodes/class-eb-shortcode-my-courses.php:311
 msgid "View More &rarr;"
 msgstr ""
 

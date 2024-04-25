@@ -1521,7 +1521,7 @@ a[href*="tab=elementor_template_settings"].nav-tab::after {
   color: white;
   font-weight: bolder;
   padding: 5px 15px 0px 0px;
-  font-size: 10px;
+  font-size: 8px;
   position: absolute;
   right: -20px;
   top: -3px;

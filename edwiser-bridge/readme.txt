@@ -205,6 +205,10 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.5 =
+* Tweak - Moodle Auto Plugin update functionality setting.
+* Tweak - Moodle plugin coding standards
+
 = 3.0.4 =
 * Tweak - Security issues fixed.
 
