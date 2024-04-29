@@ -75,6 +75,8 @@ So to enhance its functionality and achieve a fully automated WooCommerce Soluti
 * Course Buyers could also enroll multiple students in the purchased course,
 * Cohorts are created for each purchase made by the course buyer.
 
+= Checkout Edwiser Bridge Pro <a href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin">WordPress Moodle Integration</a> =
+
 
 = Additional Edwiser products that provides improves your Moodle experience - =
 
