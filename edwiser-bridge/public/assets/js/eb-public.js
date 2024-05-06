@@ -340,6 +340,33 @@
 				],
 			});
 		}
+
+		// disable woocomerce quantity input field
+		$('.eb-pro-product-page-sidebar .quantity-wrap').find('input').prop('disabled', true);
+		$('.eb-pro-product-page-sidebar .quantity-wrap .quantity-minus').prop('disabled', true);
+		$('.eb-pro-product-page-sidebar .quantity-wrap .quantity-plus').prop('disabled', true);
+
+		if ($( "#wdm_edwiser_self_enroll" ).length) {
+			var is_checked = $( "#wdm_edwiser_self_enroll" ).is(':checked');
+			if (is_checked) {
+				$( ".eb-pro-product-page-sidebar .quantity-wrap" ).find('input').prop('disabled', false);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-minus" ).prop('disabled', false);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-plus" ).prop('disabled', false);
+			}
+		};
+
+		$( "#wdm_edwiser_self_enroll" ).change(function() {
+			if (this.checked) {
+				$( ".eb-pro-product-page-sidebar .quantity-wrap" ).find('input').prop('disabled', false);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-minus" ).prop('disabled', false);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-plus" ).prop('disabled', false);
+			} else {
+				$( ".eb-pro-product-page-sidebar .quantity-wrap" ).find('input').prop('disabled', true);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-minus" ).prop('disabled', true);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap .quantity-plus" ).prop('disabled', true);
+				$( ".eb-pro-product-page-sidebar .quantity-wrap" ).find('input').val(1);
+			}
+		});
 	});
 })(jQuery);
 

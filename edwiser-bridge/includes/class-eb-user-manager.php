@@ -1577,7 +1577,7 @@ class Eb_User_Manager {
 
 		if ( 'eb_user_email_verification' === $action ) {
 			$eb_user_email_verification_key = get_user_meta( $verification_id, 'eb_user_email_verification_key', true );
-			if ( $verification_key === $eb_user_email_verification_key ) {
+			if ( ! empty( $verification_key ) && $verification_key === $eb_user_email_verification_key ) {
 				update_user_meta( $verification_id, 'eb_user_email_verified', 1 );
 				$message = __( 'Your email is verified successfully.', 'edwiser-bridge' );
 				// create moodle user.
