@@ -346,6 +346,10 @@
 		$('.eb-pro-product-page-sidebar .quantity-wrap .quantity-minus').prop('disabled', true);
 		$('.eb-pro-product-page-sidebar .quantity-wrap .quantity-plus').prop('disabled', true);
 
+		$('.eb-pro-product-page-sidebar .grouped-product-quantity').find('input').prop('disabled', false);
+		$('.eb-pro-product-page-sidebar .grouped-product-quantity .quantity-minus').prop('disabled', false);
+		$('.eb-pro-product-page-sidebar .grouped-product-quantity .quantity-plus').prop('disabled', false);
+
 		if ($( "#wdm_edwiser_self_enroll" ).length) {
 			var is_checked = $( "#wdm_edwiser_self_enroll" ).is(':checked');
 			if (is_checked) {
