@@ -1428,3 +1428,8 @@ nav.eb-pagination ul li {
 .eb_email_verify_dialog{
   z-index: 1000 !important;
 }
+
+.eb-pro-product-page-sidebar .quantity-wrap button:disabled{
+  opacity: .5 !important;
+  cursor: not-allowed;
+}
