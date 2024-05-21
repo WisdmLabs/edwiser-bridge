@@ -151,7 +151,7 @@ class Eb_Connection_Helper {
 		// function to check if webservice token is properly set.
 
 		// new test connection api.
-		$webservice_function = 'eb_test_connection';
+		$webservice_function = 'auth_edwiserbridge_test_connection';
 
 		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
 		$request_url              .= $token . '&wsfunction=';

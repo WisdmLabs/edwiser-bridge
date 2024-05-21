@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle wocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.5.2
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

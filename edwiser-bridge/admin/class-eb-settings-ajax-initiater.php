@@ -154,7 +154,7 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
-		$response          = $connection_helper->connect_moodle_with_args_helper( 'edwiserbridge_local_get_mandatory_settings', array() );
+		$response          = $connection_helper->connect_moodle_with_args_helper( 'auth_edwiserbridge_get_mandatory_settings', array() );
 
 		if ( 403 === $response['status_code'] ) {
 			$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=settings';
@@ -293,7 +293,7 @@ class Eb_Settings_Ajax_Initiater {
 			die( 'Busted!' );
 		}
 
-		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( 'edwiserbridge_local_get_course_enrollment_method', array() );
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( 'auth_edwiserbridge_get_course_enrollment_method', array() );
 
 		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
@@ -404,7 +404,7 @@ class Eb_Settings_Ajax_Initiater {
 			'courseid' => array( $course_id ),
 		);
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
-		$response          = $connection_helper->connect_moodle_with_args_helper( 'edwiserbridge_local_enable_plugin_settings', array() );
+		$response          = $connection_helper->connect_moodle_with_args_helper( 'auth_edwiserbridge_enable_plugin_settings', array() );
 		$general_settings  = get_option( 'eb_general' );
 
 		if ( ! empty( $response['response_data'] ) ) {

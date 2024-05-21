@@ -489,16 +489,16 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					'core_role_unassign_roles',
 					'core_cohort_delete_cohort_members',
 					'core_cohort_get_cohorts',
-					// 'eb_manage_cohort_enrollment',
-					'eb_delete_cohort',
+					// 'auth_edwiserbridge_manage_cohort_enrollment',
+					'auth_edwiserbridge_delete_cohort',
 					// 'wdm_manage_cohort_enrollment'
 				),
 				'woocommerce-integration/bridge-woocommerce.php' => array(),
 				'edwiser-bridge-sso/sso.php' => array(
-					'wdm_sso_verify_token',
+					'auth_edwiserbridge_verify_sso_token',
 				),
 				'selective-synchronization/selective-synchronization.php' => array(
-					'eb_get_users',
+					'auth_edwiserbridge_get_users',
 				),
 			)
 		);
@@ -514,14 +514,14 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 				'enrol_manual_enrol_users',
 				'enrol_manual_unenrol_users',
 				'core_enrol_get_users_courses',
-				'eb_test_connection',
-				'eb_get_site_data',
-				'eb_get_course_progress',
-				'eb_get_edwiser_plugins_info',
-				'edwiserbridge_local_get_course_enrollment_method',
-				'edwiserbridge_local_update_course_enrollment_method',
-				'edwiserbridge_local_get_mandatory_settings',
-				'edwiserbridge_local_enable_plugin_settings',
+				'auth_edwiserbridge_test_connection',
+				'auth_edwiserbridge_get_site_data',
+				'auth_edwiserbridge_get_course_progress',
+				'auth_edwiserbridge_get_edwiser_plugins_info',
+				'auth_edwiserbridge_get_course_enrollment_method',
+				'auth_edwiserbridge_update_course_enrollment_method',
+				'auth_edwiserbridge_get_mandatory_settings',
+				'auth_edwiserbridge_enable_plugin_settings',
 			)
 		);
 
@@ -532,7 +532,7 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
 						$functions = array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
-						$functions = array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'auth_edwiserbridge_manage_cohort_enrollment' ) );
 					}
 				}
 

@@ -231,7 +231,7 @@ class Eb_Course_Manager {
 
 		// Check sync option.
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			'edwiserbridge_local_get_course_enrollment_method',
+			'auth_edwiserbridge_get_course_enrollment_method',
 			array()
 		);
 
@@ -261,7 +261,7 @@ class Eb_Course_Manager {
 
 		// Check sync option.
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			'edwiserbridge_local_update_course_enrollment_method',
+			'auth_edwiserbridge_update_course_enrollment_method',
 			$course_array
 		);
 

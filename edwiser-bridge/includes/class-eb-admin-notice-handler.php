@@ -35,7 +35,7 @@ class Eb_Admin_Notice_Handler {
 		}
 		$request_url = $eb_moodle_url . '/webservice/rest/server.php?wstoken=';
 
-		$moodle_function = 'eb_get_course_progress';
+		$moodle_function = 'auth_edwiserbridge_get_course_progress';
 		$request_url    .= $eb_moodle_token . '&wsfunction=' . $moodle_function . '&moodlewsrestformat=json';
 		$response        = wp_remote_post( $request_url );
 
@@ -61,7 +61,7 @@ class Eb_Admin_Notice_Handler {
 	 */
 	public function eb_get_mdl_plugin_info() {
 
-		$moodle_function = 'eb_get_edwiser_plugins_info';
+		$moodle_function = 'auth_edwiserbridge_get_edwiser_plugins_info';
 
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_helper( $moodle_function );
 
