@@ -1376,6 +1376,42 @@
 
         });
 
+        $("#eb-link-unlink-moodle-user").click(function (e) {
+            e.preventDefault();
+            var userid = $(this).data("user-id");
+            var linkuser = $(this).data("link-status");
+
+            $("#eb-lading-parent").show();
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                data: {
+                    action: "moodleLinkUnlinkUser",
+                    user_id: userid,
+                    link_user: linkuser,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
+                },
+                success: function (response) {
+                    var result = $.parseJSON(response);
+                    if (result["code"] == ("success")) {
+                        $(".link-unlink-status").text(result["msg"]);
+                        $(".link-unlink-status").css("color", "green");
+                        if(linkuser == 1){
+                            $("#eb-link-unlink-moodle-user").attr("data-link-status", 0);
+                            $("#eb-link-unlink-moodle-user").text(eb_admin_js_object.button_unlink_user);
+                        } else{
+                            $("#eb-link-unlink-moodle-user").attr("data-link-status", 1);
+                            $("#eb-link-unlink-moodle-user").text(eb_admin_js_object.button_link_user);
+                        }
+                    } else {
+                        $(".link-unlink-status").text(result["msg"]);
+                        $(".link-unlink-status").css("color", "red");
+                    }
+                    $("#eb-lading-parent").hide();
+                }
+            });
+        });
+
 
 
         /*************** from 1.2.4  ********************/
@@ -1680,6 +1716,29 @@
         $('.eb_setting_help_pop_up .closebtn').click(function (event) {
             $(".eb_setting_help_pop_up").css('width', "0");
             $(".eb_setting_help_pop_up").css('right', '-25px');
+        });
+
+        if(!jQuery(this).find('#new-enrollment-courses' ).data('select2')){
+            jQuery(this).find('#new-enrollment-courses' ).select2({
+                placeholder: eb_admin_js_object.enroll_courses_placeholder
+                
+            });    
+        }
+        if(!jQuery(this).find('#new-enrollment-student' ).data('select2')){
+            jQuery(this).find('#new-enrollment-student' ).select2({
+                placeholder: eb_admin_js_object.enroll_user_placeholder
+            });    
+        }
+
+        $('#eb-create-new-enrollment').on('click', function () {
+
+            $('.eb-create-new-enrollment-form').show();
+
+
+        });
+
+        $('.eb-cancel-enroll').on('click', function () {
+            $('.eb-create-new-enrollment-form').hide();
         });
     });
     /*JS for Order page end*/

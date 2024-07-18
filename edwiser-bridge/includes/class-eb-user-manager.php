@@ -682,6 +682,8 @@ class Eb_User_Manager {
 						'user_created' => 0,
 						'user_data'    => __( 'Email not verified', 'edwiser-bridge' ),
 					);
+					// save custom field data
+					$user_data = apply_filters( 'eb_moodle_user_profile_details', $user_data, $update );
 					return $user;
 				}
 			}
@@ -1044,13 +1046,14 @@ class Eb_User_Manager {
 
 	/**
 	 * Change moodle password when WordPress password change event occurs.
+	 * Modified - update profile details from wp admin panel.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param int $user_id user id of the profile being updated.
 	 */
 	public function password_update( $user_id ) {
-		// Proceed if nonce is verified.
+		// Proceed if nonce is verified. this nonce check is used only when the profile update is from edwiser bridge user profile page.
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'eb-update-user' ) ) {
 
 			// Get new password entered by user.
@@ -1084,6 +1087,27 @@ class Eb_User_Manager {
 			$moodle_user = $this->create_moodle_user( $user_data, 1 );
 			if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
 				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating password..... Exiting!!!' ); // add user log.
+			}
+		}
+
+		// for general user deetails update from wp-admin profile page.
+		// check if the page is updated from wp-admin profile page.
+		if ( isset( $_POST['from'] ) && 'profile' === $_POST['from'] ) {
+			$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
+
+			$first_name = get_user_meta( $user_id, 'first_name', true );
+			$last_name  = get_user_meta( $user_id, 'last_name', true );
+			$email      = get_user_meta( $user_id, 'user_email', true );
+
+			$user_data = array(
+				'id'         => $moodle_user_id,
+				'firstname'  => $first_name,
+				'lastname'   => $last_name,
+				'email'      => $email,
+			);
+			$moodle_user = $this->create_moodle_user( $user_data, 1 );
+			if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
+				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating user details..... Exiting!!!' ); // add user log.
 			}
 		}
 	}
@@ -1129,6 +1153,18 @@ class Eb_User_Manager {
 
 		// Check if a moodle user account is already linked.
 		$moodle_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
+
+		if ( ! is_numeric( $moodle_user_id ) ) {
+			// link button.
+			$link_button = '<a href="javascript:void(0);" class="button" id="eb-link-unlink-moodle-user" data-link-status="1" data-user-id="' . $user->ID . '">' . esc_html__( 'Link Moodle Account', 'edwiser-bridge' ) . '</a>';
+		} else {
+			// unlink button.
+			$link_button = '<a href="javascript:void(0);" class="button" id="eb-link-unlink-moodle-user" data-link-status="0" data-user-id="' . $user->ID . '">' . esc_html__( 'Unlink Moodle Account', 'edwiser-bridge' ) . '</a>';
+		}
+		echo '<h3>' . esc_html__( 'Moodle Account', 'edwiser-bridge' ) . '</h3>';
+		echo '<p>' . esc_html__( 'Link your WordPress account with your Moodle account.', 'edwiser-bridge' ) . '</p>';
+		echo '<p>' . $link_button . '</p>';
+		echo '<p class="link-unlink-status"></p>';
 
 		if ( is_numeric( $moodle_user_id ) ) {
 			global $profileuser;
@@ -1676,5 +1712,31 @@ class Eb_User_Manager {
 			'verify_url' => $verification_link,
 		);
 		do_action( 'eb_new_user_email_verification_trigger', $args );
+	}
+
+	/**
+	 * Delete user from moodle
+	 *
+	 * @param int $user_id id of the user whose profile is updated.
+	 */
+	public function delete_user_from_moodle( $user_id ) {
+
+		$eb_general_settings = get_option( 'eb_general' );
+		if( ! isset( $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) || 'yes' !== $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) {
+			return;
+		}
+		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true );
+		if ( ! empty( $moodle_user_id ) ) {
+			$request_args = array(
+				'userids' => array( $moodle_user_id ),
+			);
+
+			$webservice_function = 'core_user_delete_users';
+
+			$response            = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+				$webservice_function,
+				$request_args
+			);
+		}
 	}
 }
