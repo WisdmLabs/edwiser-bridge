@@ -196,6 +196,15 @@ class Eb_Admin {
 				'updating_mandatory_sett  ings'   => esc_html__( 'Updating mandatory settings', 'edwiser-bridge' ),
 				'enabling_manual_enrollment'      => esc_html__( 'Enabling manual enrollment', 'edwiser-bridge' ),
 				'please_select_course'            => esc_html__( 'Please select a course', 'edwiser-bridge' ),
+				'button_unlink_user'              => esc_html__( 'Link Moodle Account', 'edwiser-bridge' ),
+				'button_link_user'                => esc_html__( 'Unlink Moodle Account', 'edwiser-bridge' ),
+				'new_enrollment'                  => esc_html__( 'Enroll New Student', 'edwiser-bridge' ),
+				'student_name'                    => esc_html__( 'Student Name', 'edwiser-bridge' ),
+				'enroll_courses'                  => esc_html__( 'Courses', 'edwiser-bridge' ),
+				'enroll_cancel'                   => esc_html__( 'Cancel', 'edwiser-bridge' ),
+				'enroll_enroll'                   => esc_html__( 'Enroll Student', 'edwiser-bridge' ),
+				'enroll_courses_placeholder'      => esc_html__( 'Select courses to enroll', 'edwiser-bridge' ),
+				'enroll_user_placeholder'         => esc_html__( 'Select user to enroll', 'edwiser-bridge' ),
 			)
 		);
 
@@ -211,5 +220,41 @@ class Eb_Admin {
 		add_action( 'eb_settings_footer', '\app\wisdmlabs\edwiserBridge\add_beacon_helpscout_script' );
 
 		add_action( 'eb_settings_header', '\app\wisdmlabs\edwiserBridge\add_edwiser_header_content' );
+	}
+
+	/**
+	 * Delete old logs
+	 */
+	public function delete_old_logs(){
+		$log_files = array(
+			'user',
+			'course',
+			'order',
+			'product',
+		);
+		
+		$log_folder = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_log_dir();
+
+		foreach ( $log_files as $log_file ) {
+			$log_file_path = trailingslashit( $log_folder ) . $log_file . '-' . sanitize_file_name( wp_hash( $log_file ) ) . '.log';
+			if ( file_exists( $log_file_path ) ) {
+				unlink( $log_file_path );
+			}
+		}
+		
+		// check if files older than one month are present.
+		$log_files = glob( $log_folder . '*.log' );
+		if ( $log_files ) {
+			foreach ( $log_files as $log_file ) {
+				$file_name = basename( $log_file );
+				$m = (int)explode( '-', $file_name )[1];
+				$y = (int)explode( '-', $file_name )[2];
+				if ( $m <= date_i18n( 'm' ) - 2 || $y < date_i18n( 'y' ) ) {
+					error_log( 'deleting file ' . $log_file );
+					unlink( $log_file );
+				}
+			}
+		}
+
 	}
 }

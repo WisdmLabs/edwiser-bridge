@@ -570,6 +570,8 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles' );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts' );
 
+		// hook to delete older log files
+		$this->loader->eb_add_action( 'admin_init', $plugin_admin, 'delete_old_logs' );
 		/**
 		 * Add action to add the meta boxes in backend for the order
 		 */
@@ -930,6 +932,9 @@ class EdwiserBridge {
 		 * update course enrollment table appropriately by deleting records for user being deleted.
 		 */
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion' );
+
+		// Delete user
+		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_user_from_moodle' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
 

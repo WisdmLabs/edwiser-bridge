@@ -131,6 +131,14 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'desc_tip' => __( 'Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here.', 'edwiser-bridge' ),
 					),
 					array(
+						'title'    => __( 'Moodle Account Delete Sync', 'edwiser-bridge' ),
+						'desc'     => __( 'Enable this option to delete the Moodle account when the user is deleted from WordPress.', 'edwiser-bridge' ),
+						'id'       => 'eb_delete_moodle_account_on_user_delete',
+						'default'  => 'no',
+						'type'     => 'checkbox',
+						'autoload' => false,
+					),
+					array(
 						'title'    => __( 'Courses page', 'edwiser-bridge' ),
 						'desc'     => '<br/>' . $courses_page_desc,
 						'id'       => 'eb_courses_page_id',

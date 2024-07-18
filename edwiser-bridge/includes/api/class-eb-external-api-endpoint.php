@@ -438,6 +438,11 @@ class Eb_External_Api_Endpoint {
 				$user_update_array['user_pass'] = $user_p;
 			}
 
+			$user_email = get_user_meta( $wp_user_id, 'user_email', true );
+			if ( isset( $data['email'] ) && ! empty( $data['email'] ) && $user_email !== $data['email'] ) {
+				$user_update_array['user_email'] = $data['email'];
+			}
+
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );
 
 			// Update password and fields.
