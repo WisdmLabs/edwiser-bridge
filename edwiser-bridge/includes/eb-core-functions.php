@@ -24,7 +24,7 @@ if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	 */
 	function wdm_eb_log_file_path( $handle ) {
 		$eb_log_dir_path = wdm_edwiser_bridge_plugin_log_dir();
-		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
+		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . date_i18n('m-y') . '.log';
 	}
 }
 
