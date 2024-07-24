@@ -487,7 +487,12 @@ class Eb_User_Manager {
 							$eb_access_url   = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
 
 							// create a moodle user with above details.
-							if ( '' !== $eb_access_token && '' !== $eb_access_url ) {
+							$creae_moodle_acc = true;
+							$eb_general       = get_option( 'eb_woo_int_settings' );
+							if ( isset($eb_general['wi_disable_checkout_user_creation']) && 'yes' === $eb_general['wi_disable_checkout_user_creation'] ) {
+								$creae_moodle_acc = false;
+							}
+							if ( '' !== $eb_access_token && '' !== $eb_access_url && $creae_moodle_acc ) {
 								$moodle_user = $this->create_moodle_user( $user_data );
 								if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
 									update_user_meta( $user_id, 'moodle_user_id', $moodle_user['user_data']->id );
@@ -1095,9 +1100,10 @@ class Eb_User_Manager {
 		if ( isset( $_POST['from'] ) && 'profile' === $_POST['from'] ) {
 			$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
 
-			$first_name = get_user_meta( $user_id, 'first_name', true );
-			$last_name  = get_user_meta( $user_id, 'last_name', true );
-			$email      = get_user_meta( $user_id, 'user_email', true );
+			$user       = get_user_by( 'id', $user_id );
+			$first_name = $user->first_name;
+			$last_name  = $user->last_name;
+			$email      = $user->user_email;
 
 			$user_data = array(
 				'id'         => $moodle_user_id,
@@ -1105,6 +1111,11 @@ class Eb_User_Manager {
 				'lastname'   => $last_name,
 				'email'      => $email,
 			);
+
+			if ( isset( $_POST['pass1'] ) && ! empty( $_POST['pass1'] ) ) {
+				$user_data['password'] = sanitize_text_field( wp_unslash( $_POST['pass1'] ) );
+			}
+
 			$moodle_user = $this->create_moodle_user( $user_data, 1 );
 			if ( isset( $moodle_user['user_updated'] ) && 1 !== $moodle_user['user_updated'] ) {
 				edwiser_bridge_instance()->logger()->add( 'user', 'There is a problem in updating user details..... Exiting!!!' ); // add user log.
@@ -1163,7 +1174,7 @@ class Eb_User_Manager {
 		}
 		echo '<h3>' . esc_html__( 'Moodle Account', 'edwiser-bridge' ) . '</h3>';
 		echo '<p>' . esc_html__( 'Link your WordPress account with your Moodle account.', 'edwiser-bridge' ) . '</p>';
-		echo '<p>' . $link_button . '</p>';
+		echo '<p>' . wp_kses_post( $link_button ) . '</p>';
 		echo '<p class="link-unlink-status"></p>';
 
 		if ( is_numeric( $moodle_user_id ) ) {
