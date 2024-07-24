@@ -179,7 +179,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 								</select>
 							</div>
 							<div class="eb-enroll-form-field-course">
-								<label for="new-enrollment-courses"><?php esc_html_e( 'courses', 'edwiser-bridge' ); ?></label>
+								<label for="new-enrollment-courses"><?php esc_html_e( 'Courses', 'edwiser-bridge' ); ?></label>
 								<select name="new-enrollment-courses[]" id="new-enrollment-courses" multiple="multiple">
 									<?php
 										foreach ( $course_list as $key => $value ) {

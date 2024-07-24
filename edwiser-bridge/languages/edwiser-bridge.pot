@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Edwiser Bridge - WordPress Moodle LMS Integration\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 19:22+0530\n"
+"POT-Creation-Date: 2024-07-24 15:16+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -58,8 +58,8 @@ msgstr ""
 
 #: admin/class-eb-admin-settings.php:591
 #: admin/settings/class-eb-settings-general.php:108
-#: admin/settings/class-eb-settings-general.php:141
-#: admin/settings/class-eb-settings-general.php:200
+#: admin/settings/class-eb-settings-general.php:149
+#: admin/settings/class-eb-settings-general.php:208
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:918
 msgid "Select a page"
 msgstr ""
@@ -106,7 +106,7 @@ msgstr ""
 
 #: admin/class-eb-admin.php:171
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:695
-msgid "Error occured for following users: "
+msgid "Error occurred for following users: "
 msgstr ""
 
 #: admin/class-eb-admin.php:172
@@ -232,6 +232,50 @@ msgstr ""
 
 #: admin/class-eb-admin.php:198
 msgid "Please select a course"
+msgstr ""
+
+#: admin/class-eb-admin.php:199 includes/class-eb-user-manager.php:913
+#: includes/class-eb-user-manager.php:916 includes/class-eb-user-manager.php:1170
+msgid "Link Moodle Account"
+msgstr ""
+
+#: admin/class-eb-admin.php:200 includes/class-eb-user-manager.php:919
+#: includes/class-eb-user-manager.php:922 includes/class-eb-user-manager.php:1173
+msgid "Unlink Moodle Account"
+msgstr ""
+
+#: admin/class-eb-admin.php:201 includes/class-eb-manage-enrollment.php:162
+msgid "Enroll New Student"
+msgstr ""
+
+#: admin/class-eb-admin.php:202 includes/class-eb-manage-enrollment.php:169
+msgid "Student Name"
+msgstr ""
+
+#: admin/class-eb-admin.php:203 admin/settings/class-eb-settings-dummy.php:295
+#: admin/settings/class-eb-settings-general.php:59
+#: admin/settings/class-eb-settings-synchronization.php:47
+#: includes/class-eb-email-template-parser.php:126
+#: includes/class-eb-manage-enrollment.php:182
+#: includes/class-eb-post-types.php:113 includes/class-eb-post-types.php:115
+#: public/templates/archive-eb_course.php:57
+msgid "Courses"
+msgstr ""
+
+#: admin/class-eb-admin.php:204 includes/class-eb-manage-enrollment.php:196
+msgid "Cancel"
+msgstr ""
+
+#: admin/class-eb-admin.php:205 includes/class-eb-manage-enrollment.php:195
+msgid "Enroll Student"
+msgstr ""
+
+#: admin/class-eb-admin.php:206
+msgid "Select courses to enroll"
+msgstr ""
+
+#: admin/class-eb-admin.php:207
+msgid "Select user to enroll"
 msgstr ""
 
 #: admin/class-eb-email-template.php:47
@@ -490,6 +534,7 @@ msgid "Template restored successfully"
 msgstr ""
 
 #: admin/class-eb-moodle-link-unlink.php:37
+#: includes/class-eb-user-manager.php:1175
 msgid "Moodle Account"
 msgstr ""
 
@@ -555,7 +600,7 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:422
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1479
+#: includes/class-eb-user-manager.php:1526
 msgid "Update webservice"
 msgstr ""
 
@@ -567,7 +612,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1122
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1479
+#: includes/class-eb-user-manager.php:1526
 msgid " OR "
 msgstr ""
 
@@ -577,7 +622,7 @@ msgstr ""
 #: admin/class-eb-settings-ajax-initiater.php:422
 #: includes/class-eb-enrollment-manager.php:832
 #: includes/class-eb-enrollment-manager.php:884
-#: includes/class-eb-user-manager.php:1479
+#: includes/class-eb-user-manager.php:1526
 msgid "Try test connection"
 msgstr ""
 
@@ -1297,7 +1342,7 @@ msgid "Logs"
 msgstr ""
 
 #: admin/settings/class-eb-error-log.php:54
-#: includes/class-eb-manage-enrollment.php:129
+#: includes/class-eb-manage-enrollment.php:132
 msgid "Please wait processing request ...."
 msgstr ""
 
@@ -1311,8 +1356,8 @@ msgstr ""
 
 #: admin/settings/class-eb-error-log.php:134
 #: admin/settings/class-eb-error-log.php:151
-#: includes/class-eb-manage-enrollment.php:216
-#: includes/class-eb-manage-enrollment.php:233
+#: includes/class-eb-manage-enrollment.php:280
+#: includes/class-eb-manage-enrollment.php:297
 msgid "Dismiss this notice"
 msgstr ""
 
@@ -1445,15 +1490,6 @@ msgstr ""
 msgid "Selective Sync Course synchronisation setting not found"
 msgstr ""
 
-#: admin/settings/class-eb-settings-dummy.php:295
-#: admin/settings/class-eb-settings-general.php:59
-#: admin/settings/class-eb-settings-synchronization.php:47
-#: includes/class-eb-email-template-parser.php:126
-#: includes/class-eb-post-types.php:113 includes/class-eb-post-types.php:115
-#: public/templates/archive-eb_course.php:57
-msgid "Courses"
-msgstr ""
-
 #: admin/settings/class-eb-settings-dummy.php:296
 #: admin/settings/class-eb-settings-synchronization.php:48
 msgid "Users"
@@ -1511,7 +1547,7 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:48
 #: admin/settings/class-eb-settings-general.php:58
-#: admin/settings/class-eb-settings-general.php:178
+#: admin/settings/class-eb-settings-general.php:186
 #: includes/class-eb-email-template-parser.php:128
 msgid "User Account"
 msgstr ""
@@ -1522,7 +1558,7 @@ msgid "Select courses page here. Default page is %s "
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:53
-#: admin/settings/class-eb-settings-general.php:134
+#: admin/settings/class-eb-settings-general.php:142
 msgid "Courses page"
 msgstr ""
 
@@ -1532,16 +1568,16 @@ msgid "Redirect user to the My Courses page on %1$s from the %2$s page."
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:58
-#: admin/settings/class-eb-settings-general.php:177
+#: admin/settings/class-eb-settings-general.php:185
 msgid "Login / Registration"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:59
-msgid "Controlls whether to Show/Hide courses archive page. "
+msgid "Controls whether to Show/Hide courses archive page. "
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:65
-#: admin/settings/class-eb-settings-general.php:443
+#: admin/settings/class-eb-settings-general.php:451
 msgid "Setup Wizard"
 msgstr ""
 
@@ -1604,66 +1640,76 @@ msgid ""
 "default user role id is changed then user must enter new user role id here."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:144
+#: admin/settings/class-eb-settings-general.php:134
+msgid "Moodle Account Delete Sync"
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:135
+msgid ""
+"Enable this option to delete the Moodle account when the user is deleted from "
+"WordPress."
+msgstr ""
+
+#: admin/settings/class-eb-settings-general.php:152
 msgid "This sets the courses page, where user can see courses page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:147
+#: admin/settings/class-eb-settings-general.php:155
 msgid "Moodle Language Code"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:148
+#: admin/settings/class-eb-settings-general.php:156
 msgid ""
 "Enter language code which you get from moodle language settings. You can check "
 "language code in Moodle "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:148
+#: admin/settings/class-eb-settings-general.php:156
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1041
 msgid " here "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:155
+#: admin/settings/class-eb-settings-general.php:163
 msgid "Disable SSL certificate check"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:156
+#: admin/settings/class-eb-settings-general.php:164
 msgid "This option will try to ignore errors regariding SSL certificate."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:163
+#: admin/settings/class-eb-settings-general.php:171
 msgid "Show Courses Archive page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:171
+#: admin/settings/class-eb-settings-general.php:179
 msgid "Redirect to My Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:176
+#: admin/settings/class-eb-settings-general.php:184
 msgid "Redirect user to the My Courses page on "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:176
+#: admin/settings/class-eb-settings-general.php:184
 msgid " from the "
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:176
+#: admin/settings/class-eb-settings-general.php:184
 msgid " page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:180
+#: admin/settings/class-eb-settings-general.php:188
 msgid "Redirect user to the My Courses page after login and registration"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:187
+#: admin/settings/class-eb-settings-general.php:195
 msgid "My Courses Page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:192
+#: admin/settings/class-eb-settings-general.php:200
 msgid "Select my courses page here. Default page is"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:193
+#: admin/settings/class-eb-settings-general.php:201
 #: includes/class-eb-email-template-parser.php:175
 #: includes/eb-core-functions.php:251
 #: public/shortcodes/class-eb-shortcode-user-account.php:440
@@ -1671,208 +1717,208 @@ msgstr ""
 msgid "My Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:203
+#: admin/settings/class-eb-settings-general.php:211
 msgid ""
 "This sets 'My Courses' page, where the user can see all his purchased courses "
 "and access them directly. You have to use this shortcode [eb_my_courses] to "
 "create this page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:206
+#: admin/settings/class-eb-settings-general.php:214
 msgid "Empty My courses Page Redirect Link"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:207
+#: admin/settings/class-eb-settings-general.php:215
 msgid ""
 "Enter the link to where you want to redirect user from My Courses page when no "
 "course is enrolled if empty then will be redirected to the courses page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:215
+#: admin/settings/class-eb-settings-general.php:223
 msgid "Erase associated Moodle data from Moodle site"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:216
+#: admin/settings/class-eb-settings-general.php:224
 msgid ""
 "Erase associated Moodle data from Moodle site on erase personal data of "
 "wordpress site"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:223
+#: admin/settings/class-eb-settings-general.php:231
 msgid "Show Already Enrolled Label"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:224
+#: admin/settings/class-eb-settings-general.php:232
 msgid ""
 "Show already enrolled label on courses/products in which user is already "
 "enrolled to prevent user from buying again."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:235
+#: admin/settings/class-eb-settings-general.php:243
 msgid "Privacy Policy"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:241
+#: admin/settings/class-eb-settings-general.php:249
 msgid "Enable terms and conditions"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:242
+#: admin/settings/class-eb-settings-general.php:250
 msgid "Check this to use terms and conditions checkbox on the user-account page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:249
+#: admin/settings/class-eb-settings-general.php:257
 #: public/templates/account/form-login.php:155
 #: public/templates/account/form-login.php:159
 msgid "Terms and Conditions"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:251
+#: admin/settings/class-eb-settings-general.php:259
 msgid ""
 "Please enter the Terms and Conditions you want to show on user-account page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:265
+#: admin/settings/class-eb-settings-general.php:273
 msgid "Recommended Courses Settings"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:271
+#: admin/settings/class-eb-settings-general.php:279
 #: includes/class-eb-post-types.php:378
 msgid "Show Recommended Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:272
+#: admin/settings/class-eb-settings-general.php:280
 msgid "Show recommended courses on eb-my-courses page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:279
+#: admin/settings/class-eb-settings-general.php:287
 msgid "Show Default Recommended Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:280
+#: admin/settings/class-eb-settings-general.php:288
 msgid "Show category wise selected recommended courses on eb-my-courses page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:287
+#: admin/settings/class-eb-settings-general.php:295
 #: includes/class-eb-post-types.php:392
 msgid "Select Courses"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:288
+#: admin/settings/class-eb-settings-general.php:296
 #: includes/class-eb-post-types.php:393
 msgid "Select courses to show in custom courses in recommended course section."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:300
+#: admin/settings/class-eb-settings-general.php:308
 msgid "Refund Notification Settings"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:306
+#: admin/settings/class-eb-settings-general.php:314
 msgid "Notify Admin"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:307
+#: admin/settings/class-eb-settings-general.php:315
 msgid "Notify admin users on refund."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:314
+#: admin/settings/class-eb-settings-general.php:322
 msgid "Notification Email"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:315
+#: admin/settings/class-eb-settings-general.php:323
 msgid "Email address to send refund notification."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:319
+#: admin/settings/class-eb-settings-general.php:327
 msgid ""
 "Specify email address to send refund notification, otherwise keep it blank."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:326
+#: admin/settings/class-eb-settings-general.php:334
 msgid "Usage Tracking"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:332
+#: admin/settings/class-eb-settings-general.php:340
 msgid "Allow Usage Tracking"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:333
+#: admin/settings/class-eb-settings-general.php:341
 msgid "This will help us in building more useful functionalities for you."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:348
+#: admin/settings/class-eb-settings-general.php:356
 msgid "Google reCAPTCHA Settings"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:354
+#: admin/settings/class-eb-settings-general.php:362
 msgid "Enable reCAPTCHA"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:355
+#: admin/settings/class-eb-settings-general.php:363
 msgid "Enable reCAPTCHA on registration form."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:362
+#: admin/settings/class-eb-settings-general.php:370
 msgid "reCAPTCHA Type"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:363
+#: admin/settings/class-eb-settings-general.php:371
 msgid "Select reCAPTCHA type."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:368
+#: admin/settings/class-eb-settings-general.php:376
 msgid "reCAPTCHA v2"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:369
+#: admin/settings/class-eb-settings-general.php:377
 msgid "reCAPTCHA v3"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:373
+#: admin/settings/class-eb-settings-general.php:381
 msgid "Site Key"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:374
+#: admin/settings/class-eb-settings-general.php:382
 msgid "Site key for reCAPTCHA."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:379
+#: admin/settings/class-eb-settings-general.php:387
 msgid "Specify site key for reCAPTCHA."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:382
+#: admin/settings/class-eb-settings-general.php:390
 msgid "Secret Key"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:383
+#: admin/settings/class-eb-settings-general.php:391
 msgid "Secret key for reCAPTCHA."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:388
+#: admin/settings/class-eb-settings-general.php:396
 msgid "Specify secret key for reCAPTCHA."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:391
+#: admin/settings/class-eb-settings-general.php:399
 msgid "Show on registration page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:392
+#: admin/settings/class-eb-settings-general.php:400
 msgid "Show reCAPTCHA on edwiser-bridge registration page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:399
+#: admin/settings/class-eb-settings-general.php:407
 msgid "Show on Login page"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:400
+#: admin/settings/class-eb-settings-general.php:408
 msgid "Show reCAPTCHA on edwiser-bridge login page."
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:436
-#: admin/settings/class-eb-settings-general.php:440
+#: admin/settings/class-eb-settings-general.php:444
+#: admin/settings/class-eb-settings-general.php:448
 msgid "Run Setup Wizard"
 msgstr ""
 
-#: admin/settings/class-eb-settings-general.php:445
+#: admin/settings/class-eb-settings-general.php:453
 msgid ""
 "Note: Setup Wizard is intended for new users only. For technical issues or "
 "Edwiser plugin updates, please refer to our knowledge-base."
@@ -4144,31 +4190,43 @@ msgid ""
 "for better understanding of our product and services."
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:142
+#: includes/class-eb-manage-enrollment.php:206
 #: includes/class-eb-post-types.php:123
 msgid "Search Courses"
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:210
+#: includes/class-eb-manage-enrollment.php:274
 msgid "users has been unenrolled successfully."
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:227
+#: includes/class-eb-manage-enrollment.php:291
 msgid "No users has been unenrolled"
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:246
+#: includes/class-eb-manage-enrollment.php:310
 msgid "Failed to unenroll user"
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:255
+#: includes/class-eb-manage-enrollment.php:319
 msgid " has been unenrolled from the "
 msgstr ""
 
-#: includes/class-eb-manage-enrollment.php:255
+#: includes/class-eb-manage-enrollment.php:319
 #: public/class-eb-template-functions.php:77
 #: public/class-eb-template-functions.php:81
 msgid " course"
+msgstr ""
+
+#: includes/class-eb-manage-enrollment.php:401
+msgid "User "
+msgstr ""
+
+#: includes/class-eb-manage-enrollment.php:401
+msgid " has been enrolled successfully."
+msgstr ""
+
+#: includes/class-eb-manage-enrollment.php:406
+msgid "Something went wrong."
 msgstr ""
 
 #: includes/class-eb-manage-order-refund.php:61
@@ -4611,96 +4669,92 @@ msgstr ""
 msgid "An account is already registered with your email address, %s."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:683
+#: includes/class-eb-user-manager.php:688
 msgid "Email not verified"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:906 includes/class-eb-user-manager.php:909
-msgid "Link Moodle Account"
-msgstr ""
-
-#: includes/class-eb-user-manager.php:912 includes/class-eb-user-manager.php:915
-msgid "Unlink Moodle Account"
-msgstr ""
-
-#: includes/class-eb-user-manager.php:1027
+#: includes/class-eb-user-manager.php:1034
 msgid " User Unlinked."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1030
+#: includes/class-eb-user-manager.php:1037
 msgid " Users Unlinked."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1034
+#: includes/class-eb-user-manager.php:1041
 msgid "User Linked."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1036
+#: includes/class-eb-user-manager.php:1043
 msgid "Users Linked."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1155
+#: includes/class-eb-user-manager.php:1176
+msgid "Link your WordPress account with your Moodle account."
+msgstr ""
+
+#: includes/class-eb-user-manager.php:1202
 #: public/templates/account/user-profile.php:57
 msgid "Enrolled Courses"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1377
+#: includes/class-eb-user-manager.php:1424
 msgid "Failed to process the request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1380
+#: includes/class-eb-user-manager.php:1427
 msgid "s account has been linked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1386
+#: includes/class-eb-user-manager.php:1433
 msgid "s account has been unlinked successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1389
+#: includes/class-eb-user-manager.php:1436
 msgid "Invalid ajax request."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1431
+#: includes/class-eb-user-manager.php:1478
 msgid "WordPress User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1436
+#: includes/class-eb-user-manager.php:1483
 msgid "WordPress User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1441
+#: includes/class-eb-user-manager.php:1488
 msgid "WordPress User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1474
+#: includes/class-eb-user-manager.php:1521
 msgid "Moodle User created successfully"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1476
+#: includes/class-eb-user-manager.php:1523
 msgid "Moodle User creation failed. ERROR : "
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1490
+#: includes/class-eb-user-manager.php:1537
 msgid "Moodle User already exists"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1561
+#: includes/class-eb-user-manager.php:1608
 msgid "Resend Verification Email"
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1564
+#: includes/class-eb-user-manager.php:1611
 msgid "Your email is not verified. Please verify your email."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1582
+#: includes/class-eb-user-manager.php:1629
 msgid "Your email is verified successfully."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1616
+#: includes/class-eb-user-manager.php:1663
 msgid "Your email verification link is invalid."
 msgstr ""
 
-#: includes/class-eb-user-manager.php:1633
+#: includes/class-eb-user-manager.php:1680
 msgid "Verification email has been sent to your email address."
 msgstr ""
 
@@ -4734,7 +4788,7 @@ msgid "Rate Us"
 msgstr ""
 
 #: includes/payments/class-eb-ipn.php:293
-msgid "IPN has been recived for the order id #"
+msgid "IPN has been received for the order id #"
 msgstr ""
 
 #: includes/payments/class-eb-ipn.php:293
@@ -4750,7 +4804,7 @@ msgid "Paypal IPN"
 msgstr ""
 
 #: includes/payments/class-eb-ipn.php:315
-msgid "IPN has been recived, for the refund of amount "
+msgid "IPN has been received, for the refund of amount "
 msgstr ""
 
 #: includes/payments/class-eb-ipn.php:315
@@ -4791,7 +4845,7 @@ msgid "Refund for amount"
 msgstr ""
 
 #: includes/payments/class-eb-refund-manager.php:95
-msgid "PayPal Responce: "
+msgid "PayPal Response: "
 msgstr ""
 
 #: includes/payments/class-eb-refund-manager.php:120

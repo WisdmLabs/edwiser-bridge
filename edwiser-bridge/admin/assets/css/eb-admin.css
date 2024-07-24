@@ -2378,6 +2378,9 @@ input:checked + .eb-pro-checkbox-slider:before {
 .eb-enroll-form-field-course > span{
   width: 400px !important;
 }
+.eb-enroll-form-field-course input{
+  width: 400px !important;
+}
 
 .eb-enroll-form-field-course .select2-container .select2-selection {
   height: 60px;
