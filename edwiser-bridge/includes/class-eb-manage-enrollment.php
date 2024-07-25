@@ -369,7 +369,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 		 * Handle new enrollment of the user
 		 */
 		public function handle_new_enrollment() {
-			if ( isset( $_POST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) ) {
+			if ( isset( $_POST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) && isset( $_POST['new-enrollment-student'] ) && isset( $_POST['new-enrollment-courses'] ) ) {
 
 				$user_id = sanitize_text_field( wp_unslash( $_POST['new-enrollment-student'] ) );
 
@@ -398,7 +398,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 
 				if ( $response ) {
 					echo '<div class="notice notice-success is-dismissible">
-					<p>' . esc_html__( 'User ', 'edwiser-bridge' ) . $user_name . esc_html__( ' has been enrolled successfully.', 'edwiser-bridge' ) . '</p>
+					<p>' . esc_html__( 'User ', 'edwiser-bridge' ) . esc_html( $user_name ) . esc_html__( ' has been enrolled successfully.', 'edwiser-bridge' ) . '</p>
 					</div>
 					';
 				} else {
