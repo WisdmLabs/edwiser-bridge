@@ -136,7 +136,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 				<!-- Display the proccessing popup end. -->
 
 				<h1 class="eb-heading-inline"><?php echo esc_html( get_admin_page_title() ); ?></h1>
-				<span id="eb-create-new-enrollment" class="eb-page-title-action">Enroll New Student</span>
+				<span id="eb-create-new-enrollment" class="eb-page-title-action"><?php esc_html_e( 'Enroll New Student', 'edwiser-bridge' ); ?></span>
 
 				<?php
 					global $wpdb;

@@ -2383,8 +2383,12 @@ input:checked + .eb-pro-checkbox-slider:before {
 }
 
 .eb-enroll-form-field-course .select2-container .select2-selection {
-  height: 60px;
+  height: 150px;
   overflow-y: scroll;
+  padding: 5px 10px;
+}
+.eb-enroll-form-field-course .select2-container .select2-selection__choice {
+  margin-left: 1px;
 } 
 
 
