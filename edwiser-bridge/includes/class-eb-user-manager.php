@@ -1733,7 +1733,10 @@ class Eb_User_Manager {
 	public function delete_user_from_moodle( $user_id ) {
 
 		$eb_general_settings = get_option( 'eb_general' );
-		if( ! isset( $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) || 'yes' !== $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) {
+		if ( ! isset( $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) || 'yes' !== $eb_general_settings['eb_delete_moodle_account_on_user_delete'] ) {
+			return;
+		}
+		if ( defined('REST_REQUEST' ) ) {
 			return;
 		}
 		$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true );
