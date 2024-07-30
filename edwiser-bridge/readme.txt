@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle wocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.5.2
-Stable tag: 3.0.5
+Stable tag: 3.0.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -207,6 +207,16 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.7 =
+* Feature - Added Feature to enroll student from manage enrollment page.
+* Feature - Wordpress to Moodle user deletion sync.
+* Tweak   - Translation issues.
+* Tweak   - User data sync from Wordpress admin dashboard to moodle.
+* Fix     - Log deletion.
+
+= 3.0.6 =
+* Fix - Security issues fixed.
+
 = 3.0.5 =
 * Tweak - Moodle Auto Plugin update functionality setting.
 * Tweak - Moodle plugin coding standards
