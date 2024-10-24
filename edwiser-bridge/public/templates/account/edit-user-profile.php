@@ -44,9 +44,17 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 		<p class="eb-warning"><?php esc_html_e( 'You must be logged in to edit your profile.', 'edwiser-bridge' ); ?></p>
 		<?php
 	} else {
-		if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
-			echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-			unset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] );
+		if ( isset( $_GET[ 'eb_msgs_' . $current_user->ID ] ) ) {
+			// echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+			if ( 'success' === $_GET[ 'eb_msgs_status' ] ) {
+				echo '<p class="eb-success">' . $_GET[ 'eb_msgs_' . $current_user->ID ] . '</p>';
+			} elseif ( 'error_array' === $_GET[ 'eb_msgs_status' ] ) {
+				echo '<p class="eb-error">' . implode( '<br />', $_GET[ 'eb_msgs_' . $current_user->ID ] ) . '</p>';
+			} else {
+				echo '<p class="eb-error">' . $_GET[ 'eb_msgs_' . $current_user->ID ] . '</p>';
+			}
+			unset( $_GET[ 'eb_msgs_' . $current_user->ID ] );
+			unset( $_GET[ 'eb_msgs_status' ] );
 		}
 		?>
 		<form method="post" id="eb-update-profile" action="">

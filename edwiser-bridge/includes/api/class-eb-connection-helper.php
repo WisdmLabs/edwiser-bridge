@@ -170,7 +170,11 @@ class Eb_Connection_Helper {
 			'wp_url'          => get_site_url(),
 			'wp_token'        => $token,
 		);
-		$response             = wp_remote_post( $request_url, $request_args );
+		if ( defined( 'WP_DEBUG' ) ) {
+			$response             = wp_remote_post( $request_url, $request_args );
+		} else {
+			$response             = wp_safe_remote_post( $request_url, $request_args );
+		}
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -228,7 +232,11 @@ class Eb_Connection_Helper {
 					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 				);
 				if ( isset( $body->debuginfo ) ) {
-					$error_data['debuginfo'] = $body->debuginfo;
+					if ( is_array( $body->debuginfo ) ) {
+						$error_data['debuginfo'] = filter_var( $body->debuginfo, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
+					} else {
+						$error_data['debuginfo'] = sanitize_text_field( $body->debuginfo );
+					}
 				}
 
 				wdm_log_json( $error_data );

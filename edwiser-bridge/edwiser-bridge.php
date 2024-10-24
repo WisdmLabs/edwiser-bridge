@@ -160,3 +160,38 @@ function run_edwiser_bridge() {
 run_edwiser_bridge(); // start plugin execution.
 
 require_once plugin_dir_path( __FILE__ ) . 'includes/api/class-eb-external-api-endpoint.php';
+
+if ( ! function_exists( 'eb_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function eb_fs() {
+        global $eb_fs;
+
+        if ( ! isset( $eb_fs ) ) {
+            // Include Freemius SDK.
+            require_once dirname(__FILE__) . '/freemius/start.php';
+
+            $eb_fs = fs_dynamic_init( array(
+                'id'                  => '16802',
+                'slug'                => 'edwiser-bridge',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_81f44e942733db4d4ccf381ca4858',
+                'is_premium'          => false,
+                'has_addons'          => false,
+                'has_paid_plans'      => false,
+                'menu'                => array(
+                    'slug'           => 'edit.php?post_type=eb_course',
+                    'account'        => false,
+                    'support'        => false,
+                ),
+            ) );
+        }
+
+        return $eb_fs;
+    }
+
+    // Init Freemius.
+    eb_fs();
+    // Signal that SDK was initiated.
+    do_action( 'eb_fs_loaded' );
+}
+
