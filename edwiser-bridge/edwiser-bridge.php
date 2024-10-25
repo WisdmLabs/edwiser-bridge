@@ -182,6 +182,7 @@ if ( ! function_exists( 'eb_fs' ) ) {
                     'slug'           => 'edit.php?post_type=eb_course',
                     'account'        => false,
                     'support'        => false,
+                    'contact'        => false,
                 ),
             ) );
         }
