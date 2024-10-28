@@ -85,7 +85,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Logs_Table' ) ) {
 			}
 			$tbl_records = array();
 
-			foreach ( $logs as $key => $log ) {
+			foreach ( array_reverse( $logs ) as $key => $log ) {
 				$row           = array();
 				$row['key']    = $key;
 				$row['status'] = $log['status'];
