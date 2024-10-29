@@ -148,6 +148,9 @@ class Eb_Admin_Notice_Handler {
 
 		if ( 200 === wp_remote_retrieve_response_code( $response ) && $plugin_info ) {
 			$responce = json_decode( wp_remote_retrieve_body( $response ) );
+			if ( empty( $responce ) ) {
+				return;
+			}
 			if ( isset( $plugin_info->plugin_name ) && 'edwiser_bridge' === $plugin_info->plugin_name ) {
 				$update_data[] = array(
 					'slug'        => 'moodle_edwiser_bridge',

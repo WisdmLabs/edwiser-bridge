@@ -69,6 +69,10 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			$free_plugin_data = array();
 			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 				$responce = json_decode( wp_remote_retrieve_body( $response ) );
+				if ( empty( $responce ) ) {
+					echo "<h2>" . esc_html__( 'Something went wrong!!! Please refresh and try again.', 'edwiser-bridge' ) . "</h2>";
+					return;
+				}
 				foreach ( $responce as $key => $value ) {
 					$free_plugin_data[ $key ] = array(
 						'name'    => $value->name,
