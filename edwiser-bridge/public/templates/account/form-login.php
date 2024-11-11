@@ -19,13 +19,13 @@ if ( 1 === filter_input( INPUT_GET, 'eb_user_email_verification', FILTER_VALIDAT
 	if ( isset( $_GET['is_enroll'] ) && 'true' === $_GET['is_enroll'] ) { // @codingStandardsIgnoreLine
 		?>
 		<div class='wdm-flash-info'>
-			<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address. then try enrolling in course again.', 'edwiser-bridge' ); ?></span>
+			<span><?php esc_attr_e( 'A verification email has been sent to your email address. Please verify your email address and try enrolling in the course again.', 'edwiser-bridge' ); ?></span>
 		</div>
 		<?php
 	} else {
 		?>
 		<div class='wdm-flash-info'>
-			<span><?php esc_attr_e( 'An verification email is sent on your email address. please verify your email address.', 'edwiser-bridge' ); ?></span>
+			<span><?php esc_attr_e( 'A verification email has been sent to your email address. Please verify your email address.', 'edwiser-bridge' ); ?></span>
 		</div>
 		<?php
 	}
