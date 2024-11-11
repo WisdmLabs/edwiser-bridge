@@ -84,10 +84,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Logs_Table' ) ) {
 				$logs = array();
 			}
 			$tbl_records = array();
+			$total_records = count( $logs );
 
 			foreach ( array_reverse( $logs ) as $key => $log ) {
 				$row           = array();
-				$row['key']    = $key;
+				$row['key']    = $total_records - 1 - $key;
 				$row['status'] = $log['status'];
 				$row['title']  = $log['data']['message'];
 				$row['user']   = $log['data']['user'];
@@ -99,7 +100,6 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Error_Logs_Table' ) ) {
 			}
 
 			$table_data    = apply_filters( 'eb_logs_table_data', $tbl_records );
-			$total_records = count( $logs );
 			return array(
 				'total_records' => $total_records,
 				'data'          => $table_data,
