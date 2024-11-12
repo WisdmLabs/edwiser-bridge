@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.6.1
-Stable tag: 3.0.7
+Tested up to: 6.6.2
+Stable tag: 3.0.8
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -208,6 +208,12 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.8 =
+* Feature - Added a integration to Freemius service for feedback collection.
+* Tweak   - Added a feature where a group with default name gets generated for Gutenberg based checkout page.
+* Fix     - Fixed several PHP notices and warnings.
+* Fix     - Security patches added for CVEs - CVE-2024-49312, CVE-2024-4186 & CVE-2024-49311.
+
 = 3.0.7 =
 * Feature - Added Feature to enroll student from manage enrollment page.
 * Feature - Wordpress to Moodle user deletion sync.

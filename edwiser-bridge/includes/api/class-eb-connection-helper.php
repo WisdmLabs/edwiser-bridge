@@ -170,7 +170,7 @@ class Eb_Connection_Helper {
 			'wp_url'          => get_site_url(),
 			'wp_token'        => $token,
 		);
-		if ( defined( 'WP_DEBUG' ) ) {
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) { // For localhost or staging sites for testing purposes.
 			$response             = wp_remote_post( $request_url, $request_args );
 		} else {
 			$response             = wp_safe_remote_post( $request_url, $request_args );
