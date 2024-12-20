@@ -749,6 +749,10 @@ a.eb_setup_btn{
     padding: 10px 40px 30px 40px;
 }
 
+.eb_diagnostics_wrap .run-diagnostics-start {
+    list-style-type: none;
+}
+
 .eb_setup_pro_initialize{
     text-align: center;
 }

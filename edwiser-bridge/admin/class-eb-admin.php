@@ -205,6 +205,35 @@ class Eb_Admin {
 				'enroll_enroll'                   => esc_html__( 'Enroll Student', 'edwiser-bridge' ),
 				'enroll_courses_placeholder'      => esc_html__( 'Select courses to enroll', 'edwiser-bridge' ),
 				'enroll_user_placeholder'         => esc_html__( 'Select user to enroll', 'edwiser-bridge' ),
+				'token_validation'				  => esc_html__( 'Are there any spaces before/after the token?', 'edwiser-bridge' ),
+				'json_valid'					  => esc_html__( 'Does API return a valid JSON response?', 'edwiser-bridge' ),
+				'permalink_setting'				  => esc_html__( 'Are permalink settings correctly configured and rest api accessible?', 'edwiser-bridge' ),
+				'get_endpoint'					  => esc_html__( 'Can moodle read data from WordPress(GET endpoint)?', 'edwiser-bridge' ),
+				'post_endpoint' 				  => esc_html__( 'Can moodle write data to WordPress(POST endpoint)?', 'edwiser-bridge' ),
+				'same_token'  					  => esc_html__( 'Is there a token mismatch between WordPress and Moodle sites?', 'edwiser-bridge' ),
+				'server_blocking_check'           => esc_html__( 'Is the moodle site webservice accessible?', 'edwiser-bridge' ),
+				'contact_support'				  => esc_html__( 'Invalid response from server. Please contact plugin support', 'edwiser-bridge' ),
+				'contact_hosting'				  => esc_html__( 'The plugin is receiving an invalid response code from Moodle website or is unable to connect. Please contact your hosting provider.', 'edwiser-bridge' ),
+				'turn_off_debug_log'			  => esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php to fix this issue.', 'edwiser-bridge' ),
+				'please_refresh'			  	  => esc_html__( 'Please refresh the page and check again. If the issue is still not resolved please contact support.', 'edwiser-bridge' ),
+				'wp_version_issue'  			  => esc_html__( 'Your WordPress version is not supported. Please upgrade to the latest version.', 'edwiser-bridge' ),
+				'rest_disable_issue'			  => esc_html__( 'The REST API is disabled by either a Security plugin or some other plugin using hooks. It might also have been disabled in your server configuration. Please disable any security plugins and search for conflicts. If the issue doesnt get resolved contact the hosting provider to confirm that server configuration is not causing any issues.', 'edwiser-bridge' ),
+				'permalink_setting_issue'		  => esc_html__( 'Please click Fix now link shown or change your permalink settings manually to Post Name by navigating in Settings > Permalink Settings.', 'edwiser-bridge' ),
+				'htaccess_file_missing'			  => esc_html__( 'The .htaccess file is missing. Please click Fix now link shown to create the file.', 'edwiser-bridge' ),
+				'htaccess_rule_missing'		      => esc_html__( 'The .htaccess file is missing the required rewrite rule. Please click Fix now link shown to add the rule.', 'edwiser-bridge' ),
+				'htaccess_rule_instructions'	  => esc_html__( 'Please add the following rule to the .htaccess file located in the root of your website or create the file to add the rules. "# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress". Likewise, you may also contact your hosting provider to help you with the same.', 'edwiser-bridge' ),
+				'contact_support_misc'		  	  => esc_html__( 'Please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'contact_support_get'			  => esc_html__( 'The GET endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'contact_support_post'			  => esc_html__( 'The POST endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
 			)
 		);
 

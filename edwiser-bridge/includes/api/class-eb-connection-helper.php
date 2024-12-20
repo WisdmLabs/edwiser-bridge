@@ -170,12 +170,8 @@ class Eb_Connection_Helper {
 			'wp_url'          => get_site_url(),
 			'wp_token'        => $token,
 		);
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) { // For localhost or staging sites for testing purposes.
-			$response             = wp_remote_post( $request_url, $request_args );
-		} else {
-			$response             = wp_safe_remote_post( $request_url, $request_args );
-		}
-
+		$response             = wp_safe_remote_post( $request_url, $request_args );
+		
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
 			$plain_txt_msg    = $response->get_error_message();
@@ -270,6 +266,40 @@ class Eb_Connection_Helper {
 		}
 
 		return $response;
+	}
+	public function connection_test_status( $url, $token, $text_response = 0 ) {
+		$success          = 1;
+		$response_message = 'success';
+		$plain_txt_msg    = '';
+		// function to check if webservice token is properly set.
+
+		// new test connection api.
+		$webservice_function = 'eb_test_connection';
+
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
+			'timeout' => 100,
+		);
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+
+		$request_args['body'] = array(
+			'test_connection' => 'wordpress',
+			'wp_url'          => get_site_url(),
+			'wp_token'        => $token,
+		);
+		
+		$response             = wp_safe_remote_post( $request_url, $request_args );
+		
+		if ( in_array( wp_remote_retrieve_response_code( $response ), array( 400, 403, 404, 408, 502, 503, 504, 524 ) ) ) {
+			return false;
+		}
+		return true;
 	}
 
 
