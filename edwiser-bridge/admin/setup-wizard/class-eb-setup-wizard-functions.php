@@ -47,17 +47,17 @@ class Eb_Setup_Wizard_Functions {
 		add_action( 'wp_ajax_eb_setup_test_connection', array( $this, 'eb_setup_test_connection_handler' ) );
 		add_action( 'wp_ajax_eb_setup_manage_license', array( $this, 'eb_setup_manage_license' ) );
 		add_action( 'wp_ajax_eb_setup_validate_license', array( $this, 'eb_setup_validate_license' ) );
-		add_action( 'wp_ajax_eb_json_valid', array( $this, 'check_valid_json_response' ) );
-		add_action( 'wp_ajax_eb_token_validation', array( $this, 'check_valid_token' ) );
-		add_action( 'wp_ajax_eb_token_validation_fix', array( $this, 'fix_valid_token' ) );
-		add_action( 'wp_ajax_eb_server_blocking_check', array( $this, 'check_moodle_webservice_accessible' ) );
-		add_action( 'wp_ajax_eb_permalink_setting', array( $this, 'check_permalink_setting_valid' ) );
-		add_action( 'wp_ajax_eb_permalink_setting_fix', array( $this, 'fix_permalink_setting_valid' ) );
-		add_action( 'wp_ajax_eb_permalink_setting_fix_save', array( $this, 'fix_permalink_setting_valid_save_changes' ) );
-		add_action( 'wp_ajax_eb_htaccess_create', array( $this, 'create_htaccess_file' ) );
-		add_action( 'wp_ajax_eb_get_endpoint', array( $this, 'check_get_endpoint_registered' ) );
-		add_action( 'wp_ajax_eb_post_endpoint', array( $this, 'check_post_endpoint_registered' ) );
-		add_action( 'wp_ajax_eb_json_valid_fix', array( $this, 'fix_valid_json_response' ) );
+		// add_action( 'wp_ajax_eb_json_valid', array( $this, 'check_valid_json_response' ) );
+		// add_action( 'wp_ajax_eb_token_validation', array( $this, 'check_valid_token' ) );
+		// add_action( 'wp_ajax_eb_token_validation_fix', array( $this, 'fix_valid_token' ) );
+		// add_action( 'wp_ajax_eb_server_blocking_check', array( $this, 'check_moodle_webservice_accessible' ) );
+		// add_action( 'wp_ajax_eb_permalink_setting', array( $this, 'check_permalink_setting_valid' ) );
+		// add_action( 'wp_ajax_eb_permalink_setting_fix', array( $this, 'fix_permalink_setting_valid' ) );
+		// add_action( 'wp_ajax_eb_permalink_setting_fix_save', array( $this, 'fix_permalink_setting_valid_save_changes' ) );
+		// add_action( 'wp_ajax_eb_htaccess_create', array( $this, 'create_htaccess_file' ) );
+		// add_action( 'wp_ajax_eb_get_endpoint', array( $this, 'check_get_endpoint_registered' ) );
+		// add_action( 'wp_ajax_eb_post_endpoint', array( $this, 'check_post_endpoint_registered' ) );
+		// add_action( 'wp_ajax_eb_json_valid_fix', array( $this, 'fix_valid_json_response' ) );
 	}
 
 	/**

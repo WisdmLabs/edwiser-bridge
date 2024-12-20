@@ -699,7 +699,7 @@
                             'action': 'eb_' + check,
                             'url': url.trim(),
                             'token': token,
-                            '_wpnonce_field': eb_setup_wizard.nonce,
+                            '_wpnonce_field': eb_setup_wizard.sync_nonce,
                         },
                         success: function (response) {
                             if ( 'json_valid' == check ) {
@@ -773,7 +773,7 @@
                         'action': 'eb_token_validation_fix',
                         'url': url.trim(),
                         'token': token,
-                        '_wpnonce_field': eb_setup_wizard.nonce,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
                     },
                     success: function (response) {
                         if ( isValidJsonString( response ) && typeof response == "string" ) {
@@ -812,7 +812,7 @@
                     url: eb_setup_wizard.ajax_url,
                     data: {
                         'action': 'eb_permalink_setting_fix',
-                        '_wpnonce_field': eb_setup_wizard.nonce,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
                     },
                     success: function (response) {
                         if ( isValidJsonString( response ) && typeof response == "string" ) {
@@ -869,7 +869,7 @@
                     url: eb_setup_wizard.ajax_url,
                     data: {
                         'action': 'eb_permalink_setting_fix_save',
-                        '_wpnonce_field': eb_setup_wizard.nonce,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
                     },
                     success: function (response) {
                         if ( isValidJsonString( response ) && typeof response == "string" ) {
@@ -891,7 +891,7 @@
                     url: eb_setup_wizard.ajax_url,
                     data: {
                         'action': 'eb_htaccess_create',
-                        '_wpnonce_field': eb_setup_wizard.nonce,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
                     },
                     success: function (response) {
                         if ( isValidJsonString( response ) && typeof response == "string" ) {
