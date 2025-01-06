@@ -411,7 +411,7 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 						}
 						if ( $show ) {
 							?>
-							<tr valign="top" class="<?php echo esc_attr( $value['parent_row_class'] ); ?>">
+							<tr valign="top" class="<?php echo esc_attr( $value['parent_row_class'] ); ?>" style="position: relative;">
 								<?php if ( 'eb_test_connection_button' == $value['id'] ) { ?>
 									<th scope="row" class="titledesc">
 									</th>
@@ -426,7 +426,7 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 										class="<?php echo esc_attr( $value['class'] ); ?>"
 										<?php echo wp_kses_post( implode( ' ', $custom_attributes ) ); ?> />
 										<?php
-										if ( 'eb_test_connection_button' == $value['id'] ) {
+										if ( 'eb_diagnose_issues_button' != $value['id'] ) {
 											echo wp_kses_post( $description );
 										}
 										// elseif ( 'eb_diagnose_issues_button' == $value['id'] ) {
