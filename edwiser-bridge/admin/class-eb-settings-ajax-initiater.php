@@ -211,17 +211,21 @@ class Eb_Settings_Ajax_Initiater {
 		}
 		
 		if (function_exists('rest_url')) {
-			$response = wp_safe_remote_get(rest_url());
-			if (is_wp_error($response)) {
+			$response = wp_safe_remote_get(rest_url(),array(
+				'timeout'     => '480',
+			));
+			$response_code = wp_remote_retrieve_response_code( $response );
+			if (in_array($response_code, array(200, 301, 302))) {
 				if ( get_option('permalink_structure') != '/%postname%/' ) {
 					return wp_send_json_success( array( 'correct' => false ) );
 				}
 			} else {
-				return wp_send_json_success( array( 'correct' => true ) );
+				return wp_send_json_success( array( 'correct' => false ) );
 			}
 		} else {
 			return wp_send_json_success( array( 'correct' => false ) );
 		}
+		return wp_send_json_success( array( 'correct' => true ) );
 	}
 	public function fix_permalink_setting_valid() {
 		// verifying generated nonce we created earlier.
@@ -318,7 +322,7 @@ HTACCESS;
 	
 		// Check HTTP status code
 		$status_code = wp_remote_retrieve_response_code($response);
-		if ($status_code === 200) {
+		if (in_array($status_code, array(200, 301, 302))) {
 			return wp_send_json_success( array( 'correct' => true ) );
 		} else {
 			return wp_send_json_success( array( 'correct' => false ) );

@@ -97,6 +97,10 @@
   text-decoration: underline;
 }
 
+.run-diagnostics-start {
+  margin-top: 40px;
+}
+
 .run-diagnostics-start li {
   margin-bottom: 15px;
 }
