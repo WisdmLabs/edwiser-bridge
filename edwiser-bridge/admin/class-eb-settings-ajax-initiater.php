@@ -151,8 +151,8 @@ class Eb_Settings_Ajax_Initiater {
 
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_status( $url, $token );
-
-		echo wp_send_json_success( array( 'correct' => $response ) );
+		$validate_access   = $connection_helper->connectMoodleWithArgsHelper( 'eb_validate_token', array( 'wp_url' => $url, 'wp_token' => $token ) );
+		echo wp_send_json_success( array( 'correct' => $response, 'validate_access' => $validate_access['response_data'] ) );
 		die();
 	}
 	public function check_valid_json_response() {
@@ -160,8 +160,14 @@ class Eb_Settings_Ajax_Initiater {
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			wp_send_json_error();
 		}
-		
-		return wp_send_json_success( array( 'data' => array( 'x','y','z' ) ) );
+		// start working on request.
+		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
+		$response          = $connection_helper->connection_test_status( $url, $token );
+
+		return wp_send_json_success( array( 'data' => $response ) );
 	}
 	public function fix_valid_json_response() {
 		error_reporting(0);
@@ -197,7 +203,7 @@ class Eb_Settings_Ajax_Initiater {
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
-
+		
 		if (function_exists('rest_url')) {
 			$response = wp_safe_remote_get(rest_url());
 			if (is_wp_error($response)) {

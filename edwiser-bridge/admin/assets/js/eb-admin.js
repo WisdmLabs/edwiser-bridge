@@ -837,6 +837,14 @@
                             response = JSON.parse(response);
                         }
                         if ( response.data.correct ) {
+                            if ( 'server_blocking_check' == check ) {
+                                if (response.data.validate_access.token_mismatch) {
+                                    resolve(false);
+                                }
+                                if ( ! response.data.validate_access.is_authorized) {
+                                    resolve(false);
+                                }
+                            }
                             resolve(true);
                         } else {
                             resolve(false);
@@ -914,8 +922,36 @@
         });
 
         $(document).on('click', '.auto_fix_issue.eb_server_blocking_check_fix', function(){
-            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.contact_hosting);
-            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+            var url = $('#eb_url').val();
+            var token = $('#eb_access_token').val();
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_server_blocking_check',
+                    'url': url.trim(),
+                    'token': token,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if ( ! response.data.correct ) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.contact_hosting);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    if ( response.data.validate_access.token_mismatch ) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.token_mismatch);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    if ( ! response.data.validate_access.is_authorized ) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.not_authorized);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    return;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                }
+            });
+            
             return;
         });
 
