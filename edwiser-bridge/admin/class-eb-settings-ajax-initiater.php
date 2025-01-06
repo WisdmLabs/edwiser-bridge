@@ -212,7 +212,7 @@ class Eb_Settings_Ajax_Initiater {
 		
 		if (function_exists('rest_url')) {
 			$response = wp_safe_remote_get(rest_url(),array(
-				'timeout'     => '480',
+				'timeout'     => '120',
 			));
 			$response_code = wp_remote_retrieve_response_code( $response );
 			if (in_array($response_code, array(200, 301, 302))) {
@@ -313,8 +313,7 @@ HTACCESS;
 
 		$url = rest_url('edwiser-bridge');
 		// Send a GET request to the endpoint
-		$response = wp_safe_remote_get($url);
-
+		$response = wp_safe_remote_get($url, array('timeout' => '60'));
 		// Check for errors
 		if (is_wp_error($response)) {
 			return wp_send_json_success( array( 'correct' => false ) );
@@ -338,18 +337,27 @@ HTACCESS;
 
 		$url = rest_url('edwiser-bridge/wisdmlabs');
 		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
-
-		// Send a POST request to the endpoint
-		$response = wp_safe_remote_post($url, array('action' => 'test_connection', 'secret_key' => $token));
-
-		// // Check for errors
-		// if (is_wp_error($response)) {
-		// 	return wp_send_json_success( array( 'correct' => false ) );
-		// }
+		// Ensure the REST API server is loaded
+		if (!class_exists('WP_REST_Server')) {
+			require_once ABSPATH . 'wp-includes/rest-api.php';
+		}
 	
-		// Check HTTP status code
-		$status_code = wp_remote_retrieve_response_code($response);
-		if ($status_code === 200) {
+		global $wp_rest_server;
+	
+		// Initialize the REST API server if not already done
+		if (empty($wp_rest_server)) {
+			$wp_rest_server = new \WP_REST_Server();
+			do_action('rest_api_init'); // Trigger route registration
+		}
+	
+		// Get all registered routes
+		$routes = $wp_rest_server->get_routes();
+		
+		// $routes = rest_get_server()->get_routes();
+		// error_log(print_r($routes, true));
+		$endpoint = '/edwiser-bridge/wisdmlabs'; // Replace with your endpoint
+		if (array_key_exists($endpoint, $routes)) {
+			// error_log("Endpoint $endpoint is registered.");
 			return wp_send_json_success( array( 'correct' => true ) );
 		} else {
 			return wp_send_json_success( array( 'correct' => false ) );
