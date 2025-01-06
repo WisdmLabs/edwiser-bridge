@@ -703,7 +703,7 @@
                         },
                         success: function (response) {
                             if ( 'json_valid' == check ) {
-                                if ( isValidJsonString( response ) ) {
+                                if ( isValidJsonString( response ) && response.data.data ) {
                                     resolve(true);
                                 }
                                 resolve(false);

@@ -302,6 +302,37 @@ class Eb_Connection_Helper {
 		return true;
 	}
 
+	public function get_raw_response( $url, $token, $text_response = 0 ) {
+		$success          = 1;
+		$response_message = 'success';
+		$plain_txt_msg    = '';
+		// function to check if webservice token is properly set.
+
+		// new test connection api.
+		$webservice_function = 'eb_test_connection';
+
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
+			'timeout' => 100,
+		);
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = false;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = true;
+		}
+
+		$request_args['body'] = array(
+			'test_connection' => 'wordpress',
+			'wp_url'          => get_site_url(),
+			'wp_token'        => $token,
+		);
+		
+		$response             = wp_safe_remote_post( $request_url, $request_args );
+		return $response;
+	}
+
 
 
 
