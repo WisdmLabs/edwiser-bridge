@@ -236,6 +236,10 @@ RewriteRule . /index.php [L]
 				'contact_support_misc'		  	  => esc_html__( 'Please contact our support team to check the issue.', 'edwiser-bridge' ),
 				'contact_support_get'			  => esc_html__( 'The GET endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
 				'contact_support_post'			  => esc_html__( 'The POST endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'check_mdl_config'				  => esc_html__( 'Please check the moodle configuration and make sure the webservice is enabled and the user has the required permissions.', 'edwiser-bridge' ),
+				'running_diagnostics'			  => esc_html__( 'Running Diagnostics', 'edwiser-bridge' ),
+				'eb_fix_now'					  => esc_html__( 'Fix Now', 'edwiser-bridge' ),
+				'get_more_details'				  => esc_html__( 'Get More Details', 'edwiser-bridge' ),
 			)
 		);
 

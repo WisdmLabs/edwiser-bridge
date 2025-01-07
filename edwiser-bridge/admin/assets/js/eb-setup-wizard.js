@@ -663,7 +663,7 @@
             });
     
             async function start_diagnostics(url, token, $this, checks) {
-                jQuery('.run-diagnostics-start').html('');
+                jQuery('.run-diagnostics-start').html('<h2>' + eb_setup_wizard.running_diagnostics + '</h2>');
                 checks.forEach( async(check) => {
                     const res = await single_diagnostic(url, token, $this, check);
                     // jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">Fix Now</span><div class="autofix_custom_message"></div>' );
@@ -672,10 +672,10 @@
                     } else {
                         if ( check == 'json_valid' || check == 'token_validation' ) {
                             jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_setup_wizard.plugin_url + 'images/error.png');
-                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">Fix Now</span><div class="autofix_custom_message"></div>' );
+                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">' + eb_setup_wizard.eb_fix_now + '</span><div class="autofix_custom_message"></div>' );
                         } else {
                             jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_setup_wizard.plugin_url + 'images/error.png');
-                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">Get More Details</span><div class="autofix_custom_message"></div>' );                     
+                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">' + eb_setup_wizard.get_more_details + '</span><div class="autofix_custom_message"></div>' );                     
                         }
                     }
                     console.log('--->', check + res);
@@ -801,7 +801,7 @@
                 var token = $('#eb_setup_test_conn_token').val();
                 $.ajax({
                     method: "post",
-                    url: eb_setup_wizard.ajaxurl,
+                    url: eb_setup_wizard.ajax_url,
                     data: {
                         'action': 'eb_server_blocking_check',
                         'url': url.trim(),
@@ -819,6 +819,10 @@
                         }
                         if ( ! response.data.validate_access.is_authorized ) {
                             jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.not_authorized);
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                        }
+                        if ( response.data.validate_access.length == 0) {
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.check_mdl_config);
                             jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
                         }
                         return;

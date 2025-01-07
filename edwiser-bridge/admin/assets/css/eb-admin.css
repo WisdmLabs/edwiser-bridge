@@ -54,6 +54,7 @@
     border: 1px solid #d6d6d6;
     padding: 10px 10px 10px 20px;
     background: #fafafa;
+    margin-top: 10px;
 }
 
 .eb_test_conct_log_url{
@@ -1339,7 +1340,7 @@ span.eb-option-input .eb-option-div select {
 
 /*** START User Sync CSS ***/
 .linkresponse-box {
-  margin-top: 3%;
+  margin-top: 15px;
   /* position: absolute; */
   /* margin-left: 20px; */
   display: block;
