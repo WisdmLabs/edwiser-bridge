@@ -801,7 +801,7 @@
                 var token = $('#eb_setup_test_conn_token').val();
                 $.ajax({
                     method: "post",
-                    url: eb_admin_js_object.ajaxurl,
+                    url: eb_setup_wizard.ajaxurl,
                     data: {
                         'action': 'eb_server_blocking_check',
                         'url': url.trim(),
