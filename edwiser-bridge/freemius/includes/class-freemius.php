@@ -3429,8 +3429,8 @@
 
             FS_DebugManager::load_required_static();
 
-            if ( 0 == did_action( 'plugins_loaded' ) ) {
-                add_action( 'plugins_loaded', array( 'Freemius', '_load_textdomain' ), 1 );
+            if ( 0 == did_action( 'init' ) ) {
+                add_action( 'init', array( 'Freemius', '_load_textdomain' ), 1 );
             }
 
             $clone_manager = FS_Clone_Manager::instance();

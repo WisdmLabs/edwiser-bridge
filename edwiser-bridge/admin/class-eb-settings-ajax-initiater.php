@@ -164,9 +164,22 @@ class Eb_Settings_Ajax_Initiater {
 		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
 		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
 
+		
+		$url2 = rest_url('edwiser-bridge');
+		// Send a GET request to the endpoint
+		$internal_response = wp_safe_remote_get($url2, array('timeout' => '60'));
+		$body = json_decode( wp_remote_retrieve_body( $internal_response ) );
+
+		if ( json_last_error() === JSON_ERROR_NONE ) {
+			$valid = true;
+		} else {
+			$valid = false;
+			return wp_send_json_success( array( 'data' => $valid ) );
+		}
+		
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->get_raw_response( $url, $token );
-		
+
 		$body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( null !== $body || json_last_error() === JSON_ERROR_NONE ) {
 			$valid = true;
