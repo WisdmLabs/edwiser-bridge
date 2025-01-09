@@ -788,6 +788,7 @@
         });
 
         async function start_diagnostics(url, token, $this, checks) {
+            let completed = 0;
             jQuery('.run-diagnostics-start').html('<h2>' + eb_admin_js_object.running_diagnostics + '</h2>');
             checks.forEach( async(check) => {
                 const res = await single_diagnostic(url, token, $this, check);
@@ -795,13 +796,17 @@
                 if ( res ) {
                     jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/success.png');
                 } else {
-                    if ( check == 'json_valid' || check == 'token_validation' ) {
+                    if ( check == 'token_validation' ) {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.eb_fix_now + '</span><div class="autofix_custom_message"></div>' );
                     } else {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.get_more_details + '</span><div class="autofix_custom_message"></div>' );                     
                     }
+                }
+                completed++;
+                if (completed == 6) {// checks count
+                    jQuery('.run-diagnostics-start h2').html(eb_admin_js_object.diagnostics_completed);
                 }
                 console.log('--->', check + res);
              });
@@ -994,7 +999,7 @@
                         return;
                     }
                     if ( response.data.permalink_setting_issue ) {
-                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_admin_js_object.permalink_setting_issue + "</span><span class='eb_permalink_setting_fix_save auto_fix_issue'> Fix Now </span>");
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_admin_js_object.permalink_setting_issue + "</span>");
                         jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
                         return;
                     }

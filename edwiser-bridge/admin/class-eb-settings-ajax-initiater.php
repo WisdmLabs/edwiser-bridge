@@ -152,6 +152,12 @@ class Eb_Settings_Ajax_Initiater {
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
 		$response          = $connection_helper->connection_test_status( $url, $token );
 		$validate_access   = $connection_helper->connectMoodleWithArgsHelper( 'eb_validate_token', array( 'wp_url' => $url, 'wp_token' => $token ) );
+		if ( empty( $validate_access['success'] ) && $validate_access['response_body']->exception == 'webservice_access_exception' ) {
+			$validate_access['response_data'] = array(
+				'is_authorized' => false,
+				'token_mismatch' => false
+			);
+		} 
 		echo wp_send_json_success( array( 'correct' => $response, 'validate_access' => $validate_access['response_data'] ) );
 		die();
 	}

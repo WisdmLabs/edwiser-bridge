@@ -435,6 +435,9 @@ class Eb_Connection_Helper {
 	                                	<div><b>' . esc_html__( 'Response : ', 'edwiser-bridge' ) . '</b></div>
 	                                	<div>' . $message . '</div>
 	                                </div>
+									<div>
+	                                	<div>' . sprintf( esc_html__( "Click %s Run Diagnostics %s button to get more details.", "edwiser-bridge" ), '<strong>', '</strong>' ) . '</div>
+	                                </div>
 	                            </div>
 
 	                            <div class="eb_admin_templ_dismiss_notice_message">
