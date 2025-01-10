@@ -886,7 +886,7 @@
                 },
                 success: function (response) {
                     if ( isValidJsonString( response ) ) {
-                        jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_admin_js_object.turn_off_debug_log);
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').html(eb_admin_js_object.turn_off_debug_log);
                         jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
                         return;
                     }

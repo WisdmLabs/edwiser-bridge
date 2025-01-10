@@ -600,7 +600,7 @@
              */
             $(document).on('click', '.eb_setup_test_connection_btn', function (event) {
                 $("#eb-lading-parent").show();
-
+                $('.eb_setup_diagnostics_btn').show();
                 //get selected options
                 var url   = $('#eb_setup_test_conn_mdl_url').val();
                 var token = $('#eb_setup_test_conn_token').val();
@@ -761,7 +761,7 @@
                     },
                     success: function (response) {
                         if ( isValidJsonString( response ) ) {
-                            jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_setup_wizard.turn_off_debug_log);
+                            jQuery('.eb_json_valid_fix + .autofix_custom_message').html(eb_setup_wizard.turn_off_debug_log);
                             jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
                             return;
                         }

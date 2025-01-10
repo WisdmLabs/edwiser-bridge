@@ -562,11 +562,12 @@ class Eb_Setup_Wizard_Templates {
 
 						<div class='eb_setup_settings_success_msg eb_setup_test_conn_success'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 						<div class='eb_setup_settings_error_msg eb_setup_test_conn_error'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
+						<div><button class='eb_setup_sec_btn eb_setup_diagnostics_btn' style="float: right; padding: 5px 11px; margin-right: 0; display: none;"> <?php esc_html_e( 'Troubleshoot', 'edwiser-bridge' ); ?> </button></div>
 					</div>
 
 				</div>
 
-				<div class='eb_setup_btn_wrap'>
+				<div class='eb_setup_btn_wrap' style="clear: both;">
 					<input type='hidden' class='eb_setup_test_conne_url' >
 					<input type='hidden' class='eb_setup_test_conne_token' >
 					<input type='hidden' class='eb_setup_test_conne_lang' >
@@ -575,7 +576,6 @@ class Eb_Setup_Wizard_Templates {
 					<!-- <button class='eb_setup_sec_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_test_connection_btn <?php echo esc_attr( $disbaled ); ?>' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' <?php echo esc_attr( $disbaled ); ?>> <?php esc_html_e( 'Test connection', 'edwiser-bridge' ); ?> </button>
 					<button class='eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
-					<button class='eb_setup_btn eb_setup_diagnostics_btn'> <?php esc_html_e( 'Run diagnostics', 'edwiser-bridge' ); ?> </button>
 				</div>
 				<div class='eb_diagnostics_wrap'>
 					<ul class="run-diagnostics-start"></ul>

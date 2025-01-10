@@ -224,10 +224,18 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'parent_row_class' => 'inline'
 						),
 						array(
+							'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
+							'type' => 'cust_html',
+						),
+						array(
+							'html' => '<th></th><td><hr style="margin-bottom: 30px;" /><div style="font-size: 16px;">' . esc_html__( 'Are you are still facing issues related to connection?', 'edwiser-bridge' ) . '</div></td>',
+							'type' => 'cust_html',
+						),
+						array(
 							'title'       	   => '',
 							'desc'        	   => '',
 							'id'          	   => 'eb_diagnose_issues_button',
-							'default'     	   => __( 'Run Diagnostics', 'edwiser-bridge' ),
+							'default'     	   => __( 'Troubleshoot', 'edwiser-bridge' ),
 							'type'        	   => 'button',
 							'desc_tip' 	  	   => false,
 							'class'    	  	   => 'button secondary',
@@ -247,10 +255,6 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'conditional' 	   => true,
 							'show_condition'   => 'no_token',
 							'parent_row_class' => 'inline'
-						),
-						array(
-							'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
-							'type' => 'cust_html',
 						),
 						array(
 							'html' => '<th></th><td> <ul class="run-diagnostics-start"></ul> </td>',

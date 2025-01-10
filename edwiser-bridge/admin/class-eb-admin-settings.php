@@ -412,11 +412,9 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 						if ( $show ) {
 							?>
 							<tr valign="top" class="<?php echo esc_attr( $value['parent_row_class'] ); ?>" style="position: relative;">
-								<?php if ( 'eb_diagnose_issues_button' != $value['id'] ) { ?>
-									<th scope="row" class="titledesc">
-									</th>
-								<?php } ?>
-								<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>" style="position: relative;">
+								<th scope="row" class="titledesc">
+								</th>
+								<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>" style="position: relative; <?php echo 'eb_diagnose_issues_button' != $value['id'] ? '' : 'padding-top: 0;'; ?>">
 									<input
 										name="<?php echo esc_attr( $value['id'] ); ?>"
 										id="<?php echo esc_attr( $value['id'] ); ?>"

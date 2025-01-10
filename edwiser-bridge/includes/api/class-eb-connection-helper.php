@@ -436,7 +436,7 @@ class Eb_Connection_Helper {
 	                                	<div>' . $message . '</div>
 	                                </div>
 									<div>
-	                                	<div>' . sprintf( esc_html__( "Click %s Run Diagnostics %s button to get more details.", "edwiser-bridge" ), '<strong>', '</strong>' ) . '</div>
+	                                	<div>' . sprintf( esc_html__( "Click %s Troubleshoot %s button to get more details.", "edwiser-bridge" ), '<strong>', '</strong>' ) . '</div>
 	                                </div>
 	                            </div>
 
