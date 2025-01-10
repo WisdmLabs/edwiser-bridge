@@ -600,7 +600,6 @@
              */
             $(document).on('click', '.eb_setup_test_connection_btn', function (event) {
                 $("#eb-lading-parent").show();
-                $('.eb_setup_diagnostics_btn').show();
                 //get selected options
                 var url   = $('#eb_setup_test_conn_mdl_url').val();
                 var token = $('#eb_setup_test_conn_token').val();
@@ -618,7 +617,7 @@
                         '_wpnonce_field': eb_setup_wizard.nonce,
                     },
                     success: function (response) {
-
+                        
                         //prepare response for user
                         if (response.data.success == 1) {
                             $('.eb_setup_test_conn_success').css('display', 'block');
@@ -628,6 +627,7 @@
                             $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
 
                         } else {
+                            $('.eb_setup_diagnostics_btn').show();
                             // ohSnap(response.response_message, 'error', 0);
                             $('.eb_setup_test_conn_error').css('display', 'block');
                             $('.eb_setup_test_conn_success').css('display', 'none');
@@ -636,10 +636,10 @@
                         }
 
                         $("#eb-lading-parent").hide();
-
+                        
                     },
                     error: function (response) {
-
+                        $('.eb_setup_diagnostics_btn').show();
                     }
                 });
             });
