@@ -337,6 +337,7 @@
             // Set some variables
             var time = '10000';
             var container = jQuery('.response-box');
+            container.addClass('lol');
             // Generate the HTML
             var html = '<div class="alert alert-' + type + '">' + text + '</div>';
             // Append the label to the container
@@ -783,7 +784,7 @@
             var $this = $(this);
             var checks = ['json_valid', 'token_validation', 'server_blocking_check', 'permalink_setting', 
                 'get_endpoint', 'post_endpoint' ];
-            
+            jQuery(this).attr('disabled', 'disabled');
             start_diagnostics(url, token, $this, checks);
         });
 
@@ -807,6 +808,7 @@
                 completed++;
                 if (completed == 6) {// checks count
                     jQuery('.run-diagnostics-start h2').html(eb_admin_js_object.diagnostics_completed);
+                    jQuery('#eb_diagnose_issues_button').removeAttr('disabled');
                 }
                 console.log('--->', check + res);
              });

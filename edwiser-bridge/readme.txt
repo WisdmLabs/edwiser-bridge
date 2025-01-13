@@ -14,7 +14,10 @@ Edwiser Bridge integrates WordPress with Moodle LMS & provides an easy option to
 
  ==  Description ==
 
-# Edwiser Bridge – The **#1 WordPress and Moodle Integration plugin** that provides a robust platform to **sell Moodle courses online.** 
+https://youtu.be/Af4BIhN1kV8
+
+
+## Edwiser Bridge – The #1 WordPress and Moodle Integration plugin to sell Moodle courses online. 
 
 **Are you a Moodle user, who creates courses and wants a robust integration with WordPress/WooCommerce to sell them?**
 
@@ -24,7 +27,7 @@ Edwiser Bridge provides the necessary platform for you to sell your Moodle cours
 
 So to enhance its functionality and achieve a fully automated WooCommerce Solution for the purpose of selling your Moodle courses, you may consider choosing Edwiser Bridge Pro to be installed on both your Moodle and WordPress sites.
 
-[Edwiser Bridge – Moodle Add On](https://edwiser.org/plugins/edwiserbridge.zip) | [Edwiser Bridge Pro](https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin)
+[Edwiser Bridge – Moodle Add On](https://edwiser.org/plugins/edwiserbridge.zip) | [Edwiser Bridge Pro: Best Moodle plugin to Sell Moodle Courses](https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=wordpress&utm_medium=landingpage&utm_campaign=EBFreePlugin)
 
 
 #**🆕 Get Your Course Shop with Edwiser’s E-commerce Site Setup! [Learn More!](https://edwiser.helpscoutdocs.com/article/574-introducing-the-edwiser-bridge-quick-start-service)**

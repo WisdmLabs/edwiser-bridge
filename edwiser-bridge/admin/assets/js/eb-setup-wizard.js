@@ -658,7 +658,7 @@
                  } else {
                     var checks = ['json_valid', 'token_validation', 'permalink_setting'];
                  }
-                
+                 jQuery(this).attr('disabled', 'disabled');
                 start_diagnostics(url, token, $this, checks);
             });
     
@@ -682,6 +682,7 @@
                     completed++;
                     if (completed == 6) {// checks count
                         jQuery('.run-diagnostics-start h2').html(eb_setup_wizard.diagnostics_completed);
+                        jQuery('.eb_setup_diagnostics_btn').removeAttr('disabled');
                     }
                     console.log('--->', check + res);
                  });
