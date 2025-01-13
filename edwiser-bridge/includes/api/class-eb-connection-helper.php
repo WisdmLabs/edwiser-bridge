@@ -195,12 +195,25 @@ class Eb_Connection_Helper {
 			if ( null === $body ) {
 				$url_link      = "<a href='$url/auth/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success       = 0;
-				$plain_txt_msg = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
+				$plain_txt_msg = __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' );
 
 				$response_message = $this->create_response_message(
 					$request_url,
 					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) . $url_link
 				);
+				global $current_user;
+                wp_get_current_user();
+                $error_data = array(
+                    'url'          => $request_url,
+                    'arguments'    => $request_args,
+                    'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+                    'responsecode' => '',
+                    'exception'    => '',
+                    'errorcode'    => '',
+                    'message'      => $plain_txt_msg,
+                    'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
+                );
+                wdm_log_json( $error_data );
 			} elseif ( ! empty( $body->exception ) ) {
 				if ( 'invalid_parameter_exception' === $body->exception ) {
 					$success          = 0;
