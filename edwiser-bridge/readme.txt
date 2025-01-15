@@ -211,6 +211,10 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.0.9 =
+* Feature - Added Diagnostic Tool on test connection page in settings and setup wizard to troubleshoot connection related issues.
+* Fix     - Fixed User account page vulnerability issue to Cross Site Scripting (XSS).
+
 = 3.0.8 =
 * Feature - Added a integration to Freemius service for feedback collection.
 * Tweak   - Added a feature where a group with default name gets generated for Gutenberg based checkout page.
