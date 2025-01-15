@@ -211,7 +211,7 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
-= 3.0.9 =
+= 3.1.0 =
 * Feature - Added Diagnostic Tool on test connection page in settings and setup wizard to troubleshoot connection related issues.
 * Fix     - Fixed User account page vulnerability issue to Cross Site Scripting (XSS).
 
