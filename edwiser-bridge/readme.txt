@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.7.1
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,9 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.1.1 =
+* Fix     - Updated Freemius SDK to the latest version. 
+
 = 3.1.0 =
 * Feature - Added Diagnostic Tool on test connection page in settings and setup wizard to troubleshoot connection related issues.
 * Fix     - Fixed User account page vulnerability issue to Cross Site Scripting (XSS).
