@@ -187,9 +187,9 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				/* Anti-spam trap */
-				if ( ! empty( $_POST['email_2'] ) ) {
-					throw new \Exception( __( 'Anti-spam field was filled in.', 'edwiser-bridge' ) );
-				}
+				// if ( ! empty( $_POST['email_2'] ) ) {
+				// 	throw new \Exception( __( 'Anti-spam field was filled in.', 'edwiser-bridge' ) );
+				// }
 
 				// recaptcha validation.
 				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_register'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_register'] ) {

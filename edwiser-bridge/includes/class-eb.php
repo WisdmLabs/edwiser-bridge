@@ -914,6 +914,14 @@ class EdwiserBridge {
 			$this->enrollment_manager(),
 			'enroll_dummy_user'
 		);
+
+		$this->loader->eb_add_action(
+			'user_register',
+			$this->user_manager(),
+			'eb_moodle_user_register',
+			10,
+			2
+		);
 	}
 
 	/**
