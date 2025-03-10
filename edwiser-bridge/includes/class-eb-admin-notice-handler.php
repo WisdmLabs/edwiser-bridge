@@ -449,7 +449,7 @@ class Eb_Admin_Notice_Handler {
 		if ( ! get_user_meta( $user_id, 'eb_admin_remui_demo_notice_dismissed' ) ) {
 			?>
 			<div class="notice  eb_admin_remui_demo_notice">
-				<a style="text-decoration:none;" target="_blank" href="https://remui.edwiser.org/schoolv2/?utm_source=remui4.0-launch-bridge-thankyoupage&utm_medium=remui4.0-launch-bridge-thankyoupage-bannerctaclicks&utm_campaign=remui-4.0-launch">
+				<a style="text-decoration:none;" target="_blank" href="https://demo.tryremui.edwiser.org/?utm_source=remui4.0-launch-bridge-thankyoupage&utm_medium=remui4.0-launch-bridge-thankyoupage-bannerctaclicks&utm_campaign=remui-4.0-launch">
 				<div class="eb_admin_remui_demo_notice_message">
 					<div class="eb_admin_remui_demo_notice_message_logo">
 						<img src="<?php echo esc_url( plugins_url( 'images/logo.png', dirname( __FILE__ ) ) ); ?>" alt="Edwiser Bridge Logo" />

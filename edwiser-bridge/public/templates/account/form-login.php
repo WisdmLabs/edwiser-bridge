@@ -169,7 +169,7 @@ if ( 1 === filter_input( INPUT_GET, 'eb_user_email_verification', FILTER_VALIDAT
 						<?php //esc_html_e( 'Anti-spam', 'edwiser-bridge' ); ?>
 					</label>
 					<!-- <input type="text" name="email_2" id="trap" tabindex="-1" /> -->
-				</div>-->
+				</div>
 
 				<?php
 				do_action( 'eb_register_form' );

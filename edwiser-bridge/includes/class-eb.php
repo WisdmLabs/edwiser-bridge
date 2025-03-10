@@ -914,14 +914,6 @@ class EdwiserBridge {
 			$this->enrollment_manager(),
 			'enroll_dummy_user'
 		);
-
-		$this->loader->eb_add_action(
-			'user_register',
-			$this->user_manager(),
-			'eb_moodle_user_register',
-			10,
-			2
-		);
 	}
 
 	/**
@@ -1000,13 +992,13 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_user_from_moodle' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
+		$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_moodle_user_register', 10, 2);
 
 		/**
 		 * Email verification hooks.
 		 */
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
-
 			$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_user_email_verification_set_meta', 99 );
 			$this->loader->eb_add_action( 'eb_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
 
