@@ -231,7 +231,7 @@ a.es_text_links{
   }
   
   /* On mouse-over, add a grey background color */
-  .esw-cb-container:hover input ~ .esw-cb-checkmark {
+  .esw-cb-container:hover input ~ .esw-cb-checkmark, .esw-cb-checkmark.disabled {
     background-color: #ccc;
   }
   
