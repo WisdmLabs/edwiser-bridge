@@ -492,10 +492,10 @@ class Eb_User_Manager {
 		}
 		if ( empty( $firstname ) || empty( $lastname ) ) {
 			foreach ( $_REQUEST as $key => $value ) {
-				if ( preg_match( '/(?i)\b(first[_\s]?name|fname|name[_\s]?first|billing[_\s]?first_name|shipping[_\s]?first_name|account[_\s]?first_name|customer[_\s]?first_name)\b/', $key ) ) {
+				if ( preg_match( '/(?i)\b(first[_\s]?name|fname|name[_\s]?first|billing[_\s]?first_name|shipping[_\s]?first_name|account[_\s]?first_name|eb[_\s]?first_name|customer[_\s]?first_name)\b/', $key ) ) {
 					$firstname = sanitize_text_field($value);
 				}
-				if ( preg_match( '/(?i)\b(last[_\s]?name|lname|name[_\s]?last|billing[_\s]?last_name|shipping[_\s]?last_name|account[_\s]?last_name|customer[_\s]?last_name)\b/', $key ) ) {
+				if ( preg_match( '/(?i)\b(last[_\s]?name|lname|name[_\s]?last|billing[_\s]?last_name|shipping[_\s]?last_name|account[_\s]?last_name|eb[_\s]?last_name|customer[_\s]?last_name)\b/', $key ) ) {
 					$lastname = sanitize_text_field($value);
 				}
 			}
