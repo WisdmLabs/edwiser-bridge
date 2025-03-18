@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.7.1
-Stable tag: 3.1.1
+Tested up to: 6.7.2
+Stable tag: 3.1.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,16 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 3.1.2 =
+* Feature - This update ensures better compatibility with various form field naming conventions across different plugins.
+
+Plugin now supports a wide range of variations for detecting "First Name" and "Last Name" fields in different formats. For e.g., 
+
+The following patterns are recognized:
+firstname, first_name, first-name, fname, name_first, billing_first_name, shipping_first_name, account_first_name, customer_first_name, eb_first_name, FirstName, FIRST_NAME, etc.
+
+In case none of the above patterns are detected, the first name and last name will be set to the same value as the username.
+
 = 3.1.1 =
 * Fix     - Updated Freemius SDK to the latest version. 
 
