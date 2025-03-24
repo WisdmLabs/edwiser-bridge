@@ -430,12 +430,17 @@ class Eb_External_Api_Endpoint {
 
 			// if password is present then decode with key.
 			if ( isset( $data['password'] ) && ! empty( $data['password'] ) ) {
-				$enc_method = 'AES-128-CTR';
-				$enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
+				$enc_method = 'AES-256-ECB';
+				// $enc_iv     = substr( hash( 'sha256', $eb_access_token ), 0, 16 );
 
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
-				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
+				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0 );
 				$user_update_array['user_pass'] = $user_p;
+			}
+
+			$user_email = get_user_meta( $wp_user_id, 'user_email', true );
+			if ( isset( $data['email'] ) && ! empty( $data['email'] ) && $user_email !== $data['email'] ) {
+				$user_update_array['user_email'] = $data['email'];
 			}
 
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );

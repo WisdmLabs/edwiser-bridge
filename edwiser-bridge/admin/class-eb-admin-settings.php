@@ -276,6 +276,15 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 				if ( ! isset( $value['placeholder'] ) ) {
 					$value['placeholder'] = '';
 				}
+				if ( ! isset( $value['conditional'] ) ) {
+					$value['conditional'] = false;
+				}
+				if ( ! isset( $value['show_condition'] ) ) {
+					$value['show_condition'] = false;
+				}
+				if ( ! isset( $value['parent_row_class'] ) ) {
+					$value['parent_row_class'] = '';
+				}
 
 				// Custom attribute handling.
 				$custom_attributes = array();
@@ -393,23 +402,78 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 					case 'button':
 						$type         = $value['type'];
 						$option_value = $value['default'];
-						?>
-						<tr valign="top">
-							<th scope="row" class="titledesc">
-							</th>
-							<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>">
-								<input
-									name="<?php echo esc_attr( $value['id'] ); ?>"
-									id="<?php echo esc_attr( $value['id'] ); ?>"
-									type="<?php echo esc_attr( $type ); ?>"
-									style="<?php echo esc_attr( $value['css'] ); ?>"
-									value="<?php echo esc_attr( $option_value ); ?>"
-									class="<?php echo esc_attr( $value['class'] ); ?>"
-									<?php echo wp_kses_post( implode( ' ', $custom_attributes ) ); ?> />
-									<?php echo wp_kses_post( $description ); ?>
-							</td>
-						</tr>
-						<?php
+						$show		  = true;
+						if ( $value['conditional'] && 'token_exists' == $value['show_condition'] ) {
+							$token = self::get_option( 'eb_access_token', $current_tab, '' );
+							if ( empty( $token ) ) {
+								$show = false;  
+							}
+						}
+						if ( $show ) {
+							?>
+							<tr valign="top" class="<?php echo esc_attr( $value['parent_row_class'] ); ?>" style="position: relative;">
+								<th scope="row" class="titledesc">
+								</th>
+								<td class="forminp forminp-<?php echo esc_html( sanitize_title( $value['type'] ) ); ?>" style="position: relative; <?php echo 'eb_diagnose_issues_button' != $value['id'] ? '' : 'padding-top: 0;'; ?>">
+									<input
+										name="<?php echo esc_attr( $value['id'] ); ?>"
+										id="<?php echo esc_attr( $value['id'] ); ?>"
+										type="<?php echo esc_attr( $type ); ?>"
+										style="<?php echo esc_attr( $value['css'] ); ?>"
+										value="<?php echo esc_attr( $option_value ); ?>"
+										class="<?php echo esc_attr( $value['class'] ); ?>"
+										<?php echo wp_kses_post( implode( ' ', $custom_attributes ) ); ?> />
+										<?php
+										if ( 'eb_diagnose_issues_button' != $value['id'] ) {
+											echo wp_kses_post( $description );
+										}
+										// elseif ( 'eb_diagnose_issues_button' == $value['id'] ) {
+										// 	$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
+										// 	// $checks = array( 
+										// 	// 	'token_validation',
+										// 	// 	'json_valid',
+										// 	// 	'permalink_setting',
+										// 	// 	'get_endpoint',
+										// 	// 	'post_endpoint',
+										// 	// 	'same_token',
+										// 	// 	'server_blocking_check'
+										// 	// );
+										// 	echo '<ul class="run-diagnostics-start"></ul>';
+										// }
+										?>
+								</td>
+							</tr>
+							<?php
+						}
+						break;
+
+					// Button input.
+					case 'link':
+						$type         ='button';
+						$option_value = $value['default'];
+						$show         = true;
+						if ( $value['conditional'] && 'no_token' == $value['show_condition'] ) {
+							$token = self::get_option( 'eb_access_token', $current_tab, '' );
+							if ( ! empty( $token ) ) {
+								$show = false;  
+							}
+						}
+						if ( $show ) {
+							?>
+							<tr valign="top" class="<?php echo esc_attr( $value['parent_row_class'] ); ?>">
+								<td class="forminp forminp-<?php echo esc_html( sanitize_title( $type ) ); ?>">
+									<a 
+										href="<?php echo esc_url( $value['url'] ); ?>"
+										name="<?php echo esc_attr( $value['id'] ); ?>"
+										id="<?php echo esc_attr( $value['id'] ); ?>"
+										style="<?php echo esc_attr( $value['css'] ); ?>"
+										value="<?php echo esc_attr( $option_value ); ?>"
+										class="<?php echo esc_attr( $value['class'] ); ?>"
+										<?php echo wp_kses_post( implode( ' ', $custom_attributes ) ); ?>><?php echo esc_attr( $option_value ); ?></a>
+								</td>
+							</tr>
+							<?php
+						}
 						break;
 
 					// Select boxes.
@@ -827,8 +891,8 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 				$description = '<span class="load-response">
 									<img src="' . $eb_plugin_url . 'images/loader.gif" height="20" width="20" />
 								</span>
-								<span class="linkresponse-box"></span>
-								<span class="response-box"></span>
+								<span class="linkresponse-box custom-css"></span>
+								<span class="response-box custom-css"></span>
 								<div id="unlinkerrorid-modal" class="unlinkerror-modal">
 								  <div class="unlinkerror-modal-content">
 									<span class="unlinkerror-modal-close">&times;</span>

@@ -692,13 +692,49 @@ class Eb_Setup_Wizard_Functions {
 				'msg_con_success'                 => esc_html__( 'Connection successful, Please save your connection details.', 'edwiser-bridge' ),
 				'msg_courses_sync_success'        => esc_html__( 'Courses synchronized successfully.', 'edwiser-bridge' ),
 				'msg_con_prob'                    => esc_html__( 'There is a problem while connecting to moodle server.', 'edwiser-bridge' ),
-				'msg_err_users'                   => esc_html__( 'Error occured for following users: ', 'edwiser-bridge' ),
+				'msg_err_users'                   => esc_html__( 'Error occurred for the following users: ', 'edwiser-bridge' ),
 				'msg_user_sync_success'           => esc_html__( 'User\'s course enrollment status synced successfully.', 'edwiser-bridge' ),
 				'msg_woo_int_enable_error'        => esc_html__( 'WooCommerce Integration must be enabled to use Bulk Purchase feature.', 'edwiser-bridge' ),
 				'msg_empty_license_key'           => esc_html__( 'Please enter a valid license key.', 'edwiser-bridge' ),
 				'msg_no_plugin_selected_error'    => esc_html__( 'No pro feature selected.', 'edwiser-bridge' ),
 				'is_woo_active'                   => is_plugin_active( 'woocommerce/woocommerce.php' ),
 				'msg_woo_enable_error'            => esc_html__( 'WooCommerce must be active to use WooCommerce Integration feature.', 'edwiser-bridge' ),
+				'token_validation'				  => esc_html__( 'Are there any spaces before/after the token?', 'edwiser-bridge' ),
+				'json_valid'					  => esc_html__( 'Does API return a valid JSON response?', 'edwiser-bridge' ),
+				'permalink_setting'				  => esc_html__( 'Are permalink settings correctly configured and rest api accessible?', 'edwiser-bridge' ),
+				'get_endpoint'					  => esc_html__( 'Can moodle read data from WordPress(GET endpoint)?', 'edwiser-bridge' ),
+				'post_endpoint' 				  => esc_html__( 'Can moodle write data to WordPress(POST endpoint)?', 'edwiser-bridge' ),
+				'same_token'  					  => esc_html__( 'Is there a token mismatch between WordPress and Moodle sites?', 'edwiser-bridge' ),
+				'server_blocking_check'           => esc_html__( 'Is the moodle site webservice accessible?', 'edwiser-bridge' ),
+				'contact_support'				  => esc_html__( 'Invalid response from server. Please contact plugin support', 'edwiser-bridge' ),
+				'contact_hosting'				  => esc_html__( 'The plugin is receiving an invalid response code from Moodle website or is unable to connect. Please contact your hosting provider.', 'edwiser-bridge' ),
+				'token_mismatch'				  => esc_html__( 'Token added does not match the token configured on the moodle site.', 'edwiser-bridge' ),
+				'not_authorized' 				  => esc_html__( 'The user(s) associated with the token creation in Moodle are either not included in the web service\'s authorized users list or lack the required site administrator or manager roles. Consequently, their access is limited, which may result in issues with data synchronization.', 'edwiser-bridge' ),
+				'turn_off_debug_log'			  => sprintf( esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %s here %s to learn more.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/575-disabling-debugging-in-wordpress-and-moodle" target="_blank">', '</a>' ),
+				'please_refresh'			  	  => esc_html__( 'Please refresh the page and check again. If the issue is still not resolved please contact support.', 'edwiser-bridge' ),
+				'wp_version_issue'  			  => esc_html__( 'Your WordPress version is not supported. Please upgrade to the latest version.', 'edwiser-bridge' ),
+				'rest_disable_issue'			  => esc_html__( 'The REST API is disabled by either a Security plugin or some other plugin using hooks. It might also have been disabled in your server configuration. Please disable any security plugins and search for conflicts. If the issue doesnt get resolved contact the hosting provider to confirm that server configuration is not causing any issues.', 'edwiser-bridge' ),
+				'permalink_setting_issue'		  => sprintf( esc_html__( 'Please change your permalink settings manually to Post Name by navigating in Settings > %s Permalink Settings %s and click Test Connection again after refreshing the page.', 'edwiser-bridge' ), '<a href="/wp-admin/options-permalink.php" target="_blank">', '</a>' ),
+				'htaccess_file_missing'			  => esc_html__( 'The .htaccess file is missing. Please click Fix now link shown to create the file.', 'edwiser-bridge' ),
+				'htaccess_rule_missing'		      => esc_html__( 'The .htaccess file is missing the required rewrite rule. Please click Fix now link shown to add the rule.', 'edwiser-bridge' ),
+				'htaccess_rule_instructions'	  => esc_html__( 'Please add the following rule to the .htaccess file located in the root of your website or create the file to add the rules. "# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress". Likewise, you may also contact your hosting provider to help you with the same.', 'edwiser-bridge' ),
+				'contact_support_misc'		  	  => esc_html__( 'Please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'contact_support_get'			  => esc_html__( 'The GET endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'contact_support_post'			  => esc_html__( 'The POST endpoint seems to be missing please contact our support team to check the issue.', 'edwiser-bridge' ),
+				'check_mdl_config'				  => esc_html__( 'Please check the moodle configuration and make sure the webservice is enabled and the user has the required permissions.', 'edwiser-bridge' ),
+				'running_diagnostics'			  => esc_html__( 'Running Diagnostics', 'edwiser-bridge' ),
+				'diagnostics_completed'           => esc_html__( 'Diagnostics Completed', 'edwiser-bridge' ),
+				'eb_fix_now'					  => esc_html__( 'Fix Now', 'edwiser-bridge' ),
+				'get_more_details'				  => esc_html__( 'Get More Details', 'edwiser-bridge' ),
 			)
 		);
 

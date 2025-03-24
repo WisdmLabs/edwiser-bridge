@@ -56,7 +56,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 			* translators: My Courses page setting description.
 			*/
 			$redirect_desc     = sprintf( __( 'Redirect user to the My Courses page on %1$s from the %2$s page.', 'edwiser-bridge' ), '<strong>' . __( 'Login / Registration', 'edwiser-bridge' ) . '</strong>', '<a href="' . esc_url( site_url( '/user-account' ) ) . '">' . __( 'User Account', 'edwiser-bridge' ) . '</a>' );
-			$courses_arch_desc = sprintf( __( 'Controlls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
+			$courses_arch_desc = sprintf( __( 'Controls whether to Show/Hide courses archive page. ', 'edwiser-bridge' ) . '%s', '<a href="' . esc_url( site_url( '/courses' ) ) . '">' . __( 'Courses', 'edwiser-bridge' ) . '</a>' );
 
 			$settings = apply_filters(
 				'eb_general_settings',
@@ -129,6 +129,14 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 						'type'     => 'text',
 						'css'      => 'min-width:300px;',
 						'desc_tip' => __( 'Generally users enrolled in default student role whose role id is 5 but if the default user role id is changed then user must enter new user role id here.', 'edwiser-bridge' ),
+					),
+					array(
+						'title'    => __( 'Moodle Account Delete Sync', 'edwiser-bridge' ),
+						'desc'     => __( 'Enable this option to delete the Moodle account when the user is deleted from WordPress.', 'edwiser-bridge' ),
+						'id'       => 'eb_delete_moodle_account_on_user_delete',
+						'default'  => 'no',
+						'type'     => 'checkbox',
+						'autoload' => false,
 					),
 					array(
 						'title'    => __( 'Courses page', 'edwiser-bridge' ),

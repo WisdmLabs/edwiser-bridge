@@ -562,11 +562,12 @@ class Eb_Setup_Wizard_Templates {
 
 						<div class='eb_setup_settings_success_msg eb_setup_test_conn_success'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
 						<div class='eb_setup_settings_error_msg eb_setup_test_conn_error'> <span class="dashicons dashicons-yes-alt"></span> <?php esc_html_e( 'WordPress to Moodle connection successful!', 'edwiser-bridge' ); ?> </div>
+						<div><button class='eb_setup_sec_btn eb_setup_diagnostics_btn' style="float: right; padding: 5px 11px; margin-right: 0; display: none;"> <?php esc_html_e( 'Troubleshoot', 'edwiser-bridge' ); ?> </button></div>
 					</div>
 
 				</div>
 
-				<div class='eb_setup_btn_wrap'>
+				<div class='eb_setup_btn_wrap' style="clear: both;">
 					<input type='hidden' class='eb_setup_test_conne_url' >
 					<input type='hidden' class='eb_setup_test_conne_token' >
 					<input type='hidden' class='eb_setup_test_conne_lang' >
@@ -576,6 +577,9 @@ class Eb_Setup_Wizard_Templates {
 					<button class='eb_setup_btn eb_setup_test_connection_btn <?php echo esc_attr( $disbaled ); ?>' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' <?php echo esc_attr( $disbaled ); ?>> <?php esc_html_e( 'Test connection', 'edwiser-bridge' ); ?> </button>
 					<button class='eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
 
+				</div>
+				<div class='eb_diagnostics_wrap'>
+					<ul class="run-diagnostics-start"></ul>
 				</div>
 
 			</div>
@@ -1155,7 +1159,8 @@ class Eb_Setup_Wizard_Templates {
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
 
-		$module_data = get_option( 'eb_pro_modules_data' );
+		$module_data 	  	 = get_option( 'eb_pro_modules_data' );
+		$license_module_data = maybe_unserialize( get_option( 'edd_edwiser_bridge_pro_license_addon_data' ) );
 
 		$modules_data = array(
 			'selective_sync'  => isset( $module_data['selective_sync'] ) ? $module_data['selective_sync'] : 'deactive',
@@ -1164,6 +1169,28 @@ class Eb_Setup_Wizard_Templates {
 			'bulk_purchase'   => isset( $module_data['bulk_purchase'] ) ? $module_data['bulk_purchase'] : 'deactive',
 			'custom_fields'   => isset( $module_data['custom_fields'] ) ? $module_data['custom_fields'] : 'deactive',
 		);
+
+		if ( ! in_array( 'WooCommerce Integration', $license_module_data ) ) {
+			$modules_data['woo_integration'] = 'deactive';
+			$disabled_module['woo_integration'] = 'disabled';
+		}
+		if ( ! in_array( 'Bulk Purchase', $license_module_data ) ) {
+			$modules_data['bulk_purchase'] = 'deactive';
+			$disabled_module['bulk_purchase'] = 'disabled';
+		}
+		if ( ! in_array( 'Selective Synchronization', $license_module_data ) ) {
+			$modules_data['selective_sync'] = 'deactive';
+			$disabled_module['selective_sync'] = 'disabled';
+		}
+		if ( ! in_array( 'Edwiser Bridge Single Sign On', $license_module_data ) ) {
+			$modules_data['sso'] = 'deactive';
+			$disabled_module['sso'] = 'disabled';
+		}
+		if ( ! in_array( 'Edwiser Bridge Custom Fields', $license_module_data ) ) {
+			$modules_data['custom_fields'] = 'deactive';
+			$disabled_module['custom_fields'] = 'disabled';
+		}
+
 		if ( $ajax ) {
 			ob_start();
 		}
@@ -1180,40 +1207,40 @@ class Eb_Setup_Wizard_Templates {
 
 				<div class='eb_setup_pro_plugin_inp_wrap'>
 					<label class="esw-cb-container">
-						<input type="checkbox"  class='eb_setup_sso_inp' <?php echo 'active' === $module_data['sso'] ? 'checked' : ''; ?>>
-						<span class="esw-cb-checkmark"></span>
+						<input type="checkbox"  class='eb_setup_sso_inp' <?php echo 'active' === $modules_data['sso'] ? 'checked' : ''; ?> <?php echo isset( $disabled_module['sso'] ) ? 'disabled' : ''; ?>>
+						<span class="esw-cb-checkmark <?php echo isset( $disabled_module['sso'] ) ? 'disabled' : ''; ?>"></span>
 						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Edwiser Bridge Single Sign On', 'edwiser-bridge' ); ?></label>
 						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Experience seamless login synchronization between Moodle and WordPress, eliminating login hassles and saving time for learners.', 'edwiser-bridge' ); ?></span> </i>
 					</label>
 				</div>
 				<div class='eb_setup_pro_plugin_inp_wrap'>
 					<label class="esw-cb-container">
-						<input type="checkbox"  class='eb_setup_woo_int_inp' <?php echo 'active' === $module_data['woo_integration'] ? 'checked' : ''; ?>>
-						<span class="esw-cb-checkmark"></span>
+						<input type="checkbox"  class='eb_setup_woo_int_inp' <?php echo 'active' === $modules_data['woo_integration'] ? 'checked' : ''; ?> <?php echo isset( $disabled_module['woo_integration'] ) ? 'disabled' : ''; ?>>
+						<span class="esw-cb-checkmark <?php echo isset( $disabled_module['woo_integration'] ) ? 'disabled' : ''; ?>"></span>
 						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'WooCommerce Integration', 'edwiser-bridge' ); ?></label>
 						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Effortlessly sell Moodle courses on WordPress with WooCommerce, optimizing pages and integrating with Moodle LMS.', 'edwiser-bridge' ); ?></span> </i>
 					</label>
 				</div>
 				<div class='eb_setup_pro_plugin_inp_wrap'>
 					<label class="esw-cb-container">
-						<input type="checkbox"  class='eb_setup_bulk_purchase_inp' <?php echo 'active' === $module_data['bulk_purchase'] ? 'checked' : ''; ?>>
-						<span class="esw-cb-checkmark"></span>
+						<input type="checkbox"  class='eb_setup_bulk_purchase_inp' <?php echo 'active' === $modules_data['bulk_purchase'] ? 'checked' : ''; ?> <?php echo isset( $disabled_module['bulk_purchase'] ) ? 'disabled' : ''; ?>>
+						<span class="esw-cb-checkmark <?php echo isset( $disabled_module['bulk_purchase'] ) ? 'disabled' : ''; ?>"></span>
 						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Bulk Purchase', 'edwiser-bridge' ); ?></label>
 						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Create a loyal user base by offering course bundles, increasing earnings and user satisfaction through discounts.', 'edwiser-bridge' ); ?></span> </i>
 					</label>
 				</div>
 				<div class='eb_setup_pro_plugin_inp_wrap'>
 					<label class="esw-cb-container">
-						<input type="checkbox"  class='eb_setup_selective_sync_inp' <?php echo 'active' === $module_data['selective_sync'] ? 'checked' : ''; ?>>
-						<span class="esw-cb-checkmark"></span>
+						<input type="checkbox"  class='eb_setup_selective_sync_inp' <?php echo 'active' === $modules_data['selective_sync'] ? 'checked' : ''; ?> <?php echo isset( $disabled_module['selective_sync'] ) ? 'disabled' : ''; ?>>
+						<span class="esw-cb-checkmark <?php echo isset( $disabled_module['selective_sync'] ) ? 'disabled' : ''; ?>"></span>
 						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Selective Sync', 'edwiser-bridge' ); ?></label>
 						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Flexiblity to choose specific courses to sync. Save time by choosing to sync only updated courses, course categories and users.', 'edwiser-bridge' ); ?></span> </i>
 					</label>
 				</div>
 				<div class='eb_setup_pro_plugin_inp_wrap'>
 					<label class="esw-cb-container">
-						<input type="checkbox"  class='eb_setup_custom_fields_inp' <?php echo 'active' === $module_data['custom_fields'] ? 'checked' : ''; ?>>
-						<span class="esw-cb-checkmark"></span>
+						<input type="checkbox"  class='eb_setup_custom_fields_inp' <?php echo 'active' === $modules_data['custom_fields'] ? 'checked' : ''; ?> <?php echo isset( $disabled_module['custom_fields'] ) ? 'disabled' : ''; ?>>
+						<span class="esw-cb-checkmark <?php echo isset( $disabled_module['custom_fields'] ) ? 'disabled' : ''; ?>"></span>
 						<label class='eb_setup_h2 es-sec-h es-p-l-30'> <?php esc_html_e( 'Edwiser Bridge Custom Fields', 'edwiser-bridge' ); ?></label>
 						<i class="dashicons dashicons-info-outline eb-tooltip"> <span class='eb-tooltiptext'><?php esc_html_e( 'Enhance registration and checkout forms with Custom Fields in WordPress, WooCommerce, and Edwiser Bridge for personalized information collection.', 'edwiser-bridge' ); ?></span> </i>
 					</label>

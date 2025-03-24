@@ -43,6 +43,13 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 		public $plugin_data = array();
 
 		/**
+		 * All Bridge Plugins.
+		 *
+		 * @var array
+		 */
+		public $addon_licensing = array();
+
+		/**
 		 * Bridge Pro.
 		 *
 		 * @var bool

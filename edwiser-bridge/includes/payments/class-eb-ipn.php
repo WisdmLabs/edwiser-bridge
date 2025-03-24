@@ -290,7 +290,7 @@ class Eb_Ipn {
 			$this->bridge_logger->add( 'payment', 'Order status set to Complete: ' . $order_id );
 			$note = array(
 				'type' => 'PayPal IPN',
-				'msg'  => esc_html__( 'IPN has been recived for the order id #', 'edwiser-bridge' ) . $order_id . esc_html__( 'payment status: ', 'edwiser-bridge' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'edwiser-bridge' ) . $post_txn_id . '. ',
+				'msg'  => esc_html__( 'IPN has been received for the order id #', 'edwiser-bridge' ) . $order_id . esc_html__( 'payment status: ', 'edwiser-bridge' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'edwiser-bridge' ) . $post_txn_id . '. ',
 			);
 			\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'edwiser-bridge' ), $note );
 		}
@@ -312,7 +312,7 @@ class Eb_Ipn {
 		$order_id = isset( $custom_data->order_id ) ? $custom_data->order_id : '';
 		$note     = array(
 			'type' => 'PayPal IPN',
-			'msg'  => esc_html__( 'IPN has been recived, for the refund of amount ', 'edwiser-bridge' ) . abs( $post_mc_gross ) . esc_html__( '. Payment status: ', 'edwiser-bridge' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'edwiser-bridge' ) . $post_txn_id . '.',
+			'msg'  => esc_html__( 'IPN has been received, for the refund of amount ', 'edwiser-bridge' ) . abs( $post_mc_gross ) . esc_html__( '. Payment status: ', 'edwiser-bridge' ) . $post_payment_status . esc_html__( ' Transaction id: ', 'edwiser-bridge' ) . $post_txn_id . '.',
 		);
 		\app\wisdmlabs\edwiserBridge\wdm_eb_update_order_hist_meta( $order_id, esc_html__( 'Paypal IPN', 'edwiser-bridge' ), $note );
 

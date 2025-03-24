@@ -31,6 +31,17 @@
     text-decoration: underline;
 }
 
+.form-table {
+  display: flex;
+}
+
+.form-table tr.inline {
+  display: inline;
+}
+
+.form-table tr.inline td {
+  position: relative;
+}
 
 .eb_connection_short_msg{
     color: red;
@@ -38,11 +49,13 @@
     padding-bottom: 15px;
 }
 
-.eb_test_connection_log{
+.eb_test_connection_log,
+.autofix_custom_message{
     display: none;
     border: 1px solid #d6d6d6;
     padding: 10px 10px 10px 20px;
     background: #fafafa;
+    margin-top: 10px;
 }
 
 .eb_test_conct_log_url{
@@ -76,6 +89,23 @@
 .eb_connection_err_recommended_sec ol li{
     padding-top: 4px;
     padding-bottom: 4px;
+}
+
+.auto_fix_issue {
+  color: #2271b1;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 10px;
+  text-decoration: underline;
+}
+
+.run-diagnostics-start li {
+  margin-bottom: 15px;
+}
+
+.run-diagnostics-start li span.diagnostic_check_name {
+  display: inline-block;
+  padding-left: 5px;
 }
 
 /*****************  sidebar css  ****************/
@@ -526,6 +556,14 @@ a.browse-all:hover {
 }
 
 /* extensions page css end */
+
+.response-box.custom-css,
+.linkresponse-box.custom-css {
+  position: absolute;
+  width: 500px;
+  top: 4em;
+  left: 0;
+}
 
 .response-box {
   text-shadow: none;
@@ -1300,7 +1338,7 @@ span.eb-option-input .eb-option-div select {
 
 /*** START User Sync CSS ***/
 .linkresponse-box {
-  margin-top: 3%;
+  margin-top: 15px;
   /* position: absolute; */
   /* margin-left: 20px; */
   display: block;
@@ -2326,7 +2364,80 @@ input:checked + .eb-pro-checkbox-slider:before {
   border-radius: 50%;
   margin-bottom: 5px;
 }
+.eb-heading-inline {
+  display: inline-block;
+  margin-right: 5px;
+}
 
+.eb-page-title-action {
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  text-shadow: none;
+  top: -3px;
+  margin-left: 4px;
+  border: 1px solid #2271b1;
+  border-radius: 3px;
+  background: #f6f7f7;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 2.15384615;
+  color: #2271b1;
+  padding: 0 10px;
+  min-height: 30px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.eb-create-new-enrollment-form {
+  display: none;
+}
+
+.eb-enroll-form-field {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.eb-enroll-form-field label {
+  width: 200px;
+  font-weight: 500;
+}
+
+.eb-enroll-form-field>span {
+  width: 400px !important;
+  scroll-behavior: auto;
+}
+
+.eb-enroll-form-field-course {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.eb-enroll-form-field-course label {
+  width: 200px;
+  font-weight: 500;
+}
+
+.eb-enroll-form-field-course>span {
+  width: 400px !important;
+}
+
+.eb-enroll-form-field-course input {
+  width: 400px !important;
+}
+
+.eb-enroll-form-field-course .select2-container .select2-selection {
+  height: 150px;
+  overflow-y: scroll;
+  padding: 5px 10px;
+}
+
+.eb-enroll-form-field-course .select2-container .select2-selection__choice {
+  margin-left: 1px;
+}
 
 
 /* media queries */

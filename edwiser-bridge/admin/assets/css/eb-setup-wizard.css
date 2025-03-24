@@ -231,7 +231,8 @@ a.es_text_links{
   }
   
   /* On mouse-over, add a grey background color */
-  .esw-cb-container:hover input ~ .esw-cb-checkmark {
+  .esw-cb-container:hover input ~ .esw-cb-checkmark,
+ .esw-cb-checkmark.disabled {
     background-color: #ccc;
   }
   
@@ -747,6 +748,10 @@ a.eb_setup_btn{
 .eb_setup_pro_settings
 {
     padding: 10px 40px 30px 40px;
+}
+
+.eb_diagnostics_wrap .run-diagnostics-start {
+    list-style-type: none;
 }
 
 .eb_setup_pro_initialize{

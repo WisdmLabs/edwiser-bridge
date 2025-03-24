@@ -376,7 +376,7 @@ class EdwiserBridge {
 		$plugin_i18n = new Eb_I18n();
 		$plugin_i18n->set_domain( 'edwiser-bridge' );
 
-		$this->loader->eb_add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->eb_add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
 
 		// compatibility with edwiser-bridge textdomain.
 		$this->loader->eb_add_filter( 'load_textdomain_mofile', $plugin_i18n, 'load_edwiser_bridge_textdomain', 10, 2 );
@@ -570,6 +570,9 @@ class EdwiserBridge {
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles' );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts' );
 
+		// hook to delete older log files
+		$this->loader->eb_add_action( 'admin_init', $plugin_admin, 'delete_old_logs' );
+
 		/**
 		 * Add action to add the meta boxes in backend for the order
 		 */
@@ -748,7 +751,61 @@ class EdwiserBridge {
 			$admin_settings_init,
 			'connection_test_initiater'
 		);
-
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_json_valid',
+			$admin_settings_init,
+			'check_valid_json_response'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_token_validation',
+			$admin_settings_init,
+			'check_valid_token'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_token_validation_fix',
+			$admin_settings_init,
+			'fix_valid_token'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_server_blocking_check',
+			$admin_settings_init,
+			'check_moodle_webservice_accessible'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_permalink_setting',
+			$admin_settings_init,
+			'check_permalink_setting_valid'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_permalink_setting_fix',
+			$admin_settings_init,
+			'fix_permalink_setting_valid'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_permalink_setting_fix_save',
+			$admin_settings_init,
+			'fix_permalink_setting_valid_save_changes'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_htaccess_create',
+			$admin_settings_init,
+			'create_htaccess_file'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_get_endpoint',
+			$admin_settings_init,
+			'check_get_endpoint_registered'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_post_endpoint',
+			$admin_settings_init,
+			'check_post_endpoint_registered'
+		);
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_json_valid_fix',
+			$admin_settings_init,
+			'fix_valid_json_response'
+		);
 		// error log ajax handlers.
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_get_log_data',
@@ -930,15 +987,17 @@ class EdwiserBridge {
 		 * update course enrollment table appropriately by deleting records for user being deleted.
 		 */
 		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_enrollment_records_on_user_deletion' );
+		// Delete user
+		$this->loader->eb_add_action( 'delete_user', $this->user_manager(), 'delete_user_from_moodle' );
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
+		$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_moodle_user_register', 10, 2);
 
 		/**
 		 * Email verification hooks.
 		 */
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
-
 			$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_user_email_verification_set_meta', 99 );
 			$this->loader->eb_add_action( 'eb_registration_redirect', $this->user_manager(), 'eb_verify_registration_redirect', 99, 2 );
 

@@ -600,7 +600,6 @@
              */
             $(document).on('click', '.eb_setup_test_connection_btn', function (event) {
                 $("#eb-lading-parent").show();
-
                 //get selected options
                 var url   = $('#eb_setup_test_conn_mdl_url').val();
                 var token = $('#eb_setup_test_conn_token').val();
@@ -618,7 +617,6 @@
                         '_wpnonce_field': eb_setup_wizard.nonce,
                     },
                     success: function (response) {
-
                         //prepare response for user
                         if (response.data.success == 1) {
                             $('.eb_setup_test_conn_success').css('display', 'block');
@@ -628,6 +626,7 @@
                             $('.eb_setup_test_connection_cont_btn').css('display', 'initial');
 
                         } else {
+                            $('.eb_setup_diagnostics_btn').show();
                             // ohSnap(response.response_message, 'error', 0);
                             $('.eb_setup_test_conn_error').css('display', 'block');
                             $('.eb_setup_test_conn_success').css('display', 'none');
@@ -639,12 +638,318 @@
 
                     },
                     error: function (response) {
-
+                        $('.eb_setup_diagnostics_btn').show();
                     }
                 });
             });
 
+            $(document).on('click', '.eb_setup_diagnostics_btn', function () {
+                //get selected options
+                //
 
+                //get selected options
+                var url = $('#eb_setup_test_conn_mdl_url').val();
+                var token = $('#eb_setup_test_conn_token').val();
+                var $this = $(this);
+                if (token.length > 0 && url.length > 0) {
+                    var checks = ['json_valid', 'token_validation', 'server_blocking_check', 'permalink_setting',
+                        'get_endpoint', 'post_endpoint'];
+                } else {
+                    var checks = ['json_valid', 'token_validation', 'permalink_setting'];
+                }
+                jQuery(this).attr('disabled', 'disabled');
+                start_diagnostics(url, token, $this, checks);
+            });
+
+            async function start_diagnostics(url, token, $this, checks) {
+                let completed = 0;
+                jQuery('.run-diagnostics-start').html('<h2>' + eb_setup_wizard.running_diagnostics + '</h2>');
+                checks.forEach(async (check) => {
+                    const res = await single_diagnostic(url, token, $this, check);
+                    // jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">Fix Now</span><div class="autofix_custom_message"></div>' );
+                    if (res) {
+                        jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_setup_wizard.plugin_url + 'images/success.png');
+                    } else {
+                        if (check == 'token_validation') {
+                            jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_setup_wizard.plugin_url + 'images/error.png');
+                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_setup_wizard.eb_fix_now + '</span><div class="autofix_custom_message"></div>');
+                        } else {
+                            jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_setup_wizard.plugin_url + 'images/error.png');
+                            jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_setup_wizard.get_more_details + '</span><div class="autofix_custom_message"></div>');
+                        }
+                    }
+                    completed++;
+                    if (completed == 6) {// checks count
+                        jQuery('.run-diagnostics-start h2').html(eb_setup_wizard.diagnostics_completed);
+                        jQuery('.eb_setup_diagnostics_btn').removeAttr('disabled');
+                    }
+                    console.log('--->', check + res);
+                });
+            }
+
+            function single_diagnostic(url, token, $this, check) {
+                return new Promise((resolve, reject) => {
+                    jQuery('.run-diagnostics-start').append('<li><img class= "' + check + '_loader" src="' + eb_setup_wizard.plugin_url
+                        + 'images/loader.gif" height="20" width="20" style="vertical-align: bottom;" /> <span class="diagnostic_check_name">' + eb_setup_wizard[check] +
+                        '</span></li>');
+                    if ('token_validation' == check) {
+                        if (token.length > token.trim().length) {
+                            resolve(false);
+                        }
+                    }
+                    $.ajax({
+                        method: "post",
+                        url: eb_setup_wizard.ajax_url,
+                        data: {
+                            'action': 'eb_' + check,
+                            'url': url.trim(),
+                            'token': token,
+                            '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                        },
+                        success: function (response) {
+                            if ('json_valid' == check) {
+                                if (isValidJsonString(response) && response.data.data) {
+                                    resolve(true);
+                                }
+                                resolve(false);
+                            }
+                            if (isValidJsonString(response) && typeof response == "string") {
+                                response = JSON.parse(response);
+                            }
+                            if (response.data.correct) {
+                                if ('server_blocking_check' == check) {
+                                    if (response.data.validate_access.token_mismatch) {
+                                        resolve(false);
+                                    }
+                                    if (!response.data.validate_access.is_authorized) {
+                                        resolve(false);
+                                    }
+                                }
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            if (textStatus == 'parsererror') {
+                                resolve(false);
+                            }
+                        }
+                    });
+                });
+            }
+
+            function isValidJsonString(str) {
+                if (typeof str == "string") {
+                    try {
+                        JSON.parse(str);
+                    } catch (e) {
+                        return false;
+                    }
+                    return true;
+                } else {
+                    return true;
+                }
+            }
+
+            $(document).on('click', '.auto_fix_issue.eb_json_valid_fix', function () {
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_json_valid_fix',
+                    },
+                    success: function (response) {
+                        if (isValidJsonString(response)) {
+                            jQuery('.eb_json_valid_fix + .autofix_custom_message').html(eb_setup_wizard.turn_off_debug_log);
+                            jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_setup_wizard.contact_support);
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (textStatus == 'parsererror') {
+                            jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_setup_wizard.contact_support);
+                            jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                        }
+                    }
+                });
+            });
+            $(document).on('click', '.auto_fix_issue.eb_token_validation_fix', function () {
+                var url = $('#eb_setup_test_conn_mdl_url').val();
+                var token = $('#eb_setup_test_conn_token').val();
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_token_validation_fix',
+                        'url': url.trim(),
+                        'token': token,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                    },
+                    success: function (response) {
+                        if (isValidJsonString(response) && typeof response == "string") {
+                            response = JSON.parse(response);
+                        }
+                        jQuery('.eb_token_validation_fix + .autofix_custom_message').text(eb_setup_wizard.please_refresh);
+                        jQuery('.eb_token_validation_fix + .autofix_custom_message').slideDown();
+                        return;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_server_blocking_check_fix', function () {
+                var url = $('#eb_setup_test_conn_mdl_url').val();
+                var token = $('#eb_setup_test_conn_token').val();
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_server_blocking_check',
+                        'url': url.trim(),
+                        'token': token,
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                    },
+                    success: function (response) {
+                        if (!response.data.correct) {
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.contact_hosting);
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                        }
+                        if (response.data.validate_access.token_mismatch) {
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.token_mismatch);
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                        }
+                        if (!response.data.validate_access.is_authorized) {
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.not_authorized);
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                        }
+                        if (response.data.validate_access.length == 0) {
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_setup_wizard.check_mdl_config);
+                            jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                        }
+                        return;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+                return;
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_get_endpoint_fix', function () {
+                jQuery('.eb_get_endpoint_fix + .autofix_custom_message').text(eb_setup_wizard.contact_support_get);
+                jQuery('.eb_get_endpoint_fix + .autofix_custom_message').slideDown();
+                return;
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_post_endpoint_fix', function () {
+                jQuery('.eb_post_endpoint_fix + .autofix_custom_message').text(eb_setup_wizard.contact_support_post);
+                jQuery('.eb_post_endpoint_fix + .autofix_custom_message').slideDown();
+                return;
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_permalink_setting_fix', function () {
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_permalink_setting_fix',
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                    },
+                    success: function (response) {
+                        if (isValidJsonString(response) && typeof response == "string") {
+                            response = JSON.parse(response);
+                        }
+                        if (response.data.wp_version_issue) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.wp_version_issue);
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.rest_disable_issue) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.rest_disable_issue);
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.permalink_setting_issue) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_setup_wizard.permalink_setting_issue + "</span>");
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.htaccess_file_missing && response.data.autofix_possible) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_setup_wizard.htaccess_file_missing + "</span><span class='eb_htaccess_create auto_fix_issue'> Fix Now </span>");
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.htaccess_rule_missing && response.data.autofix_possible) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_setup_wizard.htaccess_rule_missing + "</span><span class='eb_htaccess_create auto_fix_issue'> Fix Now </span>");
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.htaccess_file_missing) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.htaccess_rule_instructions);
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        if (response.data.htaccess_rule_missing) {
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.htaccess_rule_instructions);
+                            jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                            return;
+                        }
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.contact_support_misc);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+                return;
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_permalink_setting_fix_save', function () {
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_permalink_setting_fix_save',
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                    },
+                    success: function (response) {
+                        if (isValidJsonString(response) && typeof response == "string") {
+                            response = JSON.parse(response);
+                        }
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.please_refresh);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+                return;
+            });
+
+            $(document).on('click', '.auto_fix_issue.eb_htaccess_create', function () {
+                $.ajax({
+                    method: "post",
+                    url: eb_setup_wizard.ajax_url,
+                    data: {
+                        'action': 'eb_htaccess_create',
+                        '_wpnonce_field': eb_setup_wizard.sync_nonce,
+                    },
+                    success: function (response) {
+                        if (isValidJsonString(response) && typeof response == "string") {
+                            response = JSON.parse(response);
+                        }
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_setup_wizard.please_refresh);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                    }
+                });
+                return;
+            });
 
             // MaNAGE LICENSE
             $(document).on('click', '.eb_setup_license_install_plugins', function(event){
