@@ -1155,7 +1155,10 @@ class Eb_User_Manager {
 		// check if the page is updated from wp-admin profile page.
 		if ( isset( $_POST['from'] ) && 'profile' === $_POST['from'] ) {
 			$moodle_user_id = get_user_meta( $user_id, 'moodle_user_id', true ); // get moodle user id.
-
+			if ( ! is_numeric( $moodle_user_id ) ) {
+				edwiser_bridge_instance()->logger()->add( 'user', 'A moodle user id is not associated.... Exiting!!!' ); // add user log.
+				return;
+			}
 			$user       = get_user_by( 'id', $user_id );
 			$first_name = $user->first_name;
 			$last_name  = $user->last_name;
