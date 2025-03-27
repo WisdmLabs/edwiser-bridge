@@ -211,6 +211,9 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 4.0.0 =
+* Feature - Refactored for compatibility with Moodle standards and new Webservices in the moodle plugin.
+
 = 3.1.2 =
 * Feature - This update ensures better compatibility with various form field naming conventions across different plugins.
 
