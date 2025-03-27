@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.7.2
-Stable tag: 3.1.2
+Stable tag: 3.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -118,9 +118,9 @@ So to enhance its functionality and achieve a fully automated WooCommerce Soluti
  ==  Installation  ==
 
  = Minimum Requirements =
-* PHP version 5.6 or greater
-* WordPress 5.9 or higher
-* Moodle 3.11 or higher
+* PHP version 7.0 or greater
+* WordPress 6.0 or higher
+* Moodle 4.3 or higher
 
  =  Automatic Installation  =
 * Go to the Plugins menu from the dashboard.
