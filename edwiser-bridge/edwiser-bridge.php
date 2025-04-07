@@ -195,3 +195,6 @@ if ( ! function_exists( 'eb_fs' ) ) {
     // Signal that SDK was initiated.
     do_action( 'eb_fs_loaded' );
 }
+
+require_once plugin_dir_path(__FILE__) . 'includes/class-eb-blocks.php';
+require_once plugin_dir_path(__FILE__) . 'includes/api/class-eb-blocks-course-api.php';

@@ -1,0 +1,14 @@
+.components-toggle-control {
+  .components-flex {
+    flex-direction: row-reverse !important;
+  }
+}
+
+.components-select-control,
+.components-base-control {
+  label {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+  }
+}

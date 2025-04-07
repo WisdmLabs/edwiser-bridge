@@ -1,0 +1,94 @@
+import { Skeleton } from '@mantine/core';
+import { __ } from '@wordpress/i18n';
+import React from 'react';
+import { decodeHTMLEntities } from '../utils';
+import { CoursePrice } from './course';
+import { Icons } from './icons';
+
+function CourseMeta({
+  courseCategory,
+  coursePrice,
+  courseAccess,
+  courseStatus,
+  courseCta,
+}) {
+  return (
+    <div className="eb-course-desc__course-meta">
+      <div className="course-meta__header">
+        <h3>{__('Details')}</h3>
+      </div>
+      <div className="course-meta__content">
+        <div className="course-meta__content-top">
+          <div className="course-meta__category">
+            <div className="label">
+              <Icons.grid />
+              <span>{__('Category')}</span>
+            </div>
+            <span className="value">
+              {__(decodeHTMLEntities(courseCategory))}
+            </span>
+          </div>
+          <div className="course-meta__course-access">
+            <div className="label">
+              <Icons.clock />
+              <span>{__('Course access')}</span>
+            </div>
+            <span className="value">{__(courseAccess)}</span>
+          </div>
+          {(courseStatus === 'enrolled' || courseStatus === 'suspended') && (
+            <div className="course-meta__course-status">
+              <div className="label">
+                <Icons.status />
+                <span>{__('Status')}</span>
+              </div>
+              <span className="value">
+                <span className={courseStatus}>{__(courseStatus)}</span>
+              </span>
+            </div>
+          )}
+          {courseStatus !== 'enrolled' && coursePrice?.type !== 'closed' && (
+            <div className="course-meta__price">
+              <span className="label">{__('Price')}</span>
+              <span className="value">
+                <CoursePrice price={coursePrice} />
+              </span>
+            </div>
+          )}
+        </div>
+        <div
+          className="course-meta__content-bottom"
+          dangerouslySetInnerHTML={{ __html: courseCta }}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default CourseMeta;
+
+export function CourseMetaSkeleton() {
+  return (
+    <div className="eb-course-desc__course-meta">
+      <div className="course-meta__header">
+        <Skeleton width={60} height={24} />
+      </div>
+      <div className="course-meta__content">
+        <div className="course-meta__content-top">
+          <div className="course-meta__category">
+            <Skeleton width={90} height={24} />
+            <Skeleton width={60} height={24} />
+          </div>
+          <div className="course-meta__course-access">
+            <Skeleton width={90} height={24} />
+            <Skeleton width={60} height={24} />
+          </div>
+          <div className="course-meta__price">
+            <Skeleton width={35} height={24} />
+            <Skeleton width={50} height={24} />
+          </div>
+        </div>
+        <Skeleton width={'100%'} height={40} />
+      </div>
+    </div>
+  );
+}
