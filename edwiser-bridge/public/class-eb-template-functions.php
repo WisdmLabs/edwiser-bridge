@@ -33,7 +33,7 @@ class Eb_Template_Functions {
 		 * Default data initilization.
 		 * This data is part of the template, In case of template overriding this need to be reinitialize.
 		 */
-		$course_id     = $post->ID;
+		$course_id     = $post_id;
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		// get currency.
@@ -46,12 +46,12 @@ class Eb_Template_Functions {
 		$user_id           = get_current_user_id();
 		$logged_in         = ! empty( $user_id );
 		$enroll_manag      = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->enrollment_manager();
-		$has_access        = $enroll_manag->user_has_course_access( $user_id, $post->ID );
-		$course_options    = get_post_meta( $course_id, 'eb_course_options', true );
+		$has_access        = $enroll_manag->user_has_course_access($user_id, $post_id);
+		$course_options    = get_post_meta($course_id, 'eb_course_options', true);
 		/**
 		 * Leagacy data.
 		 */
-		$thumb_url = has_post_thumbnail() ? get_the_post_thumbnail_url() : $eb_plugin_url . 'images/no-image.jpg';
+		$thumb_url = has_post_thumbnail($post_id) ? get_the_post_thumbnail_url($post_id) : $eb_plugin_url . 'images/placeholder-course-thumbnail.jpeg';
 
 		if ( is_array( $course_options ) ) {
 			$course_price_type = ( isset( $course_options['course_price_type'] ) ) ? $course_options['course_price_type'] : 'free';
