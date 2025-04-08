@@ -60,7 +60,8 @@ if ( ! class_exists( 'Eb_Admin_Settings' ) ) {
 				$settings[]     = include 'settings/class-eb-settings-paypal.php';
 				$settings[]     = include 'settings/class-eb-settings-pro-featuers.php';
 				$settings[]     = include 'settings/class-eb-settings-dummy.php';
-				self::$settings = apply_filters( 'eb_get_settings_pages', $settings );
+				self::$settings = apply_filters('eb_get_settings_pages', $settings);
+				$settings[]     = include 'settings/class-eb-settings-templates.php';
 				$settings[]     = include 'licensing/class-licensing-settings.php';
 				$settings[]     = include 'settings/class-eb-bridge-summary.php';
 				$settings[]     = include 'settings/class-eb-settings-shortcode-doc.php';

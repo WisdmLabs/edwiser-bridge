@@ -2051,6 +2051,44 @@
     });
     /*JS for Order page end*/
 
+// --- Template Modal ---
+  jQuery(document).ready(function ($) {
+    // Close modal
+    $('.eb__modal-close').on('click', function () {
+      $('.eb__modal-overlay').fadeOut(300);
+
+      // Mark as viewed via AJAX
+      $.ajax({
+        url: ebModalData.ajaxurl,
+        type: 'POST',
+        data: {
+          action: 'eb_mark_template_modal_as_viewed',
+          nonce: ebModalData.nonce,
+        },
+      });
+    });
+
+    // Redirect to templates page when clicking the CTA
+    $('.eb__modal-cta').on('click', function (e) {
+      e.preventDefault();
+      $('.eb__modal-overlay').fadeOut(300);
+
+      // Mark as viewed via AJAX
+      $.ajax({
+        url: ebModalData.ajaxurl,
+        type: 'POST',
+        data: {
+          action: 'eb_mark_template_modal_as_viewed',
+          nonce: ebModalData.nonce,
+        },
+        success: function () {
+          // Redirect to templates page
+          window.location.href = ebModalData.templatesUrl;
+        },
+      });
+    });
+  });
+
 
 
 })(jQuery);

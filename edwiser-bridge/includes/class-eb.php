@@ -668,6 +668,10 @@ class EdwiserBridge {
 			'eb_admin_pro_notice'
 		);
 
+		$this->loader->eb_add_action('admin_init', $admin_notice_handler, 'check_for_template_modal');
+		$this->loader->eb_add_action('admin_init', $admin_notice_handler, 'show_template_modal');
+		$this->loader->eb_add_action('wp_ajax_eb_mark_template_modal_as_viewed', $admin_notice_handler, 'eb_mark_template_modal_as_viewed');
+
 		$hook = 'in_plugin_update_message-edwiser-bridge/edwiser-bridge.php';
 		$this->loader->eb_add_action(
 			$hook,

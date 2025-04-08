@@ -541,4 +541,179 @@ class Eb_Admin_Notice_Handler {
 		}
 	}
 
+	/**
+	 * Check for plugin update and show templates modal
+	 * 
+	 * @since 4.1.0
+	 */
+	public function check_for_template_modal()
+	{
+		// Current plugin version
+		$current_version = '4.1.0';
+
+		$shown_version  = get_option('eb_template_modal_shown', '0.0.0');
+
+		if ($current_version !== $shown_version) {
+			update_option('eb_template_modal_shown', $current_version);
+
+			update_option('eb_show_template_modal', 'yes');
+		}
+
+		update_option('eb_plugin_version', $current_version);
+	}
+
+	/**
+	 * Show template modal if needed
+	 * 
+	 * @since 4.1.0
+	 */
+	public function show_template_modal()
+	{
+		// Check if we need to show the modal
+		$show_modal = get_option('eb_show_template_modal', 'no');
+
+		if ($show_modal === 'yes') {
+			add_action('admin_enqueue_scripts', array($this, 'enqueue_template_modal_assets'));
+			add_action('admin_footer', array($this, 'render_template_modal'));
+		}
+	}
+
+	/**
+	 * Enqueue template modal assets
+	 * 
+	 * @since 4.1.0
+	 */
+	public function enqueue_template_modal_assets()
+	{
+		// Add data for the JS
+		wp_register_script('eb-template-modal-script', '', [], '', true);
+
+		wp_localize_script(
+			'eb-template-modal-script',
+			'ebModalData',
+			array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('eb_template_modal_nonce'),
+				'templatesUrl' => admin_url('admin.php?page=eb-settings&tab=templates')
+			)
+		);
+		wp_enqueue_script('eb-template-modal-script');
+	}
+
+	/**
+	 * Render the Gutenberg templates modal HTML
+	 * 
+	 * @since 4.1.0
+	 */
+	public function render_template_modal()
+	{
+		// Check if Pro is active
+		$eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
+
+		// Different content based on user type
+		if ($eb_pro_active) {
+			$this->render_pro_template_modal();
+		} else {
+			$this->render_free_template_modal();
+		}
+	}
+
+	/**
+	 * Render template modal for Pro users
+	 * 
+	 * @since 4.1.0
+	 */
+	private function render_pro_template_modal()
+	{
+		?>
+		<div class="eb__modal-overlay">
+			<div class="eb__modal-container">
+				<button class="eb__modal-close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+						<path d="M18 6 6 18" />
+						<path d="m6 6 12 12" />
+					</svg></button>
+
+				<div class="eb__modal-content">
+					<h1>Upgrade your store's look today!</h1>
+					<p>We've introduced new templates for key WooCommerce pages in Edwiser Bridge!</p>
+
+					<div class="eb__feature-list">
+						<div class="eb__feature-item">
+							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
+									<rect width="18" height="18" x="3" y="3" rx="2" />
+									<path d="m10 8 4 4-4 4" />
+								</svg></span>
+							<span class="eb__feature-text">Fully customizable with WordPress Gutenberg</span>
+						</div>
+						<div class="eb__feature-item">
+							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
+									<rect width="18" height="18" x="3" y="3" rx="2" />
+									<path d="m10 8 4 4-4 4" />
+								</svg></span>
+							<span class="eb__feature-text">Improved design for a better user experience</span>
+						</div>
+						<div class="eb__feature-item">
+							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
+									<rect width="18" height="18" x="3" y="3" rx="2" />
+									<path d="m10 8 4 4-4 4" />
+								</svg></span>
+							<span class="eb__feature-text">Easy to apply from the Template Settings</span>
+						</div>
+					</div>
+
+					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta">View New Templates</a>
+				</div>
+
+				<div class="eb__modal-image">
+					<img src="<?php echo esc_url(plugins_url('images/templates-pro-popup.png', dirname(__FILE__))); ?>" alt="WooCommerce Templates Preview">
+				</div>
+			</div>
+		</div>
+	<?php
+	}
+
+	/**
+	 * Render template modal for Free users
+	 * 
+	 * @since 4.1.0
+	 */
+	private function render_free_template_modal()
+	{
+	?>
+		<div class="eb__modal-overlay">
+			<div class="eb__modal-container">
+				<button class="eb__modal-close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+						<path d="M18 6 6 18" />
+						<path d="m6 6 12 12" />
+					</svg></button>
+
+				<div class="eb__modal-content">
+					<h1>Your course pages just got an upgrade!</h1>
+					<p>We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.</p>
+
+					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta">Check out the new pages!</a>
+				</div>
+
+				<div class="eb__modal-image">
+					<img src="<?php echo esc_url(plugins_url('images/templates-free-popup.png', dirname(__FILE__))); ?>" alt="Templates Preview">
+				</div>
+			</div>
+		</div>
+<?php
+	}
+
+	/**
+	 * AJAX handler to mark template modal as viewed
+	 * 
+	 * @since 4.1.0
+	 */
+	public function eb_mark_template_modal_as_viewed()
+	{
+		check_ajax_referer('eb_template_modal_nonce', 'nonce');
+
+		// Mark modal as viewed
+		update_option('eb_show_template_modal', 'no');
+
+		wp_send_json_success();
+	}
 }
