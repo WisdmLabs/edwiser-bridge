@@ -783,7 +783,7 @@
             var token = $('#eb_access_token').val();
             var $this = $(this);
             var checks = ['json_valid', 'token_validation', 'server_blocking_check', 'permalink_setting',
-                'get_endpoint', 'post_endpoint'];
+                'get_endpoint', 'post_endpoint', 'enroll_dummy_user'];
             jQuery(this).attr('disabled', 'disabled');
             start_diagnostics(url, token, $this, checks);
         });
@@ -800,13 +800,16 @@
                     if (check == 'token_validation') {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.eb_fix_now + '</span><div class="autofix_custom_message"></div>');
+                    } else if (check == 'enroll_dummy_user') {
+                        jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
+                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + window.enroll_message + '</span><div class="autofix_custom_message"></div>');
                     } else {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.get_more_details + '</span><div class="autofix_custom_message"></div>');
                     }
                 }
                 completed++;
-                if (completed == 6) {// checks count
+                if (completed == 7) {// checks count
                     jQuery('.run-diagnostics-start h2').html(eb_admin_js_object.diagnostics_completed);
                     jQuery('#eb_diagnose_issues_button').removeAttr('disabled');
                 }
@@ -834,6 +837,17 @@
                         '_wpnonce_field': eb_admin_js_object.nonce,
                     },
                     success: function (response) {
+                        if ('enroll_dummy_user' == check) {
+                            if (response.status == 'success') {
+                                resolve(true);
+                            } else {
+                                resolve(false);
+                                if (response.html) {
+                                    response.enroll_message = response.enroll_message + response.html;
+                                }
+                                window.enroll_message = response.enroll_message;
+                            }
+                        }
                         if ('json_valid' == check) {
                             if (isValidJsonString(response) && response.data.data) {
                                 resolve(true);

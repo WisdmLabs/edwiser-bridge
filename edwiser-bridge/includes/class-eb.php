@@ -918,6 +918,12 @@ class EdwiserBridge {
 			$this->enrollment_manager(),
 			'enroll_dummy_user'
 		);
+		
+		$this->loader->eb_add_action(
+			'wp_ajax_eb_enroll_dummy_user',
+			$this->enrollment_manager(),
+			'enroll_dummy_user'
+		);
 	}
 
 	/**
@@ -996,6 +1002,7 @@ class EdwiserBridge {
 
 		$this->loader->eb_add_action( 'eb_before_single_course', $this->user_manager(), 'unenroll_on_course_access_expire' );
 		$this->loader->eb_add_action( 'user_register', $this->user_manager(), 'eb_moodle_user_register', 10, 2);
+		$this->loader->eb_add_filter( 'eb_disable_checkout_user_creation', $this->user_manager(), 'eb_disable_checkout_user_creation', 10, 1 );
 
 		/**
 		 * Email verification hooks.

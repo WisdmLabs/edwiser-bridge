@@ -73,6 +73,11 @@ if (! class_exists('Eb_Settings_Templates')) {
         {
             global $current_section;
 
+            // Output settings fields if needed
+            $templates = $this->get_settings($current_section);
+            if (!empty($templates)) {
+                Eb_Admin_Settings::output_fields($templates);
+            }
             // Check if we're in a specific section
             if ('elementor-templates' === $current_section) {
                 // Hide the save button for elementor templates
@@ -85,11 +90,6 @@ if (! class_exists('Eb_Settings_Templates')) {
                 require_once plugin_dir_path(dirname(__FILE__)) . 'partials/html-gutenberg-templates.php';
             }
 
-            // Output settings fields if needed
-            $settings = $this->get_settings($current_section);
-            if (!empty($settings)) {
-                Eb_Admin_Settings::output_fields($settings);
-            }
         }
 
         /**
@@ -99,10 +99,20 @@ if (! class_exists('Eb_Settings_Templates')) {
          */
         public function save()
         {
-            global $current_section;
 
+            global $current_section;
             $settings = $this->get_settings($current_section);
             Eb_Admin_Settings::save_fields($settings);
+            if ( 'elementor-templates' !== $current_section ) {
+                update_option('eb_enabled_templates', $_POST['eb_enabled_templates']);
+
+                $templates = array('shop', 'cart', 'single_product', 'thank_you', 'single_course', 'all_courses');
+                foreach ($templates as $template) {
+                    $option_name = 'eb_pro_enable_' . $template . '_override';
+                    $option_value = isset($_POST['eb_enabled_templates'][$template]) ? '1' : '0';
+                    update_option($option_name, $option_value);
+                }
+            }
         }
 
         /**
@@ -115,15 +125,63 @@ if (! class_exists('Eb_Settings_Templates')) {
          */
         public function get_settings($current_section = '')
         {
-            $settings = apply_filters(
-                'eb_licensing',
-                array(
+            if ( 'elementor-templates' === $current_section ) {
+            } else {
+                $settings = apply_filters(
+                    'eb_gutenberg_template_settings',
                     array(
-                        'type' => 'sectionend',
-                        'id'   => 'gutenberg_template_settings',
-                    ),
-                )
-            );
+                        'shop' => array(
+                            'title' => __('Shop page (Product archive page)', 'edwiser-bridge'),
+                            'desc'  => __('A clean, modern shop page for better course browsing.', 'edwiser-bridge'),
+                            'img'   => 'shop-archive.png',
+                            'is_pro' => true,
+                            // 'template_id' => get_option('eb_gutenberg_shop_page_template_id'),
+                            'page_option' => 'eb_pro_shop_page_id',
+                            
+                        ),
+                        'cart' => array(
+                            'title' => __('Cart page', 'edwiser-bridge'),
+                            'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
+                            'img'   => 'cart.png',
+                            'is_pro' => true,
+                            // 'template_id' => get_option('eb_gutenberg_cart_page_template_id'),
+                            'page_option' => 'eb_pro_cart_page_id',
+                        ),
+                        'single_product' => array(
+                            'title' => __('Single product page (Product landing page)', 'edwiser-bridge'),
+                            'desc'  => __('A structured layout to showcase course details effectively.', 'edwiser-bridge'),
+                            'img'   => 'single-product.png',
+                            'is_pro' => true,
+                            'page_option' => 'eb_pro_single_product_page_id',
+                            // 'template_id' => get_option('eb_gutenberg_single_product_page_template_id'),
+                        ),
+                        'thank_you' => array(
+                            'title' => __('Thank you page template', 'edwiser-bridge'),
+                            'desc'  => __('Thank you page to enhance the post-enrollment experience.', 'edwiser-bridge'),
+                            'img'   => 'thank-you.png',
+                            'is_pro' => true,
+                            'page_option' => 'eb_pro_thank_you_page_id',
+                            // 'template_id' => get_option('eb_gutenberg_thank_you_page_template_id'),
+                        ),
+                        'single_course' => array(
+                            'title' => __('Single course page template', 'edwiser-bridge'),
+                            'desc'  => __('Showcase course details, pricing, and description in a clean, structured layout.', 'edwiser-bridge'),
+                            'img'   => 'single-course.png',
+                            'is_pro' => false,
+                            'page_option' => 'eb_single_course_page_id',
+                            // 'template_id' => get_option('eb_gutenberg_single_course_page_template_id'),
+                        ),
+                        'all_courses' => array(
+                            'title' => __('All courses page template', 'edwiser-bridge'),
+                            'desc'  => __('Display all available courses in an organized and modern design.', 'edwiser-bridge'),
+                            'img'   => 'course-listing.png',
+                            'is_pro' => false,
+                            'page_option' => 'eb_all_courses_page_id',
+                            // 'template_id' => get_option('eb_gutenberg_all_courses_page_template_id'),
+                        ),
+                    )
+                );
+            }
 
             return apply_filters('eb_get_settings_' . $this->_id, $settings, $current_section);
         }

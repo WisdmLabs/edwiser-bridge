@@ -11,53 +11,6 @@ if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
-$templates = array(
-    'shop_page' => array(
-        'title' => __('Shop page (Product archive page)', 'edwiser-bridge'),
-        'desc'  => __('A clean, modern shop page for better course browsing.', 'edwiser-bridge'),
-        'img'   => 'shop-archive.png',
-        'is_pro' => true,
-        'template_id' => get_option('eb_gutenberg_shop_page_template_id'),
-        'page_option' => 'eb_shop_page_id',
-    ),
-    'cart_page' => array(
-        'title' => __('Cart page', 'edwiser-bridge'),
-        'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
-        'img'   => 'cart.png',
-        'is_pro' => true,
-        'template_id' => get_option('eb_gutenberg_cart_page_template_id'),
-        'page_option' => 'eb_cart_page_id',
-    ),
-    'single_product' => array(
-        'title' => __('Single product page (Product landing page)', 'edwiser-bridge'),
-        'desc'  => __('A structured layout to showcase course details effectively.', 'edwiser-bridge'),
-        'img'   => 'single-product.png',
-        'is_pro' => true,
-        'template_id' => get_option('eb_gutenberg_single_product_page_template_id'),
-    ),
-    'thank_you' => array(
-        'title' => __('Thank you page template', 'edwiser-bridge'),
-        'desc'  => __('Thank you page to enhance the post-enrollment experience.', 'edwiser-bridge'),
-        'img'   => 'thank-you.png',
-        'is_pro' => true,
-        'template_id' => get_option('eb_gutenberg_thank_you_page_template_id'),
-    ),
-    'single_course' => array(
-        'title' => __('Single course page template', 'edwiser-bridge'),
-        'desc'  => __('Showcase course details, pricing, and description in a clean, structured layout.', 'edwiser-bridge'),
-        'img'   => 'single-course.png',
-        'is_pro' => false,
-        'template_id' => get_option('eb_gutenberg_single_course_page_template_id'),
-    ),
-    'all_courses' => array(
-        'title' => __('All courses page template', 'edwiser-bridge'),
-        'desc'  => __('Display all available courses in an organized and modern design.', 'edwiser-bridge'),
-        'img'   => 'course-listing.png',
-        'is_pro' => false,
-        'template_id' => get_option('eb_gutenberg_all_courses_page_template_id'),
-    ),
-);
-
 // Get enabled templates status
 $enabled_templates = get_option('eb_enabled_templates', array());
 
@@ -68,8 +21,8 @@ $pages = get_pages(array(
 ));
 
 // Get the currently selected page IDs
-$shop_page_id = get_option('eb_shop_page_id', 0);
-$cart_page_id = get_option('eb_cart_page_id', 0);
+$shop_page_id = get_option('eb_pro_shop_page_id', 0);
+$cart_page_id = get_option('eb_pro_cart_page_id', 0);
 
 $eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
 $module_data = get_option('eb_pro_modules_data');
@@ -86,8 +39,8 @@ $woo_integration_enabled = (isset($module_data['woo_integration']) && 'active' =
         <?php foreach ($templates as $key => $template) :
             $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
             $switch_id = 'switch_' . $key;
-            $has_page_dropdown = in_array($key, array('shop_page', 'cart_page'));
-            $current_page_id = ($key === 'shop_page') ? $shop_page_id : (($key === 'cart_page') ? $cart_page_id : 0);
+            $has_page_dropdown = in_array($key, array());
+            $current_page_id = ($key === 'shop') ? $shop_page_id : (($key === 'cart') ? $cart_page_id : 0);
 
             $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
             $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));

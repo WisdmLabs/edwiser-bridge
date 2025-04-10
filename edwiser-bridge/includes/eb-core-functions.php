@@ -1110,6 +1110,21 @@ if ( ! function_exists( 'is_access_exception' ) ) {
 	}
 }
 
+if ( ! function_exists( 'is_moodle_exception' ) ) {
+	/**
+	 * Function to check if response is moodle exception.
+	 *
+	 * @param  array $response response.
+	 */
+	function is_moodle_exception( $response ) {
+		$exception = false;
+		if ( isset( $response['response_body']->exception ) && 'core\exception\moodle_exception' === $response['response_body']->exception ) {
+			$exception = true;
+		}
+		return $exception;
+	}
+}
+
 if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
 	/**
 	 * Function to check if recaptcha is enabled.

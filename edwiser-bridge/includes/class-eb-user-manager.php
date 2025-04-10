@@ -513,7 +513,56 @@ class Eb_User_Manager {
 				'user_email' => $email,
 			)
 		);
-		$this->update_user_on_moodle( $user_id, $firstname, $lastname, $wp_user_data, $username, $email, $user_p );
+		if ( ! apply_filters( 'eb_disable_checkout_user_creation', false ) ) {
+			$this->update_user_on_moodle( $user_id, $firstname, $lastname, $wp_user_data, $username, $email, $user_p );
+		}
+	}
+
+	public function eb_disable_checkout_user_creation( $disable ) {
+		if( defined('MDL_DISABLE_CHECKOUT_USER_CREATION') && MDL_DISABLE_CHECKOUT_USER_CREATION ) {
+			// Check if we're in the checkout process
+			if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+				// Get the current order
+				$order_id = absint( get_query_var( 'order-pay' ) );
+				if ( ! $order_id ) {
+					$order_id = WC()->session->get( 'order_awaiting_payment' );
+				}
+
+				if ( $order_id ) {
+					$order = wc_get_order( $order_id );
+					if ( $order ) {
+						$has_course_product = false;
+						foreach ( $order->get_items() as $item ) {
+							$product_id = $item->get_product_id();
+							$product_options = get_post_meta( $product_id, 'product_options', true );
+							
+							// Check if product has associated courses
+							if ( ! empty( $product_options['moodle_post_course_id'] ) ) {
+								$has_course_product = true;
+								break;
+							}
+							
+							// Check for variable products
+							if ( $item->get_variation_id() ) {
+								$variation_options = get_post_meta( $item->get_variation_id(), 'product_options', true );
+								if ( ! empty( $variation_options['moodle_post_course_id'] ) ) {
+									$has_course_product = true;
+									break;
+								}
+							}
+						}
+						
+						// If no course products found, disable Moodle user creation
+						if ( ! $has_course_product ) {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+		
+		return $disable;
 	}
 
 	public function update_user_on_moodle( $user_id, $firstname, $lastname, $wp_user_data, $username, $email, $user_p ) {
