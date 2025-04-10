@@ -64,6 +64,7 @@ do_action( 'eb_before_single_course' );
 
 $eb_gutenberg_settings = get_option('eb_gutenberg_pages', array());
 $eb_gutenberg_page_id = $eb_gutenberg_settings['single_course'];
+$eb_gutenberg_block_id = $eb_gutenberg_settings['single_course_block_id'];
 
 $eb_gutenberg_page = get_post($eb_gutenberg_page_id);
 if ($eb_gutenberg_page && !is_wp_error($eb_gutenberg_page)) {
@@ -76,7 +77,8 @@ if (empty($eb_gutenberg_page_content)) {
 							<!-- /wp:edwiser-bridge/course-description -->';
     echo do_blocks($eb_gutenberg_page_content);
 } else {
-    echo apply_filters('the_content', $eb_gutenberg_page_content);
+	$content = str_replace($eb_gutenberg_block_id, get_the_ID(), $eb_gutenberg_page_content);
+    echo apply_filters('the_content', $content);
 }
 
 // End of the single course page.

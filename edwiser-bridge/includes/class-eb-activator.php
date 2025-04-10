@@ -330,6 +330,7 @@ class Eb_Activator {
 				$gutenberg_pages_settings[$key] = $page_id;
 			}
 		}
+		$gutenberg_pages_settings['single_course_block_id'] = $course->ID;
 		update_option('eb_gutenberg_pages', $gutenberg_pages_settings);
 	}
 
