@@ -3,8 +3,6 @@
  * included in this file.
  */
 
-
-
 /******   Manage enrollment   *****/
 
 #eb-manage-user-enrollment-filter {
@@ -2496,17 +2494,32 @@ input:checked + .eb-pro-checkbox-slider:before {
   transition: background 0.2s ease-in-out;
 }
 
+.eb__btn:focus {
+  outline: none;
+  box-shadow: none;
+  color: inherit;
+}
+
 .eb__btn-view {
   background: #f98012;
   color: #fff;
 }
 
+.eb__btn-view:focus {
+  color: #fff;
+}
+
 .eb__btn-view:hover {
+  color: #fff;
   background: rgb(249, 128, 18, 0.8);
 }
 
 .eb__btn-edit:hover {
   text-decoration: underline;
+  color: #f75d25;
+}
+
+.eb__btn-edit:focus {
   color: #f75d25;
 }
 

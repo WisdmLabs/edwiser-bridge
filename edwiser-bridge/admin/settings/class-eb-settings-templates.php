@@ -89,7 +89,6 @@ if (! class_exists('Eb_Settings_Templates')) {
             } else {
                 require_once plugin_dir_path(dirname(__FILE__)) . 'partials/html-gutenberg-templates.php';
             }
-
         }
 
         /**
@@ -127,6 +126,9 @@ if (! class_exists('Eb_Settings_Templates')) {
         {
             if ( 'elementor-templates' === $current_section ) {
             } else {
+                $template_woo_pages    = get_option('eb_woo_gutenberg_pages', array());
+                $template_course_pages    = get_option('eb_gutenberg_pages', array());
+
                 $settings = apply_filters(
                     'eb_gutenberg_template_settings',
                     array(
@@ -135,7 +137,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'desc'  => __('A clean, modern shop page for better course browsing.', 'edwiser-bridge'),
                             'img'   => 'shop-archive.png',
                             'is_pro' => true,
-                            // 'template_id' => get_option('eb_gutenberg_shop_page_template_id'),
+                            'template_id' => $template_woo_pages['eb_shop_page_id'],
                             'page_option' => 'eb_pro_shop_page_id',
                             
                         ),
@@ -144,7 +146,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
                             'img'   => 'cart.png',
                             'is_pro' => true,
-                            // 'template_id' => get_option('eb_gutenberg_cart_page_template_id'),
+                            'template_id' => $template_woo_pages['eb_cart_page_id'],
                             'page_option' => 'eb_pro_cart_page_id',
                         ),
                         'single_product' => array(
@@ -153,7 +155,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'img'   => 'single-product.png',
                             'is_pro' => true,
                             'page_option' => 'eb_pro_single_product_page_id',
-                            // 'template_id' => get_option('eb_gutenberg_single_product_page_template_id'),
+                            'template_id' => $template_woo_pages['eb_single_product_page_id'],
                         ),
                         'thank_you' => array(
                             'title' => __('Thank you page template', 'edwiser-bridge'),
@@ -161,7 +163,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'img'   => 'thank-you.png',
                             'is_pro' => true,
                             'page_option' => 'eb_pro_thank_you_page_id',
-                            // 'template_id' => get_option('eb_gutenberg_thank_you_page_template_id'),
+                            'template_id' => $template_woo_pages['eb_thank_you_page_id'],
                         ),
                         'single_course' => array(
                             'title' => __('Single course page template', 'edwiser-bridge'),
@@ -169,7 +171,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'img'   => 'single-course.png',
                             'is_pro' => false,
                             'page_option' => 'eb_single_course_page_id',
-                            // 'template_id' => get_option('eb_gutenberg_single_course_page_template_id'),
+                            'template_id' => $template_course_pages['single_course'],
                         ),
                         'all_courses' => array(
                             'title' => __('All courses page template', 'edwiser-bridge'),
@@ -177,7 +179,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'img'   => 'course-listing.png',
                             'is_pro' => false,
                             'page_option' => 'eb_all_courses_page_id',
-                            // 'template_id' => get_option('eb_gutenberg_all_courses_page_template_id'),
+                            'template_id' => $template_course_pages['all_courses'],
                         ),
                     )
                 );

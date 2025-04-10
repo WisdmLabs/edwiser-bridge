@@ -94,10 +94,10 @@ $woo_integration_enabled = (isset($module_data['woo_integration']) && 'active' =
                             </select>
                         <?php endif; ?>
 
-                        <button class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></button>
+                        <a href="<?php echo esc_url(get_permalink($template_id)); ?>" target="_blank" class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></a>
 
                         <?php if ($template_id) : ?>
-                            <a href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <a target="_blank" href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.24532 3.93555C4.52339 3.93555 3.93555 4.51929 3.93555 5.24532V12.7547C3.93555 13.4766 4.51929 14.0644 5.24532 14.0644H12.7547C13.4766 14.0644 14.0644 13.4807 14.0644 12.7547V10.9085C14.0644 10.6502 14.2739 10.4407 14.5322 10.4407C14.7906 10.4407 15 10.6502 15 10.9085V12.7547C15 13.9995 13.9912 15 12.7547 15H5.24532C4.00046 15 3 13.9912 3 12.7547V5.24532C3 4.00046 4.00884 3 5.24532 3H7.04782C7.30616 3 7.51559 3.20943 7.51559 3.46778C7.51559 3.72612 7.30616 3.93555 7.04782 3.93555H5.24532ZM9.48025 4.11642C9.48025 3.85808 9.68968 3.64865 9.94803 3.64865H12.3617C13.3997 3.64865 14.2391 4.48802 14.2391 5.52599V7.73389C14.2391 7.99223 14.0297 8.20166 13.7713 8.20166C13.513 8.20166 13.3035 7.99223 13.3035 7.73389V5.52599C13.3035 5.43961 13.292 5.35601 13.2704 5.27662L7.17566 11.4796C6.9946 11.6639 6.69843 11.6665 6.51415 11.4854C6.32987 11.3044 6.32727 11.0082 6.50833 10.8239L12.6075 4.6164C12.5292 4.5954 12.4468 4.5842 12.3617 4.5842H9.94803C9.68968 4.5842 9.48025 4.37477 9.48025 4.11642Z" fill="#819596" />
                                 </svg>
                             </a>
