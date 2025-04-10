@@ -740,19 +740,37 @@ class Eb_Enrollment_Manager {
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}
 
+	public function get_courses() {
+		$courses = array();
+
+		$course_args = array(
+			'post_type'      => 'eb_course',
+			'post_status'    => 'publish', // remove this line to get all courses.
+			'posts_per_page' => -1,
+		);
+		$all_courses = get_posts( $course_args );
+
+		foreach ( $all_courses as $course ) {
+			if ( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
+
+				continue;
+			}
+			$courses[ $course->ID ] = $course->post_title;
+		}
+		return $courses;
+	}
+
 	/**
 	 * Enroll dummy user in the course.
 	 *
 	 * @since 2.2.1
 	 */
 	public function enroll_dummy_user() {
-		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : get_posts(array(
-			'post_type' => 'eb_course',
-			'numberposts' => 1,
-			'post_status' => 'publish',
-			'meta_key' => 'moodle_course_id',
-			'meta_value' => '1',
-		))[0]->ID; // @codingStandardsIgnoreLine
+		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : false; // @codingStandardsIgnoreLine
+		if ( ! $course_id ) {
+			$courses = $this->get_courses();
+			$course_id = array_keys($courses)[0];
+		}
 		$response_array   = array(
 			'status' => 'error',
 		);

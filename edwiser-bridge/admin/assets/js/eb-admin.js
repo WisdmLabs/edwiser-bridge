@@ -802,7 +802,7 @@
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.eb_fix_now + '</span><div class="autofix_custom_message"></div>');
                     } else if (check == 'enroll_dummy_user') {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
-                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + window.enroll_message + '</span><div class="autofix_custom_message"></div>');
+                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after(window.enroll_message);
                     } else {
                         jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
                         jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.get_more_details + '</span><div class="autofix_custom_message"></div>');
@@ -837,17 +837,6 @@
                         '_wpnonce_field': eb_admin_js_object.nonce,
                     },
                     success: function (response) {
-                        if ('enroll_dummy_user' == check) {
-                            if (response.status == 'success') {
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                                if (response.html) {
-                                    response.enroll_message = response.enroll_message + response.html;
-                                }
-                                window.enroll_message = response.enroll_message;
-                            }
-                        }
                         if ('json_valid' == check) {
                             if (isValidJsonString(response) && response.data.data) {
                                 resolve(true);
@@ -856,6 +845,17 @@
                         }
                         if (isValidJsonString(response) && typeof response == "string") {
                             response = JSON.parse(response);
+                        }
+                        if ('enroll_dummy_user' == check) {
+                            if (response.status == 'success') {
+                                resolve(true);
+                            } else {
+                                if (response.html) {
+                                    response.enroll_message = response.enroll_message + response.html;
+                                }
+                                window.enroll_message = response.enroll_message;
+                                resolve(false);
+                            }
                         }
                         if (response.data.correct) {
                             if ('server_blocking_check' == check) {

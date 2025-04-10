@@ -102,7 +102,7 @@ if (! class_exists('Eb_Settings_Templates')) {
             global $current_section;
             $settings = $this->get_settings($current_section);
             Eb_Admin_Settings::save_fields($settings);
-            if ('elementor-templates' !== $current_section) {
+            if ( 'elementor-templates' !== $current_section ) {
                 update_option('eb_enabled_templates', $_POST['eb_enabled_templates']);
 
                 $templates = array('shop', 'cart', 'single_product', 'thank_you', 'single_course', 'all_courses');
@@ -124,7 +124,7 @@ if (! class_exists('Eb_Settings_Templates')) {
          */
         public function get_settings($current_section = '')
         {
-            if ('elementor-templates' === $current_section) {
+            if ( 'elementor-templates' === $current_section ) {
             } else {
                 $template_woo_pages    = get_option('eb_woo_gutenberg_pages', array());
                 $template_course_pages    = get_option('eb_gutenberg_pages', array());
@@ -139,7 +139,6 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'is_pro' => true,
                             'template_id' => $template_woo_pages['eb_pro_shop_page_id'],
                             'page_option' => 'eb_pro_shop_page_id',
-
                         ),
                         'cart' => array(
                             'title' => __('Cart page', 'edwiser-bridge'),

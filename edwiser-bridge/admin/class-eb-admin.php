@@ -207,6 +207,7 @@ class Eb_Admin {
 				'enroll_user_placeholder'         => esc_html__( 'Select user to enroll', 'edwiser-bridge' ),
 				'token_validation'				  => esc_html__( 'Are there any spaces before/after the token?', 'edwiser-bridge' ),
 				'json_valid'					  => esc_html__( 'Does API return a valid JSON response?', 'edwiser-bridge' ),
+				'enroll_dummy_user'				  => esc_html__( 'Does Test Enrollment process work?', 'edwiser-bridge' ),
 				'permalink_setting'				  => esc_html__( 'Are permalink settings correctly configured and rest api accessible?', 'edwiser-bridge' ),
 				'get_endpoint'					  => esc_html__( 'Can moodle read data from WordPress(GET endpoint)?', 'edwiser-bridge' ),
 				'post_endpoint' 				  => esc_html__( 'Can moodle write data to WordPress(POST endpoint)?', 'edwiser-bridge' ),
