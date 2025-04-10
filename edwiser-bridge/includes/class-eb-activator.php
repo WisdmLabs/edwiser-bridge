@@ -284,6 +284,53 @@ class Eb_Activator {
 			$key;
 			\app\wisdmlabs\edwiserBridge\wdm_eb_create_page( esc_sql( $page['name'] ), $page['option_key'], $page['title'], $page['content'] );
 		}
+		self::create_gutenberg_pages();
+	}
+
+	public static function create_gutenberg_pages() {
+		$gutenberg_pages_settings = get_option('eb_gutenberg_pages', array());
+		if ( ! empty($gutenberg_pages_settings) ) {
+			return;
+		}
+		$course = get_posts(array(
+			'post_type'      => 'eb_course',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		))[0];
+		
+		$gutenbergpages = apply_filters('eb_create_gutenberg_pages', array(
+			'all_courses' => array(
+				'name' => 'eb-all-courses',
+				'title' => 'All Courses',
+				'content' => '<!-- wp:edwiser-bridge/courses {"categories":""} -->
+								<div class="wp-block-edwiser-bridge-courses"><div id="eb-courses" data-page-title="Courses" data-hide-title="false" data-hide-filters="false" data-courses-per-page="9" data-categories="" data-group-by-category="false" data-category-per-page="3" data-horizontal-scroll="false"></div></div>
+							<!-- /wp:edwiser-bridge/courses -->',
+				'option_key' => 'eb_courses_page_id_new',
+			),
+			'single_course' => array(
+				'name' => 'eb-single-course',
+				'title' => 'Single Course',
+				'content' => '<!-- wp:edwiser-bridge/course-description {"courseId":' . $course->ID . '} -->
+								<div class="wp-block-edwiser-bridge-course-description"><div id="eb-course-description" data-course-id="' . $course->ID . '" data-show-recommended-courses="true"></div></div>
+							<!-- /wp:edwiser-bridge/course-description -->',
+				'option_key' => 'eb_single_course_page_id_new',
+			),
+		));
+		foreach ( $gutenbergpages as $key => $page ) {
+			if ( !isset($gutenberg_pages_settings[$key]) || empty($gutenberg_pages_settings[$key]) ) {
+				$page_id = wp_insert_post(array(
+					'post_type' => 'page',
+					'post_title' => $page['title'],
+					'post_content' => $page['content'],
+					'post_status' => 'publish',
+					'post_name' => $page['name'],
+				));
+				$gutenberg_pages_settings[$key] = $page_id;
+			}
+		}
+		update_option('eb_gutenberg_pages', $gutenberg_pages_settings);
 	}
 
 	/**

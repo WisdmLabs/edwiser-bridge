@@ -569,7 +569,7 @@ class EdwiserBridge {
 		$plugin_admin = new Eb_Admin( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_styles' );
 		$this->loader->eb_add_action( 'admin_enqueue_scripts', $plugin_admin, 'admin_enqueue_scripts' );
-
+		$this->loader->eb_add_action( 'admin_init', '\app\wisdmlabs\edwiserBridge\Eb_Activator', 'create_gutenberg_pages' );
 		// hook to delete older log files
 		$this->loader->eb_add_action( 'admin_init', $plugin_admin, 'delete_old_logs' );
 
