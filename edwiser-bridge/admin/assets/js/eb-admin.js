@@ -835,6 +835,7 @@
                         'url': url.trim(),
                         'token': token,
                         '_wpnonce_field': eb_admin_js_object.nonce,
+                        'is_diagnostic_run': true,
                     },
                     success: function (response) {
                         if ('json_valid' == check) {

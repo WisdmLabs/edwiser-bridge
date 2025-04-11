@@ -858,6 +858,9 @@ class Eb_Enrollment_Manager {
 			if ( \app\wisdmlabs\edwiserBridge\is_moodle_exception( $response ) ) {
 				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/message.php';
 				$response_array['html'] = __( 'Please complete the Email configuration in Moodle or disable "Welcome message for new course enrolments" in Moodle from Site Administration > ', 'edwiser-bridge'). '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Messaging', 'edwiser-bridge' ) . '</a>';
+				if ( isset( $_POST['is_diagnostic_run'] ) ) {
+					$response_array['html'] = sprintf(__( 'Please navigate to %s Test Enrollment%s for more details on this issue.', 'edwiser-bridge' ), '<a href="' . admin_url('admin.php?page=eb-settings&tab=connection&section=enrollment') . '" target="_blank">', '</a>');
+				}
 			}
 		}
 		echo wp_json_encode( $response_array );
