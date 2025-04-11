@@ -9,6 +9,7 @@ import CourseMeta, { CourseMetaSkeleton } from './components/course-meta';
 import RecommendedCourses, {
   RecommendedCoursesSkeleton,
 } from './components/recommended-courses';
+import { decodeHTMLEntities } from './utils';
 
 function CourseDescription({ courseId, showRecommendedCourses }) {
   const [course, setCourse] = useState();
@@ -40,7 +41,7 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
         {isLoading ? (
           <Skeleton width={320} height={32} />
         ) : (
-          <h1 className="eb-title">{__(course?.title)}</h1>
+          <h1 className="eb-title">{__(decodeHTMLEntities(course?.title))}</h1>
         )}
         <div className="eb-course-desc">
           <div className="eb-course-desc__details">
@@ -70,7 +71,7 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
           {isLoading ? (
             <CourseContentSkeleton />
           ) : (
-            <CourseContent content={course?.content} />
+            course?.content && <CourseContent content={course?.content} />
           )}
         </div>
         {isLoading ? (
