@@ -109,6 +109,7 @@ if ( ! class_exists( 'Eb_Pro_Plugins_Settings' ) ) {
 				$bridge_pro = false;
 			}
 			require_once $plugin_path . 'partials/html-pro-featuers.php';
+			require_once $plugin_path . 'partials/html-impact-section.php';
 		}
 
 		/**
