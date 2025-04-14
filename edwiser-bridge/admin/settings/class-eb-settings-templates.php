@@ -111,6 +111,25 @@ if (! class_exists('Eb_Settings_Templates')) {
                     $option_value = isset($_POST['eb_enabled_templates'][$template]) ? '1' : '0';
                     update_option($option_name, $option_value);
                 }
+                if ( class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false) ) {
+                    $license_key = get_option('edd_edwiser_bridge_pro_license_key');
+                    $args = array(
+                        'website_url' => home_url(),
+                        'license_key' => $license_key,
+                        'shop'  => isset($_POST['eb_enabled_templates']['shop']) ? 'yes' : 'no',
+                        'cart'  => isset($_POST['eb_enabled_templates']['cart']) ? 'yes' : 'no',
+                        'product'  => isset($_POST['eb_enabled_templates']['single_product']) ? 'yes' : 'no',
+                        'thank_you'  => isset($_POST['eb_enabled_templates']['thank_you']) ? 'yes' : 'no',
+                    );
+                    $edd_api_url = 'https://edwiser.org/wp-json/bridge-settings/v1/settings';
+                    $response = wp_remote_post($edd_api_url, array(
+                        'body' => $args,
+                        'method' => 'POST',
+                        'timeout'     => 60,
+                        'sslverify'   => false,
+                        'blocking' => false,
+                    ));
+                }
             }
         }
 
