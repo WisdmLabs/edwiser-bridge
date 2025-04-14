@@ -519,7 +519,8 @@ class Eb_User_Manager {
 	}
 
 	public function eb_disable_checkout_user_creation( $disable ) {
-		if( defined('MDL_DISABLE_CHECKOUT_USER_CREATION') && MDL_DISABLE_CHECKOUT_USER_CREATION ) {
+		$eb_general = get_option( 'eb_woo_int_settings' );
+		if ( isset($eb_general['wi_enable_moodle_user_creation']) && 'no' === $eb_general['wi_enable_moodle_user_creation'] ) {
 			// Check if we're in the checkout process
 			if ( function_exists( 'is_checkout' ) && is_checkout() ) {
 				// Get the current order
