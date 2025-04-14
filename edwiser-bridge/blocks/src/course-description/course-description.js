@@ -29,6 +29,10 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
         console.error('Error fetching course:', error);
       } finally {
         setIsLoading(false);
+        setTimeout(() => {
+          const event = new CustomEvent('eb_course_btn_loaded');
+          window.dispatchEvent(event);
+        }, 1000);
       }
     };
 
@@ -59,7 +63,9 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
                 courseCategory={course?.category}
                 courseAccess={
                   course?.course_expiry
-                    ? course?.course_expires_after_days + ' Days'
+                    ? course?.status === 'enrolled'
+                      ? course?.course_expires_after_days + ' Days Left'
+                      : course?.course_expires_after_days + ' Days'
                     : 'Lifetime'
                 }
                 courseStatus={course?.status}

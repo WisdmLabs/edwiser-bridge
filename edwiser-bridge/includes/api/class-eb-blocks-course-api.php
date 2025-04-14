@@ -1,5 +1,6 @@
 <?php
 
+use app\wisdmlabs\edwiserBridge\Eb_Enrollment_Manager;
 use app\wisdmlabs\edwiserBridge\Eb_Payment_Manager;
 
 use function app\wisdmlabs\edwiserBridge\edwiser_bridge_instance;
@@ -392,7 +393,7 @@ class EdwiserBridge_Blocks_Course_API
                     'id'        => $course->ID,
                     'title'     => $course->post_title,
                     'link'      => get_permalink($course->ID),
-                    'excerpt'   => $course_data['short_description'],
+                    'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
                     'category'  => $category['name'],
                     'thumbnail' => $course_data['thumb_url'],
                     'price'     => [
@@ -487,6 +488,8 @@ class EdwiserBridge_Blocks_Course_API
             $status = 'enrolled';
         }
 
+        $remaining_access = Eb_Enrollment_Manager::access_remianing($user_id, $course->ID);
+
         $response_data = [
             'id' => $course->ID,
             'title' => get_the_title($course),
@@ -495,7 +498,8 @@ class EdwiserBridge_Blocks_Course_API
             'permalink' => get_permalink($course->ID),
             'thumbnail' => $course_data['thumb_url'],
             'course_expiry' => isset($course_options['course_expirey']) && $course_options['course_expirey'] === 'yes',
-            'course_expires_after_days' => $course_options['num_days_course_access'] ?? 0,
+            'course_expires_after_days' => is_user_logged_in() && $is_enrolled && '0000-00-00 00:00:00' !== $remaining_access ? $remaining_access : $course_options['num_days_course_access'],
+            'remaining_access' => $remaining_access,
             'course_closed_url' => $course_options['course_closed_url'] ?? '',
             'status' => $status,
             'price' => [
@@ -600,7 +604,7 @@ class EdwiserBridge_Blocks_Course_API
                 'id'        => $rec_course->ID,
                 'title'     => $rec_course->post_title,
                 'link'      => get_permalink($rec_course->ID),
-                'excerpt'   => $rec_course_data['short_description'] ?? '',
+                'excerpt'   =>  !empty($rec_course_data['short_description']) ? $rec_course_data['short_description'] : wp_strip_all_tags(html_entity_decode($rec_course->post_content)),
                 'category'  => !empty($rec_course_data['categories']) ? reset($rec_course_data['categories']) : 'Uncategorized',
                 'thumbnail' => $rec_course_data['thumb_url'] ?? '',
                 'price'     => [
