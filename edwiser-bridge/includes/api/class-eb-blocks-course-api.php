@@ -243,7 +243,7 @@ class EdwiserBridge_Blocks_Course_API
                 'id'        => $course->ID,
                 'title'     => $course->post_title,
                 'link'      => get_permalink($course->ID),
-                'excerpt'   => $course_data['short_description'],
+                'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
                 'category'  => !empty($course_data['categories']) ? html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8') : 'Uncategorized',
                 'thumbnail' =>  $course_data['thumb_url'],
                 'price'     => [
