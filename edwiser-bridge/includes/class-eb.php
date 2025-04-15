@@ -319,6 +319,10 @@ class EdwiserBridge {
 
 		require_once $plugin_path . 'includes/class-eb-manage-order-refund.php';
 
+		/**
+		 * The classes responsible for Gutenberg blocks.
+		 */
+		require_once $plugin_path . 'includes/class-eb-blocks.php';
 	}
 
 	/**
@@ -358,17 +362,14 @@ class EdwiserBridge {
 		require_once $plugin_path . 'public/shortcodes/class-eb-shortcode-my-courses.php';
 
 		/**
-		 * Tha classes responsible for Gutenberg blocks.
+		 * Register Gutenberg blocks API.
 		 */
-		require_once $plugin_path . 'includes/class-eb-blocks.php';
-
 		require_once $plugin_path . 'includes/api/class-eb-blocks-course-api.php';
 
 		/**
 		 * The class responsible for handling frontend forms, specifically login & registration forms.
 		 */
 		require_once $plugin_path . 'public/class-eb-frontend-form-handler.php';
-
 	}
 
 	/**
