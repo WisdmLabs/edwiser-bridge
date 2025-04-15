@@ -195,3 +195,8 @@ if ( ! function_exists( 'eb_fs' ) ) {
     // Signal that SDK was initiated.
     do_action( 'eb_fs_loaded' );
 }
+
+/**
+ * The classes responsible for Gutenberg blocks.
+ */
+require_once $plugin_path . 'includes/class-eb-blocks.php';

@@ -100,7 +100,7 @@
     border-radius: 1rem;
     border: 1px solid #e5e5e5;
     padding: 1.5em 1.5em 2em;
-    margin: 0 auto;
+    margin: 0 auto !important;
   }
 
   .eb-course-desc {
@@ -215,10 +215,10 @@
 
             .suspended {
               width: max-content;
-              background: hsl(183, 9%, 55%, 0.1);
+              background: #dd14051a;
               border-radius: 4px;
               padding: 4px 12px;
-              color: #819596;
+              color: #dd1405;
               font-size: 14px;
               font-weight: 700;
               line-height: 20px;

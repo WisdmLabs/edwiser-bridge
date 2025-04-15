@@ -318,11 +318,6 @@ class EdwiserBridge {
 		require_once $plugin_path . 'includes/class-eb-order-history-meta.php';
 
 		require_once $plugin_path . 'includes/class-eb-manage-order-refund.php';
-
-		/**
-		 * The classes responsible for Gutenberg blocks.
-		 */
-		require_once $plugin_path . 'includes/class-eb-blocks.php';
 	}
 
 	/**

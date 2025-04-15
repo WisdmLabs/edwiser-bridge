@@ -449,8 +449,6 @@ class EdwiserBridge_Blocks_Course_API
             return new WP_Error('no_course', __('Course not found', 'edwiser-bridge'), ['status' => 404]);
         }
 
-        $single_course_data = apply_filters('eb_content_single_course_before', $course_id);
-
         $enrolled_courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses();
         $is_enrolled = in_array($course->ID, $enrolled_courses);
         $course_data = apply_filters('eb_content_course_before', $course->ID, [], $is_enrolled);
@@ -481,8 +479,9 @@ class EdwiserBridge_Blocks_Course_API
 
         $course_cta = wp_kses($course_cta_html, \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags());
 
+        $is_user_suspended = \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID);
         $status = null;
-        if (isset($single_course_data['suspended']) && $single_course_data['suspended']) {
+        if ($is_user_suspended) {
             $status = 'suspended';
         } elseif ($is_enrolled) {
             $status = 'enrolled';
@@ -506,7 +505,6 @@ class EdwiserBridge_Blocks_Course_API
                 'amount' => $price_info['amount'],
                 'currency' => $price_info['currency'],
                 'type' => $course_data['course_price_type'] ?? '',
-                'enrolled' => $is_enrolled,
                 'originalAmount' => null,
             ],
             'course_cta' => $course_cta,
