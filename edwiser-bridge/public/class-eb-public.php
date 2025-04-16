@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -14,14 +15,15 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
 /**
  * Eb_Public class.
  */
-class Eb_Public {
+class Eb_Public
+{
 
 
 	/**
@@ -47,7 +49,8 @@ class Eb_Public {
 	 * @param string $plugin_name The name of the plugin.
 	 * @param string $version     The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 	}
@@ -57,7 +60,8 @@ class Eb_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function public_enqueue_styles() {
+	public function public_enqueue_styles()
+	{
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -72,7 +76,7 @@ class Eb_Public {
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		// Loading dasicons.
-		wp_enqueue_style( 'dashicons' );
+		wp_enqueue_style('dashicons');
 
 		wp_enqueue_style(
 			$this->plugin_name . '_font_awesome',
@@ -85,7 +89,7 @@ class Eb_Public {
 		wp_enqueue_style(
 			$this->plugin_name,
 			$eb_plugin_url . 'public/assets/css/eb-public.css',
-			array( $this->plugin_name . '_font_awesome' ),
+			array($this->plugin_name . '_font_awesome'),
 			$this->version,
 			'all'
 		);
@@ -110,7 +114,8 @@ class Eb_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function public_enqueue_scripts() {
+	public function public_enqueue_scripts()
+	{
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -123,20 +128,20 @@ class Eb_Public {
 		 * class.
 		 */
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
-		$nonce         = wp_create_nonce( 'public_js_nonce' );
-		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'jquery-ui-dialog' );
+		$nonce         = wp_create_nonce('public_js_nonce');
+		wp_enqueue_script('jquery-ui-core');
+		wp_enqueue_script('jquery-ui-dialog');
 		wp_enqueue_script(
 			$this->plugin_name,
 			$eb_plugin_url . 'public/assets/js/eb-public.js',
-			array( 'jquery', 'jquery-ui-dialog' ),
+			array('jquery', 'jquery-ui-dialog'),
 			$this->version,
 			false
 		);
 		wp_register_script(
 			$this->plugin_name . '-edit-user-profile',
 			$eb_plugin_url . 'public/assets/js/edit-user-profile.js',
-			array( 'jquery' ),
+			array('jquery'),
 			$this->version,
 			false
 		);
@@ -144,14 +149,14 @@ class Eb_Public {
 			$this->plugin_name . '-edit-user-profile',
 			'ebEditProfile',
 			array(
-				'default' => __( '- Select Country -', 'edwiser-bridge' ),
+				'default' => __('- Select Country -', 'edwiser-bridge'),
 			)
 		);
 
 		wp_enqueue_script(
 			$this->plugin_name . '-ui-block',
 			$eb_plugin_url . 'public/assets/js/jquery-blockui-min.js',
-			array( 'jquery' ),
+			array('jquery'),
 			$this->version,
 			false
 		);
@@ -159,7 +164,7 @@ class Eb_Public {
 			$this->plugin_name,
 			'eb_public_js_object',
 			array(
-				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
+				'ajaxurl'          => admin_url('admin-ajax.php'),
 				'nonce'            => $nonce,
 				'msg_val_fn'       => __("The field 'First Name' cannot be left blank", 'edwiser-bridge'),
 				'msg_val_ln'       => __("The field 'Last Name' cannot be left blank", 'edwiser-bridge'),
@@ -176,25 +181,25 @@ class Eb_Public {
 			$this->plugin_name,
 			'ebDataTable',
 			array(
-				'search'          => __( 'Search:', 'edwiser-bridge' ),
-				'all'             => __( 'All', 'edwiser-bridge' ),
-				'sEmptyTable'     => __( 'No data available in table', 'edwiser-bridge' ),
-				'sLoadingRecords' => __( 'Loading...', 'edwiser-bridge' ),
-				'sSearch'         => __( 'Search', 'edwiser-bridge' ),
-				'sZeroRecords'    => __( 'No matching records found', 'edwiser-bridge' ),
-				'sProcessing'     => __( 'Processing...', 'edwiser-bridge' ),
-				'sInfo'           => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'edwiser-bridge' ),
-				'sInfoEmpty'      => __( 'Showing 0 to 0 of 0 entries', 'edwiser-bridge' ),
-				'sInfoFiltered'   => __( 'filtered from _MAX_ total entries', 'edwiser-bridge' ),
+				'search'          => __('Search:', 'edwiser-bridge'),
+				'all'             => __('All', 'edwiser-bridge'),
+				'sEmptyTable'     => __('No data available in table', 'edwiser-bridge'),
+				'sLoadingRecords' => __('Loading...', 'edwiser-bridge'),
+				'sSearch'         => __('Search', 'edwiser-bridge'),
+				'sZeroRecords'    => __('No matching records found', 'edwiser-bridge'),
+				'sProcessing'     => __('Processing...', 'edwiser-bridge'),
+				'sInfo'           => __('Showing _START_ to _END_ of _TOTAL_ entries', 'edwiser-bridge'),
+				'sInfoEmpty'      => __('Showing 0 to 0 of 0 entries', 'edwiser-bridge'),
+				'sInfoFiltered'   => __('filtered from _MAX_ total entries', 'edwiser-bridge'),
 				'sInfoPostFix'    => '',
-				'sInfoThousands'  => __( ',', 'edwiser-bridge' ),
-				'sLengthMenu'     => __( 'Show _MENU_ entries', 'edwiser-bridge' ),
-				'sFirst'          => __( 'First', 'edwiser-bridge' ),
-				'sLast'           => __( 'Last', 'edwiser-bridge' ),
-				'sNext'           => __( 'Next', 'edwiser-bridge' ),
-				'sPrevious'       => __( 'Previous', 'edwiser-bridge' ),
-				'sSortAscending'  => __( ': activate to sort column ascending', 'edwiser-bridge' ),
-				'sSortDescending' => __( ': activate to sort column descending', 'edwiser-bridge' ),
+				'sInfoThousands'  => __(',', 'edwiser-bridge'),
+				'sLengthMenu'     => __('Show _MENU_ entries', 'edwiser-bridge'),
+				'sFirst'          => __('First', 'edwiser-bridge'),
+				'sLast'           => __('Last', 'edwiser-bridge'),
+				'sNext'           => __('Next', 'edwiser-bridge'),
+				'sPrevious'       => __('Previous', 'edwiser-bridge'),
+				'sSortAscending'  => __(': activate to sort column ascending', 'edwiser-bridge'),
+				'sSortDescending' => __(': activate to sort column descending', 'edwiser-bridge'),
 			)
 		);
 
@@ -202,7 +207,7 @@ class Eb_Public {
 		wp_enqueue_script(
 			'wdmdatatablejs',
 			$eb_plugin_url . 'public/assets/js/datatable.js',
-			array( 'jquery' ),
+			array('jquery'),
 			$this->version,
 			false
 		);
@@ -210,12 +215,12 @@ class Eb_Public {
 		wp_register_script(
 			'eb_paypal_js',
 			$eb_plugin_url . 'public/assets/js/eb-paypal.js',
-			array( 'jquery' ),
+			array('jquery'),
 			$this->version,
 			false
 		);
 
-		if ( \app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type() ) {
+		if (\app\wisdmlabs\edwiserBridge\wdm_eb_recaptcha_type()) {
 			wp_register_script(
 				'eb_captcha',
 				'https://www.google.com/recaptcha/api.js',
@@ -223,7 +228,7 @@ class Eb_Public {
 				$this->version,
 				true
 			);
-			wp_enqueue_script( 'eb_captcha' );
+			wp_enqueue_script('eb_captcha');
 		}
 	}
 
@@ -233,13 +238,14 @@ class Eb_Public {
 	 *
 	 * @since    1.2.0
 	 */
-	public function after_setup_theme() {
-		add_theme_support( 'post-thumbnails' );
+	public function after_setup_theme()
+	{
+		add_theme_support('post-thumbnails');
 
 		// Custom sized thumbnails - single course page.
-		add_image_size( 'course_single', 600, 450, true );
+		add_image_size('course_single', 600, 450, true);
 
 		// Custom sized thumbnails - archive course page.
-		add_image_size( 'course_archive', 200, 150, true );
+		add_image_size('course_archive', 200, 150, true);
 	}
 }
