@@ -363,7 +363,7 @@ class Eb_Post_Types {
 					'label'       => __( 'Expire Access After (days)', 'edwiser-bridge' ),
 					'description' => __( 'Number of days the course is accessible', 'edwiser-bridge' ),
 					'type'        => 'number',
-					'default'     => '',
+					'default'     => 30,
 				),
 				'course_short_description' => array(
 					'label'       => __( 'Short Description', 'edwiser-bridge' ),

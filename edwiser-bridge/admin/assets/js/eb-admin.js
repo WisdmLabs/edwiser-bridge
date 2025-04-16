@@ -1210,6 +1210,9 @@
         $("#course_expirey").change(function () {
             if ($(this).prop("checked") == true) {
                 $('#eb_course_num_days_course_access').show();
+                if ($('#num_days_course_access').val() == '' ) {
+                    $('#num_days_course_access').val(30);
+                }
                 $('#eb_course_course_expiry_action').show();
             } else {
                 $('#eb_course_course_expiry_action').hide();
