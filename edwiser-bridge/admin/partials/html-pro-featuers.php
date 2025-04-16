@@ -94,8 +94,8 @@ if ( count( $this->plugin_licensing_data ) < 5 ) {
 				<img class="eb-pro-upgrade-plugin-notice-img eb-pro-p-b-0" src="<?php echo esc_url( \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url() ); ?>/admin/assets/images/eb-pro-banner.svg" alt="">
 				<div class="eb-pro-upgrade-plugin-notice-content">
 					<h1><?php esc_html_e( 'It seems that you have not purchased Edwiser Bridge Pro plugin.', 'edwiser-bridge' ); ?></h1>
-					<p><?php echo sprintf( esc_html__( 'To get access to all the Edwiser Bridge Pro features consider %s', 'edwiser-bridge' ), '<a href="#">' . esc_html__( 'Upgrading to Pro', 'edwiser-bridge' ) . '</a>' ); // @codingStandardsIgnoreLine ?></p>
-					<p><a href="#"><?php esc_html_e( 'Refer here', 'edwiser-bridge' ); ?></a><?php esc_html_e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
+					<p><?php echo sprintf( esc_html__( 'To get access to all the Edwiser Bridge Pro features consider %s', 'edwiser-bridge' ), '<a href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=profeatures_banner&utm_campaign=wordpress_bridge_listing" target="_blank">' . esc_html__( 'Upgrading to Pro', 'edwiser-bridge' ) . '</a>' ); // @codingStandardsIgnoreLine ?></p>
+					<p><a href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=profeatures_banner&utm_campaign=wordpress_bridge_listing" target="_blank"><?php esc_html_e( 'Refer here', 'edwiser-bridge' ); ?></a><?php esc_html_e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
 				</div>
 			</div>
 			<?php
@@ -116,8 +116,8 @@ if ( count( $this->plugin_licensing_data ) < 5 ) {
 					</defs>
 				</svg>
 				<div class="eb-pro-upgrade-plugin-notice-content">
-					<p><?php echo sprintf( esc_html__( 'Based on your %s it seems that you have purchased only the above mentioned Edwiser Bridge Add-on plugin(s). To get access to all the Edwiser Bridge Pro feature consider %s', 'edwiser-bridge' ), '<a href="#">' . esc_html__( 'license key', 'edwiser-bridge' ) . '</a>', '<a href="#">' . esc_html__( 'Upgrading to Pro', 'edwiser-bridge' ) . '</a>' ); // @codingStandardsIgnoreLine ?></p>
-					<p><a href="#"><?php esc_html_e( 'Refer here', 'edwiser-bridge' ); ?></a><?php esc_html_e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
+					<p><?php echo sprintf( esc_html__( 'Based on your %s it seems that you have purchased only the above mentioned Edwiser Bridge Add-on plugin(s). To get access to all the Edwiser Bridge Pro feature consider %s', 'edwiser-bridge' ), '<a href="#">' . esc_html__( 'license key', 'edwiser-bridge' ) . '</a>', '<a href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=profeatures_banner&utm_campaign=wordpress_bridge_listing">' . esc_html__( 'Upgrading to Pro', 'edwiser-bridge' ) . '</a>' ); // @codingStandardsIgnoreLine ?></p>
+					<p><a href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=profeatures_banner&utm_campaign=wordpress_bridge_listing" target="_blank"><?php esc_html_e( 'Refer here', 'edwiser-bridge' ); ?></a><?php esc_html_e( ' if you like to learn more about the Edwiser Bridge Pro', 'edwiser-bridge' ); ?></p>
 				</div>
 			</div>
 			<?php
@@ -133,6 +133,22 @@ if ( count( $this->plugin_licensing_data ) < 5 ) {
 				if( in_array( $plugin_single['item_name'], $this->plugin_licensing_data ) ) { // @codingStandardsIgnoreLine
 					continue;
 				}
+				$upgrade_to_pro = '#';
+				if ( 'Selective Synchronization' == $plugin_single['item_name'] ) {
+					$upgrade_to_pro = 'https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=selective_sync&utm_campaign=wordpress_bridge_listing';
+				}
+				if ( 'Bulk Purchase' == $plugin_single['item_name'] ) {
+					$upgrade_to_pro = 'https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=bulk_purchase&utm_campaign=wordpress_bridge_listing';
+				}
+				if ( 'WooCommerce Integration' == $plugin_single['item_name'] ) {
+					$upgrade_to_pro = 'https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=woocommerce&utm_campaign=wordpress_bridge_listing';
+				}
+				if ( 'Edwiser Bridge Single Sign On' == $plugin_single['item_name'] ) {
+					$upgrade_to_pro = 'https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=single_sign_on&utm_campaign=wordpress_bridge_listing';
+				}
+				if ( 'Edwiser Bridge Custom Fields' == $plugin_single['item_name'] ) {
+					$upgrade_to_pro = 'https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=custom_fields&utm_campaign=wordpress_bridge_listing';
+				}
 				// create card for each plugin with activation/deactivation button.
 				?>
 				<div class="eb-pro-upgrade-plugin-card">
@@ -143,7 +159,7 @@ if ( count( $this->plugin_licensing_data ) < 5 ) {
 						<?php echo esc_attr( $plugin_single['description'] ); ?>
 					</div>
 					<div class="eb-pro-plugin-card-footer">
-						<a class="eb-pro-upgrade-to-pro-btn" href="#"><?php esc_attr_e( 'Upgrade to PRO', 'edwiser-bridge' ); ?></a>
+						<a class="eb-pro-upgrade-to-pro-btn" href="<?php echo esc_url( $upgrade_to_pro ); ?>" target="_blank"><?php esc_attr_e( 'Upgrade to PRO', 'edwiser-bridge' ); ?></a>
 					</div>
 				</div>
 				<?php
