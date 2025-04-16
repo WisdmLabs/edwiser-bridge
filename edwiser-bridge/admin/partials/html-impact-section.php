@@ -265,9 +265,11 @@
                 </tr>
             </table>
         </div>
+        <?php if ( ! class_exists( '\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro' ) ) { ?>
         <div class="ebsection">
             <a href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=impact_section&utm_campaign=wordpress_bridge_listing" class="eb-pro-upgrade-to-pro-btn collapsed-btn" target="_blank">Upgrade to PRO</a>
         </div>
+        <?php } ?>
     </div>
     <div class="eb-show-more">
         Show more
