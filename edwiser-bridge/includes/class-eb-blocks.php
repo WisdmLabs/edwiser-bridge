@@ -6,7 +6,7 @@ class EdwiserBridge_Blocks
     {
         add_action('init', array($this, 'eb_register_blocks'));
         add_action('wp_enqueue_scripts', array($this, 'eb_woo_storeapi_nonce'));
-        add_filter('block_categories', array($this, 'eb_register_edwiser_category'));
+        add_filter('block_categories_all', array($this, 'eb_register_edwiser_category'));
     }
 
     public static function eb_register_blocks()
