@@ -94,7 +94,7 @@
     }
 
     if (getUrlParameter('auto_enroll') === 'true') {
-      if (eb_public_js_object.eb_single_course_override == 1) {
+      if (eb_public_js_object.eb_single_course_override === '1') {
         $(window).on('eb_course_btn_loaded', function () {
           $.blockUI({
             message: eb_public_js_object.msg_processing,
@@ -213,6 +213,13 @@
      *
      */
     $('body').on('click', '.eb-paid-course', function (e) {
+      if (
+        getUrlParameter('auto_enroll') === 'true' &&
+        eb_public_js_object.eb_single_course_override === '1'
+      ) {
+        return;
+      }
+
       placeOrder(0);
     });
   });
