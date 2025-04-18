@@ -25,7 +25,11 @@ function Course({ course }) {
           </div>
           <div className="course-details">
             <div className="course-price">
-              <CoursePrice price={course.price} />
+              {course?.suspended ? (
+                <span className="suspended">{__('Suspended')}</span>
+              ) : (
+                <CoursePrice price={course.price} />
+              )}
             </div>
             <a href={course.link} className="btn">
               View Details

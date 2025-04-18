@@ -108,6 +108,9 @@ class EdwiserBridge_Blocks_Course_API
         $category_per_page = isset($request['category_per_page']) ? absint($request['category_per_page']) : 0;
         $categories_filter = isset($request['categories']) ? sanitize_text_field($request['categories']) : '';
 
+        $user_id = apply_filters('determine_current_user', false);
+        wp_set_current_user($user_id);
+
         // get the taxonomy used for course categories
         $taxonomy_names = get_object_taxonomies('eb_course');
         $category_taxonomy = '';
@@ -247,6 +250,7 @@ class EdwiserBridge_Blocks_Course_API
                 'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
                 'category'  => !empty($course_data['categories']) ? html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8') : 'Uncategorized',
                 'thumbnail' =>  $course_data['thumb_url'],
+                'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                 'price'     => [
                     'amount'        => $price_info['amount'],
                     'currency'      => $price_info['currency'],
@@ -301,6 +305,9 @@ class EdwiserBridge_Blocks_Course_API
         $categorized_courses = [];
         $selected_categories = [];
         $enrolled_courses = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses();
+
+        $user_id = apply_filters('determine_current_user', false);
+        wp_set_current_user($user_id);
 
         // Determine which categories to show
         if (!empty($selected_category)) {
@@ -396,6 +403,7 @@ class EdwiserBridge_Blocks_Course_API
                     'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
                     'category'  => $category['name'],
                     'thumbnail' => $course_data['thumb_url'],
+                    'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                     'price'     => [
                         'amount'        => $price_info['amount'],
                         'currency'      => $price_info['currency'],
@@ -548,6 +556,9 @@ class EdwiserBridge_Blocks_Course_API
             return [];
         }
 
+        $user_id = apply_filters('determine_current_user', false);
+        wp_set_current_user($user_id);
+
         $query_args = [];
 
         // Default recommendation based on category
@@ -605,6 +616,7 @@ class EdwiserBridge_Blocks_Course_API
                 'excerpt'   =>  !empty($rec_course_data['short_description']) ? $rec_course_data['short_description'] : wp_strip_all_tags(html_entity_decode($rec_course->post_content)),
                 'category'  => !empty($rec_course_data['categories']) ? reset($rec_course_data['categories']) : 'Uncategorized',
                 'thumbnail' => $rec_course_data['thumb_url'] ?? '',
+                'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $rec_course->ID) == true,
                 'price'     => [
                     'amount'        => $price_info['amount'],
                     'currency'      => $price_info['currency'],

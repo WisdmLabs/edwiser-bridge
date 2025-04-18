@@ -566,6 +566,18 @@
           font-weight: 700;
           line-height: 20px;
         }
+
+        .suspended {
+          width: max-content;
+          background: #dd14051a;
+          border-radius: 4px;
+          padding: 4px 12px;
+          color: #dd1405;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 20px;
+          text-transform: capitalize;
+        }
       }
 
       .btn {
