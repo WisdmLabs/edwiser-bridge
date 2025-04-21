@@ -102,7 +102,7 @@ if (! class_exists('Eb_Settings_Templates')) {
             global $current_section;
             $settings = $this->get_settings($current_section);
             Eb_Admin_Settings::save_fields($settings);
-            if ( 'elementor-templates' !== $current_section ) {
+            if ('elementor-templates' !== $current_section) {
                 update_option('eb_enabled_templates', $_POST['eb_enabled_templates']);
 
                 $templates = array('shop', 'cart', 'single_product', 'thank_you', 'single_course', 'all_courses');
@@ -111,7 +111,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                     $option_value = isset($_POST['eb_enabled_templates'][$template]) ? '1' : '0';
                     update_option($option_name, $option_value);
                 }
-                if ( class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false) ) {
+                if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false)) {
                     $license_key = get_option('edd_edwiser_bridge_pro_license_key');
                     $args = array(
                         'website_url' => home_url(),
@@ -143,7 +143,8 @@ if (! class_exists('Eb_Settings_Templates')) {
          */
         public function get_settings($current_section = '')
         {
-            if ( 'elementor-templates' === $current_section ) {
+            if ('elementor-templates' === $current_section) {
+                $settings = array();
             } else {
                 $template_woo_pages    = get_option('eb_woo_gutenberg_pages', array());
                 $template_course_pages    = get_option('eb_gutenberg_pages', array());

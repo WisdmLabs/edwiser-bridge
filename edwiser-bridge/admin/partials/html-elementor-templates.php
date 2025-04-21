@@ -145,7 +145,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                                     'template' => $key,
                                                     'nonce' => wp_create_nonce('eb_pro_elementor_template')
                                                 ),
-                                                admin_url('admin.php?page=eb-settings&tab=elementor_template_settings')
+                                                admin_url('admin.php?page=eb-settings&tab=templates&section=elementor-templates')
                                             );
                                             ?>
                                             <span><?php esc_html_e('Are you sure you want to ‘Restore’ this page?', 'edwiser-bridge-pro'); ?></span>
@@ -166,7 +166,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                                     'template' => $key,
                                                     'nonce' => wp_create_nonce('eb_pro_elementor_template')
                                                 ),
-                                                admin_url('admin.php?page=eb-settings&tab=elementor_template_settings')
+                                                admin_url('admin.php?page=eb-settings&tab=templates&section=elementor-templates')
                                             );
                                             ?>
                                             <span><?php esc_html_e('Are you sure you want to create this template?', 'edwiser-bridge-pro'); ?></span>
