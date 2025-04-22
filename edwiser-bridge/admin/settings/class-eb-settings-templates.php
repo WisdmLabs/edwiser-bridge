@@ -160,14 +160,6 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'template_id' => $template_woo_pages['eb_pro_shop_page_id'],
                             'page_option' => 'eb_pro_shop_page_id',
                         ),
-                        'cart' => array(
-                            'title' => __('Cart page', 'edwiser-bridge'),
-                            'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
-                            'img'   => 'cart.png',
-                            'is_pro' => true,
-                            'template_id' => $template_woo_pages['eb_pro_cart_page_id'],
-                            'page_option' => 'eb_pro_cart_page_id',
-                        ),
                         'single_product' => array(
                             'title' => __('Single product page (Product landing page)', 'edwiser-bridge'),
                             'desc'  => __('A structured layout to showcase course details effectively.', 'edwiser-bridge'),
@@ -175,6 +167,14 @@ if (! class_exists('Eb_Settings_Templates')) {
                             'is_pro' => true,
                             'page_option' => 'eb_pro_single_product_page_id',
                             'template_id' => $template_woo_pages['eb_pro_single_product_page_id'],
+                        ),
+                        'cart' => array(
+                            'title' => __('Cart page', 'edwiser-bridge'),
+                            'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
+                            'img'   => 'cart.png',
+                            'is_pro' => true,
+                            'template_id' => $template_woo_pages['eb_pro_cart_page_id'],
+                            'page_option' => 'eb_pro_cart_page_id',
                         ),
                         'thank_you' => array(
                             'title' => __('Thank you page template', 'edwiser-bridge'),
