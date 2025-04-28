@@ -60,7 +60,7 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
               <CourseMetaSkeleton />
             ) : (
               <CourseMeta
-                courseCategory={course?.category}
+                courseCategory={course?.categories}
                 courseAccess={
                   course?.course_expiry
                     ? course?.status === 'enrolled'

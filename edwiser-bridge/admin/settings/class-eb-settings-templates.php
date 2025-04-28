@@ -149,59 +149,69 @@ if (! class_exists('Eb_Settings_Templates')) {
                 $template_woo_pages    = get_option('eb_woo_gutenberg_pages', array());
                 $template_course_pages    = get_option('eb_gutenberg_pages', array());
 
-                $settings = apply_filters(
-                    'eb_gutenberg_template_settings',
-                    array(
-                        'shop' => array(
-                            'title' => __('Shop page (Product archive page)', 'edwiser-bridge'),
-                            'desc'  => __('A clean, modern shop page for better course browsing.', 'edwiser-bridge'),
-                            'img'   => 'shop-archive.png',
-                            'is_pro' => true,
-                            'template_id' => $template_woo_pages['eb_pro_shop_page_id'],
-                            'page_option' => 'eb_pro_shop_page_id',
-                        ),
-                        'single_product' => array(
-                            'title' => __('Single product page (Product landing page)', 'edwiser-bridge'),
-                            'desc'  => __('A structured layout to showcase course details effectively.', 'edwiser-bridge'),
-                            'img'   => 'single-product.png',
-                            'is_pro' => true,
-                            'page_option' => 'eb_pro_single_product_page_id',
-                            'template_id' => $template_woo_pages['eb_pro_single_product_page_id'],
-                        ),
-                        'cart' => array(
-                            'title' => __('Cart page', 'edwiser-bridge'),
-                            'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
-                            'img'   => 'cart.png',
-                            'is_pro' => true,
-                            'template_id' => $template_woo_pages['eb_pro_cart_page_id'],
-                            'page_option' => 'eb_pro_cart_page_id',
-                        ),
-                        'thank_you' => array(
-                            'title' => __('Thank you page template', 'edwiser-bridge'),
-                            'desc'  => __('Thank you page to enhance the post-enrollment experience.', 'edwiser-bridge'),
-                            'img'   => 'thank-you.png',
-                            'is_pro' => true,
-                            'page_option' => 'eb_pro_thank_you_page_id',
-                            'template_id' => $template_woo_pages['eb_pro_thank_you_page_id'],
-                        ),
-                        'single_course' => array(
-                            'title' => __('Single course page template', 'edwiser-bridge'),
-                            'desc'  => __('Showcase course details, pricing, and description in a clean, structured layout.', 'edwiser-bridge'),
-                            'img'   => 'single-course.png',
-                            'is_pro' => false,
-                            'page_option' => 'eb_single_course_page_id',
-                            'template_id' => $template_course_pages['single_course'],
-                        ),
-                        'all_courses' => array(
-                            'title' => __('All courses page template', 'edwiser-bridge'),
-                            'desc'  => __('Display all available courses in an organized and modern design.', 'edwiser-bridge'),
-                            'img'   => 'course-listing.png',
-                            'is_pro' => false,
-                            'page_option' => 'eb_all_courses_page_id',
-                            'template_id' => $template_course_pages['all_courses'],
-                        ),
+                $settings_items = array();
+
+                $pro_pages = array(
+                    'shop' => array(
+                        'title' => __('Shop page (Product archive page)', 'edwiser-bridge'),
+                        'desc'  => __('A clean, modern shop page for better course browsing.', 'edwiser-bridge'),
+                        'img'   => 'shop-archive.png',
+                        'is_pro' => true,
+                        'template_id' => isset($template_woo_pages['eb_pro_shop_page_id']) ? $template_woo_pages['eb_pro_shop_page_id'] : '',
+                        'page_option' => 'eb_pro_shop_page_id',
+                    ),
+                    'single_product' => array(
+                        'title' => __('Single product page (Product landing page)', 'edwiser-bridge'),
+                        'desc'  => __('A structured layout to showcase course details effectively.', 'edwiser-bridge'),
+                        'img'   => 'single-product.png',
+                        'is_pro' => true,
+                        'page_option' => 'eb_pro_single_product_page_id',
+                        'template_id' => isset($template_woo_pages['eb_pro_single_product_page_id']) ? $template_woo_pages['eb_pro_single_product_page_id'] : '',
+                    ),
+                    'cart' => array(
+                        'title' => __('Cart page', 'edwiser-bridge'),
+                        'desc'  => __('A simplified cart page for a smoother checkout and enrollment process.', 'edwiser-bridge'),
+                        'img'   => 'cart.png',
+                        'is_pro' => true,
+                        'template_id' => isset($template_woo_pages['eb_pro_cart_page_id']) ? $template_woo_pages['eb_pro_cart_page_id'] : '',
+                        'page_option' => 'eb_pro_cart_page_id',
+                    ),
+                    'thank_you' => array(
+                        'title' => __('Thank you page template', 'edwiser-bridge'),
+                        'desc'  => __('Thank you page to enhance the post-enrollment experience.', 'edwiser-bridge'),
+                        'img'   => 'thank-you.png',
+                        'is_pro' => true,
+                        'page_option' => 'eb_pro_thank_you_page_id',
+                        'template_id' => isset($template_woo_pages['eb_pro_thank_you_page_id']) ? $template_woo_pages['eb_pro_thank_you_page_id'] : '',
+                    ),
+                );
+
+                $free_pages = array(
+                    'all_courses' => array(
+                        'title' => __('All courses page template', 'edwiser-bridge'),
+                        'desc'  => __('Display all available courses in an organized and modern design.', 'edwiser-bridge'),
+                        'img'   => 'course-listing.png',
+                        'is_pro' => false,
+                        'page_option' => 'eb_all_courses_page_id',
+                        'template_id' => isset($template_course_pages['all_courses']) ? $template_course_pages['all_courses'] : '',
+                    ),
+                    'single_course' => array(
+                        'title' => __('Single course page template', 'edwiser-bridge'),
+                        'desc'  => __('Showcase course details, pricing, and description in a clean, structured layout.', 'edwiser-bridge'),
+                        'img'   => 'single-course.png',
+                        'is_pro' => false,
+                        'page_option' => 'eb_single_course_page_id',
+                        'template_id' => isset($template_course_pages['single_course']) ? $template_course_pages['single_course'] : '',
                     )
                 );
+
+                if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro')) {
+                    $settings_items = array_merge($pro_pages, $free_pages);
+                } else {
+                    $settings_items = array_merge($free_pages, $pro_pages);
+                }
+
+                $settings = apply_filters('eb_gutenberg_template_settings', $settings_items);
             }
 
             return apply_filters('eb_get_settings_' . $this->_id, $settings, $current_section);

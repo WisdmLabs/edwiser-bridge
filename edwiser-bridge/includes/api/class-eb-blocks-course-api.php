@@ -240,6 +240,15 @@ class EdwiserBridge_Blocks_Course_API
             $is_enrolled = in_array($course->ID, $enrolled_courses);
             $course_data      = apply_filters('eb_content_course_before', $course->ID, array(), $is_enrolled);
 
+            $course_categories = [];
+
+            foreach ($course_data['categories'] as $id => $name) {
+                $course_categories[] = [
+                    'id' => (int)$id,
+                    'name' => $name
+                ];
+            }
+
             // extract price and currency
             $price_info = $this->extract_price_info($course_data['course_price_formatted'] ?? '$ 0');
 
@@ -259,6 +268,7 @@ class EdwiserBridge_Blocks_Course_API
                     'originalAmount' => null,
                 ],
                 'createdAt' => $course->post_date,
+                'categories' => $course_categories,
             );
         }
 
@@ -393,6 +403,15 @@ class EdwiserBridge_Blocks_Course_API
                 $is_enrolled = in_array($course->ID, $enrolled_courses);
                 $course_data = apply_filters('eb_content_course_before', $course->ID, array(), $is_enrolled);
 
+                $course_categories = [];
+
+                foreach ($course_data['categories'] as $id => $name) {
+                    $course_categories[] = [
+                        'id' => (int)$id,
+                        'name' => $name
+                    ];
+                }
+
                 // Extract price and currency
                 $price_info = $this->extract_price_info($course_data['course_price_formatted'] ?? '$ 0');
 
@@ -412,6 +431,7 @@ class EdwiserBridge_Blocks_Course_API
                         'originalAmount' => null,
                     ],
                     'createdAt' => $course->post_date,
+                    'categories' => $course_categories,
                 );
             }
 
@@ -497,6 +517,15 @@ class EdwiserBridge_Blocks_Course_API
 
         $remaining_access = Eb_Enrollment_Manager::access_remianing($user_id, $course->ID);
 
+        $categories = [];
+
+        foreach ($course_data['categories'] as $id => $name) {
+            $categories[] = [
+                'id' => (int)$id,
+                'name' => $name
+            ];
+        }
+
         $response_data = [
             'id' => $course->ID,
             'title' => get_the_title($course),
@@ -519,6 +548,7 @@ class EdwiserBridge_Blocks_Course_API
             'moodle_course_id' => $course_options['moodle_course_id'] ?? 0,
             'show_recommended_courses' => $show_recommended,
             'recommended_courses' => $recommended_courses,
+            'categories' => $categories
         ];
 
         ob_end_clean();
@@ -606,6 +636,15 @@ class EdwiserBridge_Blocks_Course_API
             $is_enrolled = in_array($rec_course->ID, $enrolled_courses);
             $rec_course_data = apply_filters('eb_content_course_before', $rec_course->ID, [], $is_enrolled);
 
+            $rec_course_categories = [];
+
+            foreach ($rec_course_data['categories'] as $id => $name) {
+                $rec_course_categories[] = [
+                    'id' => (int)$id,
+                    'name' => $name
+                ];
+            }
+
             // Extract price information
             $price_info = $this->extract_price_info($rec_course_data['course_price_formatted'] ?? '$ 0');
 
@@ -625,6 +664,7 @@ class EdwiserBridge_Blocks_Course_API
                     'originalAmount' => null,
                 ],
                 'createdAt' => $rec_course->post_date,
+                'categories' => $rec_course_categories,
             ];
         }
 

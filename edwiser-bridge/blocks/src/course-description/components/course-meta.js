@@ -19,15 +19,22 @@ function CourseMeta({
       </div>
       <div className="course-meta__content">
         <div className="course-meta__content-top">
-          <div className="course-meta__category">
-            <div className="label">
-              <Icons.grid />
-              <span>{__('Category')}</span>
+          {courseCategory.length > 0 && (
+            <div className="course-meta__category">
+              <div className="label">
+                <Icons.grid />
+                <span>{__('Category')}</span>
+              </div>
+              <span className="value">
+                {courseCategory.map((category, index) => (
+                  <React.Fragment key={category?.id}>
+                    {__(decodeHTMLEntities(category?.name))}
+                    {index < courseCategory.length - 1 ? ', ' : ''}
+                  </React.Fragment>
+                ))}
+              </span>
             </div>
-            <span className="value">
-              {__(decodeHTMLEntities(courseCategory))}
-            </span>
-          </div>
+          )}
           <div className="course-meta__course-access">
             <div className="label">
               <Icons.clock />

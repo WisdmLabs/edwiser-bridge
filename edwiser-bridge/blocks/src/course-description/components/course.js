@@ -2,6 +2,7 @@ import { Skeleton } from '@mantine/core';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
 import { Icons } from './icons';
+import { decodeHTMLEntities } from '../utils';
 
 function Course({ course }) {
   return (
@@ -13,10 +14,19 @@ function Course({ course }) {
             alt={course.title}
             className="course-thumbnail"
           />
-          <div className="course-category">
-            <Icons.grid />
-            <span>{__(course.category)}</span>
-          </div>
+          {course.categories.length > 0 && (
+            <div className="course-category">
+              <Icons.grid />
+              <span>
+                {course.categories.map((category, index) => (
+                  <React.Fragment key={category?.id}>
+                    {__(decodeHTMLEntities(category?.name))}
+                    {index < course.categories.length - 1 ? ', ' : ''}
+                  </React.Fragment>
+                ))}
+              </span>
+            </div>
+          )}
         </div>
         <div className="course-meta">
           <div className="course-content">
