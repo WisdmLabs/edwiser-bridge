@@ -10,6 +10,7 @@ import RecommendedCourses, {
   RecommendedCoursesSkeleton,
 } from './components/recommended-courses';
 import { decodeHTMLEntities } from './utils';
+import EmptyState from './components/empty-state';
 
 function CourseDescription({ courseId, showRecommendedCourses }) {
   const [course, setCourse] = useState();
@@ -38,6 +39,14 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
 
     fetchCourseById();
   }, [courseId]);
+
+  if (!isLoading && !course) {
+    return (
+      <div className="eb-course-desc__wrapper">
+        <EmptyState />
+      </div>
+    );
+  }
 
   return (
     <MantineProvider>

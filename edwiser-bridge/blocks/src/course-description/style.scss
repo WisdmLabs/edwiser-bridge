@@ -94,6 +94,32 @@
     margin: 0 auto !important;
   }
 
+  .eb-course-desc__empty-state {
+    padding: 6.25em 1.25em;
+
+    .eb-course-desc__empty-state-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+
+      h2 {
+        font-weight: 700;
+        font-size: 2rem;
+        line-height: 1.3;
+        color: #162324;
+      }
+
+      p {
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #273e3f;
+      }
+    }
+  }
+
   .eb-course-desc {
     display: flex;
     flex-direction: column;
