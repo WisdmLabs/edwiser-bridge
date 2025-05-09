@@ -176,6 +176,14 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'template_id' => isset($template_woo_pages['eb_pro_cart_page_id']) ? $template_woo_pages['eb_pro_cart_page_id'] : '',
                         'page_option' => 'eb_pro_cart_page_id',
                     ),
+                    'checkout' => array(
+                        'title' => __('Checkout', 'edwiser-bridge'),
+                        'desc'  => __('A simplified cart page for a smoother checkout process.', 'edwiser-bridge'),
+                        'img'   => 'cart.png',
+                        'is_pro' => true,
+                        'template_id' => isset($template_woo_pages['eb_pro_checkout_page_id']) ? $template_woo_pages['eb_pro_checkout_page_id'] : '',
+                        'page_option' => 'eb_pro_checkout_page_id',
+                    ),
                     'thank_you' => array(
                         'title' => __('Thank you page template', 'edwiser-bridge'),
                         'desc'  => __('Thank you page to enhance the post-enrollment experience.', 'edwiser-bridge'),
