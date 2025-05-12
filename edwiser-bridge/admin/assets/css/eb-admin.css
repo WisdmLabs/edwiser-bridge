@@ -2752,6 +2752,12 @@ input:disabled + .slider {
   margin-top: 20px;
 }
 
+.eb__template-note {
+  padding: 10px;
+  background: hsl(29, 95.1%, 52.4%, 0.1);
+  border-left: 4px solid #f98012;
+}
+
 /* Save changes button */
 .save-changes {
   margin-top: 20px;

@@ -177,9 +177,10 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'page_option' => 'eb_pro_cart_page_id',
                     ),
                     'checkout' => array(
-                        'title' => __('Checkout', 'edwiser-bridge'),
+                        'title' => __('Checkout Page', 'edwiser-bridge'),
                         'desc'  => __('A simplified cart page for a smoother checkout process.', 'edwiser-bridge'),
-                        'img'   => 'cart.png',
+                        'note' => __('Stripe and Paypal payment gateways have been tested and verified to work reliably. For any other gateways, please ensure thorough testing before enabling this template on your site.', 'edwiser-bridge'),
+                        'img'   => 'checkout.png',
                         'is_pro' => true,
                         'template_id' => isset($template_woo_pages['eb_pro_checkout_page_id']) ? $template_woo_pages['eb_pro_checkout_page_id'] : '',
                         'page_option' => 'eb_pro_checkout_page_id',

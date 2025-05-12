@@ -68,7 +68,10 @@ $woo_integration_enabled = (isset($module_data['woo_integration']) && 'active' =
                 <div class="eb__template-content">
                     <h3><?php echo esc_html($template['title']); ?></h3>
                     <p><?php echo esc_html($template['desc']); ?></p>
-
+                    <?php if (isset($template['note'])) : ?>
+                        <p class="eb__template-note"><strong>Note: </strong><?php echo esc_html($template['note']); ?> </p>
+                    <?php endif;
+                    ?>
                     <div class="eb__template-actions">
                         <div class="eb-switch-container">
                             <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
