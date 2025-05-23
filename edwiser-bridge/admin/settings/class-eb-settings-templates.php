@@ -102,14 +102,24 @@ if (! class_exists('Eb_Settings_Templates')) {
             global $current_section;
             $settings = $this->get_settings($current_section);
             Eb_Admin_Settings::save_fields($settings);
+            $checkout_page_alternate = get_option('woocommerce_checkout_page_id', false);
             if ('elementor-templates' !== $current_section) {
                 update_option('eb_enabled_templates', $_POST['eb_enabled_templates']);
 
-                $templates = array('shop', 'cart', 'single_product', 'thank_you', 'single_course', 'all_courses');
+                $templates = array('shop', 'cart', 'checkout', 'single_product', 'thank_you', 'single_course', 'all_courses');
                 foreach ($templates as $template) {
                     $option_name = 'eb_pro_enable_' . $template . '_override';
                     $option_value = isset($_POST['eb_enabled_templates'][$template]) ? '1' : '0';
                     update_option($option_name, $option_value);
+                    if ($template === 'checkout' && '1' == $option_value) {
+                        $woo_gutenberg_pages = get_option('eb_woo_gutenberg_pages', array());
+                        update_option('woocommerce_checkout_page__id_old', $checkout_page_alternate);
+                        update_option('woocommerce_checkout_page_id', $woo_gutenberg_pages['eb_pro_checkout_page_id']);
+                    } elseif ($template === 'checkout' && '0' == $option_value) {
+                        $checkout_page_alternate = get_option('woocommerce_checkout_page__id_old', false);
+                        update_option('woocommerce_checkout_page_id', $checkout_page_alternate);
+                        delete_option('woocommerce_checkout_page__id_old');
+                    }
                 }
                 if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false)) {
                     $license_key = get_option('edd_edwiser_bridge_pro_license_key');
@@ -119,6 +129,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'shop'  => isset($_POST['eb_enabled_templates']['shop']) ? 'yes' : 'no',
                         'cart'  => isset($_POST['eb_enabled_templates']['cart']) ? 'yes' : 'no',
                         'product'  => isset($_POST['eb_enabled_templates']['single_product']) ? 'yes' : 'no',
+                        'checkout'  => isset($_POST['eb_enabled_templates']['checkout']) ? 'yes' : 'no',
                         'thank_you'  => isset($_POST['eb_enabled_templates']['thank_you']) ? 'yes' : 'no',
                     );
                     $edd_api_url = 'https://edwiser.org/wp-json/bridge-settings/v1/settings';

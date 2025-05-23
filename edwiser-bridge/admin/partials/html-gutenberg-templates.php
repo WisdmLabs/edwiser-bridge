@@ -23,6 +23,7 @@ $pages = get_pages(array(
 // Get the currently selected page IDs
 $shop_page_id = get_option('eb_pro_shop_page_id', 0);
 $cart_page_id = get_option('eb_pro_cart_page_id', 0);
+$checkout_page_id = get_option('eb_pro_checkout_page_id', 0);
 
 $eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
 $module_data = get_option('eb_pro_modules_data');
@@ -40,7 +41,7 @@ $woo_integration_enabled = (isset($module_data['woo_integration']) && 'active' =
             $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
             $switch_id = 'switch_' . $key;
             $has_page_dropdown = in_array($key, array());
-            $current_page_id = ($key === 'shop') ? $shop_page_id : (($key === 'cart') ? $cart_page_id : 0);
+            $current_page_id = ($key === 'shop') ? $shop_page_id : (($key === 'cart') ? $cart_page_id : (($key === 'checkout') ? $checkout_page_id : 0));
 
             $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
             $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));
