@@ -20,7 +20,12 @@ function CourseControls({
           value={sortOrder}
           onChange={setSortOrder}
           defaultValue={'Latest'}
-          data={[__('Latest'), __('Oldest'), __('A-Z'), __('Z-A')]}
+          data={[
+            __('Latest', 'edwiser-bridge'),
+            __('Oldest', 'edwiser-bridge'),
+            __('A-Z', 'edwiser-bridge'),
+            __('Z-A', 'edwiser-bridge'),
+          ]}
           allowDeselect={false}
           checkIconPosition="right"
           comboboxProps={{ withinPortal: false }}
@@ -32,7 +37,12 @@ function CourseControls({
           value={selectedCategory}
           onChange={setSelectedCategory}
           defaultValue={'All'}
-          data={[__('All'), ...categories.map((category) => category.name)]}
+          data={[
+            __('All', 'edwiser-bridge'),
+            ...categories.map((category) =>
+              __(category.name, 'edwiser-bridge')
+            ),
+          ]}
           allowDeselect={false}
           checkIconPosition="right"
           comboboxProps={{ withinPortal: false }}
@@ -47,7 +57,7 @@ function CourseControls({
         onChange={(e) => setSearchTerm(e.currentTarget.value)}
         leftSectionPointerEvents="none"
         leftSection={<Icons.search />}
-        placeholder="Search courses"
+        placeholder={__('Search courses', 'edwiser-bridge')}
       />
     </div>
   );

@@ -5,7 +5,9 @@ import React from 'react';
 function CourseContent({ content }) {
   return (
     <div className="eb-course-desc__content">
-      <h2 className="eb-course-desc__content-title">{__('Description')}</h2>
+      <h2 className="eb-course-desc__content-title">
+        {__('Description', 'edwiser-bridge')}
+      </h2>
       <div
         className="eb-course-desc__content-body"
         dangerouslySetInnerHTML={{ __html: content }}

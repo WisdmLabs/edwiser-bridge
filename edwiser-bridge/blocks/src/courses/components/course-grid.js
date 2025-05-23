@@ -8,7 +8,7 @@ function CourseGrid({ courses }) {
       {courses.length > 0 ? (
         courses.map((course) => <Course key={course.ID} course={course} />)
       ) : (
-        <p>{__('No courses found')}</p>
+        <p>{__('No courses found', 'edwiser-bridge')}</p>
       )}
     </div>
   );

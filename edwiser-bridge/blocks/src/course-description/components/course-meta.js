@@ -15,7 +15,7 @@ function CourseMeta({
   return (
     <div className="eb-course-desc__course-meta">
       <div className="course-meta__header">
-        <h3>{__('Details')}</h3>
+        <h3>{__('Details', 'edwiser-bridge')}</h3>
       </div>
       <div className="course-meta__content">
         <div className="course-meta__content-top">
@@ -23,12 +23,12 @@ function CourseMeta({
             <div className="course-meta__category">
               <div className="label">
                 <Icons.grid />
-                <span>{__('Category')}</span>
+                <span>{__('Category', 'edwiser-bridge')}</span>
               </div>
               <span className="value">
                 {courseCategory.map((category, index) => (
                   <React.Fragment key={category?.id}>
-                    {__(decodeHTMLEntities(category?.name))}
+                    {__(decodeHTMLEntities(category?.name), 'edwiser-bridge')}
                     {index < courseCategory.length - 1 ? ', ' : ''}
                   </React.Fragment>
                 ))}
@@ -38,24 +38,26 @@ function CourseMeta({
           <div className="course-meta__course-access">
             <div className="label">
               <Icons.clock />
-              <span>{__('Course access')}</span>
+              <span>{__('Course access', 'edwiser-bridge')}</span>
             </div>
-            <span className="value">{__(courseAccess)}</span>
+            <span className="value">{__(courseAccess, 'edwiser-bridge')}</span>
           </div>
           {(courseStatus === 'enrolled' || courseStatus === 'suspended') && (
             <div className="course-meta__course-status">
               <div className="label">
                 <Icons.status />
-                <span>{__('Status')}</span>
+                <span>{__('Status', 'edwiser-bridge')}</span>
               </div>
               <span className="value">
-                <span className={courseStatus}>{__(courseStatus)}</span>
+                <span className={courseStatus}>
+                  {__(courseStatus, 'edwiser-bridge')}
+                </span>
               </span>
             </div>
           )}
           {courseStatus !== 'enrolled' && coursePrice?.type !== 'closed' && (
             <div className="course-meta__price">
-              <span className="label">{__('Price')}</span>
+              <span className="label">{__('Price', 'edwiser-bridge')}</span>
               <span className="value">
                 <CoursePrice price={coursePrice} />
               </span>

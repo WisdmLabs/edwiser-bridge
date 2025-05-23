@@ -117,7 +117,7 @@ function CourseListing({
       <div className="eb-courses__wrapper">
         {!hideTitle && (
           <h2 className="eb-title" style={{ marginBottom: '16px' }}>
-            {__(pageTitle)}
+            {__(pageTitle, 'edwiser-bridge')}
           </h2>
         )}
         {!hideFilters && (

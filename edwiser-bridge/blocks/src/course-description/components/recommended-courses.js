@@ -10,7 +10,9 @@ function RecommendedCourses({ courses }) {
 
   return (
     <div className="eb-course-desc__recom-courses-wrapper">
-      <h2 className="recom-courses-title">{__('Recommended courses')}</h2>
+      <h2 className="recom-courses-title">
+        {__('Recommended courses', 'edwiser-bridge')}
+      </h2>
       <div className="recom-courses">
         {courses.map((course) => (
           <Course key={course.id} course={course} />

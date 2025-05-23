@@ -13,10 +13,13 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title={__('Courses Settings')} initialOpen={true}>
+        <PanelBody
+          title={__('Courses Settings', 'edwiser-bridge')}
+          initialOpen={true}
+        >
           <fieldset>
             <TextControl
-              label={__('Page Title')}
+              label={__('Page Title', 'edwiser-bridge')}
               type="text"
               value={attributes.pageTitle}
               onChange={(value) => setAttributes({ pageTitle: value })}
@@ -25,7 +28,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '8px' }}>
             <ToggleControl
-              label={__('Hide title')}
+              label={__('Hide title', 'edwiser-bridge')}
               checked={attributes.hideTitle}
               onChange={(value) => setAttributes({ hideTitle: value })}
             />
@@ -33,7 +36,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '8px' }}>
             <ToggleControl
-              label={__('Hide filters')}
+              label={__('Hide filters', 'edwiser-bridge')}
               checked={attributes.hideFilters}
               onChange={(value) => setAttributes({ hideFilters: value })}
             />
@@ -42,7 +45,7 @@ export default function Edit({ attributes, setAttributes }) {
           {!attributes.groupByCategory && (
             <fieldset style={{ marginTop: '8px' }}>
               <NumberControl
-                label={__('Courses per page')}
+                label={__('Courses per page', 'edwiser-bridge')}
                 value={attributes.coursesPerPage}
                 onChange={(value) =>
                   setAttributes({ coursesPerPage: parseInt(value, 10) || 0 })
@@ -54,7 +57,10 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '16px' }}>
             <TextControl
-              label={__('Categories (Add comma separated category slugs)')}
+              label={__(
+                'Categories (Add comma separated category slugs)',
+                'edwiser-bridge'
+              )}
               type="text"
               value={attributes.categories}
               onChange={(value) => setAttributes({ categories: value })}
@@ -63,7 +69,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '8px' }}>
             <ToggleControl
-              label={__('Group courses by category')}
+              label={__('Group courses by category', 'edwiser-bridge')}
               checked={attributes.groupByCategory}
               onChange={(value) => setAttributes({ groupByCategory: value })}
             />
@@ -72,7 +78,7 @@ export default function Edit({ attributes, setAttributes }) {
           {attributes.groupByCategory && (
             <fieldset style={{ marginTop: '8px' }}>
               <NumberControl
-                label={__('Grouped categories per page')}
+                label={__('Grouped categories per page', 'edwiser-bridge')}
                 value={attributes.categoryPerPage}
                 onChange={(value) =>
                   setAttributes({ categoryPerPage: parseInt(value, 10) || 0 })
@@ -84,7 +90,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '8px' }}>
             <ToggleControl
-              label={__('Enable horizontal scroll')}
+              label={__('Enable horizontal scroll', 'edwiser-bridge')}
               checked={attributes.horizontalScroll}
               onChange={(value) => setAttributes({ horizontalScroll: value })}
             />

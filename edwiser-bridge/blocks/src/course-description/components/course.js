@@ -20,7 +20,7 @@ function Course({ course }) {
               <span>
                 {course.categories.map((category, index) => (
                   <React.Fragment key={category?.id}>
-                    {__(decodeHTMLEntities(category?.name))}
+                    {__(decodeHTMLEntities(category?.name), 'edwiser-bridge')}
                     {index < course.categories.length - 1 ? ', ' : ''}
                   </React.Fragment>
                 ))}
@@ -30,19 +30,25 @@ function Course({ course }) {
         </div>
         <div className="course-meta">
           <div className="course-content">
-            <h3 className="course-title">{__(course.title)}</h3>
-            <p className="course-excerpt">{__(course.excerpt)}</p>
+            <h3 className="course-title">
+              {__(course.title, 'edwiser-bridge')}
+            </h3>
+            <p className="course-excerpt">
+              {__(course.excerpt, 'edwiser-bridge')}
+            </p>
           </div>
           <div className="course-details">
             <div className="course-price">
               {course?.suspended ? (
-                <span className="suspended">{__('Suspended')}</span>
+                <span className="suspended">
+                  {__('Suspended', 'edwiser-bridge')}
+                </span>
               ) : (
                 <CoursePrice price={course.price} />
               )}
             </div>
             <a href={course.link} className="btn">
-              View Details
+              {__('View Details', 'edwiser-bridge')}
             </a>
           </div>
         </div>
@@ -56,13 +62,15 @@ export default Course;
 export function CoursePrice({ price }) {
   // Price rendering logic
   if (price?.enrolled) {
-    return <span className="enrolled">{__('Enrolled')}</span>;
+    return <span className="enrolled">{__('Enrolled', 'edwiser-bridge')}</span>;
   }
   if (price?.type === 'subscription') {
     return (
       <>
-        <span className="price">{__('₹' + price?.amount)}</span>
-        <span className="recurring">{__('/month')}</span>
+        <span className="price">
+          {__('₹' + price?.amount, 'edwiser-bridge')}
+        </span>
+        <span className="recurring">{__('/month', 'edwiser-bridge')}</span>
       </>
     );
   }
@@ -74,20 +82,26 @@ export function CoursePrice({ price }) {
     );
   }
   if (price?.amount === 0) {
-    return <span className="price">{__('Free')}</span>;
+    return <span className="price">{__('Free', 'edwiser-bridge')}</span>;
   }
   if (price?.originalAmount !== null) {
     return (
       <>
-        <span className="price">{__(price?.currency + price?.amount)}</span>
+        <span className="price">
+          {__(price?.currency + price?.amount, 'edwiser-bridge')}
+        </span>
         <span className="original-price">
-          {__(price?.currency + price?.originalAmount)}
+          {__(price?.currency + price?.originalAmount, 'edwiser-bridge')}
         </span>
       </>
     );
   }
 
-  return <span className="price">{__(price?.currency + price?.amount)}</span>;
+  return (
+    <span className="price">
+      {__(price?.currency + price?.amount, 'edwiser-bridge')}
+    </span>
+  );
 }
 
 export function CourseSkeleton() {

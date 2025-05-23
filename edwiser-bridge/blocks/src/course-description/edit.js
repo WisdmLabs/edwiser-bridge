@@ -12,10 +12,10 @@ export default function Edit({ attributes, setAttributes }) {
   return (
     <div {...useBlockProps()}>
       <InspectorControls>
-        <PanelBody title={__('Course')} initialOpen={true}>
+        <PanelBody title={__('Course', 'edwiser-bridge')} initialOpen={true}>
           <fieldset>
             <NumberControl
-              label={__('Course Id')}
+              label={__('Course Id', 'edwiser-bridge')}
               value={attributes.courseId}
               onChange={(value) =>
                 setAttributes({ courseId: parseInt(value, 10) })
@@ -24,7 +24,7 @@ export default function Edit({ attributes, setAttributes }) {
           </fieldset>
           <fieldset style={{ marginTop: '16px' }}>
             <ToggleControl
-              label={__('Show Recommended Courses')}
+              label={__('Show Recommended Courses', 'edwiser-bridge')}
               checked={attributes.showRecommendedCourses}
               onChange={(value) =>
                 setAttributes({ showRecommendedCourses: value })

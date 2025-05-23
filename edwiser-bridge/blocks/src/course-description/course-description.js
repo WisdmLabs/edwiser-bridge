@@ -54,7 +54,9 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
         {isLoading ? (
           <Skeleton width={320} height={32} />
         ) : (
-          <h1 className="eb-title">{__(decodeHTMLEntities(course?.title))}</h1>
+          <h1 className="eb-title">
+            {__(decodeHTMLEntities(course?.title), 'edwiser-bridge')}
+          </h1>
         )}
         <div className="eb-course-desc">
           <div className="eb-course-desc__details">
