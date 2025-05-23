@@ -479,6 +479,56 @@ class Eb_Admin_Notice_Handler {
 	/**
 	 * Dismiss the notice.
 	 */
+	public function eb_admin_upgrade_to_pro_notice_dismiss_handler() {
+		if ( true === filter_input( INPUT_GET, 'eb-admin-upgrade-to-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
+			$user_id = get_current_user_id();
+			add_user_meta( $user_id, 'eb_admin_upgrade_to_pro_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-upgrade-to-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ), true );
+		}
+	}
+
+	/**
+	 * Remui demo notice.
+	 */
+	public function eb_admin_upgrade_to_pro_notice() {
+		$redirection = add_query_arg( 'eb-admin-upgrade-to-pro-notice-notice-dismissed', true );
+		$user_id     = get_current_user_id();
+		if ( ! get_user_meta( $user_id, 'eb_admin_upgrade_to_pro_notice_dismissed' ) ) {
+			?>
+			<div class="notice  eb_admin_remui_demo_notice">
+				<a style="text-decoration:none;" target="_blank" href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=pro_banner&utm_campaign=wordpress_bridge_listing">
+				<div class="eb_admin_remui_demo_notice_message">
+					<div class="eb_remui_demo_notice_content">
+						<h1 class="upgrade-pro-title" style="font-size: 28px; font-weight: 800;">
+							<?php echo sprintf(__( '%sWant more?%s Unlock the full potential of your Moodle–WordPress integration!', 'edwiser-bridge' ), '<span style="color: #f00;">', '</span>' ); ?>
+						</h1>
+						<div class="upgrade-pro-content">
+							<p style="font-size: 18px; font-weight: 400; color: #133F3F;">✅ <?php echo sprintf(__( '%sSync only what you need%s with Selective Synchronization', 'edwiser-bridge' ), '<strong>', '</strong>' ); ?>
+							</p>
+							<p style="font-size: 18px; font-weight: 400; color: #133F3F;">✅ <?php echo sprintf(__( '%sSell subscription courses%s with WooCommerce integration', 'edwiser-bridge' ), '<strong>', '</strong>' ); ?>
+							</p>
+							<p style="font-size: 18px; font-weight: 400; color: #133F3F;">✅ <?php echo sprintf(__( '%sLog in once%s to access both WordPress and Moodle with Single Sign-On', 'edwiser-bridge' ), '<strong>', '</strong>' ); ?>
+							</p>
+							<p style="font-size: 18px; font-weight: 400; color: #133F3F;">✅ <?php echo sprintf(__( 'Power up with %sBulk Enrollments & Course Bundles%s', 'edwiser-bridge' ), '<strong>', '</strong>' ); ?>
+							</p>
+							<p style="font-size: 18px; font-weight: 400; color: #133F3F;"><strong style="font-style: italic; color: #008B91;"><?php echo __('& much more!', 'edwiser-bridge'); ?></strong></p>
+						</div>
+						<button class="remui-button" href="#" style="background-color: #F75D25; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500;">Explore Edwiser Bridge PRO</button>
+					</div>
+				</div>
+				</a>
+				<div class="eb_admin_remui_demo_dismiss_notice_message">
+					<a href="<?php echo esc_url( $redirection ); ?>" style="color: #133F3F;">
+						<span class="dashicons dashicons-no-alt eb_remui_demo_notice_hide"></span>
+					</a>
+				</div>
+			</div>
+			<?php
+		}
+	}
+
+	/**
+	 * Dismiss the notice.
+	 */
 	public function eb_admin_pro_notice_dismiss_handler() {
 		if ( true === filter_input( INPUT_GET, 'eb-admin-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) ) {
 			update_option( 'eb_pro_consolidated_plugin_notice_dismissed', filter_input( INPUT_GET, 'eb-admin-pro-notice-notice-dismissed', FILTER_VALIDATE_BOOLEAN ) );
