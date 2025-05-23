@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-23T05:34:33+00:00\n"
+"POT-Creation-Date: 2025-05-23T07:56:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: edwiser-bridge\n"
@@ -2707,55 +2707,55 @@ msgid "Redirecting to Moodle Setup wizard"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:503
-#: includes/class-eb-admin-notice-handler.php:520
+#: includes/class-eb-admin-notice-handler.php:553
+#: includes/class-eb-admin-notice-handler.php:570
 msgid "Introducing"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:503
+#: includes/class-eb-admin-notice-handler.php:553
 msgid " consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:503
+#: includes/class-eb-admin-notice-handler.php:553
 msgid " for smoother configuration experience"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:504
+#: includes/class-eb-admin-notice-handler.php:554
 msgid "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:504
+#: includes/class-eb-admin-notice-handler.php:554
 msgid " single plugin -Edwiser Bridge Pro"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:504
+#: includes/class-eb-admin-notice-handler.php:554
 msgid " to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro."
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:505
+#: includes/class-eb-admin-notice-handler.php:555
 msgid "To install and activate the"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:505
+#: includes/class-eb-admin-notice-handler.php:555
 msgid " new Edwiser Bridge Pro plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:505
-#: includes/class-eb-admin-notice-handler.php:526
+#: includes/class-eb-admin-notice-handler.php:555
+#: includes/class-eb-admin-notice-handler.php:576
 msgid " click below"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:289
-#: includes/class-eb-admin-notice-handler.php:506
-#: includes/class-eb-admin-notice-handler.php:529
+#: includes/class-eb-admin-notice-handler.php:556
+#: includes/class-eb-admin-notice-handler.php:579
 msgid "Activate Now"
 msgstr ""
 
@@ -3159,6 +3159,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1544
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1556
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1558
+#: includes/analytics/class-modular-analytics.php:107
 msgid "Skip"
 msgstr ""
 
@@ -3268,6 +3269,18 @@ msgstr ""
 
 #: edwiser-bridge.php:107
 msgid "Documentation"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:104
+msgid "Please %sopt in%s to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to %s enhance and improve the plugin %s, and will be handled in accordance with our %sPrivacy Policy%s."
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:106
+msgid "Allow & Continue"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:116
+msgid "Unauthorized action."
 msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:34
@@ -3589,30 +3602,54 @@ msgid "Check out the demo to see the modern layouts, ready-to-use homepages, bri
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:502
+msgid "%sWant more?%s Unlock the full potential of your Moodle–WordPress integration!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:505
+msgid "%sSync only what you need%s with Selective Synchronization"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:507
+msgid "%sSell subscription courses%s with WooCommerce integration"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:509
+msgid "%sLog in once%s to access both WordPress and Moodle with Single Sign-On"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:511
+msgid "Power up with %sBulk Enrollments & Course Bundles%s"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:513
+msgid "& much more!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:552
 msgid "Edwiser Bridge version %s activated successfully"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:520
+#: includes/class-eb-admin-notice-handler.php:570
 msgid "consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:520
+#: includes/class-eb-admin-notice-handler.php:570
 msgid "for smoother configuration experience"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:523
+#: includes/class-eb-admin-notice-handler.php:573
 msgid "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a single plugin -Edwiser Bridge Pro to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:526
+#: includes/class-eb-admin-notice-handler.php:576
 msgid "To install and activate the "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:526
+#: includes/class-eb-admin-notice-handler.php:576
 msgid "new Edwiser Bridge Pro plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:530
+#: includes/class-eb-admin-notice-handler.php:580
 msgid "Dismiss Forever"
 msgstr ""
 
