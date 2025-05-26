@@ -1,11 +1,13 @@
 <?php
+
 namespace app\wisdmlabs\edwiserBridge;
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-class Modular_Analytics_System {
+class Modular_Analytics_System
+{
     private static $instance;
     private $server_url = 'https://dev1.edwiser.org/wp-json/analytics/v1/collect'; // Replace with your server URL
     private $deactivation_url = 'https://dev1.edwiser.org/wp-json/analytics/v1/deactivate'; // URL for deactivation feedback
@@ -13,14 +15,16 @@ class Modular_Analytics_System {
     private $plugin_name = 'Edwiser Bridge - WordPress Moodle LMS Integration'; //replace with your plugin name
     private $plugin_version = '4.0.0'; //replace with your plugin version
 
-    public static function get_instance() {
+    public static function get_instance()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new self();
         }
         return self::$instance;
     }
 
-    private function __construct() {
+    private function __construct()
+    {
         register_activation_hook($this->plugin_file, [$this, 'on_activation']);
         register_deactivation_hook($this->plugin_file, [$this, 'on_deactivation']); // Add deactivation hook
         add_action('admin_init', [$this, 'check_consent']);
@@ -28,7 +32,8 @@ class Modular_Analytics_System {
         add_action('admin_footer', [$this, 'set_deactivation_url']); // Set deactivation URL
     }
 
-    public function on_activation() {
+    public function on_activation()
+    {
 
         $consent = get_option('modular_analytics_consent');
 
@@ -40,25 +45,26 @@ class Modular_Analytics_System {
             // Default to pending consent
             add_option('modular_analytics_consent', 'pending');
         }
-        
     }
 
-    public function on_deactivation() {
+    public function on_deactivation()
+    {
         add_option('modular_analytics_deactivation_feedback', 'pending');
     }
 
-    function set_deactivation_url( $plugin_file = 'edwiser-bridge/edwiser-bridge.php' ) { //replace with your plugin file
+    function set_deactivation_url($plugin_file = 'edwiser-bridge/edwiser-bridge.php')
+    { //replace with your plugin file
 
         // Check if the plugin file exists.
         $plugins = get_plugins(); // Get all installed plugins.
-    
-        if ( ! isset( $plugins[ $plugin_file ] ) ) {
+
+        if (! isset($plugins[$plugin_file])) {
             return false; // Plugin not found.
         }
-    
+
         // Get the plugin's directory.
-        $plugin_dir = dirname( $plugin_file );
-    
+        $plugin_dir = dirname($plugin_file);
+
         // Build the deactivation link.  We use admin_url() for proper URL generation.
         $deactivate_link = add_query_arg(
             array(
@@ -66,15 +72,16 @@ class Modular_Analytics_System {
                 'plugin'   => $plugin_file,
                 'plugin_status' => 'all', // Important for multisite.
                 'paged' => 1, // Important for multisite.
-                '_wpnonce' => wp_create_nonce( 'deactivate-plugin_' . $plugin_file ),
+                '_wpnonce' => wp_create_nonce('deactivate-plugin_' . $plugin_file),
             ),
-            admin_url( 'plugins.php' )
+            admin_url('plugins.php')
         );
 
         return $deactivate_link;
     }
 
-    public function enqueue_modal_scripts() {
+    public function enqueue_modal_scripts()
+    {
 
         wp_enqueue_script('modular-analytics-modal', plugin_dir_url(__FILE__) . 'js/modal.js', ['jquery'], '1.0', true); // Path to your JS file
 
@@ -89,7 +96,8 @@ class Modular_Analytics_System {
         ]);
     }
 
-    public function check_consent() {
+    public function check_consent()
+    {
         $consent = get_option('modular_analytics_consent', 'pending');
 
         if ($consent === 'pending' && current_user_can('manage_options')) {
@@ -97,21 +105,37 @@ class Modular_Analytics_System {
         }
     }
 
-    public function consent_notice() {
-        ?>
+    public function consent_notice()
+    {
+?>
         <div class="notice eb_admin_remui_demo_notice">
             <div class="eb_remui_demo_notice_content">
-                <p style="font-size: 21px; font-weight: 500; color: #133F3F;"><?php echo sprintf(__('Please %sopt in%s to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to %s enhance and improve the plugin %s, and will be handled in accordance with our %sPrivacy Policy%s.', 'edwiser-bridge'), '<strong style="color: #f00;">', '</strong>', '<strong style="color: #f00;">', '</strong>', '<strong style="color: #f00;"><a href="https://edwiser.org/privacy-policy/" target="_blank">', '</a></strong>'); ?></p>
+                <p style="font-size: 21px; font-weight: 500; color: #133F3F;">
+                    <?php _e('Please', 'edwiser-bridge'); ?>
+                    <strong style="color: #f00;"><?php _e('opt in', 'edwiser-bridge'); ?></strong>
+                    <?php _e('to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to', 'edwiser-bridge'); ?>
+                    <strong style="color: #f00;"><?php _e('enhance and improve the plugin', 'edwiser-bridge'); ?></strong>,
+                    <?php _e('and will be handled in accordance with our', 'edwiser-bridge'); ?>
+                    <strong style="color: #f00;">
+                        <a href="https://edwiser.org/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'edwiser-bridge'); ?></a>
+                    </strong>.
+                </p>
                 <p>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; margin-right: 10px;"><?php _e('Allow & Continue', 'edwiser-bridge'); ?></a>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 15px;"><?php _e('Skip', 'edwiser-bridge'); ?></a>
+                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; margin-right: 10px;">
+                        <?php _e('Allow & Continue', 'edwiser-bridge'); ?>
+                    </a>
+                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 15px;">
+                        <?php _e('Skip', 'edwiser-bridge'); ?>
+                    </a>
                 </p>
             </div>
         </div>
-        <?php
+
+<?php
     }
 
-    public function handle_consent() {
+    public function handle_consent()
+    {
         if (!current_user_can('manage_options') || !isset($_GET['consent'])) {
             wp_die(__('Unauthorized action.', 'edwiser-bridge'));
         }
@@ -123,11 +147,12 @@ class Modular_Analytics_System {
             $this->send_data();
         }
 
-        wp_redirect(admin_url().'edit.php?post_type=eb_course&page=eb-settings'); //replace with your redirect URL
+        wp_redirect(admin_url() . 'edit.php?post_type=eb_course&page=eb-settings'); //replace with your redirect URL
         exit;
     }
 
-    private function send_data() {
+    private function send_data()
+    {
         $user = wp_get_current_user();
         $website = get_site_url();
         $ip = $this->get_user_ip();
@@ -155,7 +180,8 @@ class Modular_Analytics_System {
         ]);
     }
 
-    private function get_user_ip() {
+    private function get_user_ip()
+    {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             return $_SERVER['HTTP_CLIENT_IP'];
         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -165,7 +191,8 @@ class Modular_Analytics_System {
         }
     }
 
-    public function handle_deactivation_feedback_ajax() {
+    public function handle_deactivation_feedback_ajax()
+    {
         check_ajax_referer('modular_analytics_deactivation', 'nonce');
 
         if (!isset($_POST['reason'])) {
@@ -183,7 +210,8 @@ class Modular_Analytics_System {
         }
     }
 
-    private function send_deactivation_feedback($reason) {
+    private function send_deactivation_feedback($reason)
+    {
         $data = [
             'email' => sanitize_email(wp_get_current_user()->user_email),
             'website' => esc_url_raw(get_site_url()),
@@ -203,7 +231,8 @@ class Modular_Analytics_System {
         return $response;
     }
 
-    public function handle_dismiss_feedback() {
+    public function handle_dismiss_feedback()
+    {
         check_ajax_referer('modular_analytics_dismiss', 'nonce');
         update_option('modular_analytics_deactivation_feedback', 'dismissed');
         wp_die();

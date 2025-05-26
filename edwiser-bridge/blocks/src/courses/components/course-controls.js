@@ -19,12 +19,12 @@ function CourseControls({
         <Select
           value={sortOrder}
           onChange={setSortOrder}
-          defaultValue={'Latest'}
+          defaultValue={'latest'}
           data={[
-            __('Latest', 'edwiser-bridge'),
-            __('Oldest', 'edwiser-bridge'),
-            __('A-Z', 'edwiser-bridge'),
-            __('Z-A', 'edwiser-bridge'),
+            { value: 'latest', label: __('Latest', 'edwiser-bridge') },
+            { value: 'oldest', label: __('Oldest', 'edwiser-bridge') },
+            { value: 'a-z', label: __('A-Z', 'edwiser-bridge') },
+            { value: 'z-a', label: __('Z-A', 'edwiser-bridge') },
           ]}
           allowDeselect={false}
           checkIconPosition="right"
@@ -36,12 +36,13 @@ function CourseControls({
         <Select
           value={selectedCategory}
           onChange={setSelectedCategory}
-          defaultValue={'All'}
+          defaultValue={'all'}
           data={[
-            __('All', 'edwiser-bridge'),
-            ...categories.map((category) =>
-              __(category.name, 'edwiser-bridge')
-            ),
+            { value: 'all', label: __('All', 'edwiser-bridge') },
+            ...categories.map((category) => ({
+              value: category.name.toLowerCase(),
+              label: __(category.name, 'edwiser-bridge'),
+            })),
           ]}
           allowDeselect={false}
           checkIconPosition="right"

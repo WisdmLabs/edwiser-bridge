@@ -4,8 +4,8 @@ class EdwiserBridge_Blocks
 {
     public function __construct()
     {
-        add_action('init', array($this, 'eb_register_blocks'), 9);
-        add_action('init', array($this, 'eb_set_script_translations'), 10);
+        add_action('init', array($this, 'eb_register_blocks'));
+        add_action('wp_enqueue_scripts', array($this, 'eb_set_script_translations'));
         add_action('wp_enqueue_scripts', array($this, 'eb_woo_storeapi_nonce'));
         add_filter('block_categories_all', array($this, 'eb_register_edwiser_category'));
         add_action('wp_after_insert_post', array($this, 'handle_block_setting_change'), 10, 3);
@@ -55,8 +55,8 @@ class EdwiserBridge_Blocks
 
     public function eb_set_script_translations()
     {
-        wp_set_script_translations('eb-courses-script', 'edwiser-bridge', plugin_dir_path(__DIR__) . 'languages/');
-        wp_set_script_translations('eb-course-description-script', 'edwiser-bridge', plugin_dir_path(__DIR__) . 'languages/');
+        wp_set_script_translations('eb-courses-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
+        wp_set_script_translations('eb-course-description-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
     }
 
     public function eb_woo_storeapi_nonce()

@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-23T12:39:38+00:00\n"
+"POT-Creation-Date: 2025-05-26T06:17:01+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: edwiser-bridge\n"
 
 #. Plugin Name of the plugin
@@ -99,6 +99,7 @@ msgstr ""
 
 #. translators: Link to open the unlink users list.
 #: admin/class-eb-admin.php:158
+#, php-format
 msgid "%s to see list of unlinked users."
 msgstr ""
 
@@ -359,6 +360,7 @@ msgstr ""
 
 #: admin/class-eb-admin.php:218
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:714
+#, php-format
 msgid "Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %s here %s to learn more."
 msgstr ""
 
@@ -388,6 +390,7 @@ msgid "The REST API is disabled by either a Security plugin or some other plugin
 msgstr ""
 
 #: admin/class-eb-admin.php:224
+#, php-format
 msgid "Please change your permalink settings manually to Post Name by navigating in Settings > %s Permalink Settings %s and check again."
 msgstr ""
 
@@ -942,6 +945,7 @@ msgstr ""
 
 #. translators: Version number.
 #: admin/class-eb-welcome.php:219
+#, php-format
 msgid "Version %s"
 msgstr ""
 
@@ -1186,6 +1190,7 @@ msgstr ""
 
 #: admin/licensing/html-licensing.php:88
 #: admin/partials/html-pro-featuers.php:97
+#, php-format
 msgid "To get access to all the Edwiser Bridge Pro features consider %s"
 msgstr ""
 
@@ -1267,10 +1272,12 @@ msgid "Talk to us:"
 msgstr ""
 
 #: admin/licensing/html-licensing.php:188
+#, php-format
 msgid "The Edwiser Bridge Moodle Plugin is not update to the latest version %s"
 msgstr ""
 
 #: admin/licensing/html-licensing.php:189
+#, php-format
 msgid "To download the latest version %s or go to Edwiser %s"
 msgstr ""
 
@@ -1284,6 +1291,7 @@ msgstr ""
 
 #. translators: string plugin name.
 #: admin/partials/html-admin-licensing.php:73
+#, php-format
 msgid "%1$1s You do not have any extensions activated. %2$2s Please activate any installed extensions. If you do not have any extensions, you can take a look at the list %3$3s here%4$4s.%5$5s"
 msgstr ""
 
@@ -1329,6 +1337,7 @@ msgid "Activate/Deactivate Pro plugins "
 msgstr ""
 
 #: admin/partials/html-pro-featuers.php:37
+#, php-format
 msgid "To access the Edwiser Bridge PRO features, please activate the license key from the %s tab"
 msgstr ""
 
@@ -1337,6 +1346,7 @@ msgid "Upgrade to Edwiser Bridge Pro"
 msgstr ""
 
 #: admin/partials/html-pro-featuers.php:119
+#, php-format
 msgid "Based on your %s it seems that you have purchased only the above mentioned Edwiser Bridge Add-on plugin(s). To get access to all the Edwiser Bridge Pro feature consider %s"
 msgstr ""
 
@@ -1438,6 +1448,7 @@ msgid "Number of Courses:"
 msgstr ""
 
 #: admin/settings/class-eb-bridge-summary.php:253
+#, php-format
 msgid "Publish (%1$d), Draft(%2$d), Trash (%3$d), Private(%4$d)"
 msgstr ""
 
@@ -1657,6 +1668,7 @@ msgstr ""
 
 #. translators: the user account page url will go here
 #: admin/settings/class-eb-settings-general.php:48
+#, php-format
 msgid "Select user account page here. Default page is %s "
 msgstr ""
 
@@ -1671,6 +1683,7 @@ msgstr ""
 
 #. translators: select courses page here
 #: admin/settings/class-eb-settings-general.php:53
+#, php-format
 msgid "Select courses page here. Default page is %s "
 msgstr ""
 
@@ -1682,6 +1695,7 @@ msgstr ""
 
 #. translators: My Courses page setting description.
 #: admin/settings/class-eb-settings-general.php:58
+#, php-format
 msgid "Redirect user to the My Courses page on %1$s from the %2$s page."
 msgstr ""
 
@@ -1883,6 +1897,8 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:279
 #: includes/class-eb-post-types.php:378
+#: blocks/build/course-description/index.js:1
+#: blocks/src/course-description/edit.js:27
 msgid "Show Recommended Courses"
 msgstr ""
 
@@ -2400,6 +2416,7 @@ msgid "Sync Course images from moodle"
 msgstr ""
 
 #: admin/settings/class-eb-settings-synchronization.php:207
+#, php-format
 msgid "Pre-Requisite Alert: Before you can synchronize course images from Moodle, ensure that you have enabled the \"Can Download File\" option on your Moodle site. To learn how to do this, please click the %s provided."
 msgstr ""
 
@@ -2610,6 +2627,7 @@ msgid "WooCommerce must be active to use WooCommerce Integration feature."
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:718
+#, php-format
 msgid "Please change your permalink settings manually to Post Name by navigating in Settings > %s Permalink Settings %s and click Test Connection again after refreshing the page."
 msgstr ""
 
@@ -3272,6 +3290,7 @@ msgid "Documentation"
 msgstr ""
 
 #: includes/analytics/class-modular-analytics.php:104
+#, php-format
 msgid "Please %sopt in%s to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to %s enhance and improve the plugin %s, and will be handled in accordance with our %sPrivacy Policy%s."
 msgstr ""
 
@@ -3300,6 +3319,8 @@ msgid "Search term to filter courses"
 msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:59
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:72
 msgid "Group courses by category"
 msgstr ""
 
@@ -3313,6 +3334,12 @@ msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:84
 msgid "Course ID"
+msgstr ""
+
+#: includes/api/class-eb-blocks-course-api.php:260
+#: includes/api/class-eb-blocks-course-api.php:533
+#: includes/api/class-eb-blocks-course-api.php:656
+msgid "Uncategorized"
 msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:477
@@ -3411,6 +3438,7 @@ msgid "Response : "
 msgstr ""
 
 #: includes/api/class-eb-connection-helper.php:451
+#, php-format
 msgid "Click %s Troubleshoot %s button to get more details."
 msgstr ""
 
@@ -3602,22 +3630,27 @@ msgid "Check out the demo to see the modern layouts, ready-to-use homepages, bri
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:502
+#, php-format
 msgid "%sWant more?%s Unlock the full potential of your Moodle–WordPress integration!"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:505
+#, php-format
 msgid "%sSync only what you need%s with Selective Synchronization"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:507
+#, php-format
 msgid "%sSell subscription courses%s with WooCommerce integration"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:509
+#, php-format
 msgid "%sLog in once%s to access both WordPress and Moodle with Single Sign-On"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:511
+#, php-format
 msgid "Power up with %sBulk Enrollments & Course Bundles%s"
 msgstr ""
 
@@ -3626,6 +3659,7 @@ msgid "& much more!"
 msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:552
+#, php-format
 msgid "Edwiser Bridge version %s activated successfully"
 msgstr ""
 
@@ -3681,6 +3715,12 @@ msgstr ""
 #: includes/class-eb-post-types.php:324
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/course-description/components/course.js:85
+#: blocks/src/courses/components/course.js:85
 msgid "Free"
 msgstr ""
 
@@ -3720,6 +3760,7 @@ msgid "Manual Enrollment Plugin is not enabled/installed on moodle site."
 msgstr ""
 
 #: includes/class-eb-course-manager.php:936
+#, php-format
 msgid "Manual enrollment status synced for %s courses"
 msgstr ""
 
@@ -3728,6 +3769,7 @@ msgid "Error in manual enrollment status sync"
 msgstr ""
 
 #: includes/class-eb-course-manager.php:946
+#, php-format
 msgid "Manual enrollment enabled for %s courses"
 msgstr ""
 
@@ -3750,6 +3792,8 @@ msgstr ""
 
 #: includes/class-eb-custom-list-table.php:56
 #: includes/class-eb-post-types.php:112
+#: blocks/build/course-description/index.js:1
+#: blocks/src/course-description/edit.js:15
 msgid "Course"
 msgstr ""
 
@@ -4080,6 +4124,7 @@ msgid "Messaging"
 msgstr ""
 
 #: includes/class-eb-enrollment-manager.php:862
+#, php-format
 msgid "Please navigate to %s Test Enrollment%s for more details on this issue."
 msgstr ""
 
@@ -4751,6 +4796,7 @@ msgstr ""
 
 #. translators: %s: $login_link Login link.
 #: includes/class-eb-user-manager.php:402
+#, php-format
 msgid "An account is already registered with your email address, %s."
 msgstr ""
 
@@ -5021,6 +5067,9 @@ msgstr ""
 
 #: public/class-eb-public.php:180
 #: public/templates/course-filters.php:19
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:41
 msgid "All"
 msgstr ""
 
@@ -5162,6 +5211,12 @@ msgid "Start"
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:199
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/course-description/components/course.js:44
+#: blocks/src/courses/components/course.js:44
 msgid "Suspended"
 msgstr ""
 
@@ -5204,16 +5259,19 @@ msgstr ""
 
 #. Translators 1: field name
 #: public/shortcodes/class-eb-shortcode-user-account.php:332
+#, php-format
 msgid "%1$s is required field."
 msgstr ""
 
 #. Translators 1: email
 #: public/shortcodes/class-eb-shortcode-user-account.php:342
+#, php-format
 msgid "%1$s is invalid email."
 msgstr ""
 
 #. Translators 1: email
 #: public/shortcodes/class-eb-shortcode-user-account.php:345
+#, php-format
 msgid "%1$s is already exists."
 msgstr ""
 
@@ -5382,6 +5440,9 @@ msgid "Order Date"
 msgstr ""
 
 #: public/templates/account/user-orders.php:26
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:49
 msgid "Status"
 msgstr ""
 
@@ -5490,6 +5551,162 @@ msgstr ""
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
 
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-content.js:9
+msgid "Description"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/course-description/components/course.js:51
+#: blocks/src/courses/components/course.js:51
+msgid "View Details"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/course-description/components/course.js:65
+#: blocks/src/courses/components/course.js:65
+msgid "Enrolled"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/course-description/components/course.js:73
+#: blocks/src/courses/components/course.js:73
+msgid "/month"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:18
+msgid "Details"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:26
+msgid "Category"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:41
+msgid "Course access"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:60
+msgid "Price"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/recommended-courses.js:14
+msgid "Recommended courses"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/empty-state.js:8
+msgid "Course Not Found"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/empty-state.js:10
+msgid "Sorry, the course you are looking for is not available or may have been removed."
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/src/course-description/edit.js:18
+msgid "Course Id"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:24
+msgid "Latest"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:25
+msgid "Oldest"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:26
+msgid "A-Z"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:27
+msgid "Z-A"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-controls.js:60
+msgid "Search courses"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/src/courses/components/course-grid.js:11
+msgid "No courses found"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:17
+msgid "Courses Settings"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:22
+msgid "Page Title"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:31
+msgid "Hide title"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:39
+msgid "Hide filters"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:48
+msgid "Courses per page"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:60
+msgid "Categories (Add comma separated category slugs)"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:81
+msgid "Grouped categories per page"
+msgstr ""
+
+#: blocks/build/courses/index.js:1
+#: blocks/src/courses/edit.js:93
+msgid "Enable horizontal scroll"
+msgstr ""
+
 #: blocks/build/course-description/block.json
 #: blocks/src/course-description/block.json
 msgctxt "block title"
@@ -5512,4 +5729,16 @@ msgstr ""
 #: blocks/src/courses/block.json
 msgctxt "block description"
 msgid "Display all available courses in an organized and modern design."
+msgstr ""
+
+#: blocks/build/user-account/block.json
+#: blocks/src/user-account/block.json
+msgctxt "block title"
+msgid "Edwiser User Account"
+msgstr ""
+
+#: blocks/build/user-account/block.json
+#: blocks/src/user-account/block.json
+msgctxt "block description"
+msgid "Example block scaffolded with Create Block tool."
 msgstr ""

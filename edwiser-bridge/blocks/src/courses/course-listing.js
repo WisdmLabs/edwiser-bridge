@@ -22,8 +22,8 @@ function CourseListing({
   const [displayedCategories, setDisplayedCategories] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('Latest');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sortOrder, setSortOrder] = useState('latest');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -46,9 +46,9 @@ function CourseListing({
       let path = `/eb/api/v1/courses?page=${currentPage}&per_page=${coursesPerPage}&search=${debouncedSearchTerm}&sort_order=${sortOrder.toLowerCase()}`;
 
       // Add category filter if not set to "All"
-      if (selectedCategory !== 'All') {
+      if (selectedCategory !== 'all') {
         const categoryObj = categoriesList.find(
-          (cat) => cat.name === selectedCategory
+          (cat) => cat.name.toLowerCase() === selectedCategory
         );
         if (categoryObj) {
           path += `&category=${categoryObj.slug}`;
