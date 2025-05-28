@@ -9,16 +9,4 @@ import metadata from './block.json';
 registerBlockType(metadata.name, {
   edit: Edit,
   save,
-  attributes: {
-    courseId: {
-      type: 'integer',
-      source: 'meta',
-      meta: 'courseId'
-    },
-    showRecommendedCourses: {
-      type: 'boolean',
-      source: 'meta',
-      meta: 'showRecommendedCourses'
-    }
-  }
 });

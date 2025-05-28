@@ -257,7 +257,7 @@ class EdwiserBridge_Blocks_Course_API
                 'title'     => __($course->post_title, 'edwiser-bridge'),
                 'link'      => get_permalink($course->ID),
                 'excerpt'   => !empty($course_data['short_description']) ? __($course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($course->post_content, 'edwiser-bridge'))),
-                'category'  => !empty($course_data['categories']) ? __($course_data['categories'][0], 'edwiser-bridge') : __('Uncategorized', 'edwiser-bridge'),
+                'category'  => !empty($course_data['categories']) ? __(html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8'), 'edwiser-bridge') : __('Uncategorized', 'edwiser-bridge'),
                 'thumbnail' =>  $course_data['thumb_url'],
                 'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                 'price'     => [
@@ -534,7 +534,6 @@ class EdwiserBridge_Blocks_Course_API
             'permalink' => get_permalink($course->ID),
             'thumbnail' => $course_data['thumb_url'],
             'course_expiry' => isset($course_options['course_expirey']) && $course_options['course_expirey'] === 'yes',
-            'course_expires_after_days' => is_user_logged_in() && $is_enrolled && '0000-00-00 00:00:00' !== $remaining_access ? $remaining_access : $course_options['num_days_course_access'],
             'remaining_access' => $remaining_access,
             'course_closed_url' => $course_options['course_closed_url'] ?? '',
             'status' => $status,
@@ -550,6 +549,10 @@ class EdwiserBridge_Blocks_Course_API
             'recommended_courses' => $recommended_courses,
             'categories' => $categories
         ];
+
+        if (isset($course_options['course_expirey']) && $course_options['course_expirey'] === 'yes') {
+            $response_data['course_expires_after_days'] = is_user_logged_in() && $is_enrolled && '0000-00-00 00:00:00' !== $remaining_access ? $remaining_access : $course_options['num_days_course_access'];
+        }
 
         ob_end_clean();
         return new WP_REST_Response($response_data, 200);

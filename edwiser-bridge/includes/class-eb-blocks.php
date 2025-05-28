@@ -43,14 +43,6 @@ class EdwiserBridge_Blocks
                 return current_user_can('edit_posts');
             }
         ));
-        register_post_meta('page', 'showRecommendedCourses', array(
-            'show_in_rest' => true,
-            'single' => true,
-            'type' => 'boolean',
-            'auth_callback' => function () {
-                return current_user_can('edit_posts');
-            }
-        ));
     }
 
     public function eb_set_script_translations()

@@ -318,8 +318,8 @@ class Eb_Activator {
 			'single_course' => array(
 				'name' => 'eb-single-course',
 				'title' => 'Single Course',
-				'content' => '<!-- wp:edwiser-bridge/course-description {"courseId":' . $course_id . '} -->
-								<div class="wp-block-edwiser-bridge-course-description"><div id="eb-course-description" data-course-id="' . $course_id . '" data-show-recommended-courses="true"></div></div>
+				'content' => '<!-- wp:edwiser-bridge/course-description -->
+								<div class="wp-block-edwiser-bridge-course-description"><div id="eb-course-description" data-show-recommended-courses="true"></div></div>
 							<!-- /wp:edwiser-bridge/course-description -->',
 				'option_key' => 'eb_single_course_page_id_new',
 			),
@@ -334,6 +334,10 @@ class Eb_Activator {
 					'post_name' => $page['name'],
 				));
 				$gutenberg_pages_settings[$key] = $page_id;
+
+				if ($key === 'single_course') {
+					update_post_meta($page_id, 'courseId', $course_id);
+				}
 			}
 		}
 		$gutenberg_pages_settings['single_course_block_id'] = $course_id;
