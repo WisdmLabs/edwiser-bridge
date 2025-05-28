@@ -185,9 +185,11 @@ if ( is_array( $plugin_update_data ) && ! empty( $plugin_update_data ) ) {
 					</defs>
 				</svg>
 				<div class="eb-pro-upgrade-plugin-notice-content">
-					<p class="eb-pro-update-notice-h1"><?php echo sprintf( esc_html__( 'The Edwiser Bridge Moodle Plugin is not update to the latest version %s', 'edwiser-bridge' ), esc_html( $plugin_data['new_version'] ) ); // @codingStandardsIgnoreLine?></p>
-					<p style="margin-top:0px;"><?php echo sprintf( esc_html__( 'To download the latest version %s or go to Edwiser %s', 'edwiser-bridge' ), '<a href="' . esc_url( $plugin_data['url'] ) . '">' . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>', '<a href="' . esc_url( $my_account_url ) . '">' . esc_html__( 'My account', 'edwiser-bridge' ) . '</a>' ); // @codingStandardsIgnoreLine?></p>
-					<a href="#"><?php esc_html_e( 'How to update the Edwiser Bridge Moodle Pluign? ', 'edwiser-bridge' ); ?></a>
+					<p class="eb-pro-update-notice-h1"><?php echo sprintf(esc_html__('The Edwiser Bridge Moodle Plugin is not update to the latest version %s', 'edwiser-bridge'), esc_html($plugin_data['new_version'])); // @codingStandardsIgnoreLine
+														?></p>
+					<p style="margin-top:0px;"><?php echo sprintf(esc_html__('To download the latest version %s or go to Edwiser %s', 'edwiser-bridge'), '<a href="' . esc_url($plugin_data['url']) . '">' . esc_html__('Click here', 'edwiser-bridge') . '</a>', '<a href="' . esc_url($my_account_url) . '">' . esc_html__('My account', 'edwiser-bridge') . '</a>'); // @codingStandardsIgnoreLine
+												?></p>
+					<a href="https://edwiser.org/documentation/edwiser-bridge/edwiser-bridge-installation/" target="_blank"><?php esc_html_e('How to update the Edwiser Bridge Moodle Pluign? ', 'edwiser-bridge'); ?></a>
 				</div>
 			</div>
 			<?php

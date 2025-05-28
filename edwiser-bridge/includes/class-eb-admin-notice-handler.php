@@ -538,7 +538,7 @@ class Eb_Admin_Notice_Handler
 									<strong style="font-style: italic; color: #008B91;"><?php _e('& much more!', 'edwiser-bridge'); ?></strong>
 								</p>
 							</div>
-							<a class="remui-button" href="#" style="background-color: #F75D25; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-block;">
+							<a class="remui-button" href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=pro_banner&utm_campaign=wordpress_bridge_listing" target="_blank" style="background-color: #F75D25; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-block;">
 								<?php _e('Explore Edwiser Bridge PRO', 'edwiser-bridge'); ?>
 							</a>
 						</div>
