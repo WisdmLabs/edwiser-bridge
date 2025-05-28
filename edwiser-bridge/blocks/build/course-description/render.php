@@ -15,5 +15,5 @@ echo sprintf(
             data-show-recommended-courses="%s"
         ></div></div>',
     esc_attr($course_id),
-    esc_attr($attributes['showRecommendedCourses'] ?? 'false')
+    esc_attr($attributes['showRecommendedCourses'] ? 'true' : 'false')
 );
