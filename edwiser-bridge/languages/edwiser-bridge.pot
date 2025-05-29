@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-26T06:17:01+00:00\n"
+"POT-Creation-Date: 2025-05-29T10:07:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: edwiser-bridge\n"
@@ -1085,7 +1085,7 @@ msgid "Invalid action."
 msgstr ""
 
 #: admin/licensing/class-licensing-settings.php:291
-#: admin/licensing/html-licensing.php:189
+#: admin/licensing/html-licensing.php:195
 #: admin/setup-wizard/class-eb-setup-wizard-functions.php:933
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1308
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1312
@@ -1154,138 +1154,138 @@ msgstr ""
 msgid "Upgrade License"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:42
+#: admin/licensing/html-licensing.php:43
 #: admin/partials/html-pro-featuers.php:57
 msgid "Not active"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:69
+#: admin/licensing/html-licensing.php:71
 msgid "<strong>Note: </strong>Starting from Edwiser Bridge version 3.0.0, you no longer need to activate or deactivate licenses for each add-on separately. All the Edwiser Bridge Pro Add-ons have been combined into a single plugin, and you just need to activate one license key to receive all the updates."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:70
+#: admin/licensing/html-licensing.php:73
 msgid " Even though all the add-ons have been consolidated, you can still choose to enable or disable these features individually from"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:70
+#: admin/licensing/html-licensing.php:73
 msgid "here."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:76
+#: admin/licensing/html-licensing.php:79
 msgid "<strong>Note: </strong> Enter your new license key below to activate the Edwiser Bridge Pro versioon 3.0.0."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:77
+#: admin/licensing/html-licensing.php:81
 msgid "Upon entering the license key we will automatically install and activate the Pro plugin. While activating the Pro version 3.0.0 we will deactivate any Bridge Pro add-on plugin (version 3.0.0 and below) if found active on the site."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:78
+#: admin/licensing/html-licensing.php:82
 msgid "Don't worry all you features and functionalities will work as earlier without any reconfiguration needed."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:87
+#: admin/licensing/html-licensing.php:91
 #: admin/partials/html-pro-featuers.php:96
 msgid "It seems that you have not purchased Edwiser Bridge Pro plugin."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:88
+#: admin/licensing/html-licensing.php:92
 #: admin/partials/html-pro-featuers.php:97
 #, php-format
 msgid "To get access to all the Edwiser Bridge Pro features consider %s"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:88
+#: admin/licensing/html-licensing.php:92
 #: admin/partials/html-pro-featuers.php:97
 #: admin/partials/html-pro-featuers.php:119
 msgid "Upgrading to Pro"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:89
+#: admin/licensing/html-licensing.php:94
 #: admin/partials/html-pro-featuers.php:98
 #: admin/partials/html-pro-featuers.php:120
 msgid "Refer here"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:89
+#: admin/licensing/html-licensing.php:94
 #: admin/partials/html-pro-featuers.php:98
 #: admin/partials/html-pro-featuers.php:120
 msgid " if you like to learn more about the Edwiser Bridge Pro"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:100
+#: admin/licensing/html-licensing.php:105
 msgid "Activate your Edwiser Bridge Pro"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:101
+#: admin/licensing/html-licensing.php:106
 msgid "Activating the License Key is essential to receive regular plugin updates as well as support from Edwiser."
 msgstr ""
 
-#: admin/licensing/html-licensing.php:106
+#: admin/licensing/html-licensing.php:111
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1111
 msgid "Edwiser Bridge Pro"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:107
+#: admin/licensing/html-licensing.php:112
 msgid "License status"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:108
+#: admin/licensing/html-licensing.php:113
 msgid "Action"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:130
+#: admin/licensing/html-licensing.php:135
 msgid "Lifetime"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:136
+#: admin/licensing/html-licensing.php:141
 msgid "License Expires on: "
 msgstr ""
 
-#: admin/licensing/html-licensing.php:137
+#: admin/licensing/html-licensing.php:142
 msgid "Active licenses: "
 msgstr ""
 
-#: admin/licensing/html-licensing.php:146
+#: admin/licensing/html-licensing.php:151
 msgid "Enable / Disable Edwiser Bridge Pro features Individually from"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:146
+#: admin/licensing/html-licensing.php:151
 #: includes/api/class-eb-connection-helper.php:431
 #: public/templates/account/user-profile.php:75
 msgid "here"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:155
+#: admin/licensing/html-licensing.php:160
 msgid "Looking for help?"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:158
+#: admin/licensing/html-licensing.php:163
 msgid "Where to find my license key?"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:159
+#: admin/licensing/html-licensing.php:164
 msgid "Installation and User Guide"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:160
+#: admin/licensing/html-licensing.php:165
 msgid "Talk to us:"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:188
+#: admin/licensing/html-licensing.php:193
 #, php-format
 msgid "The Edwiser Bridge Moodle Plugin is not update to the latest version %s"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:189
+#: admin/licensing/html-licensing.php:195
 #, php-format
 msgid "To download the latest version %s or go to Edwiser %s"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:189
+#: admin/licensing/html-licensing.php:195
 msgid "My account"
 msgstr ""
 
-#: admin/licensing/html-licensing.php:190
+#: admin/licensing/html-licensing.php:197
 msgid "How to update the Edwiser Bridge Moodle Pluign? "
 msgstr ""
 
@@ -1870,6 +1870,7 @@ msgid "Show already enrolled label on courses/products in which user is already 
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:243
+#: includes/analytics/class-modular-analytics.php:120
 msgid "Privacy Policy"
 msgstr ""
 
@@ -2725,55 +2726,55 @@ msgid "Redirecting to Moodle Setup wizard"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:553
-#: includes/class-eb-admin-notice-handler.php:570
+#: includes/class-eb-admin-notice-handler.php:585
+#: includes/class-eb-admin-notice-handler.php:602
 msgid "Introducing"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:553
+#: includes/class-eb-admin-notice-handler.php:585
 msgid " consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:286
-#: includes/class-eb-admin-notice-handler.php:553
+#: includes/class-eb-admin-notice-handler.php:585
 msgid " for smoother configuration experience"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:554
+#: includes/class-eb-admin-notice-handler.php:586
 msgid "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:554
+#: includes/class-eb-admin-notice-handler.php:586
 msgid " single plugin -Edwiser Bridge Pro"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:287
-#: includes/class-eb-admin-notice-handler.php:554
+#: includes/class-eb-admin-notice-handler.php:586
 msgid " to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro."
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:555
+#: includes/class-eb-admin-notice-handler.php:587
 msgid "To install and activate the"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:555
+#: includes/class-eb-admin-notice-handler.php:587
 msgid " new Edwiser Bridge Pro plugin"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:288
-#: includes/class-eb-admin-notice-handler.php:555
-#: includes/class-eb-admin-notice-handler.php:576
+#: includes/class-eb-admin-notice-handler.php:587
+#: includes/class-eb-admin-notice-handler.php:608
 msgid " click below"
 msgstr ""
 
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:289
-#: includes/class-eb-admin-notice-handler.php:556
-#: includes/class-eb-admin-notice-handler.php:579
+#: includes/class-eb-admin-notice-handler.php:588
+#: includes/class-eb-admin-notice-handler.php:611
 msgid "Activate Now"
 msgstr ""
 
@@ -3177,7 +3178,7 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1544
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1556
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1558
-#: includes/analytics/class-modular-analytics.php:107
+#: includes/analytics/class-modular-analytics.php:128
 msgid "Skip"
 msgstr ""
 
@@ -3289,16 +3290,31 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/analytics/class-modular-analytics.php:104
-#, php-format
-msgid "Please %sopt in%s to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to %s enhance and improve the plugin %s, and will be handled in accordance with our %sPrivacy Policy%s."
+#: includes/analytics/class-modular-analytics.php:114
+msgid "Please"
 msgstr ""
 
-#: includes/analytics/class-modular-analytics.php:106
-msgid "Allow & Continue"
+#: includes/analytics/class-modular-analytics.php:115
+msgid "opt in"
 msgstr ""
 
 #: includes/analytics/class-modular-analytics.php:116
+msgid "to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:117
+msgid "enhance and improve the plugin"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:118
+msgid "and will be handled in accordance with our"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:125
+msgid "Allow & Continue"
+msgstr ""
+
+#: includes/analytics/class-modular-analytics.php:140
 msgid "Unauthorized action."
 msgstr ""
 
@@ -3338,7 +3354,7 @@ msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:260
 #: includes/api/class-eb-blocks-course-api.php:533
-#: includes/api/class-eb-blocks-course-api.php:656
+#: includes/api/class-eb-blocks-course-api.php:659
 msgid "Uncategorized"
 msgstr ""
 
@@ -3465,225 +3481,228 @@ msgstr ""
 msgid "Couldn&#8217;t register you&hellip; please contact us if you continue to have problems."
 msgstr ""
 
-#: includes/class-eb-activator.php:257
+#: includes/class-eb-activator.php:267
 msgctxt "Page slug"
 msgid "thank-you-for-purchase"
 msgstr ""
 
-#: includes/class-eb-activator.php:258
+#: includes/class-eb-activator.php:268
 msgctxt "Page title"
 msgid "Thank You for Purchase"
 msgstr ""
 
-#: includes/class-eb-activator.php:259
+#: includes/class-eb-activator.php:269
 msgid "Thanks for purchasing the course, your order will be processed shortly."
 msgstr ""
 
-#: includes/class-eb-activator.php:263
+#: includes/class-eb-activator.php:273
 msgctxt "Page slug"
 msgid "user-account"
 msgstr ""
 
-#: includes/class-eb-activator.php:264
+#: includes/class-eb-activator.php:274
 msgctxt "Page title"
 msgid "User Account"
 msgstr ""
 
-#: includes/class-eb-activator.php:269
+#: includes/class-eb-activator.php:279
 msgctxt "Page slug"
 msgid "eb-my-courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:270
+#: includes/class-eb-activator.php:280
 msgctxt "Page title"
 msgid "My Courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:275
+#: includes/class-eb-activator.php:285
 msgctxt "Page slug"
 msgid "eb-courses"
 msgstr ""
 
-#: includes/class-eb-activator.php:276
+#: includes/class-eb-activator.php:286
 msgctxt "Page title"
 msgid "Courses"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:97
+#: includes/class-eb-admin-notice-handler.php:104
 msgid "Thanks for using Edwiser Bridge plugin. To avoid any malfunctioning please"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:97
+#: includes/class-eb-admin-notice-handler.php:104
 msgid "make sure you have also installed and activated our latest associated Moodle Plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:98
+#: includes/class-eb-admin-notice-handler.php:105
 msgid "on your Moodle site."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:101
+#: includes/class-eb-admin-notice-handler.php:108
 msgid "New version of the following plugins are available for the Moodle site."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:109
+#: includes/class-eb-admin-notice-handler.php:116
 msgid "is available."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:111
+#: includes/class-eb-admin-notice-handler.php:118
 msgid " Click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:112
+#: includes/class-eb-admin-notice-handler.php:119
 msgid " to download plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:218
+#: includes/class-eb-admin-notice-handler.php:228
 msgid "Get all Premium Edwiser Products at Flat 20% Off!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:222
+#: includes/class-eb-admin-notice-handler.php:232
 msgid " Dismiss this notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:227
+#: includes/class-eb-admin-notice-handler.php:237
 msgid "Avail Offer Now!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:268
+#: includes/class-eb-admin-notice-handler.php:280
 msgid "Enjoying Edwiser bridge, Please  "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:270
+#: includes/class-eb-admin-notice-handler.php:282
 msgid " click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:272
+#: includes/class-eb-admin-notice-handler.php:284
 msgid " to rate us."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:276
+#: includes/class-eb-admin-notice-handler.php:288
 msgid "Remind me Later!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:281
+#: includes/class-eb-admin-notice-handler.php:293
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:321
+#: includes/class-eb-admin-notice-handler.php:335
 msgid "Important Update Notice:"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:322
+#: includes/class-eb-admin-notice-handler.php:336
 msgid "Please download and update associated edwiserbridge Moodle plugin."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:323
+#: includes/class-eb-admin-notice-handler.php:337
 msgid "Click here "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:324
+#: includes/class-eb-admin-notice-handler.php:338
 msgid " to download"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:376
+#: includes/class-eb-admin-notice-handler.php:392
 msgid "Play a Game with Edwiser to get ahead of the Black Friday Sale!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:377
+#: includes/class-eb-admin-notice-handler.php:393
 msgid "Spin the Wheel to Win Free Access or Discounts on our Premium Moodle theme & plugins"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:378
+#: includes/class-eb-admin-notice-handler.php:394
 msgid "Spin and Win"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:407
+#: includes/class-eb-admin-notice-handler.php:423
 msgid "Get the power of selling courses via WooCommerce!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:411
+#: includes/class-eb-admin-notice-handler.php:427
 msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:412
+#: includes/class-eb-admin-notice-handler.php:428
 msgid "Upgrade Now"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:416
+#: includes/class-eb-admin-notice-handler.php:432
 msgid "Get amazing Black Friday discounts on Edwiser Bridge Pro Lifetime license"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:417
+#: includes/class-eb-admin-notice-handler.php:433
 msgid "Upgrade tO Lifetime"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:459
+#: includes/class-eb-admin-notice-handler.php:477
 msgid "We’ve something new for you to help you design an amazingly personalized Moodle - faster & easier."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:459
+#: includes/class-eb-admin-notice-handler.php:477
 msgid " Our fully redesigned Edwiser RemUI theme is LAUNCHED!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:462
+#: includes/class-eb-admin-notice-handler.php:480
 msgid "Check out the demo to see the modern layouts, ready-to-use homepages, brilliantly upgraded dashboard & more"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:502
-#, php-format
-msgid "%sWant more?%s Unlock the full potential of your Moodle–WordPress integration!"
+#: includes/class-eb-admin-notice-handler.php:522
+msgid "Want more?"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:505
-#, php-format
-msgid "%sSync only what you need%s with Selective Synchronization"
+#: includes/class-eb-admin-notice-handler.php:522
+msgid "Unlock the full potential of your Moodle-WordPress integration!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:507
-#, php-format
-msgid "%sSell subscription courses%s with WooCommerce integration"
+#: includes/class-eb-admin-notice-handler.php:526
+msgid "Sync only what you need with Selective Synchronization"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:509
-#, php-format
-msgid "%sLog in once%s to access both WordPress and Moodle with Single Sign-On"
+#: includes/class-eb-admin-notice-handler.php:529
+msgid "Sell subscription courses with WooCommerce integration"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:511
-#, php-format
-msgid "Power up with %sBulk Enrollments & Course Bundles%s"
+#: includes/class-eb-admin-notice-handler.php:532
+msgid "Log in once to access both WordPress and Moodle with Single Sign-On"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:513
+#: includes/class-eb-admin-notice-handler.php:535
+msgid "Power up with Bulk Enrollments & Course Bundles"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:538
 msgid "& much more!"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:552
+#: includes/class-eb-admin-notice-handler.php:542
+msgid "Explore Edwiser Bridge PRO"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:583
 #, php-format
 msgid "Edwiser Bridge version %s activated successfully"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:570
+#: includes/class-eb-admin-notice-handler.php:602
 msgid "consolidated Edwiser Bridge Pro Plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:570
+#: includes/class-eb-admin-notice-handler.php:602
 msgid "for smoother configuration experience"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:573
+#: includes/class-eb-admin-notice-handler.php:605
 msgid "Starting from Edwiser Bridge version 3.0.0,  all the Edwiser Bridge Pro add-on plugins  have been combined into a single plugin -Edwiser Bridge Pro to provide a smoother and better experience for installing, configuring and updating Edwiser Bridge Pro."
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:576
+#: includes/class-eb-admin-notice-handler.php:608
 msgid "To install and activate the "
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:576
+#: includes/class-eb-admin-notice-handler.php:608
 msgid "new Edwiser Bridge Pro plugin"
 msgstr ""
 
-#: includes/class-eb-admin-notice-handler.php:580
+#: includes/class-eb-admin-notice-handler.php:612
 msgid "Dismiss Forever"
 msgstr ""
 
@@ -5631,6 +5650,11 @@ msgstr ""
 msgid "Course Id"
 msgstr ""
 
+#: blocks/build/course-description/index.js:1
+#: blocks/src/course-description/edit.js:34
+msgid "This option also requires Show Recommended Courses to be enabled in the individual course settings."
+msgstr ""
+
 #: blocks/build/courses/index.js:1
 #: blocks/build/courses/view.js:1
 #: blocks/src/courses/components/course-controls.js:24
@@ -5657,7 +5681,7 @@ msgstr ""
 
 #: blocks/build/courses/index.js:1
 #: blocks/build/courses/view.js:1
-#: blocks/src/courses/components/course-controls.js:60
+#: blocks/src/courses/components/course-controls.js:61
 msgid "Search courses"
 msgstr ""
 

@@ -30,6 +30,12 @@ export default function Edit({ attributes, setAttributes }) {
                 setAttributes({ showRecommendedCourses: value })
               }
             />
+            <p style={{ fontSize: '13px', color: '#819596' }}>
+              {__(
+                'This option also requires Show Recommended Courses to be enabled in the individual course settings.',
+                'edwiser-bridge'
+              )}
+            </p>
           </fieldset>
         </PanelBody>
       </InspectorControls>
