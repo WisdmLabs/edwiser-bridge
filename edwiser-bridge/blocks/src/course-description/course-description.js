@@ -1,6 +1,6 @@
 import { MantineProvider, Skeleton } from '@mantine/core';
 import apiFetch from '@wordpress/api-fetch';
-import { __ } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import React, { useEffect, useState } from 'react';
 import CourseContent, {
   CourseContentSkeleton,
@@ -75,9 +75,27 @@ function CourseDescription({ courseId, showRecommendedCourses }) {
                 courseAccess={
                   course?.course_expiry
                     ? course?.status === 'enrolled'
-                      ? course?.course_expires_after_days + ' Days Left'
-                      : course?.course_expires_after_days + ' Days'
-                    : 'Lifetime'
+                      ? sprintf(
+                          /* translators: %d is number of days left */
+                          _n(
+                            '%d Day Left',
+                            '%d Days Left',
+                            course.course_expires_after_days,
+                            'edwiser-bridge'
+                          ),
+                          course.course_expires_after_days
+                        )
+                      : sprintf(
+                          /* translators: %d is number of days */
+                          _n(
+                            '%d Day',
+                            '%d Days',
+                            course.course_expires_after_days,
+                            'edwiser-bridge'
+                          ),
+                          course.course_expires_after_days
+                        )
+                    : __('Lifetime', 'edwiser-bridge')
                 }
                 courseStatus={course?.status}
                 coursePrice={course?.price}

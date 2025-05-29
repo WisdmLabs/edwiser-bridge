@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-29T10:07:47+00:00\n"
+"POT-Creation-Date: 2025-05-29T13:39:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: edwiser-bridge\n"
@@ -1234,6 +1234,11 @@ msgid "Action"
 msgstr ""
 
 #: admin/licensing/html-licensing.php:135
+#: blocks/build/course-description/index.js:708
+#: blocks/build/course-description/view.js:708
+#: blocks/src/course-description/course-description.js:98
+#: blocks/build/course-description/index.js:492
+#: blocks/build/course-description/view.js:492
 msgid "Lifetime"
 msgstr ""
 
@@ -1898,8 +1903,9 @@ msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:279
 #: includes/class-eb-post-types.php:378
-#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/index.js:775
 #: blocks/src/course-description/edit.js:27
+#: blocks/build/course-description/index.js:547
 msgid "Show Recommended Courses"
 msgstr ""
 
@@ -3335,8 +3341,9 @@ msgid "Search term to filter courses"
 msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:59
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:802
 #: blocks/src/courses/edit.js:72
+#: blocks/build/courses/index.js:616
 msgid "Group courses by category"
 msgstr ""
 
@@ -3734,12 +3741,16 @@ msgstr ""
 #: includes/class-eb-post-types.php:324
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/course-description/index.js:363
+#: blocks/build/course-description/view.js:363
+#: blocks/build/courses/index.js:342
+#: blocks/build/courses/view.js:342
 #: blocks/src/course-description/components/course.js:85
 #: blocks/src/courses/components/course.js:85
+#: blocks/build/course-description/index.js:232
+#: blocks/build/course-description/view.js:232
+#: blocks/build/courses/index.js:236
+#: blocks/build/courses/view.js:236
 msgid "Free"
 msgstr ""
 
@@ -3811,8 +3822,9 @@ msgstr ""
 
 #: includes/class-eb-custom-list-table.php:56
 #: includes/class-eb-post-types.php:112
-#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/index.js:760
 #: blocks/src/course-description/edit.js:15
+#: blocks/build/course-description/index.js:535
 msgid "Course"
 msgstr ""
 
@@ -5086,9 +5098,11 @@ msgstr ""
 
 #: public/class-eb-public.php:180
 #: public/templates/course-filters.php:19
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:156
+#: blocks/build/courses/view.js:156
 #: blocks/src/courses/components/course-controls.js:41
+#: blocks/build/courses/index.js:96
+#: blocks/build/courses/view.js:96
 msgid "All"
 msgstr ""
 
@@ -5230,12 +5244,16 @@ msgid "Start"
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:199
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/course-description/index.js:319
+#: blocks/build/course-description/view.js:319
+#: blocks/build/courses/index.js:298
+#: blocks/build/courses/view.js:298
 #: blocks/src/course-description/components/course.js:44
 #: blocks/src/courses/components/course.js:44
+#: blocks/build/course-description/index.js:191
+#: blocks/build/course-description/view.js:191
+#: blocks/build/courses/index.js:195
+#: blocks/build/courses/view.js:195
 msgid "Suspended"
 msgstr ""
 
@@ -5459,9 +5477,11 @@ msgid "Order Date"
 msgstr ""
 
 #: public/templates/account/user-orders.php:26
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:170
+#: blocks/build/course-description/view.js:170
 #: blocks/src/course-description/components/course-meta.js:49
+#: blocks/build/course-description/index.js:92
+#: blocks/build/course-description/view.js:92
 msgid "Status"
 msgstr ""
 
@@ -5570,164 +5590,238 @@ msgstr ""
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:34
+#: blocks/build/course-description/view.js:34
 #: blocks/src/course-description/components/course-content.js:9
+#: blocks/build/course-description/index.js:9
+#: blocks/build/course-description/view.js:9
 msgid "Description"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
-#: blocks/src/course-description/components/course.js:51
-#: blocks/src/courses/components/course.js:51
-msgid "View Details"
-msgstr ""
-
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
-#: blocks/src/course-description/components/course.js:65
-#: blocks/src/courses/components/course.js:65
-msgid "Enrolled"
-msgstr ""
-
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
-#: blocks/src/course-description/components/course.js:73
-#: blocks/src/courses/components/course.js:73
-msgid "/month"
-msgstr ""
-
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:135
+#: blocks/build/course-description/view.js:135
 #: blocks/src/course-description/components/course-meta.js:18
+#: blocks/build/course-description/index.js:61
+#: blocks/build/course-description/view.js:61
 msgid "Details"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:146
+#: blocks/build/course-description/view.js:146
 #: blocks/src/course-description/components/course-meta.js:26
+#: blocks/build/course-description/index.js:69
+#: blocks/build/course-description/view.js:69
 msgid "Category"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:159
+#: blocks/build/course-description/view.js:159
 #: blocks/src/course-description/components/course-meta.js:41
+#: blocks/build/course-description/index.js:84
+#: blocks/build/course-description/view.js:84
 msgid "Course access"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:183
+#: blocks/build/course-description/view.js:183
 #: blocks/src/course-description/components/course-meta.js:60
+#: blocks/build/course-description/index.js:103
+#: blocks/build/course-description/view.js:103
 msgid "Price"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
-#: blocks/src/course-description/components/recommended-courses.js:14
-msgid "Recommended courses"
+#: blocks/build/course-description/index.js:326
+#: blocks/build/course-description/view.js:326
+#: blocks/build/courses/index.js:305
+#: blocks/build/courses/view.js:305
+#: blocks/src/course-description/components/course.js:51
+#: blocks/src/courses/components/course.js:51
+#: blocks/build/course-description/index.js:198
+#: blocks/build/course-description/view.js:198
+#: blocks/build/courses/index.js:202
+#: blocks/build/courses/view.js:202
+msgid "View Details"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:341
+#: blocks/build/course-description/view.js:341
+#: blocks/build/courses/index.js:320
+#: blocks/build/courses/view.js:320
+#: blocks/src/course-description/components/course.js:65
+#: blocks/src/courses/components/course.js:65
+#: blocks/build/course-description/index.js:212
+#: blocks/build/course-description/view.js:212
+#: blocks/build/courses/index.js:216
+#: blocks/build/courses/view.js:216
+msgid "Enrolled"
+msgstr ""
+
+#: blocks/build/course-description/index.js:351
+#: blocks/build/course-description/view.js:351
+#: blocks/build/courses/index.js:330
+#: blocks/build/courses/view.js:330
+#: blocks/src/course-description/components/course.js:73
+#: blocks/src/courses/components/course.js:73
+#: blocks/build/course-description/index.js:220
+#: blocks/build/course-description/view.js:220
+#: blocks/build/courses/index.js:224
+#: blocks/build/courses/view.js:224
+msgid "/month"
+msgstr ""
+
+#: blocks/build/course-description/index.js:453
+#: blocks/build/course-description/view.js:453
 #: blocks/src/course-description/components/empty-state.js:8
+#: blocks/build/course-description/index.js:286
+#: blocks/build/course-description/view.js:286
 msgid "Course Not Found"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
-#: blocks/build/course-description/view.js:1
+#: blocks/build/course-description/index.js:455
+#: blocks/build/course-description/view.js:455
 #: blocks/src/course-description/components/empty-state.js:10
+#: blocks/build/course-description/index.js:288
+#: blocks/build/course-description/view.js:288
 msgid "Sorry, the course you are looking for is not available or may have been removed."
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/index.js:586
+#: blocks/build/course-description/view.js:586
+#: blocks/src/course-description/components/recommended-courses.js:14
+#: blocks/build/course-description/index.js:369
+#: blocks/build/course-description/view.js:369
+msgid "Recommended courses"
+msgstr ""
+
+#. translators: %d is number of days left
+#: blocks/build/course-description/index.js:707
+#: blocks/build/course-description/view.js:707
+#: blocks/src/course-description/course-description.js:80
+#: blocks/build/course-description/index.js:474
+#: blocks/build/course-description/view.js:474
+#, js-format
+msgid "%d Day Left"
+msgid_plural "%d Days Left"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d is number of days
+#: blocks/build/course-description/index.js:708
+#: blocks/build/course-description/view.js:708
+#: blocks/src/course-description/course-description.js:90
+#: blocks/build/course-description/index.js:484
+#: blocks/build/course-description/view.js:484
+#, js-format
+msgid "%d Day"
+msgid_plural "%d Days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: blocks/build/course-description/index.js:764
 #: blocks/src/course-description/edit.js:18
+#: blocks/build/course-description/index.js:538
 msgid "Course Id"
 msgstr ""
 
-#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/index.js:785
 #: blocks/src/course-description/edit.js:34
+#: blocks/build/course-description/index.js:554
 msgid "This option also requires Show Recommended Courses to be enabled in the individual course settings."
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:132
+#: blocks/build/courses/view.js:132
 #: blocks/src/courses/components/course-controls.js:24
+#: blocks/build/courses/index.js:79
+#: blocks/build/courses/view.js:79
 msgid "Latest"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:135
+#: blocks/build/courses/view.js:135
 #: blocks/src/courses/components/course-controls.js:25
+#: blocks/build/courses/index.js:80
+#: blocks/build/courses/view.js:80
 msgid "Oldest"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:138
+#: blocks/build/courses/view.js:138
 #: blocks/src/courses/components/course-controls.js:26
+#: blocks/build/courses/index.js:81
+#: blocks/build/courses/view.js:81
 msgid "A-Z"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:141
+#: blocks/build/courses/view.js:141
 #: blocks/src/courses/components/course-controls.js:27
+#: blocks/build/courses/index.js:82
+#: blocks/build/courses/view.js:82
 msgid "Z-A"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:174
+#: blocks/build/courses/view.js:174
 #: blocks/src/courses/components/course-controls.js:61
+#: blocks/build/courses/index.js:116
+#: blocks/build/courses/view.js:116
 msgid "Search courses"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
-#: blocks/build/courses/view.js:1
+#: blocks/build/courses/index.js:213
+#: blocks/build/courses/view.js:213
 #: blocks/src/courses/components/course-grid.js:11
+#: blocks/build/courses/index.js:134
+#: blocks/build/courses/view.js:134
 msgid "No courses found"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:740
 #: blocks/src/courses/edit.js:17
+#: blocks/build/courses/index.js:561
 msgid "Courses Settings"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:744
 #: blocks/src/courses/edit.js:22
+#: blocks/build/courses/index.js:566
 msgid "Page Title"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:756
 #: blocks/src/courses/edit.js:31
+#: blocks/build/courses/index.js:575
 msgid "Hide title"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:767
 #: blocks/src/courses/edit.js:39
+#: blocks/build/courses/index.js:583
 msgid "Hide filters"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:778
 #: blocks/src/courses/edit.js:48
+#: blocks/build/courses/index.js:592
 msgid "Courses per page"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:790
 #: blocks/src/courses/edit.js:60
+#: blocks/build/courses/index.js:604
 msgid "Categories (Add comma separated category slugs)"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:813
 #: blocks/src/courses/edit.js:81
+#: blocks/build/courses/index.js:625
 msgid "Grouped categories per page"
 msgstr ""
 
-#: blocks/build/courses/index.js:1
+#: blocks/build/courses/index.js:825
 #: blocks/src/courses/edit.js:93
+#: blocks/build/courses/index.js:637
 msgid "Enable horizontal scroll"
 msgstr ""
 

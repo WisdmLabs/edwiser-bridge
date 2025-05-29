@@ -12,6 +12,11 @@ function CourseMeta({
   courseStatus,
   courseCta,
 }) {
+  const statusLabels = {
+    enrolled: __('Enrolled', 'edwiser-bridge'),
+    suspended: __('Suspended', 'edwiser-bridge'),
+  };
+
   return (
     <div className="eb-course-desc__course-meta">
       <div className="course-meta__header">
@@ -50,7 +55,7 @@ function CourseMeta({
               </div>
               <span className="value">
                 <span className={courseStatus}>
-                  {__(courseStatus, 'edwiser-bridge')}
+                  {statusLabels[courseStatus] || courseStatus}
                 </span>
               </span>
             </div>
