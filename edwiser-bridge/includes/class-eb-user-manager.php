@@ -513,7 +513,7 @@ class Eb_User_Manager {
 				'user_email' => $email,
 			)
 		);
-		if ( ! apply_filters( 'eb_disable_checkout_user_creation', false ) ) {
+		if ( apply_filters( 'eb_disable_checkout_user_creation', false ) ) {
 			$this->update_user_on_moodle( $user_id, $firstname, $lastname, $wp_user_data, $username, $email, $user_p );
 		}
 	}
