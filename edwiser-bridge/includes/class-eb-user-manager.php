@@ -513,56 +513,51 @@ class Eb_User_Manager {
 				'user_email' => $email,
 			)
 		);
-		if ( apply_filters( 'eb_disable_checkout_user_creation', false ) ) {
+		if ( ! apply_filters( 'eb_disable_checkout_user_creation', false ) ) {
 			$this->update_user_on_moodle( $user_id, $firstname, $lastname, $wp_user_data, $username, $email, $user_p );
 		}
 	}
 
 	public function eb_disable_checkout_user_creation( $disable ) {
 		$eb_general = get_option( 'eb_woo_int_settings' );
-		if ( isset($eb_general['wi_enable_moodle_user_creation']) && 'no' === $eb_general['wi_enable_moodle_user_creation'] ) {
+		if ( array_key_exists( 'woocommerce-process-checkout-nonce', $_POST ) ) {
 			// Check if we're in the checkout process
-			if ( function_exists( 'is_checkout' ) && is_checkout() ) {
-				// Get the current order
-				$order_id = absint( get_query_var( 'order-pay' ) );
-				if ( ! $order_id ) {
-					$order_id = WC()->session->get( 'order_awaiting_payment' );
-				}
-
-				if ( $order_id ) {
-					$order = wc_get_order( $order_id );
-					if ( $order ) {
-						$has_course_product = false;
-						foreach ( $order->get_items() as $item ) {
-							$product_id = $item->get_product_id();
-							$product_options = get_post_meta( $product_id, 'product_options', true );
-							
-							// Check if product has associated courses
-							if ( ! empty( $product_options['moodle_post_course_id'] ) ) {
-								$has_course_product = true;
-								break;
-							}
-							
-							// Check for variable products
-							if ( $item->get_variation_id() ) {
-								$variation_options = get_post_meta( $item->get_variation_id(), 'product_options', true );
-								if ( ! empty( $variation_options['moodle_post_course_id'] ) ) {
-									$has_course_product = true;
-									break;
-								}
-							}
-						}
-						
-						// If no course products found, disable Moodle user creation
-						if ( ! $has_course_product ) {
-							return true;
+			error_log('is_checkout so continue');
+			if ( array_key_exists( 'wi_disable_checkout_user_creation', $eb_general ) && 'yes' === $eb_general['wi_disable_checkout_user_creation'] ) {
+				error_log('wi_disable_checkout_user_creation so return true');
+				return true;
+			}
+			// Get the current order
+			if ( ! isset($eb_general['wi_enable_moodle_user_creation']) || 'yes' === $eb_general['wi_enable_moodle_user_creation'] ) {
+				$cart_items = WC()->cart->get_cart();
+				$has_course_product = false;
+				foreach ( $cart_items as $item ) {
+					$product_id = $item['product_id'];
+					$product_options = get_post_meta( $product_id, 'product_options', true );
+					// Check if product has associated courses
+					if ( ! empty( $product_options['moodle_post_course_id'] ) ) {
+						$has_course_product = true;
+						break;
+					}
+					
+					// Check for variable products
+					if ( $item['variation_id'] ) {
+						$variation_options = get_post_meta( $item['variation_id'], 'product_options', true );
+						if ( ! empty( $variation_options['moodle_post_course_id'] ) ) {
+							$has_course_product = true;
+							break;
 						}
 					}
 				}
+				// If no course products found, disable Moodle user creation
+				if ( ! $has_course_product ) {
+					return true;
+				}
 			}
 			return false;
+		} else if ( array_key_exists( 'woocommerce-register-nonce', $_POST ) ) {
+			return true;
 		}
-		
 		return $disable;
 	}
 
