@@ -90,7 +90,7 @@ export default function Edit({ attributes, setAttributes }) {
 
           <fieldset style={{ marginTop: '8px' }}>
             <ToggleControl
-              label={__('Enable horizontal scroll', 'edwiser-bridge')}
+              label={__('Enable horizontal slider', 'edwiser-bridge')}
               checked={attributes.horizontalScroll}
               onChange={(value) => setAttributes({ horizontalScroll: value })}
             />

@@ -110,21 +110,20 @@ class Modular_Analytics_System
 ?>
         <div class="notice eb_admin_remui_demo_notice">
             <div class="eb_remui_demo_notice_content">
-                <p style="font-size: 21px; font-weight: 500; color: #133F3F;">
-                    <?php _e('Please', 'edwiser-bridge'); ?>
-                    <strong style="color: #f00;"><?php _e('opt in', 'edwiser-bridge'); ?></strong>
-                    <?php _e('to permit the collection of your email address, along with basic WordPress environment and usage data. This information will be used solely to', 'edwiser-bridge'); ?>
-                    <strong style="color: #f00;"><?php _e('enhance and improve the plugin', 'edwiser-bridge'); ?></strong>,
-                    <?php _e('and will be handled in accordance with our', 'edwiser-bridge'); ?>
-                    <strong style="color: #f00;">
-                        <a href="https://edwiser.org/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'edwiser-bridge'); ?></a>
+                <p style="font-size: 16px; color: #133F3F;">
+                    <strong style="display: block; font-size: 18px; font-weight: 700; color: #F75D25; margin-bottom: 4px"><?php _e('Improve Edwiser Bridge: Your Data, Our Progress', 'edwiser-bridge'); ?></strong>
+                    <?php _e('To help us continually improve Edwiser Bridge, please consider opting in. This allows us to gather your email address, along with basic data about your WordPress environment and how you use our plugin. Rest assured, this information is used only for plugin enhancement and is handled with the utmost care as outlined in our', 'edwiser-bridge'); ?>
+                    <strong>
+                        <a style="color: #F75D25;" href="https://edwiser.org/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'edwiser-bridge'); ?></a>
                     </strong>.
+                    <span style="display: block; margin-top: 4px">
+                        <?php _e('Your participation makes a difference!', 'edwiser-bridge'); ?></span>
                 </p>
                 <p>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; margin-right: 10px;">
+                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 400; margin-right: 10px;">
                         <?php _e('Allow & Continue', 'edwiser-bridge'); ?>
                     </a>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 15px;">
+                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 14px;">
                         <?php _e('Skip', 'edwiser-bridge'); ?>
                     </a>
                 </p>

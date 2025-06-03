@@ -189,7 +189,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                     ),
                     'checkout' => array(
                         'title' => __('Checkout Page', 'edwiser-bridge'),
-                        'desc'  => __('A simplified cart page for a smoother checkout process.', 'edwiser-bridge'),
+                        'desc'  => __('A simplified checkout page for a smoother checkout process.', 'edwiser-bridge'),
                         'note' => __('Stripe and Paypal payment gateways have been tested and verified to work reliably. For any other gateways, please ensure thorough testing before enabling this template on your site.', 'edwiser-bridge'),
                         'img'   => 'checkout.png',
                         'is_pro' => true,
