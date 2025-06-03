@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-03T07:00:50+00:00\n"
+"POT-Creation-Date: 2025-06-03T08:25:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: edwiser-bridge\n"
@@ -3699,6 +3699,42 @@ msgstr ""
 
 #: includes/class-eb-admin-notice-handler.php:612
 msgid "Dismiss Forever"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:751
+msgid "Upgrade your store's look today!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:752
+msgid "We've introduced new templates for key WooCommerce pages in Edwiser Bridge!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:760
+msgid "Fully customizable with WordPress Gutenberg"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:767
+msgid "Improved design for a better user experience"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:774
+msgid "Easy to apply from the Template Settings"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:778
+msgid "View New Templates"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:805
+msgid "Your course pages just got an upgrade!"
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:806
+msgid "We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience."
+msgstr ""
+
+#: includes/class-eb-admin-notice-handler.php:808
+msgid "Check out the new pages!"
 msgstr ""
 
 #: includes/class-eb-course-manager.php:197

@@ -630,18 +630,25 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function check_for_template_modal()
 	{
-		// Current plugin version
-		$current_version = '4.1.0';
+		// Free plugin version
+		$free_version = '4.1.0';
+		$free_shown_version = get_option('eb_free_template_modal_shown', '0.0.0');
 
-		$shown_version  = get_option('eb_template_modal_shown', '0.0.0');
-
-		if ($current_version !== $shown_version) {
-			update_option('eb_template_modal_shown', $current_version);
-
-			update_option('eb_show_template_modal', 'yes');
+		if ($free_version !== $free_shown_version) {
+			update_option('eb_free_template_modal_shown', $free_version);
+			update_option('eb_show_free_template_modal', 'yes');
 		}
 
-		update_option('eb_plugin_version', $current_version);
+		// Pro plugin version
+		if (is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php')) {
+			$pro_version = '4.1.0';
+			$pro_shown_version = get_option('eb_pro_template_modal_shown', '0.0.0');
+
+			if ($pro_version !== $pro_shown_version) {
+				update_option('eb_pro_template_modal_shown', $pro_version);
+				update_option('eb_show_pro_template_modal', 'yes');
+			}
+		}
 	}
 
 	/**
@@ -651,12 +658,20 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function show_template_modal()
 	{
-		// Check if we need to show the modal
-		$show_modal = get_option('eb_show_template_modal', 'no');
+		$show_free = get_option('eb_show_free_template_modal', 'no') === 'yes';
+		$show_pro  = get_option('eb_show_pro_template_modal', 'no') === 'yes';
 
-		if ($show_modal === 'yes') {
+		if ($show_free || $show_pro) {
 			add_action('admin_enqueue_scripts', array($this, 'enqueue_template_modal_assets'));
-			add_action('admin_footer', array($this, 'render_template_modal'));
+
+			add_action('admin_footer', function () use ($show_free, $show_pro) {
+				if ($show_free) {
+					$this->render_free_template_modal();
+				}
+				if ($show_pro) {
+					$this->render_pro_template_modal();
+				}
+			});
 		}
 	}
 
@@ -680,24 +695,23 @@ class Eb_Admin_Notice_Handler
 			)
 		);
 		wp_enqueue_script('eb-template-modal-script');
-	}
 
-	/**
-	 * Render the Gutenberg templates modal HTML
-	 * 
-	 * @since 4.1.0
-	 */
-	public function render_template_modal()
-	{
-		// Check if Pro is active
-		$eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
+		wp_add_inline_script('eb-template-modal-script', "
+			jQuery(document).ready(function($) {
+				$('.eb__modal-close').on('click', function () {
+					var container = $(this).closest('.eb__modal-container');
+					var modalType = container.hasClass('pro') ? 'pro' : 'free';
 
-		// Different content based on user type
-		if ($eb_pro_active) {
-			$this->render_pro_template_modal();
-		} else {
-			$this->render_free_template_modal();
-		}
+					$.post(ebModalData.ajaxurl, {
+						action: 'eb_mark_template_modal_as_viewed',
+						nonce: ebModalData.nonce,
+						modal_type: modalType
+					});
+
+					container.closest('.eb__modal-overlay').fadeOut();
+				});
+			});
+		");
 	}
 
 	/**
@@ -709,15 +723,15 @@ class Eb_Admin_Notice_Handler
 	{
 		?>
 		<div class="eb__modal-overlay">
-			<div class="eb__modal-container">
+			<div class="eb__modal-container pro">
 				<button class="eb__modal-close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
 						<path d="M18 6 6 18" />
 						<path d="m6 6 12 12" />
 					</svg></button>
 
 				<div class="eb__modal-content">
-					<h1>Upgrade your store's look today!</h1>
-					<p>We've introduced new templates for key WooCommerce pages in Edwiser Bridge!</p>
+					<h1><?php _e("Upgrade your store's look today!", 'edwiser-bridge'); ?></h1>
+					<p><?php _e("We've introduced new templates for key WooCommerce pages in Edwiser Bridge!", 'edwiser-bridge'); ?></p>
 
 					<div class="eb__feature-list">
 						<div class="eb__feature-item">
@@ -725,25 +739,25 @@ class Eb_Admin_Notice_Handler
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text">Fully customizable with WordPress Gutenberg</span>
+							<span class="eb__feature-text"><?php _e("Fully customizable with WordPress Gutenberg", 'edwiser-bridge'); ?></span>
 						</div>
 						<div class="eb__feature-item">
 							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text">Improved design for a better user experience</span>
+							<span class="eb__feature-text"><?php _e("Improved design for a better user experience", 'edwiser-bridge'); ?></span>
 						</div>
 						<div class="eb__feature-item">
 							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text">Easy to apply from the Template Settings</span>
+							<span class="eb__feature-text"><?php _e("Easy to apply from the Template Settings", 'edwiser-bridge'); ?></span>
 						</div>
 					</div>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta">View New Templates</a>
+					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("View New Templates", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -763,17 +777,17 @@ class Eb_Admin_Notice_Handler
 	{
 	?>
 		<div class="eb__modal-overlay">
-			<div class="eb__modal-container">
+			<div class="eb__modal-container free">
 				<button class="eb__modal-close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
 						<path d="M18 6 6 18" />
 						<path d="m6 6 12 12" />
 					</svg></button>
 
 				<div class="eb__modal-content">
-					<h1>Your course pages just got an upgrade!</h1>
-					<p>We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.</p>
+					<h1><?php _e("Your course pages just got an upgrade!", 'edwiser-bridge'); ?></h1>
+					<p><?php _e("We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.", 'edwiser-bridge'); ?></p>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta">Check out the new pages!</a>
+					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("Check out the new pages!", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -793,8 +807,11 @@ class Eb_Admin_Notice_Handler
 	{
 		check_ajax_referer('eb_template_modal_nonce', 'nonce');
 
-		// Mark modal as viewed
-		update_option('eb_show_template_modal', 'no');
+		if (isset($_POST['modal_type']) && $_POST['modal_type'] === 'free') {
+			update_option('eb_show_free_template_modal', 'no');
+		} elseif (isset($_POST['modal_type']) && $_POST['modal_type'] === 'pro') {
+			update_option('eb_show_pro_template_modal', 'no');
+		}
 
 		wp_send_json_success();
 	}
