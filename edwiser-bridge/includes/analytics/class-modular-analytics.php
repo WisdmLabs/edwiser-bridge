@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 class Modular_Analytics_System
 {
     private static $instance;
-    private $server_url = 'https://dev1.edwiser.org/wp-json/analytics/v1/collect'; // Replace with your server URL
-    private $deactivation_url = 'https://dev1.edwiser.org/wp-json/analytics/v1/deactivate'; // URL for deactivation feedback
+    private $server_url = 'https://edwiser.org/wp-json/analytics/v1/collect'; // Replace with your server URL
+    private $deactivation_url = 'https://edwiser.org/wp-json/analytics/v1/deactivate'; // URL for deactivation feedback
     private $plugin_file = 'edwiser-bridge/edwiser-bridge.php'; //replace with your plugin file
     private $plugin_name = 'Edwiser Bridge - WordPress Moodle LMS Integration'; //replace with your plugin name
     private $plugin_version = '4.0.0'; //replace with your plugin version
