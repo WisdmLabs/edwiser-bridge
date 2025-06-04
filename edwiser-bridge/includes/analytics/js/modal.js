@@ -70,11 +70,6 @@ jQuery(document).ready(function ($) {
   $('.button-submit').click(function (e) {
     e.preventDefault();
     let selectedReason = $('input[name="selected-reason"]:checked').val();
-    let ajaxData = {
-      action: 'modular_analytics_deactivation_feedback',
-      nonce: modular_analytics_params.nonce,
-      reason: selectedReason,
-    };
 
     if (selectedReason === 'Other') {
       const otherText = $('#other-reason-text').val().trim();
@@ -82,14 +77,19 @@ jQuery(document).ready(function ($) {
         alert('Please specify your reason in the textbox.');
         return;
       }
-      ajaxData.other_reason = otherText; // ONLY add when 'Other' is selected
+
+      selectedReason = otherText;
     }
 
     if (selectedReason) {
       $.ajax({
         url: modular_analytics_params.ajax_url,
         type: 'POST',
-        data: ajaxData,
+        data: {
+          action: 'modular_analytics_deactivation_feedback',
+          nonce: modular_analytics_params.nonce,
+          reason: selectedReason,
+        },
         success: function (response) {
           console.log(response);
           if (response.success) {
