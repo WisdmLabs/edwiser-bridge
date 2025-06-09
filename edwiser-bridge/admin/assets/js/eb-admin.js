@@ -2075,6 +2075,9 @@
     $('.eb__modal-close').on('click', function () {
       $('.eb__modal-overlay').fadeOut(300);
 
+      var container = $(this).closest('.eb__modal-container');
+      var modalType = container.hasClass('pro') ? 'pro' : 'free';
+
       // Mark as viewed via AJAX
       $.ajax({
         url: ebModalData.ajaxurl,
@@ -2082,6 +2085,7 @@
         data: {
           action: 'eb_mark_template_modal_as_viewed',
           nonce: ebModalData.nonce,
+          modal_type: modalType,
         },
       });
     });
@@ -2091,6 +2095,9 @@
       e.preventDefault();
       $('.eb__modal-overlay').fadeOut(300);
 
+      var container = $(this).closest('.eb__modal-container');
+      var modalType = container.hasClass('pro') ? 'pro' : 'free';
+
       // Mark as viewed via AJAX
       $.ajax({
         url: ebModalData.ajaxurl,
@@ -2098,6 +2105,7 @@
         data: {
           action: 'eb_mark_template_modal_as_viewed',
           nonce: ebModalData.nonce,
+          modal_type: modalType,
         },
         success: function () {
           // Redirect to templates page
