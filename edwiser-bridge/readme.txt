@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.7.2
-Stable tag: 4.0.0
+Tested up to: 6.8.1
+Stable tag: 4.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -120,7 +120,7 @@ So to enhance its functionality and achieve a fully automated WooCommerce Soluti
  = Minimum Requirements =
 * PHP version 7.0 or greater
 * WordPress 6.0 or higher
-* Moodle 4.3 or higher
+* Moodle 3.9 or higher
 
  =  Automatic Installation  =
 * Go to the Plugins menu from the dashboard.
@@ -211,6 +211,12 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 4.1.0 =
+* Feature - Introduced Gutenberg block templates for Courses Archive Page & Single Course Page.
+* Feature - When Course Expiry is enabled, a default value of 30 days will now be pre-filled in the expiry days input.
+* Feature - Moodle Email Notification Fatal Error on User Enrolment From WordPress - Handled fatal error by adding clear error messages in both the Test Enrollment and Diagnostic Tool.
+* Removed - Freemius tool for plugin usage data.
+
 = 4.0.0 =
 * Feature - Refactored for compatibility with Moodle standards and new Webservices in the moodle plugin.
 
