@@ -498,13 +498,18 @@ class Eb_User_Manager {
 				}
 			}
 		}
+		if ( isset( $_POST['recipient_first_name'] ) && empty(get_user_meta($user_id, 'first_name', true)) ) {
+			$firstname = sanitize_text_field( $_POST['recipient_first_name'] );
+		}
+		if ( isset( $_POST['recipient_last_name'] ) && empty(get_user_meta($user_id, 'last_name', true)) ) {
+			$lastname = sanitize_text_field( $_POST['recipient_last_name'] );
+		}
 		if ( empty( $firstname ) ) {
 			$firstname = $username;
 		}
 		if ( empty( $lastname ) ) {
 			$lastname = $username;
 		}
-		
 		$wp_user_data = apply_filters(
 			'eb_new_user_data',
 			array(
@@ -522,9 +527,7 @@ class Eb_User_Manager {
 		$eb_general = get_option( 'eb_woo_int_settings' );
 		if ( array_key_exists( 'woocommerce-process-checkout-nonce', $_POST ) ) {
 			// Check if we're in the checkout process
-			error_log('is_checkout so continue');
 			if ( array_key_exists( 'wi_disable_checkout_user_creation', $eb_general ) && 'yes' === $eb_general['wi_disable_checkout_user_creation'] ) {
-				error_log('wi_disable_checkout_user_creation so return true');
 				return true;
 			}
 			// Get the current order
