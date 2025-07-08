@@ -114,13 +114,13 @@ if (! class_exists('Eb_Settings_Templates')) {
                     
                     if ($template !== 'all_courses' && $template !== 'single_course') {
                         $option_name = 'eb_woo_gutenberg_pages';
-                        $option_value = isset($_POST['eb_pro_' . $template . '_page_id']) ? $_POST['eb_pro_' . $template . '_page_id'] : 0;
                         $value = get_option($option_name);
+                        $option_value = isset($_POST['eb_pro_' . $template . '_page_id']) ? $_POST['eb_pro_' . $template . '_page_id'] : $value['eb_pro_' . $template . '_page_id'];
                         $value['eb_pro_' . $template . '_page_id'] = $option_value;
                     } else {
                         $option_name = 'eb_gutenberg_pages';
-                        $option_value = isset($_POST['eb_' . $template . '_page_id']) ? $_POST['eb_' . $template . '_page_id'] : 0;
                         $value = get_option($option_name);
+                        $option_value = isset($_POST['eb_' . $template . '_page_id']) ? $_POST['eb_' . $template . '_page_id'] : $value[$template];
                         $value[$template] = $option_value;
                     }
 
