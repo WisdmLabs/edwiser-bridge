@@ -228,7 +228,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 								'type' => 'cust_html',
 						),
 						array(
-							'html' => '<th></th><td><hr style="margin-bottom: 30px;" /><div style="font-size: 16px;">' . esc_html__( 'Are you are still facing issues related to connection?', 'edwiser-bridge' ) . '</div></td>',
+							'html' => '<th></th><td class="troubleshoot-connection hidden"><hr style="margin-bottom: 30px;" /><div style="font-size: 16px;">' . esc_html__( 'Are you are still facing issues related to connection?', 'edwiser-bridge' ) . '</div></td>',
 							'type' => 'cust_html',
 						),
 						array(
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 							'default'     	   => __( 'Troubleshoot', 'edwiser-bridge' ),
 							'type'        	   => 'button',
 							'desc_tip' 	  	   => false,
-							'class'    	  	   => 'button secondary',
+							'class'    	  	   => 'button secondary hidden',
 							'conditional' 	   => true,
 							'show_condition'   => 'token_exists',
 							'parent_row_class' => 'inline'

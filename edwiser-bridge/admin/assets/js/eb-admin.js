@@ -757,6 +757,8 @@
                     //prepare response for user
                     if (response.success == 1) {
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
+                        $('.troubleshoot-connection').addClass('hidden');
+                        $('#eb_diagnose_issues_button').addClass('hidden');
                         if(response.warnings){
                             // add ohSnap warning message for each warning
                             $.each(response.warnings, function (index, value) {
@@ -766,6 +768,8 @@
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
                         $('.eb_test_connection_response').html(response.response_message);
+                        $('.troubleshoot-connection').removeClass('hidden');
+                        $('#eb_diagnose_issues_button').removeClass('hidden');
                     }
                 }
             });
