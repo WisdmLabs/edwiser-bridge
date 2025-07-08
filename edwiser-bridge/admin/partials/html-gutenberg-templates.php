@@ -21,9 +21,15 @@ $pages = get_pages(array(
 ));
 
 // Get the currently selected page IDs
-$shop_page_id = get_option('eb_pro_shop_page_id', 0);
-$cart_page_id = get_option('eb_pro_cart_page_id', 0);
-$checkout_page_id = get_option('eb_pro_checkout_page_id', 0);
+$woo_gutenberg_pages = get_option('eb_woo_gutenberg_pages', array());
+$course_gutenberg_pages = get_option('eb_gutenberg_pages', array());
+$shop_page_id = ! empty($woo_gutenberg_pages['eb_pro_shop_page_id']) ? $woo_gutenberg_pages['eb_pro_shop_page_id'] : 0;
+$cart_page_id = ! empty($woo_gutenberg_pages['eb_pro_cart_page_id']) ? $woo_gutenberg_pages['eb_pro_cart_page_id'] : 0;
+$checkout_page_id = ! empty($woo_gutenberg_pages['eb_pro_checkout_page_id']) ? $woo_gutenberg_pages['eb_pro_checkout_page_id'] : 0;
+$single_product_page_id = ! empty($woo_gutenberg_pages['eb_pro_single_product_page_id']) ? $woo_gutenberg_pages['eb_pro_single_product_page_id'] : 0;
+$thankyou_page_id = ! empty($woo_gutenberg_pages['eb_pro_thank_you_page_id']) ? $woo_gutenberg_pages['eb_pro_thank_you_page_id'] : 0;
+$single_course_page_id = ! empty($course_gutenberg_pages['single_course']) ? $course_gutenberg_pages['single_course'] : 0;
+$courses_page_id = ! empty($course_gutenberg_pages['all_courses']) ? $course_gutenberg_pages['all_courses'] : 0;
 
 $eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
 $module_data = get_option('eb_pro_modules_data');
@@ -42,8 +48,19 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
         <?php foreach ($templates as $key => $template) :
             $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
             $switch_id = 'switch_' . $key;
-            $has_page_dropdown = in_array($key, array());
-            $current_page_id = ($key === 'shop') ? $shop_page_id : (($key === 'cart') ? $cart_page_id : (($key === 'checkout') ? $checkout_page_id : 0));
+            $has_page_dropdown = in_array($key, array('shop', 'cart', 'checkout', 'single_product', 'thank_you', 'single_course', 'all_courses'));
+
+            // Refactored: use associative array for page ID lookup
+            $page_id_map = array(
+                'shop' => $shop_page_id,
+                'cart' => $cart_page_id,
+                'checkout' => $checkout_page_id,
+                'single_product' => $single_product_page_id,
+                'thank_you' => $thankyou_page_id,
+                'single_course' => $single_course_page_id,
+                'all_courses' => $courses_page_id,
+            );
+            $current_page_id = isset($page_id_map[$key]) ? $page_id_map[$key] : 0;
 
             $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
             $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));
@@ -89,12 +106,12 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
                             <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
                         </div>
 
-                        <?php if ($has_page_dropdown && isset($template['page_option'])) : ?>
+                        <?php if ($has_page_dropdown && isset($template['page_option']) && (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)) : ?>
                             <select id="<?php echo esc_attr($key); ?>_page_select" name="<?php echo esc_attr($template['page_option']); ?>" class="eb__page-select">
                                 <option value="" selected disabled><?php esc_html_e('Select a page', 'edwiser-bridge'); ?></option>
                                 <?php foreach ($pages as $page) : ?>
                                     <option value="<?php echo esc_attr($page->ID); ?>" <?php selected($current_page_id, $page->ID); ?>>
-                                        <?php echo esc_html($page->post_title); ?>
+                                        <?php echo esc_html(! empty($page->post_title) ? $page->post_title : __('Untitled', 'edwiser-bridge') . ' (' . $page->ID . ')'); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
