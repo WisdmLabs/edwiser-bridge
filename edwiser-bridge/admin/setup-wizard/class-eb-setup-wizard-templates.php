@@ -635,6 +635,7 @@ class Eb_Setup_Wizard_Templates {
 		$allowed_tags     = \app\wisdmlabs\edwiserBridge\wdm_eb_get_allowed_html_tags();
 		$prev_step        = $setup_functions->get_prev_step( $step );
 		$prev_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $prev_step;
+		$next_url         = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
 
 		if ( $ajax ) {
 			ob_start();
@@ -658,10 +659,19 @@ class Eb_Setup_Wizard_Templates {
 
 				<div class='eb_setup_course_sync_btn_wrap'>
 					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
-					<!-- <button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
+					<!-- <button class='eb_setup_sec_btn'> <?php //esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_course_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue eb_setup_course_sync_cont_btn" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+				</div>
+				<div>
+					<fieldset>
+						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
+						<div class='fieldset_content'>
+							<?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Courses tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Courses tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=courses'); ?>							
+						</div>
 
+					</fieldset>
 				</div>
 			</div>
 
@@ -732,13 +742,17 @@ class Eb_Setup_Wizard_Templates {
 					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Synchronize users & notify', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 				</div>
 
 				<div>
 					<fieldset>
 						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<div class='fieldset_content'>
-							<?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?>
+							<ul>
+								<li><?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?></li>
+								<li><?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings'); ?></li>
+							</ul>
 						</div>
 
 					</fieldset>

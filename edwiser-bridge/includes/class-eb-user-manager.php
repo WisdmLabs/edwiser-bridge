@@ -440,6 +440,8 @@ class Eb_User_Manager {
 							'user_pass'  => $user_p,
 							'user_email' => $email,
 							'role'       => $role,
+							'first_name' => $firstname,
+							'last_name'  => $lastname,
 						)
 					);
 
