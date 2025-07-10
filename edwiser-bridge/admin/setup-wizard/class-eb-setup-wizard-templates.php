@@ -751,7 +751,7 @@ class Eb_Setup_Wizard_Templates {
 						<div class='fieldset_content'>
 							<ul>
 								<li><?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?></li>
-								<li><?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings'); ?></li>
+								<li><?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=users'); ?></li>
 							</ul>
 						</div>
 
