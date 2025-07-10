@@ -1018,7 +1018,13 @@ class Eb_Course_Manager {
 			} else {
 				$file_url = $course_image->fileurl . '?token=' . $token;
 			}
-			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $file_url ) ); // @codingStandardsIgnoreLine
+
+			// Use wp_remote_get to get the image data from the url.
+			$image_data = $this->get_image_data_from_url( $file_url );
+			if ( ! $image_data ) {
+				return;
+			}
+			$upload_file = wp_upload_bits( $course_image->filename, null, $image_data );
 
 			if ( ! $upload_file['error'] ) {
 				// if succesfull insert the new file into the media library (create a new attachment post type).
@@ -1044,5 +1050,19 @@ class Eb_Course_Manager {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get image data from url.
+	 *
+	 * @param  string $url url of the image.
+	 * @return string|false      image data or false on failure.
+	 */
+	public function get_image_data_from_url( $url ) {
+		$response = wp_remote_get( $url, array( 'timeout' => 15 ) );
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
+		return wp_remote_retrieve_body( $response );
 	}
 }
