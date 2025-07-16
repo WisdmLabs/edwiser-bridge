@@ -202,8 +202,10 @@ if ( ! function_exists( 'wdm_eb_user_redirect_url' ) ) {
 
 		// Extract query string into local $_GET array.
 		$get = array();
-		parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
-		$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		if ( ! empty( $query_str ) ) {
+			parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
+			$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		}
 
 		return $usr_ac_page_url;
 	}
