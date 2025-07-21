@@ -1,0 +1,39 @@
+---
+description: PHP coding standards for WordPress development
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress PHP Coding Standards
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Naming Conventions
+- Use lowercase letters for function names with underscores: `function example_function()`
+- Use CamelCase for class names: `class ExampleClass {}`
+- Use all lowercase for variable names with underscores: `$example_variable`
+- Constants should be in all uppercase with underscores: `EXAMPLE_CONSTANT`
+
+## Formatting
+- Use tabs for indentation, not spaces
+- Opening braces for classes and functions are on the same line
+- PHP opening tags: always use `<?php` for PHP-only files
+- Omit closing PHP tag `?>` at the end of PHP-only files
+- No trailing whitespace at the end of lines
+
+## Commenting
+- Use DocBlocks for functions, classes, and methods
+- Include parameter types, return types, and descriptions
+- Use single-line comments (`//`) for inline comments
+- Document all hooks with clear descriptions
+
+## PHP Best Practices
+- Follow PSR-1 and PSR-12 when not in conflict with WordPress standards
+- Use strict comparison operators (`===`, `!==`) when possible
+- Avoid using deprecated PHP functions
+- Set appropriate error reporting levels
+
+## WordPress Specific
+- Use WordPress naming conventions for hooks: lowercase with underscores
+- Prefix functions, classes, and variables with plugin or theme name
+- Use WordPress data types and functions when appropriate
+- Follow WordPress PHP documentation standards for PHPDoc blocks

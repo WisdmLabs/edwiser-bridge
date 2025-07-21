@@ -1,0 +1,62 @@
+---
+description: Testing and quality assurance guidelines for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Testing and Quality Assurance
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Unit Testing
+- Use PHPUnit for unit testing WordPress code
+- Create tests in a dedicated `/tests` directory
+- Follow WordPress core's testing approach when appropriate
+- Test individual functions and methods in isolation
+
+## Integration Testing
+- Test interactions between components
+- Use WordPress test framework for integration tests
+- Create fixture data for testing
+- Test hooks, filters, and actions
+
+## End-to-End Testing
+- Implement browser testing for critical user flows
+- Consider Cypress or Playwright for E2E tests
+- Test across multiple browsers and devices
+- Automate critical user journeys
+
+## Accessibility Testing
+- Conduct automated accessibility testing
+- Implement manual testing with screen readers
+- Test keyboard navigation
+- Verify color contrast and text sizing
+
+## Performance Testing
+- Benchmark database queries
+- Measure page load times
+- Test with various server configurations
+- Profile and optimize slow operations
+
+## Security Testing
+- Conduct regular security audits
+- Test for common vulnerabilities (OWASP Top 10)
+- Implement code scanning tools
+- Verify input sanitization and output escaping
+
+## Code Reviews
+- Establish clear code review guidelines
+- Use pull requests for all changes
+- Implement automated code quality checks
+- Follow WordPress coding standards
+
+## Continuous Integration
+- Set up automated testing pipelines
+- Run tests on each commit/PR
+- Implement code linting in CI
+- Generate code coverage reports
+
+## Testing Tools
+- PHPUnit for unit testing
+- WP_UnitTestCase for WordPress-specific tests
+- Query Monitor for performance debugging
+- Theme Check and Plugin Check for standards compliance

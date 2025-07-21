@@ -1,0 +1,56 @@
+---
+description: Template hierarchy guidelines for WordPress themes
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Template Hierarchy
+
+This rule applies to: `*.php` files in WordPress theme projects.
+
+## Core Templates
+- Implement essential templates: index.php, header.php, footer.php, sidebar.php
+- Create specialized templates following WordPress hierarchy
+- Use template parts for reusable components
+- Understand fallback patterns in template hierarchy
+
+## Content Type Templates
+- Create specific templates for different post types: single-{post_type}.php
+- Implement archive templates: archive-{post_type}.php
+- Use taxonomy templates: taxonomy-{taxonomy}-{term}.php
+- Create author templates: author.php, author-{nicename}.php
+
+## Page Templates
+- Implement page.php as base template for pages
+- Create custom page templates with appropriate headers
+- Use front-page.php for home page when using static front page
+- Implement custom templates for specific pages: page-{slug}.php
+
+## Template Parts
+- Use get_template_part() for modular templates
+- Create reusable components in template-parts/ directory
+- Organize template parts by purpose (content, header, navigation)
+- Pass variables to template parts when needed
+
+## Conditional Templates
+- Implement 404.php for not found errors
+- Create search.php for search results
+- Use attachment.php for media attachments
+- Implement date archives: date.php, year.php, month.php, day.php
+
+## Modern Templates
+- Consider block theme templates for full site editing
+- Use template-canvas.php for full page layouts
+- Implement template comments for block templates when appropriate
+- Structure templates for Gutenberg compatibility
+
+## Template Loading
+- Understand WordPress template loading sequence
+- Use template_include filter for custom template logic
+- Implement template_redirect for special cases
+- Apply appropriate template hooks: get_header, get_footer, get_sidebar
+
+## Best Practices
+- Keep templates focused on presentation
+- Move business logic to functions.php or separate files
+- Follow DRY principles for template code
+- Document template relationships and hierarchy

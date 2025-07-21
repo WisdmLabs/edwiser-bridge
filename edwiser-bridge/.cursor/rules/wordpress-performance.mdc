@@ -1,0 +1,37 @@
+---
+description: Performance optimization guidelines for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Performance
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Database Queries
+- Minimize database queries
+- Use `WP_Query` with proper arguments instead of custom SQL when possible
+- Implement caching for expensive queries
+- Use transients API for storing temporary data
+
+## Asset Management
+- Enqueue scripts and styles properly using `wp_enqueue_script()` and `wp_enqueue_style()`
+- Load scripts in footer when appropriate
+- Concatenate and minify CSS and JavaScript files
+- Use async or defer attributes for non-critical scripts
+
+## Caching
+- Implement page caching
+- Use object caching when available
+- Leverage browser caching with proper headers
+- Consider using a persistent object cache (Redis, Memcached)
+
+## Conditional Loading
+- Only load assets on pages where they're needed
+- Use conditional functions (`is_single()`, `is_archive()`, etc.) to target specific pages
+- Implement lazy loading for images and other resources
+
+## Optimization
+- Optimize database tables regularly
+- Use appropriate image sizes and formats
+- Minimize plugin usage and remove unused plugins
+- Consider using a CDN for static assets

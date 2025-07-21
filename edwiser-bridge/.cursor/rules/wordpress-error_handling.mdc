@@ -1,0 +1,56 @@
+---
+description: Error handling best practices for WordPress and PHP
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress and PHP Error Handling
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## PHP Error Handling
+- Set appropriate error reporting levels in development and production
+- Use try/catch blocks for code that might throw exceptions
+- Implement proper error logging
+- Never suppress errors with @ operator without proper handling
+
+## WordPress Error Functions
+- Use wp_die() for fatal WordPress errors
+- Implement is_wp_error() to check for WordPress errors
+- Return WP_Error objects for function errors
+- Check if functions return WP_Error before proceeding
+
+## Error Logging
+- Use error_log() for PHP errors
+- Implement custom logging with WP_DEBUG_LOG
+- Create detailed error messages with context
+- Log errors with appropriate severity levels
+
+## User Feedback
+- Show user-friendly error messages in production
+- Provide detailed errors in development environments
+- Use admin_notices for administrator messages
+- Implement proper error feedback for AJAX requests
+
+## Database Errors
+- Check for database errors after queries
+- Handle $wpdb->last_error appropriately
+- Use $wpdb->print_error() in development only
+- Implement transaction rollbacks for failed operations
+
+## API Error Handling
+- Return proper error codes for REST API endpoints
+- Document possible error responses
+- Include helpful error messages
+- Set appropriate HTTP status codes
+
+## Security Considerations
+- Never expose sensitive information in error messages
+- Log security-related errors with proper context
+- Implement error handling for authentication failures
+- Consider rate limiting after repeated errors
+
+## Best Practices
+- Create centralized error handling functions
+- Implement proper fallbacks for common error scenarios
+- Use constants for error codes and messages
+- Test error scenarios thoroughly

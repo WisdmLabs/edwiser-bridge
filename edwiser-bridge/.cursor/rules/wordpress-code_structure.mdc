@@ -1,0 +1,36 @@
+---
+description: Best practices for WordPress code structure and organization
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Code Structure
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## File Organization
+- Follow WordPress coding standards for file organization
+- Keep related functionality grouped together
+- Place template files in appropriate theme directories
+- Organize plugin files with clear separation of concerns
+
+## Namespacing
+- Use namespaces for all plugin code
+- Follow PSR-4 autoloading standards when possible
+- Structure namespaces to reflect the plugin's organization
+
+## Class Structure
+- One class per file
+- Name files according to the class they contain
+- Follow WordPress naming conventions (CamelCase for classes)
+- Keep classes focused on a single responsibility
+
+## Functions
+- Group related functions together
+- Use prefixes for functions in the global namespace
+- Consider organizing functions into appropriate classes when possible
+
+## Hooks
+- Document all hooks with clear descriptions
+- Group related hooks together
+- Use consistent naming conventions for hooks
+- Prefix custom hooks with the plugin or theme name

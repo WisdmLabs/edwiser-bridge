@@ -1,0 +1,44 @@
+---
+description: Accessibility guidelines for WordPress development
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Accessibility
+
+This rule applies to: `*.php` files in WordPress theme and plugin projects.
+
+## Semantic HTML
+- Use appropriate semantic HTML elements (`<nav>`, `<main>`, `<article>`, etc.)
+- Ensure correct heading hierarchy (h1-h6)
+- Use lists (`<ul>`, `<ol>`) for navigation and grouped items
+- Structure forms with proper labeling
+
+## ARIA Attributes
+- Use ARIA attributes only when necessary
+- Ensure ARIA attributes have valid values
+- Test ARIA implementations with screen readers
+- Prefer native HTML elements with built-in accessibility features
+
+## Keyboard Navigation
+- Ensure all interactive elements are keyboard accessible
+- Maintain logical tab order
+- Provide visible focus styles
+- Implement skip-to-content links
+
+## Media
+- Include alt text for all images
+- Provide transcripts for audio content
+- Include captions and descriptions for video content
+- Ensure sufficient color contrast
+
+## Forms
+- Associate labels with form fields using `for` attribute
+- Group related form elements with `<fieldset>` and `<legend>`
+- Provide clear error messages
+- Mark required fields appropriately
+
+## Testing
+- Test with keyboard-only navigation
+- Validate HTML for accessibility issues
+- Test with screen readers
+- Check color contrast ratios

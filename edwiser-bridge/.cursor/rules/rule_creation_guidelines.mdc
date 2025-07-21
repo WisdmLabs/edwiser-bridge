@@ -1,0 +1,43 @@
+---
+description: Guidelines for creating Cursor MDC rules
+globs: ["**/*.mdc"]
+alwaysApply: true
+---
+# MDC Rule Creation Guidelines
+
+## Location
+- All MDC rules must be created in the `.cursor/rules` folder
+- Each rule must be in its own separate file
+
+## Naming Convention
+- Use descriptive filenames that clearly indicate the rule's purpose
+- Use snake_case for filenames (e.g., `code_formatting.mdc`, `documentation_standards.mdc`)
+- Always use the `.mdc` extension for rule files
+
+## File Pattern Specification
+- Begin each rule with a statement specifying which files the rule applies to
+- Use glob patterns to define file scope (e.g., `*.php`, `src/**/*.js`)
+- Format as: `This rule applies to: \`pattern\` files in [project type]`
+- Be specific about project type or directory scope when relevant
+
+## MDC Format
+- Include front matter metadata at the top of the file between triple dashes (`---`)
+- Required metadata fields:
+  - `description`: Brief description of the rule's purpose
+  - `globs`: Array of file patterns this rule applies to (or empty array for manual/always applied rules)
+  - `alwaysApply`: Boolean indicating if the rule should always be applied
+
+## Content Structure
+- Start with a clear title using H1 (`# Title`)
+- Include a brief description of the rule's purpose
+- Organize rule details using appropriate headings (H2, H3)
+- Use bullet points for lists of requirements or guidelines
+- Include examples when helpful
+
+## Implementation
+When creating a new rule via Cursor AI:
+- Always place it in the `.cursor/rules` directory
+- Create it as a standalone file with `.mdc` extension
+- Include appropriate file pattern specification
+- Follow standard Markdown formatting
+- Group related rules by using consistent name prefixes
