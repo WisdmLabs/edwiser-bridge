@@ -92,21 +92,20 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
                         <p class="eb__template-note"><strong>Note: </strong><?php echo esc_html($template['note']); ?> </p>
                     <?php endif;
                     ?>
+                    <div class="eb-switch-container">
+                        <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
+                            <input type="checkbox"
+                                <?php disabled(($template['is_pro'] && (!$eb_pro_active || !$is_license_valid || !$woo_integration_enabled))); ?>
+                                id="<?php echo esc_attr($switch_id); ?>"
+                                name="eb_enabled_templates[<?php echo esc_attr($key); ?>]"
+                                value="1"
+                                <?php checked((!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)); ?>>
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
+                    </div>
                     <div class="eb__template-actions">
-                        <div class="eb-switch-container">
-                            <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
-                                <input type="checkbox"
-                                    <?php disabled(($template['is_pro'] && (!$eb_pro_active || !$is_license_valid || !$woo_integration_enabled))); ?>
-                                    id="<?php echo esc_attr($switch_id); ?>"
-                                    name="eb_enabled_templates[<?php echo esc_attr($key); ?>]"
-                                    value="1"
-                                    <?php checked((!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)); ?>>
-                                <span class="slider round"></span>
-                            </label>
-                            <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
-                        </div>
-
-                        <?php if ($has_page_dropdown && isset($template['page_option']) && (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)) : ?>
+                        <?php if ($has_page_dropdown && isset($template['page_option'])) : ?>
                             <select id="<?php echo esc_attr($key); ?>_page_select" name="<?php echo esc_attr($template['page_option']); ?>" class="eb__page-select">
                                 <option value="" selected disabled><?php esc_html_e('Select a page', 'edwiser-bridge'); ?></option>
                                 <?php foreach ($pages as $page) : ?>
@@ -117,7 +116,12 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
                             </select>
                         <?php endif; ?>
 
-                        <?php if ((!$template['is_pro'] && $template_id) || ($template['is_pro'] && $eb_pro_active && $is_license_valid)) : ?>
+                        <?php
+                        // Only show buttons if the current page exists
+                        $existing_page_ids = array_map(function ($page) {
+                            return $page->ID;
+                        }, $pages);
+                        if (((!$template['is_pro'] && $template_id) || ($template['is_pro'] && $eb_pro_active && $is_license_valid)) && $current_page_id && in_array($current_page_id, $existing_page_ids)) : ?>
                             <a href="<?php echo esc_url(get_permalink($template_id)); ?>" target="_blank" class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></a>
 
                             <a target="_blank" href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,6 +163,11 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
 
 <script>
     jQuery(document).ready(function($) {
+        $('.eb__page-select').select2({
+            width: 'resolve',
+            placeholder: 'Select a page'
+        });
+
         // Toggle switch handling
         $('.eb-switch input').on('change', function() {
             var $switch = $(this);
@@ -168,6 +177,23 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
                 $label.text('On');
             } else {
                 $label.text('Off');
+            }
+
+            // Enable/disable associated dropdown
+            var key = $switch.attr('id').replace('switch_', '');
+            var $dropdown = $('#' + key + '_page_select');
+            if ($dropdown.length) {
+                $dropdown.prop('disabled', !$switch.is(':checked'));
+            }
+        });
+
+        // Set initial state of dropdowns on page load
+        $('.eb-switch input').each(function() {
+            var $switch = $(this);
+            var key = $switch.attr('id').replace('switch_', '');
+            var $dropdown = $('#' + key + '_page_select');
+            if ($dropdown.length) {
+                $dropdown.prop('disabled', !$switch.is(':checked'));
             }
         });
 

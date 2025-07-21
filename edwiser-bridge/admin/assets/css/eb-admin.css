@@ -2514,7 +2514,7 @@ input:checked + .eb-pro-checkbox-slider:before {
   border-radius: 3px;
   font-weight: 600;
   font-size: 12px;
-  line-height: 100%;
+  line-height: 16px;
   text-align: center;
   color: #f75d25;
   transition: background 0.2s ease-in-out;
@@ -2644,19 +2644,18 @@ input:checked + .eb-pro-checkbox-slider:before {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .eb__template-content h3 {
-  margin-top: 0;
-  margin-bottom: 16px;
+  margin: 0;
   color: #666666;
   font-size: 16px;
   font-weight: 700;
 }
 
 .eb__template-content p {
-  margin-top: 0;
-  margin-bottom: 16px;
+  margin: 0;
   color: #4b5858;
   font-size: 14px;
 }
@@ -2776,6 +2775,46 @@ input:disabled + .slider {
   font-size: 14px !important;
   background-repeat: no-repeat !important;
   background-position: right 8px center !important;
+}
+
+.eb__template-item .select2-container {
+  width: 100% !important;
+  max-width: 250px !important;
+  height: 100%;
+}
+
+.eb__template-item .select2-selection {
+  padding: 5px 10px 5px 8px !important;
+  border: 1px solid #a6c8c9 !important;
+  border-radius: 4px !important;
+  color: #426a6c !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  height: 100% !important;
+}
+
+.eb__template-item .select2-selection__arrow {
+  right: 2px !important;
+  top: 6px !important;
+  height: 24px !important;
+  width: 24px !important;
+  background: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%206l5%205%205-5%202%201-7%207-7-7%202-1z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E)
+    no-repeat right 5px top 55%;
+  background-size: 16px 16px;
+}
+
+.eb__template-item .select2-selection__arrow b {
+  display: none;
+  border-width: 7px 6px 0 6px !important;
+}
+
+.eb__template-item .select2-container--open .select2-selection__arrow b {
+  border-color: #888 transparent transparent transparent !important;
+}
+
+.eb__template-item .select2-selection .select2-selection__rendered {
+  line-height: 24px !important;
+  color: #426a6c !important;
 }
 
 /* Modal styles */
