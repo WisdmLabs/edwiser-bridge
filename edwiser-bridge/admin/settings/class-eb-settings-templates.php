@@ -128,7 +128,9 @@ if (! class_exists('Eb_Settings_Templates')) {
                     $template_value = get_option('eb_pro_enable_' . $template . '_override', false);
                     if ($template === 'checkout' && '1' == $template_value) {
                         $woo_gutenberg_pages = get_option('eb_woo_gutenberg_pages', array());
-                        update_option('woocommerce_checkout_page__id_old', $checkout_page_alternate);
+                        if (false === get_option('woocommerce_checkout_page__id_old', false)) {
+                            update_option('woocommerce_checkout_page__id_old', $checkout_page_alternate);
+                        }
                         update_option('woocommerce_checkout_page_id', $woo_gutenberg_pages['eb_pro_checkout_page_id']);
                     } elseif ($template === 'checkout' && '0' == $template_value) {
                         $checkout_page_alternate = get_option('woocommerce_checkout_page__id_old', false);
