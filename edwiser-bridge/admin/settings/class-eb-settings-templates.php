@@ -132,8 +132,10 @@ if (! class_exists('Eb_Settings_Templates')) {
                         update_option('woocommerce_checkout_page_id', $woo_gutenberg_pages['eb_pro_checkout_page_id']);
                     } elseif ($template === 'checkout' && '0' == $template_value) {
                         $checkout_page_alternate = get_option('woocommerce_checkout_page__id_old', false);
-                        update_option('woocommerce_checkout_page_id', $checkout_page_alternate);
-                        delete_option('woocommerce_checkout_page__id_old');
+                        if (!empty($checkout_page_alternate)) {
+                            update_option('woocommerce_checkout_page_id', $checkout_page_alternate);
+                            delete_option('woocommerce_checkout_page__id_old');
+                        }
                     }
                 }
                 if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false)) {
