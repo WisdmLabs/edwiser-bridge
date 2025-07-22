@@ -111,7 +111,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                     $option_name = 'eb_pro_enable_' . $template . '_override';
                     $option_value = isset($_POST['eb_enabled_templates'][$template]) ? '1' : '0';
                     update_option($option_name, $option_value);
-                    
+
                     if ($template !== 'all_courses' && $template !== 'single_course') {
                         $option_name = 'eb_woo_gutenberg_pages';
                         $value = get_option($option_name);
@@ -125,11 +125,12 @@ if (! class_exists('Eb_Settings_Templates')) {
                     }
 
                     update_option($option_name, $value);
-                    if ($template === 'checkout' && '1' == $option_value) {
+                    $template_value = get_option('eb_pro_enable_' . $template . '_override', false);
+                    if ($template === 'checkout' && '1' == $template_value) {
                         $woo_gutenberg_pages = get_option('eb_woo_gutenberg_pages', array());
                         update_option('woocommerce_checkout_page__id_old', $checkout_page_alternate);
                         update_option('woocommerce_checkout_page_id', $woo_gutenberg_pages['eb_pro_checkout_page_id']);
-                    } elseif ($template === 'checkout' && '0' == $option_value) {
+                    } elseif ($template === 'checkout' && '0' == $template_value) {
                         $checkout_page_alternate = get_option('woocommerce_checkout_page__id_old', false);
                         update_option('woocommerce_checkout_page_id', $checkout_page_alternate);
                         delete_option('woocommerce_checkout_page__id_old');
