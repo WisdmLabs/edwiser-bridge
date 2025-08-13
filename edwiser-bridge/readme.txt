@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.8.1
-Stable tag: 4.1.0
+Tested up to: 6.8.2
+Stable tag: 4.2.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,12 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+= 4.2.0 =
+* Feature - Added setting to select Edwiser Gutenberg block template pages.
+		  - We’ve introduced a new Template Selection feature in the Edwiser Bridge settings, allowing you to choose which WordPress pages use Gutenberg blocks for the particular pages.
+* Fix 	  - Resolved image synchronization issues when the server has allow_url_fopen disabled.
+
+
 = 4.1.0 =
 * Feature - Introduced Gutenberg block templates for Courses Archive Page & Single Course Page.
 * Feature - When Course Expiry is enabled, a default value of 30 days will now be pre-filled in the expiry days input.

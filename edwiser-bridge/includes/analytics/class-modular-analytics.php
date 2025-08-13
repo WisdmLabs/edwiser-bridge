@@ -13,7 +13,7 @@ class Modular_Analytics_System
     private $deactivation_url = 'https://edwiser.org/wp-json/analytics/v1/deactivate'; // URL for deactivation feedback
     private $plugin_file = 'edwiser-bridge/edwiser-bridge.php'; //replace with your plugin file
     private $plugin_name = 'Edwiser Bridge - WordPress Moodle LMS Integration'; //replace with your plugin name
-    private $plugin_version = '4.0.0'; //replace with your plugin version
+    private $plugin_version = '4.2.0'; //replace with your plugin version
 
     public static function get_instance()
     {
