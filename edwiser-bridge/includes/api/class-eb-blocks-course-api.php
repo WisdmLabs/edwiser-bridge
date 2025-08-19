@@ -100,7 +100,7 @@ class EdwiserBridge_Blocks_Course_API
     {
         // get query parameters
         $page = max(1, $request['page']);
-        $per_page = max(9, $request['per_page']);
+        $per_page = max(1, $request['per_page']);
         $sort_order = strtolower($request['sort_order']);
         $search_query = strtolower($request['search']);
         $category = isset($request['category']) ? sanitize_text_field($request['category']) : '';

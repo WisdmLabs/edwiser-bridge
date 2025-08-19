@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "edwiser-bridge/user-account",
+  "version": "0.1.0",
+  "title": "Edwiser User Account",
+  "category": "edwiser",
+  "icon": "admin-users",
+  "description": "Example block scaffolded with Create Block tool.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "pageTitle": {
+      "type": "string",
+      "default": "User Account"
+    },
+    "hidePageTitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "showCourseProgress": {
+      "type": "boolean",
+      "default": true
+    },
+    "showRecommendedCourses": {
+      "type": "boolean",
+      "default": true
+    },
+    "recommendedCoursesCount": {
+      "type": "number",
+      "default": 3
+    }
+  },
+  "textdomain": "edwiser-bridge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

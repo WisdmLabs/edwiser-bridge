@@ -140,6 +140,33 @@ if (! class_exists('Eb_Settings_Templates')) {
                         }
                     }
                 }
+
+                // Handle special templates that don't have switches
+                $new_templates = array('enroll_students', 'user_account', 'my_courses');
+                $eb_general = get_option('eb_general');
+
+                $eb_general['mucp_group_enrol_page_id'] = isset($_POST['eb_pro_enroll_students_page_id']) ? $_POST['eb_pro_enroll_students_page_id'] : $eb_general['mucp_group_enrol_page_id'];
+                $eb_general['eb_useraccount_page_id'] = isset($_POST['eb_user_account_page_id']) ? $_POST['eb_user_account_page_id'] : $eb_general['eb_useraccount_page_id'];
+                $eb_general['eb_my_courses_page_id'] = isset($_POST['eb_my_courses_page_id']) ? $_POST['eb_my_courses_page_id'] : $eb_general['eb_my_courses_page_id'];
+
+                update_option('eb_general', $eb_general);
+
+                foreach ($new_templates as $template) {
+                    if ($template === 'enroll_students') {
+                        $option_name = 'eb_woo_gutenberg_pages';
+                        $value = get_option($option_name);
+                        $option_value = isset($_POST['eb_pro_' . $template . '_page_id']) ? $_POST['eb_pro_' . $template . '_page_id'] : 0;
+                        $value['eb_pro_' . $template . '_page_id'] = $option_value;
+                        update_option($option_name, $value);
+                    } else {
+                        $option_name = 'eb_gutenberg_pages';
+                        $value = get_option($option_name);
+                        $option_value = isset($_POST['eb_' . $template . '_page_id']) ? $_POST['eb_' . $template . '_page_id'] : 0;
+                        $value[$template] = $option_value;
+                        update_option($option_name, $value);
+                    }
+                }
+
                 if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false)) {
                     $license_key = get_option('edd_edwiser_bridge_pro_license_key');
                     $args = array(
@@ -178,6 +205,7 @@ if (! class_exists('Eb_Settings_Templates')) {
             } else {
                 $template_woo_pages    = get_option('eb_woo_gutenberg_pages', array());
                 $template_course_pages    = get_option('eb_gutenberg_pages', array());
+                $eb_general = get_option('eb_general', array());
 
                 $settings_items = array();
 
@@ -223,6 +251,16 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'page_option' => 'eb_pro_thank_you_page_id',
                         'template_id' => isset($template_woo_pages['eb_pro_thank_you_page_id']) ? $template_woo_pages['eb_pro_thank_you_page_id'] : '',
                     ),
+                    'enroll_students' => array(
+                        'title' => __('Enrollment page (Group management)', 'edwiser-bridge'),
+                        'desc'  => __('Manage groups effortlessly.', 'edwiser-bridge'),
+                        'img'   => 'enroll-students.png',
+                        'is_pro' => true,
+                        'page_option' => 'eb_pro_enroll_students_page_id',
+                        'template_id' => isset($template_woo_pages['eb_pro_enroll_students_page_id']) ? $template_woo_pages['eb_pro_enroll_students_page_id'] : '',
+                        'default_page_id' => isset($eb_general['mucp_group_enrol_page_id']) ? $eb_general['mucp_group_enrol_page_id'] : 0,
+                        'hide_switch' => true,
+                    ),
                 );
 
                 $free_pages = array(
@@ -241,7 +279,27 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'is_pro' => false,
                         'page_option' => 'eb_single_course_page_id',
                         'template_id' => isset($template_course_pages['single_course']) ? $template_course_pages['single_course'] : '',
-                    )
+                    ),
+                    'user_account' => array(
+                        'title' => __('User account page', 'edwiser-bridge'),
+                        'desc'  => __('Manage your account settings and view your courses.', 'edwiser-bridge'),
+                        'img'   => 'user-account.png',
+                        'is_pro' => false,
+                        'page_option' => 'eb_user_account_page_id',
+                        'template_id' => isset($template_course_pages['user_account']) ? $template_course_pages['user_account'] : '',
+                        'default_page_id' => isset($eb_general['eb_useraccount_page_id']) ? $eb_general['eb_useraccount_page_id'] : 0,
+                        'hide_switch' => true,
+                    ),
+                    'my_courses' => array(
+                        'title' => __('My courses page', 'edwiser-bridge'),
+                        'desc'  => __('View your enrolled courses and progress.', 'edwiser-bridge'),
+                        'img'   => 'my-courses.png',
+                        'is_pro' => false,
+                        'page_option' => 'eb_my_courses_page_id',
+                        'template_id' => isset($template_course_pages['my_courses']) ? $template_course_pages['my_courses'] : '',
+                        'default_page_id' => isset($eb_general['eb_my_courses_page_id']) ? $eb_general['eb_my_courses_page_id'] : 0,
+                        'hide_switch' => true,
+                    ),
                 );
 
                 if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro')) {

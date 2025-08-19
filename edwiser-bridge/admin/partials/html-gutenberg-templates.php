@@ -28,14 +28,32 @@ $cart_page_id = ! empty($woo_gutenberg_pages['eb_pro_cart_page_id']) ? $woo_gute
 $checkout_page_id = ! empty($woo_gutenberg_pages['eb_pro_checkout_page_id']) ? $woo_gutenberg_pages['eb_pro_checkout_page_id'] : 0;
 $single_product_page_id = ! empty($woo_gutenberg_pages['eb_pro_single_product_page_id']) ? $woo_gutenberg_pages['eb_pro_single_product_page_id'] : 0;
 $thankyou_page_id = ! empty($woo_gutenberg_pages['eb_pro_thank_you_page_id']) ? $woo_gutenberg_pages['eb_pro_thank_you_page_id'] : 0;
+$enroll_students_page_id = ! empty($woo_gutenberg_pages['eb_pro_enroll_students_page_id']) ? $woo_gutenberg_pages['eb_pro_enroll_students_page_id'] : 0;
 $single_course_page_id = ! empty($course_gutenberg_pages['single_course']) ? $course_gutenberg_pages['single_course'] : 0;
 $courses_page_id = ! empty($course_gutenberg_pages['all_courses']) ? $course_gutenberg_pages['all_courses'] : 0;
+$user_account_page_id = ! empty($course_gutenberg_pages['user_account']) ? $course_gutenberg_pages['user_account'] : 0;
+$my_courses_page_id = ! empty($course_gutenberg_pages['my_courses']) ? $course_gutenberg_pages['my_courses'] : 0;
 
 $eb_pro_active = is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
 $module_data = get_option('eb_pro_modules_data');
 $woo_integration_enabled = (isset($module_data['woo_integration']) && 'active' === $module_data['woo_integration']) ? true : false;
 
 $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_status');
+
+// Separate templates into PRO and FREE
+$pro_templates = array();
+$free_templates = array();
+
+foreach ($templates as $key => $template) {
+    if ($template['is_pro']) {
+        $pro_templates[$key] = $template;
+    } else {
+        $free_templates[$key] = $template;
+    }
+}
+
+// Determine order: PRO first if installed and valid, otherwise FREE first
+$show_pro_first = $eb_pro_active && $is_license_valid;
 ?>
 
 <div class="eb__templates-wrapper">
@@ -45,94 +63,224 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
             <strong><?php esc_html_e('NOTE:', 'edwiser-bridge'); ?></strong>
             <?php esc_html_e('Please disable the setting in any other plugin or code that might override these templates otherwise these will not work.', 'edwiser-bridge'); ?>
         </p>
-        <?php foreach ($templates as $key => $template) :
-            $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
-            $switch_id = 'switch_' . $key;
-            $has_page_dropdown = in_array($key, array('shop', 'cart', 'checkout', 'single_product', 'thank_you', 'single_course', 'all_courses'));
 
-            // Refactored: use associative array for page ID lookup
-            $page_id_map = array(
-                'shop' => $shop_page_id,
-                'cart' => $cart_page_id,
-                'checkout' => $checkout_page_id,
-                'single_product' => $single_product_page_id,
-                'thank_you' => $thankyou_page_id,
-                'single_course' => $single_course_page_id,
-                'all_courses' => $courses_page_id,
-            );
-            $current_page_id = isset($page_id_map[$key]) ? $page_id_map[$key] : 0;
-
-            $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
-            $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));
-
-            $template_id = isset($template['template_id']) ? $template['template_id'] : 0;
-        ?>
-            <div class="eb__template-item">
-                <div class="eb__template-preview">
-                    <div class="eb__image-container">
-                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($template['title']); ?>">
-                        <div class="eb__magnify-icon" data-image="<?php echo esc_url($image_full_url); ?>" data-title="<?php echo esc_attr($template['title']); ?>">
+        <!-- PRO Templates Accordion -->
+        <?php if (!empty($pro_templates)) : ?>
+            <div class="eb__accordion eb__accordion-pro">
+                <div class="eb__accordion-header eb__accordion-open" data-accordion="pro">
+                    <h3 class="eb__accordion-title">
+                        <?php esc_html_e('Edwiser Bridge PRO Templates', 'edwiser-bridge'); ?>
+                        <span class="eb__accordion-count">(<?php echo count($pro_templates); ?>)</span>
+                        <span class="eb__accordion-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8" />
-                                <line x1="21" x2="16.65" y1="21" y2="16.65" />
-                                <line x1="11" x2="11" y1="8" y2="14" />
-                                <line x1="8" x2="14" y1="11" y2="11" />
+                                <path d="m6 9 6 6 6-6" />
                             </svg>
-                        </div>
-                    </div>
-
-                    <?php if ($template['is_pro']) : ?>
-                        <div class="eb__pro-badge"> <?php echo esc_html__('PRO', 'edwiser-bridge'); ?> </div>
-                    <?php endif; ?>
+                        </span>
+                    </h3>
                 </div>
-                <div class="eb__template-content">
-                    <h3><?php echo esc_html($template['title']); ?></h3>
-                    <p><?php echo esc_html($template['desc']); ?></p>
-                    <?php if (isset($template['note'])) : ?>
-                        <p class="eb__template-note"><strong>Note: </strong><?php echo esc_html($template['note']); ?> </p>
-                    <?php endif;
+                <div class="eb__accordion-content eb__accordion-open">
+                    <?php foreach ($pro_templates as $key => $template) :
+                        $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
+                        $switch_id = 'switch_' . $key;
+                        $has_page_dropdown = in_array($key, array('shop', 'cart', 'checkout', 'single_product', 'thank_you', 'single_course', 'all_courses', 'enroll_students', 'user_account', 'my_courses'));
+
+                        // Refactored: use associative array for page ID lookup
+                        $page_id_map = array(
+                            'shop' => $shop_page_id,
+                            'cart' => $cart_page_id,
+                            'checkout' => $checkout_page_id,
+                            'single_product' => $single_product_page_id,
+                            'thank_you' => $thankyou_page_id,
+                            'single_course' => $single_course_page_id,
+                            'all_courses' => $courses_page_id,
+                            'enroll_students' => isset($template['default_page_id']) ? $template['default_page_id'] : $enroll_students_page_id,
+                            'user_account' => isset($template['default_page_id']) ? $template['default_page_id'] : $user_account_page_id,
+                            'my_courses' => isset($template['default_page_id']) ? $template['default_page_id'] : $my_courses_page_id,
+                        );
+                        $current_page_id = isset($page_id_map[$key]) ? $page_id_map[$key] : 0;
+
+                        $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
+                        $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));
+
+                        $template_id = isset($template['template_id']) ? $template['template_id'] : 0;
                     ?>
-                    <div class="eb-switch-container">
-                        <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
-                            <input type="checkbox"
-                                <?php disabled(($template['is_pro'] && (!$eb_pro_active || !$is_license_valid || !$woo_integration_enabled))); ?>
-                                id="<?php echo esc_attr($switch_id); ?>"
-                                name="eb_enabled_templates[<?php echo esc_attr($key); ?>]"
-                                value="1"
-                                <?php checked((!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)); ?>>
-                            <span class="slider round"></span>
-                        </label>
-                        <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
-                    </div>
-                    <div class="eb__template-actions">
-                        <?php if ($has_page_dropdown && isset($template['page_option'])) : ?>
-                            <select id="<?php echo esc_attr($key); ?>_page_select" name="<?php echo esc_attr($template['page_option']); ?>" class="eb__page-select">
-                                <option value="" selected disabled><?php esc_html_e('Select a page', 'edwiser-bridge'); ?></option>
-                                <?php foreach ($pages as $page) : ?>
-                                    <option value="<?php echo esc_attr($page->ID); ?>" <?php selected($current_page_id, $page->ID); ?>>
-                                        <?php echo esc_html(! empty($page->post_title) ? $page->post_title : __('Untitled', 'edwiser-bridge') . ' (' . $page->ID . ')'); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        <?php endif; ?>
+                        <div class="eb__template-item" id="<?php echo esc_attr($key); ?>">
+                            <div class="eb__template-preview">
+                                <div class="eb__image-container">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($template['title']); ?>">
+                                    <div class="eb__magnify-icon" data-image="<?php echo esc_url($image_full_url); ?>" data-title="<?php echo esc_attr($template['title']); ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8" />
+                                            <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                                            <line x1="11" x2="11" y1="8" y2="14" />
+                                            <line x1="8" x2="14" y1="11" y2="11" />
+                                        </svg>
+                                    </div>
+                                </div>
 
-                        <?php
-                        // Only show buttons if the current page exists
-                        $existing_page_ids = array_map(function ($page) {
-                            return $page->ID;
-                        }, $pages);
-                        if (((!$template['is_pro'] && $template_id) || ($template['is_pro'] && $eb_pro_active && $is_license_valid)) && $current_page_id && in_array($current_page_id, $existing_page_ids)) : ?>
-                            <a href="<?php echo esc_url(get_permalink($template_id)); ?>" target="_blank" class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></a>
+                                <div class="eb__pro-badge"> <?php echo esc_html__('PRO', 'edwiser-bridge'); ?> </div>
+                            </div>
+                            <div class="eb__template-content">
+                                <h3><?php echo esc_html($template['title']); ?></h3>
+                                <p><?php echo esc_html($template['desc']); ?></p>
+                                <?php if (isset($template['note'])) : ?>
+                                    <p class="eb__template-note"><strong>Note: </strong><?php echo esc_html($template['note']); ?> </p>
+                                <?php endif;
+                                ?>
+                                <div class="eb-switch-container">
+                                    <?php if (!isset($template['hide_switch']) || !$template['hide_switch']) : ?>
+                                        <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
+                                            <input type="checkbox"
+                                                <?php disabled(($template['is_pro'] && (!$eb_pro_active || !$is_license_valid || !$woo_integration_enabled))); ?>
+                                                id="<?php echo esc_attr($switch_id); ?>"
+                                                name="eb_enabled_templates[<?php echo esc_attr($key); ?>]"
+                                                value="1"
+                                                <?php checked((!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)); ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eb__template-actions">
+                                    <?php if ($has_page_dropdown && isset($template['page_option'])) : ?>
+                                        <select id="<?php echo esc_attr($key); ?>_page_select" name="<?php echo esc_attr($template['page_option']); ?>" class="eb__page-select">
+                                            <option value="" selected disabled><?php esc_html_e('Select a page', 'edwiser-bridge'); ?></option>
+                                            <?php foreach ($pages as $page) : ?>
+                                                <option value="<?php echo esc_attr($page->ID); ?>" <?php selected($current_page_id, $page->ID); ?>>
+                                                    <?php echo esc_html(! empty($page->post_title) ? $page->post_title : __('Untitled', 'edwiser-bridge') . ' (' . $page->ID . ')'); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php endif; ?>
 
-                            <a target="_blank" href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.24532 3.93555C4.52339 3.93555 3.93555 4.51929 3.93555 5.24532V12.7547C3.93555 13.4766 4.51929 14.0644 5.24532 14.0644H12.7547C13.4766 14.0644 14.0644 13.4807 14.0644 12.7547V10.9085C14.0644 10.6502 14.2739 10.4407 14.5322 10.4407C14.7906 10.4407 15 10.6502 15 10.9085V12.7547C15 13.9995 13.9912 15 12.7547 15H5.24532C4.00046 15 3 13.9912 3 12.7547V5.24532C3 4.00046 4.00884 3 5.24532 3H7.04782C7.30616 3 7.51559 3.20943 7.51559 3.46778C7.51559 3.72612 7.30616 3.93555 7.04782 3.93555H5.24532ZM9.48025 4.11642C9.48025 3.85808 9.68968 3.64865 9.94803 3.64865H12.3617C13.3997 3.64865 14.2391 4.48802 14.2391 5.52599V7.73389C14.2391 7.99223 14.0297 8.20166 13.7713 8.20166C13.513 8.20166 13.3035 7.99223 13.3035 7.73389V5.52599C13.3035 5.43961 13.292 5.35601 13.2704 5.27662L7.17566 11.4796C6.9946 11.6639 6.69843 11.6665 6.51415 11.4854C6.32987 11.3044 6.32727 11.0082 6.50833 10.8239L12.6075 4.6164C12.5292 4.5954 12.4468 4.5842 12.3617 4.5842H9.94803C9.68968 4.5842 9.48025 4.37477 9.48025 4.11642Z" fill="#819596" />
-                                </svg>
-                            </a>
-                        <?php endif; ?>
-                    </div>
+                                    <?php
+                                    // Only show buttons if the current page exists
+                                    $existing_page_ids = array_map(function ($page) {
+                                        return $page->ID;
+                                    }, $pages);
+                                    if (((!$template['is_pro'] && $template_id) || ($template['is_pro'] && $eb_pro_active && $is_license_valid)) && $current_page_id && in_array($current_page_id, $existing_page_ids)) : ?>
+                                        <a href="<?php echo esc_url(get_permalink($template_id)); ?>" target="_blank" class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></a>
+
+                                        <a target="_blank" href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.24532 3.93555C4.52339 3.93555 3.93555 4.51929 3.93555 5.24532V12.7547C3.93555 13.4766 4.51929 14.0644 5.24532 14.0644H12.7547C13.4766 14.0644 14.0644 13.4807 14.0644 12.7547V10.9085C14.0644 10.6502 14.2739 10.4407 14.5322 10.4407C14.7906 10.4407 15 10.6502 15 10.9085V12.7547C15 13.9995 13.9912 15 12.7547 15H5.24532C4.00046 15 3 13.9912 3 12.7547V5.24532C3 4.00046 4.00884 3 5.24532 3H7.04782C7.30616 3 7.51559 3.20943 7.51559 3.46778C7.51559 3.72612 7.30616 3.93555 7.04782 3.93555H5.24532ZM9.48025 4.11642C9.48025 3.85808 9.68968 3.64865 9.94803 3.64865H12.3617C13.3997 3.64865 14.2391 4.48802 14.2391 5.52599V7.73389C14.2391 7.99223 14.0297 8.20166 13.7713 8.20166C13.513 8.20166 13.3035 7.99223 13.3035 7.73389V5.52599C13.3035 5.43961 13.292 5.35601 13.2704 5.27662L7.17566 11.4796C6.9946 11.6639 6.69843 11.6665 6.51415 11.4854C6.32987 11.3044 6.32727 11.0082 6.50833 10.8239L12.6075 4.6164C12.5292 4.5954 12.4468 4.5842 12.3617 4.5842H9.94803C9.68968 4.5842 9.48025 4.37477 9.48025 4.11642Z" fill="#819596" />
+                                            </svg>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-        <?php endforeach; ?>
+        <?php endif; ?>
+
+        <!-- FREE Templates Accordion -->
+        <?php if (!empty($free_templates)) : ?>
+            <div class="eb__accordion eb__accordion-free">
+                <div class="eb__accordion-header eb__accordion-open" data-accordion="free">
+                    <h3 class="eb__accordion-title">
+                        <?php esc_html_e('Edwiser Bridge FREE Templates', 'edwiser-bridge'); ?>
+                        <span class="eb__accordion-count">(<?php echo count($free_templates); ?>)</span>
+                        <span class="eb__accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6" />
+                            </svg>
+                        </span>
+                    </h3>
+                </div>
+                <div class="eb__accordion-content eb__accordion-open">
+                    <?php foreach ($free_templates as $key => $template) :
+                        $is_enabled = isset($enabled_templates[$key]) ? $enabled_templates[$key] : false;
+                        $switch_id = 'switch_' . $key;
+                        $has_page_dropdown = in_array($key, array('shop', 'cart', 'checkout', 'single_product', 'thank_you', 'single_course', 'all_courses', 'enroll_students', 'user_account', 'my_courses'));
+
+                        // Refactored: use associative array for page ID lookup
+                        $page_id_map = array(
+                            'shop' => $shop_page_id,
+                            'cart' => $cart_page_id,
+                            'checkout' => $checkout_page_id,
+                            'single_product' => $single_product_page_id,
+                            'thank_you' => $thankyou_page_id,
+                            'single_course' => $single_course_page_id,
+                            'all_courses' => $courses_page_id,
+                            'enroll_students' => isset($template['default_page_id']) ? $template['default_page_id'] : $enroll_students_page_id,
+                            'user_account' => isset($template['default_page_id']) ? $template['default_page_id'] : $user_account_page_id,
+                            'my_courses' => isset($template['default_page_id']) ? $template['default_page_id'] : $my_courses_page_id,
+                        );
+                        $current_page_id = isset($page_id_map[$key]) ? $page_id_map[$key] : 0;
+
+                        $image_url = plugins_url('assets/images/blocks-images/thumbnail/' . $template['img'], dirname(__FILE__));
+                        $image_full_url = plugins_url('assets/images/blocks-images/' . $template['img'], dirname(__FILE__));
+
+                        $template_id = isset($template['template_id']) ? $template['template_id'] : 0;
+                    ?>
+                        <div class="eb__template-item" id="<?php echo esc_attr($key); ?>">
+                            <div class="eb__template-preview">
+                                <div class="eb__image-container">
+                                    <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($template['title']); ?>">
+                                    <div class="eb__magnify-icon" data-image="<?php echo esc_url($image_full_url); ?>" data-title="<?php echo esc_attr($template['title']); ?>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8" />
+                                            <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                                            <line x1="11" x2="11" y1="8" y2="14" />
+                                            <line x1="8" x2="14" y1="11" y2="11" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="eb__template-content">
+                                <h3><?php echo esc_html($template['title']); ?></h3>
+                                <p><?php echo esc_html($template['desc']); ?></p>
+                                <?php if (isset($template['note'])) : ?>
+                                    <p class="eb__template-note"><strong>Note: </strong><?php echo esc_html($template['note']); ?> </p>
+                                <?php endif;
+                                ?>
+                                <div class="eb-switch-container">
+                                    <?php if (!isset($template['hide_switch']) || !$template['hide_switch']) : ?>
+                                        <label class="eb-switch" for="<?php echo esc_attr($switch_id); ?>">
+                                            <input type="checkbox"
+                                                <?php disabled(($template['is_pro'] && (!$eb_pro_active || !$is_license_valid || !$woo_integration_enabled))); ?>
+                                                id="<?php echo esc_attr($switch_id); ?>"
+                                                name="eb_enabled_templates[<?php echo esc_attr($key); ?>]"
+                                                value="1"
+                                                <?php checked((!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled)); ?>>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="switch-label"><?php echo (!$template['is_pro'] && $is_enabled) || ($template['is_pro'] && $is_enabled && $eb_pro_active && $is_license_valid && $woo_integration_enabled) ? esc_html__('On', 'edwiser-bridge') : esc_html__('Off', 'edwiser-bridge'); ?></span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="eb__template-actions">
+                                    <?php if ($has_page_dropdown && isset($template['page_option'])) : ?>
+                                        <select id="<?php echo esc_attr($key); ?>_page_select" name="<?php echo esc_attr($template['page_option']); ?>" class="eb__page-select">
+                                            <option value="" selected disabled><?php esc_html_e('Select a page', 'edwiser-bridge'); ?></option>
+                                            <?php foreach ($pages as $page) : ?>
+                                                <option value="<?php echo esc_attr($page->ID); ?>" <?php selected($current_page_id, $page->ID); ?>>
+                                                    <?php echo esc_html(! empty($page->post_title) ? $page->post_title : __('Untitled', 'edwiser-bridge') . ' (' . $page->ID . ')'); ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php endif; ?>
+
+                                    <?php
+                                    // Only show buttons if the current page exists
+                                    $existing_page_ids = array_map(function ($page) {
+                                        return $page->ID;
+                                    }, $pages);
+                                    if (((!$template['is_pro'] && $template_id) || ($template['is_pro'] && $eb_pro_active && $is_license_valid)) && $current_page_id && in_array($current_page_id, $existing_page_ids)) : ?>
+                                        <a href="<?php echo esc_url(get_permalink($template_id)); ?>" target="_blank" class="eb__btn eb__btn-view" data-template="<?php echo esc_attr($key); ?>"><?php esc_html_e('View page', 'edwiser-bridge'); ?></a>
+
+                                        <a target="_blank" href="<?php echo esc_url(admin_url('post.php?post=' . $template['template_id'] . '&action=edit')); ?>" class="eb__btn eb__btn-edit"><?php esc_html_e('Edit page', 'edwiser-bridge'); ?><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.24532 3.93555C4.52339 3.93555 3.93555 4.51929 3.93555 5.24532V12.7547C3.93555 13.4766 4.51929 14.0644 5.24532 14.0644H12.7547C13.4766 14.0644 14.0644 13.4807 14.0644 12.7547V10.9085C14.0644 10.6502 14.2739 10.4407 14.5322 10.4407C14.7906 10.4407 15 10.6502 15 10.9085V12.7547C15 13.9995 13.9912 15 12.7547 15H5.24532C4.00046 15 3 13.9912 3 12.7547V5.24532C3 4.00046 4.00884 3 5.24532 3H7.04782C7.30616 3 7.51559 3.20943 7.51559 3.46778C7.51559 3.72612 7.30616 3.93555 7.04782 3.93555H5.24532ZM9.48025 4.11642C9.48025 3.85808 9.68968 3.64865 9.94803 3.64865H12.3617C13.3997 3.64865 14.2391 4.48802 14.2391 5.52599V7.73389C14.2391 7.99223 14.0297 8.20166 13.7713 8.20166C13.513 8.20166 13.3035 7.99223 13.3035 7.73389V5.52599C13.3035 5.43961 13.292 5.35601 13.2704 5.27662L7.17566 11.4796C6.9946 11.6639 6.69843 11.6665 6.51415 11.4854C6.32987 11.3044 6.32727 11.0082 6.50833 10.8239L12.6075 4.6164C12.5292 4.5954 12.4468 4.5842 12.3617 4.5842H9.94803C9.68968 4.5842 9.48025 4.37477 9.48025 4.11642Z" fill="#819596" />
+                                            </svg>
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="eb-license-help">
         <div class="eb-help-tootip">
@@ -163,6 +311,23 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
 
 <script>
     jQuery(document).ready(function($) {
+        // Accordion functionality
+        $('.eb__accordion-header').on('click', function() {
+            var $header = $(this);
+            var $accordion = $header.closest('.eb__accordion');
+            var $content = $accordion.find('.eb__accordion-content');
+            var $icon = $header.find('.eb__accordion-icon');
+
+            // Toggle current accordion
+            if ($content.hasClass('eb__accordion-open')) {
+                $content.removeClass('eb__accordion-open').slideUp(300);
+                $header.removeClass('eb__accordion-open');
+            } else {
+                $content.addClass('eb__accordion-open').slideDown(300);
+                $header.addClass('eb__accordion-open');
+            }
+        });
+
         $('.eb__page-select').select2({
             width: 'resolve',
             placeholder: 'Select a page'
@@ -194,6 +359,18 @@ $is_license_valid = 'valid' === get_option('edd_edwiser_bridge_pro_license_statu
             var $dropdown = $('#' + key + '_page_select');
             if ($dropdown.length) {
                 $dropdown.prop('disabled', !$switch.is(':checked'));
+            }
+        });
+
+        // Enable page dropdowns for templates without switches
+        $('.eb__template-item').each(function() {
+            var $template = $(this);
+            var $switchContainer = $template.find('.eb-switch-container');
+            var $pageSelect = $template.find('.eb__page-select');
+
+            // If there's no switch, enable the page dropdown
+            if ($switchContainer.find('.eb-switch').length === 0 && $pageSelect.length > 0) {
+                $pageSelect.prop('disabled', false);
             }
         });
 

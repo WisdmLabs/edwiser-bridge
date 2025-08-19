@@ -795,7 +795,7 @@ class Eb_Admin_Notice_Handler
 				</div>
 			</div>
 		</div>
-<?php
+	<?php
 	}
 
 	/**
@@ -812,6 +812,217 @@ class Eb_Admin_Notice_Handler
 		} elseif (isset($_POST['modal_type']) && $_POST['modal_type'] === 'pro') {
 			update_option('eb_show_pro_template_modal', 'no');
 		}
+
+		wp_send_json_success();
+	}
+
+	/**
+	 * Check if update modal should be shown for version 4.3.0
+	 * 
+	 * @since 4.3.0
+	 */
+	public function check_for_update_modal()
+	{
+		$show_update_modal = get_option('eb_show_update_modal_4_3_0', 'no') === 'yes';
+
+		if ($show_update_modal) {
+			add_action('admin_enqueue_scripts', array($this, 'enqueue_update_modal_assets'));
+			add_action('admin_footer', array($this, 'show_update_modal'));
+		}
+	}
+
+	/**
+	 * Show update modal for version 4.3.0
+	 * 
+	 * @since 4.3.0
+	 */
+	public function show_update_modal()
+	{
+		$gutenberg_pages = get_option('eb_gutenberg_pages', array());
+		$user_account_url = '';
+		$my_courses_url = '';
+		if (!empty($gutenberg_pages['user_account'])) {
+			$user_account_url = get_permalink($gutenberg_pages['user_account']);
+		}
+		if (!empty($gutenberg_pages['my_courses'])) {
+			$my_courses_url = get_permalink($gutenberg_pages['my_courses']);
+		}
+	?>
+
+		<div class="eb-modal-overlay">
+			<div class="eb-modal--enroll-update">
+				<button class="eb-modal__close" id="eb-modal-enroll-close" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x">
+						<path d="M18 6 6 18" />
+						<path d="m6 6 12 12" />
+					</svg></button>
+				<div class="eb-modal-initial-body">
+					<div class="eb-modal__body">
+						<div class="eb-modal__visual">
+							<img src="<?php echo plugins_url('admin/assets/images/update-preview.png', dirname(__FILE__)); ?>" alt="Update Preview" class="eb-modal__image" />
+						</div>
+						<div class="eb-modal__content">
+							<h2 class="eb-modal__title"><?php _e('Explore the New Look of User-Account & My Courses Page!', 'edwiser-bridge'); ?></h2>
+							<p class="eb-modal__desc">
+								<?php _e('We\'ve redesigned the', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($user_account_url); ?>" class="eb-modal__link" target="_blank"><?php _e('User Account', 'edwiser-bridge'); ?></a> <?php _e('and', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($my_courses_url); ?>" class="eb-modal__link" target="_blank"><?php _e('My Courses', 'edwiser-bridge'); ?></a> <?php _e('pages to be cleaner, faster, and easier to use — without changing how things work.', 'edwiser-bridge'); ?>
+							</p>
+							<div class="eb-modal__note">
+								<strong><?php _e('NOTE:', 'edwiser-bridge'); ?></strong>
+								<ul>
+									<li><?php _e('You can switch designs anytime:', 'edwiser-bridge'); ?> <br>
+										<span class="eb-modal__note-path"><?php _e('WP Admin &gt; Edwiser Bridge &gt; Settings &gt; Templates', 'edwiser-bridge'); ?></span>
+									</li>
+									<li><?php _e('Any customizations made to the current design will stay on the old version', 'edwiser-bridge'); ?></li>
+								</ul>
+							</div>
+							<div class="eb-modal__actions">
+								<button class="eb-modal__btn eb-modal__btn--secondary" id="eb-let-me-select"><?php _e('Let me select', 'edwiser-bridge'); ?></button>
+								<button class="eb-modal__btn eb-modal__btn--primary" id="eb-switch-to-new"><?php _e('Switch to new design', 'edwiser-bridge'); ?></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="eb-modal-success-body" style="display: none;">
+					<h2 class="eb-modal__title"><?php _e('Congratulations!', 'edwiser-bridge'); ?></h2>
+					<p><?php _e('You\'ve successfully switched to the revamped version of', 'edwiser-bridge'); ?> <strong><?php _e('User Account', 'edwiser-bridge'); ?></strong> <?php _e('and', 'edwiser-bridge'); ?> <strong><?php _e('My Courses', 'edwiser-bridge'); ?></strong> <?php _e('pages', 'edwiser-bridge'); ?></p>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates#user_account')); ?>" class="eb-modal__btn eb-modal__btn--primary"><?php _e('View settings', 'edwiser-bridge'); ?></a>
+				</div>
+			</div>
+		</div>
+<?php
+	}
+
+	/**
+	 * Enqueue update modal assets
+	 * 
+	 * @since 4.3.0
+	 */
+	public function enqueue_update_modal_assets()
+	{
+		// Add data for the JS
+		wp_register_script('eb-update-modal-script', '', [], '', true);
+
+		wp_localize_script(
+			'eb-update-modal-script',
+			'ebUpdateModalData',
+			array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('eb_update_modal_nonce'),
+				'settingsUrl' => admin_url('admin.php?page=eb-settings&tab=templates#user_account'),
+				'templatesUrl' => admin_url('admin.php?page=eb-settings&tab=templates#user_account')
+			)
+		);
+		wp_enqueue_script('eb-update-modal-script');
+
+		wp_add_inline_script('eb-update-modal-script', "
+			jQuery(document).ready(function($) {
+				$('.eb-modal__close').on('click', function () {
+					// Mark modal as viewed
+					$.post(ebUpdateModalData.ajaxurl, {
+						action: 'eb_mark_update_modal_as_viewed',
+						nonce: ebUpdateModalData.nonce
+					});
+					
+					// Close the modal
+					$('.eb-modal-overlay').fadeOut(300);
+				});
+
+				$('#eb-let-me-select').on('click', function () {
+					// Mark modal as viewed and redirect to settings
+					$.post(ebUpdateModalData.ajaxurl, {
+						action: 'eb_mark_update_modal_as_viewed',
+						nonce: ebUpdateModalData.nonce
+					}, function() {
+						// Close modal and redirect
+						$('.eb-modal-overlay').fadeOut(300, function() {
+							window.location.href = ebUpdateModalData.settingsUrl;
+						});
+					});
+				});
+
+				$('#eb-switch-to-new').on('click', function () {
+					// Disable button to prevent multiple clicks
+					$(this).prop('disabled', true).text('Switching...');
+					
+					// Switch to new design
+					$.post(ebUpdateModalData.ajaxurl, {
+						action: 'eb_switch_to_new_design',
+						nonce: ebUpdateModalData.nonce
+					}, function(response) {
+						if (response.success) {
+							// Show success message
+							$('.eb-modal-initial-body').fadeOut(300, function() {
+								$('.eb-modal-success-body').fadeIn(300);
+							});
+						} else {
+							// Re-enable button if there was an error
+							$('#eb-switch-to-new').prop('disabled', false).text('Switch to new design');
+						}
+					}).fail(function() {
+						// Re-enable button if AJAX failed
+						$('#eb-switch-to-new').prop('disabled', false).text('Switch to new design');
+					});
+				});
+
+				// Close modal when clicking View settings button
+				$(document).on('click', '.eb-modal-success-body .eb-modal__btn', function () {
+					// Mark modal as viewed
+					$.post(ebUpdateModalData.ajaxurl, {
+						action: 'eb_mark_update_modal_as_viewed',
+						nonce: ebUpdateModalData.nonce
+					});
+					
+					// Close modal and redirect to templates page
+					$('.eb-modal-overlay').fadeOut(300, function() {
+						window.location.href = ebUpdateModalData.templatesUrl;
+					});
+				});
+
+				// Prevent modal click from closing when clicking inside modal
+				$(document).on('click', '.eb-modal', function (e) {
+					e.stopPropagation();
+				});
+			});
+		");
+	}
+
+	/**
+	 * Mark update modal as viewed
+	 * 
+	 * @since 4.3.0
+	 */
+	public function eb_mark_update_modal_as_viewed()
+	{
+		// Verify nonce
+		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+			wp_die('Security check failed');
+		}
+
+		update_option('eb_show_update_modal_4_3_0', 'no');
+		wp_send_json_success();
+	}
+
+	/**
+	 * Switch to new design
+	 * 
+	 * @since 4.3.0
+	 */
+	public function eb_switch_to_new_design()
+	{
+		// Verify nonce
+		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+			wp_die('Security check failed');
+		}
+
+		// Update template settings to use new design
+		$general_settings = get_option('eb_general', array());
+		$template_pages = get_option('eb_gutenberg_pages', array());
+
+		$general_settings['eb_useraccount_page_id'] = $template_pages['user_account'];
+		$general_settings['eb_my_courses_page_id'] = $template_pages['my_courses'];
+		update_option('eb_general', $general_settings);
+
+		// Mark modal as viewed
+		update_option('eb_show_update_modal_4_3_0', 'no');
 
 		wp_send_json_success();
 	}

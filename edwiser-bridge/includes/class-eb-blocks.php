@@ -43,6 +43,9 @@ class EdwiserBridge_Blocks
                 return current_user_can('edit_posts');
             }
         ));
+
+        register_block_type(__DIR__  . '/../blocks/build/user-account');
+        register_block_type(__DIR__  . '/../blocks/build/my-courses');
     }
 
     public function eb_set_script_translations()
