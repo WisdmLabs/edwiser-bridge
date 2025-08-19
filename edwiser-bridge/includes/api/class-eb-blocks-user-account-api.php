@@ -684,13 +684,13 @@ class EdwiserBridge_Blocks_UserAccount_API
 
         $params = $request->get_json_params();
 
-        $first_name = isset($params['first_name']) ? sanitize_text_field($params['first_name']) : $user->first_name;
-        $last_name = isset($params['last_name']) ? sanitize_text_field($params['last_name']) : $user->last_name;
-        $nickname = isset($params['display_name']) ? sanitize_text_field($params['display_name']) : $user->nickname;
-        $email = isset($params['email']) ? sanitize_email($params['email']) : $user->user_email;
-        $description = isset($params['bio']) ? sanitize_text_field($params['bio']) : $user->description;
-        $city = isset($params['city']) ? sanitize_text_field($params['city']) : $user->city;
-        $country = isset($params['country']) ? sanitize_text_field($params['country']) : $user->country;
+        $first_name = isset($params['first_name']) ? sanitize_text_field($params['first_name']) : '';
+        $last_name = isset($params['last_name']) ? sanitize_text_field($params['last_name']) : '';
+        $nickname = isset($params['display_name']) ? sanitize_text_field($params['display_name']) : '';
+        $email = isset($params['email']) ? sanitize_email($params['email']) : '';
+        $description = isset($params['bio']) ? sanitize_text_field($params['bio']) : '';
+        $city = isset($params['city']) ? sanitize_text_field($params['city']) : '';
+        $country = isset($params['country']) ? sanitize_text_field($params['country']) : '';
         $current_password = isset($params['current_password']) ? sanitize_text_field($params['current_password']) : '';
         $new_password = isset($params['new_password']) ? sanitize_text_field($params['new_password']) : '';
         $confirm_password = isset($params['confirm_password']) ? sanitize_text_field($params['confirm_password']) : '';
@@ -904,7 +904,8 @@ class EdwiserBridge_Blocks_UserAccount_API
             'post_type'      => 'eb_order',
             'post_status'    => 'publish',
             'fields'         => 'ids',
-            'order'          => 'ASC',
+            'orderby'        => 'date',
+            'order'          => 'DESC',
         );
 
         $overall_orders = get_posts($args); // Get all orders from db.
@@ -1021,7 +1022,7 @@ class EdwiserBridge_Blocks_UserAccount_API
             foreach ($countries as $code => $name) {
                 $country_data = array(
                     'value' => $code,
-                    'label' => $name,
+                    'label' => html_entity_decode($name),
                 );
 
                 $formatted_countries[] = $country_data;
@@ -1044,7 +1045,7 @@ class EdwiserBridge_Blocks_UserAccount_API
             foreach ($basic_countries as $code => $name) {
                 $country_data = array(
                     'value' => $code,
-                    'label' => $name,
+                    'label' => html_entity_decode($name),
                 );
 
                 $formatted_countries[] = $country_data;

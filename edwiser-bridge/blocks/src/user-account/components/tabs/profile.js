@@ -602,7 +602,13 @@ function Profile() {
             <Select
               label={__('Country', 'edwiser-bridge')}
               placeholder={__('Select your country', 'edwiser-bridge')}
-              data={countries}
+              data={[
+                {
+                  value: '',
+                  label: __('- Select a country -', 'edwiser-bridge'),
+                },
+                ...countries,
+              ]}
               value={profileData.country}
               onChange={(value) => handleProfileChange('country', value)}
               rightSection={<Icons.chevronDown />}
@@ -610,7 +616,6 @@ function Profile() {
                 withinPortal: false,
               }}
               searchable
-              allowDeselect={false}
               checkIconPosition="right"
             />
 

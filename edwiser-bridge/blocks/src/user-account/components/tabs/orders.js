@@ -3,6 +3,7 @@ import { TextInput, Select, Pagination, Skeleton } from '@mantine/core';
 import { Icons } from '../icons';
 import { __ } from '@wordpress/i18n';
 import { useOrders } from '../../hooks/use-orders';
+import { decodeHTMLEntities } from '../../utils';
 
 function Orders() {
   const { orders, isLoading } = useOrders();
@@ -243,7 +244,7 @@ function Orders() {
                                 rel="noopener noreferrer"
                                 className="eb-orders__course-link"
                               >
-                                {course.title}
+                                {decodeHTMLEntities(course.title)}
                               </a>
                             ) : (
                               <span>{course.title}</span>

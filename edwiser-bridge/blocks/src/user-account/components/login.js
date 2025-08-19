@@ -210,13 +210,35 @@ function Login({
     }
   };
 
+  // Helper function to determine if input is email or username
+  const isEmail = (value) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(value.trim());
+  };
+
+  // Validate form fields with support for both username and email formats
   const validateField = (field, value) => {
     let error = '';
 
     switch (field) {
       case 'username':
         if (!value.trim()) {
-          error = __('Username is required.', 'edwiser-bridge');
+          error = __('Username or email is required.', 'edwiser-bridge');
+        } else {
+          // Check if it's a valid email format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          // Check if it's a valid username format (alphanumeric, underscore, hyphen, 3-20 characters)
+          const usernameRegex = /^[a-zA-Z0-9_-]{3,20}$/;
+
+          if (
+            !emailRegex.test(value.trim()) &&
+            !usernameRegex.test(value.trim())
+          ) {
+            error = __(
+              'Please enter a valid username or email address.',
+              'edwiser-bridge'
+            );
+          }
         }
         break;
       case 'password':
@@ -292,6 +314,11 @@ function Login({
     });
     setCaptchaError('');
 
+    // Validate form first
+    if (!validateForm()) {
+      return;
+    }
+
     // Get reCAPTCHA response for v2
     if (enableRecaptcha && showRecaptchaOnLogin && recaptchaType === 'v2') {
       let recaptchaResponse = '';
@@ -317,16 +344,12 @@ function Login({
       setRecaptchaToken(recaptchaResponse);
     }
 
-    // Validate form
-    if (!validateForm()) {
-      return;
-    }
-
     // Prepare credentials for API
     const credentials = {
       username: formData.username.trim(),
       password: formData.password,
       remember: formData.remember,
+      isEmail: isEmail(formData.username),
     };
 
     // Call login function
@@ -447,8 +470,8 @@ function Login({
 
       <form className="eb-user-account__login-form" onSubmit={handleSubmit}>
         <TextInput
-          placeholder={__('john.doe', 'edwiser-bridge')}
-          label={__('Username', 'edwiser-bridge')}
+          placeholder={__('john.doe / john@example.com', 'edwiser-bridge')}
+          label={__('Username / Email', 'edwiser-bridge')}
           required
           value={formData.username}
           onChange={(e) => handleInputChange('username', e.target.value)}

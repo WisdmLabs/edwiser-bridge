@@ -1712,6 +1712,7 @@
       .mantine-Select-root,
       .mantine-TextInput-root {
         width: 100%;
+        max-width: 300px;
       }
 
       .mantine-Input-wrapper,
@@ -1732,6 +1733,7 @@
     .eb-my-courses__grid {
       display: grid;
       gap: 24px;
+      place-items: center;
     }
 
     .eb-my-courses__empty {
@@ -1778,6 +1780,9 @@
 
     .eb-my-courses__course-anchor {
       text-decoration: none !important;
+      max-width: 345px;
+      width: 100%;
+      height: 100%;
     }
 
     .eb-my-courses__course-anchor:focus,
@@ -2001,10 +2006,14 @@
       .eb-my-courses__recommended-courses-grid {
         display: grid;
         gap: 24px;
+        place-items: center;
       }
 
       .eb-courses__course-anchor {
         text-decoration: none !important;
+        max-width: 345px;
+        width: 100%;
+        height: 100%;
       }
 
       .eb-courses__course-anchor:focus,

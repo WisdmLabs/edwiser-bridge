@@ -74,7 +74,7 @@ function RecommendedCourses({ courses, title, coursesPageUrl }) {
       </div>
       <div className="eb-my-courses__recommended-courses-view-more">
         <a href={coursesPageUrl} className="eb-btn__view-more">
-          {__('View more course', 'edwiser-bridge')}
+          {__('View more courses', 'edwiser-bridge')}
           <Icons.chevronRight />
         </a>
       </div>
