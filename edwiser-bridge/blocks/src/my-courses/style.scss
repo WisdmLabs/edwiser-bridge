@@ -532,6 +532,24 @@
       font-weight: 400;
       color: #819596;
     }
+
+    .eb-my-courses__login-link {
+      color: #f75d25;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #f75d25;
+        text-decoration: underline;
+      }
+
+      &:focus {
+        outline: 2px solid #f75d25;
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+    }
   }
 
   .eb-my-courses__no-results {

@@ -151,21 +151,21 @@ if (! class_exists('Eb_Settings_Templates')) {
 
                 update_option('eb_general', $eb_general);
 
-                foreach ($new_templates as $template) {
-                    if ($template === 'enroll_students') {
-                        $option_name = 'eb_woo_gutenberg_pages';
-                        $value = get_option($option_name);
-                        $option_value = isset($_POST['eb_pro_' . $template . '_page_id']) ? $_POST['eb_pro_' . $template . '_page_id'] : 0;
-                        $value['eb_pro_' . $template . '_page_id'] = $option_value;
-                        update_option($option_name, $value);
-                    } else {
-                        $option_name = 'eb_gutenberg_pages';
-                        $value = get_option($option_name);
-                        $option_value = isset($_POST['eb_' . $template . '_page_id']) ? $_POST['eb_' . $template . '_page_id'] : 0;
-                        $value[$template] = $option_value;
-                        update_option($option_name, $value);
-                    }
-                }
+                // foreach ($new_templates as $template) {
+                //     if ($template === 'enroll_students') {
+                //         $option_name = 'eb_woo_gutenberg_pages';
+                //         $value = get_option($option_name);
+                //         $option_value = isset($_POST['eb_pro_' . $template . '_page_id']) ? $_POST['eb_pro_' . $template . '_page_id'] : 0;
+                //         $value['eb_pro_' . $template . '_page_id'] = $option_value;
+                //         update_option($option_name, $value);
+                //     } else {
+                //         $option_name = 'eb_gutenberg_pages';
+                //         $value = get_option($option_name);
+                //         $option_value = isset($_POST['eb_' . $template . '_page_id']) ? $_POST['eb_' . $template . '_page_id'] : 0;
+                //         $value[$template] = $option_value;
+                //         update_option($option_name, $value);
+                //     }
+                // }
 
                 if (class_exists('\app\wisdmlabs\edwiserBridgePro\includes\Edwiser_Bridge_Pro') && get_option('edd_edwiser_bridge_pro_license_key', false)) {
                     $license_key = get_option('edd_edwiser_bridge_pro_license_key');

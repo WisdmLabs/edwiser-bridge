@@ -44,7 +44,7 @@ function Login({
       !recaptchaInitialized
     ) {
       if (recaptchaType === 'v2') {
-        // Load reCAPTCHA v2 script
+        // Load reCAPTCHA v2 script (without render parameter for proper v2 functionality)
         if (!window.grecaptcha && !scriptLoadingRef.current) {
           // Check if script is already being loaded
           const existingScript = document.querySelector(
@@ -53,7 +53,7 @@ function Login({
           if (!existingScript) {
             scriptLoadingRef.current = true;
             scriptElement = document.createElement('script');
-            scriptElement.src = `https://www.google.com/recaptcha/api.js?render=explicit`;
+            scriptElement.src = `https://www.google.com/recaptcha/api.js`;
             scriptElement.async = true;
             scriptElement.defer = true;
 
@@ -104,7 +104,7 @@ function Login({
           }, 100);
         }
       } else if (recaptchaType === 'v3') {
-        // Load reCAPTCHA v3 script
+        // Load reCAPTCHA v3 script (same as frontend form handler)
         if (!window.grecaptcha && !scriptLoadingRef.current) {
           // Check if script is already being loaded
           const existingScript = document.querySelector(
@@ -113,7 +113,7 @@ function Login({
           if (!existingScript) {
             scriptLoadingRef.current = true;
             scriptElement = document.createElement('script');
-            scriptElement.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+            scriptElement.src = `https://www.google.com/recaptcha/api.js`;
             scriptElement.async = true;
             scriptElement.defer = true;
             document.head.appendChild(scriptElement);
@@ -227,8 +227,8 @@ function Login({
         } else {
           // Check if it's a valid email format
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          // Check if it's a valid username format (alphanumeric, underscore, hyphen, 3-20 characters)
-          const usernameRegex = /^[a-zA-Z0-9_-]{3,20}$/;
+          // Check if it's a valid username format (minimal restrictions, only block problematic characters)
+          const usernameRegex = /^[^\s<>\"'&]{1,50}$/;
 
           if (
             !emailRegex.test(value.trim()) &&
@@ -382,17 +382,50 @@ function Login({
         }
       };
 
-      // Set the global callback to use our registry
-      window.ebSubmitCaptchaForm = (token) => {
-        // Execute all registered callbacks
-        Object.values(window.ebCaptchaCallbacks).forEach((callback) => {
-          try {
-            callback(token);
-          } catch (error) {
-            console.warn('Error executing reCAPTCHA callback:', error);
+      // Set the global callback to use our registry (only if not already set)
+      if (!window.ebSubmitCaptchaForm) {
+        window.ebSubmitCaptchaForm = (token) => {
+          // Execute all registered callbacks
+          if (window.ebCaptchaCallbacks) {
+            Object.values(window.ebCaptchaCallbacks).forEach((callback) => {
+              try {
+                callback(token);
+              } catch (error) {
+                console.warn('Error executing reCAPTCHA callback:', error);
+              }
+            });
           }
-        });
-      };
+        };
+      }
+
+      // Initialize reCAPTCHA v3 after a short delay to ensure DOM is ready
+      const initTimer = setTimeout(() => {
+        if (window.grecaptcha && window.grecaptcha.render) {
+          try {
+            // Render the hidden reCAPTCHA badge
+            const recaptchaElement = document.querySelector(
+              '.eb-user-account__login-recaptcha-v3 .g-recaptcha'
+            );
+            if (
+              recaptchaElement &&
+              !recaptchaElement.getAttribute('data-widget-id')
+            ) {
+              window.grecaptcha.render(recaptchaElement, {
+                sitekey: recaptchaSiteKey,
+                size: 'invisible',
+                callback: 'ebSubmitCaptchaForm',
+                'expired-callback': () => {
+                  console.log('reCAPTCHA v3 expired');
+                },
+              });
+            }
+          } catch (error) {
+            console.warn('Error rendering reCAPTCHA v3:', error);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(initTimer);
     }
 
     // Cleanup function for v3 callback
@@ -401,9 +434,10 @@ function Login({
         // Remove this component's callback from the registry
         delete window.ebCaptchaCallbacks[callbackIdRef.current];
 
-        // If no more callbacks, clean up the global function
+        // Only clean up if this was the last callback and we're the one who created the global function
         if (Object.keys(window.ebCaptchaCallbacks).length === 0) {
-          delete window.ebSubmitCaptchaForm;
+          // Don't delete the global function - let other components handle it
+          // Just clean up our local registry
           delete window.ebCaptchaCallbacks;
         }
       }
@@ -532,17 +566,32 @@ function Login({
         showRecaptchaOnLogin &&
         recaptchaType === 'v3' &&
         recaptchaSiteKey ? (
-          <button
-            data-sitekey={recaptchaSiteKey}
-            data-callback="ebSubmitCaptchaForm"
-            data-action="submit"
-            className="g-recaptcha eb-login-button button button-primary et_pb_button et_pb_contact_submit eb-user-account__login-button"
-            type="submit"
-            disabled={isLoggingIn}
-          >
-            {isLoggingIn && <Icons.loader />}
-            {__('Login', 'edwiser-bridge')}
-          </button>
+          <div className="eb-user-account__login-recaptcha-v3">
+            <button
+              data-sitekey={recaptchaSiteKey}
+              data-callback="ebSubmitCaptchaForm"
+              data-action="submit"
+              className="g-recaptcha eb-login-button button button-primary et_pb_button et_pb_contact_submit eb-user-account__login-button"
+              type="button"
+              onClick={handleSubmit}
+              disabled={isLoggingIn}
+            >
+              {isLoggingIn && <Icons.loader />}
+              {__('Login', 'edwiser-bridge')}
+            </button>
+            {/* Hidden reCAPTCHA v3 badge for compliance */}
+            <div
+              className="g-recaptcha"
+              data-sitekey={recaptchaSiteKey}
+              data-size="invisible"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                visibility: 'hidden',
+                pointerEvents: 'none',
+              }}
+            ></div>
+          </div>
         ) : (
           <button
             className="eb-user-account__login-button"

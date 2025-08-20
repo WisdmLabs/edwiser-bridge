@@ -18,8 +18,14 @@ export default function MyCourses({
   recommendedCoursesTitle,
   recommendedCoursesCount,
 }) {
-  const { enrolledCourses, recommendedCourses, coursesPageUrl, isLoading } =
-    useMyCourses(recommendedCoursesCount);
+  const {
+    enrolledCourses,
+    recommendedCourses,
+    coursesPageUrl,
+    isLoading,
+    authRequired,
+    signInUrl,
+  } = useMyCourses(recommendedCoursesCount);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('a-z');
@@ -130,10 +136,26 @@ export default function MyCourses({
           </>
         ) : (
           <div className="eb-my-courses__empty">
-            <h4>{__('No courses found.', 'edwiser-bridge')}</h4>
-            <p>
-              {__('You are not enrolled in any courses yet.', 'edwiser-bridge')}
-            </p>
+            {authRequired ? (
+              <>
+                <p>
+                  {__('You are not logged in.', 'edwiser-bridge')}{' '}
+                  <a href={signInUrl} className="eb-my-courses__login-link">
+                    {__('Click here to login.', 'edwiser-bridge')}
+                  </a>
+                </p>
+              </>
+            ) : (
+              <>
+                <h4>{__('No courses found.', 'edwiser-bridge')}</h4>
+                <p>
+                  {__(
+                    'You are not enrolled in any courses yet.',
+                    'edwiser-bridge'
+                  )}
+                </p>
+              </>
+            )}
           </div>
         )}
 

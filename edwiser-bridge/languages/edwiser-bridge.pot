@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-08-19T12:06:34+00:00\n"
+"POT-Creation-Date: 2025-08-20T10:49:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: edwiser-bridge\n"
@@ -43,26 +43,12 @@ msgstr ""
 #: admin/class-eb-admin-menus.php:46
 #: includes/class-eb-post-types.php:163
 #: public/shortcodes/class-eb-shortcode-user-account.php:446
-#: blocks/build/user-account/index.js:1741
-#: blocks/build/user-account/index.js:2817
-#: blocks/build/user-account/index.js:2958
-#: blocks/build/user-account/index.js:4440
-#: blocks/build/user-account/view.js:1741
-#: blocks/build/user-account/view.js:2817
-#: blocks/build/user-account/view.js:2958
-#: blocks/build/user-account/view.js:4287
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/responsive-tab-menu.js:57
 #: blocks/src/user-account/components/tabs/orders.js:132
 #: blocks/src/user-account/components/tabs/orders.js:337
 #: blocks/src/user-account/user-account.js:205
-#: blocks/build/user-account/index.js:1883
-#: blocks/build/user-account/index.js:2769
-#: blocks/build/user-account/index.js:2974
-#: blocks/build/user-account/index.js:4421
-#: blocks/build/user-account/view.js:1883
-#: blocks/build/user-account/view.js:2769
-#: blocks/build/user-account/view.js:2974
-#: blocks/build/user-account/view.js:4323
 msgid "Orders"
 msgstr ""
 
@@ -1256,11 +1242,9 @@ msgid "Action"
 msgstr ""
 
 #: admin/licensing/html-licensing.php:130
-#: blocks/build/course-description/index.js:712
-#: blocks/build/course-description/view.js:712
+#: blocks/build/course-description/index.js:3
+#: blocks/build/course-description/view.js:3
 #: blocks/src/course-description/course-description.js:98
-#: blocks/build/course-description/index.js:497
-#: blocks/build/course-description/view.js:497
 msgid "Lifetime"
 msgstr ""
 
@@ -1887,31 +1871,15 @@ msgstr ""
 #: includes/eb-core-functions.php:253
 #: public/shortcodes/class-eb-shortcode-user-account.php:451
 #: public/shortcodes/class-eb-shortcode-user-account.php:453
-#: blocks/build/my-courses/index.js:1053
-#: blocks/build/my-courses/view.js:910
-#: blocks/build/user-account/index.js:1747
-#: blocks/build/user-account/index.js:2401
-#: blocks/build/user-account/index.js:2446
-#: blocks/build/user-account/index.js:4444
-#: blocks/build/user-account/view.js:1747
-#: blocks/build/user-account/view.js:2401
-#: blocks/build/user-account/view.js:2446
-#: blocks/build/user-account/view.js:4291
-#: blocks/src/my-courses/my-courses.js:156
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:178
 #: blocks/src/user-account/components/responsive-tab-menu.js:65
 #: blocks/src/user-account/components/tabs/my-courses/index.js:87
 #: blocks/src/user-account/components/tabs/my-courses/index.js:144
 #: blocks/src/user-account/user-account.js:208
-#: blocks/build/my-courses/index.js:838
-#: blocks/build/my-courses/view.js:741
-#: blocks/build/user-account/index.js:1891
-#: blocks/build/user-account/index.js:2400
-#: blocks/build/user-account/index.js:2457
-#: blocks/build/user-account/index.js:4424
-#: blocks/build/user-account/view.js:1891
-#: blocks/build/user-account/view.js:2400
-#: blocks/build/user-account/view.js:2457
-#: blocks/build/user-account/view.js:4326
 msgid "My Courses"
 msgstr ""
 
@@ -1959,16 +1927,10 @@ msgstr ""
 #: admin/settings/class-eb-settings-general.php:257
 #: public/templates/account/form-login.php:155
 #: public/templates/account/form-login.php:159
-#: blocks/build/user-account/index.js:1573
-#: blocks/build/user-account/index.js:1633
-#: blocks/build/user-account/view.js:1573
-#: blocks/build/user-account/view.js:1633
-#: blocks/src/user-account/components/register.js:565
-#: blocks/src/user-account/components/register.js:662
-#: blocks/build/user-account/index.js:1692
-#: blocks/build/user-account/index.js:1789
-#: blocks/build/user-account/view.js:1692
-#: blocks/build/user-account/view.js:1789
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:695
+#: blocks/src/user-account/components/register.js:806
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -1977,23 +1939,19 @@ msgid "Please enter the Terms and Conditions you want to show on user-account pa
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:273
-#: blocks/build/my-courses/index.js:771
+#: blocks/build/my-courses/index.js:1
 #: blocks/src/my-courses/edit.js:44
-#: blocks/build/my-courses/index.js:589
 msgid "Recommended Courses Settings"
 msgstr ""
 
 #: admin/settings/class-eb-settings-general.php:279
 #: includes/class-eb-post-types.php:378
-#: blocks/build/course-description/index.js:779
-#: blocks/build/my-courses/index.js:778
-#: blocks/build/user-account/index.js:3714
+#: blocks/build/course-description/index.js:3
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/user-account/index.js:1
 #: blocks/src/course-description/edit.js:27
 #: blocks/src/my-courses/edit.js:49
 #: blocks/src/user-account/edit.js:44
-#: blocks/build/course-description/index.js:552
-#: blocks/build/my-courses/index.js:594
-#: blocks/build/user-account/index.js:3768
 msgid "Show Recommended Courses"
 msgstr ""
 
@@ -3155,11 +3113,9 @@ msgstr ""
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:944
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1268
 #: admin/setup-wizard/class-eb-setup-wizard-templates.php:1702
-#: blocks/build/user-account/index.js:3576
-#: blocks/build/user-account/view.js:3576
-#: blocks/src/user-account/components/tabs/profile.js:689
-#: blocks/build/user-account/index.js:3678
-#: blocks/build/user-account/view.js:3678
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:680
 msgid "Save settings"
 msgstr ""
 
@@ -3461,9 +3417,8 @@ msgid "Search term to filter courses"
 msgstr ""
 
 #: includes/api/class-eb-blocks-course-api.php:59
-#: blocks/build/courses/index.js:802
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:72
-#: blocks/build/courses/index.js:616
 msgid "Group courses by category"
 msgstr ""
 
@@ -3482,8 +3437,8 @@ msgstr ""
 #: includes/api/class-eb-blocks-course-api.php:260
 #: includes/api/class-eb-blocks-course-api.php:533
 #: includes/api/class-eb-blocks-course-api.php:659
-#: includes/api/class-eb-blocks-my-courses-api.php:220
-#: includes/api/class-eb-blocks-my-courses-api.php:312
+#: includes/api/class-eb-blocks-my-courses-api.php:223
+#: includes/api/class-eb-blocks-my-courses-api.php:315
 msgid "Uncategorized"
 msgstr ""
 
@@ -3493,47 +3448,42 @@ msgstr ""
 
 #: includes/api/class-eb-blocks-my-courses-api.php:80
 #: includes/api/class-eb-blocks-user-account-api.php:78
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/src/my-courses/my-courses.js:142
 msgid "You are not logged in."
 msgstr ""
 
-#: includes/api/class-eb-blocks-my-courses-api.php:127
+#: includes/api/class-eb-blocks-my-courses-api.php:144
 msgid "You must be logged in to access your courses!"
 msgstr ""
 
-#: includes/api/class-eb-blocks-my-courses-api.php:372
+#: includes/api/class-eb-blocks-my-courses-api.php:375
 #: public/shortcodes/class-eb-shortcode-my-courses.php:192
 #: public/shortcodes/class-eb-shortcode-my-courses.php:203
-#: blocks/build/my-courses/index.js:117
-#: blocks/build/my-courses/view.js:117
-#: blocks/build/user-account/index.js:2098
-#: blocks/build/user-account/view.js:2098
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/course.js:34
 #: blocks/src/user-account/components/tabs/my-courses/course.js:34
-#: blocks/build/my-courses/index.js:77
-#: blocks/build/my-courses/view.js:77
-#: blocks/build/user-account/index.js:2140
-#: blocks/build/user-account/view.js:2140
 msgid "Start"
 msgstr ""
 
-#: includes/api/class-eb-blocks-my-courses-api.php:377
+#: includes/api/class-eb-blocks-my-courses-api.php:380
 #: includes/class-eb-error-logs-table.php:55
 #: public/shortcodes/class-eb-shortcode-my-courses.php:212
 msgid "View"
 msgstr ""
 
-#: includes/api/class-eb-blocks-my-courses-api.php:380
+#: includes/api/class-eb-blocks-my-courses-api.php:383
 #: public/shortcodes/class-eb-shortcode-my-courses.php:207
-#: blocks/build/my-courses/index.js:111
-#: blocks/build/my-courses/view.js:111
-#: blocks/build/user-account/index.js:2092
-#: blocks/build/user-account/view.js:2092
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/course.js:28
 #: blocks/src/user-account/components/tabs/my-courses/course.js:28
-#: blocks/build/my-courses/index.js:71
-#: blocks/build/my-courses/view.js:71
-#: blocks/build/user-account/index.js:2134
-#: blocks/build/user-account/view.js:2134
 msgid "Resume"
 msgstr ""
 
@@ -3559,16 +3509,10 @@ msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:292
 #: public/class-eb-frontend-form-handler.php:65
-#: blocks/build/user-account/index.js:811
-#: blocks/build/user-account/index.js:1436
-#: blocks/build/user-account/view.js:811
-#: blocks/build/user-account/view.js:1436
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/login.js:246
-#: blocks/src/user-account/components/register.js:380
-#: blocks/build/user-account/index.js:760
-#: blocks/build/user-account/index.js:1507
-#: blocks/build/user-account/view.js:760
-#: blocks/build/user-account/view.js:1507
+#: blocks/src/user-account/components/register.js:503
 msgid "Password is required."
 msgstr ""
 
@@ -3589,11 +3533,9 @@ msgid "Terms and conditions must be accepted."
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:400
-#: blocks/build/user-account/index.js:1431
-#: blocks/build/user-account/view.js:1431
-#: blocks/src/user-account/components/register.js:371
-#: blocks/build/user-account/index.js:1498
-#: blocks/build/user-account/view.js:1498
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:494
 msgid "Email is required."
 msgstr ""
 
@@ -3606,20 +3548,16 @@ msgid "Email already exists."
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:424
-#: blocks/build/user-account/index.js:1425
-#: blocks/build/user-account/view.js:1425
-#: blocks/src/user-account/components/register.js:363
-#: blocks/build/user-account/index.js:1490
-#: blocks/build/user-account/view.js:1490
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:486
 msgid "First name is required."
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:432
-#: blocks/build/user-account/index.js:1428
-#: blocks/build/user-account/view.js:1428
-#: blocks/src/user-account/components/register.js:367
-#: blocks/build/user-account/index.js:1494
-#: blocks/build/user-account/view.js:1494
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:490
 msgid "Last name is required."
 msgstr ""
 
@@ -3634,11 +3572,9 @@ msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:511
 #: public/templates/account/form-login.php:22
-#: blocks/build/user-account/index.js:1494
-#: blocks/build/user-account/view.js:1494
-#: blocks/src/user-account/components/register.js:459
-#: blocks/build/user-account/index.js:1586
-#: blocks/build/user-account/view.js:1586
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:583
 msgid "A verification email has been sent to your email address. Please verify your email address and try enrolling in the course again."
 msgstr ""
 
@@ -3647,47 +3583,37 @@ msgid "Registration successful"
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:700
-#: blocks/build/user-account/index.js:3241
-#: blocks/build/user-account/view.js:3241
-#: blocks/src/user-account/components/tabs/profile.js:265
-#: blocks/build/user-account/index.js:3254
-#: blocks/build/user-account/view.js:3254
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:256
 msgid "Email address is required"
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:704
-#: blocks/build/user-account/index.js:3244
-#: blocks/build/user-account/view.js:3244
-#: blocks/src/user-account/components/tabs/profile.js:271
-#: blocks/build/user-account/index.js:3260
-#: blocks/build/user-account/view.js:3260
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:262
 msgid "Invalid email address"
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:708
-#: blocks/build/user-account/index.js:3247
-#: blocks/build/user-account/view.js:3247
-#: blocks/src/user-account/components/tabs/profile.js:277
-#: blocks/build/user-account/index.js:3266
-#: blocks/build/user-account/view.js:3266
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:268
 msgid "Email already exists"
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:712
-#: blocks/build/user-account/index.js:3250
-#: blocks/build/user-account/view.js:3250
-#: blocks/src/user-account/components/tabs/profile.js:280
-#: blocks/build/user-account/index.js:3269
-#: blocks/build/user-account/view.js:3269
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:271
 msgid "New password and confirm password do not match"
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:716
-#: blocks/build/user-account/index.js:3253
-#: blocks/build/user-account/view.js:3253
-#: blocks/src/user-account/components/tabs/profile.js:286
-#: blocks/build/user-account/index.js:3275
-#: blocks/build/user-account/view.js:3275
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:277
 msgid "Invalid current password"
 msgstr ""
 
@@ -3700,11 +3626,9 @@ msgid "Couldn't update your profile on Moodle! Something went wrong."
 msgstr ""
 
 #: includes/api/class-eb-blocks-user-account-api.php:760
-#: blocks/build/user-account/index.js:3371
-#: blocks/build/user-account/view.js:3371
-#: blocks/src/user-account/components/tabs/profile.js:425
-#: blocks/build/user-account/index.js:3414
-#: blocks/build/user-account/view.js:3414
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:416
 msgid "Profile updated successfully"
 msgstr ""
 
@@ -4178,26 +4102,18 @@ msgstr ""
 #: includes/class-eb-post-types.php:324
 #: public/class-eb-template-functions.php:65
 #: public/class-eb-template-functions.php:149
-#: blocks/build/course-description/index.js:367
-#: blocks/build/course-description/view.js:367
-#: blocks/build/courses/index.js:342
-#: blocks/build/courses/view.js:342
-#: blocks/build/my-courses/index.js:620
-#: blocks/build/my-courses/view.js:620
-#: blocks/build/user-account/index.js:2593
-#: blocks/build/user-account/view.js:2593
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/components/course.js:85
 #: blocks/src/courses/components/course.js:85
 #: blocks/src/my-courses/components/recommended-courses.js:110
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:110
-#: blocks/build/course-description/index.js:237
-#: blocks/build/course-description/view.js:237
-#: blocks/build/courses/index.js:236
-#: blocks/build/courses/view.js:236
-#: blocks/build/my-courses/index.js:487
-#: blocks/build/my-courses/view.js:487
-#: blocks/build/user-account/index.js:2579
-#: blocks/build/user-account/view.js:2579
 msgid "Free"
 msgstr ""
 
@@ -4269,14 +4185,11 @@ msgstr ""
 
 #: includes/class-eb-custom-list-table.php:56
 #: includes/class-eb-post-types.php:112
-#: blocks/build/course-description/index.js:764
-#: blocks/build/user-account/index.js:2882
-#: blocks/build/user-account/view.js:2882
+#: blocks/build/course-description/index.js:3
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/edit.js:15
 #: blocks/src/user-account/components/tabs/orders.js:205
-#: blocks/build/course-description/index.js:540
-#: blocks/build/user-account/index.js:2842
-#: blocks/build/user-account/view.js:2842
 msgid "Course"
 msgstr ""
 
@@ -4742,52 +4655,30 @@ msgstr ""
 #: includes/class-eb-gdpr-compatibility.php:268
 #: public/templates/account/edit-user-profile.php:65
 #: public/templates/account/form-login.php:111
-#: blocks/build/user-account/index.js:1525
-#: blocks/build/user-account/index.js:1526
-#: blocks/build/user-account/view.js:1525
-#: blocks/build/user-account/view.js:1526
-#: blocks/src/user-account/components/register.js:506
-#: blocks/src/user-account/components/register.js:507
-#: blocks/build/user-account/index.js:1633
-#: blocks/build/user-account/index.js:1634
-#: blocks/build/user-account/view.js:1633
-#: blocks/build/user-account/view.js:1634
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:636
+#: blocks/src/user-account/components/register.js:637
 msgid "First Name"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:269
 #: public/templates/account/edit-user-profile.php:69
 #: public/templates/account/form-login.php:118
-#: blocks/build/user-account/index.js:1533
-#: blocks/build/user-account/index.js:1534
-#: blocks/build/user-account/view.js:1533
-#: blocks/build/user-account/view.js:1534
-#: blocks/src/user-account/components/register.js:515
-#: blocks/src/user-account/components/register.js:516
-#: blocks/build/user-account/index.js:1642
-#: blocks/build/user-account/index.js:1643
-#: blocks/build/user-account/view.js:1642
-#: blocks/build/user-account/view.js:1643
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:645
+#: blocks/src/user-account/components/register.js:646
 msgid "Last Name"
 msgstr ""
 
 #: includes/class-eb-gdpr-compatibility.php:270
 #: public/templates/account/form-login.php:127
-#: blocks/build/user-account/index.js:1542
-#: blocks/build/user-account/index.js:1543
-#: blocks/build/user-account/index.js:3451
-#: blocks/build/user-account/view.js:1542
-#: blocks/build/user-account/view.js:1543
-#: blocks/build/user-account/view.js:3451
-#: blocks/src/user-account/components/register.js:525
-#: blocks/src/user-account/components/register.js:526
-#: blocks/src/user-account/components/tabs/profile.js:509
-#: blocks/build/user-account/index.js:1652
-#: blocks/build/user-account/index.js:1653
-#: blocks/build/user-account/index.js:3498
-#: blocks/build/user-account/view.js:1652
-#: blocks/build/user-account/view.js:1653
-#: blocks/build/user-account/view.js:3498
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:655
+#: blocks/src/user-account/components/register.js:656
+#: blocks/src/user-account/components/tabs/profile.js:500
 msgid "Email"
 msgstr ""
 
@@ -4799,31 +4690,13 @@ msgstr ""
 #: includes/class-eb-gdpr-compatibility.php:272
 #: public/templates/account/form-login.php:50
 #: public/templates/account/form-login.php:135
-#: blocks/build/user-account/index.js:1026
-#: blocks/build/user-account/index.js:1027
-#: blocks/build/user-account/index.js:1551
-#: blocks/build/user-account/index.js:1552
-#: blocks/build/user-account/index.js:3465
-#: blocks/build/user-account/view.js:1026
-#: blocks/build/user-account/view.js:1027
-#: blocks/build/user-account/view.js:1551
-#: blocks/build/user-account/view.js:1552
-#: blocks/build/user-account/view.js:3465
-#: blocks/src/user-account/components/login.js:483
-#: blocks/src/user-account/components/login.js:484
-#: blocks/src/user-account/components/register.js:534
-#: blocks/src/user-account/components/register.js:535
-#: blocks/src/user-account/components/tabs/profile.js:529
-#: blocks/build/user-account/index.js:997
-#: blocks/build/user-account/index.js:998
-#: blocks/build/user-account/index.js:1661
-#: blocks/build/user-account/index.js:1662
-#: blocks/build/user-account/index.js:3518
-#: blocks/build/user-account/view.js:997
-#: blocks/build/user-account/view.js:998
-#: blocks/build/user-account/view.js:1661
-#: blocks/build/user-account/view.js:1662
-#: blocks/build/user-account/view.js:3518
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:517
+#: blocks/src/user-account/components/login.js:518
+#: blocks/src/user-account/components/register.js:664
+#: blocks/src/user-account/components/register.js:665
+#: blocks/src/user-account/components/tabs/profile.js:520
 msgid "Password"
 msgstr ""
 
@@ -4912,26 +4785,14 @@ msgstr ""
 #: includes/class-eb-order-manager.php:449
 #: includes/class-eb-post-types.php:406
 #: public/templates/content-eb_course.php:75
-#: blocks/build/my-courses/index.js:104
-#: blocks/build/my-courses/view.js:104
-#: blocks/build/user-account/index.js:1843
-#: blocks/build/user-account/index.js:1940
-#: blocks/build/user-account/index.js:2085
-#: blocks/build/user-account/view.js:1843
-#: blocks/build/user-account/view.js:1940
-#: blocks/build/user-account/view.js:2085
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/course.js:21
 #: blocks/src/user-account/components/tabs/dashboard.js:55
 #: blocks/src/user-account/components/tabs/dashboard.js:130
 #: blocks/src/user-account/components/tabs/my-courses/course.js:21
-#: blocks/build/my-courses/index.js:64
-#: blocks/build/my-courses/view.js:64
-#: blocks/build/user-account/index.js:1954
-#: blocks/build/user-account/index.js:2029
-#: blocks/build/user-account/index.js:2127
-#: blocks/build/user-account/view.js:1954
-#: blocks/build/user-account/view.js:2029
-#: blocks/build/user-account/view.js:2127
 msgid "Completed"
 msgstr ""
 
@@ -5179,11 +5040,9 @@ msgid "Search Orders"
 msgstr ""
 
 #: includes/class-eb-post-types.php:174
-#: blocks/build/user-account/index.js:2858
-#: blocks/build/user-account/view.js:2858
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:172
-#: blocks/build/user-account/index.js:2809
-#: blocks/build/user-account/view.js:2809
 msgid "No orders found"
 msgstr ""
 
@@ -5459,21 +5318,13 @@ msgstr ""
 #: includes/eb-core-functions.php:254
 #: public/shortcodes/class-eb-shortcode-my-courses.php:48
 #: public/shortcodes/class-eb-shortcode-my-courses.php:367
-#: blocks/build/my-courses/index.js:644
-#: blocks/build/my-courses/view.js:644
-#: blocks/build/user-account/index.js:2434
-#: blocks/build/user-account/index.js:2617
-#: blocks/build/user-account/view.js:2434
-#: blocks/build/user-account/view.js:2617
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/recommended-courses.js:136
 #: blocks/src/user-account/components/tabs/my-courses/index.js:132
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:136
-#: blocks/build/my-courses/index.js:513
-#: blocks/build/my-courses/view.js:513
-#: blocks/build/user-account/index.js:2445
-#: blocks/build/user-account/index.js:2605
-#: blocks/build/user-account/view.js:2445
-#: blocks/build/user-account/view.js:2605
 msgid "Recommended Courses"
 msgstr ""
 
@@ -5485,52 +5336,24 @@ msgstr ""
 #: includes/eb-core-functions.php:1195
 #: public/templates/account/form-login.php:75
 #: public/templates/account/form-login.php:202
-#: blocks/build/user-account/index.js:1000
-#: blocks/build/user-account/index.js:1063
-#: blocks/build/user-account/index.js:1068
-#: blocks/build/user-account/index.js:1627
-#: blocks/build/user-account/view.js:1000
-#: blocks/build/user-account/view.js:1063
-#: blocks/build/user-account/view.js:1068
-#: blocks/build/user-account/view.js:1627
-#: blocks/src/user-account/components/login.js:458
-#: blocks/src/user-account/components/login.js:544
-#: blocks/src/user-account/components/login.js:553
-#: blocks/src/user-account/components/register.js:654
-#: blocks/build/user-account/index.js:972
-#: blocks/build/user-account/index.js:1058
-#: blocks/build/user-account/index.js:1067
-#: blocks/build/user-account/index.js:1781
-#: blocks/build/user-account/view.js:972
-#: blocks/build/user-account/view.js:1058
-#: blocks/build/user-account/view.js:1067
-#: blocks/build/user-account/view.js:1781
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:492
+#: blocks/src/user-account/components/login.js:580
+#: blocks/src/user-account/components/login.js:602
+#: blocks/src/user-account/components/register.js:798
 msgid "Login"
 msgstr ""
 
 #: includes/eb-core-functions.php:1201
 #: includes/eb-core-functions.php:1205
 #: public/templates/account/form-login.php:189
-#: blocks/build/user-account/index.js:1080
-#: blocks/build/user-account/index.js:1606
-#: blocks/build/user-account/index.js:1611
-#: blocks/build/user-account/index.js:1615
-#: blocks/build/user-account/view.js:1080
-#: blocks/build/user-account/view.js:1606
-#: blocks/build/user-account/view.js:1611
-#: blocks/build/user-account/view.js:1615
-#: blocks/src/user-account/components/login.js:570
-#: blocks/src/user-account/components/register.js:622
-#: blocks/src/user-account/components/register.js:631
-#: blocks/src/user-account/components/register.js:639
-#: blocks/build/user-account/index.js:1084
-#: blocks/build/user-account/index.js:1749
-#: blocks/build/user-account/index.js:1758
-#: blocks/build/user-account/index.js:1766
-#: blocks/build/user-account/view.js:1084
-#: blocks/build/user-account/view.js:1749
-#: blocks/build/user-account/view.js:1758
-#: blocks/build/user-account/view.js:1766
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:619
+#: blocks/src/user-account/components/register.js:753
+#: blocks/src/user-account/components/register.js:775
+#: blocks/src/user-account/components/register.js:783
 msgid "Register"
 msgstr ""
 
@@ -5677,16 +5500,12 @@ msgstr ""
 
 #: public/class-eb-public.php:180
 #: public/templates/course-filters.php:19
-#: blocks/build/courses/index.js:156
-#: blocks/build/courses/view.js:156
-#: blocks/build/user-account/index.js:2837
-#: blocks/build/user-account/view.js:2837
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/courses/components/course-controls.js:41
 #: blocks/src/user-account/components/tabs/orders.js:145
-#: blocks/build/courses/index.js:96
-#: blocks/build/courses/view.js:96
-#: blocks/build/user-account/index.js:2782
-#: blocks/build/user-account/view.js:2782
 msgid "All"
 msgstr ""
 
@@ -5823,20 +5642,14 @@ msgid " to access the courses page."
 msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-my-courses.php:199
-#: blocks/build/course-description/index.js:132
-#: blocks/build/course-description/index.js:323
-#: blocks/build/course-description/view.js:132
-#: blocks/build/course-description/view.js:323
-#: blocks/build/courses/index.js:298
-#: blocks/build/courses/view.js:298
-#: blocks/build/my-courses/index.js:97
-#: blocks/build/my-courses/index.js:567
-#: blocks/build/my-courses/view.js:97
-#: blocks/build/my-courses/view.js:567
-#: blocks/build/user-account/index.js:2078
-#: blocks/build/user-account/index.js:2540
-#: blocks/build/user-account/view.js:2078
-#: blocks/build/user-account/view.js:2540
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/components/course-meta.js:17
 #: blocks/src/course-description/components/course.js:44
 #: blocks/src/courses/components/course.js:44
@@ -5844,20 +5657,6 @@ msgstr ""
 #: blocks/src/my-courses/components/recommended-courses.js:60
 #: blocks/src/user-account/components/tabs/my-courses/course.js:14
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:60
-#: blocks/build/course-description/index.js:60
-#: blocks/build/course-description/index.js:196
-#: blocks/build/course-description/view.js:60
-#: blocks/build/course-description/view.js:196
-#: blocks/build/courses/index.js:195
-#: blocks/build/courses/view.js:195
-#: blocks/build/my-courses/index.js:57
-#: blocks/build/my-courses/index.js:437
-#: blocks/build/my-courses/view.js:57
-#: blocks/build/my-courses/view.js:437
-#: blocks/build/user-account/index.js:2120
-#: blocks/build/user-account/index.js:2529
-#: blocks/build/user-account/view.js:2120
-#: blocks/build/user-account/view.js:2529
 msgid "Suspended"
 msgstr ""
 
@@ -5934,26 +5733,12 @@ msgstr ""
 
 #: public/shortcodes/class-eb-shortcode-user-account.php:436
 #: public/shortcodes/class-eb-shortcode-user-account.php:438
-#: blocks/build/user-account/index.js:1729
-#: blocks/build/user-account/index.js:1794
-#: blocks/build/user-account/index.js:1886
-#: blocks/build/user-account/index.js:4432
-#: blocks/build/user-account/view.js:1729
-#: blocks/build/user-account/view.js:1794
-#: blocks/build/user-account/view.js:1886
-#: blocks/build/user-account/view.js:4279
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/responsive-tab-menu.js:41
 #: blocks/src/user-account/components/tabs/dashboard.js:17
 #: blocks/src/user-account/components/tabs/dashboard.js:96
 #: blocks/src/user-account/user-account.js:199
-#: blocks/build/user-account/index.js:1867
-#: blocks/build/user-account/index.js:1916
-#: blocks/build/user-account/index.js:1995
-#: blocks/build/user-account/index.js:4415
-#: blocks/build/user-account/view.js:1867
-#: blocks/build/user-account/view.js:1916
-#: blocks/build/user-account/view.js:1995
-#: blocks/build/user-account/view.js:4317
 msgid "Dashboard"
 msgstr ""
 
@@ -5987,20 +5772,16 @@ msgid "E-mail *"
 msgstr ""
 
 #: public/templates/account/edit-user-profile.php:96
-#: blocks/build/user-account/index.js:3515
-#: blocks/build/user-account/view.js:3515
-#: blocks/src/user-account/components/tabs/profile.js:603
-#: blocks/build/user-account/index.js:3592
-#: blocks/build/user-account/view.js:3592
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:594
 msgid "Country"
 msgstr ""
 
 #: public/templates/account/edit-user-profile.php:101
-#: blocks/build/user-account/index.js:3530
-#: blocks/build/user-account/view.js:3530
-#: blocks/src/user-account/components/tabs/profile.js:623
-#: blocks/build/user-account/index.js:3612
-#: blocks/build/user-account/view.js:3612
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:614
 msgid "City"
 msgstr ""
 
@@ -6028,16 +5809,10 @@ msgstr ""
 
 #: public/templates/account/edit-user-profile.php:124
 #: public/templates/account/form-login.php:142
-#: blocks/build/user-account/index.js:1558
-#: blocks/build/user-account/index.js:1559
-#: blocks/build/user-account/view.js:1558
-#: blocks/build/user-account/view.js:1559
-#: blocks/src/user-account/components/register.js:542
-#: blocks/src/user-account/components/register.js:543
-#: blocks/build/user-account/index.js:1669
-#: blocks/build/user-account/index.js:1670
-#: blocks/build/user-account/view.js:1669
-#: blocks/build/user-account/view.js:1670
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:672
+#: blocks/src/user-account/components/register.js:673
 msgid "Confirm Password"
 msgstr ""
 
@@ -6046,11 +5821,9 @@ msgid "NOTE: All fields will be updated on Moodle as well as on WordPress site."
 msgstr ""
 
 #: public/templates/account/form-login.php:28
-#: blocks/build/user-account/index.js:1494
-#: blocks/build/user-account/view.js:1494
-#: blocks/src/user-account/components/register.js:463
-#: blocks/build/user-account/index.js:1590
-#: blocks/build/user-account/view.js:1590
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:587
 msgid "A verification email has been sent to your email address. Please verify your email address."
 msgstr ""
 
@@ -6063,20 +5836,16 @@ msgid "Enter password"
 msgstr ""
 
 #: public/templates/account/form-login.php:54
-#: blocks/build/user-account/index.js:1036
-#: blocks/build/user-account/view.js:1036
-#: blocks/src/user-account/components/login.js:495
-#: blocks/build/user-account/index.js:1009
-#: blocks/build/user-account/view.js:1009
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:529
 msgid "Forgot password?"
 msgstr ""
 
 #: public/templates/account/form-login.php:61
-#: blocks/build/user-account/index.js:1039
-#: blocks/build/user-account/view.js:1039
-#: blocks/src/user-account/components/login.js:499
-#: blocks/build/user-account/index.js:1013
-#: blocks/build/user-account/view.js:1013
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:533
 msgid "Remember me"
 msgstr ""
 
@@ -6089,11 +5858,9 @@ msgid "Get Registered"
 msgstr ""
 
 #: public/templates/account/form-login.php:154
-#: blocks/build/user-account/index.js:1567
-#: blocks/build/user-account/view.js:1567
-#: blocks/src/user-account/components/register.js:557
-#: blocks/build/user-account/index.js:1684
-#: blocks/build/user-account/view.js:1684
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:687
 msgid "I agree to the "
 msgstr ""
 
@@ -6121,11 +5888,9 @@ msgid "Course Purchase History"
 msgstr ""
 
 #: public/templates/account/user-orders.php:23
-#: blocks/build/user-account/index.js:2875
-#: blocks/build/user-account/view.js:2875
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:196
-#: blocks/build/user-account/index.js:2833
-#: blocks/build/user-account/view.js:2833
 msgid "Order ID"
 msgstr ""
 
@@ -6138,16 +5903,12 @@ msgid "Order Date"
 msgstr ""
 
 #: public/templates/account/user-orders.php:26
-#: blocks/build/course-description/index.js:174
-#: blocks/build/course-description/view.js:174
-#: blocks/build/user-account/index.js:2896
-#: blocks/build/user-account/view.js:2896
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/components/course-meta.js:54
 #: blocks/src/user-account/components/tabs/orders.js:223
-#: blocks/build/course-description/index.js:97
-#: blocks/build/course-description/view.js:97
-#: blocks/build/user-account/index.js:2860
-#: blocks/build/user-account/view.js:2860
 msgid "Status"
 msgstr ""
 
@@ -6252,150 +6013,104 @@ msgstr ""
 msgid "Your order with ID #%$1s completed successfully."
 msgstr ""
 
-#: blocks/build/course-description/index.js:34
-#: blocks/build/course-description/view.js:34
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
 #: blocks/src/course-description/components/course-content.js:9
-#: blocks/build/course-description/index.js:9
-#: blocks/build/course-description/view.js:9
 msgid "Description"
 msgstr ""
 
-#: blocks/build/course-description/index.js:131
-#: blocks/build/course-description/index.js:345
-#: blocks/build/course-description/view.js:131
-#: blocks/build/course-description/view.js:345
-#: blocks/build/courses/index.js:320
-#: blocks/build/courses/view.js:320
-#: blocks/build/my-courses/index.js:598
-#: blocks/build/my-courses/view.js:598
-#: blocks/build/user-account/index.js:2571
-#: blocks/build/user-account/view.js:2571
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/course-description/components/course.js:51
+#: blocks/src/courses/components/course.js:51
+#: blocks/src/my-courses/components/recommended-courses.js:67
+#: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:67
+msgid "View Details"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/components/course-meta.js:16
 #: blocks/src/course-description/components/course.js:65
 #: blocks/src/courses/components/course.js:65
 #: blocks/src/my-courses/components/recommended-courses.js:90
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:90
-#: blocks/build/course-description/index.js:59
-#: blocks/build/course-description/index.js:217
-#: blocks/build/course-description/view.js:59
-#: blocks/build/course-description/view.js:217
-#: blocks/build/courses/index.js:216
-#: blocks/build/courses/view.js:216
-#: blocks/build/my-courses/index.js:467
-#: blocks/build/my-courses/view.js:467
-#: blocks/build/user-account/index.js:2559
-#: blocks/build/user-account/view.js:2559
 msgid "Enrolled"
 msgstr ""
 
-#: blocks/build/course-description/index.js:139
-#: blocks/build/course-description/view.js:139
-#: blocks/src/course-description/components/course-meta.js:23
-#: blocks/build/course-description/index.js:66
-#: blocks/build/course-description/view.js:66
-msgid "Details"
-msgstr ""
-
-#: blocks/build/course-description/index.js:150
-#: blocks/build/course-description/view.js:150
-#: blocks/src/course-description/components/course-meta.js:31
-#: blocks/build/course-description/index.js:74
-#: blocks/build/course-description/view.js:74
-msgid "Category"
-msgstr ""
-
-#: blocks/build/course-description/index.js:163
-#: blocks/build/course-description/view.js:163
-#: blocks/src/course-description/components/course-meta.js:46
-#: blocks/build/course-description/index.js:89
-#: blocks/build/course-description/view.js:89
-msgid "Course access"
-msgstr ""
-
-#: blocks/build/course-description/index.js:187
-#: blocks/build/course-description/view.js:187
-#: blocks/src/course-description/components/course-meta.js:65
-#: blocks/build/course-description/index.js:108
-#: blocks/build/course-description/view.js:108
-msgid "Price"
-msgstr ""
-
-#: blocks/build/course-description/index.js:330
-#: blocks/build/course-description/view.js:330
-#: blocks/build/courses/index.js:305
-#: blocks/build/courses/view.js:305
-#: blocks/build/my-courses/index.js:574
-#: blocks/build/my-courses/view.js:574
-#: blocks/build/user-account/index.js:2547
-#: blocks/build/user-account/view.js:2547
-#: blocks/src/course-description/components/course.js:51
-#: blocks/src/courses/components/course.js:51
-#: blocks/src/my-courses/components/recommended-courses.js:67
-#: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:67
-#: blocks/build/course-description/index.js:203
-#: blocks/build/course-description/view.js:203
-#: blocks/build/courses/index.js:202
-#: blocks/build/courses/view.js:202
-#: blocks/build/my-courses/index.js:444
-#: blocks/build/my-courses/view.js:444
-#: blocks/build/user-account/index.js:2536
-#: blocks/build/user-account/view.js:2536
-msgid "View Details"
-msgstr ""
-
-#: blocks/build/course-description/index.js:355
-#: blocks/build/course-description/view.js:355
-#: blocks/build/courses/index.js:330
-#: blocks/build/courses/view.js:330
-#: blocks/build/my-courses/index.js:608
-#: blocks/build/my-courses/view.js:608
-#: blocks/build/user-account/index.js:2581
-#: blocks/build/user-account/view.js:2581
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/course-description/components/course.js:73
 #: blocks/src/courses/components/course.js:73
 #: blocks/src/my-courses/components/recommended-courses.js:98
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:98
-#: blocks/build/course-description/index.js:225
-#: blocks/build/course-description/view.js:225
-#: blocks/build/courses/index.js:224
-#: blocks/build/courses/view.js:224
-#: blocks/build/my-courses/index.js:475
-#: blocks/build/my-courses/view.js:475
-#: blocks/build/user-account/index.js:2567
-#: blocks/build/user-account/view.js:2567
 msgid "/month"
 msgstr ""
 
-#: blocks/build/course-description/index.js:457
-#: blocks/build/course-description/view.js:457
-#: blocks/src/course-description/components/empty-state.js:8
-#: blocks/build/course-description/index.js:291
-#: blocks/build/course-description/view.js:291
-msgid "Course Not Found"
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:23
+msgid "Details"
 msgstr ""
 
-#: blocks/build/course-description/index.js:459
-#: blocks/build/course-description/view.js:459
-#: blocks/src/course-description/components/empty-state.js:10
-#: blocks/build/course-description/index.js:293
-#: blocks/build/course-description/view.js:293
-msgid "Sorry, the course you are looking for is not available or may have been removed."
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:31
+msgid "Category"
 msgstr ""
 
-#: blocks/build/course-description/index.js:590
-#: blocks/build/course-description/view.js:590
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:46
+msgid "Course access"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/course-meta.js:65
+msgid "Price"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
 #: blocks/src/course-description/components/recommended-courses.js:14
-#: blocks/build/course-description/index.js:374
-#: blocks/build/course-description/view.js:374
 msgid "Recommended courses"
 msgstr ""
 
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/empty-state.js:8
+msgid "Course Not Found"
+msgstr ""
+
+#: blocks/build/course-description/index.js:1
+#: blocks/build/course-description/view.js:1
+#: blocks/src/course-description/components/empty-state.js:10
+msgid "Sorry, the course you are looking for is not available or may have been removed."
+msgstr ""
+
 #. translators: %d is number of days left
-#: blocks/build/course-description/index.js:711
-#: blocks/build/course-description/view.js:711
+#: blocks/build/course-description/index.js:2
+#: blocks/build/course-description/view.js:2
 #: blocks/src/course-description/course-description.js:80
-#: blocks/build/course-description/index.js:479
-#: blocks/build/course-description/view.js:479
 #, js-format
 msgid "%d Day Left"
 msgid_plural "%d Days Left"
@@ -6403,1043 +6118,735 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d is number of days
-#: blocks/build/course-description/index.js:712
-#: blocks/build/course-description/view.js:712
+#: blocks/build/course-description/index.js:3
+#: blocks/build/course-description/view.js:3
 #: blocks/src/course-description/course-description.js:90
-#: blocks/build/course-description/index.js:489
-#: blocks/build/course-description/view.js:489
 #, js-format
 msgid "%d Day"
 msgid_plural "%d Days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: blocks/build/course-description/index.js:768
+#: blocks/build/course-description/index.js:3
 #: blocks/src/course-description/edit.js:18
-#: blocks/build/course-description/index.js:543
 msgid "Course Id"
 msgstr ""
 
-#: blocks/build/course-description/index.js:789
+#: blocks/build/course-description/index.js:3
 #: blocks/src/course-description/edit.js:34
-#: blocks/build/course-description/index.js:559
 msgid "This option also requires Show Recommended Courses to be enabled in the individual course settings."
 msgstr ""
 
-#: blocks/build/courses/index.js:132
-#: blocks/build/courses/view.js:132
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
 #: blocks/src/courses/components/course-controls.js:24
-#: blocks/build/courses/index.js:79
-#: blocks/build/courses/view.js:79
 msgid "Latest"
 msgstr ""
 
-#: blocks/build/courses/index.js:135
-#: blocks/build/courses/view.js:135
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
 #: blocks/src/courses/components/course-controls.js:25
-#: blocks/build/courses/index.js:80
-#: blocks/build/courses/view.js:80
 msgid "Oldest"
 msgstr ""
 
-#: blocks/build/courses/index.js:138
-#: blocks/build/courses/view.js:138
-#: blocks/build/my-courses/index.js:275
-#: blocks/build/my-courses/view.js:275
-#: blocks/build/user-account/index.js:2256
-#: blocks/build/user-account/view.js:2256
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/courses/components/course-controls.js:26
 #: blocks/src/my-courses/components/courses-controls.js:20
 #: blocks/src/user-account/components/tabs/my-courses/courses-controls.js:20
-#: blocks/build/courses/index.js:81
-#: blocks/build/courses/view.js:81
-#: blocks/build/my-courses/index.js:212
-#: blocks/build/my-courses/view.js:212
-#: blocks/build/user-account/index.js:2273
-#: blocks/build/user-account/view.js:2273
 msgid "A-Z"
 msgstr ""
 
-#: blocks/build/courses/index.js:141
-#: blocks/build/courses/view.js:141
-#: blocks/build/my-courses/index.js:278
-#: blocks/build/my-courses/view.js:278
-#: blocks/build/user-account/index.js:2259
-#: blocks/build/user-account/view.js:2259
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/courses/components/course-controls.js:27
 #: blocks/src/my-courses/components/courses-controls.js:21
 #: blocks/src/user-account/components/tabs/my-courses/courses-controls.js:21
-#: blocks/build/courses/index.js:82
-#: blocks/build/courses/view.js:82
-#: blocks/build/my-courses/index.js:213
-#: blocks/build/my-courses/view.js:213
-#: blocks/build/user-account/index.js:2274
-#: blocks/build/user-account/view.js:2274
 msgid "Z-A"
 msgstr ""
 
-#: blocks/build/courses/index.js:174
-#: blocks/build/courses/view.js:174
-#: blocks/build/my-courses/index.js:298
-#: blocks/build/my-courses/view.js:298
-#: blocks/build/user-account/index.js:2279
-#: blocks/build/user-account/view.js:2279
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/courses/components/course-controls.js:61
 #: blocks/src/my-courses/components/courses-controls.js:44
 #: blocks/src/user-account/components/tabs/my-courses/courses-controls.js:44
-#: blocks/build/courses/index.js:116
-#: blocks/build/courses/view.js:116
-#: blocks/build/my-courses/index.js:236
-#: blocks/build/my-courses/view.js:236
-#: blocks/build/user-account/index.js:2297
-#: blocks/build/user-account/view.js:2297
 msgid "Search courses"
 msgstr ""
 
-#: blocks/build/courses/index.js:213
-#: blocks/build/courses/view.js:213
-#: blocks/build/my-courses/index.js:44
-#: blocks/build/my-courses/view.js:44
-#: blocks/build/user-account/index.js:2025
-#: blocks/build/user-account/view.js:2025
+#: blocks/build/courses/index.js:1
+#: blocks/build/courses/view.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/courses/components/course-grid.js:11
 #: blocks/src/my-courses/components/course-grid.js:24
 #: blocks/src/user-account/components/tabs/my-courses/course-grid.js:24
-#: blocks/build/courses/index.js:134
-#: blocks/build/courses/view.js:134
-#: blocks/build/my-courses/index.js:24
-#: blocks/build/my-courses/view.js:24
-#: blocks/build/user-account/index.js:2087
-#: blocks/build/user-account/view.js:2087
 msgid "No courses found"
 msgstr ""
 
-#: blocks/build/courses/index.js:740
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:17
-#: blocks/build/courses/index.js:561
 msgid "Courses Settings"
 msgstr ""
 
-#: blocks/build/courses/index.js:744
-#: blocks/build/my-courses/index.js:751
-#: blocks/build/user-account/index.js:3696
+#: blocks/build/courses/index.js:1
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/user-account/index.js:1
 #: blocks/src/courses/edit.js:22
 #: blocks/src/my-courses/edit.js:29
 #: blocks/src/user-account/edit.js:27
-#: blocks/build/courses/index.js:566
-#: blocks/build/my-courses/index.js:574
-#: blocks/build/user-account/index.js:3751
 msgid "Page Title"
 msgstr ""
 
-#: blocks/build/courses/index.js:756
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:31
-#: blocks/build/courses/index.js:575
 msgid "Hide title"
 msgstr ""
 
-#: blocks/build/courses/index.js:767
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:39
-#: blocks/build/courses/index.js:583
 msgid "Hide filters"
 msgstr ""
 
-#: blocks/build/courses/index.js:778
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:48
-#: blocks/build/courses/index.js:592
 msgid "Courses per page"
 msgstr ""
 
-#: blocks/build/courses/index.js:790
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:60
-#: blocks/build/courses/index.js:604
 msgid "Categories (Add comma separated category slugs)"
 msgstr ""
 
-#: blocks/build/courses/index.js:813
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:81
-#: blocks/build/courses/index.js:625
 msgid "Grouped categories per page"
 msgstr ""
 
-#: blocks/build/courses/index.js:825
+#: blocks/build/courses/index.js:1
 #: blocks/src/courses/edit.js:93
-#: blocks/build/courses/index.js:637
 msgid "Enable horizontal slider"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:40
-#: blocks/build/my-courses/view.js:40
-#: blocks/build/user-account/index.js:2021
-#: blocks/build/user-account/view.js:2021
-#: blocks/src/my-courses/components/course-grid.js:20
-#: blocks/src/user-account/components/tabs/my-courses/course-grid.js:20
-#: blocks/build/my-courses/index.js:20
-#: blocks/build/my-courses/view.js:20
-#: blocks/build/user-account/index.js:2083
-#: blocks/build/user-account/view.js:2083
-msgid "No courses found matching"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:165
-#: blocks/build/my-courses/view.js:165
-#: blocks/build/user-account/index.js:2146
-#: blocks/build/user-account/view.js:2146
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/course.js:99
 #: blocks/src/user-account/components/tabs/my-courses/course.js:99
-#: blocks/build/my-courses/index.js:142
-#: blocks/build/my-courses/view.js:142
-#: blocks/build/user-account/index.js:2205
-#: blocks/build/user-account/view.js:2205
 msgid "Course completed"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:281
-#: blocks/build/my-courses/view.js:281
-#: blocks/build/user-account/index.js:2262
-#: blocks/build/user-account/view.js:2262
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/components/course-grid.js:20
+#: blocks/src/user-account/components/tabs/my-courses/course-grid.js:20
+msgid "No courses found matching"
+msgstr ""
+
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/courses-controls.js:24
 #: blocks/src/user-account/components/tabs/my-courses/courses-controls.js:24
-#: blocks/build/my-courses/index.js:216
-#: blocks/build/my-courses/view.js:216
-#: blocks/build/user-account/index.js:2277
-#: blocks/build/user-account/view.js:2277
 msgid "Progress: High to Low"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:284
-#: blocks/build/my-courses/view.js:284
-#: blocks/build/user-account/index.js:2265
-#: blocks/build/user-account/view.js:2265
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/courses-controls.js:28
 #: blocks/src/user-account/components/tabs/my-courses/courses-controls.js:28
-#: blocks/build/my-courses/index.js:220
-#: blocks/build/my-courses/view.js:220
-#: blocks/build/user-account/index.js:2281
-#: blocks/build/user-account/view.js:2281
 msgid "Progress: Low to High"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:585
-#: blocks/build/my-courses/view.js:585
-#: blocks/build/user-account/index.js:2558
-#: blocks/build/user-account/view.js:2558
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/my-courses/components/recommended-courses.js:77
 #: blocks/src/user-account/components/tabs/my-courses/recommended-courses.js:77
-#: blocks/build/my-courses/index.js:454
-#: blocks/build/my-courses/view.js:454
-#: blocks/build/user-account/index.js:2546
-#: blocks/build/user-account/view.js:2546
 msgid "View more courses"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:736
-#: blocks/src/my-courses/edit.js:17
-#: blocks/build/my-courses/index.js:562
-msgid "My Courses Settings"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:740
-#: blocks/build/user-account/index.js:3686
-#: blocks/src/my-courses/edit.js:22
-#: blocks/src/user-account/edit.js:21
-#: blocks/build/my-courses/index.js:567
-#: blocks/build/user-account/index.js:3745
-msgid "Hide Page Title"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:763
-#: blocks/build/user-account/index.js:3708
-#: blocks/src/my-courses/edit.js:37
-#: blocks/src/user-account/edit.js:39
-#: blocks/build/my-courses/index.js:582
-#: blocks/build/user-account/index.js:3763
-msgid "Show Course Progress"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:789
-#: blocks/src/my-courses/edit.js:58
-#: blocks/build/my-courses/index.js:603
-msgid "Recommended Courses Title"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:801
-#: blocks/build/user-account/index.js:3724
-#: blocks/src/my-courses/edit.js:68
-#: blocks/src/user-account/edit.js:52
-#: blocks/build/my-courses/index.js:613
-#: blocks/build/user-account/index.js:3776
-msgid "Recommended Courses Count"
-msgstr ""
-
-#: blocks/build/my-courses/index.js:1023
-#: blocks/build/my-courses/view.js:880
-#: blocks/build/user-account/index.js:2417
-#: blocks/build/user-account/index.js:2941
-#: blocks/build/user-account/view.js:2417
-#: blocks/build/user-account/view.js:2941
-#: blocks/src/my-courses/my-courses.js:115
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:121
 #: blocks/src/user-account/components/tabs/my-courses/index.js:106
 #: blocks/src/user-account/components/tabs/orders.js:308
-#: blocks/build/my-courses/index.js:797
-#: blocks/build/my-courses/view.js:700
-#: blocks/build/user-account/index.js:2419
-#: blocks/build/user-account/index.js:2945
-#: blocks/build/user-account/view.js:2419
-#: blocks/build/user-account/view.js:2945
 msgid "Showing"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:1023
-#: blocks/build/my-courses/view.js:880
-#: blocks/build/user-account/index.js:2417
-#: blocks/build/user-account/index.js:2941
-#: blocks/build/user-account/view.js:2417
-#: blocks/build/user-account/view.js:2941
-#: blocks/src/my-courses/my-courses.js:116
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:122
 #: blocks/src/user-account/components/tabs/my-courses/index.js:107
 #: blocks/src/user-account/components/tabs/orders.js:310
-#: blocks/build/my-courses/index.js:798
-#: blocks/build/my-courses/view.js:701
-#: blocks/build/user-account/index.js:2420
-#: blocks/build/user-account/index.js:2947
-#: blocks/build/user-account/view.js:2420
-#: blocks/build/user-account/view.js:2947
 msgid "to"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:1023
-#: blocks/build/my-courses/view.js:880
-#: blocks/build/user-account/index.js:2417
-#: blocks/build/user-account/index.js:2941
-#: blocks/build/user-account/view.js:2417
-#: blocks/build/user-account/view.js:2941
-#: blocks/src/my-courses/my-courses.js:118
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:124
 #: blocks/src/user-account/components/tabs/my-courses/index.js:109
 #: blocks/src/user-account/components/tabs/orders.js:312
-#: blocks/build/my-courses/index.js:800
-#: blocks/build/my-courses/view.js:703
-#: blocks/build/user-account/index.js:2422
-#: blocks/build/user-account/index.js:2949
-#: blocks/build/user-account/view.js:2422
-#: blocks/build/user-account/view.js:2949
 msgid "of"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:1023
-#: blocks/build/my-courses/view.js:880
-#: blocks/build/user-account/index.js:2417
-#: blocks/build/user-account/index.js:2939
-#: blocks/build/user-account/index.js:2941
-#: blocks/build/user-account/view.js:2417
-#: blocks/build/user-account/view.js:2939
-#: blocks/build/user-account/view.js:2941
-#: blocks/src/my-courses/my-courses.js:120
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:126
 #: blocks/src/user-account/components/tabs/my-courses/index.js:110
 #: blocks/src/user-account/components/tabs/orders.js:304
 #: blocks/src/user-account/components/tabs/orders.js:313
-#: blocks/build/my-courses/index.js:802
-#: blocks/build/my-courses/view.js:705
-#: blocks/build/user-account/index.js:2423
-#: blocks/build/user-account/index.js:2950
-#: blocks/build/user-account/view.js:2423
-#: blocks/build/user-account/view.js:2950
 msgid "entries"
 msgstr ""
 
-#: blocks/build/my-courses/index.js:1034
-#: blocks/build/my-courses/view.js:891
-#: blocks/build/user-account/index.js:2428
-#: blocks/build/user-account/view.js:2428
-#: blocks/src/my-courses/my-courses.js:133
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/src/my-courses/my-courses.js:144
+msgid "Click here to login."
+msgstr ""
+
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:150
 #: blocks/src/user-account/components/tabs/my-courses/index.js:123
-#: blocks/build/my-courses/index.js:815
-#: blocks/build/my-courses/view.js:718
-#: blocks/build/user-account/index.js:2436
-#: blocks/build/user-account/view.js:2436
 msgid "No courses found."
 msgstr ""
 
-#: blocks/build/my-courses/index.js:1036
-#: blocks/build/my-courses/view.js:893
-#: blocks/build/user-account/index.js:2430
-#: blocks/build/user-account/view.js:2430
-#: blocks/src/my-courses/my-courses.js:135
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/my-courses/view.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/my-courses/my-courses.js:152
 #: blocks/src/user-account/components/tabs/my-courses/index.js:125
-#: blocks/build/my-courses/index.js:817
-#: blocks/build/my-courses/view.js:720
-#: blocks/build/user-account/index.js:2438
-#: blocks/build/user-account/view.js:2438
 msgid "You are not enrolled in any courses yet."
 msgstr ""
 
-#: blocks/build/user-account/index.js:36
-#: blocks/build/user-account/view.js:36
-#: blocks/src/user-account/components/custom-fields.js:11
-#: blocks/build/user-account/index.js:11
-#: blocks/build/user-account/view.js:11
-msgid "Additional information"
+#: blocks/build/my-courses/index.js:1
+#: blocks/src/my-courses/edit.js:17
+msgid "My Courses Settings"
 msgstr ""
 
-#: blocks/build/user-account/index.js:679
-#: blocks/build/user-account/index.js:1193
-#: blocks/build/user-account/view.js:679
-#: blocks/build/user-account/view.js:1193
-#: blocks/src/user-account/components/login.js:66
-#: blocks/src/user-account/components/register.js:69
-#: blocks/build/user-account/index.js:580
-#: blocks/build/user-account/index.js:1196
-#: blocks/build/user-account/view.js:580
-#: blocks/build/user-account/view.js:1196
-msgid "reCAPTCHA is taking too long to load. Please check your internet connection and refresh the page."
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/src/my-courses/edit.js:22
+#: blocks/src/user-account/edit.js:21
+msgid "Hide Page Title"
 msgstr ""
 
-#: blocks/build/user-account/index.js:694
-#: blocks/build/user-account/index.js:1211
-#: blocks/build/user-account/view.js:694
-#: blocks/build/user-account/view.js:1211
-#: blocks/src/user-account/components/login.js:87
-#: blocks/src/user-account/components/register.js:91
-#: blocks/build/user-account/index.js:601
-#: blocks/build/user-account/index.js:1218
-#: blocks/build/user-account/view.js:601
-#: blocks/build/user-account/view.js:1218
-msgid "Failed to load reCAPTCHA. Please check your internet connection, disable ad blockers, and refresh the page."
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/src/my-courses/edit.js:37
+#: blocks/src/user-account/edit.js:39
+msgid "Show Course Progress"
 msgstr ""
 
-#: blocks/build/user-account/index.js:772
-#: blocks/build/user-account/index.js:781
-#: blocks/build/user-account/index.js:1292
-#: blocks/build/user-account/index.js:1304
-#: blocks/build/user-account/view.js:772
-#: blocks/build/user-account/view.js:781
-#: blocks/build/user-account/view.js:1292
-#: blocks/build/user-account/view.js:1304
-#: blocks/src/user-account/components/login.js:190
-#: blocks/src/user-account/components/login.js:204
-#: blocks/src/user-account/components/register.js:195
-#: blocks/src/user-account/components/register.js:210
-#: blocks/build/user-account/index.js:704
-#: blocks/build/user-account/index.js:718
-#: blocks/build/user-account/index.js:1322
-#: blocks/build/user-account/index.js:1337
-#: blocks/build/user-account/view.js:704
-#: blocks/build/user-account/view.js:718
-#: blocks/build/user-account/view.js:1322
-#: blocks/build/user-account/view.js:1337
-msgid "Failed to initialize reCAPTCHA. Please refresh the page and try again."
+#: blocks/build/my-courses/index.js:1
+#: blocks/src/my-courses/edit.js:58
+msgid "Recommended Courses Title"
 msgstr ""
 
-#: blocks/build/user-account/index.js:798
-#: blocks/build/user-account/view.js:798
-#: blocks/src/user-account/components/login.js:226
-#: blocks/build/user-account/index.js:740
-#: blocks/build/user-account/view.js:740
-msgid "Username or email is required."
+#: blocks/build/my-courses/index.js:1
+#: blocks/build/user-account/index.js:1
+#: blocks/src/my-courses/edit.js:68
+#: blocks/src/user-account/edit.js:52
+msgid "Recommended Courses Count"
 msgstr ""
 
-#: blocks/build/user-account/index.js:805
-#: blocks/build/user-account/view.js:805
-#: blocks/src/user-account/components/login.js:237
-#: blocks/build/user-account/index.js:751
-#: blocks/build/user-account/view.js:751
-msgid "Please enter a valid username or email address."
-msgstr ""
-
-#: blocks/build/user-account/index.js:891
-#: blocks/build/user-account/index.js:1470
-#: blocks/build/user-account/view.js:891
-#: blocks/build/user-account/view.js:1470
-#: blocks/src/user-account/components/login.js:341
-#: blocks/src/user-account/components/register.js:431
-#: blocks/build/user-account/index.js:855
-#: blocks/build/user-account/index.js:1558
-#: blocks/build/user-account/view.js:855
-#: blocks/build/user-account/view.js:1558
-msgid "Please complete the reCAPTCHA."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1003
-#: blocks/build/user-account/view.js:1003
-#: blocks/src/user-account/components/login.js:461
-#: blocks/build/user-account/index.js:975
-#: blocks/build/user-account/view.js:975
-msgid "Login to your account to continue"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1016
-#: blocks/build/user-account/view.js:1016
-#: blocks/src/user-account/components/login.js:473
-#: blocks/build/user-account/index.js:987
-#: blocks/build/user-account/view.js:987
-msgid "john.doe / john@example.com"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1017
-#: blocks/build/user-account/view.js:1017
-#: blocks/src/user-account/components/login.js:474
-#: blocks/build/user-account/index.js:988
-#: blocks/build/user-account/view.js:988
-msgid "Username / Email"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1071
-#: blocks/build/user-account/view.js:1071
-#: blocks/src/user-account/components/login.js:559
-#: blocks/build/user-account/index.js:1073
-#: blocks/build/user-account/view.js:1073
-msgid "Don't have an account? "
-msgstr ""
-
-#: blocks/build/user-account/index.js:1087
-#: blocks/build/user-account/view.js:1087
-#: blocks/src/user-account/components/login.js:579
-#: blocks/build/user-account/index.js:1093
-#: blocks/build/user-account/view.js:1093
-msgid "Or"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1095
-#: blocks/build/user-account/view.js:1095
-#: blocks/src/user-account/components/login.js:590
-#: blocks/build/user-account/index.js:1104
-#: blocks/build/user-account/view.js:1104
-msgid "Continue with Google"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1100
-#: blocks/build/user-account/view.js:1100
-#: blocks/src/user-account/components/login.js:601
-#: blocks/build/user-account/index.js:1115
-#: blocks/build/user-account/view.js:1115
-msgid "Continue with Facebook"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1433
-#: blocks/build/user-account/view.js:1433
-#: blocks/src/user-account/components/register.js:373
-#: blocks/build/user-account/index.js:1500
-#: blocks/build/user-account/view.js:1500
-msgid "Please enter a valid email address."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1439
-#: blocks/build/user-account/view.js:1439
-#: blocks/src/user-account/components/register.js:384
-#: blocks/build/user-account/index.js:1511
-#: blocks/build/user-account/view.js:1511
-msgid "Please confirm your password."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1441
-#: blocks/build/user-account/view.js:1441
-#: blocks/src/user-account/components/register.js:389
-#: blocks/build/user-account/index.js:1516
-#: blocks/build/user-account/view.js:1516
-msgid "Password and confirm password do not match."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1444
-#: blocks/build/user-account/view.js:1444
-#: blocks/src/user-account/components/register.js:396
-#: blocks/build/user-account/index.js:1523
-#: blocks/build/user-account/view.js:1523
-msgid "You must accept the terms and conditions."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1496
-#: blocks/build/user-account/view.js:1496
-#: blocks/src/user-account/components/register.js:470
-#: blocks/build/user-account/index.js:1597
-#: blocks/build/user-account/view.js:1597
-msgid "Registration successful."
-msgstr ""
-
-#: blocks/build/user-account/index.js:1507
-#: blocks/build/user-account/view.js:1507
-#: blocks/src/user-account/components/register.js:481
-#: blocks/build/user-account/index.js:1608
-#: blocks/build/user-account/view.js:1608
-msgid "Create an account"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1510
-#: blocks/build/user-account/view.js:1510
-#: blocks/src/user-account/components/register.js:484
-#: blocks/build/user-account/index.js:1611
-#: blocks/build/user-account/view.js:1611
-msgid "Create an account to continue"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1618
-#: blocks/build/user-account/view.js:1618
-#: blocks/src/user-account/components/register.js:643
-#: blocks/build/user-account/index.js:1770
-#: blocks/build/user-account/view.js:1770
-msgid "Already have an account? "
-msgstr ""
-
-#: blocks/build/user-account/index.js:1652
-#: blocks/build/user-account/view.js:1652
-#: blocks/src/user-account/components/register.js:680
-#: blocks/build/user-account/index.js:1807
-#: blocks/build/user-account/view.js:1807
-msgid "Disagree"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1659
-#: blocks/build/user-account/view.js:1659
-#: blocks/src/user-account/components/register.js:689
-#: blocks/build/user-account/index.js:1816
-#: blocks/build/user-account/view.js:1816
-msgid "Agree"
-msgstr ""
-
-#: blocks/build/user-account/index.js:1735
-#: blocks/build/user-account/index.js:3416
-#: blocks/build/user-account/index.js:3588
-#: blocks/build/user-account/index.js:4436
-#: blocks/build/user-account/view.js:1735
-#: blocks/build/user-account/view.js:3416
-#: blocks/build/user-account/view.js:3588
-#: blocks/build/user-account/view.js:4283
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/responsive-tab-menu.js:49
-#: blocks/src/user-account/components/tabs/profile.js:469
-#: blocks/src/user-account/components/tabs/profile.js:702
+#: blocks/src/user-account/components/tabs/profile.js:460
+#: blocks/src/user-account/components/tabs/profile.js:693
 #: blocks/src/user-account/user-account.js:202
-#: blocks/build/user-account/index.js:1875
-#: blocks/build/user-account/index.js:3458
-#: blocks/build/user-account/index.js:3691
-#: blocks/build/user-account/index.js:4418
-#: blocks/build/user-account/view.js:1875
-#: blocks/build/user-account/view.js:3458
-#: blocks/build/user-account/view.js:3691
-#: blocks/build/user-account/view.js:4320
 msgid "Profile"
 msgstr ""
 
-#: blocks/build/user-account/index.js:1807
-#: blocks/build/user-account/view.js:1807
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/dashboard.js:25
-#: blocks/build/user-account/index.js:1924
-#: blocks/build/user-account/view.js:1924
 msgid "Welcome"
 msgstr ""
 
-#: blocks/build/user-account/index.js:1812
-#: blocks/build/user-account/view.js:1812
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/dashboard.js:29
-#: blocks/build/user-account/index.js:1928
-#: blocks/build/user-account/view.js:1928
 msgid "Sign out"
 msgstr ""
 
-#: blocks/build/user-account/index.js:1828
-#: blocks/build/user-account/index.js:1922
-#: blocks/build/user-account/view.js:1828
-#: blocks/build/user-account/view.js:1922
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/dashboard.js:42
 #: blocks/src/user-account/components/tabs/dashboard.js:117
-#: blocks/build/user-account/index.js:1941
-#: blocks/build/user-account/index.js:2016
-#: blocks/build/user-account/view.js:1941
-#: blocks/build/user-account/view.js:2016
 msgid "Enrolled courses"
 msgstr ""
 
-#: blocks/build/user-account/index.js:1858
-#: blocks/build/user-account/index.js:1958
-#: blocks/build/user-account/view.js:1858
-#: blocks/build/user-account/view.js:1958
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/dashboard.js:68
 #: blocks/src/user-account/components/tabs/dashboard.js:143
-#: blocks/build/user-account/index.js:1967
-#: blocks/build/user-account/index.js:2042
-#: blocks/build/user-account/view.js:1967
-#: blocks/build/user-account/view.js:2042
 msgid "In progress"
 msgstr ""
 
-#: blocks/build/user-account/index.js:1873
-#: blocks/build/user-account/index.js:1976
-#: blocks/build/user-account/view.js:1873
-#: blocks/build/user-account/view.js:1976
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/dashboard.js:81
 #: blocks/src/user-account/components/tabs/dashboard.js:156
-#: blocks/build/user-account/index.js:1980
-#: blocks/build/user-account/index.js:2055
-#: blocks/build/user-account/view.js:1980
-#: blocks/build/user-account/view.js:2055
 msgid "Not started"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2828
-#: blocks/build/user-account/view.js:2828
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:142
-#: blocks/build/user-account/index.js:2779
-#: blocks/build/user-account/view.js:2779
 msgid "5 per page"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2831
-#: blocks/build/user-account/view.js:2831
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:143
-#: blocks/build/user-account/index.js:2780
-#: blocks/build/user-account/view.js:2780
 msgid "10 per page"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2834
-#: blocks/build/user-account/view.js:2834
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:144
-#: blocks/build/user-account/index.js:2781
-#: blocks/build/user-account/view.js:2781
 msgid "25 per page"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2848
-#: blocks/build/user-account/view.js:2848
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:158
-#: blocks/build/user-account/index.js:2795
-#: blocks/build/user-account/view.js:2795
 msgid "Search by course name, date, order ID, or status..."
 msgstr ""
 
-#: blocks/build/user-account/index.js:2861
-#: blocks/build/user-account/view.js:2861
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:176
-#: blocks/build/user-account/index.js:2813
-#: blocks/build/user-account/view.js:2813
 msgid "No orders match your search criteria. Try adjusting your search terms."
 msgstr ""
 
-#: blocks/build/user-account/index.js:2861
-#: blocks/build/user-account/view.js:2861
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:180
-#: blocks/build/user-account/index.js:2817
-#: blocks/build/user-account/view.js:2817
 msgid "You haven't placed any orders yet. Browse our products to get started!"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2889
-#: blocks/build/user-account/view.js:2889
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:214
-#: blocks/build/user-account/index.js:2851
-#: blocks/build/user-account/view.js:2851
 msgid "Date"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2922
-#: blocks/build/user-account/view.js:2922
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:257
-#: blocks/build/user-account/index.js:2894
-#: blocks/build/user-account/view.js:2894
 msgid "No courses available"
 msgstr ""
 
-#: blocks/build/user-account/index.js:2939
-#: blocks/build/user-account/view.js:2939
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/components/tabs/orders.js:303
-#: blocks/build/user-account/index.js:2940
-#: blocks/build/user-account/view.js:2940
 msgid "Showing all"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3175
-#: blocks/build/user-account/view.js:3175
-#: blocks/src/user-account/components/tabs/profile.js:166
-#: blocks/build/user-account/index.js:3155
-#: blocks/build/user-account/view.js:3155
-msgid "First name must be at least 2 characters"
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/custom-fields.js:11
+msgid "Additional information"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3178
-#: blocks/build/user-account/view.js:3178
-#: blocks/src/user-account/components/tabs/profile.js:173
-#: blocks/build/user-account/index.js:3162
-#: blocks/build/user-account/view.js:3162
-msgid "Last name must be at least 2 characters"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3181
-#: blocks/build/user-account/view.js:3181
-#: blocks/src/user-account/components/tabs/profile.js:180
-#: blocks/build/user-account/index.js:3169
-#: blocks/build/user-account/view.js:3169
-msgid "Nickname must be at least 2 characters"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3184
-#: blocks/build/user-account/view.js:3184
-#: blocks/src/user-account/components/tabs/profile.js:187
-#: blocks/build/user-account/index.js:3176
-#: blocks/build/user-account/view.js:3176
-msgid "Please enter a valid email address"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3194
-#: blocks/build/user-account/view.js:3194
-#: blocks/src/user-account/components/tabs/profile.js:199
-#: blocks/build/user-account/index.js:3188
-#: blocks/build/user-account/view.js:3188
-msgid "New password is required"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3197
-#: blocks/build/user-account/view.js:3197
-#: blocks/src/user-account/components/tabs/profile.js:203
-#: blocks/build/user-account/index.js:3192
-#: blocks/build/user-account/view.js:3192
-msgid "Confirm password is required"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3200
-#: blocks/build/user-account/view.js:3200
-#: blocks/src/user-account/components/tabs/profile.js:210
-#: blocks/build/user-account/index.js:3199
-#: blocks/build/user-account/view.js:3199
-msgid "Confirm password does not match"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3259
-#: blocks/build/user-account/index.js:3395
-#: blocks/build/user-account/view.js:3259
-#: blocks/build/user-account/view.js:3395
-#: blocks/src/user-account/components/tabs/profile.js:296
-#: blocks/src/user-account/components/tabs/profile.js:448
-#: blocks/build/user-account/index.js:3285
-#: blocks/build/user-account/index.js:3437
-#: blocks/build/user-account/view.js:3285
-#: blocks/build/user-account/view.js:3437
-msgid "Profile update failed"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3265
-#: blocks/build/user-account/view.js:3265
-#: blocks/src/user-account/components/tabs/profile.js:304
-#: blocks/build/user-account/index.js:3293
-#: blocks/build/user-account/view.js:3293
-msgid "An error occurred while updating profile"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3403
-#: blocks/build/user-account/view.js:3403
-#: blocks/src/user-account/components/tabs/profile.js:456
-#: blocks/build/user-account/index.js:3445
-#: blocks/build/user-account/view.js:3445
-msgid "An unexpected error occurred"
-msgstr ""
-
-#: blocks/build/user-account/index.js:3424
-#: blocks/build/user-account/view.js:3424
-#: blocks/src/user-account/components/tabs/profile.js:475
-#: blocks/build/user-account/index.js:3464
-#: blocks/build/user-account/view.js:3464
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:466
 msgid "First name"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3425
-#: blocks/build/user-account/view.js:3425
-#: blocks/src/user-account/components/tabs/profile.js:476
-#: blocks/build/user-account/index.js:3465
-#: blocks/build/user-account/view.js:3465
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:467
 msgid "e.g., John"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3431
-#: blocks/build/user-account/view.js:3431
-#: blocks/src/user-account/components/tabs/profile.js:486
-#: blocks/build/user-account/index.js:3475
-#: blocks/build/user-account/view.js:3475
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:477
 msgid "Last name"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3432
-#: blocks/build/user-account/view.js:3432
-#: blocks/src/user-account/components/tabs/profile.js:487
-#: blocks/build/user-account/index.js:3476
-#: blocks/build/user-account/view.js:3476
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:478
 msgid "e.g., Smith"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3443
-#: blocks/build/user-account/view.js:3443
-#: blocks/src/user-account/components/tabs/profile.js:497
-#: blocks/build/user-account/index.js:3486
-#: blocks/build/user-account/view.js:3486
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:488
 msgid "Nickname"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3444
-#: blocks/build/user-account/view.js:3444
-#: blocks/src/user-account/components/tabs/profile.js:498
-#: blocks/build/user-account/index.js:3487
-#: blocks/build/user-account/view.js:3487
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:489
 msgid "e.g., John Smith or JSmith"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3452
-#: blocks/build/user-account/view.js:3452
-#: blocks/src/user-account/components/tabs/profile.js:510
-#: blocks/build/user-account/index.js:3499
-#: blocks/build/user-account/view.js:3499
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:501
 msgid "e.g., john.smith@example.com"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3476
-#: blocks/build/user-account/view.js:3476
-#: blocks/src/user-account/components/tabs/profile.js:545
-#: blocks/build/user-account/index.js:3534
-#: blocks/build/user-account/view.js:3534
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:536
 msgid "Current password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3477
-#: blocks/build/user-account/view.js:3477
-#: blocks/src/user-account/components/tabs/profile.js:546
-#: blocks/build/user-account/index.js:3535
-#: blocks/build/user-account/view.js:3535
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:537
 msgid "Enter your current password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3486
-#: blocks/build/user-account/view.js:3486
-#: blocks/src/user-account/components/tabs/profile.js:561
-#: blocks/build/user-account/index.js:3550
-#: blocks/build/user-account/view.js:3550
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:552
 msgid "New password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3487
-#: blocks/build/user-account/view.js:3487
-#: blocks/src/user-account/components/tabs/profile.js:562
-#: blocks/build/user-account/index.js:3551
-#: blocks/build/user-account/view.js:3551
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:553
 msgid "Enter your new password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3493
-#: blocks/build/user-account/view.js:3493
-#: blocks/src/user-account/components/tabs/profile.js:571
-#: blocks/build/user-account/index.js:3560
-#: blocks/build/user-account/view.js:3560
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:562
 msgid "Confirm password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3494
-#: blocks/build/user-account/view.js:3494
-#: blocks/src/user-account/components/tabs/profile.js:572
-#: blocks/build/user-account/index.js:3561
-#: blocks/build/user-account/view.js:3561
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:563
 msgid "Re-enter your new password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3507
-#: blocks/build/user-account/view.js:3507
-#: blocks/src/user-account/components/tabs/profile.js:593
-#: blocks/build/user-account/index.js:3582
-#: blocks/build/user-account/view.js:3582
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:584
 msgid "Change password"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3516
-#: blocks/build/user-account/view.js:3516
-#: blocks/src/user-account/components/tabs/profile.js:604
-#: blocks/build/user-account/index.js:3593
-#: blocks/build/user-account/view.js:3593
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:595
 msgid "Select your country"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3519
-#: blocks/build/user-account/view.js:3519
-#: blocks/src/user-account/components/tabs/profile.js:608
-#: blocks/build/user-account/index.js:3597
-#: blocks/build/user-account/view.js:3597
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:599
 msgid "- Select a country -"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3531
-#: blocks/build/user-account/view.js:3531
-#: blocks/src/user-account/components/tabs/profile.js:624
-#: blocks/build/user-account/index.js:3613
-#: blocks/build/user-account/view.js:3613
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:615
 msgid "e.g., New York, London, Tokyo"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3536
-#: blocks/build/user-account/view.js:3536
-#: blocks/src/user-account/components/tabs/profile.js:633
-#: blocks/build/user-account/index.js:3622
-#: blocks/build/user-account/view.js:3622
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:624
 msgid "Bio"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3537
-#: blocks/build/user-account/view.js:3537
-#: blocks/src/user-account/components/tabs/profile.js:634
-#: blocks/build/user-account/index.js:3623
-#: blocks/build/user-account/view.js:3623
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:625
 msgid "Tell us about yourself, your interests, or professional background..."
 msgstr ""
 
-#: blocks/build/user-account/index.js:3548
-#: blocks/build/user-account/view.js:3548
-#: blocks/src/user-account/components/tabs/profile.js:650
-#: blocks/build/user-account/index.js:3639
-#: blocks/build/user-account/view.js:3639
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:641
 msgid "Additional fields"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3563
-#: blocks/build/user-account/view.js:3563
-#: blocks/src/user-account/components/tabs/profile.js:667
-#: blocks/build/user-account/index.js:3656
-#: blocks/build/user-account/view.js:3656
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:658
 msgid "Close message"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3569
-#: blocks/build/user-account/view.js:3569
-#: blocks/src/user-account/components/tabs/profile.js:675
-#: blocks/build/user-account/index.js:3664
-#: blocks/build/user-account/view.js:3664
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:666
 msgid "Note: "
 msgstr ""
 
-#: blocks/build/user-account/index.js:3570
-#: blocks/build/user-account/view.js:3570
-#: blocks/src/user-account/components/tabs/profile.js:676
-#: blocks/build/user-account/index.js:3665
-#: blocks/build/user-account/view.js:3665
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:667
 msgid "All fields will be updated on Moodle as well as on WordPress site."
 msgstr ""
 
-#: blocks/build/user-account/index.js:3683
-#: blocks/src/user-account/edit.js:17
-#: blocks/build/user-account/index.js:3741
-msgid "User Account Settings"
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:166
+msgid "First name is required"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3705
-#: blocks/src/user-account/edit.js:35
-#: blocks/build/user-account/index.js:3759
-msgid "My Courses Tab Settings"
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:170
+msgid "Last name is required"
 msgstr ""
 
-#: blocks/build/user-account/index.js:3868
-#: blocks/build/user-account/view.js:3776
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:174
+msgid "Nickname is required"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:178
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:190
+msgid "New password is required"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:194
+msgid "Confirm password is required"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:201
+msgid "Confirm password does not match"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:287
+#: blocks/src/user-account/components/tabs/profile.js:439
+msgid "Profile update failed"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:295
+msgid "An error occurred while updating profile"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/tabs/profile.js:447
+msgid "An unexpected error occurred"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:66
+#: blocks/src/user-account/components/register.js:91
+msgid "reCAPTCHA is taking too long to load. Please check your internet connection and refresh the page."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:87
+#: blocks/src/user-account/components/register.js:113
+msgid "Failed to load reCAPTCHA. Please check your internet connection, disable ad blockers, and refresh the page."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:190
+#: blocks/src/user-account/components/login.js:204
+#: blocks/src/user-account/components/register.js:217
+#: blocks/src/user-account/components/register.js:232
+msgid "Failed to initialize reCAPTCHA. Please refresh the page and try again."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:237
+msgid "Please enter a valid username or email address."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:226
+msgid "Username or email is required."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:341
+#: blocks/src/user-account/components/register.js:554
+msgid "Please complete the reCAPTCHA."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:495
+msgid "Login to your account to continue"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:507
+msgid "john.doe / john@example.com"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:508
+msgid "Username / Email"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:608
+msgid "Don't have an account? "
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:628
+msgid "Or"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:639
+msgid "Continue with Google"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/login.js:650
+msgid "Continue with Facebook"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:496
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:512
+msgid "Password and confirm password do not match."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:507
+msgid "Please confirm your password."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:519
+msgid "You must accept the terms and conditions."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:597
+msgid "Registration successful."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:611
+msgid "Create an account"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:614
+msgid "Create an account to continue"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:787
+msgid "Already have an account? "
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:824
+msgid "Disagree"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
+#: blocks/src/user-account/components/register.js:833
+msgid "Agree"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/hooks/use-auth.js:129
-#: blocks/build/user-account/index.js:3921
-#: blocks/build/user-account/view.js:3853
 msgid "Login failed. Please try again."
 msgstr ""
 
-#: blocks/build/user-account/index.js:3919
-#: blocks/build/user-account/view.js:3827
+#: blocks/build/user-account/index.js:1
+#: blocks/build/user-account/view.js:1
 #: blocks/src/user-account/hooks/use-auth.js:200
-#: blocks/build/user-account/index.js:3992
-#: blocks/build/user-account/view.js:3924
 msgid "Registration failed. Please try again."
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/src/user-account/edit.js:17
+msgid "User Account Settings"
+msgstr ""
+
+#: blocks/build/user-account/index.js:1
+#: blocks/src/user-account/edit.js:35
+msgid "My Courses Tab Settings"
 msgstr ""
 
 #: blocks/build/course-description/block.json

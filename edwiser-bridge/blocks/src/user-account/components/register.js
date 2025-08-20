@@ -34,6 +34,28 @@ function Register({
   const scriptLoadingRef = useRef(false);
   const callbackIdRef = useRef(null);
 
+  // Initialize custom fields data when available
+  useEffect(() => {
+    if (customFields && customFields.length > 0) {
+      const initialCustomFieldsData = {};
+      customFields.forEach((field) => {
+        if (field.type === 'checkbox') {
+          if (
+            field.value === true ||
+            field.value === 'on' ||
+            field.value === '1' ||
+            field.value === 1
+          ) {
+            initialCustomFieldsData[field.name] = 'on';
+          }
+        } else {
+          initialCustomFieldsData[field.name] = field.value;
+        }
+      });
+      setCustomFieldsData(initialCustomFieldsData);
+    }
+  }, [customFields]);
+
   // Load reCAPTCHA script if needed
   useEffect(() => {
     let scriptElement = null;
@@ -46,7 +68,7 @@ function Register({
       !recaptchaInitialized
     ) {
       if (recaptchaType === 'v2') {
-        // Load reCAPTCHA v2 script
+        // Load reCAPTCHA v2 script (without render parameter for proper v2 functionality)
         if (!window.grecaptcha && !scriptLoadingRef.current) {
           // Check if script is already being loaded
           const existingScript = document.querySelector(
@@ -55,7 +77,7 @@ function Register({
           if (!existingScript) {
             scriptLoadingRef.current = true;
             scriptElement = document.createElement('script');
-            scriptElement.src = `https://www.google.com/recaptcha/api.js?render=explicit`;
+            scriptElement.src = `https://www.google.com/recaptcha/api.js`;
             scriptElement.async = true;
             scriptElement.defer = true;
 
@@ -108,7 +130,7 @@ function Register({
           }, 100);
         }
       } else if (recaptchaType === 'v3') {
-        // Load reCAPTCHA v3 script
+        // Load reCAPTCHA v3 script (same as frontend form handler)
         if (!window.grecaptcha && !scriptLoadingRef.current) {
           // Check if script is already being loaded
           const existingScript = document.querySelector(
@@ -117,7 +139,7 @@ function Register({
           if (!existingScript) {
             scriptLoadingRef.current = true;
             scriptElement = document.createElement('script');
-            scriptElement.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+            scriptElement.src = `https://www.google.com/recaptcha/api.js`;
             scriptElement.async = true;
             scriptElement.defer = true;
             document.head.appendChild(scriptElement);
@@ -238,17 +260,50 @@ function Register({
         handleSubmit();
       };
 
-      // Set the global callback to use our registry
-      window.ebSubmitCaptchaForm = (token) => {
-        // Execute all registered callbacks
-        Object.values(window.ebCaptchaCallbacks).forEach((callback) => {
-          try {
-            callback(token);
-          } catch (error) {
-            console.warn('Error executing reCAPTCHA callback:', error);
+      // Set the global callback to use our registry (only if not already set)
+      if (!window.ebSubmitCaptchaForm) {
+        window.ebSubmitCaptchaForm = (token) => {
+          // Execute all registered callbacks
+          if (window.ebCaptchaCallbacks) {
+            Object.values(window.ebCaptchaCallbacks).forEach((callback) => {
+              try {
+                callback(token);
+              } catch (error) {
+                console.warn('Error executing reCAPTCHA callback:', error);
+              }
+            });
           }
-        });
-      };
+        };
+      }
+
+      // Initialize reCAPTCHA v3 after a short delay to ensure DOM is ready
+      const initTimer = setTimeout(() => {
+        if (window.grecaptcha && window.grecaptcha.render) {
+          try {
+            // Render the hidden reCAPTCHA badge
+            const recaptchaElement = document.querySelector(
+              '.eb-user-account__register-recaptcha-v3 .g-recaptcha'
+            );
+            if (
+              recaptchaElement &&
+              !recaptchaElement.getAttribute('data-widget-id')
+            ) {
+              window.grecaptcha.render(recaptchaElement, {
+                sitekey: recaptchaSiteKey,
+                size: 'invisible',
+                callback: 'ebSubmitCaptchaForm',
+                'expired-callback': () => {
+                  console.log('reCAPTCHA v3 expired');
+                },
+              });
+            }
+          } catch (error) {
+            console.warn('Error rendering reCAPTCHA v3:', error);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(initTimer);
     }
 
     // Cleanup function for v3 callback
@@ -257,9 +312,10 @@ function Register({
         // Remove this component's callback from the registry
         delete window.ebCaptchaCallbacks[callbackIdRef.current];
 
-        // If no more callbacks, clean up the global function
+        // Only clean up if this was the last callback and we're the one who created the global function
         if (Object.keys(window.ebCaptchaCallbacks).length === 0) {
-          delete window.ebSubmitCaptchaForm;
+          // Don't delete the global function - let other components handle it
+          // Just clean up our local registry
           delete window.ebCaptchaCallbacks;
         }
       }
@@ -309,6 +365,73 @@ function Register({
       }
     };
   }, []);
+
+  // Function to validate custom fields
+  const validateCustomFields = () => {
+    const errors = {};
+
+    customFields.forEach((field) => {
+      if (field.required) {
+        const value = customFieldsData[field.name];
+
+        if (field.type === 'checkbox') {
+          // For checkbox, check if it's checked
+          if (!value) {
+            errors[field.name] = __(
+              `${field.label} is required`,
+              'edwiser-bridge'
+            );
+          }
+        } else {
+          // For other field types, check if value exists and is not empty
+          if (!value || (typeof value === 'string' && value.trim() === '')) {
+            errors[field.name] = __(
+              `${field.label} is required`,
+              'edwiser-bridge'
+            );
+          }
+        }
+      }
+    });
+
+    // Update validation errors for custom fields
+    setValidationErrors((prev) => ({
+      ...prev,
+      ...errors,
+    }));
+
+    return Object.keys(errors).length === 0;
+  };
+
+  // Function to clear the registration form
+  const clearForm = () => {
+    setFormData({
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      confirm_password: '',
+      reg_terms_and_cond: false,
+    });
+    setCustomFieldsData({});
+    setValidationErrors({});
+    setRecaptchaResponse('');
+
+    // Reset reCAPTCHA v2 if enabled
+    if (
+      enableRecaptcha &&
+      showRecaptchaOnRegister &&
+      recaptchaType === 'v2' &&
+      window.grecaptcha &&
+      recaptchaWidgetIdRef.current
+    ) {
+      try {
+        window.grecaptcha.reset(recaptchaWidgetIdRef.current);
+      } catch (error) {
+        console.warn('Error resetting reCAPTCHA:', error);
+      }
+    }
+  };
 
   const updateCustomFieldsData = (name, value) => {
     if (value === undefined) {
@@ -435,7 +558,8 @@ function Register({
       setRecaptchaResponse(recaptchaResponse);
     }
 
-    if (!validateForm()) {
+    // Validate fields
+    if (!validateForm() || !validateCustomFields()) {
       return;
     }
 
@@ -465,10 +589,16 @@ function Register({
                   'edwiser-bridge'
                 )
           );
+
+          // Clear the form when verification email is sent
+          clearForm();
         } else {
           setRegistrationSuccess(
             __('Registration successful.', 'edwiser-bridge')
           );
+
+          // Clear the form on successful registration
+          clearForm();
         }
       }
     }
@@ -609,18 +739,32 @@ function Register({
         showRecaptchaOnRegister &&
         recaptchaType === 'v3' &&
         recaptchaSiteKey ? (
-          <button
-            data-sitekey={recaptchaSiteKey}
-            data-callback="ebSubmitCaptchaForm"
-            data-action="submit"
-            className="g-recaptcha eb-reg-button button button-primary et_pb_button et_pb_contact_submit eb-user-account__register-button"
-            type="button"
-            onClick={handleSubmit}
-            disabled={isRegistering}
-          >
-            {isRegistering && <Icons.loader />}
-            {__('Register', 'edwiser-bridge')}
-          </button>
+          <div className="eb-user-account__register-recaptcha-v3">
+            <button
+              data-sitekey={recaptchaSiteKey}
+              data-callback="ebSubmitCaptchaForm"
+              data-action="submit"
+              className="g-recaptcha eb-reg-button button button-primary et_pb_button et_pb_contact_submit eb-user-account__register-button"
+              type="button"
+              onClick={handleSubmit}
+              disabled={isRegistering}
+            >
+              {isRegistering && <Icons.loader />}
+              {__('Register', 'edwiser-bridge')}
+            </button>
+            {/* Hidden reCAPTCHA v3 badge for compliance */}
+            <div
+              className="g-recaptcha"
+              data-sitekey={recaptchaSiteKey}
+              data-size="invisible"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                visibility: 'hidden',
+                pointerEvents: 'none',
+              }}
+            ></div>
+          </div>
         ) : (
           <button
             className="eb-user-account__register-button"

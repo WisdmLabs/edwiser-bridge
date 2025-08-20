@@ -52,7 +52,7 @@ class EdwiserBridge_Blocks_My_Courses_API
             array(
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => array($this, 'eb_get_my_courses'),
-                'permission_callback' => array($this, 'eb_check_permission'),
+                'permission_callback' => '__return_true',
                 'args' => array(
                     'number_of_recommended_courses' => array(
                         'required' => false,
@@ -121,22 +121,7 @@ class EdwiserBridge_Blocks_My_Courses_API
      */
     public function eb_get_my_courses($request)
     {
-        if (!is_user_logged_in()) {
-            return new \WP_REST_Response(array(
-                'auth_required' => true,
-                'message' => __('You must be logged in to access your courses!', 'edwiser-bridge'),
-                'sign_in_url' => esc_url(wp_login_url(get_permalink())),
-                'enrolled_courses' => array(),
-                'recommended_courses' => array(),
-            ), 200);
-        }
-
-        // Get current user ID
         $user_id = get_current_user_id();
-
-        // Get enrolled courses
-        $enrolled_courses = $this->get_enrolled_courses($user_id);
-
         // Get enrolled course IDs for recommendations
         $enrolled_course_ids = \app\wisdmlabs\edwiserBridge\eb_get_user_enrolled_courses($user_id);
 
@@ -153,6 +138,23 @@ class EdwiserBridge_Blocks_My_Courses_API
             }
         }
 
+        if (!is_user_logged_in()) {
+            return new \WP_REST_Response(array(
+                'auth_required' => true,
+                'message' => __('You must be logged in to access your courses!', 'edwiser-bridge'),
+                'sign_in_url' => html_entity_decode(esc_url(\app\wisdmlabs\edwiserBridge\wdm_eb_user_account_url())),
+                'enrolled_courses' => array(),
+                'recommended_courses' => $recommended_courses,
+                'auth_required' => true,
+            ), 200);
+        }
+
+        // Get current user ID
+        $user_id = get_current_user_id();
+
+        // Get enrolled courses
+        $enrolled_courses = $this->get_enrolled_courses($user_id);
+
         $setting = get_option('eb_general', array());
         $course_page_url     = isset($setting['eb_courses_page_id']) ? get_permalink($setting['eb_courses_page_id']) : null;
 
@@ -161,6 +163,7 @@ class EdwiserBridge_Blocks_My_Courses_API
             'enrolled_courses' => $enrolled_courses,
             'recommended_courses' => $recommended_courses,
             'courses_page_url' => $course_page_url,
+            'auth_required' => false,
         );
 
         return new \WP_REST_Response($response_data, 200);

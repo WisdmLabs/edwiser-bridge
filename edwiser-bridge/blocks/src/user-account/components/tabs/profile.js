@@ -88,7 +88,7 @@ function Profile() {
         last_name: user.last_name || '',
         display_name: user.nickname || '',
         email: user.email || '',
-        country: user.country || '',
+        country: user.country && user.country !== '0' ? user.country : '',
         city: user.city || '',
         bio: user.description || '',
       };
@@ -162,25 +162,16 @@ function Profile() {
   const validateProfile = () => {
     const errors = {};
 
-    if (!profileData.first_name || profileData.first_name.length < 2) {
-      errors.first_name = __(
-        'First name must be at least 2 characters',
-        'edwiser-bridge'
-      );
+    if (!profileData.first_name) {
+      errors.first_name = __('First name is required', 'edwiser-bridge');
     }
 
-    if (!profileData.last_name || profileData.last_name.length < 2) {
-      errors.last_name = __(
-        'Last name must be at least 2 characters',
-        'edwiser-bridge'
-      );
+    if (!profileData.last_name) {
+      errors.last_name = __('Last name is required', 'edwiser-bridge');
     }
 
-    if (!profileData.display_name || profileData.display_name.length < 2) {
-      errors.display_name = __(
-        'Nickname must be at least 2 characters',
-        'edwiser-bridge'
-      );
+    if (!profileData.display_name) {
+      errors.display_name = __('Nickname is required', 'edwiser-bridge');
     }
 
     if (!profileData.email || !/^\S+@\S+$/.test(profileData.email)) {

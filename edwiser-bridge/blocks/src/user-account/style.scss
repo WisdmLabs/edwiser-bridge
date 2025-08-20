@@ -2306,14 +2306,14 @@
       border-radius: 4px;
       font-weight: 600;
       font-size: 14px;
-      line-height: 20px;
-      padding: 8px 16px;
-      border: 1px solid #f75d25;
+      line-height: 20px !important;
+      padding: 8px 16px !important;
+      border: 1px solid #f75d25 !important;
       cursor: pointer;
       box-shadow: none;
       transition: background 0.3s ease;
-      background: #f75d25;
-      color: #fff;
+      background: #f75d25 !important;
+      color: #fff !important;
 
       &:hover {
         background: hsl(16, 93%, 56%, 0.8);
@@ -2531,14 +2531,14 @@
       border-radius: 4px;
       font-weight: 600;
       font-size: 14px;
-      line-height: 20px;
-      padding: 8px 16px;
-      border: 1px solid #f75d25;
+      line-height: 20px !important;
+      padding: 8px 16px !important;
+      border: 1px solid #f75d25 !important;
       cursor: pointer;
       box-shadow: none;
       transition: background 0.3s ease;
-      background: #f75d25;
-      color: #fff;
+      background: #f75d25 !important;
+      color: #fff !important;
 
       &:hover {
         background: hsl(16, 93%, 56%, 0.8);

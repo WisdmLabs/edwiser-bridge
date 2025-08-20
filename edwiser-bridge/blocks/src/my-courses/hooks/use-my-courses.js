@@ -6,6 +6,8 @@ export default function useMyCourses(recommendedCoursesCount) {
   const [recommendedCourses, setRecommendedCourses] = useState([]);
   const [coursesPageUrl, setCoursesPageUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [authRequired, setAuthRequired] = useState(false);
+  const [signInUrl, setSignInUrl] = useState('');
 
   // Data fetching effect
   useEffect(() => {
@@ -20,6 +22,8 @@ export default function useMyCourses(recommendedCoursesCount) {
         setEnrolledCourses(response.enrolled_courses);
         setRecommendedCourses(response.recommended_courses);
         setCoursesPageUrl(response.courses_page_url);
+        setAuthRequired(response.auth_required || false);
+        setSignInUrl(response.sign_in_url || '');
       } catch (error) {
         console.error('Error fetching courses:', error);
       } finally {
@@ -35,5 +39,7 @@ export default function useMyCourses(recommendedCoursesCount) {
     recommendedCourses,
     coursesPageUrl,
     isLoading,
+    authRequired,
+    signInUrl,
   };
 }
