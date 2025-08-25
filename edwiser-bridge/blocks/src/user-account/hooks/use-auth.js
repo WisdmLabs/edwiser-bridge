@@ -26,9 +26,8 @@ export const useAuth = () => {
       setIsLoading(true);
 
       try {
-        const authData = await apiFetch({
-          path: `/eb/api/v1/user-account/auth`,
-        });
+        const response = await fetch('/wp-json/eb/api/v1/user-account/auth');
+        const authData = await response.json();
 
         setIsLoggedIn(authData.is_logged_in);
 

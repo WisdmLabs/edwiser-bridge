@@ -863,6 +863,7 @@ class EdwiserBridge_Blocks_UserAccount_API
 
     private function sync_custom_fields($custom_fields, $user_id)
     {
+        $user_data = array();
         $fields = get_option('edwiser_custom_fields', array());
 
         if (is_array($fields) && !empty($fields)) {
@@ -879,9 +880,39 @@ class EdwiserBridge_Blocks_UserAccount_API
 
                     // update user meta.
                     update_user_meta($user_id, $field_name, $field_value);
+
+                    if (! isset($field_details['sync-on-moodle']) || ! $field_details['sync-on-moodle']) {
+                        continue;
+                    }
+
+                    // if type is date then convert date to epoch.
+                    if ('date' === $field_details['type']) {
+                        $field_value = strtotime($field_value);
+                    }
+
+                    array_push(
+                        $user_data,
+                        array(
+                            'type'  => $field_name,
+                            'value' => $field_value,
+                        )
+                    );
                 }
             }
         }
+
+        $user_data = apply_filters('eb_cf_user_data', $user_data, $user_id);
+        $moodle_user_id = get_user_meta($user_id, 'moodle_user_id', true);
+
+        $response = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+            'core_user_update_users',
+            array(
+                'users' => array(array(
+                    'id'           => $moodle_user_id,
+                    'customfields' => $user_data,
+                )),
+            )
+        );
     }
 
     /**
