@@ -680,7 +680,7 @@ div.course-not-available {
   width: 100%;
 }
 
-.eb-profile-txt-area-field input[type="text"] {
+.eb-profile-txt-area-field input[type='text'] {
   height: 10em;
 }
 
@@ -700,11 +700,11 @@ div.course-not-available {
   margin-bottom: 10px;
 }
 
-.eb-profile-txt-field input[type="email"],
-.eb-profile-txt-field input[type="text"],
-.eb-profile-txt-field input[type="password"],
-.eb-profile-txt-field input[type="number"],
-.eb-profile-txt-field input[type="date"],
+.eb-profile-txt-field input[type='email'],
+.eb-profile-txt-field input[type='text'],
+.eb-profile-txt-field input[type='password'],
+.eb-profile-txt-field input[type='number'],
+.eb-profile-txt-field input[type='date'],
 .eb-profile-txt-field select {
   /* width: 100%; */
   width: -webkit-fill-available;
@@ -1417,19 +1417,75 @@ nav.eb-pagination ul li {
 }
 
 .user-already-enrolled-message {
-	overflow-x: hidden;
-	font-size: 11px;
-	color: #555;
-	padding: 0.4em;
-	color: #fff;
-	background: #888;
-	border-radius: 10px;
+  overflow-x: hidden;
+  font-size: 11px;
+  color: #555;
+  padding: 0.4em;
+  color: #fff;
+  background: #888;
+  border-radius: 10px;
 }
-.eb_email_verify_dialog{
+.eb_email_verify_dialog {
   z-index: 1000 !important;
 }
 
-.eb-pro-product-page-sidebar .quantity-wrap button:disabled{
-  opacity: .5 !important;
+.eb-pro-product-page-sidebar .quantity-wrap button:disabled {
+  opacity: 0.5 !important;
   cursor: not-allowed;
+}
+
+/* Email verification modal redesign */
+
+.eb_email_verify_dialog {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 50px -12px !important;
+  border: 1px solid #e5e5e5 !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-titlebar {
+  height: 60px !important;
+  border-radius: 0px !important;
+  background-color: #f75d25 !important;
+  display: none !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-titlebar-close {
+  right: 20px !important;
+  width: 24px !important;
+  margin: -12px 0 0 0 !important;
+  height: 24px !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-content {
+  padding: 24px !important;
+  padding-bottom: 16px !important;
+  font-family: 'Open Sans' !important;
+  color: #333 !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+  line-height: 1.5 !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-buttonpane {
+  margin: 0 !important;
+  padding: 24px !important;
+  padding-top: 0 !important;
+  border: none !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-buttonpane button {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  background-color: #f75d25 !important;
+  font-family: 'Open Sans' !important;
+}
+
+.eb_email_verify_dialog .ui-dialog-buttonpane button:hover {
+  background-color: hsl(16, 92.9%, 55.7%, 0.8) !important;
+  color: #fff !important;
 }
