@@ -25,8 +25,25 @@ export const useAuth = () => {
     const checkAuth = async () => {
       setIsLoading(true);
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectTo = urlParams.get('redirect_to');
+      const isEnroll = urlParams.get('is_enroll');
+
+      console.log('neew');
+
       try {
-        const response = await fetch('/wp-json/eb/api/v1/user-account/auth');
+        const query = new URLSearchParams();
+
+        if (redirectTo) {
+          query.append('redirect_to', redirectTo);
+        }
+        if (isEnroll) {
+          query.append('is_enroll', isEnroll);
+        }
+
+        const response = await fetch(
+          `/wp-json/eb/api/v1/user-account/auth?${query.toString()}`
+        );
         const authData = await response.json();
 
         setIsLoggedIn(authData.is_logged_in);
