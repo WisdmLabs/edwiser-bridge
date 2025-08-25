@@ -1,7 +1,14 @@
 <?php
 
+namespace app\wisdmlabs\edwiserBridgePro\includes\sso;
+
 if (!defined('ABSPATH')) {
     exit;
+}
+
+// Use SSO functions from Edwiser Bridge Pro plugin
+if (file_exists(ABSPATH . 'wp-content/plugins/edwiser-bridge-pro/includes/sso/ebsso-functions.php')) {
+    require_once ABSPATH . 'wp-content/plugins/edwiser-bridge-pro/includes/sso/ebsso-functions.php';
 }
 
 class EdwiserBridge_Blocks_UserAccount_API
@@ -341,9 +348,39 @@ class EdwiserBridge_Blocks_UserAccount_API
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID, $remember);
 
-        $redirect = $this->get_user_redirect_url();
+        // Get redirect parameters
+        $redirect_to = isset($params['redirect_to']) ? sanitize_text_field($params['redirect_to']) : '';
+        $ignore_setting = !empty($redirect_to) ? 1 : 0;
+
+        // Check if Edwiser Bridge Pro plugin is active and SSO is enabled
+        $pro_plugin_active = $this->is_edwiser_bridge_pro_active();
+        $sso_enabled = $this->is_sso_feature_enabled();
+
+        // Get enhanced redirect URL only if pro plugin is active and SSO is enabled
+        if ($pro_plugin_active && $sso_enabled) {
+            $redirect = $this->get_enhanced_redirect_url($user, $redirect_to, $ignore_setting, $request);
+        } else {
+            // Fall back to basic redirect logic
+            $redirect = !empty($redirect_to) ? $redirect_to : $this->get_user_redirect_url();
+        }
+
         $final_redirect = apply_filters('eb_login_redirect', $redirect, $user);
 
+        // Handle Moodle SSO only if pro plugin is active and SSO is enabled
+        if ($pro_plugin_active && $sso_enabled) {
+            $moodle_result = $this->handle_moodle_sso($user, $final_redirect);
+        } else {
+            // Return disabled SSO result
+            $moodle_result = array(
+                'success' => false,
+                'enabled' => false,
+                'reason' => 'pro_plugin_or_sso_disabled',
+                'moodle_url' => '',
+                'redirect_url' => $final_redirect
+            );
+        }
+
+        // Prepare response with SSO information
         return new \WP_REST_Response(array(
             'success' => true,
             'message' => __('Login successful', 'edwiser-bridge'),
@@ -351,6 +388,12 @@ class EdwiserBridge_Blocks_UserAccount_API
             'user_email' => $user->user_email,
             'display_name' => $user->display_name,
             'redirect_url' => $final_redirect,
+            'moodle_sso' => array(
+                'enabled' => $moodle_result['enabled'],
+                'status' => $moodle_result['success'] ? 'success' : 'failed',
+                'error' => isset($moodle_result['error']) ? $moodle_result['error'] : null,
+                'moodle_url' => $moodle_result['success'] ? $moodle_result['moodle_url'] : null,
+            ),
         ), 200);
     }
 
@@ -1084,6 +1127,197 @@ class EdwiserBridge_Blocks_UserAccount_API
         return $redirect_url;
     }
 
+    /**
+     * Enhanced redirect URL logic that incorporates SSO settings and course ID.
+     *
+     * @param object $user User object.
+     * @param string $default_redirect Default redirect URL.
+     * @param int $ignore_setting_redirect_url Whether to ignore setting redirect URL.
+     * @return string The redirect URL.
+     */
+    private function get_enhanced_redirect_url($user, $default_redirect = '', $ignore_setting_redirect_url = 0, $request = null)
+    {
+        // Ensure this method only works when pro plugin and SSO are active
+        if (!$this->is_edwiser_bridge_pro_active() || !$this->is_sso_feature_enabled()) {
+            // Fall back to basic redirect logic
+            return !empty($default_redirect) ? $default_redirect : $this->get_user_redirect_url();
+        }
+
+        // Check for mdl_course_id in request
+        $mdl_course_id = null;
+        if ($request !== null) {
+            $params = $request->get_params();
+            $mdl_course_id = isset($params['mdl_course_id']) ? sanitize_text_field($params['mdl_course_id']) : null;
+        }
+
+        if (!empty($mdl_course_id)) {
+            return eb_get_mdl_url() . '/course/view.php?id=' . $mdl_course_id;
+        }
+
+        // Use SSO redirection settings
+        $redirect_urls = get_option('eb_sso_settings_redirection');
+        $redirect_url = '';
+
+        // Role-based redirect logic
+        if (isset($redirect_urls['ebsso_role_base_redirect']) && 'no' !== $redirect_urls['ebsso_role_base_redirect']) {
+            if (isset($user->roles[0])) {
+                $role_key = 'ebsso_login_redirect_url_' . $user->roles[0];
+                if (isset($redirect_urls[$role_key]) && !empty($redirect_urls[$role_key])) {
+                    $redirect_url = $redirect_urls[$role_key];
+                }
+            }
+        }
+
+        // General redirect URL
+        if (empty($redirect_url) && isset($redirect_urls['ebsso_login_redirect_url']) && !empty($redirect_urls['ebsso_login_redirect_url'])) {
+            $redirect_url = $redirect_urls['ebsso_login_redirect_url'];
+        }
+
+        // If ignore setting is enabled and default redirect is provided
+        if ($ignore_setting_redirect_url && !empty($default_redirect)) {
+            $redirect_url = $default_redirect;
+        }
+
+        // Fall back to default redirect or current implementation
+        if (empty($redirect_url)) {
+            $redirect_url = !empty($default_redirect) ? $default_redirect : $this->get_user_redirect_url();
+        }
+
+        return $redirect_url;
+    }
+
+    /**
+     * Handle Moodle SSO process.
+     * 
+     * @param object $user User object.
+     * @param string $redirect_url Redirect URL.
+     * @return array Result with success status and redirect URL.
+     */
+    private function handle_moodle_sso($user, $redirect_url = '')
+    {
+        // Ensure this method only works when pro plugin and SSO are active
+        if (!$this->is_edwiser_bridge_pro_active() || !$this->is_sso_feature_enabled()) {
+            return array(
+                'success' => false,
+                'enabled' => false,
+                'reason' => 'pro_plugin_or_sso_disabled',
+                'moodle_url' => '',
+                'redirect_url' => $redirect_url
+            );
+        }
+
+        // Check if user has a Moodle ID
+        $moodle_user_id = get_user_meta($user->ID, 'moodle_user_id', true);
+        if (empty($moodle_user_id)) {
+            return array(
+                'success' => false,
+                'enabled' => false,
+                'reason' => 'no_moodle_id',
+                'moodle_url' => '',
+                'redirect_url' => $redirect_url
+            );
+        }
+
+        // Generate one-time hash for verification
+        $hash = hash('md5', wp_rand(10, 1000));
+
+        // Build query for Moodle
+        $query = array(
+            'moodle_user_id' => $moodle_user_id,
+            'login_redirect' => $redirect_url,
+            'wp_one_time_hash' => $hash,
+        );
+
+        // Execute Moodle request
+        $result = $this->execute_moodle_request($query);
+
+        if (!$result['success']) {
+            return array(
+                'success' => false,
+                'enabled' => true,
+                'reason' => 'request_failed',
+                'error' => $result['error'],
+                'moodle_url' => '',
+                'redirect_url' => $redirect_url
+            );
+        }
+
+        // Generate final Moodle URL with verification hash
+        $eb_moodle_url = eb_get_mdl_url();
+        $final_url = $eb_moodle_url . '/auth/edwiserbridge/login.php?login_id=' . $moodle_user_id . '&veridy_code=' . $hash;
+
+        return array(
+            'success' => true,
+            'enabled' => true,
+            'moodle_url' => $final_url,
+            'redirect_url' => $redirect_url
+        );
+    }
+
+    /**
+     * Execute request to Moodle for SSO.
+     * 
+     * @param array $query Query parameters.
+     * @return array Result with success status.
+     */
+    private function execute_moodle_request($query)
+    {
+        // Get Moodle URL and token
+        $eb_moodle_url = eb_get_mdl_url();
+        $sso_secret_key = eb_get_mdl_token();
+
+        if (empty($eb_moodle_url)) {
+            return array(
+                'success' => false,
+                'error' => 'Moodle URL is not configured'
+            );
+        }
+
+        // Encrypt the data
+        $details = http_build_query($query);
+        $wdm_data = encryptString($details, $sso_secret_key);
+
+        // Prepare request arguments
+        $request_args = array(
+            'body' => array('wdm_data' => $wdm_data),
+            'timeout' => 100,
+        );
+
+        // Send request to Moodle
+        $response = wp_remote_post($eb_moodle_url . '/auth/edwiserbridge/login.php', $request_args);
+
+        // Handle errors
+        if (is_wp_error($response)) {
+            $error_message = $response->get_error_message();
+
+            // Log error if logging function exists
+            if (function_exists('\app\wisdmlabs\edwiserBridge\wdm_log_json')) {
+                global $current_user;
+                wp_get_current_user();
+                $error_data = array(
+                    'url' => $eb_moodle_url . '/auth/edwiserbridge/login.php',
+                    'arguments' => $request_args,
+                    'user' => isset($current_user) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+                    'responsecode' => '',
+                    'exception' => '',
+                    'errorcode' => '',
+                    'message' => $error_message,
+                    'backtrace' => wp_debug_backtrace_summary(null, 0, false),
+                );
+                \app\wisdmlabs\edwiserBridge\wdm_log_json($error_data);
+            }
+
+            return array(
+                'success' => false,
+                'error' => $error_message
+            );
+        }
+
+        return array(
+            'success' => true
+        );
+    }
+
     private function create_wordpress_user($email, $firstname, $lastname, $role, $password)
     {
         $username = sanitize_user(current(explode('@', $email)), true);
@@ -1135,6 +1369,38 @@ class EdwiserBridge_Blocks_UserAccount_API
         }
 
         return $user_id;
+    }
+
+    /**
+     * Check if Edwiser Bridge Pro plugin is active.
+     *
+     * @return bool True if pro plugin is active, false otherwise.
+     */
+    private function is_edwiser_bridge_pro_active()
+    {
+        // Check if the pro plugin file exists and is active
+        if (!function_exists('is_plugin_active')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        return is_plugin_active('edwiser-bridge-pro/edwiser-bridge-pro.php');
+    }
+
+    /**
+     * Check if SSO feature is enabled.
+     *
+     * @return bool True if SSO is enabled, false otherwise.
+     */
+    private function is_sso_feature_enabled()
+    {
+        // Check if SSO module is active in pro plugin
+        $modules_data = get_option('eb_pro_modules_data', array());
+
+        if (isset($modules_data['sso']) && 'active' === $modules_data['sso']) {
+            return true;
+        }
+
+        return false;
     }
 }
 

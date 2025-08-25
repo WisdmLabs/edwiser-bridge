@@ -81,21 +81,39 @@ export const useAuth = () => {
     setIsLoggingIn(true);
     setLoginError('');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTo = urlParams.get('redirect_to');
+    const isEnroll = urlParams.get('is_enroll');
+
     try {
       const response = await apiFetch({
         path: `/eb/api/v1/user-account/login`,
         method: 'POST',
-        data: credentials,
+        data: {
+          ...credentials,
+          redirect_to: redirectTo || '',
+          is_enroll: isEnroll || '',
+        },
       });
 
       if (response.success) {
         setIsLoggedIn(true);
 
-        // Handle redirection only if redirect_to is set
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectTo = urlParams.get('redirect_to');
-        const isEnroll = urlParams.get('is_enroll');
+        // Process Moodle SSO in background if available
+        if (
+          response.moodle_sso &&
+          response.moodle_sso.enabled &&
+          response.moodle_sso.moodle_url
+        ) {
+          // Send fetch request to Moodle SSO in background
+          fetch(response.moodle_sso.moodle_url, {
+            method: 'GET',
+            credentials: 'include',
+            mode: 'no-cors',
+          });
+        }
 
+        // Always prioritize frontend redirect_to parameter
         if (redirectTo) {
           let redirectUrl = redirectTo;
 
@@ -105,9 +123,10 @@ export const useAuth = () => {
             redirectUrl += `${separator}auto_enroll=true`;
           }
 
-          // Only redirect if we have a valid redirect URL
+          // Redirect to frontend URL
           window.location.href = redirectUrl;
         } else if (response.redirect_url) {
+          // Fallback to server redirect if no frontend redirect
           window.location.href = response.redirect_url;
         }
         // If no redirect_to is set, stay on the current page
