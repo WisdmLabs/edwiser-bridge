@@ -779,9 +779,7 @@
     user-select: none;
     touch-action: none;
     box-sizing: border-box;
-    transition:
-      background-color 150ms ease,
-      opacity 150ms ease;
+    transition: background-color 150ms ease, opacity 150ms ease;
     padding: calc(0.25rem / 5);
     display: flex;
     background-color: transparent;
@@ -857,9 +855,7 @@
     padding: 0;
     display: block;
     margin: 0;
-    transition:
-      border-color 100ms ease,
-      background-color 100ms ease;
+    transition: border-color 100ms ease, background-color 100ms ease;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
 
@@ -896,9 +892,7 @@
     pointer-events: none;
     transform: translateY(0.3125rem) scale(0.5);
     opacity: 0;
-    transition:
-      transform 100ms ease,
-      opacity 100ms ease;
+    transition: transform 100ms ease, opacity 100ms ease;
   }
 
   // Mantine Modal
@@ -1013,8 +1007,7 @@
     height: auto;
     overflow-y: auto;
     pointer-events: all;
-    box-shadow:
-      0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05),
+    box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.05),
       rgba(0, 0, 0, 0.05) 0 2.25rem 1.75rem -0.4375rem,
       rgba(0, 0, 0, 0.04) 0 1.0625rem 1.0625rem -0.4375rem;
     outline: 0;
@@ -1525,7 +1518,7 @@
       width: 100%;
       border: 0;
       border-collapse: collapse;
-      table-layout: fixed;
+      // table-layout: fixed;
 
       th,
       td {
