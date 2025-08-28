@@ -211,6 +211,10 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+ = 4.3.0 =
+* Feature - Introduced Gutenberg Block templates for the User Account page and the My Courses page.
+* Feature - On the User Profile Edit page in the Admin Dashboard, all enabled Edwiser Custom Fields configured on the WordPress site are now shown in a view-only format.
+
 = 4.2.0 =
 * Feature - Added setting to select Edwiser Gutenberg block template pages.
 		  - We’ve introduced a new Template Selection feature in the Edwiser Bridge settings, allowing you to choose which WordPress pages use Gutenberg blocks for the particular pages.
