@@ -1,1 +1,21 @@
+.eb-user-account__edit-notice {
+  border-radius: 2px;
+  padding: 12px 16px;
+  background: hsl(29, 95.1%, 52.4%, 0.1);
+  border-left: 4px solid #f98012;
+  color: #4b5858;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 1190px;
+  width: 100%;
+  margin: 0 auto;
 
+  p {
+    margin: 0 !important;
+  }
+}
+
+.eb-user-account__wrapper {
+  margin-top: 32px !important;
+}
