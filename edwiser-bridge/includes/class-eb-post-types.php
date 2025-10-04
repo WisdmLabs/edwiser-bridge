@@ -257,7 +257,7 @@ class Eb_Post_Types {
 		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$css_class = 'eb-wdm-order-meta';
 			echo '<strong>';
-			echo esc_html( sprintf( __( 'Order #%s Details', 'edwiser-bridge' ), get_the_ID() ) );
+			echo esc_html( sprintf( __( 'Order #%s Details', 'edwiser-bridge' ), get_the_id() ) );
 			echo '</strong>';
 			echo "<div id='" . esc_html( $args['args']['post_type'] ) . "'_options' class='post-options " . esc_html( $css_class ) . "'>";
 		} else {
