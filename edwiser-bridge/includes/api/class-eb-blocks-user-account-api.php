@@ -68,6 +68,237 @@ class EdwiserBridge_Blocks_UserAccount_API
             'callback' => array($this, 'eb_process_registration'),
             'permission_callback' => '__return_true',
         ));
+
+        register_rest_route(self::API_NAMESPACE, '/user-account/wc-orders', array(
+            'methods'  => \WP_REST_Server::READABLE,
+            'callback' => array($this, 'eb_get_wc_orders'),
+            'permission_callback' => array($this, 'eb_check_permission'),
+        ));
+    }
+
+    /**
+     * Get WooCommerce orders for the current user.
+     *
+     * @param WP_REST_Request $request The request object.
+     * @return WP_REST_Response The response object.
+     */
+    public function eb_get_wc_orders($request)
+    {
+        $user_id = get_current_user_id();
+
+        if (!$user_id) {
+            return new \WP_Error('not_logged_in', __('User not logged in', 'edwiser-bridge'), array('status' => 401));
+        }
+
+        // Check if WooCommerce is active
+        if (!class_exists('WooCommerce')) {
+            return new \WP_Error('woocommerce_not_active', __('WooCommerce is not active', 'edwiser-bridge'), array('status' => 400));
+        }
+
+        // Get request parameters
+        $params = $request->get_params();
+        $page = isset($params['page']) ? absint($params['page']) : 1;
+        $per_page = isset($params['per_page']) ? absint($params['per_page']) : 10;
+        $orderby = isset($params['orderby']) ? sanitize_text_field($params['orderby']) : 'date';
+        $order = isset($params['order']) ? sanitize_text_field($params['order']) : 'desc';
+        $search = isset($params['search']) ? sanitize_text_field($params['search']) : '';
+        $status = isset($params['status']) ? sanitize_text_field($params['status']) : '';
+
+        // Parse status parameter
+        $statuses = array();
+        if (!empty($status)) {
+            $statuses = array_map('trim', explode(',', $status));
+            // Add 'wc-' prefix if not present
+            $statuses = array_map(function ($s) {
+                return strpos($s, 'wc-') === 0 ? $s : 'wc-' . $s;
+            }, $statuses);
+        } else {
+            // Default statuses
+            $statuses = array('wc-pending', 'wc-processing', 'wc-on-hold', 'wc-completed', 'wc-cancelled', 'wc-refunded', 'wc-failed');
+        }
+
+        // Build query arguments
+        $args = array(
+            'customer_id' => $user_id,
+            'limit' => $per_page,
+            'page' => $page,
+            'paginate' => true,
+            'status' => $statuses,
+        );
+
+        // Handle orderby
+        switch ($orderby) {
+            case 'id':
+                $args['orderby'] = 'ID';
+                break;
+            case 'date':
+                $args['orderby'] = 'date';
+                break;
+            default:
+                $args['orderby'] = 'date';
+        }
+
+        $args['order'] = strtoupper($order);
+
+        // Handle search
+        if (!empty($search)) {
+            $args['limit'] = -1; // Get all orders for searching
+            $args['paginate'] = false;
+        }
+
+        // Get orders using WooCommerce function
+        $result = wc_get_orders($args);
+
+        $orders = array();
+        $total = 0;
+        $total_pages = 0;
+
+        if (!empty($search)) {
+            // Manual search and pagination
+            $all_orders = $result;
+            $filtered_orders = array();
+
+            foreach ($all_orders as $wc_order) {
+                $items = $wc_order->get_items();
+                $found = false;
+
+                foreach ($items as $item) {
+                    $product_name = $item->get_name();
+                    if (stripos($product_name, $search) !== false) {
+                        $found = true;
+                        break;
+                    }
+                }
+
+                if ($found) {
+                    $filtered_orders[] = $wc_order;
+                }
+            }
+
+            $total = count($filtered_orders);
+            $total_pages = ceil($total / $per_page);
+            $offset = ($page - 1) * $per_page;
+            $orders_to_process = array_slice($filtered_orders, $offset, $per_page);
+        } else {
+            // Use paginated result
+            $orders_to_process = $result->orders;
+            $total = $result->total;
+            $total_pages = $result->max_num_pages;
+        }
+
+        // Format orders
+        foreach ($orders_to_process as $wc_order) {
+            $orders[] = $this->format_wc_order($wc_order);
+        }
+
+        // Prepare response
+        $response = new \WP_REST_Response($orders, 200);
+        $response->header('X-WP-Total', $total);
+        $response->header('X-WP-TotalPages', $total_pages);
+
+        return $response;
+    }
+
+    /**
+     * Format WooCommerce order object to match WC REST API format.
+     *
+     * @param WC_Order $order WooCommerce order object.
+     * @return array Formatted order data.
+     */
+    private function format_wc_order($order)
+    {
+        $line_items = array();
+        foreach ($order->get_items() as $item_id => $item) {
+            $product = $item->get_product();
+            $line_items[] = array(
+                'id' => $item_id,
+                'name' => $item->get_name(),
+                'product_id' => $item->get_product_id(),
+                'variation_id' => $item->get_variation_id(),
+                'quantity' => $item->get_quantity(),
+                'subtotal' => $item->get_subtotal(),
+                'total' => $item->get_total(),
+                'sku' => $product ? $product->get_sku() : '',
+            );
+        }
+
+        // Get refunds
+        $refunds = array();
+        foreach ($order->get_refunds() as $refund) {
+            $refunds[] = array(
+                'id' => $refund->get_id(),
+                'reason' => $refund->get_reason(),
+                'total' => $refund->get_amount(),
+            );
+        }
+
+        // Get meta data
+        $meta_data = array();
+        foreach ($order->get_meta_data() as $meta) {
+            $meta_data[] = array(
+                'id' => $meta->id,
+                'key' => $meta->key,
+                'value' => $meta->value,
+            );
+        }
+
+        return array(
+            'id' => $order->get_id(),
+            'parent_id' => $order->get_parent_id(),
+            'status' => $order->get_status(),
+            'currency' => $order->get_currency(),
+            'date_created' => $order->get_date_created()->date('Y-m-d H:i:s'),
+            'date_modified' => $order->get_date_modified() ? $order->get_date_modified()->date('Y-m-d H:i:s') : '',
+            'total' => $order->get_total(),
+            'subtotal' => $order->get_subtotal(),
+            'total_tax' => $order->get_total_tax(),
+            'shipping_total' => $order->get_shipping_total(),
+            'discount_total' => $order->get_discount_total(),
+            'cart_tax' => $order->get_cart_tax(),
+            'shipping_tax' => $order->get_shipping_tax(),
+            'customer_id' => $order->get_customer_id(),
+            'order_key' => $order->get_order_key(),
+            'billing' => array(
+                'first_name' => $order->get_billing_first_name(),
+                'last_name' => $order->get_billing_last_name(),
+                'company' => $order->get_billing_company(),
+                'address_1' => $order->get_billing_address_1(),
+                'address_2' => $order->get_billing_address_2(),
+                'city' => $order->get_billing_city(),
+                'state' => $order->get_billing_state(),
+                'postcode' => $order->get_billing_postcode(),
+                'country' => $order->get_billing_country(),
+                'email' => $order->get_billing_email(),
+                'phone' => $order->get_billing_phone(),
+            ),
+            'shipping' => array(
+                'first_name' => $order->get_shipping_first_name(),
+                'last_name' => $order->get_shipping_last_name(),
+                'company' => $order->get_shipping_company(),
+                'address_1' => $order->get_shipping_address_1(),
+                'address_2' => $order->get_shipping_address_2(),
+                'city' => $order->get_shipping_city(),
+                'state' => $order->get_shipping_state(),
+                'postcode' => $order->get_shipping_postcode(),
+                'country' => $order->get_shipping_country(),
+            ),
+            'payment_method' => $order->get_payment_method(),
+            'payment_method_title' => $order->get_payment_method_title(),
+            'transaction_id' => $order->get_transaction_id(),
+            'customer_ip_address' => $order->get_customer_ip_address(),
+            'customer_user_agent' => $order->get_customer_user_agent(),
+            'created_via' => $order->get_created_via(),
+            'customer_note' => $order->get_customer_note(),
+            'date_completed' => $order->get_date_completed() ? $order->get_date_completed()->date('Y-m-d H:i:s') : null,
+            'date_paid' => $order->get_date_paid() ? $order->get_date_paid()->date('Y-m-d H:i:s') : null,
+            'number' => $order->get_order_number(),
+            'line_items' => $line_items,
+            'refunds' => $refunds,
+            'meta_data' => $meta_data,
+            'payment_url' => $order->get_checkout_payment_url(),
+            'is_editable' => $order->is_editable(),
+            'needs_payment' => $order->needs_payment(),
+        );
     }
 
     /**

@@ -57,7 +57,8 @@ export const useWcOrders = (enabled = true) => {
       }
 
       const queryString = buildQueryParams();
-      const path = `/wc/v3/orders?customer=${Number(userId)}&${queryString}`;
+      // const path = `/wc/v3/orders?customer=${Number(userId)}&${queryString}`;
+      const path = `/eb/api/v1/user-account/wc-orders?${queryString}`;
 
       const response = await apiFetch({
         path,

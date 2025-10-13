@@ -335,9 +335,31 @@ class Eb_Activator
 			'user_account' => array(
 				'name' => 'user-account-new',
 				'title' => 'User Account - New',
-				'content' => '<!-- wp:edwiser-bridge/user-account -->
-<div class="wp-block-edwiser-bridge-user-account"><div id="eb-user-account" data-page-title="User Account" data-hide-page-title="false" data-show-course-progress="true" data-show-recommended-courses="true" data-recommended-courses-count="3"></div></div>
-<!-- /wp:edwiser-bridge/user-account -->',
+				'content' => '<!-- wp:edwiser-bridge/user-account-v2 {"tabLabelsArray":["Dashboard","Profile","Orders","My Courses"],"tabIconsArray":["layout-dashboard","user","package","graduation-cap"],"tabClassnamesArray":["","","",""]} -->
+<div class="wp-block-edwiser-bridge-user-account-v2"><div class="eb-user-account-v2__wrapper"><div class="eb-user-account-v2__tabs"><div class="eb-user-account-v2__tabs-title-wrapper"><h3 class="eb-user-account-v2__tabs-title">User Account</h3><button class="eb-user-account-v2__tabs-toggle" data-active="false"><span class="tabs-toggle__menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></span><span class="tabs-toggle__close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span></button></div><div class="eb-user-account-v2__tabs-list" data-visible="false"><div class="eb-user-account-v2__tab active dashboard " role="tab" aria-selected="true" aria-controls="dashboard" data-tab-index="0"><span class="eb-user-account-v2__tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg></span><span class="eb-user-account-v2__tab-label">Dashboard</span></div><div class="eb-user-account-v2__tab profile " role="tab" aria-selected="false" aria-controls="profile" data-tab-index="1"><span class="eb-user-account-v2__tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg></span><span class="eb-user-account-v2__tab-label">Profile</span></div><div class="eb-user-account-v2__tab orders " role="tab" aria-selected="false" aria-controls="orders" data-tab-index="2"><span class="eb-user-account-v2__tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-icon lucide-package"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><path d="m7.5 4.27 9 5.15"></path></svg></span><span class="eb-user-account-v2__tab-label">Orders</span></div><div class="eb-user-account-v2__tab my-courses " role="tab" aria-selected="false" aria-controls="my-courses" data-tab-index="3"><span class="eb-user-account-v2__tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap-icon lucide-graduation-cap"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg></span><span class="eb-user-account-v2__tab-label">My Courses</span></div></div></div><div class="eb-user-account-v2__tabs-content"><!-- wp:edwiser-bridge/user-account-v2-tab {"tabLabel":"Dashboard"} -->
+<div class="wp-block-edwiser-bridge-user-account-v2-tab eb-user-account-v2__tab-panel dashboard" data-tab-index="0" data-tab-name="dashboard"><!-- wp:edwiser-bridge/dashboard -->
+<div class="wp-block-edwiser-bridge-dashboard"><div id="eb-dashboard" data-page-title="Dashboard" data-hide-page-title="false"></div></div>
+<!-- /wp:edwiser-bridge/dashboard --></div>
+<!-- /wp:edwiser-bridge/user-account-v2-tab -->
+
+<!-- wp:edwiser-bridge/user-account-v2-tab {"tabLabel":"Profile","tabIcon":"user","tabIndex":1} -->
+<div class="wp-block-edwiser-bridge-user-account-v2-tab eb-user-account-v2__tab-panel profile" data-tab-index="1" data-tab-name="profile"><!-- wp:edwiser-bridge/profile -->
+<div class="wp-block-edwiser-bridge-profile"><div id="eb-profile" data-page-title="Profile" data-hide-page-title="false"></div></div>
+<!-- /wp:edwiser-bridge/profile --></div>
+<!-- /wp:edwiser-bridge/user-account-v2-tab -->
+
+<!-- wp:edwiser-bridge/user-account-v2-tab {"tabLabel":"Orders","tabIcon":"package","tabIndex":2} -->
+<div class="wp-block-edwiser-bridge-user-account-v2-tab eb-user-account-v2__tab-panel orders" data-tab-index="2" data-tab-name="orders"><!-- wp:edwiser-bridge/orders -->
+<div class="wp-block-edwiser-bridge-orders"><div id="eb-orders-undefined" data-page-title="Orders" data-hide-page-title="false" data-enable-edwiser-orders="true" data-enable-woo-commerce-orders="false" data-default-tab="eb-orders"></div></div>
+<!-- /wp:edwiser-bridge/orders --></div>
+<!-- /wp:edwiser-bridge/user-account-v2-tab -->
+
+<!-- wp:edwiser-bridge/user-account-v2-tab {"tabLabel":"My Courses","tabIcon":"graduation-cap","tabIndex":3} -->
+<div class="wp-block-edwiser-bridge-user-account-v2-tab eb-user-account-v2__tab-panel my-courses" data-tab-index="3" data-tab-name="my-courses"><!-- wp:edwiser-bridge/my-courses -->
+<div class="wp-block-edwiser-bridge-my-courses"><div id="eb-my-courses" data-page-title="My Courses" data-recommended-courses-title="Recommended Courses" data-recommended-courses-count="3" data-show-course-progress="true" data-show-recommended-courses="true" data-hide-page-title="false"></div></div>
+<!-- /wp:edwiser-bridge/my-courses --></div>
+<!-- /wp:edwiser-bridge/user-account-v2-tab --></div></div></div>
+<!-- /wp:edwiser-bridge/user-account-v2 -->',
 				'option_key' => 'eb_user_account_page_id',
 			),
 			'my_courses' => array(
