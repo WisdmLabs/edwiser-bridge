@@ -387,23 +387,22 @@ function WcOrders() {
       {!showOrderDetails && (
         <div className="eb-orders__filter">
           <Select
-            value={perPage.toString()}
+            value={perPage === totalOrders ? 'all' : perPage.toString()}
             onChange={(value) => {
-              setPerPage(Number(value));
+              if (value === 'all') {
+                setPerPage(totalOrders);
+              } else {
+                setPerPage(Number(value));
+              }
               setCurrentPage(1);
             }}
             data={[
               { value: '5', label: __('5 per page', 'edwiser-bridge') },
               { value: '10', label: __('10 per page', 'edwiser-bridge') },
               { value: '25', label: __('25 per page', 'edwiser-bridge') },
-              {
-                value: totalOrders.toString(),
-                label: __('All', 'edwiser-bridge'),
-              },
+              { value: 'all', label: __('All', 'edwiser-bridge') },
             ]}
-            comboboxProps={{
-              withinPortal: false,
-            }}
+            comboboxProps={{ withinPortal: false }}
             checkIconPosition="right"
             maxDropdownHeight={350}
             rightSection={<Icons.chevronDown />}
