@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: wordpress moodle, moodle wordpress, moodle woocommerce, connect moodle with wordpress, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.8.2
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -211,6 +211,10 @@ Also, check our knowledge base for more queries
 
 
  ==  Changelog  ==
+  = 4.3.1 =
+* Feature - Added a User Account Page template that lets you dynamically add, arrange, and manage tabs and their content.
+* Feature - Added an option to display WooCommerce orders on the User Account Page.
+
  = 4.3.0 =
 * Feature - Introduced Gutenberg Block templates for the User Account page and the My Courses page.
 
