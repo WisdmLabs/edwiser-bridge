@@ -1,0 +1,57 @@
+.eb-user-account-v2__icon-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eb-user-account-v2__icon-search {
+  border-radius: 2px !important;
+  font-size: 13px !important;
+  padding: 6px 8px !important;
+  margin: 0 !important;
+  height: 32px !important;
+}
+
+.eb-user-account-v2__icons-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  overflow-y: auto;
+  max-height: 350px;
+  padding-right: 12px;
+}
+
+.eb-user-account-v2__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+
+  &:hover {
+    border-color: #000;
+    background-color: #f0f0f0;
+  }
+
+  &.active {
+    border-color: #000;
+    background-color: #f0f0f0;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .eb-user-account-v2__icon-name {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+  }
+}

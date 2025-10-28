@@ -61,6 +61,14 @@ export default function Edit({ attributes, setAttributes }) {
           </fieldset>
         </PanelBody>
       </InspectorControls>
+      <div className="eb-user-account__edit-notice">
+        <p>
+          {__(
+            'This is a classic user account block. We recommend using the new "Edwiser User Account" block instead, which offers more flexibility and features. This block will continue to work as usual.',
+            'edwiser-bridge'
+          )}
+        </p>
+      </div>
       <UserAccount {...attributes} />
     </div>
   );

@@ -3,10 +3,10 @@
 	"apiVersion": 3,
 	"name": "edwiser-bridge/user-account",
 	"version": "0.1.0",
-	"title": "Edwiser User Account",
+	"title": "Edwiser User Account - Classic",
 	"category": "edwiser",
 	"icon": "admin-users",
-	"description": "Example block scaffolded with Create Block tool.",
+	"description": "Displays user account details with options to view and edit profile information, manage enrolled courses, and track orders.",
 	"example": {},
 	"supports": {
 		"html": false
