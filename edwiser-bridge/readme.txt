@@ -240,6 +240,9 @@ Also, check our knowledge base for more queries
 
 
 ==  Changelog  ==
+= 4.3.2 =
+* Tweak - Updated "Purchase for someone else" custom field names from recipient_* to eb_recipient_* format for better consistency and to avoid conflicts with other plugins.
+
 = 4.3.1 =
 * Feature - Added a User Account Page template that lets you dynamically add, arrange, and manage tabs and their content.
 * Feature - Added an option to display WooCommerce orders on the User Account Page.
