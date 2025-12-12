@@ -18,17 +18,19 @@ if (! defined('ABSPATH')) {
  * @param string $block_name Full block name (namespace/block).
  * @return bool
  */
-function eb_contains_block($blocks, $block_name)
-{
-	foreach ($blocks as $block) {
-		if ($block['blockName'] === $block_name) {
-			return true;
+if (! function_exists('eb_contains_block')) {
+	function eb_contains_block($blocks, $block_name)
+	{
+		foreach ($blocks as $block) {
+			if ($block['blockName'] === $block_name) {
+				return true;
+			}
+			if (! empty($block['innerBlocks']) && eb_contains_block($block['innerBlocks'], $block_name)) {
+				return true;
+			}
 		}
-		if (! empty($block['innerBlocks']) && eb_contains_block($block['innerBlocks'], $block_name)) {
-			return true;
-		}
+		return false;
 	}
-	return false;
 }
 
 // Get plugin options.
