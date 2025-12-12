@@ -661,17 +661,21 @@ class Eb_Post_Types {
 							}
 						}
 
-						if ( is_array( $update_post_options ) ) {
-							/*
-							* merge previous values in array with new values retrieved
-							* replace old values with new values and save as option
-							*
-							* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
-							*/
-							$previous = get_post_meta( $post_id, $post_type . '_options', true );
-							$merged   = array_merge( $previous, $update_post_options );
-							update_post_meta( $post_id, $post_type . '_options', $merged );
+					if ( is_array( $update_post_options ) ) {
+						/*
+						* merge previous values in array with new values retrieved
+						* replace old values with new values and save as option
+						*
+						* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
+						*/
+						$previous = get_post_meta( $post_id, $post_type . '_options', true );
+						// Ensure $previous is always an array to prevent array_merge() errors.
+						if ( ! is_array( $previous ) ) {
+							$previous = array();
 						}
+						$merged   = array_merge( $previous, $update_post_options );
+						update_post_meta( $post_id, $post_type . '_options', $merged );
+					}
 					}
 				}
 			}
