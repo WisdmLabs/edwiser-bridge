@@ -500,11 +500,11 @@ class Eb_User_Manager {
 				}
 			}
 		}
-		if ( isset( $_POST['recipient_first_name'] ) && empty(get_user_meta($user_id, 'first_name', true)) ) {
-			$firstname = sanitize_text_field( $_POST['recipient_first_name'] );
+		if ( isset( $_POST['eb_recipient_first_name'] ) && empty(get_user_meta($user_id, 'first_name', true)) ) {
+			$firstname = sanitize_text_field( $_POST['eb_recipient_first_name'] );
 		}
-		if ( isset( $_POST['recipient_last_name'] ) && empty(get_user_meta($user_id, 'last_name', true)) ) {
-			$lastname = sanitize_text_field( $_POST['recipient_last_name'] );
+		if ( isset( $_POST['eb_recipient_last_name'] ) && empty(get_user_meta($user_id, 'last_name', true)) ) {
+			$lastname = sanitize_text_field( $_POST['eb_recipient_last_name'] );
 		}
 		if ( empty( $firstname ) ) {
 			$firstname = $username;
