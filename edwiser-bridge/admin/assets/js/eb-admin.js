@@ -1580,7 +1580,14 @@
             var subject = $("#eb_email_subject").val();
             var security = $("#eb_send_testmail_sec_filed").val();
             var header = $("#eb_bcc_email").val();
-            var message = tinyMCE.get("eb_emailtmpl_editor").getContent();
+            
+            var message = '';
+            if (typeof tinyMCE !== 'undefined' && tinyMCE.get("eb_emailtmpl_editor") !== null) {
+            message = tinyMCE.get("eb_emailtmpl_editor").getContent();
+            } else {
+            message = $("#eb_emailtmpl_editor").val();
+            }
+
             $("#eb-lading-parent").show();
             $.ajax({
                 type: "post",
