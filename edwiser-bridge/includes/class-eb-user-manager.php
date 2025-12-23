@@ -500,11 +500,11 @@ class Eb_User_Manager {
 				}
 			}
 		}
-		if ( isset( $_POST['recipient_first_name'] ) && empty(get_user_meta($user_id, 'first_name', true)) ) {
-			$firstname = sanitize_text_field( $_POST['recipient_first_name'] );
+		if ( isset( $_POST['eb_recipient_first_name'] ) && empty(get_user_meta($user_id, 'first_name', true)) ) {
+			$firstname = sanitize_text_field( $_POST['eb_recipient_first_name'] );
 		}
-		if ( isset( $_POST['recipient_last_name'] ) && empty(get_user_meta($user_id, 'last_name', true)) ) {
-			$lastname = sanitize_text_field( $_POST['recipient_last_name'] );
+		if ( isset( $_POST['eb_recipient_last_name'] ) && empty(get_user_meta($user_id, 'last_name', true)) ) {
+			$lastname = sanitize_text_field( $_POST['eb_recipient_last_name'] );
 		}
 		if ( empty( $firstname ) ) {
 			$firstname = $username;
@@ -690,10 +690,6 @@ class Eb_User_Manager {
 		}
 	}
 
-
-
-
-
 	/**
 	 * Get a moodle user by email, search if a user exists on moodle with same email id and
 	 * return user's moodle id and username.
@@ -723,19 +719,110 @@ class Eb_User_Manager {
 		);
 		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( $webservice_function, $request_data );
 
-		// create response array based on response recieved from api helper class.
+		// Enhanced response parsing - handles both array and object formats
 		if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
 			$user = array(
 				'user_exists' => 0,
 				'user_data'   => '',
 			);
-		} elseif ( 1 === $response['success'] &&
-				is_array( $response['response_data'] ) &&
-				! empty( $response['response_data'] ) ) {
+		} elseif ( 1 === $response['success'] ) {
+			$response_data = $response['response_data'];
+			
+			// Handle array format (original logic)
+			if ( is_array( $response_data ) && ! empty( $response_data ) && isset( $response_data[0] ) ) {
+				$user = array(
+					'user_exists' => 1,
+					'user_data'   => $response_data[0],
+				);
+			} elseif ( is_object( $response_data ) ) {
+				// Handle object format (Moodle sometimes returns single object instead of array)
+				if ( isset( $response_data->id ) || isset( $response_data->email ) ) {
+					$user = array(
+						'user_exists' => 1,
+						'user_data'   => $response_data,
+					);
+				} else {
+					$user = array(
+						'user_exists' => 0,
+						'user_data'   => '',
+					);
+				}
+			} else {
+				$user = array(
+					'user_exists' => 0,
+					'user_data'   => '',
+				);
+			}
+		} elseif ( 0 === $response['success'] ) {
 			$user = array(
-				'user_exists' => 1,
-				'user_data'   => $response['response_data'][0],
+				'user_created' => 0,
+				'user_data'    => $response['response_message'],
 			);
+		}
+
+		return $user;
+	}
+
+	/**
+	 * Get Moodle user by username (fallback check)
+	 * Enhanced to handle both array and object response formats
+	 *
+	 * @since  2.0.1
+	 *
+	 * @param string $username username to be checked on moodle.
+	 *
+	 * @return array
+	 */
+	public function get_moodle_user_by_username( $username ) {
+		$username          = sanitize_user( $username );
+		$user              = array();
+		$webservice_function = 'core_user_get_users_by_field';
+
+		if ( empty( $username ) ) {
+			return $user;
+		}
+
+		// prepare request data array.
+		$request_data = array(
+			'field'  => 'username',
+			'values' => array( $username ),
+		);
+		$response     = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( $webservice_function, $request_data );
+
+		// Enhanced response parsing - handles both array and object formats
+		if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
+			$user = array(
+				'user_exists' => 0,
+				'user_data'   => '',
+			);
+		} elseif ( 1 === $response['success'] ) {
+			$response_data = $response['response_data'];
+			
+			// Handle array format
+			if ( is_array( $response_data ) && ! empty( $response_data ) && isset( $response_data[0] ) ) {
+				$user = array(
+					'user_exists' => 1,
+					'user_data'   => $response_data[0],
+				);
+			} elseif ( is_object( $response_data ) ) {
+				// Handle object format
+				if ( isset( $response_data->id ) || isset( $response_data->username ) ) {
+					$user = array(
+						'user_exists' => 1,
+						'user_data'   => $response_data,
+					);
+				} else {
+					$user = array(
+						'user_exists' => 0,
+						'user_data'   => '',
+					);
+				}
+			} else {
+				$user = array(
+					'user_exists' => 0,
+					'user_data'   => '',
+				);
+			}
 		} elseif ( 0 === $response['success'] ) {
 			$user = array(
 				'user_created' => 0,
@@ -761,8 +848,6 @@ class Eb_User_Manager {
 	public function createMoodleUser( $user_data, $update = 0 ) {
 		return $this->create_moodle_user( $user_data, $update );
 	}
-
-
 
 	/**
 	 * Create a new user on moodle with user data passed to it.
@@ -812,6 +897,15 @@ class Eb_User_Manager {
 
 		// Ensure username is unique, when creating a new user on moodle.
 		if ( 0 === $update ) {
+			// Validate required fields before attempting creation
+			if ( empty( trim( $user_data['firstname'] ) ) || empty( trim( $user_data['lastname'] ) ) ) {
+				edwiser_bridge_instance()->logger()->add( 'user', 'Cannot create moodle user: First name and last name are required.' );
+				return array(
+					'user_created' => 0,
+					'user_data'    => __( 'First name and last name are required.', 'edwiser-bridge' ),
+				);
+			}
+			
 			$append = 1;
 			if ( ! empty( $user_data['username'] ) ) {
 				$o_username = $user_data['username'];
@@ -832,6 +926,25 @@ class Eb_User_Manager {
 		 * used to add additional user profile fields value that is passed to moodle
 		 */
 		$user_data = apply_filters( 'eb_moodle_user_profile_details', $user_data, $update );
+		
+		// Clean custom fields - remove empty values (Moodle doesn't accept empty custom field values)
+		if ( isset( $user_data['customfields'] ) && is_array( $user_data['customfields'] ) ) {
+			$user_data['customfields'] = array_filter( $user_data['customfields'], function( $field ) {
+				// Remove fields with empty values
+				if ( is_array( $field ) || is_object( $field ) ) {
+					$value = is_array( $field ) ? ( isset( $field['value'] ) ? $field['value'] : '' ) : ( isset( $field->value ) ? $field->value : '' );
+					return ! empty( trim( $value ) );
+				}
+				return false;
+			} );
+			// Re-index array after filtering
+			$user_data['customfields'] = array_values( $user_data['customfields'] );
+			// Remove customfields key if array is empty
+			if ( empty( $user_data['customfields'] ) ) {
+				unset( $user_data['customfields'] );
+			}
+		}
+		
 		// prepare user data array.
 		foreach ( $user_data as $key => $value ) {
 			$users[0][ $key ] = $value;
@@ -844,7 +957,46 @@ class Eb_User_Manager {
 		);
 		// handle response recived from moodle and creates response array accordingly.
 		if ( 0 === $update ) { // when user is created.
-			if ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
+			// Check for exceptions in response (even if success=1)
+			$has_exception = false;
+			$exception_message = '';
+			
+			// First check response_message for errors
+			if ( isset( $response['response_message'] ) && ! empty( $response['response_message'] ) ) {
+				$response_message = $response['response_message'];
+				// Check if it's an error message (not just empty)
+				if ( is_string( $response_message ) && stripos( $response_message, 'error' ) !== false ) {
+					$has_exception = true;
+					$exception_message = $response_message;
+				}
+			}
+			
+			// Also check response_data for exceptions
+			if ( ! $has_exception && isset( $response['response_data'] ) ) {
+				$response_data = $response['response_data'];
+				
+				// Check if response contains exception/error
+				if ( is_object( $response_data ) ) {
+					if ( isset( $response_data->exception ) || isset( $response_data->errorcode ) ) {
+						$has_exception = true;
+						$exception_message = isset( $response_data->message ) ? $response_data->message : ( isset( $response_data->exception ) ? $response_data->exception : '' );
+					}
+				} elseif ( is_array( $response_data ) && ! empty( $response_data ) ) {
+					// Check first element for exceptions
+					$first_item = $response_data[0];
+					if ( is_object( $first_item ) && ( isset( $first_item->exception ) || isset( $first_item->errorcode ) ) ) {
+						$has_exception = true;
+						$exception_message = isset( $first_item->message ) ? $first_item->message : ( isset( $first_item->exception ) ? $first_item->exception : '' );
+					}
+				}
+			}
+			
+			if ( $has_exception ) {
+				$user = array(
+					'user_created' => 0,
+					'user_data'    => $exception_message,
+				);
+			} elseif ( 1 === $response['success'] && empty( $response['response_data'] ) ) {
 				$user = array(
 					'user_created' => 0,
 					'user_data'    => '',
@@ -881,10 +1033,6 @@ class Eb_User_Manager {
 		return $user;
 	}
 
-
-
-
-
 	/**
 	 * DEPRECATED FUNCTION
 	 *
@@ -900,10 +1048,6 @@ class Eb_User_Manager {
 	public function linkMoodleUser( $user ) {
 		return $this->link_moodle_user( $user );
 	}
-
-
-
-
 
 	/**
 	 * Checks if a moodle account is already linked, or create account on moodle and links to WordPress.
@@ -930,44 +1074,153 @@ class Eb_User_Manager {
 			 */
 			$moodle_user = $this->get_moodle_user( $user->user_email );
 
-			if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] && is_object( $moodle_user['user_data'] ) ) {
-				update_user_meta( $user->ID, 'moodle_user_id', $moodle_user['user_data']->id );
-				$linked = 1;
-
-				// sync courses of an individual user.
-				// when an exisintg moodle user is linked to WordPress account with same email.
-				$this->user_course_synchronization_handler(
-					array(
-						'eb_synchronize_user_courses' => 1,
-					),
-					$user->ID
-				);
-			} elseif ( isset( $moodle_user['user_exists'] ) && 0 === $moodle_user['user_exists'] ) {
-				$general_settings = get_option( 'eb_general' );
-				$language         = 'en';
-
-				if ( isset( $general_settings['eb_language_code'] ) ) {
-					$language = $general_settings['eb_language_code'];
+			// Enhanced: Handle both object and array formats
+			if ( isset( $moodle_user['user_exists'] ) && 1 === $moodle_user['user_exists'] ) {
+				$moodle_user_data = $moodle_user['user_data'];
+				$moodle_user_id_value = null;
+				
+				// Extract ID from object or array
+				if ( is_object( $moodle_user_data ) && isset( $moodle_user_data->id ) ) {
+					$moodle_user_id_value = $moodle_user_data->id;
+				} elseif ( is_array( $moodle_user_data ) && isset( $moodle_user_data['id'] ) ) {
+					$moodle_user_id_value = $moodle_user_data['id'];
 				}
+				
+				if ( ! empty( $moodle_user_id_value ) && is_numeric( $moodle_user_id_value ) ) {
+					update_user_meta( $user->ID, 'moodle_user_id', $moodle_user_id_value );
+					$linked = 1;
 
-				// generate random password for moodle account, as user is already registered on WordPress.
-				$user_p = wp_unslash( apply_filters( 'eb_filter_moodle_password', wp_generate_password() ) );
+					// sync courses of an individual user.
+					// when an exisintg moodle user is linked to WordPress account with same email.
+					$this->user_course_synchronization_handler(
+						array(
+							'eb_synchronize_user_courses' => 1,
+						),
+						$user->ID
+					);
+				}
+			} elseif ( isset( $moodle_user['user_exists'] ) && 0 === $moodle_user['user_exists'] ) {
+				// Enhanced: Try username check as fallback before creating
+				$moodle_user_by_username = $this->get_moodle_user_by_username( strtolower( $user->user_login ) );
+				
+				if ( isset( $moodle_user_by_username['user_exists'] ) && 1 === $moodle_user_by_username['user_exists'] ) {
+					$moodle_user_data = $moodle_user_by_username['user_data'];
+					$moodle_user_id_value = null;
+					
+					if ( is_object( $moodle_user_data ) && isset( $moodle_user_data->id ) ) {
+						$moodle_user_id_value = $moodle_user_data->id;
+					} elseif ( is_array( $moodle_user_data ) && isset( $moodle_user_data['id'] ) ) {
+						$moodle_user_id_value = $moodle_user_data['id'];
+					}
+					
+					if ( ! empty( $moodle_user_id_value ) && is_numeric( $moodle_user_id_value ) ) {
+						update_user_meta( $user->ID, 'moodle_user_id', $moodle_user_id_value );
+						$linked = 1;
 
-				$user_data = array(
-					'username'  => $user->user_login,
-					'password'  => $user_p,
-					'firstname' => $user->first_name,
-					'lastname'  => $user->last_name,
-					'email'     => $user->user_email,
-					'auth'      => 'manual',
-					'lang'      => $language,
-				);
+						$this->user_course_synchronization_handler(
+							array(
+								'eb_synchronize_user_courses' => 1,
+							),
+							$user->ID
+						);
+					}
+				} else {
+					// Check if firstname and lastname are empty (required by Moodle)
+					if ( empty( trim( $user->first_name ) ) || empty( trim( $user->last_name ) ) ) {
+						edwiser_bridge_instance()->logger()->add( 'user', 'Cannot link user: First name and last name are required for user ID: ' . $user->ID );
+						return 0;
+					}
+					
+					$general_settings = get_option( 'eb_general' );
+					$language         = 'en';
 
-				$moodle_user = $this->create_moodle_user( $user_data );
-				if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] && is_object( $moodle_user['user_data'] ) ) {
-					update_user_meta( $user->ID, 'moodle_user_id', $moodle_user['user_data']->id );
-					$created = 1;
-					$linked  = 1;
+					if ( isset( $general_settings['eb_language_code'] ) ) {
+						$language = $general_settings['eb_language_code'];
+					}
+
+					// generate random password for moodle account, as user is already registered on WordPress.
+					$user_p = wp_unslash( apply_filters( 'eb_filter_moodle_password', wp_generate_password() ) );
+
+					$user_data = array(
+						'username'  => $user->user_login,
+						'password'  => $user_p,
+						'firstname' => $user->first_name,
+						'lastname'  => $user->last_name,
+						'email'     => $user->user_email,
+						'auth'      => 'manual',
+						'lang'      => $language,
+					);
+
+					$moodle_user = $this->create_moodle_user( $user_data );
+					
+					// Enhanced: Handle creation failure - check if user already exists
+					if ( isset( $moodle_user['user_created'] ) && 1 === $moodle_user['user_created'] ) {
+						$moodle_user_data = $moodle_user['user_data'];
+						$moodle_user_id_value = null;
+						
+						if ( is_object( $moodle_user_data ) && isset( $moodle_user_data->id ) ) {
+							$moodle_user_id_value = $moodle_user_data->id;
+						} elseif ( is_array( $moodle_user_data ) && isset( $moodle_user_data['id'] ) ) {
+							$moodle_user_id_value = $moodle_user_data['id'];
+						}
+						
+						if ( ! empty( $moodle_user_id_value ) && is_numeric( $moodle_user_id_value ) ) {
+							update_user_meta( $user->ID, 'moodle_user_id', $moodle_user_id_value );
+							$created = 1;
+							$linked  = 1;
+						}
+					} else {
+						// Creation failed - check if error suggests user already exists
+						$error_message = isset( $moodle_user['user_data'] ) ? $moodle_user['user_data'] : '';
+						if ( is_string( $error_message ) ) {
+							$already_exists_keywords = array(
+								'email',
+								'already exists',
+								'ya existe',
+								'existe déjà',
+								'bereits vorhanden',
+								'valor de parámetro no válido',
+								'invalid parameter',
+							);
+							
+							$has_existing_user_error = false;
+							foreach ( $already_exists_keywords as $keyword ) {
+								if ( stripos( $error_message, $keyword ) !== false ) {
+									$has_existing_user_error = true;
+									break;
+								}
+							}
+							
+							// Retry to find and link existing user
+							if ( $has_existing_user_error ) {
+								usleep( 500000 ); // Wait 0.5 seconds
+								$retry_moodle_user = $this->get_moodle_user( $user->user_email );
+								
+								if ( isset( $retry_moodle_user['user_exists'] ) && 1 === $retry_moodle_user['user_exists'] ) {
+									$moodle_user_data = $retry_moodle_user['user_data'];
+									$moodle_user_id_value = null;
+									
+									if ( is_object( $moodle_user_data ) && isset( $moodle_user_data->id ) ) {
+										$moodle_user_id_value = $moodle_user_data->id;
+									} elseif ( is_array( $moodle_user_data ) && isset( $moodle_user_data['id'] ) ) {
+										$moodle_user_id_value = $moodle_user_data['id'];
+									}
+									
+									if ( ! empty( $moodle_user_id_value ) && is_numeric( $moodle_user_id_value ) ) {
+										update_user_meta( $user->ID, 'moodle_user_id', $moodle_user_id_value );
+										$linked = 1;
+
+										$this->user_course_synchronization_handler(
+											array(
+												'eb_synchronize_user_courses' => 1,
+											),
+											$user->ID
+										);
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
