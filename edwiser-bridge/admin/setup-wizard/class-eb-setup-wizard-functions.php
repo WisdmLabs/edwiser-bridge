@@ -877,7 +877,7 @@ RewriteRule . /index.php [L]
 				update_option( 'eb_setup_data', $setup_data );
 			}
 		} elseif ( isset( $_GET['current_step'] ) && ! empty( $_GET['current_step'] ) ) {
-			$step = strtolower( sanitize_text_field( wp_unslash( $_GET['current_step'] ) ) ); // phpcs:ignore
+			$step = $_GET['current_step']; // phpcs:ignore
 		} elseif ( isset( $setup_data ) && ! empty( $setup_data ) ) {
 			$next_step = $setup_data['next_step'];
 			if ( isset( $next_step ) && ! empty( $next_step ) ) {

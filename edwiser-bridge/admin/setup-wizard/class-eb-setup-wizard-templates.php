@@ -77,17 +77,8 @@ class Eb_Setup_Wizard_Templates {
 			<div class="eb-setup-content <?php echo esc_attr( $content_class ); ?>">
 				<?php
 
-				// Normalize step to lowercase to match array keys.
-				$step = strtolower( $step );
-
-				// Validate step exists and has function key.
-				if ( isset( $steps[ $step ] ) && isset( $steps[ $step ]['function'] ) ) {
-					$function = $steps[ $step ]['function'];
-					// Validate function is a string and method exists.
-					if ( is_string( $function ) && method_exists( $this, $function ) ) {
-						$this->$function( 0 );
-					}
-				}
+				$function = $steps[ $step ]['function'];
+				$this->$function( 0 );
 
 				?>
 			</div>

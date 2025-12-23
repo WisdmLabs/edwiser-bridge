@@ -168,44 +168,60 @@ class Eb_Order_Manager {
 		$plugin_post_types = new Eb_Post_Types( $this->plugin_name, $this->version );
 		$previous_status   = $plugin_post_types->get_post_options( $order_id, 'order_status', 'eb_order' );
 
-		if ( ! $previous_status || $previous_status !== $order_status ) {
-			edwiser_bridge_instance()->logger()->add( 'order', 'Updating order status...' ); // add order log.
-
-			$order_options = get_post_meta( $order_id, 'eb_order_options', true );
-
-			/**
-			 * Unenroll the user if the order is get marked as pending or failed form the compleated.
-			 */
-			if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
-				$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
-				$ord_detail         = get_post_meta( $order_id, 'eb_order_options', true );
-				$args               = array(
-					'user_id'  => $ord_detail['buyer_id'],
-					'role_id'  => 5,
-					'courses'  => array( $order_options['course_id'] ),
-					'unenroll' => 1,
-					'suspend'  => 0,
-				);
-
-				$enrollment_manager->update_user_course_enrollment( $args );
-
-			}
-
-			if ( isset( $order_options ) && ! empty( $order_options ) ) {
-				foreach ( $order_options as $key => $option ) {
-					$option;
-					if ( 'order_status' === $key ) {
-						$order_options[ $key ] = $order_status;
-					}
-				}
-				update_post_meta( $order_id, 'eb_order_options', $order_options );
-			} else {
-				$this->update_order_status_for_new_order( $order_id, $post_options );
-			}
-			do_action( 'eb_order_status_' . $order_status, $order_id );
+		// If status is already the same, return false to indicate no update was needed.
+		if ( $previous_status === $order_status ) {
+			edwiser_bridge_instance()->logger()->add( 'order', 'Order status unchanged. Current status: ' . $order_status . ' for Order ID: ' . $order_id );
+			return false;
 		}
-		edwiser_bridge_instance()->logger()->add( 'order', 'Order status updated, Status: ' . $order_status ); // add order log.
-		return 1;
+
+		edwiser_bridge_instance()->logger()->add( 'order', 'Updating order status from ' . $previous_status . ' to ' . $order_status . ' for Order ID: ' . $order_id );
+
+		$order_options = get_post_meta( $order_id, 'eb_order_options', true );
+
+		/**
+		 * Unenroll the user if the order is get marked as pending or failed form the compleated.
+		 */
+		if ( isset( $order_options['order_status'] ) && 'completed' === $order_options['order_status'] && 'completed' !== $order_status ) {
+			$enrollment_manager = Eb_Enrollment_Manager::instance( $this->plugin_name, $this->version );
+			$ord_detail         = get_post_meta( $order_id, 'eb_order_options', true );
+			$args               = array(
+				'user_id'  => $ord_detail['buyer_id'],
+				'role_id'  => 5,
+				'courses'  => array( $order_options['course_id'] ),
+				'unenroll' => 1,
+				'suspend'  => 0,
+			);
+
+			$enrollment_manager->update_user_course_enrollment( $args );
+
+		}
+
+		if ( isset( $order_options ) && ! empty( $order_options ) ) {
+			foreach ( $order_options as $key => $option ) {
+				$option;
+				if ( 'order_status' === $key ) {
+					$order_options[ $key ] = $order_status;
+				}
+			}
+			$update_result = update_post_meta( $order_id, 'eb_order_options', $order_options );
+		} else {
+			$this->update_order_status_for_new_order( $order_id, $post_options );
+			$update_result = true;
+		}
+
+		// Verify the update was successful by checking the status again.
+		$updated_status = $plugin_post_types->get_post_options( $order_id, 'order_status', 'eb_order' );
+		
+		if ( $updated_status === $order_status ) {
+			// Status was successfully updated, trigger the hook.
+			do_action( 'eb_order_status_' . $order_status, $order_id );
+			edwiser_bridge_instance()->logger()->add( 'order', 'Order status successfully updated to: ' . $order_status . ' for Order ID: ' . $order_id );
+			return true;
+		} else {
+			// Status update failed.
+			edwiser_bridge_instance()->logger()->add( 'order', 'ERROR: Order status update failed. Expected: ' . $order_status . ', Actual: ' . $updated_status . ' for Order ID: ' . $order_id );
+			return false;
+		}
 	}
 
 	/**

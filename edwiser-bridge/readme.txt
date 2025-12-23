@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: moodle wordpress integration, moodle wordpress integration, wordpress moodle plugin, lms integration, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.8.2
-Stable tag: 4.3.1
+Tested up to: 6.9
+Stable tag: 4.3.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -242,11 +242,6 @@ Also, check our knowledge base for more queries
 ==  Changelog  ==
 = 4.3.2 =
 * Fix - Fixed link user functionality to properly handle both object and array formats when linking existing Moodle users to WordPress accounts.
-* Fix - Fixed email validation issue in email template editor by adding proper tinyMCE content retrieval check.
-* Fix - Fixed critical error in order processing by adding comprehensive error handling it.
-* Tweak - Updated "Purchase for someone else" custom field names from recipient_* to eb_recipient_* format for better consistency and to avoid conflicts with other plugins.
-* Tweak - Updated validation functions and form field references to use the new eb_recipient_* field names (eb_recipient_first_name, eb_recipient_last_name, eb_recipient_email).
-* Tweak - Improved cart template with enhanced Gutenberg block implementation.
 
 = 4.3.1 =
 * Feature - Added a User Account Page template that lets you dynamically add, arrange, and manage tabs and their content.
