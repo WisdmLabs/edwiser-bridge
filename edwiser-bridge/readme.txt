@@ -242,6 +242,7 @@ Also, check our knowledge base for more queries
 ==  Changelog  ==
 = 4.3.2 =
 * Fix - Fixed link user functionality to properly handle both object and array formats when linking existing Moodle users to WordPress accounts.
+* Fix - Fixed email validation issue in email template editor by adding proper tinyMCE content retrieval check.
 
 = 4.3.1 =
 * Feature - Added a User Account Page template that lets you dynamically add, arrange, and manage tabs and their content.
