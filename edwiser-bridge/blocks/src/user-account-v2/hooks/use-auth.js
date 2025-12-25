@@ -113,21 +113,18 @@ export const useAuth = () => {
       if (response.success) {
         setIsLoggedIn(true);
 
-        // Process Moodle SSO in background if available
+        // Priority 1: Redirect to Moodle SSO URL if available (highest priority)
         if (
           response.moodle_sso &&
           response.moodle_sso.enabled &&
           response.moodle_sso.moodle_url
         ) {
-          // Send fetch request to Moodle SSO in background
-          fetch(response.moodle_sso.moodle_url, {
-            method: 'GET',
-            credentials: 'include',
-            mode: 'no-cors',
-          });
+          // Direct redirect to Moodle SSO URL
+          window.location.href = response.moodle_sso.moodle_url;
+          return; // Exit early to prevent other redirects
         }
 
-        // Always prioritize frontend redirect_to parameter
+        // Priority 2: Always prioritize frontend redirect_to parameter
         if (redirectTo) {
           let redirectUrl = redirectTo;
 
@@ -140,7 +137,7 @@ export const useAuth = () => {
           // Redirect to frontend URL
           window.location.href = redirectUrl;
         } else if (response.redirect_url) {
-          // Fallback to server redirect if no frontend redirect
+          // Priority 3: Fallback to server redirect if no frontend redirect
           window.location.href = response.redirect_url;
         }
         // If no redirect_to is set, stay on the current page
