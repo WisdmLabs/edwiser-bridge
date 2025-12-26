@@ -163,13 +163,13 @@ if ( ! class_exists( 'Eb_Bridge_Summary' ) ) :
 			if ( ! $version_info ) {
 				?>
 				<?php echo esc_attr( $remote_data['version'] ); ?>
-				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'edwiser-bridge' ); ?>'><?php esc_attr_e( 'Download Plugin', 'edwiser-bridge' ); ?></a>
+				<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Plugin is not installed, Click to download the plugin file.', 'edwiser-bridge' ); ?>'><?php esc_html_e( 'Download Plugin', 'edwiser-bridge' ); ?></a>
 				<?php
 			} elseif ( $remote_data['version'] ) {
 				if ( version_compare( $remote_data['version'], $version_info, '>' ) ) {
 					?>
 					<?php echo esc_attr( $remote_data['version'] ); ?>
-					<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'edwiser-bridge' ); ?>'><?php echo esc_attr_e( 'Download', 'edwiser-bridge' ); ?></a>
+					<a style='padding-left:0.5rem;' target='_blank' href="<?php echo esc_url( $remote_data['url'] ); ?>" title='<?php esc_attr_e( 'Click to download the plugin file. Or you can update the from plugin page.', 'edwiser-bridge' ); ?>'><?php esc_html_e( 'Download', 'edwiser-bridge' ); ?></a>
 					<?php
 				} elseif ( version_compare( $remote_data['version'], $version_info, '<=' ) ) {
 					?>

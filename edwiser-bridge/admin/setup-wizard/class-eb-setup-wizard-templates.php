@@ -822,11 +822,11 @@ class Eb_Setup_Wizard_Templates {
 
 					<div style='width:85%;'>
 						<div>
-							<?php esc_html_e( 'We have noticed that ', 'edwiser-bridge' ) . '<b>' . esc_html_e( ' you have ', 'edwiser-bridge' ) . $result['total_users'] . esc_html_e( ' Moodle users ', 'edwiser-bridge' ) . '</b>' . esc_html_e( ' and the synchronization would take approximately half an hour. ', 'edwiser-bridge' ); ?>
+							<?php echo esc_html__( 'We have noticed that ', 'edwiser-bridge' ) . '<b>' . esc_html__( ' you have ', 'edwiser-bridge' ) . esc_html( $result['total_users'] ) . esc_html__( ' Moodle users ', 'edwiser-bridge' ) . '</b>' . esc_html__( ' and the synchronization would take approximately half an hour. ', 'edwiser-bridge' ); ?>
 						</div>
 
 						<div>
-							<?php '<b>' . esc_html_e( 'We strongly recommend you ', 'edwiser-bridge' ) . '</b>' . esc_html_e( ' to synchronize the users manually by referring to the documentation link.', 'edwiser-bridge' ); ?>
+							<?php echo '<b>' . esc_html__( 'We strongly recommend you ', 'edwiser-bridge' ) . '</b>' . esc_html__( ' to synchronize the users manually by referring to the documentation link.', 'edwiser-bridge' ); ?>
 						</div>
 					</div>
 				</div>
