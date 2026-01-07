@@ -1,0 +1,22 @@
+{
+  "name": "edwiser-bridge-blocks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@wordpress/api-fetch": "^7.18.0",
+    "@wordpress/scripts": "^30.10.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "@mantine/core": "^7.16.2",
+    "react-multi-carousel": "^2.8.5"
+  }
+}
