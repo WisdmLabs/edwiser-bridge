@@ -305,6 +305,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 		 * Ajax callback to unenroo the users from the database
 		 */
 		public function unenroll_user_ajax_handler() {
+			// SECURITY FIX: Check user capability before processing.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+			}
+
 			$response = esc_html__( 'Failed to unenroll user', 'edwiser-bridge' );
 			if ( isset( $_POST['user_id'] ) && isset( $_POST['course_id'] ) && isset( $_POST['action'] ) && 'wdm_eb_user_manage_unenroll_unenroll_user' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
