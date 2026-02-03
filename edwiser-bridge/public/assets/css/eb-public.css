@@ -1489,3 +1489,86 @@ nav.eb-pagination ul li {
   background-color: hsl(16, 92.9%, 55.7%, 0.8) !important;
   color: #fff !important;
 }
+
+/* ===== Edwiser Bridge Course - Complete List Fix ===== */
+
+/* Base list styling */
+.eb-course-desc-wrapper ul,
+.single-eb_course ul,
+.entry-content ul,
+article.single-course ul {
+    list-style-type: disc !important;
+    margin: 0.5em 0 0.5em 1.5em !important;
+    padding-left: 1em !important;
+}
+
+.eb-course-desc-wrapper li,
+.single-eb_course li,
+.entry-content li,
+article.single-course li {
+    margin: 0.25em 0 !important;
+    line-height: 1.6 !important;
+}
+
+/* Level 1 - Disc (●) */
+.eb-course-desc-wrapper > ul > li,
+.single-eb_course ul > li,
+.entry-content ul > li,
+article.single-course ul > li {
+    list-style-type: disc !important;
+}
+
+/* Level 2 - Circle (○) */
+.eb-course-desc-wrapper ul ul > li,
+.single-eb_course ul ul > li,
+.entry-content ul ul > li,
+article.single-course ul ul > li {
+    list-style-type: circle !important;
+}
+
+/* Level 3 - Square (■) */
+.eb-course-desc-wrapper ul ul ul > li,
+.single-eb_course ul ul ul > li,
+.entry-content ul ul ul > li,
+article.single-course ul ul ul > li {
+    list-style-type: square !important;
+}
+
+/* ===== IMPORTANT: Override inline style="list-style-type: none;" ===== */
+/* Wrapper li with inline none style - keep as none but fix nested */
+.eb-course-desc-wrapper li[style*="none"],
+.single-eb_course li[style*="none"],
+.entry-content li[style*="none"],
+article.single-course li[style*="none"] {
+    list-style-type: none !important;
+    margin-left: -1em !important;
+}
+
+/* But the li INSIDE that wrapper should show bullet */
+.eb-course-desc-wrapper li[style*="none"] ul > li,
+.single-eb_course li[style*="none"] ul > li,
+.entry-content li[style*="none"] ul > li,
+article.single-course li[style*="none"] ul > li {
+    list-style-type: circle !important;
+}
+
+/* Deeper nesting inside none wrapper */
+.eb-course-desc-wrapper li[style*="none"] ul ul > li,
+.single-eb_course li[style*="none"] ul ul > li,
+.entry-content li[style*="none"] ul ul > li,
+article.single-course li[style*="none"] ul ul > li {
+    list-style-type: square !important;
+}
+
+/* Teachers list specific */
+ul.teachers > li {
+    list-style-type: disc !important;
+}
+
+ul.teachers ul > li {
+    list-style-type: circle !important;
+}
+
+ul.teachers li[style*="none"] ul > li {
+    list-style-type: circle !important;
+}
