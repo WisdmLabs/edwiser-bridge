@@ -467,6 +467,11 @@ class EdwiserBridge_Blocks_Course_API
      */
     public function eb_get_single_course($request)
     {
+        // Start output buffering to capture any unwanted output from filters/hooks
+        if (ob_get_level() === 0) {
+            ob_start();
+        }
+
         $course_id = $request['course_id'];
         $course = get_post($course_id);
 
@@ -474,6 +479,10 @@ class EdwiserBridge_Blocks_Course_API
         wp_set_current_user($user_id);
 
         if (!$course || $course->post_type !== 'eb_course') {
+            // Clean buffer only if one exists
+            if (ob_get_level() > 0) {
+                ob_end_clean();
+            }
             return new WP_Error('no_course', __('Course not found', 'edwiser-bridge'), ['status' => 404]);
         }
 
@@ -554,7 +563,10 @@ class EdwiserBridge_Blocks_Course_API
             $response_data['course_expires_after_days'] = is_user_logged_in() && $is_enrolled && '0000-00-00 00:00:00' !== $remaining_access ? $remaining_access : $course_options['num_days_course_access'];
         }
 
-        ob_end_clean();
+        // Clean buffer only if one exists to avoid PHP notices
+        if (ob_get_level() > 0) {
+            ob_end_clean();
+        }
         return new WP_REST_Response($response_data, 200);
     }
 
