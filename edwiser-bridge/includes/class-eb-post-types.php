@@ -577,7 +577,7 @@ class Eb_Post_Types {
 				break;
 			default:
 				?>
-				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( $eb_plugin_url ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
+				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_url( $eb_plugin_url . 'images/question.png' ); ?>" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
 				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;
@@ -735,7 +735,7 @@ class Eb_Post_Types {
 				'%1$s' . __( 'scheduled for:  ', 'edwiser-bridge' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'edwiser-bridge' ) . '%4$s</a>', // @codingStandardsIgnoreLine
 				$singular,
 				date_i18n(
-					__( 'M j, Y @ G:i' ),
+					__( 'M j, Y @ G:i', 'edwiser-bridge' ),
 					strtotime( $post->post_date )
 				),
 				esc_url(

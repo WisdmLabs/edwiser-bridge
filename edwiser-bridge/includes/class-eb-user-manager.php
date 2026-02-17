@@ -1572,7 +1572,7 @@ class Eb_User_Manager {
 								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									continue;
 								}
-								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+								echo "<option value='" . esc_attr( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 							}
 							?>
 						</select>
@@ -1582,7 +1582,7 @@ class Eb_User_Manager {
 								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
 									continue;
 								}
-								echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+								echo "<option value='" . esc_attr( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 							}
 							?>
 						</datalist>
@@ -1602,7 +1602,7 @@ class Eb_User_Manager {
 							<?php
 							foreach ( $courses as $course ) {
 								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
-									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+									echo "<option value='" . esc_attr( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 								}
 							}
 							?>
@@ -1611,7 +1611,7 @@ class Eb_User_Manager {
 							<?php
 							foreach ( $courses as $course ) {
 								if ( in_array( $course->ID, $user_enrolled_courses, true ) ) {
-									echo "<option value='" . esc_html( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
+									echo "<option value='" . esc_attr( $course->ID ) . "'>" . esc_html( $course->post_title ) . '</option>';
 								}
 							}
 							?>
@@ -1775,6 +1775,10 @@ class Eb_User_Manager {
 	 */
 	public function moodle_link_unlink_user() {
 		$responce = array( 'code' => 'failed' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			echo wp_json_encode( $responce );
+			die();
+		}
 
 		// Proceed if nonce is verified.
 		if ( isset( $_POST['user_id'] ) && isset( $_POST['link_user'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
@@ -1818,6 +1822,10 @@ class Eb_User_Manager {
 	 * @since 2.2.1
 	 */
 	public function create_dummy_user() {
+		check_ajax_referer( 'check_sync_action', '_wpnonce_field' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		$response_array      = array(
 			'status' => 'error',
 		);

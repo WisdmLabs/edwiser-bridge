@@ -53,9 +53,11 @@ if ($my_courses_page_id) {
 
 		if ($has_block) {
 			// Render Gutenberg blocks.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_blocks() returns safe rendered block HTML.
 			echo do_blocks($content->post_content);
 		} else {
 			// Render as shortcode.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() returns safe rendered shortcode HTML.
 			echo do_shortcode($content->post_content);
 		}
 	}

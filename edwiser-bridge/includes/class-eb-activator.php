@@ -234,6 +234,11 @@ class Eb_Activator
 				'file'    => '.htaccess',
 				'content' => 'deny from all',
 			),
+			array(
+				'base'    => $upload_dir['basedir'] . '/eb-logs/',
+				'file'    => 'index.php',
+				'content' => '<?php // Silence is golden.',
+			),
 		);
 
 		foreach ($files as $file) {
@@ -292,7 +297,7 @@ class Eb_Activator
 
 		foreach ($pages as $key => $page) {
 			$key;
-			\app\wisdmlabs\edwiserBridge\wdm_eb_create_page(esc_sql($page['name']), $page['option_key'], $page['title'], $page['content']);
+			\app\wisdmlabs\edwiserBridge\wdm_eb_create_page(sanitize_title($page['name']), $page['option_key'], $page['title'], $page['content']);
 		}
 		self::create_gutenberg_pages();
 	}

@@ -62,6 +62,7 @@ $template_loader = new \app\wisdmlabs\edwiserBridge\Eb_Template_Loader(
 	$eb_gutenberg_page_content = $gutenberg_pages['all_courses'];
 	$eb_gutenberg_page = get_post($eb_gutenberg_page_content);
 	if ($eb_gutenberg_page && !is_wp_error($eb_gutenberg_page)) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- apply_filters('the_content') returns safe HTML processed by WordPress core.
 		echo apply_filters('the_content', $eb_gutenberg_page->post_content);
 	} else {
 		$template_loader->wp_get_template_part('content', 'none');

@@ -17,6 +17,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Edwiser Bridge.
  */
@@ -760,31 +764,22 @@ class EdwiserBridge
 			$email_tmpl_editor,
 			'get_template_data_ajax_call_back'
 		);
-		$this->loader->eb_add_action(
-			'wp_ajax_nopriv_wdm_eb_get_email_template',
-			$email_tmpl_editor,
-			'get_template_data_ajax_call_back'
-		);
+		// SECURITY FIX: Removed wp_ajax_nopriv_wdm_eb_get_email_template - admin-only functionality
+		// should not be accessible to non-authenticated users.
+
 		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_send_test_email',
 			$email_tmpl_editor,
 			'send_test_email'
 		);
-		$this->loader->eb_add_action(
-			'wp_ajax_nopriv_wdm_eb_send_test_email',
-			$email_tmpl_editor,
-			'send_test_email'
-		);
-		$this->loader->eb_add_action(
-			'wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user',
-			$email_tmpl_editor,
-			'unenroll_user_ajax_handler'
-		);
-		$this->loader->eb_add_action(
-			'wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content',
-			$email_tmpl_editor,
-			'reset_email_template_content'
-		);
+		// SECURITY FIX: Removed wp_ajax_nopriv_wdm_eb_send_test_email - sending test emails
+		// should require authentication and admin privileges.
+
+		// SECURITY FIX: Removed wp_ajax_nopriv_wdm_eb_user_manage_unenroll_unenroll_user
+		// - unenrolling users should require authentication and proper capability.
+
+		// SECURITY FIX: Removed wp_ajax_nopriv_wdm_eb_email_tmpl_restore_content
+		// - restoring email templates should require authentication and admin privileges.
 
 		$this->loader->eb_add_action(
 			'wp_ajax_handleCourseSynchronization',

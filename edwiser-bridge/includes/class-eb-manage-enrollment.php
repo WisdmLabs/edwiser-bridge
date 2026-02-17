@@ -252,9 +252,12 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-			$query      = $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) );
-			$query      = wp_unslash( $query );
-			$results    = $wpdb->get_results( $query, ARRAY_A ); // WPCS: unprepared SQL OK. // @codingStandardsIgnoreLine
+			$user_ids   = array_map( 'intval', $users );
+			$placeholders = implode( ',', array_fill( 0, count( $user_ids ), '%d' ) );
+			$results    = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query for enrollment processing, caching not applicable.
+				$wpdb->prepare( "SELECT user_id, course_id FROM {$wpdb->prefix}moodle_enrollment WHERE id IN ({$placeholders})", $user_ids ),
+				ARRAY_A
+			);
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {
@@ -305,6 +308,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 		 * Ajax callback to unenroo the users from the database
 		 */
 		public function unenroll_user_ajax_handler() {
+			// SECURITY FIX: Check user capability before processing.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+			}
+
 			$response = esc_html__( 'Failed to unenroll user', 'edwiser-bridge' );
 			if ( isset( $_POST['user_id'] ) && isset( $_POST['course_id'] ) && isset( $_POST['action'] ) && 'wdm_eb_user_manage_unenroll_unenroll_user' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 

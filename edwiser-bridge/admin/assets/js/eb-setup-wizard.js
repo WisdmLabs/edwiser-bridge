@@ -383,13 +383,13 @@
 
                                 setTimeout( function(){
                                     $('.eb-setup-content').html(response.data.content);
-                                    $('.eb-setup-header-title').html(response.data.title);
+                                    $('.eb-setup-header-title').text(response.data.title);
                                 }  , 2000 );
 
 
                             } else {
                                 $('.eb-setup-content').html(response.data.content);
-                                $('.eb-setup-header-title').html(response.data.title);
+                                $('.eb-setup-header-title').text(response.data.title);
                             }
                             
                             change_url( next_step );
@@ -631,7 +631,7 @@
                             $('.eb_setup_test_conn_error').css('display', 'block');
                             $('.eb_setup_test_conn_success').css('display', 'none');
 
-                            $('.eb_setup_test_conn_error').html( 'Error : ' + response.data.response_message);
+                            $('.eb_setup_test_conn_error').text( 'Error : ' + response.data.response_message);
                         }
 
                         $("#eb-lading-parent").hide();
@@ -1115,14 +1115,14 @@
                     success: function (response) {
                         $('.load-response').hide();
                         if ( response.success === true ) {
-                            $('.eb_setup_sso_response').html(response.data);
+                            $('.eb_setup_sso_response').text(response.data);
                             $('.eb_setup_sso_response').addClass('eb_setup_settings_success_msg');
                             var parent = $this.parent();
                             var cont_btn = parent.children('.eb_setup_save_and_continue');
                             cont_btn.css('display', 'initial');
                             $this.css('display', 'none');
                         } else {
-                            $('.eb_setup_sso_response').html(response.data);
+                            $('.eb_setup_sso_response').text(response.data);
                             $('.eb_setup_sso_response').addClass('eb_setup_settings_error_msg');
                         }
 

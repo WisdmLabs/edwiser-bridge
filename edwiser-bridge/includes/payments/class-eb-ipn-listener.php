@@ -140,13 +140,8 @@ class Eb_Ipn_Listener {
 	 *  @throws \Exception Exception.
 	 */
 	protected function curl_post( $encoded_data ) {
-		if ( $this->use_ssl ) {
-			$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
-			$this->post_uri = $uri;
-		} else {
-			$uri            = 'http://' . $this->get_paypal_host() . '/cgi-bin/webscr';
-			$this->post_uri = $uri;
-		}
+		$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
+		$this->post_uri = $uri;
 
 		$encoded_data['cmd'] = '_notify-validate';
 
@@ -190,15 +185,9 @@ class Eb_Ipn_Listener {
 	 *  @throws \Exception Exception.
 	 */
 	protected function fsock_post( $encoded_data ) {
-		if ( $this->use_ssl ) {
-			$uri            = 'ssl://' . $this->get_paypal_host();
-			$port           = '443';
-			$this->post_uri = $uri . '/cgi-bin/webscr';
-		} else {
-			$uri            = $this->get_paypal_host(); // no "http://" in call to fsockopen().
-			$port           = '80';
-			$this->post_uri = 'http://' . $uri . '/cgi-bin/webscr';
-		}
+		$uri            = 'ssl://' . $this->get_paypal_host();
+		$port           = '443';
+		$this->post_uri = $uri . '/cgi-bin/webscr';
 
 		$_fp = fsockopen( $uri, $port, $errno, $errstr, $this->timeout ); // @codingStandardsIgnoreLine
 
@@ -212,6 +201,7 @@ class Eb_Ipn_Listener {
 		$header .= 'Content-Length: ' . strlen( $encoded_data ) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Writing to a socket stream, not a file; WP_Filesystem does not handle sockets.
 		fputs( $_fp, $header . $encoded_data . "\r\n\r\n" );
 
 		while ( ! feof( $_fp ) ) {

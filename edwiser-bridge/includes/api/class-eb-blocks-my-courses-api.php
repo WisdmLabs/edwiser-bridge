@@ -52,7 +52,7 @@ class EdwiserBridge_Blocks_My_Courses_API
             array(
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => array($this, 'eb_get_my_courses'),
-                'permission_callback' => '__return_true',
+                'permission_callback' => array($this, 'eb_check_permission'),
                 'args' => array(
                     'number_of_recommended_courses' => array(
                         'required' => false,
@@ -217,10 +217,10 @@ class EdwiserBridge_Blocks_My_Courses_API
 
             $course_data = array(
                 'id'        => $course->ID,
-                'title'     => __($course->post_title, 'edwiser-bridge'),
+                'title'     => $course->post_title,
                 'link'      => get_permalink($course->ID),
-                'excerpt'   => !empty($course_data['short_description']) ? __($course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($course->post_content, 'edwiser-bridge'))),
-                'category'  => !empty($course_data['categories']) ? __(html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8'), 'edwiser-bridge') : __('Uncategorized', 'edwiser-bridge'),
+                'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
+                'category'  => !empty($course_data['categories']) ? html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8') : __('Uncategorized', 'edwiser-bridge'),
                 'thumbnail' =>  $course_data['thumb_url'],
                 'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                 'price'     => [
@@ -309,10 +309,10 @@ class EdwiserBridge_Blocks_My_Courses_API
 
             $formatted_courses[] = array(
                 'id'        => $course->ID,
-                'title'     => __($course->post_title, 'edwiser-bridge'),
+                'title'     => $course->post_title,
                 'link'      => get_permalink($course->ID),
-                'excerpt'   => !empty($course_data['short_description']) ? __($course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($course->post_content, 'edwiser-bridge'))),
-                'category'  => !empty($course_data['categories']) ? __(html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8'), 'edwiser-bridge') : __('Uncategorized', 'edwiser-bridge'),
+                'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
+                'category'  => !empty($course_data['categories']) ? html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8') : __('Uncategorized', 'edwiser-bridge'),
                 'thumbnail' =>  $course_data['thumb_url'],
                 'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                 'price'     => [

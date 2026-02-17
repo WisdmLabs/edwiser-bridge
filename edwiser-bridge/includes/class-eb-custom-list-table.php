@@ -79,7 +79,17 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$where      = '';
 			$post_table = '';
 			$user_table = '';
-			$date       = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
+			// Build date filter conditions safely.
+			$date_conditions = '';
+			$date_params     = array();
+			if ( ! empty( $from ) ) {
+				$date_conditions .= 'time >= %s';
+				$date_params[]    = $from;
+			}
+			if ( ! empty( $to ) ) {
+				$date_conditions .= ( ! empty( $date_conditions ) ? ' AND ' : '' ) . 'time <= %s';
+				$date_params[]    = $to;
+			}
 
 			// There are 2 filters which need join query.
 			// 1. Course name.
@@ -89,29 +99,31 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$order      = $column . $order;
 				$where      = 'e.course_id=p.id';
 				$post_table = ', ' . $wpdb->posts . ' p ';
-				$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset );
 
 				if ( ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p WHERE {$where} AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
+					$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p WHERE {$where} AND p.post_title like %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $wpdb->esc_like( $search_text ) . '%', $per_page, $offset );
 				}
 			} elseif ( 'user' === $filter ) {
 				$column     = ' u.user_login ';
 				$order      = $column . $order;
 				$where      = 'e.user_id=u.ID';
 				$user_table = ', ' . $wpdb->users . ' u';
-				$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
+				$stmt  = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e  {$post_table} {$user_table}  WHERE {$where} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset );
 
 				if ( ! empty( $search_text ) ) {
-					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment e LEFT JOIN {$wpdb->posts} p ON p.ID=e.course_id LEFT JOIN {$wpdb->users} u ON u.ID=e.user_id WHERE p.post_title like %s AND u.ID=e.user_id  ORDER BY u.user_login", '%' . $search_text . '%' );
+					$stmt = $wpdb->prepare( "SELECT e.*, u.user_login FROM {$wpdb->prefix}moodle_enrollment e LEFT JOIN {$wpdb->posts} p ON p.ID=e.course_id LEFT JOIN {$wpdb->users} u ON u.ID=e.user_id WHERE p.post_title like %s AND u.ID=e.user_id  ORDER BY u.user_login", '%' . $wpdb->esc_like( $search_text ) . '%' );
 				}
 			}
 
-			if ( ! empty( $from ) || ! empty( $to ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} AND {$date} ORDER BY {$order} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
-			}
+			$has_date = ! empty( $date_conditions );
 
-			if ( ( ! empty( $from ) || ! empty( $to ) ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM wp_moodle_enrollment e LEFT JOIN wp_posts p ON p.ID=e.course_id LEFT JOIN wp_users u ON e.user_id=u.ID WHERE p.post_title like %s AND time>= %s  AND time<= %s ORDER BY {$order} LIMIT %d OFFSET %d", '%' . $search_text . '%', $from, $to, $per_page, $offset ); // @codingStandardsIgnoreLine.
+			if ( $has_date && ! empty( $search_text ) ) {
+				$params = array_merge( array( '%' . $wpdb->esc_like( $search_text ) . '%' ), $date_params, array( $per_page, $offset ) );
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e LEFT JOIN {$wpdb->posts} p ON p.ID=e.course_id LEFT JOIN {$wpdb->users} u ON e.user_id=u.ID WHERE p.post_title LIKE %s AND {$date_conditions} ORDER BY {$order} LIMIT %d OFFSET %d", $params );
+			} elseif ( $has_date ) {
+				$params = array_merge( $date_params, array( $per_page, $offset ) );
+				$stmt = $wpdb->prepare( "SELECT e.*, {$column} FROM {$wpdb->prefix}moodle_enrollment e {$post_table} {$user_table}  WHERE {$where} AND {$date_conditions} ORDER BY {$order} LIMIT %d OFFSET %d", $params );
 			}
 
 			return $stmt;
@@ -137,7 +149,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$search_text = isset( $post_data['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $post_data['ebemt_search'] ) ) : '';
 			$from        = isset( $post_data['enrollment_from_date'] ) ? sanitize_text_field( wp_unslash( $post_data['enrollment_from_date'] ) ) : '';
 			$to          = isset( $post_data['enrollment_to_date'] ) ? sanitize_text_field( wp_unslash( $post_data['enrollment_to_date'] ) ) : '';
-			$date        = empty( $from ) ? '' : "time> '" . esc_sql( $from ) . "'" . ( empty( $to ) ? '' : " AND time< '" . esc_sql( $to ) . "'" );
+			// Date filtering is handled safely via $wpdb->prepare() in eb_get_filter_query().
 
 			// If no sort, default to title.
 			$order_by = ! empty( $_REQUEST['orderby'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id';
@@ -157,26 +169,40 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 				$order_by = 'time';
 			}
 
-			$order_by = $wpdb->_real_escape( $order_by );
-			$order    = $wpdb->_real_escape( $order );
-
 			$order_query = $order_by . ' ' . strtoupper( $order );
 
 			// Determine sort order.
 			$tbl_records = array();
 			$offset      = ( $current_page - 1 ) * $per_page;
-			$stmt        = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment ORDER BY {$order_query} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
 
-			if ( ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
+			// Build date filter conditions.
+			$date_conditions = '';
+			$date_params     = array();
+			if ( ! empty( $from ) ) {
+				$date_conditions .= 'time >= %s';
+				$date_params[]    = $from;
+			}
+			if ( ! empty( $to ) ) {
+				$date_conditions .= ( ! empty( $date_conditions ) ? ' AND ' : '' ) . 'time <= %s';
+				$date_params[]    = $to;
 			}
 
-			if ( ! empty( $from ) || ! empty( $to ) ) {
-				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment  WHERE {$date} ORDER BY {$order_query} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
+			$search_like = ! empty( $search_text ) ? '%' . $wpdb->esc_like( $search_text ) . '%' : '';
+
+			$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment ORDER BY {$order_query} LIMIT %d OFFSET %d", $per_page, $offset ); // @codingStandardsIgnoreLine.
+
+			if ( ! empty( $search_like ) ) {
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s ORDER BY {$order_query} LIMIT %d OFFSET %d", $search_like, $per_page, $offset ); // @codingStandardsIgnoreLine.
 			}
 
-			if ( ( ! empty( $from ) || ! empty( $to ) ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND {$date} ORDER BY {$order_query} LIMIT %d OFFSET %d", '%' . $search_text . '%', $per_page, $offset ); // @codingStandardsIgnoreLine.
+			if ( ! empty( $date_conditions ) && empty( $search_like ) ) {
+				$params = array_merge( $date_params, array( $per_page, $offset ) );
+				$stmt = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}moodle_enrollment WHERE {$date_conditions} ORDER BY {$order_query} LIMIT %d OFFSET %d", $params ); // @codingStandardsIgnoreLine.
+			}
+
+			if ( ! empty( $date_conditions ) && ! empty( $search_like ) ) {
+				$params = array_merge( array( $search_like ), $date_params, array( $per_page, $offset ) );
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND {$date_conditions} ORDER BY {$order_query} LIMIT %d OFFSET %d", $params ); // @codingStandardsIgnoreLine.
 			}
 
 			// Need to check above if conditions again because of prepare statements as direct concatenating is prohibited.
@@ -223,7 +249,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			$stmt = "SELECT * FROM {$wpdb->prefix}moodle_enrollment";
 
 			if ( ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $search_text . '%' );
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s", '%' . $wpdb->esc_like( $search_text ) . '%' );
 			}
 
 			if ( ! empty( $from ) ) {
@@ -235,11 +261,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Custom_List_Table' ) ) {
 			}
 
 			if ( ! empty( $from ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ", '%' . $search_text . '%', $from ); // @codingStandardsIgnoreLine.
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s ", '%' . $wpdb->esc_like( $search_text ) . '%', $from ); // @codingStandardsIgnoreLine.
 			}
 
 			if ( ! empty( $from ) && ! empty( $to ) && ! empty( $search_text ) ) {
-				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s ", '%' . $search_text . '%', $from, $to );
+				$stmt = $wpdb->prepare( "SELECT e.* FROM {$wpdb->prefix}moodle_enrollment e, {$wpdb->posts} p where e.course_id=p.id AND p.post_title like %s AND time>= %s  AND time<= %s ", '%' . $wpdb->esc_like( $search_text ) . '%', $from, $to );
 			}
 
 			$total_result_stmt = $wpdb->get_results( $stmt ); // @codingStandardsIgnoreLine

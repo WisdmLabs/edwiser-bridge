@@ -274,6 +274,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Added This new function instead of adding one by one function for wp_ajax hook, as by default parameter is not being set in each step callback so wrote below wrapper function for all of them and provided parameter 1.
 	 */
 	public function eb_setup_change_step() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			$step                   = isset( $_POST['step'] ) ? sanitize_text_field( wp_unslash( $_POST['step'] ) ) : '';
 			$steps                  = $this->eb_setup_wizard_get_steps();
@@ -289,7 +292,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Manage license.
 	 */
 	public function eb_setup_manage_license() {
-
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			if ( ! class_exists( 'Licensing_Settings' ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'settings/class-eb-settings-page.php';
@@ -327,6 +332,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard validate license keys.
 	 */
 	public function eb_setup_validate_license() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		$response = array(
 			'status' => 'error',
 			'msg'    => __( 'Something went wrong. Please try again.', 'edwiser-bridge' ),
@@ -415,6 +423,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_test_connection_handler() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 
 			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
@@ -433,6 +444,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_course_sync() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			$publish                              = isset( $_POST['publish'] ) ? sanitize_text_field( wp_unslash( $_POST['publish'] ) ) : '';
 			$sync_options['eb_synchronize_draft'] = '1';
@@ -453,6 +467,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Save step and redirect to next step.
 	 */
 	public function eb_setup_save_and_continue() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			$data             = $_POST['data']; // phpcs:ignore
 			$current_step     = $data['current_step'];
@@ -711,11 +728,13 @@ class Eb_Setup_Wizard_Functions {
 				'contact_hosting'				  => esc_html__( 'The plugin is receiving an invalid response code from Moodle website or is unable to connect. Please contact your hosting provider.', 'edwiser-bridge' ),
 				'token_mismatch'				  => esc_html__( 'Token added does not match the token configured on the moodle site.', 'edwiser-bridge' ),
 				'not_authorized' 				  => esc_html__( 'The user(s) associated with the token creation in Moodle are either not included in the web service\'s authorized users list or lack the required site administrator or manager roles. Consequently, their access is limited, which may result in issues with data synchronization.', 'edwiser-bridge' ),
-				'turn_off_debug_log'			  => sprintf( esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %s here %s to learn more.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/575-disabling-debugging-in-wordpress-and-moodle" target="_blank">', '</a>' ),
+				/* translators: %1$s: opening link tag, %2$s: closing link tag */
+			'turn_off_debug_log'			  => sprintf( esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %1$s here %2$s to learn more.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/575-disabling-debugging-in-wordpress-and-moodle" target="_blank">', '</a>' ),
 				'please_refresh'			  	  => esc_html__( 'Please refresh the page and check again. If the issue is still not resolved please contact support.', 'edwiser-bridge' ),
 				'wp_version_issue'  			  => esc_html__( 'Your WordPress version is not supported. Please upgrade to the latest version.', 'edwiser-bridge' ),
 				'rest_disable_issue'			  => esc_html__( 'The REST API is disabled by either a Security plugin or some other plugin using hooks. It might also have been disabled in your server configuration. Please disable any security plugins and search for conflicts. If the issue doesnt get resolved contact the hosting provider to confirm that server configuration is not causing any issues.', 'edwiser-bridge' ),
-				'permalink_setting_issue'		  => sprintf( esc_html__( 'Please change your permalink settings manually to Post Name by navigating in Settings > %s Permalink Settings %s and click Test Connection again after refreshing the page.', 'edwiser-bridge' ), '<a href="/wp-admin/options-permalink.php" target="_blank">', '</a>' ),
+				/* translators: %1$s: opening link tag, %2$s: closing link tag */
+			'permalink_setting_issue'		  => sprintf( esc_html__( 'Please change your permalink settings manually to Post Name by navigating in Settings > %1$s Permalink Settings %2$s and click Test Connection again after refreshing the page.', 'edwiser-bridge' ), '<a href="/wp-admin/options-permalink.php" target="_blank">', '</a>' ),
 				'htaccess_file_missing'			  => esc_html__( 'The .htaccess file is missing. Please click Fix now link shown to create the file.', 'edwiser-bridge' ),
 				'htaccess_rule_missing'		      => esc_html__( 'The .htaccess file is missing the required rewrite rule. Please click Fix now link shown to add the rule.', 'edwiser-bridge' ),
 				'htaccess_rule_instructions'	  => esc_html__( 'Please add the following rule to the .htaccess file located in the root of your website or create the file to add the rules. "# BEGIN WordPress
@@ -1093,7 +1112,7 @@ RewriteRule . /index.php [L]
 		} elseif ( is_null( $result ) ) {
 			global $wp_filesystem;
 
-			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'Unable to connect to the filesystem. Please confirm your credentials.' ) . '</span>';
+			$status = '<span class="eb_license_error"><span class="dashicons dashicons-no"></span>' . __( 'Unable to connect to the filesystem. Please confirm your credentials.', 'edwiser-bridge' ) . '</span>';
 
 			// Pass through the error from WP_Filesystem if one was raised.
 			if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {

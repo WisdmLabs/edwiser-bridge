@@ -215,13 +215,15 @@ class Eb_Admin {
 				'server_blocking_check'           => esc_html__( 'Is the moodle site webservice accessible?', 'edwiser-bridge' ),
 				'contact_support'				  => esc_html__( 'Invalid response from server. Please contact plugin support', 'edwiser-bridge' ),
 				'contact_hosting'				  => esc_html__( 'The plugin is receiving an invalid response code from Moodle website or is unable to connect. Please contact your hosting provider.', 'edwiser-bridge' ),
-				'turn_off_debug_log'			  => sprintf( esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %s here %s to learn more.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/575-disabling-debugging-in-wordpress-and-moodle" target="_blank">', '</a>' ),
+				/* translators: %1$s: opening link tag, %2$s: closing link tag */
+			'turn_off_debug_log'			  => sprintf( esc_html__( 'Please turn off debug display(WP_DEBUG & WP_DEBUG_DISPLAY) in wp-config.php and disable debug mode on Moodle website as well to fix this issue. Click %1$s here %2$s to learn more.', 'edwiser-bridge' ), '<a href="https://edwiser.helpscoutdocs.com/article/575-disabling-debugging-in-wordpress-and-moodle" target="_blank">', '</a>' ),
 				'token_mismatch'				  => esc_html__( 'Token added does not match the token configured on the moodle site.', 'edwiser-bridge' ),
 				'not_authorized' 				  => esc_html__( 'The user(s) associated with the token creation in Moodle are either not included in the web service\'s authorized users list or lack the required site administrator or manager roles. Consequently, their access is limited, which may result in issues with data synchronization.', 'edwiser-bridge' ),
 				'please_refresh'			  	  => esc_html__( 'Please refresh the page and check again. If the issue is still not resolved please contact support.', 'edwiser-bridge' ),
 				'wp_version_issue'  			  => esc_html__( 'Your WordPress version is not supported. Please upgrade to the latest version.', 'edwiser-bridge' ),
 				'rest_disable_issue'			  => esc_html__( 'The REST API is disabled by either a Security plugin or some other plugin using hooks. It might also have been disabled in your server configuration. Please disable any security plugins and search for conflicts. If the issue doesnt get resolved contact the hosting provider to confirm that server configuration is not causing any issues.', 'edwiser-bridge' ),
-				'permalink_setting_issue'		  => sprintf( esc_html__( 'Please change your permalink settings manually to Post Name by navigating in Settings > %s Permalink Settings %s and check again.', 'edwiser-bridge' ), '<a href="/wp-admin/options-permalink.php" target="_blank">', '</a>' ),
+				/* translators: %1$s: opening link tag, %2$s: closing link tag */
+			'permalink_setting_issue'		  => sprintf( esc_html__( 'Please change your permalink settings manually to Post Name by navigating in Settings > %1$s Permalink Settings %2$s and check again.', 'edwiser-bridge' ), '<a href="/wp-admin/options-permalink.php" target="_blank">', '</a>' ),
 				'htaccess_file_missing'			  => esc_html__( 'The .htaccess file is missing. Please click Fix now link shown to create the file.', 'edwiser-bridge' ),
 				'htaccess_rule_missing'		      => esc_html__( 'The .htaccess file is missing the required rewrite rule. Please click Fix now link shown to add the rule.', 'edwiser-bridge' ),
 				'htaccess_rule_instructions'	  => esc_html__( 'Please add the following rule to the .htaccess file located in the root of your website or create the file to add the rules. "# BEGIN WordPress
@@ -275,10 +277,10 @@ RewriteRule . /index.php [L]
 		foreach ( $log_files as $log_file ) {
 			$log_file_path = trailingslashit( $log_folder ) . $log_file . '-' . sanitize_file_name( wp_hash( $log_file ) ) . '.log';
 			if ( file_exists( $log_file_path ) ) {
-				unlink( $log_file_path );
+				wp_delete_file( $log_file_path );
 			}
 		}
-		
+
 		// check if files older than one month are present.
 		$log_files = glob( $log_folder . '*.log' );
 		if ( $log_files ) {
@@ -288,7 +290,7 @@ RewriteRule . /index.php [L]
 				$y = (int)explode( '-', $file_name )[2];
 				if ( $m <= date_i18n( 'm' ) - 2 || $y < date_i18n( 'y' ) ) {
 					error_log( 'deleting file ' . $log_file );
-					unlink( $log_file );
+					wp_delete_file( $log_file );
 				}
 			}
 		}

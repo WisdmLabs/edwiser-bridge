@@ -228,7 +228,7 @@ class Eb_Admin_Notice_Handler
 								' . esc_html__('Get all Premium Edwiser Products at Flat 20% Off!', 'edwiser-bridge') . '
 
 								<div style="font-size:13px; padding-top:4px;">
-									<a href="' . esc_html($redirection) . '">
+									<a href="' . esc_url($redirection) . '">
 										' . esc_html__(' Dismiss this notice', 'edwiser-bridge') . '
 									</a>
 								</div>
@@ -394,7 +394,7 @@ class Eb_Admin_Notice_Handler
 						<a class="button" href="https://edwiser.org/edwiser-black-friday-giveaway/?utm_source=giveaway&utm_medium=spinthewheel&utm_campaign=bfcm22" target="_blank"><?php esc_html_e('Spin and Win', 'edwiser-bridge'); ?></a>
 					</div>
 					<div class="eb-admin-bfcm-notice-message-dismiss">
-						<a href="<?php echo esc_html($redirection); ?>">
+						<a href="<?php echo esc_url($redirection); ?>">
 							<span class="dashicons dashicons-no-alt eb_admin_bfcm_notice_hide"></span>
 						</a>
 					</div>
@@ -436,7 +436,7 @@ class Eb_Admin_Notice_Handler
 						?>
 					</div>
 					<div class="eb-admin-bfcm-notice-message-dismiss">
-						<a href="<?php echo esc_html($redirection); ?>">
+						<a href="<?php echo esc_url($redirection); ?>">
 							<span class="dashicons dashicons-no-alt eb_admin_bfcm_notice_hide"></span>
 						</a>
 					</div>
@@ -519,27 +519,27 @@ class Eb_Admin_Notice_Handler
 					<div class="eb_admin_remui_demo_notice_message">
 						<div class="eb_remui_demo_notice_content">
 							<h1 class="upgrade-pro-title" style="font-size: 28px; font-weight: 800;">
-								<span style="color: #f00;"><?php _e('Want more?', 'edwiser-bridge'); ?></span> <?php _e('Unlock the full potential of your Moodle-WordPress integration!', 'edwiser-bridge'); ?>
+								<span style="color: #f00;"><?php esc_html_e('Want more?', 'edwiser-bridge'); ?></span> <?php esc_html_e('Unlock the full potential of your Moodle-WordPress integration!', 'edwiser-bridge'); ?>
 							</h1>
 							<div class="upgrade-pro-content">
 								<p style="font-size: 18px; font-weight: 400; color: #133F3F;">
-									✅ <strong><?php _e('Sync only what you need with Selective Synchronization', 'edwiser-bridge'); ?></strong>
+									✅ <strong><?php esc_html_e('Sync only what you need with Selective Synchronization', 'edwiser-bridge'); ?></strong>
 								</p>
 								<p style="font-size: 18px; font-weight: 400; color: #133F3F;">
-									✅ <strong><?php _e('Sell subscription courses with WooCommerce integration', 'edwiser-bridge'); ?></strong>
+									✅ <strong><?php esc_html_e('Sell subscription courses with WooCommerce integration', 'edwiser-bridge'); ?></strong>
 								</p>
 								<p style="font-size: 18px; font-weight: 400; color: #133F3F;">
-									✅ <strong><?php _e('Log in once to access both WordPress and Moodle with Single Sign-On', 'edwiser-bridge'); ?></strong>
+									✅ <strong><?php esc_html_e('Log in once to access both WordPress and Moodle with Single Sign-On', 'edwiser-bridge'); ?></strong>
 								</p>
 								<p style="font-size: 18px; font-weight: 400; color: #133F3F;">
-									✅ <strong><?php _e('Power up with Bulk Enrollments & Course Bundles', 'edwiser-bridge'); ?></strong>
+									✅ <strong><?php esc_html_e('Power up with Bulk Enrollments & Course Bundles', 'edwiser-bridge'); ?></strong>
 								</p>
 								<p style="font-size: 18px; font-weight: 400; color: #133F3F;">
-									<strong style="font-style: italic; color: #008B91;"><?php _e('& much more!', 'edwiser-bridge'); ?></strong>
+									<strong style="font-style: italic; color: #008B91;"><?php esc_html_e('& much more!', 'edwiser-bridge'); ?></strong>
 								</p>
 							</div>
 							<a class="remui-button" href="https://edwiser.org/edwiser-bridge-pro/?utm_source=inproduct&utm_medium=pro_banner&utm_campaign=wordpress_bridge_listing" target="_blank" style="background-color: #F75D25; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 500; text-decoration: none; display: inline-block;">
-								<?php _e('Explore Edwiser Bridge PRO', 'edwiser-bridge'); ?>
+								<?php esc_html_e('Explore Edwiser Bridge PRO', 'edwiser-bridge'); ?>
 							</a>
 						</div>
 
@@ -683,7 +683,7 @@ class Eb_Admin_Notice_Handler
 	public function enqueue_template_modal_assets()
 	{
 		// Add data for the JS
-		wp_register_script('eb-template-modal-script', '', [], '', true);
+		wp_register_script('eb-template-modal-script', '', array(), '4.3.4', true);
 
 		wp_localize_script(
 			'eb-template-modal-script',
@@ -730,8 +730,8 @@ class Eb_Admin_Notice_Handler
 					</svg></button>
 
 				<div class="eb__modal-content">
-					<h1><?php _e("Upgrade your store's look today!", 'edwiser-bridge'); ?></h1>
-					<p><?php _e("We've introduced new templates for key WooCommerce pages in Edwiser Bridge!", 'edwiser-bridge'); ?></p>
+					<h1><?php esc_html_e("Upgrade your store's look today!", 'edwiser-bridge'); ?></h1>
+					<p><?php esc_html_e("We've introduced new templates for key WooCommerce pages in Edwiser Bridge!", 'edwiser-bridge'); ?></p>
 
 					<div class="eb__feature-list">
 						<div class="eb__feature-item">
@@ -739,25 +739,25 @@ class Eb_Admin_Notice_Handler
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text"><?php _e("Fully customizable with WordPress Gutenberg", 'edwiser-bridge'); ?></span>
+							<span class="eb__feature-text"><?php esc_html_e("Fully customizable with WordPress Gutenberg", 'edwiser-bridge'); ?></span>
 						</div>
 						<div class="eb__feature-item">
 							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text"><?php _e("Improved design for a better user experience", 'edwiser-bridge'); ?></span>
+							<span class="eb__feature-text"><?php esc_html_e("Improved design for a better user experience", 'edwiser-bridge'); ?></span>
 						</div>
 						<div class="eb__feature-item">
 							<span class="eb__check-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-chevron-right-icon lucide-square-chevron-right">
 									<rect width="18" height="18" x="3" y="3" rx="2" />
 									<path d="m10 8 4 4-4 4" />
 								</svg></span>
-							<span class="eb__feature-text"><?php _e("Easy to apply from the Template Settings", 'edwiser-bridge'); ?></span>
+							<span class="eb__feature-text"><?php esc_html_e("Easy to apply from the Template Settings", 'edwiser-bridge'); ?></span>
 						</div>
 					</div>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("View New Templates", 'edwiser-bridge'); ?></a>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates')); ?>" class="eb__modal-cta"><?php esc_html_e("View New Templates", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -784,10 +784,10 @@ class Eb_Admin_Notice_Handler
 					</svg></button>
 
 				<div class="eb__modal-content">
-					<h1><?php _e("Your course pages just got an upgrade!", 'edwiser-bridge'); ?></h1>
-					<p><?php _e("We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.", 'edwiser-bridge'); ?></p>
+					<h1><?php esc_html_e("Your course pages just got an upgrade!", 'edwiser-bridge'); ?></h1>
+					<p><?php esc_html_e("We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.", 'edwiser-bridge'); ?></p>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("Check out the new pages!", 'edwiser-bridge'); ?></a>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates')); ?>" class="eb__modal-cta"><?php esc_html_e("Check out the new pages!", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -805,6 +805,9 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_mark_template_modal_as_viewed()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		check_ajax_referer('eb_template_modal_nonce', 'nonce');
 
 		if (isset($_POST['modal_type']) && $_POST['modal_type'] === 'free') {
@@ -858,33 +861,33 @@ class Eb_Admin_Notice_Handler
 				<div class="eb-modal-initial-body">
 					<div class="eb-modal__body">
 						<div class="eb-modal__visual">
-							<img src="<?php echo plugins_url('admin/assets/images/update-preview.png', dirname(__FILE__)); ?>" alt="Update Preview" class="eb-modal__image" />
+							<img src="<?php echo esc_url(plugins_url('admin/assets/images/update-preview.png', dirname(__FILE__))); ?>" alt="Update Preview" class="eb-modal__image" />
 						</div>
 						<div class="eb-modal__content">
-							<h2 class="eb-modal__title"><?php _e('Explore the New Look of User-Account & My Courses Page!', 'edwiser-bridge'); ?></h2>
+							<h2 class="eb-modal__title"><?php esc_html_e('Explore the New Look of User-Account & My Courses Page!', 'edwiser-bridge'); ?></h2>
 							<p class="eb-modal__desc">
-								<?php _e('We\'ve redesigned the', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($user_account_url); ?>" class="eb-modal__link" target="_blank"><?php _e('User Account', 'edwiser-bridge'); ?></a> <?php _e('and', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($my_courses_url); ?>" class="eb-modal__link" target="_blank"><?php _e('My Courses', 'edwiser-bridge'); ?></a> <?php _e('pages to be cleaner, faster, and easier to use — without changing how things work.', 'edwiser-bridge'); ?>
+								<?php esc_html_e('We\'ve redesigned the', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($user_account_url); ?>" class="eb-modal__link" target="_blank"><?php esc_html_e('User Account', 'edwiser-bridge'); ?></a> <?php esc_html_e('and', 'edwiser-bridge'); ?> <a href="<?php echo esc_url($my_courses_url); ?>" class="eb-modal__link" target="_blank"><?php esc_html_e('My Courses', 'edwiser-bridge'); ?></a> <?php esc_html_e('pages to be cleaner, faster, and easier to use — without changing how things work.', 'edwiser-bridge'); ?>
 							</p>
 							<div class="eb-modal__note">
-								<strong><?php _e('NOTE:', 'edwiser-bridge'); ?></strong>
+								<strong><?php esc_html_e('NOTE:', 'edwiser-bridge'); ?></strong>
 								<ul>
-									<li><?php _e('You can switch designs anytime:', 'edwiser-bridge'); ?> <br>
-										<span class="eb-modal__note-path"><?php _e('WP Admin &gt; Edwiser Bridge &gt; Settings &gt; Templates', 'edwiser-bridge'); ?></span>
+									<li><?php esc_html_e('You can switch designs anytime:', 'edwiser-bridge'); ?> <br>
+										<span class="eb-modal__note-path"><?php esc_html_e('WP Admin &gt; Edwiser Bridge &gt; Settings &gt; Templates', 'edwiser-bridge'); ?></span>
 									</li>
-									<li><?php _e('Any customizations made to the current design will stay on the old version', 'edwiser-bridge'); ?></li>
+									<li><?php esc_html_e('Any customizations made to the current design will stay on the old version', 'edwiser-bridge'); ?></li>
 								</ul>
 							</div>
 							<div class="eb-modal__actions">
-								<button class="eb-modal__btn eb-modal__btn--secondary" id="eb-let-me-select"><?php _e('Let me select', 'edwiser-bridge'); ?></button>
-								<button class="eb-modal__btn eb-modal__btn--primary" id="eb-switch-to-new"><?php _e('Switch to new design', 'edwiser-bridge'); ?></button>
+								<button class="eb-modal__btn eb-modal__btn--secondary" id="eb-let-me-select"><?php esc_html_e('Let me select', 'edwiser-bridge'); ?></button>
+								<button class="eb-modal__btn eb-modal__btn--primary" id="eb-switch-to-new"><?php esc_html_e('Switch to new design', 'edwiser-bridge'); ?></button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="eb-modal-success-body" style="display: none;">
-					<h2 class="eb-modal__title"><?php _e('Congratulations!', 'edwiser-bridge'); ?></h2>
-					<p><?php _e('You\'ve successfully switched to the revamped version of', 'edwiser-bridge'); ?> <strong><?php _e('User Account', 'edwiser-bridge'); ?></strong> <?php _e('and', 'edwiser-bridge'); ?> <strong><?php _e('My Courses', 'edwiser-bridge'); ?></strong> <?php _e('pages', 'edwiser-bridge'); ?></p>
-					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates#user_account')); ?>" class="eb-modal__btn eb-modal__btn--primary"><?php _e('View settings', 'edwiser-bridge'); ?></a>
+					<h2 class="eb-modal__title"><?php esc_html_e('Congratulations!', 'edwiser-bridge'); ?></h2>
+					<p><?php esc_html_e('You\'ve successfully switched to the revamped version of', 'edwiser-bridge'); ?> <strong><?php esc_html_e('User Account', 'edwiser-bridge'); ?></strong> <?php esc_html_e('and', 'edwiser-bridge'); ?> <strong><?php esc_html_e('My Courses', 'edwiser-bridge'); ?></strong> <?php esc_html_e('pages', 'edwiser-bridge'); ?></p>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates#user_account')); ?>" class="eb-modal__btn eb-modal__btn--primary"><?php esc_html_e('View settings', 'edwiser-bridge'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -899,7 +902,7 @@ class Eb_Admin_Notice_Handler
 	public function enqueue_update_modal_assets()
 	{
 		// Add data for the JS
-		wp_register_script('eb-update-modal-script', '', [], '', true);
+		wp_register_script('eb-update-modal-script', '', array(), '4.3.4', true);
 
 		wp_localize_script(
 			'eb-update-modal-script',
@@ -992,8 +995,11 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_mark_update_modal_as_viewed()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		// Verify nonce
-		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'eb_update_modal_nonce')) {
 			wp_die('Security check failed');
 		}
 
@@ -1008,8 +1014,11 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_switch_to_new_design()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		// Verify nonce
-		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'eb_update_modal_nonce')) {
 			wp_die('Security check failed');
 		}
 

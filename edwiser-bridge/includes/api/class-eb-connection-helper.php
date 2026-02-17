@@ -160,9 +160,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$request_args['body'] = array(
@@ -179,7 +179,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -204,7 +204,7 @@ class Eb_Connection_Helper {
 				global $current_user;
                 wp_get_current_user();
                 $error_data = array(
-                    'url'          => $request_url,
+                    'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
                     'arguments'    => $request_args,
                     'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
                     'responsecode' => '',
@@ -231,7 +231,7 @@ class Eb_Connection_Helper {
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_args,
 					'user'         => $current_user->user_login . '(' . $current_user->user_firstname . ' ' . $current_user->user_lastname . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
@@ -297,9 +297,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$request_args['body'] = array(
@@ -332,9 +332,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$request_args['body'] = array(
@@ -378,9 +378,9 @@ class Eb_Connection_Helper {
 
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		foreach ( $webservice_functions as $webservice_function ) {
@@ -448,7 +448,9 @@ class Eb_Connection_Helper {
 	                                	<div>' . $message . '</div>
 	                                </div>
 									<div>
-	                                	<div>' . sprintf( esc_html__( "Click %s Troubleshoot %s button to get more details.", "edwiser-bridge" ), '<strong>', '</strong>' ) . '</div>
+                                	<div>' .
+									/* translators: %1$s: opening tag, %2$s: closing tag */
+									sprintf( esc_html__( 'Click %1$s Troubleshoot %2$s button to get more details.', 'edwiser-bridge' ), '<strong>', '</strong>' ) . '</div>
 									</div>
 	                            </div>
 
@@ -507,9 +509,9 @@ class Eb_Connection_Helper {
 
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 		$response = wp_remote_post( $request_url, $request_args );
 
@@ -519,7 +521,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -540,7 +542,7 @@ class Eb_Connection_Helper {
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_args,
 					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
@@ -619,9 +621,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$response = wp_remote_post( $request_url, $request_args );
@@ -632,7 +634,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -656,7 +658,7 @@ class Eb_Connection_Helper {
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_data,
 					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),

@@ -63,21 +63,21 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
 						<label for="first-name"><?php esc_html_e( 'First Name', 'edwiser-bridge' ); ?></label>
-						<input class="text-input" name="first_name" type="text" id="first_name" value="<?php echo esc_html( $first_name ); ?>" />
+						<input class="text-input" name="first_name" type="text" id="first_name" value="<?php echo esc_attr( $first_name ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
 						<label for="last-name"><?php esc_html_e( 'Last Name', 'edwiser-bridge' ); ?></label>
-						<input class="text-input" name="last_name" type="text" id="last_name" value="<?php echo esc_html( $last_name ); ?>" />
+						<input class="text-input" name="last_name" type="text" id="last_name" value="<?php echo esc_attr( $last_name ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
 						<label for="nickname"><?php esc_html_e( 'Nick Name', 'edwiser-bridge' ); ?></label>
-						<input class="text-input" name="nickname" type="text" id="nickname" value="<?php echo esc_html( $nickname ); ?>" />
+						<input class="text-input" name="nickname" type="text" id="nickname" value="<?php echo esc_attr( $nickname ); ?>" />
 					</div>
 				</div>
 				<div class="eb-profile-row-block">
 					<div class="eb-profile-txt-field">
 						<label for="email"><?php esc_html_e( 'E-mail *', 'edwiser-bridge' ); ?></label>
-						<input class="text-input" name="email" type="email" id="email" value="<?php echo esc_html( $email ); ?>" required />
+						<input class="text-input" name="email" type="email" id="email" value="<?php echo esc_attr( $email ); ?>" required />
 					</div>
 				</div>
 				<?php
@@ -95,11 +95,11 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 					<div class="eb-profile-txt-field">
 						<label for="country"><?php esc_html_e( 'Country', 'edwiser-bridge' ); ?></label>
 						<select name="country" class='country' id="country"></select>
-					<input name="eb-selected-country" type="hidden" id="eb-selected-country" value="<?php echo esc_html( $country ); ?>" />
+					<input name="eb-selected-country" type="hidden" id="eb-selected-country" value="<?php echo esc_attr( $country ); ?>" />
 					</div>
 					<div class="eb-profile-txt-field">
 						<label for="city"><?php esc_html_e( 'City', 'edwiser-bridge' ); ?></label>
-						<input class="text-input" name="city" type="text" id="city" value="<?php echo esc_html( $city ); ?>" />
+						<input class="text-input" name="city" type="text" id="city" value="<?php echo esc_attr( $city ); ?>" />
 					</div>
 				</div>
 				<div class="eb-profile-row-block">

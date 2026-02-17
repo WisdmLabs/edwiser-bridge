@@ -1489,3 +1489,123 @@ nav.eb-pagination ul li {
   background-color: hsl(16, 92.9%, 55.7%, 0.8) !important;
   color: #fff !important;
 }
+
+/* ===== Edwiser Bridge Course - Complete List Fix ===== */
+/* Only targets course description content, NOT navigation/header */
+
+/* Base list styling - ONLY inside course description wrapper */
+.eb-course-desc-wrapper ul,
+.eb-course-desc__content-body ul {
+    list-style-type: disc !important;
+    margin: 0.5em 0 0.5em 1.5em !important;
+    padding-left: 1em !important;
+    list-style-position: outside !important;
+}
+
+.eb-course-desc-wrapper li,
+.eb-course-desc__content-body li {
+    margin: 0.25em 0 !important;
+    padding-left: 0.5em !important;
+    line-height: 1.6 !important;
+    display: list-item !important;
+}
+
+/* Level 1 - Disc (●) */
+.eb-course-desc-wrapper > ul > li,
+.eb-course-desc-wrapper ul > li,
+.eb-course-desc__content-body > ul > li,
+.eb-course-desc__content-body ul > li {
+    list-style-type: disc !important;
+}
+
+/* Level 2 - Circle (○) - Nested lists with proper indentation */
+.eb-course-desc-wrapper ul ul,
+.eb-course-desc__content-body ul ul {
+    list-style-type: circle !important;
+    margin-left: 1.5em !important;
+    padding-left: 1em !important;
+}
+
+.eb-course-desc-wrapper ul ul > li,
+.eb-course-desc__content-body ul ul > li {
+    list-style-type: circle !important;
+}
+
+/* Level 3 - Square (■) - Double nested with more indentation */
+.eb-course-desc-wrapper ul ul ul,
+.eb-course-desc__content-body ul ul ul {
+    list-style-type: square !important;
+    margin-left: 1.5em !important;
+    padding-left: 1em !important;
+}
+
+.eb-course-desc-wrapper ul ul ul > li,
+.eb-course-desc__content-body ul ul ul > li {
+    list-style-type: square !important;
+}
+
+/* ===== Override inline style="list-style-type: none;" ===== */
+.eb-course-desc-wrapper li[style*="none"],
+.eb-course-desc__content-body li[style*="none"] {
+    list-style-type: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Nested ul inside li with none style */
+.eb-course-desc-wrapper li[style*="none"] > ul,
+.eb-course-desc__content-body li[style*="none"] > ul {
+    margin-left: 1.5em !important;
+}
+
+.eb-course-desc-wrapper li[style*="none"] ul > li,
+.eb-course-desc__content-body li[style*="none"] ul > li {
+    list-style-type: circle !important;
+}
+
+.eb-course-desc-wrapper li[style*="none"] ul ul > li,
+.eb-course-desc__content-body li[style*="none"] ul ul > li {
+    list-style-type: square !important;
+}
+
+/* Teachers list specific - only inside course desc */
+.eb-course-desc-wrapper ul.teachers > li,
+.eb-course-desc__content-body ul.teachers > li {
+    list-style-type: disc !important;
+}
+
+.eb-course-desc-wrapper ul.teachers ul > li,
+.eb-course-desc__content-body ul.teachers ul > li {
+    list-style-type: circle !important;
+}
+
+.eb-course-desc-wrapper ul.teachers li[style*="none"] ul > li,
+.eb-course-desc__content-body ul.teachers li[style*="none"] ul > li {
+    list-style-type: circle !important;
+}
+
+/* Reset - Exclude navigation, menu, header from list styles */
+nav ul,
+.menu ul,
+.nav ul,
+header ul,
+.site-header ul,
+.main-navigation ul,
+.primary-menu ul,
+.wp-block-navigation ul {
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+nav li,
+.menu li,
+.nav li,
+header li,
+.site-header li,
+.main-navigation li,
+.primary-menu li,
+.wp-block-navigation li {
+    list-style-type: none !important;
+    margin: 0 !important;
+}

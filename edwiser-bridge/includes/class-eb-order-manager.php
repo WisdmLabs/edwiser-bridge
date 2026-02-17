@@ -324,6 +324,9 @@ class Eb_Order_Manager {
 	 * @since 1.0.0
 	 */
 	public function create_new_order_ajax_wrapper() {
+		if ( ! is_user_logged_in() ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You must be logged in to perform this action.', 'edwiser-bridge' ) ) );
+		}
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'public_js_nonce' ) ) {
@@ -332,10 +335,8 @@ class Eb_Order_Manager {
 
 		$success  = 0;
 		$order_id = 0;
-		$buyer_id = '';
-		if ( isset( $_POST['buyer_id'] ) ) {
-			$buyer_id = sanitize_text_field( wp_unslash( $_POST['buyer_id'] ) );
-		}
+		// Force buyer_id to current user to prevent IDOR.
+		$buyer_id = get_current_user_id();
 		$course_id = '';
 		if ( isset( $_POST['course_id'] ) ) {
 			$course_id = sanitize_text_field( wp_unslash( $_POST['course_id'] ) );
@@ -486,7 +487,7 @@ class Eb_Order_Manager {
 			if ( '' === $buyer_name ) {
 				$buyer_name = $buyer->user_login;
 			}
-			echo "<a href='" . esc_html( get_edit_user_link( $order_buyer_id ) ) . "'>" . esc_html( $buyer_name ) . '</a>';
+			echo "<a href='" . esc_url( get_edit_user_link( $order_buyer_id ) ) . "'>" . esc_html( $buyer_name ) . '</a>';
 		}
 	}
 }

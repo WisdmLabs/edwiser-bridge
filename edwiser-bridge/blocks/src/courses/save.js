@@ -1,10 +1,10 @@
 import { useBlockProps } from '@wordpress/block-editor';
 
-export default function save({ attributes }) {
+export default function save({ attributes, clientId }) {
   return (
     <div {...useBlockProps.save()}>
       <div
-        id="eb-courses"
+        id={`eb-courses-${clientId}`}
         data-page-title={attributes.pageTitle || ''}
         data-hide-title={attributes.hideTitle || false}
         data-hide-filters={attributes.hideFilters || false}

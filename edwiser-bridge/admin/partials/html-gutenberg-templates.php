@@ -288,11 +288,11 @@ $show_pro_first = $eb_pro_active && $is_license_valid;
                 <circle cx="12" cy="12" r="11.5" fill="white" stroke="#C4C4C4" />
                 <path d="M10.5332 14.1085V13.5708C10.5332 13.1058 10.6325 12.7013 10.8311 12.3574C11.0297 12.0135 11.393 11.6478 11.921 11.2603C12.4296 10.897 12.7638 10.6015 12.9237 10.3738C13.0884 10.1462 13.1707 9.89188 13.1707 9.61093C13.1707 9.29608 13.0545 9.05631 12.8219 8.89162C12.5894 8.72692 12.2649 8.64458 11.8483 8.64458C11.1217 8.64458 10.2934 8.88193 9.36341 9.35663L8.57143 7.76541C9.65162 7.15992 10.7972 6.85718 12.0082 6.85718C13.006 6.85718 13.798 7.09695 14.3841 7.5765C14.9751 8.05604 15.2705 8.69544 15.2705 9.49468C15.2705 10.0275 15.1494 10.4877 14.9072 10.8752C14.6651 11.2627 14.2049 11.6987 13.5267 12.183C13.0617 12.527 12.7662 12.7885 12.6403 12.9678C12.5192 13.147 12.4587 13.3819 12.4587 13.6725V14.1085H10.5332ZM10.3007 16.5934C10.3007 16.1865 10.4097 15.8789 10.6277 15.6707C10.8456 15.4624 11.1629 15.3582 11.5795 15.3582C11.9815 15.3582 12.2915 15.4648 12.5095 15.6779C12.7323 15.891 12.8437 16.1962 12.8437 16.5934C12.8437 16.9761 12.7323 17.2788 12.5095 17.5016C12.2867 17.7196 11.9767 17.8286 11.5795 17.8286C11.1726 17.8286 10.8577 17.722 10.6349 17.5089C10.4121 17.2909 10.3007 16.9858 10.3007 16.5934Z" fill="#F98012" />
             </svg>
-            <span class="eb-help-tootip-content"><?php esc_html_e('Looking for help?', 'edwiser-bridge-pro'); ?></span>
+            <span class="eb-help-tootip-content"><?php esc_html_e('Looking for help?', 'edwiser-bridge'); ?></span>
         </div>
         <ul>
-            <li><a target="_blank" href="https://edwiser.org/documentation/edwiser-bridge-woocommerce-integration/elementor-pro-enhanced-templates/"><?php esc_html_e('For setup instructions, click here.', 'edwiser-bridge-pro'); ?></a></li>
-            <li><?php esc_html_e('Talk to us:', 'edwiser-bridge-pro'); ?> <a href="mailto:edwiser@wisdmlabs.com">edwiser@wisdmlabs.com</a></li>
+            <li><a target="_blank" href="https://edwiser.org/documentation/edwiser-bridge-woocommerce-integration/elementor-pro-enhanced-templates/"><?php esc_html_e('For setup instructions, click here.', 'edwiser-bridge'); ?></a></li>
+            <li><?php esc_html_e('Talk to us:', 'edwiser-bridge'); ?> <a href="mailto:edwiser@wisdmlabs.com">edwiser@wisdmlabs.com</a></li>
         </ul>
     </div>
 </div>

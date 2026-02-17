@@ -79,8 +79,9 @@ class Eb_Frontend_Form_Handler {
 								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
 							);
 						}
-						$captcha       = $_POST['g-recaptcha-response']; // @codingStandardsIgnoreLine
-						$response      = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captcha ); // @codingStandardsIgnoreLine
+						$captcha       = sanitize_text_field( $_POST['g-recaptcha-response'] ); // @codingStandardsIgnoreLine
+						$response      = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode( $secret ) . '&response=' . urlencode( $captcha ) ); // @codingStandardsIgnoreLine
+						$response      = wp_remote_retrieve_body( $response );
 						$response_keys = json_decode( $response, true );
 						if ( 1 !== intval( $response_keys['success'] ) ) {
 							throw new \Exception(
@@ -203,8 +204,9 @@ class Eb_Frontend_Form_Handler {
 								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
 							);
 						}
-						$captcha       = $_POST['g-recaptcha-response']; // @codingStandardsIgnoreLine
-						$response      = file_get_contents( 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captcha ); // @codingStandardsIgnoreLine
+						$captcha       = sanitize_text_field( $_POST['g-recaptcha-response'] ); // @codingStandardsIgnoreLine
+						$response      = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode( $secret ) . '&response=' . urlencode( $captcha ) ); // @codingStandardsIgnoreLine
+						$response      = wp_remote_retrieve_body( $response );
 						$response_keys = json_decode( $response, true );
 						if ( 1 !== intval( $response_keys['success'] ) ) {
 							throw new \Exception(

@@ -111,20 +111,20 @@ class Modular_Analytics_System
         <div class="notice eb_admin_remui_demo_notice">
             <div class="eb_remui_demo_notice_content">
                 <p style="font-size: 16px; color: #133F3F;">
-                    <strong style="display: block; font-size: 18px; font-weight: 700; color: #F75D25; margin-bottom: 4px"><?php _e('Improve Edwiser Bridge: Your Data, Our Progress', 'edwiser-bridge'); ?></strong>
-                    <?php _e('To help us continually improve Edwiser Bridge, please consider opting in. This allows us to gather your email address, along with basic data about your WordPress environment and how you use our plugin. Rest assured, this information is used only for plugin enhancement and is handled with the utmost care as outlined in our', 'edwiser-bridge'); ?>
+                    <strong style="display: block; font-size: 18px; font-weight: 700; color: #F75D25; margin-bottom: 4px"><?php esc_html_e('Improve Edwiser Bridge: Your Data, Our Progress', 'edwiser-bridge'); ?></strong>
+                    <?php esc_html_e('To help us continually improve Edwiser Bridge, please consider opting in. This allows us to gather your email address, along with basic data about your WordPress environment and how you use our plugin. Rest assured, this information is used only for plugin enhancement and is handled with the utmost care as outlined in our', 'edwiser-bridge'); ?>
                     <strong>
-                        <a style="color: #F75D25;" href="https://edwiser.org/privacy-policy/" target="_blank"><?php _e('Privacy Policy', 'edwiser-bridge'); ?></a>
+                        <a style="color: #F75D25;" href="https://edwiser.org/privacy-policy/" target="_blank"><?php esc_html_e('Privacy Policy', 'edwiser-bridge'); ?></a>
                     </strong>.
                     <span style="display: block; margin-top: 4px">
-                        <?php _e('Your participation makes a difference!', 'edwiser-bridge'); ?></span>
+                        <?php esc_html_e('Your participation makes a difference!', 'edwiser-bridge'); ?></span>
                 </p>
                 <p>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 400; margin-right: 10px;">
-                        <?php _e('Allow & Continue', 'edwiser-bridge'); ?>
+                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes'), 'modular_analytics_consent')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 400; margin-right: 10px;">
+                        <?php esc_html_e('Allow & Continue', 'edwiser-bridge'); ?>
                     </a>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 14px;">
-                        <?php _e('Skip', 'edwiser-bridge'); ?>
+                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no'), 'modular_analytics_consent')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 14px;">
+                        <?php esc_html_e('Skip', 'edwiser-bridge'); ?>
                     </a>
                 </p>
             </div>
@@ -136,17 +136,24 @@ class Modular_Analytics_System
     public function handle_consent()
     {
         if (!current_user_can('manage_options') || !isset($_GET['consent'])) {
-            wp_die(__('Unauthorized action.', 'edwiser-bridge'));
+            wp_die(esc_html__('Unauthorized action.', 'edwiser-bridge'));
+        }
+
+        if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'modular_analytics_consent' ) ) {
+            wp_die( esc_html__( 'Security check failed.', 'edwiser-bridge' ) );
         }
 
         $consent = sanitize_text_field($_GET['consent']);
+        if ( ! in_array( $consent, array( 'yes', 'no' ), true ) ) {
+            $consent = 'no';
+        }
         update_option('modular_analytics_consent', $consent);
 
         if ($consent === 'yes') {
             $this->send_data();
         }
 
-        wp_redirect(admin_url() . 'edit.php?post_type=eb_course&page=eb-settings'); //replace with your redirect URL
+        wp_safe_redirect(admin_url('edit.php?post_type=eb_course&page=eb-settings'));
         exit;
     }
 

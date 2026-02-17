@@ -694,10 +694,6 @@ if ( ! function_exists( 'wdm_eb_sinlge_course_get_allowed_html_tags' ) ) {
 			'value'    => array(),
 			'selected' => array(),
 		);
-		$allowed_tags['script'] = array(
-			'src'  => array(),
-			'type' => array(),
-		);
 		$allowed_tags['a']      = array(
 			'href'   => array(),
 			'target' => array(),

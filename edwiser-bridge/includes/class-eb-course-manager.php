@@ -958,6 +958,9 @@ class Eb_Course_Manager {
 	 * @param int $course_id course id.
 	 */
 	public function eb_enable_course_enrollment_method( $course_id = '' ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {

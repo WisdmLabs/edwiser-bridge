@@ -194,7 +194,7 @@ class Eb_Refund_Manager {
 				'eb_api_password'        => '',
 				'eb_api_signature'       => '',
 			);
-			$option          = unserialize( get_option( 'eb_paypal' ), $default_options ); // @codingStandardsIgnoreLine
+			$option          = maybe_unserialize( get_option( 'eb_paypal', $default_options ) );
 			return $option['eb_paypal_currency'];
 		}
 		return $currency_code;

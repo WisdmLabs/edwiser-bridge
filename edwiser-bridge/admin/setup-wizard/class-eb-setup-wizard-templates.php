@@ -133,7 +133,7 @@ class Eb_Setup_Wizard_Templates {
 			<header class='eb-setup-wizard-header'>
 				<div class='eb-setup-header-logo'>
 					<div class='eb-setup-header-logo-img-wrap'>
-						<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
+						<img src="<?php echo esc_url( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
 					</div>
 				</div>
 
@@ -252,7 +252,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_product_sync_progress_images'>
 
 						<div class='eb_setup_users_sync_wp_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
 						</div>
 
 						<div class='eb_setup_product_sync_progress_arrows'>
@@ -270,7 +270,7 @@ class Eb_Setup_Wizard_Templates {
 						</div>
 
 						<div class='eb_setup_users_sync_mdl_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
 						</div>
 
 					</div>
@@ -456,7 +456,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_product_sync_progress_images'>
 
 						<div class='eb_setup_users_sync_wp_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" class='' />
 						</div>
 
 						<div class='eb_setup_product_sync_progress_arrows'>
@@ -474,7 +474,7 @@ class Eb_Setup_Wizard_Templates {
 						</div>
 
 						<div class='eb_setup_users_sync_mdl_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
 						</div>
 
 					</div>
@@ -572,7 +572,7 @@ class Eb_Setup_Wizard_Templates {
 					<input type='hidden' class='eb_setup_test_conne_token' >
 					<input type='hidden' class='eb_setup_test_conne_lang' >
 
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_test_connection_btn <?php echo esc_attr( $disbaled ); ?>' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' <?php echo esc_attr( $disbaled ); ?>> <?php esc_html_e( 'Test connection', 'edwiser-bridge' ); ?> </button>
 					<button class='eb_setup_btn eb_setup_save_and_continue eb_setup_test_connection_cont_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
@@ -658,17 +658,19 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class='eb_setup_course_sync_btn_wrap'>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn'> <?php //esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_course_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue eb_setup_course_sync_cont_btn" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 				</div>
 				<div>
 					<fieldset>
 						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<div class='fieldset_content'>
-							<?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Courses tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Courses tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=courses'); ?>							
+							<?php
+						/* translators: %1$s: courses sync URL, %2$s: selective sync URL */
+						echo wp_kses( sprintf( __( 'You can skip this step and do it later from <a href="%1$s" target="_blank">Edwiser Bridge > Settings > Synchronization > Courses tab</a> or from <a href="%2$s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Courses tab</a> for Pro version.', 'edwiser-bridge' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=courses' ) ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?>							
 						</div>
 
 					</fieldset>
@@ -738,11 +740,11 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class="eb_setup_user_sync_btn_wrap">
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class='eb_setup_btn eb_setup_users_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Synchronize users & notify', 'edwiser-bridge' ); ?> </button>
 					<button class="eb_setup_btn eb_setup_save_and_continue" style="display:none" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the setup', 'edwiser-bridge' ); ?> </button>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>'> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 				</div>
 
 				<div>
@@ -751,7 +753,9 @@ class Eb_Setup_Wizard_Templates {
 						<div class='fieldset_content'>
 							<ul>
 								<li><?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?></li>
-								<li><?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=users'); ?></li>
+								<li><?php
+							/* translators: %1$s: users sync URL, %2$s: selective sync URL */
+							echo wp_kses( sprintf( __( 'You can skip this step and do it later from <a href="%1$s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%2$s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=users' ) ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?></li>
 							</ul>
 						</div>
 
@@ -770,7 +774,7 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_users_sync_progress_images'>
 
 						<div class='eb_setup_users_sync_wp_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/wordpress-logo.png' ); ?>" />
 						</div>
 
 						<div class='eb_setup_users_sync_progress_arrows'>
@@ -793,7 +797,7 @@ class Eb_Setup_Wizard_Templates {
 						</div>
 
 						<div class='eb_setup_users_sync_mdl_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
 						</div>
 
 					</div>
@@ -816,7 +820,7 @@ class Eb_Setup_Wizard_Templates {
 					<div style='width:15%;'>
 						<!-- dashicons -->
 						<!-- <span class="dashicons dashicons-warning"></span> -->
-						<div> <img style='height:60px;' src="<?php echo esc_attr( $eb_plugin_url . 'images/warning-1.png' ); ?>" /> </div>
+						<div> <img style='height:60px;' src="<?php echo esc_url( $eb_plugin_url . 'images/warning-1.png' ); ?>" /> </div>
 
 					</div>
 
@@ -834,8 +838,8 @@ class Eb_Setup_Wizard_Templates {
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>' > <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>' > <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<!-- <button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Skip and continue', 'edwiser-bridge' ); ?> </button> -->
 
@@ -939,7 +943,7 @@ class Eb_Setup_Wizard_Templates {
 			</div>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Save settings', 'edwiser-bridge' ); ?> </button>
 			</div>
@@ -1262,7 +1266,7 @@ class Eb_Setup_Wizard_Templates {
 				<div class='eb_setup_settings_error_msg' style="display:none;"></div>
 
 				<div class='eb_setup_course_sync_btn_wrap'>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<!-- <button class='eb_setup_btn eb_setup_course_sync_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Synchronize the courses', 'edwiser-bridge' ); ?> </button> -->
 					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Save settings', 'edwiser-bridge' ); ?> </button>
@@ -1327,7 +1331,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 			</div>
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 			</div>
 		</div>
@@ -1382,7 +1386,7 @@ class Eb_Setup_Wizard_Templates {
 					</div>
 					<div class='es-p-t-30 es-m-b-10'>
 						<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </button> -->
-						<a target='_blank' class='eb_setup_sec_btn' href='<?php echo esc_attr( $mdl_plugin_url ); ?>'> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </a>
+						<a target='_blank' class='eb_setup_sec_btn' href='<?php echo esc_url( $mdl_plugin_url ); ?>'> <?php esc_html_e( 'Install plugins on Moodle', 'edwiser-bridge' ); ?> </a>
 					</div>
 				</fieldset>
 
@@ -1403,7 +1407,7 @@ class Eb_Setup_Wizard_Templates {
 				<fieldset>
 					<legend> <?php esc_html_e( 'STEP 3', 'edwiser-bridge' ); ?> </legend> 
 					<div class='fieldset_content fieldset_content_non_i'>
-						<?php echo esc_html__( 'Navigate to this URL  (', 'edwiser-bridge' ) . '<a style="color: #f98012;" target="_blank" href="' . esc_attr( $mdl_url ) . '">' . esc_attr( $mdl_url ) . '</a>' . esc_html__( ') and click on ‘Update Web services’.', 'edwiser-bridge' ); ?>
+						<?php echo esc_html__( 'Navigate to this URL  (', 'edwiser-bridge' ) . '<a style="color: #f98012;" target="_blank" href="' . esc_url( $mdl_url ) . '">' . esc_html( $mdl_url ) . '</a>' . esc_html__( ') and click on ‘Update Web services’.', 'edwiser-bridge' ); ?>
 					</div>
 				</fieldset>
 
@@ -1419,7 +1423,7 @@ class Eb_Setup_Wizard_Templates {
 
 				<div class="eb_setup_user_sync_btn_wrap">
 
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<!-- <button class='eb_setup_sec_btn'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 					<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 
@@ -1477,7 +1481,7 @@ class Eb_Setup_Wizard_Templates {
 				?>
 					<div class='eb_setup_settings_error_msg'> <?php echo esc_attr( 'Single sign on plugin is not activated, Please active it first or skip the step. ' ); ?> </div>
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>
-						<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 					</div>
 
 					<?php
@@ -1503,7 +1507,7 @@ class Eb_Setup_Wizard_Templates {
 				</div>
 
 				<div class='eb_setup_user_sync_btn_wrap'>
-					<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+					<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 					<button class='eb_setup_btn eb_setup_verify_sso_roken_btn' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Verify token', 'edwiser-bridge' ); ?> </button>
 					<button class='eb_setup_btn eb_setup_save_and_continue' style='display:none;' data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>'> <?php esc_html_e( 'Continue the Setup', 'edwiser-bridge' ); ?> </button>
 				</div>
@@ -1555,7 +1559,7 @@ class Eb_Setup_Wizard_Templates {
 				?>
 					<div class='eb_setup_settings_error_msg'> <?php echo esc_attr( 'Woocommerce Integration plugin is not activated, Please active it first or skip the step. ' ); ?> </div>
 					<div class='eb_setup_user_sync_btn_wrap' style='margin-top:20px;'>
-						<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+						<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 					</div>
 
 					<?php
@@ -1564,10 +1568,10 @@ class Eb_Setup_Wizard_Templates {
 				<?php esc_html_e( 'This will create a WooCommerce product for all your synchronized Moodle courses', 'edwiser-bridge' ); ?>	
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 
 				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_url( $next_url ); ?>' > <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </a>
 
 				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Skip', 'edwiser-bridge' ); ?> </button> -->
 
@@ -1586,8 +1590,8 @@ class Eb_Setup_Wizard_Templates {
 					<div class='eb_setup_product_sync_progress_images'>
 
 						<div class='eb_setup_users_sync_wp_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/woo.png' ); ?>" class='es-woo-img' />
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/commerce.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/woo.png' ); ?>" class='es-woo-img' />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/commerce.png' ); ?>" />
 						</div>
 
 						<div class='eb_setup_product_sync_progress_arrows'>
@@ -1606,7 +1610,7 @@ class Eb_Setup_Wizard_Templates {
 						</div>
 
 						<div class='eb_setup_users_sync_mdl_img'>
-							<img src="<?php echo esc_attr( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
+							<img src="<?php echo esc_url( $eb_plugin_url . 'images/Moodle-logo.png' ); ?>" />
 						</div>
 
 					</div>
@@ -1696,7 +1700,7 @@ class Eb_Setup_Wizard_Templates {
 			?>
 
 			<div class="eb_setup_user_sync_btn_wrap">
-				<a class='eb_setup_sec_btn' href='<?php echo esc_attr( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
+				<a class='eb_setup_sec_btn' href='<?php echo esc_url( $prev_url ); ?>'> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </a>
 
 				<!-- <button class="eb_setup_sec_btn"> <?php esc_html_e( 'Back', 'edwiser-bridge' ); ?> </button> -->
 				<button class="eb_setup_btn eb_setup_save_and_continue" data-step='<?php echo wp_kses( $step, $allowed_tags ); ?>' data-next-step='<?php echo wp_kses( $next_step, $allowed_tags ); ?>' data-is-next-sub-step='<?php echo wp_kses( $is_next_sub_step, $allowed_tags ); ?>' > <?php esc_html_e( 'Save settings', 'edwiser-bridge' ); ?> </button>
@@ -1768,6 +1772,10 @@ class Eb_Setup_Wizard_Templates {
 	 * Setup Wizard close setup.
 	 */
 	public function eb_setup_close_setup() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
+		check_ajax_referer( 'eb_setup_wizard', 'nonce' );
 		$eb_plugin_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_url();
 
 		ob_start();
@@ -1775,7 +1783,7 @@ class Eb_Setup_Wizard_Templates {
 		<div class='eb_setup_popup_content'>
 
 			<div class=''>
-				<div> <img style='height:60px;' src="<?php echo esc_attr( $eb_plugin_url . 'images/warning-1.png' ); ?>" /> </div>
+				<div> <img style='height:60px;' src="<?php echo esc_url( $eb_plugin_url . 'images/warning-1.png' ); ?>" /> </div>
 
 				<p class='eb_setup_h2'> <?php esc_html_e( 'Are you sure you want to close the Edwiser Bridge WordPress setup wizard?', 'edwiser-bridge' ); ?></p>
 

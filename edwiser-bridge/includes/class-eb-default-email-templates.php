@@ -287,7 +287,8 @@ if ( ! class_exists( 'Eb_Default_Email_Templates' ) ) {
 								<div style="font-family: Arial; font-size: 14px; line-height: 150%; text-align: left;">
 									<?php
 										printf(
-											esc_html__( 'Your password has been automatically generated: ', 'edwiser-bridge' ) . '%s.',
+											'%s%s.',
+											esc_html__( 'Your password has been automatically generated: ', 'edwiser-bridge' ),
 											'<strong>{USER_PASSWORD}</strong>'
 										);
 									?>

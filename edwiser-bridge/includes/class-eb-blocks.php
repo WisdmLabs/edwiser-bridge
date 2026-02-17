@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class EdwiserBridge_Blocks
 {
     public function __construct()
@@ -7,16 +11,20 @@ class EdwiserBridge_Blocks
         add_action('init', array($this, 'eb_register_blocks'));
         add_action('wp_enqueue_scripts', array($this, 'eb_set_script_translations'));
         add_action('wp_enqueue_scripts', array($this, 'eb_woo_storeapi_nonce'));
+        add_action('wp_enqueue_scripts', array($this, 'eb_enqueue_block_styles_conditionally'));
+        // Prevent auto-enqueuing of block styles - we'll load them conditionally
+        add_filter('should_load_separate_core_block_assets', '__return_false');
+        add_filter('block_type_metadata_settings', array($this, 'eb_prevent_block_style_auto_enqueue'), 10, 2);
         add_filter('block_categories_all', array($this, 'eb_register_edwiser_category'));
         add_action('wp_after_insert_post', array($this, 'handle_block_setting_change'), 10, 3);
 
         // AJAX handlers for order details
         add_action('wp_ajax_eb_get_order_details', array($this, 'eb_get_order_details'));
-        add_action('wp_ajax_nopriv_eb_get_order_details', array($this, 'eb_get_order_details'));
     }
 
     public function eb_register_blocks()
     {
+        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Required for custom translation loading path.
         load_plugin_textdomain('edwiser-bridge', false, dirname(plugin_basename(__DIR__)) . '/languages');
 
         wp_register_script(
@@ -32,11 +40,14 @@ class EdwiserBridge_Blocks
             filemtime(plugin_dir_path(__DIR__) . 'blocks/build/course-description/index.js')
         );
 
+        // Register blocks without auto-enqueuing styles - styles will load only when block is used
         register_block_type(__DIR__  . '/../blocks/build/courses', array(
             'editor_script' => 'eb-courses-script',
+            'style' => false, // Prevent auto-enqueue, will load conditionally
         ));
         register_block_type(__DIR__  . '/../blocks/build/course-description', array(
             'editor_script' => 'eb-course-description-script',
+            'style' => false, // Prevent auto-enqueue, will load conditionally
         ));
 
         register_post_meta('page', 'courseId', array(
@@ -48,25 +59,46 @@ class EdwiserBridge_Blocks
             }
         ));
 
-        register_block_type(__DIR__  . '/../blocks/build/user-account');
-        register_block_type(__DIR__  . '/../blocks/build/my-courses');
-        register_block_type(__DIR__  . '/../blocks/build/user-account-v2');
+        // Register blocks without auto-enqueuing styles - styles will load only when block is used
+        register_block_type(__DIR__  . '/../blocks/build/user-account', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
+        register_block_type(__DIR__  . '/../blocks/build/my-courses', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
+        register_block_type(__DIR__  . '/../blocks/build/user-account-v2', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
 
         // Tabs Blocks
-        register_block_type(__DIR__  . '/../blocks/build/dashboard');
-        register_block_type(__DIR__  . '/../blocks/build/orders');
-        register_block_type(__DIR__  . '/../blocks/build/profile');
+        register_block_type(__DIR__  . '/../blocks/build/dashboard', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
+        register_block_type(__DIR__  . '/../blocks/build/orders', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
+        register_block_type(__DIR__  . '/../blocks/build/profile', array(
+            'style' => false, // Prevent auto-enqueue
+        ));
     }
 
     public function eb_set_script_translations()
     {
-        wp_set_script_translations('eb-courses-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
-        wp_set_script_translations('eb-course-description-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
+        // Only set translations if blocks are used (editor or frontend with blocks)
+        if (is_admin() || $this->has_eb_blocks()) {
+            wp_set_script_translations('eb-courses-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
+            wp_set_script_translations('eb-course-description-script', 'edwiser-bridge', plugin_dir_path(__FILE__) . 'languages/');
+        }
     }
 
     public function eb_woo_storeapi_nonce()
     {
-        wp_register_script('eb_woo_storeapi_nonce', '', [], '', true);
+        // Only load on pages with EB blocks
+        if (!$this->has_eb_blocks()) {
+            return;
+        }
+
+        wp_register_script('eb_woo_storeapi_nonce', '', array(), '4.3.4', true);
 
         wp_enqueue_script('eb_woo_storeapi_nonce');
 
@@ -89,6 +121,148 @@ class EdwiserBridge_Blocks
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('eb_order_details_nonce')
         ));
+    }
+
+    /**
+     * Prevent block styles and viewScripts from auto-enqueuing
+     */
+    public function eb_prevent_block_style_auto_enqueue($settings, $metadata)
+    {
+        // Only affect EB blocks
+        if (isset($metadata['name']) && strpos($metadata['name'], 'edwiser-bridge') !== false) {
+            // Remove style from auto-enqueue - we'll load conditionally
+            if (isset($settings['style'])) {
+                unset($settings['style']);
+            }
+            // Remove viewScript from auto-enqueue - we'll load conditionally
+            if (isset($settings['viewScript'])) {
+                unset($settings['viewScript']);
+            }
+        }
+        return $settings;
+    }
+
+    /**
+     * Conditionally enqueue block styles only when blocks are used
+     */
+    public function eb_enqueue_block_styles_conditionally()
+    {
+        if (!$this->has_eb_blocks()) {
+            return;
+        }
+    }
+
+    /**
+     * Check if current page has EB blocks
+     *
+     * @return bool
+     */
+    private function has_eb_blocks()
+    {
+        global $post;
+        if (!is_a($post, 'WP_Post')) {
+            return false;
+        }
+
+        if (has_blocks($post->post_content)) {
+            $blocks = parse_blocks($post->post_content);
+            $found_blocks = array();
+            foreach ($blocks as $block) {
+                if (isset($block['blockName']) && strpos($block['blockName'], 'edwiser-bridge') !== false) {
+                    $found_blocks[] = $block['blockName'];
+                }
+                // Check nested blocks
+                if (!empty($block['innerBlocks'])) {
+                    foreach ($block['innerBlocks'] as $inner_block) {
+                        if (isset($inner_block['blockName']) && strpos($inner_block['blockName'], 'edwiser-bridge') !== false) {
+                            $found_blocks[] = $inner_block['blockName'];
+                        }
+                    }
+                }
+            }
+            
+            // Enqueue styles for found blocks
+            foreach (array_unique($found_blocks) as $block_name) {
+                $this->enqueue_block_styles($block_name);
+            }
+            
+            return !empty($found_blocks);
+        }
+        return false;
+    }
+
+    /**
+     * Enqueue styles and viewScripts for specific EB block
+     *
+     * @param string $block_name
+     */
+    private function enqueue_block_styles($block_name)
+    {
+        $block_assets = array(
+            'edwiser-bridge/courses' => array(
+                'style' => '/blocks/build/courses/style-index.css',
+                'viewScript' => '/blocks/build/courses/view.js'
+            ),
+            'edwiser-bridge/course-description' => array(
+                'style' => '/blocks/build/course-description/style-index.css',
+                'viewScript' => '/blocks/build/course-description/view.js'
+            ),
+            'edwiser-bridge/user-account' => array(
+                'style' => '/blocks/build/user-account/style-index.css',
+                'viewScript' => '/blocks/build/user-account/view.js'
+            ),
+            'edwiser-bridge/my-courses' => array(
+                'style' => '/blocks/build/my-courses/style-index.css',
+                'viewScript' => '/blocks/build/my-courses/view.js'
+            ),
+            'edwiser-bridge/user-account-v2' => array(
+                'style' => '/blocks/build/user-account-v2/style-index.css',
+                'viewScript' => '/blocks/build/user-account-v2/view.js'
+            ),
+            'edwiser-bridge/dashboard' => array(
+                'style' => '/blocks/build/dashboard/style-index.css',
+                'viewScript' => '/blocks/build/dashboard/view.js'
+            ),
+            'edwiser-bridge/orders' => array(
+                'style' => '/blocks/build/orders/style-index.css',
+                'viewScript' => '/blocks/build/orders/view.js'
+            ),
+            'edwiser-bridge/profile' => array(
+                'style' => '/blocks/build/profile/style-index.css',
+                'viewScript' => '/blocks/build/profile/view.js'
+            ),
+        );
+
+        if (isset($block_assets[$block_name])) {
+            $assets = $block_assets[$block_name];
+            
+            // Enqueue style
+            if (isset($assets['style'])) {
+                $style_path = plugin_dir_path(__DIR__) . $assets['style'];
+                if (file_exists($style_path)) {
+                    wp_enqueue_style(
+                        'eb-block-' . str_replace('/', '-', $block_name),
+                        plugins_url($assets['style'], __DIR__),
+                        array(),
+                        filemtime($style_path)
+                    );
+                }
+            }
+            
+            // Enqueue viewScript (moved to footer for performance)
+            if (isset($assets['viewScript'])) {
+                $script_path = plugin_dir_path(__DIR__) . $assets['viewScript'];
+                if (file_exists($script_path)) {
+                    wp_enqueue_script(
+                        'eb-block-' . str_replace('/', '-', $block_name) . '-view',
+                        plugins_url($assets['viewScript'], __DIR__),
+                        array(),
+                        filemtime($script_path),
+                        true
+                    );
+                }
+            }
+        }
     }
 
     public function eb_register_edwiser_category($categories)
@@ -144,19 +318,19 @@ class EdwiserBridge_Blocks
      */
     public function eb_get_order_details()
     {
+        // SECURITY FIX: Check if user is logged in first.
+        if (!is_user_logged_in()) {
+            wp_send_json_error(array('message' => esc_html__('You must be logged in to view order details.', 'edwiser-bridge')));
+        }
+
         // Check if WooCommerce is active
         if (!class_exists('WooCommerce')) {
-            wp_die('WooCommerce is not active');
+            wp_send_json_error(array('message' => esc_html__('WooCommerce is not active.', 'edwiser-bridge')));
         }
 
         // Verify nonce for security
-        if (!wp_verify_nonce($_POST['nonce'], 'eb_order_details_nonce')) {
-            wp_die('Security check failed');
-        }
-
-        // Check if user is logged in
-        if (!is_user_logged_in()) {
-            wp_die('User not logged in');
+        if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'eb_order_details_nonce')) {
+            wp_send_json_error(array('message' => esc_html__('Security check failed.', 'edwiser-bridge')));
         }
 
         $order_id = intval($_POST['order_id']);
