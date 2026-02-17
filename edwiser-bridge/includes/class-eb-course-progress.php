@@ -27,7 +27,7 @@ class Eb_Course_Progress {
 		$mdl_user_id = get_user_meta( $user->ID, 'moodle_user_id', true );
 
 		if ( $mdl_user_id ) {
-			$webservice_function = 'eb_get_course_progress';
+			$webservice_function = 'auth_edwiserbridge_get_course_progress';
 
 			$request_data = array( 'user_id' => $mdl_user_id ); // prepare request data array.
 

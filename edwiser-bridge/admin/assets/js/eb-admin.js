@@ -173,26 +173,26 @@
                     dialogBox.attr('title', log.data.message);
                     
                     var heading = $(document.createElement('h3'));
-                    heading.html('Status: '+log.status);
+                    heading.text('Status: '+log.status);
 
-                    var time = $(document.createElement('p')).html('Time : '+log.time);
-                    var user = $(document.createElement('p')).html('User : '+log.data.user);
-                    var rcode = $(document.createElement('p')).html('Error Code : '+log.data.responsecode);
-                    var rmsg = $(document.createElement('p')).html('Response Message : '+log.data.message);
+                    var time = $(document.createElement('p')).text('Time : '+log.time);
+                    var user = $(document.createElement('p')).text('User : '+log.data.user);
+                    var rcode = $(document.createElement('p')).text('Error Code : '+log.data.responsecode);
+                    var rmsg = $(document.createElement('p')).text('Response Message : '+log.data.message);
                     var viewMore = $(document.createElement('a')).html('View More...');
                     viewMore.attr('href', '#');
                     viewMore.attr('id', 'eb-dialog-view-more'+id);
                     viewMore.attr('class', 'eb-dialog-view-more'+id);
 
                     var viewMoreDiv = $(document.createElement('div')).addClass('eb-view-more eb-view-more'+id);
-                    var urlData = $(document.createElement('p')).html('URL : '+log.data.url);
+                    var urlData = $(document.createElement('p')).text('URL : '+log.data.url);
                     // explode backtrace with , and then add <br> after each line
                     var backtrace = log.data.backtrace;
                     var backtraceHtml = '';
                     for(var i=0; i<backtrace.length; i++){
                         backtraceHtml += backtrace[i]+'<br>';
                     }
-                    var backtrace = $(document.createElement('p')).html('Backtrace : '+backtraceHtml);
+                    var backtrace = $(document.createElement('p')).text('Backtrace : '+backtraceHtml);
                     viewMoreDiv.append(urlData);
                     viewMoreDiv.append(backtrace);
 
@@ -204,7 +204,7 @@
                     
                     
                     if(log.data.debuginfo){
-                        var debug = $(document.createElement('p')).html('Debug Info: '+log.data.debuginfo);
+                        var debug = $(document.createElement('p')).text('Debug Info: '+log.data.debuginfo);
                         dialogBox.append(debug);
                     }
 
@@ -337,6 +337,7 @@
             // Set some variables
             var time = '10000';
             var container = jQuery('.response-box');
+            container.addClass('lol');
             // Generate the HTML
             var html = '<div class="alert alert-' + type + '">' + text + '</div>';
             // Append the label to the container
@@ -452,7 +453,7 @@
                         $("#moodleLinkUnlinkUserNotices").css("display", "block");
                         $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                         $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                        $("#moodleLinkUnlinkUserNotices").children().html(response.data["message"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(response.data["message"]);
                     }
                 }
             });
@@ -756,6 +757,8 @@
                     //prepare response for user
                     if (response.success == 1) {
                         ohSnap(eb_admin_js_object.msg_con_success, 'success', 1);
+                        $('.troubleshoot-connection').addClass('hidden');
+                        $('#eb_diagnose_issues_button').addClass('hidden');
                         if(response.warnings){
                             // add ohSnap warning message for each warning
                             $.each(response.warnings, function (index, value) {
@@ -764,11 +767,337 @@
                         }
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
-                        $('.eb_test_connection_response').html(response.response_message);
+                        $('.eb_test_connection_response').text(response.response_message);
+                        $('.troubleshoot-connection').removeClass('hidden');
+                        $('#eb_diagnose_issues_button').removeClass('hidden');
                     }
                 }
             });
         });
+
+        /**
+         * creates ajax request to initiate test connection request
+         * display a response to user on process completion
+         */
+        $('#eb_diagnose_issues_button').click(function () {
+            //get selected options
+            //
+
+            var url = $('#eb_url').val();
+            var token = $('#eb_access_token').val();
+            var $this = $(this);
+            var checks = ['json_valid', 'token_validation', 'server_blocking_check', 'permalink_setting',
+                'get_endpoint', 'post_endpoint', 'enroll_dummy_user'];
+            jQuery(this).attr('disabled', 'disabled');
+            start_diagnostics(url, token, $this, checks);
+        });
+
+        async function start_diagnostics(url, token, $this, checks) {
+            let completed = 0;
+            jQuery('.run-diagnostics-start').html('<h2>' + eb_admin_js_object.running_diagnostics + '</h2>');
+            checks.forEach(async (check) => {
+                const res = await single_diagnostic(url, token, $this, check);
+                // jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after( '<span class="auto_fix_issue eb_' + check + '_fix">Fix Now</span><div class="autofix_custom_message"></div>' );
+                if (res) {
+                    jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/success.png');
+                } else {
+                    if (check == 'token_validation') {
+                        jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
+                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.eb_fix_now + '</span><div class="autofix_custom_message"></div>');
+                    } else if (check == 'enroll_dummy_user') {
+                        jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
+                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after(window.enroll_message);
+                    } else {
+                        jQuery('.run-diagnostics-start img.' + check + '_loader').attr('src', eb_admin_js_object.plugin_url + 'images/error.png');
+                        jQuery('.run-diagnostics-start img.' + check + '_loader + .diagnostic_check_name').after('<span class="auto_fix_issue eb_' + check + '_fix">' + eb_admin_js_object.get_more_details + '</span><div class="autofix_custom_message"></div>');
+                    }
+                }
+                completed++;
+                if (completed == 7) {// checks count
+                    jQuery('.run-diagnostics-start h2').html(eb_admin_js_object.diagnostics_completed);
+                    jQuery('#eb_diagnose_issues_button').removeAttr('disabled');
+                }
+                console.log('--->', check + res);
+            });
+        }
+
+        function single_diagnostic(url, token, $this, check) {
+            return new Promise((resolve, reject) => {
+                jQuery('.run-diagnostics-start').append('<li><img class= "' + check + '_loader" src="' + eb_admin_js_object.plugin_url
+                    + 'images/loader.gif" height="20" width="20" style="vertical-align: bottom;" /> <span class="diagnostic_check_name">' + eb_admin_js_object[check] +
+                    '</span></li>');
+                if ('token_validation' == check) {
+                    if (token.length > token.trim().length) {
+                        resolve(false);
+                    }
+                }
+                $.ajax({
+                    method: "post",
+                    url: eb_admin_js_object.ajaxurl,
+                    data: {
+                        'action': 'eb_' + check,
+                        'url': url.trim(),
+                        'token': token,
+                        '_wpnonce_field': eb_admin_js_object.nonce,
+                        'is_diagnostic_run': true,
+                    },
+                    success: function (response) {
+                        if ('json_valid' == check) {
+                            if (isValidJsonString(response) && response.data.data) {
+                                resolve(true);
+                            }
+                            resolve(false);
+                        }
+                        if (isValidJsonString(response) && typeof response == "string") {
+                            response = JSON.parse(response);
+                        }
+                        if ('enroll_dummy_user' == check) {
+                            if (response.status == 'success') {
+                                resolve(true);
+                            } else {
+                                if (response.html) {
+                                    response.enroll_message = response.enroll_message + response.html;
+                                }
+                                window.enroll_message = response.enroll_message;
+                                resolve(false);
+                            }
+                        }
+                        if (response.data.correct) {
+                            if ('server_blocking_check' == check) {
+                                if (response.data.validate_access.token_mismatch) {
+                                    resolve(false);
+                                }
+                                if (!response.data.validate_access.is_authorized) {
+                                    resolve(false);
+                                }
+                            }
+                            resolve(true);
+                        } else {
+                            resolve(false);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        if (textStatus == 'parsererror') {
+                            resolve(false);
+                        }
+                    }
+                });
+            });
+        }
+
+        function isValidJsonString(str) {
+            if (typeof str == "string") {
+                try {
+                    JSON.parse(str);
+                } catch (e) {
+                    return false;
+                }
+                return true;
+            } else {
+                return true;
+            }
+        }
+
+        $(document).on('click', '.auto_fix_issue.eb_json_valid_fix', function () {
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_json_valid_fix',
+                },
+                success: function (response) {
+                    if (isValidJsonString(response)) {
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').html(eb_admin_js_object.turn_off_debug_log);
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_admin_js_object.contact_support);
+                    jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (textStatus == 'parsererror') {
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').text(eb_admin_js_object.contact_support);
+                        jQuery('.eb_json_valid_fix + .autofix_custom_message').slideDown();
+                    }
+                }
+            });
+        });
+        $(document).on('click', '.auto_fix_issue.eb_token_validation_fix', function () {
+            var url = $('#eb_url').val();
+            var token = $('#eb_access_token').val();
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_token_validation_fix',
+                    'url': url.trim(),
+                    'token': token,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if (isValidJsonString(response) && typeof response == "string") {
+                        response = JSON.parse(response);
+                    }
+                    jQuery('.eb_token_validation_fix + .autofix_custom_message').text(eb_admin_js_object.please_refresh);
+                    jQuery('.eb_token_validation_fix + .autofix_custom_message').slideDown();
+                    return;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_server_blocking_check_fix', function () {
+            var url = $('#eb_url').val();
+            var token = $('#eb_access_token').val();
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_server_blocking_check',
+                    'url': url.trim(),
+                    'token': token,
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if (!response.data.correct) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.contact_hosting);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    if (response.data.validate_access.token_mismatch) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.token_mismatch);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    if (!response.data.validate_access.is_authorized) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.not_authorized);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    if (response.data.validate_access.length == 0) {
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').text(eb_admin_js_object.check_mdl_config);
+                        jQuery('.eb_server_blocking_check_fix + .autofix_custom_message').slideDown();
+                    }
+                    return;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+
+            return;
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_get_endpoint_fix', function () {
+            jQuery('.eb_get_endpoint_fix + .autofix_custom_message').text(eb_admin_js_object.contact_support_get);
+            jQuery('.eb_get_endpoint_fix + .autofix_custom_message').slideDown();
+            return;
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_post_endpoint_fix', function () {
+            jQuery('.eb_post_endpoint_fix + .autofix_custom_message').text(eb_admin_js_object.contact_support_post);
+            jQuery('.eb_post_endpoint_fix + .autofix_custom_message').slideDown();
+            return;
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_permalink_setting_fix', function () {
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_permalink_setting_fix',
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if (isValidJsonString(response) && typeof response == "string") {
+                        response = JSON.parse(response);
+                    }
+                    if (response.data.wp_version_issue) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.wp_version_issue);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.rest_disable_issue) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.rest_disable_issue);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.permalink_setting_issue) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_admin_js_object.permalink_setting_issue + "</span>");
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.htaccess_file_missing && response.data.autofix_possible) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_admin_js_object.htaccess_file_missing + "</span><span class='eb_htaccess_create auto_fix_issue'> Fix Now </span>");
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.htaccess_rule_missing && response.data.autofix_possible) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').html("<span>" + eb_admin_js_object.htaccess_rule_missing + "</span><span class='eb_htaccess_create auto_fix_issue'> Fix Now </span>");
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.htaccess_file_missing) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.htaccess_rule_instructions);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    if (response.data.htaccess_rule_missing) {
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.htaccess_rule_instructions);
+                        jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                        return;
+                    }
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.contact_support_misc);
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                    return;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+            return;
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_permalink_setting_fix_save', function () {
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_permalink_setting_fix_save',
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if (isValidJsonString(response) && typeof response == "string") {
+                        response = JSON.parse(response);
+                    }
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.please_refresh);
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                    return;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+            return;
+        });
+
+        $(document).on('click', '.auto_fix_issue.eb_htaccess_create', function () {
+            $.ajax({
+                method: "post",
+                url: eb_admin_js_object.ajaxurl,
+                data: {
+                    'action': 'eb_htaccess_create',
+                    '_wpnonce_field': eb_admin_js_object.nonce,
+                },
+                success: function (response) {
+                    if (isValidJsonString(response) && typeof response == "string") {
+                        response = JSON.parse(response);
+                    }
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').text(eb_admin_js_object.please_refresh);
+                    jQuery('.eb_permalink_setting_fix + .autofix_custom_message').slideDown();
+                    return;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                }
+            });
+            return;
+        });
+
         /**
          * creates ajax request to initiate course synchronization
          * display a response to user on process completion
@@ -885,6 +1214,9 @@
         $("#course_expirey").change(function () {
             if ($(this).prop("checked") == true) {
                 $('#eb_course_num_days_course_access').show();
+                if ($('#num_days_course_access').val() == '' ) {
+                    $('#num_days_course_access').val(30);
+                }
                 $('#eb_course_course_expiry_action').show();
             } else {
                 $('#eb_course_course_expiry_action').hide();
@@ -1248,7 +1580,14 @@
             var subject = $("#eb_email_subject").val();
             var security = $("#eb_send_testmail_sec_filed").val();
             var header = $("#eb_bcc_email").val();
-            var message = tinyMCE.get("eb_emailtmpl_editor").getContent();
+            
+            var message = '';
+            if (typeof tinyMCE !== 'undefined' && tinyMCE.get("eb_emailtmpl_editor") !== null) {
+            message = tinyMCE.get("eb_emailtmpl_editor").getContent();
+            } else {
+            message = $("#eb_emailtmpl_editor").val();
+            }
+
             $("#eb-lading-parent").show();
             $.ajax({
                 type: "post",
@@ -1342,9 +1681,9 @@
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                     if (str == "link") {
-                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result["msg"]);
                     } else {
-                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result["msg"]);
                     }
                     $("#eb-lading-parent").hide();
                 },
@@ -1353,7 +1692,7 @@
                     if (result["code"] == ("success")) {
                         $("#moodleLinkUnlinkUserNotices").addClass("updated");
                         $("#moodleLinkUnlinkUserNotices").css("display", "block");
-                        $("#moodleLinkUnlinkUserNotices").children().html(result['msg']);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result['msg']);
                         $("#" + userid + "-" + str).css("display", "none");
                         $("#" + userid + "-" + strCheck).css("display", "block");
                     } else {
@@ -1361,7 +1700,7 @@
                         $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                         $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                         if (response.includes("LinkError")) {
-                            $("#moodleLinkUnlinkUserNotices").children().html(response["msg"]);
+                            $("#moodleLinkUnlinkUserNotices").children().text(response["msg"]);
                         } else {
                             if (str == "link") {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
@@ -1376,7 +1715,41 @@
 
         });
 
+        $("#eb-link-unlink-moodle-user").click(function (e) {
+            e.preventDefault();
+            var userid = $(this).data("user-id");
+            var linkuser = $(this).data("link-status");
 
+            $("#eb-lading-parent").show();
+            $.ajax({
+                type: "post",
+                url: ajaxurl,
+                data: {
+                    action: "moodleLinkUnlinkUser",
+                    user_id: userid,
+                    link_user: linkuser,
+                    admin_nonce: eb_admin_js_object.admin_nonce,
+                },
+                success: function (response) {
+                    var result = $.parseJSON(response);
+                    if (result["code"] == ("success")) {
+                        $(".link-unlink-status").text(result["msg"]);
+                        $(".link-unlink-status").css("color", "green");
+                        if (linkuser == 1) {
+                            $("#eb-link-unlink-moodle-user").attr("data-link-status", 0);
+                            $("#eb-link-unlink-moodle-user").text(eb_admin_js_object.button_unlink_user);
+                        } else {
+                            $("#eb-link-unlink-moodle-user").attr("data-link-status", 1);
+                            $("#eb-link-unlink-moodle-user").text(eb_admin_js_object.button_link_user);
+                        }
+                    } else {
+                        $(".link-unlink-status").text(result["msg"]);
+                        $(".link-unlink-status").css("color", "red");
+                    }
+                    $("#eb-lading-parent").hide();
+                }
+            });
+        });
 
         /*************** from 1.2.4  ********************/
         /**
@@ -1549,7 +1922,7 @@
             }
             $("#eb_emailtmpl_name").val(tmplId);
             if (tinyMCE.activeEditor == null) {
-                jQuery("#eb_emailtmpl_editor").html(response['content']);
+                jQuery("#eb_emailtmpl_editor").text(response['content']);
             } else {
                 tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
             }
@@ -1595,7 +1968,7 @@
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                    $("#moodleLinkUnlinkUserNotices").children().html(response['data']);
+                    $("#moodleLinkUnlinkUserNotices").children().text(response['data']);
                     $('html, body').animate({ scrollTop: 0 }, "fast");
                 }
                 $("#eb-lading-parent").hide();
@@ -1681,8 +2054,77 @@
             $(".eb_setting_help_pop_up").css('width', "0");
             $(".eb_setting_help_pop_up").css('right', '-25px');
         });
+
+        if (!jQuery(this).find('#new-enrollment-courses').data('select2')) {
+            jQuery(this).find('#new-enrollment-courses').select2({
+                placeholder: eb_admin_js_object.enroll_courses_placeholder
+
+            });
+        }
+        if (!jQuery(this).find('#new-enrollment-student').data('select2')) {
+            jQuery(this).find('#new-enrollment-student').select2({
+                placeholder: eb_admin_js_object.enroll_user_placeholder
+            });
+        }
+
+        $('#eb-create-new-enrollment').on('click', function () {
+
+            $('.eb-create-new-enrollment-form').show();
+
+
+        });
+
+        $('.eb-cancel-enroll').on('click', function () {
+            $('.eb-create-new-enrollment-form').hide();
+        });
     });
     /*JS for Order page end*/
+
+// --- Template Modal ---
+  jQuery(document).ready(function ($) {
+    // Close modal
+    $('.eb__modal-close').on('click', function () {
+      $('.eb__modal-overlay').fadeOut(300);
+
+      var container = $(this).closest('.eb__modal-container');
+      var modalType = container.hasClass('pro') ? 'pro' : 'free';
+
+      // Mark as viewed via AJAX
+      $.ajax({
+        url: ebModalData.ajaxurl,
+        type: 'POST',
+        data: {
+          action: 'eb_mark_template_modal_as_viewed',
+          nonce: ebModalData.nonce,
+          modal_type: modalType,
+        },
+      });
+    });
+
+    // Redirect to templates page when clicking the CTA
+    $('.eb__modal-cta').on('click', function (e) {
+      e.preventDefault();
+      $('.eb__modal-overlay').fadeOut(300);
+
+      var container = $(this).closest('.eb__modal-container');
+      var modalType = container.hasClass('pro') ? 'pro' : 'free';
+
+      // Mark as viewed via AJAX
+      $.ajax({
+        url: ebModalData.ajaxurl,
+        type: 'POST',
+        data: {
+          action: 'eb_mark_template_modal_as_viewed',
+          nonce: ebModalData.nonce,
+          modal_type: modalType,
+        },
+        success: function () {
+          // Redirect to templates page
+          window.location.href = ebModalData.templatesUrl;
+        },
+      });
+    });
+  });
 
 
 

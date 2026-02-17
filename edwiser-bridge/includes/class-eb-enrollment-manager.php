@@ -740,13 +740,41 @@ class Eb_Enrollment_Manager {
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}
 
+	public function get_courses() {
+		$courses = array();
+
+		$course_args = array(
+			'post_type'      => 'eb_course',
+			'post_status'    => 'publish', // remove this line to get all courses.
+			'posts_per_page' => -1,
+		);
+		$all_courses = get_posts( $course_args );
+
+		foreach ( $all_courses as $course ) {
+			if ( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
+
+				continue;
+			}
+			$courses[ $course->ID ] = $course->post_title;
+		}
+		return $courses;
+	}
+
 	/**
 	 * Enroll dummy user in the course.
 	 *
 	 * @since 2.2.1
 	 */
 	public function enroll_dummy_user() {
-		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0; // @codingStandardsIgnoreLine
+		check_ajax_referer( 'check_sync_action', '_wpnonce_field' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
+		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : false; // @codingStandardsIgnoreLine
+		if ( ! $course_id ) {
+			$courses = $this->get_courses();
+			$course_id = array_keys($courses)[0];
+		}
 		$response_array   = array(
 			'status' => 'error',
 		);
@@ -830,6 +858,14 @@ class Eb_Enrollment_Manager {
 			if ( \app\wisdmlabs\edwiserBridge\is_access_exception( $response ) ) {
 				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
+			}
+			if ( \app\wisdmlabs\edwiserBridge\is_moodle_exception( $response ) ) {
+				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/message.php';
+				$response_array['html'] = __( 'Please complete the Email configuration in Moodle or disable "Welcome message for new course enrolments" in Moodle from Site Administration > ', 'edwiser-bridge'). '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Messaging', 'edwiser-bridge' ) . '</a>';
+				if ( isset( $_POST['is_diagnostic_run'] ) ) {
+					/* translators: %1$s: opening link tag, %2$s: closing link tag */
+				$response_array['html'] = sprintf(__( 'Please navigate to %1$s Test Enrollment%2$s for more details on this issue.', 'edwiser-bridge' ), '<a href="' . admin_url('admin.php?page=eb-settings&tab=connection&section=enrollment') . '" target="_blank">', '</a>');
+				}
 			}
 		}
 		echo wp_json_encode( $response_array );

@@ -151,7 +151,7 @@ class Eb_Connection_Helper {
 		// function to check if webservice token is properly set.
 
 		// new test connection api.
-		$webservice_function = 'eb_test_connection';
+		$webservice_function = 'auth_edwiserbridge_test_connection';
 
 		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
 		$request_url              .= $token . '&wsfunction=';
@@ -160,9 +160,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$request_args['body'] = array(
@@ -170,7 +170,7 @@ class Eb_Connection_Helper {
 			'wp_url'          => get_site_url(),
 			'wp_token'        => $token,
 		);
-		$response             = wp_remote_post( $request_url, $request_args );
+		$response             = wp_safe_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
 			$success          = 0;
@@ -179,7 +179,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -195,30 +195,43 @@ class Eb_Connection_Helper {
 			if ( null === $body ) {
 				$url_link      = "<a href='$url/auth/edwiserbridge/edwiserbridge.php?tab=summary'>here</a>";
 				$success       = 0;
-				$plain_txt_msg = $response->get_error_message( __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) );
+				$plain_txt_msg = __( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' );
 
 				$response_message = $this->create_response_message(
 					$request_url,
 					__( 'Please check moodle web service configuration, Got invalid JSON,Check moodle web summary ', 'edwiser-bridge' ) . $url_link
 				);
+				global $current_user;
+                wp_get_current_user();
+                $error_data = array(
+                    'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
+                    'arguments'    => $request_args,
+                    'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
+                    'responsecode' => '',
+                    'exception'    => '',
+                    'errorcode'    => '',
+                    'message'      => $plain_txt_msg,
+                    'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
+                );
+                wdm_log_json( $error_data );
 			} elseif ( ! empty( $body->exception ) ) {
 				if ( 'invalid_parameter_exception' === $body->exception ) {
 					$success          = 0;
 					$msg              = __( 'Edwiser plugin is not updated on your Moodle Site. Please update it to avoid any malfunctioning.', 'edwiser-bridge' );
 					$plain_txt_msg    = $msg;
-					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+					$response_message = $this->create_response_message( $request_url, $msg );
 				} else {
 					$success          = 0;
 					$msg              = print_r( $body, 1 ); // @codingStandardsIgnoreLine
 					$plain_txt_msg    = $msg;
-					$response_message = $this->create_response_message( $request_url, $msg ); // @codingStandardsIgnoreLine
+					$response_message = $this->create_response_message( $request_url, $msg );
 				}
 
 				// register error log.
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_args,
 					'user'         => $current_user->user_login . '(' . $current_user->user_firstname . ' ' . $current_user->user_lastname . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
@@ -228,7 +241,11 @@ class Eb_Connection_Helper {
 					'backtrace'    => wp_debug_backtrace_summary( null, 0, false ), // @codingStandardsIgnoreLine
 				);
 				if ( isset( $body->debuginfo ) ) {
-					$error_data['debuginfo'] = $body->debuginfo;
+					if ( is_array( $body->debuginfo ) ) {
+						$error_data['debuginfo'] = filter_var( $body->debuginfo, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
+					} else {
+						$error_data['debuginfo'] = sanitize_text_field( $body->debuginfo );
+					}
 				}
 
 				wdm_log_json( $error_data );
@@ -264,7 +281,71 @@ class Eb_Connection_Helper {
 		return $response;
 	}
 
+	public function connection_test_status( $url, $token, $text_response = 0 ) {
+		$success          = 1;
+		$response_message = 'success';
+		$plain_txt_msg    = '';
+		// function to check if webservice token is properly set.
 
+		// new test connection api.
+		$webservice_function = 'auth_edwiserbridge_test_connection';
+
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
+			'timeout' => 100,
+		);
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
+		}
+
+		$request_args['body'] = array(
+			'test_connection' => 'wordpress',
+			'wp_url'          => get_site_url(),
+			'wp_token'        => $token,
+		);
+		
+		$response             = wp_safe_remote_post( $request_url, $request_args );
+		
+		if ( in_array( wp_remote_retrieve_response_code( $response ), array( 400, 403, 404, 408, 502, 503, 504, 524 ) ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	public function get_raw_response( $url, $token, $text_response = 0 ) {
+		$success          = 1;
+		$response_message = 'success';
+		$plain_txt_msg    = '';
+		// function to check if webservice token is properly set.
+
+		// new test connection api.
+		$webservice_function = 'auth_edwiserbridge_test_connection';
+
+		$request_url               = $url . '/webservice/rest/server.php?wstoken=';
+		$request_url              .= $token . '&wsfunction=';
+		$request_url              .= $webservice_function . '&moodlewsrestformat=json';
+		$request_args              = array(
+			'timeout' => 100,
+		);
+		$settings                  = get_option( 'eb_general' );
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
+		}
+
+		$request_args['body'] = array(
+			'test_connection' => 'wordpress',
+			'wp_url'          => get_site_url(),
+			'wp_token'        => $token,
+		);
+		
+		$response             = wp_safe_remote_post( $request_url, $request_args );
+		return $response;
+	}
 
 
 	/**
@@ -297,9 +378,9 @@ class Eb_Connection_Helper {
 
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		foreach ( $webservice_functions as $webservice_function ) {
@@ -366,6 +447,11 @@ class Eb_Connection_Helper {
 	                                	<div><b>' . esc_html__( 'Response : ', 'edwiser-bridge' ) . '</b></div>
 	                                	<div>' . $message . '</div>
 	                                </div>
+									<div>
+                                	<div>' .
+									/* translators: %1$s: opening tag, %2$s: closing tag */
+									sprintf( esc_html__( 'Click %1$s Troubleshoot %2$s button to get more details.', 'edwiser-bridge' ), '<strong>', '</strong>' ) . '</div>
+									</div>
 	                            </div>
 
 	                            <div class="eb_admin_templ_dismiss_notice_message">
@@ -423,9 +509,9 @@ class Eb_Connection_Helper {
 
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 		$response = wp_remote_post( $request_url, $request_args );
 
@@ -435,7 +521,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -456,7 +542,7 @@ class Eb_Connection_Helper {
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_args,
 					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),
@@ -535,9 +621,9 @@ class Eb_Connection_Helper {
 			'timeout' => 100,
 		);
 		$settings                  = get_option( 'eb_general' );
-		$request_args['sslverify'] = false;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'no' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = true;
+		$request_args['sslverify'] = true;
+		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
+			$request_args['sslverify'] = false;
 		}
 
 		$response = wp_remote_post( $request_url, $request_args );
@@ -548,7 +634,7 @@ class Eb_Connection_Helper {
 			global $current_user;
 			wp_get_current_user();
 			$error_data = array(
-				'url'          => $request_url,
+				'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 				'arguments'    => $request_args,
 				'user'         => isset( $current_user ) ? $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')' : '',
 				'responsecode' => '',
@@ -572,7 +658,7 @@ class Eb_Connection_Helper {
 				global $current_user;
 				wp_get_current_user();
 				$error_data = array(
-					'url'          => $request_url,
+					'url'          => preg_replace( '/wstoken=[^&]+/', 'wstoken=[REDACTED]', $request_url ),
 					'arguments'    => $request_data,
 					'user'         => $current_user->user_login . '(' . $current_user->first_name . ' ' . $current_user->last_name . ')',
 					'responsecode' => wp_remote_retrieve_response_code( $response ),

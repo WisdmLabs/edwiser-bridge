@@ -446,56 +446,56 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'Please enter license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+						sprintf( __( 'Please enter license key for %s.', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( 'server_did_not_respond' === $status ) {
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'No response from server. Please try again later.', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'No response from server. Please try again later.', 'edwiser-bridge' ), $this->plugin_name ),
 						'error'
 					);
 				} elseif ( 'item_name_mismatch' === $status ) {
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key is not valid. Please check your license key and try again', 'ebbp-textdomain' ), $this->plugin_name ),
+						sprintf( __( 'License key is not valid. Please check your license key and try again', 'edwiser-bridge' ), $this->plugin_name ),
 						'error'
 					);
 				} elseif ( false !== $status && 'valid' === $status ) { // Valid license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s is activated.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+						sprintf( __( 'License key for %s is activated.', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'updated'
 					);
 				} elseif ( false !== $status && 'expired' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Expired license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s have been Expired. Please, Renew it. <br/>Your License Key is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+						sprintf( __( 'License key for %s have been Expired. Please, Renew it. <br/>Your License Key is already activated at : ' . $display, 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( false !== $status && 'expired' === $status ) { // Expired license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s have been Expired. Please, Renew it.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+						sprintf( __( 'License key for %s have been Expired. Please, Renew it.', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( false !== $status && 'disabled' === $status ) { // Disabled license key.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License key for %s is Disabled.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+						sprintf( __( 'License key for %s is Disabled.', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} elseif ( 'no_activations_left' === $status ) { // Invalid license key   and site.
 					add_settings_error(
 						'eb_' . $this->plugin_slug . '_errors',
 						esc_attr( 'settings_updated' ),
-						sprintf( __( 'License Key for %1$s is already activated at : %2$s', 'ebbp-textdomain' ), $this->plugin_name, $display ), // @codingStandardsIgnoreLine
+						sprintf( __( 'License Key for %1$s is already activated at : %2$s', 'edwiser-bridge' ), $this->plugin_name, $display ), // @codingStandardsIgnoreLine
 						'error'
 					);
 				} else {
@@ -521,35 +521,35 @@ if ( ! class_exists( 'Eb_Licensing_Manager' ) ) {
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'invalid' === $status ) { // Invalid license key.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'Please enter valid license key for %s.', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+					sprintf( __( 'Please enter valid license key for %s.', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'site_inactive' === $status && ( ! empty( $display ) || '' !== $display ) ) { // Invalid license key   and site inactive.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+					sprintf( __( 'License Key for %s is already activated at : ' . $display, 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'error'
 				);
 			} elseif ( 'site_inactive' === $status ) { // Site is inactive.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					__( 'Site inactive(Press Activate license to activate plugin)', 'ebbp-textdomain' ),
+					__( 'Site inactive(Press Activate license to activate plugin)', 'edwiser-bridge' ),
 					'error'
 				);
 			} elseif ( 'deactivated' === $status ) { // Site is inactive.
 				add_settings_error(
 					'eb_' . $this->plugin_slug . '_errors',
 					esc_attr( 'settings_updated' ),
-					sprintf( __( 'License Key for %s is deactivated', 'ebbp-textdomain' ), $this->plugin_name ), // @codingStandardsIgnoreLine
+					sprintf( __( 'License Key for %s is deactivated', 'edwiser-bridge' ), $this->plugin_name ), // @codingStandardsIgnoreLine
 					'updated'
 				);
 			}

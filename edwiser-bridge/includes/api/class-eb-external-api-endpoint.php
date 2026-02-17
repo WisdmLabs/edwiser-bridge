@@ -42,7 +42,7 @@ class Eb_External_Api_Endpoint {
 	public function eb_validate_api_key( $request_data ) {
 		$wp_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$valid_key = false;
-		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token === $request_data['secret_key'] ) {
+		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && hash_equals( (string) $wp_token, (string) $request_data['secret_key'] ) ) {
 			$valid_key = true;
 		}
 		return $valid_key;
@@ -436,6 +436,11 @@ class Eb_External_Api_Endpoint {
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
 				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 				$user_update_array['user_pass'] = $user_p;
+			}
+
+			$user_email = get_user_meta( $wp_user_id, 'user_email', true );
+			if ( isset( $data['email'] ) && ! empty( $data['email'] ) && $user_email !== $data['email'] ) {
+				$user_update_array['user_email'] = $data['email'];
 			}
 
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );

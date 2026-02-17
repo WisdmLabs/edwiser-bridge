@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "edwiser-bridge/courses",
+	"version": "0.1.0",
+	"title": "Edwiser Courses",
+	"category": "edwiser",
+	"icon": "book",
+	"description": "Display all available courses in an organized and modern design.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"pageTitle": {
+			"type": "string",
+			"default": "Courses"
+		},
+		"hideTitle": {
+			"type": "boolean",
+			"default": false
+		},
+		"hideFilters": {
+			"type": "boolean",
+			"default": false
+		},
+		"coursesPerPage": {
+			"type": "number",
+			"default": 9
+		},
+		"categories": {
+			"type": "string"
+		},
+		"groupByCategory": {
+			"type": "boolean",
+			"default": false
+		},
+		"categoryPerPage": {
+			"type": "number",
+			"default": 3
+		},
+		"horizontalScroll": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"textdomain": "edwiser-bridge",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

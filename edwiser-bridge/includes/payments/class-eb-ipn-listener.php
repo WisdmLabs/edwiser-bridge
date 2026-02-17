@@ -140,13 +140,8 @@ class Eb_Ipn_Listener {
 	 *  @throws \Exception Exception.
 	 */
 	protected function curl_post( $encoded_data ) {
-		if ( $this->use_ssl ) {
-			$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
-			$this->post_uri = $uri;
-		} else {
-			$uri            = 'http://' . $this->get_paypal_host() . '/cgi-bin/webscr';
-			$this->post_uri = $uri;
-		}
+		$uri            = 'https://' . $this->get_paypal_host() . '/cgi-bin/webscr';
+		$this->post_uri = $uri;
 
 		$encoded_data['cmd'] = '_notify-validate';
 
@@ -168,7 +163,7 @@ class Eb_Ipn_Listener {
 
 		if ( is_wp_error( $resp ) ) {
 			$errstr = $resp->get_error_message();
-			throw new \Exception( "cURL error: $errstr" );
+			throw new \Exception( 'cURL error: ' . esc_html( $errstr ) );
 		} elseif ( 200 === wp_remote_retrieve_response_code( $resp ) ) {
 			// Set responce here.
 			$this->response = $resp['body'];
@@ -190,21 +185,15 @@ class Eb_Ipn_Listener {
 	 *  @throws \Exception Exception.
 	 */
 	protected function fsock_post( $encoded_data ) {
-		if ( $this->use_ssl ) {
-			$uri            = 'ssl://' . $this->get_paypal_host();
-			$port           = '443';
-			$this->post_uri = $uri . '/cgi-bin/webscr';
-		} else {
-			$uri            = $this->get_paypal_host(); // no "http://" in call to fsockopen().
-			$port           = '80';
-			$this->post_uri = 'http://' . $uri . '/cgi-bin/webscr';
-		}
+		$uri            = 'ssl://' . $this->get_paypal_host();
+		$port           = '443';
+		$this->post_uri = $uri . '/cgi-bin/webscr';
 
 		$_fp = fsockopen( $uri, $port, $errno, $errstr, $this->timeout ); // @codingStandardsIgnoreLine
 
 		if ( ! $_fp ) {
 			// fsockopen error.
-			throw new \Exception( "fsockopen error: [$errno] $errstr" );
+			throw new \Exception( 'fsockopen error: [' . esc_html( $errno ) . '] ' . esc_html( $errstr ) );
 		}
 
 		$header  = "POST /cgi-bin/webscr HTTP/1.0\r\n";
@@ -212,6 +201,7 @@ class Eb_Ipn_Listener {
 		$header .= 'Content-Length: ' . strlen( $encoded_data ) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Writing to a socket stream, not a file; WP_Filesystem does not handle sockets.
 		fputs( $_fp, $header . $encoded_data . "\r\n\r\n" );
 
 		while ( ! feof( $_fp ) ) {
@@ -357,7 +347,7 @@ class Eb_Ipn_Listener {
 
 		if ( false === $this->response_status ) {
 
-			throw new \Exception( 'Invalid response status: ' . $this->response_status );
+			throw new \Exception( 'Invalid response status: ' . esc_html( $this->response_status ) );
 		}
 
 		if ( strpos( $this->response, 'VERIFIED' ) !== false ) {

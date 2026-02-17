@@ -84,6 +84,8 @@ class Eb_Post_Types {
 					'query_var'    => true,
 					'hierarchical' => true,
 					'rewrite'      => array( 'slug' => 'eb_category' ),
+					'show_in_rest' => true,
+					'publicly_queryable' => true,
 				)
 			)
 		);
@@ -143,6 +145,8 @@ class Eb_Post_Types {
 						'has_archive'       => $show_archive,
 						'show_in_nav_menus' => true,
 						'taxonomies'        => array( 'eb_course_cat' ),
+						'show_in_rest'      => true,
+						'publicly_queryable' => true,
 					)
 				)
 			);
@@ -257,7 +261,7 @@ class Eb_Post_Types {
 		if ( 'eb_order' === $args['args']['post_type'] ) {
 			$css_class = 'eb-wdm-order-meta';
 			echo '<strong>';
-			echo esc_html__( 'Order ', 'edwiser-bridge' ) . esc_html( printf( '#%s ', get_the_id() ) ) . esc_html__( 'Details ', 'edwiser-bridge' );
+			echo esc_html( sprintf( __( 'Order #%s Details', 'edwiser-bridge' ), get_the_id() ) );
 			echo '</strong>';
 			echo "<div id='" . esc_html( $args['args']['post_type'] ) . "'_options' class='post-options " . esc_html( $css_class ) . "'>";
 		} else {
@@ -359,7 +363,7 @@ class Eb_Post_Types {
 					'label'       => __( 'Expire Access After (days)', 'edwiser-bridge' ),
 					'description' => __( 'Number of days the course is accessible', 'edwiser-bridge' ),
 					'type'        => 'number',
-					'default'     => '',
+					'default'     => 30,
 				),
 				'course_short_description' => array(
 					'label'       => __( 'Short Description', 'edwiser-bridge' ),
@@ -573,7 +577,7 @@ class Eb_Post_Types {
 				break;
 			default:
 				?>
-				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_html( $eb_plugin_url ); ?>images/question.png" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
+				<span class="description-label <?php esc_attr( $field_id ); ?>"><img class="help-tip" src="<?php echo esc_url( $eb_plugin_url . 'images/question.png' ); ?>" data-tip="<?php echo esc_attr( $field['description'] ); ?>" /></span>
 				<?php echo isset( $field['note'] ) ? wp_kses( $field['note'], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() ) : ''; ?>
 				<?php
 				break;
@@ -657,17 +661,21 @@ class Eb_Post_Types {
 							}
 						}
 
-						if ( is_array( $update_post_options ) ) {
-							/*
-							* merge previous values in array with new values retrieved
-							* replace old values with new values and save as option
-							*
-							* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
-							*/
-							$previous = get_post_meta( $post_id, $post_type . '_options', true );
-							$merged   = array_merge( $previous, $update_post_options );
-							update_post_meta( $post_id, $post_type . '_options', $merged );
+					if ( is_array( $update_post_options ) ) {
+						/*
+						* merge previous values in array with new values retrieved
+						* replace old values with new values and save as option
+						*
+						* To keep custom buyer data saved in same order meta key, so that it is not erased on post save.
+						*/
+						$previous = get_post_meta( $post_id, $post_type . '_options', true );
+						// Ensure $previous is always an array to prevent array_merge() errors.
+						if ( ! is_array( $previous ) ) {
+							$previous = array();
 						}
+						$merged   = array_merge( $previous, $update_post_options );
+						update_post_meta( $post_id, $post_type . '_options', $merged );
+					}
 					}
 				}
 			}
@@ -727,7 +735,7 @@ class Eb_Post_Types {
 				'%1$s' . __( 'scheduled for:  ', 'edwiser-bridge' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'edwiser-bridge' ) . '%4$s</a>', // @codingStandardsIgnoreLine
 				$singular,
 				date_i18n(
-					__( 'M j, Y @ G:i' ),
+					__( 'M j, Y @ G:i', 'edwiser-bridge' ),
 					strtotime( $post->post_date )
 				),
 				esc_url(

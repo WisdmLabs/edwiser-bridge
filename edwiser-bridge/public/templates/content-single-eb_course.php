@@ -35,7 +35,7 @@ $single_course_data = apply_filters( 'eb_content_single_course_before', $post->I
 			if ( has_post_thumbnail() ) {
 				the_post_thumbnail( 'course_single' );
 			} else {
-				echo '<img src="' . esc_html( $single_course_data['eb_plugin_url'] ) . 'images/no-image.jpg" />';
+				echo '<img src="' . esc_url( $single_course_data['eb_plugin_url'] . 'images/no-image.jpg' ) . '" />';
 			}
 			?>
 		</div>

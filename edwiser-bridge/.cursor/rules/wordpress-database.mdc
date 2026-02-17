@@ -1,0 +1,44 @@
+---
+description: Database best practices for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Database Best Practices
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Query Construction
+- Use `$wpdb->prepare()` for all queries with variables
+- Never use direct SQL queries when WordPress functions exist
+- Use `WP_Query`, `get_posts()`, or `get_terms()` when appropriate
+- Specify only needed fields in SELECT queries
+
+## Data Handling
+- Sanitize data before inserting into the database
+- Escape data when retrieving from the database
+- Use appropriate data types (`%s`, `%d`, `%f`) in prepared statements
+- Validate data before storage
+
+## Custom Tables
+- Follow WordPress naming conventions for custom tables
+- Use the WordPress prefix (`$wpdb->prefix`)
+- Create/update tables using `dbDelta()` in activation hooks
+- Document table structure thoroughly
+
+## Performance
+- Include proper WHERE clauses to limit results
+- Use appropriate indexes on custom tables
+- Implement caching for frequent or expensive queries
+- Use `LIMIT` to restrict result set size
+
+## Transactions
+- Use transactions for operations requiring multiple queries
+- Implement proper error handling for transactions
+- Always commit or rollback transactions
+- Consider using WordPress's built-in transactions support
+
+## Metadata
+- Use post meta, user meta, and term meta appropriately
+- Group related meta in serialized arrays when suitable
+- Consider custom tables for complex relational data
+- Be cautious with `update_post_meta()` to avoid duplicate entries

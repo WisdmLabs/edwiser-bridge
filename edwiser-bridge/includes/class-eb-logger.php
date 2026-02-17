@@ -37,6 +37,12 @@ class Eb_Logger {
 	private $version;
 
 	/**
+	 * Handles.
+	 *
+	 * @var array
+	 */
+	private $_handles = array();
+	/**
 	 * Instance.
 	 *
 	 * @var EB_Course_Manager The single instance of the class

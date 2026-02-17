@@ -66,13 +66,28 @@ class Eb_Template_Loader {
 	public function template_loader( $template ) {
 		$file          = '';
 		$eb_templ_path = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_template_path();
+		$eb_gutenberg_settings = get_option('eb_gutenberg_pages', array());
 
 		if ( is_single() && get_post_type() === 'eb_course' ) {
-			$file   = 'single-eb_course.php';
+			$eb_gutenberg_page_id = $eb_gutenberg_settings['single_course'];
+			$eb_gutenberg_page = get_post($eb_gutenberg_page_id);
+			if ($eb_gutenberg_page && !is_wp_error($eb_gutenberg_page) && get_option('eb_pro_enable_single_course_override', false)) {
+				$eb_gutenberg_page_content = $eb_gutenberg_page->post_content;
+				$file   = 'single-eb_course_gutenberg.php';
+			} else {
+				$file   = 'single-eb_course.php';
+			}
 			$find[] = $file;
 			$find[] = $eb_templ_path . $file;
 		} elseif ( is_post_type_archive( 'eb_course' ) ) {
-			$file   = 'archive-eb_course.php';
+			$eb_gutenberg_page_id = $eb_gutenberg_settings['all_courses'];
+			$eb_gutenberg_page = get_post($eb_gutenberg_page_id);
+			if ($eb_gutenberg_page && !is_wp_error($eb_gutenberg_page) && get_option('eb_pro_enable_all_courses_override', false)) {
+				$eb_gutenberg_page_content = $eb_gutenberg_page->post_content;
+				$file   = 'archive-eb_course_gutenberg.php';
+			} else {
+				$file   = 'archive-eb_course.php';
+			}
 			$find[] = $file;
 			$find[] = $eb_templ_path . $file;
 		}

@@ -24,7 +24,7 @@ if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	 */
 	function wdm_eb_log_file_path( $handle ) {
 		$eb_log_dir_path = wdm_edwiser_bridge_plugin_log_dir();
-		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
+		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . date_i18n('m-y') . '.log';
 	}
 }
 
@@ -202,8 +202,10 @@ if ( ! function_exists( 'wdm_eb_user_redirect_url' ) ) {
 
 		// Extract query string into local $_GET array.
 		$get = array();
-		parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
-		$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		if ( ! empty( $query_str ) ) {
+			parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
+			$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		}
 
 		return $usr_ac_page_url;
 	}
@@ -489,16 +491,16 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					'core_role_unassign_roles',
 					'core_cohort_delete_cohort_members',
 					'core_cohort_get_cohorts',
-					// 'eb_manage_cohort_enrollment',
-					'eb_delete_cohort',
+					// 'auth_edwiserbridge_manage_cohort_enrollment',
+					'auth_edwiserbridge_delete_cohort',
 					// 'wdm_manage_cohort_enrollment'
 				),
 				'woocommerce-integration/bridge-woocommerce.php' => array(),
 				'edwiser-bridge-sso/sso.php' => array(
-					'wdm_sso_verify_token',
+					'auth_edwiserbridge_verify_sso_token',
 				),
 				'selective-synchronization/selective-synchronization.php' => array(
-					'eb_get_users',
+					'auth_edwiserbridge_get_users',
 				),
 			)
 		);
@@ -514,14 +516,14 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 				'enrol_manual_enrol_users',
 				'enrol_manual_unenrol_users',
 				'core_enrol_get_users_courses',
-				'eb_test_connection',
-				'eb_get_site_data',
-				'eb_get_course_progress',
-				'eb_get_edwiser_plugins_info',
-				'edwiserbridge_local_get_course_enrollment_method',
-				'edwiserbridge_local_update_course_enrollment_method',
-				'edwiserbridge_local_get_mandatory_settings',
-				'edwiserbridge_local_enable_plugin_settings',
+				'auth_edwiserbridge_test_connection',
+				'auth_edwiserbridge_get_site_data',
+				'auth_edwiserbridge_get_course_progress',
+				'auth_edwiserbridge_get_edwiser_plugins_info',
+				'auth_edwiserbridge_get_course_enrollment_method',
+				'auth_edwiserbridge_update_course_enrollment_method',
+				'auth_edwiserbridge_get_mandatory_settings',
+				'auth_edwiserbridge_enable_plugin_settings',
 			)
 		);
 
@@ -532,7 +534,7 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
 						$functions = array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
-						$functions = array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'auth_edwiserbridge_manage_cohort_enrollment' ) );
 					}
 				}
 
@@ -584,7 +586,9 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
 			$eb_moodle_url = $url['eb_url'];
-
+			if ( empty( $eb_moodle_url ) ) {
+				return 'MOODLE_URL';
+			}
 			if ( substr( $eb_moodle_url, -1 ) === '/' ) {
 				$eb_moodle_url = substr( $eb_moodle_url, 0, -1 );
 			}
@@ -689,10 +693,6 @@ if ( ! function_exists( 'wdm_eb_sinlge_course_get_allowed_html_tags' ) ) {
 			'class'    => array(),
 			'value'    => array(),
 			'selected' => array(),
-		);
-		$allowed_tags['script'] = array(
-			'src'  => array(),
-			'type' => array(),
 		);
 		$allowed_tags['a']      = array(
 			'href'   => array(),
@@ -913,7 +913,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 			add_query_arg( $api_params, $store_url ),
 			array(
 				'timeout'    => 15,
-				'sslverify'  => false,
+				'sslverify'  => true,
 				'blocking'   => true,
 				'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 			)
@@ -950,7 +950,7 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 					'order'   => 'ASC',
 					'fields'  => 'all',
 				)
-			); // @codingStandardsIgnoreLine.
+			);
 		} else {
 			$terms = get_terms(
 				array(
@@ -1108,6 +1108,21 @@ if ( ! function_exists( 'is_access_exception' ) ) {
 	}
 }
 
+if ( ! function_exists( 'is_moodle_exception' ) ) {
+	/**
+	 * Function to check if response is moodle exception.
+	 *
+	 * @param  array $response response.
+	 */
+	function is_moodle_exception( $response ) {
+		$exception = false;
+		if ( isset( $response['response_body']->exception ) && 'core\exception\moodle_exception' === $response['response_body']->exception ) {
+			$exception = true;
+		}
+		return $exception;
+	}
+}
+
 if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
 	/**
 	 * Function to check if recaptcha is enabled.
@@ -1203,10 +1218,17 @@ if ( ! function_exists( 'add_beacon_helpscout_script' ) ) {
 	 * Callback to action hook 'quoteup_pep_backend_page'.
 	 */
 	function add_beacon_helpscout_script() {
-		?>
-		<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
-		<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
-		<?php
+		if ( ! is_plugin_active( 'edwiser-bridge-pro/edwiser-bridge-pro.php' ) ) {
+			?>
+			<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
+			<?php
+		} else {
+			?>
+			<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon('init', '2d48acfb-55c0-4416-bdeb-92b92c101645')</script>
+			<?php
+		}
 	}
 }
 

@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "edwiser-bridge/my-courses",
+	"version": "0.1.0",
+	"title": "Edwiser My Courses",
+	"category": "edwiser",
+	"icon": "book",
+	"description": "Display user's enrolled courses with progress tracking and recommended courses.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"pageTitle": {
+			"type": "string",
+			"default": "My Courses"
+		},
+		"hidePageTitle": {
+			"type": "boolean",
+			"default": false
+		},
+		"showCourseProgress": {
+			"type": "boolean",
+			"default": true
+		},
+		"showRecommendedCourses": {
+			"type": "boolean",
+			"default": true
+		},
+		"recommendedCoursesTitle": {
+			"type": "string",
+			"default": "Recommended Courses"
+		},
+		"recommendedCoursesCount": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"textdomain": "edwiser-bridge",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

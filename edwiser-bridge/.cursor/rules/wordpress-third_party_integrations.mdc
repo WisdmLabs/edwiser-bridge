@@ -1,0 +1,68 @@
+---
+description: Third-party integration best practices for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Third-Party Integrations
+
+This rule applies to: `*.php` files in WordPress projects that integrate with external services.
+
+## API Authentication
+- Store API credentials securely
+- Use WordPress options API with encryption when appropriate
+- Implement API key rotation capabilities
+- Never hardcode API keys or secret tokens
+
+## Dependency Management
+- Use WordPress HTTP API for external requests
+- Implement proper fallbacks for failed API calls
+- Handle rate limiting and quotas gracefully
+- Cache API responses when appropriate
+
+## Error Handling
+- Implement comprehensive error handling for API calls
+- Provide user-friendly error messages
+- Log detailed errors for debugging
+- Handle timeout and connection failures
+
+## Data Synchronization
+- Design efficient synchronization strategies
+- Implement webhooks when available
+- Use WordPress cron for scheduled synchronization
+- Provide manual sync capabilities for admins
+
+## User Experience
+- Provide clear setup and configuration interfaces
+- Implement connection status indicators
+- Create user-friendly settings pages
+- Show progress for long-running operations
+
+## Performance
+- Minimize API calls
+- Use background processing for intensive operations
+- Implement caching for API responses
+- Consider using transients for temporary data storage
+
+## Security
+- Validate and sanitize all data from external sources
+- Implement proper capability checks for admin functions
+- Apply rate limiting for outgoing requests
+- Follow OAuth best practices when applicable
+
+## Testing
+- Create test environments for integrations
+- Use mock responses for API testing
+- Implement integration tests
+- Provide sandbox mode for testing
+
+## Documentation
+- Document API usage and limitations
+- Provide clear setup instructions
+- Include troubleshooting guides
+- Document required API permissions
+
+## Compliance
+- Respect third-party terms of service
+- Handle user data according to privacy policies
+- Implement proper disclosure of data sharing
+- Follow GDPR and other relevant regulations

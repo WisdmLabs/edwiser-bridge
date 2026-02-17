@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "edwiser-bridge/course-description",
+	"version": "0.1.0",
+	"title": "Edwiser Course Description",
+	"category": "edwiser",
+	"icon": "text-page",
+	"description": "Showcase course details, pricing, and description in a clean, structured layout.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"courseId": {
+			"type": "number",
+			"source": "meta",
+			"meta": "courseId"
+		},
+		"showRecommendedCourses": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"textdomain": "edwiser-bridge",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php"
+}

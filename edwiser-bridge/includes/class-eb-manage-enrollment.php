@@ -112,6 +112,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 			$list_table     = new Eb_Custom_List_Table();
 			$current_action = $list_table->current_action();
 			$this->handle_bulk_action( $current_action );
+			$this->handle_new_enrollment();
 			$list_table->prepare_items();
 			$post_page        = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
 			$search_text      = isset( $_REQUEST['ebemt_search'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['ebemt_search'] ) ) : ''; // WPCS: CSRF ok, input var ok. // @codingStandardsIgnoreLine
@@ -132,7 +133,68 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 				</div>
 				<!-- Display the proccessing popup end. -->
 
-				<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+				<h1 class="eb-heading-inline"><?php echo esc_html( get_admin_page_title() ); ?></h1>
+				<span id="eb-create-new-enrollment" class="eb-page-title-action"><?php esc_html_e( 'Enroll New Student', 'edwiser-bridge' ); ?></span>
+
+				<?php
+					global $wpdb;
+
+					$course_list = array();
+			
+					$query = "SELECT `ID`,`post_title`, `post_status` FROM  `" . $wpdb->prefix . "posts` WHERE  `post_type` LIKE  'eb_course' AND (`post_status` LIKE 'publish' OR `post_status` LIKE 'draft' )"; // @codingStandardsIgnoreLine
+			
+					$result = $wpdb->get_results( $query, OBJECT_K ); // @codingStandardsIgnoreLine
+			
+					if ( ! empty( $result ) ) {
+						foreach ( $result as $post_id => $single_result ) {
+							$draft = '';
+							if ( 'draft' === $single_result->post_status ) {
+								$draft = '( draft  )';
+							}
+							$course_list[ $post_id ] = $single_result->post_title . $draft;
+						}
+					}
+				?>
+				<!-- Create enrollment form -->
+				 <div class="eb-create-new-enrollment-form">
+					<h3><?php esc_html_e( 'Enroll New Student', 'edwiser-bridge' ); ?></h3>
+					<form method="post" id="eb-create-new-enrollment-form">
+						<?php
+							wp_nonce_field( 'eb-manage-user-enrol', 'eb-manage-user-enrol' );
+						?>
+						<div class="eb-enroll-form">
+							<div class="eb-enroll-form-field">
+								<label for="new-enrollment-student"><?php esc_html_e( 'Student Name', 'edwiser-bridge' ); ?></label>
+								<select name="new-enrollment-student" id="new-enrollment-student">
+									<?php
+									$users = get_users();
+									foreach ( $users as $user ) {
+										?>
+										<option value="<?php echo esc_attr( $user->ID ); ?>"><?php echo esc_attr( $user->display_name ); ?></option>
+										<?php
+									}
+									?>
+								</select>
+							</div>
+							<div class="eb-enroll-form-field-course">
+								<label for="new-enrollment-courses"><?php esc_html_e( 'Courses', 'edwiser-bridge' ); ?></label>
+								<select name="new-enrollment-courses[]" id="new-enrollment-courses" multiple="multiple">
+									<?php
+										foreach ( $course_list as $key => $value ) {
+											?>
+											<option value="<?php echo esc_html( $key ); ?>">
+												<?php echo esc_html( $value ); ?>
+											</option>
+											<?php
+										}
+									?>
+								</select>
+							</div>
+							<input type="submit" name="eb_create_new_enrollment" id="eb_create_new_enrollment" class="button button-primary" value="<?php echo esc_html__( 'Enroll Student', 'edwiser-bridge' ); ?>"/>
+							<span class="eb-cancel-enroll button button-secondary"><?php esc_html_e( 'Cancel', 'edwiser-bridge' ); ?></span>
+						</div>
+					</form>
+				 </div>
 
 				<div class="eb-notices" id="eb-notices"><!-- Add custom notices inside this. --></div>
 				<?php do_action( 'eb_before_manage_user_enrollment_table' ); ?>
@@ -190,9 +252,12 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-			$query      = $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) );
-			$query      = wp_unslash( $query );
-			$results    = $wpdb->get_results( $query, ARRAY_A ); // WPCS: unprepared SQL OK. // @codingStandardsIgnoreLine
+			$user_ids   = array_map( 'intval', $users );
+			$placeholders = implode( ',', array_fill( 0, count( $user_ids ), '%d' ) );
+			$results    = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query for enrollment processing, caching not applicable.
+				$wpdb->prepare( "SELECT user_id, course_id FROM {$wpdb->prefix}moodle_enrollment WHERE id IN ({$placeholders})", $user_ids ),
+				ARRAY_A
+			);
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {
@@ -207,7 +272,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<strong>
-							<?php sprintf( '%s ', $cnt ) . esc_html_e( 'users has been unenrolled successfully.', 'edwiser-bridge' ); ?>
+							<?php echo esc_html( $cnt . ' ' ); esc_html_e( 'users has been unenrolled successfully.', 'edwiser-bridge' ); ?>
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
@@ -243,6 +308,11 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 		 * Ajax callback to unenroo the users from the database
 		 */
 		public function unenroll_user_ajax_handler() {
+			// SECURITY FIX: Check user capability before processing.
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+			}
+
 			$response = esc_html__( 'Failed to unenroll user', 'edwiser-bridge' );
 			if ( isset( $_POST['user_id'] ) && isset( $_POST['course_id'] ) && isset( $_POST['action'] ) && 'wdm_eb_user_manage_unenroll_unenroll_user' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
@@ -299,6 +369,51 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 			$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%s AND meta_key = 'moodle_course_id'", $moodle_course_id ) ); // @codingStandardsIgnoreLine
 
 			return $result;
+		}
+
+		/**
+		 * Handle new enrollment of the user
+		 */
+		public function handle_new_enrollment() {
+			if ( isset( $_POST['eb-manage-user-enrol'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['eb-manage-user-enrol'] ) ), 'eb-manage-user-enrol' ) && isset( $_POST['new-enrollment-student'] ) && isset( $_POST['new-enrollment-courses'] ) ) {
+
+				$user_id = sanitize_text_field( wp_unslash( $_POST['new-enrollment-student'] ) );
+
+				$user = get_user_by( 'id', $user_id );
+				$user_name = $user->first_name . ' ' . $user->last_name;
+
+				$raw_courses = $_POST['new-enrollment-courses']; // @codingStandardsIgnoreLine will sanitize in the loop below
+
+				$courses = array();
+
+				foreach ( $raw_courses as $course ) {
+					$courses[] = sanitize_text_field( wp_unslash( $course ) );
+				}
+
+				$enrollment_manager = new Eb_Enrollment_Manager( $this->plugin_name, $this->version );
+
+				$args = array(
+					'user_id'           => $user_id,
+					'role_id'           => 5,
+					'courses'           => $courses,
+					'unenroll'          => 0,
+					'suspend'           => 0,
+				);
+
+				$response = $enrollment_manager->update_user_course_enrollment( $args );
+
+				if ( $response ) {
+					echo '<div class="notice notice-success is-dismissible">
+					<p>' . esc_html__( 'User ', 'edwiser-bridge' ) . esc_html( $user_name ) . esc_html__( ' has been enrolled successfully.', 'edwiser-bridge' ) . '</p>
+					</div>
+					';
+				} else {
+					echo '<div class="notice notice-error is-dismissible">
+					<p>' . esc_html__( 'Something went wrong.', 'edwiser-bridge' ) . '</p>
+					</div>
+					';
+				}
+			}
 		}
 	}
 }

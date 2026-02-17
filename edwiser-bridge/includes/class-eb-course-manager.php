@@ -231,7 +231,7 @@ class Eb_Course_Manager {
 
 		// Check sync option.
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			'edwiserbridge_local_get_course_enrollment_method',
+			'auth_edwiserbridge_get_course_enrollment_method',
 			array()
 		);
 
@@ -261,7 +261,7 @@ class Eb_Course_Manager {
 
 		// Check sync option.
 		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
-			'edwiserbridge_local_update_course_enrollment_method',
+			'auth_edwiserbridge_update_course_enrollment_method',
 			$course_array
 		);
 
@@ -958,6 +958,9 @@ class Eb_Course_Manager {
 	 * @param int $course_id course id.
 	 */
 	public function eb_enable_course_enrollment_method( $course_id = '' ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
@@ -1018,7 +1021,13 @@ class Eb_Course_Manager {
 			} else {
 				$file_url = $course_image->fileurl . '?token=' . $token;
 			}
-			$upload_file = wp_upload_bits( $course_image->filename, null, file_get_contents( $file_url ) ); // @codingStandardsIgnoreLine
+
+			// Use wp_remote_get to get the image data from the url.
+			$image_data = $this->get_image_data_from_url( $file_url );
+			if ( ! $image_data ) {
+				return;
+			}
+			$upload_file = wp_upload_bits( $course_image->filename, null, $image_data );
 
 			if ( ! $upload_file['error'] ) {
 				// if succesfull insert the new file into the media library (create a new attachment post type).
@@ -1044,5 +1053,19 @@ class Eb_Course_Manager {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get image data from url.
+	 *
+	 * @param  string $url url of the image.
+	 * @return string|false      image data or false on failure.
+	 */
+	public function get_image_data_from_url( $url ) {
+		$response = wp_remote_get( $url, array( 'timeout' => 15 ) );
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
+		return wp_remote_retrieve_body( $response );
 	}
 }
