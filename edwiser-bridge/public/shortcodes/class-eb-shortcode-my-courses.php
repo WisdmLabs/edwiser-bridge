@@ -160,7 +160,7 @@ class Eb_Shortcode_My_Courses {
 				printf(
 					/* Translators 1: URL */
 					esc_html__( 'You are not enrolled to any course. ', 'edwiser-bridge' ) . '%s' . esc_html__( ' to access the courses page.', 'edwiser-bridge' ),
-					"<a href='" . esc_html( $link ) . "'>" . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>'
+					"<a href='" . esc_url( $link ) . "'>" . esc_html__( 'Click here', 'edwiser-bridge' ) . '</a>'
 				);
 				?>
 			</h5>
@@ -307,7 +307,7 @@ class Eb_Shortcode_My_Courses {
 				$view_more_url = site_url( $eb_course->rewrite['slug'] );
 			}
 			?>
-			<a href="<?php echo esc_html( $view_more_url ); ?>" class="wdm-btn eb-rec-courses-view-more">
+			<a href="<?php echo esc_url( $view_more_url ); ?>" class="wdm-btn eb-rec-courses-view-more">
 				<?php esc_html_e( 'View More &rarr;', 'edwiser-bridge' ); ?>
 			</a>
 			<?php

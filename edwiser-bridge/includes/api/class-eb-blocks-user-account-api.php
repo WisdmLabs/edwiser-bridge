@@ -339,9 +339,9 @@ class EdwiserBridge_Blocks_UserAccount_API
         // Check if this is our API endpoint
         $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
         if (strpos($request_uri, '/wp-json/eb/api/v1/user-account/') !== false) {
-            // For our endpoints, allow the request to proceed if user is logged in
-            // This prevents the nonce check from failing after login
-            if (is_user_logged_in()) {
+            // Only bypass nonce for safe (read-only) GET requests to prevent CSRF on write operations.
+            $request_method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper(sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD']))) : '';
+            if (is_user_logged_in() && 'GET' === $request_method) {
                 return true;
             }
         }

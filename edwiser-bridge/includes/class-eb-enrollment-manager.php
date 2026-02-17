@@ -766,6 +766,10 @@ class Eb_Enrollment_Manager {
 	 * @since 2.2.1
 	 */
 	public function enroll_dummy_user() {
+		check_ajax_referer( 'check_sync_action', '_wpnonce_field' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : false; // @codingStandardsIgnoreLine
 		if ( ! $course_id ) {
 			$courses = $this->get_courses();

@@ -52,7 +52,7 @@ class EdwiserBridge_Blocks_My_Courses_API
             array(
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => array($this, 'eb_get_my_courses'),
-                'permission_callback' => '__return_true',
+                'permission_callback' => array($this, 'eb_check_permission'),
                 'args' => array(
                     'number_of_recommended_courses' => array(
                         'required' => false,

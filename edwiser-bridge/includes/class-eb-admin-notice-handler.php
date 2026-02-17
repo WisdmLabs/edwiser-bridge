@@ -228,7 +228,7 @@ class Eb_Admin_Notice_Handler
 								' . esc_html__('Get all Premium Edwiser Products at Flat 20% Off!', 'edwiser-bridge') . '
 
 								<div style="font-size:13px; padding-top:4px;">
-									<a href="' . esc_html($redirection) . '">
+									<a href="' . esc_url($redirection) . '">
 										' . esc_html__(' Dismiss this notice', 'edwiser-bridge') . '
 									</a>
 								</div>
@@ -394,7 +394,7 @@ class Eb_Admin_Notice_Handler
 						<a class="button" href="https://edwiser.org/edwiser-black-friday-giveaway/?utm_source=giveaway&utm_medium=spinthewheel&utm_campaign=bfcm22" target="_blank"><?php esc_html_e('Spin and Win', 'edwiser-bridge'); ?></a>
 					</div>
 					<div class="eb-admin-bfcm-notice-message-dismiss">
-						<a href="<?php echo esc_html($redirection); ?>">
+						<a href="<?php echo esc_url($redirection); ?>">
 							<span class="dashicons dashicons-no-alt eb_admin_bfcm_notice_hide"></span>
 						</a>
 					</div>
@@ -436,7 +436,7 @@ class Eb_Admin_Notice_Handler
 						?>
 					</div>
 					<div class="eb-admin-bfcm-notice-message-dismiss">
-						<a href="<?php echo esc_html($redirection); ?>">
+						<a href="<?php echo esc_url($redirection); ?>">
 							<span class="dashicons dashicons-no-alt eb_admin_bfcm_notice_hide"></span>
 						</a>
 					</div>
@@ -757,7 +757,7 @@ class Eb_Admin_Notice_Handler
 						</div>
 					</div>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("View New Templates", 'edwiser-bridge'); ?></a>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates')); ?>" class="eb__modal-cta"><?php _e("View New Templates", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -787,7 +787,7 @@ class Eb_Admin_Notice_Handler
 					<h1><?php _e("Your course pages just got an upgrade!", 'edwiser-bridge'); ?></h1>
 					<p><?php _e("We’ve given the Single Course page and Course archive page a fresh new look! Enjoy a cleaner design and improved layout for a better course browsing experience.", 'edwiser-bridge'); ?></p>
 
-					<a href="<?php echo admin_url('admin.php?page=eb-settings&tab=templates'); ?>" class="eb__modal-cta"><?php _e("Check out the new pages!", 'edwiser-bridge'); ?></a>
+					<a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=templates')); ?>" class="eb__modal-cta"><?php _e("Check out the new pages!", 'edwiser-bridge'); ?></a>
 				</div>
 
 				<div class="eb__modal-image">
@@ -805,6 +805,9 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_mark_template_modal_as_viewed()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		check_ajax_referer('eb_template_modal_nonce', 'nonce');
 
 		if (isset($_POST['modal_type']) && $_POST['modal_type'] === 'free') {
@@ -858,7 +861,7 @@ class Eb_Admin_Notice_Handler
 				<div class="eb-modal-initial-body">
 					<div class="eb-modal__body">
 						<div class="eb-modal__visual">
-							<img src="<?php echo plugins_url('admin/assets/images/update-preview.png', dirname(__FILE__)); ?>" alt="Update Preview" class="eb-modal__image" />
+							<img src="<?php echo esc_url(plugins_url('admin/assets/images/update-preview.png', dirname(__FILE__))); ?>" alt="Update Preview" class="eb-modal__image" />
 						</div>
 						<div class="eb-modal__content">
 							<h2 class="eb-modal__title"><?php _e('Explore the New Look of User-Account & My Courses Page!', 'edwiser-bridge'); ?></h2>
@@ -992,8 +995,11 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_mark_update_modal_as_viewed()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		// Verify nonce
-		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'eb_update_modal_nonce')) {
 			wp_die('Security check failed');
 		}
 
@@ -1008,8 +1014,11 @@ class Eb_Admin_Notice_Handler
 	 */
 	public function eb_switch_to_new_design()
 	{
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		// Verify nonce
-		if (!wp_verify_nonce($_POST['nonce'], 'eb_update_modal_nonce')) {
+		if (!isset($_POST['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nonce'])), 'eb_update_modal_nonce')) {
 			wp_die('Security check failed');
 		}
 

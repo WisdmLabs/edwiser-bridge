@@ -252,9 +252,12 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 
 			$users      = $data['enrollment'];
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
-			$query      = $wpdb->prepare( "select user_id,course_id from {$wpdb->prefix}moodle_enrollment where id in(%s)", implode( "','", $users ) );
-			$query      = wp_unslash( $query );
-			$results    = $wpdb->get_results( $query, ARRAY_A ); // WPCS: unprepared SQL OK. // @codingStandardsIgnoreLine
+			$user_ids   = array_map( 'intval', $users );
+			$placeholders = implode( ',', array_fill( 0, count( $user_ids ), '%d' ) );
+			$results    = $wpdb->get_results(
+				$wpdb->prepare( "SELECT user_id, course_id FROM {$wpdb->prefix}moodle_enrollment WHERE id IN ({$placeholders})", $user_ids ),
+				ARRAY_A
+			);
 			$cnt        = 0;
 
 			foreach ( $results as $rec ) {

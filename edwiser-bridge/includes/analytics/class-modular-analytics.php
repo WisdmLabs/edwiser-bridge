@@ -120,10 +120,10 @@ class Modular_Analytics_System
                         <?php _e('Your participation makes a difference!', 'edwiser-bridge'); ?></span>
                 </p>
                 <p>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 400; margin-right: 10px;">
+                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=yes'), 'modular_analytics_consent')); ?>" class="button-primary" style="background-color: #F75D25; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; font-weight: 400; margin-right: 10px;">
                         <?php _e('Allow & Continue', 'edwiser-bridge'); ?>
                     </a>
-                    <a href="<?php echo esc_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 14px;">
+                    <a href="<?php echo esc_url(wp_nonce_url(admin_url('admin-post.php?action=modular_analytics_consent&consent=no'), 'modular_analytics_consent')); ?>" class="button-secondary" style="background-color: #fff; color: #F75D25; border: 1px solid #F75D25; border-radius: 5px; cursor: pointer; font-size: 14px;">
                         <?php _e('Skip', 'edwiser-bridge'); ?>
                     </a>
                 </p>
@@ -139,14 +139,21 @@ class Modular_Analytics_System
             wp_die(__('Unauthorized action.', 'edwiser-bridge'));
         }
 
+        if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'modular_analytics_consent' ) ) {
+            wp_die( __( 'Security check failed.', 'edwiser-bridge' ) );
+        }
+
         $consent = sanitize_text_field($_GET['consent']);
+        if ( ! in_array( $consent, array( 'yes', 'no' ), true ) ) {
+            $consent = 'no';
+        }
         update_option('modular_analytics_consent', $consent);
 
         if ($consent === 'yes') {
             $this->send_data();
         }
 
-        wp_redirect(admin_url() . 'edit.php?post_type=eb_course&page=eb-settings'); //replace with your redirect URL
+        wp_safe_redirect(admin_url('edit.php?post_type=eb_course&page=eb-settings'));
         exit;
     }
 

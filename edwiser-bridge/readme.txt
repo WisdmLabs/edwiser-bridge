@@ -2,8 +2,8 @@
 Contributors: WisdmLabs
 Tags: moodle wordpress integration, moodle wordpress integration, wordpress moodle plugin, lms integration, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.9
-Stable tag: 4.3.2
+Tested up to: 6.9.1
+Stable tag: 4.3.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -240,6 +240,33 @@ Also, check our knowledge base for more queries
 
 
 ==  Changelog  ==
+
+= 4.3.3 =
+* Fix - Removed script tag from allowed HTML tags in wp_kses to prevent stored XSS on public-facing course pages.
+* Fix - Added nonce verification and capability checks to create_dummy_user() and enroll_dummy_user() AJAX handlers.
+* Fix - Inverted SSL verification default to enabled on all Moodle API requests; SSL is now only disabled when explicitly configured.
+* Fix - Redacted Moodle access tokens from all log entries and error reports.
+* Fix - Enforced HTTPS-only for PayPal IPN verification in both cURL and fsockopen methods.
+* Fix - Added capability checks to moodle_link_unlink_user(), eb_enable_course_enrollment_method(), init_eb_order_refund(), eb_switch_to_new_design(), and 6 setup wizard AJAX handlers.
+* Fix - Fixed IDOR in create_new_order_ajax_wrapper() by forcing buyer_id to current user ID.
+* Fix - Fixed broken GDPR data export/erasure queries caused by single-quoted strings preventing variable interpolation.
+* Fix - Rebuilt date filter SQL queries in custom list table using $wpdb->prepare() with proper placeholders.
+* Fix - Added esc_url() to all URL outputs in href and src attributes across payment manager, pagination, admin notices, setup wizard, and settings pages.
+* Fix - Replaced esc_html()/esc_attr() with esc_url() for URL context in 30+ locations across templates and admin pages.
+* Fix - Changed esc_html() to esc_attr() for HTML attribute value context in user profile form fields.
+* Fix - Added nonce verification and consent validation to analytics consent handler; changed to wp_safe_redirect().
+* Fix - Changed token comparison to timing-safe hash_equals() in external API endpoint.
+* Fix - Changed REST API my-courses endpoint to use proper permission callback with login check instead of __return_true.
+* Fix - Fixed DOM XSS vulnerabilities by changing jQuery .html() to .text() for dynamic data in error log dialog, email template editor, link/unlink notices, and setup wizard.
+* Fix - Added nonce check to fix_valid_json_response() and added nonce + capability check to eb_setup_close_setup().
+* Fix - Removed unnecessary wp_ajax_nopriv handler for eb_get_order_details.
+* Fix - Added index.php to log directory for Nginx directory listing protection.
+* Fix - Replaced file_put_contents() with WordPress Filesystem API for .htaccess operations.
+* Fix - Applied $wpdb->esc_like() to all LIKE search patterns and removed redundant _real_escape() calls.
+* Fix - Replaced esc_sql() with sanitize_title() for page slug sanitization.
+* Fix - Added esc_html() wrapper to unescaped get_the_date() output.
+* Fix - Edwiser Courses block used three times on a single page.
+
 = 4.3.2 =
 * Fix - Fixed link user functionality to properly handle both object and array formats when linking existing Moodle users to WordPress accounts.
 * Fix - Fixed email validation issue in email template editor by adding proper tinyMCE content retrieval check.

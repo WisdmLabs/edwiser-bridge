@@ -274,6 +274,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Added This new function instead of adding one by one function for wp_ajax hook, as by default parameter is not being set in each step callback so wrote below wrapper function for all of them and provided parameter 1.
 	 */
 	public function eb_setup_change_step() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			$step                   = isset( $_POST['step'] ) ? sanitize_text_field( wp_unslash( $_POST['step'] ) ) : '';
 			$steps                  = $this->eb_setup_wizard_get_steps();
@@ -289,7 +292,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Manage license.
 	 */
 	public function eb_setup_manage_license() {
-
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			if ( ! class_exists( 'Licensing_Settings' ) ) {
 				include_once plugin_dir_path( __DIR__ ) . 'settings/class-eb-settings-page.php';
@@ -327,6 +332,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard validate license keys.
 	 */
 	public function eb_setup_validate_license() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		$response = array(
 			'status' => 'error',
 			'msg'    => __( 'Something went wrong. Please try again.', 'edwiser-bridge' ),
@@ -415,6 +423,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_test_connection_handler() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 
 			$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
@@ -433,6 +444,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Test connection handler.
 	 */
 	public function eb_setup_course_sync() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['_wpnonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'eb_setup_wizard' ) ) {
 			$publish                              = isset( $_POST['publish'] ) ? sanitize_text_field( wp_unslash( $_POST['publish'] ) ) : '';
 			$sync_options['eb_synchronize_draft'] = '1';
@@ -453,6 +467,9 @@ class Eb_Setup_Wizard_Functions {
 	 * Setup Wizard Save step and redirect to next step.
 	 */
 	public function eb_setup_save_and_continue() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 		if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'eb_setup_wizard' ) ) {
 			$data             = $_POST['data']; // phpcs:ignore
 			$current_step     = $data['current_step'];

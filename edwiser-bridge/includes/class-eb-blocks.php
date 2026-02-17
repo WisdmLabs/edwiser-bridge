@@ -16,7 +16,6 @@ class EdwiserBridge_Blocks
 
         // AJAX handlers for order details
         add_action('wp_ajax_eb_get_order_details', array($this, 'eb_get_order_details'));
-        add_action('wp_ajax_nopriv_eb_get_order_details', array($this, 'eb_get_order_details'));
     }
 
     public function eb_register_blocks()

@@ -173,26 +173,26 @@
                     dialogBox.attr('title', log.data.message);
                     
                     var heading = $(document.createElement('h3'));
-                    heading.html('Status: '+log.status);
+                    heading.text('Status: '+log.status);
 
-                    var time = $(document.createElement('p')).html('Time : '+log.time);
-                    var user = $(document.createElement('p')).html('User : '+log.data.user);
-                    var rcode = $(document.createElement('p')).html('Error Code : '+log.data.responsecode);
-                    var rmsg = $(document.createElement('p')).html('Response Message : '+log.data.message);
+                    var time = $(document.createElement('p')).text('Time : '+log.time);
+                    var user = $(document.createElement('p')).text('User : '+log.data.user);
+                    var rcode = $(document.createElement('p')).text('Error Code : '+log.data.responsecode);
+                    var rmsg = $(document.createElement('p')).text('Response Message : '+log.data.message);
                     var viewMore = $(document.createElement('a')).html('View More...');
                     viewMore.attr('href', '#');
                     viewMore.attr('id', 'eb-dialog-view-more'+id);
                     viewMore.attr('class', 'eb-dialog-view-more'+id);
 
                     var viewMoreDiv = $(document.createElement('div')).addClass('eb-view-more eb-view-more'+id);
-                    var urlData = $(document.createElement('p')).html('URL : '+log.data.url);
+                    var urlData = $(document.createElement('p')).text('URL : '+log.data.url);
                     // explode backtrace with , and then add <br> after each line
                     var backtrace = log.data.backtrace;
                     var backtraceHtml = '';
                     for(var i=0; i<backtrace.length; i++){
                         backtraceHtml += backtrace[i]+'<br>';
                     }
-                    var backtrace = $(document.createElement('p')).html('Backtrace : '+backtraceHtml);
+                    var backtrace = $(document.createElement('p')).text('Backtrace : '+backtraceHtml);
                     viewMoreDiv.append(urlData);
                     viewMoreDiv.append(backtrace);
 
@@ -204,7 +204,7 @@
                     
                     
                     if(log.data.debuginfo){
-                        var debug = $(document.createElement('p')).html('Debug Info: '+log.data.debuginfo);
+                        var debug = $(document.createElement('p')).text('Debug Info: '+log.data.debuginfo);
                         dialogBox.append(debug);
                     }
 
@@ -453,7 +453,7 @@
                         $("#moodleLinkUnlinkUserNotices").css("display", "block");
                         $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                         $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                        $("#moodleLinkUnlinkUserNotices").children().html(response.data["message"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(response.data["message"]);
                     }
                 }
             });
@@ -767,7 +767,7 @@
                         }
                     } else {
                         // ohSnap(response.response_message, 'error', 0);
-                        $('.eb_test_connection_response').html(response.response_message);
+                        $('.eb_test_connection_response').text(response.response_message);
                         $('.troubleshoot-connection').removeClass('hidden');
                         $('#eb_diagnose_issues_button').removeClass('hidden');
                     }
@@ -1681,9 +1681,9 @@
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                     if (str == "link") {
-                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result["msg"]);
                     } else {
-                        $("#moodleLinkUnlinkUserNotices").children().html(result["msg"]);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result["msg"]);
                     }
                     $("#eb-lading-parent").hide();
                 },
@@ -1692,7 +1692,7 @@
                     if (result["code"] == ("success")) {
                         $("#moodleLinkUnlinkUserNotices").addClass("updated");
                         $("#moodleLinkUnlinkUserNotices").css("display", "block");
-                        $("#moodleLinkUnlinkUserNotices").children().html(result['msg']);
+                        $("#moodleLinkUnlinkUserNotices").children().text(result['msg']);
                         $("#" + userid + "-" + str).css("display", "none");
                         $("#" + userid + "-" + strCheck).css("display", "block");
                     } else {
@@ -1700,7 +1700,7 @@
                         $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                         $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
                         if (response.includes("LinkError")) {
-                            $("#moodleLinkUnlinkUserNotices").children().html(response["msg"]);
+                            $("#moodleLinkUnlinkUserNotices").children().text(response["msg"]);
                         } else {
                             if (str == "link") {
                                 $("#moodleLinkUnlinkUserNotices").children().html(eb_admin_js_object.msg_error_link_user);
@@ -1922,7 +1922,7 @@
             }
             $("#eb_emailtmpl_name").val(tmplId);
             if (tinyMCE.activeEditor == null) {
-                jQuery("#eb_emailtmpl_editor").html(response['content']);
+                jQuery("#eb_emailtmpl_editor").text(response['content']);
             } else {
                 tinyMCE.get("eb_emailtmpl_editor").setContent(response['content']);
             }
@@ -1968,7 +1968,7 @@
                     $("#moodleLinkUnlinkUserNotices").css("display", "block");
                     $("#moodleLinkUnlinkUserNotices").removeClass("updated");
                     $("#moodleLinkUnlinkUserNotices").addClass("notice notice-error");
-                    $("#moodleLinkUnlinkUserNotices").children().html(response['data']);
+                    $("#moodleLinkUnlinkUserNotices").children().text(response['data']);
                     $('html, body').animate({ scrollTop: 0 }, "fast");
                 }
                 $("#eb-lading-parent").hide();

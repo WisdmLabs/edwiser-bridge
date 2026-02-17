@@ -91,7 +91,7 @@ class Eb_Payment_Manager {
 					}
 
 					$access_button = '<div class="eb_join_button">
-					<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $access_course_url . '" id="wdm-btn">' .
+					<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . esc_url( $access_course_url ) . '" id="wdm-btn">' .
 					esc_html__( 'Access Course', 'edwiser-bridge' ) . '</a></div>';
 				}
 
@@ -215,7 +215,7 @@ class Eb_Payment_Manager {
 							$closed_button_url = 'http://' . $closed_button_url;
 						}
 						$take_course_button = '<div class="eb_join_button">
-						<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $closed_button_url . '" id="wdm-btn">' .
+						<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . esc_url( $closed_button_url ) . '" id="wdm-btn">' .
 						esc_html__( 'Take this Course', 'edwiser-bridge' ) . '</a></div>';
 					}
 					$closed_params      = array(
@@ -256,7 +256,7 @@ class Eb_Payment_Manager {
 									$closed_button_url = 'http://' . $closed_button_url;
 								}
 								$take_course_button = '<div class="eb_join_button">
-								<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . $closed_button_url . '" id="wdm-btn">' .
+								<a class="wdm-btn eb_primary_btn button button-primary et_pb_button et_pb_contact_submit" href="' . esc_url( $closed_button_url ) . '" id="wdm-btn">' .
 								esc_html__( 'Take this Course', 'edwiser-bridge' ) . '</a></div>';
 							}
 							$closed_params      = array(

@@ -448,7 +448,7 @@ if ( ! class_exists( 'Eb_Settings_General' ) ) :
 										<span><?php esc_html_e( 'Run Setup Wizard', 'edwiser-bridge' ); ?></span>
 									</legend>
 									<label for="">
-										<a href='<?php echo esc_attr( $url ); ?>' class='button'> <?php esc_html_e( 'Setup Wizard', 'edwiser-bridge' ); ?> </a>
+										<a href='<?php echo esc_url( $url ); ?>' class='button'> <?php esc_html_e( 'Setup Wizard', 'edwiser-bridge' ); ?> </a>
 									</label>
 									<p><strong><?php esc_html_e( 'Note: Setup Wizard is intended for new users only. For technical issues or Edwiser plugin updates, please refer to our knowledge-base.', 'edwiser-bridge' ); ?></strong></p>
 							</fieldset>
