@@ -108,7 +108,7 @@ function wdm_plugin_row_meta($links, $file)
 	if (plugin_basename(__FILE__) === $file) {
 		$row_meta = array(
 			'docs' => '<a href="https://edwiser.org/bridge/documentation/" target="_blank"
-						title="' . esc_attr(esc_html__('Edwiser Bridge Documentation', 'edwiser-bridge')) . '">' .
+						title="' . esc_attr__('Edwiser Bridge Documentation', 'edwiser-bridge') . '">' .
 				esc_html__('Documentation', 'edwiser-bridge') .
 				'</a>',
 		);
