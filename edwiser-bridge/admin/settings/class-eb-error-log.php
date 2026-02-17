@@ -125,7 +125,8 @@ if ( ! class_exists( 'Eb_Error_Log' ) ) {
 				<div class="notice notice-success is-dismissible">
 					<p>
 						<strong>
-							<?php echo sprintf( '%s ', $cnt ) . esc_html__( ' error logs are deleted successfully.', 'edwiser-bridge' ); ?>
+							<?php echo esc_html( $cnt . ' ' ); esc_html_e( 'error logs are deleted successfully.', 'edwiser-bridge' ); ?>
+              
 						</strong>
 					</p>
 					<button type="button" class="notice-dismiss">
