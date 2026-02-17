@@ -172,7 +172,7 @@ class Eb_Settings_Ajax_Initiater {
 				'token_mismatch' => false
 			);
 		} 
-		echo wp_send_json_success( array( 'correct' => $response, 'validate_access' => $validate_access['response_data'] ) );
+		wp_send_json_success( array( 'correct' => $response, 'validate_access' => $validate_access['response_data'] ) );
 		die();
 	}
 
@@ -292,14 +292,21 @@ class Eb_Settings_Ajax_Initiater {
 			$server = strtolower($_SERVER['SERVER_SOFTWARE']);
 			if (strpos($server, 'apache') !== false) {
 				$htaccess_file = ABSPATH . '.htaccess';
+
+				global $wp_filesystem;
+				if ( empty( $wp_filesystem ) ) {
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					WP_Filesystem();
+				}
+
 				if ( ! file_exists( $htaccess_file ) || strpos( file_get_contents( $htaccess_file), 'BEGIN WordPress' ) === false ) {
-					if ( ! file_exists( $htaccess_file ) && ! is_writable( ABSPATH ) ) {
+					if ( ! file_exists( $htaccess_file ) && ! $wp_filesystem->is_writable( ABSPATH ) ) {
 						return wp_send_json_success(array('htaccess_file_missing' => true, 'autofix_possible' => false));
-					} elseif( ! file_exists( $htaccess_file ) && is_writable( ABSPATH ) ) {
+					} elseif( ! file_exists( $htaccess_file ) && $wp_filesystem->is_writable( ABSPATH ) ) {
 						return wp_send_json_success(array('htaccess_file_missing' => true, 'autofix_possible' => true));
-					} elseif ( ! is_writable( $htaccess_file ) ) {
+					} elseif ( ! $wp_filesystem->is_writable( $htaccess_file ) ) {
 						return wp_send_json_success(array('htaccess_rule_missing' => true, 'autofix_possible' => false));
-					} elseif ( is_writable( $htaccess_file ) ) {
+					} elseif ( $wp_filesystem->is_writable( $htaccess_file ) ) {
 						return wp_send_json_success(array('htaccess_rule_missing' => true, 'autofix_possible' => true));
 					}
 				}
@@ -333,18 +340,16 @@ class Eb_Settings_Ajax_Initiater {
 		}
 
 		$htaccess_file = ABSPATH . '.htaccess';
-		$htaccess_rules = <<<HTACCESS
-# BEGIN WordPress
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.php$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
-</IfModule>
-# END WordPress
-HTACCESS;
+		$htaccess_rules = '# BEGIN WordPress' . "\n"
+			. '<IfModule mod_rewrite.c>' . "\n"
+			. 'RewriteEngine On' . "\n"
+			. 'RewriteBase /' . "\n"
+			. 'RewriteRule ^index\.php$ - [L]' . "\n"
+			. 'RewriteCond %{REQUEST_FILENAME} !-f' . "\n"
+			. 'RewriteCond %{REQUEST_FILENAME} !-d' . "\n"
+			. 'RewriteRule . /index.php [L]' . "\n"
+			. '</IfModule>' . "\n"
+			. '# END WordPress';
 
 		global $wp_filesystem;
 		if ( empty( $wp_filesystem ) ) {

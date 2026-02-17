@@ -76,9 +76,11 @@ if (empty($eb_gutenberg_page_content)) {
 	$eb_gutenberg_page_content = '<!-- wp:edwiser-bridge/course-description -->
 								<div class="wp-block-edwiser-bridge-course-description"><div id="eb-course-description" data-show-recommended-courses="true"></div></div>
 							<!-- /wp:edwiser-bridge/course-description -->';
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_blocks() returns safe rendered block HTML.
 	echo do_blocks($eb_gutenberg_page_content);
 } else {
 	// $content = str_replace($eb_gutenberg_block_id, get_the_ID(), $eb_gutenberg_page_content);
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- apply_filters('the_content') returns safe HTML processed by WordPress core.
 	echo apply_filters('the_content', $eb_gutenberg_page_content);
 }
 

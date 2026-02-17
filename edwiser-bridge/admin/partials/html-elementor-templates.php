@@ -12,14 +12,14 @@ if (! defined('ABSPATH')) {
 }
 $templates = array(
     'product_archive' => array(
-        'title' => __('Shop Page Template', 'edwiser-bridge-pro'),
-        'desc'  => __('Customize the design of your entire shop page. This option allows you to apply consistent branding and layout across all your product listings, enhancing the overall shopping experience for your learners.', 'edwiser-bridge-pro'),
+        'title' => __('Shop Page Template', 'edwiser-bridge'),
+        'desc'  => __('Customize the design of your entire shop page. This option allows you to apply consistent branding and layout across all your product listings, enhancing the overall shopping experience for your learners.', 'edwiser-bridge'),
         'img'   => 'product-archive.png',
         'template_id' => get_option('eb_pro_elementor_shop_page_template_id'),
     ),
     'product_single' => array(
-        'title' => __('Product Page Template', 'edwiser-bridge-pro'),
-        'desc'  => __('Tailor the design of the product page to showcase each product uniquely. This option enables you to highlight specific product features, benefits, and details, optimizing the presentation for better conversions and user engagement.', 'edwiser-bridge-pro'),
+        'title' => __('Product Page Template', 'edwiser-bridge'),
+        'desc'  => __('Tailor the design of the product page to showcase each product uniquely. This option enables you to highlight specific product features, benefits, and details, optimizing the presentation for better conversions and user engagement.', 'edwiser-bridge'),
         'img'   => 'product-single.png',
         'template_id' => get_option('eb_pro_elementor_single_product_page_template_id'),
     ),
@@ -33,7 +33,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
 <div class="eb__templates-wrapper">
     <div class="eb__templates">
         <div class="eb_table_row">
-            <h2><?php esc_html_e('Elementor Pro Templates', 'edwiser-bridge-pro'); ?></h2>
+            <h2><?php esc_html_e('Elementor Pro Templates', 'edwiser-bridge'); ?></h2>
             <?php
             if (! $elementor_pro) {
             ?>
@@ -54,7 +54,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                         </svg>
                     </div>
                     <div class="notice-body">
-                        <p><?php esc_html_e('Based on you license key, it seems that you have not installed the ‘Elementor PRO’. Please download and install the ‘Elementor PRO’ to use below Edwiser bridge templates.', 'edwiser-bridge-pro'); ?></p>
+                        <p><?php esc_html_e('Based on you license key, it seems that you have not installed the ‘Elementor PRO’. Please download and install the ‘Elementor PRO’ to use below Edwiser bridge templates.', 'edwiser-bridge'); ?></p>
                     </div>
                 </div>
             <?php
@@ -78,7 +78,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                         </svg>
                     </div>
                     <div class="notice-body">
-                        <p><?php esc_html_e('It seems that you have not enabled WooCommerce Integration Feature from Edwiser Bridge Pro Featuers. Please activate the ‘WooCommerce Integration’ to use below Edwiser bridge templates, from', 'edwiser-bridge-pro'); ?> <a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=pro_features')); ?>"><?php esc_html_e('here', 'edwiser-bridge-pro'); ?></a></p>
+                        <p><?php esc_html_e('It seems that you have not enabled WooCommerce Integration Feature from Edwiser Bridge Pro Featuers. Please activate the ‘WooCommerce Integration’ to use below Edwiser bridge templates, from', 'edwiser-bridge'); ?> <a href="<?php echo esc_url(admin_url('admin.php?page=eb-settings&tab=pro_features')); ?>"><?php esc_html_e('here', 'edwiser-bridge'); ?></a></p>
                     </div>
                 </div>
             <?php
@@ -86,7 +86,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
             foreach ($templates as $key => $template) {
                 if ($elementor_pro && $woo_int_enabled && $template['template_id']) {
                     $edit_link = add_query_arg(array('post' => $template['template_id'], 'action' => 'elementor'), admin_url('post.php'));
-                    $edit_html = '<a target="_blank" style="font-size:13px;" href="' . esc_url($edit_link) . '">' . esc_html__('Edit', 'edwiser-bridge-pro') . '</a>';
+                    $edit_html = '<a target="_blank" style="font-size:13px;" href="' . esc_url($edit_link) . '">' . esc_html__('Edit', 'edwiser-bridge') . '</a>';
                 } else {
                     $edit_html = '';
                 }
@@ -96,7 +96,7 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                         <img src="<?php echo esc_url(EB_PRO_PLUGIN_URL . 'admin/assets/images/' . $template['img']); ?>" alt="<?php echo esc_attr($template['title']); ?>">
                     </div>
                     <div class="eb_template_content">
-                        <h2><?php echo esc_html($template['title']); ?> <?php echo $edit_html; ?></h2>
+                        <h2><?php echo esc_html($template['title']); ?> <?php echo wp_kses_post( $edit_html ); ?></h2>
                         <p><?php echo esc_html($template['desc']); ?></p>
                         <?php
                         if ($elementor_pro && $woo_int_enabled) {
@@ -105,12 +105,12 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                 <?php
                                 if (! $template['template_id']) {
                                 ?>
-                                    <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-primary eb-template-restore"><?php esc_html_e('Create Template', 'edwiser-bridge-pro'); ?></a>
+                                    <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-primary eb-template-restore"><?php esc_html_e('Create Template', 'edwiser-bridge'); ?></a>
                                 <?php
                                 } else {
                                 ?>
-                                    <!-- <a target="_blank" href="<?php echo esc_url($edit_link); ?>" class="eb-pro-button eb-pro-primary"><?php esc_html_e('Edit Template', 'edwiser-bridge-pro'); ?></a> -->
-                                    <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-primary eb-template-restore"><?php esc_html_e('Use this template', 'edwiser-bridge-pro'); ?></a>
+                                    <!-- <a target="_blank" href="<?php echo esc_url($edit_link); ?>" class="eb-pro-button eb-pro-primary"><?php esc_html_e('Edit Template', 'edwiser-bridge'); ?></a> -->
+                                    <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-primary eb-template-restore"><?php esc_html_e('Use this template', 'edwiser-bridge'); ?></a>
                                 <?php
                                 }
                                 ?>
@@ -135,8 +135,8 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                 if ($template['template_id']) {
                                 ?>
                                     <div class="confirmation-body">
-                                        <p class="confirmation-info"><?php esc_html_e('Restoring this page will revert it to its default state, undoing any customizations you may have made. Proceed with caution if you intend to revert to the original design.', 'edwiser-bridge-pro'); ?></p>
-                                        <p class="confirmation-info"><?php esc_html_e('Note: If you are setting this up for the first time, you can safely ignore this warning.', 'edwiser-bridge-pro'); ?></p>
+                                        <p class="confirmation-info"><?php esc_html_e('Restoring this page will revert it to its default state, undoing any customizations you may have made. Proceed with caution if you intend to revert to the original design.', 'edwiser-bridge'); ?></p>
+                                        <p class="confirmation-info"><?php esc_html_e('Note: If you are setting this up for the first time, you can safely ignore this warning.', 'edwiser-bridge'); ?></p>
                                         <div class="confirmation-action">
                                             <?php
                                             $restore_link = add_query_arg(
@@ -148,16 +148,16 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                                 admin_url('admin.php?page=eb-settings&tab=templates&section=elementor-templates')
                                             );
                                             ?>
-                                            <span><?php esc_html_e('Are you sure you want to ‘Restore’ this page?', 'edwiser-bridge-pro'); ?></span>
-                                            <a href="<?php echo esc_url($restore_link); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-yes"><?php esc_html_e('Yes', 'edwiser-bridge-pro'); ?></a>
-                                            <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-no"><?php esc_html_e('No', 'edwiser-bridge-pro'); ?></a>
+                                            <span><?php esc_html_e('Are you sure you want to ‘Restore’ this page?', 'edwiser-bridge'); ?></span>
+                                            <a href="<?php echo esc_url($restore_link); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-yes"><?php esc_html_e('Yes', 'edwiser-bridge'); ?></a>
+                                            <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-no"><?php esc_html_e('No', 'edwiser-bridge'); ?></a>
                                         </div>
                                     </div>
                                 <?php
                                 } else {
                                 ?>
                                     <div class="confirmation-body">
-                                        <p class="confirmation-info"><?php esc_html_e('This will overide your old template with the Edwiser Bridge’s new template. No data will be lost.', 'edwiser-bridge-pro'); ?></p>
+                                        <p class="confirmation-info"><?php esc_html_e('This will overide your old template with the Edwiser Bridge’s new template. No data will be lost.', 'edwiser-bridge'); ?></p>
                                         <div class="confirmation-action">
                                             <?php
                                             $create_link = add_query_arg(
@@ -169,9 +169,9 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                                                 admin_url('admin.php?page=eb-settings&tab=templates&section=elementor-templates')
                                             );
                                             ?>
-                                            <span><?php esc_html_e('Are you sure you want to create this template?', 'edwiser-bridge-pro'); ?></span>
-                                            <a href="<?php echo esc_url($create_link); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-yes"><?php esc_html_e('Yes', 'edwiser-bridge-pro'); ?></a>
-                                            <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-no"><?php esc_html_e('No', 'edwiser-bridge-pro'); ?></a>
+                                            <span><?php esc_html_e('Are you sure you want to create this template?', 'edwiser-bridge'); ?></span>
+                                            <a href="<?php echo esc_url($create_link); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-yes"><?php esc_html_e('Yes', 'edwiser-bridge'); ?></a>
+                                            <a href="#" data-template="<?php echo esc_attr($key); ?>" class="eb-pro-button eb-pro-secondary eb-template-restore-confirm-no"><?php esc_html_e('No', 'edwiser-bridge'); ?></a>
                                         </div>
                                     </div>
                                 <?php
@@ -193,11 +193,11 @@ $woo_int_enabled = (isset($module_data['woo_integration']) && 'active' === $modu
                     <circle cx="12" cy="12" r="11.5" fill="white" stroke="#C4C4C4" />
                     <path d="M10.5332 14.1085V13.5708C10.5332 13.1058 10.6325 12.7013 10.8311 12.3574C11.0297 12.0135 11.393 11.6478 11.921 11.2603C12.4296 10.897 12.7638 10.6015 12.9237 10.3738C13.0884 10.1462 13.1707 9.89188 13.1707 9.61093C13.1707 9.29608 13.0545 9.05631 12.8219 8.89162C12.5894 8.72692 12.2649 8.64458 11.8483 8.64458C11.1217 8.64458 10.2934 8.88193 9.36341 9.35663L8.57143 7.76541C9.65162 7.15992 10.7972 6.85718 12.0082 6.85718C13.006 6.85718 13.798 7.09695 14.3841 7.5765C14.9751 8.05604 15.2705 8.69544 15.2705 9.49468C15.2705 10.0275 15.1494 10.4877 14.9072 10.8752C14.6651 11.2627 14.2049 11.6987 13.5267 12.183C13.0617 12.527 12.7662 12.7885 12.6403 12.9678C12.5192 13.147 12.4587 13.3819 12.4587 13.6725V14.1085H10.5332ZM10.3007 16.5934C10.3007 16.1865 10.4097 15.8789 10.6277 15.6707C10.8456 15.4624 11.1629 15.3582 11.5795 15.3582C11.9815 15.3582 12.2915 15.4648 12.5095 15.6779C12.7323 15.891 12.8437 16.1962 12.8437 16.5934C12.8437 16.9761 12.7323 17.2788 12.5095 17.5016C12.2867 17.7196 11.9767 17.8286 11.5795 17.8286C11.1726 17.8286 10.8577 17.722 10.6349 17.5089C10.4121 17.2909 10.3007 16.9858 10.3007 16.5934Z" fill="#F98012" />
                 </svg>
-                <span class="eb-help-tootip-content"><?php esc_html_e('Looking for help?', 'edwiser-bridge-pro'); ?></span>
+                <span class="eb-help-tootip-content"><?php esc_html_e('Looking for help?', 'edwiser-bridge'); ?></span>
             </div>
             <ul>
-                <li><a target="_blank" href="https://edwiser.org/documentation/edwiser-bridge-woocommerce-integration/elementor-pro-enhanced-templates/"><?php esc_html_e('For setup instructions, click here.', 'edwiser-bridge-pro'); ?></a></li>
-                <li><?php esc_html_e('Talk to us:', 'edwiser-bridge-pro'); ?> <a href="mailto:edwiser@wisdmlabs.com">edwiser@wisdmlabs.com</a></li>
+                <li><a target="_blank" href="https://edwiser.org/documentation/edwiser-bridge-woocommerce-integration/elementor-pro-enhanced-templates/"><?php esc_html_e('For setup instructions, click here.', 'edwiser-bridge'); ?></a></li>
+                <li><?php esc_html_e('Talk to us:', 'edwiser-bridge'); ?> <a href="mailto:edwiser@wisdmlabs.com">edwiser@wisdmlabs.com</a></li>
             </ul>
         </div>
     </div>

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class EdwiserBridge_Blocks
 {
     public function __construct()
@@ -20,6 +24,7 @@ class EdwiserBridge_Blocks
 
     public function eb_register_blocks()
     {
+        // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Required for custom translation loading path.
         load_plugin_textdomain('edwiser-bridge', false, dirname(plugin_basename(__DIR__)) . '/languages');
 
         wp_register_script(
@@ -93,7 +98,7 @@ class EdwiserBridge_Blocks
             return;
         }
 
-        wp_register_script('eb_woo_storeapi_nonce', '', [], '', true);
+        wp_register_script('eb_woo_storeapi_nonce', '', array(), '4.3.4', true);
 
         wp_enqueue_script('eb_woo_storeapi_nonce');
 

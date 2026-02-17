@@ -149,7 +149,7 @@ class EdwiserBridge_Blocks_Course_API
                 foreach ($terms as $term) {
                     $categories[] = [
                         'id' => $term->term_id,
-                        'name' => __(html_entity_decode($term->name, ENT_QUOTES, 'UTF-8'), 'edwiser-bridge'),
+                        'name' => html_entity_decode($term->name, ENT_QUOTES, 'UTF-8'),
                         'slug' => $term->slug,
                         'count' => $term->count
                     ];
@@ -254,10 +254,10 @@ class EdwiserBridge_Blocks_Course_API
 
             $formatted_courses[] = array(
                 'id'        => $course->ID,
-                'title'     => __($course->post_title, 'edwiser-bridge'),
+                'title'     => $course->post_title,
                 'link'      => get_permalink($course->ID),
-                'excerpt'   => !empty($course_data['short_description']) ? __($course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($course->post_content, 'edwiser-bridge'))),
-                'category'  => !empty($course_data['categories']) ? __(html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8'), 'edwiser-bridge') : __('Uncategorized', 'edwiser-bridge'),
+                'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
+                'category'  => !empty($course_data['categories']) ? html_entity_decode(reset($course_data['categories']), ENT_QUOTES, 'UTF-8') : __('Uncategorized', 'edwiser-bridge'),
                 'thumbnail' =>  $course_data['thumb_url'],
                 'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                 'price'     => [
@@ -417,10 +417,10 @@ class EdwiserBridge_Blocks_Course_API
 
                 $formatted_cat_courses[] = array(
                     'id'        => $course->ID,
-                    'title'     => __($course->post_title, 'edwiser-bridge'),
+                    'title'     => $course->post_title,
                     'link'      => get_permalink($course->ID),
-                    'excerpt'   => !empty($course_data['short_description']) ? __($course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($course->post_content, 'edwiser-bridge'))),
-                    'category'  => __($category['name'], 'edwiser-bridge'),
+                    'excerpt'   => !empty($course_data['short_description']) ? $course_data['short_description'] : wp_strip_all_tags(html_entity_decode($course->post_content)),
+                    'category'  => $category['name'],
                     'thumbnail' => $course_data['thumb_url'],
                     'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $course->ID) == true,
                     'price'     => [
@@ -531,14 +531,14 @@ class EdwiserBridge_Blocks_Course_API
         foreach ($course_data['categories'] as $id => $name) {
             $categories[] = [
                 'id' => (int)$id,
-                'name' => __($name, 'edwiser-bridge')
+                'name' => $name
             ];
         }
 
         $response_data = [
             'id' => $course->ID,
-            'title' => __($course->post_title, 'edwiser-bridge'),
-            'content' => apply_filters('the_content', __($course->post_content, 'edwiser-bridge')),
+            'title' => $course->post_title,
+            'content' => apply_filters('the_content', $course->post_content),
             'category' => !empty($course_data['categories']) ? reset($course_data['categories']) : __('Uncategorized', 'edwiser-bridge'),
             'permalink' => get_permalink($course->ID),
             'thumbnail' => $course_data['thumb_url'],
@@ -656,7 +656,7 @@ class EdwiserBridge_Blocks_Course_API
             foreach ($rec_course_data['categories'] as $id => $name) {
                 $rec_course_categories[] = [
                     'id' => (int)$id,
-                    'name' => __($name, 'edwiser-bridge')
+                    'name' => $name
                 ];
             }
 
@@ -665,9 +665,9 @@ class EdwiserBridge_Blocks_Course_API
 
             $formatted_courses[] = [
                 'id'        => $rec_course->ID,
-                'title'     => __($rec_course->post_title, 'edwiser-bridge'),
+                'title'     => $rec_course->post_title,
                 'link'      => get_permalink($rec_course->ID),
-                'excerpt'   =>  !empty($rec_course_data['short_description']) ? __($rec_course_data['short_description'], 'edwiser-bridge') : wp_strip_all_tags(html_entity_decode(__($rec_course->post_content, 'edwiser-bridge'))),
+                'excerpt'   =>  !empty($rec_course_data['short_description']) ? $rec_course_data['short_description'] : wp_strip_all_tags(html_entity_decode($rec_course->post_content)),
                 'category'  => !empty($rec_course_data['categories']) ? reset($rec_course_data['categories']) : __('Uncategorized', 'edwiser-bridge'),
                 'thumbnail' => $rec_course_data['thumb_url'] ?? '',
                 'suspended' => \app\wisdmlabs\edwiserBridge\wdm_eb_get_user_suspended_status($user_id, $rec_course->ID) == true,

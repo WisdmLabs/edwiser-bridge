@@ -17,6 +17,10 @@
 
 namespace app\wisdmlabs\edwiserBridge;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Edwiser Bridge.
  */

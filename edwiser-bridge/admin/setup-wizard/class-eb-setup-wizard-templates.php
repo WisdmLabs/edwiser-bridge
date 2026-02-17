@@ -668,7 +668,9 @@ class Eb_Setup_Wizard_Templates {
 					<fieldset>
 						<legend> <?php esc_html_e( 'Note', 'edwiser-bridge' ); ?> </legend>
 						<div class='fieldset_content'>
-							<?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Courses tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Courses tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=courses'); ?>							
+							<?php
+						/* translators: %1$s: courses sync URL, %2$s: selective sync URL */
+						echo wp_kses( sprintf( __( 'You can skip this step and do it later from <a href="%1$s" target="_blank">Edwiser Bridge > Settings > Synchronization > Courses tab</a> or from <a href="%2$s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Courses tab</a> for Pro version.', 'edwiser-bridge' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=courses' ) ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?>							
 						</div>
 
 					</fieldset>
@@ -751,7 +753,9 @@ class Eb_Setup_Wizard_Templates {
 						<div class='fieldset_content'>
 							<ul>
 								<li><?php esc_html_e( 'WordPress emailing functionality (SMTP) needs to be setup and configured on your WordPress site to send emails to your users.', 'edwiser-bridge' ); ?></li>
-								<li><?php echo sprintf(__( 'You can skip this step and do it later from <a href="%s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data', get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=users'); ?></li>
+								<li><?php
+							/* translators: %1$s: users sync URL, %2$s: selective sync URL */
+							echo wp_kses( sprintf( __( 'You can skip this step and do it later from <a href="%1$s" target="_blank">Edwiser Bridge > Settings > Synchronization > Users tab</a> or from <a href="%2$s" target="_blank">Edwiser Bridge > Settings > Selective Sync > Users tab</a> for Pro version.', 'edwiser-bridge' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=synchronization&section=user_data' ), esc_url( get_site_url() . '/wp-admin/admin.php?page=eb-settings&tab=selective_synch_settings&section=users' ) ), array( 'a' => array( 'href' => array(), 'target' => array() ) ) ); ?></li>
 							</ul>
 						</div>
 

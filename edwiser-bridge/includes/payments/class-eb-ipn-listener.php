@@ -201,6 +201,7 @@ class Eb_Ipn_Listener {
 		$header .= 'Content-Length: ' . strlen( $encoded_data ) . "\r\n";
 		$header .= "Connection: Close\r\n\r\n";
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fputs -- Writing to a socket stream, not a file; WP_Filesystem does not handle sockets.
 		fputs( $_fp, $header . $encoded_data . "\r\n\r\n" );
 
 		while ( ! feof( $_fp ) ) {

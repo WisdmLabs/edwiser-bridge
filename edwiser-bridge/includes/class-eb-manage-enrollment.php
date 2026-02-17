@@ -254,7 +254,7 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 			$enroll_tbl = $wpdb->prefix . 'moodle_enrollment';
 			$user_ids   = array_map( 'intval', $users );
 			$placeholders = implode( ',', array_fill( 0, count( $user_ids ), '%d' ) );
-			$results    = $wpdb->get_results(
+			$results    = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table query for enrollment processing, caching not applicable.
 				$wpdb->prepare( "SELECT user_id, course_id FROM {$wpdb->prefix}moodle_enrollment WHERE id IN ({$placeholders})", $user_ids ),
 				ARRAY_A
 			);

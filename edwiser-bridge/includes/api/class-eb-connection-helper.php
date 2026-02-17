@@ -448,7 +448,9 @@ class Eb_Connection_Helper {
 	                                	<div>' . $message . '</div>
 	                                </div>
 									<div>
-	                                	<div>' . sprintf( esc_html__( "Click %s Troubleshoot %s button to get more details.", "edwiser-bridge" ), '<strong>', '</strong>' ) . '</div>
+                                	<div>' .
+									/* translators: %1$s: opening tag, %2$s: closing tag */
+									sprintf( esc_html__( 'Click %1$s Troubleshoot %2$s button to get more details.', 'edwiser-bridge' ), '<strong>', '</strong>' ) . '</div>
 									</div>
 	                            </div>
 

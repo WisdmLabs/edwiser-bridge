@@ -735,7 +735,7 @@ class Eb_Post_Types {
 				'%1$s' . __( 'scheduled for:  ', 'edwiser-bridge' ) . '<strong>' . '%2$s' . '</strong><a href="' . '%3$s' . '" target="_blank">' . __( 'Preview ', 'edwiser-bridge' ) . '%4$s</a>', // @codingStandardsIgnoreLine
 				$singular,
 				date_i18n(
-					__( 'M j, Y @ G:i' ),
+					__( 'M j, Y @ G:i', 'edwiser-bridge' ),
 					strtotime( $post->post_date )
 				),
 				esc_url(
