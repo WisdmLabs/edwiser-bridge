@@ -1954,7 +1954,7 @@ class Eb_User_Manager {
 	 * @param  string $username username.
 	 * @param  string $password password.
 	 */
-	public function eb_user_authentication_check( $user, $username, $password ) {
+	public function eb_user_authentication_check( $user, $username, $password = '' ) {
 		$eb_general_settings = get_option( 'eb_general' );
 		if ( isset( $eb_general_settings['eb_email_verification'] ) && 'yes' === $eb_general_settings['eb_email_verification'] ) {
 			// check the username against the email and username if user exist.

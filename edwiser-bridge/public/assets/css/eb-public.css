@@ -1417,13 +1417,13 @@ nav.eb-pagination ul li {
 }
 
 .user-already-enrolled-message {
-  overflow-x: hidden;
-  font-size: 11px;
-  color: #555;
-  padding: 0.4em;
-  color: #fff;
-  background: #888;
-  border-radius: 10px;
+	overflow-x: hidden;
+	font-size: 11px;
+	color: #555;
+	padding: 0.4em;
+	color: #fff;
+	background: #888;
+	border-radius: 10px;
 }
 .eb_email_verify_dialog {
   z-index: 1000 !important;
@@ -1486,7 +1486,7 @@ nav.eb-pagination ul li {
 }
 
 .eb_email_verify_dialog .ui-dialog-buttonpane button:hover {
-  background-color: hsl(16, 92.9%, 55.7%, 0.8) !important;
+  background-color: hsla(16, 92.9%, 55.7%, 0.8) !important;
   color: #fff !important;
 }
 
@@ -1584,28 +1584,29 @@ nav.eb-pagination ul li {
     list-style-type: circle !important;
 }
 
-/* Reset - Exclude navigation, menu, header from list styles */
-nav ul,
-.menu ul,
-.nav ul,
-header ul,
-.site-header ul,
-.main-navigation ul,
-.primary-menu ul,
-.wp-block-navigation ul {
+/* Reset - Exclude navigation, menu, header from EB list styles */
+/* Scoped to EB wrappers only to avoid overriding theme styles */
+.eb-course-desc-wrapper nav ul,
+.eb-course-desc-wrapper .menu ul,
+.eb-course-desc-wrapper .nav ul,
+.eb-course-desc-wrapper header ul,
+.eb-course-desc__content-body nav ul,
+.eb-course-desc__content-body .menu ul,
+.eb-course-desc__content-body .nav ul,
+.eb-course-desc__content-body header ul {
     list-style-type: none !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
-nav li,
-.menu li,
-.nav li,
-header li,
-.site-header li,
-.main-navigation li,
-.primary-menu li,
-.wp-block-navigation li {
+.eb-course-desc-wrapper nav li,
+.eb-course-desc-wrapper .menu li,
+.eb-course-desc-wrapper .nav li,
+.eb-course-desc-wrapper header li,
+.eb-course-desc__content-body nav li,
+.eb-course-desc__content-body .menu li,
+.eb-course-desc__content-body .nav li,
+.eb-course-desc__content-body header li {
     list-style-type: none !important;
     margin: 0 !important;
 }

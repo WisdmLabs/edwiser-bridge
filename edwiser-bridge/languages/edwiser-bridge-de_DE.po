@@ -2643,8 +2643,8 @@ msgstr ""
 #: admin/settings/class-eb-settings-shortcode-doc.php:101
 #, fuzzy
 #| msgid "Shows courses from spesified category slugs. Example: %s"
-msgid "Shows courses from spesified category slugs. Example: "
-msgstr "Zeigt Kurse von Schnecken der bestimmten Kategorie an. Beispiel:%s"
+msgid "Shows courses from spesified category slugs. Example: %s"
+msgstr "Zeigt Kurse von Schnecken der bestimmten Kategorie an. Beispiel: %s"
 
 #: admin/settings/class-eb-settings-shortcode-doc.php:83
 msgid "shows courses in ascending order."

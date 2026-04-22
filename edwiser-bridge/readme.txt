@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: moodle wordpress integration, moodle wordpress integration, wordpress moodle plugin, lms integration, sell moodle courses
 Requires at least: 6.0
 Tested up to: 6.9.1
-Stable tag: 4.3.3
+Stable tag: 4.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -241,6 +241,13 @@ Also, check our knowledge base for more queries
 
 ==  Changelog  ==
 
+= 4.3.4 =
+* Fix - Updated jQuery DataTables library from v1.10.3 to v1.13.11 to resolve CVE-2015-6584, CVE-2020-28458, and CVE-2021-23445 (DOM-based XSS vulnerabilities).
+* Fix - Resolved PHP Fatal error (ArgumentCountError) in eb_user_authentication_check() by making the $password parameter optional.
+* Fix - Fixed duplicate credential email being sent when a user is created from the Moodle site.
+* Fix - Fixed PHP fatal error on user profile edit page caused by implode() receiving a non-array value; added try-catch error handling and backward-compatible session/query-string message display support.
+* Fix - Fixed invalid CSS color function hsl() with four arguments in eb-public.css; corrected to hsla() to ensure button hover styles render correctly across all browsers.
+
 = 4.3.3 =
 * Fix - Removed script tag from allowed HTML tags in wp_kses to prevent stored XSS on public-facing course pages.
 * Fix - Added nonce verification and capability checks to create_dummy_user() and enroll_dummy_user() AJAX handlers.
@@ -280,7 +287,7 @@ Also, check our knowledge base for more queries
 
 = 4.2.0 =
 * Feature - Added setting to select Edwiser Gutenberg block template pages.
-		  - We’ve introduced a new Template Selection feature in the Edwiser Bridge settings, allowing you to choose which WordPress pages use Gutenberg blocks for the particular pages.
+		  - We've introduced a new Template Selection feature in the Edwiser Bridge settings, allowing you to choose which WordPress pages use Gutenberg blocks for the particular pages.
 * Fix 	  - Resolved image synchronization issues when the server has allow_url_fopen disabled.
 
 = 4.1.0 =

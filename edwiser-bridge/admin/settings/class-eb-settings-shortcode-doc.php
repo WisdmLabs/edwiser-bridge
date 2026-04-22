@@ -98,7 +98,8 @@ if ( ! class_exists( 'Eb_Settings_Shortcode_Doc' ) ) {
 								/**
 								 * Translators: shortcode description example.
 								 */
-								printf( esc_html__( 'Shows courses from spesified category slugs. Example: ', 'edwiser-bridge' ) . '%s', '<strong>[eb_courses categories="basic,moderated"]</strong>' );
+								echo esc_html__( 'Shows courses from spesified category slugs. Example: ', 'edwiser-bridge' );
+								echo '<strong>[eb_courses categories="basic,moderated"]</strong>';
 								?>
 							</li>
 							<li>

@@ -44,17 +44,32 @@ if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_uns
 		<p class="eb-warning"><?php esc_html_e( 'You must be logged in to edit your profile.', 'edwiser-bridge' ); ?></p>
 		<?php
 	} else {
-		if ( isset( $_GET[ 'eb_msgs_' . $current_user->ID ] ) ) {
-			// echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
-			if ( 'success' === $_GET[ 'eb_msgs_status' ] ) {
-				echo '<p class="eb-success">' . esc_html( $_GET[ 'eb_msgs_' . $current_user->ID ] ) . '</p>';
-			} elseif ( 'error_array' === $_GET[ 'eb_msgs_status' ] ) {
-				echo '<p class="eb-error">' . implode( '<br />', esc_html( $_GET[ 'eb_msgs_' . $current_user->ID ] ) ) . '</p>';
-			} else {
-				echo '<p class="eb-error">' . esc_html( $_GET[ 'eb_msgs_' . $current_user->ID ] ) . '</p>';
+		try {
+			if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
+				echo wp_kses( $_SESSION[ 'eb_msgs_' . $current_user->ID ], \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );
+				unset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] );
+			} elseif ( isset( $_GET[ 'eb_msgs_' . $current_user->ID ] ) ) {
+				$eb_msgs = $_GET[ 'eb_msgs_' . $current_user->ID ];
+				if ( 'success' === ( isset( $_GET['eb_msgs_status'] ) ? $_GET['eb_msgs_status'] : '' ) ) {
+					echo '<p class="eb-success">' . esc_html( $eb_msgs ) . '</p>';
+				} elseif ( 'error_array' === ( isset( $_GET['eb_msgs_status'] ) ? $_GET['eb_msgs_status'] : '' ) ) {
+					if ( is_array( $eb_msgs ) ) {
+						echo '<p class="eb-error">' . implode( '<br />', array_map( 'esc_html', $eb_msgs ) ) . '</p>';
+					} else {
+						echo '<p class="eb-error">' . esc_html( $eb_msgs ) . '</p>';
+					}
+				} else {
+					echo '<p class="eb-error">' . esc_html( $eb_msgs ) . '</p>';
+				}
+				unset( $_GET[ 'eb_msgs_' . $current_user->ID ] );
+				unset( $_GET['eb_msgs_status'] );
 			}
-			unset( $_GET[ 'eb_msgs_' . $current_user->ID ] );
-			unset( $_GET[ 'eb_msgs_status' ] );
+		} catch ( \TypeError $e ) {
+			echo '<p class="eb-error">' . esc_html__( 'An error occurred while displaying the message.', 'edwiser-bridge' ) . '</p>';
+			error_log( 'Edwiser Bridge - edit-user-profile message display error: ' . $e->getMessage() );
+		} catch ( \Exception $e ) {
+			echo '<p class="eb-error">' . esc_html__( 'Something went wrong. Please try again.', 'edwiser-bridge' ) . '</p>';
+			error_log( 'Edwiser Bridge - edit-user-profile error: ' . $e->getMessage() );
 		}
 		?>
 		<form method="post" id="eb-update-profile" action="">
