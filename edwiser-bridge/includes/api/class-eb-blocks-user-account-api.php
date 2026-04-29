@@ -19,7 +19,7 @@ class EdwiserBridge_Blocks_UserAccount_API
     public function __construct()
     {
         add_action('rest_api_init', array($this, 'eb_register_useraccount_routes'));
-        add_filter('rest_authentication_errors', array($this, 'eb_rest_authentication_errors'), 10, 1);
+        add_filter('rest_authentication_errors', array($this, 'eb_rest_authentication_errors'), 1, 1);
     }
 
     /**

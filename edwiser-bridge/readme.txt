@@ -242,11 +242,10 @@ Also, check our knowledge base for more queries
 ==  Changelog  ==
 
 = 4.3.4 =
-* Fix - Updated jQuery DataTables library from v1.10.3 to v1.13.11 to resolve CVE-2015-6584, CVE-2020-28458, and CVE-2021-23445 (DOM-based XSS vulnerabilities).
-* Fix - Resolved PHP Fatal error (ArgumentCountError) in eb_user_authentication_check() by making the $password parameter optional.
-* Fix - Fixed duplicate credential email being sent when a user is created from the Moodle site.
-* Fix - Fixed PHP fatal error on user profile edit page caused by implode() receiving a non-array value; added try-catch error handling and backward-compatible session/query-string message display support.
-* Fix - Fixed invalid CSS color function hsl() with four arguments in eb-public.css; corrected to hsla() to ensure button hover styles render correctly across all browsers.
+Fix - Updated jQuery DataTables library to v1.13.11 to resolve multiple security vulnerabilities (CVE-2015-6584, CVE-2020-28458, and CVE-2021-23445).
+Fix - Resolved PHP Fatal errors in eb_user_authentication_check() and user profile edit page by improving parameter handling and adding try-catch error management.
+Fix - Fixed duplicate credential emails for Moodle-synced users and corrected hsl() CSS functions to hsla() for consistent browser rendering.
+Fix - Improved REST authentication priority and switched to wp.apiFetch to resolve login loops, especially for WordPress subdirectory installations.
 
 = 4.3.3 =
 * Fix - Removed script tag from allowed HTML tags in wp_kses to prevent stored XSS on public-facing course pages.

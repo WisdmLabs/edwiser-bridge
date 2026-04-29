@@ -39,8 +39,11 @@ export const useAuth = () => {
           query.append('is_enroll', isEnroll);
         }
 
+        const apiRoot = (window.wpApiSettings && window.wpApiSettings.root)
+          ? window.wpApiSettings.root.replace(/\/$/, '')
+          : '/wp-json';
         const response = await fetch(
-          `/wp-json/eb/api/v1/user-account/auth?${query.toString()}`
+          `${apiRoot}/eb/api/v1/user-account/auth?${query.toString()}`
         );
         const authData = await response.json();
 
