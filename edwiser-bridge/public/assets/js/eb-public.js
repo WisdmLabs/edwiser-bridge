@@ -103,7 +103,9 @@
           var btn = document.getElementById('eb_course_payment_button');
           if (btn == null) {
             btn = document.getElementById('wdm-btn');
-            if (btn.text != eb_public_js_object.access_course) {
+            if (btn == null) {
+              $.unblockUI();
+            } else if (btn.text != eb_public_js_object.access_course) {
               btn.click();
             } else {
               $.unblockUI();
@@ -126,7 +128,9 @@
         var btn = document.getElementById('eb_course_payment_button');
         if (btn == null) {
           btn = document.getElementById('wdm-btn');
-          if (btn.text != eb_public_js_object.access_course) {
+          if (btn == null) {
+            $.unblockUI();
+          } else if (btn.text != eb_public_js_object.access_course) {
             btn.click();
           } else {
             $.unblockUI();

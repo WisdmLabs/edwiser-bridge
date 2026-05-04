@@ -246,6 +246,9 @@ Fix - Updated jQuery DataTables library to v1.13.11 to resolve multiple security
 Fix - Resolved PHP Fatal errors in eb_user_authentication_check() and user profile edit page by improving parameter handling and adding try-catch error management.
 Fix - Fixed duplicate credential emails for Moodle-synced users and corrected hsl() CSS functions to hsla() for consistent browser rendering.
 Fix - Improved REST authentication priority and switched to wp.apiFetch to resolve login loops, especially for WordPress subdirectory installations.
+Fix - Fixed auto-enrollment not triggering after login for free courses when Moodle SSO is active; auto_enroll=true is now preserved through the SSO redirect flow.
+Fix - Added null check on the Take this Course button in eb-public.js to prevent a JavaScript error when the course CTA is not yet rendered.
+Fix - Fixed My Courses "Start" button generating an SSO-style URL (?mdl_course_id=X) instead of a direct Moodle course URL when the SSO module is disabled; wdm_eb_get_my_course_url() now checks whether the SSO module is active before calling generateMoodleUrl().
 
 = 4.3.3 =
 * Fix - Removed script tag from allowed HTML tags in wp_kses to prevent stored XSS on public-facing course pages.
