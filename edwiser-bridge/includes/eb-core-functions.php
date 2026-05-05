@@ -455,7 +455,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_course_id_from_moodle_course_id' ) ) {
 	 */
 	function wdm_eb_get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) ); // @codingStandardsIgnoreLine
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id' ORDER BY post_id DESC LIMIT 1", $mdl_course_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }

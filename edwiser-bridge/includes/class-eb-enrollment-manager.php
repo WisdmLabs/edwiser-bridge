@@ -244,7 +244,6 @@ class Eb_Enrollment_Manager {
 					$request_data = array(
 						'enrolments' => array(
 							$course_id => array(
-								'roleid'   => $role_id,
 								'userid'   => $moodle_user_id,
 								'courseid' => $moodle_courses[ $course_id ],
 							),

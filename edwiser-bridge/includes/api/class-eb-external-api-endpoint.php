@@ -389,23 +389,20 @@ class Eb_External_Api_Endpoint {
 	public function eb_trigger_course_delete( $data ) {
 
 		if ( isset( $data['course_id'] ) ) {
-			// get WP course id from moodle course id.
-			$wp_course_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			global $wpdb;
+			$wp_course_ids = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key='moodle_course_id' AND meta_value=%d", $data['course_id'] ) ); // @codingStandardsIgnoreLine
 
-			if ( $wp_course_id ) {
-				// Update course meta to delete.
-				// mdl_course_deleted.
-				$course_meta = get_post_meta( $wp_course_id, 'eb_course_options', 1 );
-
+			foreach ( $wp_course_ids as $wp_course_id ) {
+				$course_meta                     = get_post_meta( $wp_course_id, 'eb_course_options', 1 );
 				$course_meta['mdl_course_deleted'] = 1;
 
-				// To add eb_course in WordPress to draft if course is deleted from moodle.
-				$post_status = array(
-					'ID'          => $wp_course_id,
-					'post_type'   => 'eb_course',
-					'post_status' => 'draft',
+				wp_update_post(
+					array(
+						'ID'          => $wp_course_id,
+						'post_type'   => 'eb_course',
+						'post_status' => 'draft',
+					)
 				);
-				wp_update_post( $post_status );
 
 				update_post_meta( $wp_course_id, 'eb_course_options', $course_meta );
 			}
