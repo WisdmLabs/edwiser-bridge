@@ -85,17 +85,11 @@ export default function MyCourses({
   const hasRecommendedCourses =
     recommendedCourses && recommendedCourses.length > 0;
 
-  // Loading state handling
-  if (isLoading) {
-    return (
-      <MantineProvider>
-        <MyCoursesSkeleton showRecommendedCourses={showRecommendedCourses} />
-      </MantineProvider>
-    );
-  }
-
   return (
     <MantineProvider>
+      {isLoading ? (
+        <MyCoursesSkeleton showRecommendedCourses={showRecommendedCourses} />
+      ) : (
       <div className="eb-my-courses__wrapper">
         {!hidePageTitle && (
           <h2 className="eb-my-courses__title">{pageTitle}</h2>
@@ -167,6 +161,7 @@ export default function MyCourses({
           />
         )}
       </div>
+      )}
     </MantineProvider>
   );
 }

@@ -129,15 +129,12 @@ class EdwiserBridge_Blocks
     public function eb_prevent_block_style_auto_enqueue($settings, $metadata)
     {
         // Only affect EB blocks
-        if (isset($metadata['name']) && strpos($metadata['name'], 'edwiser-bridge') !== false) {
+        if (isset($metadata['name']) && strpos($metadata['name'], 'edwiser-bridge/') !== false) {
             // Remove style from auto-enqueue - we'll load conditionally
-            if (isset($settings['style'])) {
-                unset($settings['style']);
-            }
+            // Unset both the raw metadata key and the processed handles array
+            unset($settings['style'], $settings['style_handles']);
             // Remove viewScript from auto-enqueue - we'll load conditionally
-            if (isset($settings['viewScript'])) {
-                unset($settings['viewScript']);
-            }
+            unset($settings['viewScript'], $settings['view_script_handles']);
         }
         return $settings;
     }
@@ -253,11 +250,13 @@ class EdwiserBridge_Blocks
             if (isset($assets['viewScript'])) {
                 $script_path = plugin_dir_path(__DIR__) . $assets['viewScript'];
                 if (file_exists($script_path)) {
+                    $asset_file = str_replace( '.js', '.asset.php', $script_path );
+                    $asset      = file_exists( $asset_file ) ? require $asset_file : array( 'dependencies' => array(), 'version' => filemtime( $script_path ) );
                     wp_enqueue_script(
                         'eb-block-' . str_replace('/', '-', $block_name) . '-view',
                         plugins_url($assets['viewScript'], __DIR__),
-                        array(),
-                        filemtime($script_path),
+                        $asset['dependencies'],
+                        $asset['version'],
                         true
                     );
                 }

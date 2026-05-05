@@ -52,32 +52,46 @@ function UserAccount({
 
   const [activeTab, setActiveTab] = useState(getInitialTab);
 
-  // Get current action from URL
-  const getCurrentAction = () => {
+  const [currentAction, setCurrentAction] = useState(() => {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('action');
-  };
+  });
 
-  const [currentAction, setCurrentAction] = useState(getCurrentAction);
+  // Sync URL when auth state resolves — keep pushState out of render
+  useEffect(() => {
+    if (isLoading) return;
 
-  // Update URL when tab changes
-  const updateURL = (tab) => {
-    const url = new URL(window.location);
-    if (tab === 'dashboard') {
-      url.searchParams.delete('tab'); // Remove tab param for dashboard (cleaner URL)
-    } else {
-      url.searchParams.set('tab', tab);
+    if (!isLoggedIn) {
+      const url = new URL(window.location);
+      url.searchParams.delete('tab');
+
+      const action = url.searchParams.get('action');
+
+      if (action === 'eb_register' && !enableRegistration) {
+        url.searchParams.set('action', 'eb_login');
+        window.history.pushState({}, '', url);
+        setCurrentAction('eb_login');
+        return;
+      }
+
+      if (!action) {
+        url.searchParams.set('action', 'eb_login');
+      }
+
+      if (url.search !== window.location.search) {
+        window.history.pushState({}, '', url);
+      }
+
+      setCurrentAction(url.searchParams.get('action'));
     }
-    window.history.pushState({}, '', url);
-  };
+  }, [isLoading, isLoggedIn, enableRegistration]);
 
   // Listen for browser back/forward button
   useEffect(() => {
     const handlePopState = () => {
-      const newTab = getInitialTab();
-      const newAction = getCurrentAction();
-      setActiveTab(newTab);
-      setCurrentAction(newAction);
+      setActiveTab(getInitialTab());
+      const urlParams = new URLSearchParams(window.location.search);
+      setCurrentAction(urlParams.get('action'));
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -86,61 +100,21 @@ function UserAccount({
 
   const handleTabChange = (value) => {
     setActiveTab(value);
-    updateURL(value);
+    const url = new URL(window.location);
+    if (value === 'dashboard') {
+      url.searchParams.delete('tab');
+    } else {
+      url.searchParams.set('tab', value);
+    }
+    window.history.pushState({}, '', url);
   };
 
-  // Show loading state
-  if (isLoading) {
-    return (
-      <MantineProvider>
+  return (
+    <MantineProvider>
+      {isLoading ? (
         <Skeleton height={500} width="100%" />
-      </MantineProvider>
-    );
-  }
-
-  // Show login/register forms if not logged in
-  if (!isLoggedIn) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const action = urlParams.get('action');
-
-    // Clean up URL by removing tab parameter and setting action if needed
-    const url = new URL(window.location);
-    url.searchParams.delete('tab'); // Remove tab parameter
-
-    // If registration is disabled but user tries to access register page, redirect to login
-    if (action === 'eb_register' && !enableRegistration) {
-      url.searchParams.set('action', 'eb_login');
-      window.history.pushState({}, '', url);
-      return (
-        <MantineProvider>
-          <Login
-            enableRegistration={enableRegistration}
-            enableRecaptcha={enableRecaptcha}
-            recaptchaType={recaptchaType}
-            recaptchaSiteKey={recaptchaSiteKey}
-            showRecaptchaOnLogin={showRecaptchaOnLogin}
-            lostPasswordUrl={lostPasswordUrl}
-            login={login}
-            loginError={loginError}
-            isLoggingIn={isLoggingIn}
-            sso={sso}
-          />
-        </MantineProvider>
-      );
-    }
-
-    if (!action) {
-      url.searchParams.set('action', 'eb_login');
-    }
-
-    // Update URL if it changed
-    if (url.search !== window.location.search) {
-      window.history.pushState({}, '', url);
-    }
-
-    return (
-      <MantineProvider>
-        {action === 'eb_register' ? (
+      ) : !isLoggedIn ? (
+        currentAction === 'eb_register' ? (
           <Register
             customFields={customFields}
             enableTermsAndCond={enableTermsAndCond}
@@ -166,72 +140,68 @@ function UserAccount({
             isLoggingIn={isLoggingIn}
             sso={sso}
           />
-        )}
-      </MantineProvider>
-    );
-  }
+        )
+      ) : (
+        <div className="eb-user-account__wrapper">
+          <Tabs
+            className="eb-user-account__tabs"
+            orientation="vertical"
+            value={activeTab}
+            onChange={handleTabChange}
+          >
+            <Tabs.List>
+              <div className="eb-user-account__tabs-title-wrapper">
+                {!hidePageTitle && (
+                  <h3 className="eb-user-account__tabs-title">{pageTitle}</h3>
+                )}
+                {isMobile && (
+                  <ResponsiveTabMenu
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                  />
+                )}
+              </div>
 
-  return (
-    <MantineProvider>
-      <div className="eb-user-account__wrapper">
-        <Tabs
-          className="eb-user-account__tabs"
-          orientation="vertical"
-          value={activeTab}
-          onChange={handleTabChange}
-        >
-          <Tabs.List>
-            <div className="eb-user-account__tabs-title-wrapper">
-              {!hidePageTitle && (
-                <h3 className="eb-user-account__tabs-title">{pageTitle}</h3>
+              {!isMobile && (
+                <>
+                  <Tabs.Tab value="dashboard" leftSection={<Icons.layout />}>
+                    {__('Dashboard', 'edwiser-bridge')}
+                  </Tabs.Tab>
+                  <Tabs.Tab value="profile" leftSection={<Icons.user />}>
+                    {__('Profile', 'edwiser-bridge')}
+                  </Tabs.Tab>
+                  <Tabs.Tab value="orders" leftSection={<Icons.orders />}>
+                    {__('Orders', 'edwiser-bridge')}
+                  </Tabs.Tab>
+                  <Tabs.Tab value="my-courses" leftSection={<Icons.book />}>
+                    {__('My Courses', 'edwiser-bridge')}
+                  </Tabs.Tab>
+                </>
               )}
-              {isMobile && (
-                <ResponsiveTabMenu
-                  activeTab={activeTab}
-                  onTabChange={handleTabChange}
-                />
-              )}
-            </div>
+            </Tabs.List>
 
-            {!isMobile && (
-              <>
-                <Tabs.Tab value="dashboard" leftSection={<Icons.layout />}>
-                  {__('Dashboard', 'edwiser-bridge')}
-                </Tabs.Tab>
-                <Tabs.Tab value="profile" leftSection={<Icons.user />}>
-                  {__('Profile', 'edwiser-bridge')}
-                </Tabs.Tab>
-                <Tabs.Tab value="orders" leftSection={<Icons.orders />}>
-                  {__('Orders', 'edwiser-bridge')}
-                </Tabs.Tab>
-                <Tabs.Tab value="my-courses" leftSection={<Icons.book />}>
-                  {__('My Courses', 'edwiser-bridge')}
-                </Tabs.Tab>
-              </>
-            )}
-          </Tabs.List>
+            <Tabs.Panel value="dashboard">
+              <Dashboard />
+            </Tabs.Panel>
 
-          <Tabs.Panel value="dashboard">
-            <Dashboard />
-          </Tabs.Panel>
+            <Tabs.Panel value="profile">
+              <Profile />
+            </Tabs.Panel>
 
-          <Tabs.Panel value="profile">
-            <Profile />
-          </Tabs.Panel>
+            <Tabs.Panel value="orders">
+              <Orders />
+            </Tabs.Panel>
 
-          <Tabs.Panel value="orders">
-            <Orders />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="my-courses">
-            <MyCourses
-              showCourseProgress={showCourseProgress}
-              showRecommendedCourses={showRecommendedCourses}
-              recommendedCoursesCount={recommendedCoursesCount}
-            />
-          </Tabs.Panel>
-        </Tabs>
-      </div>
+            <Tabs.Panel value="my-courses">
+              <MyCourses
+                showCourseProgress={showCourseProgress}
+                showRecommendedCourses={showRecommendedCourses}
+                recommendedCoursesCount={recommendedCoursesCount}
+              />
+            </Tabs.Panel>
+          </Tabs>
+        </div>
+      )}
     </MantineProvider>
   );
 }

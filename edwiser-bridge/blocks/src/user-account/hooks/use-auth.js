@@ -39,13 +39,9 @@ export const useAuth = () => {
           query.append('is_enroll', isEnroll);
         }
 
-        const apiRoot = (window.wpApiSettings && window.wpApiSettings.root)
-          ? window.wpApiSettings.root.replace(/\/$/, '')
-          : '/wp-json';
-        const response = await fetch(
-          `${apiRoot}/eb/api/v1/user-account/auth?${query.toString()}`
-        );
-        const authData = await response.json();
+        const authData = await apiFetch({
+          path: `/eb/api/v1/user-account/auth?${query.toString()}`,
+        });
 
         setIsLoggedIn(authData.is_logged_in);
 
