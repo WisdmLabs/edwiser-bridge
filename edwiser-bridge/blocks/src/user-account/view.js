@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import UserAccount from './user-account';
 
-document.addEventListener('DOMContentLoaded', function () {
+function initUserAccount() {
   const elem = document.getElementById('eb-user-account');
 
   if (elem) {
@@ -18,4 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const root = ReactDOM.createRoot(elem);
     root.render(<UserAccount {...attributes} />);
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initUserAccount);
+} else {
+  initUserAccount();
+}

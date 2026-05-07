@@ -236,7 +236,7 @@ class EdwiserBridge_Blocks
 
         if (isset($block_assets[$block_name])) {
             $assets = $block_assets[$block_name];
-            
+
             // Enqueue style
             if (isset($assets['style'])) {
                 $style_path = plugin_dir_path(__DIR__) . $assets['style'];
@@ -246,22 +246,6 @@ class EdwiserBridge_Blocks
                         plugins_url($assets['style'], __DIR__),
                         array(),
                         filemtime($style_path)
-                    );
-                }
-            }
-            
-            // Enqueue viewScript (moved to footer for performance)
-            if (isset($assets['viewScript'])) {
-                $script_path = plugin_dir_path(__DIR__) . $assets['viewScript'];
-                if (file_exists($script_path)) {
-                    $asset_file = str_replace( '.js', '.asset.php', $script_path );
-                    $asset      = file_exists( $asset_file ) ? require $asset_file : array( 'dependencies' => array(), 'version' => filemtime( $script_path ) );
-                    wp_enqueue_script(
-                        'eb-block-' . str_replace('/', '-', $block_name) . '-view',
-                        plugins_url($assets['viewScript'], __DIR__),
-                        $asset['dependencies'],
-                        $asset['version'],
-                        true
                     );
                 }
             }
