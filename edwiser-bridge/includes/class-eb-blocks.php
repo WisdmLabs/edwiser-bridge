@@ -133,11 +133,12 @@ class EdwiserBridge_Blocks
     {
         // Only affect EB blocks
         if (isset($metadata['name']) && strpos($metadata['name'], 'edwiser-bridge/') !== false) {
-            // Remove style from auto-enqueue - we'll load conditionally
-            // Unset both the raw metadata key and the processed handles array
-            unset($settings['style'], $settings['style_handles']);
-            // Remove viewScript from auto-enqueue - we'll load conditionally
-            unset($settings['viewScript'], $settings['view_script_handles']);
+            // Remove only the raw viewScript key so WordPress still uses view_script_handles
+            // to auto-enqueue view.js when do_blocks() renders the block (e.g. on course pages
+            // where $post->post_content is empty and has_eb_blocks() cannot detect the block).
+            if (isset($settings['viewScript'])) {
+                unset($settings['viewScript']);
+            }
         }
         return $settings;
     }
