@@ -37,7 +37,9 @@ if (! function_exists('eb_contains_block')) {
 $eb_general_option   = get_option('eb_general');
 $my_courses_page_id  = isset($eb_general_option['eb_my_courses_page_id']) ? intval($eb_general_option['eb_my_courses_page_id']) : 0;
 
-// If a "My Courses" page is selected.
+// If a "My Courses" page is selected and it uses the classic [eb_my_courses] shortcode,
+// render that page's content. If it uses the new Gutenberg block, skip it — the block
+// is meant for standalone pages and should not render inside [eb_user_account].
 if ($my_courses_page_id) {
 	$content = get_post($my_courses_page_id);
 
@@ -46,24 +48,24 @@ if ($my_courses_page_id) {
 
 		$has_block = has_block($block_name, $my_courses_page_id);
 
-		// If has_block() failed, double-check using parse_blocks().
 		if (! $has_block) {
 			$has_block = eb_contains_block(parse_blocks($content->post_content), $block_name);
 		}
 
-		if ($has_block) {
-			// Render Gutenberg blocks.
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_blocks() returns safe rendered block HTML.
-			echo do_blocks($content->post_content);
-		} else {
-			// Render as shortcode.
+		if (! $has_block) {
+			// Page uses classic shortcode — render it.
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() returns safe rendered shortcode HTML.
 			echo do_shortcode($content->post_content);
+		} else {
+			// Page uses Gutenberg block — fall back to shortcode inside [eb_user_account].
+			echo do_shortcode(
+				'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4" my_courses_progress="1"]'
+			);
 		}
 	}
 } else {
 	// Fallback to default shortcode.
 	echo do_shortcode(
-		'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4"]'
+		'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4" my_courses_progress="1"]'
 	);
 }

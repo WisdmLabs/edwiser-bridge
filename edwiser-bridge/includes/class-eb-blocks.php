@@ -18,6 +18,9 @@ class EdwiserBridge_Blocks
         add_filter('block_categories_all', array($this, 'eb_register_edwiser_category'));
         add_action('wp_after_insert_post', array($this, 'handle_block_setting_change'), 10, 3);
 
+        // Load block styles in the Gutenberg editor (wp_enqueue_scripts doesn't fire in admin)
+        add_action('enqueue_block_editor_assets', array($this, 'eb_enqueue_editor_block_styles'));
+
         // AJAX handlers for order details
         add_action('wp_ajax_eb_get_order_details', array($this, 'eb_get_order_details'));
     }
@@ -177,12 +180,12 @@ class EdwiserBridge_Blocks
                     }
                 }
             }
-            
+
             // Enqueue styles for found blocks
             foreach (array_unique($found_blocks) as $block_name) {
                 $this->enqueue_block_styles($block_name);
             }
-            
+
             return !empty($found_blocks);
         }
         return false;
@@ -260,6 +263,36 @@ class EdwiserBridge_Blocks
                         true
                     );
                 }
+            }
+        }
+    }
+
+    /**
+     * Load block styles in the Gutenberg editor context.
+     * wp_enqueue_scripts does not fire in admin, so styles must be enqueued separately.
+     */
+    public function eb_enqueue_editor_block_styles()
+    {
+        $blocks = array(
+            'courses',
+            'my-courses',
+            'user-account',
+            'user-account-v2',
+            'dashboard',
+            'orders',
+            'profile',
+            'course-description',
+        );
+
+        foreach ($blocks as $block) {
+            $style_path = plugin_dir_path(__DIR__) . "blocks/build/{$block}/style-index.css";
+            if (file_exists($style_path)) {
+                wp_enqueue_style(
+                    'eb-block-editor-' . $block,
+                    plugins_url("/blocks/build/{$block}/style-index.css", __DIR__),
+                    array(),
+                    filemtime($style_path)
+                );
             }
         }
     }

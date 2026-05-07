@@ -6,7 +6,7 @@ function CourseGrid({ courses }) {
   return (
     <div className="eb-courses__grid">
       {courses.length > 0 ? (
-        courses.map((course) => <Course key={course.ID} course={course} />)
+        courses.map((course) => <Course key={course.id} course={course} />)
       ) : (
         <p>{__('No courses found', 'edwiser-bridge')}</p>
       )}

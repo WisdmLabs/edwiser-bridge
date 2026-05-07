@@ -8,7 +8,6 @@ import {
   SelectControl,
 } from '@wordpress/components';
 import './editor.scss';
-import Orders from './orders';
 
 export default function Edit({ attributes, setAttributes }) {
   return (
@@ -80,7 +79,19 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
       </InspectorControls>
 
-      <Orders {...attributes} />
+      <div className="eb-tab-block__editor-preview">
+        {!attributes.hidePageTitle && (
+          <p className="eb-tab-block__editor-preview-title">
+            {attributes.pageTitle || __('Orders', 'edwiser-bridge')}
+          </p>
+        )}
+        <p className="eb-tab-block__editor-preview-placeholder">
+          {__(
+            'Order history will appear here for logged-in users.',
+            'edwiser-bridge'
+          )}
+        </p>
+      </div>
     </div>
   );
 }

@@ -26,6 +26,10 @@ export default function useMyCourses(recommendedCoursesCount) {
         setSignInUrl(response.sign_in_url || '');
       } catch (error) {
         console.error('Error fetching courses:', error);
+        if (error?.code === 'rest_forbidden' || error?.data?.status === 401) {
+          setAuthRequired(true);
+          setSignInUrl(error?.data?.sign_in_url || '');
+        }
       } finally {
         setIsLoading(false);
       }

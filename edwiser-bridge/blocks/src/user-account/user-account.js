@@ -60,6 +60,8 @@ function UserAccount({
   // Sync URL when auth state resolves — keep pushState out of render
   useEffect(() => {
     if (isLoading) return;
+    // Don't manipulate URL in WordPress editor context
+    if (window.location.pathname.includes('/wp-admin/')) return;
 
     if (!isLoggedIn) {
       const url = new URL(window.location);

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "build": "wp-scripts build --webpack-src-dir=edwiser-bridge/blocks/src --output-path=edwiser-bridge/blocks/build",
+    "start": "wp-scripts start --webpack-src-dir=edwiser-bridge/blocks/src --output-path=edwiser-bridge/blocks/build"
   },
   "keywords": [],
   "author": "",

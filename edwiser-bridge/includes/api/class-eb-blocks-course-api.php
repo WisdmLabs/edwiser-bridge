@@ -40,7 +40,9 @@ class EdwiserBridge_Blocks_Course_API
                     'description' => __('Number of courses per page', 'edwiser-bridge'),
                     'type'        => 'integer',
                     'default'     => 9,
-                    'sanitize_callback' => 'absint',
+                    'sanitize_callback' => function( $value ) {
+                        return intval( $value );
+                    },
                 ),
                 'sort_order' => array(
                     'description' => __('Sort order (latest, oldest, a-z, z-a)', 'edwiser-bridge'),
@@ -100,7 +102,7 @@ class EdwiserBridge_Blocks_Course_API
     {
         // get query parameters
         $page = max(1, $request['page']);
-        $per_page = max(1, $request['per_page']);
+        $per_page = $request['per_page'] === -1 ? -1 : max(1, $request['per_page']);
         $sort_order = strtolower($request['sort_order']);
         $search_query = strtolower($request['search']);
         $category = isset($request['category']) ? sanitize_text_field($request['category']) : '';
@@ -280,7 +282,7 @@ class EdwiserBridge_Blocks_Course_API
 
         return new WP_REST_Response(array(
             'total_courses' => $total_courses,
-            'total_pages' => ceil($total_courses / $per_page),
+            'total_pages' => $per_page === -1 ? 1 : ceil($total_courses / $per_page),
             'current_page' => $page,
             'per_page' => $per_page,
             'courses' => $formatted_courses,

@@ -1,3 +1,61 @@
+.eb-my-courses__editor-preview {
+  padding: 16px 20px;
+  border: 1px dashed #c5c5c5;
+  border-radius: 4px;
+  background: #fafafa;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 12px !important;
+  }
+
+  &-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin: 12px 0 0 !important;
+    font-style: italic;
+  }
+
+  &-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  &-card {
+    flex: 0 0 calc(33.333% - 8px);
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  &-card-thumb {
+    height: 80px;
+    background: linear-gradient(135deg, #e8e8e8 25%, #d8d8d8 100%);
+  }
+
+  &-card-body {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &-card-line {
+    height: 10px;
+    background: #e8e8e8;
+    border-radius: 3px;
+
+    &--short {
+      width: 60%;
+    }
+  }
+}
+
 .components-toggle-control {
   .components-flex {
     flex-direction: row-reverse !important;

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import MyCourses from './my-courses';
 
-document.addEventListener('DOMContentLoaded', function () {
+function initMyCourses() {
   const elem = document.getElementById('eb-my-courses');
 
   if (elem) {
@@ -19,4 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const root = ReactDOM.createRoot(elem);
     root.render(<MyCourses {...attributes} />);
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMyCourses);
+} else {
+  initMyCourses();
+}

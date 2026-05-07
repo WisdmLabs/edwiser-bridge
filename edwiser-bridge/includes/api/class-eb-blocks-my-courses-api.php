@@ -78,7 +78,10 @@ class EdwiserBridge_Blocks_My_Courses_API
             return new \WP_Error(
                 'rest_forbidden',
                 __('You are not logged in.', 'edwiser-bridge'),
-                array('status' => 401)
+                array(
+                    'status'       => 401,
+                    'sign_in_url'  => wp_login_url(get_permalink()),
+                )
             );
         }
 

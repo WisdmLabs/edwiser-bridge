@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import './editor.scss';
-import Profile from './profile';
 
 export default function Edit({ attributes, setAttributes }) {
   return (
@@ -28,7 +27,19 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
       </InspectorControls>
 
-      <Profile {...attributes} />
+      <div className="eb-tab-block__editor-preview">
+        {!attributes.hidePageTitle && (
+          <p className="eb-tab-block__editor-preview-title">
+            {attributes.pageTitle || __('Profile', 'edwiser-bridge')}
+          </p>
+        )}
+        <p className="eb-tab-block__editor-preview-placeholder">
+          {__(
+            'Profile editing form will appear here for logged-in users.',
+            'edwiser-bridge'
+          )}
+        </p>
+      </div>
     </div>
   );
 }
