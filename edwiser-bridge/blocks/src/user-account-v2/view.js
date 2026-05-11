@@ -2,11 +2,17 @@ import React from 'react';
 import { createRoot } from '@wordpress/element';
 import AuthWrapper from './components/auth/auth-wrapper';
 
-document.addEventListener('DOMContentLoaded', function () {
+function onReady() {
   if (window.__EB_UA_V2_INIT__) return;
   window.__EB_UA_V2_INIT__ = true;
   initializeBlock();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', onReady);
+} else {
+  onReady();
+}
 
 // Main initialization function
 function initializeBlock() {

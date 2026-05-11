@@ -2,6 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, ToggleControl, TextControl } from '@wordpress/components';
 import './editor.scss';
+import Dashboard from './dashboard';
+
 export default function Edit({ attributes, setAttributes }) {
   return (
     <div {...useBlockProps()}>
@@ -26,19 +28,7 @@ export default function Edit({ attributes, setAttributes }) {
         </PanelBody>
       </InspectorControls>
 
-      <div className="eb-tab-block__editor-preview">
-        {!attributes.hidePageTitle && (
-          <p className="eb-tab-block__editor-preview-title">
-            {attributes.pageTitle || __('Dashboard', 'edwiser-bridge')}
-          </p>
-        )}
-        <p className="eb-tab-block__editor-preview-placeholder">
-          {__(
-            'User dashboard — recent activity and account summary will appear here for logged-in users.',
-            'edwiser-bridge'
-          )}
-        </p>
-      </div>
+      <Dashboard {...attributes} />
     </div>
   );
 }

@@ -52,20 +52,19 @@ if ($my_courses_page_id) {
 			$has_block = eb_contains_block(parse_blocks($content->post_content), $block_name);
 		}
 
-		if (! $has_block) {
-			// Page uses classic shortcode — render it.
+		if ($has_block) {
+			// Render Gutenberg blocks.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_blocks() returns safe rendered block HTML.
+			echo do_blocks($content->post_content);
+		} else {
+			// Render as shortcode.
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() returns safe rendered shortcode HTML.
 			echo do_shortcode($content->post_content);
-		} else {
-			// Page uses Gutenberg block — fall back to shortcode inside [eb_user_account].
-			echo do_shortcode(
-				'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4" my_courses_progress="1"]'
-			);
 		}
 	}
 } else {
 	// Fallback to default shortcode.
 	echo do_shortcode(
-		'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4" my_courses_progress="1"]'
+		'[eb_my_courses my_courses_wrapper_title="My Courses" recommended_courses_wrapper_title="Recommended Courses" number_of_recommended_courses="4"]'
 	);
 }
