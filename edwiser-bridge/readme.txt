@@ -2,7 +2,7 @@
 Contributors: WisdmLabs
 Tags: moodle wordpress integration, moodle wordpress integration, wordpress moodle plugin, lms integration, sell moodle courses
 Requires at least: 6.0
-Tested up to: 6.9.1
+Tested up to: 6.9.4
 Stable tag: 4.3.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -242,13 +242,14 @@ Also, check our knowledge base for more queries
 ==  Changelog  ==
 
 = 4.3.4 =
-Fix - Updated jQuery DataTables library to v1.13.11 to resolve multiple security vulnerabilities (CVE-2015-6584, CVE-2020-28458, and CVE-2021-23445).
-Fix - Resolved PHP Fatal errors in eb_user_authentication_check() and user profile edit page by improving parameter handling and adding try-catch error management.
-Fix - Fixed duplicate credential emails for Moodle-synced users and corrected hsl() CSS functions to hsla() for consistent browser rendering.
-Fix - Improved REST authentication priority and switched to wp.apiFetch to resolve login loops, especially for WordPress subdirectory installations.
-Fix - Fixed auto-enrollment not triggering after login for free courses when Moodle SSO is active; auto_enroll=true is now preserved through the SSO redirect flow.
-Fix - Added null check on the Take this Course button in eb-public.js to prevent a JavaScript error when the course CTA is not yet rendered.
-Fix - Fixed My Courses "Start" button generating an SSO-style URL (?mdl_course_id=X) instead of a direct Moodle course URL when the SSO module is disabled; wdm_eb_get_my_course_url() now checks whether the SSO module is active before calling generateMoodleUrl().
+* Fix - Added compatibility with Moodle 5.2.
+* Fix - Updated jQuery DataTables library to v1.13.11 to resolve multiple security vulnerabilities (CVE-2015-6584, CVE-2020-28458, CVE-2021-23445).
+* Fix - Resolved PHP fatal errors in eb_user_authentication_check() and the user profile edit page by improving parameter handling and adding proper try-catch error management.
+* Fix - Fixed duplicate credential emails for Moodle-synced users and corrected hsl() CSS functions to hsla() for consistent browser rendering.
+* Fix - Improved REST authentication priority and migrated to wp.apiFetch to resolve login loops, especially for WordPress subdirectory installations.
+* Fix - Fixed auto-enrollment not triggering after login for free courses when Moodle SSO is active. auto_enroll=true is now preserved through the SSO redirect flow.
+* Fix - Added a null check on the Take this Course button in eb-public.js to prevent JavaScript errors when the course CTA is not yet rendered.
+* Fix - Fixed My Courses "Start" button generating an incorrect SSO-style URL (?mdl_course_id=X) when SSO is disabled. wdm_eb_get_my_course_url() now validates whether the SSO module is active before calling generateMoodleUrl().
 
 = 4.3.3 =
 * Fix - Removed script tag from allowed HTML tags in wp_kses to prevent stored XSS on public-facing course pages.

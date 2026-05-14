@@ -60,6 +60,9 @@ class Eb_Activator
 		$notice_handler = new Eb_Admin_Notice_Handler();
 		$notice_handler->eb_check_mdl_plugin_update();
 
+		// schedule a one-time rewrite flush on the next page load after activation.
+		update_option( 'eb_flush_rewrite_rules', true );
+
 		// redirect to welcome screen.
 		$current_version = get_option('eb_current_version');
 		if (! $current_version) {

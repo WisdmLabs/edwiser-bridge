@@ -32,7 +32,7 @@ global $eb_plugin_data;
 $eb_plugin_data = array(
 	'name'           => 'Edwiser Bridge - WordPress Moodle LMS Integration',
 	'slug'           => 'edwiser-bridge',
-	'version'        => '4.3.3',
+	'version'        => '4.3.4',
 	'mdl_plugin_url' => 'https://edwiser.org/plugins/edwiserbridge.zip',
 );
 

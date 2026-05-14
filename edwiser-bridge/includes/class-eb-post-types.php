@@ -150,7 +150,11 @@ class Eb_Post_Types {
 					)
 				)
 			);
+		}
+
+		if ( get_option( 'eb_flush_rewrite_rules' ) ) {
 			flush_rewrite_rules( true );
+			delete_option( 'eb_flush_rewrite_rules' );
 		}
 
 		if ( ! post_type_exists( 'eb_order' ) ) {
