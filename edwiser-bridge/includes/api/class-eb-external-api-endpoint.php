@@ -162,7 +162,9 @@ class Eb_External_Api_Endpoint {
 					} else {
 						$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					}
-					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
+					if ( $wp_user_id && ! is_wp_error( $wp_user_id ) ) {
+						update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
+					}
 				}
 
 				if ( $wp_user_id ) {
@@ -233,12 +235,25 @@ class Eb_External_Api_Endpoint {
 			// that would not work for Moodle login, causing user confusion.
 			$moodle_sent_notification = ! empty( $data['moodle_generated_password'] );
 
-			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p, $moodle_sent_notification );
-			if ( $wp_user_id ) {
-				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
+			// Guard: if this Moodle ID is already linked to a WP user, reuse that
+			// account instead of creating a second user with the same Moodle ID.
+			$existing_wp_user_id = 0;
+			if ( ! empty( $data['user_id'] ) ) {
+				$existing_wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
+			}
 
-				// user creation hook.
-				do_action( 'eb_user_created_from_moodle', $wp_user_id, $data );
+			if ( $existing_wp_user_id ) {
+				// Already linked - do not create a duplicate mapping.
+				$wp_user_id = (int) $existing_wp_user_id;
+				do_action( 'eb_user_creation_skipped_already_linked', $wp_user_id, $data );
+			} else {
+				$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p, $moodle_sent_notification );
+				if ( $wp_user_id && ! is_wp_error( $wp_user_id ) ) {
+					update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
+
+					// user creation hook.
+					do_action( 'eb_user_created_from_moodle', $wp_user_id, $data );
+				}
 			}
 		}
 	}

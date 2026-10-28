@@ -110,6 +110,14 @@ class Eb_Course_Manager {
 	 * @return array $response     array containing status & response message
 	 */
 	public function course_synchronization_handler( $sync_options = array() ) {
+		// Prevent timeout during long-running sync operations.
+		set_time_limit( 0 );
+
+		// Track start time to prevent 504 gateway timeout.
+		$start_time     = time();
+		$max_time       = 25; // Max 25 seconds to avoid 504 timeout.
+		$processed_count = 0;
+
 		edwiser_bridge_instance()->logger()->add( 'user', 'Initiating course & category sync process....' ); // add course log.
 		$moodle_course_resp   = array(); // contains course response from moodle.
 		$moodle_category_resp = array(); // contains category response from moodle.
@@ -153,8 +161,21 @@ class Eb_Course_Manager {
 			if ( ( isset( $sync_options['eb_synchronize_draft'] ) ) || ( isset( $sync_options['eb_synchronize_previous'] ) && '1' === $sync_options['eb_synchronize_previous'] ) ) {
 
 				// creating courses based on recieved data.
+				$sync_timeout_reached = false;
 				if ( 1 === $moodle_course_resp['success'] ) {
 					foreach ( $moodle_course_resp['response_data'] as $course_data ) {
+						// Check if approaching timeout - prevent 504 error.
+						if ( ( time() - $start_time ) >= $max_time ) {
+							$response_array['course_success']          = 1; // Show as success (green/yellow).
+							$response_array['course_response_message'] = sprintf(
+								/* translators: %d: Number of courses processed before timeout */
+								esc_html__( 'Partial sync completed: %d courses processed. Please click Start Synchronization again to continue syncing remaining courses.', 'edwiser-bridge' ),
+								$processed_count
+							);
+							$sync_timeout_reached = true;
+							break; // Exit foreach loop only.
+						}
+
 						/*
 						 * moodle always returns moodle frontpage as first course,
 						 * below step is to avoid the frontpage to be added as a course.
@@ -162,6 +183,8 @@ class Eb_Course_Manager {
 						if ( 1 === $course_data->id ) {
 							continue;
 						}
+
+						$processed_count++;
 
 						// check if course is previously synced.
 						$existing_course_id = $this->is_course_presynced( $course_data->id );

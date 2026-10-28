@@ -441,7 +441,9 @@ if ( ! function_exists( 'wdm_eb_get_wp_user_id_from_moodle_id' ) ) {
 	 */
 	function wdm_eb_get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) ); // @codingStandardsIgnoreLine
+		// ORDER BY + LIMIT: if duplicates somehow exist (legacy data), always resolve
+		// to the oldest linked account deterministically instead of an arbitrary row.
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id' ORDER BY user_id ASC LIMIT 1", $mdl_user_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
