@@ -194,7 +194,7 @@ class Eb_Enrollment_Manager {
 					$act_cnt++;
 				}
 
-				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date );
+				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
@@ -391,7 +391,7 @@ class Eb_Enrollment_Manager {
 					$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 					$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
@@ -430,7 +430,7 @@ class Eb_Enrollment_Manager {
 						$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 						$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 					}
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
@@ -564,8 +564,9 @@ class Eb_Enrollment_Manager {
 	 * @param int    $act_cnt access count.
 	 * @param string $start_date WordPress course id of a course.
 	 * @param string $end_date WordPress course id of a course.
+	 * @param int    $user_id WordPress user id of a user.
 	 */
-	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00' ) {
+	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00', $user_id = 0 ) {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
 		$start_date       = '0000-00-00 00:00:00' === $start_date ? gmdate( 'Y-m-d H:i:s' ) : $start_date;

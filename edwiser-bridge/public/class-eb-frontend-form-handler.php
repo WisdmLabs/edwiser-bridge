@@ -67,36 +67,15 @@ class Eb_Frontend_Form_Handler {
 				}
 
 				// recaptcha validation.
-				$general_settings = get_option( 'eb_general' );
 				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_login'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_login'] ) {
-					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
-						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
-						if ( '' === $secret ) {
-							throw new \Exception(
-								'<strong>' .
-								esc_html__( 'Error', 'edwiser-bridge' ) .
-								':</strong> ' .
-								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
-							);
-						}
-						$captcha       = sanitize_text_field( $_POST['g-recaptcha-response'] ); // @codingStandardsIgnoreLine
-						$response      = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode( $secret ) . '&response=' . urlencode( $captcha ) ); // @codingStandardsIgnoreLine
-						$response      = wp_remote_retrieve_body( $response );
-						$response_keys = json_decode( $response, true );
-						if ( 1 !== intval( $response_keys['success'] ) ) {
-							throw new \Exception(
-								'<strong>' .
-								esc_html__( 'Error', 'edwiser-bridge' ) .
-								':</strong> ' .
-								esc_html__( 'Invalid Captcha.', 'edwiser-bridge' )
-							);
-						}
-					} else {
+					$recaptcha_token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+					$recaptcha_result = \app\wisdmlabs\edwiserBridge\wdm_eb_verify_recaptcha( $recaptcha_token, 'eb_login' );
+					if ( is_wp_error( $recaptcha_result ) ) {
 						throw new \Exception(
 							'<strong>' .
 							esc_html__( 'Error', 'edwiser-bridge' ) .
 							':</strong> ' .
-							esc_html__( 'Captcha is required.', 'edwiser-bridge' )
+							esc_html( $recaptcha_result->get_error_message() )
 						);
 					}
 				}
@@ -194,34 +173,14 @@ class Eb_Frontend_Form_Handler {
 
 				// recaptcha validation.
 				if ( isset( $general_settings['eb_enable_recaptcha'] ) && 'yes' === $general_settings['eb_enable_recaptcha'] && isset( $general_settings['eb_recaptcha_show_on_register'] ) && 'yes' === $general_settings['eb_recaptcha_show_on_register'] ) {
-					if ( isset( $_POST['g-recaptcha-response'] ) && ! empty( $_POST['g-recaptcha-response'] ) ) {
-						$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? $general_settings['eb_recaptcha_secret_key'] : '';
-						if ( '' === $secret ) {
-							throw new \Exception(
-								'<strong>' .
-								esc_html__( 'Error', 'edwiser-bridge' ) .
-								':</strong> ' .
-								esc_html__( 'reCAPTCHA secret key is not set. please contact admin.', 'edwiser-bridge' )
-							);
-						}
-						$captcha       = sanitize_text_field( $_POST['g-recaptcha-response'] ); // @codingStandardsIgnoreLine
-						$response      = wp_remote_get( 'https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode( $secret ) . '&response=' . urlencode( $captcha ) ); // @codingStandardsIgnoreLine
-						$response      = wp_remote_retrieve_body( $response );
-						$response_keys = json_decode( $response, true );
-						if ( 1 !== intval( $response_keys['success'] ) ) {
-							throw new \Exception(
-								'<strong>' .
-								esc_html__( 'Error', 'edwiser-bridge' ) .
-								':</strong> ' .
-								esc_html__( 'Invalid Captcha.', 'edwiser-bridge' )
-							);
-						}
-					} else {
+					$recaptcha_token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : '';
+					$recaptcha_result = \app\wisdmlabs\edwiserBridge\wdm_eb_verify_recaptcha( $recaptcha_token, 'eb_register' );
+					if ( is_wp_error( $recaptcha_result ) ) {
 						throw new \Exception(
 							'<strong>' .
 							esc_html__( 'Error', 'edwiser-bridge' ) .
 							':</strong> ' .
-							esc_html__( 'Captcha is required.', 'edwiser-bridge' )
+							esc_html( $recaptcha_result->get_error_message() )
 						);
 					}
 				}

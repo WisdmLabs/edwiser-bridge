@@ -103,14 +103,14 @@ class EdwiserBridge_Blocks_My_Courses_API
             return $result;
         }
 
-        // Check if this is our API endpoint
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
-        if (strpos($request_uri, '/wp-json/eb/api/v1/my-courses') !== false) {
-            // For our endpoints, allow the request to proceed if user is logged in
-            // This prevents the nonce check from failing after login
-            if (is_user_logged_in()) {
-                return true;
-            }
+        // Only relax the nonce check for a plain GET that WordPress will dispatch to our read-only route.
+        // Do not match on $_SERVER['REQUEST_URI']: it includes the query string, which an attacker controls.
+        // This prevents the nonce check from failing after login without disabling CSRF protection site-wide.
+        if (
+            Eb_Rest_Auth_Helper::is_read_only_request_to(array('/' . self::API_NAMESPACE . '/my-courses'))
+            && is_user_logged_in()
+        ) {
+            return true;
         }
 
         return $result;

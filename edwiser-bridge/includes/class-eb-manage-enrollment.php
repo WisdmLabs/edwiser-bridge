@@ -166,14 +166,8 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 							<div class="eb-enroll-form-field">
 								<label for="new-enrollment-student"><?php esc_html_e( 'Student Name', 'edwiser-bridge' ); ?></label>
 								<select name="new-enrollment-student" id="new-enrollment-student">
-									<?php
-									$users = get_users();
-									foreach ( $users as $user ) {
-										?>
-										<option value="<?php echo esc_attr( $user->ID ); ?>"><?php echo esc_attr( $user->display_name ); ?></option>
-										<?php
-									}
-									?>
+									<?php // Users are loaded on demand via AJAX (select2); never load every user here. ?>
+									<option value=""></option>
 								</select>
 							</div>
 							<div class="eb-enroll-form-field-course">
@@ -333,6 +327,55 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 		}
 
 		/**
+		 * Ajax callback to search users for the "Enroll New Student" dropdown (select2).
+		 *
+		 * Paginated and fields-limited so it never loads all users / usermeta into memory.
+		 */
+		public function search_users_ajax_handler() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+			}
+			if ( ! isset( $_POST['admin_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
+				wp_send_json_error( esc_html__( 'Security check failed, please reload the page.', 'edwiser-bridge' ) );
+			}
+
+			$term  = isset( $_POST['term'] ) ? sanitize_text_field( wp_unslash( $_POST['term'] ) ) : '';
+			$page  = isset( $_POST['page'] ) ? max( 1, absint( $_POST['page'] ) ) : 1;
+			$limit = 20;
+
+			$args = array(
+				'number'      => $limit,
+				'paged'       => $page,
+				'orderby'     => 'display_name',
+				'order'       => 'ASC',
+				'fields'      => array( 'ID', 'display_name', 'user_email' ),
+				'count_total' => true,
+			);
+			if ( '' !== $term ) {
+				$args['search']         = '*' . $term . '*';
+				$args['search_columns'] = array( 'user_login', 'user_email', 'user_nicename', 'display_name' );
+			}
+
+			$query   = new \WP_User_Query( $args );
+			$results = array();
+			foreach ( (array) $query->get_results() as $user ) {
+				$results[] = array(
+					'id'   => (int) $user->ID,
+					'text' => $user->display_name . ' (' . $user->user_email . ')',
+				);
+			}
+
+			wp_send_json_success(
+				array(
+					'results'    => $results,
+					'pagination' => array(
+						'more' => ( $page * $limit ) < (int) $query->get_total(),
+					),
+				)
+			);
+		}
+
+		/**
 		 * Provides the functionality to unenroll the user from the course
 		 *
 		 * @param type $course_id course_id.
@@ -380,6 +423,10 @@ if ( ! class_exists( '\app\wisdmlabs\edwiserBridge\Eb_Manage_Enrollment' ) ) {
 				$user_id = sanitize_text_field( wp_unslash( $_POST['new-enrollment-student'] ) );
 
 				$user = get_user_by( 'id', $user_id );
+				if ( ! $user ) {
+					echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Please select a student to enroll.', 'edwiser-bridge' ) . '</p></div>';
+					return;
+				}
 				$user_name = $user->first_name . ' ' . $user->last_name;
 
 				$raw_courses = $_POST['new-enrollment-courses']; // @codingStandardsIgnoreLine will sanitize in the loop below

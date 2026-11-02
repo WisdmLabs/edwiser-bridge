@@ -183,7 +183,7 @@ if (! class_exists('Eb_Settings_Templates')) {
                         'body' => $args,
                         'method' => 'POST',
                         'timeout'     => 60,
-                        'sslverify'   => false,
+                        'sslverify' => true,
                         'blocking' => false,
                     ));
                 }

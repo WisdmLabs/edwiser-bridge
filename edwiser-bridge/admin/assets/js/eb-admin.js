@@ -2062,8 +2062,30 @@
             });
         }
         if (!jQuery(this).find('#new-enrollment-student').data('select2')) {
+            // Students are fetched on demand (paginated) instead of being pre-rendered.
             jQuery(this).find('#new-enrollment-student').select2({
-                placeholder: eb_admin_js_object.enroll_user_placeholder
+                placeholder: eb_admin_js_object.enroll_user_placeholder,
+                minimumInputLength: 2,
+                ajax: {
+                    url: eb_admin_js_object.ajaxurl,
+                    type: 'POST',
+                    dataType: 'json',
+                    delay: 300,
+                    data: function (params) {
+                        return {
+                            action: 'eb_manage_enrollment_search_users',
+                            term: params.term || '',
+                            page: params.page || 1,
+                            admin_nonce: eb_admin_js_object.admin_nonce
+                        };
+                    },
+                    processResults: function (response) {
+                        if (!response || !response.success) {
+                            return { results: [] };
+                        }
+                        return response.data;
+                    }
+                }
             });
         }
 

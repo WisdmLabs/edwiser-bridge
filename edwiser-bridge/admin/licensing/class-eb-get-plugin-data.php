@@ -59,7 +59,7 @@ if ( ! class_exists( 'Eb_Get_Plugin_Data' ) ) {
 						add_query_arg( $api_params, $store_url ),
 						array(
 							'timeout'    => 15,
-							'sslverify'  => false,
+							'sslverify' => true,
 							'blocking'   => true,
 							'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) . 'Edwiser Bridge',
 						)

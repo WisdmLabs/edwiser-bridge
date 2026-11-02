@@ -1052,7 +1052,7 @@ RewriteRule . /index.php [L]
 				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
 				array(
 					'timeout'    => 15,
-					'sslverify'  => false,
+					'sslverify' => true,
 					'blocking'   => true,
 					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)

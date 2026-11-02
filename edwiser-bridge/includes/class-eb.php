@@ -373,6 +373,7 @@ class EdwiserBridge
 		 * Register Gutenberg blocks API.
 		 */
 		require_once $plugin_path . 'includes/api/class-eb-blocks-course-api.php';
+		require_once $plugin_path . 'includes/api/class-eb-rest-auth-helper.php';
 		require_once $plugin_path . 'includes/api/class-eb-blocks-user-account-api.php';
 		require_once $plugin_path . 'includes/api/class-eb-blocks-my-courses-api.php';
 
@@ -881,6 +882,11 @@ class EdwiserBridge
 			'unenroll_user_ajax_handler'
 		);
 		$this->loader->eb_add_action(
+			'wp_ajax_eb_manage_enrollment_search_users',
+			$manage_enrollment,
+			'search_users_ajax_handler'
+		);
+		$this->loader->eb_add_action(
 			'wp_ajax_wdm_eb_email_tmpl_restore_content',
 			$email_tmpl_editor,
 			'reset_email_template_content'
@@ -1021,6 +1027,13 @@ class EdwiserBridge
 			'edit_user_profile_update',
 			$this->user_manager(),
 			'update_courses_on_profile_update'
+		);
+
+		// process scheduled profile course enrollment updates asynchronously.
+		$this->loader->eb_add_action(
+			'eb_process_profile_course_enrollment',
+			$this->user_manager(),
+			'process_profile_course_enrollment_async'
 		);
 
 		$this->loader->eb_add_action(

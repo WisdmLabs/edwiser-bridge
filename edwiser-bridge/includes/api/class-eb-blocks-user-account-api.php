@@ -336,14 +336,18 @@ class EdwiserBridge_Blocks_UserAccount_API
             return $result;
         }
 
-        // Check if this is our API endpoint
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
-        if (strpos($request_uri, '/wp-json/eb/api/v1/user-account/') !== false) {
-            // Only bypass nonce for safe (read-only) GET requests to prevent CSRF on write operations.
-            $request_method = isset($_SERVER['REQUEST_METHOD']) ? strtoupper(sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD']))) : '';
-            if (is_user_logged_in() && 'GET' === $request_method) {
-                return true;
-            }
+        // Only relax the nonce check for a plain GET that WordPress will dispatch to one of our
+        // read-only routes. The route comes from WordPress, not from $_SERVER['REQUEST_URI'] (which carries
+        // attacker-controlled query data), and the helper also rejects _method / X-HTTP-Method-Override.
+        $read_only_routes = array(
+            '/' . self::API_NAMESPACE . '/user-account/dashboard',
+            '/' . self::API_NAMESPACE . '/user-account/orders',
+            '/' . self::API_NAMESPACE . '/user-account/profile',
+            '/' . self::API_NAMESPACE . '/user-account/auth',
+            '/' . self::API_NAMESPACE . '/user-account/wc-orders',
+        );
+        if (\app\wisdmlabs\edwiserBridge\Eb_Rest_Auth_Helper::is_read_only_request_to($read_only_routes) && is_user_logged_in()) {
+            return true;
         }
 
         return $result;
@@ -499,6 +503,13 @@ class EdwiserBridge_Blocks_UserAccount_API
         $password = isset($params['password']) ? $params['password'] : '';
         $remember = isset($params['remember']) ? (bool) $params['remember'] : false;
 
+        // Server-side reCAPTCHA validation.
+        $recaptcha_token = isset($params['recaptcha_token']) ? sanitize_text_field($params['recaptcha_token']) : '';
+        $recaptcha_result = \app\wisdmlabs\edwiserBridge\wdm_eb_verify_recaptcha($recaptcha_token, 'eb_login');
+        if (is_wp_error($recaptcha_result)) {
+            return $recaptcha_result;
+        }
+
         $validation_error = new \WP_Error();
 
         $validation_error = apply_filters(
@@ -643,6 +654,24 @@ class EdwiserBridge_Blocks_UserAccount_API
     public function eb_process_registration($request)
     {
         $params = $request->get_json_params();
+
+        // Enforce the Enable Registration setting server-side.
+        $general_settings = get_option('eb_general');
+        $enable_registration = isset($general_settings['eb_enable_registration']) && !empty($general_settings['eb_enable_registration']) ? $general_settings['eb_enable_registration'] : 'no';
+        if ('yes' !== $enable_registration) {
+            return new \WP_Error(
+                'registration_disabled',
+                __('User registration is currently disabled.', 'edwiser-bridge'),
+                array('status' => 403)
+            );
+        }
+
+        // Server-side reCAPTCHA validation.
+        $recaptcha_token = isset($params['recaptcha_token']) ? sanitize_text_field($params['recaptcha_token']) : '';
+        $recaptcha_result = \app\wisdmlabs\edwiserBridge\wdm_eb_verify_recaptcha($recaptcha_token, 'eb_register');
+        if (is_wp_error($recaptcha_result)) {
+            return $recaptcha_result;
+        }
 
         $email = isset($params['email']) ? sanitize_text_field($params['email']) : '';
         $firstname = isset($params['firstname']) ? sanitize_text_field($params['firstname']) : '';
@@ -1016,6 +1045,22 @@ class EdwiserBridge_Blocks_UserAccount_API
         $moodle_update_success = true; // Default to success
         $mdl_uid = get_user_meta($user_id, 'moodle_user_id', true);
         if (is_numeric($mdl_uid)) {
+            // SECURITY: verify the linked Moodle account still belongs to this WordPress
+            // user (matching email, checked against the email on record before this
+            // request's changes) before writing anything to it. Prevents overwriting an
+            // unrelated Moodle account if moodle_user_id was ever linked incorrectly.
+            if (!$this->moodle_account_email_matches($mdl_uid, $user->user_email)) {
+                edwiser_bridge_instance()->logger()->add(
+                    'user',
+                    'Refused to update Moodle profile for WP user ' . $user_id . ': linked moodle_user_id ' . $mdl_uid . ' does not belong to this user (email mismatch).'
+                );
+                return new \WP_Error(
+                    'moodle_account_mismatch',
+                    __('Your Moodle account link appears to be incorrect. Please contact support before updating your profile.', 'edwiser-bridge'),
+                    array('status' => 409)
+                );
+            }
+
             $moodle_update_success = $this->update_moodle_profile($mdl_uid, array(
                 'email' => $email,
                 'first_name' => $first_name,
@@ -1070,6 +1115,34 @@ class EdwiserBridge_Blocks_UserAccount_API
         }
 
         return true;
+    }
+
+    private function moodle_account_email_matches($mdl_uid, $expected_email)
+    {
+        if (empty($mdl_uid) || empty($expected_email)) {
+            return false;
+        }
+
+        $response = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
+            'core_user_get_users_by_field',
+            array(
+                'field'  => 'id',
+                'values' => array((int) $mdl_uid),
+            )
+        );
+
+        if (!isset($response['success']) || 1 !== $response['success'] || empty($response['response_data'])) {
+            return false;
+        }
+
+        $response_data = $response['response_data'];
+        $moodle_user   = is_array($response_data) ? reset($response_data) : $response_data;
+
+        if (!is_object($moodle_user) || !isset($moodle_user->email)) {
+            return false;
+        }
+
+        return strtolower($moodle_user->email) === strtolower($expected_email);
     }
 
     private function update_moodle_profile($mdl_uid, $params)
@@ -1140,6 +1213,20 @@ class EdwiserBridge_Blocks_UserAccount_API
 
         $user_data = apply_filters('eb_cf_user_data', $user_data, $user_id);
         $moodle_user_id = get_user_meta($user_id, 'moodle_user_id', true);
+
+        // SECURITY: verify the linked Moodle account belongs to this WordPress user
+        // before pushing custom-field updates. Same email-ownership check as profile
+        // updates above.
+        $user = get_userdata($user_id);
+        if (empty($moodle_user_id) || !$user || !$this->moodle_account_email_matches($moodle_user_id, $user->user_email)) {
+            if ($user) {
+                edwiser_bridge_instance()->logger()->add(
+                    'user',
+                    'Refused to sync custom fields to Moodle for WP user ' . $user_id . ': linked moodle_user_id ' . $moodle_user_id . ' does not belong to this user (email mismatch).'
+                );
+            }
+            return;
+        }
 
         $response = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper(
             'core_user_update_users',
@@ -1486,8 +1573,8 @@ class EdwiserBridge_Blocks_UserAccount_API
             );
         }
 
-        // Generate one-time hash for verification
-        $hash = hash('md5', wp_rand(10, 1000));
+        // Generate one-time hash for verification using a CSPRNG.
+        $hash = bin2hex(random_bytes(16));
 
         // Build query for Moodle
         $query = array(
