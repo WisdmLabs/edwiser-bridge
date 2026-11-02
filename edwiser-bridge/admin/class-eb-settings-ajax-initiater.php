@@ -48,11 +48,21 @@ class Eb_Settings_Ajax_Initiater {
 	}
 
 	/**
+	 * Verify admin capability for AJAX handlers.
+	 */
+	private function verify_admin_capability() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ), 403 );
+		}
+	}
+
+	/**
 	 * Initiate course synchronization process.
 	 *
 	 * @since    1.0.0
 	 */
 	public function course_synchronization_initiater() {
+		$this->verify_admin_capability();
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
@@ -75,6 +85,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function user_data_synchronization_initiater() {
+		$this->verify_admin_capability();
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
@@ -98,6 +109,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.4.1
 	 */
 	public function users_link_to_moodle_synchronization() {
+		$this->verify_admin_capability();
 
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
@@ -124,6 +136,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function connection_test_initiater() {
+		$this->verify_admin_capability();
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
@@ -140,6 +153,275 @@ class Eb_Settings_Ajax_Initiater {
 		die();
 	}
 
+	public function check_moodle_webservice_accessible() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		// start working on request.
+		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
+		$response          = $connection_helper->connection_test_status( $url, $token );
+		$validate_access   = $connection_helper->connectMoodleWithArgsHelper( 'auth_edwiserbridge_validate_token', array( 'wp_url' => $url, 'wp_token' => $token ) );
+		if ( empty( $validate_access['success'] ) && $validate_access['response_body']->exception == 'webservice_access_exception' ) {
+			$validate_access['response_data'] = array(
+				'is_authorized' => false,
+				'token_mismatch' => false
+			);
+		} 
+		wp_send_json_success( array( 'correct' => $response, 'validate_access' => $validate_access['response_data'] ) );
+		die();
+	}
+
+	public function check_valid_json_response() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			wp_send_json_error();
+		}
+		// start working on request.
+		$url   = isset( $_POST['url'] ) ? sanitize_text_field( wp_unslash( $_POST['url'] ) ) : '';
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+		
+		$url2 = rest_url('edwiser-bridge');
+		// Send a GET request to the endpoint
+		$internal_response = wp_safe_remote_get($url2, array('timeout' => '60'));
+		$body = json_decode( wp_remote_retrieve_body( $internal_response ) );
+
+		if ( json_last_error() === JSON_ERROR_NONE ) {
+			$valid = true;
+		} else {
+			$valid = false;
+			return wp_send_json_success( array( 'data' => $valid ) );
+		}
+		
+		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
+		$response          = $connection_helper->get_raw_response( $url, $token );
+
+		$body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( null !== $body || json_last_error() === JSON_ERROR_NONE ) {
+			$valid = true;
+		} else {
+			$valid = false;
+		}
+		return wp_send_json_success( array( 'data' => $valid ) );
+	}
+
+	public function fix_valid_json_response() {
+		$this->verify_admin_capability();
+		check_ajax_referer( 'check_sync_action', '_wpnonce_field' );
+		error_reporting(0);
+		@ini_set('display_errors', 0);
+		return wp_send_json_success( array( 'data' => array( 'x','y','z' ) ) );
+	}
+
+	public function check_valid_token() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			wp_send_json_error();
+		}
+
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+		return wp_send_json_success( array( 'correct' => strlen($token) > strlen( trim( $token ) ) ? false : true ) );
+	}
+	
+	public function fix_valid_token() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			wp_send_json_error();
+		}
+
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+
+		$connection = maybe_unserialize( get_option( 'eb_connection', true ) );
+		update_option( 'eb_connection', array( 'eb_url' => $connection['eb_url'], 'eb_access_token' => trim( $token ) ) );
+		wp_send_json_success();
+	}
+
+	public function check_permalink_setting_valid() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		
+		if (function_exists('rest_url')) {
+			$response = wp_safe_remote_get(rest_url(),array(
+				'timeout'     => '120',
+			));
+			$response_code = wp_remote_retrieve_response_code( $response );
+			if (in_array($response_code, array(200, 301, 302))) {
+				if ( get_option('permalink_structure') != '/%postname%/' ) {
+					return wp_send_json_success( array( 'correct' => false ) );
+				}
+			} else {
+				return wp_send_json_success( array( 'correct' => false ) );
+			}
+		} else {
+			return wp_send_json_success( array( 'correct' => false ) );
+		}
+		return wp_send_json_success( array( 'correct' => true ) );
+	}
+
+	public function fix_permalink_setting_valid() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+
+		if ( ! function_exists( 'rest_url' ) ) {
+			global $wp_version;
+			if (version_compare($wp_version, '4.4', '<=')) {
+				return wp_send_json_success(array('wp_version_issue' => true, 'autofix_possible' => false));
+			}
+			return wp_send_json_success(array('rest_disable_issue' => true, 'autofix_possible' => false));
+		}
+
+		if ( get_option('permalink_structure') != '/%postname%/' ) {
+			return wp_send_json_success(array('permalink_setting_issue' => true, 'autofix_possible' => true));
+		}
+		if (isset($_SERVER['SERVER_SOFTWARE'])) {
+			$server = strtolower($_SERVER['SERVER_SOFTWARE']);
+			if (strpos($server, 'apache') !== false) {
+				$htaccess_file = ABSPATH . '.htaccess';
+
+				global $wp_filesystem;
+				if ( empty( $wp_filesystem ) ) {
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					WP_Filesystem();
+				}
+
+				if ( ! file_exists( $htaccess_file ) || strpos( file_get_contents( $htaccess_file), 'BEGIN WordPress' ) === false ) {
+					if ( ! file_exists( $htaccess_file ) && ! $wp_filesystem->is_writable( ABSPATH ) ) {
+						return wp_send_json_success(array('htaccess_file_missing' => true, 'autofix_possible' => false));
+					} elseif( ! file_exists( $htaccess_file ) && $wp_filesystem->is_writable( ABSPATH ) ) {
+						return wp_send_json_success(array('htaccess_file_missing' => true, 'autofix_possible' => true));
+					} elseif ( ! $wp_filesystem->is_writable( $htaccess_file ) ) {
+						return wp_send_json_success(array('htaccess_rule_missing' => true, 'autofix_possible' => false));
+					} elseif ( $wp_filesystem->is_writable( $htaccess_file ) ) {
+						return wp_send_json_success(array('htaccess_rule_missing' => true, 'autofix_possible' => true));
+					}
+				}
+			}  elseif (strpos($server, 'nginx') !== false) {
+				return wp_send_json_success(array('nginx_server_issue' => true, 'autofix_possible' => false));
+			}
+		}
+		return wp_send_json_success(array('contact_support' => true, 'autofix_possible' => false));
+	}
+
+	public function fix_permalink_setting_valid_save_changes() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		
+		if ( get_option('permalink_structure') != '/%postname%/' ) {
+			update_option('permalink_structure', '/%postname%/');
+			// Flush rewrite rules to apply changes
+			flush_rewrite_rules();
+		}
+		wp_send_json_success();
+	}
+	
+	public function create_htaccess_file() {
+		$this->verify_admin_capability();
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+
+		$htaccess_file = ABSPATH . '.htaccess';
+		$htaccess_rules = '# BEGIN WordPress' . "\n"
+			. '<IfModule mod_rewrite.c>' . "\n"
+			. 'RewriteEngine On' . "\n"
+			. 'RewriteBase /' . "\n"
+			. 'RewriteRule ^index\.php$ - [L]' . "\n"
+			. 'RewriteCond %{REQUEST_FILENAME} !-f' . "\n"
+			. 'RewriteCond %{REQUEST_FILENAME} !-d' . "\n"
+			. 'RewriteRule . /index.php [L]' . "\n"
+			. '</IfModule>' . "\n"
+			. '# END WordPress';
+
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+		if ( ! $wp_filesystem->exists( $htaccess_file ) || strpos( $wp_filesystem->get_contents( $htaccess_file ), 'BEGIN WordPress' ) === false ) {
+			$wp_filesystem->put_contents( $htaccess_file, $htaccess_rules, FS_CHMOD_FILE );
+		}
+	}
+
+	public function check_get_endpoint_registered() {
+		$this->verify_admin_capability();
+
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+
+		$url = rest_url('edwiser-bridge');
+		// Send a GET request to the endpoint
+		$response = wp_safe_remote_get($url, array('timeout' => '60'));
+		// Check for errors
+		if (is_wp_error($response)) {
+			return wp_send_json_success( array( 'correct' => false ) );
+		}
+	
+		// Check HTTP status code
+		$status_code = wp_remote_retrieve_response_code($response);
+		if (in_array($status_code, array(200, 301, 302))) {
+			return wp_send_json_success( array( 'correct' => true ) );
+		} else {
+			return wp_send_json_success( array( 'correct' => false ) );
+		}
+	}
+
+	public function check_post_endpoint_registered() {
+		$this->verify_admin_capability();
+
+		// verifying generated nonce we created earlier.
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+
+		$url = rest_url('edwiser-bridge/wisdmlabs');
+		$token = isset( $_POST['token'] ) ? sanitize_text_field( wp_unslash( $_POST['token'] ) ) : '';
+		// Ensure the REST API server is loaded
+		if (!class_exists('WP_REST_Server')) {
+			require_once ABSPATH . 'wp-includes/rest-api.php';
+		}
+	
+		global $wp_rest_server;
+	
+		// Initialize the REST API server if not already done
+		if (empty($wp_rest_server)) {
+			$wp_rest_server = new \WP_REST_Server();
+			do_action('rest_api_init'); // Trigger route registration
+		}
+	
+		// Get all registered routes
+		$routes = $wp_rest_server->get_routes();
+		
+		// $routes = rest_get_server()->get_routes();
+		// error_log(print_r($routes, true));
+		$endpoint = '/edwiser-bridge/wisdmlabs'; // Replace with your endpoint
+		if (array_key_exists($endpoint, $routes)) {
+			// error_log("Endpoint $endpoint is registered.");
+			return wp_send_json_success( array( 'correct' => true ) );
+		} else {
+			return wp_send_json_success( array( 'correct' => false ) );
+		}
+	}
 
 	/**
 	 * Test Enrolment between for a course with dummy user.
@@ -149,12 +431,13 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function check_mandatory_settings() {
+		$this->verify_admin_capability();
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
-		$response          = $connection_helper->connect_moodle_with_args_helper( 'edwiserbridge_local_get_mandatory_settings', array() );
+		$response          = $connection_helper->connect_moodle_with_args_helper( 'auth_edwiserbridge_get_mandatory_settings', array() );
 
 		if ( 403 === $response['status_code'] ) {
 			$mdl_settings_link = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=settings';
@@ -223,11 +506,16 @@ class Eb_Settings_Ajax_Initiater {
 	 * Checks if the course is published and its tye is closed.
 	 */
 	public function check_course_options() {
-		$woo_integration_path = 'woocommerce-integration/bridge-woocommerce.php';
-		$flag                 = false;
-		$msg                  = '';
-		$course_id            = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0; // @codingStandardsIgnoreLine
-		if ( is_plugin_active( $woo_integration_path ) ) {
+		$this->verify_admin_capability();
+		$pro_module_option = get_option( 'eb_pro_modules_data' );
+		$flag              = false;
+		$msg               = '';
+
+		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
+			die( 'Busted!' );
+		}
+		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
+		if ( isset( $pro_module_option['woo_integration'] ) && 'active' === $pro_module_option['woo_integration'] ) {
 			$course_options = get_post_meta( $course_id, 'eb_course_options', true );
 			if ( isset( $course_options['course_price_type'] ) && 'closed' !== $course_options['course_price_type'] ) {
 				$flag      = true;
@@ -237,7 +525,7 @@ class Eb_Settings_Ajax_Initiater {
 
 			global $wpdb;
 			// $query = 'SELECT `product_id` FROM ' . $wpdb->prefix . "eb_moodle_course_products WHERE `moodle_post_id` = '" . $course_id . "'";
-			$query = $wpdb->prepare( "SELECT `product_id` FROM {$wpdb->prefix}eb_moodle_course_products WHERE `moodle_post_id` = %d", $course_id ); // @codingStandardsIgnoreLine
+			$query = $wpdb->prepare( "SELECT `product_id` FROM {$wpdb->prefix}eb_moodle_course_products WHERE `moodle_post_id` = %d", $course_id );
 
 			$product_id = $wpdb->get_var( $query ); // @codingStandardsIgnoreLine
 
@@ -284,12 +572,13 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function check_manual_enrollment() {
+		$this->verify_admin_capability();
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
 		}
 
-		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( 'edwiserbridge_local_get_course_enrollment_method', array() );
+		$response = edwiser_bridge_instance()->connection_helper()->connect_moodle_with_args_helper( 'auth_edwiserbridge_get_course_enrollment_method', array() );
 
 		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0;
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
@@ -336,6 +625,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function enable_manual_enrollment() {
+		$this->verify_admin_capability();
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
@@ -390,6 +680,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * @since    1.0.0
 	 */
 	public function enable_mandatory_settings() {
+		$this->verify_admin_capability();
 		// verifying generated nonce we created earlier.
 		if ( ! isset( $_POST['_wpnonce_field'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce_field'] ) ), 'check_sync_action' ) ) {
 			die( 'Busted!' );
@@ -400,7 +691,7 @@ class Eb_Settings_Ajax_Initiater {
 			'courseid' => array( $course_id ),
 		);
 		$connection_helper = new Eb_Connection_Helper( $this->plugin_name, $this->version );
-		$response          = $connection_helper->connect_moodle_with_args_helper( 'edwiserbridge_local_enable_plugin_settings', array() );
+		$response          = $connection_helper->connect_moodle_with_args_helper( 'auth_edwiserbridge_enable_plugin_settings', array() );
 		$general_settings  = get_option( 'eb_general' );
 
 		if ( ! empty( $response['response_data'] ) ) {
@@ -431,6 +722,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to get error log data for given id
 	 */
 	public function eb_get_log_data() {
+		$this->verify_admin_capability();
 		$response = esc_html__( 'Error log not found', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_get_log_data' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
@@ -458,6 +750,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to mark error log resolved
 	 */
 	public function eb_log_resolved() {
+		$this->verify_admin_capability();
 		$response = esc_html__( 'Error log not found', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'wdm_eb_mark_log_resolved' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 
@@ -502,6 +795,7 @@ class Eb_Settings_Ajax_Initiater {
 	 * Ajax callback to delete error log
 	 */
 	public function eb_send_log_to_support() {
+		$this->verify_admin_capability();
 		$response = esc_html__( 'Failed', 'edwiser-bridge' );
 		if ( isset( $_POST['key'] ) && isset( $_POST['action'] ) && 'send_log_to_support' === $_POST['action'] && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
 

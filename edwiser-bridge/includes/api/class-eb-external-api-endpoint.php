@@ -19,6 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Eb_External_Api_Endpoint {
 
 	/**
+	 * Moodle user id of the account currently being created from an inbound
+	 * Moodle sync request, if any. Used by stamp_moodle_user_id() to link the
+	 * new WordPress user to Moodle before any other 'user_register' callback
+	 * runs, so the account is never pushed back to Moodle.
+	 *
+	 * @var int|null
+	 */
+	private $pending_moodle_user_id = null;
+
+	/**
 	 * This method registers the webservice endpointr.
 	 */
 	public function api_registration() {
@@ -42,7 +52,7 @@ class Eb_External_Api_Endpoint {
 	public function eb_validate_api_key( $request_data ) {
 		$wp_token  = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_token();
 		$valid_key = false;
-		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && $wp_token === $request_data['secret_key'] ) {
+		if ( isset( $request_data['secret_key'] ) && ! empty( $request_data['secret_key'] ) && hash_equals( (string) $wp_token, (string) $request_data['secret_key'] ) ) {
 			$valid_key = true;
 		}
 		return $valid_key;
@@ -162,7 +172,10 @@ class Eb_External_Api_Endpoint {
 					} else {
 						$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role );
 					}
-					update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
+
+					if ( $wp_user_id && ! is_wp_error( $wp_user_id ) ) {
+						update_user_meta( $wp_user_id, 'moodle_user_id', $mdl_user_id );
+					}
 				}
 
 				if ( $wp_user_id ) {
@@ -228,13 +241,63 @@ class Eb_External_Api_Endpoint {
 				$user_p     = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 			}
 
-			$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p );
-			if ( $wp_user_id ) {
-				update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
+			// When Moodle auto-generated the password and already sent its own notification email,
+			// suppress the EB credential email to avoid sending a different (WordPress) password
+			// that would not work for Moodle login, causing user confusion.
+			$moodle_sent_notification = ! empty( $data['moodle_generated_password'] );
 
-				// user creation hook.
-				do_action( 'eb_user_created_from_moodle', $wp_user_id, $data );
+			// Guard: if this Moodle ID is already linked to a WP user, reuse that
+			// account instead of creating a second user with the same Moodle ID.
+			$existing_wp_user_id = 0;
+			if ( ! empty( $data['user_id'] ) ) {
+				$existing_wp_user_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_user_id_from_moodle_id( $data['user_id'] );
 			}
+
+			if ( $existing_wp_user_id ) {
+				// Already linked - do not create a duplicate mapping.
+				$wp_user_id = (int) $existing_wp_user_id;
+				do_action( 'eb_user_creation_skipped_already_linked', $wp_user_id, $data );
+			} else {
+				// Stamp the Moodle user id onto the account as soon as it's created —
+				// specifically, before Eb_User_Manager::eb_moodle_user_register() (hooked
+				// on 'user_register' at priority 10) gets a chance to run. That handler
+				// pushes newly-registered users back to Moodle unless it sees an existing
+				// moodle_user_id, so without this the inbound Moodle sync re-enters
+				// Moodle's own webservice layer for every user it creates, which can hang
+				// or create a duplicate account. Priority 1 guarantees this runs first.
+				$this->pending_moodle_user_id = $data['user_id'];
+				add_action( 'user_register', array( $this, 'stamp_moodle_user_id' ), 1, 1 );
+
+				$wp_user_id = $this->create_only_wp_user( $data['user_name'], $data['email'], $data['first_name'], $data['last_name'], $role, $user_p, $moodle_sent_notification );
+
+				remove_action( 'user_register', array( $this, 'stamp_moodle_user_id' ), 1 );
+				$this->pending_moodle_user_id = null;
+
+				if ( $wp_user_id && ! is_wp_error( $wp_user_id ) ) {
+					// Belt-and-braces: keeps the link correct even if create_only_wp_user()
+					// ever rejects the account before wp_insert_user() runs (e.g. duplicate
+					// email), in which case stamp_moodle_user_id() never fired.
+					update_user_meta( $wp_user_id, 'moodle_user_id', $data['user_id'] );
+
+					// user creation hook.
+					do_action( 'eb_user_created_from_moodle', $wp_user_id, $data );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Runs on 'user_register' at priority 1, ahead of
+	 * Eb_User_Manager::eb_moodle_user_register() (priority 10), while a
+	 * WordPress user is being created from an inbound Moodle sync request.
+	 * Links the new account to Moodle immediately so that handler sees the
+	 * link already exists and skips pushing the account back to Moodle.
+	 *
+	 * @param int $user_id Newly created WordPress user id.
+	 */
+	public function stamp_moodle_user_id( $user_id ) {
+		if ( null !== $this->pending_moodle_user_id ) {
+			update_user_meta( $user_id, 'moodle_user_id', $this->pending_moodle_user_id );
 		}
 	}
 
@@ -266,7 +329,7 @@ class Eb_External_Api_Endpoint {
 	 * @param  text   $role  role.
 	 * @param  string $user_p    password.
 	 */
-	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '' ) {
+	public function create_only_wp_user( $username, $email, $firstname, $lastname, $role = '', $user_p = '', $suppress_email = false ) {
 		$uc_status = new \WP_Error(
 			'registration-error',
 			esc_html__( 'An account is already registered with your email address. Please login.', 'edwiser-bridge' ),
@@ -340,7 +403,9 @@ class Eb_External_Api_Endpoint {
 						'last_name'  => $lastname,
 						'password'   => $user_p,
 					);
-					do_action( 'eb_created_user', $args );
+					if ( ! $suppress_email ) {
+						do_action( 'eb_created_user', $args );
+					}
 					$uc_status = $user_id;
 				}
 			}
@@ -382,23 +447,20 @@ class Eb_External_Api_Endpoint {
 	public function eb_trigger_course_delete( $data ) {
 
 		if ( isset( $data['course_id'] ) ) {
-			// get WP course id from moodle course id.
-			$wp_course_id = \app\wisdmlabs\edwiserBridge\wdm_eb_get_wp_course_id_from_moodle_course_id( $data['course_id'] );
+			global $wpdb;
+			$wp_course_ids = $wpdb->get_col( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_key='moodle_course_id' AND meta_value=%d", $data['course_id'] ) ); // @codingStandardsIgnoreLine
 
-			if ( $wp_course_id ) {
-				// Update course meta to delete.
-				// mdl_course_deleted.
-				$course_meta = get_post_meta( $wp_course_id, 'eb_course_options', 1 );
-
+			foreach ( $wp_course_ids as $wp_course_id ) {
+				$course_meta                     = get_post_meta( $wp_course_id, 'eb_course_options', 1 );
 				$course_meta['mdl_course_deleted'] = 1;
 
-				// To add eb_course in WordPress to draft if course is deleted from moodle.
-				$post_status = array(
-					'ID'          => $wp_course_id,
-					'post_type'   => 'eb_course',
-					'post_status' => 'draft',
+				wp_update_post(
+					array(
+						'ID'          => $wp_course_id,
+						'post_type'   => 'eb_course',
+						'post_status' => 'draft',
+					)
 				);
-				wp_update_post( $post_status );
 
 				update_post_meta( $wp_course_id, 'eb_course_options', $course_meta );
 			}
@@ -436,6 +498,11 @@ class Eb_External_Api_Endpoint {
 				$enc_key                        = openssl_digest( $eb_access_token, 'SHA256', true );
 				$user_p                         = openssl_decrypt( $data['password'], $enc_method, $enc_key, 0, $enc_iv );
 				$user_update_array['user_pass'] = $user_p;
+			}
+
+			$user_email = get_user_meta( $wp_user_id, 'user_email', true );
+			if ( isset( $data['email'] ) && ! empty( $data['email'] ) && $user_email !== $data['email'] ) {
+				$user_update_array['user_email'] = $data['email'];
 			}
 
 			$user_update_array = apply_filters( 'eb_mdl_user_update_trigger_data', $user_update_array );

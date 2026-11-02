@@ -37,6 +37,12 @@ class Eb_Logger {
 	private $version;
 
 	/**
+	 * Handles.
+	 *
+	 * @var array
+	 */
+	private $_handles = array();
+	/**
 	 * Instance.
 	 *
 	 * @var EB_Course_Manager The single instance of the class
@@ -137,7 +143,8 @@ class Eb_Logger {
 	 */
 	public function add( $handle, $message ) {
 		if ( $this->open( $handle ) && is_resource( $this->_handles[ $handle ] ) ) {
-			$time = date_i18n( 'm-d-Y @ H:i:s -' ); // Grab Time.
+			$time    = date_i18n( 'm-d-Y @ H:i:s -' ); // Grab Time.
+			$message = \app\wisdmlabs\edwiserBridge\wdm_eb_redact_sensitive_data( $message );
 			fwrite( $this->_handles[ $handle ], $time . ' ' . $message . "\n" ); // @codingStandardsIgnoreLine
 		}
 	}

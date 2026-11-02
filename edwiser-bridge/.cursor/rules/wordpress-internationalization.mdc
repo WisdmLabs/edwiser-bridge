@@ -1,0 +1,39 @@
+---
+description: Internationalization (i18n) best practices for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Internationalization (i18n)
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Translation Functions
+- Use `__()` for simple string translation
+- Use `_e()` for translated strings that need to be echoed
+- Use `_n()` for singular/plural translations
+- Use `_x()` or `_ex()` for strings needing context
+
+## Text Domains
+- Always specify text domain in translation functions
+- Match text domain with plugin/theme slug
+- Load text domain properly in main plugin file or functions.php
+- Use consistent text domain throughout project
+
+## Translation-Ready Strings
+- Never concatenate translated strings with variables
+- Use sprintf()-style placeholders for variables: `sprintf( __( 'Hello, %s', 'text-domain' ), $name )`
+- Escape translations before output: `echo esc_html__( 'Text', 'text-domain' )`
+- Don't translate unnecessary strings (URLs, variable names, etc.)
+
+## Localization Setup
+- Include proper language files (.pot, .po, .mo)
+- Set up textdomain loading with `load_plugin_textdomain()` or `load_theme_textdomain()`
+- Include domain path and text domain in plugin/theme headers
+- Use WordPress language directory structure
+
+## Best Practices
+- Make all user-facing strings translatable
+- Provide translator comments for ambiguous strings
+- Use proper pluralization with `_n()` and `_nx()`
+- Test with RTL languages
+- Consider string length variations in different languages

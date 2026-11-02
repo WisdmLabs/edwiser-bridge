@@ -161,12 +161,13 @@ class Eb_Public {
 			array(
 				'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 				'nonce'            => $nonce,
-				'msg_val_fn'       => __( "The field 'First Name' cannot be left blank", 'edwiser-bridge' ),
-				'msg_val_ln'       => __( "The field 'Last Name' cannot be left blank", 'edwiser-bridge' ),
-				'msg_val_mail'     => __( "The field 'Email' cannot be left blank", 'edwiser-bridge' ),
-				'msg_ordr_pro_err' => __( 'Problems in processing your order, Please try later.', 'edwiser-bridge' ),
-				'msg_processing'   => __( 'Processing...', 'edwiser-bridge' ),
-				'access_course'    => __( 'Access Course', 'edwiser-bridge' ),
+				'msg_val_fn'       => __("The field 'First Name' cannot be left blank", 'edwiser-bridge'),
+				'msg_val_ln'       => __("The field 'Last Name' cannot be left blank", 'edwiser-bridge'),
+				'msg_val_mail'     => __("The field 'Email' cannot be left blank", 'edwiser-bridge'),
+				'msg_ordr_pro_err' => __('Problems in processing your order, Please try later.', 'edwiser-bridge'),
+				'msg_processing'   => __('Processing...', 'edwiser-bridge'),
+				'access_course'    => __('Access Course', 'edwiser-bridge'),
+				'eb_single_course_override' => get_option('eb_pro_enable_single_course_override', 0)
 			)
 		);
 

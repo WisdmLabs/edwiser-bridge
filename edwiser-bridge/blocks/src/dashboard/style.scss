@@ -1,0 +1,252 @@
+.wp-block-edwiser-bridge-dashboard {
+  // CSS reset
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+    margin: 0;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+
+  background: none !important;
+  width: 100%;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  // Mantine Skeleton
+  .mantine-Skeleton-root {
+    --mantine-scale: 1;
+    height: var(--skeleton-height, auto);
+    width: var(--skeleton-width, 100%);
+    border-radius: 4px;
+    position: relative;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
+    &:where([data-animate])::after {
+      animation: skeleton-fade 1500ms linear infinite;
+    }
+
+    &:where([data-visible]) {
+      overflow: hidden;
+
+      &::before {
+        position: absolute;
+        content: '';
+        inset: 0;
+        z-index: 10;
+        background-color: #fff !important;
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        inset: 0;
+        z-index: 11;
+        background-color: #dee2e6 !important;
+      }
+    }
+  }
+
+  @keyframes skeleton-fade {
+    0%,
+    100% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  // Tab - Dashboard
+  .eb-user-account__dashboard {
+    width: 100%;
+    max-width: 1190px !important;
+    margin: 0 auto !important;
+
+    & > * + * {
+      margin-top: 2em;
+    }
+
+    .eb-dashboard__title {
+      font-size: 32px;
+      line-height: 42px;
+      font-weight: 700;
+      color: #283b3c;
+    }
+
+    .eb-dashboard__profle {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1em;
+      margin-top: 3em;
+
+      .eb-profile {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+
+        .eb-profile__avatar {
+          width: 42px;
+          height: 42px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .eb-profile__name {
+          font-weight: 600;
+          font-size: 1rem;
+          color: #283b3c;
+        }
+      }
+
+      .eb-profile__logout {
+        width: max-content;
+        text-decoration: none;
+        padding: 0.625em 1em;
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-align: center;
+        color: #f75d25;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .eb-dashboard__course-summary {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.75em;
+      padding: 1em 2em 1em 1.75em;
+      border: 1px solid #e5e5e5;
+      border-radius: 0.5rem;
+
+      .eb-course-summary {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        margin: 0;
+
+        .eb-course-summary__icon {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: #f8fbfc;
+
+          svg {
+            color: #008b91;
+          }
+        }
+
+        .eb-course-summary__content {
+          flex: 1;
+
+          .eb-course-summary__course-count {
+            display: block;
+            font-weight: 700;
+            font-size: 1.125rem;
+            line-height: 1.3;
+            color: #283b3c;
+          }
+
+          .eb-course-summary__status {
+            display: block;
+            font-weight: 400;
+            font-size: 0.875rem;
+            line-height: 1.3;
+            color: #819596;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .eb-user-account__dashboard {
+      .eb-dashboard__profle {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .eb-dashboard__course-summary {
+        grid-template-columns: repeat(3, 1fr);
+
+        .eb-course-summary.eb-enrolled-courses {
+          grid-column: 1 / 4;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .eb-user-account__dashboard {
+      .eb-dashboard__course-summary {
+        grid-template-columns: repeat(5, 1fr);
+
+        .eb-course-summary.eb-enrolled-courses {
+          grid-column: 1 / 3;
+        }
+      }
+    }
+  }
+}

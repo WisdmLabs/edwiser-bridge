@@ -198,29 +198,40 @@ class Eb_Shortcode_User_Account {
 			$user->ID     = (int) get_current_user_id();
 			$current_user = get_user_by( 'id', $user->ID );
 			if ( $user->ID > 0 ) {
-				if ( isset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] ) ) {
-					unset( $_SESSION[ 'eb_msgs_' . $current_user->ID ] );
+				if ( isset( $_GET[ 'eb_msgs_' . $current_user->ID ] ) ) {
+					unset( $_GET[ 'eb_msgs_' . $current_user->ID ] );
+					unset( $_GET[ 'eb_msgs_status' ] );
 				}
 				$posted_data = self::get_posted_data();
 				$errors      = self::get_errors( $posted_data );
 				if ( count( $errors ) ) {
-					$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . implode( '<br />', $errors ) . '</p>';
+					// $_GET[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . implode( '<br />', $errors ) . '</p>';
+					$_GET[ 'eb_msgs_' . $user->ID ] = $errors;
+					$_GET[ 'eb_msgs_status' ] = 'error_array';
 				} else {
 					// Profile updated on Moodle successfully.
 					if ( self::update_wordpress_profile( $posted_data ) ) {
 						$mdl_uid = get_user_meta( $user->ID, 'moodle_user_id', true );
 						if ( is_numeric( $mdl_uid ) ) {
 							if ( self::update_moodle_profile( $posted_data ) ) {
-								$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+								// $_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+								$_GET[ 'eb_msgs_' . $user->ID ] = __( 'Account details saved successfully.', 'edwiser-bridge' );
+								$_GET[ 'eb_msgs_status' ] = 'success';
 							} else {
-								$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Error in updating profile on Moodle.', 'edwiser-bridge' ) . '</p>';
+								// $_GET[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Error in updating profile on Moodle.', 'edwiser-bridge' ) . '</p>';
+								$_GET[ 'eb_msgs_' . $user->ID ] = __( 'Error in updating profile on Moodle.', 'edwiser-bridge' );
+								$_GET[ 'eb_msgs_status' ] = 'error';
 							}
 						} else {
-							$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+							// $_GET[ 'eb_msgs_' . $user->ID ] = '<p class="eb-success">' . __( 'Account details saved successfully.', 'edwiser-bridge' ) . '</p>';
+							$_GET[ 'eb_msgs_' . $user->ID ] = __( 'Account details saved successfully.', 'edwiser-bridge' );
+							$_GET[ 'eb_msgs_status' ] = 'success';
 						}
 						do_action( 'eb_save_account_details', $user->ID );
 					} else {
-						$_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! Something went wrong.', 'edwiser-bridge' ) . '</p>';
+						// $_SESSION[ 'eb_msgs_' . $user->ID ] = '<p class="eb-error">' . __( 'Couldn\'t update your profile! Something went wrong.', 'edwiser-bridge' ) . '</p>';
+						$_GET[ 'eb_msgs_' . $user->ID ] = __( 'Couldn\'t update your profile! Something went wrong.', 'edwiser-bridge' );
+						$_GET[ 'eb_msgs_status' ] = 'error';
 					}
 				}
 			}

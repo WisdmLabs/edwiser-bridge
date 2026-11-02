@@ -1,0 +1,80 @@
+---
+description: Gutenberg block development best practices for WordPress
+globs: ["**/*.php", "**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+# WordPress Gutenberg Block Development
+
+This rule applies to: `*.php`, `*.js`, `*.jsx`, `*.ts`, `*.tsx` files in WordPress block development projects.
+
+## Block Registration
+- Use `register_block_type()` for PHP-based registration
+- Use `registerBlockType()` for JavaScript-based registration
+- Follow WordPress naming conventions for block names (`namespace/block-name`)
+- Include proper block metadata (`block.json`)
+
+## Block Structure
+- Organize files in a block-based directory structure
+- Create dedicated directories for each block
+- Separate edit and save components
+- Use index.js for block registration
+
+## Block Attributes
+- Define attributes schema in block.json
+- Set appropriate attribute types and defaults
+- Use attribute names that clearly describe their purpose
+- Implement attribute validation when necessary
+
+## Block Editor Components
+- Use WordPress editor components when available
+- Follow WordPress component design patterns
+- Create reusable custom components when necessary
+- Implement proper component hierarchy
+
+## Block Rendering
+- Implement proper save functions for dynamic vs static blocks
+- Use `render_callback` for server-side rendered blocks
+- Handle block deprecation gracefully
+- Implement fallback content for unsupported browsers
+
+## Block Styles
+- Use editor-specific styles for the admin interface
+- Implement frontend styles for the rendered content
+- Use CSS modules or CSS-in-JS when appropriate
+- Follow WordPress style conventions
+
+## Block Transforms
+- Implement block transforms for related block types
+- Support transformations from and to other blocks
+- Handle attribute mapping in transformations
+- Preserve content during transformations
+
+## Block Patterns
+- Create reusable block patterns for common layouts
+- Register patterns with `register_block_pattern()`
+- Group related patterns with `register_block_pattern_category()`
+- Provide clear pattern names and descriptions
+
+## Block Templates
+- Define block templates for post types when appropriate
+- Use `template_lock` to control user editing capabilities
+- Create reusable template parts
+- Document template structure
+
+## Accessibility
+- Ensure keyboard navigation for custom block UI
+- Use proper ARIA attributes when needed
+- Follow contrast requirements for UI elements
+- Test blocks with screen readers
+
+## Internationalization
+- Make all user-facing strings translatable
+- Use `__()` and `_x()` in PHP
+- Use `__()` from @wordpress/i18n in JavaScript
+- Ensure proper text domain usage
+
+## Performance
+- Optimize asset loading for blocks
+- Implement code splitting for large block collections
+- Use React memo for performance optimization
+- Consider server-side rendering for complex blocks

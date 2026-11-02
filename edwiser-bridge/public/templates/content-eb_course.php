@@ -21,7 +21,7 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 
 ?>
 
-<div id="<?php echo 'post-' . get_the_ID(); ?>" <?php post_class( 'wdm-col-3-2-1 eb-course-card eb-course-col wdm-course-grid-wrap ' . $course_data['course_class'] ); ?> title="<?php echo esc_html( $course_data['h_title'] ); ?>">
+<div id="<?php echo esc_attr( 'post-' . get_the_ID() ); ?>" <?php post_class( 'wdm-col-3-2-1 eb-course-card eb-course-col wdm-course-grid-wrap ' . $course_data['course_class'] ); ?> title="<?php echo esc_html( $course_data['h_title'] ); ?>">
 	<div class="eb-grid-container">
 		<div class="wdm-course-grid">
 
@@ -35,9 +35,6 @@ $course_data      = apply_filters( 'eb_content_course_before', $post->ID, $attr,
 					<img src="<?php echo esc_url( $course_data['thumb_url'] ); ?>"/>
 				</div>
 				<div class="wdm-caption">
-
-					<!--  -->
-					
 					<div  class="eb-cat-wrapper-new ">
 					<?php
 						echo wp_kses( implode( ', ', $course_data['categories'] ), \app\wisdmlabs\edwiserBridge\wdm_eb_sinlge_course_get_allowed_html_tags() );

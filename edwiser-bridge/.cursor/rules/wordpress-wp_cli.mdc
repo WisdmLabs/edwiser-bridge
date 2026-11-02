@@ -1,0 +1,62 @@
+---
+description: WP-CLI development best practices
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress WP-CLI Best Practices
+
+This rule applies to: `*.php` files implementing WP-CLI commands in WordPress projects.
+
+## Command Registration
+- Register commands using WP_CLI::add_command()
+- Use namespaced command structure
+- Follow naming conventions for subcommands
+- Document commands with PHPDoc comments
+
+## Command Structure
+- Create command classes extending WP_CLI_Command
+- Use appropriate method names for subcommands
+- Implement __invoke() for default command behavior
+- Group related commands in the same class
+
+## Arguments and Options
+- Define clear command arguments and options
+- Use WP_CLI::parse_args() for processing options
+- Provide sensible defaults for optional parameters
+- Document all arguments and options in PHPDoc
+
+## Output Methods
+- Use WP_CLI::line() for standard output
+- Implement WP_CLI::success() for success messages
+- Use WP_CLI::warning() for warnings
+- Use WP_CLI::error() for errors (terminates execution)
+
+## Progress Indicators
+- Implement WP_CLI\Utils\make_progress_bar() for long operations
+- Show progress during batch processing
+- Provide feedback on operation completion
+- Estimate time remaining when possible
+
+## Documentation
+- Document all commands with examples
+- Include command synopsis in PHPDoc
+- Provide clear description of command purpose
+- Document return values and potential errors
+
+## Error Handling
+- Implement proper error handling for all operations
+- Use WP_CLI::warning() for non-critical errors
+- Apply WP_CLI::error() for fatal errors
+- Provide context in error messages
+
+## Performance
+- Optimize commands for performance
+- Implement batch processing for large operations
+- Use database transactions when appropriate
+- Provide options to limit processing scope
+
+## Custom Command Development
+- Package commands as plugins when appropriate
+- Follow WP-CLI's command framework standards
+- Include proper test coverage
+- Make commands discoverable through package index

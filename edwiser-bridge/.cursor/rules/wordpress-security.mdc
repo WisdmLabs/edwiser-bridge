@@ -1,0 +1,40 @@
+---
+description: Security best practices for WordPress development
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Security
+
+This rule applies to: `*.php` files in WordPress projects.
+
+## Data Validation
+- Always validate and sanitize user input
+- Use WordPress sanitization functions (e.g., `sanitize_text_field()`, `sanitize_email()`)
+- Validate data with appropriate WordPress validation functions
+
+## Database Queries
+- Use `$wpdb->prepare()` for all database queries with variables
+- Escape data before using in queries
+- Never directly include user input in SQL queries
+
+## Nonces
+- Implement nonces for all form submissions
+- Verify nonces before processing form data
+- Use `wp_create_nonce()` and `wp_verify_nonce()`
+
+## Capability Checks
+- Always check user capabilities before performing actions
+- Use `current_user_can()` for permission checks
+- Never rely solely on user roles for access control
+
+## Output Escaping
+- Escape all output with appropriate functions:
+  - `esc_html()` for HTML content
+  - `esc_url()` for URLs
+  - `esc_attr()` for HTML attributes
+  - `esc_js()` for inline JavaScript
+
+## File Operations
+- Validate file uploads thoroughly
+- Check file types, sizes, and perform virus scans when appropriate
+- Use WordPress file handling functions when possible

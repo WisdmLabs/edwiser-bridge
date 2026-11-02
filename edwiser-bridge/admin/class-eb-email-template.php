@@ -172,7 +172,7 @@ class EB_Email_Template {
 							<input type="email" name="eb_test_email_add" id="eb_test_email_add_txt" value="" title="<?php esc_html_e( 'Type an email address here and then click Send Test to generate a test email using current selected template', 'edwiser-bridge' ); ?>." placeholder="<?php esc_html_e( 'Enter email address', 'edwiser-bridge' ); ?>"/>
 							<input type="button" class="button-primary" value="<?php esc_html_e( 'Send Test', 'edwiser-bridge' ); ?>" name="eb_send_test_email" id="eb_send_test_email" title="<?php esc_html_e( 'Send sample email with current selected template', 'edwiser-bridge' ); ?>"/>
 							<span class="load-response">
-								<img alt="<?php esc_html__( 'Sorry, unable to load the image', 'edwiser-bridge' ); ?>" src="<?php echo esc_url( $eb_plugin_url . '/images/loader.gif' ); ?>" height="20" width="20">
+								<img alt="<?php esc_attr_e( 'Sorry, unable to load the image', 'edwiser-bridge' ); ?>" src="<?php echo esc_url( $eb_plugin_url . '/images/loader.gif' ); ?>" height="20" width="20">
 							</span>
 							<div class="response-box">
 							</div>
@@ -287,6 +287,11 @@ class EB_Email_Template {
 	 */
 	public function get_template_data_ajax_call_back() {
 		$data = array();
+
+		// SECURITY FIX: Check user capability before processing.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
 
 		// Process only if nonce is verified.
 		if ( isset( $_POST['tmpl_name'] ) && isset( $_POST['admin_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admin_nonce'] ) ), 'eb_admin_nonce' ) ) {
@@ -530,6 +535,11 @@ class EB_Email_Template {
 	 * Provides the functioanlity to send the test email
 	 */
 	public function send_test_email() {
+		// SECURITY FIX: Check user capability before processing.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
+
 		// Send test mail only if nonce is verified.
 		if ( isset( $_POST['security'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'eb_send_testmail_sec' ) ) {
 			$mail_to = $this->check_is_empty( $_POST, 'mail_to' );
@@ -688,6 +698,14 @@ class EB_Email_Template {
 	 * Provides the functionality to restore the email temaplte content and subject
 	 */
 	public function reset_email_template_content() {
+		// SECURITY FIX: Check user capability before processing.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array(
+				'data'   => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ),
+				'status' => 'failed',
+			) );
+		}
+
 		$responce = array(
 			'data'   => __( 'Failed to reset email template', 'edwiser-bridge' ),
 			'status' => 'failed',

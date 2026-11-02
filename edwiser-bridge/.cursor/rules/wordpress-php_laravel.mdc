@@ -1,0 +1,56 @@
+---
+description: Laravel integration guidelines for WordPress and PHP
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# Laravel PHP Best Practices
+
+This rule applies to: `*.php` files in Laravel projects or WordPress projects using Laravel.
+
+## Architecture
+- Follow Laravel's MVC architecture strictly
+- Use Service Providers for registering services
+- Implement Repository pattern for database operations
+- Utilize Laravel's container for dependency injection
+
+## Routing
+- Group related routes together
+- Use named routes for all routes
+- Implement route model binding when appropriate
+- Keep controllers thin by using route resource controllers
+
+## Eloquent ORM
+- Define relationships in model classes
+- Use model factories for testing
+- Implement scopes for common queries
+- Utilize Eloquent events appropriately
+
+## Blade Templates
+- Keep business logic out of templates
+- Use components and partials for reusable elements
+- Implement proper template inheritance
+- Use Laravel Mix for asset compilation
+
+## Authentication & Authorization
+- Use Laravel's built-in authentication
+- Implement Policies for authorization
+- Use Gates for complex permission logic
+- Leverage middleware for route protection
+
+## API Development
+- Follow RESTful conventions
+- Use API Resources for transforming models
+- Implement proper error handling and status codes
+- Version your APIs appropriately
+
+## Testing
+- Write feature and unit tests
+- Use Laravel's testing tools
+- Mock external services
+- Test database operations using transactions
+
+## Laravel with WordPress
+- Use Laravel as an API for WordPress
+- Implement WordPress as a headless CMS with Laravel frontend
+- Use Laravel's queue system for WordPress background processing
+- Consider Corcel for WordPress database access from Laravel

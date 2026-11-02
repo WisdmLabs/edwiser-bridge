@@ -36,6 +36,7 @@ class Eb_I18n {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
+		// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- Required for custom translation loading path.
 		load_plugin_textdomain(
 			$this->domain,
 			false,
@@ -173,13 +174,19 @@ class Eb_I18n {
 			}
 		}
 
+		global $wp_filesystem;
+		if ( empty( $wp_filesystem ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+		}
+
 		$failed_files = array();
 		foreach ( $files as $file ) {
 			if ( strpos( $file, 'eb-textdomain' ) !== false ) {
 				$new_file = str_replace( 'eb-textdomain', 'edwiser-bridge', $file );
 				try {
-					if ( is_writable( $file ) ) {
-						rename( $file, $new_file );
+					if ( $wp_filesystem->is_writable( $file ) ) {
+						$wp_filesystem->move( $file, $new_file );
 					} else {
 						throw new \Exception( 'File is not writable' );
 					}

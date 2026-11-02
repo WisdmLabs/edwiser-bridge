@@ -307,7 +307,7 @@ class Eb_Order_Meta {
 
 				<p>
 					<label><?php esc_html_e( 'Course Name: ', 'edwiser-bridge' ); ?></label>
-					<a href='<?php echo esc_html( get_permalink( $order_data['course_id'] ) ); ?>'>
+					<a href='<?php echo esc_url( get_permalink( $order_data['course_id'] ) ); ?>'>
 						<?php echo esc_html( get_the_title( $course_id ) ); ?>
 					</a>
 				</p>
@@ -334,7 +334,7 @@ class Eb_Order_Meta {
 				<label>
 					<?php esc_html_e( 'Date: ', 'edwiser-bridge' ); ?>
 				</label>
-				<?php echo get_the_date( 'Y-m-d H:i', $order_id ); ?>
+				<?php echo esc_html( get_the_date( 'Y-m-d H:i', $order_id ) ); ?>
 			</p>
 		</div>
 		<?php

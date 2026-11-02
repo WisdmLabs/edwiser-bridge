@@ -1,0 +1,57 @@
+---
+description: REST API development guidelines for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress REST API Best Practices
+
+This rule applies to: `*.php` files in WordPress projects implementing REST API endpoints.
+
+## Endpoint Registration
+- Register endpoints using `register_rest_route()`
+- Use namespaced routes: `/wp-json/myplugin/v1/endpoint`
+- Include version number in namespace
+- Define clear permission callbacks
+
+## HTTP Methods
+- Use appropriate HTTP methods (GET, POST, PUT, PATCH, DELETE)
+- Implement GET for retrieving data
+- Use POST for creating new resources
+- Apply PUT/PATCH for updates
+- Use DELETE for removing resources
+
+## Request Handling
+- Validate and sanitize all parameters
+- Define parameter schema with `args` argument
+- Include parameter validation in your callback
+- Return appropriate HTTP status codes
+
+## Response Formatting
+- Return data as proper JSON objects
+- Use `rest_ensure_response()` to standardize responses
+- Include appropriate HTTP headers
+- Structure response data consistently
+
+## Authentication
+- Implement proper authentication checks
+- Use `permission_callback` for access control
+- Consider OAuth or Application Passwords for external apps
+- Never expose sensitive data via the API
+
+## Error Handling
+- Return WP_Error objects for errors
+- Include meaningful error codes and messages
+- Set appropriate HTTP status codes for errors
+- Log API errors for monitoring
+
+## Documentation
+- Document all endpoints and parameters
+- Include example requests and responses
+- Specify required permissions
+- Document response formats and possible errors
+
+## Performance
+- Optimize database queries in endpoint callbacks
+- Implement caching for expensive operations
+- Consider rate limiting for public APIs
+- Use _fields parameter to limit response fields

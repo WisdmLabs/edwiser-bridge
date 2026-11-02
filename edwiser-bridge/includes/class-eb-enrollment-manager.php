@@ -194,7 +194,7 @@ class Eb_Enrollment_Manager {
 					$act_cnt++;
 				}
 
-				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date );
+				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
@@ -244,7 +244,6 @@ class Eb_Enrollment_Manager {
 					$request_data = array(
 						'enrolments' => array(
 							$course_id => array(
-								'roleid'   => $role_id,
 								'userid'   => $moodle_user_id,
 								'courseid' => $moodle_courses[ $course_id ],
 							),
@@ -392,7 +391,7 @@ class Eb_Enrollment_Manager {
 					$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 					$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
@@ -431,7 +430,7 @@ class Eb_Enrollment_Manager {
 						$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 						$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 					}
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
@@ -565,8 +564,9 @@ class Eb_Enrollment_Manager {
 	 * @param int    $act_cnt access count.
 	 * @param string $start_date WordPress course id of a course.
 	 * @param string $end_date WordPress course id of a course.
+	 * @param int    $user_id WordPress user id of a user.
 	 */
-	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00' ) {
+	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00', $user_id = 0 ) {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
 		$start_date       = '0000-00-00 00:00:00' === $start_date ? gmdate( 'Y-m-d H:i:s' ) : $start_date;
@@ -740,19 +740,68 @@ class Eb_Enrollment_Manager {
 		return $curr_date->diff( $expire_date )->format( '%a' );
 	}
 
+	public function get_courses() {
+		$courses = array();
+
+		$course_args = array(
+			'post_type'      => 'eb_course',
+			'post_status'    => 'publish', // remove this line to get all courses.
+			'posts_per_page' => -1,
+		);
+		$all_courses = get_posts( $course_args );
+
+		foreach ( $all_courses as $course ) {
+			if ( Eb_Post_Types::get_post_options( $course->ID, 'mdl_course_deleted', 'eb_course' ) ) {
+
+				continue;
+			}
+			$courses[ $course->ID ] = $course->post_title;
+		}
+		return $courses;
+	}
+
 	/**
 	 * Enroll dummy user in the course.
 	 *
 	 * @since 2.2.1
 	 */
 	public function enroll_dummy_user() {
-		$course_id        = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : 0; // @codingStandardsIgnoreLine
-		$response_array   = array(
+		check_ajax_referer( 'check_sync_action', '_wpnonce_field' );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) ) );
+		}
+		$course_id = isset( $_POST['course_id'] ) ? sanitize_text_field( wp_unslash( $_POST['course_id'] ) ) : false; // @codingStandardsIgnoreLine
+		if ( ! $course_id ) {
+			$courses = $this->get_courses();
+			// Find the first course that has a valid Moodle course ID.
+			foreach ( array_keys( $courses ) as $cid ) {
+				if ( ! empty( get_post_meta( $cid, 'moodle_course_id', true ) ) ) {
+					$course_id = $cid;
+					break;
+				}
+			}
+		}
+		$response_array = array(
 			'status' => 'error',
 		);
+		if ( ! $course_id ) {
+			$response_array['enroll_message'] = '<div class="alert alert-error">' . __( 'User enrollment test failed. ERROR: No courses with a valid Moodle course ID found. Please sync courses from Moodle first.', 'edwiser-bridge' ) . '</div>';
+			echo wp_json_encode( $response_array );
+			die();
+		}
 		$user             = get_user_by( 'login', 'ebdummyuser' );
 		$moodle_user_id   = get_user_meta( $user->ID, 'moodle_user_id', true );
 		$moodle_course_id = get_post_meta( $course_id, 'moodle_course_id', true );
+		if ( empty( $moodle_user_id ) ) {
+			$response_array['enroll_message'] = '<div class="alert alert-error">' . __( 'User enrollment test failed. ERROR: Dummy user does not have a valid Moodle user ID. Please re-run the connection setup.', 'edwiser-bridge' ) . '</div>';
+			echo wp_json_encode( $response_array );
+			die();
+		}
+		if ( empty( $moodle_course_id ) ) {
+			$response_array['enroll_message'] = '<div class="alert alert-error">' . __( 'User enrollment test failed. ERROR: Selected course does not have a valid Moodle course ID. Please sync courses from Moodle.', 'edwiser-bridge' ) . '</div>';
+			echo wp_json_encode( $response_array );
+			die();
+		}
 
 		$response         = edwiser_bridge_instance()->course_manager()->get_moodle_courses( $moodle_user_id );
 		$enrolled_courses = $response['response_data'];
@@ -778,10 +827,10 @@ class Eb_Enrollment_Manager {
 		$webservice_function = 'enrol_manual_enrol_users';
 		$request_data        = array(
 			'enrolments' => array(
-				$course_id => array(
-					'roleid'   => $role_id,
-					'userid'   => $moodle_user_id,
-					'courseid' => $moodle_course_id,
+				array(
+					'roleid'   => (int) $role_id,
+					'userid'   => (int) $moodle_user_id,
+					'courseid' => (int) $moodle_course_id,
 				),
 			),
 		);
@@ -831,6 +880,19 @@ class Eb_Enrollment_Manager {
 				$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/auth/edwiserbridge/edwiserbridge.php?tab=service';
 				$response_array['html'] = '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Update webservice', 'edwiser-bridge' ) . '</a>' . __( ' OR ', 'edwiser-bridge' ) . '<a target="_blank" href="' . admin_url( '/admin.php?page=eb-settings&tab=connection' ) . '">' . __( 'Try test connection', 'edwiser-bridge' ) . '</a>';
 			}
+			if ( \app\wisdmlabs\edwiserBridge\is_moodle_exception( $response ) ) {
+				$exception_code = isset( $response['response_body']->errorcode ) ? $response['response_body']->errorcode : '';
+				if ( 'wsnotenrol' === $exception_code ) {
+					$response_array['html'] = __( 'Manual enrollment method is not enabled for the selected course. Please enable manual enrollment in Moodle for this course and try again.', 'edwiser-bridge' );
+				} else {
+					$mdl_settings_link      = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url() . '/admin/message.php';
+					$response_array['html'] = __( 'Please complete the Email configuration in Moodle or disable "Welcome message for new course enrolments" in Moodle from Site Administration > ', 'edwiser-bridge' ) . '<a target="_blank" href="' . $mdl_settings_link . '">' . __( 'Messaging', 'edwiser-bridge' ) . '</a>';
+					if ( isset( $_POST['is_diagnostic_run'] ) ) {
+						/* translators: %1$s: opening link tag, %2$s: closing link tag */
+						$response_array['html'] = sprintf( __( 'Please navigate to %1$s Test Enrollment%2$s for more details on this issue.', 'edwiser-bridge' ), '<a href="' . admin_url( 'admin.php?page=eb-settings&tab=connection&section=enrollment' ) . '" target="_blank">', '</a>' );
+					}
+				}
+			}
 		}
 		echo wp_json_encode( $response_array );
 		die();
@@ -849,10 +911,10 @@ class Eb_Enrollment_Manager {
 		$webservice_function = 'enrol_manual_unenrol_users';
 		$request_data        = array(
 			'enrolments' => array(
-				$args['course_id'] => array(
-					'roleid'   => $role_id,
-					'userid'   => $args['moodle_user_id'],
-					'courseid' => $args['moodle_course_id'],
+				array(
+					'roleid'   => (int) $role_id,
+					'userid'   => (int) $args['moodle_user_id'],
+					'courseid' => (int) $args['moodle_course_id'],
 				),
 			),
 		);

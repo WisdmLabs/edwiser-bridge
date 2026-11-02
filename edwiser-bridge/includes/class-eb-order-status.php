@@ -54,6 +54,9 @@ class Eb_Order_Status {
 	 * @since 1.3.0
 	 */
 	public function init_eb_order_refund() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( esc_html__( 'You do not have permission to perform this action.', 'edwiser-bridge' ) );
+		}
 		check_ajax_referer( 'eb_order_refund_nons_field', 'order_nonce' );
 		$order_id = isset( $_POST['eb_order_id'] ) ? sanitize_text_field( wp_unslash( $_POST['eb_order_id'] ) ) : '';
 

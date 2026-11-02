@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "edwiser-bridge/user-account-v2",
+  "version": "0.1.0",
+  "title": "Edwiser User Account",
+  "category": "edwiser",
+  "icon": "admin-users",
+  "description": "Displays user account details with options to view and edit profile information, manage enrolled courses, and track orders, with the flexibility to add additional custom tabs and content.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "tabLabelsArray": {
+      "type": "array",
+      "default": []
+    },
+    "tabIconsArray": {
+      "type": "array",
+      "default": []
+    },
+    "tabClassnamesArray": {
+      "type": "array",
+      "default": []
+    },
+    "pageTitle": {
+      "type": "string",
+      "default": "User Account"
+    },
+    "hidePageTitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "hideTabIcons": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "textdomain": "edwiser-bridge",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

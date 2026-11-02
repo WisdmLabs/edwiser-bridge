@@ -288,7 +288,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 			update_option( $l_key_name, $l_key );
 
 			if ( empty( $plugin_data['license'] ) ) {
-				$get_l_key_link = '<a href="https://edwiser.org/bridge/#downloadfree">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
+				$get_l_key_link = '<a href="https://edwiser.org/bridge-wordpress-moodle-integration/#pricing">' . __( 'Click here', 'edwiser-bridge' ) . '</a>';
 				$resp['msg']    = __( 'License key cannot be empty, Please enter the valid license key.', 'edwiser-bridge' ) . $get_l_key_link . __( ' to get the license key.', 'edwiser-bridge' );
 				return $resp;
 			}
@@ -296,7 +296,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 				add_query_arg( $plugin_data, Eb_Licensing_Manager::$store_url ),
 				array(
 					'timeout'    => 15,
-					'sslverify'  => false,
+					'sslverify' => true,
 					'blocking'   => true,
 					'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 				)
@@ -460,7 +460,7 @@ if ( ! class_exists( 'Licensing_Settings' ) ) :
 
 					<li class="eb_buy_license">
 						<?php esc_html_e( 'If you wish to purchase Edwiser Bridge PRO then click here', 'edwiser-bridge' ); ?>
-						<a href="https://edwiser.org/bridge/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'edwiser-bridge' ); ?> </a>
+						<a href="https://edwiser.org/bridge-wordpress-moodle-integration/?utm_source=bridge%20plugin&utm_medium=in%20product&utm_campaign=upgrade#downloadfree" target="_blank" class="button-primary"> <?php esc_html_e( 'Buy License', 'edwiser-bridge' ); ?> </a>
 					</li>
 
 					<li class="eb_upgrade_license">

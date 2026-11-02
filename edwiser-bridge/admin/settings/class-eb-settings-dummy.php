@@ -59,7 +59,7 @@ if ( ! class_exists( 'Eb_Settings_Dummy' ) ) {
 				<div class="eb-dummy-set-wrap">
 					<div class="eb-dummy-set-cta">
 						<h3><?php echo esc_html( $data['cta_msg'] ); ?></h3>
-						<p><?php esc_html_e( 'I want to know more.' ); ?></p>
+						<p><?php esc_html_e( 'I want to know more.', 'edwiser-bridge' ); ?></p>
 						<div class="ebpf-st-arrow">
 							<span class="dashicons dashicons-arrow-down-alt2"></span>
 							<span class="dashicons dashicons-arrow-down-alt2"></span>

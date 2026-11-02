@@ -1,0 +1,56 @@
+---
+description: Plugin and theme development best practices for WordPress
+globs: ["**/*.php"]
+alwaysApply: false
+---
+# WordPress Plugin and Theme Development
+
+This rule applies to: `*.php` files in WordPress plugin and theme projects.
+
+## Header Documentation
+- Include proper file headers in main plugin file or style.css
+- Document version, author, license, text domain, and requirements
+- Use clear descriptions that explain functionality
+- Include stable tag and update URI for plugins
+
+## Plugin Development Lifecycle
+- Implement activation and deactivation hooks
+- Create uninstall.php or register_uninstall_hook()
+- Handle version upgrades gracefully
+- Follow WordPress plugin directory guidelines
+
+## Theme Development
+- Implement required theme functions
+- Register theme support features with `add_theme_support()`
+- Create proper template files following template hierarchy
+- Include screenshot.png and required templates
+
+## Directory Structure
+- Organize code in logical directories
+- Separate admin and public functionality
+- Create dedicated folders for templates, assets, and includes
+- Follow WordPress naming conventions for template files
+
+## Customization
+- Use theme customizer instead of custom options pages when appropriate
+- Implement proper settings API for plugin options
+- Create modular customizer sections
+- Save options with appropriate prefixes
+
+## Child Theme Compatibility
+- Make themes child-theme friendly
+- Use get_template_directory() and get_stylesheet_directory() appropriately
+- Implement proper hook architecture for extensibility
+- Document hooks for theme developers
+
+## Updates and Maintenance
+- Implement update mechanism (WordPress.org or custom)
+- Handle data migration between versions
+- Maintain backward compatibility
+- Follow semantic versioning
+
+## Submission Guidelines
+- Meet WordPress.org requirements for plugins and themes
+- Test with WordPress Theme/Plugin Check tools
+- Create comprehensive documentation
+- Provide support channels and documentation links

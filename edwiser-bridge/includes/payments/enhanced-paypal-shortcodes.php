@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Code included from the Enhanced Paypal Shortcodes plugin.
  * http://thewpwarrior.com/WordPress-plugin-enhanced-paypal-shortcodes/
@@ -573,7 +578,7 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					border="0" name="submit" alt="' .
 					esc_html__( 'PayPal - The safer, easier way to pay online.', 'edwiser-bridge' ) . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) .
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edwiser-bridge' ) .
 						'" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit" id="eb_course_payment_button ">';
 
 				eb_check_array_value(
@@ -779,9 +784,10 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					border="0" name="submit" alt="' .
 							esc_html__( 'PayPal - The safer, easier way to pay online.', 'edwiser-bridge' ) . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edwiser-bridge' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
 				id="eb_course_payment_button">';
 
+				// phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- PayPal payment gateway endpoint URL required for payment processing.
 				$code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
 				height="1" class="ppalholder">
 		   </form></div>';
@@ -938,9 +944,10 @@ if ( ! function_exists( 'eb_enhanced_paypal_shortcode' ) ) {
 					$code .= '<input type="hidden" src="https://www.paypalobjects.com/en_AU/i/btn/btn_cart_LG.gif"
 					border="0" name="submit" alt="' . $edwiser_bridge_alt_add . '" class="ppalbtn">';
 				}
-				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edw' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
+				$code .= '<input type="submit" value="' . esc_html__( 'Take this Course', 'edwiser-bridge' ) . '" class="wdm-btn eb_primary_btn eb-paid-course button button-primary et_pb_button et_pb_contact_submit"
 				id="eb_course_payment_button">';
 
+				// phpcs:ignore PluginCheck.CodeAnalysis.Offloading.OffloadedContent -- PayPal payment gateway endpoint URL required for payment processing.
 				$code .= '<img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1"
 					height="1" class="ppalholder">
 		   </form></div>';

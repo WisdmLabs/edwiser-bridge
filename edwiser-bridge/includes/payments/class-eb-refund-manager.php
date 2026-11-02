@@ -92,7 +92,7 @@ class Eb_Refund_Manager {
 				$status['msg'] = esc_html__( 'Refund for amount', 'edwiser-bridge' ) . sprintf( ' %s against the order #%s has been initiated successfully. Transaction id: %s', \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'GROSSREFUNDAMT' ), $order_id, \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'REFUNDTRANSACTIONID' ) );
 			} elseif ( 'Failure' === $resp_status ) {
 				$success       = 0;
-				$status['msg'] = '<strong>' . esc_html__( 'PayPal Responce: ', 'edwiser-bridge' ) . '</strong>' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'L_LONGMESSAGE0', '' );
+				$status['msg'] = '<strong>' . esc_html__( 'PayPal Response: ', 'edwiser-bridge' ) . '</strong>' . \app\wisdmlabs\edwiserBridge\wdm_eb_get_value_from_array( $response, 'L_LONGMESSAGE0', '' );
 			}
 		} else {
 			$success       = 0;
@@ -194,7 +194,7 @@ class Eb_Refund_Manager {
 				'eb_api_password'        => '',
 				'eb_api_signature'       => '',
 			);
-			$option          = unserialize( get_option( 'eb_paypal' ), $default_options ); // @codingStandardsIgnoreLine
+			$option          = maybe_unserialize( get_option( 'eb_paypal', $default_options ) );
 			return $option['eb_paypal_currency'];
 		}
 		return $currency_code;

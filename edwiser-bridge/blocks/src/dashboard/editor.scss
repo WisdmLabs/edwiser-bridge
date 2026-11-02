@@ -1,0 +1,20 @@
+.eb-tab-block__editor-preview {
+  padding: 16px 20px;
+  border: 1px dashed #c5c5c5;
+  border-radius: 4px;
+  background: #fafafa;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 8px !important;
+  }
+
+  &-placeholder {
+    font-size: 13px;
+    color: #888;
+    margin: 0 !important;
+    font-style: italic;
+  }
+}

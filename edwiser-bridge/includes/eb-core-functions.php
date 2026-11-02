@@ -24,7 +24,7 @@ if ( ! function_exists( 'wdm_eb_log_file_path' ) ) {
 	 */
 	function wdm_eb_log_file_path( $handle ) {
 		$eb_log_dir_path = wdm_edwiser_bridge_plugin_log_dir();
-		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . sanitize_file_name( wp_hash( $handle ) ) . '.log';
+		return trailingslashit( $eb_log_dir_path ) . $handle . '-' . date_i18n('m-y') . '.log';
 	}
 }
 
@@ -82,7 +82,7 @@ if ( ! function_exists( 'wdm_eb_create_page' ) ) {
 		}
 
 		$page_data = array(
-			'post_status'    => 'publish',
+			'post_status'    => 'draft',
 			'post_type'      => 'page',
 			'post_author'    => 1,
 			'post_name'      => $slug,
@@ -202,8 +202,10 @@ if ( ! function_exists( 'wdm_eb_user_redirect_url' ) ) {
 
 		// Extract query string into local $_GET array.
 		$get = array();
-		parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
-		$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		if ( ! empty( $query_str ) ) {
+			parse_str( wp_parse_url( $query_str, PHP_URL_QUERY ), $get );
+			$usr_ac_page_url = add_query_arg( $get, $usr_ac_page_url );
+		}
 
 		return $usr_ac_page_url;
 	}
@@ -439,7 +441,9 @@ if ( ! function_exists( 'wdm_eb_get_wp_user_id_from_moodle_id' ) ) {
 	 */
 	function wdm_eb_get_wp_user_id_from_moodle_id( $mdl_user_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id'", $mdl_user_id ) ); // @codingStandardsIgnoreLine
+		// ORDER BY + LIMIT: if duplicates somehow exist (legacy data), always resolve
+		// to the oldest linked account deterministically instead of an arbitrary row.
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT user_id FROM {$wpdb->prefix}usermeta WHERE meta_value=%d AND meta_key = 'moodle_user_id' ORDER BY user_id ASC LIMIT 1", $mdl_user_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -453,7 +457,7 @@ if ( ! function_exists( 'wdm_eb_get_wp_course_id_from_moodle_course_id' ) ) {
 	 */
 	function wdm_eb_get_wp_course_id_from_moodle_course_id( $mdl_course_id ) {
 		global $wpdb;
-		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id'", $mdl_course_id ) ); // @codingStandardsIgnoreLine
+		$result = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value=%d AND meta_key = 'moodle_course_id' ORDER BY post_id DESC LIMIT 1", $mdl_course_id ) ); // @codingStandardsIgnoreLine
 		return $result;
 	}
 }
@@ -489,16 +493,16 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					'core_role_unassign_roles',
 					'core_cohort_delete_cohort_members',
 					'core_cohort_get_cohorts',
-					// 'eb_manage_cohort_enrollment',
-					'eb_delete_cohort',
+					// 'auth_edwiserbridge_manage_cohort_enrollment',
+					'auth_edwiserbridge_delete_cohort',
 					// 'wdm_manage_cohort_enrollment'
 				),
 				'woocommerce-integration/bridge-woocommerce.php' => array(),
 				'edwiser-bridge-sso/sso.php' => array(
-					'wdm_sso_verify_token',
+					'auth_edwiserbridge_verify_sso_token',
 				),
 				'selective-synchronization/selective-synchronization.php' => array(
-					'eb_get_users',
+					'auth_edwiserbridge_get_users',
 				),
 			)
 		);
@@ -514,14 +518,14 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 				'enrol_manual_enrol_users',
 				'enrol_manual_unenrol_users',
 				'core_enrol_get_users_courses',
-				'eb_test_connection',
-				'eb_get_site_data',
-				'eb_get_course_progress',
-				'eb_get_edwiser_plugins_info',
-				'edwiserbridge_local_get_course_enrollment_method',
-				'edwiserbridge_local_update_course_enrollment_method',
-				'edwiserbridge_local_get_mandatory_settings',
-				'edwiserbridge_local_enable_plugin_settings',
+				'auth_edwiserbridge_test_connection',
+				'auth_edwiserbridge_get_site_data',
+				'auth_edwiserbridge_get_course_progress',
+				'auth_edwiserbridge_get_edwiser_plugins_info',
+				'auth_edwiserbridge_get_course_enrollment_method',
+				'auth_edwiserbridge_update_course_enrollment_method',
+				'auth_edwiserbridge_get_mandatory_settings',
+				'auth_edwiserbridge_enable_plugin_settings',
 			)
 		);
 
@@ -532,7 +536,7 @@ if ( ! function_exists( 'wdm_eb_get_all_web_service_functions' ) ) {
 					if ( version_compare( '2.0.0', $bp_version ) <= 0 ) {
 						$functions = array_merge( $functions, array( 'wdm_manage_cohort_enrollment' ) );
 					} elseif ( 0 === version_compare( '2.1.0', $bp_version ) ) {
-						$functions = array_merge( $functions, array( 'eb_manage_cohort_enrollment' ) );
+						$functions = array_merge( $functions, array( 'auth_edwiserbridge_manage_cohort_enrollment' ) );
 					}
 				}
 
@@ -584,7 +588,9 @@ if ( ! function_exists( 'wdm_eb_get_moodle_url' ) ) {
 		$url = get_option( 'eb_connection' );
 		if ( $url ) {
 			$eb_moodle_url = $url['eb_url'];
-
+			if ( empty( $eb_moodle_url ) ) {
+				return 'MOODLE_URL';
+			}
 			if ( substr( $eb_moodle_url, -1 ) === '/' ) {
 				$eb_moodle_url = substr( $eb_moodle_url, 0, -1 );
 			}
@@ -689,10 +695,6 @@ if ( ! function_exists( 'wdm_eb_sinlge_course_get_allowed_html_tags' ) ) {
 			'class'    => array(),
 			'value'    => array(),
 			'selected' => array(),
-		);
-		$allowed_tags['script'] = array(
-			'src'  => array(),
-			'type' => array(),
 		);
 		$allowed_tags['a']      = array(
 			'href'   => array(),
@@ -874,10 +876,136 @@ if ( ! function_exists( 'wdm_edwiser_bridge_plugin_log_dir' ) ) {
 	 * Gwt edwiser Bridge plugin url.
 	 */
 	function wdm_edwiser_bridge_plugin_log_dir() {
+		static $cache = array();
 
 		$upload_dir = wp_upload_dir();
+		$base_dir   = trailingslashit( $upload_dir['basedir'] );
 
-		return $upload_dir['basedir'] . '/eb-logs/';
+		// Cached per uploads directory so multisite blog switching still works.
+		if ( isset( $cache[ $base_dir ] ) ) {
+			return $cache[ $base_dir ];
+		}
+
+		// The old location was always uploads/eb-logs/, a predictable and publicly reachable path.
+		// Use a per-site random folder name instead, so the logs can't be found by guessing the URL.
+		$legacy_dir = $base_dir . 'eb-logs/';
+		$suffix     = get_option( 'eb_log_dir_suffix' );
+		if ( ! is_string( $suffix ) || ! preg_match( '/^[a-z0-9]{16,64}$/', $suffix ) ) {
+			add_option( 'eb_log_dir_suffix', strtolower( wp_generate_password( 24, false, false ) ), '', 'no' );
+			$suffix = get_option( 'eb_log_dir_suffix' );
+		}
+		$log_dir = $base_dir . 'eb-logs-' . $suffix . '/';
+
+		if ( ! is_dir( $log_dir ) ) {
+			if ( is_dir( $legacy_dir ) ) {
+				// Move the existing logs. If the move fails, keep using the old folder (it is still hardened below).
+				if ( @rename( untrailingslashit( $legacy_dir ), untrailingslashit( $log_dir ) ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.rename_rename
+					clearstatcache();
+				} else {
+					$log_dir = $legacy_dir;
+				}
+			} else {
+				wp_mkdir_p( $log_dir );
+			}
+		}
+
+		wdm_eb_protect_log_dir( $log_dir );
+		wdm_eb_sanitize_existing_logs( $log_dir );
+
+		$cache[ $base_dir ] = $log_dir;
+		return $log_dir;
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_protect_log_dir' ) ) {
+
+	/**
+	 * Make sure the log folder can't be browsed or read over HTTP.
+	 *
+	 * Runs every time the folder is resolved (not only on activation), so plugin updates, restored
+	 * backups and migrated sites are covered. Web servers that ignore .htaccess (Nginx, etc.) are
+	 * covered by the unguessable folder name.
+	 *
+	 * @param string $log_dir Log folder path with trailing slash.
+	 */
+	function wdm_eb_protect_log_dir( $log_dir ) {
+		if ( ! is_dir( $log_dir ) || ! is_writable( $log_dir ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_is_writable
+			return;
+		}
+
+		$htaccess = $log_dir . '.htaccess';
+		$rules    = "# Edwiser Bridge: deny all web access to log files.\n<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nOrder deny,allow\nDeny from all\n</IfModule>\n";
+		if ( ! file_exists( $htaccess ) || false === strpos( (string) file_get_contents( $htaccess ), 'Require all denied' ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			file_put_contents( $htaccess, $rules ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		}
+
+		$index = $log_dir . 'index.php';
+		if ( ! file_exists( $index ) ) {
+			file_put_contents( $index, "<?php\n// Silence is golden.\n" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		}
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_redact_sensitive_data' ) ) {
+
+	/**
+	 * Remove secrets (Moodle/WordPress tokens, passwords, keys, cookies) from data before it is logged.
+	 *
+	 * @param mixed $data Array, object or string to clean.
+	 * @return mixed Cleaned data, same shape as the input.
+	 */
+	function wdm_eb_redact_sensitive_data( $data ) {
+		$key_pattern   = '/(token|secret|passw(or)?d|pwd|api[_-]?key|authorization|cookie|nonce|license[_-]?key)/i';
+		$value_pattern = '/\b((?:wstoken|wp_token|access_token|secret_key|password|token)=)[^&\s"\']+/i';
+
+		if ( is_object( $data ) ) {
+			$decoded = json_decode( wp_json_encode( $data ), true );
+			$data    = null === $decoded ? '[object]' : $decoded;
+		}
+
+		if ( is_array( $data ) ) {
+			foreach ( $data as $key => $value ) {
+				if ( is_string( $key ) && preg_match( $key_pattern, $key ) ) {
+					$data[ $key ] = '[REDACTED]';
+				} else {
+					$data[ $key ] = wdm_eb_redact_sensitive_data( $value );
+				}
+			}
+			return $data;
+		}
+
+		if ( is_string( $data ) ) {
+			$data = preg_replace( $value_pattern, '$1[REDACTED]', $data );
+			$data = preg_replace( '/\b(Bearer\s+)[A-Za-z0-9._~+\/=-]+/', '$1[REDACTED]', $data );
+		}
+
+		return $data;
+	}
+}
+
+if ( ! function_exists( 'wdm_eb_sanitize_existing_logs' ) ) {
+
+	/**
+	 * One-time clean-up: strip secrets from the JSON logs written by earlier versions.
+	 *
+	 * @param string $log_dir Log folder path with trailing slash.
+	 */
+	function wdm_eb_sanitize_existing_logs( $log_dir ) {
+		if ( '1' === get_option( 'eb_logs_sanitized' ) || ! is_dir( $log_dir ) ) {
+			return;
+		}
+
+		$files = glob( $log_dir . 'log*.json' );
+		if ( $files ) {
+			foreach ( $files as $file ) {
+				$logs = json_decode( (string) file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				if ( is_array( $logs ) ) {
+					file_put_contents( $file, wp_json_encode( wdm_eb_redact_sensitive_data( $logs ) ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+				}
+			}
+		}
+
+		update_option( 'eb_logs_sanitized', '1', false );
 	}
 }
 if ( ! function_exists( 'wdm_get_plugin_version' ) ) {
@@ -913,7 +1041,7 @@ if ( ! function_exists( 'wdm_request_edwiser' ) ) {
 			add_query_arg( $api_params, $store_url ),
 			array(
 				'timeout'    => 15,
-				'sslverify'  => false,
+				'sslverify'  => true,
 				'blocking'   => true,
 				'user-agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ),
 			)
@@ -950,7 +1078,7 @@ if ( ! function_exists( 'wdm_eb_course_terms' ) ) {
 					'order'   => 'ASC',
 					'fields'  => 'all',
 				)
-			); // @codingStandardsIgnoreLine.
+			);
 		} else {
 			$terms = get_terms(
 				array(
@@ -979,7 +1107,10 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 	 * @return array returns course URL.
 	 */
 	function wdm_eb_get_my_course_url( $moodle_user_id, $mdl_course_id ) {
-		if ( '' !== $moodle_user_id && function_exists( 'app\wisdmlabs\edwiserBridgePro\includes\sso\generateMoodleUrl' ) ) {
+		$modules_data = get_option( 'eb_pro_modules_data', array() );
+		$sso_active   = isset( $modules_data['sso'] ) && 'active' === $modules_data['sso'];
+
+		if ( '' !== $moodle_user_id && $sso_active && function_exists( 'app\wisdmlabs\edwiserBridgePro\includes\sso\generateMoodleUrl' ) ) {
 			$query      = array(
 				'moodle_user_id'   => $moodle_user_id, // moodle user id.
 				'moodle_course_id' => $mdl_course_id,
@@ -1108,6 +1239,21 @@ if ( ! function_exists( 'is_access_exception' ) ) {
 	}
 }
 
+if ( ! function_exists( 'is_moodle_exception' ) ) {
+	/**
+	 * Function to check if response is moodle exception.
+	 *
+	 * @param  array $response response.
+	 */
+	function is_moodle_exception( $response ) {
+		$exception = false;
+		if ( isset( $response['response_body']->exception ) && 'core\exception\moodle_exception' === $response['response_body']->exception ) {
+			$exception = true;
+		}
+		return $exception;
+	}
+}
+
 if ( ! function_exists( 'wdm_eb_recaptcha_type' ) ) {
 	/**
 	 * Function to check if recaptcha is enabled.
@@ -1203,14 +1349,93 @@ if ( ! function_exists( 'add_beacon_helpscout_script' ) ) {
 	 * Callback to action hook 'quoteup_pep_backend_page'.
 	 */
 	function add_beacon_helpscout_script() {
-		?>
-		<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
-		<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
-		<?php
+		if ( ! is_plugin_active( 'edwiser-bridge-pro/edwiser-bridge-pro.php' ) ) {
+			?>
+			<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon('init', 'f087eb3e-6529-4c38-9056-93f9e1b27718')</script>
+			<?php
+		} else {
+			?>
+			<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon('init', '2d48acfb-55c0-4416-bdeb-92b92c101645')</script>
+			<?php
+		}
 	}
 }
 
-if ( ! function_exists( 'wdm_log_json ' ) ) {
+if ( ! function_exists( 'wdm_eb_verify_recaptcha' ) ) {
+	/**
+	 * Verify a Google reCAPTCHA response server-side.
+	 *
+	 * Validates the token with Google's siteverify API and, for v3,
+	 * also checks the expected action and a minimum score.
+	 *
+	 * @param string $token       The reCAPTCHA response token.
+	 * @param string $action      Expected action name (v3 only).
+	 * @param float  $min_score   Minimum acceptable score for v3 (0.0 - 1.0).
+	 * @return true|\WP_Error True on success, WP_Error on failure.
+	 */
+	function wdm_eb_verify_recaptcha( $token, $action = '', $min_score = 0.5 ) {
+		$general_settings = get_option( 'eb_general' );
+
+		// If reCAPTCHA is not enabled, nothing to verify.
+		if ( ! isset( $general_settings['eb_enable_recaptcha'] ) || 'yes' !== $general_settings['eb_enable_recaptcha'] ) {
+			return true;
+		}
+
+		$secret = isset( $general_settings['eb_recaptcha_secret_key'] ) ? trim( $general_settings['eb_recaptcha_secret_key'] ) : '';
+		if ( empty( $secret ) ) {
+			return new \WP_Error( 'recaptcha_no_secret', __( 'reCAPTCHA secret key is not configured.', 'edwiser-bridge' ), array( 'status' => 400 ) );
+		}
+
+		if ( empty( $token ) ) {
+			return new \WP_Error( 'recaptcha_missing', __( 'reCAPTCHA response is missing.', 'edwiser-bridge' ), array( 'status' => 400 ) );
+		}
+
+		$response = wp_remote_post(
+			'https://www.google.com/recaptcha/api/siteverify',
+			array(
+				'timeout'   => 15,
+				'sslverify' => true,
+				'body'      => array(
+					'secret'   => $secret,
+					'response' => $token,
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return new \WP_Error( 'recaptcha_http_error', __( 'Unable to validate reCAPTCHA.', 'edwiser-bridge' ), array( 'status' => 500 ) );
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		if ( empty( $body ) || ! is_array( $body ) ) {
+			return new \WP_Error( 'recaptcha_invalid_response', __( 'Invalid reCAPTCHA validation response.', 'edwiser-bridge' ), array( 'status' => 500 ) );
+		}
+
+		if ( empty( $body['success'] ) ) {
+			return new \WP_Error( 'recaptcha_failed', __( 'reCAPTCHA validation failed.', 'edwiser-bridge' ), array( 'status' => 400 ) );
+		}
+
+		$recaptcha_type = isset( $general_settings['eb_recaptcha_type'] ) ? $general_settings['eb_recaptcha_type'] : 'v2';
+
+		// For v3, enforce expected action and minimum score.
+		if ( 'v3' === $recaptcha_type ) {
+			if ( ! empty( $action ) && ( ! isset( $body['action'] ) || $body['action'] !== $action ) ) {
+				return new \WP_Error( 'recaptcha_invalid_action', __( 'reCAPTCHA action mismatch.', 'edwiser-bridge' ), array( 'status' => 400 ) );
+			}
+
+			$score = isset( $body['score'] ) ? floatval( $body['score'] ) : 0;
+			if ( $score < $min_score ) {
+				return new \WP_Error( 'recaptcha_low_score', __( 'reCAPTCHA score too low.', 'edwiser-bridge' ), array( 'status' => 400 ) );
+			}
+		}
+
+		return true;
+	}
+}
+
+if ( ! function_exists( 'wdm_log_json' ) ) {
 	/**
 	 * Function to write the error log in json format.
 	 *
@@ -1233,7 +1458,7 @@ if ( ! function_exists( 'wdm_log_json ' ) ) {
 		$log_data_old[] = array(
 			'time'   => date_i18n( 'm-d-Y @ H:i:s' ),
 			'status' => 'NEW',
-			'data'   => $log_data,
+			'data'   => wdm_eb_redact_sensitive_data( $log_data ),
 		);
 		$log_data_old   = json_encode( $log_data_old ); // @codingStandardsIgnoreLine
 		file_put_contents( $log_file, $log_data_old ); // @codingStandardsIgnoreLine

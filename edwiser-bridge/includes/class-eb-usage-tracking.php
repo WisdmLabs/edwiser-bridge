@@ -51,7 +51,7 @@ class EB_Usage_Tracking {
 			$analytics_data = wp_json_encode( $this->prepare_usage_analytics() );
 			$url            = 'https://edwiser.org/wp-json/edwiser_customizations/send_usage_data';
 			$request_args   = array(
-				'sslverify' => false,
+				'sslverify' => true,
 				'body'      => $analytics_data,
 				'timeout'   => 100,
 			);

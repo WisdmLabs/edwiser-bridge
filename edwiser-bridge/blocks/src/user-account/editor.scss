@@ -1,0 +1,64 @@
+.eb-user-account__edit-notice {
+  border-radius: 2px;
+  padding: 12px 16px;
+  background: hsl(29, 95.1%, 52.4%, 0.1);
+  border-left: 4px solid #f98012;
+  color: #4b5858;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 1190px;
+  width: 100%;
+  margin: 0 auto;
+
+  p {
+    margin: 0 !important;
+  }
+}
+
+.eb-user-account__wrapper {
+  margin-top: 32px !important;
+}
+
+.eb-user-account__editor-preview {
+  margin-top: 16px;
+  border: 1px dashed #c5c5c5;
+  border-radius: 4px;
+  padding: 16px 20px;
+  background: #fafafa;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e1e1e;
+    margin: 0 0 12px !important;
+  }
+
+  &-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+
+    span {
+      padding: 6px 14px;
+      border-radius: 4px;
+      background: #e8e8e8;
+      color: #555;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    span:first-child {
+      background: #007cba;
+      color: #fff;
+    }
+  }
+
+  &-placeholder {
+    font-size: 13px;
+    color: #888;
+    margin: 0 !important;
+    font-style: italic;
+  }
+}

@@ -169,6 +169,16 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 					)
 				);
 			} else {
+				$url        = get_site_url() . '/wp-admin/?page=eb-setup-wizard';
+				$setup_data = get_option( 'eb_setup_data' );
+				if ( isset( $setup_data ) && ! empty( $setup_data ) ) {
+					$name      = $setup_data['name'];
+					$progress  = $setup_data['progress'];
+					$next_step = $setup_data['next_step'];
+					if ( isset( $next_step ) && ! empty( $next_step ) ) {
+						$url = get_site_url() . '/wp-admin/?page=eb-setup-wizard&current_step=' . $next_step;
+					}
+				}
 				$settings = apply_filters(
 					'eb_connection_settings',
 					array(
@@ -204,16 +214,50 @@ if ( ! class_exists( 'Eb_Settings_Connection' ) ) :
 						),
 
 						array(
-							'title'    => '',
-							'desc'     => '',
-							'id'       => 'eb_test_connection_button',
-							'default'  => __( 'Test Connection', 'edwiser-bridge' ),
-							'type'     => 'button',
-							'desc_tip' => false,
-							'class'    => 'button secondary',
+							'title'   			=> '',
+							'desc'     			=> '',
+							'id'       			=> 'eb_test_connection_button',
+							'default'  			=> __( 'Test Connection', 'edwiser-bridge' ),
+							'type'     			=> 'button',
+							'desc_tip' 			=> false,
+							'class'    			=> 'button secondary',
+							'parent_row_class' 	=> 'inline',
 						),
 						array(
 							'html' => '<th></th><td> <div class="eb_test_connection_response"></div> </td>',
+								'type' => 'cust_html',
+						),
+						array(
+							'html' => '<th></th><td class="troubleshoot-connection hidden"><hr style="margin-bottom: 30px;" /><div style="font-size: 16px;">' . esc_html__( 'Are you are still facing issues related to connection?', 'edwiser-bridge' ) . '</div></td>',
+							'type' => 'cust_html',
+						),
+						array(
+							'title'       	   => '',
+							'desc'        	   => '',
+							'id'          	   => 'eb_diagnose_issues_button',
+							'default'     	   => __( 'Troubleshoot', 'edwiser-bridge' ),
+							'type'        	   => 'button',
+							'desc_tip' 	  	   => false,
+							'class'    	  	   => 'button secondary hidden',
+							'conditional' 	   => true,
+							'show_condition'   => 'token_exists',
+							'parent_row_class' => 'inline'
+						),
+						array(
+							'title'    		   => '',
+							'desc'     		   => '',
+							'id'       		   => 'eb_run_setup_button',
+							'default'  		   => __( 'Run Setup Wizard', 'edwiser-bridge' ),
+							'type'     		   => 'link',
+							'desc_tip' 		   => false,
+							'class'    		   => 'button secondary',
+							'url'      		   => $url,
+							'conditional' 	   => true,
+							'show_condition'   => 'no_token',
+							'parent_row_class' => 'inline'
+						),
+						array(
+							'html' => '<th></th><td> <ul class="run-diagnostics-start"></ul> </td>',
 							'type' => 'cust_html',
 						),
 						array(
