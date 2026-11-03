@@ -1,4 +1,5 @@
 import React from 'react';
+import apiFetch from '@wordpress/api-fetch';
 import { createRoot } from '@wordpress/element';
 import AuthWrapper from './components/auth/auth-wrapper';
 
@@ -29,8 +30,7 @@ function checkAuthAndInitialize() {
   if (redirectTo) query.append('redirect_to', redirectTo);
   if (isEnroll) query.append('is_enroll', isEnroll);
 
-  fetch(`/wp-json/eb/api/v1/user-account/auth?${query.toString()}`)
-    .then((r) => r.json())
+  apiFetch({ path: `/eb/api/v1/user-account/auth?${query.toString()}` })
     .then((authData) => {
       const isLoggedIn = authData && authData.is_logged_in;
 
