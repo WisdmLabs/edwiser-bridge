@@ -1,1 +1,5212 @@
-(()=>{"use strict";var e,r={3(e,r,t){const o=window.wp.blocks,n=window.wp.i18n,a=window.wp.blockEditor,s=window.wp.components,i=window.React,l=window.ReactJSXRuntime,c=()=>(0,l.jsxs)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"round",className:"lucide lucide-book-open-icon lucide-book-open",children:[(0,l.jsx)("path",{d:"M12 7v14"}),(0,l.jsx)("path",{d:"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"})]}),m=()=>(0,l.jsxs)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2.5",strokeLinecap:"round",strokeLinejoin:"round",className:"lucide lucide-square-check-big",children:[(0,l.jsx)("path",{d:"M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5"}),(0,l.jsx)("path",{d:"m9 11 3 3L22 4"})]}),d=()=>(0,l.jsxs)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2.5",strokeLinecap:"round",strokeLinejoin:"round",className:"lucide lucide-circle-dashed",children:[(0,l.jsx)("path",{d:"M10.1 2.182a10 10 0 0 1 3.8 0"}),(0,l.jsx)("path",{d:"M13.9 21.818a10 10 0 0 1-3.8 0"}),(0,l.jsx)("path",{d:"M17.609 3.721a10 10 0 0 1 2.69 2.7"}),(0,l.jsx)("path",{d:"M2.182 13.9a10 10 0 0 1 0-3.8"}),(0,l.jsx)("path",{d:"M20.279 17.609a10 10 0 0 1-2.7 2.69"}),(0,l.jsx)("path",{d:"M21.818 10.1a10 10 0 0 1 0 3.8"}),(0,l.jsx)("path",{d:"M3.721 6.391a10 10 0 0 1 2.7-2.69"}),(0,l.jsx)("path",{d:"M6.391 20.279a10 10 0 0 1-2.69-2.7"})]}),h=()=>(0,l.jsxs)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"24",height:"24",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2.5",strokeLinecap:"round",strokeLinejoin:"round",className:"lucide lucide-circle-minus",children:[(0,l.jsx)("circle",{cx:"12",cy:"12",r:"10"}),(0,l.jsx)("path",{d:"M8 12h8"})]}),u=window.wp.apiFetch;var p=t.n(u);function f(e){return"auto"===e||"dark"===e||"light"===e}function y({key:e="mantine-color-scheme-value"}={}){let r;return{get:r=>{if("undefined"==typeof window)return r;try{const t=window.localStorage.getItem(e);return f(t)?t:r}catch{return r}},set:r=>{try{window.localStorage.setItem(e,r)}catch(e){console.warn("[@mantine/core] Local storage color scheme manager was unable to save color scheme.",e)}},subscribe:t=>{r=r=>{r.storageArea===window.localStorage&&r.key===e&&f(r.newValue)&&t(r.newValue)},window.addEventListener("storage",r)},unsubscribe:()=>{window.removeEventListener("storage",r)},clear:()=>{window.localStorage.removeItem(e)}}}const b=(0,i.createContext)(null);function g(){const e=(0,i.useContext)(b);if(!e)throw new Error("[@mantine/core] MantineProvider was not found in tree");return e}function v(){return g().getStyleNonce}function $(e){return Object.keys(e)}function x(e){return"0rem"===e?"0rem":`calc(${e} * var(--mantine-scale))`}function w(e,{shouldScale:r=!1}={}){return function t(o){if(0===o||"0"===o)return`0${e}`;if("number"==typeof o){const t=`${o/16}${e}`;return r?x(t):t}if("string"==typeof o){if(""===o)return o;if(o.startsWith("calc(")||o.startsWith("clamp(")||o.includes("rgba("))return o;if(o.includes(","))return o.split(",").map(e=>t(e)).join(",");if(o.includes(" "))return o.split(" ").map(e=>t(e)).join(" ");if(o.includes(e))return r?x(o):o;const n=o.replace("px","");if(!Number.isNaN(Number(n))){const t=`${Number(n)/16}${e}`;return r?x(t):t}}return o}}const k=w("rem",{shouldScale:!0}),j=w("em");function _(e){return/^#?([0-9A-F]{3}){1,2}([0-9A-F]{2})?$/i.test(e)?function(e){let r=e.replace("#","");if(3===r.length){const e=r.split("");r=[e[0],e[0],e[1],e[1],e[2],e[2]].join("")}if(8===r.length){const e=parseInt(r.slice(6,8),16)/255;return{r:parseInt(r.slice(0,2),16),g:parseInt(r.slice(2,4),16),b:parseInt(r.slice(4,6),16),a:e}}const t=parseInt(r,16);return{r:t>>16&255,g:t>>8&255,b:255&t,a:1}}(e):e.startsWith("rgb")?function(e){const[r,t,o,n]=e.replace(/[^0-9,./]/g,"").split(/[/,]/).map(Number);return{r,g:t,b:o,a:void 0===n?1:n}}(e):e.startsWith("hsl")?function(e){const r=e.match(/^hsla?\(\s*(\d+)\s*,\s*(\d+%)\s*,\s*(\d+%)\s*(,\s*(0?\.\d+|\d+(\.\d+)?))?\s*\)$/i);if(!r)return{r:0,g:0,b:0,a:1};const t=parseInt(r[1],10),o=parseInt(r[2],10)/100,n=parseInt(r[3],10)/100,a=r[5]?parseFloat(r[5]):void 0,s=(1-Math.abs(2*n-1))*o,i=t/60,l=s*(1-Math.abs(i%2-1)),c=n-s/2;let m,d,h;return i>=0&&i<1?(m=s,d=l,h=0):i>=1&&i<2?(m=l,d=s,h=0):i>=2&&i<3?(m=0,d=s,h=l):i>=3&&i<4?(m=0,d=l,h=s):i>=4&&i<5?(m=l,d=0,h=s):(m=s,d=0,h=l),{r:Math.round(255*(m+c)),g:Math.round(255*(d+c)),b:Math.round(255*(h+c)),a:a||1}}(e):{r:0,g:0,b:0,a:1}}function N(e,r){if(e.startsWith("var("))return`color-mix(in srgb, ${e}, black ${100*r}%)`;const{r:t,g:o,b:n,a}=_(e),s=1-r,i=e=>Math.round(e*s);return`rgba(${i(t)}, ${i(o)}, ${i(n)}, ${a})`}function C(e,r){return"number"==typeof e.primaryShade?e.primaryShade:"dark"===r?e.primaryShade.dark:e.primaryShade.light}function S(e){return e<=.03928?e/12.92:((e+.055)/1.055)**2.4}function T(e,r=.179){return!e.startsWith("var(")&&function(e){if(e.startsWith("oklch("))return(function(e){const r=e.match(/oklch\((.*?)%\s/);return r?parseFloat(r[1]):null}(e)||0)/100;const{r,g:t,b:o}=_(e),n=t/255,a=o/255;return.2126*S(r/255)+.7152*S(n)+.0722*S(a)}(e)>r}function M({color:e,theme:r,colorScheme:t}){if("string"!=typeof e)throw new Error("[@mantine/core] Failed to parse color. Expected color to be a string, instead got "+typeof e);if("bright"===e)return{color:e,value:"dark"===t?r.white:r.black,shade:void 0,isThemeColor:!1,isLight:T("dark"===t?r.white:r.black,r.luminanceThreshold),variable:"--mantine-color-bright"};if("dimmed"===e)return{color:e,value:"dark"===t?r.colors.dark[2]:r.colors.gray[7],shade:void 0,isThemeColor:!1,isLight:T("dark"===t?r.colors.dark[2]:r.colors.gray[6],r.luminanceThreshold),variable:"--mantine-color-dimmed"};if("white"===e||"black"===e)return{color:e,value:"white"===e?r.white:r.black,shade:void 0,isThemeColor:!1,isLight:T("white"===e?r.white:r.black,r.luminanceThreshold),variable:`--mantine-color-${e}`};const[o,n]=e.split("."),a=n?Number(n):void 0,s=o in r.colors;if(s){const e=void 0!==a?r.colors[o][a]:r.colors[o][C(r,t||"light")];return{color:o,value:e,shade:a,isThemeColor:s,isLight:T(e,r.luminanceThreshold),variable:n?`--mantine-color-${o}-${a}`:`--mantine-color-${o}-filled`}}return{color:e,value:e,isThemeColor:s,isLight:T(e,r.luminanceThreshold),shade:a,variable:void 0}}function E(e,r){const t=M({color:e||r.primaryColor,theme:r});return t.variable?`var(${t.variable})`:e}function R(e,r){const t={from:e?.from||r.defaultGradient.from,to:e?.to||r.defaultGradient.to,deg:e?.deg??r.defaultGradient.deg??0},o=E(t.from,r),n=E(t.to,r);return`linear-gradient(${t.deg}deg, ${o} 0%, ${n} 100%)`}function z(e,r){if("string"!=typeof e||r>1||r<0)return"rgba(0, 0, 0, 1)";if(e.startsWith("var("))return`color-mix(in srgb, ${e}, transparent ${100*(1-r)}%)`;if(e.startsWith("oklch"))return e.includes("/")?e.replace(/\/\s*[\d.]+\s*\)/,`/ ${r})`):e.replace(")",` / ${r})`);const{r:t,g:o,b:n}=_(e);return`rgba(${t}, ${o}, ${n}, ${r})`}const P=z,A="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji",L={scale:1,fontSmoothing:!0,focusRing:"auto",white:"#fff",black:"#000",colors:{dark:["#C9C9C9","#b8b8b8","#828282","#696969","#424242","#3b3b3b","#2e2e2e","#242424","#1f1f1f","#141414"],gray:["#f8f9fa","#f1f3f5","#e9ecef","#dee2e6","#ced4da","#adb5bd","#868e96","#495057","#343a40","#212529"],red:["#fff5f5","#ffe3e3","#ffc9c9","#ffa8a8","#ff8787","#ff6b6b","#fa5252","#f03e3e","#e03131","#c92a2a"],pink:["#fff0f6","#ffdeeb","#fcc2d7","#faa2c1","#f783ac","#f06595","#e64980","#d6336c","#c2255c","#a61e4d"],grape:["#f8f0fc","#f3d9fa","#eebefa","#e599f7","#da77f2","#cc5de8","#be4bdb","#ae3ec9","#9c36b5","#862e9c"],violet:["#f3f0ff","#e5dbff","#d0bfff","#b197fc","#9775fa","#845ef7","#7950f2","#7048e8","#6741d9","#5f3dc4"],indigo:["#edf2ff","#dbe4ff","#bac8ff","#91a7ff","#748ffc","#5c7cfa","#4c6ef5","#4263eb","#3b5bdb","#364fc7"],blue:["#e7f5ff","#d0ebff","#a5d8ff","#74c0fc","#4dabf7","#339af0","#228be6","#1c7ed6","#1971c2","#1864ab"],cyan:["#e3fafc","#c5f6fa","#99e9f2","#66d9e8","#3bc9db","#22b8cf","#15aabf","#1098ad","#0c8599","#0b7285"],teal:["#e6fcf5","#c3fae8","#96f2d7","#63e6be","#38d9a9","#20c997","#12b886","#0ca678","#099268","#087f5b"],green:["#ebfbee","#d3f9d8","#b2f2bb","#8ce99a","#69db7c","#51cf66","#40c057","#37b24d","#2f9e44","#2b8a3e"],lime:["#f4fce3","#e9fac8","#d8f5a2","#c0eb75","#a9e34b","#94d82d","#82c91e","#74b816","#66a80f","#5c940d"],yellow:["#fff9db","#fff3bf","#ffec99","#ffe066","#ffd43b","#fcc419","#fab005","#f59f00","#f08c00","#e67700"],orange:["#fff4e6","#ffe8cc","#ffd8a8","#ffc078","#ffa94d","#ff922b","#fd7e14","#f76707","#e8590c","#d9480f"]},primaryShade:{light:6,dark:8},primaryColor:"blue",variantColorResolver:({color:e,theme:r,variant:t,gradient:o,autoContrast:n})=>{const a=M({color:e,theme:r}),s="boolean"==typeof n?n:r.autoContrast;if("filled"===t){const r=s&&a.isLight?"var(--mantine-color-black)":"var(--mantine-color-white)";return a.isThemeColor?void 0===a.shade?{background:`var(--mantine-color-${e}-filled)`,hover:`var(--mantine-color-${e}-filled-hover)`,color:r,border:`${k(1)} solid transparent`}:{background:`var(--mantine-color-${a.color}-${a.shade})`,hover:`var(--mantine-color-${a.color}-${9===a.shade?8:a.shade+1})`,color:r,border:`${k(1)} solid transparent`}:{background:e,hover:N(e,.1),color:r,border:`${k(1)} solid transparent`}}if("light"===t){if(a.isThemeColor){if(void 0===a.shade)return{background:`var(--mantine-color-${e}-light)`,hover:`var(--mantine-color-${e}-light-hover)`,color:`var(--mantine-color-${e}-light-color)`,border:`${k(1)} solid transparent`};const t=r.colors[a.color][a.shade];return{background:z(t,.1),hover:z(t,.12),color:`var(--mantine-color-${a.color}-${Math.min(a.shade,6)})`,border:`${k(1)} solid transparent`}}return{background:z(e,.1),hover:z(e,.12),color:e,border:`${k(1)} solid transparent`}}return"outline"===t?a.isThemeColor?void 0===a.shade?{background:"transparent",hover:`var(--mantine-color-${e}-outline-hover)`,color:`var(--mantine-color-${e}-outline)`,border:`${k(1)} solid var(--mantine-color-${e}-outline)`}:{background:"transparent",hover:z(r.colors[a.color][a.shade],.05),color:`var(--mantine-color-${a.color}-${a.shade})`,border:`${k(1)} solid var(--mantine-color-${a.color}-${a.shade})`}:{background:"transparent",hover:z(e,.05),color:e,border:`${k(1)} solid ${e}`}:"subtle"===t?a.isThemeColor?void 0===a.shade?{background:"transparent",hover:`var(--mantine-color-${e}-light-hover)`,color:`var(--mantine-color-${e}-light-color)`,border:`${k(1)} solid transparent`}:{background:"transparent",hover:z(r.colors[a.color][a.shade],.12),color:`var(--mantine-color-${a.color}-${Math.min(a.shade,6)})`,border:`${k(1)} solid transparent`}:{background:"transparent",hover:z(e,.12),color:e,border:`${k(1)} solid transparent`}:"transparent"===t?a.isThemeColor?void 0===a.shade?{background:"transparent",hover:"transparent",color:`var(--mantine-color-${e}-light-color)`,border:`${k(1)} solid transparent`}:{background:"transparent",hover:"transparent",color:`var(--mantine-color-${a.color}-${Math.min(a.shade,6)})`,border:`${k(1)} solid transparent`}:{background:"transparent",hover:"transparent",color:e,border:`${k(1)} solid transparent`}:"white"===t?a.isThemeColor?void 0===a.shade?{background:"var(--mantine-color-white)",hover:N(r.white,.01),color:`var(--mantine-color-${e}-filled)`,border:`${k(1)} solid transparent`}:{background:"var(--mantine-color-white)",hover:N(r.white,.01),color:`var(--mantine-color-${a.color}-${a.shade})`,border:`${k(1)} solid transparent`}:{background:"var(--mantine-color-white)",hover:N(r.white,.01),color:e,border:`${k(1)} solid transparent`}:"gradient"===t?{background:R(o,r),hover:R(o,r),color:"var(--mantine-color-white)",border:"none"}:"default"===t?{background:"var(--mantine-color-default)",hover:"var(--mantine-color-default-hover)",color:"var(--mantine-color-default-color)",border:`${k(1)} solid var(--mantine-color-default-border)`}:{}},autoContrast:!1,luminanceThreshold:.3,fontFamily:A,fontFamilyMonospace:"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",respectReducedMotion:!1,cursorType:"default",defaultGradient:{from:"blue",to:"cyan",deg:45},defaultRadius:"sm",activeClassName:"mantine-active",focusClassName:"",headings:{fontFamily:A,fontWeight:"700",textWrap:"wrap",sizes:{h1:{fontSize:k(34),lineHeight:"1.3"},h2:{fontSize:k(26),lineHeight:"1.35"},h3:{fontSize:k(22),lineHeight:"1.4"},h4:{fontSize:k(18),lineHeight:"1.45"},h5:{fontSize:k(16),lineHeight:"1.5"},h6:{fontSize:k(14),lineHeight:"1.5"}}},fontSizes:{xs:k(12),sm:k(14),md:k(16),lg:k(18),xl:k(20)},lineHeights:{xs:"1.4",sm:"1.45",md:"1.55",lg:"1.6",xl:"1.65"},radius:{xs:k(2),sm:k(4),md:k(8),lg:k(16),xl:k(32)},spacing:{xs:k(10),sm:k(12),md:k(16),lg:k(20),xl:k(32)},breakpoints:{xs:"36em",sm:"48em",md:"62em",lg:"75em",xl:"88em"},shadows:{xs:`0 ${k(1)} ${k(3)} rgba(0, 0, 0, 0.05), 0 ${k(1)} ${k(2)} rgba(0, 0, 0, 0.1)`,sm:`0 ${k(1)} ${k(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${k(10)} ${k(15)} ${k(-5)}, rgba(0, 0, 0, 0.04) 0 ${k(7)} ${k(7)} ${k(-5)}`,md:`0 ${k(1)} ${k(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${k(20)} ${k(25)} ${k(-5)}, rgba(0, 0, 0, 0.04) 0 ${k(10)} ${k(10)} ${k(-5)}`,lg:`0 ${k(1)} ${k(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${k(28)} ${k(23)} ${k(-7)}, rgba(0, 0, 0, 0.04) 0 ${k(12)} ${k(12)} ${k(-7)}`,xl:`0 ${k(1)} ${k(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${k(36)} ${k(28)} ${k(-7)}, rgba(0, 0, 0, 0.04) 0 ${k(17)} ${k(17)} ${k(-7)}`},other:{},components:{}};function F(e){return e&&"object"==typeof e&&!Array.isArray(e)}function I(e,r){const t={...e},o=r;return F(e)&&F(r)&&Object.keys(r).forEach(r=>{F(o[r])?t[r]=r in e?I(t[r],o[r]):o[r]:t[r]=o[r]}),t}const H="[@mantine/core] MantineProvider: Invalid theme.primaryShade, it accepts only 0-9 integers or an object { light: 0-9, dark: 0-9 }";function W(e){return!(e<0||e>9)&&parseInt(e.toString(),10)===e}function O(e){if(!(e.primaryColor in e.colors))throw new Error("[@mantine/core] MantineProvider: Invalid theme.primaryColor, it accepts only key of theme.colors, learn more – https://mantine.dev/theming/colors/#primary-color");if(!("object"!=typeof e.primaryShade||W(e.primaryShade.dark)&&W(e.primaryShade.light)))throw new Error(H);if("number"==typeof e.primaryShade&&!W(e.primaryShade))throw new Error(H)}const V=(0,i.createContext)(null);function B(){const e=(0,i.useContext)(V);if(!e)throw new Error("@mantine/core: MantineProvider was not found in component tree, make sure you have it in your app");return e}function q({theme:e,children:r,inherit:t=!0}){const o=(0,i.useContext)(V)||L,n=(0,i.useMemo)(()=>function(e,r){if(!r)return O(e),e;const t=I(e,r);return r.fontFamily&&!r.headings?.fontFamily&&(t.headings.fontFamily=r.fontFamily),O(t),t}(t?o:L,e),[e,o,t]);return(0,l.jsx)(V.Provider,{value:n,children:r})}function U(){const e=B(),r=v(),t=$(e.breakpoints).reduce((r,t)=>{const o=e.breakpoints[t].includes("px"),n=function(e){const r=function(e){return"string"==typeof e&&e.includes("var(--mantine-scale)")?e.match(/^calc\((.*?)\)$/)?.[1].split("*")[0].trim():e}(e);return"number"==typeof r?r:"string"==typeof r?r.includes("calc")||r.includes("var")?r:r.includes("px")?Number(r.replace("px","")):r.includes("rem")?16*Number(r.replace("rem","")):r.includes("em")?16*Number(r.replace("em","")):Number(r):NaN}(e.breakpoints[t]);return`${r}@media (max-width: ${o?n-.1+"px":j(n-.1)}) {.mantine-visible-from-${t} {display: none !important;}}@media (min-width: ${o?`${n}px`:j(n)}) {.mantine-hidden-from-${t} {display: none !important;}}`},"");return(0,l.jsx)("style",{"data-mantine-styles":"classes",nonce:r?.(),dangerouslySetInnerHTML:{__html:t}})}function G(e){return Object.entries(e).map(([e,r])=>`${e}: ${r};`).join("")}function D(e,r){return(Array.isArray(e)?e:[e]).reduce((e,r)=>`${r}{${e}}`,r)}function J(e,r){return function({color:e,theme:r,autoContrast:t}){return("boolean"==typeof t?t:r.autoContrast)&&M({color:e||r.primaryColor,theme:r}).isLight?"var(--mantine-color-black)":"var(--mantine-color-white)"}({color:e.colors[e.primaryColor][C(e,r)],theme:e,autoContrast:null})}function X({theme:e,color:r,colorScheme:t,name:o=r,withColorValues:n=!0}){if(!e.colors[r])return{};if("light"===t){const t=C(e,"light"),a={[`--mantine-color-${o}-text`]:`var(--mantine-color-${o}-filled)`,[`--mantine-color-${o}-filled`]:`var(--mantine-color-${o}-${t})`,[`--mantine-color-${o}-filled-hover`]:`var(--mantine-color-${o}-${9===t?8:t+1})`,[`--mantine-color-${o}-light`]:P(e.colors[r][t],.1),[`--mantine-color-${o}-light-hover`]:P(e.colors[r][t],.12),[`--mantine-color-${o}-light-color`]:`var(--mantine-color-${o}-${t})`,[`--mantine-color-${o}-outline`]:`var(--mantine-color-${o}-${t})`,[`--mantine-color-${o}-outline-hover`]:P(e.colors[r][t],.05)};return n?{[`--mantine-color-${o}-0`]:e.colors[r][0],[`--mantine-color-${o}-1`]:e.colors[r][1],[`--mantine-color-${o}-2`]:e.colors[r][2],[`--mantine-color-${o}-3`]:e.colors[r][3],[`--mantine-color-${o}-4`]:e.colors[r][4],[`--mantine-color-${o}-5`]:e.colors[r][5],[`--mantine-color-${o}-6`]:e.colors[r][6],[`--mantine-color-${o}-7`]:e.colors[r][7],[`--mantine-color-${o}-8`]:e.colors[r][8],[`--mantine-color-${o}-9`]:e.colors[r][9],...a}:a}const a=C(e,"dark"),s={[`--mantine-color-${o}-text`]:`var(--mantine-color-${o}-4)`,[`--mantine-color-${o}-filled`]:`var(--mantine-color-${o}-${a})`,[`--mantine-color-${o}-filled-hover`]:`var(--mantine-color-${o}-${9===a?8:a+1})`,[`--mantine-color-${o}-light`]:P(e.colors[r][Math.max(0,a-2)],.15),[`--mantine-color-${o}-light-hover`]:P(e.colors[r][Math.max(0,a-2)],.2),[`--mantine-color-${o}-light-color`]:`var(--mantine-color-${o}-${Math.max(a-5,0)})`,[`--mantine-color-${o}-outline`]:`var(--mantine-color-${o}-${Math.max(a-4,0)})`,[`--mantine-color-${o}-outline-hover`]:P(e.colors[r][Math.max(a-4,0)],.05)};return n?{[`--mantine-color-${o}-0`]:e.colors[r][0],[`--mantine-color-${o}-1`]:e.colors[r][1],[`--mantine-color-${o}-2`]:e.colors[r][2],[`--mantine-color-${o}-3`]:e.colors[r][3],[`--mantine-color-${o}-4`]:e.colors[r][4],[`--mantine-color-${o}-5`]:e.colors[r][5],[`--mantine-color-${o}-6`]:e.colors[r][6],[`--mantine-color-${o}-7`]:e.colors[r][7],[`--mantine-color-${o}-8`]:e.colors[r][8],[`--mantine-color-${o}-9`]:e.colors[r][9],...s}:s}function Z(e,r,t){$(r).forEach(o=>Object.assign(e,{[`--mantine-${t}-${o}`]:r[o]}))}q.displayName="@mantine/core/MantineThemeProvider";const K=e=>{const r=C(e,"light"),t=e.defaultRadius in e.radius?e.radius[e.defaultRadius]:k(e.defaultRadius),o={variables:{"--mantine-scale":e.scale.toString(),"--mantine-cursor-type":e.cursorType,"--mantine-color-scheme":"light dark","--mantine-webkit-font-smoothing":e.fontSmoothing?"antialiased":"unset","--mantine-moz-font-smoothing":e.fontSmoothing?"grayscale":"unset","--mantine-color-white":e.white,"--mantine-color-black":e.black,"--mantine-line-height":e.lineHeights.md,"--mantine-font-family":e.fontFamily,"--mantine-font-family-monospace":e.fontFamilyMonospace,"--mantine-font-family-headings":e.headings.fontFamily,"--mantine-heading-font-weight":e.headings.fontWeight,"--mantine-heading-text-wrap":e.headings.textWrap,"--mantine-radius-default":t,"--mantine-primary-color-filled":`var(--mantine-color-${e.primaryColor}-filled)`,"--mantine-primary-color-filled-hover":`var(--mantine-color-${e.primaryColor}-filled-hover)`,"--mantine-primary-color-light":`var(--mantine-color-${e.primaryColor}-light)`,"--mantine-primary-color-light-hover":`var(--mantine-color-${e.primaryColor}-light-hover)`,"--mantine-primary-color-light-color":`var(--mantine-color-${e.primaryColor}-light-color)`},light:{"--mantine-primary-color-contrast":J(e,"light"),"--mantine-color-bright":"var(--mantine-color-black)","--mantine-color-text":e.black,"--mantine-color-body":e.white,"--mantine-color-error":"var(--mantine-color-red-6)","--mantine-color-placeholder":"var(--mantine-color-gray-5)","--mantine-color-anchor":`var(--mantine-color-${e.primaryColor}-${r})`,"--mantine-color-default":"var(--mantine-color-white)","--mantine-color-default-hover":"var(--mantine-color-gray-0)","--mantine-color-default-color":"var(--mantine-color-black)","--mantine-color-default-border":"var(--mantine-color-gray-4)","--mantine-color-dimmed":"var(--mantine-color-gray-6)"},dark:{"--mantine-primary-color-contrast":J(e,"dark"),"--mantine-color-bright":"var(--mantine-color-white)","--mantine-color-text":"var(--mantine-color-dark-0)","--mantine-color-body":"var(--mantine-color-dark-7)","--mantine-color-error":"var(--mantine-color-red-8)","--mantine-color-placeholder":"var(--mantine-color-dark-3)","--mantine-color-anchor":`var(--mantine-color-${e.primaryColor}-4)`,"--mantine-color-default":"var(--mantine-color-dark-6)","--mantine-color-default-hover":"var(--mantine-color-dark-5)","--mantine-color-default-color":"var(--mantine-color-white)","--mantine-color-default-border":"var(--mantine-color-dark-4)","--mantine-color-dimmed":"var(--mantine-color-dark-2)"}};Z(o.variables,e.breakpoints,"breakpoint"),Z(o.variables,e.spacing,"spacing"),Z(o.variables,e.fontSizes,"font-size"),Z(o.variables,e.lineHeights,"line-height"),Z(o.variables,e.shadows,"shadow"),Z(o.variables,e.radius,"radius"),e.colors[e.primaryColor].forEach((r,t)=>{o.variables[`--mantine-primary-color-${t}`]=`var(--mantine-color-${e.primaryColor}-${t})`}),$(e.colors).forEach(r=>{const t=e.colors[r];if(function(e){return!!e&&"object"==typeof e&&"mantine-virtual-color"in e}(t))return Object.assign(o.light,X({theme:e,name:t.name,color:t.light,colorScheme:"light",withColorValues:!0})),void Object.assign(o.dark,X({theme:e,name:t.name,color:t.dark,colorScheme:"dark",withColorValues:!0}));t.forEach((e,t)=>{o.variables[`--mantine-color-${r}-${t}`]=e}),Object.assign(o.light,X({theme:e,color:r,colorScheme:"light",withColorValues:!1})),Object.assign(o.dark,X({theme:e,color:r,colorScheme:"dark",withColorValues:!1}))});const n=e.headings.sizes;return $(n).forEach(r=>{o.variables[`--mantine-${r}-font-size`]=n[r].fontSize,o.variables[`--mantine-${r}-line-height`]=n[r].lineHeight,o.variables[`--mantine-${r}-font-weight`]=n[r].fontWeight||e.headings.fontWeight}),o},Q=K(L);function Y({cssVariablesSelector:e,deduplicateCssVariables:r}){const t=B(),o=v(),n=function({theme:e,generator:r}){const t=K(e),o=r?.(e);return o?I(t,o):t}({theme:t,generator:g().cssVariablesResolver}),a=":root"===e&&r,s=function(e,r){const t=G(e.variables),o=t?D(r,t):"",n=G(e.dark),a=G(e.light);return`${o}${n?D(":host"===r?`${r}([data-mantine-color-scheme="dark"])`:`${r}[data-mantine-color-scheme="dark"]`,n):""}${a?D(":host"===r?`${r}([data-mantine-color-scheme="light"])`:`${r}[data-mantine-color-scheme="light"]`,a):""}`}(a?function(e){const r={variables:{},light:{},dark:{}};return $(e.variables).forEach(t=>{Q.variables[t]!==e.variables[t]&&(r.variables[t]=e.variables[t])}),$(e.light).forEach(t=>{Q.light[t]!==e.light[t]&&(r.light[t]=e.light[t])}),$(e.dark).forEach(t=>{Q.dark[t]!==e.dark[t]&&(r.dark[t]=e.dark[t])}),r}(n):n,e);return s?(0,l.jsx)("style",{"data-mantine-styles":!0,nonce:o?.(),dangerouslySetInnerHTML:{__html:`${s}${a?"":(i=e,`\n  ${i}[data-mantine-color-scheme="dark"] { --mantine-color-scheme: dark; }\n  ${i}[data-mantine-color-scheme="light"] { --mantine-color-scheme: light; }\n`)}`}}):null;var i}Y.displayName="@mantine/CssVariables";const ee="undefined"!=typeof document?i.useLayoutEffect:i.useEffect;function re(e,r){const t="undefined"!=typeof window&&"matchMedia"in window&&window.matchMedia("(prefers-color-scheme: dark)")?.matches,o="auto"!==e?e:t?"dark":"light";r()?.setAttribute("data-mantine-color-scheme",o)}function te({theme:e,children:r,getStyleNonce:t,withStaticClasses:o=!0,withGlobalClasses:n=!0,deduplicateCssVariables:a=!0,withCssVariables:s=!0,cssVariablesSelector:c=":root",classNamesPrefix:m="mantine",colorSchemeManager:d=y(),defaultColorScheme:h="light",getRootElement:u=()=>document.documentElement,cssVariablesResolver:p,forceColorScheme:f,stylesTransform:g,env:v}){const{colorScheme:$,setColorScheme:x,clearColorScheme:w}=function({manager:e,defaultColorScheme:r,getRootElement:t,forceColorScheme:o}){const n=(0,i.useRef)(null),[a,s]=(0,i.useState)(()=>e.get(r)),l=o||a,c=(0,i.useCallback)(r=>{o||(re(r,t),s(r),e.set(r))},[e.set,l,o]),m=(0,i.useCallback)(()=>{s(r),re(r,t),e.clear()},[e.clear,r]);return(0,i.useEffect)(()=>(e.subscribe(c),e.unsubscribe),[e.subscribe,e.unsubscribe]),ee(()=>{re(e.get(r),t)},[]),(0,i.useEffect)(()=>{if(o)return re(o,t),()=>{};void 0===o&&re(a,t),"undefined"!=typeof window&&"matchMedia"in window&&(n.current=window.matchMedia("(prefers-color-scheme: dark)"));const e=e=>{"auto"===a&&re(e.matches?"dark":"light",t)};return n.current?.addEventListener("change",e),()=>n.current?.removeEventListener("change",e)},[a,o]),{colorScheme:l,setColorScheme:c,clearColorScheme:m}}({defaultColorScheme:h,forceColorScheme:f,manager:d,getRootElement:u});return function({respectReducedMotion:e,getRootElement:r}){ee(()=>{e&&r()?.setAttribute("data-respect-reduced-motion","true")},[e])}({respectReducedMotion:e?.respectReducedMotion||!1,getRootElement:u}),(0,l.jsx)(b.Provider,{value:{colorScheme:$,setColorScheme:x,clearColorScheme:w,getRootElement:u,classNamesPrefix:m,getStyleNonce:t,cssVariablesResolver:p,cssVariablesSelector:c,withStaticClasses:o,stylesTransform:g,env:v},children:(0,l.jsxs)(q,{theme:e,children:[s&&(0,l.jsx)(Y,{cssVariablesSelector:c,deduplicateCssVariables:a}),n&&(0,l.jsx)(U,{}),r]})})}function oe(e){if("number"==typeof e)return!0;if("string"==typeof e){if(e.startsWith("calc(")||e.startsWith("var(")||e.includes(" ")&&""!==e.trim())return!0;const r=/^[+-]?[0-9]+(\.[0-9]+)?(px|em|rem|ex|ch|lh|rlh|vw|vh|vmin|vmax|vb|vi|svw|svh|lvw|lvh|dvw|dvh|cm|mm|in|pt|pc|q|cqw|cqh|cqi|cqb|cqmin|cqmax|%)?$/;return e.trim().split(/\s+/).every(e=>r.test(e))}return!1}function ne(e,r="size",t=!0){if(void 0!==e)return oe(e)?t?k(e):e:`var(--${r}-${e})`}function ae(e){return Object.keys(e).reduce((r,t)=>(void 0!==e[t]&&(r[t]=e[t]),r),{})}function se(e){var r,t,o="";if("string"==typeof e||"number"==typeof e)o+=e;else if("object"==typeof e)if(Array.isArray(e)){var n=e.length;for(r=0;r<n;r++)e[r]&&(t=se(e[r]))&&(o&&(o+=" "),o+=t)}else for(t in e)e[t]&&(o&&(o+=" "),o+=t);return o}!function(){const e=console.error;console.error=(...r)=>{r.length>1&&"string"==typeof r[0]&&r[0].toLowerCase().includes("extra attributes from the server")&&"string"==typeof r[1]&&r[1].toLowerCase().includes("data-mantine-color-scheme")||e(...r)}}(),te.displayName="@mantine/core/MantineProvider";const ie=function(){for(var e,r,t=0,o="",n=arguments.length;t<n;t++)(e=arguments[t])&&(r=se(e))&&(o&&(o+=" "),o+=r);return o},le={always:"mantine-focus-always",auto:"mantine-focus-auto",never:"mantine-focus-never"},ce={};function me({theme:e,classNames:r,props:t,stylesCtx:o}){return function(e){const r={};return e.forEach(e=>{Object.entries(e).forEach(([e,t])=>{r[e]?r[e]=ie(r[e],t):r[e]=t})}),r}((Array.isArray(r)?r:[r]).map(r=>"function"==typeof r?r(e,t,o):r||ce))}function de({selector:e,stylesCtx:r,theme:t,classNames:o,props:n}){return me({theme:t,classNames:o,props:n,stylesCtx:r})[e]}function he({theme:e,options:r,themeName:t,selector:o,classNamesPrefix:n,classNames:a,classes:s,unstyled:i,className:l,rootSelector:c,props:m,stylesCtx:d,withStaticClasses:h,headless:u,transformedStyles:p}){return ie(function({theme:e,options:r,unstyled:t}){return ie(r?.focusable&&!t&&(e.focusClassName||le[e.focusRing]),r?.active&&!t&&e.activeClassName)}({theme:e,options:r,unstyled:i||u}),function({themeName:e,theme:r,selector:t,props:o,stylesCtx:n}){return e.map(e=>me({theme:r,classNames:r.components[e]?.classNames,props:o,stylesCtx:n})?.[t])}({theme:e,themeName:t,selector:o,props:m,stylesCtx:d}),function({options:e,classes:r,selector:t,unstyled:o}){return e?.variant&&!o?r[`${t}--${e.variant}`]:void 0}({options:r,classes:s,selector:o,unstyled:i}),de({selector:o,stylesCtx:d,theme:e,classNames:a,props:m}),de({selector:o,stylesCtx:d,theme:e,classNames:p,props:m}),function({selector:e,stylesCtx:r,options:t,props:o,theme:n}){return me({theme:n,classNames:t?.classNames,props:t?.props||o,stylesCtx:r})[e]}({selector:o,stylesCtx:d,options:r,props:m,theme:e}),function({rootSelector:e,selector:r,className:t}){return e===r?t:void 0}({rootSelector:c,selector:o,className:l}),function({selector:e,classes:r,unstyled:t}){return t?void 0:r[e]}({selector:o,classes:s,unstyled:i||u}),h&&!u&&function({themeName:e,classNamesPrefix:r,selector:t,withStaticClass:o}){return!1===o?[]:e.map(e=>`${r}-${e}-${t}`)}({themeName:t,classNamesPrefix:n,selector:o,withStaticClass:r?.withStaticClass}),r?.className)}function ue({theme:e,styles:r,props:t,stylesCtx:o}){return(Array.isArray(r)?r:[r]).reduce((r,n)=>"function"==typeof n?{...r,...n(e,t,o)}:{...r,...n},{})}function pe({theme:e,themeName:r,props:t,stylesCtx:o,selector:n}){return r.map(r=>ue({theme:e,styles:e.components[r]?.styles,props:t,stylesCtx:o})[n]).reduce((e,r)=>({...e,...r}),{})}function fe({style:e,theme:r}){return Array.isArray(e)?[...e].reduce((e,t)=>({...e,...fe({style:t,theme:r})}),{}):"function"==typeof e?e(r):null==e?{}:e}function ye({vars:e,varsResolver:r,theme:t,props:o,stylesCtx:n,selector:a,themeName:s,headless:i}){return function(e){return e.reduce((e,r)=>(r&&Object.keys(r).forEach(t=>{e[t]={...e[t],...ae(r[t])}}),e),{})}([i?{}:r?.(t,o,n),...s.map(e=>t.components?.[e]?.vars?.(t,o,n)),e?.(t,o,n)])?.[a]}function be({theme:e,themeName:r,selector:t,options:o,props:n,stylesCtx:a,rootSelector:s,styles:i,style:l,vars:c,varsResolver:m,headless:d,withStylesTransform:h}){return{...!h&&pe({theme:e,themeName:r,props:n,stylesCtx:a,selector:t}),...!h&&ue({theme:e,styles:i,props:n,stylesCtx:a})[t],...!h&&ue({theme:e,styles:o?.styles,props:o?.props||n,stylesCtx:a})[t],...ye({theme:e,props:n,stylesCtx:a,vars:c,varsResolver:m,selector:t,themeName:r,headless:d}),...s===t?fe({style:l,theme:e}):null,...fe({style:o?.style,theme:e})}}function ge({name:e,classes:r,props:t,stylesCtx:o,className:n,style:a,rootSelector:s="root",unstyled:i,classNames:l,styles:c,vars:m,varsResolver:d}){const h=B(),u=g().classNamesPrefix,p=g().withStaticClasses,f=g().headless,y=(Array.isArray(e)?e:[e]).filter(e=>e),{withStylesTransform:b,getTransformedStyles:v}=function({props:e,stylesCtx:r,themeName:t}){const o=B(),n=(g().stylesTransform?.styles)?.();return{getTransformedStyles:a=>n?[...a.map(t=>n(t,{props:e,theme:o,ctx:r})),...t.map(t=>n(o.components[t]?.styles,{props:e,theme:o,ctx:r}))].filter(Boolean):[],withStylesTransform:!!n}}({props:t,stylesCtx:o,themeName:y});return(e,g)=>({className:he({theme:h,options:g,themeName:y,selector:e,classNamesPrefix:u,classNames:l,classes:r,unstyled:i,className:n,rootSelector:s,props:t,stylesCtx:o,withStaticClasses:p,headless:f,transformedStyles:v([g?.styles,c])}),style:be({theme:h,themeName:y,selector:e,options:g,props:t,stylesCtx:o,rootSelector:s,styles:c,style:a,vars:m,varsResolver:d,headless:f,withStylesTransform:b})})}function ve(e){return $(e).reduce((r,t)=>{return void 0!==e[t]?`${r}${o=t,o.replace(/[A-Z]/g,e=>`-${e.toLowerCase()}`)}:${e[t]};`:r;var o},"").trim()}function $e({selector:e,styles:r,media:t,container:o}){const n=r?ve(r):"",a=Array.isArray(t)?t.map(r=>`@media${r.query}{${e}{${ve(r.styles)}}}`):[],s=Array.isArray(o)?o.map(r=>`@container ${r.query}{${e}{${ve(r.styles)}}}`):[];return`${n?`${e}{${n}}`:""}${a.join("")}${s.join("")}`.trim()}function xe(e){const r=v();return(0,l.jsx)("style",{"data-mantine-styles":"inline",nonce:r?.(),dangerouslySetInnerHTML:{__html:$e(e)}})}function we(e){return e.startsWith("data-")?e:`data-${e}`}function ke(e){return e?"string"==typeof e?{[we(e)]:!0}:Array.isArray(e)?[...e].reduce((e,r)=>({...e,...ke(r)}),{}):(r=e,Object.keys(r).reduce((e,t)=>{const o=r[t];return void 0===o||""===o||!1===o||null===o||(e[we(t)]=r[t]),e},{})):null;var r}function je(e,r){return Array.isArray(e)?[...e].reduce((e,t)=>({...e,...je(t,r)}),{}):"function"==typeof e?e(r):null==e?{}:e}function _e({theme:e,style:r,vars:t,styleProps:o}){return{...je(r,e),...je(t,e),...o}}const Ne={m:{type:"spacing",property:"margin"},mt:{type:"spacing",property:"marginTop"},mb:{type:"spacing",property:"marginBottom"},ml:{type:"spacing",property:"marginLeft"},mr:{type:"spacing",property:"marginRight"},ms:{type:"spacing",property:"marginInlineStart"},me:{type:"spacing",property:"marginInlineEnd"},mx:{type:"spacing",property:"marginInline"},my:{type:"spacing",property:"marginBlock"},p:{type:"spacing",property:"padding"},pt:{type:"spacing",property:"paddingTop"},pb:{type:"spacing",property:"paddingBottom"},pl:{type:"spacing",property:"paddingLeft"},pr:{type:"spacing",property:"paddingRight"},ps:{type:"spacing",property:"paddingInlineStart"},pe:{type:"spacing",property:"paddingInlineEnd"},px:{type:"spacing",property:"paddingInline"},py:{type:"spacing",property:"paddingBlock"},bd:{type:"border",property:"border"},bg:{type:"color",property:"background"},c:{type:"textColor",property:"color"},opacity:{type:"identity",property:"opacity"},ff:{type:"fontFamily",property:"fontFamily"},fz:{type:"fontSize",property:"fontSize"},fw:{type:"identity",property:"fontWeight"},lts:{type:"size",property:"letterSpacing"},ta:{type:"identity",property:"textAlign"},lh:{type:"lineHeight",property:"lineHeight"},fs:{type:"identity",property:"fontStyle"},tt:{type:"identity",property:"textTransform"},td:{type:"identity",property:"textDecoration"},w:{type:"spacing",property:"width"},miw:{type:"spacing",property:"minWidth"},maw:{type:"spacing",property:"maxWidth"},h:{type:"spacing",property:"height"},mih:{type:"spacing",property:"minHeight"},mah:{type:"spacing",property:"maxHeight"},bgsz:{type:"size",property:"backgroundSize"},bgp:{type:"identity",property:"backgroundPosition"},bgr:{type:"identity",property:"backgroundRepeat"},bga:{type:"identity",property:"backgroundAttachment"},pos:{type:"identity",property:"position"},top:{type:"size",property:"top"},left:{type:"size",property:"left"},bottom:{type:"size",property:"bottom"},right:{type:"size",property:"right"},inset:{type:"size",property:"inset"},display:{type:"identity",property:"display"},flex:{type:"identity",property:"flex"}};function Ce(e,r){const t=M({color:e,theme:r});return"dimmed"===t.color?"var(--mantine-color-dimmed)":"bright"===t.color?"var(--mantine-color-bright)":t.variable?`var(${t.variable})`:t.color}const Se={text:"var(--mantine-font-family)",mono:"var(--mantine-font-family-monospace)",monospace:"var(--mantine-font-family-monospace)",heading:"var(--mantine-font-family-headings)",headings:"var(--mantine-font-family-headings)"},Te=["h1","h2","h3","h4","h5","h6"],Me=["h1","h2","h3","h4","h5","h6"],Ee={color:Ce,textColor:function(e,r){const t=M({color:e,theme:r});return t.isThemeColor&&void 0===t.shade?`var(--mantine-color-${t.color}-text)`:Ce(e,r)},fontSize:function(e,r){return"string"==typeof e&&e in r.fontSizes?`var(--mantine-font-size-${e})`:"string"==typeof e&&Te.includes(e)?`var(--mantine-${e}-font-size)`:"number"==typeof e||"string"==typeof e?k(e):e},spacing:function(e,r){if("number"==typeof e)return k(e);if("string"==typeof e){const t=e.replace("-","");if(!(t in r.spacing))return k(e);const o=`--mantine-spacing-${t}`;return e.startsWith("-")?`calc(var(${o}) * -1)`:`var(${o})`}return e},identity:function(e){return e},size:function(e){return"number"==typeof e?k(e):e},lineHeight:function(e,r){return"string"==typeof e&&e in r.lineHeights?`var(--mantine-line-height-${e})`:"string"==typeof e&&Me.includes(e)?`var(--mantine-${e}-line-height)`:e},fontFamily:function(e){return"string"==typeof e&&e in Se?Se[e]:e},border:function(e,r){if("number"==typeof e)return k(e);if("string"==typeof e){const[t,o,...n]=e.split(" ").filter(e=>""!==e.trim());let a=`${k(t)}`;return o&&(a+=` ${o}`),n.length>0&&(a+=` ${Ce(n.join(" "),r)}`),a.trim()}return e}};function Re(e){return e.replace("(min-width: ","").replace("em)","")}function ze(e,r){return"object"==typeof e&&null!==e&&r in e?e[r]:e}const Pe=(0,i.forwardRef)(({component:e,style:r,__vars:t,className:o,variant:n,mod:a,size:s,hiddenFrom:c,visibleFrom:m,lightHidden:d,darkHidden:h,renderRoot:u,__size:p,...f},y)=>{const b=B(),v=e||"div",{styleProps:x,rest:w}=function(e){const{m:r,mx:t,my:o,mt:n,mb:a,ml:s,mr:i,me:l,ms:c,p:m,px:d,py:h,pt:u,pb:p,pl:f,pr:y,pe:b,ps:g,bd:v,bg:$,c:x,opacity:w,ff:k,fz:j,fw:_,lts:N,ta:C,lh:S,fs:T,tt:M,td:E,w:R,miw:z,maw:P,h:A,mih:L,mah:F,bgsz:I,bgp:H,bgr:W,bga:O,pos:V,top:B,left:q,bottom:U,right:G,inset:D,display:J,flex:X,hiddenFrom:Z,visibleFrom:K,lightHidden:Q,darkHidden:Y,sx:ee,...re}=e;return{styleProps:ae({m:r,mx:t,my:o,mt:n,mb:a,ml:s,mr:i,me:l,ms:c,p:m,px:d,py:h,pt:u,pb:p,pl:f,pr:y,pe:b,ps:g,bd:v,bg:$,c:x,opacity:w,ff:k,fz:j,fw:_,lts:N,ta:C,lh:S,fs:T,tt:M,td:E,w:R,miw:z,maw:P,h:A,mih:L,mah:F,bgsz:I,bgp:H,bgr:W,bga:O,pos:V,top:B,left:q,bottom:U,right:G,inset:D,display:J,flex:X,hiddenFrom:Z,visibleFrom:K,lightHidden:Q,darkHidden:Y,sx:ee}),rest:re}}(f),k=g().stylesTransform?.sx,j=k?.()?.(x.sx),_=`__m__-${(0,i.useId)().replace(/:/g,"")}`,N=function({styleProps:e,data:r,theme:t}){return function({media:e,...r}){return{...r,media:Object.keys(e).sort((e,r)=>Number(Re(e))-Number(Re(r))).map(r=>({query:r,styles:e[r]}))}}($(e).reduce((o,n)=>{if("hiddenFrom"===n||"visibleFrom"===n||"sx"===n)return o;const a=r[n],s=Array.isArray(a.property)?a.property:[a.property],i="object"==typeof(l=e[n])&&null!==l?"base"in l?l.base:void 0:l;var l;if(!function(e){if("object"!=typeof e||null===e)return!1;const r=Object.keys(e);return 1!==r.length||"base"!==r[0]}(e[n]))return s.forEach(e=>{o.inlineStyles[e]=Ee[a.type](i,t)}),o;o.hasResponsiveStyles=!0;const c=function(e){return"object"==typeof e&&null!==e?$(e).filter(e=>"base"!==e):[]}(e[n]);return s.forEach(r=>{i&&(o.styles[r]=Ee[a.type](i,t)),c.forEach(s=>{const i=`(min-width: ${t.breakpoints[s]})`;o.media[i]={...o.media[i],[r]:Ee[a.type](ze(e[n],s),t)}})}),o},{hasResponsiveStyles:!1,styles:{},inlineStyles:{},media:{}}))}({styleProps:x,theme:b,data:Ne}),C={ref:y,style:_e({theme:b,style:r,vars:t,styleProps:N.inlineStyles}),className:ie(o,j,{[_]:N.hasResponsiveStyles,"mantine-light-hidden":d,"mantine-dark-hidden":h,[`mantine-hidden-from-${c}`]:c,[`mantine-visible-from-${m}`]:m}),"data-variant":n,"data-size":oe(s)?void 0:s||void 0,size:p,...ke(a),...w};return(0,l.jsxs)(l.Fragment,{children:[N.hasResponsiveStyles&&(0,l.jsx)(xe,{selector:`.${_}`,styles:N.styles,media:N.media}),"function"==typeof u?u(C):(0,l.jsx)(v,{...C})]})});Pe.displayName="@mantine/core/Box";const Ae=Pe;function Le(e){return e}var Fe={root:"m_18320242","skeleton-fade":"m_299c329c"};const Ie={visible:!0,animate:!0},He=(e,{width:r,height:t,radius:o,circle:n})=>{return{root:{"--skeleton-height":k(t),"--skeleton-width":k(n?t:r),"--skeleton-radius":n?"1000px":void 0===o?void 0:(a=o,void 0===a?"var(--mantine-radius-default)":ne(a,"mantine-radius"))}};var a},We=function(){const e=(0,i.forwardRef)((e,r)=>{const t=function(e,r,t){const o=B(),n=o.components[e]?.defaultProps;return{...r,..."function"==typeof n?n(o):n,...ae(t)}}("Skeleton",Ie,e),{classNames:o,className:n,style:a,styles:s,unstyled:i,vars:c,width:m,height:d,circle:h,visible:u,radius:p,animate:f,mod:y,...b}=t,g=ge({name:"Skeleton",classes:Fe,props:t,className:n,style:a,classNames:o,styles:s,unstyled:i,vars:c,varsResolver:He});return(0,l.jsx)(Ae,{ref:r,...g("root"),mod:[{visible:u,animate:f},y],...b})});return e.extend=Le,e.withProps=r=>{const t=(0,i.forwardRef)((t,o)=>(0,l.jsx)(e,{...r,...t,ref:o}));return t.extend=e.extend,t.displayName=`WithProps(${e.displayName})`,t},e}();We.classes=Fe,We.displayName="@mantine/core/Skeleton";const Oe=function({pageTitle:e,hidePageTitle:r}){const{user:t,isLoading:o}=(e=>{const[r,t]=(0,i.useState)(null),[o,n]=(0,i.useState)(!0);return(0,i.useEffect)(()=>{(async()=>{n(!0);try{const r=await p()({path:`/eb/api/v1/user-account/dashboard?redirect_to=${e}`});t(r)}catch(e){console.error("Error fetching user data:",e)}finally{n(!1)}})()},[]),{user:r,isLoading:o}})(window.location.href);return o?(0,l.jsx)(te,{children:(0,l.jsx)(Ve,{pageTitle:e,hidePageTitle:r})}):(0,l.jsx)(te,{children:(0,l.jsxs)("div",{className:"eb-user-account__dashboard",children:[!r&&(0,l.jsx)("h3",{className:"eb-dashboard__title",children:e}),(0,l.jsxs)("div",{className:"eb-dashboard__profle",children:[(0,l.jsxs)("div",{className:"eb-profile",children:[(0,l.jsx)("div",{className:"eb-profile__avatar",children:(0,l.jsx)("img",{src:t.avatar,alt:`${t.display_name}'s avatar`})}),(0,l.jsxs)("div",{className:"eb-profile__name",children:[(0,n.__)("Welcome","edwiser-bridge")," ",t.display_name,"!"]})]}),(0,l.jsx)("a",{href:t.logout_url,className:"eb-profile__logout",children:(0,n.__)("Sign out","edwiser-bridge")})]}),(0,l.jsxs)("div",{className:"eb-dashboard__course-summary",children:[(0,l.jsxs)("div",{className:"eb-course-summary eb-enrolled-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(c,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:t.course_statistics.total_enrolled}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Enrolled courses","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-completed-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(m,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:t.course_statistics.completed}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Completed","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-inprogress-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(d,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:t.course_statistics.in_progress}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("In progress","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-notstarted-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(h,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:t.course_statistics.not_started}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Not started","edwiser-bridge")})]})]})]})]})})},Ve=({pageTitle:e,hidePageTitle:r})=>(0,l.jsxs)("div",{className:"eb-user-account__dashboard",children:[!r&&(0,l.jsx)("h3",{className:"eb-dashboard__title",children:e}),(0,l.jsxs)("div",{className:"eb-dashboard__profle",children:[(0,l.jsxs)("div",{className:"eb-profile",children:[(0,l.jsx)("div",{className:"eb-profile__avatar",children:(0,l.jsx)(We,{width:42,height:42})}),(0,l.jsx)(We,{width:120,height:24})]}),(0,l.jsx)(We,{width:80,height:32})]}),(0,l.jsxs)("div",{className:"eb-dashboard__course-summary",children:[(0,l.jsxs)("div",{className:"eb-course-summary eb-enrolled-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(c,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:(0,l.jsx)(We,{width:32,height:24})}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Enrolled courses","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-completed-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(m,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:(0,l.jsx)(We,{width:32,height:24})}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Completed","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-inprogress-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(d,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:(0,l.jsx)(We,{width:32,height:24})}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("In progress","edwiser-bridge")})]})]}),(0,l.jsxs)("div",{className:"eb-course-summary eb-notstarted-courses",children:[(0,l.jsx)("div",{className:"eb-course-summary__icon",children:(0,l.jsx)(h,{})}),(0,l.jsxs)("div",{className:"eb-course-summary__content",children:[(0,l.jsx)("span",{className:"eb-course-summary__course-count",children:(0,l.jsx)(We,{width:32,height:24})}),(0,l.jsx)("span",{className:"eb-course-summary__status",children:(0,n.__)("Not started","edwiser-bridge")})]})]})]})]}),Be=JSON.parse('{"UU":"edwiser-bridge/dashboard"}');(0,o.registerBlockType)(Be.UU,{edit:function({attributes:e,setAttributes:r}){return(0,l.jsxs)("div",{...(0,a.useBlockProps)(),children:[(0,l.jsx)(a.InspectorControls,{children:(0,l.jsxs)(s.PanelBody,{title:(0,n.__)("Dashboard Settings","edwiser-bridge"),initialOpen:!0,children:[(0,l.jsx)(s.ToggleControl,{label:(0,n.__)("Hide Page Title","edwiser-bridge"),checked:e.hidePageTitle,onChange:e=>r({hidePageTitle:e})}),(0,l.jsx)("fieldset",{style:{marginTop:"8px"},children:(0,l.jsx)(s.TextControl,{label:(0,n.__)("Page Title","edwiser-bridge"),type:"text",value:e.pageTitle,onChange:e=>r({pageTitle:e})})})]})}),(0,l.jsx)(Oe,{...e})]})},save:function({attributes:e}){return(0,l.jsx)("div",{...a.useBlockProps.save(),children:(0,l.jsx)("div",{id:"eb-dashboard","data-page-title":e.pageTitle||"","data-hide-page-title":e.hidePageTitle})})}})}},t={};function o(e){var n=t[e];if(void 0!==n)return n.exports;var a=t[e]={exports:{}};return r[e](a,a.exports,o),a.exports}o.m=r,e=[],o.O=(r,t,n,a)=>{if(!t){var s=1/0;for(m=0;m<e.length;m++){for(var[t,n,a]=e[m],i=!0,l=0;l<t.length;l++)(!1&a||s>=a)&&Object.keys(o.O).every(e=>o.O[e](t[l]))?t.splice(l--,1):(i=!1,a<s&&(s=a));if(i){e.splice(m--,1);var c=n();void 0!==c&&(r=c)}}return r}a=a||0;for(var m=e.length;m>0&&e[m-1][2]>a;m--)e[m]=e[m-1];e[m]=[t,n,a]},o.n=e=>{var r=e&&e.__esModule?()=>e.default:()=>e;return o.d(r,{a:r}),r},o.d=(e,r)=>{for(var t in r)o.o(r,t)&&!o.o(e,t)&&Object.defineProperty(e,t,{enumerable:!0,get:r[t]})},o.o=(e,r)=>Object.prototype.hasOwnProperty.call(e,r),(()=>{var e={536:0,840:0};o.O.j=r=>0===e[r];var r=(r,t)=>{var n,a,[s,i,l]=t,c=0;if(s.some(r=>0!==e[r])){for(n in i)o.o(i,n)&&(o.m[n]=i[n]);if(l)var m=l(o)}for(r&&r(t);c<s.length;c++)a=s[c],o.o(e,a)&&e[a]&&e[a][0](),e[a]=0;return o.O(m)},t=globalThis.webpackChunkedwiser_bridge_blocks=globalThis.webpackChunkedwiser_bridge_blocks||[];t.forEach(r.bind(null,0)),t.push=r.bind(null,t.push.bind(t))})();var n=o.O(void 0,[840],()=>o(3));n=o.O(n)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/components/icons.js":
+/*!*****************************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/components/icons.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icons: () => (/* binding */ Icons)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+
+const Icons = {
+  book: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "lucide lucide-book-open-icon lucide-book-open",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M12 7v14"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+    })]
+  }),
+  squareCheck: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "lucide lucide-square-check-big",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "m9 11 3 3L22 4"
+    })]
+  }),
+  circleDashed: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "lucide lucide-circle-dashed",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M10.1 2.182a10 10 0 0 1 3.8 0"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M13.9 21.818a10 10 0 0 1-3.8 0"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M17.609 3.721a10 10 0 0 1 2.69 2.7"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M2.182 13.9a10 10 0 0 1 0-3.8"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M20.279 17.609a10 10 0 0 1-2.7 2.69"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M21.818 10.1a10 10 0 0 1 0 3.8"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M3.721 6.391a10 10 0 0 1 2.7-2.69"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M6.391 20.279a10 10 0 0 1-2.69-2.7"
+    })]
+  }),
+  circleMinus: () => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    className: "lucide lucide-circle-minus",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", {
+      cx: "12",
+      cy: "12",
+      r: "10"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      d: "M8 12h8"
+    })]
+  })
+};
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/dashboard.js":
+/*!**********************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/dashboard.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DashboardSkeleton: () => (/* binding */ DashboardSkeleton),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/icons */ "./edwiser-bridge/blocks/src/dashboard/components/icons.js");
+/* harmony import */ var _hooks_use_dashboard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hooks/use-dashboard */ "./edwiser-bridge/blocks/src/dashboard/hooks/use-dashboard.js");
+/* harmony import */ var _mantine_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mantine/core */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineProvider.mjs");
+/* harmony import */ var _mantine_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mantine/core */ "./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+function Dashboard({
+  pageTitle,
+  hidePageTitle
+}) {
+  const {
+    user,
+    isLoading
+  } = (0,_hooks_use_dashboard__WEBPACK_IMPORTED_MODULE_3__.useDashboard)(window.location.href);
+  if (isLoading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_5__.MantineProvider, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(DashboardSkeleton, {
+        pageTitle: pageTitle,
+        hidePageTitle: hidePageTitle
+      })
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_5__.MantineProvider, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "eb-user-account__dashboard",
+      children: [!hidePageTitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+        className: "eb-dashboard__title",
+        children: pageTitle
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-dashboard__profle",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-profile",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "eb-profile__avatar",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+              src: user.avatar,
+              alt: `${user.display_name}'s avatar`
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "eb-profile__name",
+            children: [(0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Welcome', 'edwiser-bridge'), " ", user.display_name, "!"]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+          href: user.logout_url,
+          className: "eb-profile__logout",
+          children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sign out', 'edwiser-bridge')
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-dashboard__course-summary",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary eb-enrolled-courses",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "eb-course-summary__icon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.book, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "eb-course-summary__content",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__course-count",
+              children: user.course_statistics.total_enrolled
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__status",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enrolled courses', 'edwiser-bridge')
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary eb-completed-courses",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "eb-course-summary__icon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.squareCheck, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "eb-course-summary__content",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__course-count",
+              children: user.course_statistics.completed
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__status",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Completed', 'edwiser-bridge')
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary eb-inprogress-courses",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "eb-course-summary__icon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.circleDashed, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "eb-course-summary__content",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__course-count",
+              children: user.course_statistics.in_progress
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__status",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('In progress', 'edwiser-bridge')
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary eb-notstarted-courses",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "eb-course-summary__icon",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.circleMinus, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "eb-course-summary__content",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__course-count",
+              children: user.course_statistics.not_started
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "eb-course-summary__status",
+              children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Not started', 'edwiser-bridge')
+            })]
+          })]
+        })]
+      })]
+    })
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
+const DashboardSkeleton = ({
+  pageTitle,
+  hidePageTitle
+}) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    className: "eb-user-account__dashboard",
+    children: [!hidePageTitle && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+      className: "eb-dashboard__title",
+      children: pageTitle
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "eb-dashboard__profle",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-profile",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "eb-profile__avatar",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+            width: 42,
+            height: 42
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+          width: 120,
+          height: 24
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+        width: 80,
+        height: 32
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "eb-dashboard__course-summary",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-course-summary eb-enrolled-courses",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "eb-course-summary__icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.book, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__course-count",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+              width: 32,
+              height: 24
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__status",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enrolled courses', 'edwiser-bridge')
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-course-summary eb-completed-courses",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "eb-course-summary__icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.squareCheck, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__course-count",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+              width: 32,
+              height: 24
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__status",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Completed', 'edwiser-bridge')
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-course-summary eb-inprogress-courses",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "eb-course-summary__icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.circleDashed, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__course-count",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+              width: 32,
+              height: 24
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__status",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('In progress', 'edwiser-bridge')
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "eb-course-summary eb-notstarted-courses",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "eb-course-summary__icon",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_icons__WEBPACK_IMPORTED_MODULE_2__.Icons.circleMinus, {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          className: "eb-course-summary__content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__course-count",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_mantine_core__WEBPACK_IMPORTED_MODULE_6__.Skeleton, {
+              width: 32,
+              height: 24
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "eb-course-summary__status",
+            children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Not started', 'edwiser-bridge')
+          })]
+        })]
+      })]
+    })]
+  });
+};
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/edit.js":
+/*!*****************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/edit.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Edit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./edwiser-bridge/blocks/src/dashboard/editor.scss");
+/* harmony import */ var _dashboard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dashboard */ "./edwiser-bridge/blocks/src/dashboard/dashboard.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+
+function Edit({
+  attributes,
+  setAttributes
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)(),
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Dashboard Settings', 'edwiser-bridge'),
+        initialOpen: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Hide Page Title', 'edwiser-bridge'),
+          checked: attributes.hidePageTitle,
+          onChange: value => setAttributes({
+            hidePageTitle: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("fieldset", {
+          style: {
+            marginTop: '8px'
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Page Title', 'edwiser-bridge'),
+            type: "text",
+            value: attributes.pageTitle,
+            onChange: value => setAttributes({
+              pageTitle: value
+            })
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_dashboard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      ...attributes
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/hooks/use-dashboard.js":
+/*!********************************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/hooks/use-dashboard.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useDashboard: () => (/* binding */ useDashboard)
+/* harmony export */ });
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const useDashboard = redirect_to => {
+  const [user, setUser] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+  const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+    const fetchDashboard = async () => {
+      setIsLoading(true);
+      try {
+        const userData = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
+          path: `/eb/api/v1/user-account/dashboard?redirect_to=${redirect_to}`
+        });
+        setUser(userData);
+      } catch (err) {
+        console.error('Error fetching user data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDashboard();
+  }, []);
+  return {
+    user,
+    isLoading
+  };
+};
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/index.js":
+/*!******************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/index.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mantine_core_styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mantine/core/styles.css */ "./node_modules/@mantine/core/styles.css");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./edwiser-bridge/blocks/src/dashboard/style.scss");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./edit */ "./edwiser-bridge/blocks/src/dashboard/edit.js");
+/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./save */ "./edwiser-bridge/blocks/src/dashboard/save.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./block.json */ "./edwiser-bridge/blocks/src/dashboard/block.json");
+
+
+
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_2__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_5__.name, {
+  edit: _edit__WEBPACK_IMPORTED_MODULE_3__["default"],
+  save: _save__WEBPACK_IMPORTED_MODULE_4__["default"]
+});
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/save.js":
+/*!*****************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/save.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ save)
+/* harmony export */ });
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function save({
+  attributes
+}) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save(),
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      id: "eb-dashboard",
+      "data-page-title": attributes.pageTitle || '',
+      "data-hide-page-title": attributes.hidePageTitle
+    })
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/styles.css":
+/*!***********************************************!*\
+  !*** ./node_modules/@mantine/core/styles.css ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/editor.scss":
+/*!*********************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/editor.scss ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/style.scss":
+/*!********************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/style.scss ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
+
+/***/ }),
+
+/***/ "react/jsx-runtime":
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ }),
+
+/***/ "@wordpress/api-fetch":
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ }),
+
+/***/ "@wordpress/blocks":
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.mjs":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.mjs ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _core_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../core/utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _core_utils_get_size_get_size_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../core/utils/get-size/get-size.mjs */ "./node_modules/@mantine/core/esm/core/utils/get-size/get-size.mjs");
+/* harmony import */ var _core_styles_api_create_vars_resolver_create_vars_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../core/styles-api/create-vars-resolver/create-vars-resolver.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/create-vars-resolver/create-vars-resolver.mjs");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _core_MantineProvider_use_props_use_props_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../core/MantineProvider/use-props/use-props.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/use-props/use-props.mjs");
+/* harmony import */ var _core_styles_api_use_styles_use_styles_mjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../core/styles-api/use-styles/use-styles.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-styles.mjs");
+/* harmony import */ var _core_Box_Box_mjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../core/Box/Box.mjs */ "./node_modules/@mantine/core/esm/core/Box/Box.mjs");
+/* harmony import */ var _core_factory_factory_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../core/factory/factory.mjs */ "./node_modules/@mantine/core/esm/core/factory/factory.mjs");
+/* harmony import */ var _Skeleton_module_css_mjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Skeleton.module.css.mjs */ "./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.module.css.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const defaultProps = {
+  visible: true,
+  animate: true
+};
+const varsResolver = (0,_core_styles_api_create_vars_resolver_create_vars_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__.createVarsResolver)(
+  (_, { width, height, radius, circle }) => ({
+    root: {
+      "--skeleton-height": (0,_core_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(height),
+      "--skeleton-width": circle ? (0,_core_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(height) : (0,_core_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(width),
+      "--skeleton-radius": circle ? "1000px" : radius === void 0 ? void 0 : (0,_core_utils_get_size_get_size_mjs__WEBPACK_IMPORTED_MODULE_5__.getRadius)(radius)
+    }
+  })
+);
+const Skeleton = (0,_core_factory_factory_mjs__WEBPACK_IMPORTED_MODULE_6__.factory)((_props, ref) => {
+  const props = (0,_core_MantineProvider_use_props_use_props_mjs__WEBPACK_IMPORTED_MODULE_7__.useProps)("Skeleton", defaultProps, _props);
+  const {
+    classNames,
+    className,
+    style,
+    styles,
+    unstyled,
+    vars,
+    width,
+    height,
+    circle,
+    visible,
+    radius,
+    animate,
+    mod,
+    ...others
+  } = props;
+  const getStyles = (0,_core_styles_api_use_styles_use_styles_mjs__WEBPACK_IMPORTED_MODULE_8__.useStyles)({
+    name: "Skeleton",
+    classes: _Skeleton_module_css_mjs__WEBPACK_IMPORTED_MODULE_9__["default"],
+    props,
+    className,
+    style,
+    classNames,
+    styles,
+    unstyled,
+    vars,
+    varsResolver
+  });
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_core_Box_Box_mjs__WEBPACK_IMPORTED_MODULE_10__.Box, { ref, ...getStyles("root"), mod: [{ visible, animate }, mod], ...others });
+});
+Skeleton.classes = _Skeleton_module_css_mjs__WEBPACK_IMPORTED_MODULE_9__["default"];
+Skeleton.displayName = "@mantine/core/Skeleton";
+
+
+//# sourceMappingURL=Skeleton.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.module.css.mjs":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/components/Skeleton/Skeleton.module.css.mjs ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ classes)
+/* harmony export */ });
+'use client';
+var classes = {"root":"m_18320242","skeleton-fade":"m_299c329c"};
+
+
+//# sourceMappingURL=Skeleton.module.css.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/Box.mjs":
+/*!*********************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/Box.mjs ***!
+  \*********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Box: () => (/* binding */ Box)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _factory_create_polymorphic_component_mjs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../factory/create-polymorphic-component.mjs */ "./node_modules/@mantine/core/esm/core/factory/create-polymorphic-component.mjs");
+/* harmony import */ var _InlineStyles_InlineStyles_mjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../InlineStyles/InlineStyles.mjs */ "./node_modules/@mantine/core/esm/core/InlineStyles/InlineStyles.mjs");
+/* harmony import */ var _utils_is_number_like_is_number_like_mjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../utils/is-number-like/is-number-like.mjs */ "./node_modules/@mantine/core/esm/core/utils/is-number-like/is-number-like.mjs");
+/* harmony import */ var _MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../MantineProvider/Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+/* harmony import */ var _get_box_mod_get_box_mod_mjs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./get-box-mod/get-box-mod.mjs */ "./node_modules/@mantine/core/esm/core/Box/get-box-mod/get-box-mod.mjs");
+/* harmony import */ var _get_box_style_get_box_style_mjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./get-box-style/get-box-style.mjs */ "./node_modules/@mantine/core/esm/core/Box/get-box-style/get-box-style.mjs");
+/* harmony import */ var _style_props_extract_style_props_extract_style_props_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./style-props/extract-style-props/extract-style-props.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/extract-style-props/extract-style-props.mjs");
+/* harmony import */ var _style_props_style_props_data_mjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./style-props/style-props-data.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/style-props-data.mjs");
+/* harmony import */ var _style_props_parse_style_props_parse_style_props_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./style-props/parse-style-props/parse-style-props.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/parse-style-props.mjs");
+/* harmony import */ var _use_random_classname_use_random_classname_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-random-classname/use-random-classname.mjs */ "./node_modules/@mantine/core/esm/core/Box/use-random-classname/use-random-classname.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const _Box = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+  ({
+    component,
+    style,
+    __vars,
+    className,
+    variant,
+    mod,
+    size,
+    hiddenFrom,
+    visibleFrom,
+    lightHidden,
+    darkHidden,
+    renderRoot,
+    __size,
+    ...others
+  }, ref) => {
+    const theme = (0,_MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineTheme)();
+    const Element = component || "div";
+    const { styleProps, rest } = (0,_style_props_extract_style_props_extract_style_props_mjs__WEBPACK_IMPORTED_MODULE_4__.extractStyleProps)(others);
+    const useSxTransform = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_5__.useMantineSxTransform)();
+    const transformedSx = useSxTransform?.()?.(styleProps.sx);
+    const responsiveClassName = (0,_use_random_classname_use_random_classname_mjs__WEBPACK_IMPORTED_MODULE_6__.useRandomClassName)();
+    const parsedStyleProps = (0,_style_props_parse_style_props_parse_style_props_mjs__WEBPACK_IMPORTED_MODULE_7__.parseStyleProps)({
+      styleProps,
+      theme,
+      data: _style_props_style_props_data_mjs__WEBPACK_IMPORTED_MODULE_8__.STYlE_PROPS_DATA
+    });
+    const props = {
+      ref,
+      style: (0,_get_box_style_get_box_style_mjs__WEBPACK_IMPORTED_MODULE_9__.getBoxStyle)({
+        theme,
+        style,
+        vars: __vars,
+        styleProps: parsedStyleProps.inlineStyles
+      }),
+      className: (0,clsx__WEBPACK_IMPORTED_MODULE_2__["default"])(className, transformedSx, {
+        [responsiveClassName]: parsedStyleProps.hasResponsiveStyles,
+        "mantine-light-hidden": lightHidden,
+        "mantine-dark-hidden": darkHidden,
+        [`mantine-hidden-from-${hiddenFrom}`]: hiddenFrom,
+        [`mantine-visible-from-${visibleFrom}`]: visibleFrom
+      }),
+      "data-variant": variant,
+      "data-size": (0,_utils_is_number_like_is_number_like_mjs__WEBPACK_IMPORTED_MODULE_10__.isNumberLike)(size) ? void 0 : size || void 0,
+      size: __size,
+      ...(0,_get_box_mod_get_box_mod_mjs__WEBPACK_IMPORTED_MODULE_11__.getBoxMod)(mod),
+      ...rest
+    };
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [
+      parsedStyleProps.hasResponsiveStyles && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+        _InlineStyles_InlineStyles_mjs__WEBPACK_IMPORTED_MODULE_12__.InlineStyles,
+        {
+          selector: `.${responsiveClassName}`,
+          styles: parsedStyleProps.styles,
+          media: parsedStyleProps.media
+        }
+      ),
+      typeof renderRoot === "function" ? renderRoot(props) : /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Element, { ...props })
+    ] });
+  }
+);
+_Box.displayName = "@mantine/core/Box";
+const Box = (0,_factory_create_polymorphic_component_mjs__WEBPACK_IMPORTED_MODULE_13__.createPolymorphicComponent)(_Box);
+
+
+//# sourceMappingURL=Box.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/get-box-mod/get-box-mod.mjs":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/get-box-mod/get-box-mod.mjs ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getBoxMod: () => (/* binding */ getBoxMod),
+/* harmony export */   getMod: () => (/* binding */ getMod)
+/* harmony export */ });
+'use client';
+function transformModKey(key) {
+  return key.startsWith("data-") ? key : `data-${key}`;
+}
+function getMod(props) {
+  return Object.keys(props).reduce((acc, key) => {
+    const value = props[key];
+    if (value === void 0 || value === "" || value === false || value === null) {
+      return acc;
+    }
+    acc[transformModKey(key)] = props[key];
+    return acc;
+  }, {});
+}
+function getBoxMod(mod) {
+  if (!mod) {
+    return null;
+  }
+  if (typeof mod === "string") {
+    return { [transformModKey(mod)]: true };
+  }
+  if (Array.isArray(mod)) {
+    return [...mod].reduce(
+      (acc, value) => ({ ...acc, ...getBoxMod(value) }),
+      {}
+    );
+  }
+  return getMod(mod);
+}
+
+
+//# sourceMappingURL=get-box-mod.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/get-box-style/get-box-style.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/get-box-style/get-box-style.mjs ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getBoxStyle: () => (/* binding */ getBoxStyle)
+/* harmony export */ });
+'use client';
+function mergeStyles(styles, theme) {
+  if (Array.isArray(styles)) {
+    return [...styles].reduce(
+      (acc, item) => ({ ...acc, ...mergeStyles(item, theme) }),
+      {}
+    );
+  }
+  if (typeof styles === "function") {
+    return styles(theme);
+  }
+  if (styles == null) {
+    return {};
+  }
+  return styles;
+}
+function getBoxStyle({
+  theme,
+  style,
+  vars,
+  styleProps
+}) {
+  const _style = mergeStyles(style, theme);
+  const _vars = mergeStyles(vars, theme);
+  return { ..._style, ..._vars, ...styleProps };
+}
+
+
+//# sourceMappingURL=get-box-style.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/extract-style-props/extract-style-props.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/extract-style-props/extract-style-props.mjs ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   extractStyleProps: () => (/* binding */ extractStyleProps)
+/* harmony export */ });
+/* harmony import */ var _utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/filter-props/filter-props.mjs */ "./node_modules/@mantine/core/esm/core/utils/filter-props/filter-props.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+function extractStyleProps(others) {
+  const {
+    m,
+    mx,
+    my,
+    mt,
+    mb,
+    ml,
+    mr,
+    me,
+    ms,
+    p,
+    px,
+    py,
+    pt,
+    pb,
+    pl,
+    pr,
+    pe,
+    ps,
+    bd,
+    bg,
+    c,
+    opacity,
+    ff,
+    fz,
+    fw,
+    lts,
+    ta,
+    lh,
+    fs,
+    tt,
+    td,
+    w,
+    miw,
+    maw,
+    h,
+    mih,
+    mah,
+    bgsz,
+    bgp,
+    bgr,
+    bga,
+    pos,
+    top,
+    left,
+    bottom,
+    right,
+    inset,
+    display,
+    flex,
+    hiddenFrom,
+    visibleFrom,
+    lightHidden,
+    darkHidden,
+    sx,
+    ...rest
+  } = others;
+  const styleProps = (0,_utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_2__.filterProps)({
+    m,
+    mx,
+    my,
+    mt,
+    mb,
+    ml,
+    mr,
+    me,
+    ms,
+    p,
+    px,
+    py,
+    pt,
+    pb,
+    pl,
+    pr,
+    pe,
+    ps,
+    bd,
+    bg,
+    c,
+    opacity,
+    ff,
+    fz,
+    fw,
+    lts,
+    ta,
+    lh,
+    fs,
+    tt,
+    td,
+    w,
+    miw,
+    maw,
+    h,
+    mih,
+    mah,
+    bgsz,
+    bgp,
+    bgr,
+    bga,
+    pos,
+    top,
+    left,
+    bottom,
+    right,
+    inset,
+    display,
+    flex,
+    hiddenFrom,
+    visibleFrom,
+    lightHidden,
+    darkHidden,
+    sx
+  });
+  return { styleProps, rest };
+}
+
+
+//# sourceMappingURL=extract-style-props.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/parse-style-props.mjs":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/parse-style-props.mjs ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseStyleProps: () => (/* binding */ parseStyleProps)
+/* harmony export */ });
+/* harmony import */ var _utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/keys/keys.mjs */ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _resolvers_index_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../resolvers/index.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/index.mjs");
+/* harmony import */ var _sort_media_queries_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sort-media-queries.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/sort-media-queries.mjs");
+'use client';
+
+
+
+
+
+
+
+function hasResponsiveStyles(styleProp) {
+  if (typeof styleProp !== "object" || styleProp === null) {
+    return false;
+  }
+  const breakpoints = Object.keys(styleProp);
+  if (breakpoints.length === 1 && breakpoints[0] === "base") {
+    return false;
+  }
+  return true;
+}
+function getBaseValue(value) {
+  if (typeof value === "object" && value !== null) {
+    if ("base" in value) {
+      return value.base;
+    }
+    return void 0;
+  }
+  return value;
+}
+function getBreakpointKeys(value) {
+  if (typeof value === "object" && value !== null) {
+    return (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(value).filter((key) => key !== "base");
+  }
+  return [];
+}
+function getBreakpointValue(value, breakpoint) {
+  if (typeof value === "object" && value !== null && breakpoint in value) {
+    return value[breakpoint];
+  }
+  return value;
+}
+function parseStyleProps({
+  styleProps,
+  data,
+  theme
+}) {
+  return (0,_sort_media_queries_mjs__WEBPACK_IMPORTED_MODULE_3__.sortMediaQueries)(
+    (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(styleProps).reduce(
+      (acc, styleProp) => {
+        if (styleProp === "hiddenFrom" || styleProp === "visibleFrom" || styleProp === "sx") {
+          return acc;
+        }
+        const propertyData = data[styleProp];
+        const properties = Array.isArray(propertyData.property) ? propertyData.property : [propertyData.property];
+        const baseValue = getBaseValue(styleProps[styleProp]);
+        if (!hasResponsiveStyles(styleProps[styleProp])) {
+          properties.forEach((property) => {
+            acc.inlineStyles[property] = _resolvers_index_mjs__WEBPACK_IMPORTED_MODULE_4__.resolvers[propertyData.type](baseValue, theme);
+          });
+          return acc;
+        }
+        acc.hasResponsiveStyles = true;
+        const breakpoints = getBreakpointKeys(styleProps[styleProp]);
+        properties.forEach((property) => {
+          if (baseValue) {
+            acc.styles[property] = _resolvers_index_mjs__WEBPACK_IMPORTED_MODULE_4__.resolvers[propertyData.type](baseValue, theme);
+          }
+          breakpoints.forEach((breakpoint) => {
+            const bp = `(min-width: ${theme.breakpoints[breakpoint]})`;
+            acc.media[bp] = {
+              ...acc.media[bp],
+              [property]: _resolvers_index_mjs__WEBPACK_IMPORTED_MODULE_4__.resolvers[propertyData.type](
+                getBreakpointValue(styleProps[styleProp], breakpoint),
+                theme
+              )
+            };
+          });
+        });
+        return acc;
+      },
+      {
+        hasResponsiveStyles: false,
+        styles: {},
+        inlineStyles: {},
+        media: {}
+      }
+    )
+  );
+}
+
+
+//# sourceMappingURL=parse-style-props.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/sort-media-queries.mjs":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/parse-style-props/sort-media-queries.mjs ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   sortMediaQueries: () => (/* binding */ sortMediaQueries)
+/* harmony export */ });
+'use client';
+function replaceMediaQuery(query) {
+  return query.replace("(min-width: ", "").replace("em)", "");
+}
+function sortMediaQueries({
+  media,
+  ...props
+}) {
+  const breakpoints = Object.keys(media);
+  const sortedMedia = breakpoints.sort((a, b) => Number(replaceMediaQuery(a)) - Number(replaceMediaQuery(b))).map((query) => ({ query, styles: media[query] }));
+  return { ...props, media: sortedMedia };
+}
+
+
+//# sourceMappingURL=sort-media-queries.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/border-resolver/border-resolver.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/border-resolver/border-resolver.mjs ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   borderResolver: () => (/* binding */ borderResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_resolver_color_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../color-resolver/color-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/color-resolver/color-resolver.mjs");
+'use client';
+
+
+
+
+
+
+function borderResolver(value, theme) {
+  if (typeof value === "number") {
+    return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+  }
+  if (typeof value === "string") {
+    const [size, style, ...colorTuple] = value.split(" ").filter((val) => val.trim() !== "");
+    let result = `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(size)}`;
+    style && (result += ` ${style}`);
+    colorTuple.length > 0 && (result += ` ${(0,_color_resolver_color_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__.colorResolver)(colorTuple.join(" "), theme)}`);
+    return result.trim();
+  }
+  return value;
+}
+
+
+//# sourceMappingURL=border-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/color-resolver/color-resolver.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/color-resolver/color-resolver.mjs ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   colorResolver: () => (/* binding */ colorResolver),
+/* harmony export */   textColorResolver: () => (/* binding */ textColorResolver)
+/* harmony export */ });
+/* harmony import */ var _MantineProvider_color_functions_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+
+
+
+
+
+function colorResolver(color, theme) {
+  const parsedColor = (0,_MantineProvider_color_functions_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_2__.parseThemeColor)({ color, theme });
+  if (parsedColor.color === "dimmed") {
+    return "var(--mantine-color-dimmed)";
+  }
+  if (parsedColor.color === "bright") {
+    return "var(--mantine-color-bright)";
+  }
+  return parsedColor.variable ? `var(${parsedColor.variable})` : parsedColor.color;
+}
+function textColorResolver(color, theme) {
+  const parsedColor = (0,_MantineProvider_color_functions_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_2__.parseThemeColor)({ color, theme });
+  if (parsedColor.isThemeColor && parsedColor.shade === void 0) {
+    return `var(--mantine-color-${parsedColor.color}-text)`;
+  }
+  return colorResolver(color, theme);
+}
+
+
+//# sourceMappingURL=color-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-family-resolver/font-family-resolver.mjs":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-family-resolver/font-family-resolver.mjs ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fontFamilyResolver: () => (/* binding */ fontFamilyResolver)
+/* harmony export */ });
+'use client';
+const values = {
+  text: "var(--mantine-font-family)",
+  mono: "var(--mantine-font-family-monospace)",
+  monospace: "var(--mantine-font-family-monospace)",
+  heading: "var(--mantine-font-family-headings)",
+  headings: "var(--mantine-font-family-headings)"
+};
+function fontFamilyResolver(fontFamily) {
+  if (typeof fontFamily === "string" && fontFamily in values) {
+    return values[fontFamily];
+  }
+  return fontFamily;
+}
+
+
+//# sourceMappingURL=font-family-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-size-resolver/font-size-resolver.mjs":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-size-resolver/font-size-resolver.mjs ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fontSizeResolver: () => (/* binding */ fontSizeResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+const headings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+function fontSizeResolver(value, theme) {
+  if (typeof value === "string" && value in theme.fontSizes) {
+    return `var(--mantine-font-size-${value})`;
+  }
+  if (typeof value === "string" && headings.includes(value)) {
+    return `var(--mantine-${value}-font-size)`;
+  }
+  if (typeof value === "number") {
+    return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+  }
+  if (typeof value === "string") {
+    return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+  }
+  return value;
+}
+
+
+//# sourceMappingURL=font-size-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/identity-resolver/identity-resolver.mjs":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/identity-resolver/identity-resolver.mjs ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   identityResolver: () => (/* binding */ identityResolver)
+/* harmony export */ });
+'use client';
+function identityResolver(value) {
+  return value;
+}
+
+
+//# sourceMappingURL=identity-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/index.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/index.mjs ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolvers: () => (/* binding */ resolvers)
+/* harmony export */ });
+/* harmony import */ var _border_resolver_border_resolver_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./border-resolver/border-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/border-resolver/border-resolver.mjs");
+/* harmony import */ var _color_resolver_color_resolver_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./color-resolver/color-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/color-resolver/color-resolver.mjs");
+/* harmony import */ var _font_family_resolver_font_family_resolver_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./font-family-resolver/font-family-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-family-resolver/font-family-resolver.mjs");
+/* harmony import */ var _font_size_resolver_font_size_resolver_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./font-size-resolver/font-size-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/font-size-resolver/font-size-resolver.mjs");
+/* harmony import */ var _identity_resolver_identity_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./identity-resolver/identity-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/identity-resolver/identity-resolver.mjs");
+/* harmony import */ var _line_height_resolver_line_height_resolver_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./line-height-resolver/line-height-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/line-height-resolver/line-height-resolver.mjs");
+/* harmony import */ var _size_resolver_size_resolver_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./size-resolver/size-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/size-resolver/size-resolver.mjs");
+/* harmony import */ var _spacing_resolver_spacing_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./spacing-resolver/spacing-resolver.mjs */ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/spacing-resolver/spacing-resolver.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+const resolvers = {
+  color: _color_resolver_color_resolver_mjs__WEBPACK_IMPORTED_MODULE_0__.colorResolver,
+  textColor: _color_resolver_color_resolver_mjs__WEBPACK_IMPORTED_MODULE_0__.textColorResolver,
+  fontSize: _font_size_resolver_font_size_resolver_mjs__WEBPACK_IMPORTED_MODULE_1__.fontSizeResolver,
+  spacing: _spacing_resolver_spacing_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__.spacingResolver,
+  identity: _identity_resolver_identity_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__.identityResolver,
+  size: _size_resolver_size_resolver_mjs__WEBPACK_IMPORTED_MODULE_4__.sizeResolver,
+  lineHeight: _line_height_resolver_line_height_resolver_mjs__WEBPACK_IMPORTED_MODULE_5__.lineHeightResolver,
+  fontFamily: _font_family_resolver_font_family_resolver_mjs__WEBPACK_IMPORTED_MODULE_6__.fontFamilyResolver,
+  border: _border_resolver_border_resolver_mjs__WEBPACK_IMPORTED_MODULE_7__.borderResolver
+};
+
+
+//# sourceMappingURL=index.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/line-height-resolver/line-height-resolver.mjs":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/line-height-resolver/line-height-resolver.mjs ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   lineHeightResolver: () => (/* binding */ lineHeightResolver)
+/* harmony export */ });
+'use client';
+const headings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+function lineHeightResolver(value, theme) {
+  if (typeof value === "string" && value in theme.lineHeights) {
+    return `var(--mantine-line-height-${value})`;
+  }
+  if (typeof value === "string" && headings.includes(value)) {
+    return `var(--mantine-${value}-line-height)`;
+  }
+  return value;
+}
+
+
+//# sourceMappingURL=line-height-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/size-resolver/size-resolver.mjs":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/size-resolver/size-resolver.mjs ***!
+  \*******************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   sizeResolver: () => (/* binding */ sizeResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+function sizeResolver(value) {
+  if (typeof value === "number") {
+    return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+  }
+  return value;
+}
+
+
+//# sourceMappingURL=size-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/spacing-resolver/spacing-resolver.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/resolvers/spacing-resolver/spacing-resolver.mjs ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   spacingResolver: () => (/* binding */ spacingResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+function spacingResolver(value, theme) {
+  if (typeof value === "number") {
+    return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+  }
+  if (typeof value === "string") {
+    const mod = value.replace("-", "");
+    if (!(mod in theme.spacing)) {
+      return (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_2__.rem)(value);
+    }
+    const variable = `--mantine-spacing-${mod}`;
+    return value.startsWith("-") ? `calc(var(${variable}) * -1)` : `var(${variable})`;
+  }
+  return value;
+}
+
+
+//# sourceMappingURL=spacing-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/style-props/style-props-data.mjs":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/style-props/style-props-data.mjs ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   STYlE_PROPS_DATA: () => (/* binding */ STYlE_PROPS_DATA)
+/* harmony export */ });
+'use client';
+const STYlE_PROPS_DATA = {
+  m: { type: "spacing", property: "margin" },
+  mt: { type: "spacing", property: "marginTop" },
+  mb: { type: "spacing", property: "marginBottom" },
+  ml: { type: "spacing", property: "marginLeft" },
+  mr: { type: "spacing", property: "marginRight" },
+  ms: { type: "spacing", property: "marginInlineStart" },
+  me: { type: "spacing", property: "marginInlineEnd" },
+  mx: { type: "spacing", property: "marginInline" },
+  my: { type: "spacing", property: "marginBlock" },
+  p: { type: "spacing", property: "padding" },
+  pt: { type: "spacing", property: "paddingTop" },
+  pb: { type: "spacing", property: "paddingBottom" },
+  pl: { type: "spacing", property: "paddingLeft" },
+  pr: { type: "spacing", property: "paddingRight" },
+  ps: { type: "spacing", property: "paddingInlineStart" },
+  pe: { type: "spacing", property: "paddingInlineEnd" },
+  px: { type: "spacing", property: "paddingInline" },
+  py: { type: "spacing", property: "paddingBlock" },
+  bd: { type: "border", property: "border" },
+  bg: { type: "color", property: "background" },
+  c: { type: "textColor", property: "color" },
+  opacity: { type: "identity", property: "opacity" },
+  ff: { type: "fontFamily", property: "fontFamily" },
+  fz: { type: "fontSize", property: "fontSize" },
+  fw: { type: "identity", property: "fontWeight" },
+  lts: { type: "size", property: "letterSpacing" },
+  ta: { type: "identity", property: "textAlign" },
+  lh: { type: "lineHeight", property: "lineHeight" },
+  fs: { type: "identity", property: "fontStyle" },
+  tt: { type: "identity", property: "textTransform" },
+  td: { type: "identity", property: "textDecoration" },
+  w: { type: "spacing", property: "width" },
+  miw: { type: "spacing", property: "minWidth" },
+  maw: { type: "spacing", property: "maxWidth" },
+  h: { type: "spacing", property: "height" },
+  mih: { type: "spacing", property: "minHeight" },
+  mah: { type: "spacing", property: "maxHeight" },
+  bgsz: { type: "size", property: "backgroundSize" },
+  bgp: { type: "identity", property: "backgroundPosition" },
+  bgr: { type: "identity", property: "backgroundRepeat" },
+  bga: { type: "identity", property: "backgroundAttachment" },
+  pos: { type: "identity", property: "position" },
+  top: { type: "size", property: "top" },
+  left: { type: "size", property: "left" },
+  bottom: { type: "size", property: "bottom" },
+  right: { type: "size", property: "right" },
+  inset: { type: "size", property: "inset" },
+  display: { type: "identity", property: "display" },
+  flex: { type: "identity", property: "flex" }
+};
+
+
+//# sourceMappingURL=style-props-data.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/Box/use-random-classname/use-random-classname.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/Box/use-random-classname/use-random-classname.mjs ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useRandomClassName: () => (/* binding */ useRandomClassName)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+'use client';
+
+
+function useRandomClassName() {
+  const id = (0,react__WEBPACK_IMPORTED_MODULE_0__.useId)().replace(/:/g, "");
+  return `__m__-${id}`;
+}
+
+
+//# sourceMappingURL=use-random-classname.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/InlineStyles/InlineStyles.mjs":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/InlineStyles/InlineStyles.mjs ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   InlineStyles: () => (/* binding */ InlineStyles)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MantineProvider/Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _styles_to_string_styles_to_string_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles-to-string/styles-to-string.mjs */ "./node_modules/@mantine/core/esm/core/InlineStyles/styles-to-string/styles-to-string.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+function InlineStyles(props) {
+  const nonce = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineStyleNonce)();
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+    "style",
+    {
+      "data-mantine-styles": "inline",
+      nonce: nonce?.(),
+      dangerouslySetInnerHTML: { __html: (0,_styles_to_string_styles_to_string_mjs__WEBPACK_IMPORTED_MODULE_3__.stylesToString)(props) }
+    }
+  );
+}
+
+
+//# sourceMappingURL=InlineStyles.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/InlineStyles/css-object-to-string/css-object-to-string.mjs":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/InlineStyles/css-object-to-string/css-object-to-string.mjs ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cssObjectToString: () => (/* binding */ cssObjectToString)
+/* harmony export */ });
+/* harmony import */ var _utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/keys/keys.mjs */ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs");
+/* harmony import */ var _utils_camel_to_kebab_case_camel_to_kebab_case_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/camel-to-kebab-case/camel-to-kebab-case.mjs */ "./node_modules/@mantine/core/esm/core/utils/camel-to-kebab-case/camel-to-kebab-case.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+
+function cssObjectToString(css) {
+  return (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(css).reduce(
+    (acc, rule) => css[rule] !== void 0 ? `${acc}${(0,_utils_camel_to_kebab_case_camel_to_kebab_case_mjs__WEBPACK_IMPORTED_MODULE_3__.camelToKebabCase)(rule)}:${css[rule]};` : acc,
+    ""
+  ).trim();
+}
+
+
+//# sourceMappingURL=css-object-to-string.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/InlineStyles/styles-to-string/styles-to-string.mjs":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/InlineStyles/styles-to-string/styles-to-string.mjs ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   stylesToString: () => (/* binding */ stylesToString)
+/* harmony export */ });
+/* harmony import */ var _css_object_to_string_css_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css-object-to-string/css-object-to-string.mjs */ "./node_modules/@mantine/core/esm/core/InlineStyles/css-object-to-string/css-object-to-string.mjs");
+'use client';
+
+
+function stylesToString({ selector, styles, media, container }) {
+  const baseStyles = styles ? (0,_css_object_to_string_css_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssObjectToString)(styles) : "";
+  const mediaQueryStyles = !Array.isArray(media) ? [] : media.map((item) => `@media${item.query}{${selector}{${(0,_css_object_to_string_css_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssObjectToString)(item.styles)}}}`);
+  const containerStyles = !Array.isArray(container) ? [] : container.map(
+    (item) => `@container ${item.query}{${selector}{${(0,_css_object_to_string_css_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssObjectToString)(item.styles)}}}`
+  );
+  return `${baseStyles ? `${selector}{${baseStyles}}` : ""}${mediaQueryStyles.join("")}${containerStyles.join("")}`.trim();
+}
+
+
+//# sourceMappingURL=styles-to-string.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MantineContext: () => (/* binding */ MantineContext),
+/* harmony export */   useMantineClassNamesPrefix: () => (/* binding */ useMantineClassNamesPrefix),
+/* harmony export */   useMantineContext: () => (/* binding */ useMantineContext),
+/* harmony export */   useMantineCssVariablesResolver: () => (/* binding */ useMantineCssVariablesResolver),
+/* harmony export */   useMantineIsHeadless: () => (/* binding */ useMantineIsHeadless),
+/* harmony export */   useMantineStyleNonce: () => (/* binding */ useMantineStyleNonce),
+/* harmony export */   useMantineStylesTransform: () => (/* binding */ useMantineStylesTransform),
+/* harmony export */   useMantineSxTransform: () => (/* binding */ useMantineSxTransform),
+/* harmony export */   useMantineWithStaticClasses: () => (/* binding */ useMantineWithStaticClasses)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+'use client';
+
+
+const MantineContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+function useMantineContext() {
+  const ctx = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MantineContext);
+  if (!ctx) {
+    throw new Error("[@mantine/core] MantineProvider was not found in tree");
+  }
+  return ctx;
+}
+function useMantineCssVariablesResolver() {
+  return useMantineContext().cssVariablesResolver;
+}
+function useMantineClassNamesPrefix() {
+  return useMantineContext().classNamesPrefix;
+}
+function useMantineStyleNonce() {
+  return useMantineContext().getStyleNonce;
+}
+function useMantineWithStaticClasses() {
+  return useMantineContext().withStaticClasses;
+}
+function useMantineIsHeadless() {
+  return useMantineContext().headless;
+}
+function useMantineSxTransform() {
+  return useMantineContext().stylesTransform?.sx;
+}
+function useMantineStylesTransform() {
+  return useMantineContext().stylesTransform?.styles;
+}
+
+
+//# sourceMappingURL=Mantine.context.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineClasses/MantineClasses.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineClasses/MantineClasses.mjs ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MantineClasses: () => (/* binding */ MantineClasses)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/keys/keys.mjs */ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs");
+/* harmony import */ var _utils_units_converters_px_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/units-converters/px.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/px.mjs");
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+function MantineClasses() {
+  const theme = (0,_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineTheme)();
+  const nonce = (0,_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineStyleNonce)();
+  const classes = (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__.keys)(theme.breakpoints).reduce((acc, breakpoint) => {
+    const isPxBreakpoint = theme.breakpoints[breakpoint].includes("px");
+    const pxValue = (0,_utils_units_converters_px_mjs__WEBPACK_IMPORTED_MODULE_5__.px)(theme.breakpoints[breakpoint]);
+    const maxWidthBreakpoint = isPxBreakpoint ? `${pxValue - 0.1}px` : (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_6__.em)(pxValue - 0.1);
+    const minWidthBreakpoint = isPxBreakpoint ? `${pxValue}px` : (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_6__.em)(pxValue);
+    return `${acc}@media (max-width: ${maxWidthBreakpoint}) {.mantine-visible-from-${breakpoint} {display: none !important;}}@media (min-width: ${minWidthBreakpoint}) {.mantine-hidden-from-${breakpoint} {display: none !important;}}`;
+  }, "");
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+    "style",
+    {
+      "data-mantine-styles": "classes",
+      nonce: nonce?.(),
+      dangerouslySetInnerHTML: { __html: classes }
+    }
+  );
+}
+
+
+//# sourceMappingURL=MantineClasses.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/MantineCssVariables.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/MantineCssVariables.mjs ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MantineCssVariables: () => (/* binding */ MantineCssVariables)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _convert_css_variables_convert_css_variables_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../convert-css-variables/convert-css-variables.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/convert-css-variables.mjs");
+/* harmony import */ var _Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+/* harmony import */ var _get_merged_variables_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./get-merged-variables.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-merged-variables.mjs");
+/* harmony import */ var _remove_default_variables_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./remove-default-variables.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/remove-default-variables.mjs");
+'use client';
+
+
+
+
+
+
+
+function getColorSchemeCssVariables(selector) {
+  return `
+  ${selector}[data-mantine-color-scheme="dark"] { --mantine-color-scheme: dark; }
+  ${selector}[data-mantine-color-scheme="light"] { --mantine-color-scheme: light; }
+`;
+}
+function MantineCssVariables({
+  cssVariablesSelector,
+  deduplicateCssVariables
+}) {
+  const theme = (0,_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_1__.useMantineTheme)();
+  const nonce = (0,_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineStyleNonce)();
+  const generator = (0,_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineCssVariablesResolver)();
+  const mergedVariables = (0,_get_merged_variables_mjs__WEBPACK_IMPORTED_MODULE_3__.getMergedVariables)({ theme, generator });
+  const shouldCleanVariables = cssVariablesSelector === ":root" && deduplicateCssVariables;
+  const cleanedVariables = shouldCleanVariables ? (0,_remove_default_variables_mjs__WEBPACK_IMPORTED_MODULE_4__.removeDefaultVariables)(mergedVariables) : mergedVariables;
+  const css = (0,_convert_css_variables_convert_css_variables_mjs__WEBPACK_IMPORTED_MODULE_5__.convertCssVariables)(cleanedVariables, cssVariablesSelector);
+  if (css) {
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      "style",
+      {
+        "data-mantine-styles": true,
+        nonce: nonce?.(),
+        dangerouslySetInnerHTML: {
+          __html: `${css}${shouldCleanVariables ? "" : getColorSchemeCssVariables(cssVariablesSelector)}`
+        }
+      }
+    );
+  }
+  return null;
+}
+MantineCssVariables.displayName = "@mantine/CssVariables";
+
+
+//# sourceMappingURL=MantineCssVariables.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/default-css-variables-resolver.mjs":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/default-css-variables-resolver.mjs ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   defaultCssVariablesResolver: () => (/* binding */ defaultCssVariablesResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/keys/keys.mjs */ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs");
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_functions_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../color-functions/get-primary-shade/get-primary-shade.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs");
+/* harmony import */ var _color_functions_get_contrast_color_get_contrast_color_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../color-functions/get-contrast-color/get-contrast-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-contrast-color/get-contrast-color.mjs");
+/* harmony import */ var _get_css_color_variables_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./get-css-color-variables.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-css-color-variables.mjs");
+/* harmony import */ var _virtual_color_virtual_color_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./virtual-color/virtual-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/virtual-color/virtual-color.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+function assignSizeVariables(variables, sizes, name) {
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(sizes).forEach(
+    (size) => Object.assign(variables, { [`--mantine-${name}-${size}`]: sizes[size] })
+  );
+}
+const defaultCssVariablesResolver = (theme) => {
+  const lightPrimaryShade = (0,_color_functions_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_3__.getPrimaryShade)(theme, "light");
+  const defaultRadius = theme.defaultRadius in theme.radius ? theme.radius[theme.defaultRadius] : (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(theme.defaultRadius);
+  const result = {
+    variables: {
+      "--mantine-scale": theme.scale.toString(),
+      "--mantine-cursor-type": theme.cursorType,
+      "--mantine-color-scheme": "light dark",
+      "--mantine-webkit-font-smoothing": theme.fontSmoothing ? "antialiased" : "unset",
+      "--mantine-moz-font-smoothing": theme.fontSmoothing ? "grayscale" : "unset",
+      "--mantine-color-white": theme.white,
+      "--mantine-color-black": theme.black,
+      "--mantine-line-height": theme.lineHeights.md,
+      "--mantine-font-family": theme.fontFamily,
+      "--mantine-font-family-monospace": theme.fontFamilyMonospace,
+      "--mantine-font-family-headings": theme.headings.fontFamily,
+      "--mantine-heading-font-weight": theme.headings.fontWeight,
+      "--mantine-heading-text-wrap": theme.headings.textWrap,
+      "--mantine-radius-default": defaultRadius,
+      // Primary colors
+      "--mantine-primary-color-filled": `var(--mantine-color-${theme.primaryColor}-filled)`,
+      "--mantine-primary-color-filled-hover": `var(--mantine-color-${theme.primaryColor}-filled-hover)`,
+      "--mantine-primary-color-light": `var(--mantine-color-${theme.primaryColor}-light)`,
+      "--mantine-primary-color-light-hover": `var(--mantine-color-${theme.primaryColor}-light-hover)`,
+      "--mantine-primary-color-light-color": `var(--mantine-color-${theme.primaryColor}-light-color)`
+    },
+    light: {
+      "--mantine-primary-color-contrast": (0,_color_functions_get_contrast_color_get_contrast_color_mjs__WEBPACK_IMPORTED_MODULE_5__.getPrimaryContrastColor)(theme, "light"),
+      "--mantine-color-bright": "var(--mantine-color-black)",
+      "--mantine-color-text": theme.black,
+      "--mantine-color-body": theme.white,
+      "--mantine-color-error": "var(--mantine-color-red-6)",
+      "--mantine-color-placeholder": "var(--mantine-color-gray-5)",
+      "--mantine-color-anchor": `var(--mantine-color-${theme.primaryColor}-${lightPrimaryShade})`,
+      "--mantine-color-default": "var(--mantine-color-white)",
+      "--mantine-color-default-hover": "var(--mantine-color-gray-0)",
+      "--mantine-color-default-color": "var(--mantine-color-black)",
+      "--mantine-color-default-border": "var(--mantine-color-gray-4)",
+      "--mantine-color-dimmed": "var(--mantine-color-gray-6)"
+    },
+    dark: {
+      "--mantine-primary-color-contrast": (0,_color_functions_get_contrast_color_get_contrast_color_mjs__WEBPACK_IMPORTED_MODULE_5__.getPrimaryContrastColor)(theme, "dark"),
+      "--mantine-color-bright": "var(--mantine-color-white)",
+      "--mantine-color-text": "var(--mantine-color-dark-0)",
+      "--mantine-color-body": "var(--mantine-color-dark-7)",
+      "--mantine-color-error": "var(--mantine-color-red-8)",
+      "--mantine-color-placeholder": "var(--mantine-color-dark-3)",
+      "--mantine-color-anchor": `var(--mantine-color-${theme.primaryColor}-4)`,
+      "--mantine-color-default": "var(--mantine-color-dark-6)",
+      "--mantine-color-default-hover": "var(--mantine-color-dark-5)",
+      "--mantine-color-default-color": "var(--mantine-color-white)",
+      "--mantine-color-default-border": "var(--mantine-color-dark-4)",
+      "--mantine-color-dimmed": "var(--mantine-color-dark-2)"
+    }
+  };
+  assignSizeVariables(result.variables, theme.breakpoints, "breakpoint");
+  assignSizeVariables(result.variables, theme.spacing, "spacing");
+  assignSizeVariables(result.variables, theme.fontSizes, "font-size");
+  assignSizeVariables(result.variables, theme.lineHeights, "line-height");
+  assignSizeVariables(result.variables, theme.shadows, "shadow");
+  assignSizeVariables(result.variables, theme.radius, "radius");
+  theme.colors[theme.primaryColor].forEach((_, index) => {
+    result.variables[`--mantine-primary-color-${index}`] = `var(--mantine-color-${theme.primaryColor}-${index})`;
+  });
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(theme.colors).forEach((color) => {
+    const value = theme.colors[color];
+    if ((0,_virtual_color_virtual_color_mjs__WEBPACK_IMPORTED_MODULE_6__.isVirtualColor)(value)) {
+      Object.assign(
+        result.light,
+        (0,_get_css_color_variables_mjs__WEBPACK_IMPORTED_MODULE_7__.getCSSColorVariables)({
+          theme,
+          name: value.name,
+          color: value.light,
+          colorScheme: "light",
+          withColorValues: true
+        })
+      );
+      Object.assign(
+        result.dark,
+        (0,_get_css_color_variables_mjs__WEBPACK_IMPORTED_MODULE_7__.getCSSColorVariables)({
+          theme,
+          name: value.name,
+          color: value.dark,
+          colorScheme: "dark",
+          withColorValues: true
+        })
+      );
+      return;
+    }
+    value.forEach((shade, index) => {
+      result.variables[`--mantine-color-${color}-${index}`] = shade;
+    });
+    Object.assign(
+      result.light,
+      (0,_get_css_color_variables_mjs__WEBPACK_IMPORTED_MODULE_7__.getCSSColorVariables)({
+        theme,
+        color,
+        colorScheme: "light",
+        withColorValues: false
+      })
+    );
+    Object.assign(
+      result.dark,
+      (0,_get_css_color_variables_mjs__WEBPACK_IMPORTED_MODULE_7__.getCSSColorVariables)({
+        theme,
+        color,
+        colorScheme: "dark",
+        withColorValues: false
+      })
+    );
+  });
+  const headings = theme.headings.sizes;
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_2__.keys)(headings).forEach((heading) => {
+    result.variables[`--mantine-${heading}-font-size`] = headings[heading].fontSize;
+    result.variables[`--mantine-${heading}-line-height`] = headings[heading].lineHeight;
+    result.variables[`--mantine-${heading}-font-weight`] = headings[heading].fontWeight || theme.headings.fontWeight;
+  });
+  return result;
+};
+
+
+//# sourceMappingURL=default-css-variables-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-css-color-variables.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-css-color-variables.mjs ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCSSColorVariables: () => (/* binding */ getCSSColorVariables)
+/* harmony export */ });
+/* harmony import */ var _color_functions_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../color-functions/get-primary-shade/get-primary-shade.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../color-functions/rgba/rgba.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/rgba/rgba.mjs");
+'use client';
+
+
+
+
+
+
+function getCSSColorVariables({
+  theme,
+  color,
+  colorScheme,
+  name = color,
+  withColorValues = true
+}) {
+  if (!theme.colors[color]) {
+    return {};
+  }
+  if (colorScheme === "light") {
+    const primaryShade2 = (0,_color_functions_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_2__.getPrimaryShade)(theme, "light");
+    const dynamicVariables2 = {
+      [`--mantine-color-${name}-text`]: `var(--mantine-color-${name}-filled)`,
+      [`--mantine-color-${name}-filled`]: `var(--mantine-color-${name}-${primaryShade2})`,
+      [`--mantine-color-${name}-filled-hover`]: `var(--mantine-color-${name}-${primaryShade2 === 9 ? 8 : primaryShade2 + 1})`,
+      [`--mantine-color-${name}-light`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(theme.colors[color][primaryShade2], 0.1),
+      [`--mantine-color-${name}-light-hover`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(theme.colors[color][primaryShade2], 0.12),
+      [`--mantine-color-${name}-light-color`]: `var(--mantine-color-${name}-${primaryShade2})`,
+      [`--mantine-color-${name}-outline`]: `var(--mantine-color-${name}-${primaryShade2})`,
+      [`--mantine-color-${name}-outline-hover`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(theme.colors[color][primaryShade2], 0.05)
+    };
+    if (!withColorValues) {
+      return dynamicVariables2;
+    }
+    return {
+      [`--mantine-color-${name}-0`]: theme.colors[color][0],
+      [`--mantine-color-${name}-1`]: theme.colors[color][1],
+      [`--mantine-color-${name}-2`]: theme.colors[color][2],
+      [`--mantine-color-${name}-3`]: theme.colors[color][3],
+      [`--mantine-color-${name}-4`]: theme.colors[color][4],
+      [`--mantine-color-${name}-5`]: theme.colors[color][5],
+      [`--mantine-color-${name}-6`]: theme.colors[color][6],
+      [`--mantine-color-${name}-7`]: theme.colors[color][7],
+      [`--mantine-color-${name}-8`]: theme.colors[color][8],
+      [`--mantine-color-${name}-9`]: theme.colors[color][9],
+      ...dynamicVariables2
+    };
+  }
+  const primaryShade = (0,_color_functions_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_2__.getPrimaryShade)(theme, "dark");
+  const dynamicVariables = {
+    [`--mantine-color-${name}-text`]: `var(--mantine-color-${name}-4)`,
+    [`--mantine-color-${name}-filled`]: `var(--mantine-color-${name}-${primaryShade})`,
+    [`--mantine-color-${name}-filled-hover`]: `var(--mantine-color-${name}-${primaryShade === 9 ? 8 : primaryShade + 1})`,
+    [`--mantine-color-${name}-light`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(
+      theme.colors[color][Math.max(0, primaryShade - 2)],
+      0.15
+    ),
+    [`--mantine-color-${name}-light-hover`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(
+      theme.colors[color][Math.max(0, primaryShade - 2)],
+      0.2
+    ),
+    [`--mantine-color-${name}-light-color`]: `var(--mantine-color-${name}-${Math.max(primaryShade - 5, 0)})`,
+    [`--mantine-color-${name}-outline`]: `var(--mantine-color-${name}-${Math.max(primaryShade - 4, 0)})`,
+    [`--mantine-color-${name}-outline-hover`]: (0,_color_functions_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_3__.alpha)(
+      theme.colors[color][Math.max(primaryShade - 4, 0)],
+      0.05
+    )
+  };
+  if (!withColorValues) {
+    return dynamicVariables;
+  }
+  return {
+    [`--mantine-color-${name}-0`]: theme.colors[color][0],
+    [`--mantine-color-${name}-1`]: theme.colors[color][1],
+    [`--mantine-color-${name}-2`]: theme.colors[color][2],
+    [`--mantine-color-${name}-3`]: theme.colors[color][3],
+    [`--mantine-color-${name}-4`]: theme.colors[color][4],
+    [`--mantine-color-${name}-5`]: theme.colors[color][5],
+    [`--mantine-color-${name}-6`]: theme.colors[color][6],
+    [`--mantine-color-${name}-7`]: theme.colors[color][7],
+    [`--mantine-color-${name}-8`]: theme.colors[color][8],
+    [`--mantine-color-${name}-9`]: theme.colors[color][9],
+    ...dynamicVariables
+  };
+}
+
+
+//# sourceMappingURL=get-css-color-variables.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-merged-variables.mjs":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/get-merged-variables.mjs ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getMergedVariables: () => (/* binding */ getMergedVariables)
+/* harmony export */ });
+/* harmony import */ var _utils_deep_merge_deep_merge_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/deep-merge/deep-merge.mjs */ "./node_modules/@mantine/core/esm/core/utils/deep-merge/deep-merge.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _default_css_variables_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default-css-variables-resolver.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/default-css-variables-resolver.mjs");
+'use client';
+
+
+
+
+
+
+function getMergedVariables({ theme, generator }) {
+  const defaultResolver = (0,_default_css_variables_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__.defaultCssVariablesResolver)(theme);
+  const providerGenerator = generator?.(theme);
+  return providerGenerator ? (0,_utils_deep_merge_deep_merge_mjs__WEBPACK_IMPORTED_MODULE_3__.deepMerge)(defaultResolver, providerGenerator) : defaultResolver;
+}
+
+
+//# sourceMappingURL=get-merged-variables.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/remove-default-variables.mjs":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/remove-default-variables.mjs ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   removeDefaultVariables: () => (/* binding */ removeDefaultVariables)
+/* harmony export */ });
+/* harmony import */ var _utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/keys/keys.mjs */ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _default_theme_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../default-theme.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/default-theme.mjs");
+/* harmony import */ var _default_css_variables_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default-css-variables-resolver.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/default-css-variables-resolver.mjs");
+'use client';
+
+
+
+
+
+
+
+const defaultCssVariables = (0,_default_css_variables_resolver_mjs__WEBPACK_IMPORTED_MODULE_2__.defaultCssVariablesResolver)(_default_theme_mjs__WEBPACK_IMPORTED_MODULE_3__.DEFAULT_THEME);
+function removeDefaultVariables(input) {
+  const cleaned = {
+    variables: {},
+    light: {},
+    dark: {}
+  };
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__.keys)(input.variables).forEach((key) => {
+    if (defaultCssVariables.variables[key] !== input.variables[key]) {
+      cleaned.variables[key] = input.variables[key];
+    }
+  });
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__.keys)(input.light).forEach((key) => {
+    if (defaultCssVariables.light[key] !== input.light[key]) {
+      cleaned.light[key] = input.light[key];
+    }
+  });
+  (0,_utils_keys_keys_mjs__WEBPACK_IMPORTED_MODULE_4__.keys)(input.dark).forEach((key) => {
+    if (defaultCssVariables.dark[key] !== input.dark[key]) {
+      cleaned.dark[key] = input.dark[key];
+    }
+  });
+  return cleaned;
+}
+
+
+//# sourceMappingURL=remove-default-variables.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/virtual-color/virtual-color.mjs":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/virtual-color/virtual-color.mjs ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isVirtualColor: () => (/* binding */ isVirtualColor),
+/* harmony export */   virtualColor: () => (/* binding */ virtualColor)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_functions_colors_tuple_colors_tuple_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../color-functions/colors-tuple/colors-tuple.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/colors-tuple/colors-tuple.mjs");
+
+
+
+
+
+function virtualColor(input) {
+  const result = (0,_color_functions_colors_tuple_colors_tuple_mjs__WEBPACK_IMPORTED_MODULE_2__.colorsTuple)(
+    Array.from({ length: 10 }).map((_, i) => `var(--mantine-color-${input.name}-${i})`)
+  );
+  Object.defineProperty(result, "mantine-virtual-color", {
+    enumerable: false,
+    writable: false,
+    configurable: false,
+    value: true
+  });
+  Object.defineProperty(result, "dark", {
+    enumerable: false,
+    writable: false,
+    configurable: false,
+    value: input.dark
+  });
+  Object.defineProperty(result, "light", {
+    enumerable: false,
+    writable: false,
+    configurable: false,
+    value: input.light
+  });
+  Object.defineProperty(result, "name", {
+    enumerable: false,
+    writable: false,
+    configurable: false,
+    value: input.name
+  });
+  return result;
+}
+function isVirtualColor(value) {
+  return !!value && typeof value === "object" && "mantine-virtual-color" in value;
+}
+
+
+//# sourceMappingURL=virtual-color.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineProvider.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineProvider.mjs ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   HeadlessMantineProvider: () => (/* binding */ HeadlessMantineProvider),
+/* harmony export */   MantineProvider: () => (/* binding */ MantineProvider)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_scheme_managers_local_storage_manager_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./color-scheme-managers/local-storage-manager.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/local-storage-manager.mjs");
+/* harmony import */ var _Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineClasses_MantineClasses_mjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./MantineClasses/MantineClasses.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineClasses/MantineClasses.mjs");
+/* harmony import */ var _MantineCssVariables_MantineCssVariables_mjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./MantineCssVariables/MantineCssVariables.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineCssVariables/MantineCssVariables.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+/* harmony import */ var _suppress_nextjs_warning_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./suppress-nextjs-warning.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/suppress-nextjs-warning.mjs");
+/* harmony import */ var _use_mantine_color_scheme_use_provider_color_scheme_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-mantine-color-scheme/use-provider-color-scheme.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/use-mantine-color-scheme/use-provider-color-scheme.mjs");
+/* harmony import */ var _use_respect_reduce_motion_use_respect_reduce_motion_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-respect-reduce-motion/use-respect-reduce-motion.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/use-respect-reduce-motion/use-respect-reduce-motion.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+
+
+(0,_suppress_nextjs_warning_mjs__WEBPACK_IMPORTED_MODULE_2__.suppressNextjsWarning)();
+function MantineProvider({
+  theme,
+  children,
+  getStyleNonce,
+  withStaticClasses = true,
+  withGlobalClasses = true,
+  deduplicateCssVariables = true,
+  withCssVariables = true,
+  cssVariablesSelector = ":root",
+  classNamesPrefix = "mantine",
+  colorSchemeManager = (0,_color_scheme_managers_local_storage_manager_mjs__WEBPACK_IMPORTED_MODULE_3__.localStorageColorSchemeManager)(),
+  defaultColorScheme = "light",
+  getRootElement = () => document.documentElement,
+  cssVariablesResolver,
+  forceColorScheme,
+  stylesTransform
+}) {
+  const { colorScheme, setColorScheme, clearColorScheme } = (0,_use_mantine_color_scheme_use_provider_color_scheme_mjs__WEBPACK_IMPORTED_MODULE_4__.useProviderColorScheme)({
+    defaultColorScheme,
+    forceColorScheme,
+    manager: colorSchemeManager,
+    getRootElement
+  });
+  (0,_use_respect_reduce_motion_use_respect_reduce_motion_mjs__WEBPACK_IMPORTED_MODULE_5__.useRespectReduceMotion)({
+    respectReducedMotion: theme?.respectReducedMotion || false,
+    getRootElement
+  });
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+    _Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_6__.MantineContext.Provider,
+    {
+      value: {
+        colorScheme,
+        setColorScheme,
+        clearColorScheme,
+        getRootElement,
+        classNamesPrefix,
+        getStyleNonce,
+        cssVariablesResolver,
+        cssVariablesSelector,
+        withStaticClasses,
+        stylesTransform
+      },
+      children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_7__.MantineThemeProvider, { theme, children: [
+        withCssVariables && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+          _MantineCssVariables_MantineCssVariables_mjs__WEBPACK_IMPORTED_MODULE_8__.MantineCssVariables,
+          {
+            cssVariablesSelector,
+            deduplicateCssVariables
+          }
+        ),
+        withGlobalClasses && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MantineClasses_MantineClasses_mjs__WEBPACK_IMPORTED_MODULE_9__.MantineClasses, {}),
+        children
+      ] })
+    }
+  );
+}
+MantineProvider.displayName = "@mantine/core/MantineProvider";
+function HeadlessMantineProvider({ children, theme }) {
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+    _Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_6__.MantineContext.Provider,
+    {
+      value: {
+        colorScheme: "auto",
+        setColorScheme: () => {
+        },
+        clearColorScheme: () => {
+        },
+        getRootElement: () => document.documentElement,
+        classNamesPrefix: "mantine",
+        cssVariablesSelector: ":root",
+        withStaticClasses: false,
+        headless: true
+      },
+      children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_7__.MantineThemeProvider, { theme, children })
+    }
+  );
+}
+HeadlessMantineProvider.displayName = "@mantine/core/HeadlessMantineProvider";
+
+
+//# sourceMappingURL=MantineProvider.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MantineThemeContext: () => (/* binding */ MantineThemeContext),
+/* harmony export */   MantineThemeProvider: () => (/* binding */ MantineThemeProvider),
+/* harmony export */   useMantineTheme: () => (/* binding */ useMantineTheme),
+/* harmony export */   useSafeMantineTheme: () => (/* binding */ useSafeMantineTheme)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _default_theme_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../default-theme.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/default-theme.mjs");
+/* harmony import */ var _merge_mantine_theme_merge_mantine_theme_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../merge-mantine-theme/merge-mantine-theme.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/merge-mantine-theme/merge-mantine-theme.mjs");
+'use client';
+
+
+
+
+
+const MantineThemeContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.createContext)(null);
+const useSafeMantineTheme = () => (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(MantineThemeContext) || _default_theme_mjs__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_THEME;
+function useMantineTheme() {
+  const ctx = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(MantineThemeContext);
+  if (!ctx) {
+    throw new Error(
+      "@mantine/core: MantineProvider was not found in component tree, make sure you have it in your app"
+    );
+  }
+  return ctx;
+}
+function MantineThemeProvider({
+  theme,
+  children,
+  inherit = true
+}) {
+  const parentTheme = useSafeMantineTheme();
+  const mergedTheme = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+    () => (0,_merge_mantine_theme_merge_mantine_theme_mjs__WEBPACK_IMPORTED_MODULE_3__.mergeMantineTheme)(inherit ? parentTheme : _default_theme_mjs__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_THEME, theme),
+    [theme, parentTheme, inherit]
+  );
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(MantineThemeContext.Provider, { value: mergedTheme, children });
+}
+MantineThemeProvider.displayName = "@mantine/core/MantineThemeProvider";
+
+
+//# sourceMappingURL=MantineThemeProvider.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/colors-tuple/colors-tuple.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/colors-tuple/colors-tuple.mjs ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   colorsTuple: () => (/* binding */ colorsTuple)
+/* harmony export */ });
+function colorsTuple(input) {
+  if (Array.isArray(input)) {
+    return input;
+  }
+  return Array(10).fill(input);
+}
+
+
+//# sourceMappingURL=colors-tuple.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/darken/darken.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/darken/darken.mjs ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   darken: () => (/* binding */ darken)
+/* harmony export */ });
+/* harmony import */ var _to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../to-rgba/to-rgba.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/to-rgba/to-rgba.mjs");
+
+
+function darken(color, alpha) {
+  if (color.startsWith("var(")) {
+    return `color-mix(in srgb, ${color}, black ${alpha * 100}%)`;
+  }
+  const { r, g, b, a } = (0,_to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__.toRgba)(color);
+  const f = 1 - alpha;
+  const dark = (input) => Math.round(input * f);
+  return `rgba(${dark(r)}, ${dark(g)}, ${dark(b)}, ${a})`;
+}
+
+
+//# sourceMappingURL=darken.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/default-variant-colors-resolver/default-variant-colors-resolver.mjs":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/default-variant-colors-resolver/default-variant-colors-resolver.mjs ***!
+  \*************************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   defaultVariantColorsResolver: () => (/* binding */ defaultVariantColorsResolver)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _darken_darken_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../darken/darken.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/darken/darken.mjs");
+/* harmony import */ var _get_gradient_get_gradient_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../get-gradient/get-gradient.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-gradient/get-gradient.mjs");
+/* harmony import */ var _parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../parse-theme-color/parse-theme-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs");
+/* harmony import */ var _rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../rgba/rgba.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/rgba/rgba.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+const defaultVariantColorsResolver = ({
+  color,
+  theme,
+  variant,
+  gradient,
+  autoContrast
+}) => {
+  const parsed = (0,_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_2__.parseThemeColor)({ color, theme });
+  const _autoContrast = typeof autoContrast === "boolean" ? autoContrast : theme.autoContrast;
+  if (variant === "filled") {
+    const textColor = _autoContrast ? parsed.isLight ? "var(--mantine-color-black)" : "var(--mantine-color-white)" : "var(--mantine-color-white)";
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: `var(--mantine-color-${color}-filled)`,
+          hover: `var(--mantine-color-${color}-filled-hover)`,
+          color: textColor,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+        };
+      }
+      return {
+        background: `var(--mantine-color-${parsed.color}-${parsed.shade})`,
+        hover: `var(--mantine-color-${parsed.color}-${parsed.shade === 9 ? 8 : parsed.shade + 1})`,
+        color: textColor,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+      };
+    }
+    return {
+      background: color,
+      hover: (0,_darken_darken_mjs__WEBPACK_IMPORTED_MODULE_4__.darken)(color, 0.1),
+      color: textColor,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+    };
+  }
+  if (variant === "light") {
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: `var(--mantine-color-${color}-light)`,
+          hover: `var(--mantine-color-${color}-light-hover)`,
+          color: `var(--mantine-color-${color}-light-color)`,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+        };
+      }
+      const parsedColor = theme.colors[parsed.color][parsed.shade];
+      return {
+        background: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(parsedColor, 0.1),
+        hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(parsedColor, 0.12),
+        color: `var(--mantine-color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+      };
+    }
+    return {
+      background: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(color, 0.1),
+      hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(color, 0.12),
+      color,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+    };
+  }
+  if (variant === "outline") {
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: "transparent",
+          hover: `var(--mantine-color-${color}-outline-hover)`,
+          color: `var(--mantine-color-${color}-outline)`,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid var(--mantine-color-${color}-outline)`
+        };
+      }
+      return {
+        background: "transparent",
+        hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(theme.colors[parsed.color][parsed.shade], 0.05),
+        color: `var(--mantine-color-${parsed.color}-${parsed.shade})`,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid var(--mantine-color-${parsed.color}-${parsed.shade})`
+      };
+    }
+    return {
+      background: "transparent",
+      hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(color, 0.05),
+      color,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid ${color}`
+    };
+  }
+  if (variant === "subtle") {
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: "transparent",
+          hover: `var(--mantine-color-${color}-light-hover)`,
+          color: `var(--mantine-color-${color}-light-color)`,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+        };
+      }
+      const parsedColor = theme.colors[parsed.color][parsed.shade];
+      return {
+        background: "transparent",
+        hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(parsedColor, 0.12),
+        color: `var(--mantine-color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+      };
+    }
+    return {
+      background: "transparent",
+      hover: (0,_rgba_rgba_mjs__WEBPACK_IMPORTED_MODULE_5__.rgba)(color, 0.12),
+      color,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+    };
+  }
+  if (variant === "transparent") {
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: "transparent",
+          hover: "transparent",
+          color: `var(--mantine-color-${color}-light-color)`,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+        };
+      }
+      return {
+        background: "transparent",
+        hover: "transparent",
+        color: `var(--mantine-color-${parsed.color}-${Math.min(parsed.shade, 6)})`,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+      };
+    }
+    return {
+      background: "transparent",
+      hover: "transparent",
+      color,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+    };
+  }
+  if (variant === "white") {
+    if (parsed.isThemeColor) {
+      if (parsed.shade === void 0) {
+        return {
+          background: "var(--mantine-color-white)",
+          hover: (0,_darken_darken_mjs__WEBPACK_IMPORTED_MODULE_4__.darken)(theme.white, 0.01),
+          color: `var(--mantine-color-${color}-filled)`,
+          border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+        };
+      }
+      return {
+        background: "var(--mantine-color-white)",
+        hover: (0,_darken_darken_mjs__WEBPACK_IMPORTED_MODULE_4__.darken)(theme.white, 0.01),
+        color: `var(--mantine-color-${parsed.color}-${parsed.shade})`,
+        border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+      };
+    }
+    return {
+      background: "var(--mantine-color-white)",
+      hover: (0,_darken_darken_mjs__WEBPACK_IMPORTED_MODULE_4__.darken)(theme.white, 0.01),
+      color,
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid transparent`
+    };
+  }
+  if (variant === "gradient") {
+    return {
+      background: (0,_get_gradient_get_gradient_mjs__WEBPACK_IMPORTED_MODULE_6__.getGradient)(gradient, theme),
+      hover: (0,_get_gradient_get_gradient_mjs__WEBPACK_IMPORTED_MODULE_6__.getGradient)(gradient, theme),
+      color: "var(--mantine-color-white)",
+      border: "none"
+    };
+  }
+  if (variant === "default") {
+    return {
+      background: "var(--mantine-color-default)",
+      hover: "var(--mantine-color-default-hover)",
+      color: "var(--mantine-color-default-color)",
+      border: `${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_3__.rem)(1)} solid var(--mantine-color-default-border)`
+    };
+  }
+  return {};
+};
+
+
+//# sourceMappingURL=default-variant-colors-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-contrast-color/get-contrast-color.mjs":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-contrast-color/get-contrast-color.mjs ***!
+  \***********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getContrastColor: () => (/* binding */ getContrastColor),
+/* harmony export */   getPrimaryContrastColor: () => (/* binding */ getPrimaryContrastColor)
+/* harmony export */ });
+/* harmony import */ var _get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../get-primary-shade/get-primary-shade.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs");
+/* harmony import */ var _parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../parse-theme-color/parse-theme-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs");
+'use client';
+
+
+
+function getContrastColor({ color, theme, autoContrast }) {
+  const _autoContrast = typeof autoContrast === "boolean" ? autoContrast : theme.autoContrast;
+  if (!_autoContrast) {
+    return "var(--mantine-color-white)";
+  }
+  const parsed = (0,_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__.parseThemeColor)({ color: color || theme.primaryColor, theme });
+  return parsed.isLight ? "var(--mantine-color-black)" : "var(--mantine-color-white)";
+}
+function getPrimaryContrastColor(theme, colorScheme) {
+  return getContrastColor({
+    color: theme.colors[theme.primaryColor][(0,_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_1__.getPrimaryShade)(theme, colorScheme)],
+    theme,
+    autoContrast: null
+  });
+}
+
+
+//# sourceMappingURL=get-contrast-color.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-gradient/get-gradient.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-gradient/get-gradient.mjs ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getGradient: () => (/* binding */ getGradient)
+/* harmony export */ });
+/* harmony import */ var _get_theme_color_get_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../get-theme-color/get-theme-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-theme-color/get-theme-color.mjs");
+'use client';
+
+
+function getGradient(gradient, theme) {
+  const merged = {
+    from: gradient?.from || theme.defaultGradient.from,
+    to: gradient?.to || theme.defaultGradient.to,
+    deg: gradient?.deg || theme.defaultGradient.deg || 0
+  };
+  const fromColor = (0,_get_theme_color_get_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__.getThemeColor)(merged.from, theme);
+  const toColor = (0,_get_theme_color_get_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__.getThemeColor)(merged.to, theme);
+  return `linear-gradient(${merged.deg}deg, ${fromColor} 0%, ${toColor} 100%)`;
+}
+
+
+//# sourceMappingURL=get-gradient.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getPrimaryShade: () => (/* binding */ getPrimaryShade)
+/* harmony export */ });
+'use client';
+function getPrimaryShade(theme, colorScheme) {
+  if (typeof theme.primaryShade === "number") {
+    return theme.primaryShade;
+  }
+  if (colorScheme === "dark") {
+    return theme.primaryShade.dark;
+  }
+  return theme.primaryShade.light;
+}
+
+
+//# sourceMappingURL=get-primary-shade.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-theme-color/get-theme-color.mjs":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-theme-color/get-theme-color.mjs ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getThemeColor: () => (/* binding */ getThemeColor)
+/* harmony export */ });
+/* harmony import */ var _parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../parse-theme-color/parse-theme-color.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs");
+'use client';
+
+
+function getThemeColor(color, theme) {
+  const parsed = (0,_parse_theme_color_parse_theme_color_mjs__WEBPACK_IMPORTED_MODULE_0__.parseThemeColor)({ color: color || theme.primaryColor, theme });
+  return parsed.variable ? `var(${parsed.variable})` : color;
+}
+
+
+//# sourceMappingURL=get-theme-color.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/luminance/luminance.mjs":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/luminance/luminance.mjs ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isLightColor: () => (/* binding */ isLightColor),
+/* harmony export */   luminance: () => (/* binding */ luminance)
+/* harmony export */ });
+/* harmony import */ var _to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../to-rgba/to-rgba.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/to-rgba/to-rgba.mjs");
+'use client';
+
+
+function gammaCorrect(c) {
+  return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+}
+function getLightnessFromOklch(oklchColor) {
+  const match = oklchColor.match(/oklch\((.*?)%\s/);
+  return match ? parseFloat(match[1]) : null;
+}
+function luminance(color) {
+  if (color.startsWith("oklch(")) {
+    return (getLightnessFromOklch(color) || 0) / 100;
+  }
+  const { r, g, b } = (0,_to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__.toRgba)(color);
+  const sR = r / 255;
+  const sG = g / 255;
+  const sB = b / 255;
+  const rLinear = gammaCorrect(sR);
+  const gLinear = gammaCorrect(sG);
+  const bLinear = gammaCorrect(sB);
+  return 0.2126 * rLinear + 0.7152 * gLinear + 0.0722 * bLinear;
+}
+function isLightColor(color, luminanceThreshold = 0.179) {
+  if (color.startsWith("var(")) {
+    return false;
+  }
+  return luminance(color) > luminanceThreshold;
+}
+
+
+//# sourceMappingURL=luminance.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/parse-theme-color/parse-theme-color.mjs ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   parseThemeColor: () => (/* binding */ parseThemeColor)
+/* harmony export */ });
+/* harmony import */ var _get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../get-primary-shade/get-primary-shade.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/get-primary-shade/get-primary-shade.mjs");
+/* harmony import */ var _luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../luminance/luminance.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/luminance/luminance.mjs");
+'use client';
+
+
+
+function parseThemeColor({
+  color,
+  theme,
+  colorScheme
+}) {
+  if (typeof color !== "string") {
+    throw new Error(
+      `[@mantine/core] Failed to parse color. Expected color to be a string, instead got ${typeof color}`
+    );
+  }
+  if (color === "bright") {
+    return {
+      color,
+      value: colorScheme === "dark" ? theme.white : theme.black,
+      shade: void 0,
+      isThemeColor: false,
+      isLight: (0,_luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__.isLightColor)(
+        colorScheme === "dark" ? theme.white : theme.black,
+        theme.luminanceThreshold
+      ),
+      variable: "--mantine-color-bright"
+    };
+  }
+  if (color === "dimmed") {
+    return {
+      color,
+      value: colorScheme === "dark" ? theme.colors.dark[2] : theme.colors.gray[7],
+      shade: void 0,
+      isThemeColor: false,
+      isLight: (0,_luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__.isLightColor)(
+        colorScheme === "dark" ? theme.colors.dark[2] : theme.colors.gray[6],
+        theme.luminanceThreshold
+      ),
+      variable: "--mantine-color-dimmed"
+    };
+  }
+  if (color === "white" || color === "black") {
+    return {
+      color,
+      value: color === "white" ? theme.white : theme.black,
+      shade: void 0,
+      isThemeColor: false,
+      isLight: (0,_luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__.isLightColor)(
+        color === "white" ? theme.white : theme.black,
+        theme.luminanceThreshold
+      ),
+      variable: `--mantine-color-${color}`
+    };
+  }
+  const [_color, shade] = color.split(".");
+  const colorShade = shade ? Number(shade) : void 0;
+  const isThemeColor = _color in theme.colors;
+  if (isThemeColor) {
+    const colorValue = colorShade !== void 0 ? theme.colors[_color][colorShade] : theme.colors[_color][(0,_get_primary_shade_get_primary_shade_mjs__WEBPACK_IMPORTED_MODULE_1__.getPrimaryShade)(theme, colorScheme || "light")];
+    return {
+      color: _color,
+      value: colorValue,
+      shade: colorShade,
+      isThemeColor,
+      isLight: (0,_luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__.isLightColor)(colorValue, theme.luminanceThreshold),
+      variable: shade ? `--mantine-color-${_color}-${colorShade}` : `--mantine-color-${_color}-filled`
+    };
+  }
+  return {
+    color,
+    value: color,
+    isThemeColor,
+    isLight: (0,_luminance_luminance_mjs__WEBPACK_IMPORTED_MODULE_0__.isLightColor)(color, theme.luminanceThreshold),
+    shade: colorShade,
+    variable: void 0
+  };
+}
+
+
+//# sourceMappingURL=parse-theme-color.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/rgba/rgba.mjs":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/rgba/rgba.mjs ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   alpha: () => (/* binding */ alpha),
+/* harmony export */   rgba: () => (/* binding */ rgba)
+/* harmony export */ });
+/* harmony import */ var _to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../to-rgba/to-rgba.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/to-rgba/to-rgba.mjs");
+
+
+function rgba(color, alpha2) {
+  if (typeof color !== "string" || alpha2 > 1 || alpha2 < 0) {
+    return "rgba(0, 0, 0, 1)";
+  }
+  if (color.startsWith("var(")) {
+    const mixPercentage = (1 - alpha2) * 100;
+    return `color-mix(in srgb, ${color}, transparent ${mixPercentage}%)`;
+  }
+  if (color.startsWith("oklch")) {
+    if (color.includes("/")) {
+      return color.replace(/\/\s*[\d.]+\s*\)/, `/ ${alpha2})`);
+    }
+    return color.replace(")", ` / ${alpha2})`);
+  }
+  const { r, g, b } = (0,_to_rgba_to_rgba_mjs__WEBPACK_IMPORTED_MODULE_0__.toRgba)(color);
+  return `rgba(${r}, ${g}, ${b}, ${alpha2})`;
+}
+const alpha = rgba;
+
+
+//# sourceMappingURL=rgba.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/to-rgba/to-rgba.mjs":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/to-rgba/to-rgba.mjs ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   toRgba: () => (/* binding */ toRgba)
+/* harmony export */ });
+function isHexColor(hex) {
+  const HEX_REGEXP = /^#?([0-9A-F]{3}){1,2}([0-9A-F]{2})?$/i;
+  return HEX_REGEXP.test(hex);
+}
+function hexToRgba(color) {
+  let hexString = color.replace("#", "");
+  if (hexString.length === 3) {
+    const shorthandHex = hexString.split("");
+    hexString = [
+      shorthandHex[0],
+      shorthandHex[0],
+      shorthandHex[1],
+      shorthandHex[1],
+      shorthandHex[2],
+      shorthandHex[2]
+    ].join("");
+  }
+  if (hexString.length === 8) {
+    const alpha = parseInt(hexString.slice(6, 8), 16) / 255;
+    return {
+      r: parseInt(hexString.slice(0, 2), 16),
+      g: parseInt(hexString.slice(2, 4), 16),
+      b: parseInt(hexString.slice(4, 6), 16),
+      a: alpha
+    };
+  }
+  const parsed = parseInt(hexString, 16);
+  const r = parsed >> 16 & 255;
+  const g = parsed >> 8 & 255;
+  const b = parsed & 255;
+  return {
+    r,
+    g,
+    b,
+    a: 1
+  };
+}
+function rgbStringToRgba(color) {
+  const [r, g, b, a] = color.replace(/[^0-9,./]/g, "").split(/[/,]/).map(Number);
+  return { r, g, b, a: a || 1 };
+}
+function hslStringToRgba(hslaString) {
+  const hslaRegex = /^hsla?\(\s*(\d+)\s*,\s*(\d+%)\s*,\s*(\d+%)\s*(,\s*(0?\.\d+|\d+(\.\d+)?))?\s*\)$/i;
+  const matches = hslaString.match(hslaRegex);
+  if (!matches) {
+    return {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1
+    };
+  }
+  const h = parseInt(matches[1], 10);
+  const s = parseInt(matches[2], 10) / 100;
+  const l = parseInt(matches[3], 10) / 100;
+  const a = matches[5] ? parseFloat(matches[5]) : void 0;
+  const chroma = (1 - Math.abs(2 * l - 1)) * s;
+  const huePrime = h / 60;
+  const x = chroma * (1 - Math.abs(huePrime % 2 - 1));
+  const m = l - chroma / 2;
+  let r;
+  let g;
+  let b;
+  if (huePrime >= 0 && huePrime < 1) {
+    r = chroma;
+    g = x;
+    b = 0;
+  } else if (huePrime >= 1 && huePrime < 2) {
+    r = x;
+    g = chroma;
+    b = 0;
+  } else if (huePrime >= 2 && huePrime < 3) {
+    r = 0;
+    g = chroma;
+    b = x;
+  } else if (huePrime >= 3 && huePrime < 4) {
+    r = 0;
+    g = x;
+    b = chroma;
+  } else if (huePrime >= 4 && huePrime < 5) {
+    r = x;
+    g = 0;
+    b = chroma;
+  } else {
+    r = chroma;
+    g = 0;
+    b = x;
+  }
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255),
+    a: a || 1
+  };
+}
+function toRgba(color) {
+  if (isHexColor(color)) {
+    return hexToRgba(color);
+  }
+  if (color.startsWith("rgb")) {
+    return rgbStringToRgba(color);
+  }
+  if (color.startsWith("hsl")) {
+    return hslStringToRgba(color);
+  }
+  return {
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1
+  };
+}
+
+
+//# sourceMappingURL=to-rgba.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/is-mantine-color-scheme.mjs":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/is-mantine-color-scheme.mjs ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isMantineColorScheme: () => (/* binding */ isMantineColorScheme)
+/* harmony export */ });
+'use client';
+function isMantineColorScheme(value) {
+  return value === "auto" || value === "dark" || value === "light";
+}
+
+
+//# sourceMappingURL=is-mantine-color-scheme.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/local-storage-manager.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/local-storage-manager.mjs ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   localStorageColorSchemeManager: () => (/* binding */ localStorageColorSchemeManager)
+/* harmony export */ });
+/* harmony import */ var _is_mantine_color_scheme_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-mantine-color-scheme.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-scheme-managers/is-mantine-color-scheme.mjs");
+'use client';
+
+
+function localStorageColorSchemeManager({
+  key = "mantine-color-scheme-value"
+} = {}) {
+  let handleStorageEvent;
+  return {
+    get: (defaultValue) => {
+      if (typeof window === "undefined") {
+        return defaultValue;
+      }
+      try {
+        const storedColorScheme = window.localStorage.getItem(key);
+        return (0,_is_mantine_color_scheme_mjs__WEBPACK_IMPORTED_MODULE_0__.isMantineColorScheme)(storedColorScheme) ? storedColorScheme : defaultValue;
+      } catch {
+        return defaultValue;
+      }
+    },
+    set: (value) => {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        console.warn(
+          "[@mantine/core] Local storage color scheme manager was unable to save color scheme.",
+          error
+        );
+      }
+    },
+    subscribe: (onUpdate) => {
+      handleStorageEvent = (event) => {
+        if (event.storageArea === window.localStorage && event.key === key) {
+          (0,_is_mantine_color_scheme_mjs__WEBPACK_IMPORTED_MODULE_0__.isMantineColorScheme)(event.newValue) && onUpdate(event.newValue);
+        }
+      };
+      window.addEventListener("storage", handleStorageEvent);
+    },
+    unsubscribe: () => {
+      window.removeEventListener("storage", handleStorageEvent);
+    },
+    clear: () => {
+      window.localStorage.removeItem(key);
+    }
+  };
+}
+
+
+//# sourceMappingURL=local-storage-manager.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/convert-css-variables.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/convert-css-variables.mjs ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   convertCssVariables: () => (/* binding */ convertCssVariables)
+/* harmony export */ });
+/* harmony import */ var _css_variables_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css-variables-object-to-string.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/css-variables-object-to-string.mjs");
+/* harmony import */ var _wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./wrap-with-selector.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/wrap-with-selector.mjs");
+'use client';
+
+
+
+function convertCssVariables(input, selector) {
+  const sharedVariables = (0,_css_variables_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssVariablesObjectToString)(input.variables);
+  const shared = sharedVariables ? (0,_wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__.wrapWithSelector)(selector, sharedVariables) : "";
+  const dark = (0,_css_variables_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssVariablesObjectToString)(input.dark);
+  const light = (0,_css_variables_object_to_string_mjs__WEBPACK_IMPORTED_MODULE_0__.cssVariablesObjectToString)(input.light);
+  const darkForced = dark ? selector === ":host" ? (0,_wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__.wrapWithSelector)(`${selector}([data-mantine-color-scheme="dark"])`, dark) : (0,_wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__.wrapWithSelector)(`${selector}[data-mantine-color-scheme="dark"]`, dark) : "";
+  const lightForced = light ? selector === ":host" ? (0,_wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__.wrapWithSelector)(`${selector}([data-mantine-color-scheme="light"])`, light) : (0,_wrap_with_selector_mjs__WEBPACK_IMPORTED_MODULE_1__.wrapWithSelector)(`${selector}[data-mantine-color-scheme="light"]`, light) : "";
+  return `${shared}${darkForced}${lightForced}`;
+}
+
+
+//# sourceMappingURL=convert-css-variables.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/css-variables-object-to-string.mjs":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/css-variables-object-to-string.mjs ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cssVariablesObjectToString: () => (/* binding */ cssVariablesObjectToString)
+/* harmony export */ });
+'use client';
+function cssVariablesObjectToString(variables) {
+  return Object.entries(variables).map(([name, value]) => `${name}: ${value};`).join("");
+}
+
+
+//# sourceMappingURL=css-variables-object-to-string.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/wrap-with-selector.mjs":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/convert-css-variables/wrap-with-selector.mjs ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   wrapWithSelector: () => (/* binding */ wrapWithSelector)
+/* harmony export */ });
+'use client';
+function wrapWithSelector(selectors, code) {
+  const _selectors = Array.isArray(selectors) ? selectors : [selectors];
+  return _selectors.reduce((acc, selector) => `${selector}{${acc}}`, code);
+}
+
+
+//# sourceMappingURL=wrap-with-selector.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/default-colors.mjs":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/default-colors.mjs ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DEFAULT_COLORS: () => (/* binding */ DEFAULT_COLORS)
+/* harmony export */ });
+const DEFAULT_COLORS = {
+  dark: [
+    "#C9C9C9",
+    "#b8b8b8",
+    "#828282",
+    "#696969",
+    "#424242",
+    "#3b3b3b",
+    "#2e2e2e",
+    "#242424",
+    "#1f1f1f",
+    "#141414"
+  ],
+  gray: [
+    "#f8f9fa",
+    "#f1f3f5",
+    "#e9ecef",
+    "#dee2e6",
+    "#ced4da",
+    "#adb5bd",
+    "#868e96",
+    "#495057",
+    "#343a40",
+    "#212529"
+  ],
+  red: [
+    "#fff5f5",
+    "#ffe3e3",
+    "#ffc9c9",
+    "#ffa8a8",
+    "#ff8787",
+    "#ff6b6b",
+    "#fa5252",
+    "#f03e3e",
+    "#e03131",
+    "#c92a2a"
+  ],
+  pink: [
+    "#fff0f6",
+    "#ffdeeb",
+    "#fcc2d7",
+    "#faa2c1",
+    "#f783ac",
+    "#f06595",
+    "#e64980",
+    "#d6336c",
+    "#c2255c",
+    "#a61e4d"
+  ],
+  grape: [
+    "#f8f0fc",
+    "#f3d9fa",
+    "#eebefa",
+    "#e599f7",
+    "#da77f2",
+    "#cc5de8",
+    "#be4bdb",
+    "#ae3ec9",
+    "#9c36b5",
+    "#862e9c"
+  ],
+  violet: [
+    "#f3f0ff",
+    "#e5dbff",
+    "#d0bfff",
+    "#b197fc",
+    "#9775fa",
+    "#845ef7",
+    "#7950f2",
+    "#7048e8",
+    "#6741d9",
+    "#5f3dc4"
+  ],
+  indigo: [
+    "#edf2ff",
+    "#dbe4ff",
+    "#bac8ff",
+    "#91a7ff",
+    "#748ffc",
+    "#5c7cfa",
+    "#4c6ef5",
+    "#4263eb",
+    "#3b5bdb",
+    "#364fc7"
+  ],
+  blue: [
+    "#e7f5ff",
+    "#d0ebff",
+    "#a5d8ff",
+    "#74c0fc",
+    "#4dabf7",
+    "#339af0",
+    "#228be6",
+    "#1c7ed6",
+    "#1971c2",
+    "#1864ab"
+  ],
+  cyan: [
+    "#e3fafc",
+    "#c5f6fa",
+    "#99e9f2",
+    "#66d9e8",
+    "#3bc9db",
+    "#22b8cf",
+    "#15aabf",
+    "#1098ad",
+    "#0c8599",
+    "#0b7285"
+  ],
+  teal: [
+    "#e6fcf5",
+    "#c3fae8",
+    "#96f2d7",
+    "#63e6be",
+    "#38d9a9",
+    "#20c997",
+    "#12b886",
+    "#0ca678",
+    "#099268",
+    "#087f5b"
+  ],
+  green: [
+    "#ebfbee",
+    "#d3f9d8",
+    "#b2f2bb",
+    "#8ce99a",
+    "#69db7c",
+    "#51cf66",
+    "#40c057",
+    "#37b24d",
+    "#2f9e44",
+    "#2b8a3e"
+  ],
+  lime: [
+    "#f4fce3",
+    "#e9fac8",
+    "#d8f5a2",
+    "#c0eb75",
+    "#a9e34b",
+    "#94d82d",
+    "#82c91e",
+    "#74b816",
+    "#66a80f",
+    "#5c940d"
+  ],
+  yellow: [
+    "#fff9db",
+    "#fff3bf",
+    "#ffec99",
+    "#ffe066",
+    "#ffd43b",
+    "#fcc419",
+    "#fab005",
+    "#f59f00",
+    "#f08c00",
+    "#e67700"
+  ],
+  orange: [
+    "#fff4e6",
+    "#ffe8cc",
+    "#ffd8a8",
+    "#ffc078",
+    "#ffa94d",
+    "#ff922b",
+    "#fd7e14",
+    "#f76707",
+    "#e8590c",
+    "#d9480f"
+  ]
+};
+
+
+//# sourceMappingURL=default-colors.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/default-theme.mjs":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/default-theme.mjs ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DEFAULT_THEME: () => (/* binding */ DEFAULT_THEME)
+/* harmony export */ });
+/* harmony import */ var _utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _color_functions_default_variant_colors_resolver_default_variant_colors_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./color-functions/default-variant-colors-resolver/default-variant-colors-resolver.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/color-functions/default-variant-colors-resolver/default-variant-colors-resolver.mjs");
+/* harmony import */ var _default_colors_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./default-colors.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/default-colors.mjs");
+
+
+
+
+
+
+
+const DEFAULT_FONT_FAMILY = "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji";
+const DEFAULT_THEME = {
+  scale: 1,
+  fontSmoothing: true,
+  focusRing: "auto",
+  white: "#fff",
+  black: "#000",
+  colors: _default_colors_mjs__WEBPACK_IMPORTED_MODULE_2__.DEFAULT_COLORS,
+  primaryShade: { light: 6, dark: 8 },
+  primaryColor: "blue",
+  variantColorResolver: _color_functions_default_variant_colors_resolver_default_variant_colors_resolver_mjs__WEBPACK_IMPORTED_MODULE_3__.defaultVariantColorsResolver,
+  autoContrast: false,
+  luminanceThreshold: 0.3,
+  fontFamily: DEFAULT_FONT_FAMILY,
+  fontFamilyMonospace: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace",
+  respectReducedMotion: false,
+  cursorType: "default",
+  defaultGradient: { from: "blue", to: "cyan", deg: 45 },
+  defaultRadius: "sm",
+  activeClassName: "mantine-active",
+  focusClassName: "",
+  headings: {
+    fontFamily: DEFAULT_FONT_FAMILY,
+    fontWeight: "700",
+    textWrap: "wrap",
+    sizes: {
+      h1: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(34), lineHeight: "1.3" },
+      h2: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(26), lineHeight: "1.35" },
+      h3: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(22), lineHeight: "1.4" },
+      h4: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(18), lineHeight: "1.45" },
+      h5: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(16), lineHeight: "1.5" },
+      h6: { fontSize: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(14), lineHeight: "1.5" }
+    }
+  },
+  fontSizes: {
+    xs: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(12),
+    sm: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(14),
+    md: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(16),
+    lg: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(18),
+    xl: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(20)
+  },
+  lineHeights: {
+    xs: "1.4",
+    sm: "1.45",
+    md: "1.55",
+    lg: "1.6",
+    xl: "1.65"
+  },
+  radius: {
+    xs: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(2),
+    sm: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(4),
+    md: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(8),
+    lg: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(16),
+    xl: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(32)
+  },
+  spacing: {
+    xs: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(10),
+    sm: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(12),
+    md: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(16),
+    lg: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(20),
+    xl: (0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(32)
+  },
+  breakpoints: {
+    xs: "36em",
+    sm: "48em",
+    md: "62em",
+    lg: "75em",
+    xl: "88em"
+  },
+  shadows: {
+    xs: `0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(3)} rgba(0, 0, 0, 0.05), 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(2)} rgba(0, 0, 0, 0.1)`,
+    sm: `0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(10)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(
+      15
+    )} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-5)}, rgba(0, 0, 0, 0.04) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(7)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(7)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-5)}`,
+    md: `0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(20)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(
+      25
+    )} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-5)}, rgba(0, 0, 0, 0.04) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(10)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(10)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-5)}`,
+    lg: `0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(28)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(
+      23
+    )} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-7)}, rgba(0, 0, 0, 0.04) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(12)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(12)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-7)}`,
+    xl: `0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(1)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(3)} rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(36)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(
+      28
+    )} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-7)}, rgba(0, 0, 0, 0.04) 0 ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(17)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(17)} ${(0,_utils_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_4__.rem)(-7)}`
+  },
+  other: {},
+  components: {}
+};
+
+
+//# sourceMappingURL=default-theme.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/merge-mantine-theme/merge-mantine-theme.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/merge-mantine-theme/merge-mantine-theme.mjs ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   INVALID_PRIMARY_COLOR_ERROR: () => (/* binding */ INVALID_PRIMARY_COLOR_ERROR),
+/* harmony export */   INVALID_PRIMARY_SHADE_ERROR: () => (/* binding */ INVALID_PRIMARY_SHADE_ERROR),
+/* harmony export */   mergeMantineTheme: () => (/* binding */ mergeMantineTheme),
+/* harmony export */   validateMantineTheme: () => (/* binding */ validateMantineTheme)
+/* harmony export */ });
+/* harmony import */ var _utils_deep_merge_deep_merge_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/deep-merge/deep-merge.mjs */ "./node_modules/@mantine/core/esm/core/utils/deep-merge/deep-merge.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+
+
+
+
+
+const INVALID_PRIMARY_COLOR_ERROR = "[@mantine/core] MantineProvider: Invalid theme.primaryColor, it accepts only key of theme.colors, learn more \u2013 https://mantine.dev/theming/colors/#primary-color";
+const INVALID_PRIMARY_SHADE_ERROR = "[@mantine/core] MantineProvider: Invalid theme.primaryShade, it accepts only 0-9 integers or an object { light: 0-9, dark: 0-9 }";
+function isValidPrimaryShade(shade) {
+  if (shade < 0 || shade > 9) {
+    return false;
+  }
+  return parseInt(shade.toString(), 10) === shade;
+}
+function validateMantineTheme(theme) {
+  if (!(theme.primaryColor in theme.colors)) {
+    throw new Error(INVALID_PRIMARY_COLOR_ERROR);
+  }
+  if (typeof theme.primaryShade === "object") {
+    if (!isValidPrimaryShade(theme.primaryShade.dark) || !isValidPrimaryShade(theme.primaryShade.light)) {
+      throw new Error(INVALID_PRIMARY_SHADE_ERROR);
+    }
+  }
+  if (typeof theme.primaryShade === "number" && !isValidPrimaryShade(theme.primaryShade)) {
+    throw new Error(INVALID_PRIMARY_SHADE_ERROR);
+  }
+}
+function mergeMantineTheme(currentTheme, themeOverride) {
+  if (!themeOverride) {
+    validateMantineTheme(currentTheme);
+    return currentTheme;
+  }
+  const result = (0,_utils_deep_merge_deep_merge_mjs__WEBPACK_IMPORTED_MODULE_2__.deepMerge)(currentTheme, themeOverride);
+  if (themeOverride.fontFamily && !themeOverride.headings?.fontFamily) {
+    result.headings.fontFamily = themeOverride.fontFamily;
+  }
+  validateMantineTheme(result);
+  return result;
+}
+
+
+//# sourceMappingURL=merge-mantine-theme.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/suppress-nextjs-warning.mjs":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/suppress-nextjs-warning.mjs ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   suppressNextjsWarning: () => (/* binding */ suppressNextjsWarning)
+/* harmony export */ });
+'use client';
+function suppressNextjsWarning() {
+  const originalError = console.error;
+  console.error = (...args) => {
+    if (args.length > 1 && typeof args[0] === "string" && args[0].toLowerCase().includes("extra attributes from the server") && typeof args[1] === "string" && args[1].toLowerCase().includes("data-mantine-color-scheme")) ; else {
+      originalError(...args);
+    }
+  };
+}
+
+
+//# sourceMappingURL=suppress-nextjs-warning.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/use-mantine-color-scheme/use-provider-color-scheme.mjs":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/use-mantine-color-scheme/use-provider-color-scheme.mjs ***!
+  \********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useProviderColorScheme: () => (/* binding */ useProviderColorScheme)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _mantine_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mantine/hooks */ "./node_modules/@mantine/hooks/esm/use-isomorphic-effect/use-isomorphic-effect.mjs");
+'use client';
+
+
+
+function setColorSchemeAttribute(colorScheme, getRootElement) {
+  const hasDarkColorScheme = typeof window !== "undefined" && "matchMedia" in window && window.matchMedia("(prefers-color-scheme: dark)")?.matches;
+  const computedColorScheme = colorScheme !== "auto" ? colorScheme : hasDarkColorScheme ? "dark" : "light";
+  getRootElement()?.setAttribute("data-mantine-color-scheme", computedColorScheme);
+}
+function useProviderColorScheme({
+  manager,
+  defaultColorScheme,
+  getRootElement,
+  forceColorScheme
+}) {
+  const media = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const [value, setValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => manager.get(defaultColorScheme));
+  const colorSchemeValue = forceColorScheme || value;
+  const setColorScheme = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
+    (colorScheme) => {
+      if (!forceColorScheme) {
+        setColorSchemeAttribute(colorScheme, getRootElement);
+        setValue(colorScheme);
+        manager.set(colorScheme);
+      }
+    },
+    [manager.set, colorSchemeValue, forceColorScheme]
+  );
+  const clearColorScheme = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
+    setValue(defaultColorScheme);
+    setColorSchemeAttribute(defaultColorScheme, getRootElement);
+    manager.clear();
+  }, [manager.clear, defaultColorScheme]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    manager.subscribe(setColorScheme);
+    return manager.unsubscribe;
+  }, [manager.subscribe, manager.unsubscribe]);
+  (0,_mantine_hooks__WEBPACK_IMPORTED_MODULE_1__.useIsomorphicEffect)(() => {
+    setColorSchemeAttribute(manager.get(defaultColorScheme), getRootElement);
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (forceColorScheme) {
+      setColorSchemeAttribute(forceColorScheme, getRootElement);
+      return () => {
+      };
+    }
+    if (forceColorScheme === void 0) {
+      setColorSchemeAttribute(value, getRootElement);
+    }
+    if (typeof window !== "undefined" && "matchMedia" in window) {
+      media.current = window.matchMedia("(prefers-color-scheme: dark)");
+    }
+    const listener = (event) => {
+      if (value === "auto") {
+        setColorSchemeAttribute(event.matches ? "dark" : "light", getRootElement);
+      }
+    };
+    media.current?.addEventListener("change", listener);
+    return () => media.current?.removeEventListener("change", listener);
+  }, [value, forceColorScheme]);
+  return { colorScheme: colorSchemeValue, setColorScheme, clearColorScheme };
+}
+
+
+//# sourceMappingURL=use-provider-color-scheme.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/use-props/use-props.mjs":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/use-props/use-props.mjs ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useProps: () => (/* binding */ useProps)
+/* harmony export */ });
+/* harmony import */ var _utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/filter-props/filter-props.mjs */ "./node_modules/@mantine/core/esm/core/utils/filter-props/filter-props.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+'use client';
+
+
+
+
+
+
+function useProps(component, defaultProps, props) {
+  const theme = (0,_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineTheme)();
+  const contextPropsPayload = theme.components[component]?.defaultProps;
+  const contextProps = typeof contextPropsPayload === "function" ? contextPropsPayload(theme) : contextPropsPayload;
+  return { ...defaultProps, ...contextProps, ...(0,_utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_3__.filterProps)(props) };
+}
+
+
+//# sourceMappingURL=use-props.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/MantineProvider/use-respect-reduce-motion/use-respect-reduce-motion.mjs":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/MantineProvider/use-respect-reduce-motion/use-respect-reduce-motion.mjs ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useRespectReduceMotion: () => (/* binding */ useRespectReduceMotion)
+/* harmony export */ });
+/* harmony import */ var _mantine_hooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mantine/hooks */ "./node_modules/@mantine/hooks/esm/use-isomorphic-effect/use-isomorphic-effect.mjs");
+'use client';
+
+
+function useRespectReduceMotion({
+  respectReducedMotion,
+  getRootElement
+}) {
+  (0,_mantine_hooks__WEBPACK_IMPORTED_MODULE_0__.useIsomorphicEffect)(() => {
+    if (respectReducedMotion) {
+      getRootElement()?.setAttribute("data-respect-reduced-motion", "true");
+    }
+  }, [respectReducedMotion]);
+}
+
+
+//# sourceMappingURL=use-respect-reduce-motion.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/factory/create-polymorphic-component.mjs":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/factory/create-polymorphic-component.mjs ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createPolymorphicComponent: () => (/* binding */ createPolymorphicComponent)
+/* harmony export */ });
+function createPolymorphicComponent(component) {
+  return component;
+}
+
+
+//# sourceMappingURL=create-polymorphic-component.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/factory/factory.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/factory/factory.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   factory: () => (/* binding */ factory),
+/* harmony export */   getWithProps: () => (/* binding */ getWithProps),
+/* harmony export */   identity: () => (/* binding */ identity)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+'use client';
+
+
+
+function identity(value) {
+  return value;
+}
+function getWithProps(Component) {
+  const _Component = Component;
+  return (fixedProps) => {
+    const Extended = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, ref) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Component, { ...fixedProps, ...props, ref }));
+    Extended.extend = _Component.extend;
+    Extended.displayName = `WithProps(${_Component.displayName})`;
+    return Extended;
+  };
+}
+function factory(ui) {
+  const Component = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(ui);
+  Component.extend = identity;
+  Component.withProps = (fixedProps) => {
+    const Extended = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, ref) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Component, { ...fixedProps, ...props, ref }));
+    Extended.extend = Component.extend;
+    Extended.displayName = `WithProps(${Component.displayName})`;
+    return Extended;
+  };
+  return Component;
+}
+
+
+//# sourceMappingURL=factory.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/create-vars-resolver/create-vars-resolver.mjs":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/create-vars-resolver/create-vars-resolver.mjs ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createVarsResolver: () => (/* binding */ createVarsResolver)
+/* harmony export */ });
+'use client';
+function createVarsResolver(resolver) {
+  return resolver;
+}
+
+
+//# sourceMappingURL=create-vars-resolver.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-class-name.mjs":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-class-name.mjs ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getClassName: () => (/* binding */ getClassName)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+/* harmony import */ var _get_global_class_names_get_global_class_names_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get-global-class-names/get-global-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-global-class-names/get-global-class-names.mjs");
+/* harmony import */ var _get_options_class_names_get_options_class_names_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./get-options-class-names/get-options-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-options-class-names/get-options-class-names.mjs");
+/* harmony import */ var _get_resolved_class_names_get_resolved_class_names_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./get-resolved-class-names/get-resolved-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-resolved-class-names/get-resolved-class-names.mjs");
+/* harmony import */ var _get_root_class_name_get_root_class_name_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./get-root-class-name/get-root-class-name.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-root-class-name/get-root-class-name.mjs");
+/* harmony import */ var _get_selector_class_name_get_selector_class_name_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./get-selector-class-name/get-selector-class-name.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-selector-class-name/get-selector-class-name.mjs");
+/* harmony import */ var _get_static_class_names_get_static_class_names_mjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./get-static-class-names/get-static-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-static-class-names/get-static-class-names.mjs");
+/* harmony import */ var _get_theme_class_names_get_theme_class_names_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./get-theme-class-names/get-theme-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-theme-class-names/get-theme-class-names.mjs");
+/* harmony import */ var _get_variant_class_name_get_variant_class_name_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./get-variant-class-name/get-variant-class-name.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-variant-class-name/get-variant-class-name.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+function getClassName({
+  theme,
+  options,
+  themeName,
+  selector,
+  classNamesPrefix,
+  classNames,
+  classes,
+  unstyled,
+  className,
+  rootSelector,
+  props,
+  stylesCtx,
+  withStaticClasses,
+  headless,
+  transformedStyles
+}) {
+  return (0,clsx__WEBPACK_IMPORTED_MODULE_0__["default"])(
+    (0,_get_global_class_names_get_global_class_names_mjs__WEBPACK_IMPORTED_MODULE_1__.getGlobalClassNames)({ theme, options, unstyled: unstyled || headless }),
+    (0,_get_theme_class_names_get_theme_class_names_mjs__WEBPACK_IMPORTED_MODULE_2__.getThemeClassNames)({ theme, themeName, selector, props, stylesCtx }),
+    (0,_get_variant_class_name_get_variant_class_name_mjs__WEBPACK_IMPORTED_MODULE_3__.getVariantClassName)({ options, classes, selector, unstyled }),
+    (0,_get_resolved_class_names_get_resolved_class_names_mjs__WEBPACK_IMPORTED_MODULE_4__.getResolvedClassNames)({ selector, stylesCtx, theme, classNames, props }),
+    (0,_get_resolved_class_names_get_resolved_class_names_mjs__WEBPACK_IMPORTED_MODULE_4__.getResolvedClassNames)({ selector, stylesCtx, theme, classNames: transformedStyles, props }),
+    (0,_get_options_class_names_get_options_class_names_mjs__WEBPACK_IMPORTED_MODULE_5__.getOptionsClassNames)({ selector, stylesCtx, options, props, theme }),
+    (0,_get_root_class_name_get_root_class_name_mjs__WEBPACK_IMPORTED_MODULE_6__.getRootClassName)({ rootSelector, selector, className }),
+    (0,_get_selector_class_name_get_selector_class_name_mjs__WEBPACK_IMPORTED_MODULE_7__.getSelectorClassName)({ selector, classes, unstyled: unstyled || headless }),
+    withStaticClasses && !headless && (0,_get_static_class_names_get_static_class_names_mjs__WEBPACK_IMPORTED_MODULE_8__.getStaticClassNames)({
+      themeName,
+      classNamesPrefix,
+      selector,
+      withStaticClass: options?.withStaticClass
+    }),
+    options?.className
+  );
+}
+
+
+//# sourceMappingURL=get-class-name.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-global-class-names/get-global-class-names.mjs":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-global-class-names/get-global-class-names.mjs ***!
+  \************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FOCUS_CLASS_NAMES: () => (/* binding */ FOCUS_CLASS_NAMES),
+/* harmony export */   getGlobalClassNames: () => (/* binding */ getGlobalClassNames)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+'use client';
+
+
+const FOCUS_CLASS_NAMES = {
+  always: "mantine-focus-always",
+  auto: "mantine-focus-auto",
+  never: "mantine-focus-never"
+};
+function getGlobalClassNames({ theme, options, unstyled }) {
+  return (0,clsx__WEBPACK_IMPORTED_MODULE_0__["default"])(
+    options?.focusable && !unstyled && (theme.focusClassName || FOCUS_CLASS_NAMES[theme.focusRing]),
+    options?.active && !unstyled && theme.activeClassName
+  );
+}
+
+
+//# sourceMappingURL=get-global-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-options-class-names/get-options-class-names.mjs":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-options-class-names/get-options-class-names.mjs ***!
+  \**************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getOptionsClassNames: () => (/* binding */ getOptionsClassNames)
+/* harmony export */ });
+/* harmony import */ var _resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../resolve-class-names/resolve-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/resolve-class-names/resolve-class-names.mjs");
+'use client';
+
+
+function getOptionsClassNames({
+  selector,
+  stylesCtx,
+  options,
+  props,
+  theme
+}) {
+  return (0,_resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__.resolveClassNames)({
+    theme,
+    classNames: options?.classNames,
+    props: options?.props || props,
+    stylesCtx
+  })[selector];
+}
+
+
+//# sourceMappingURL=get-options-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-resolved-class-names/get-resolved-class-names.mjs":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-resolved-class-names/get-resolved-class-names.mjs ***!
+  \****************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getResolvedClassNames: () => (/* binding */ getResolvedClassNames)
+/* harmony export */ });
+/* harmony import */ var _resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../resolve-class-names/resolve-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/resolve-class-names/resolve-class-names.mjs");
+'use client';
+
+
+function getResolvedClassNames({
+  selector,
+  stylesCtx,
+  theme,
+  classNames,
+  props
+}) {
+  return (0,_resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__.resolveClassNames)({ theme, classNames, props, stylesCtx })[selector];
+}
+
+
+//# sourceMappingURL=get-resolved-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-root-class-name/get-root-class-name.mjs":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-root-class-name/get-root-class-name.mjs ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getRootClassName: () => (/* binding */ getRootClassName)
+/* harmony export */ });
+'use client';
+function getRootClassName({ rootSelector, selector, className }) {
+  return rootSelector === selector ? className : void 0;
+}
+
+
+//# sourceMappingURL=get-root-class-name.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-selector-class-name/get-selector-class-name.mjs":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-selector-class-name/get-selector-class-name.mjs ***!
+  \**************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getSelectorClassName: () => (/* binding */ getSelectorClassName)
+/* harmony export */ });
+'use client';
+function getSelectorClassName({ selector, classes, unstyled }) {
+  return unstyled ? void 0 : classes[selector];
+}
+
+
+//# sourceMappingURL=get-selector-class-name.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-static-class-names/get-static-class-names.mjs":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-static-class-names/get-static-class-names.mjs ***!
+  \************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getStaticClassNames: () => (/* binding */ getStaticClassNames)
+/* harmony export */ });
+'use client';
+function getStaticClassNames({
+  themeName,
+  classNamesPrefix,
+  selector,
+  withStaticClass
+}) {
+  if (withStaticClass === false) {
+    return [];
+  }
+  return themeName.map((n) => `${classNamesPrefix}-${n}-${selector}`);
+}
+
+
+//# sourceMappingURL=get-static-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-theme-class-names/get-theme-class-names.mjs":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-theme-class-names/get-theme-class-names.mjs ***!
+  \**********************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getThemeClassNames: () => (/* binding */ getThemeClassNames)
+/* harmony export */ });
+/* harmony import */ var _resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../resolve-class-names/resolve-class-names.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/resolve-class-names/resolve-class-names.mjs");
+'use client';
+
+
+function getThemeClassNames({
+  themeName,
+  theme,
+  selector,
+  props,
+  stylesCtx
+}) {
+  return themeName.map(
+    (n) => (0,_resolve_class_names_resolve_class_names_mjs__WEBPACK_IMPORTED_MODULE_0__.resolveClassNames)({
+      theme,
+      classNames: theme.components[n]?.classNames,
+      props,
+      stylesCtx
+    })?.[selector]
+  );
+}
+
+
+//# sourceMappingURL=get-theme-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-variant-class-name/get-variant-class-name.mjs":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-variant-class-name/get-variant-class-name.mjs ***!
+  \************************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getVariantClassName: () => (/* binding */ getVariantClassName)
+/* harmony export */ });
+'use client';
+function getVariantClassName({
+  options,
+  classes,
+  selector,
+  unstyled
+}) {
+  return options?.variant && !unstyled ? classes[`${selector}--${options.variant}`] : void 0;
+}
+
+
+//# sourceMappingURL=get-variant-class-name.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/resolve-class-names/resolve-class-names.mjs":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/resolve-class-names/resolve-class-names.mjs ***!
+  \******************************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveClassNames: () => (/* binding */ resolveClassNames)
+/* harmony export */ });
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.mjs");
+'use client';
+
+
+const EMPTY_CLASS_NAMES = {};
+function mergeClassNames(objects) {
+  const merged = {};
+  objects.forEach((obj) => {
+    Object.entries(obj).forEach(([key, value]) => {
+      if (merged[key]) {
+        merged[key] = (0,clsx__WEBPACK_IMPORTED_MODULE_0__["default"])(merged[key], value);
+      } else {
+        merged[key] = value;
+      }
+    });
+  });
+  return merged;
+}
+function resolveClassNames({ theme, classNames, props, stylesCtx }) {
+  const arrayClassNames = Array.isArray(classNames) ? classNames : [classNames];
+  const resolvedClassNames = arrayClassNames.map(
+    (item) => typeof item === "function" ? item(theme, props, stylesCtx) : item || EMPTY_CLASS_NAMES
+  );
+  return mergeClassNames(resolvedClassNames);
+}
+
+
+//# sourceMappingURL=resolve-class-names.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-style.mjs":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-style.mjs ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getStyle: () => (/* binding */ getStyle)
+/* harmony export */ });
+/* harmony import */ var _get_theme_styles_get_theme_styles_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./get-theme-styles/get-theme-styles.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-theme-styles/get-theme-styles.mjs");
+/* harmony import */ var _resolve_style_resolve_style_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolve-style/resolve-style.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-style/resolve-style.mjs");
+/* harmony import */ var _resolve_styles_resolve_styles_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolve-styles/resolve-styles.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-styles/resolve-styles.mjs");
+/* harmony import */ var _resolve_vars_resolve_vars_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolve-vars/resolve-vars.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/resolve-vars.mjs");
+'use client';
+
+
+
+
+
+function getStyle({
+  theme,
+  themeName,
+  selector,
+  options,
+  props,
+  stylesCtx,
+  rootSelector,
+  styles,
+  style,
+  vars,
+  varsResolver,
+  headless,
+  withStylesTransform
+}) {
+  return {
+    ...!withStylesTransform && (0,_get_theme_styles_get_theme_styles_mjs__WEBPACK_IMPORTED_MODULE_0__.getThemeStyles)({ theme, themeName, props, stylesCtx, selector }),
+    ...!withStylesTransform && (0,_resolve_styles_resolve_styles_mjs__WEBPACK_IMPORTED_MODULE_1__.resolveStyles)({ theme, styles, props, stylesCtx })[selector],
+    ...!withStylesTransform && (0,_resolve_styles_resolve_styles_mjs__WEBPACK_IMPORTED_MODULE_1__.resolveStyles)({ theme, styles: options?.styles, props: options?.props || props, stylesCtx })[selector],
+    ...(0,_resolve_vars_resolve_vars_mjs__WEBPACK_IMPORTED_MODULE_2__.resolveVars)({ theme, props, stylesCtx, vars, varsResolver, selector, themeName, headless }),
+    ...rootSelector === selector ? (0,_resolve_style_resolve_style_mjs__WEBPACK_IMPORTED_MODULE_3__.resolveStyle)({ style, theme }) : null,
+    ...(0,_resolve_style_resolve_style_mjs__WEBPACK_IMPORTED_MODULE_3__.resolveStyle)({ style: options?.style, theme })
+  };
+}
+
+
+//# sourceMappingURL=get-style.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-theme-styles/get-theme-styles.mjs":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-theme-styles/get-theme-styles.mjs ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getThemeStyles: () => (/* binding */ getThemeStyles)
+/* harmony export */ });
+/* harmony import */ var _resolve_styles_resolve_styles_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../resolve-styles/resolve-styles.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-styles/resolve-styles.mjs");
+'use client';
+
+
+function getThemeStyles({
+  theme,
+  themeName,
+  props,
+  stylesCtx,
+  selector
+}) {
+  return themeName.map(
+    (n) => (0,_resolve_styles_resolve_styles_mjs__WEBPACK_IMPORTED_MODULE_0__.resolveStyles)({
+      theme,
+      styles: theme.components[n]?.styles,
+      props,
+      stylesCtx
+    })[selector]
+  ).reduce((acc, val) => ({ ...acc, ...val }), {});
+}
+
+
+//# sourceMappingURL=get-theme-styles.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-style/resolve-style.mjs":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-style/resolve-style.mjs ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveStyle: () => (/* binding */ resolveStyle)
+/* harmony export */ });
+'use client';
+function resolveStyle({ style, theme }) {
+  if (Array.isArray(style)) {
+    return [...style].reduce(
+      (acc, item) => ({ ...acc, ...resolveStyle({ style: item, theme }) }),
+      {}
+    );
+  }
+  if (typeof style === "function") {
+    return style(theme);
+  }
+  if (style == null) {
+    return {};
+  }
+  return style;
+}
+
+
+//# sourceMappingURL=resolve-style.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-styles/resolve-styles.mjs":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-styles/resolve-styles.mjs ***!
+  \***************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveStyles: () => (/* binding */ resolveStyles)
+/* harmony export */ });
+'use client';
+function resolveStyles({ theme, styles, props, stylesCtx }) {
+  const arrayStyles = Array.isArray(styles) ? styles : [styles];
+  return arrayStyles.reduce((acc, style) => {
+    if (typeof style === "function") {
+      return { ...acc, ...style(theme, props, stylesCtx) };
+    }
+    return { ...acc, ...style };
+  }, {});
+}
+
+
+//# sourceMappingURL=resolve-styles.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/merge-vars.mjs":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/merge-vars.mjs ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   mergeVars: () => (/* binding */ mergeVars)
+/* harmony export */ });
+/* harmony import */ var _utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../utils/filter-props/filter-props.mjs */ "./node_modules/@mantine/core/esm/core/utils/filter-props/filter-props.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+'use client';
+
+
+
+
+
+function mergeVars(vars) {
+  return vars.reduce((acc, current) => {
+    if (current) {
+      Object.keys(current).forEach((key) => {
+        acc[key] = { ...acc[key], ...(0,_utils_filter_props_filter_props_mjs__WEBPACK_IMPORTED_MODULE_2__.filterProps)(current[key]) };
+      });
+    }
+    return acc;
+  }, {});
+}
+
+
+//# sourceMappingURL=merge-vars.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/resolve-vars.mjs":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/resolve-vars.mjs ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveVars: () => (/* binding */ resolveVars)
+/* harmony export */ });
+/* harmony import */ var _merge_vars_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./merge-vars.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/resolve-vars/merge-vars.mjs");
+'use client';
+
+
+function resolveVars({
+  vars,
+  varsResolver,
+  theme,
+  props,
+  stylesCtx,
+  selector,
+  themeName,
+  headless
+}) {
+  return (0,_merge_vars_mjs__WEBPACK_IMPORTED_MODULE_0__.mergeVars)([
+    headless ? {} : varsResolver?.(theme, props, stylesCtx),
+    ...themeName.map((name) => theme.components?.[name]?.vars?.(theme, props, stylesCtx)),
+    vars?.(theme, props, stylesCtx)
+  ])?.[selector];
+}
+
+
+//# sourceMappingURL=resolve-vars.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-styles.mjs":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-styles.mjs ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useStyles: () => (/* binding */ useStyles)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../MantineProvider/Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+/* harmony import */ var _get_class_name_get_class_name_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./get-class-name/get-class-name.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-class-name/get-class-name.mjs");
+/* harmony import */ var _get_style_get_style_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./get-style/get-style.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/get-style/get-style.mjs");
+/* harmony import */ var _use_transformed_styles_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-transformed-styles.mjs */ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-transformed-styles.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+
+
+
+function useStyles({
+  name,
+  classes,
+  props,
+  stylesCtx,
+  className,
+  style,
+  rootSelector = "root",
+  unstyled,
+  classNames,
+  styles,
+  vars,
+  varsResolver
+}) {
+  const theme = (0,_MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineTheme)();
+  const classNamesPrefix = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineClassNamesPrefix)();
+  const withStaticClasses = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineWithStaticClasses)();
+  const headless = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineIsHeadless)();
+  const themeName = (Array.isArray(name) ? name : [name]).filter((n) => n);
+  const { withStylesTransform, getTransformedStyles } = (0,_use_transformed_styles_mjs__WEBPACK_IMPORTED_MODULE_4__.useStylesTransform)({
+    props,
+    stylesCtx,
+    themeName
+  });
+  return (selector, options) => ({
+    className: (0,_get_class_name_get_class_name_mjs__WEBPACK_IMPORTED_MODULE_5__.getClassName)({
+      theme,
+      options,
+      themeName,
+      selector,
+      classNamesPrefix,
+      classNames,
+      classes,
+      unstyled,
+      className,
+      rootSelector,
+      props,
+      stylesCtx,
+      withStaticClasses,
+      headless,
+      transformedStyles: getTransformedStyles([options?.styles, styles])
+    }),
+    style: (0,_get_style_get_style_mjs__WEBPACK_IMPORTED_MODULE_6__.getStyle)({
+      theme,
+      themeName,
+      selector,
+      options,
+      props,
+      stylesCtx,
+      rootSelector,
+      styles,
+      style,
+      vars,
+      varsResolver,
+      headless,
+      withStylesTransform
+    })
+  });
+}
+
+
+//# sourceMappingURL=use-styles.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-transformed-styles.mjs":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/styles-api/use-styles/use-transformed-styles.mjs ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useStylesTransform: () => (/* binding */ useStylesTransform)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var _MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../MantineProvider/Mantine.context.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/Mantine.context.mjs");
+/* harmony import */ var _MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs */ "./node_modules/@mantine/core/esm/core/MantineProvider/MantineThemeProvider/MantineThemeProvider.mjs");
+'use client';
+
+
+
+
+
+
+
+
+
+function useStylesTransform({ props, stylesCtx, themeName }) {
+  const theme = (0,_MantineProvider_MantineThemeProvider_MantineThemeProvider_mjs__WEBPACK_IMPORTED_MODULE_2__.useMantineTheme)();
+  const stylesTransform = (0,_MantineProvider_Mantine_context_mjs__WEBPACK_IMPORTED_MODULE_3__.useMantineStylesTransform)()?.();
+  const getTransformedStyles = (styles) => {
+    if (!stylesTransform) {
+      return [];
+    }
+    const transformedStyles = styles.map(
+      (style) => stylesTransform(style, { props, theme, ctx: stylesCtx })
+    );
+    return [
+      ...transformedStyles,
+      ...themeName.map(
+        (n) => stylesTransform(theme.components[n]?.styles, { props, theme, ctx: stylesCtx })
+      )
+    ].filter(Boolean);
+  };
+  return {
+    getTransformedStyles,
+    withStylesTransform: !!stylesTransform
+  };
+}
+
+
+//# sourceMappingURL=use-transformed-styles.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/camel-to-kebab-case/camel-to-kebab-case.mjs":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/camel-to-kebab-case/camel-to-kebab-case.mjs ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   camelToKebabCase: () => (/* binding */ camelToKebabCase)
+/* harmony export */ });
+'use client';
+function camelToKebabCase(value) {
+  return value.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+}
+
+
+//# sourceMappingURL=camel-to-kebab-case.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/deep-merge/deep-merge.mjs":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/deep-merge/deep-merge.mjs ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deepMerge: () => (/* binding */ deepMerge)
+/* harmony export */ });
+function isObject(item) {
+  return item && typeof item === "object" && !Array.isArray(item);
+}
+function deepMerge(target, source) {
+  const result = { ...target };
+  const _source = source;
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(_source[key])) {
+        if (!(key in target)) {
+          result[key] = _source[key];
+        } else {
+          result[key] = deepMerge(result[key], _source[key]);
+        }
+      } else {
+        result[key] = _source[key];
+      }
+    });
+  }
+  return result;
+}
+
+
+//# sourceMappingURL=deep-merge.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/filter-props/filter-props.mjs":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/filter-props/filter-props.mjs ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   filterProps: () => (/* binding */ filterProps)
+/* harmony export */ });
+'use client';
+function filterProps(props) {
+  return Object.keys(props).reduce((acc, key) => {
+    if (props[key] !== void 0) {
+      acc[key] = props[key];
+    }
+    return acc;
+  }, {});
+}
+
+
+//# sourceMappingURL=filter-props.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/get-size/get-size.mjs":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/get-size/get-size.mjs ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getFontSize: () => (/* binding */ getFontSize),
+/* harmony export */   getLineHeight: () => (/* binding */ getLineHeight),
+/* harmony export */   getRadius: () => (/* binding */ getRadius),
+/* harmony export */   getShadow: () => (/* binding */ getShadow),
+/* harmony export */   getSize: () => (/* binding */ getSize),
+/* harmony export */   getSpacing: () => (/* binding */ getSpacing)
+/* harmony export */ });
+/* harmony import */ var _is_number_like_is_number_like_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../is-number-like/is-number-like.mjs */ "./node_modules/@mantine/core/esm/core/utils/is-number-like/is-number-like.mjs");
+/* harmony import */ var _units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../units-converters/rem.mjs */ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs");
+'use client';
+
+
+
+function getSize(size, prefix = "size", convertToRem = true) {
+  if (size === void 0) {
+    return void 0;
+  }
+  return (0,_is_number_like_is_number_like_mjs__WEBPACK_IMPORTED_MODULE_0__.isNumberLike)(size) ? convertToRem ? (0,_units_converters_rem_mjs__WEBPACK_IMPORTED_MODULE_1__.rem)(size) : size : `var(--${prefix}-${size})`;
+}
+function getSpacing(size) {
+  return getSize(size, "mantine-spacing");
+}
+function getRadius(size) {
+  if (size === void 0) {
+    return "var(--mantine-radius-default)";
+  }
+  return getSize(size, "mantine-radius");
+}
+function getFontSize(size) {
+  return getSize(size, "mantine-font-size");
+}
+function getLineHeight(size) {
+  return getSize(size, "mantine-line-height", false);
+}
+function getShadow(size) {
+  if (!size) {
+    return void 0;
+  }
+  return getSize(size, "mantine-shadow", false);
+}
+
+
+//# sourceMappingURL=get-size.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/is-number-like/is-number-like.mjs":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/is-number-like/is-number-like.mjs ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isNumberLike: () => (/* binding */ isNumberLike)
+/* harmony export */ });
+'use client';
+function isNumberLike(value) {
+  if (typeof value === "number") {
+    return true;
+  }
+  if (typeof value === "string") {
+    if (value.startsWith("calc(") || value.startsWith("var(") || value.includes(" ") && value.trim() !== "") {
+      return true;
+    }
+    const cssUnitsRegex = /^[+-]?[0-9]+(\.[0-9]+)?(px|em|rem|ex|ch|lh|rlh|vw|vh|vmin|vmax|vb|vi|svw|svh|lvw|lvh|dvw|dvh|cm|mm|in|pt|pc|q|cqw|cqh|cqi|cqb|cqmin|cqmax|%)?$/;
+    const values = value.trim().split(/\s+/);
+    return values.every((val) => cssUnitsRegex.test(val));
+  }
+  return false;
+}
+
+
+//# sourceMappingURL=is-number-like.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/keys/keys.mjs ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   keys: () => (/* binding */ keys)
+/* harmony export */ });
+'use client';
+function keys(object) {
+  return Object.keys(object);
+}
+
+
+//# sourceMappingURL=keys.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/units-converters/px.mjs":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/units-converters/px.mjs ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   px: () => (/* binding */ px)
+/* harmony export */ });
+function getTransformedScaledValue(value) {
+  if (typeof value !== "string" || !value.includes("var(--mantine-scale)")) {
+    return value;
+  }
+  return value.match(/^calc\((.*?)\)$/)?.[1].split("*")[0].trim();
+}
+function px(value) {
+  const transformedValue = getTransformedScaledValue(value);
+  if (typeof transformedValue === "number") {
+    return transformedValue;
+  }
+  if (typeof transformedValue === "string") {
+    if (transformedValue.includes("calc") || transformedValue.includes("var")) {
+      return transformedValue;
+    }
+    if (transformedValue.includes("px")) {
+      return Number(transformedValue.replace("px", ""));
+    }
+    if (transformedValue.includes("rem")) {
+      return Number(transformedValue.replace("rem", "")) * 16;
+    }
+    if (transformedValue.includes("em")) {
+      return Number(transformedValue.replace("em", "")) * 16;
+    }
+    return Number(transformedValue);
+  }
+  return NaN;
+}
+
+
+//# sourceMappingURL=px.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@mantine/core/esm/core/utils/units-converters/rem.mjs ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   em: () => (/* binding */ em),
+/* harmony export */   rem: () => (/* binding */ rem)
+/* harmony export */ });
+function scaleRem(remValue) {
+  if (remValue === "0rem") {
+    return "0rem";
+  }
+  return `calc(${remValue} * var(--mantine-scale))`;
+}
+function createConverter(units, { shouldScale = false } = {}) {
+  function converter(value) {
+    if (value === 0 || value === "0") {
+      return `0${units}`;
+    }
+    if (typeof value === "number") {
+      const val = `${value / 16}${units}`;
+      return shouldScale ? scaleRem(val) : val;
+    }
+    if (typeof value === "string") {
+      if (value === "") {
+        return value;
+      }
+      if (value.startsWith("calc(") || value.startsWith("clamp(") || value.includes("rgba(")) {
+        return value;
+      }
+      if (value.includes(",")) {
+        return value.split(",").map((val) => converter(val)).join(",");
+      }
+      if (value.includes(" ")) {
+        return value.split(" ").map((val) => converter(val)).join(" ");
+      }
+      if (value.includes(units)) {
+        return shouldScale ? scaleRem(value) : value;
+      }
+      const replaced = value.replace("px", "");
+      if (!Number.isNaN(Number(replaced))) {
+        const val = `${Number(replaced) / 16}${units}`;
+        return shouldScale ? scaleRem(val) : val;
+      }
+    }
+    return value;
+  }
+  return converter;
+}
+const rem = createConverter("rem", { shouldScale: true });
+const em = createConverter("em");
+
+
+//# sourceMappingURL=rem.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/@mantine/hooks/esm/use-isomorphic-effect/use-isomorphic-effect.mjs":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@mantine/hooks/esm/use-isomorphic-effect/use-isomorphic-effect.mjs ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useIsomorphicEffect: () => (/* binding */ useIsomorphicEffect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+'use client';
+
+
+const useIsomorphicEffect = typeof document !== "undefined" ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+
+//# sourceMappingURL=use-isomorphic-effect.mjs.map
+
+
+/***/ }),
+
+/***/ "./node_modules/clsx/dist/clsx.mjs":
+/*!*****************************************!*\
+  !*** ./node_modules/clsx/dist/clsx.mjs ***!
+  \*****************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clsx: () => (/* binding */ clsx),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f)}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clsx);
+
+/***/ }),
+
+/***/ "./edwiser-bridge/blocks/src/dashboard/block.json":
+/*!********************************************************!*\
+  !*** ./edwiser-bridge/blocks/src/dashboard/block.json ***!
+  \********************************************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"edwiser-bridge/dashboard","version":"0.1.0","title":"Edwiser Dashboard","category":"edwiser","icon":"layout","description":"Display user\'s dashboard with profile information and course summary.","example":{},"supports":{"html":false},"attributes":{"pageTitle":{"type":"string","default":"Dashboard"},"hidePageTitle":{"type":"boolean","default":false}},"textdomain":"edwiser-bridge","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"dashboard/index": 0,
+/******/ 			"dashboard/style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkedwiser_bridge_blocks"] = globalThis["webpackChunkedwiser_bridge_blocks"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["dashboard/style-index"], () => (__webpack_require__("./edwiser-bridge/blocks/src/dashboard/index.js")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

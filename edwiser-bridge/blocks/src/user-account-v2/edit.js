@@ -83,13 +83,17 @@ export default function Edit({ attributes, setAttributes, clientId }) {
   useEffect(() => {
     if (tabsContentRef.current && childBlocks.length > 0) {
       const tabsContent = tabsContentRef.current;
+      const wrapper = tabsContent.closest('.eb-user-account-v2__wrapper');
+      if (!wrapper) return;
 
-      // Remove active class from all tabs
-      document.querySelectorAll('.eb-user-account-v2__tab').forEach((tab) => {
-        tab.classList.remove('active');
-      });
+      // Remove active class from all tabs within this block.
+      wrapper
+        .querySelectorAll('.eb-user-account-v2__tab')
+        .forEach((tab) => {
+          tab.classList.remove('active');
+        });
 
-      // Hide all tab content
+      // Hide all tab content within this block's content area.
       tabsContent
         .querySelectorAll(
           '.eb-user-account-v2__tab-panel, .eb-user-account-v2__tab-content'
@@ -98,8 +102,8 @@ export default function Edit({ attributes, setAttributes, clientId }) {
           panel.style.display = 'none';
         });
 
-      // Activate first tab
-      const firstTab = document.querySelector(
+      // Activate first tab within this block.
+      const firstTab = wrapper.querySelector(
         '.eb-user-account-v2__tab[data-tab-index="0"]'
       );
       const firstTabContent = tabsContent.querySelector(
@@ -135,8 +139,11 @@ export default function Edit({ attributes, setAttributes, clientId }) {
     };
 
     const activateTab = (tabIndex) => {
+      const wrapper = tabsContent.closest('.eb-user-account-v2__wrapper');
+      if (!wrapper) return;
+
       const findAndActivateTab = () => {
-        const allTabs = document.querySelectorAll('.eb-user-account-v2__tab');
+        const allTabs = wrapper.querySelectorAll('.eb-user-account-v2__tab');
         const allTabContent = tabsContent.querySelectorAll(
           '.eb-user-account-v2__tab-panel, .eb-user-account-v2__tab-content'
         );
@@ -152,7 +159,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
         const targetTabContent = tabsContent.querySelector(
           `[data-tab-index="${tabIndex}"]`
         );
-        const targetTab = document.querySelector(
+        const targetTab = wrapper.querySelector(
           `.eb-user-account-v2__tab[data-tab-index="${tabIndex}"]`
         );
 
@@ -182,7 +189,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 
       observerRef.current = observer;
 
-      const tabsContainer = document.querySelector(
+      const tabsContainer = wrapper.querySelector(
         '.eb-user-account-v2__tabs-list'
       );
       if (tabsContainer) {
