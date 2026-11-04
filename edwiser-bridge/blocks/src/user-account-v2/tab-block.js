@@ -2,7 +2,7 @@ import { InnerBlocks, InspectorControls } from '@wordpress/block-editor';
 import { registerBlockType } from '@wordpress/blocks';
 import { PanelBody, TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import IconOptions from './components/icon-options';
 import { ICONS, getIconById } from './components/icons';
 
@@ -32,6 +32,7 @@ registerBlockType('edwiser-bridge/user-account-v2-tab', {
 
   edit: ({ attributes, setAttributes, clientId }) => {
     const { tabLabel, tabIcon, tabIndex, tabClassName } = attributes;
+    const tabPanelRef = useRef(null);
 
     // Get parent block ID
     const parentBlockID = useSelect(
@@ -70,18 +71,16 @@ registerBlockType('edwiser-bridge/user-account-v2-tab', {
 
     // Move tab content to content area
     useEffect(() => {
-      const contentArea = document.querySelector(
+      const tabContent = tabPanelRef.current;
+      if (!tabContent) return;
+
+      const wrapper = tabContent.closest('.eb-user-account-v2__wrapper');
+      const contentArea = wrapper?.querySelector(
         '.eb-user-account-v2__tabs-content'
       );
       if (!contentArea) return;
 
-      const tabContent = document.querySelector(
-        `.eb-user-account-v2__tab-panel[data-tab-index="${tabIndex}"]`
-      );
-
-      if (tabContent) {
-        contentArea.appendChild(tabContent);
-      }
+      contentArea.appendChild(tabContent);
     }, [tabIndex, clientId]);
 
     // Memoized icon component
@@ -117,6 +116,35 @@ registerBlockType('edwiser-bridge/user-account-v2-tab', {
       [setAttributes]
     );
 
+    const handleTabClick = useCallback(() => {
+      const tabContent = tabPanelRef.current;
+      if (!tabContent) return;
+
+      const wrapper = tabContent.closest('.eb-user-account-v2__wrapper');
+      if (!wrapper) return;
+
+      // Remove active class from all tabs within this block.
+      wrapper
+        .querySelectorAll('.eb-user-account-v2__tab')
+        .forEach((tab) => tab.classList.remove('active'));
+
+      // Add active class to the current tab.
+      const currentTab = tabContent.closest('.eb-user-account-v2__tab');
+      if (currentTab) {
+        currentTab.classList.add('active');
+      }
+
+      // Hide all panels within this block's content area.
+      wrapper
+        .querySelectorAll('.eb-user-account-v2__tabs-content > div')
+        .forEach((panel) => {
+          panel.style.display = 'none';
+        });
+
+      // Show the current tab's panel.
+      tabContent.style.display = 'block';
+    }, []);
+
     const tabName = attributes.tabLabel
       .trim()
       .toLowerCase()
@@ -132,6 +160,7 @@ registerBlockType('edwiser-bridge/user-account-v2-tab', {
         aria-selected={tabIndex === 0 ? 'true' : 'false'}
         aria-controls={tabName}
         data-tab-index={tabIndex}
+        onClick={handleTabClick}
       >
         {!parentAttributes.hideTabIcons && tabIconComponent}
         <TextControl
@@ -142,6 +171,7 @@ registerBlockType('edwiser-bridge/user-account-v2-tab', {
           type="text"
         />
         <div
+          ref={tabPanelRef}
           className={`eb-user-account-v2__tab-panel ${tabName} ${attributes.tabClassName}`}
           data-tab-index={attributes.tabIndex}
         >

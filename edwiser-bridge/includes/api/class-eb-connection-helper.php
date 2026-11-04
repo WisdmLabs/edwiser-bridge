@@ -161,9 +161,6 @@ class Eb_Connection_Helper {
 		);
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 
 		$request_args['body'] = array(
 			'test_connection' => 'wordpress',
@@ -298,9 +295,6 @@ class Eb_Connection_Helper {
 		);
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 
 		$request_args['body'] = array(
 			'test_connection' => 'wordpress',
@@ -333,9 +327,6 @@ class Eb_Connection_Helper {
 		);
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 
 		$request_args['body'] = array(
 			'test_connection' => 'wordpress',
@@ -379,9 +370,6 @@ class Eb_Connection_Helper {
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 
 		foreach ( $webservice_functions as $webservice_function ) {
 			$request_url  = $url . '/webservice/rest/server.php?wstoken=';
@@ -510,9 +498,6 @@ class Eb_Connection_Helper {
 		$request_args              = array( 'timeout' => 100 );
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 		$response = wp_remote_post( $request_url, $request_args );
 
 		if ( is_wp_error( $response ) ) {
@@ -622,9 +607,6 @@ class Eb_Connection_Helper {
 		);
 		$settings                  = get_option( 'eb_general' );
 		$request_args['sslverify'] = true;
-		if ( isset( $settings['eb_ignore_ssl'] ) && 'yes' === $settings['eb_ignore_ssl'] ) {
-			$request_args['sslverify'] = false;
-		}
 
 		$response = wp_remote_post( $request_url, $request_args );
 

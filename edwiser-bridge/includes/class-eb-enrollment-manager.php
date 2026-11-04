@@ -194,7 +194,7 @@ class Eb_Enrollment_Manager {
 					$act_cnt++;
 				}
 
-				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date );
+				$expire_date = $this->calc_course_acess_expiry_date( $wp_course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 				$enrolments[ $wp_course_id ] = array(
 					'roleid'   => $role_id,
@@ -391,7 +391,7 @@ class Eb_Enrollment_Manager {
 					$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 					$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+					$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 
 					$wpdb->insert( // @codingStandardsIgnoreLine
 						$wpdb->prefix . 'moodle_enrollment',
@@ -430,7 +430,7 @@ class Eb_Enrollment_Manager {
 						$start_date  = ( isset( $args['start_date'] ) && '0000-00-00 00:00:00' !== $args['start_date'] ) ? $args['start_date'] : gmdate( 'Y-m-d H:i:s' );
 						$end_date    = isset( $args['end_date'] ) ? $args['end_date'] : '0000-00-00 00:00:00';
 
-						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date );
+						$expire_date = $this->calc_course_acess_expiry_date( $course_id, $act_cnt, $start_date, $end_date, $args['user_id'] );
 					}
 					// update increased count value.
 					$this->update_user_course_access_count( $args['user_id'], $course_id, $act_cnt, $expire_date );
@@ -564,15 +564,42 @@ class Eb_Enrollment_Manager {
 	 * @param int    $act_cnt access count.
 	 * @param string $start_date WordPress course id of a course.
 	 * @param string $end_date WordPress course id of a course.
+	 * @param int    $user_id WordPress user id of a user.
 	 */
-	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00' ) {
+	public function calc_course_acess_expiry_date( $course_id, $act_cnt = 0, $start_date = '0000-00-00 00:00:00', $end_date = '0000-00-00 00:00:00', $user_id = 0 ) {
 		$course_meta      = get_post_meta( $course_id, 'eb_course_options', true );
 		$expiry_date_time = '0000-00-00 00:00:00';
 		$start_date       = '0000-00-00 00:00:00' === $start_date ? gmdate( 'Y-m-d H:i:s' ) : $start_date;
 		$act_cnt          = ( false == $act_cnt ) ? 1 : $act_cnt; // @codingStandardsIgnoreLine
 
 		if ( isset( $course_meta['course_expirey'] ) && 'yes' === $course_meta['course_expirey'] ) {
-			$expiry_date_time = gmdate( 'Y-m-d H:i:s', strtotime( $start_date . '+' . $act_cnt * $course_meta['num_days_course_access'] . ' days' ) );
+			// For re-enrollment (act_cnt > 1), add duration to existing expiry date.
+			// This fixes the bug where gap days between enrollments were incorrectly added.
+			if ( $act_cnt > 1 && $user_id > 0 ) {
+				$existing_expiry = $this->get_user_course_expiry_date( $user_id, $course_id );
+
+				// Only use new logic if we have a valid existing expiry date
+				// AND it's in the future (not already expired)
+				if ( '0000-00-00 00:00:00' !== $existing_expiry &&
+					strtotime( $existing_expiry ) > time() ) {
+
+					// Add only the new duration to existing expiry
+					$expiry_date_time = gmdate( 'Y-m-d H:i:s',
+						strtotime( $existing_expiry . '+' . $course_meta['num_days_course_access'] . ' days' ) );
+
+					// Log the fix for debugging
+					error_log( "Edwiser Bridge: Fixed expiry calculation for user {$user_id}, course {$course_id}. Existing: {$existing_expiry}, New: {$expiry_date_time}" );
+
+				} else {
+					// Fallback to original calculation for edge cases
+					$expiry_date_time = gmdate( 'Y-m-d H:i:s',
+						strtotime( $start_date . '+' . $act_cnt * $course_meta['num_days_course_access'] . ' days' ) );
+				}
+			} else {
+				// First enrollment: calculate from start_date
+				$expiry_date_time = gmdate( 'Y-m-d H:i:s',
+					strtotime( $start_date . '+' . $course_meta['num_days_course_access'] . ' days' ) );
+			}
 		}
 		// if enddate is greater than expiry date then set expiry date as end date.
 		if ( '0000-00-00 00:00:00' !== $end_date && false !== $end_date ) {
@@ -582,11 +609,31 @@ class Eb_Enrollment_Manager {
 				$expiry_date_time = $end_date;
 			}
 		}
-		// Older code to determine which expiry date is bigger and then set accordingly
-		// if ( '0000-00-00 00:00:00' !== $end_date && strtotime( $end_date ) > strtotime( $expiry_date_time ) ) {
-		// 	$expiry_date_time = $end_date;
-		// }
 		return $expiry_date_time;
+	}
+
+	/**
+	 * Get user's existing course expiry date.
+	 *
+	 * @param int $user_id   WordPress user id of a user.
+	 * @param int $course_id WordPress course id of a course.
+	 *
+	 * @return string Expiry date or '0000-00-00 00:00:00' if not found.
+	 */
+	public function get_user_course_expiry_date( $user_id, $course_id ) {
+		global $wpdb;
+
+		if ( empty( $user_id ) || empty( $course_id ) ) {
+			return '0000-00-00 00:00:00';
+		}
+
+		$expire_time = $wpdb->get_var( $wpdb->prepare(
+			"SELECT expire_time FROM {$wpdb->prefix}moodle_enrollment WHERE course_id=%d AND user_id=%d;",
+			$course_id,
+			$user_id
+		) );
+
+		return $expire_time ? $expire_time : '0000-00-00 00:00:00';
 	}
 
 	/**

@@ -229,30 +229,9 @@ class Eb_Activator
 	private static function create_files()
 	{
 		// Install files and folders for uploading files and prevent hotlinking.
-		$upload_dir = wp_upload_dir();
-
-		$files = array(
-			array(
-				'base'    => $upload_dir['basedir'] . '/eb-logs/',
-				'file'    => '.htaccess',
-				'content' => 'deny from all',
-			),
-			array(
-				'base'    => $upload_dir['basedir'] . '/eb-logs/',
-				'file'    => 'index.php',
-				'content' => '<?php // Silence is golden.',
-			),
-		);
-
-		foreach ($files as $file) {
-			if (wp_mkdir_p($file['base']) && ! file_exists(trailingslashit($file['base']) . $file['file'])) {
-				$file_handle = fopen(trailingslashit($file['base']) . $file['file'], 'w'); // @codingStandardsIgnoreLine
-				if ($file_handle) {
-					fwrite($file_handle, $file['content']); // @codingStandardsIgnoreLine
-					fclose($file_handle); // @codingStandardsIgnoreLine
-				}
-			}
-		}
+		// Resolving the log folder creates it (with an unguessable name) and writes the protection files.
+		include_once 'eb-core-functions.php';
+		wdm_edwiser_bridge_plugin_log_dir();
 	}
 
 	/**
@@ -385,7 +364,7 @@ class Eb_Activator
 					'post_type' => 'page',
 					'post_title' => $page['title'],
 					'post_content' => $page['content'],
-					'post_status' => 'publish',
+					'post_status' => 'draft',
 					'post_name' => $page['name'],
 				));
 				$gutenberg_pages_settings[$key] = $page_id;
