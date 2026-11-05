@@ -101,7 +101,7 @@ class EdwiserBridge_Blocks
             return;
         }
 
-        wp_register_script('eb_woo_storeapi_nonce', '', array(), '4.3.4', true);
+        wp_register_script('eb_woo_storeapi_nonce', '', array(), '4.3.5', true);
 
         wp_enqueue_script('eb_woo_storeapi_nonce');
 

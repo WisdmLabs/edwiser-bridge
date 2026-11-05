@@ -3,7 +3,7 @@ Contributors: WisdmLabs
 Tags: moodle wordpress integration, moodle wordpress integration, wordpress moodle plugin, lms integration, sell moodle courses
 Requires at least: 6.0
 Tested up to: 7.1.3
-Stable tag: 4.3.4
+Stable tag: 4.3.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -245,6 +245,9 @@ Also, check our knowledge base for more queries
 * Fix - Prevented duplicate WordPress user creation when the incoming Moodle user ID is already linked to an existing account; failed creations are no longer linked (is_wp_error guard), and duplicate mappings now resolve deterministically to the oldest linked account. New hook: eb_user_creation_skipped_already_linked.
 * Fix - Course synchronization no longer times out (504) on large Moodle sites; sync is time-boxed and shows a partial sync message asking you to run synchronization again to continue.
 * Fix - User enrollment test now picks a course with a valid Moodle course ID, sends the correct numerically indexed enrolments payload for enrol_manual_enrol_users/unenrol_users, and shows clear error messages for missing Moodle IDs or disabled manual enrolment (wsnotenrol).
+* Fix - Restored valid image and font files corrupted by CRLF line-ending normalization.
+* Fix - User Account v2 block editor now scopes DOM queries to the current block so tab panels render correctly inside the Gutenberg iframe.
+* Fix - User Account v2 frontend now uses wp.apiFetch for the auth check so logged-in users see the account tabs instead of the login form.
 
 = 4.3.4 =
 * Fix - Added compatibility with Moodle 5.2.

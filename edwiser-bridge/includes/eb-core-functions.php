@@ -1118,7 +1118,12 @@ if ( ! function_exists( 'wdm_eb_get_my_course_url' ) ) {
 			$course_url = \app\wisdmlabs\edwiserBridgePro\includes\sso\generateMoodleUrl( $query );
 		} else {
 			$eb_access_url = \app\wisdmlabs\edwiserBridge\wdm_edwiser_bridge_plugin_get_access_url();
-			$course_url    = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
+
+			if ( ! empty( $eb_access_url ) && false === strpos( $eb_access_url, '://' ) ) {
+				$eb_access_url = 'http://' . $eb_access_url;
+			}
+
+			$course_url = $eb_access_url . '/course/view.php?id=' . $mdl_course_id;
 		}
 
 		return $course_url;

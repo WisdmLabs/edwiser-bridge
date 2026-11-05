@@ -371,7 +371,7 @@ class EdwiserBridge_Blocks_My_Courses_API
         $mdl_uid = get_user_meta($user_id, 'moodle_user_id', true);
         $course_manager = \app\wisdmlabs\edwiserBridge\edwiser_bridge_instance()->course_manager();
         $mdl_course_id = $course_manager->get_moodle_course_id($course_id);
-        $course_url = $mdl_uid ? \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url($mdl_uid, $mdl_course_id) : '';
+        $course_url = ! empty($mdl_course_id) ? \app\wisdmlabs\edwiserBridge\wdm_eb_get_my_course_url($mdl_uid, $mdl_course_id) : '';
 
         // Determine status
         $status = 'not_started';
