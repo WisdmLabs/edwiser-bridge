@@ -124,7 +124,7 @@ class Eb_Shortcode_My_Courses {
 				while ( $courses->have_posts() ) :
 					$courses->the_post();
 
-					if ( $mdl_uid && isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
+					if ( isset( $atts['my_courses_progress'] ) && $atts['my_courses_progress'] ) {
 						$course_prog_data         = $this->get_course_progress( get_the_ID(), $progress_data, $user_id, $atts, $mdl_uid );
 						$atts['progress_btn_div'] = $course_prog_data['html'];
 						$atts['completed']        = $course_prog_data['completed'];
