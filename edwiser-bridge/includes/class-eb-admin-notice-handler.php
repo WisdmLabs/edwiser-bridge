@@ -683,7 +683,7 @@ class Eb_Admin_Notice_Handler
 	public function enqueue_template_modal_assets()
 	{
 		// Add data for the JS
-		wp_register_script('eb-template-modal-script', '', array(), '4.3.4', true);
+		wp_register_script('eb-template-modal-script', '', array(), '4.3.5', true);
 
 		wp_localize_script(
 			'eb-template-modal-script',
@@ -902,7 +902,7 @@ class Eb_Admin_Notice_Handler
 	public function enqueue_update_modal_assets()
 	{
 		// Add data for the JS
-		wp_register_script('eb-update-modal-script', '', array(), '4.3.4', true);
+		wp_register_script('eb-update-modal-script', '', array(), '4.3.5', true);
 
 		wp_localize_script(
 			'eb-update-modal-script',
